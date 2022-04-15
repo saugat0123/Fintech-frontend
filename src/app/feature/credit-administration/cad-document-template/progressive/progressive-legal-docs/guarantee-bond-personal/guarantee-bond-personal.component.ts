@@ -378,15 +378,36 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       this.addMoreGuarantor();
       return;
     }
-    data.forEach(value => {
+    data.forEach((value, i) => {
       formArray.push(this.formBuilder.group({
-        name: [value.name],
-        citizenNo: [value.citizenNo],
-        issuedYr: [value.issuedYr],
-        guarantorCDOoffice: [value.guarantorCDOoffice],
-        guarantorDistrict: [value.guarantorDistrict],
-        guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWardNo: [value.guarantorWardNo],
+        name: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].name : '' : '' : ''],
+        citizenNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].citizenNo : '' : '' : ''],
+        issuedYr: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].issuedYr : '' : '' : ''],
+        guarantorCDOoffice: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorCDOoffice : '' : '' : ''],
+        guarantorDistrict: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorDistrict : '' : '' : ''],
+        guarantorMunicipality: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorMunicipality : '' : '' : ''],
+        guarantorWardNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorWardNo : '' : '' : ''],
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
         sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
@@ -445,14 +466,38 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         karjaYojana: this.nepDataPersonal.typeOfLoanInEnglish ? this.nepDataPersonal.typeOfLoanInEnglish : '',
         sriName: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         sriiName: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        buttonGrandParentName: [value.buttonGrandParentName],
-        buttonWifeName: [value.buttonWifeName],
-        parName: [value.parName],
-        husName: [value.husName],
-        districtName: [value.districtName],
-        municipalityName: [value.municipalityName],
-        wardNoName: [value.wardNoName],
-        tempDistrictName: [value.tempDistrictName],
+        buttonGrandParentName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonGrandParentName : '' : '' : ''],
+        buttonWifeName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonWifeName : '' : '' : ''],
+        parName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].parName : '' : '' : ''],
+        husName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].husName : '' : '' : ''],
+        districtName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].districtName : '' : '' : ''],
+        municipalityName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].municipalityName : '' : '' : ''],
+        wardNoName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].wardNoName : '' : '' : ''],
+        tempDistrictName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].tempDistrictName : '' : '' : ''],
         guaranteeNAme: [value.guarantorName],
         guaranteeCitizenshipNo: [value.citizenNumber],
         guaranteeIssueDate: [value.issuedYear],
@@ -469,27 +514,90 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guaranteeTempWardNo: [value.guarantorTemporaryWard],
         fatherMotherName: [value.guarantorFatherName],
         grandFatherGrandmomName: [value.guarantorGrandfatherName],
-        karmachariName: [value.karmachariName],
-        karmachariSanketNo: [value.karmachariSanketNo],
-        itiSambatYear: [value.itiSambatYear],
-        itiSambatMonth: [value.itiSambatMonth],
-        itiSambatDate: [value.itiSambatDate],
-        itiSambatRojSubham: [value.itiSambatRojSubham],
-        sahiName: [value.sahiName],
-        tempMunicipalityName: [value.tempMunicipalityName],
-        buttonDateName: [value.buttonDateName],
-        buttonCdoOfficeName: [value.buttonCdoOfficeName],
-        buttonCitizenshipNoName: [value.buttonCitizenshipNoName],
-        buttonAgeName: [value.buttonAgeName],
-        sirName: [value.sirName],
-        name1: [value.name1],
-        citizenNumber1: [value.citizenNumber1],
-        issuedYear1: [value.issuedYear1],
-        guarantorCDOoffice1: [value.guarantorCDOoffice1],
-        guarantorDistrict1: [value.guarantorDistrict1],
-        guarantorMunicipality1: [value.guarantorMunicipality1],
-        guarantorWardNo1: [value.guarantorWardNo1],
-        tempWardNo2: [value.tempWardNo2],
+        karmachariName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].karmachariName : '' : '' : ''],
+        karmachariSanketNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].karmachariSanketNo : '' : '' : ''],
+        itiSambatYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].itiSambatYear : '' : '' : ''],
+        itiSambatMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].itiSambatMonth : '' : '' : ''],
+        itiSambatDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].itiSambatDate : '' : '' : ''],
+        itiSambatRojSubham: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].itiSambatRojSubham : '' : '' : ''],
+        sahiName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].sahiName : '' : '' : ''],
+        tempMunicipalityName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].tempMunicipalityName : '' : '' : ''],
+        buttonDateName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonDateName : '' : '' : ''],
+        buttonCdoOfficeName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonCdoOfficeName : '' : '' : ''],
+        buttonCitizenshipNoName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonCitizenshipNoName : '' : '' : ''],
+        buttonAgeName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].buttonAgeName : '' : '' : ''],
+        sirName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].sirName : '' : '' : ''],
+        name1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].name1 : '' : '' : ''],
+        citizenNumber1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].citizenNumber1 : '' : '' : ''],
+        issuedYear1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].issuedYear1 : '' : '' : ''],
+        guarantorCDOoffice1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorCDOoffice1 : '' : '' : ''],
+        guarantorDistrict1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorDistrict1 : '' : '' : ''],
+        guarantorMunicipality1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorMunicipality1 : '' : '' : ''],
+        guarantorWardNo1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].guarantorWardNo1 : '' : '' : ''],
+        tempWardNo2: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                    this.initialInfoPrint.guarantorDetails[i].tempWardNo2 : '' : '' : ''],
         sabikMunicipality: [value.guarantorPermanentVdc],
         sabikWardNo: [value.guarantorPermanentVdcWard],
         company: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
