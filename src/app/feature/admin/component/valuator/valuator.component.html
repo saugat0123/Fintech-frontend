@@ -71,7 +71,7 @@
                                         <option [value]="null" selected hidden>Select Valuating Type</option>
                                         <option *ngFor="let valuatingField of valuatingFieldEnumObject"
                                                 [value]="valuatingField?.key">
-                                            {{valuatingField?.value}}
+                                            {{(valuatingField?.key | replace: '_': ' & ')}}
                                         </option>
                                     </select>
                                 </div>

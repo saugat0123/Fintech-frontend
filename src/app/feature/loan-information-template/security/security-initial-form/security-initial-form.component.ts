@@ -355,7 +355,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityValuator.landValuator[index] = [];
                 this.valuatorDataList.forEach((vl: Valuator) => {
                     if (vl.valuatingFields.length > 0) {
-                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.toUpperCase())) ||
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
                             (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
                             this.securityValuator.landValuator[index].push(vl);
                         }
@@ -366,7 +367,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityValuator.apartmentValuator[index] = [];
                 this.valuatorDataList.forEach((vl: Valuator) => {
                     if (vl.valuatingFields.length > 0) {
-                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.toUpperCase())) ||
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
                             (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
                             this.securityValuator.apartmentValuator[index].push(vl);
                         }
@@ -377,7 +379,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityValuator.buildingValuator[index] = [];
                 this.valuatorDataList.forEach((vl: Valuator) => {
                     if (vl.valuatingFields.length > 0) {
-                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.toUpperCase())) ||
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
                             (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
                             this.securityValuator.buildingValuator[index].push(vl);
                         }
