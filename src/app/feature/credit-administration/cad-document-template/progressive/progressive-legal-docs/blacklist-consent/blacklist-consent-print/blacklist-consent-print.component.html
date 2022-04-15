@@ -6,20 +6,14 @@
                     <u>ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा</u></strong>
             </h5>
             <p class="linespace text-justify">
-                नेपाल राट्र बैंकद्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था
-                सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ।
-                सो निर्देशन बमोजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो
-                वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृत पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि,
-                कमिशन, दस्तुर आदि
-                जे जस्तो बुझाउनू पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको
-                कर्जा सूचना तथा
-                कालोसूची व्यवस्था सम्बन्धी निर्देशनको अवस्था सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियमअनुसार कर्जा सूचना
-                केन्द लि.को कालोसूचीमा
-                समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ। पछि त्यसरी कालोसूचीमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजूर
-                वाजूर गर्ने छैन, गरे यसै
-                कागजले बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन
-                वमोजिम यो मञ्जुरीनामाको कागज
-                सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
+                नेपाल राष्ट्र बैंक द्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण
+                जानकारी छ। सो निर्देशन बमोजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो वापत
+                त्यस बैंकबाट जारी भएको कर्जा स्वीकृत पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे जस्तो
+                बुझाउनू पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा कालोसूची व्यवस्था
+                सम्बन्धी निर्देशनको अवस्था सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियमअनुसार कर्जा सूचना केन्द लि.को कालोसूचीमा समावेश गरिएमा
+                मेरो/हाम्रो मञ्जुरी छ। पछि त्यसरी कालोसूचीमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजूर वाजूर गर्ने छैन, गरे यसै कागजले बदर गरी
+                दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन वमोजिम यो मञ्जुरीनामाको कागज सही–छाप गरी
+                तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
             </p>
             <p class="text-center"><strong>तपसील</strong></p>
             <div class="row mt-5" id="Sincerely">
@@ -33,22 +27,16 @@
                         <td class="text-left" style="vertical-align: top; padding-right: 10px">दस्तखत
                             गर्नेको नाम :-
                         </td>
-                        <td class="text-left"> <span
-                                [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
+                        <td class="text-left"> <span [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
                         {{printDocForm?.sincerlyName === null || printDocForm?.sincerlyName === '' ? '___________________' : printDocForm?.sincerlyName}}
                     </span>
-                            (ना.प्र.नं.<span
-                                    [ngClass]="{'nepaliFont': printDocForm?.sincerlyCitizenshipNo!==null && printDocForm?.sincerlyCitizenshipNo!==''}">
-                        {{printDocForm?.sincerlyCitizenshipNo === null || printDocForm?.sincerlyCitizenshipNo === '' ? '___________________' : printDocForm?.sincerlyCitizenshipNo}}
-                    </span>
-                            मिति <span
-                                    [ngClass]="{'nepaliFont': printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">
-                        {{printDocForm?.sincerlyDate === null || printDocForm?.sincerlyDate === '' ? '___________________' : printDocForm?.sincerlyDate}}
-                    </span>
-                            जि.प्र.का. <span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyCDOoffice!==null && printDocForm?.sincerlyCDOoffice!==''}">
-                        {{printDocForm?.sincerlyCDOoffice === null || printDocForm?.sincerlyCDOoffice === '' ? '___________________' : printDocForm?.sincerlyCDOoffice}}
-                    </span></td>
+                            (ना.प्र.नं.<span [ngClass]="{'nepaliFont': printDocForm?.sincerlyCitizenshipNo!==null && printDocForm?.sincerlyCitizenshipNo!==''}">
+                                {{printDocForm?.sincerlyCitizenshipNo === null || printDocForm?.sincerlyCitizenshipNo === '' ? '___________________' : printDocForm?.sincerlyCitizenshipNo}}</span>,
+                            मिति <span [ngClass]="{'nepaliFont': printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">
+                                {{printDocForm?.sincerlyDate === null || printDocForm?.sincerlyDate === '' ? '___________________' : printDocForm?.sincerlyDate}}</span>,
+                            जि.प्र.का. <span [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyCDOoffice!==null && printDocForm?.sincerlyCDOoffice!==''}">
+                                {{printDocForm?.sincerlyCDOoffice === null || printDocForm?.sincerlyCDOoffice === '' ? '___________________' : printDocForm?.sincerlyCDOoffice}}</span>)
+                        </td>
                     </tr>
                     <tr *ngIf="loanCat === 'INSTITUTION'">
                         <td class="text-left" style="padding-right: 10px; vertical-align: top"><strong>कम्पनीको
@@ -56,16 +44,13 @@
                         </td>
                         <td>(रजिष्टेशन नं.<span
                                 [ngClass]="{'nepaliFont': printDocForm?.sincerlyRegNo!==null && printDocForm?.sincerlyRegNo!==''}">
-                        {{printDocForm?.sincerlyRegNo === null || printDocForm?.sincerlyRegNo === '' ? '___________________' : printDocForm?.sincerlyRegNo}}
-                    </span>
+                        {{printDocForm?.sincerlyRegNo === null || printDocForm?.sincerlyRegNo === '' ? '___________________' : printDocForm?.sincerlyRegNo}}</span>,
                             मिति <span
                                     [ngClass]="{'nepaliFont': printDocForm?.regDate!==null && printDocForm?.regDate!==''}">
-                        {{printDocForm?.regDate === null || printDocForm?.regDate === '' ? '___________________' : printDocForm?.regDate}}
-                    </span>
+                        {{printDocForm?.regDate === null || printDocForm?.regDate === '' ? '___________________' : printDocForm?.regDate}}</span>,
                             दर्ता गर्ने कार्यालय
                             <span [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.regKaryalaya!==null && printDocForm?.regKaryalaya!==''}">
-                        {{printDocForm?.regKaryalaya === null || printDocForm?.regKaryalaya === '' ? '___________________' : printDocForm?.regKaryalaya}}
-                    </span>)
+                        {{printDocForm?.regKaryalaya === null || printDocForm?.regKaryalaya === '' ? '___________________' : printDocForm?.regKaryalaya}}</span>)
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +61,7 @@
                             <span [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
                         {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '___________________' : printDocForm?.sincerlyPermanentDistrict}}
                     </span>
-                            जिल्ला <span
+                            जिल्ला, <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyPermanentMunicipality!==null && printDocForm?.sincerlyPermanentMunicipality!==''}">
                         {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '___________________' : printDocForm?.sincerlyPermanentMunicipality}}
                     </span>
@@ -85,12 +70,12 @@
                             <span [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
                         {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '___________________' : printDocForm?.sincerlyPermanentDistrict}}
                     </span>
-                            जिल्ला <span
+                            जिल्ला, <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyPermanentMunicipality!==null && printDocForm?.sincerlyPermanentMunicipality!==''}">
                         {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '___________________' : printDocForm?.sincerlyPermanentMunicipality}}
                     </span>
                         </ng-container>
-                            गा.पा./न.पा.वडा नं.<span
+                            गा.पा./न.पा., वडा नं.<span
                                     [ngClass]="{'nepaliFont': printDocForm?.sincerlyPermanentWadNo!==null && printDocForm?.sincerlyPermanentWadNo!==''}">
                         {{printDocForm?.sincerlyPermanentWadNo === null || printDocForm?.sincerlyPermanentWadNo === '' ? '___________________' : printDocForm?.sincerlyPermanentWadNo}}
                     </span></td>
@@ -102,7 +87,7 @@
                             <span [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
                         {{printDocForm?.sincerlyTemporaryDistrict === null || printDocForm?.sincerlyTemporaryDistrict === '' ? '___________________' : printDocForm?.sincerlyTemporaryDistrict}}
                     </span>
-                            जिल्ला <span
+                            जिल्ला, <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyTemporaryVDCname!==null && printDocForm?.sincerlyTemporaryVDCname!==''}">
                         {{printDocForm?.sincerlyTemporaryVDCname === null || printDocForm?.sincerlyTemporaryVDCname === '' ? '___________________' : printDocForm?.sincerlyTemporaryVDCname}}
                     </span>
@@ -111,12 +96,12 @@
                             <span [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
                         {{printDocForm?.sincerlyTemporaryDistrict === null || printDocForm?.sincerlyTemporaryDistrict === '' ? '___________________' : printDocForm?.sincerlyTemporaryDistrict}}
                     </span>
-                            जिल्ला <span
+                            जिल्ला, <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyTemporaryVDCname!==null && printDocForm?.sincerlyTemporaryVDCname!==''}">
                         {{printDocForm?.sincerlyTemporaryVDCname === null || printDocForm?.sincerlyTemporaryVDCname === '' ? '___________________' : printDocForm?.sincerlyTemporaryVDCname}}
                     </span>
                             </ng-container>
-                            गा.पा./न.पा.वडा नं.<span
+                            गा.पा./न.पा., वडा नं.<span
                                     [ngClass]="{'nepaliFont': printDocForm?.sincerlyTemporaryWadNo!==null && printDocForm?.sincerlyTemporaryWadNo!==''}">
                         {{printDocForm?.sincerlyTemporaryWadNo === null || printDocForm?.sincerlyTemporaryWadNo === '' ? '___________________' : printDocForm?.sincerlyTemporaryWadNo}}
                     </span></td>
@@ -152,7 +137,7 @@
                     <tr>
                         <td class="text-left">कर्जा सूबिधाहरु:-</td>
                         <td><span
-                                [ngClass]="{'nepaliFont': printDocForm?.sincerlyKarja!==null && printDocForm?.sincerlyKarja!==''}">
+                                [ngClass]="{'nepaliFont unicode-size24': printDocForm?.sincerlyKarja!==null && printDocForm?.sincerlyKarja!==''}">
                         {{printDocForm?.sincerlyKarja === null || printDocForm?.sincerlyKarja === '' ? '___________________' : printDocForm?.sincerlyKarja}}
                     </span></td>
                     </tr>
@@ -195,112 +180,100 @@
                                         {{guarantor?.companyPraName === null || guarantor?.companyPraName === '' ? '___________________' : guarantor?.companyPraName}}
                                     </span>
                                 </ng-container>
-                                (ना.प्र.न
+                                (ना.प्र.न.
                                 <span [ngClass]="{'nepaliFont': guarantor?.jamanatNPN!==null && guarantor?.jamanatNPN!==''}">
-                                        {{guarantor?.jamanatNPN === null || guarantor?.jamanatNPN === '' ? '___________________' : guarantor?.jamanatNPN}}
-                                    </span>
+                                        {{guarantor?.jamanatNPN === null || guarantor?.jamanatNPN === '' ? '___________________' : guarantor?.jamanatNPN}}</span>,
                                 मिति<span
                                         [ngClass]="{'nepaliFont': guarantor?.jamanatDate!==null && guarantor?.jamanatDate!==''}">
-                                            {{guarantor?.jamanatDate === null || guarantor?.jamanatDate === '' ? '___________________' : guarantor?.jamanatDate}}
-                                    </span>
-                                जि प्र.का<span
+                                            {{guarantor?.jamanatDate === null || guarantor?.jamanatDate === '' ? '___________________' : guarantor?.jamanatDate}}</span>,
+                                जि.प्र.का.<span
                                         [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatJPK!==null && guarantor?.jamanatJPK!==''}">
-                                         {{guarantor?.jamanatJPK === null || guarantor?.jamanatJPK === '' ? '___________________' : guarantor?.jamanatJPK}}
-                                    </span>)
+                                         {{guarantor?.jamanatJPK === null || guarantor?.jamanatJPK === '' ? '___________________' : guarantor?.jamanatJPK}}</span>)
                             </td>
                         </tr>
                         <tr *ngIf="guarantor?.guarantorType === 'Corporate_Guarantor'">
                             <td style="vertical-align: top"><strong>कम्पनीको हकमा</strong> :–</td>
-                            <td>(रजिष्टेशन नं<span
-                                    [ngClass]="{'nepaliFont': guarantor?.jamanatRegNo!==null && guarantor?.jamanatRegNo!==''}">
-                        {{guarantor?.jamanatRegNo === null || guarantor?.jamanatRegNo === '' ? '___________________' : guarantor?.jamanatRegNo}}
-                    </span>
-                                मिति<span
-                                        [ngClass]="{'nepaliFont': guarantor?.jamanatRegDate!==null && guarantor?.jamanatRegDate!==''}">
-                        {{guarantor?.jamanatRegDate === null || guarantor?.jamanatRegDate === '' ? '___________________' : guarantor?.jamanatRegDate}}
-                    </span>
-                                दर्ता गर्ने कार्यालय<span
-                                        [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatRegCDO!==null && guarantor?.jamanatRegCDO!==''}">
-                        {{guarantor?.jamanatRegCDO === null || guarantor?.jamanatRegCDO === '' ? '___________________' : guarantor?.jamanatRegCDO}}
-                    </span>)
+                            <td>(रजिष्टेशन नं.<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegNo!==null && guarantor?.jamanatRegNo!==''}">
+                                    {{guarantor?.jamanatRegNo === null || guarantor?.jamanatRegNo === '' ? '___________________' : guarantor?.jamanatRegNo}}</span>,
+                                मिति<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegDate!==null && guarantor?.jamanatRegDate!==''}">
+                                    {{guarantor?.jamanatRegDate === null || guarantor?.jamanatRegDate === '' ? '___________________' : guarantor?.jamanatRegDate}}</span>,
+                                दर्ता गर्ने कार्यालय
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatRegCDO!==null && guarantor?.jamanatRegCDO!==''}">
+                                    {{guarantor?.jamanatRegCDO === null || guarantor?.jamanatRegCDO === '' ? '___________________' : guarantor?.jamanatRegCDO}}</span>)
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">स्थायी ठेगाना :—</td>
                             <td>
                                 <ng-container *ngIf="guarantor?.guarantorType === 'Corporate_Guarantor'">
-                                <span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
-                        {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
-                    </span>
-                                जिल्ला <span
-                                        [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
-                        {{guarantor?.jamanatDistrict === null || guarantor?.jamanatDistrict === '' ? '___________________' : guarantor?.jamanatDistrict}}
-                    </span>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
+                                        {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
+                                    </span>
+                                जिल्ला,
+                                    <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
+                                        {{guarantor?.jamanatDistrict === null || guarantor?.jamanatDistrict === '' ? '___________________' : guarantor?.jamanatDistrict}}
+                                    </span>
                                 </ng-container>
                                 <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
-                                <span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
-                        {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
-                    </span>
-                                जिल्ला <span
-                                        [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
-                        {{guarantor?.jamanatDistrict === null || guarantor?.jamanatDistrict === '' ? '___________________' : guarantor?.jamanatDistrict}}
-                    </span>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
+                                    {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
+                                </span>
+                                जिल्ला,
+                                    <span [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
+                                        {{guarantor?.jamanatDistrict === null || guarantor?.jamanatDistrict === '' ? '___________________' : guarantor?.jamanatDistrict}}
+                                    </span>
                                 </ng-container>
-                                गा.पा./न.पा., वडा नं <span
-                                        [ngClass]="{'nepaliFont': guarantor?.jamanatWadNo!==null && guarantor?.jamanatWadNo!==''}">
-                        {{guarantor?.jamanatWadNo === null || guarantor?.jamanatWadNo === '' ? '___________________' : guarantor?.jamanatWadNo}}
-                    </span></td>
+                                गा.पा./न.पा., वडा नं.
+                                <span [ngClass]="{'nepaliFont': guarantor?.jamanatWadNo!==null && guarantor?.jamanatWadNo!==''}">
+                                    {{guarantor?.jamanatWadNo === null || guarantor?.jamanatWadNo === '' ? '___________________' : guarantor?.jamanatWadNo}}
+                                </span></td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">हालको ठेगाना :-</td>
                             <td>
                                 <ng-container *ngIf="guarantor?.guarantorType === 'Corporate_Guarantor'">
-                                <span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
-                        {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
-                    </span>
-                                जिल्ला <span
-                                        [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatTemporaryDistrict!==null && guarantor?.jamanatTemporaryDistrict!==''}">
-                        {{guarantor?.jamanatTemporaryDistrict === null || guarantor?.jamanatTemporaryDistrict === '' ? '___________________' : guarantor?.jamanatTemporaryDistrict}}
-                    </span>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
+                                    {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
+                                </span>
+                                जिल्ला,
+                                    <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatTemporaryDistrict!==null && guarantor?.jamanatTemporaryDistrict!==''}">
+                                        {{guarantor?.jamanatTemporaryDistrict === null || guarantor?.jamanatTemporaryDistrict === '' ? '___________________' : guarantor?.jamanatTemporaryDistrict}}
+                                    </span>
                                 </ng-container>
                                 <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
-                                <span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
-                        {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
-                    </span>
-                                जिल्ला <span
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
+                                    {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
+                                </span>
+                                जिल्ला, <span
                                         [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatTemporaryDistrict!==null && guarantor?.jamanatTemporaryDistrict!==''}">
-                        {{guarantor?.jamanatTemporaryDistrict === null || guarantor?.jamanatTemporaryDistrict === '' ? '___________________' : guarantor?.jamanatTemporaryDistrict}}
-                    </span>
+                                        {{guarantor?.jamanatTemporaryDistrict === null || guarantor?.jamanatTemporaryDistrict === '' ? '___________________' : guarantor?.jamanatTemporaryDistrict}}
+                                    </span>
                                 </ng-container>
-                                गा.पा./न.पा., वडा नं <span
-                                        [ngClass]="{'nepaliFont': guarantor?.jamanatTemporaryWadNo!==null && guarantor?.jamanatTemporaryWadNo!==''}">
-                        {{guarantor?.jamanatTemporaryWadNo === null || guarantor?.jamanatTemporaryWadNo === '' ? '___________________' : guarantor?.jamanatTemporaryWadNo}}
-                    </span></td>
+                                गा.पा./न.पा., वडा नं.
+                                <span [ngClass]="{'nepaliFont': guarantor?.jamanatTemporaryWadNo!==null && guarantor?.jamanatTemporaryWadNo!==''}">
+                                    {{guarantor?.jamanatTemporaryWadNo === null || guarantor?.jamanatTemporaryWadNo === '' ? '___________________' : guarantor?.jamanatTemporaryWadNo}}
+                                </span></td>
                         </tr>
                         <tr>
                             <td>बूबाको नाम :</td>
-                            <td><span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatParentName!==null && guarantor?.jamanatParentName!==''}">
-                        {{guarantor?.jamanatParentName === null || guarantor?.jamanatParentName === '' ? '___________________' : guarantor?.jamanatParentName}}
-                    </span></td>
+                            <td>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatParentName!==null && guarantor?.jamanatParentName!==''}">
+                                    {{guarantor?.jamanatParentName === null || guarantor?.jamanatParentName === '' ? '___________________' : guarantor?.jamanatParentName}}
+                                </span></td>
                         </tr>
                         <tr>
                             <td>बाजेको नाम :</td>
-                            <td><span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatGrandParentName!==null && guarantor?.jamanatGrandParentName!==''}">
-                        {{guarantor?.jamanatGrandParentName === null || guarantor?.jamanatGrandParentName === '' ? '___________________' : guarantor?.jamanatGrandParentName}}
-                    </span></td>
+                            <td>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatGrandParentName!==null && guarantor?.jamanatGrandParentName!==''}">
+                                    {{guarantor?.jamanatGrandParentName === null || guarantor?.jamanatGrandParentName === '' ? '___________________' : guarantor?.jamanatGrandParentName}}
+                                </span></td>
                         </tr>
                         <tr>
                             <td>पति/पत्नीको नामः</td>
-                            <td><span
-                                    [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatSpouseName!==null && guarantor?.jamanatSpouseName!==''}">
-                        {{guarantor?.jamanatSpouseName === null || guarantor?.jamanatSpouseName === '' ? '___________________' : guarantor?.jamanatSpouseName}}
-                    </span></td>
+                            <td>
+                                <span [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatSpouseName!==null && guarantor?.jamanatSpouseName!==''}">
+                                    {{guarantor?.jamanatSpouseName === null || guarantor?.jamanatSpouseName === '' ? '___________________' : guarantor?.jamanatSpouseName}}
+                                </span></td>
                         </tr>
                         <tr style="break-inside: avoid;">
                             <td style="vertical-align: top">औठा छाप :-</td>
@@ -365,26 +338,22 @@
                             [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
                         {{printDocForm?.witnessName === null || printDocForm?.witnessName === '' ? '_________________________________' : printDocForm?.witnessName}}
                     </span>
-                    (ना.प्र.नं<span
+                    (ना.प्र.नं.<span
                             [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipNo !== null && printDocForm?.witnessCitizenshipNo !== ''}">
-                        {{printDocForm?.witnessCitizenshipNo === null || printDocForm?.witnessCitizenshipNo === '' ? '_________________' : printDocForm?.witnessCitizenshipNo}}
-                    </span>
-                    मिति <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate !== null && printDocForm?.witnessCitizenshipIssueDate !== ''}">
-                        {{printDocForm?.witnessCitizenshipIssueDate === null || printDocForm?.witnessCitizenshipIssueDate === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate}}
-                    </span> जि.प्र.का. <span
-                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice !== null && printDocForm?.witnessCDOoffice !== ''}">
-                        {{printDocForm?.witnessCDOoffice === null || printDocForm?.witnessCDOoffice === '' ? '_________________' : printDocForm?.witnessCDOoffice}}
-                    </span>)
+                        {{printDocForm?.witnessCitizenshipNo === null || printDocForm?.witnessCitizenshipNo === '' ? '_________________' : printDocForm?.witnessCitizenshipNo}}</span>,
+                    मिति <span [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate !== null && printDocForm?.witnessCitizenshipIssueDate !== ''}">
+                        {{printDocForm?.witnessCitizenshipIssueDate === null || printDocForm?.witnessCitizenshipIssueDate === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate}}</span>,
+                    जि.प्र.का. <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice !== null && printDocForm?.witnessCDOoffice !== ''}">
+                        {{printDocForm?.witnessCDOoffice === null || printDocForm?.witnessCDOoffice === '' ? '_________________' : printDocForm?.witnessCDOoffice}}</span>)
                     <br>ठेगाना:<span
                             [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessIssuedPlace !== null && printDocForm?.witnessIssuedPlace !== ''}">
                         {{printDocForm?.witnessIssuedPlace === null || printDocForm?.witnessIssuedPlace === '' ? '_________________' : printDocForm?.witnessIssuedPlace}}
-                    </span>जिल्ला <span
-                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessMunicipality !== null && printDocForm?.witnessMunicipality !== ''}">
+                    </span>
+                    जिल्ला,
+                    <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessMunicipality !== null && printDocForm?.witnessMunicipality !== ''}">
                         {{printDocForm?.witnessMunicipality === null || printDocForm?.witnessMunicipality === '' ? '_________________' : printDocForm?.witnessMunicipality}}
                     </span>
-                    गा.पा./न.पा.वडा नं<span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
+                    गा.पा./न.पा., वडा नं.<span [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
                         {{printDocForm?.witnessWardNo === null || printDocForm?.witnessWardNo === '' ? '__________' : printDocForm?.witnessWardNo}}
                     </span></p>
 
@@ -396,46 +365,36 @@
                         {{printDocForm?.witnessName1 === null || printDocForm?.witnessName1 === '' ? '_________________________________' : printDocForm?.witnessName1}}
                     </span>
 
-                    (ना.प्र.नं<span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipNo1 !== null && printDocForm?.witnessCitizenshipNo1 !== ''}">
-                        {{printDocForm?.witnessCitizenshipNo1 === null || printDocForm?.witnessCitizenshipNo1 === '' ? '_________________' : printDocForm?.witnessCitizenshipNo1}}
+                    (ना.प्र.नं.<span [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipNo1 !== null && printDocForm?.witnessCitizenshipNo1 !== ''}">
+                        {{printDocForm?.witnessCitizenshipNo1 === null || printDocForm?.witnessCitizenshipNo1 === '' ? '_________________' : printDocForm?.witnessCitizenshipNo1}}</span>,
+                    मिति <span [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate1 !== null && printDocForm?.witnessCitizenshipIssueDate1 !== ''}">
+                        {{printDocForm?.witnessCitizenshipIssueDate1 === null || printDocForm?.witnessCitizenshipIssueDate1 === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate1}}</span>,
+                    जि.प्र.का. <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice1 !== null && printDocForm?.witnessCDOoffice1 !== ''}">
+                        {{printDocForm?.witnessCDOoffice1 === null || printDocForm?.witnessCDOoffice1 === '' ? '_________________' : printDocForm?.witnessCDOoffice1}}</span>)
+                    <br>ठेगाना:
+                    <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessIssuedPlace1 !== null && printDocForm?.witnessIssuedPlace1 !== ''}">
+                        {{printDocForm?.witnessIssuedPlace1 === null || printDocForm?.witnessIssuedPlace1 === '' ? '_________________' : printDocForm?.witnessIssuedPlace1}}
                     </span>
-                    मिति <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate1 !== null && printDocForm?.witnessCitizenshipIssueDate1 !== ''}">
-                        {{printDocForm?.witnessCitizenshipIssueDate1 === null || printDocForm?.witnessCitizenshipIssueDate1 === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate1}}
-                    </span> जि.प्र.का. <span
-                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice1 !== null && printDocForm?.witnessCDOoffice1 !== ''}">
-                        {{printDocForm?.witnessCDOoffice1 === null || printDocForm?.witnessCDOoffice1 === '' ? '_________________' : printDocForm?.witnessCDOoffice1}}
-                    </span>)
-                    <br>ठेगाना:<span
-                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessIssuedPlace1 !== null && printDocForm?.witnessIssuedPlace1 !== ''}">
-                                                {{printDocForm?.witnessIssuedPlace1 === null || printDocForm?.witnessIssuedPlace1 === '' ? '_________________' : printDocForm?.witnessIssuedPlace1}}
-                                            </span>
-                    जिल्ला
+                    जिल्ला,
                     <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessMunicipality1 !== null && printDocForm?.witnessMunicipality1 !== ''}">
-                                                {{printDocForm?.witnessMunicipality1 === null || printDocForm?.witnessMunicipality1 === '' ? '____________________' : printDocForm?.witnessMunicipality1}}
-                                            </span>
-                    गा.पा./न.पा.वडा नं
+                        {{printDocForm?.witnessMunicipality1 === null || printDocForm?.witnessMunicipality1 === '' ? '____________________' : printDocForm?.witnessMunicipality1}}
+                    </span>
+                    गा.पा./न.पा.,
+                    वडा नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo1 !== null && printDocForm?.witnessWardNo1 !== ''}">
-                                                {{printDocForm?.witnessWardNo1 === null || printDocForm?.witnessWardNo1 === '' ? '__________' : printDocForm?.witnessWardNo1}}
-                                            </span></p>
-
+                        {{printDocForm?.witnessWardNo1 === null || printDocForm?.witnessWardNo1 === '' ? '__________' : printDocForm?.witnessWardNo1}}
+                    </span></p>
             </div>
             <br>
             <strong>सनाखत साक्षी</strong>
             <br>
             ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
             <span [ngClass]="{'nepaliFontPreeti unicode-size24':printDocForm.karmachari!==null && printDocForm.karmachari!==null}">
-
-                       {{printDocForm.karmachari === null || printDocForm.karmachari === '' ? '_______________' : printDocForm.karmachari}}
-
-                   </span>
-            कर्मचारी संकेत नं)
+                {{printDocForm.karmachari === null || printDocForm.karmachari === '' ? '_______________' : printDocForm.karmachari}}
+            </span>
+            (कर्मचारी संकेत नं.
             <span [ngClass]="{'nepaliFont':printDocForm.karmachariNo!==null && printDocForm.karmachariNo!==null}">
-
-                       {{printDocForm.karmachariNo === null || printDocForm.karmachariNo === '' ? '_______________' : printDocForm.karmachariNo}}
-
-                   </span>
+                {{printDocForm.karmachariNo === null || printDocForm.karmachariNo === '' ? '_______________' : printDocForm.karmachariNo}}</span>)
             <br>
             <br>
             <div class="text-center">
