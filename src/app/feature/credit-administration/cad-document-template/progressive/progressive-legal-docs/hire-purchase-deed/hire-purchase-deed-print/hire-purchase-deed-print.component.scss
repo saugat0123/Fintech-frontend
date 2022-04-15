@@ -40,8 +40,9 @@
 tr {
   break-inside: initial;
 }
-span {
-  line-height: 1;
+
+.unicode-size24 {
+  font-size: 24px;
 }
 
 //#guaranter{
@@ -62,6 +63,10 @@ span {
 table {
   text-align: center;
   width: 100%;
+}
+
+span{
+  line-height: 1;
 }
 
 @media print {
