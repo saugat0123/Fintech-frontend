@@ -18,6 +18,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {sum} from 'd3';
 
 @Component({
   selector: 'app-hypothecation-of-goods-and-receivables-a',
@@ -36,7 +37,9 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  totalAmt : number = 0;
+  totalAmt = new Array<number>();
+  totalAmount: number = 0;
+  totalAmount2: number = 0;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -55,6 +58,11 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.initialInfoPrint.koshMaAdharit.forEach(val => {
+        this.totalAmt.push(this.nepToEngNumberPipe.transform(val.amount));
+      });
+    }
   }
 
   onSubmit(): void {
@@ -176,6 +184,20 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   }
 
   removeKoshMaAdharit(index) {
+    this.addAmounts();
+    this.totalAmount = 0;
+    let sumAmount: number;
+    this.totalAmt.splice(index, 1);
+    if (this.totalAmt.length > 0) {
+      this.totalAmt.forEach(value => {
+        this.totalAmount = this.totalAmount + Number(value);
+      });
+    }
+    sumAmount = this.totalAmount + this.totalAmount2;
+    this.form.patchValue({
+      totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+      totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
+    });
     (this.form.get('koshMaAdharit') as FormArray).removeAt(index);
   }
 
@@ -306,7 +328,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   }
 
   addAmounts() {
-    let total = 0;
+    this.totalAmount2 = 0;
     let res;
     const toAddFormControl = [
       'jamanatAmount',
@@ -318,30 +340,36 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
     ];
     toAddFormControl.forEach(f => {
       res = +this.nepToEngNumberPipe.transform(this.form.get(f).value);
-      total += res;
+      this.totalAmount2 += res;
+      const sumAmount: number = this.totalAmount + this.totalAmount2;
       this.form.patchValue({
-        totalLimitAmount: this.engToNepNumberPipe.transform(total.toString()),
-        totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(total)
+        totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+        totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
       });
     });
   }
 
-  updateAmount(amount: string, i: number) {
-    const amt = [];
-
-  /*if (!ObjectUtil.isEmpty(this.nepaliData.koshMaAdharit)) {
-    amt[i] = this.nepaliData.koshMaAdharit.amount[i];
-  }*/
-    amt[i] = this.nepToEngNumberPipe.transform(this.form.get(['koshMaAdharit', i, amount]).value);
-    console.log('amount', i, amt[0] + amt[1]);
-    //this.sumAmount();
+  updateAmount(amount, i) {
+    this.addAmounts();
+    let sumAmount: number;
+    this.totalAmount = 0;
+    this.totalAmt[i] = Number(this.nepToEngNumberPipe.transform(this.form.get(['koshMaAdharit', i, amount]).value));
+    if (this.totalAmt.length > 0) {
+      this.totalAmt.forEach(value => {
+        this.totalAmount = this.totalAmount + Number(value);
+      });
+    }
+    sumAmount = this.totalAmount + this.totalAmount2;
+    this.form.patchValue({
+      totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+      totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
+    });
   }
 
-  /*sumAmount() {
-  let totalAmt = 0;s
-  for (let i = 0; i < ; i++) {
-    totalAmt += this.nepaliData.koshMaAdharit.amount[i];
-    console.log('total', totalAmt);
-    }
+  /*addSumKoshMaAdharit(target1, target2) {
+    const totalSum: number = this.totalAmount + this.totalAmount2;
+    console.log('total Sum', totalSum);
+    this.form.get(target1).patchValue(totalSum.toString());
+    this.form.get(target2).patchValue(this.nepaliCurrencyWordPipe.transform(totalSum));
   }*/
 }

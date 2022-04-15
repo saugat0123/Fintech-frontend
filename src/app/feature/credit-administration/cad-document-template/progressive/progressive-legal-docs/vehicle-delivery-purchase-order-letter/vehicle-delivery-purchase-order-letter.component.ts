@@ -26,6 +26,7 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
     nepaliData;
     initialInfoPrint: any;
     nepData: any;
+    primaryCollaterals = new Array<any>();
 
     constructor(private dialogRef: NbDialogRef<VehicleDeliveryPurchaseOrderLetterComponent>,
                 private formBuilder: FormBuilder,
@@ -104,8 +105,12 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
                     this.vehicleDeliveryForm.patchValue(this.initialInfoPrint);
                 }
             });
-
-            this.setVehicleDetails(this.nepaliData.collateralDetails);
+            (this.nepaliData.collateralDetails).forEach(value => {
+                if (value.securityDetails === 'HP') {
+                    this.primaryCollaterals.push(value);
+                }
+            });
+            this.setVehicleDetails(this.primaryCollaterals);
         }
         this.vehicleDeliveryForm.patchValue({
             branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
