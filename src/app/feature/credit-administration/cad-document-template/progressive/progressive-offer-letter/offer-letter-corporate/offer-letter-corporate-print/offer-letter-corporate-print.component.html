@@ -337,17 +337,15 @@
                                         {{printDocForm?.dhitoAmount === null || printDocForm?.dhitoAmount === '' ? '___________' : printDocForm?.dhitoAmount}}
                                     </span>
                                     र डिस्ट्रेस मुल्य रु.
-
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.dhitoDistress !== null && printDocForm?.dhitoDistress !== ''}">
                                         {{printDocForm?.dhitoDistress === null || printDocForm?.dhitoDistress === '' ? '___________' : printDocForm?.dhitoDistress}}
                                     </span>
                                     को जग्गातथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात फाइनान्सको
                                     नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमागई रु.
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.dhitoLekhi !== null && printDocForm?.dhitoLekhi !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.dhitoLekhi !== null && printDocForm?.dhitoLekhi !== ''}">
                                         {{printDocForm?.dhitoLekhi === null || printDocForm?.dhitoLekhi === '' ? '___________' : printDocForm?.dhitoLekhi}}
                                     </span>
                                     मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
-
                                     <p class="mt-3"><strong>ख. धितो राखिने सवारी साधनको बिबरण</strong></p>
                                     <table class="table table-bordered">
                                         <tbody>
