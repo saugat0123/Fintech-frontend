@@ -72,6 +72,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.form.patchValue({
                 amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
             });
+            this.setCommonData();
+            console.log('this is saved form value', this.form.value);
         } else {
             if (this.cadData.loanHolder.isJointCustomer) {
                 this.customerService.detail(this.cadData.loanHolder.associateId).subscribe((res: any) => {
@@ -189,6 +191,28 @@ export class LoanDeedIndividualComponent implements OnInit {
         }));
     }
 
+    setCommonData() {
+        JSON.parse(this.initialInfoPrint).commonData.forEach(data => {
+            (this.form.get('commonData') as FormArray).push(this.formBuilder.group({
+                grandParentName: [data.grandParentName],
+                fatherName: [data.fatherName],
+                husbandWifeName: [data.husbandWifeName],
+                permanentDistrict: [data.permanentDistrict],
+                permanentMunicipality: [data.permanentMunicipality],
+                permanentWardNum: [data.permanentWardNum],
+                temporaryDistrict: [data.temporaryDistrict],
+                temporaryMunicipality: [data.temporaryMunicipality],
+                tempWardNum: [data.tempWardNum],
+                age: [data.age],
+                name: [data.name],
+                naPraNa: [data.naPraNa],
+                districtOffice: [data.districtOffice],
+                issuedYear: [data.issuedYear],
+                issuedMonth: [data.issuedMonth],
+                issuedDay: [data.issuedDay],
+            }));
+        });
+    }
     removeCommonData(i: number) {
         (this.form.get('commonData') as FormArray).removeAt(i);
     }
