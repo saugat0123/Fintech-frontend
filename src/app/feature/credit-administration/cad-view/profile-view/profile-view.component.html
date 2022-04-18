@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
+                    <nb-card class="mt-3" *ngIf="(roleType !== 'MAKER' && productUtils?.CAD_ADMIN_ENABLE) || (!productUtils?.CAD_ADMIN_ENABLE && roleType === 'MAKER')">
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>

@@ -88,7 +88,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     isForApproveMaker = false;
     selectedTemplate;
     commentVar;
-
+    unAssign = false;
+    productUtil = LocalStorageUtil.getStorage().productUtil;
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -118,6 +119,11 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.backwardTooltipMessageAndShowHideBackward();
 
         this.checkForwardValidMessage();
+        if (!this.productUtil.CAD_ADMIN_ENABLE && this.currentCADStage.docAction === 'PULLED'
+            && this.isMaker && this.currentCADStage.fromUser.id.toString() === this.currentUserId
+            && this.currentStatus === 'OFFER_PENDING') {
+            this.unAssign = true;
+        }
     }
 
     checkForwardValidMessage() {
@@ -135,7 +141,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
-        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
@@ -159,7 +164,15 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.isActionClicked.emit(this.isOpened);
         this.isForApproveMaker = false;
     }
-
+    close() {
+        this.modalService.dismissAll();
+    }
+    openPopUp(template) {
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
+    }
     closeNb() {
         this.dialogRef.close();
         this.isOpened = false;
@@ -314,7 +327,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    documentStatus: [this.backwardDocStatus()],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
@@ -365,6 +378,16 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     }
 
+    public backwardDocStatus() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'OFFER_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }
 
     public backwardTooltipMessageAndShowHideBackward() {
         const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
@@ -387,5 +410,17 @@ export class CadActionComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.checkForwardValidMessage();
     }
+
+    unAssignAssignedLoan() {
+        this.cadService.unAssignAssignedLoan(this.cadId).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Unassigned Loan'));
+            this.route.navigateByUrl('/home/credit');
+            this.modalService.dismissAll();
+        }, err => {
+            this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong'));
+            this.modalService.dismissAll();
+        });
+    }
+
 
 }

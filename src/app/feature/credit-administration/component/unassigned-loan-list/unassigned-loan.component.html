@@ -42,9 +42,12 @@
                            nbTooltip="click to view detail Loan ">
                             <em class="fa fa-eye"></em>
                         </a>
-                        <a (click)="openAssignPopUp(model)" *ngIf="model?.totalLoan > 0"
+                        <a (click)="openAssignPopUp(model)" *ngIf="model?.totalLoan > 0 && storage?.roleType !== roleType?.MAKER && productUtils?.CAD_ADMIN_ENABLE"
                            nbTooltip="click to assign"><em
                                 class="fa fa-user"></em></a>
+                        <a (click)="openPopUp(pullDocument,model)" *ngIf="model?.totalLoan > 0 && storage.roleType === roleType.MAKER && !productUtils?.CAD_ADMIN_ENABLE"
+                           nbTooltip="click to pull"><em
+                                class="fas fa-angle-double-down"></em></a>
                     </td>
 
 
@@ -86,6 +89,36 @@
             </ng-container>
             </tbody>
         </table>
+        <ng-template #pullDocument>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Pull Loan Document</h4>
+                <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Do you want to pull this Document?
+
+
+                <div class="col-md-12">
+                    <form>
+                        <div class="d-flex justify-content-end">
+                            <div class="px-2">
+                                <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="onClose()">
+                                    NO
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-success float-right" (click)="pullLoan(cadData)">YES
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+        </ng-template>
+
         <!-- ===================table-pagination==================== -->
         <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->

@@ -70,6 +70,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     toggleArray: { toggled: boolean }[] = [];
 
     roleType = LocalStorageUtil.getStorage().roleType;
+    productUtils = LocalStorageUtil.getStorage().productUtil;
 
     ngOnInit() {
         this.initial();
@@ -99,7 +100,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
