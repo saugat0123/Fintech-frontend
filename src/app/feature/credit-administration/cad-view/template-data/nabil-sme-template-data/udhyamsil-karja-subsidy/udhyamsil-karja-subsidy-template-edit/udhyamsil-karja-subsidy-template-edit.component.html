@@ -160,12 +160,6 @@
                                    nbInput status="success" type="number">
                         </div>
 
-                        <div class="form-group">
-                            <label for="commitmentFee">Total Commitment Fee (%)</label>
-                            <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
-                                   nbInput status="success" type="number">
-                        </div>
-
                         <div *ngIf="isInterestSubsidy" class="form-group">
                             <label for="circularRate">Rate As Per NRB Circular</label>
                             <input class="form-control" formControlName="circularRate" fullWidth id="circularRate"
@@ -295,13 +289,6 @@
                             <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
                             <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
                                    id="totalTenureOfLoanTrans"
-                                   nbInput readonly status="success" type="text">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
-                            <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
-                                   id="commitmentFeeTrans"
                                    nbInput readonly status="success" type="text">
                         </div>
 
@@ -527,18 +514,6 @@
                         </span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
-                                   class="form-control" formControlName="commitmentFeeCT" fullWidth
-                                   id="commitmentFeeCT" nbInput
-                                   status="success"
-                                   type="text">
-                            <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
-                            Total Commitment Fee is required
-                        </span>
-                        </div>
-
                         <div *ngIf="isInterestSubsidy" class="form-group">
                             <label for="circularRateCT">Rate As Per NRB Circular CT</label>
                             <input [ngClass]="{ 'is-invalid':submitted && FormControls.circularRateCT.errors }"
@@ -683,7 +658,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandArea">Area in Sq m.</label>
+                                <label for="securityOwnersLandArea">Area and Units.</label>
                                 <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
                                        class="form-control" formControlName="securityOwnersLandArea"
                                        fullWidth
@@ -739,7 +714,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandAreaTrans">Area in Sq m.</label>
+                                <label for="securityOwnersLandAreaTrans">Area and Units.</label>
                                 <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
                                        id="securityOwnersLandAreaTrans"
                                        nbInput readonly status="success" type="text">
@@ -793,7 +768,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandAreaCT">Area in Sq m.</label>
+                                <label for="securityOwnersLandAreaCT">Area and Units.</label>
                                 <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
                                        id="securityOwnersLandAreaCT"
                                        nbInput status="success" type="text">
@@ -816,6 +791,7 @@
                     </ng-container>
                     <hr *ngIf="udhyamsilKarja.get('securities')['length'] > 1">
                 </div>
+                <app-required-legal-document-section #requiredLegalDocument [initialInformation]="initialInformation"></app-required-legal-document-section>
             </div>
         </form>
     </nb-card-body>

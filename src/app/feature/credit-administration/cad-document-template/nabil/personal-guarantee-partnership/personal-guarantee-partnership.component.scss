@@ -1,9 +1,8 @@
-.nepaliFont {
-  font-size: 22px !important;
-
-  &.font-size-normal {
-    font-size: 28px !important;
-  }
+*{
+  line-height: 1.9em;
+}
+p, li {
+  font-size: 19px;
 }
 .longInput{
   width: 400px;
@@ -14,8 +13,7 @@
 }
 
 .nep {
-  font-size: 16px;
-  line-height: 1.9;
+  font-size: 19px;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 50px;
@@ -31,15 +29,13 @@
     outline: none;
   }
 }
-p {
-  line-height: 1.9;
-}
+
 li {
   list-style-type: none;
 }
 
 input::-webkit-input-placeholder {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 .lh-30 {
@@ -74,14 +70,11 @@ ol.conditions li {
   .print-only {
     display: inline;
   }
-  .nepaliFont{
-    font-size: 22px;
-  }
   .num {
-    font-size: 22px !important;
+    font-size: 19px !important;
   }
   div.align {
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;

@@ -12,8 +12,8 @@
                     <label><strong>Loan Options</strong></label>
                     <ng-select (ngModelChange)="transferValue($event)"
                                [multiple]="false"
-                               formControlName="loanOption"
-                               placeholder="Select Case Type">
+                               formControlName="loanOption">
+                        <ng-option value="">Select Case Type</ng-option>
                         <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
                                    [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
                     </ng-select>
@@ -22,13 +22,13 @@
                     <label><strong>Loan Sub Type</strong></label>
                     <ng-select
                             formControlName="loanSubType"
-                            fullWidth
-                            placeholder="Loan Sub Type">
+                            fullWidth>
+                        <ng-option value="">Loan Sub Type</ng-option>
                         <ng-option *ngFor="let loansubType of loanSubTypeList"
                                    [value]="loansubType">{{loansubType.eData + ' || ' + loansubType.nData}}</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4 pt-4">
+                <!--<div class="col-md-4 pt-4">
                     <label><strong>Security Type</strong></label>
                     <ng-select
                             formControlName="securityType"
@@ -41,15 +41,15 @@
                         <ng-option value="FIXED_ASSETS">FIXED ASSETS</ng-option>
                         <ng-option value="DOCUMENTS">DOCUMENTS</ng-option>
                     </ng-select>
-                </div>
+                </div>-->
                 <div class="col-md-4 pt-4">
                     <label><strong>Mortgage Type</strong></label>
                     <ng-select
                             formControlName="mortgageType"
                             fullWidth
-                            placeholder="Mortgage Type"
                             (selectionchange)="mortgageValue()"
                             status="info">
+                        <ng-option value="">Mortgage Type</ng-option>
                         <ng-option value="NEW_MORTGAGE">NEW MORTGAGE</ng-option>
                         <ng-option value="EXISTING_MORTGAGE">EXISTING MORTGAGE</ng-option>
                     </ng-select>
@@ -152,14 +152,14 @@
                                nbInput status="success" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigure">Loan Limit Amount In Figure</label>
+                        <label for="loanLimitAmountFigure">Total Limit Amount In Figure</label>
                         <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
                                class="form-control" formControlName="loanLimitAmountFigure" fullWidth
                                id="loanLimitAmountFigure"
                                nbInput status="success" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWords">Loan Limit Amount In Words</label>
+                        <label for="loanLimitAmountFigureWords">Total Limit Amount In Words</label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWords" fullWidth
                                id="loanLimitAmountFigureWords"
                                nbInput status="success" type="text">
@@ -194,11 +194,11 @@
                         <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
                                nbInput status="success" type="number">
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFee">Total Commitment Fee (%)</label>
-                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
-                               nbInput status="success" type="number">
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFee">Total Commitment Fee (%)</label>-->
+<!--                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"-->
+<!--                               nbInput status="success" type="number">-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
                         <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
@@ -310,14 +310,14 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureTrans">Loan Limit Amount In Figure Translation </label>
+                        <label for="loanLimitAmountFigureTrans">Total Limit Amount In Figure Translation </label>
                         <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
                                class="form-control" formControlName="loanLimitAmountFigureTrans" fullWidth
                                id="loanLimitAmountFigureTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWordsTrans">Loan Limit Amount In Words Translation </label>
+                        <label for="loanLimitAmountFigureWordsTrans">Total Limit Amount In Words Translation </label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWordsTrans" fullWidth
                                id="loanLimitAmountFigureWordsTrans"
                                nbInput status="success" type="text" readonly>
@@ -355,12 +355,12 @@
                                id="totalTenureOfLoanTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
-                        <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
-                               id="commitmentFeeTrans"
-                               nbInput status="success" type="text" readonly>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>-->
+<!--                        <input class="form-control" formControlName="commitmentFeeTrans" fullWidth-->
+<!--                               id="commitmentFeeTrans"-->
+<!--                               nbInput status="success" type="text" readonly>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaffTrans">Name of ARO/RO/RM/ARM Translation </label>
                         <input class="form-control" formControlName="nameOfStaffTrans" fullWidth id="nameOfStaffTrans"
@@ -536,18 +536,18 @@
                                [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.loanLimitAmountFigureCT.invalid" class="text-danger">
-                            Loan Limit Amount Figure is required
+                            Total Limit Amount Figure is required
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWordsCT">Loan Limit Amount In Words CT</label>
+                        <label for="loanLimitAmountFigureWordsCT">Total Limit Amount In Words CT</label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWordsCT" fullWidth
                                id="loanLimitAmountFigureWordsCT"
                                nbInput status="success"
                                [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureWordsCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.loanLimitAmountFigureWordsCT.invalid" class="text-danger">
-                            Loan Limit Amount In Words is required
+                            Total Limit Amount In Words is required
                         </span>
                     </div>
                     <div class="form-group">
@@ -611,16 +611,16 @@
                             Total Tenure of Loan is required
                         </span>
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
-                               class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
-                               nbInput status="success"
-                               type="text">
-                        <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
-                            Total Commitment Fee is required
-                        </span>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>-->
+<!--                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"-->
+<!--                               class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"-->
+<!--                               nbInput status="success"-->
+<!--                               type="text">-->
+<!--                        <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">-->
+<!--                            Total Commitment Fee is required-->
+<!--                        </span>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaffCT">Name of ARO/RO/RM/ARM CT</label>
                         <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfStaffCT.errors }"
@@ -685,15 +685,24 @@
                 </div>
             </div>
             <hr>
-            <div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
+            <!-- SECTION FOR SECURITY DETAILS-->
+            <div style="margin: 20px;">
+                <app-common-security-section-primary #primarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-primary>
+                <hr>
+                <app-common-security-section-secondary #secondarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-secondary>
+                <hr>
+                <!-- Required Document Section -->
+                <app-required-legal-document-section #requiredLegalDocument [initialInformation]="initialInformation"></app-required-legal-document-section>
+            </div>
+            <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">
                     <div class="col-md-12 pr-4">
                         <button (click)="addDefaultSecurity()" class="float-right" nbButton size="tiny"
                                 status="primary">Add Securities
                         </button>
                     </div>
-                </div>
-                <div *ngFor="let securityData of ddslFormGroup.get('securities')['controls']; let i = index; "
+                </div>-->
+                <!--<div *ngFor="let securityData of ddslFormGroup.get('securities')['controls']; let i = index; "
                      class="row p-4" formArrayName="securities">
                     <ng-container [formGroupName]="i">
                         <div class="col-md-12">
@@ -780,7 +789,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandArea">Area in Sq m.</label>
+                                <label for="securityOwnersLandArea">Area and Units</label>
                                 <input class="form-control" formControlName="securityOwnersLandArea" fullWidth
                                        id="securityOwnersLandArea"
                                        (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
@@ -795,7 +804,7 @@
                                        nbInput status="success" type="text">
                             </div>
                         </div>
-                        <!-- TRANSLATION FIELD FOR SECURITY -->
+                        &lt;!&ndash; TRANSLATION FIELD FOR SECURITY &ndash;&gt;
                         <div class="col-md-4 mt-3">
                             <div class="form-group mt-4">
                                 <label for="securityOwnersNameTrans">Property Owner Name</label>
@@ -834,7 +843,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandAreaTrans">Area in Sq m.</label>
+                                <label for="securityOwnersLandAreaTrans">Area and Units</label>
                                 <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
                                        id="securityOwnersLandAreaTrans"
                                        nbInput status="success" type="text" readonly>
@@ -847,9 +856,9 @@
                                        nbInput status="success" type="text" readonly>
                             </div>
                         </div>
-                        <!-- END OF TRANSLATION FIELD FOR SECURITY -->
+                        &lt;!&ndash; END OF TRANSLATION FIELD FOR SECURITY &ndash;&gt;
 
-                        <!-- START OF CT FIELDS SECTION -->
+                        &lt;!&ndash; START OF CT FIELDS SECTION &ndash;&gt;
                         <div class="col-md-4 mt-3">
                             <div class="form-group mt-4">
                                 <label for="securityOwnersNameCT">Property Owner Name</label>
@@ -888,7 +897,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="securityOwnersLandAreaCT">Area in Sq m.</label>
+                                <label for="securityOwnersLandAreaCT">Area and Units</label>
                                 <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
                                        id="securityOwnersLandAreaCT"
                                        nbInput status="success" type="text">
@@ -901,7 +910,7 @@
                                        nbInput status="success" type="text">
                             </div>
                         </div>
-                        <!-- END OF CT FIELDS SECTION-->
+                        &lt;!&ndash; END OF CT FIELDS SECTION&ndash;&gt;
                         <div *ngIf="ddslFormGroup.get('securities')['length'] > 1" class="col-md-12 text-right">
                             <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
                                     style="position: static">
@@ -911,7 +920,7 @@
                     </ng-container>
                     <hr *ngIf="ddslFormGroup.get('securities')['length'] > 1">
                 </div>
-            </div>
+            </div>-->
         </form>
     </nb-card-body>
     <nb-card-footer>

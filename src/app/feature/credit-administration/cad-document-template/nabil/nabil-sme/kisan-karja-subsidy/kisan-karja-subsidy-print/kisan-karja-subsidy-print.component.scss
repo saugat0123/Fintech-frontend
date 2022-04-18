@@ -1,6 +1,7 @@
-.nepaliFont{
-  font-size: 18px;
+*{
+  font-size: 19px;
 }
+
 
 // to left align
 .pull-left {
@@ -28,7 +29,7 @@
 
 // to resize unicode font
 .unicodeResize {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 // to set width 100 %
@@ -64,12 +65,12 @@ input.bottom-line {
 
 // to set same font size for all td and th elements
 .table-sm th, .table-sm td {
-  font-size: 15px !important;
+  font-size: 19px !important;
 }
 
 // to set small tag elements font size
 small#subContactPerson {
-  font-size: 15px;
+  font-size: 19px;
 }
 
 @media print {
@@ -93,10 +94,6 @@ small#subContactPerson {
 
   .lh-25 {
     line-height: 40px !important;
-  }
-
-  .unicodeResize {
-    font-size: 16px;
   }
 
   .w-100 {
@@ -133,10 +130,6 @@ small#subContactPerson {
   }
   tfoot {
     display: table-footer-group;
-  }
-
-  .table-sm th, .table-sm td {
-    font-size: 15px !important;
   }
 
   * {

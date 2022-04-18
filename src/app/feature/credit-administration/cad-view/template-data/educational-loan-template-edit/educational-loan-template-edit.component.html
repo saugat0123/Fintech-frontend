@@ -654,7 +654,7 @@
 
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                             <td colspan="2">Kitta No (कित्ता नं.)</td>
-                            <td><input type="number" class="form-control" formControlName="securityOwnersKittaNo"
+                            <td><input type="text" class="form-control" formControlName="securityOwnersKittaNo"
                                        (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
                             <td>
                                 <input type="text" readonly class="form-control" formControlName="securityOwnersKittaNoTransVal"/>

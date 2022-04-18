@@ -15,15 +15,14 @@
                             <div class="col-md-12 border">
                                 <table class="table table-borderless mt-3" style="width: 100%">
                                    <td>
-                                       रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
-                                                 class="form-field disable-print form-control-sm nepaliFont"
+                                       रु. <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                                 class="form-field disable-print form-control-sm"
                                                  name="loanamountinFigure"
                                                  formControlName="loanamountinFigure"
                                                  placeholder=" रकम "
                                                  type="text"/>
-                                       <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>
-                                       ।
-                                       (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
+                                       <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>/-
+                                       (अक्षरेपी रु. <input class="form-field disable-print form-control-sm"
                                                         name="loanamountinWords"
                                                         formControlName="loanamountinWords"
                                                         placeholder=" ऋण रकम"
@@ -70,14 +69,14 @@
                                       श्रीमती
                                     </span>
                                 </ng-template>
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="district"
                                        formControlName="district"
                                        placeholder="जिल्ला"
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('district').value ? form.get('district').value : "_____________________"}}</span>
 
-                                जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                                जिल्ला <input class="form-field disable-print form-control-sm"
                                               name="vdc"
                                               formControlName="vdc"
                                               placeholder="गाविस"
@@ -97,7 +96,7 @@
                                               type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('wardNo').value ? form.get('wardNo').value : "_________________"}}</span>
                                 बस्ने बर्ष
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="age"
                                        formControlName="age"
                                        placeholder="उमेर"
@@ -164,7 +163,7 @@
                                                 बुहारी
                                             </span>
                                         </ng-template>
-                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <input class="form-field disable-print form-control-sm"
                                                name="nameofFather"
                                                formControlName="nameofFatherJoint"
                                                placeholder="बुबाको नाम"
@@ -180,14 +179,14 @@
                                               श्रीमती
                                             </span>
                                         </ng-template>
-                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <input class="form-field disable-print form-control-sm"
                                                name="district"
                                                formControlName="districtJoint"
                                                placeholder="जिल्ला"
                                                type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['jointDetailsArr', i,'districtJoint']).value ? form.get(['jointDetailsArr', i,'districtJoint']).value : "_____________________"}}</span>
 
-                                        जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
                                                       name="vdc"
                                                       formControlName="vdcJoint"
                                                       placeholder="गा वि स"
@@ -201,7 +200,7 @@
                                                       type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['jointDetailsArr', i,'wardNoJoint']).value ? form.get(['jointDetailsArr', i,'wardNoJoint']).value : "___________________"}}</span>
                                         बस्ने बर्ष <input
-                                                class="form-field disable-print form-control-sm nepaliFont"
+                                                class="form-field disable-print form-control-sm"
                                                 name="age"
                                                 formControlName="ageJoint"
                                                 placeholder="उमेर"
@@ -250,7 +249,7 @@
                                         )—१
                                     </ng-container>
                                 </span>
-<!--                                र <input class="form-field form-control-sm nepaliFont"-->
+<!--                                र <input class="form-field form-control-sm"-->
 <!--                                         name="nameofGrandFather"-->
 <!--                                         formControlName="nameofGrandFather"-->
 <!--                                         placeholder="हजुरबुबाको नाम"-->
@@ -300,7 +299,7 @@
 <!--                                                               formControlName="nameofIssuedDistrict"-->
 <!--                                                               placeholder="जारी जिल्लाको नाम"-->
 <!--                                                               type="text"/>)—१,-->
-                                समेत जम्मा <input class="form-field disable-print form-control-sm nepaliFont"
+                                समेत जम्मा <input class="form-field disable-print form-control-sm"
                                                   name="totalPeople"
                                                   formControlName="totalPeople"
                                                   placeholder=""
@@ -308,22 +307,21 @@
                                 <span class="print-only font-weight-bold">{{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}</span>
                                 जना आगे,
                                 तपाई श्री नविल बैंक लिमिटेडको भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको
-                                वा अह्राएको ब्यक्ति/संस्थालाई रु.<input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
-                                        class="form-field disable-print form-control-sm nepaliFont"
+                                वा अह्राएको ब्यक्ति/संस्थालाई रु. <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                        class="form-field disable-print form-control-sm"
                                                                         name="loanamountinFigure"
                                                                         formControlName="loanamountinFigure"
                                                                         placeholder="ऋण रकम"
                                                                         type="text"/>
-                                <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>
-                                ।
-                                (अक्षरेपी
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>/-
+                                (अक्षरेपी रु.
+                                <input class="form-field disable-print form-control-sm"
                                        name="loanamountinWords"
                                        formControlName="loanamountinWords"
                                        placeholder="रकम"
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "_____________________"}}</span>
-                                )
+                                मात्र)
                                 र भुक्तानी हुने दिन सम्मको बार्षिक <input class="form-field disable-print form-control-sm"
                                                                           name="interest"
                                                                           formControlName="interest"
@@ -334,7 +332,7 @@
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट
                                 तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा
                                 कार्यालय
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="nameofBranchLocated"
                                        formControlName="nameofBranchLocated"
                                        placeholder="शाखा"
@@ -347,7 +345,7 @@
                             </p>
 
                             <p class="text-center"><b>प्रतिज्ञा गर्ने व्यक्तिको</b><br>
-<!--                                लेखात्मक सहीः <input class="form-field disable-print form-control-sm nepaliFont pt-3"-->
+<!--                                लेखात्मक सहीः <input class="form-field disable-print form-control-sm pt-3"-->
 <!--                                                     name="signature"-->
 <!--                                                     formControlName="signature"-->
 <!--                                                     placeholder=""-->
@@ -362,10 +360,10 @@
                                                              formControlName="signature"
                                                              placeholder=""
                                                              type="text"/>
-                                        <span class="print-only font-weight-bold">{{form.get('signature').value ? form.get('signature').value : "_______________________"}}</span>
+                                        <span class="print-only font-weight-bold nepaliFont">{{form.get('signature').value ? form.get('signature').value : "=========================="}}</span>
                                     </div>
                                     <div>
-                                        नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                        नाम: <input class="form-field disable-print form-control-sm pt-3"
                                                     name="signature"
                                                     formControlName="nameofPerson"
                                                     placeholder=""
@@ -389,7 +387,7 @@
                                         लेखात्मक सहीः _______________________
                                     </span>
                                         <div>
-                                            नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                            नाम: <input class="form-field disable-print form-control-sm pt-3"
                                                         name="signature"
                                                         formControlName="loanHolderNameJoint"
                                                         placeholder=""
@@ -504,14 +502,14 @@
                                 <table class="table table-borderless mt-3" style="width: 100%">
                                     <td>
                                         रु <input (input)="getNumAmountWord('loanamountinFigureOd', 'loanamountinWordsOd')"
-                                                  class="form-field disable-print form-control-sm nepaliFont"
+                                                  class="form-field disable-print form-control-sm"
                                                   name="loanamountinFigureOd"
                                                   formControlName="loanamountinFigureOd"
                                                   placeholder=" रकम "
                                                   type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get('loanamountinFigureOd').value ? form.get('loanamountinFigureOd').value : "_____________________"}}</span>
                                         ।
-                                        (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
+                                        (अक्षरेपी <input class="form-field disable-print form-control-sm"
                                                          name="loanamountinWordsOd"
                                                          formControlName="loanamountinWordsOd"
                                                          placeholder=" ऋण रकम"
@@ -558,14 +556,14 @@
                                       श्रीमती
                                     </span>
                                 </ng-template>
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="district"
                                        formControlName="district"
                                        placeholder="जिल्ला"
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('district').value ? form.get('district').value : "_____________________"}}</span>
 
-                                जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                                जिल्ला <input class="form-field disable-print form-control-sm"
                                               name="vdc"
                                               formControlName="vdc"
                                               placeholder="गाविस"
@@ -585,7 +583,7 @@
                                               type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('wardNo').value ? form.get('wardNo').value : "_________________"}}</span>
                                 बस्ने बर्ष
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="age"
                                        formControlName="age"
                                        placeholder="उमेर"
@@ -652,7 +650,7 @@
                                                 बुहारी
                                             </span>
                                         </ng-template>
-                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <input class="form-field disable-print form-control-sm"
                                                name="nameofFather"
                                                formControlName="nameofFatherJoint"
                                                placeholder="बुबाको नाम"
@@ -668,14 +666,14 @@
                                               श्रीमती
                                             </span>
                                         </ng-template>
-                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <input class="form-field disable-print form-control-sm"
                                                name="district"
                                                formControlName="districtJoint"
                                                placeholder="जिल्ला"
                                                type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['jointDetailsArr', i,'districtJoint']).value ? form.get(['jointDetailsArr', i,'districtJoint']).value : "_____________________"}}</span>
 
-                                        जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
                                                       name="vdc"
                                                       formControlName="vdcJoint"
                                                       placeholder="गा वि स"
@@ -689,7 +687,7 @@
                                                       type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['jointDetailsArr', i,'wardNoJoint']).value ? form.get(['jointDetailsArr', i,'wardNoJoint']).value : "___________________"}}</span>
                                         बस्ने बर्ष <input
-                                            class="form-field disable-print form-control-sm nepaliFont"
+                                            class="form-field disable-print form-control-sm"
                                             name="age"
                                             formControlName="ageJoint"
                                             placeholder="उमेर"
@@ -738,7 +736,7 @@
                                         )—१
                                     </ng-container>
                                 </span>
-                                समेत जम्मा <input class="form-field disable-print form-control-sm nepaliFont"
+                                समेत जम्मा <input class="form-field disable-print form-control-sm"
                                                   name="totalPeople"
                                                   formControlName="totalPeople"
                                                   placeholder=""
@@ -747,7 +745,7 @@
                                 जना आगे,
                                 तपाई श्री नविल बैंक लिमिटेडको भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको
                                 वा अह्राएको ब्यक्ति/संस्थालाई रु.<input (input)="getNumAmountWord('loanamountinFigureOd', 'loanamountinWordsOd')"
-                                                                        class="form-field disable-print form-control-sm nepaliFont"
+                                                                        class="form-field disable-print form-control-sm"
                                                                         name="loanamountinFigureOd"
                                                                         formControlName="loanamountinFigureOd"
                                                                         placeholder="ऋण रकम"
@@ -755,7 +753,7 @@
                                 <span class="print-only font-weight-bold">{{form.get('loanamountinFigureOd').value ? form.get('loanamountinFigureOd').value : "_____________________"}}</span>
                                 ।
                                 (अक्षरेपी
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="loanamountinWordsOd"
                                        formControlName="loanamountinWordsOd"
                                        placeholder="रकम"
@@ -772,7 +770,7 @@
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट
                                 तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा
                                 कार्यालय
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="nameofBranchLocated"
                                        formControlName="nameofBranchLocated"
                                        placeholder="शाखा"
@@ -794,10 +792,10 @@
                                                              formControlName="signature"
                                                              placeholder=""
                                                              type="text"/>
-                                        <span class="print-only font-weight-bold">{{form.get('signature').value ? form.get('signature').value : "_______________________"}}</span>
+                                        <span class="print-only font-weight-bold nepaliFont">{{form.get('signature').value ? form.get('signature').value : "=========================="}}</span>
                                     </div>
                                     <div>
-                                        नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                        नाम: <input class="form-field disable-print form-control-sm pt-3"
                                                     name="signature"
                                                     formControlName="nameofPerson"
                                                     placeholder=""
@@ -821,7 +819,7 @@
                                         लेखात्मक सहीः _______________________
                                     </span>
                                         <div>
-                                            नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                            नाम: <input class="form-field disable-print form-control-sm pt-3"
                                                         name="signature"
                                                         formControlName="loanHolderNameJoint"
                                                         placeholder=""

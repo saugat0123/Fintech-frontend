@@ -1,0 +1,252 @@
+<div>
+    <form [formGroup]="letterOfCreditForm">
+        <div *ngFor="let formDetails of letterOfCreditForm.get('letterOfCreditFormArray')['controls']; let i = index" formArrayName="letterOfCreditFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row">
+                    <div class="col-md-12 pb-2">
+                        <h5> IRREVOCABLE LETTER OF CREDIT FACILITY {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Loan Options</strong></label>
+                        <nb-select
+                                (selectedChange)="setCommissionType($event)"
+                                formControlName="loanOption"
+                                fullWidth
+                                placeholder="Loan Options">
+                            <nb-option value="ONE_OFF_BASIS"> One Off Basis </nb-option>
+                            <nb-option value="REGULAR"> Regular Basis </nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Commission Type</strong></label>
+                        <nb-select
+                                formControlName="commissionType"
+                                (selectedChange)="setCommissionType($event)"
+                                fullWidth
+                                placeholder="Commission Type">
+                            <nb-option value="COMMISSION_TYPE_1"> Commission Type 1</nb-option>
+                            <nb-option value="COMMISSION_TYPE_2"> Commission Type 2 </nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <nb-checkbox #complementaryOther
+                                     (change)="checkComplimetryOtherLoan($event.target.checked, i)"
+                                     formControlName="complementaryOther">
+                            <i> Is complimentary of other loan ? </i></nb-checkbox>
+                    </div>
+                    <div class="col-md-4 mt-3" *ngIf="this.letterOfCreditForm.get(['letterOfCreditFormArray', i, 'complementaryOther']).value">
+                        <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                        <nb-select placeholder="Select Complimentary Loan"
+                                   fullWidth
+                                   formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
+                            <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                                {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}} </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
+                               (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'letterOfCreditFormArray')"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth id="loanAmountWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth id="loanAmountWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
+                        <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="marginInPercentageTrans" fullWidth id="marginInPercentageTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="marginInPercentageCT" fullWidth id="marginInPercentageCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="isCommission1Selected">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="commissionRate">Commission Rate</label>
+                        <input class="form-control" formControlName="commissionRate" fullWidth id="commissionRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateTrans" fullWidth id="commissionRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateCT" fullWidth id="commissionRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="isCommission2Selected">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="commissionRateFirstQuarter">Commission Rate First Quarter</label>
+                        <input class="form-control" formControlName="commissionRateFirstQuarter" fullWidth id="commissionRateFirstQuarter"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateFirstQuarterTrans" fullWidth id="commissionRateFirstQuarterTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateFirstQuarterCT" fullWidth id="commissionRateFirstQuarterCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="isCommission2Selected">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="commissionRateOtherQuarter">Commission Rate Other Quarter</label>
+                        <input class="form-control" formControlName="commissionRateOtherQuarter" fullWidth id="commissionRateOtherQuarter"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateOtherQuarterTrans" fullWidth id="commissionRateOtherQuarterTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="commissionRateOtherQuarterCT" fullWidth id="commissionRateOtherQuarterCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="minimumCommissionRate">Minimum Commission Amount</label>
+                        <input class="form-control" formControlName="minimumCommissionRate" fullWidth id="minimumCommissionRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="minimumCommissionRateTrans" fullWidth id="minimumCommissionRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="minimumCommissionRateCT" fullWidth id="minimumCommissionRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="letterOfCreditForm.get(['letterOfCreditFormArray', i, 'loanOption']).value === 'REGULAR'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Date Of Expiry</label><br>
+                            <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                            formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                            name="{{'dateOfExpiryType' + i}}" status="success">
+                                <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="letterOfCreditForm.get(['letterOfCreditFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                                <nepali-patro [displayNepali]="true" [responseType]="2"
+                                              formControlName="dateOfExpiryNepali">
+                                </nepali-patro>
+                            </div>
+                            <input *ngIf="letterOfCreditForm.get(['letterOfCreditFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                                   fullWidth
+                                   id="dateOfExpiry"
+                                   nbInput
+                                   shape="semi-round"
+                                   placeholder="Select Date" status="success">
+                            <nb-datepicker #previousDate></nb-datepicker>
+                        </div>
+                        <div class="col-md-4 form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                                   readonly
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                </div>
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                            Translate Irrevocable Letter Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

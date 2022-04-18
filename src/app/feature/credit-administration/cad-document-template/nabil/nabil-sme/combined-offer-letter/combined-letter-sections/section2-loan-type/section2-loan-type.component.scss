@@ -1,0 +1,30 @@
+*{
+  color: black;
+  font-size: 19px;
+  line-height: 1.9em;
+}
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  font-size: 19px;
+  &:focus {
+    outline: none;
+  }
+}
+table, th, td{
+  border: 1px solid black;
+}
+.customFont {
+  font-size: 22px;
+}
+.all {
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+  p {
+    font-size: 19px !important;
+    line-height: 1.9em !important;
+  }
+}

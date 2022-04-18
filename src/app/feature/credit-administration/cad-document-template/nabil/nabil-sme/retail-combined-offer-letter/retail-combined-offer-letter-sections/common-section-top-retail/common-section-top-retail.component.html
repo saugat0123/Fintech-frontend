@@ -1,0 +1,32 @@
+<div class="text-justify col-md-12">
+    <form [formGroup]="form">
+        <div>
+            स्वीकृती पत्र नं.
+            <input class="form-field form-control-sm col-3"
+                   formControlName="referenceNumber"
+                   name="referenceNumber"
+                   placeholder=" सन्दर्भ नम्बर "
+                   type="text"/>
+            <br>
+            <br>
+            <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
+            <br>
+            <br>
+            मितिः <input class="form-field form-control-sm"
+                         formControlName="sanctionLetterDate"
+                         name="sanctionLetterDate"
+                         type="text"/>
+            <br>
+            श्री <input class="form-field form-control-sm"
+                        formControlName="nameOfBorrower"
+                        name="nameOfBorrower"
+                        type="text"/> |
+            <br>
+            ठेगानाः <input class="form-field form-control-sm"
+                           formControlName="addressOfBorrower"
+                           name="addressOfBorrower"
+                           type="text"/>
+            <br>
+        </div>
+    </form>
+</div>

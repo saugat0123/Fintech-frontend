@@ -21,6 +21,7 @@ import { CadOfferLetterModalComponent } from "../../../cad-offerletter-profile/c
 import { EngNepDatePipe } from "nepali-patro";
 import { ProposalCalculationUtils } from "../../../../loan/component/loan-summary/ProposalCalculationUtils";
 import { LoanDataKey } from "../../../../../@core/utils/constants/loan-data-key";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: "app-personal-guarantee-individual",
@@ -57,7 +58,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     private englishNepaliDatePipe: EngNepDatePipe,
     private nepPercentWordPipe: NepaliPercentWordPipe,
     private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-    private routerUtilsService: RouterUtilsService
+    private routerUtilsService: RouterUtilsService,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnChanges() {
@@ -203,12 +205,15 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
           if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
               // tslint:disable-next-line:max-line-length
               // approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
-              if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || (this.offerDocumentDetails.dateofApprovalType ? this.offerDocumentDetails.dateofApprovalType.en : '') === 'AD') {
+              if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' ||
+                  (this.offerDocumentDetails.dateofApprovalType ? this.offerDocumentDetails.dateofApprovalType.en : '') === 'AD') {
                   // tslint:disable-next-line:max-line-length
-                  approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : this.offerDocumentDetails.dateofApproval ? this.offerDocumentDetails.dateofApproval.en : '';
+                  homeapprovedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : this.offerDocumentDetails.dateofApproval ? this.offerDocumentDetails.dateofApproval.en : '';
+                  approvedDate = this.englishNepaliDatePipe.transform(homeapprovedDate || '', true);
               } else if (this.docName === 'Home Loan') {
                   if (this.offerDocumentDetails.loan.dateType === 'AD') {
-                      approvedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+                      homeapprovedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+                      approvedDate = this.englishNepaliDatePipe.transform(homeapprovedDate || '', true);
                   }
                   if (this.offerDocumentDetails.loan.dateType === 'BS') {
                       approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
@@ -219,13 +224,38 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   // tslint:disable-next-line:max-line-length
                   approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
               }
+              if (this.docName === 'DDSL Without Subsidy') {
+                  const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ?
+                      this.offerDocumentDetails.sanctionLetterDateType.en : '';
+                  if (dateOfApproval === 'AD') {
+                      approvedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+                  } else {
+                      approvedDate = this.offerDocumentDetails.sanctionLetterDateNepali ?
+                          this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+                  }
+              }
+              if (this.docName === 'Interest subsidy sanction letter') {
+                  const dateOfApproval = this.offerDocumentDetails.dateOfApprovalType ?
+                      this.offerDocumentDetails.dateOfApprovalType.en : '';
+                  if (dateOfApproval === 'AD') {
+                      approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+                  } else {
+                      approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ?
+                          this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+                  }
+              }
           }
         let citznIssuedDate: any;
-        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
-            citznIssuedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) &&
+            individualGuarantorNepData.radioCitizenIssuedDate === 'AD') {
+            citznIssuedDate = individualGuarantorNepData.citizenIssuedDate ? this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en || '', true) : '';
+        }
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDateNepali) &&
+            individualGuarantorNepData.radioCitizenIssuedDate === 'BS') {
+            citznIssuedDate = individualGuarantorNepData.citizenIssuedDateNepali ? individualGuarantorNepData.citizenIssuedDateNepali.en.nDate : '';
         }
         (
-          this.guarantorindividualGroup.get("individualGuarantors") as FormArray
+          this.guarantorindividualGroup.get('individualGuarantors') as FormArray
         ).push(
           this.formBuilder.group({
             branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -242,7 +272,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
             loanPurpose: [this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : this.offerDocumentDetails.purposeofLoan ? this.offerDocumentDetails.purposeofLoan.ct : this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : this.offerDocumentDetails.vehicleName ? (this.offerDocumentDetails.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
             nameOfBank: [homeBankName ? homeBankName : ''],
-              dateOfApproval: [homeapprovedDate ? homeapprovedDate : this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
+              dateOfApproval: [approvedDate ? approvedDate : ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
             guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
@@ -280,14 +310,12 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             guarantorCitzenIssuedPlace: [
               individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',
             ],
-            guarantorCitzenIssuedDate: [
-              this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
-            ],
+            guarantorCitzenIssuedDate: [citznIssuedDate],
             gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
             year: [undefined],
             month: [undefined],
             day: [undefined],
-            //date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+            // date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
               date: [undefined],
             freeText: [undefined],
           })

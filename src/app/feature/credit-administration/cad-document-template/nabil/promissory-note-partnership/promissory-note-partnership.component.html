@@ -1,262 +1,385 @@
-<div class="container nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print">
+<div class="container nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print" [nbSpinner]="spinner">
     <form [formGroup]="form" id="promissoryNoteIndividual">
         <div class="text-justify">
             <div class="row">
                 <div class="col-md-12">
                     <div class="nep">
                         <div><br>
-                            <p class="text-center" style="font-size:16pt;"><b>प्रतिज्ञा पत्र (PROMISSORY NOTE)</b></p>
+                            <p class="text-center" style="font-size:24pt;"><b>प्रतिज्ञा पत्र <br> (PROMISSORY NOTE)</b>
+                            </p>
                             <p class="text-right"> मिति: <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                name="date"
-                                                                formControlName="date"
-                                                                placeholder="मिति"
-                                                                type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">{{form.get('date').value ? form.get('date').value : "=================================="}}</span><br>
-                            <table class="table table-bordered" style="width: 40%">
-                                रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
-                                          class="form-field disable-print form-control-sm nepaliFont"
-                                          name="loanamountinFigure"
-                                          formControlName="loanamountinFigure"
-                                          placeholder=" रकम "
-                                          type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "=============================="}}</span>
-                                ।<br>
-                                (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
-                                                 name="loanamountinWords"
-                                                 formControlName="loanamountinWords"
-                                                 placeholder=" ऋण रकम"
-                                                 type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "=========================="}}</span>
-                                )</table>
-                           <br>
-                            लिखितम् <input class="form-field disable-print form-control-sm nepaliFont"
-                                           name="actDetails"
-                                           formControlName="actDetails"
-                                           placeholder=""
-                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('actDetails').value ? form.get('actDetails').value : "======================="}}</span>
-                            ऐन <input class="form-field disable-print form-control-sm nepaliFont"
-                                      name="actYearInFigure"
-                                      formControlName="actYearInFigure"
-                                      placeholder=" "
-                                      type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('actYearInFigure').value ? form.get('actYearInFigure').value : "======================="}}</span>
-                            बमोजिम नेपाल सरकार <input class="form-field disable-print form-control-sm nepaliFont"
-                                                      name="nameOfHead"
-                                                      formControlName="nameOfHead"
-                                                      placeholder=""
-                                                      type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfHead').value ? form.get('nameOfHead').value : "======================="}}</span>
-                            मा मिति <input class="form-field disable-print form-control-sm nepaliFont"
-                                           name="dateOfRegistration"
-                                           formControlName="dateOfRegistration"
-                                           placeholder=" "
-                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('dateOfRegistration').value ? form.get('dateOfRegistration').value : "======================="}}</span>मा
-                            दर्ता नं. <input class="form-field disable-print form-control-sm nepaliFont"
-                                             name="registrationNumber"
-                                             formControlName="registrationNumber"
-                                             placeholder=""
-                                             type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('registrationNumber').value ? form.get('registrationNumber').value : "======================="}}</span>
-                            अन्तर्गत दर्ता भई <input class="form-field disable-print form-control-sm nepaliFont"
-                                                     name="districtOfFirm"
-                                                     formControlName="districtOfFirm"
-                                                     placeholder=" "
-                                                     type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('districtOfFirm').value ? form.get('districtOfFirm').value : "======================="}}</span>
-                            जिल्ला, <input class="form-field disable-print form-control-sm nepaliFont"
-                                           name="vdcOfFirm"
-                                           formControlName="vdcOfFirm"
-                                           placeholder=""
-                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('vdcOfFirm').value ? form.get('vdcOfFirm').value : "======================="}}</span>
-                            न.पा/गा.वि.स./गाँउपालिका वडा नं <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                   name="wardNumberOfFirm"
-                                                                   formControlName="wardNumberOfFirm"
-                                                                   placeholder=" "
-                                                                   type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('wardNumberOfFirm').value ? form.get('wardNumberOfFirm').value : "======================="}}</span>
-                            <input class="form-field disable-print form-control-sm nepaliFont"
-                                   name="addressOfFirm"
-                                   formControlName="addressOfFirm"
-                                   placeholder=" "
-                                   type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "======================="}}</span>
-                            रजिष्टर्ड कार्यालय रहेको श्री <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                 name="nameOfFirm"
-                                                                 formControlName="nameOfFirm"
-                                                                 placeholder=""
-                                                                 type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfFirm').value ? form.get('nameOfFirm').value : "======================="}}</span>को
-                            हकमा र तर्फबाट अधिकारप्राप्त साझेदारहरु <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                           name="nameOfGrandfather"
-                                                                           formControlName="nameOfGrandfather"
-                                                                           placeholder=" "
-                                                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfGrandfather').value ? form.get('nameOfGrandfather').value : "======================="}}</span>
-                            को नाती/नातिनी/बुहारी <input class="form-field disable-print form-control-sm nepaliFont"
-                                                         name="nameOfFather"
-                                                         formControlName="nameOfFather"
-                                                         placeholder=" "
-                                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfGrandfather').value ? form.get('nameOfGrandfather').value : "======================="}}</span>को
-                            छोरा/छोरी/श्रीमती  <input class="form-field disable-print form-control-sm nepaliFont"
-                                                             name="district"
-                                                             formControlName="district"
-                                                             placeholder=" "
-                                                             type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('district').value ? form.get('district').value : "======================="}}</span>
-                            जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
-                                         name="vdc"
-                                         formControlName="vdc"
-                                         placeholder=" "
-                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('vdc').value ? form.get('vdc').value : "======================="}}</span>
-                            न.पा/गा.वि.स. वडा नं. <input class="form-field disable-print form-control-sm nepaliFont"
-                                                        name="wardNumber"
-                                                        formControlName="wardNumber"
-                                                        placeholder=""
-                                                        type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('wardNumber').value ? form.get('wardNumber').value : "======================="}}</span>
-                            बस्ने बर्ष  <input class="form-field disable-print form-control-sm nepaliFont"
-                                               name="age"
-                                               formControlName="age"
-                                               placeholder=" "
-                                               type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('age').value ? form.get('age').value : "======================="}}</span>को/की
-                            श्री/श्रीमती/सुश्री <input class="form-field disable-print form-control-sm nepaliFont"
-                                                       name="nameOfPartner"
-                                                       formControlName="nameOfPartner"
-                                                       placeholder=" "
-                                                       type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfPartner').value ? form.get('nameOfPartner').value : "======================="}}</span>
-                            (ना.प्र.नं. <input class="form-field disable-print form-control-sm nepaliFont"
-                                               name="citizenshipNumber"
-                                               formControlName="citizenshipNumber"
-                                               placeholder=" "
-                                               type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('citizenshipNumber').value ? form.get('citizenshipNumber').value : "======================="}}</span>,
-                            जारी मिति <input class="form-field disable-print form-control-sm nepaliFont"
-                                             name="citizenshipIssueDate"
-                                             formControlName="citizenshipIssueDate"
-                                             placeholder=" "
-                                             type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('citizenshipIssueDate').value ? form.get('citizenshipIssueDate').value : "======================="}}</span>
-                            , जारी गर्ने कार्यालय <input class="form-field disable-print form-control-sm nepaliFont"
-                                                   name="citizenshipIssueDistrict"
-                                                   formControlName="citizenshipIssueDistrict"
-                                                   placeholder=""
-                                                   type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('citizenshipIssueDistrict').value ? form.get('citizenshipIssueDistrict').value : "======================="}}</span>)–१ जना आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा
-                            तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु<input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
-                                                                                         class="form-field disable-print form-control-sm nepaliFont"
-                                                                                         name="loanamountinFigure"
-                                                                                         formControlName="loanamountinFigure"
-                                                                                         placeholder=" रकम "
-                                                                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "======================="}}</span>।
-                            (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
-                                             name="loanamountinWords"
-                                             formControlName="loanamountinWords"
-                                             placeholder=" "
-                                             type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "======================="}}</span>) र
-                            भुक्तानी हुने दिन सम्मको बार्षिक  <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                     name="interestPerApprovedCFR"
-                                                                     formControlName="interestPerApprovedCFR"
-                                                                     placeholder=" "
-                                                                     type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('interestPerApprovedCFR').value ? form.get('interestPerApprovedCFR').value : "======================="}}</span>
-                            प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड,
-                            शाखा कार्यालय <input class="form-field disable-print form-control-sm nepaliFont"
-                                                name="nameOfBranch"
-                                                formControlName="nameOfBranch"
-                                                placeholder=" "
-                                                type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('nameOfBranch').value ? form.get('nameOfBranch').value : "======================="}}</span>लाई दिएँ/दियौं । <br><br>
-                            <div class="clearfix">
-                                <p class="sign col-md-3 float-right">
-                                <b><u>प्रतिज्ञा गर्ने व्यक्तिको</u></b><br><br>
-                                हस्ताक्षरः<br><br>
-                                छापः
+                                    name="date" formControlName="date" placeholder="मिति" type="text" />
+                                <span
+                                    class="print-only font-weight-bold nepaliFont">{{form?.get('date')?.value ? form?.get('date')?.value : "================================="}}</span><br>
+                            <div style="border: 1px solid black" class="p-2 mb-5 mt-5">
+                                <p><strong>रु.<input
+                                            (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                            class="form-field form-control-sm  disable-print" name="loanamountinFigure"
+                                            formControlName="loanamountinFigure" placeholder="" type="text" />
+                                        <span
+                                            class="print-only font-weight-bold">
+                                            {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '______________________'}}</span>/-
+                                        <br>
+
+                                        (अक्षरेपी <input class="form-field form-control-sm  disable-print col-3"
+                                            name="loanamountinWords" formControlName="loanamountinWords" placeholder=""
+                                            type="text" /><span
+                                            class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
+                                        मात्र )</strong>
                                 </p>
                             </div>
-                            <p class = "text-center">
+                            लिखितम् <input class="form-field disable-print form-control-sm" name="actDetails"
+                                formControlName="actDetails" placeholder="" type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('actDetails')?.value ? form?.get('actDetails')?.value : "___________________________"}}</span>
+                            ऐन <input class="form-field disable-print form-control-sm" name="actYearInFigure"
+                                formControlName="actYearInFigure" placeholder=" " type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('actYearInFigure')?.value ? form?.get('actYearInFigure')?.value : "___________________________"}}</span>
+                            बमोजिम नेपाल सरकार <input class="form-field disable-print form-control-sm" name="nameOfHead"
+                                formControlName="nameOfHead" placeholder="" type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('nameOfHead')?.value ? form?.get('nameOfHead')?.value : "___________________________"}}</span>
+                            मा मिति <input class="form-field disable-print form-control-sm" name="dateOfRegistration"
+                                formControlName="dateOfRegistration" placeholder=" " type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('dateOfRegistration')?.value ? form?.get('dateOfRegistration')?.value : "___________________________"}}</span>
+                            मा दर्ता नं. <input class="form-field disable-print form-control-sm" name="registrationNumber"
+                                formControlName="registrationNumber" placeholder="" type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('registrationNumber')?.value ? form?.get('registrationNumber')?.value : "___________________________"}}</span>
+                            अन्तर्गत दर्ता भई <input class="form-field disable-print form-control-sm"
+                                name="districtOfFirm" formControlName="districtOfFirm" placeholder=" " type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('districtOfFirm')?.value ? form?.get('districtOfFirm')?.value : "___________________________"}}</span>
+                            जिल्ला, <input class="form-field disable-print form-control-sm" name="vdcOfFirm"
+                                formControlName="vdcOfFirm" placeholder="" type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('vdcOfFirm')?.value ? form?.get('vdcOfFirm')?.value : "___________________________"}}</span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                न.पा.,
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                गा.वि.स.,
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                गाँउपालिका,
+                            </span> वडा नं <input class="form-field disable-print form-control-sm"
+                                name="wardNumberOfFirm" formControlName="wardNumberOfFirm" placeholder=" "
+                                type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('wardNumberOfFirm')?.value ? form?.get('wardNumberOfFirm')?.value : "__________________"}}</span>
+
+                            <input class="form-field disable-print form-control-sm" name="addressOfFirm"
+                                formControlName="addressOfFirm" placeholder=" " type="text" />
+                            <span
+                                class="print-only font-weight-bold"> {{form?.get('addressOfFirm')?.value ? form?.get('addressOfFirm')?.value : "___________________________"}}</span>
+                            रजिष्टर्ड कार्यालय रहेको श्री <input class="form-field disable-print form-control-sm"
+                                name="nameOfFirm" formControlName="nameOfFirm" placeholder="" type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('nameOfFirm')?.value ? form?.get('nameOfFirm')?.value : "___________________________"}}</span> को
+                            साझेदारहरु
+                            <ng-container *ngFor="let x of tempProprietor; let i = index"
+                                          formArrayName="partnerDetails">
+                                <ng-container [formGroupName]="i">
+                                    <input class="form-field disable-print form-control-sm" name="nameOfGrandfather"
+                                           formControlName="nameOfGrandfather" placeholder=" " type="text"/>
+                                    <span *ngIf="(x?.ownerGender === 'MALE') || (x?.ownerGender === 'OTHERS') ||
+                                                 (x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1')"
+                                          class="print-only font-weight-bold">
+                                        {{x.ownerGrandFatherNameCT ? x.ownerGrandFatherNameCT : "_____________________"}}</span>
+                                    <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'"
+                                          class="print-only font-weight-bold">
+                                        {{x.ownerFatherInLawNameCT ? x.ownerFatherInLawNameCT : "_____________________"}}</span>
+                                    को
+                                    <ng-container>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || (x?.ownerGender === 'OTHERS')">नाति </span>
+                                        <span
+                                                *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">नातिनी </span>
+                                        <span
+                                                *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">बुहारी </span>
+                                    </ng-container>
+                                    <input class="form-field disable-print form-control-sm" name="nameOfFather"
+                                           formControlName="nameOfFather" placeholder=" " type="text"
+                                           />
+                                    <span *ngIf="(x?.ownerGender === 'MALE') || (x?.ownerGender === 'OTHERS') ||
+                                                 (x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1')"
+                                          class="print-only font-weight-bold">
+                                        {{x.ownerFatherNameCT ? x.ownerFatherNameCT : "_____________________"}}
+                                    </span>
+                                    <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'"
+                                          class="print-only font-weight-bold">
+                                        {{x.ownerHusbandNameCT ? x.ownerHusbandNameCT : "_____________________"}}
+                                    </span>
+                                    को
+                                    <ng-container>
+                                        <span *ngIf="x?.ownerGender === 'MALE'">छोरा </span>
+                                        <span
+                                                *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">छोरी </span>
+                                        <span
+                                                *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="(x?.ownerNationality === 'Indian' || x?.ownerNationality === 'Other')
+                                        && x?.foreignAddressOption === 'Foreign'">
+                                        <input class="form-field form-control-sm  disable-print"
+                                               name="foreignAddress" formControlName="foreignAddress"
+                                               placeholder="" type="text"/>
+                                        <span
+                                                class="print-only font-weight-bold">
+                                            {{ x.ownerOtherAddressCT ? x.ownerOtherAddressCT : '_____________________'}}</span>
+                                        ठेगाना,
+                                    </ng-container>
+                                    <ng-container
+                                            *ngIf="x?.ownerNationality === 'Nepali' || x?.foreignAddressOption === 'Local'">
+                                        <input class="form-field disable-print form-control-sm" name="district"
+                                               formControlName="district" placeholder=" " type="text"
+                                               />
+                                        <span
+                                                class="print-only font-weight-bold">
+                                            {{x.ownerPermanentDistrictCT ? x.ownerPermanentDistrictCT : "_____________________"}}</span>
+                                        जिल्ला,
+                                        <input class="form-field disable-print form-control-sm" name="vdc"
+                                                      formControlName="vdc" placeholder=" " type="text"
+                                                      />
+                                        <span
+                                                class="print-only font-weight-bold">
+                                            {{x.ownerPermanentMunicipalityCT ? x.ownerPermanentMunicipalityCT : "_____________________"}}</span>
+                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                        न.पा.,
+                                    </span>
+                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                        गा.वि.स.,
+                                    </span>
+                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                        गाँउपालिका,
+                                    </span>
+                                        वडा नं.
+                                        <input class="form-field disable-print form-control-sm"
+                                                       name="wardNumber"
+                                                       formControlName="wardNumber" placeholder="" type="text"
+                                                       />
+                                        <span
+                                                class="print-only font-weight-bold">
+                                            {{x.ownerPermanentWardNoCT ? x.ownerPermanentWardNoCT : "_____________________"}}</span>
+                                    </ng-container>
+                                    बस्ने बर्ष
+                                    <input class="form-field disable-print form-control-sm" name="age"
+                                                      formControlName="age" placeholder=" " type="text"/>
+                                    <span class="print-only font-weight-bold">
+                                        {{ageArray[i] ? ageArray[i] : '_________________'}}
+                                    </span>
+                                    <ng-container>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || x?.ownerGender === 'OTHERS'"> को </span>
+                                        <span *ngIf="x?.ownerGender === 'FEMALE'"> की </span>
+                                    </ng-container>
+                                    <ng-container>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || x?.ownerGender === 'OTHERS'">श्री</span>
+                                        <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">सुश्री </span>
+                                        <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
+                                    </ng-container>
+                                    <input class="form-field disable-print form-control-sm" name="nameOfPartner"
+                                           formControlName="nameOfPartner" placeholder=" " type="text"/>
+                                    <span class="print-only font-weight-bold">
+                                        {{x.ownerNameCT ? x.ownerNameCT : "_____________________"}}
+                                    </span>
+                                    (
+                                    <span *ngIf="x?.ownerNationality === 'Other'">
+                                        राहदानी नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorOtherPassportNumber"
+                                                   formControlName="directorOtherPassportNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ x.otherOwnerPassportNoCT ? x.otherOwnerPassportNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                    <span *ngIf="x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Passport'">
+                                        राहदानी नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianPassportNumber"
+                                                   formControlName="directorIndianPassportNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ x.indianOwnerPassportNoCT ? x.indianOwnerPassportNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                    <span *ngIf="x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Adhar Card'">
+                                        आधार कार्ड नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianAadhaarNumber"
+                                                   formControlName="directorIndianAadhaarNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ x.indianOwnerAdharCardNoCT ? x.indianOwnerAdharCardNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                    <span *ngIf="x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Embassy Certificate'">
+                                        दूतावास नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianEmbassyNumber"
+                                                   formControlName="directorIndianEmbassyNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ x.indianEmbassyNoCT ? x.indianEmbassyNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                    <span *ngIf="x?.ownerNationality === 'Nepali'">
+                                        ना.प्र.नं.
+                                        <input class="form-field form-control-sm  disable-print"
+                                               name="directorCitizenshipNumber" formControlName="directorCitizenshipNumber"
+                                               placeholder="" type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{ x.ownerCitizenshipNoCT ? x.ownerCitizenshipNoCT : '_____________________'}},</span>
+                                    </span> जारी मिति
+                                    <input class="form-field disable-print form-control-sm"
+                                                     name="citizenshipIssueDate" formControlName="citizenshipIssueDate"
+                                                     placeholder=" "
+                                                     type="text"/>
+                                    <span class="print-only font-weight-bold">
+                                        {{ dateArray[i] ? dateArray[i] : '_________________'}},
+                                    </span>
+                                    <span *ngIf="(x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Passport') ||
+                                                        x?.ownerNationality === 'Other'"> म्याद सकिने मितिः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="passportValidityDate"
+                                                   formControlName="passportValidityDate"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}},</span>
+                                        </span> जारी गर्ने कार्यालय
+                                    <input class="form-field disable-print form-control-sm"
+                                                                 name="citizenshipIssueDistrict"
+                                                                 formControlName="citizenshipIssueDistrict"
+                                                                 placeholder="" type="text"/>
+                                    <span class="print-only font-weight-bold">
+                                        {{issuedPlaceArray[i] ? issuedPlaceArray[i] : '_________________'}}</span>
+                                    )–१,
+                                </ng-container>
+                            </ng-container>
+                            समेत जम्मा <input class="form-field form-control-sm disable-print"
+                                              name="totalPeople"
+                                              formControlName="totalPeople"
+                                              placeholder=""
+                                              type="text"/>
+                            <span class="print-only font-weight-bold">
+                                    {{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}
+                                </span>
+                            जना आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा
+                            तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु.<input
+                                (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                class="form-field disable-print form-control-sm" name="loanamountinFigure"
+                                formControlName="loanamountinFigure" placeholder=" रकम " type="text" />
+                            <span class="print-only font-weight-bold"> {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '______________________'}}</span>/-
+                            (अक्षरेपी <input class="form-field disable-print form-control-sm" name="loanamountinWords"
+                                formControlName="loanamountinWords" placeholder=" " type="text" />
+                            <span class="print-only font-weight-bold">{{form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : "___________________________"}}</span>)
+                            र
+                            भुक्तानी माग गरेको मितिसम्मको व्याज बार्षिक <input class="form-field disable-print form-control-sm nepaliFont"
+                                name="interestPerApprovedCFR" formControlName="interestPerApprovedCFR" placeholder=" "
+                                type="text" />
+                            <span
+                                class="print-only font-weight-bold nepaliFont">{{form?.get('interestPerApprovedCFR')?.value ? form?.get('interestPerApprovedCFR')?.value : "================================="}}</span>
+                            प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो
+                            प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड,
+                            शाखा कार्यालय <input class="form-field disable-print form-control-sm" name="nameOfBranch"
+                                formControlName="nameOfBranch" placeholder=" " type="text" />
+                            <span
+                                class="print-only font-weight-bold">{{form?.get('nameOfBranch')?.value ? form?.get('nameOfBranch')?.value : "___________________________"}}</span>लाई
+                            दिएँ/दियौं । <br>
+                            <div class="clearfix">
+                                <p class="text-center">
+                                    <strong><u>प्रतिज्ञा गर्ने फर्म/कम्पनीको तर्फबाट आधिकारिक व्यक्तिको लेखात्मक
+                                            सही/छाप</u></strong><br>
+
+                                </p>
+                                <p class="mb-5 float-right" style="margin-right: 20rem;">
+                                    हस्ताक्षरः <br><br>
+                                    छापः
+                                </p>
+                            </div>
+                            <p class="text-center" style="margin-top: 6em">
                                 <b><u>साक्षी</u></b>
                             </p>
-                            १. <input class="form-field disable-print form-control-sm nepaliFont"
-                                      name="witnessDistrict1"
-                                      formControlName="witnessDistrict1"
-                                      placeholder=" "
-                                      type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessDistrict1').value ? form.get('witnessDistrict1').value : "======================="}}</span>
-                            जिल्ला :<input class="form-field disable-print form-control-sm nepaliFont"
-                                           name="witnessVDC1"
-                                           formControlName="witnessVDC1"
-                                           placeholder=" "
-                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessVDC1').value ? form.get('witnessVDC1').value : "======================="}}</span>
-                            न.पा/गा.वि.स. वडा नं. <input class="form-field disable-print form-control-sm nepaliFont"
-                                                         name="witnessWardNumber1"
-                                                         formControlName="witnessWardNumber1"
-                                                         placeholder=" "
-                                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessWardNumber1').value ? form.get('witnessWardNumber1').value : "======================="}}</span>
-                            बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
-                                              name="witnessAge1"
-                                              formControlName="witnessAge1"
-                                              placeholder=" "
-                                              type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessAge1').value ? form.get('witnessAge1').value : "======================="}}</span>
-                            को/की <input class="form-field disable-print form-control-sm nepaliFont"
-                                         name="witnessName1"
-                                         formControlName="witnessName1"
-                                         placeholder=" "
-                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessName1').value ? form.get('witnessName1').value : "======================="}}</span><br>
-                            २. <input class="form-field disable-print form-control-sm nepaliFont"
-                                      name="witnessDistrict2"
-                                      formControlName="witnessDistrict2"
-                                      placeholder=""
-                                      type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessDistrict2').value ? form.get('witnessDistrict2').value : "======================="}}</span>
-                            जिल्ला :<input class="form-field disable-print form-control-sm nepaliFont"
-                                           name="witnessVDC2"
-                                           formControlName="witnessVDC2"
-                                           placeholder=" "
-                                           type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessVDC2').value ? form.get('witnessVDC2').value : "======================="}}</span>
-                            न.पा/गा.वि.स. वडा नं. <input class="form-field disable-print form-control-sm nepaliFont"
-                                                         name="witnessWardNumber2"
-                                                         formControlName="witnessWardNumber2"
-                                                         placeholder=" "
-                                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessWardNumber2').value ? form.get('witnessWardNumber2').value : "======================="}}</span>
-                            बस्ने बर्ष  <input class="form-field disable-print form-control-sm nepaliFont"
-                                               name="witnessAge2"
-                                               formControlName="witnessAge2"
-                                               placeholder=" "
-                                               type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessAge2').value ? form.get('witnessAge2').value : "======================="}}</span>
-                            को/की <input class="form-field disable-print form-control-sm nepaliFont"
-                                         name="witnessName2"
-                                         formControlName="witnessName2"
-                                         placeholder=" "
-                                         type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessName2').value ? form.get('witnessName2').value : "======================="}}</span><br>
-                            ३.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी . <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                                                name="witnessBankName"
-                                                                                                                formControlName="witnessBankName"
-                                                                                                                placeholder=" "
-                                                                                                                type="text"/>
-                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessBankName').value ? form.get('witnessBankName').value : "======================="}}</span><br>
-                            <br>
-                            <div class="col-md-12 text-right disable-print">
-                                <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                                         ngxPrint printSectionId="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print">Print
-                                </button>
-                                <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+                            <div>
+                                <p>१. <input class="form-field form-control-sm disable-print nepaliFont"
+                                             name="witnessDistrict"
+                                             formControlName="witnessDistrict"
+                                             placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict')?.value ? form?.get('witnessDistrict')?.value : '================================='}}</span>
+                                    जिल्ला <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessMunicipality"
+                                            formControlName="witnessMunicipality"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality')?.value ? form?.get('witnessMunicipality')?.value : '================================='}}</span>
+                                    न.पा/गा.वि.स. वडा नं.
+                                    <input class="form-field form-control-sm disable-print nepaliFont"
+                                           name="WitnessWardNumber"
+                                           formControlName="WitnessWardNumber"
+                                           placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber')?.value ? form?.get('WitnessWardNumber')?.value : '================================='}}</span>
+                                    बस्ने बर्ष <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessAge"
+                                            formControlName="witnessAge"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge')?.value ? form?.get('witnessAge')?.value : '================================='}}</span>
+                                    को/की <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessName"
+                                            formControlName="witnessName"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName')?.value ? form?.get('witnessName')?.value : '================================='}}</span>
+                                </p>
+                                <p>२. <input class="form-field form-control-sm disable-print nepaliFont"
+                                             name="witnessDistrict"
+                                             formControlName="witnessDistrict2"
+                                             placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict2')?.value ? form?.get('witnessDistrict2')?.value : '================================='}}</span>
+                                    जिल्ला <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessMunicipality"
+                                            formControlName="witnessMunicipality2"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality2')?.value ? form?.get('witnessMunicipality2')?.value : '================================='}}</span>
+                                    न.पा/गा.वि.स. वडा नं.
+                                    <input class="form-field form-control-sm disable-print nepaliFont"
+                                           name="WitnessWardNumber"
+                                           formControlName="WitnessWardNumber2"
+                                           placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber2')?.value ? form?.get('WitnessWardNumber2')?.value : '================================='}}</span>
+                                    बस्ने बर्ष <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessAge"
+                                            formControlName="witnessAge2"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge2')?.value ? form?.get('witnessAge2')?.value : '================================='}}</span>
+                                    को/की <input
+                                            class="form-field form-control-sm disable-print nepaliFont"
+                                            name="witnessName"
+                                            formControlName="witnessName2"
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName2')?.value ? form?.get('witnessName2')?.value : '================================='}}</span>
+                                </p>
+                                <p>
+                                    ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी <input
+                                        class="form-field form-control-sm disable-print nepaliFont"
+                                        name="Name of Bank Staff"
+                                        formControlName="bankStaff"
+                                        placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold nepaliFont"> {{ form?.get('bankStaff')?.value ? form?.get('bankStaff')?.value : '================================='}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -264,6 +387,16 @@
             </div>
         </div>
     </form>
+    <div class="row mt-5 ml-0">
+    <div class="col-md-12 text-right disable-print">
+        <button nbButton status="info" class="mb-4 float-right disable-print"
+                [useExistingCss]="true" ngxPrint styleSheetFile="assets/css/printStyles.scss"
+                outline
+                printSectionId="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print">Print<em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+        </button>
+        <button nbButton outline status="success" class="disable-print" (click)="submit()">Save <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+    </div>
+    </div>
 </div>
-<app-promissory-note-partnership-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden></app-promissory-note-partnership-print>
-
+<!--<app-promissory-note-partnership-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>
+</app-promissory-note-partnership-print>-->

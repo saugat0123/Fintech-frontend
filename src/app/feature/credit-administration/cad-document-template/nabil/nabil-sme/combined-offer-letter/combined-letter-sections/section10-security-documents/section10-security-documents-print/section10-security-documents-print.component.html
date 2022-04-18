@@ -1,0 +1,157 @@
+<!--Security Documents-->
+<div style="line-height: 1.9em">
+    <div class="col-md-12 text-justify">
+        <div class="row mt-2">
+            <p class="m-0">
+                <strong>
+                    कागजपत्रहरु
+                </strong>
+            </p>
+        </div>
+        <div class="row mt-2">
+            <p class="m-0">
+                ऋणीले बैंकको
+                <span><strong>{{branchName ? branchName : ''}}</strong></span>
+                शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप
+                गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु
+                बैंकमा
+                पेश गर्नुपर्नेछ ।
+            </p>
+        </div>
+        <div class="row mt-3">
+            <ul class="disc-list">
+                <li *ngIf="promissoryVisible">
+                    रु.
+                    <span><strong>{{limitAmount ? limitAmount : ''}}</strong></span>
+                    /-
+                    को प्रतिज्ञा पत्र । (Promissory Note)
+                </li>
+                <li *ngIf="boardVisible">
+                    संचालक समितिको निर्णय (Board Minute)
+                </li>
+                <li *ngIf="loanDeedVisible">
+                    रु.
+                    <span><strong>{{limitAmount ? limitAmount : ''}}</strong></span>
+                    /-
+                    को ऋणतमसुक (Loan Deed)
+                </li>
+                <li *ngIf="mortgagedVisible">
+                    कित्ता नं
+                    <span><strong>{{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span> को घर/ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
+                </li>
+                <li *ngIf="continuityVisible">
+                    निरन्तरताको लिखत (Letter of Continuity)
+                </li>
+                <li *ngIf="supplementaryVisible">रु.
+                    <span><strong>{{limitAmount ? limitAmount : ''}}</strong></span>
+                    /-
+                    को श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation) सहित पूरक
+                    सम्झौता (Supplementary Agreement)
+                </li>
+                <li *ngIf="attorneyVisible">
+                    रु.
+                    <span><strong>{{limitAmount ? limitAmount : ''}}</strong></span>
+                    /-
+                    को भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) सहित
+                    वारेसनामा (Power of Attorney)
+                </li>
+                <li *ngIf="multiVisible">
+                    बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
+                </li>
+                <ng-container *ngIf="guaranteeVisible">
+                    <li *ngFor="let val of tempPersonalGuarantors">
+                        रु.
+                        <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
+                        /-
+                        बराबरको
+                        {{val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Married' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Unmarried' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
+                        ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </li>
+                </ng-container>
+                <li *ngIf="wealthVisible">
+                    जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
+                </li>
+                <li *ngIf="bankersClause1">
+                    आवश्यक जोखिमहरुबाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause) सहितको बैंकको पक्षमा
+                    धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि
+                    <strong>
+                        पर्याप्त मुल्य
+                    </strong>
+                    बराबरको बैंकको पक्षमा बिमालेख ।
+                </li>
+                <li *ngIf="bankersClause2">
+                    आवश्यक जस्ता जोखिमहरुबाट हुने क्षतीहरुबाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause) सहितको
+                    बैंकको पक्षमा धितोबन्धक रहेको घरको बजार मुल्य बराबरको बैंकको पक्षमा बिमालेख ।
+                </li>
+                <li *ngIf="insuranceDeclarationVisible">
+                    विमा सम्बन्धी घोषणा (Insurance declaration statement)
+                </li>
+                <li *ngIf="undertakingLetterVisible">
+                    विमा नगरिएका जोखिमहरुबाट बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सामान मौज्दात/सम्पत्तिहरुमा
+                    कुनै
+                    पनि हानीनोक्सानी तथा क्षती भएको अवस्थामा सम्पुर्ण नोक्सानी ऋणी स्वयमले ब्यहोर्न प्रतिबद्धता पत्र
+                    (Undertaking Letter)
+                </li>
+                <li *ngIf="declarationVisible">
+                    ऋणी फर्मले यस बैञक लगायत अन्य बैञक तथा वित्तिय संस्थाबाट समेत गरी कुल जम्मा रु.१
+                    करोड भन्दा बढी कर्जा उपभोग नागरेको उद्घोष पत्र । (Declaration letter)
+                </li>
+                <li *ngIf="leaseVisible">
+                    पट्टा सम्झौता पत्र  ( Lease Agreement)
+                </li>
+                <li *ngIf="consentLetterVisible">
+                    धितोबन्धक रहेको घर/जग्गा धनी श्री
+                    <span><strong>{{getSecurityOwner(securityOwnersName, nameOfPropertyOwner)}}</strong></span>  को धितो निरन्तरताको
+                    मन्जुरीनामा (Letter of Consent from Mortgage property owner for continuation of existing
+                    mortgage)
+                </li>
+                <li *ngIf="buildingVisible">
+                    सम्बन्धीत सरकारी निकायद्वारा जारी गरिएकँ भवन निर्माण सम्पन्न प्रमाणपत्र बैंकमा बुझाउनु
+                    पर्नेछ । (Building Construction complete certificate)
+                </li>
+                <li *ngIf="hirePurchaseVisible">
+                    हायर पर्चेज सम्झौता (Hire Purchase Agreement)
+                </li>
+                <li *ngIf="comprehensiveVisible">
+                    तेश्रो पक्ष दायित्व सहित बैंकिé शर्त सहितको सवारी साधनको विस्तृत बिमालेख । (Comprehensive Insurance)
+                </li>
+                <li *ngIf="thirdPartyVisible">
+                    तेश्रो पक्षको स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का लागि ऋणीको
+                    मञ्जुरीनामा । (Consent for third Party Transfer in case of Default)
+                </li>
+                <li *ngIf="blueBook">
+                    बैंकको नाममा सवारी साधन नामसारी भएको ब्लु बुक (Blue Book)
+                </li>
+                <li *ngIf="loanSubordinationAgreement">
+                    ऋणकर्जाको चुक्ताभुक्तानी दोश्रो प्राथमिकतामा राख्ने सम्झौता (Loan Subordination Agreement)
+                </li>
+                <li *ngIf="pariPasu">
+                    पारिपासु सम्झौता (Pari-pasu Deed)
+                </li>
+                <li *ngIf="partnershipDeed">
+                    साझेदारी फम (Partnership Deed)
+                </li>
+                <li *ngIf="letterSetOff">
+                    मोजरा पत्र (Letter of set off)
+                </li>
+                <ng-container *ngIf="freeText?.section10[0].additionalGuarantorDetails !== null && freeText?.section10[0].additionalGuarantorDetails !== ''">
+                    <li *ngFor="let textArea of freeText?.section10; index as i">
+                        <span class="nepaliFont">
+                            {{ textArea.additionalGuarantorDetails }}
+                        </span>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <!--    Only for existing case-->
+        <div class="row mt-2">
+            <div class="col-md-12 all" *ngIf="newVisible">
+                <strong>
+                    यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका
+                    सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त बन्देजहरु मान्य र बैध रहनेछन् ।
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>

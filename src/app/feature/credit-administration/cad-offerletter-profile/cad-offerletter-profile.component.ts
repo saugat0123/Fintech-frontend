@@ -20,6 +20,7 @@ import {LoanDataHolder} from '../../loan/model/loanData';
 import {NabilOfferLetterConst} from '../nabil-offer-letter-const';
 import {OfferDocument} from '../model/OfferDocument';
 import {PersonalLoanPrintComponent} from '../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
+import {CustomerType} from '../../customer/model/customerType';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     selectedSecurity: any;
     renewal: any;
     selectedInterest: any;
+    customerType = CustomerType;
 
     constructor(
         private activatedRoute: ActivatedRoute,

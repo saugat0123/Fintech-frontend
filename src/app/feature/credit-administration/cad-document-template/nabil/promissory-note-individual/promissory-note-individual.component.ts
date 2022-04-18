@@ -132,20 +132,46 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     const finalAmount = this.tempData.loanAmountPl ? this.tempData.loanAmountPl.ct : this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
     const loanAmountWord = this.tempData.loanAmountPlInWords ? this.tempData.loanAmountPlInWords.ct : this.nepaliCurrencyWordPipe.transform(totalLoan);
     let citizenshipIssuedDate;
-    if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate.en)) {
+      if (this.individualData.issuedDate.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate)) {
+          const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
+          citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+        }
+      } else {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDateNepali)) {
+          citizenshipIssuedDate = this.individualData.citizenshipIssueDateNepali.en.nDate;
+        }
+      }
+    }
+    /*if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
       citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
     } else {
       const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
       citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
-    }
+    }*/
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
-      if (this.individualData.dob.en.eDate === undefined) {
-        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType.en)) {
+      if (this.individualData.dobDateType.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.dob)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+        }
       } else {
-        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+        if (!ObjectUtil.isEmpty(this.individualData.dobNepali)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dobNepali.en.eDate).toString());
+        }
       }
-
+      /*if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
+        if (this.individualData.dob.en.eDate === undefined) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+        } else {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+        }
+      }*/
     }
     // if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
     //   const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
@@ -420,7 +446,21 @@ export class PromissoryNoteIndividualComponent implements OnInit {
               educationalOfferData.yearlyInterestRate.ct : '';
         }
       }
+      if (documentName === 'DDSL Without Subsidy') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
 
+      if (documentName === 'Interest subsidy sanction letter') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
       //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {

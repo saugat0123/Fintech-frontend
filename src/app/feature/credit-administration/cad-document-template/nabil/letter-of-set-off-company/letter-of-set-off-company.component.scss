@@ -1,0 +1,58 @@
+* {
+  font-size: 19px;
+  line-height: 1.9em;
+  text-align: justify;
+}
+p {
+  text-align: justify;
+}
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+
+ol.conditions-list {
+  list-style: devanagari;
+  padding-left: 20px;
+  line-height: 40px !important;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+
+.pull-right {
+  text-align: right !important;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
+}
+input::placeholder {
+  font-size: 19px;
+}

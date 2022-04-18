@@ -21,6 +21,7 @@ import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-udyamsil-karja-subsidy',
@@ -33,6 +34,9 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
   spinner = false;
   existingOfferLetter = false;
   initialInfoPrint;
+  finalDateOfApproval;
+  finalDateOfApplication;
+  finalPrevSanctionLetterDate;
   nepaliNumber = new NepaliNumberAndWords();
   nepaliAmount = [];
   finalNepaliWord = [];
@@ -55,7 +59,7 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
   offerDocumentDetails;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
+  guarantorAmount = 0;
   finalName;
   loanOption;
   interestSubsidy;
@@ -65,6 +69,10 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
   assignedData;
   freeTextVal: any = {};
   freeInformation: any;
+  customerType;
+  client = CustomerType;
+  guarantorParsed: Array < any > = new Array < any > ();
+  tempPersonalGuarantors;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -87,9 +95,40 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       const loanAmount = ProposalCalculationUtils.calculateTotalFromProposalListKey(this.cadOfferLetterApprovedDoc.assignedLoan);
     }
+    this.customerType = this.loanHolderInfo.clientType.en;
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    if (!ObjectUtil.isEmpty(this.guarantorData)) {
+      this.guarantorData.forEach(any => {
+        this.guarantorParsed.push(JSON.parse(any.nepData));
+      });
+    }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
+    // For date of Approval
+    const dateOfApprovalType = this.tempData.dateOfApprovalType ? this.tempData.dateOfApprovalType.en : '';
+    if (dateOfApprovalType === 'AD') {
+      this.finalDateOfApproval = this.tempData.dateOfApproval ? this.tempData.dateOfApproval.ct : '';
+    } else {
+      const templateDateApproval = this.tempData.dateOfApprovalNepali ? this.tempData.dateOfApprovalNepali.en : '';
+      this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+    }
+    // For Date of Application:
+    const dateOfApplication = this.tempData.dateOfApplicationType ? this.tempData.dateOfApplicationType.en : '';
+    if (dateOfApplication === 'AD') {
+      this.finalDateOfApplication = this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '';
+    } else {
+      const templateDateApplication = this.tempData.dateOfApplicationNepali ? this.tempData.dateOfApplicationNepali.en : '';
+      this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
+    // For Previous Sanction Date
+    const previousSanctionType = this.tempData.previousSanctionType ? this.tempData.previousSanctionType.en : '';
+    if (previousSanctionType === 'AD') {
+      this.finalPrevSanctionLetterDate =  this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
+    } else {
+      const templatePrevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.en : '';
+      this.finalPrevSanctionLetterDate = templatePrevSanctionLetterDate ? templatePrevSanctionLetterDate.nDate : '';
     }
     this.checkOfferLetterData();
     this.guarantorDetails();
@@ -130,7 +169,6 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       additionalGuarantorDetails: [undefined],
       loanHolder: [undefined],
       previousSanctionLetterDate: [undefined],
-      requestLetterDate: [undefined],
       typeOfLoan: [undefined],
       marginInPercentage: [undefined],
       totalInterestRate: [undefined],
@@ -213,9 +251,9 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     this.interestSubsidy = this.tempData.interestSubsidy.ct;
     this.repaymentType = this.tempData.repaymentType.ct;
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+        this.loanHolderInfo.registeredProvince.ct;
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -233,11 +271,10 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     this.UdyamsilKarjaSubsidy.patchValue({
         customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
         referenceNumber: autoRefNumber ? autoRefNumber : '',
-        dateOfApproval: this.tempData.dateOfApproval ? this.tempData.dateOfApproval.ct : '',
+        dateOfApproval: this.finalDateOfApproval ? this.finalDateOfApproval : '',
         customerAddress: customerAddress ? customerAddress : '',
-        dateofApplication: this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '',
-        previousSanctionLetterDate: this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '',
-        requestLetterDate: this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '',
+        dateofApplication: this.finalDateOfApplication ? this.finalDateOfApplication : '',
+        previousSanctionLetterDate: this.finalPrevSanctionLetterDate ? this.finalPrevSanctionLetterDate : '',
         NRBcircularRateAsPerMention: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
         /*typeOfLoan: this.loanInfo.loanType ? this.loanInfo.loanType.ct : '',*/
         loanCommitmentFee: this.tempData.commitmentFee ? this.tempData.commitmentFee.ct : '',
@@ -270,7 +307,7 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
         fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
         position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : '',
-        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position2 : '',
+        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position1 : '',
     });
   }
   submit(): void {
@@ -340,6 +377,31 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     this.ref.close();
   }
 
+  guarantorDetails() {
+    if (this.customerType === this.client.INSTITUTION) {
+      this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+          val.guarantorType.en === 'Personal Guarantor');
+    }
+    if (!ObjectUtil.isEmpty(this.tempPersonalGuarantors)) {
+      if (this.tempPersonalGuarantors.length === 1) {
+        this.finalName = this.tempPersonalGuarantors[0].guarantorName ? this.tempPersonalGuarantors[0].guarantorName.ct : '';
+      } else if (this.tempPersonalGuarantors.length === 2) {
+        for (let i = 0; i < this.tempPersonalGuarantors.length; i++) {
+          this.guarantorNames.push(this.tempPersonalGuarantors[i].guarantorName.ct);
+        }
+        this.allguarantorNames = this.guarantorNames.join(' र ');
+        this.finalName = this.allguarantorNames;
+      } else {
+        for (let i = 0; i < this.tempPersonalGuarantors.length - 1; i++) {
+          this.guarantorNames.push(this.tempPersonalGuarantors[i].guarantorName.ct);
+        }
+        this.allguarantorNames = this.guarantorNames.join(' , ');
+        const temp1 = this.tempPersonalGuarantors[this.tempPersonalGuarantors.length - 1];
+        this.finalName = this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+      }
+    }
+  }
+
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
     try {
@@ -350,29 +412,6 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       }
     } catch (exp) {
       console.log(exp);
-    }
-  }
-  guarantorDetails(){
-    if (this.guarantorData.length == 1){
-      let temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
-    }
-    else if(this.guarantorData.length == 2){
-      for (let i = 0; i < this.guarantorData.length; i++){
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
-      }
-      this.allguarantorNames = this.guarantorNames.join(" र ");
-      this.finalName = this.allguarantorNames;
-    }
-    else{
-      for (let i = 0; i < this.guarantorData.length-1; i++){
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
-      }
-      this.allguarantorNames = this.guarantorNames.join(" , ");
-      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
-      this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
     }
   }
 }

@@ -1,5 +1,6 @@
 *{
   color: black;
+  line-height: 1.9em;
 }
 .form-field {
   background: yellow;
@@ -7,7 +8,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
@@ -20,7 +21,7 @@ ol.conditions-list{
   text-align: justify !important;
 }
 .customFont {
-  font-size: 22px;
+  font-size: 19px;
 }
 nb-card{
   max-height: 100vh !important;
