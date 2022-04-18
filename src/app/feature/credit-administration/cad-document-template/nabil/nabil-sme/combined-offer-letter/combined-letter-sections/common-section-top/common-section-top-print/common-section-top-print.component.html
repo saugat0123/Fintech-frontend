@@ -1,0 +1,30 @@
+<div class="commonSectionTop container text-justify col-md-12" style="line-height: 1.9em">
+    <p class="all">
+        स्वीकृती पत्र नं.
+        <span>
+            {{ autoRefNumber ? autoRefNumber : "_______________________" }}
+        </span>
+        <br><br>
+        <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
+        <br>
+        <br>
+        मितिः
+        <!--<span
+           [ngClass]="{'outside' : letter?.sanctionLetterDate.ct !== null && letter?.sanctionLetterDate.ct !== ''}">
+            {{letter?.sanctionLetterDate.ct === null || letter?.sanctionLetterDate.ct === '' ? '___________' : letter?.sanctionLetterDate.ct}}</span>-->
+        <span>{{sanctionLetterDate ? sanctionLetterDate : "_____________"}}</span>
+        <br>
+        श्री
+        <!--<span
+           [ngClass]="{'outside' : letter?.nameOfBorrower.ct !== null && letter?.nameOfBorrower.ct !== ''}">
+            {{letter?.nameOfBorrower.ct === null || letter?.nameOfBorrower.ct === '' ? '___________' : letter?.nameOfBorrower.ct}}</span>-->
+        <span>{{loanHolderInfo?.name ? loanHolderInfo?.name.ct : "_____________"}}</span> |
+        <br>
+        ठेगानाः
+        <!--<span
+           [ngClass]="{'outside' : letter?.addressOfBorrower.ct !== null && letter?.addressOfBorrower.ct !== ''}">
+            {{letter?.addressOfBorrower.ct === null || letter?.addressOfBorrower.ct === '' ? '___________' : letter?.addressOfBorrower.ct}}</span>-->
+        <span>{{addressOfBorrower ? addressOfBorrower  : "_____________"}}</span>
+    </p>
+</div>
+

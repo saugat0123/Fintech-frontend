@@ -1,0 +1,192 @@
+<div class="container col-lg-12 nep text-justify">
+    <form [formGroup]="form" id="print-section">
+        <div class="row viewFull align">
+            <div class="col-md-12 mt-5 d-flex justify-content-between"  style="margin-left: -11px">
+                <div class="right-content"></div>
+                <div class="left-content">
+                    मिति: .................................
+                </div>
+            </div>
+            <p>श्री नबिल बैंक लिमिटेड<br><input class="form-field form-control-sm d-print-none"
+                                                name="nameOfBranch"
+                                                formControlName="nameOfBranch"
+                                                type="text"/>
+                <span class="print-only font-weight-bold">{{individualData.branch ? individualData.branch.ct : ''}}</span> शाखा ।
+            </p>
+            <div class="col-md-12 text-center">
+                <strong><u>न्यासमा सामान बुझीलिने सम्बन्धी गोश्वारा(पत्र</u></strong><br>
+                <strong><u>(General Letter of Trust Receipt)</u></strong>
+            </div>
+            <p>
+                महोदय,
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;त्यस बैंकले मेरो/हाम्रो नाममा उपलव्ध गराएको वा भविष्यमा उपलव्ध गराउने विभिन्न ऋणकर्जा, प्रतीतपत्र सिमा आदि अन्तर्गत मेरो/हाम्रो अनुरोधमा
+                तहांले खोलेको प्रतीतपत्र अन्तर्गत आयात/खरिद हुने सामान (जुन तहांले म/हामीलाई उपलव्ध गराएको कर्जा, सुविधा वापत सुरक्षणस्वरुप दृष्टिबन्धक
+                (Hypothecation) रहनेछ) सम्बन्धित बन्दरगाह वा अन्तर्राष्ट्रिय विमानस्थल वा भन्सार कार्यालयबाट छुटाई न्यास (Trust) मा लिने सम्बन्धमा
+                देहाय बमोजिम गर्न, गराउन यसैबाट मञ्जुर गर्दै यो गोश्वारा-पत्र लेखीदिएका छु/छौः
+            </p>
+            <div>
+                <ol class="conditions-list">
+                    <li>
+                        माथि उल्लेख भए बमोजिम पटकपटक खोलेको प्रतीतपत्र अन्तर्गत मेरो/हाम्रो नाममा जारी भएको ड्राफ्ट वा बील (draft or bill)
+                        म/हामीले स्वीकार गरेपछि (जुन स्वीकारोक्ति पटकपटक मैले/हामीले गरीदिने पूरक सम्झौता (Supplementary Agreement) बाट
+                        प्रमाणित हुनेछ) त्यस्तो ड्राफ्ट वा बील वापतको रकम मेरो/हाम्रो तर्फबाट बैंकले भुक्तानी दिई मेरो/हाम्रो नाममा कर्जा श्रृजना भएकोले कर्जाको
+                        सुरक्षण वापत रहने सोही प्रतीतपत्र अन्तर्गतका सामानहरु सम्बन्धी कागजात (shipping documents) म/हामीलाई बैंकले हस्तान्तरण
+                        गरेकोले म/हामी यो प्रतिवद्धता गर्दछु/छौं कि उल्लेखित प्रतीतपत्र अन्तर्गतका सामानहरु सम्बन्धित ढुवानीकर्ता पानीजहाज वा यस्तै अन्य
+                        ढुवानीका माध्यमबाट बैंकको अभिकर्ताको हैसियतमा बुझीलिई सुरक्षितसाथ देशभित्र ल्याई बैंकको हक तथा पक्षमा भण्डारण गरी राख्नेछौं र
+                        उल्लेखित सामान सम्बन्धी कागजात वा सामान वा सो को बिक्रीबाट प्राप्त बिक्री मूल्यमाथि पूर्णतः बैंकको स्वामित्व रहने र मेरो/हाम्रो हैसियत
+                        न्यासधारी (Trustee) सरह मात्र हुनेछ ।
+                    </li>
+                    <li>
+                        उल्लेखित सामान ढुवानीकर्ताबाट बुझीलिई मेरो/हाम्रो भण्डारमा भण्डारण गर्दा लाग्ने सबै किसिमका खर्चहरु जस्तै लैण्डिंग (landing) खर्च,
+                        मार्गस्थ, मार्गस्थ भण्डारण, मार्गस्थ बिमा, ढुवानी, सरकारी/गैरसरकारी निकायमा तिर्नुपर्ने दस्तुर आदि म/हामी आफैंले तिर्ने बुझाउने छौं र
+                        कथंकदाचित त्यस्ता कुनै वा सबै खर्च बैंकले व्यहोरेको अवस्थामा बैंकले माग्नासाथ तिर्ने बुझाउने प्रतिवद्धता गर्दछौं ।
+                    </li>
+                    <li>
+                        माथि उल्लेख भए बमोजिम बैंकले मेरो/हाम्रो नाममा स्वीकृत गरेको ऋणकर्जा वा बैंकिंग सुविधा वा मेरो/हाम्रो अनुरोधमा वा कारणबाट बैंकमाथि
+                        श्रृजना भएको कुनैपनि किसिमको दायित्वको समेत सांवा, ब्याज वा अन्य शुल्क, खर्च समेतको निरन्तर सुरक्षणस्वरुप उल्लेखित सामानहरु
+                        मेरो/हाम्रो न्यासमा सुरक्षितपूर्वक राख्नेछौं । साथै यस लिखत अन्तर्गत बैंक र म/हामी बीचको सम्बन्ध साहु र जमानी दिने (guarantor)
+                        वा सुरक्षक (surety) मा कथंकदाचित परिणत भई बैंकले प्रमुख ऋणी (principal debtor) लाई कुनै मोहलत वा सुविधा दिएमा
+                        समेत बैंकको म/हामीमाथिको अधिकारमा कुनै असर पर्ने छैन ।
+                    </li>
+                    <li>
+                        म/हामीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम म/हामीले भण्डारण गरीराखेको सामानमा बैंकको
+                        हकाधिकार (lien) रहनेछ र बैंकलाई उपयुक्त लागेमा म/हामीलाई विना कुनै सूचना दिई बैंक आफैंले वा अन्य तेश्रो पक्ष मार्फत त्यस्तो
+                        सामान सबै वा आंशिक रुपमा आफ्नो नियन्त्रणमा लिन, अन्यत्र भण्डारण गर्न वा बिक्री गर्न वा अन्य व्यवस्था गर्न बैंक स्वतन्त्र हुनेछ र
+                        त्यस्तो कार्यमा भएको खर्च समेत तिर्न बुझाउन म/हामी मञ्जुर गर्दछौं ।
+                    </li>
+                    <li>
+                        म/हामीले बैंकलाई तिर्न बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम म/हामीले भण्डारण गरीराखेको बैंकको हकाधिकार
+                        भएको सामान सामान्य व्यापारिक कारोवारको सिलसिलामा बिक्री गर्ने बाहेक त्यस्तो सामानमा अन्य तेश्रो पक्षको हक श्रृजना गर्ने, अन्यत्र
+                        धितोमा राख्ने, दृष्टिबन्धक (hypothecation) लेखीदिने, बिक्री गर्ने वा अन्य कुनै किसिमबाट सो सामानको मूल्य लिने काम गर्ने गराउने
+                        छैन/छैनौं ।
+                    </li>
+                    <li>
+                        म/हामीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम म/हामीले भण्डारण गरीराखेको बैंकको हकाधिकार
+                        भएको सामान कथंकदाचित म/हामीले पूरै वा आंशिक बिक्री गरेमा बिक्रीबाट प्राप्त मूल्य तत्कालै बैंकमा जम्मा गर्ने, गराउनेछौं । यसरी तत्कालै
+                        जम्मा गर्न गराउन नसकेमा पनि बैंकको पक्षमा न्यासधारीको हैसियतमा हाम्रो जिम्मा रहनेछ ।
+                    </li>
+                    <li>
+                        यस लिखतमा अन्यत्र जेसुकै उल्लेख भएतापनि बैंकको हकाधिकार भएको सामान कुनैपनि अवस्थामा बिक्री गर्दा मेरो/हाम्रो हैसियत सामान
+                        बुझीलिने (consignee) वा बैंकको अभिकर्ता सरह मात्र हुनेछ र सामानको बिक्री मूल्य तत्कालै बैंकले तोके बमोजिम जम्मा गर्ने,
+                        गराउनेछौं । कथंकदाचित बिक्री मूल्य अन्य कुनै बैंक तथा वित्तीय संस्थामा मेरो/हाम्रो नाममा खुलेको कुनैपनि खातामा जम्मा भएमा तत्कालै
+                        नबिल बैंक लि. मा रकमान्तर गर्ने, गराउने छौं । साथै सामान बिक्रीको सिलसिलामा सामान खरिद गर्ने पक्षमाथि कुनै दावी श्रृजना भएमा
+                        त्यस्तो दावी समेत बैंकको पक्षमा हस्तान्तरण गर्नेछौं ।
+                    </li>
+                    <li>
+                        यस लिखत बमोजिम म/हामीले भण्डारण गरीराखेको बैंकको हकाधिकार भएकोसामान बैंकलाई स्वीकार्य बिमा कम्पनीबाट आगजनी, विद्रोह,
+                        सामाजिक हुलदंगा, मार्गस्थ, आतंकवाद लगायत सामानको प्रकृति अनुरुप आवश्यक पर्ने जोखिमहरु विरुद्ध आफ्नै खर्चमा "बैंकर्स क्लज
+                        (Banker's Clause)" सहित बिमा गराई बिमा प्रलेख (policy) र बिमा शुल्क भुक्तान गरेको रसिद बैंकले मागेका बखत हस्तान्तरण
+                        गर्ने गरी न्यासधारीको हैसियतमा म/हामीसंग रहनेछ ।
+                    </li>
+                    <li>यस लिखत बमोजिम सामान सम्बन्धी कागजातहरु (shipping documents) म/हामीलाई हस्तान्तरण गरेको कारणले मात्र म/हामीले
+                        बैंकको पक्षमा लेखीदिएको अन्य सुरक्षण सम्बन्धी कागजात अन्तर्गत बैंकलाई प्राप्त अधिकार वा मेरो/हाम्रो दायित्व फेरबदल वा संशोधन भएको
+                        मानिने छैन ।
+                    </li>
+                </ol>
+            </div>
+            <div class="col-md-12 d-flex justify-content-between" style="margin-top: 2em">
+                <div class="right-content"></div>
+                <div class="left-content">
+                    <p>______________________<br></p>
+                    <p>गोश्वारा-पत्रका कारणी</p>
+                </div>
+            </div>
+            <div class="col-md-12"> <p class="text-center mt-3">
+                <b><u>साक्षी</u></b>
+            </p>
+                <div>
+                    <p>१. <input class="form-field form-control-sm disable-print nepaliFont"
+                                 name="witnessDistrict"
+                                 formControlName="witnessDistrict"
+                                 placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict')?.value ? form?.get('witnessDistrict')?.value : '================================'}}</span>
+                        जिल्ला <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessMunicipality"
+                                formControlName="witnessMunicipality"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality')?.value ? form?.get('witnessMunicipality')?.value : '================================'}}</span>
+                        न.पा/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print"
+                               name="WitnessWardNumber"
+                               formControlName="WitnessWardNumber"
+                               placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber')?.value ? form?.get('WitnessWardNumber')?.value : '========================'}}</span>
+                        बस्ने बर्ष <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessAge"
+                                formControlName="witnessAge"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge')?.value ? form?.get('witnessAge')?.value : '======================'}}</span>
+                        को/की <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessName"
+                                formControlName="witnessName"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName')?.value ? form?.get('witnessName')?.value : '================================'}}</span>
+                    </p>
+                    <p>२. <input class="form-field form-control-sm nepaliFont disable-print"
+                                 name="witnessDistrict"
+                                 formControlName="witnessDistrict2"
+                                 placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict2')?.value ? form?.get('witnessDistrict2')?.value : '================================'}}</span>
+                        जिल्ला <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessMunicipality"
+                                formControlName="witnessMunicipality2"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality2')?.value ? form?.get('witnessMunicipality2')?.value : '================================'}}</span>
+                        न.पा/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print"
+                               name="WitnessWardNumber"
+                               formControlName="WitnessWardNumber2"
+                               placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber2')?.value ? form?.get('WitnessWardNumber2')?.value : '====================='}}</span>
+                        बस्ने बर्ष <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessAge"
+                                formControlName="witnessAge2"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge2')?.value ? form?.get('witnessAge2')?.value : '==================='}}</span>
+                        को/की <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                name="witnessName"
+                                formControlName="witnessName2"
+                                placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName2')?.value ? form?.get('witnessName2')?.value : '================================'}}</span>
+                    </p>
+                    <p>
+                        ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी <input
+                            class="form-field form-control-sm nepaliFont disable-print"
+                            name="Name of Bank Staff"
+                            formControlName="bankStaff"
+                            placeholder="" type="text" />
+                        <span
+                                class="print-only font-weight-bold nepaliFont"> {{ form?.get('bankStaff')?.value ? form?.get('bankStaff')?.value : '================================'}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-5 ml-0">
+        <div class="col-md-12 text-right">
+            <button nbButton outline status="success" class="d-print-none" (click)="submit()">Save <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            <button [useExistingCss]="true"
+                    class="d-print-none" printSectionId="print-section"
+                    nbButton status="info" outline ngxPrint>Print &nbsp;&nbsp;
+                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+            </button>
+        </div>
+    </div>
+</div>

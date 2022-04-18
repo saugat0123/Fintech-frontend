@@ -194,7 +194,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('yearlyInterestRate').patchValue(sum);
+    this.form.get('yearlyInterestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
@@ -234,8 +234,8 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
     if (this.customerApprovedDoc.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN_COMMERCIAL).toString())[0];
+      // this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+      //     === this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN_COMMERCIAL).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.existingOfferLetter = true;
       }
@@ -243,15 +243,15 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN_COMMERCIAL).toString()) {
-          this.mappedData();
-          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
-        }
+        // if (offerLetterPath.docName.toString() ===
+        //     this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN_COMMERCIAL).toString()) {
+        //   this.mappedData();
+        //   offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+        // }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN_COMMERCIAL);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AUTO_LOAN);
       Object.keys(this.form.controls).forEach(key => {
         if (key.indexOf('TransVal') > -1) {
           return;

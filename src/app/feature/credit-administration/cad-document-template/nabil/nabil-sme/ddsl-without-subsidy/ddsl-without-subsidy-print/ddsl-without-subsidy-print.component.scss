@@ -1,12 +1,16 @@
+*{
+  font-size: 19px;
+  line-height: 1.9em;
+}
 .nepaliFont{
   font-size: 20px;
+  font-family: Preeti;
+}
+.unicodeResize {
+  font-size: 19px;
 }
 table {
   text-align: justify !important;
-  line-height: 1.9;
-}
-p{
-  line-height: 1.9;
 }
 ol.conditions-list{
   list-style: devanagari;
@@ -17,34 +21,23 @@ ol.conditions-list{
 }
 .nepaliList > li {
   list-style-type: devanagari;
-  line-height: 1.9;
 }
 .nep {
-  font-size: 16px;
-  line-height: 1.9;
+  font-size: 19px;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 70px;
-}
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
-.hello{
-  width: 95%;
-  float: right;
-}
-.hello >tr{
-  border: 1px solid black !important;
-}
-.hello > tr > td{
-  border: 1px solid black !important;
 }
 @media print {
   footer{
     position: fixed;
     bottom: 0;
     width: 100%;
+  }
+  @page :first {
+    margin: 288px 48px 76.8px 144px !important;
+  }
+  @page {
+    margin: 95px 48px 76.8px 144px !important;
   }
 }
 .disclist > li{

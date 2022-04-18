@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,6 +21,10 @@ import {OfferDocument} from '../../../../../model/OfferDocument';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
+import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
+import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @Component({
     selector: 'app-interest-subsidy-sanction-letter-template-data',
@@ -28,7 +32,14 @@ import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-documen
     styleUrls: ['./interest-subsidy-sanction-letter-template-data.component.scss']
 })
 export class InterestSubsidySanctionLetterTemplateDataComponent implements OnInit {
+    @Input() isEdit = false;
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @ViewChild('primarySecurity', {static: false})
+    commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
+    @ViewChild('secondarySecurity', {static: false})
+    commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
+    @ViewChild('requiredLegalDocument', {static: false})
+    requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
     loanOptions: Array<String> = new Array<String>();
     spinner = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -43,7 +54,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
         {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
         {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
-        {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
+        {nData: 'महिलाद्वारा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
         {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
     ];
     isCustomerNew = false;
@@ -87,7 +98,8 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
                 private dialogRef: NbDialogRef<InterestSubsidySanctionLetterTemplateDataComponent>,
                 private titleCasePipe: TitleCasePipe,
                 private administrationService: CreditAdministrationService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private englishCalenderPipe: EnglishDateTransformPipe) {
     }
 
     ngOnInit() {
@@ -118,13 +130,15 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDateNepali: [undefined],
             purposeOfLoan: [undefined],
             marginInPercentage: [undefined],
+            marginInPercentageMotor: [undefined],
+            marginInPercentageFoot: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             interestRate: [undefined],
             totalTenureOfLoan: [undefined],
             totalLimitFigure: [undefined],
             totalLimitWords: [undefined],
-            circularRate: [undefined],
+            // circularRate: [undefined],
             nameOfStaff: [undefined],
             nameOfBranchManager: [undefined],
             loanSubType: [undefined],
@@ -144,13 +158,15 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDateNepaliTrans: [undefined],
             purposeOfLoanTrans: [undefined],
             marginInPercentageTrans: [undefined],
+            marginInPercentageMotorTrans: [undefined],
+            marginInPercentageFootTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
             interestRateTrans: [undefined],
             totalTenureOfLoanTrans: [undefined],
             totalLimitFigureTrans: [undefined],
             totalLimitWordsTrans: [undefined],
-            circularRateTrans: [undefined],
+            // circularRateTrans: [undefined],
             nameOfStaffTrans: [undefined],
             nameOfBranchManagerTrans: [undefined],
             loanSubTypeTrans: [undefined],
@@ -170,16 +186,20 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDateNepaliCT: [undefined, Validators.required],
             purposeOfLoanCT: [undefined, Validators.required],
             marginInPercentageCT: [undefined, Validators.required],
+            marginInPercentageMotorCT: [undefined, Validators.required],
+            marginInPercentageFootCT: [undefined, Validators.required],
             baseRateCT: [undefined, Validators.required],
             premiumRateCT: [undefined, Validators.required],
             interestRateCT: [undefined, Validators.required],
             totalTenureOfLoanCT: [undefined, Validators.required],
             totalLimitFigureCT: [undefined, Validators.required],
             totalLimitWordsCT: [undefined, Validators.required],
-            circularRateCT: [undefined, Validators.required],
+            // circularRateCT: [undefined/*, Validators.required*/],
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
             loanSubTypeCT: [undefined],
+            // primarySecurity: [undefined],
+            // secondarySecurity: [undefined],
             securities: this.formBuilder.array([]),
         });
         this.addDefaultSecurity();
@@ -205,8 +225,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         const tempLoanOption = this.interestSubsidy.get('loanOption').value;
         const securityOptions = this.interestSubsidy.get('securityType').value;
         const selectedLoanSubType = this.interestSubsidy.get('loanSubType').value;
-        this.isLoanOptionSelected = !ObjectUtil.isEmpty(tempLoanOption) &&
-            !ObjectUtil.isEmpty(securityOptions) && !ObjectUtil.isEmpty(selectedLoanSubType);
+        this.isLoanOptionSelected = !ObjectUtil.isEmpty(tempLoanOption) && !ObjectUtil.isEmpty(selectedLoanSubType);
         if (securityOptions === 'LAND' || securityOptions === 'LAND & BUILDING') {
             this.showSecurity = true;
         } else {
@@ -343,7 +362,6 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             this.attributes.ct = this.interestSubsidy.get(key + 'CT').value;
             this.tdVal[key] = this.attributes;
         });
-        console.log('This is Attributes', this.tdVal);
     }
 
     async translateAndSetVal() {
@@ -358,10 +376,13 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         const approvalType = this.interestSubsidy.get('dateOfApprovalType').value;
         let transApprovalDate;
         if (approvalType === 'AD') {
-            const approvalDateVal = this.interestSubsidy.get('dateOfApproval').value;
+            const approvalDateVal = this.datePipe.transform(this.interestSubsidy.get('dateOfApproval').value);
             transApprovalDate = !ObjectUtil.isEmpty(approvalDateVal) ?
                 this.datePipe.transform(approvalDateVal) : '';
-            this.interestSubsidy.get('dateOfApprovalTrans').patchValue(transApprovalDate);
+            const finalAppDate = !ObjectUtil.isEmpty(transApprovalDate) ? this.engNepDatePipe.transform(transApprovalDate, true) : '';
+            if (!ObjectUtil.isEmpty(approvalDateVal)) {
+                this.interestSubsidy.get('dateOfApprovalTrans').patchValue(finalAppDate);
+            }
         } else {
             const approvalNepaliDate = this.interestSubsidy.get('dateOfApprovalNepali').value;
             transApprovalDate = !ObjectUtil.isEmpty(approvalNepaliDate) ?
@@ -373,10 +394,13 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         const applicationType = this.interestSubsidy.get('dateOfApplicationType').value;
         let transApplicationDate;
         if (applicationType === 'AD') {
-            const applicationDateVal = this.interestSubsidy.get('dateOfApplication').value;
+            const applicationDateVal = this.datePipe.transform(this.interestSubsidy.get('dateOfApplication').value);
             transApplicationDate = !ObjectUtil.isEmpty(applicationDateVal) ?
                 this.datePipe.transform(applicationDateVal) : '';
-            this.interestSubsidy.get('dateOfApplicationTrans').patchValue(transApplicationDate);
+            const finalAppDate = this.englishCalenderPipe.transform(transApplicationDate);
+            if (!ObjectUtil.isEmpty(applicationDateVal)) {
+                this.interestSubsidy.get('dateOfApplicationTrans').patchValue(finalAppDate);
+            }
         } else {
             const applicationDateNep = this.interestSubsidy.get('dateOfApplicationNepali').value;
             transApplicationDate = !ObjectUtil.isEmpty(applicationDateNep) ?
@@ -388,10 +412,13 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         const previousLetterType = this.interestSubsidy.get('previousSanctionType').value;
         let transPrevSancDate;
         if (previousLetterType === 'AD') {
-            const prevDateEng = this.interestSubsidy.get('previousSanctionDate').value;
+            const prevDateEng = this.datePipe.transform(this.interestSubsidy.get('previousSanctionDate').value);
             transPrevSancDate = !ObjectUtil.isEmpty(prevDateEng) ?
                 this.datePipe.transform(prevDateEng) : '';
-            this.interestSubsidy.get('previousSanctionDateTrans').patchValue(transPrevSancDate);
+            const finalAppDate = this.englishCalenderPipe.transform(transPrevSancDate);
+            if (!ObjectUtil.isEmpty(prevDateEng)) {
+                this.interestSubsidy.get('previousSanctionDateTrans').patchValue(finalAppDate);
+            }
         } else {
             const transPrevSancNepali = this.interestSubsidy.get('previousSanctionDateNepali').value;
             transPrevSancDate = !ObjectUtil.isEmpty(transPrevSancNepali) ?
@@ -400,6 +427,8 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         }
         // TRANSLATE VALUES OF NUMBERS:
         this.translateNumber('marginInPercentage', 'marginInPercentageTrans');
+        this.translateNumber('marginInPercentageMotor', 'marginInPercentageMotorTrans');
+        this.translateNumber('marginInPercentageFoot', 'marginInPercentageFootTrans');
         this.translateNumber('baseRate', 'baseRateTrans');
         this.translateNumber('premiumRate', 'premiumRateTrans');
         this.translateNumber('interestRate', 'interestRateTrans');
@@ -409,7 +438,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         if (!ObjectUtil.isEmpty(tempTotalLimitWords)) {
             this.interestSubsidy.get('totalLimitWordsTrans').patchValue(tempTotalLimitWords);
         }
-        this.translateNumber('circularRate', 'circularRateTrans');
+        // this.translateNumber('circularRate', 'circularRateTrans');
 
         // Set Translated Data of Loan sub type:
         const tempSubTypeVal = this.interestSubsidy.get('loanSubType').value;
@@ -419,13 +448,20 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
 
         // TRANSLATING THE VALUES:
         this.translateFormGroup = this.formBuilder.group({
-            purposeOfLoan: this.interestSubsidy.get('purposeOfLoan').value,
-            nameOfStaff: this.interestSubsidy.get('nameOfStaff').value,
-            nameOfBranchManager: this.interestSubsidy.get('nameOfBranchManager').value,
-            dateOfApprovalType: this.interestSubsidy.get('dateOfApprovalType').value,
-            dateOfApplicationType: this.interestSubsidy.get('dateOfApplicationType').value,
-            previousSanctionType: this.interestSubsidy.get('previousSanctionType').value,
-            securityType: this.interestSubsidy.get('securityType').value,
+            purposeOfLoan: this.interestSubsidy.get('purposeOfLoan').value ?
+                this.interestSubsidy.get('purposeOfLoan').value : '',
+            nameOfStaff: this.interestSubsidy.get('nameOfStaff').value ?
+                this.interestSubsidy.get('nameOfStaff').value : '',
+            nameOfBranchManager: this.interestSubsidy.get('nameOfBranchManager').value ?
+                this.interestSubsidy.get('nameOfBranchManager').value : '',
+            dateOfApprovalType: this.interestSubsidy.get('dateOfApprovalType').value ?
+                this.interestSubsidy.get('dateOfApprovalType').value : '',
+            dateOfApplicationType: this.interestSubsidy.get('dateOfApplicationType').value ?
+                this.interestSubsidy.get('dateOfApplicationType').value : '',
+            previousSanctionType: this.interestSubsidy.get('previousSanctionType').value ?
+                this.interestSubsidy.get('previousSanctionType').value : '',
+            securityType: this.interestSubsidy.get('securityType').value ?
+                this.interestSubsidy.get('securityType').value : '',
         });
         this.translatedValues = await this.translate(this.translateFormGroup);
         this.setGoogleTranslatedValues(this.translatedValues);
@@ -508,9 +544,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.interestSubsidy.get('dateOfApprovalTypeCT').patchValue(this.interestSubsidy.get('dateOfApprovalTypeTrans').value);
         if (this.ADApproval) {
             const tranApprovalDate = this.interestSubsidy.get('dateOfApprovalTrans').value;
-            const convertApprovalDate = !ObjectUtil.isEmpty(tranApprovalDate) ?
-                this.engNepDatePipe.transform(tranApprovalDate, true) : '';
-            this.interestSubsidy.get('dateOfApprovalCT').patchValue(convertApprovalDate);
+            // const convertApprovalDate = !ObjectUtil.isEmpty(tranApprovalDate) ?
+            //     this.englishCalenderPipe.transform(tranApprovalDate, true) : '';
+            this.interestSubsidy.get('dateOfApprovalCT').patchValue(tranApprovalDate);
         }
         if (this.BSApproval) {
             this.interestSubsidy.get('dateOfApprovalNepaliCT').patchValue(
@@ -521,9 +557,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.interestSubsidy.get('dateOfApplicationTypeCT').patchValue(this.interestSubsidy.get('dateOfApplicationTypeTrans').value);
         if (this.ADApplication) {
             const tranApplicationDate = this.interestSubsidy.get('dateOfApplicationTrans').value;
-            const convertApplicationDate = !ObjectUtil.isEmpty(tranApplicationDate) ?
-                this.engNepDatePipe.transform(tranApplicationDate, true) : '';
-            this.interestSubsidy.get('dateOfApplicationCT').patchValue(convertApplicationDate);
+            // const convertApplicationDate = !ObjectUtil.isEmpty(tranApplicationDate) ?
+            //     this.englishCalenderPipe.transform(tranApplicationDate, true) : '';
+            this.interestSubsidy.get('dateOfApplicationCT').patchValue(tranApplicationDate);
         }
         if (this.BSApplication) {
             this.interestSubsidy.get('dateOfApplicationNepaliCT').patchValue(
@@ -535,9 +571,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.interestSubsidy.get('previousSanctionTypeCT').patchValue(this.interestSubsidy.get('previousSanctionTypeTrans').value);
         if (this.ADPrevious) {
             const transPreviousSanction = this.interestSubsidy.get('previousSanctionDateTrans').value;
-            const convertPreviousSanction = !ObjectUtil.isEmpty(transPreviousSanction) ?
-                this.engNepDatePipe.transform(transPreviousSanction, true) : '';
-            this.interestSubsidy.get('previousSanctionDateCT').patchValue(convertPreviousSanction);
+            // const convertPreviousSanction = !ObjectUtil.isEmpty(transPreviousSanction) ?
+            //     this.englishCalenderPipe.transform(transPreviousSanction, true) : '';
+            this.interestSubsidy.get('previousSanctionDateCT').patchValue(transPreviousSanction);
         }
         if (this.BSPrevious) {
             this.interestSubsidy.get('previousSanctionDateNepaliCT').patchValue(
@@ -546,13 +582,15 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         }
         this.interestSubsidy.get('purposeOfLoanCT').patchValue(this.interestSubsidy.get('purposeOfLoanTrans').value);
         this.interestSubsidy.get('marginInPercentageCT').patchValue(this.interestSubsidy.get('marginInPercentageTrans').value);
+        this.interestSubsidy.get('marginInPercentageMotorCT').patchValue(this.interestSubsidy.get('marginInPercentageMotorTrans').value);
+        this.interestSubsidy.get('marginInPercentageFootCT').patchValue(this.interestSubsidy.get('marginInPercentageFootTrans').value);
         this.interestSubsidy.get('baseRateCT').patchValue(this.interestSubsidy.get('baseRateTrans').value);
         this.interestSubsidy.get('premiumRateCT').patchValue(this.interestSubsidy.get('premiumRateTrans').value);
         this.interestSubsidy.get('interestRateCT').patchValue(this.interestSubsidy.get('interestRateTrans').value);
         this.interestSubsidy.get('totalTenureOfLoanCT').patchValue(this.interestSubsidy.get('totalTenureOfLoanTrans').value);
         this.interestSubsidy.get('totalLimitFigureCT').patchValue(this.interestSubsidy.get('totalLimitFigureTrans').value);
         this.interestSubsidy.get('totalLimitWordsCT').patchValue(this.interestSubsidy.get('totalLimitWordsTrans').value);
-        this.interestSubsidy.get('circularRateCT').patchValue(this.interestSubsidy.get('circularRateTrans').value);
+        // this.interestSubsidy.get('circularRateCT').patchValue(this.interestSubsidy.get('circularRateTrans').value);
         this.interestSubsidy.get('nameOfStaffCT').patchValue(this.interestSubsidy.get('nameOfStaffTrans').value);
         this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.interestSubsidy.get('nameOfBranchManagerTrans').value);
         this.interestSubsidy.get('loanSubTypeCT').patchValue(this.interestSubsidy.get('loanSubTypeTrans').value);
@@ -604,8 +642,12 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
 
     submit() {
         this.submitted = true;
+        const tempSecurityDetails = this.setSecurityData();
+        this.tdVal['securities'] = tempSecurityDetails;
+        const tempRequiredDocuments = this.setRequiredDocuments();
+        this.tdVal['requiredDocuments'] = tempRequiredDocuments;
         // Setting securityDetails in securities key:
-        this.tdVal['securities'] = this.interestSubsidy.get('securities').value;
+        // this.tdVal['securitiesNext']['primary'] = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value;
         this.spinner = true;
         // Clearing validation from optional fields:
         this.clearConditionalValidation();
@@ -641,7 +683,6 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             offerDocument.initialInformation = JSON.stringify(this.tdVal);
             this.customerApprovedDoc.offerDocumentList.push(offerDocument);
         }
-
         this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.customerApprovedDoc = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -667,6 +708,22 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
                 cadOfferLetterApprovedDoc: this.customerApprovedDoc
             }
         });
+    }
+    setSecurityData() {
+        const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
+        const allData = {
+            primarySecurity: primarySecurity,
+            secondarySecurity: secondarySecurity
+        };
+        return (allData);
+    }
+    private setRequiredDocuments() {
+        const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+        const requiredData = {
+            requiredLegalDocument: requiredLegalDocument,
+        };
+        return (requiredData);
     }
 
 }

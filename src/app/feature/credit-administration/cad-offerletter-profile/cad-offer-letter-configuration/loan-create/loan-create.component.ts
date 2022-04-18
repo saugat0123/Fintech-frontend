@@ -33,6 +33,7 @@ export class LoanCreateComponent implements OnInit {
   attributes: Attributes = new Attributes();
   translatedLoanDataDetails = [];
   isTranslatedLoanDetails = false;
+  isCombinedLoan = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -66,7 +67,8 @@ export class LoanCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      loanDetails: this.formBuilder.array([])
+      loanDetails: this.formBuilder.array([]),
+      isCombinedLoan: this.isCombinedLoan
     });
     this.addEmptyLoan();
   }
@@ -156,6 +158,7 @@ export class LoanCreateComponent implements OnInit {
   }
   save() {
     this.spinner = true;
+    this.form.get('isCombinedLoan').patchValue(this.isCombinedLoan);
     this.cadOneFormService.saveLoan(this.form.value).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
@@ -189,5 +192,9 @@ export class LoanCreateComponent implements OnInit {
   accept(){
     this.modalService.dismissAll();
     this.dialogRef.close();
+  }
+
+  combinedLoan(event) {
+    this.isCombinedLoan = event.target.checked === true;
   }
 }

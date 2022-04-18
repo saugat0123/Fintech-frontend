@@ -80,4 +80,5 @@ export class CustomerInfoData {
     subsectorDetail: string;
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
+    customerSubType: any;
 }

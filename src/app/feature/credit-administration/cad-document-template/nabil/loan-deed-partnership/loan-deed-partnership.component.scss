@@ -1,9 +1,18 @@
+*{
+  line-height: 1.9em;
+}
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
+
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+
 .form-field {
   background: yellow;
   margin: 0px 5px;
@@ -70,4 +79,8 @@ textarea {
 label {
   display: block;
   margin-bottom: 10px;
+}
+
+td, th{
+  padding: 0.5rem;
 }

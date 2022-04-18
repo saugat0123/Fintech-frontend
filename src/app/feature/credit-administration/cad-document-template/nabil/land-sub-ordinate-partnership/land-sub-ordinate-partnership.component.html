@@ -1,0 +1,370 @@
+<div class="container col-lg-12 nep text-justify" [nbSpinner]="spinner">
+    <form [formGroup]="form" id="print-section">
+        <div class="row viewFull align">
+            <div class="col-md-12 text-center" style="border-bottom: 1px solid black;">
+                <h2 style="font-size: 4rem"><strong>ऋणकर्जाको चुक्ताभुक्तानी दोश्रो प्राथमिकतामा राख्ने संझौता</strong>
+                </h2>
+                <h1><strong>(LOAN SUBORDINATION AGREEMENT)</strong></h1>
+            </div>
+            <div class="col-md-12 mt-4 d-flex justify-content-between" style="margin-left: -11px">
+                <div class="left-content"></div>
+                <div class="right-content">
+                    मिति:
+                    <input class="form-field disable-print form-control-sm nepaliFont" name="date"
+                        formControlName="date" placeholder="मिति" type="text" />
+                    <span class=" print-only font-weight-bold nepaliFont">{{form?.get('date').value ?
+                        form?.get('date').value : "====================================="}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2 d-flex justify-content-between" style="margin-left: -11px">
+                <div class="left-content">
+                    हामी तल लेखिएका पक्षहरु बीच ऋणीले साहुबाट प्राप्त गरेको ऋणकर्जाको भुक्तानी दोश्रो प्राथमिकता क्रममा
+                    राख्ने सम्बन्धमा यो संझौता भएको ठिक
+                    साँचो हो ।
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>ऋणीः</strong><br>
+                    <input class="form-field form-control-sm d-print-none" name="borrowerName"
+                        formControlName="borrowerName" type="text" readonly />
+                    <span class="print-only font-weight-bold">{{form?.get('borrowerName').value ?
+                        form?.get('borrowerName').value : '___________________'}}</span><br>
+                    <input class="form-field form-control-sm d-print-none" name="borrowerAddress"
+                        formControlName="borrowerAddress" type="text" readonly />
+                    <span class="print-only font-weight-bold">{{form?.get('borrowerAddress').value ?
+                        form?.get('borrowerAddress').value : '___________________'}}</span><br>
+                    <input class="form-field form-control-sm d-print-none" name="freeText1" formControlName="freeText1"
+                        type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText1').value ?
+                        form?.get('freeText1').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none" name="freeText2" formControlName="freeText2"
+                        type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText2').value ?
+                        form?.get('freeText2').value : '===================='}}</span><br>
+                </div>
+                <div class="col-md-12">
+                    <strong>साहुः</strong><br>
+                    <input class="form-field form-control-sm d-print-none nepaliFont" name="loanProviderName"
+                        formControlName="loanProviderName" type="text" placeholder="ऋण प्रदायकको नाम" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderName').value ?
+                        form?.get('loanProviderName').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none nepaliFont" name="loanProviderAddress"
+                        formControlName="loanProviderAddress" type="text" placeholder="ऋण प्रदायकको ठेगाना" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAddress').value ?
+                        form?.get('loanProviderAddress').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none" name="freeText3" formControlName="freeText3"
+                        type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText3').value ?
+                        form?.get('freeText3').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none" name="freeText4" formControlName="freeText4"
+                        type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{form.get('freeText4').value ?
+                        form?.get('freeText4').value : '===================='}}</span><br>
+                </div>
+            </div>
+            <div>
+                <p class="ml-1 mt-2"><strong>प्रस्तावनाः</strong></p>
+                <table class="table-borderless">
+                    <tr>
+                        <td>१.</td>
+                        <td>यो संझौता हुनु अगावै ऋणीले आफ्नो ब्यवसाय संचालन वा ब्यबस्थित गर्न साहुबाट
+                            रु.
+                            <input class="form-field form-control-sm d-print-none"
+                                (change)="translateNumber('amount', 'amountInWords')" name="amount" formControlName="amount"
+                                type="text" />
+                            <span class="print-only font-weight-bold">{{form?.get('amount').value ?
+                                form?.get('amount').value : '___________________'}}</span>/-
+                            (अक्षरेपि <input class="form-field form-control-sm d-print-none" name="amountInWords"
+                                formControlName="amountInWords" type="text" readonly />
+                            <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ?
+                                form?.get('amountInWords').value : '___________________'}}</span>
+                            मात्र)
+                            ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र</td>
+                    </tr>
+                    <tr>
+                        <td>२.</td>
+                        <td>ऋणीको ब्यवसायको प्रकृति अनुरुप ऋणीलाई आफ्नो ब्यवसाय संचालन, ब्यवस्थित तथा बिस्तार गर्न समेत बैंक
+                            तथा वित्तिय संस्थाबाट थप विभिन्न
+                            प्रकारका ऋणकर्जा तथा बैंकिङ्ग सुविधा प्राप्त गर्ने सिलसिलामा देहायको बैंकले ऋणीलाई ऋणकर्जा तथा
+                            बैंकिङ्ग सुविधा उपलब्ध गराउन मंजुर गरेको,
+                            र<br>
+                            <span class="font-weight-bold">बैंकः श्री नबिल बैंक लिमिटेड</span> (यस पछि ‘बैंक’ भनिएको)
+                            <br>
+                            <span class="font-weight-bold ml-5 bank">प्रधान कार्यालय, वीणा मार्ग, तिनधारा, काठमाण्डौं ।</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>३.</td>
+                        <td>ऋणी तथा बैंक बीच भएको ऋणकर्जा सम्बन्धि संझौता वा समझदारीको शर्तबन्देज मध्ये बैंकबाट प्राप्त
+                            गरेको ऋणकर्जा चुक्ता भुक्तान नगरेसम्म ऋणीले
+                            साहुबाट प्राप्त गरेको ऋणकर्जाको साँवा, ब्याज आदी चुक्ता भुक्तानी गर्ने कार्यलाई दोश्रो
+                            प्राथमिकतामा राख्ने सम्बन्धमा ऋणी तथा साहुबीच भएको संझौता
+                            समेत बैंकमा पेश गर्नु पर्ने भएकोले हामी ऋणी र साहु बीच ऋणीले साहुलाई तिर्नु पर्ने ऋणकर्जाको
+                            साँवा ब्याजको चुक्ता भुक्तानी देहायको शर्त बन्देजको
+                            अधिनमा रही दोश्रो प्राथमिकता (Loan Subordination) मा राख्ने सम्बन्धमा यो संझौता भएको ठिक साँचो
+                            हो ।
+                        </td>
+                    </tr>
+                </table>
+                
+                <p class="text-center"><strong><u>शर्तबन्देजकहरु</u></strong></p>
+                <table class="table-borderless">
+                    <tr>
+                        <td>१.</td>
+                        <td>
+                            साहुलाई कुनै पूर्ब जानकारी नदिई बैंकले आफ्नो स्वविवेकमा ऋणीलाई पटक पटक कुनै पनि किसिमको ऋणकर्जा
+                            र/वा बैंकिङ्ग सुविधा प्रदान
+                            गर्न, प्रदान गरेको ऋणकर्जा र/वा बैंकिङ्ग सुविधा नविकरण गर्न वा पूनरगठन, पुनरतालिकिकरण वा ऋणकर्जा
+                            र/वा बैंकिङ्ग सुविधाको अवधि
+                            बृद्धि गर्न सक्नेछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>२.</td>
+                        <td>
+                            ऋणीले बैंकबाट प्राप्त गरेको ऋणकर्जा र/वा बैंकिङ्ग सुविधा वा सोको जरियाबाट बैंकमाथि परेको कुनै
+                            पनि किसिमको थप आर्थिक दायित्व वा
+                            व्ययभार चुक्ता भुक्तानी गरी फर फारक नगरेसम्म साहुले ऋणीलाई साहुबाट प्राप्त ऋणकर्जाको साँवा,
+                            ब्याज आँशिक वा पूर्ण भुक्तानीको माग
+                            गर्ने छैन, नत त्यस्तो ऋणकर्जा असुल उपर गर्न ऋणी विरुद्ध कुनै किसिमको प्रसासनिक वा कानूनी कारवाही
+                            नै गर्नेछ । साथै साहुले
+                            ऋणीलाई ऋण दिदा प्रदान गरेको कुनै सुरक्षण, यदि भएमा, त्यस्तो सुरक्षण विक्री गरी वा अन्य कुनै
+                            कारवाही वा कारेवार गरी ऋणकर्जा असुल
+                            उपर गर्ने गराउने कार्य नगर्ने ब्यहोरा पनि यसै संझौताबाट साहु प्रतिबद्धता जाहेर गर्दछ । ऋणीले
+                            बैंकको कर्जा पूर्ण चुक्ता भुक्तान गरी बैंकले
+                            ऋणीलाई बैंक प्रतिको सबै किसिमका दायित्वबाट लिखित उन्मुक्ति नदिए सम्म साहुले ऋणीबाट प्राप्त गरेको
+                            सुरक्षण साहुले बैंकको ट्रष्टीको
+                            हैसियतमा यथास्थितिमा राख्नेछ । कथमकदाचित त्यस्तो सुरक्षण नास हुने, बिग्रिने कुनै विनिमेय अधिकार
+                            पत्र सुरक्षणमा रहेकोमा त्यस्तो
+                            अधिकार पत्रको भाखा, म्याद समाप्त हुने आदी कारणबाट सुरक्षणको मूल्यमा ह्रास आउने भएमा साहुले
+                            बैंकसंग समन्बय गरी बैंकले सुझाब
+                            गरे अनुरुप उपयुक्त कारवाही गरी प्राप्त रकम बैंकलाई तिर्ने बुझाउने कुराको साहु प्रत्याभूति गर्दछ
+                            ।</td>
+                    </tr>
+                    <tr>
+                        <td>३.</td>
+                        <td>
+                            कथमकदाचित ऋणी दामासाहीमा परेमा वा स्वेच्छिक वा बाध्यात्मक खारेजीमा परेमा वा अन्य कुनै कानूनी
+                            कारबाहीबाट खारेज भई वा ऋणीको
+                            ब्यवसाय पूरा वा आंशिक बिक्री, वा ऋणीको पुनरगठन आदी भई ऋणीको जायजेथा पूर्ण वा आंशिक रुपमा बिक्री
+                            भई साहु प्रतिको दायित्व पूर्ण
+                            वा आंशिक रुपमा चुक्ता गर्ने उदेश्यले साहुले कुनै रकम वा सम्पत्ति यथास्थितिमा सर्ब प्रथम ऋणीको
+                            बैंक प्रतिको दायित्व चुक्ता गर्न बैंकलाई
+                            तिर्ने बुझाउने कार्य गर्ने गराउनेछ ।<br>
+                            कथमकदाचित साहुले प्राप्त गरेको त्यस्तो रकम वा सम्पत्ति बैंकलाई बुझाउन ढिला भएमा साहुले ट्रष्टीको
+                            हैसियतले बैंकको हकमा आफुसित
+                            सुरक्षित साथ राख्नेछ । साथै साहु यसै संझौताबाट त्यस्तो रकम वा सम्पत्ति माग गर्न, संकलन गर्न,
+                            प्राप्त गर्न वा त्यस्तो रकम वा सम्पत्ति
+                            प्राप्त गर्न आवश्यक कानूनी कारवाही, मुद्धा वा अन्य कुनै कार्य बैंकले गर्न सक्ने गरी बैंकलाई
+                            अपरिवर्तनिय अख्तियारी प्रदान गर्दछ र त्यस्तो
+                            कार्य गर्न गराउन बैंकलाई आवश्यक पर्ने मंजुरीनामा, वारेशनामा वा अधिकार पत्र समेत बैंकले मागेका
+                            बखत उपलब्ध गराउने प्रतिबद्धता पनि
+                            गर्दछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>४.</td>
+                        <td>
+                            ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम चुक्ता भुक्तान नगरे सम्म साहुले ऋणीलाई प्रदान गरेको
+                            ऋणकर्जाको जरियाबाट उत्पन्न कुनै पनि
+                            किसिमको साहुको ऋणी माथिको दाबी, हक, हित वा अधिकार अन्य कुनै तेश्रो पक्षलाई कुनै पनि किसिमबाट
+                            हस्तान्तरण गर्ने गराउने छैन ।</td>
+                    </tr>
+                    <tr>
+                        <td>५.</td>
+                        <td>
+                            साहुले यो संझौता भंग गर्ने उद्देश्यले बैंकको
+                            <input class="form-field form-control-sm d-print-none" name="nameOfBranch"
+                                formControlName="nameOfBranch" type="text" readonly />
+                            <span class="print-only font-weight-bold">{{form?.get('nameOfBranch').value ?
+                                form?.get('nameOfBranch').value : '_________________'}}</span>
+                            शाखा कार्यालयमा लिखित जानकारी नदिए सम्म यो संझौता अविछिन्न रुपमा वैध रहनेछ र त्यस्तो जानकारी
+                            नदिएसम्म बैंकले यस संझौताको
+                            आधारमा साहुलाई जानकारी नदिइकन ऋणीलाई प्रदान गरेको ऋणकर्जा बैंकिङ्ग सुविधा, थप कर्जा वा बैंकिङ्ग
+                            सुविधा, सोको नविकरण,
+                            विस्तार वा त्यस्ता कार्यको कारणबाट भविष्यमा बैंकमाथि पर्न आउने थप दायित्व आदी समेत चुक्ता
+                            भुक्तान नगरेसम्म साहुले उल्लेखित
+                            सूचना दिएको कारणले मात्र यो संझौतामा कुनै नकरात्मक असर पर्नेछैन र यस संझौता अन्तर्गत बैंकलाई
+                            प्राप्त हक अधिकारमा पनि कुनै
+                            असर पर्नेछैन ।</td>
+                    </tr>
+                    <tr>
+                        <td>६.</td>
+                        <td>
+                            ऋणी र बैंकबीच भएको कुनै पनि ऋणकर्जा वा बैंकिङ्ग सुविधा सम्बन्धि कारोबार वा बैंकले ऋणी माथि लिएको
+                            वित्तिय जोखिम यसै संझौताको आधार एवं विश्वसनियतामा लिएको मानिनेछ, त्यस्ता कारोवार वा ऋणी र बैंक बीच भविष्यमा हुने कारोबारको
+                            सम्बन्धमा समेत बैंक साहुलाई कुनै किसिमको जानकारी दिन बाध्य हुनेछैन । ऋणी र बैंक बीच हुने सबै किसिमका कारोबारहरुमा साहुको
+                            पूर्ण सहमति रहेको मानिनेछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>७.</td>
+                        <td>
+                            यो संझौता हुनु भन्दा अगाबै ऋणी र बैंक बीच भएको सबै कारोबारहरुको सम्बन्धमा समेत साहुलाई पूर्ण
+                            जानकारीछ र यो संझौता त्यस्ता
+                            कारोबारहरुको हकमा समेत लागु हुनेछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>८.</td>
+                        <td>
+                            ऋणीले बैंक प्रति निर्बाह गर्नुपर्ने कुनै पनि दायित्वको सम्बन्धमा बैंकले ऋणीलाई त्यस्तो
+                            दायित्वबाट लिखित उन्मुक्ति दिएको अवस्थामा बाहेक
+                            बैंकले ऋणीलाई कुनै उन्मुक्ति दिएको मानिनेछैन । कथमकदाचित बैंकले कुनै त्यस्तो उन्मुक्ति दिएको
+                            भएमा पनि त्यस्तो उन्मुक्ति दिएको
+                            लिखतमा उल्लेख भएको हदसम्म मात्र लागु हुनेछ र साहुको बैंक प्रतिको अन्य दायित्वमा कुनै असर पर्ने
+                            छैन ।</td>
+                    </tr>
+                    <tr>
+                        <td>९.</td>
+                        <td>
+                            यो संझौता कायम रहेसम्म ऋणीले साहु प्रति ऋण दायित्व बेमाख गर्ने उद्देश्यले कुनै रकम वा सम्पत्ति
+                            साहुलाई तिर्ने बुझाउने छैन,
+                            कथमकदाचित त्यस्तो तिर्ने बुझाउने कार्य गरे गराएमा वा साहुले समेत ऋणीबाट प्राप्त त्यस्तो रकम वा
+                            सम्पत्ति आफ्नो ऋणी माथिको
+                            अधिकारको प्रयोग गर्ने उद्देश्यले ऋणीसंगको कुनै हिसाब किताब मिलान गरेमा वा लेखांकन गरेमा यो
+                            संझौता उल्लंघन भएको मानिनेछ र
+                            बैंक ऋणी वा साहु वा यि दुवै पक्ष विरुद्ध कुनै पनि कारवाही गर्न स्वतन्त्र हुनेछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>१०.</td>
+                        <td>
+                            ऋणी यदि साझेदारी संगठन भएमा कुनै साझेदार वाहिरिएको वा कुनै साझेदारको मृत्यु भएको वा कुनै नयाँ
+                            साझेदार थपिएको कारणले यो
+                            संझौतामा कुनै असर पर्ने छैन ।</td>
+                    </tr>
+                    <tr>
+                        <td>११.</td>
+                        <td>
+                            यो संझौता संझौताका सबै पक्षले हस्ताक्षर गरेको मिति देखि लागु हुनेछ र ऋणीले बैंक प्रतिको आफ्नो
+                            सबै दायित्व बेमाख गरेको लिखित पत्र
+                            बैंकबाट प्राप्त गरेको मितिमा वा यो संझौतामा माथि उल्लेखित भएको अवस्थामा भंग हुनेछ ।</td>
+                    </tr>
+                    <tr>
+                        <td>१२.</td>
+                        <td>
+                            यो संझौता प्रचलित नेपाल कानून बमोजिम लागु हुनेछ र यस्का कुनै दफा वा बुँदा कुनै कानूनले अवैध ठहर
+                            गरेमा त्यस्तो दफा वा बुँदाको
+                            हदसम्म मात्र अमान्य हुनेछ अन्य कुरामा कुनै असर पर्ने छैन ।</td>
+                    </tr>
+                    <tr>
+                        <td>१३.</td>
+                        <td>
+                            यो संझौता पढी बाची यसमा लेखिएका प्रत्येक दफाको मनसाय, आसय बुझी सत्यताका साथ संझौता पूर्ण पालना
+                            गर्ने प्रतिबद्धता सहित यो
+                            संझौतामा संझौताका दुवै पक्षले वा आफ्आफ्ना आधिकारिक प्रतितिधि मार्फत सहि, छापगरी एक एक प्रति
+                            बुझिलियौं र यस्को एक प्रति बैंकमा
+                            समेत दियौं ।</td>
+                    </tr>
+                </table>
+            </div>
+            <table class="table table-borderless dastakhat-margin">
+                <tr>
+                    <th>––––––––––––––––––––––––––––––––
+                        <br>
+                        <p class="dastakhat">दस्तखत</p>
+                        <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
+                        <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
+                            name="borrowerAuthorizedPerson" formControlName="borrowerAuthorizedPerson" type="text" />
+                        <span
+                            class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPerson').value
+                            ? form?.get('borrowerAuthorizedPerson').value : '===================='}}</span>
+                        <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
+                            name="borrowerAuthorizedPersonAddress" formControlName="borrowerAuthorizedPersonAddress"
+                            type="text" />
+                        <span
+                            class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPersonAddress').value
+                            ? form?.get('borrowerAuthorizedPersonAddress').value : '===================='}}</span>
+                    </th>
+                    <th>––––––––––––––––––––––––––––––––
+                        <br>
+                        <p class="dastakhat">दस्तखत</p>
+                        <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
+                        <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
+                            name="loanProviderAuthorizedPerson" formControlName="loanProviderAuthorizedPerson"
+                            type="text" />
+                        <span
+                            class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPerson').value
+                            ? form?.get('loanProviderAuthorizedPerson').value : '===================='}}</span>
+                        <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
+                            name="loanProviderAuthorizedPersonAddress"
+                            formControlName="loanProviderAuthorizedPersonAddress" type="text" />
+                        <span
+                            class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPersonAddress').value
+                            ? form?.get('loanProviderAuthorizedPersonAddress').value : '===================='}}</span>
+                    </th>
+                </tr>
+            </table>
+            <div class="col-md-12 sakshi">
+                <p class="text-center mt-2">
+                    <b><u>साक्षी</u></b>
+                </p>
+                <div>
+                    <p>१. <input class="form-field form-control-sm disable-print nepaliFont" name="witnessDistrict"
+                            formControlName="witnessDistrict" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict')?.value ?
+                            form?.get('witnessDistrict')?.value : '====================================='}}</span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="witnessMunicipality" formControlName="witnessMunicipality" placeholder=""
+                            type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality')?.value
+                            ? form?.get('witnessMunicipality')?.value : '====================================='}}</span>
+                        न.पा/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="WitnessWardNumber"
+                            formControlName="WitnessWardNumber" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber')?.value ?
+                            form?.get('WitnessWardNumber')?.value : '==================='}}</span>
+                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge"
+                            formControlName="witnessAge" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge')?.value ?
+                            form?.get('witnessAge')?.value : '===================='}}</span>
+                        को/की <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName"
+                            formControlName="witnessName" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName')?.value ?
+                            form?.get('witnessName')?.value : '====================================='}}</span>
+                    </p>
+                    <p>२. <input class="form-field form-control-sm disable-print nepaliFont" name="witnessDistrict2"
+                            formControlName="witnessDistrict2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict2')?.value ?
+                            form?.get('witnessDistrict2')?.value : '====================================='}}</span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="witnessMunicipality2" formControlName="witnessMunicipality2" placeholder=""
+                            type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality2')?.value
+                            ? form?.get('witnessMunicipality2')?.value : '====================================='}}</span>
+                        न.पा/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="WitnessWardNumber2"
+                            formControlName="WitnessWardNumber2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber2')?.value ?
+                            form?.get('WitnessWardNumber2')?.value : '==================='}}</span>
+                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge2"
+                            formControlName="witnessAge2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge2')?.value ?
+                            form?.get('witnessAge2')?.value : '===================='}}</span>
+                        को/की <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName2"
+                            formControlName="witnessName2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName2')?.value ?
+                            form?.get('witnessName2')?.value : '====================================='}}</span>
+                    </p>
+                    <p>
+                        ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                        कर्मचारी <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="Name of Bank Staff" formControlName="bankStaff" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('bankStaff')?.value ?
+                            form?.get('bankStaff')?.value : '====================================='}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-5 ml-0">
+        <div class="col-md-12 text-right">
+            <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            <button [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="print-section"
+                class="d-print-none float-right" printSectionId="print-section" nbButton size="small" status="info"
+                outline ngxPrint>
+                Print &nbsp;&nbsp;
+                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+            </button>
+        </div>
+    </div>
+</div>

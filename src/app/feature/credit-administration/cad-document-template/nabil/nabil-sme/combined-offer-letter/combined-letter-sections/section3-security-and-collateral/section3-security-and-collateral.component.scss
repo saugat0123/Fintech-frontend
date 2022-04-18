@@ -1,0 +1,30 @@
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  font-size: 19px;
+  &:focus {
+    outline: none;
+  }
+}
+.dev-list {
+  list-style-type: devanagari !important;
+}
+.dev-list li {
+  line-height: 1.9em !important;
+  padding-left: 1em !important;
+  text-align: justify;
+}
+p {
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+}
+ol li {
+  font-weight:bold;
+  font-size: 19px !important;
+}
+li > p {
+  font-weight:normal;
+}
