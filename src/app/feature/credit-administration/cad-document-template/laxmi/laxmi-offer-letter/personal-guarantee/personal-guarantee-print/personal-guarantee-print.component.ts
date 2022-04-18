@@ -9,6 +9,7 @@ import {LaxmiOfferLetterConst} from '../../laxmi-offer-letter-const';
 export class PersonalGuaranteePrintComponent implements OnInit {
     @Input() printDocForm;
     @Input() nepaliData;
+    @Input() isJoint;
     offerLetterConst = LaxmiOfferLetterConst;
 
     constructor() {

@@ -21,23 +21,27 @@
             र भुक्तानी माग गरेको मिति सम्मको सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन प्रतिज्ञा र कबुल गरी यो प्रतिज्ञापत्र को लिखत गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।
 
            <p class="text-center"><b>तपसिल</b></p>
-            ऋणीको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                             formControlName="name"><br>
-            ऋणीको बाजे/ससुराको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                          formControlName="grandFatherName"><br>
-            ऋणीको बाबुको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                    formControlName="fatherName"><br>
-            ऋणीको पतिको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                   formControlName="husbandName"><br>
-            ऋणीको ठेगानाः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                formControlName="address"><br>
-            नागरिकता नं., मिति र कार्यालयः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                 formControlName="personalDetails"><br>
-            ऋणीको दस्तखतः
-            <div class="clearfix mb-5">
-                <div class="signature-area float-right text-center"></div>
-                <div class="signature-area float-right text-center"></div>
-            </div>
+           <ng-container formArrayName="commonData" *ngFor="let data of form.get('commonData')['controls']; let i = index;">
+               <ng-container [formGroupName]="i">
+                   ऋणीको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                    formControlName="name"><br>
+                   ऋणीको बाजे/ससुराको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                                 formControlName="grandFatherName"><br>
+                   ऋणीको बाबुको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                           formControlName="fatherName"><br>
+                   ऋणीको पतिको नामः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                          formControlName="husbandName"><br>
+                   ऋणीको ठेगानाः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                       formControlName="address"><br>
+                   नागरिकता नं., मिति र कार्यालयः<input input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                                        formControlName="personalDetails"><br>
+                   ऋणीको दस्तखतः
+                   <div class="clearfix mb-5">
+                       <div class="signature-area float-right text-center"></div>
+                       <div class="signature-area float-right text-center"></div>
+                   </div>
+               </ng-container>
+           </ng-container>
             <div class="col-md-12 viewFull">
                 <b>साक्षी</b>
                 <div>
@@ -101,3 +105,4 @@
 </div>
 <app-promisory-note-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
                                 hidden></app-promisory-note-individual-print>
+<app-overlay-spinner></app-overlay-spinner>
