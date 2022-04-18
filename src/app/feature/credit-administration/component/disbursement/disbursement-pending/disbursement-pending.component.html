@@ -5,7 +5,7 @@
                 <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_PENDING'"></app-filter>
             </div>
         </div>
-        <h6 class="text-center">Disbursement Pending</h6>
+        <h6 class="text-center">Legal & Disbursement Pending</h6>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">
@@ -18,7 +18,7 @@
                 <th>Type</th>
                 <th>Loan Document No</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
-                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
+                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR) ||(user?.role?.roleType === roleType?.APPROVAL)">
                     Action
                 </th>
                 <th>Comments</th>
@@ -36,9 +36,15 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}</td>
-                    <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
+                    <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR) || (user?.role?.roleType === roleType?.APPROVAL)">
+                        <a (click)="openAssignPopUp(model)"
+                           *ngIf="productUtils?.CAD_ADMIN_ENABLE"
                            nbTooltip="click to assign"><em
                             class="fa fa-user"></em></a>
+                        <a (click)="openPopUp(pullDocument,model)" *ngIf="user?.role?.roleType === roleType.APPROVAL &&
+                         !productUtils?.CAD_ADMIN_ENABLE && model?.cadCurrentStage?.toRole?.roleName.toLowerCase() === 'cad' && model?.cadCurrentStage?.toUser?.id.toString() !== storage?.userId"
+                           nbTooltip="click to pull" style="color: green">PULL</a>
+                        <a href="javascript:void(0)" *ngIf="model?.cadCurrentStage?.toUser?.id.toString() === storage?.userId" (click)="loadProfile(model?.id,model)" style="color:red">OWN BUCKET</a>
                     </td>
                     <td>
                         <a class="px-2 cursor"
@@ -143,6 +149,36 @@
             </ng-container>
             </tbody>
         </table>
+        <ng-template #pullDocument>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Pull Loan Document</h4>
+                <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Do you want to pull this Document?
+
+
+                <div class="col-md-12">
+                    <form>
+                        <div class="d-flex justify-content-end">
+                            <div class="px-2">
+                                <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="onClose()">
+                                    NO
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-success float-right" (click)="pullLoan(cadData)">YES
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+        </ng-template>
+
         <!-- ===================table-pagination==================== -->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->

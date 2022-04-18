@@ -12,6 +12,7 @@ import {CommonService} from '../../../@core/service/common.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Injectable({
     providedIn: 'root'
@@ -115,7 +116,7 @@ export class RouterUtilsService {
             } else if (user.role.roleType === RoleType.CAD_ADMIN || user.role.roleType === RoleType.CAD_SUPERVISOR) {
                 this.routeSummaryWithStateAndEncryptPath(model);
             } else {
-                if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
+                if (!ObjectUtil.isEmpty(model.cadCurrentStage.toUser) && user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
                     this.loadProfileWithState(cadDocumentId, model);
                 } else {
                     this.routeSummaryWithStateAndEncryptPath(model);

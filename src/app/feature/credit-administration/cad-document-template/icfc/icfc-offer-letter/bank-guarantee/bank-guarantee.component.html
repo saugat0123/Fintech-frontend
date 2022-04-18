@@ -1,4 +1,4 @@
-<div class="container bodyConfig text-justify" id="{{offerLetterConst.BANK_GUARANTEE}}">
+<div [nbSpinner]="spinner" class="container bodyConfig text-justify" id="{{offerLetterConst.BANK_GUARANTEE}}">
     <!--div class="row">-->
     <form (ngSubmit)="onSubmit()" [formGroup]="bankGuarantee" id="bankGuarantee">
         <div class="form-group align mb-5">

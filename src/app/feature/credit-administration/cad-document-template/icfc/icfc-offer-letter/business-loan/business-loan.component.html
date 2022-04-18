@@ -1,4 +1,4 @@
-<div class="container bodyConfig text-justify" id="{{offerLetterConst.BUSINESS_LOAN}}">
+<div [nbSpinner]="spinner" class="container bodyConfig text-justify" id="{{offerLetterConst.BUSINESS_LOAN}}">
     <!--div class="row">-->
     <form (ngSubmit)="onSubmit()" [formGroup]="businessLoan" id="businessLoan">
         <div class="form-group align">
