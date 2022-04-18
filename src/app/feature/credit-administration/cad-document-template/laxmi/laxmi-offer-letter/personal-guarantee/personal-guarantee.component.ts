@@ -87,7 +87,7 @@ export class PersonalGuaranteeComponent implements OnInit {
                 loanAmountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
             });
             if (!this.jointInfo) {
-                this.form.get(['commonDat', 0]).patchValue({
+                this.form.get(['commonData', 0]).patchValue({
                     guarantorName: (this.nepaliData.guarantorDetails.length > 0) ?
                         !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].name) : '' ? this.nepaliData.guarantorDetails[0].name : '',
                     guarantorCitizenshipNum: (this.nepaliData.guarantorDetails.length > 0) ?
