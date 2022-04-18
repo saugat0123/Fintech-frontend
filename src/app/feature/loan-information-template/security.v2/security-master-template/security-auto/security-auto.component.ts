@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Valuator} from '../../../../admin/modal/valuator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {Auto} from '../../model/auto';
 
 @Component({
   selector: 'app-security-auto',
@@ -12,8 +13,9 @@ import {ToastService} from '../../../../../@core/utils';
 })
 export class SecurityAutoComponent implements OnInit {
   autoForm: FormGroup = new FormGroup({});
-  @Input() securityName: string;
   valuatorList: Array<Valuator> = new Array<Valuator>();
+  auto: Array<Auto> = new Array<Auto>();
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private valuatorService: ValuatorService,
@@ -46,12 +48,12 @@ export class SecurityAutoComponent implements OnInit {
   private buildAutoFormGroup(): FormGroup {
     return this.formBuilder.group({
       isNew: [undefined],
-      model: [undefined],
-      manufactureYear: [undefined],
-      chasisNo: [undefined],
-      engineNo: [undefined],
+      model: [undefined, Validators.required],
+      manufactureYear: [undefined, Validators.required],
+      chasisNo: [undefined, Validators.required],
+      engineNo: [undefined, Validators.required],
       valuators: [undefined],
-      quotationAmount: [undefined],
+      quotationAmount: [undefined, Validators.required],
       considerValue: [undefined],
       discountPrice: [undefined],
     });
@@ -63,5 +65,17 @@ export class SecurityAutoComponent implements OnInit {
 
   public removeAuto(index: number): void {
     (this.autoForm.get('autoSecurity') as FormArray).removeAt(index);
+  }
+
+  public onSubmit(): void {
+    this.submitted = true;
+    if (this.autoForm.invalid) {
+      this.toastService.show(new Alert(AlertType.WARNING, 'Validation Occurred'));
+      return;
+    }
+    const formArray = this.autoForm.get('autoSecurity') as FormArray;
+    formArray.controls.map(val => {
+      this.auto.push(val.value);
+    });
   }
 }

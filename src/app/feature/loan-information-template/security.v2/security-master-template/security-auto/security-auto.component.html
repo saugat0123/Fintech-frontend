@@ -16,39 +16,59 @@
                                     <div class="col-md-3">
                                         <label>Model No</label>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="12345" formControlName="model">
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('model').errors }"
+                                                    class="form-control" type="text" placeholder="12345" formControlName="model">
+                                            <span *ngIf="(submitted) && auto.get('model').errors" class="invalid-feedback">
+                                                Model Number is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Manufacture Year</label>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="2022" formControlName="manufactureYear">
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('manufactureYear').errors }"
+                                                    class="form-control" type="text" placeholder="2022" formControlName="manufactureYear">
+                                            <span *ngIf="(submitted) && auto.get('manufactureYear').errors" class="invalid-feedback">
+                                                Manufacture year is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Chasis No</label>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="54321" formControlName="chasisNo">
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('chasisNo').errors }"
+                                                    class="form-control" type="text" placeholder="54321" formControlName="chasisNo">
+                                            <span *ngIf="(submitted) && auto.get('chasisNo').errors" class="invalid-feedback">
+                                                Chasis number is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Engine No</label>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="123456" formControlName="engineNo">
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('engineNo').errors }"
+                                                    class="form-control" type="text" placeholder="123456" formControlName="engineNo">
+                                            <span *ngIf="(submitted) && auto.get('engineNo').errors" class="invalid-feedback">
+                                                Engine number is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Valuator</label>
                                         <div>
-                                            <ng-select formControlName="valuators" placeholder="Select Valuator">
-                                                <ng-option *ngFor="let valuator of valuatorList" [value]="valuator">{{valuator?.name}}</ng-option>
-                                            </ng-select>
+                                            <select class="form-control" formControlName="valuators">
+                                                <option *ngFor="let valuator of valuatorList" [ngValue]="valuator">{{valuator?.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Quotation Amount</label>
                                         <div>
-                                            <input class="form-control" type="number" formControlName="quotationAmount">
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('quotationAmount').errors }"
+                                                    class="form-control" type="number" formControlName="quotationAmount">
+                                            <span *ngIf="(submitted) && auto.get('quotationAmount').errors" class="invalid-feedback">
+                                                Quotation amount is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

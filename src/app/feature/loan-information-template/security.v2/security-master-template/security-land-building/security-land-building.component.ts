@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../../admin/modal/province';
 import {ToastService} from '../../../../../@core/utils';
@@ -8,6 +8,7 @@ import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Valuator} from '../../../../admin/modal/valuator';
+import {LandBuilding} from '../../model/land-building';
 
 @Component({
   selector: 'app-security-land-building',
@@ -16,11 +17,12 @@ import {Valuator} from '../../../../admin/modal/valuator';
 })
 export class SecurityLandBuildingComponent implements OnInit {
   landBuildingForm: FormGroup = new FormGroup({});
-  @Input() securityName: string;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   valuatorList: Array<Valuator> = new Array<Valuator>();
+  landBuilding: Array<LandBuilding> = new Array<LandBuilding>();
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private addressService: AddressService,
@@ -53,7 +55,7 @@ export class SecurityLandBuildingComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to load province!!!'));
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load province!!!'));
       },
       complete: () => {},
     });
@@ -68,7 +70,7 @@ export class SecurityLandBuildingComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to load district!!!'));
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load district!!!'));
       },
       complete: () => {},
     });
@@ -82,7 +84,7 @@ export class SecurityLandBuildingComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to load district!!!'));
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load district!!!'));
       },
       complete: () => {},
     });
@@ -98,14 +100,14 @@ export class SecurityLandBuildingComponent implements OnInit {
     return this.formBuilder.group({
       governmentRate: [undefined],
       marketRate: [undefined],
-      fairMarketValue: [undefined],
-      distressValue: [undefined],
-      considerValue: [undefined],
-      sheetNo: [undefined],
-      plotNumber: [undefined],
-      province: [undefined],
-      district: [undefined],
-      municipality: [undefined],
+      fairMarketValue: [undefined, Validators.required],
+      distressValue: [undefined, Validators.required],
+      considerValue: [undefined, Validators.required],
+      sheetNo: [undefined, Validators.required],
+      plotNumber: [undefined, Validators.required],
+      province: [undefined, Validators.required],
+      district: [undefined, Validators.required],
+      municipalityVdc: [undefined, Validators.required],
       geoLocation: [undefined],
       valuators: [undefined],
       addressLine1: [undefined],
@@ -120,6 +122,22 @@ export class SecurityLandBuildingComponent implements OnInit {
 
   public removeLandAndBuilding(index: number): void {
     (<FormArray>this.landBuildingForm.get('landAndBuilding')).removeAt(index);
+  }
+
+  public onSubmit(): void {
+    this.submitted = true;
+    if (this.landBuildingForm.invalid) {
+      this.toastService.show(new Alert(AlertType.WARNING, 'Validation Occurred'));
+      return;
+    }
+    const formArray = this.landBuildingForm.get('landAndBuilding') as FormArray;
+    formArray.controls.map(val => {
+      this.landBuilding.push(val.value);
+    });
+  }
+
+  public compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }

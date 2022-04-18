@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 import {SecurityConstant} from './security-constant';
+import {SecurityLandBuildingComponent} from './security-land-building/security-land-building.component';
+import {SecurityAutoComponent} from './security-auto/security-auto.component';
 
 @Component({
   selector: 'app-security-master-template',
@@ -8,6 +10,8 @@ import {SecurityConstant} from './security-constant';
   styleUrls: ['./security-master-template.component.scss']
 })
 export class SecurityMasterTemplateComponent implements OnInit {
+  @ViewChild('landBuilding', {static: true}) landBuilding: SecurityLandBuildingComponent;
+  @ViewChild('auto', {static: true}) auto: SecurityAutoComponent;
   selectedSecurity: string;
   isLandAndBuildingSecuritySelected = false;
   isAutoSecuritySelected = false;
@@ -24,6 +28,15 @@ export class SecurityMasterTemplateComponent implements OnInit {
   public onSecuritySelect(): void {
     this.isLandAndBuildingSecuritySelected = this.selectedSecurity === SecurityConstant.LAND_AND_BUILDING_SECURITY;
     this.isAutoSecuritySelected = this.selectedSecurity === SecurityConstant.AUTO_SECURITY;
+  }
+
+  public onSubmit(): void {
+    if (this.isLandAndBuildingSecuritySelected) {
+      this.landBuilding.onSubmit();
+    }
+    if (this.isAutoSecuritySelected) {
+      this.auto.onSubmit();
+    }
   }
 
 }

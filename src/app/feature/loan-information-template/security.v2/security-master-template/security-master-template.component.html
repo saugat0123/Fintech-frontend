@@ -17,16 +17,16 @@
                 </div>
             </div>
             <div class="col-md-12" [hidden]="!isLandAndBuildingSecuritySelected">
-                <app-security-land-building></app-security-land-building>
+                <app-security-land-building #landBuilding></app-security-land-building>
             </div>
             <div class="col-md-12" [hidden]="!isAutoSecuritySelected">
-                <app-security-auto></app-security-auto>
+                <app-security-auto #auto></app-security-auto>
             </div>
         </div>
     </nb-card-body>
     <nb-card-footer>
         <div class="text-right">
-            <button nbButton size="small" status="success">Save</button>
+            <button nbButton size="small" status="success" (click)="onSubmit()">Save</button>
         </div>
     </nb-card-footer>
 </nb-card>

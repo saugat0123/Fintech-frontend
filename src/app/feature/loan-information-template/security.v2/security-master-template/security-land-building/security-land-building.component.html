@@ -23,57 +23,98 @@
                                     <div class="col-md-3">
                                         <label>Fair Market Value</label>
                                         <div>
-                                            <input class="form-control" type="number" formControlName="fairMarketValue">
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('fairMarketValue').errors }"
+                                                    class="form-control" type="number" formControlName="fairMarketValue">
+                                            <span *ngIf="(submitted) && landBuilding.get('fairMarketValue').errors" class="invalid-feedback">
+                                                    Fair market value is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Distress Value</label>
                                         <div>
-                                            <input class="form-control" type="number" formControlName="distressValue">
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('distressValue').errors }"
+                                                    class="form-control" type="number" formControlName="distressValue">
+                                            <span *ngIf="(submitted) && landBuilding.get('distressValue').errors" class="invalid-feedback">
+                                                    Distress value is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Consider Value</label>
                                         <div>
-                                            <input class="form-control" type="number" formControlName="considerValue">
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('considerValue').errors }"
+                                                    class="form-control" type="number" formControlName="considerValue">
+                                            <span *ngIf="(submitted) && landBuilding.get('considerValue').errors" class="invalid-feedback">
+                                                    Consider value is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Sheet No</label>
                                         <div>
-                                            <input class="form-control" type="text" formControlName="sheetNo">
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('sheetNo').errors }"
+                                                    class="form-control" type="text" formControlName="sheetNo">
+                                            <span *ngIf="(submitted) && landBuilding.get('sheetNo').errors" class="invalid-feedback">
+                                                    Sheet number is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Plot Number</label>
                                         <div>
-                                            <input class="form-control" type="text" formControlName="plotNumber">
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('plotNumber').errors }"
+                                                    class="form-control" type="text" formControlName="plotNumber">
+                                            <span *ngIf="(submitted) && landBuilding.get('plotNumber').errors" class="invalid-feedback">
+                                                    Plot Number is required!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Province</label>
                                         <div>
-                                            <ng-select formControlName="province" placeholder="Select Province"
-                                                       (change)="getDistrictByProvince(landBuilding.get('province').value, i)">
+                                            <ng-select
+                                                    (change)="getDistrictByProvince(landBuilding.get('province').value, i)"
+                                                    formControlName="province" id="province{{i}}" placeholder="Select Province">
                                                 <ng-option *ngFor="let province of provinceList" [value]="province">{{province?.name}}</ng-option>
                                             </ng-select>
+                                            <span *ngIf="(submitted) && landBuilding.get('province').invalid" class="invalid-feedback">
+                                                    Please select province!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>District</label>
                                         <div>
-                                            <ng-select formControlName="district" placeholder="Select District"
-                                                       (change)="getMunicipalityByDistrict(landBuilding.get('district').value, i)">
+                                            <ng-select
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('district').errors }"
+                                                    formControlName="district"
+                                                    (change)="getMunicipalityByDistrict(landBuilding.get('district').value, i)"
+                                                    id="district{{i}}" placeholder="Select District">
                                                 <ng-option *ngFor="let district of districtList" [value]="district">{{district?.name}}</ng-option>
                                             </ng-select>
+                                            <span *ngIf="(submitted) && landBuilding.get('district').errors" class="invalid-feedback">
+                                                    Please select district!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Municipality</label>
                                         <div>
-                                            <ng-select formControlName="municipality" placeholder="Select Municipality">
+                                            <ng-select
+                                                    [ngClass]="{ 'is-invalid': (submitted) && landBuilding.get('municipalityVdc').errors }"
+                                                    formControlName="municipalityVdc"
+                                                    id="municipalityVdc{{i}}" placeholder="Select Municipality">
                                                 <ng-option *ngFor="let municipality of municipalityList" [value]="municipality">{{municipality?.name}}</ng-option>
                                             </ng-select>
+                                            <span *ngIf="(submitted) && landBuilding.get('municipalityVdc').errors" class="invalid-feedback">
+                                                    Please select municipality!!
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -85,9 +126,9 @@
                                     <div class="col-md-3">
                                         <label>Valuators</label>
                                         <div>
-                                            <ng-select formControlName="valuators" placeholder="Select Valuator">
-                                                <ng-option *ngFor="let valuator of valuatorList" [value]="valuator">{{valuator?.name}}</ng-option>
-                                            </ng-select>
+                                            <select class="form-control" formControlName="valuators">
+                                                <option *ngFor="let valuator of valuatorList" [ngValue]="valuator">{{valuator?.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
