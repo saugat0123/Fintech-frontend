@@ -48,36 +48,45 @@
             ) (यसपछि जमानतकर्ता
             भनिएकोछ)
             आगे, तपाई धनी बैंकले म जमानी बसी दिने शर्तमा
-            <span class="nepaliFont">{{printDocForm?.guarantorGrandParentName}}</span>
-            को
-            नाति/नातिनि/बुहारी,
-            <span class="nepaliFont">{{printDocForm?.guarantorParentName}}</span>
-            को
-            छोरा/छोरी,
-            <span class="nepaliFont">{{printDocForm?.guarantorSpouseName}}</span>
-            कोपति/पत्नी,
-            <span class="nepaliFont">{{printDocForm?.guarantorPermanentDistrict}}</span>
-            जिल्ला,
-            <span class="nepaliFont">{{printDocForm?.guarantorPermanentMunicipality}}</span>
-            न.पा./गा.पा. वडा नं.
-            <span class="nepaliFont">{{printDocForm?.guarantorPermanentWardNum}}</span>
-            भई हाल
-            <span class="nepaliFont">{{printDocForm?.guarantorTemporaryDistrict}}</span>
-            जिल्ला,
-            <span class="nepaliFont">{{printDocForm?.guarantorTemporaryMunicipality}}</span>
-            न.पा./गा.पा. वडा नं.
-            <span class="nepaliFont">{{printDocForm?.guarantorTemporaryWardNum}}</span>
-            मा वस्ने वर्ष
-            <span class="nepaliFont">{{printDocForm?.guarantorAge}}</span>
-            को/की
-            <span class="nepaliFont">{{printDocForm?.guarantorName}}</span>
-            (ना.प्र.नं.
-            <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipNum}}</span>
-            जि.प्र.का.
-            <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipIssuePlace}}</span>
-            मिति
-            <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipIssueDate}}</span>
-            (यसपछि ऋणी भनिएको छ) लाई मेरो
+          <ng-container *ngFor="let printDocForm of printDocForm?.commonData; let i = index;">
+              <span class="nepaliFont">{{printDocForm?.guarantorGrandParentName}}</span>
+              को
+              नाति/नातिनि/बुहारी,
+              <span class="nepaliFont">{{printDocForm?.guarantorParentName}}</span>
+              को
+              छोरा/छोरी,
+              <span class="nepaliFont">{{printDocForm?.guarantorSpouseName}}</span>
+              कोपति/पत्नी,
+              <span class="nepaliFont">{{printDocForm?.guarantorPermanentDistrict}}</span>
+              जिल्ला,
+              <span class="nepaliFont">{{printDocForm?.guarantorPermanentMunicipality}}</span>
+              न.पा./गा.पा. वडा नं.
+              <span class="nepaliFont">{{printDocForm?.guarantorPermanentWardNum}}</span>
+              भई हाल
+              <span class="nepaliFont">{{printDocForm?.guarantorTemporaryDistrict}}</span>
+              जिल्ला,
+              <span class="nepaliFont">{{printDocForm?.guarantorTemporaryMunicipality}}</span>
+              न.पा./गा.पा. वडा नं.
+              <span class="nepaliFont">{{printDocForm?.guarantorTemporaryWardNum}}</span>
+              मा वस्ने वर्ष
+              <span class="nepaliFont">{{printDocForm?.guarantorAge}}</span>
+              को/की
+              <span class="nepaliFont">{{printDocForm?.guarantorName}}</span>
+              (ना.प्र.नं.
+              <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipNum}}</span>
+              जि.प्र.का.
+              <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipIssuePlace}}</span>
+              मिति
+              <span class="nepaliFont">{{printDocForm?.guarantorCitizenshipIssueDate}}</span>
+              <ng-container *ngIf="isJoint && i<printDocForm?.commonData?.value?.length - 1">––१ र</ng-container>
+          </ng-container>
+            <ng-container *ngIf="isJoint; else individual">
+                समेत जना <span>{{printDocForm?.commonData?.length | nepaliNumber}}</span> (यसपछि संयुक्त ऋणी भनिएको छ)
+            </ng-container>
+            <ng-template #individual>
+                (यसपछि ऋणी भनिएको छ)
+            </ng-template>
+            लाई मेरो
             जमानीमा प्रदान गर्ने/गरेको जम्मा कर्जा रकम रु
             <span class="nepaliFont">{{printDocForm?.loanAmount}}</span>
             (अक्षरेपी रुपैयाँ
