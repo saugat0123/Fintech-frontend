@@ -15,7 +15,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
-import {CustomerService} from '../../../../../admin/service/customer.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-promisory-note-individual',
@@ -35,7 +35,7 @@ export class PromisoryNoteIndividualComponent implements OnInit {
         private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         private nepaliToEnglishPipe: NepaliToEngNumberPipe,
         private nepaliNumber: NepaliNumberPipe,
-        private customerService: CustomerService
+        private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -53,7 +53,10 @@ export class PromisoryNoteIndividualComponent implements OnInit {
     jointInfo: any;
 
     ngOnInit() {
-        this.isJoint = this.cadData.loanHolder.isJointCustomer;
+        if (this.cadData.assignedLoan[0].customerInfo.jointInfo) {
+            this.isJoint = true;
+            this.jointInfo = JSON.parse(this.cadData.assignedLoan[0].customerInfo.jointInfo).jointCustomerInfo;
+        }
         this.buildForm();
         this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
         this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
@@ -99,12 +102,11 @@ export class PromisoryNoteIndividualComponent implements OnInit {
             this.setCommonData();
         } else {
             if (this.isJoint) {
-                this.customerService.detail(this.cadData.loanHolder.associateId).subscribe((res: any) => {
-                    this.jointInfo = JSON.parse(res.detail.jointInfo).jointCustomerInfo;
+                    this.jointInfo = JSON.parse(this.cadData.assignedLoan[0].customerInfo.jointInfo).jointCustomerInfo;
                     this.jointInfo.forEach((data: any) => {
                         this.addCommonData();
                     });
-                });
+
             } else {
                 this.addCommonData();
             }
@@ -159,19 +161,22 @@ export class PromisoryNoteIndividualComponent implements OnInit {
                 rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
                 amount: this.nepaliCurrencyWordPipe.transform(this.amount)
             });
-            this.form.get(['commonData', 0]).patchValue({
-                grandFatherName: this.nepaliData.grandFatherName,
-                fatherName: this.nepaliData.fatherName,
-                name: this.nepaliData.name,
-                husbandName: this.nepaliData.husbandName,
-                address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
-                personalDetails: `${this.nepaliNumber.transform(this.customerInfo.citizenshipNumber, 'preeti')} ,${this.nepaliData.citizenshipIssueDate}, ${this.nepaliData.citizenshipIssueDistrict}`,
-            });
+           if(!this.jointInfo) {
+               this.form.get(['commonData', 0]).patchValue({
+                   grandFatherName: this.nepaliData.grandFatherName,
+                   fatherName: this.nepaliData.fatherName,
+                   name: this.nepaliData.name,
+                   husbandName: this.nepaliData.husbandName,
+                   address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
+                   personalDetails: `${this.nepaliNumber.transform(this.customerInfo.citizenshipNumber, 'preeti')} ,${this.nepaliData.citizenshipIssueDate}, ${this.nepaliData.citizenshipIssueDistrict}`,
+               });
+           }
         }
     }
 
     submit() {
         this.spinner = true;
+        this.spinnerService.show();
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
@@ -204,8 +209,10 @@ export class PromisoryNoteIndividualComponent implements OnInit {
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
+            this.spinnerService.hide();
         }, error => {
             console.error(error);
+            this.spinnerService.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.dialogRef.close();
             this.spinner = false;

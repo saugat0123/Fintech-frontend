@@ -15,7 +15,7 @@ import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-forma
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {CustomerService} from '../../../../../admin/service/customer.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-deed-individual',
@@ -35,7 +35,7 @@ export class LoanDeedIndividualComponent implements OnInit {
         private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         private nepaliToEnglishPipe: NepaliToEngNumberPipe,
         private nepaliNumber: NepaliNumberPipe,
-        private customerService: CustomerService
+        private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -49,8 +49,12 @@ export class LoanDeedIndividualComponent implements OnInit {
     nepaliData;
     amount;
     jointInfo: any;
+    isJoint = false;
 
     ngOnInit() {
+        if (this.cadData.assignedLoan[0].customerInfo.jointInfo) {
+            this.isJoint = true;
+        }
         this.buildForm();
         this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -74,12 +78,10 @@ export class LoanDeedIndividualComponent implements OnInit {
             });
             this.setCommonData();
         } else {
-            if (this.cadData.loanHolder.isJointCustomer) {
-                this.customerService.detail(this.cadData.loanHolder.associateId).subscribe((res: any) => {
-                    this.jointInfo = JSON.parse(res.detail.jointInfo).jointCustomerInfo;
-                    this.jointInfo.forEach((data: any) => {
-                        this.addCommonData();
-                    });
+            if (this.isJoint) {
+                this.jointInfo = JSON.parse(this.cadData.assignedLoan[0].customerInfo.jointInfo).jointCustomerInfo;
+                this.jointInfo.forEach((data: any) => {
+                    this.addCommonData();
                 });
             } else {
                 this.addCommonData();
@@ -217,6 +219,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
 
     submit() {
+        this.spinnerService.show();
         this.spinner = true;
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -248,10 +251,12 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
             this.dialogRef.close();
             this.spinner = false;
+            this.spinnerService.hide();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
         }, error => {
             console.error(error);
             this.spinner = false;
+            this.spinnerService.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
             this.dialogRef.close();
         });

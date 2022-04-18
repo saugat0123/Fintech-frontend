@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="row">
+<div [nbSpinner]="spinner" nbSpinnerSize="giant" class="row">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
 
@@ -56,10 +56,10 @@
                                                                                        formControlName="districtOffice">
                        , जारी मिति <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedYear">/
                        <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedMonth">/
-                       <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedDay"/>) <ng-container *ngIf="cadData?.loanHolder?.isJointCustomer && i<form?.get('commonData')?.value?.length - 1">––१ र</ng-container>
+                       <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedDay"/>) <ng-container *ngIf="isJoint && i<form?.get('commonData')?.value?.length - 1">––१ र</ng-container>
                    </ng-container>
                </ng-container>
-            <ng-container *ngIf="cadData?.loanHolder?.isJointCustomer; else individual">
+            <ng-container *ngIf="isJoint; else individual">
                 समेत जना <span>{{form?.get('commonData')?.value?.length | nepaliNumber }}</span> (यसपछि संयुक्त ऋणी भनिएको छ)
             </ng-container>
             <ng-template #individual>
@@ -140,5 +140,6 @@
         </button>
     </div>
 </div>
-<app-loan-deed-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" [isJoint]="cadData?.loanHolder?.isJointCustomer"
+<app-loan-deed-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" [isJoint]="isJoint"
                               hidden></app-loan-deed-individual-print>
+<app-overlay-spinner></app-overlay-spinner>

@@ -77,7 +77,7 @@
                         <input type="text" class="form-control-sm form-field nepaliFont"
                                formControlName="guarantorGrandParentName">
                         को
-                        नाति/नातिनि/बुहारी,
+                         नाति/नातिनि/बुहारी,
                         <input type="text" class="form-control-sm form-field nepaliFont"
                                formControlName="guarantorParentName">
                         को
@@ -118,12 +118,12 @@
                         <input type="text" class="form-control-sm form-field nepaliFont"
                                formControlName="guarantorCitizenshipIssueDate">
                         <ng-container
-                                *ngIf="cadOfferLetterApprovedDoc?.loanHolder?.isJointCustomer && i<form?.get('commonData')?.value?.length - 1">
+                                *ngIf="isJoint && i<form?.get('commonData')?.value?.length - 1">
                             ––१ र
                         </ng-container>
                     </ng-container>
                 </ng-container>
-                <ng-container *ngIf="cadOfferLetterApprovedDoc?.loanHolder?.isJointCustomer; else individual">
+                <ng-container *ngIf="isJoint; else individual">
                     समेत जना <span>{{form?.get('commonData')?.value?.length | nepaliNumber }}</span> (यसपछि संयुक्त ऋणी
                     भनिएको छ)
                 </ng-container>
@@ -222,3 +222,4 @@
 </div>
 <app-personal-guarantee-print *ngIf="initialInfoPrint" [isJoint]="isJoint" [printDocForm]="initialInfoPrint"
                               hidden></app-personal-guarantee-print>
+<app-overlay-spinner></app-overlay-spinner>

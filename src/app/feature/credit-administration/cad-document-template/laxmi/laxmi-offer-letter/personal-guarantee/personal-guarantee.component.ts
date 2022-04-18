@@ -17,7 +17,7 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
-import {CustomerService} from '../../../../../admin/service/customer.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-personal-guarantee',
@@ -51,17 +51,13 @@ export class PersonalGuaranteeComponent implements OnInit {
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private nepaliNumber: NepaliNumberPipe,
                 private dialogRef: NbDialogRef<PersonalGuaranteeComponent>,
-                private customerService: CustomerService) {
+                private spinnerService: NgxSpinnerService) {
     }
 
     ngOnInit() {
-        if (this.cadOfferLetterApprovedDoc.loanHolder.isJointCustomer) {
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].customerInfo.jointInfo) {
             this.isJoint = true;
-            this.customerService.detail(this.cadOfferLetterApprovedDoc.loanHolder.associateId).subscribe((res: any) => {
-                this.jointInfo = JSON.parse(res.detail.jointInfo).jointCustomerInfo;
-            });
-        } else {
-
+            this.jointInfo = JSON.parse(this.cadOfferLetterApprovedDoc.assignedLoan[0].customerInfo.jointInfo).jointCustomerInfo;
         }
         this.buildForm();
         this.checkOfferLetter();
@@ -70,29 +66,40 @@ export class PersonalGuaranteeComponent implements OnInit {
     fillForm() {
         this.amount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        this.form.patchValue({
-            customerName: this.nepaliData.name ? this.nepaliData.name : '',
-            age: this.nepaliData.age ? this.nepaliData.age : '',
-            branch: [undefined],
-            grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-            parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-            spouseName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-            citizenshipNum: this.nepaliData.age ? this.nepaliData.age : '',
-            citizenshipIssuePlace: this.nepaliData.age ? this.nepaliData.age : '',
-            citizenshipIssueDate: this.nepaliData.age ? this.nepaliData.age : '',
-            permanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-            permanentWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-            permanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-            temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-            temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            guarantorName: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].name) : '' ? this.nepaliData.guarantorDetails[0].name : ''  ,
-            guarantorCitizenshipNum: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].citizenNumber) : '' ? this.nepaliData.guarantorDetails[0].citizenNumber : ''  ,
-            guarantorCitizenshipIssuePlace: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedPlace) : '' ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
-            guarantorCitizenshipIssueDate: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedDate) : '' ? this.nepaliData.guarantorDetails[0].issuedDate : '',
-            loanAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
-            loanAmountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
-        });
+        if (this.nepaliData) {
+            this.form.patchValue({
+                customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                age: this.nepaliData.age ? this.nepaliData.age : '',
+                branch: [undefined],
+                grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                spouseName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+                citizenshipNum: this.nepaliData.age ? this.nepaliData.age : '',
+                citizenshipIssuePlace: this.nepaliData.age ? this.nepaliData.age : '',
+                citizenshipIssueDate: this.nepaliData.age ? this.nepaliData.age : '',
+                permanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                permanentWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                permanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+                loanAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
+                loanAmountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
+            });
+            if (!this.jointInfo) {
+                this.form.get(['commonDat', 0]).patchValue({
+                    guarantorName: (this.nepaliData.guarantorDetails.length > 0) ?
+                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].name) : '' ? this.nepaliData.guarantorDetails[0].name : '',
+                    guarantorCitizenshipNum: (this.nepaliData.guarantorDetails.length > 0) ?
+                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].citizenNumber) : '' ? this.nepaliData.guarantorDetails[0].citizenNumber : '',
+                    guarantorCitizenshipIssuePlace: (this.nepaliData.guarantorDetails.length > 0) ?
+                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedPlace) : '' ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
+                    guarantorCitizenshipIssueDate: (this.nepaliData.guarantorDetails.length > 0) ?
+                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedDate) : '' ? this.nepaliData.guarantorDetails[0].issuedDate : '',
+
+                });
+            }
+        }
     }
 
     checkOfferLetter() {
@@ -102,9 +109,13 @@ export class PersonalGuaranteeComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_GUARANTEE);
             this.addEmptySakshi();
-            this.jointInfo.forEach((d: any) => {
+            if(this.isJoint) {
+                this.jointInfo.forEach((d: any) => {
+                    this.addCommonData();
+                });
+            } else {
                 this.addCommonData();
-            });
+            }
             this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -118,6 +129,7 @@ export class PersonalGuaranteeComponent implements OnInit {
 
     onSubmit(): void {
         this.spinner = true;
+        this.spinnerService.show();
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
         if (this.existingOfferLetter) {
@@ -138,11 +150,13 @@ export class PersonalGuaranteeComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.spinnerService.hide();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
+            this.spinnerService.hide();
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
@@ -259,7 +273,7 @@ export class PersonalGuaranteeComponent implements OnInit {
 
     setCommonData() {
         const commonData = this.form.get('commonData') as FormArray;
-        JSON.parse(this.initialInfoPrint).commonData.forEach(d => {
+        this.initialInfoPrint.commonData.forEach(d => {
             commonData.push(this.formBuilder.group({
                 guarantorGrandParentName: [d.guarantorGrandParentName],
                 guarantorParentName: [d.guarantorParentName],
