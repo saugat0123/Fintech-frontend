@@ -73,7 +73,6 @@ export class LoanDeedIndividualComponent implements OnInit {
                 amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
             });
             this.setCommonData();
-            console.log('this is saved form value', this.form.value);
         } else {
             if (this.cadData.loanHolder.isJointCustomer) {
                 this.customerService.detail(this.cadData.loanHolder.associateId).subscribe((res: any) => {
