@@ -302,7 +302,7 @@
                                             <span [ngClass]="{'outside' : val.loanRevolvingPeriodCT !== null && val.loanRevolvingPeriodCT !== ''}">
                             {{val.loanRevolvingPeriodCT === null || val.loanRevolvingPeriodCT === '' ? '___________' : val.loanRevolvingPeriodCT}}</span>
                             दिने पटके अल्पकालिन कर्जा (One off Basis Short Term Loan for
-                                            <span class='nepaliFont' [ngClass]="{'outside' : val.loanRevolvingPeriod !== null && val.loanRevolvingPeriod !== ''}">
+                                            <span [ngClass]="{'outside' : val.loanRevolvingPeriod !== null && val.loanRevolvingPeriod !== ''}">
                             {{val.loanRevolvingPeriod === null || val.loanRevolvingPeriod === '' ? '=====================' : val.loanRevolvingPeriod}}</span>days)
                                 <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.
                                              <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.SNOfParentLimitShortTermLoan : '====================='}}</span>
