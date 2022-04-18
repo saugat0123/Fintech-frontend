@@ -17,6 +17,7 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
+import {CustomerService} from '../../../../../admin/service/customer.service';
 
 @Component({
     selector: 'app-personal-guarantee',
@@ -35,6 +36,8 @@ export class PersonalGuaranteeComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     amount;
+    isJoint = false;
+    jointInfo;
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -47,10 +50,19 @@ export class PersonalGuaranteeComponent implements OnInit {
                 private routerUtilsService: RouterUtilsService,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private nepaliNumber: NepaliNumberPipe,
-                private dialogRef: NbDialogRef<PersonalGuaranteeComponent>) {
+                private dialogRef: NbDialogRef<PersonalGuaranteeComponent>,
+                private customerService: CustomerService) {
     }
 
     ngOnInit() {
+        if (this.cadOfferLetterApprovedDoc.loanHolder.isJointCustomer) {
+            this.isJoint = true;
+            this.customerService.detail(this.cadOfferLetterApprovedDoc.loanHolder.associateId).subscribe((res: any) => {
+                this.jointInfo = JSON.parse(res.detail.jointInfo).jointCustomerInfo;
+            });
+        } else {
+
+        }
         this.buildForm();
         this.checkOfferLetter();
     }
@@ -90,12 +102,16 @@ export class PersonalGuaranteeComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_GUARANTEE);
             this.addEmptySakshi();
+            this.jointInfo.forEach((d: any) => {
+                this.addCommonData();
+            });
             this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.setSakshis(initialInfo.sakshis);
+            this.setCommonData();
             this.form.patchValue(this.initialInfoPrint);
         }
     }
@@ -188,6 +204,42 @@ export class PersonalGuaranteeComponent implements OnInit {
             citizenshipIssueDate: [undefined],
             passportNum: [undefined],
             passportIssueDate: [undefined],
+            // guarantorGrandParentName: [undefined],
+            // guarantorParentName: [undefined],
+            // guarantorSpouseName: [undefined],
+            // guarantorPermanentDistrict: [undefined],
+            // guarantorPermanentMunicipality: [undefined],
+            // guarantorPermanentWardNum: [undefined],
+            // guarantorTemporaryDistrict: [undefined],
+            // guarantorTemporaryMunicipality: [undefined],
+            // guarantorTemporaryWardNum: [undefined],
+            // guarantorAge: [undefined],
+            // guarantorName: [undefined],
+            // guarantorCitizenshipNum: [undefined],
+            // guarantorCitizenshipIssuePlace: [undefined],
+            // guarantorCitizenshipIssueDate: [undefined],
+            loanAmount: [undefined],
+            loanAmountInWords: [undefined],
+            foreignPlace: [undefined],
+
+            sakshis: this.formBuilder.array([]),
+
+            dateYear: [undefined],
+            dateMonth: [undefined],
+            dateDay: [undefined],
+            dateRoj: [undefined],
+            commonData: this.formBuilder.array([])
+        });
+    }
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
+    addCommonData() {
+        const commonData = this.form.get('commonData') as FormArray;
+        commonData.push(this.formBuilder.group({
             guarantorGrandParentName: [undefined],
             guarantorParentName: [undefined],
             guarantorSpouseName: [undefined],
@@ -202,22 +254,28 @@ export class PersonalGuaranteeComponent implements OnInit {
             guarantorCitizenshipNum: [undefined],
             guarantorCitizenshipIssuePlace: [undefined],
             guarantorCitizenshipIssueDate: [undefined],
-            loanAmount: [undefined],
-            loanAmountInWords: [undefined],
-            foreignPlace: [undefined],
-
-            sakshis: this.formBuilder.array([]),
-
-            dateYear: [undefined],
-            dateMonth: [undefined],
-            dateDay: [undefined],
-            dateRoj: [undefined],
-        });
+        }));
     }
 
-    getNumAmountWord(numLabel, wordLabel) {
-        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-        this.form.get(wordLabel).patchValue(returnVal);
+    setCommonData() {
+        const commonData = this.form.get('commonData') as FormArray;
+        JSON.parse(this.initialInfoPrint).commonData.forEach(d => {
+            commonData.push(this.formBuilder.group({
+                guarantorGrandParentName: [d.guarantorGrandParentName],
+                guarantorParentName: [d.guarantorParentName],
+                guarantorSpouseName: [d.guarantorSpouseName],
+                guarantorPermanentDistrict: [d.guarantorPermanentDistrict],
+                guarantorPermanentMunicipality: [d.guarantorPermanentMunicipality],
+                guarantorPermanentWardNum: [d.guarantorPermanentWardNum],
+                guarantorTemporaryDistrict: [d.guarantorTemporaryDistrict],
+                guarantorTemporaryMunicipality: [d.guarantorTemporaryMunicipality],
+                guarantorTemporaryWardNum: [d.guarantorTemporaryWardNum],
+                guarantorAge: [d.guarantorAge],
+                guarantorName: [d.guarantorName],
+                guarantorCitizenshipNum: [d.guarantorCitizenshipNum],
+                guarantorCitizenshipIssuePlace: [d.guarantorCitizenshipIssuePlace],
+                guarantorCitizenshipIssueDate: [d.guarantorCitizenshipIssueDate]
+            }));
+        });
     }
 }
