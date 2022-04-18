@@ -14,9 +14,6 @@ import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {CadFile} from "../../../../model/CadFile";
 import {Document} from "../../../../../admin/modal/document";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
-import {CompanyInfo} from '../../../../../admin/modal/company-info';
-import {CustomerType} from '../../../../../customer/model/customerType';
-import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-rokka-letter',
@@ -53,7 +50,6 @@ export class RokkaLetterComponent implements OnInit {
     this.tempData = JSON.parse(this.cadData.nepData);
     this.buildForm();
     this.fillForm();
-    console.log('this.loanData ', this.loanData);
   }
 
   buildForm() {
@@ -93,6 +89,7 @@ export class RokkaLetterComponent implements OnInit {
       financeBranchName: [undefined],
       financeBranchName2: [undefined],
       personalSignatureArray: this.formBuilder.array([this.buildPersonalSampleTable()]),
+      personalSignatureArray2: this.formBuilder.array([this.buildPersonalSampleTable2()]),
       rokkaFaatOffice: [undefined],
       rokkaFaatOfficeDistrict: [undefined],
       karmachariName: [undefined],
@@ -110,7 +107,6 @@ export class RokkaLetterComponent implements OnInit {
   }
 
   fillForm() {
-
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -119,13 +115,15 @@ export class RokkaLetterComponent implements OnInit {
           if (!ObjectUtil.isEmpty(initialInfo.personalSignatureArray)) {
             this.setPersonalSampleTest(initialInfo.personalSignatureArray);
           }
+          if (!ObjectUtil.isEmpty(initialInfo.personalSignatureArray2)) {
+            this.setPersonalSampleTest2(initialInfo.personalSignatureArray2);
+          }
          /* if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             // this.form(initialInfo.guarantorDetails);
           }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
-      console.log('this.cadData', this.cadData);
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -135,17 +133,19 @@ export class RokkaLetterComponent implements OnInit {
         branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
         branchPhoneNo: this.nepaliData.branchTelNo ? this.nepaliData.branchTelNo : '',
         debtorName: this.nepaliData.name ? this.nepaliData.name : '',
-        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict : '',
-        perMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentVdc) ? this.nepaliData.permanentVdc : '',
-        perWardNumber: !ObjectUtil.isEmpty(this.nepaliData.permanentVdcWard) ? this.nepaliData.permanentVdcWard : '',
-        corporateDistrict: !ObjectUtil.isEmpty(this.nepaliData.companyDistrict) ? this.nepaliData.companyDistrict : '',
-        corporateMunicipality: !ObjectUtil.isEmpty(this.nepaliData.companyVdcMun) ? this.nepaliData.companyVdcMun : '',
-        corporateWardNumber: !ObjectUtil.isEmpty(this.nepaliData.companyWardNo) ? this.nepaliData.companyWardNo : '',
-        corporateName: !ObjectUtil.isEmpty(this.nepaliData.corporateName) ? this.nepaliData.companyName : '',
-        representativeName: !ObjectUtil.isEmpty(this.nepaliData.representativeName) ? this.nepaliData.representativeName : '',
-        collateralName: !ObjectUtil.isEmpty(this.nepaliData.collateralDetails[0]) ? this.nepaliData.collateralDetails[0].collateralName : '',
+        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        perMunicipality: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+        perWardNumber: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : '',
+        corporateDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        corporateMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        corporateWardNumber: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        corporateName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
       });
     }
+
+    this.setPersonalSampleTest(this.nepaliData.collateralDetails);
+    this.setPersonalSampleTest2(this.nepaliData.collateralDetails);
 
     //this.setPersonalSampleTest(this.nepaliData.collateralDetails);
 
@@ -154,12 +154,11 @@ export class RokkaLetterComponent implements OnInit {
         this.setSecurityDetails(value, i);
       } catch (error) {
         this.addPersonalSampleTable();
+        this.addPersonalSampleTable2();
         this.setSecurityDetails(value, i);
       }
     });
-
   }
-
 
   onSubmit() {
     let flag = true;
@@ -225,13 +224,6 @@ export class RokkaLetterComponent implements OnInit {
       landOwnerDistrict: [undefined],
       tableMunicipality: [undefined],
       tableOldWardNum: [undefined],
-      institutionLandOwnerName: [undefined],
-      institutionRegistrationNo: [undefined],
-      institutionRegistrationDate: [undefined],
-      institutionPanNo: [undefined],
-      institutionLandOwnerDistrict: [undefined],
-      institutionPerMun: [undefined],
-      institutionPerWardNo: [undefined]
     });
   }
 
@@ -260,7 +252,7 @@ export class RokkaLetterComponent implements OnInit {
         tableTempMun: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
             value.collateralPermanentMunVdc.nepaliName : ''],
         tableTempWardNo: [value.collateralPermanentWardNo],
-        tableTempDistrict: [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+        landOwnerDistrict: [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
             value.collateralPermanentDistrict.nepaliName : ''],
         tableRegistrationNumber: [value.tableRegistrationNumber],
         tableDistrictName: [value.collateralDistrict],
@@ -271,16 +263,61 @@ export class RokkaLetterComponent implements OnInit {
         tableKittaNo: [value.plotNo],
         tablelandArea: [value.areaOfCollateral],
         tableSitNo: [value.seatNo],
-        landOwnerDistrict: [value.collateralPermanentDistrict],
+        tableTempDistrict: [value.tableTempDistrict],
         tableMunicipality: [value.collateralMunVdcOriginal],
         tableOldWardNum: [value.collateralWardNoOld],
-        institutionLandOwnerName: [value.companyName],
-        institutionRegistrationNo: [value.companyRegistrationNo],
-        institutionRegistrationDate: [value.registrationDate],
-        institutionPanNo: [value.panNo],
-        institutionLandOwnerDistrict: [value.companyDistrict],
-        institutionPerMun: [value.companyVdcMun],
-        institutionPerWardNo: [value.companyWardNo]
+      }));
+    });
+  }
+
+  buildPersonalSampleTable2() {
+    return this.formBuilder.group({
+      institutionLandOwnerName: [undefined],
+      institutionRegistrationNo: [undefined],
+      institutionRegistrationDate: [undefined],
+      institutionPanNo: [undefined],
+      institutionLandOwnerDistrict: [undefined],
+      institutionPerMun: [undefined],
+      institutionPerWardNo: [undefined],
+      tableDistrictName: [undefined],
+      tableMunicipality: [undefined],
+      tableOldWardNum: [undefined],
+      tableKittaNo: [undefined],
+      tablelandArea: [undefined],
+      tableSitNo: [undefined]
+    });
+  }
+
+  addPersonalSampleTable2() {
+    (this.form.get('personalSignatureArray2') as FormArray).push(this.buildPersonalSampleTable2());
+  }
+
+  removePersonalSampleTable2(index) {
+    (this.form.get('personalSignatureArray2') as FormArray).removeAt(index);
+  }
+
+  setPersonalSampleTest2(data) {
+    const formArray = this.form.get('personalSignatureArray2') as FormArray;
+    (this.form.get('personalSignatureArray2') as FormArray).clear();
+    if (data.length === 0) {
+      this.addPersonalSampleTable2();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        institutionLandOwnerName: [value.collateralName],
+        institutionRegistrationNo: [value.institutionRegistrationNo],
+        institutionRegistrationDate: [value.institutionRegistrationDate],
+        institutionPanNo: [value.institutionPanNo],
+        institutionLandOwnerDistrict: [value.institutionLandOwnerDistrict],
+        institutionPerMun: [value.institutionPerMun],
+        institutionPerWardNo: [value.institutionPerWardNo],
+        tableDistrictName: [value.collateralDistrict],
+        tableMunicipality: [value.collateralMunVdcOriginal],
+        tableOldWardNum: [value.collateralWardNoOld],
+        tableKittaNo: [value.plotNo],
+        tablelandArea: [value.areaOfCollateral],
+        tableSitNo: [value.seatNo]
       }));
     });
   }
@@ -303,7 +340,14 @@ export class RokkaLetterComponent implements OnInit {
     this.form.get(['personalSignatureArray', i, 'tableKittaNo']).patchValue(value.plotNo);
     this.form.get(['personalSignatureArray', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
     this.form.get(['personalSignatureArray', i, 'tableSitNo']).patchValue(value.seatNo);
-    this.form.get(['personalSignatureArray', i, 'landOwnerDistrict']).patchValue(value.landOwnerDistrict);
+    this.form.get(['personalSignatureArray', i, 'landOwnerDistrict']).patchValue(value.collateralPermanentDistrict.nepaliName);
+    this.form.get(['personalSignatureArray', i, 'tableMunicipality']).patchValue(value.collateralMunVdcOriginal);
+    this.form.get(['personalSignatureArray', i, 'tableOldWardNum']).patchValue(value.collateralWardNoOld);
+    this.form.get(['personalSignatureArray2', i, 'tableDistrictName']).patchValue(value.collateralDistrict);
+    this.form.get(['personalSignatureArray2', i, 'tableMunicipality']).patchValue(value.collateralMunVdcOriginal);
+    this.form.get(['personalSignatureArray2', i, 'tableOldWardNum']).patchValue(value.collateralWardNoOld);
+    this.form.get(['personalSignatureArray2', i, 'tableKittaNo']).patchValue(value.plotNo);
+    this.form.get(['personalSignatureArray2', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
+    this.form.get(['personalSignatureArray2', i, 'tableSitNo']).patchValue(value.seatNo);
   }
-
 }

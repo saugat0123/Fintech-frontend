@@ -61,8 +61,7 @@
         </span>
                 <b>को नाति/नातिनि</b> <span
                     [ngClass]="{'nepaliFont':printDocForm?.bottomFatherName!==null && printDocForm?.bottomFatherName!==''}">
-          {{printDocForm.bottomFatherName === null || printDocForm.bottomFatherName === '' ? '_______________' : printDocForm?.bottomFatherName}}
-        </span>,
+          {{printDocForm.bottomFatherName === null || printDocForm.bottomFatherName === '' ? '_______________' : printDocForm?.bottomFatherName}}</span>,
                 <b>र</b> <span
                     [ngClass]="{'nepaliFont':printDocForm?.bottomMotherName!==null && printDocForm?.bottomMotherName!==''}">
           {{printDocForm.bottomMotherName === null || printDocForm.bottomMotherName === '' ? '_______________' : printDocForm?.bottomMotherName}}
@@ -81,8 +80,7 @@
         </span>
                 <b>गा.पा./न.पा./म.न.पा. वडा नं. </b><span
                     [ngClass]="{'nepaliFont':printDocForm?.bottomWardNo!==null && printDocForm?.bottomWardNo!==''}">
-          {{printDocForm.bottomWardNo === null || printDocForm.bottomWardNo === '' ? '_______________' : printDocForm?.bottomWardNo}}
-        </span>,
+          {{printDocForm.bottomWardNo === null || printDocForm.bottomWardNo === '' ? '_______________' : printDocForm?.bottomWardNo}}</span>,
                 <span [ngClass]="{'nepaliFont':printDocForm?.address1!==null && printDocForm?.address1!==''}">
           {{printDocForm.address1 === null || printDocForm.address1 === '' ? '_______________' : printDocForm?.address1}}
         </span>
@@ -245,36 +243,17 @@
                     संस्थाको छाप/औठा छाप :--
                 </td>
                 <td style="text-align: left; vertical-align: top;">
-                    <table class="table  table-bordered" id="fingerXap">
-                        <thead>
-                        <tr>
-                            <th>दाँ.</th>
-                            <th>बाँ.</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                     <textarea cols="20" name=""
-                                               rows="7"
-                                               style="background-color: transparent;resize:none;border:none; outline:none"></textarea>
-
-                            </td>
-                            <td>
-                                        <textarea cols="20" name=""
-                                                  rows="7"
-                                                  style="background-color: transparent;resize:none;border:none; outline:none"></textarea>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <table class="table-bordered text-center float-right" style="width: 60%">
+                            <tr style="break-inside: avoid; height: 180px">
+                                <td style="border: none; vertical-align: top">दाँ.</td>
+                                <td style="border: none; vertical-align: top">बाँ.</td>
+                            </tr>
+                        </table>
                 </td>
                 <td style="text-align: right; vertical-align: top;width: 30%">
 
                 </td>
             </tr>
-
             </tbody>
         </table>
         <div>
