@@ -123,7 +123,6 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
             customerTemporaryWard: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             citizenshipIssueAddress: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-            bisaya: this.nepaliData.collateralDetails ? this.nepaliData.collateralDetails[0].vehicleType : '',
             vehiclePrice: this.nepaliData.collateralDetails ? this.nepaliData.collateralDetails[0].vehicleQuotationPrice : '',
             companyDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
             companyVdcMun: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
@@ -133,6 +132,14 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
             loanAmount: this.nepData ? this.nepData.numberNepali : '',
             loanAmountInWords: this.nepData ? this.nepData.nepaliWords : '',
             proprietor: this.nepaliData.representativeName ? this.nepaliData.representativeName : ''
+        });
+
+        this.nepaliData.collateralDetails.forEach(value => {
+            if (value.securityDetails === 'HP') {
+                this.vehicleDeliveryForm.patchValue({
+                    bisaya: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : '']
+                });
+            }
         });
     }
 

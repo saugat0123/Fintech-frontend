@@ -81,8 +81,7 @@
                     का संचालक/अखितयारी प्राप्त व्यक्ति/प्रतिनिधि/प्रोप्राईटर श्री
                     <span
                             class="font-weight-bold nepaliFont">{{printDocForm.proprietor ? printDocForm.proprietor : '======================' }}</span>
-                </p>
-                <p class="my-3">ले तेहांकोे मिति <span
+              ले तेहांकोे मिति <span
                         class="font-weight-bold nepaliFont">{{printDocForm.dateTwo ? printDocForm.dateTwo : '======================' }}</span>
                     कोे कोटेशन अनुसार रु <span
                             class="font-weight-bold nepaliFont">{{printDocForm.vehiclePrice ? printDocForm.vehiclePrice : '======================' }}</span>
@@ -98,7 +97,7 @@
                                 class="font-weight-bold nepaliFont">{{printDocForm.customerName ? printDocForm.customerName : '======================' }}</span>
                     </span>
                     <span *ngIf="!isIndividual">
-                        <<span
+                        <span
                             class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
                         </span>
                     को नाममा खरिद गर्न यस संस्थामा दिएको निवेदन स्वीकृत भएकोले तपसिलमा उल्लेखित
@@ -125,16 +124,13 @@
                     <span *ngIf="!isIndividual"><span
                             class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
                         </span>
-                    लिनुभई तपसिलमा उल्लेखित <span
-                            class="font-weight-bold nepaliFont">{{printDocForm.thanThree ? printDocForm.thanThree : '======================' }}</span> थान
-                    <span
-                            class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
+                    लिनुभई तपसिलमा उल्लेखित <span class="font-weight-bold nepaliFont">{{printDocForm.thanThree ? printDocForm.thanThree : '======================' }}</span> थान
+                    <span class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
                     यस संस्थाको नाममा नामसारी भै विलबुक तथा विमा पोलिसि उपलब्ध भएपछि तेंहालाई रु <span
                             class="font-weight-bold">{{printDocForm.loanAmount ? printDocForm.loanAmount : '...........................' }}</span> /–
                     (अक्षेरेपी: <span
                             class="font-weight-bold">{{printDocForm.loanAmountInWords ? printDocForm.loanAmountInWords : '..................................................' }}</span> मात्र ।) को चेकद्वारा भुक्तानी पठाई दिने व्यहोरा अनुरोध
                     छ ।</p>
-
                 <div class="mt-3">
                     <p class="font-weight-bold my-3">तपसिल</p>
                 </div>
@@ -152,43 +148,35 @@
                     <tr>
                         <td>{{i + 1 | nepaliNumber}}</td>
                         <td>
-                            <span
-                                    class="font-weight-bold nepaliFont">{{vehicleDetail.vehicleSpecification ? vehicleDetail.vehicleSpecification : '======================' }}</span>,
-                            <span
-                                    class="font-weight-bold">{{vehicleDetail.upakaran ? vehicleDetail.upakaran : '...........................' }}</span>
+                            <span class="font-weight-bold nepaliFont">{{vehicleDetail.vehicleSpecification ? vehicleDetail.vehicleSpecification : '======================' }}</span>,
+                            <span class="font-weight-bold">{{vehicleDetail.upakaran ? vehicleDetail.upakaran : '...........................' }}</span>
                         </td>
                         <td>
-                            <span
-                                    class="font-weight-bold">{{vehicleDetail.engineNo ? vehicleDetail.engineNo : '...........................' }}</span>
+                            <span class="font-weight-bold">{{vehicleDetail.engineNo ? vehicleDetail.engineNo : '...........................' }}</span>
                         </td>
                         <td>
-                            <span
-                                    class="font-weight-bold">{{vehicleDetail.chassisNo ? vehicleDetail.chassisNo : '...........................' }}</span>
+                            <span class="font-weight-bold">{{vehicleDetail.chassisNo ? vehicleDetail.chassisNo : '...........................' }}</span>
                         </td>
                         <td>
-                            <span
-                                    class="font-weight-bold nepaliFont">{{vehicleDetail.registeredNo ? vehicleDetail.registeredNo : '======================' }}</span>
+                            <span class="font-weight-bold nepaliFont">{{vehicleDetail.registeredNo ? vehicleDetail.registeredNo : '======================' }}</span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <p class="my-3"><span class="font-weight-bold">नोटः</span> कोटेशन पत्रमा उल्लेखित रकम बराबरको रकम भ्याट
+                <p class="my-3" style="font-size: 12px"><span class="font-weight-bold">नोटः</span> कोटेशन पत्रमा उल्लेखित रकम बराबरको रकम भ्याट
                     बिलमा समेत हुनुपर्नेछ । फरक पर्न गएमा भ्याट बिलमा उल्लेख भएको रकमको अधिकतम
-                    <span
-                            class="font-weight-bold nepaliFont">{{printDocForm.noteOne ? printDocForm.noteOne : '======================' }}</span>
+                    <span class="font-weight-bold nepaliFont">{{printDocForm.noteOne ? printDocForm.noteOne : '======================' }}</span>
                     प्रतिशत सम्म मात्र भुक्रानी दिईनेछ । साथै यो पत्रको मितिले
-                    <span
-                            class="font-weight-bold nepaliFont">{{printDocForm.noteTwo ? printDocForm.noteTwo : '======================' }}</span>
-                    दिनभित्र यस संस्थाको नाममा प्रस्तावित गाडि नामसारी भै दावि रकम
-                    भुक्तानी माग गरिसक्नुपर्नेछ । सो अवधि पश्चात् दावि रकम उपलब्ध गराउन संस्था बाध्य हुनेछैन ।</p>
+                    <span class="font-weight-bold nepaliFont">{{printDocForm.noteTwo ? printDocForm.noteTwo : '======================' }}</span>
+                    दिन भित्र यस संस्थाको नाममा प्रस्तावित गाडि नामसारी भै दावि रकम भुक्तानी माग गरि सक्नुपर्नेछ । सो अवधि पश्चात् दावि रकम उपलब्ध गराउन
+                    संस्था बाध्य हुने छैन ।</p>
                 <p class="mt-5 mb-4">भवदीय,</p>
                 <div class="d-flex justify-content-between my-3">
                     <div class="col-md-6">
                         <p>
                             .................................
                             <br>
-                            कर्मचारीको नामः <span
-                                class="font-weight-bold nepaliFont">{{printDocForm.karmachariName ? printDocForm.karmachariName : '======================' }}</span>
+                            कर्मचारीको नामः <span class="font-weight-bold nepaliFont">{{printDocForm.karmachariName ? printDocForm.karmachariName : '======================' }}</span>
                             <br>
                             पदः
                             <span class="font-weight-bold nepaliFont">
@@ -196,9 +184,7 @@
                             </span>
                             <br>
                             प्रोग्रेशिभ फाइनान्स लि.<br>
-                            <span class="font-weight-bold nepaliFont" style="font-size: 16px !important;">
-                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '======================' : printDocForm?.branchName}}
-                            </span> शाखा
+                            कर्पोरेट कार्यालय
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -207,23 +193,20 @@
                             <br>
                             कर्मचारीको नामः
                             <span class="nepaliFont font-weight-bold">
-                                    {{printDocForm?.karmachariName2 === null || printDocForm?.karmachariName2 === '' ? '======================' : printDocForm?.karmachariName2}}
-                                </span>
+                                {{printDocForm?.karmachariName2 === null || printDocForm?.karmachariName2 === '' ? '======================' : printDocForm?.karmachariName2}}
+                            </span>
                             <br>
                             पदः
                             <span class="font-weight-bold nepaliFont">
-                                    {{printDocForm?.postName2 === null || printDocForm?.postName2 === '' ? '======================' : printDocForm?.postName2}}
-                                </span>
+                                {{printDocForm?.postName2 === null || printDocForm?.postName2 === '' ? '======================' : printDocForm?.postName2}}
+                            </span>
                             <br>
                             प्रोग्रेशिभ फाइनान्स लि.<br>
-                            <span class="nepaliFont font-weight-bold" style="font-size: 16px !important;">
-                                    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '======================' : printDocForm?.branchName}}
-                                </span> शाखा
+                            कर्पोरेट कार्यालय
                         </p>
                     </div>
                 </div>
             </main>
-
         </form>
     </div>
 </section>
