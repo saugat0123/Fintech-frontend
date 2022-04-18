@@ -1,0 +1,52 @@
+<nb-card [nbSpinner]="spinner" style="line-height: 1.9em">
+    <nb-card-header>
+        <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+
+        <app-common-section-top [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-top>
+        <!-- TODO PASS THE CONTEXT / DATA BASED ON THE SECTION REQUIREMENTS -->
+        <!-- CALLING EACH SECTION -->
+        <app-section1-introduction #section1 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section1-introduction>
+
+        <app-section2-loan-type #section2 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section2-loan-type>
+
+        <app-section3-security-and-collateral #section3 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section3-security-and-collateral>
+
+
+        <app-section4-loan-limit [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section4-loan-limit>
+
+
+        <app-section5-interst-penal-charge [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section5-interst-penal-charge>
+
+
+        <app-section6-facilities-clause #section6 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section6-facilities-clause>
+
+
+        <app-section7-security-clause #section7 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section7-security-clause>
+
+        <app-section8-insurance-clause [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section8-insurance-clause>
+
+        <app-section9-other-clause #section9 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section9-other-clause>
+
+        <app-section10-security-documents #section10 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section10-security-documents>
+
+        <!--common section BOTTOM-->
+       <app-common-section-bottom #sectionBottom [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-bottom>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="col-md-12 text-right disable-print">
+            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}">Print
+            </button>
+            <button nbButton status="success" (click)="onSubmit()">Save</button>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+<app-combined-offer-letter-print hidden
+[customerApprovedDoc]="customerApprovedDoc"
+></app-combined-offer-letter-print>

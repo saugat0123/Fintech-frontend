@@ -1,0 +1,726 @@
+<div class="container text-justify" id="{{documentConstant.LETTER_OF_SET_OFF_PROPRIETORSHIP}}Print" [nbSpinner]="spinner">
+    <form [formGroup]="letterOfSetOffForm">
+        <div class="row justify-content-center">
+            <p class="font-weight-bold">
+                मोजरा–पत्र
+            </p>
+        </div>
+        <div class="row justify-content-center">
+            <p class="font-weight-bold">
+                (Letter of Set Off)
+            </p>
+        </div>
+        <div class="row col-md-12" style="justify-content: right">
+            <div class="row">
+                <div class="col-md-12">
+                    मितिः
+                    <input class="form-field disable-print form-control-sm nepaliFont"
+                           name="date" formControlName="date"
+                           placeholder="मिति" type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">
+                    {{this.freeText && freeText?.date ? this.freeText?.date : '===================================='}}
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 col-md-12">
+            <div style="margin-top: 4em">
+                <p>
+                    लिखितम्
+                    <span *ngFor="let natural of this.letterOfSetOffForm.get('naturalOwnerDetails')['length']; let i = index"
+                          formArrayName="naturalOwnerDetails">
+                    <span [formGroupName]="i">
+                        <input class="form-field disable-print form-control-sm"
+                               name="nameofGrandFather" formControlName="nameofGrandFather"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameofGrandFather']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameofGrandFather']).value : '___________________________'}}
+                        </span>
+                         को
+                        <span>
+                            नाती,
+                        </span>
+                        <span>
+                            नातिनी,
+                        </span>
+                        <span>
+                            बुहारी,
+                        </span>
+                        <input class="form-field disable-print form-control-sm"
+                               name="nameofFather" formControlName="nameofFather"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameofFather']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameofFather']).value : '___________________________'}}
+                        </span>
+                        को
+                        <span>
+                            छोरा,
+                        </span>
+                        <span>
+                            छोरी,
+                        </span>
+                        <span>
+                            श्रीमती,
+                        </span>
+                        <input class="form-field disable-print form-control-sm"
+                               name="ownerDistrict" formControlName="ownerDistrict"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerDistrict']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerDistrict']).value : '___________________________'}}
+                        </span>
+                        जिल्ला,
+                        <input class="form-field disable-print form-control-sm"
+                               name="ownerVDCMunicipality" formControlName="ownerVDCMunicipality"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerVDCMunicipality']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerVDCMunicipality']).value : '___________________________'}}
+                        </span>
+                         <span>
+                            न.पा.,
+                        </span>
+                        <span>
+                            गा.वि.स.,
+                        </span>
+                        <span>
+                            गाँउपालिका,
+                        </span>
+                        वडा नं.
+                        <input class="form-field disable-print form-control-sm"
+                               name="ownerWardNumber" formControlName="ownerWardNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerWardNumber']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerWardNumber']).value : '___________________________'}}
+                        </span>
+                        बस्ने वर्ष.
+                        <input class="form-field disable-print form-control-sm"
+                               name="ownerAge" formControlName="ownerAge"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerAge']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerAge']).value : '___________________________'}}
+                        </span>
+                        को
+                        <span>
+                            श्री
+                        </span>
+                        <span>
+                            श्रीमती
+                        </span>
+                        <span>
+                           सुश्री
+                        </span>
+                        <input class="form-field disable-print form-control-sm"
+                               name="nameOfChild" formControlName="nameOfChild"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameOfChild']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'nameOfChild']).value : '___________________________'}}
+                        </span>
+                        (ना.प्र.नं .
+                        <input class="form-field disable-print form-control-sm"
+                               name="ownerCitizenNumber" formControlName="ownerCitizenNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerCitizenNumber']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'ownerCitizenNumber']).value : '___________________________'}}
+                        </span>,
+                        मिति
+                        <input class="form-field disable-print form-control-sm"
+                               name="issueDate" formControlName="issueDate"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'issueDate']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'issueDate']).value : '___________________________'}}
+                        </span>,
+                         <input class="form-field disable-print form-control-sm"
+                                name="issuedDistrict" formControlName="issuedDistrict"
+                                type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['naturalOwnerDetails', i, 'issuedDistrict']).value ?
+                            letterOfSetOffForm.get(['naturalOwnerDetails', i, 'issuedDistrict']).value : '___________________________'}}
+                        </span>
+                        )-१
+                    </span>
+                </span>
+                    समेत जम्मा
+                    <input class="form-field disable-print form-control-sm"
+                           name="totalNumberOfPeople" formControlName="totalNumberOfPeople"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('totalNumberOfPeople').value ?
+                        letterOfSetOffForm.get('totalNumberOfPeople').value : '__________'}}
+                </span>
+                    जना ।
+            </div>
+            <div class="row">
+                <div style="margin-top: 4em" class="col-md-12">
+                    <p>
+                        लिखितम्
+                        <input class="form-field disable-print form-control-sm"
+                               name="actName" formControlName="actName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('actName').value ?
+                            letterOfSetOffForm.get('actName').value : '___________________________'}}
+                        </span>
+                        ऐन
+                        <input class="form-field disable-print form-control-sm"
+                               name="actYear" formControlName="actYear"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('actYear').value ?
+                            letterOfSetOffForm.get('actYear').value : '___________'}}
+                        </span>
+                        बमोजिम
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedBodyName" formControlName="authorizedBodyName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('authorizedBodyName').value ?
+                            letterOfSetOffForm.get('authorizedBodyName').value : '___________________________'}}
+                        </span>,
+                        <input class="form-field disable-print form-control-sm"
+                               name="headSectionName" formControlName="headSectionName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('headSectionName').value ?
+                            letterOfSetOffForm.get('headSectionName').value : '___________________________'}}
+                        </span>
+                        विभाग/कार्यालयमा मिति:
+                        <input class="form-field disable-print form-control-sm"
+                               name="registrationDate" formControlName="registrationDate"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('registrationDate').value ?
+                            letterOfSetOffForm.get('registrationDate').value : '___________________________'}}
+                        </span>
+                        मा दर्ता नं.
+                        <input class="form-field disable-print form-control-sm"
+                               name="registrationNumber" formControlName="registrationNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('registrationNumber').value ?
+                            letterOfSetOffForm.get('registrationNumber').value : '___________________________'}}
+                        </span>
+                        अन्तर्गत दर्ता भई
+                        <input class="form-field disable-print form-control-sm"
+                               name="districtName" formControlName="districtName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('districtName').value ?
+                            letterOfSetOffForm.get('districtName').value : '___________________________'}}
+                        </span>
+                        जिल्ला,
+                        <input class="form-field disable-print form-control-sm"
+                               name="VDCMunicipality" formControlName="VDCMunicipality"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('VDCMunicipality').value ?
+                            letterOfSetOffForm.get('VDCMunicipality').value : '___________________________'}}
+                        </span>
+                        <span>
+                            न.पा.,
+                        </span>
+                        <span>
+                            गा.वि.स.,
+                        </span>
+                        <span>
+                            गाँउपालिका,
+                        </span>
+                        वडा नं.
+                        <input class="form-field disable-print form-control-sm"
+                               name="wardNumber" formControlName="wardNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('wardNumber').value ?
+                            letterOfSetOffForm.get('wardNumber').value : '___________________________'}}
+                        </span>
+                        मा ठेगाना भएको श्री
+                        <input class="form-field disable-print form-control-sm"
+                               name="borrowerName" formControlName="borrowerName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('borrowerName').value ?
+                            letterOfSetOffForm.get('borrowerName').value : '___________________________'}}
+                        </span>
+                        को
+                        <input class="form-field disable-print form-control-sm nepaliFont"
+                               name="proprietorFreeText" formControlName="proprietorFreeText"
+                               type="text"/>
+                        <span class="print-only font-weight-bold nepaliFont">
+                        {{this.freeText && freeText?.proprietorFreeText ? this.freeText?.proprietorFreeText : '===================================='}}
+                    </span>,
+                        <span *ngFor="let natural of this.letterOfSetOffForm.get('authorizedOwnerDetails')['length'];let i = index"
+                              formArrayName="authorizedOwnerDetails">
+                    <span [formGroupName]="i">
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedGrandFatherName" formControlName="authorizedGrandFatherName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedGrandFatherName']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedGrandFatherName']).value : '___________________________'}}
+                        </span>
+                        को
+                        <span>
+                        नाती,
+                        </span>
+                        <span>
+                            नातिनी,
+                        </span>
+                        <span>
+                            बुहारी,
+                        </span>
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedChildName" formControlName="authorizedChildName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedChildName']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedChildName']).value : '___________________________'}}
+                        </span>
+                        को
+                        <span>
+                            छोरा,
+                        </span>
+                        <span>
+                            छोरी,
+                        </span>
+                        <span>
+                            श्रीमती,
+                        </span>
+                         <input class="form-field disable-print form-control-sm"
+                                name="authorizedDistrictName" formControlName="authorizedDistrictName"
+                                type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedDistrictName']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedDistrictName']).value : '___________________________'}}
+                        </span>
+                        जिल्ला
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedVDCName" formControlName="authorizedVDCName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedVDCName']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedVDCName']).value : '___________________________'}}
+                        </span>
+                        <span>
+                            न.पा.,
+                        </span>
+                        <span>
+                            गा.वि.स.,
+                        </span>
+                        <span>
+                            गाँउपालिका,
+                        </span>
+                       वडा नं.
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedWardNumber" formControlName="authorizedWardNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedWardNumber']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedWardNumber']).value : '_________'}}
+                        </span>
+                        बस्ने वर्ष
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedAge" formControlName="authorizedAge"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedAge']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedAge']).value : '_______'}}
+                        </span>
+                        को
+                        <span>
+                            श्री
+                        </span>
+                        <span>
+                            श्रीमती
+                        </span>
+                        <span>
+                            सुश्री
+                        </span>
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedName" formControlName="authorizedName"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedName']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedName']).value : '_______'}}
+                        </span>
+                        (ना.प्र.नं .
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedCitizenshipNumber" formControlName="authorizedCitizenshipNumber"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedCitizenshipNumber']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedCitizenshipNumber']).value : '_______'}}
+                        </span>
+                        मिति:
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedIssuedDate" formControlName="authorizedIssuedDate"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedIssuedDate']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedIssuedDate']).value : '_______'}}
+                        </span>,
+                        <input class="form-field disable-print form-control-sm"
+                               name="authorizedIssuedPlace" formControlName="authorizedIssuedPlace"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedIssuedPlace']).value ?
+                            letterOfSetOffForm.get(['authorizedOwnerDetails', i, 'authorizedIssuedPlace']).value : '_______'}}
+                        </span>)-१,
+                    </span>
+                </span>
+                        समेत जम्मा
+                        <input class="form-field disable-print form-control-sm"
+                               name="totalNumberOfPeople" formControlName="totalNumberOfPeople"
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('totalNumberOfPeople').value ?
+                            letterOfSetOffForm.get('totalNumberOfPeople').value : '__________'}}
+                </span>
+                        जना (जसलाई यस पछि
+                        <strong>
+                            "कारणी"
+                        </strong>
+                        भनिएको छ)।
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-field disable-print form-control-sm"
+                           name="actName" formControlName="actName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('actName').value ?
+                        letterOfSetOffForm.get('actName').value : '___________________________'}}
+                        </span>
+                    ऐन
+                    <input class="form-field disable-print form-control-sm"
+                           name="actYear" formControlName="actYear"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('actYear').value ?
+                        letterOfSetOffForm.get('actYear').value : '___________'}}
+                        </span>
+                    बमोजिम
+                    <input class="form-field disable-print form-control-sm"
+                           name="authorizedBodyName" formControlName="authorizedBodyName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('authorizedBodyName').value ?
+                        letterOfSetOffForm.get('authorizedBodyName').value : '___________________________'}}
+                        </span>,
+                    <input class="form-field disable-print form-control-sm"
+                           name="headSectionName" formControlName="headSectionName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('headSectionName').value ?
+                        letterOfSetOffForm.get('headSectionName').value : '___________________________'}}
+                        </span>
+                    विभाग/कार्यालयमा मिति:
+                    <input class="form-field disable-print form-control-sm"
+                           name="registrationDate" formControlName="registrationDate"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('registrationDate').value ?
+                        letterOfSetOffForm.get('registrationDate').value : '___________________________'}}
+                        </span>
+                    मा दर्ता नं.
+                    <input class="form-field disable-print form-control-sm"
+                           name="registrationNumber" formControlName="registrationNumber"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('registrationNumber').value ?
+                        letterOfSetOffForm.get('registrationNumber').value : '___________________________'}}
+                        </span>
+                    अन्तर्गत दर्ता भई
+                    <input class="form-field disable-print form-control-sm"
+                           name="districtName" formControlName="districtName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('districtName').value ?
+                        letterOfSetOffForm.get('districtName').value : '___________________________'}}
+                        </span>
+                    जिल्ला,
+                    <input class="form-field disable-print form-control-sm"
+                           name="VDCMunicipality" formControlName="VDCMunicipality"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('VDCMunicipality').value ?
+                        letterOfSetOffForm.get('VDCMunicipality').value : '___________________________'}}
+                        </span>
+                    <span>
+                            न.पा.,
+                        </span>
+                    <span>
+                            गा.वि.स.,
+                        </span>
+                    <span>
+                            गाँउपालिका,
+                        </span>
+                    वडा नं.
+                    <input class="form-field disable-print form-control-sm"
+                           name="wardNumber" formControlName="wardNumber"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('wardNumber').value ?
+                        letterOfSetOffForm.get('wardNumber').value : '___________________________'}}
+                        </span>
+                    स्थित रजिष्टर्ड कार्यालय
+                    रहेको श्री.
+                    <input class="form-field disable-print form-control-sm"
+                           name="borrowerName" formControlName="borrowerName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('borrowerName').value ?
+                        letterOfSetOffForm.get('borrowerName').value : '___________________________'}}
+                        </span>
+                    (जसलाई यस पछि
+                    <strong>
+                        "ऋणी"
+                    </strong>
+                    भनिएको छ) आगे तपाई नबिल बैंक लिमिटेड,
+                    शाखा कार्यालय
+                    <input class="form-field disable-print form-control-sm"
+                           name="branchName" formControlName="branchName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('branchName').value ?
+                        letterOfSetOffForm.get('branchName').value : '___________________________'}}
+                        </span>
+                    (जसलाई यस पछि
+                    <strong>
+                        "धनी बैंक"
+                    </strong>
+                    भनिएको छ) ले म/हाम्रो/ऋणीको अनुरोधमा
+                    म/हामी/ऋणीलाई
+                    <input class="form-field disable-print form-control-sm nepaliFont"
+                           name="purposeOfLoan" formControlName="purposeOfLoan"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">
+                        {{this.freeText && freeText?.purposeOfLoan ? this.freeText?.purposeOfLoan : '===================================='}}
+                    </span>
+                    गर्ने प्रयोजनको लागि मिति:
+                    <input class="form-field disable-print form-control-sm"
+                           name="sanctionLetterIssuedDate" formControlName="sanctionLetterIssuedDate"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('sanctionLetterIssuedDate').value ?
+                        letterOfSetOffForm.get('sanctionLetterIssuedDate').value : '___________________________'}}
+                    </span>
+                    को ऋण स्वीकृती पत्रानुसार स्वीकृत रु.
+                    <input class="form-field disable-print form-control-sm"
+                           name="loanAmountInFigure" formControlName="loanAmountInFigure"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('loanAmountInFigure').value ?
+                        letterOfSetOffForm.get('loanAmountInFigure').value : '___________________________'}}
+                    </span>/-
+                    (अक्षरेपी
+                    <input class="form-field disable-print form-control-sm"
+                           name="loanAmountInWords" formControlName="loanAmountInWords"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('loanAmountInWords').value ?
+                        letterOfSetOffForm.get('loanAmountInWords').value : '___________________________'}}
+                    </span>) सम्मको विभिन्न ऋणकर्जा
+                    तथा बैकिङ्ग सुविधाहरु उपलब्ध गराउनु भए वापत सो ऋणकर्जा तथा बैकिङ्ग सुविधाको चुक्ता भुक्तानीको
+                    प्रत्याभूति स्वरुप म/हाम्रो नाममा त्यस बैंकको जुन सुकै शाखा कार्यालयमा रहेको हरेक प्रकारको
+                    <strong>
+                        खाताहरु नं.
+                    </strong>
+                    <input class="form-field disable-print form-control-sm"
+                           name="accountNumber" formControlName="accountNumber"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('accountNumber').value ?
+                        letterOfSetOffForm.get('accountNumber').value : '___________________________'}}
+                    </span>
+                    र/वा मेरो/हाम्रो नाममा
+                    <input class="form-field disable-print form-control-sm"
+                           name="TDIssuingBank" formControlName="TDIssuingBank"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('TDIssuingBank').value ?
+                        letterOfSetOffForm.get('TDIssuingBank').value : '___________________________'}}
+                    </span>
+                    फरा जारी भएको
+                    <strong>
+                        मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी बिल नं.
+                    </strong>
+                    <input class="form-field disable-print form-control-sm"
+                           name="fixedDepositNumber" formControlName="fixedDepositNumber"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('fixedDepositNumber').value ?
+                        letterOfSetOffForm.get('fixedDepositNumber').value : '___________________________'}}
+                    </span>
+                    को स्वामित्व उपर तपाई धनी बैंकको ग्रहणाधिकार (Lien) र/वा हकाधिकार हुने गरी यो
+                    मोजरा–पत्र (Letter of Set off) को लिखत गरी दिएको छु/छौं । कथमकदाचित म/हामी/ऋणीले तपाई धनी बैंकसञग
+                    लिएको ऋणकर्जा तथा बैकिङ्ग सुविधा वापत तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने रकम नबुझाई वा बुझाउन नसकि
+                    बाँकी रहेमा म/हाम्रो नाममा रहेको जुनसुकै खाताहरु/मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी बिल बाट रकम
+                    संकलन गरी/रकमान्तरण गरी/ बिक्रि गरी/ नामसारी गरी ऋणकर्जा तथा बैंकिङ्ग सुविधाको साँवा ब्याज वापत
+                    समायोजन गरी त्यस्तो तिर्न बाँकी रकम राफसाफ वा हिसाव मिलान (Set Off) गर्न यसै मोजरा पत्रबाट तपाईं
+                    धनी बैंकलाई अख्तियारी दिएकाछौं । उपर्युक्त
+                    <strong>
+                        मुद्धति रसिद
+                    </strong>
+                    नबिकरण गर्न र उक्त नबिकरण भएको मुद्धति रसिद
+                    समेत उपर तपाई धनी बैंकको हकाधिकार कायम गर्न समेत मेरो/हाम्रो मन्जूरी छ । उपर्युक्त
+                    <strong>
+                        राष्ट्रिय बचत पत्र/ट्रेजरी बिलको
+                    </strong>
+                    अबधि समाप्त (Maturity) भएको अवस्था वा ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको
+                    शर्तबन्देजहरु उलंघन भएको अवस्था मध्ये जुन पहिले हुन्छ सो अवस्थामा
+                    <strong>
+                        राष्ट्रिय बचत पत्र/ट्रेजरी बिलको
+                    </strong>
+                    रकम संकलन गर्न/ बिक्रि गर्न/ नामसारी गर्न समेत यसै लिखतबाट अख्तियारी दिएका छौं र प्राप्त अख्तियारी
+                    बमोजिम गराई लिएमा मेरो/हाम्रो मञ्जुरी छ । पछि स्पष्ट रुपमा धितो सुरक्षण स्वरुप लेखि नदिएको खाताबाट
+                    रकम संकलन गरी/रकमान्तरण गरी/ मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी बिलबाट हिसाव मिलान गरी ऋणकर्जा
+                    तथा बैंकिङ्ग सुविधाको साँवा व्याज असुल उपर गर्न मुद्धति रसिद नबिकरण गर्न मिल्ने होइन भन्ने समेत कुनै
+                    किसिमको उजूर बाजूर गर्ने छैन/छैनौं, गरे यसै मोजरा–पत्र (Letter of Set Off) ले बदर गराई लिनु होला ।
+                    यस लिखत अन्तर्गत हाम्रो दायित्व म/हामी/ऋणीले यस अघि लिएको र/वा म/हामी/ऋणीले तपाई धनी बैंकको
+                    उपर्युक्त ऋण स्वीकृती पत्रमा उल्लेख गरे बमोजिम हाल लिएको वा भविष्यमा लिने ऋणकर्जा तथा बैकिङ्ग सुविधा
+                    (सो ऋणकर्जा तथा बैकिङ्ग सुविधा नवीकरण भएको अवस्थामा नवीकरण गर्ने ऋण स्वीकृती पत्रमा उल्लेख गरे
+                    बमोजिम म/हामी/ऋणीले लिने ऋणकर्जा तथा बैकिङ्ग सुविधा) पूर्ण रुपमा चुक्ता भुक्तान नभएसम्म कायम रहने
+                    कुरामा र यस लिखत अन्तर्गत एकभन्दा बढी व्यक्तिले मोजरा पत्र दिएको अवस्थामा त्यस्ता मोजरा पत्र दिने
+                    व्यक्तिहरुको तपाईं धनी बैंक प्रतिको दायित्व व्यक्तिगत वा सामूहिक (joint or several) हुने कुरामा
+                    समेत म/हाम्रो पूर्ण मन्जुरी छ भनी म/हाम्रो मनोमान राजीखुसीका साथ देहाय बमोजिमका साक्षीहरुको रोहवरमा
+                    यो मोजरा–पत्रमा सहीछाप गरी तपाई धनी नबिल बैंक लिमिटेड, शाखा कार्यालय
+                    <input class="form-field disable-print form-control-sm"
+                           name="branchName" formControlName="branchName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                            {{letterOfSetOffForm.get('branchName').value ?
+                        letterOfSetOffForm.get('branchName').value : '___________________________'}}
+                    </span>
+                    लाई दिएँ/दियौं ।
+                </div>
+            </div>
+            <div class="row" style="margin-left: 80%; margin-top: 2em">
+                <div class="col-md-12 text-right">
+                    <span class="pull-right">
+                        <p class="font-weight-bold">
+                            कारणी
+                        </p>
+                        <p class="font-weight-bold">
+                            लेखात्मक सहीः
+                        </p>
+                        <p style="margin-top:6em">
+                            ...................................
+                        </p>
+                        <p class="font-weight-bold">
+                            नामः
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 3em">
+                <div class="col-md-12">
+                    <ol class="conditions-list">
+                        <li>
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict"
+                                   formControlName="witnessDistrict" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessDistrict ? this.freeText?.witnessDistrict : '===================================='}}
+                                </span>
+                            जिल्ला
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessMunicipality"
+                                   formControlName="witnessMunicipality" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessMunicipality ? this.freeText?.witnessMunicipality : '===================================='}}
+                                </span>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="WitnessWardNumber"
+                                   formControlName="WitnessWardNumber" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.WitnessWardNumber ? this.freeText?.WitnessWardNumber : '===================================='}}
+                                </span>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge"
+                                   formControlName="witnessAge" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessAge ? this.freeText?.witnessAge : '===================================='}}
+                                </span>
+                            को/की
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName"
+                                   formControlName="witnessName" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessName ? this.freeText?.witnessName : '===================================='}}
+                                </span>
+                        </li>
+                        <li>
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict2"
+                                   formControlName="witnessDistrict2" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessDistrict2 ? this.freeText?.witnessDistrict2 : '===================================='}}
+                                </span>
+                            जिल्ला
+                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                                   name="witnessMunicipality2"
+                                   formControlName="witnessMunicipality2" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessMunicipality2 ? this.freeText?.witnessMunicipality2 : '===================================='}}
+                                </span>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="WitnessWardNumber2"
+                                   formControlName="WitnessWardNumber2" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.WitnessWardNumber2 ? this.freeText?.WitnessWardNumber2 : '===================================='}}
+                                </span>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge2"
+                                   formControlName="witnessAge2" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessAge2 ? this.freeText?.witnessAge2 : '===================================='}}
+                                </span>
+                            को/की
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName2"
+                                   formControlName="witnessName2" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && freeText?.witnessName2 ? this.freeText?.witnessName2 : '===================================='}}
+                                </span>
+                        </li>
+                        <li>
+                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                            कर्मचारी
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="bankStaff"
+                                   formControlName="bankStaff" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.freeText && this.freeText?.bankStaff ? this.freeText?.bankStaff : '===================================='}}
+                                </span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-5 ml-0">
+        <div class="col-md-12 text-right">
+            <button
+                    [useExistingCss]="true"
+                    styleSheetFile="assets/css/printStyles.scss"
+                    printSectionId="{{documentConstant.LETTER_OF_SET_OFF_PROPRIETORSHIP}}Print"
+                    class="d-print-none float-right"
+                    nbButton
+                    size="small"
+                    status="info"
+                    outline
+                    ngxPrint>
+                Print &nbsp;&nbsp;
+                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+            </button>
+            <button nbButton size="small"
+                    class="d-print-none sav"
+                    status="success"
+                    (click)="submit()"
+                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+        </div>
+    </div>
+</div>

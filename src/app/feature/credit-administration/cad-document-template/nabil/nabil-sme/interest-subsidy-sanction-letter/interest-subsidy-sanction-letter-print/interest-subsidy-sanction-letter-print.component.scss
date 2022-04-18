@@ -1,7 +1,11 @@
-.nepaliFont{
-  font-size: 16px;
+*{
+  line-height: 1.9em;
+  font-size: 19px;
 }
-
+.nepaliFontauto {
+  font-size: 29px !important;
+  font-family: Preeti;
+}
 // to left align
 .pull-left {
   text-align: left !important;
@@ -28,7 +32,7 @@
 
 // to resize unicode font
 .unicodeResize {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 // to set width 100 %
@@ -64,12 +68,12 @@ input.bottom-line {
 
 // to set same font size for all td and th elements
 .table-sm th, .table-sm td {
-  font-size: 15px !important;
+  font-size: 19px !important;
 }
 
 // to set small tag elements font size
 small#subContactPerson {
-  font-size: 15px;
+  font-size: 19px;
 }
 
 @media print {
@@ -95,9 +99,6 @@ small#subContactPerson {
     line-height: 40px !important;
   }
 
-  .unicodeResize {
-    font-size: 16px;
-  }
 
   .w-100 {
     width: 100% !important;
@@ -135,11 +136,4 @@ small#subContactPerson {
     display: table-footer-group;
   }
 
-  .table-sm th, .table-sm td {
-    font-size: 15px !important;
-  }
-
-  * {
-    line-height: 40px !important;
-  }
 }

@@ -31,6 +31,7 @@ import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 import {AmountWordPipe} from './@core/pipe/amount-word.pipe';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {EnglishDateTransformPipe} from './@core/pipe/english-date-transform.pipe';
 
 
 @NgModule({
@@ -72,7 +73,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         DatePipe, TitleCasePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
-        NepaliPercentWordPipe, AmountWordPipe],
+        NepaliPercentWordPipe, AmountWordPipe, EnglishDateTransformPipe],
     bootstrap: [AppComponent],
     exports: [
 

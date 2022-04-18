@@ -1,0 +1,54 @@
+<div class="row mt-3">
+    <div class="col-sm-12">
+        <table class="table table-bordered sb-small text-center">
+            <tbody>
+                <tr>
+                    <th rowspan="2">
+                        घर/जग्गा
+                        धनीको नाम थर
+                    </th>
+                    <th colspan="3">
+                        घर/जग्गाको अवस्थिति
+                    </th>
+                    <th rowspan="2">
+                        सिट नं.
+                    </th>
+                    <th rowspan="2">
+                        कित्ता नं.
+                    </th>
+                    <th rowspan="2">
+                        क्षेत्रफल
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        जिल्ला
+                    </th>
+                    <th>
+                        नगर/गा.वि.स.
+                    </th>
+                    <th>
+                        वडा नं.
+                    </th>
+                </tr>
+            </tbody>
+            <!-- DONOT DELETE -->
+            <!-- *ngFor="let data of securityDetails.primarySecurity" -->
+            <!-- [attr.rowspan]="data?.propertyDetails?.length + 1" -->
+            <!-- DONOT HAVE TO LOOP THE SECURITYDETAILS BECUASE INDEX HAS BEEN PASSED IN THE PARENT COMPONENT -->
+            <tbody>
+                <tr>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersNameCT}}</td>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersDistrictCT}}</td>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersMunicipalityCT}}</td>
+                </tr>
+                <tr *ngFor="let detail of securityDetails?.propertyDetails">
+                    <td>{{detail?.securityOwnersWardNoCT}}</td>
+                    <td>{{detail?.securityOwnersSheetNoCT}}</td>
+                    <td>{{detail?.securityOwnersKittaNoCT}}</td>
+                    <td>{{detail?.securityOwnersLandAreaCT}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

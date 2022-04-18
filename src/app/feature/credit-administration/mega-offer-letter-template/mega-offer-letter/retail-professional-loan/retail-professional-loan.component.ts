@@ -89,6 +89,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
+        console.log('initial info :::', this.offerDocumentDetails);
         this.calulation();
         this.checkOfferLetterData();
         this.guarantorDetails();
@@ -156,23 +157,21 @@ export class RetailProfessionalLoanComponent implements OnInit {
         });
     }
 
-    guarantorDetails(){
-        if (this.guarantorData.length == 1){
-            let temp = JSON.parse(this.guarantorData[0].nepData);
+    guarantorDetails() {
+        if (this.guarantorData.length === 1) {
+            const temp = JSON.parse(this.guarantorData[0].nepData);
             this.finalName =  temp.guarantorName.ct;
-        }
-        else if(this.guarantorData.length == 2){
-            for (let i = 0; i < this.guarantorData.length; i++){
-                let temp = JSON.parse(this.guarantorData[i].nepData);
+        } else if (this.guarantorData.length === 2) {
+            for (let i = 0; i < this.guarantorData.length; i++) {
+                const temp = JSON.parse(this.guarantorData[i].nepData);
                 this.guarantorNames.push(temp.guarantorName.ct);
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-            this.allguarantorNames = this.guarantorNames.join(" र ");
+            this.allguarantorNames = this.guarantorNames.join(' र ');
             this.finalName = this.allguarantorNames;
-        }
-        else{
-            for (let i = 0; i < this.guarantorData.length-1; i++){
+        } else{
+            for (let i = 0; i < this.guarantorData.length - 1; i++) {
                 let temp = JSON.parse(this.guarantorData[i].nepData);
                 this.guarantorNames.push(temp.guarantorName.ct);
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
@@ -292,6 +291,8 @@ submit(): void {
         // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
         //     tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
         // }
+        let fixedAmount;
+        let fixedRepAmount;
         if (this.selectedSecurity === 'FIXED_DEPOSIT') {
             const dateOfExpiryType = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
             if (dateOfExpiryType === 'AD' && !ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
@@ -300,6 +301,16 @@ submit(): void {
                 tempDateOfExpiry = this.initialInfoPrint.dateofExpiryNepali ?
                     this.initialInfoPrint.dateofExpiryNepali.en ? this.initialInfoPrint.dateofExpiryNepali.en.nDate : ''
                     : '';
+            }
+            if (!ObjectUtil.isEmpty(this.initialInfoPrint.fixedDepositAmountFigure)) {
+                    fixedAmount = this.initialInfoPrint.fixedDepositAmountFigure ?
+                    this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en))
+                    : '';
+            }
+            if (!ObjectUtil.isEmpty(this.initialInfoPrint.fixedDepositAmountFigure)) {
+                    fixedRepAmount = this.initialInfoPrint.fixedDepositAmountFigure ?
+                    this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en))
+                        : '';
             }
         }
         this.retailProfessionalLoan.patchValue({
@@ -312,12 +323,8 @@ submit(): void {
             dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
             dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
             dateofExpiry: tempDateOfExpiry ? tempDateOfExpiry : '',
-            fixedDepositAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
-                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en))
-                : '',
-            fixedDepositReceiptAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
-                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en)) :
-                ''
+            fixedDepositAmountFigure: fixedAmount ? fixedAmount : '',
+            fixedDepositReceiptAmountFigure: fixedRepAmount ? fixedRepAmount : ''
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
@@ -332,7 +339,7 @@ submit(): void {
         const baseRate = this.nepToEngNumberPipe.transform(this.retailProfessionalLoan.get(baseRateName).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.retailProfessionalLoan.get(premiumRateName).value);
         const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
-        const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
+        const finalVal = this.engToNepNumberPipe.transform(calculatedValue.toFixed(2));
         this.retailProfessionalLoan.get('interestRate').patchValue(finalVal);
     }
 

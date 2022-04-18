@@ -1,0 +1,22 @@
+* {
+  overflow-y: visible;
+}
+.dev-list {
+  list-style-type: devanagari !important;
+}
+.dev-list li {
+  line-height: 1.9em !important;
+  padding-left: 1em !important;
+  text-align: justify;
+}
+p {
+  line-height: 1.9em !important;
+  font-size: 19px !important;
+}
+.optional, ol li {
+  //font-weight:bold;
+  font-size: 19px !important;
+}
+li > p {
+  font-weight:normal;
+}

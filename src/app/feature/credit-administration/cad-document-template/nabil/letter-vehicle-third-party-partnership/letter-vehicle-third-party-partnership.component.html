@@ -1,0 +1,128 @@
+<nb-card [nbSpinner]="spinner">
+    <div class="container col-lg-12 nep text-justify">
+        <form [formGroup]="letterVehicleThirdPartyPartnership"  id="print-section">
+            <div class="row">
+                <div class="col-md-12 viewFull">
+                    <div class="nep">
+                        <div>
+                            <p class="text-right"> मितिः
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="date"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('date').value ? letterVehicleThirdPartyPartnership?.get('date').value : "=================="}}</span>
+                            <p>
+                                श्री नबिल बैंक लिमिटेड <br>
+                                <input class="form-field form-control-sm disable-print"
+                                       formControlName="nameOfBranchLocated"
+                                       placeholder=""
+                                       type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('nameOfBranchLocated').value ? letterVehicleThirdPartyPartnership?.get('nameOfBranchLocated').value : '___________________'}}</span>
+                                शाखा <br>
+                                नेपाल । <br>
+                                <br><b>विषयः सवारी साधनको नामसारी गर्ने अख्तियारी र मन्जुरी दिएको बारेमा । </b><br>
+                            <p>
+                                महोदय,<br>
+                                <br><input class="form-field form-control-sm disable-print "
+                                           formControlName="actName"
+                                           placeholder=""
+                                           type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('actName').value ? letterVehicleThirdPartyPartnership?.get('actName').value : '___________________'}}</span>
+                                ऐन <input class="form-field form-control-sm disable-print "
+                                          formControlName="actYearInFigure"
+                                          placeholder=""
+                                          type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('actYearInFigure').value ? letterVehicleThirdPartyPartnership?.get('actYearInFigure').value : '___________________'}}</span>
+                                बमोजिम नेपाल सरकार <input class="form-field form-control-sm disable-print "
+                                                          formControlName="nameOfDepartment"
+                                                          placeholder=""
+                                                          type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('nameOfDepartment').value ? letterVehicleThirdPartyPartnership?.get('nameOfDepartment').value : '___________________'}}</span>
+                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm disable-print "
+                                                             formControlName="dateOfRegistration"
+                                                             placeholder=""
+                                                             type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('dateOfRegistration').value ? letterVehicleThirdPartyPartnership?.get('dateOfRegistration').value : '___________________'}}</span>
+                                मा नं. <input class="form-field form-control-sm disable-print "
+                                              formControlName="registrationNo"
+                                              placeholder=""
+                                              type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('registrationNo').value ? letterVehicleThirdPartyPartnership?.get('registrationNo').value : '___________________'}}</span>
+                                अन्तर्गत दर्ता भएको म/हामी  <input class="form-field form-control-sm disable-print "
+                                                                   formControlName="nameOfBorrower"
+                                                                   placeholder=""
+                                                                   type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('nameOfBorrower').value ? letterVehicleThirdPartyPartnership?.get('nameOfBorrower').value : '___________________'}}</span>
+                                ले त्यस बैंकबाट मिति <input class="form-field form-control-sm disable-print "
+                                                            formControlName="sanctionLetterIssuedDate"
+                                                            placeholder=""
+                                                            type="text" readonly/>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyPartnership?.get('sanctionLetterIssuedDate').value ? letterVehicleThirdPartyPartnership?.get('sanctionLetterIssuedDate').value : '___________________'}}</span>
+                                मा जारी ऋण स्विकृती पत्रानुसार सवारी साधन ऋणकर्जा लिई तपसिलमा उल्लिखित सवारी साधन खरिद गरी उपयोग गरेकोमा पछि भविष्यमा त्यस बैंकले सो ऋणकर्जा
+                                असुली प्रक्रिया अन्तर्गत जमानतकर्ता लगायत अन्य कुनै पनि तेस्रो पक्षको नाममा उक्त सवारी साधन नामसारी गरी दिनु पर्ने अवस्थामा सम्बन्धित यातायात व्यवस्था कार्यालयमा मेरो / हाम्रो
+                                तर्फबाट पुरा गर्नुपर्ने कुनै पनि प्रक्रिया पुरा गर्नको लागि सम्पुर्ण अख्तियारी तपाईं श्री नबिल बैंक वा नबिल बैंकले तोकेको जुनसुकै कर्मचारी/व्यक्तिलाई प्रदान गरी यो मन्जुरीनामा लेखी दिएको छु / छौं।
+                                यस अख्तियारनामाको प्रयोग गरी उक्त सवारी साधन नामसारी भई गएको खण्डमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैन । यदी उजुर गरेकोमा यहि कागजलाई आधार मानी उक्त दावी खारेज गरी दिएको खण्डमा मलाई / हामीलाई पुर्ण मन्जुरी हुनेछ ।
+                                <br></p>
+                            <p class="text-right"><br>भवदीय,<br>
+                                <br>(................................)
+                            </p>
+
+                            <p>
+                                <b>सवारी साधनको विवरणः</b><br>
+                                <br>
+                                १. सवारी साधनको किसिमः <input class="form-field form-control-sm nepaliFont disable-print"
+                                                              formControlName="modelTypeOfVehicle"
+                                                              placeholder=""
+                                                              type="text"/>
+                                <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('modelTypeOfVehicle').value ? letterVehicleThirdPartyPartnership?.get('modelTypeOfVehicle').value : "=================="}}</span>
+                                <br>
+                                २. रजिष्टे्रशन नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
+                                                             formControlName="vehicleRegistrationNumber"
+                                                             placeholder=""
+                                                             type="text"/>
+                                <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('vehicleRegistrationNumber').value ? letterVehicleThirdPartyPartnership?.get('vehicleRegistrationNumber').value : "=================="}}</span>
+                                <br>
+                                ३. इन्जीन नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
+                                                        formControlName="engineNumber"
+                                                        placeholder=""
+                                                        type="text"/>
+                                <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('engineNumber').value ? letterVehicleThirdPartyPartnership?.get('engineNumber').value : "=================="}}</span>
+                                <br>
+                                ४. च्यासीस / भिन नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
+                                                         formControlName="chasisNumber"
+                                                         placeholder=""
+                                                         type="text"/>
+                                <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('chasisNumber').value ? letterVehicleThirdPartyPartnership?.get('chasisNumber').value : "=================="}}</span>
+                                <br>
+                                <br>
+                                <b>बोधार्थ <br>
+                                    श्री सम्बन्धित यातायात व्यवस्था कार्यालय</b>: मेरो / हाम्रो उपर्युक्त अख्तियारनामा अनुसार गरी दिनुहनु अनुरोध गर्दछु / छौं ।
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-5 ml-0">
+            <div class="col-md-11 text-right">
+                <button [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="personalGuaranteeCompanyPrint"
+                        class="d-print-none float-right"
+                        printSectionId="print-section"
+                        nbButton size="small" status="info" outline ngxPrint>
+                    Print &nbsp;&nbsp;
+                    <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton size="small"
+                        class="d-print-none sav"
+                        status="success"
+                        (click)="submit()"
+                        style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                    <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            </div>
+        </div>
+    </div>
+</nb-card>
+
+

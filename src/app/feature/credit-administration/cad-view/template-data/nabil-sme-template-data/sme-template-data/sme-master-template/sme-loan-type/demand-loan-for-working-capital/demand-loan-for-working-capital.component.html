@@ -1,0 +1,243 @@
+<div>
+    <form [formGroup]="demandLoanForm">
+        <div *ngFor="let formDetails of demandLoanForm.get('demandLoanFormArray')['controls']; let i = index" formArrayName="demandLoanFormArray">
+        <ng-container [formGroupName]="i">
+        <div class="row">
+            <div class="col-md-12 pb-2">
+                <h5> DEMAND LOAN FOR WORKING CAPITAL {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                        <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <nb-checkbox #complimentaryOther formControlName="complementaryOther">
+                    <i> Is complimentary of other loan ? </i></nb-checkbox>
+            </div>
+            <div class="col-md-4 mt-3" *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'complementaryOther']).value">
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select placeholder="Select Complimentary Loan"
+                           fullWidth
+                           formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
+                </nb-select>
+            </div>
+            <!--<div class="col-md-12 mt-2">
+                <nb-checkbox #arFinancing formControlName="arFinancing">
+                    <i> Is AR Financing only ? </i></nb-checkbox>
+            </div>-->
+        </div>
+        <div class="row pt-4">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmount">Loan Amount</label>
+                <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth id="loanAmountWordsTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsCT" fullWidth id="loanAmountWordsCT"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="arDays">AR Days</label>
+                <input class="form-control" formControlName="arDays" fullWidth id="arDays"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="arDaysTrans" fullWidth id="arDaysTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="arDaysCT" fullWidth id="arDaysCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                <input class="form-control" formControlName="drawingPower" fullWidth id="drawingPower"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerTrans" fullWidth id="drawingPowerTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerCT" fullWidth id="drawingPowerCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="baseRate">Base Rate</label>
+                <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
+                       nbInput
+                       shape="semi-round"
+                       (input)="calInterestRate(i, 'demandLoanFormArray')"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="premiumRate">Premium Rate</label>
+                <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
+                       nbInput
+                       shape="semi-round"
+                       (input)="calInterestRate(i, 'demandLoanFormArray')"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="interestRate">Interest Rate</label>
+                <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Loan Expiry Date/Next Review Date</label><br>
+                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                name="{{'dateOfExpiryType' + i}}" status="success">
+                    <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                    <nepali-patro [displayNepali]="true" [responseType]="2"
+                                  formControlName="dateOfExpiryNepali">
+                    </nepali-patro>
+                </div>
+                <input *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                       fullWidth
+                       id="dateOfExpiry"
+                       nbInput
+                       shape="semi-round"
+                       placeholder="Select Date" status="success">
+                <nb-datepicker #previousDate></nb-datepicker>
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- For Translation -->
+        <div class="row pt-5 pb-2 pr-4">
+            <div class="col-md-12 text-right">
+                <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                    Translate Demand Loan For Working Capital Details
+                </button>
+            </div>
+        </div>
+        </ng-container>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,213 @@
+<nb-card [nbSpinner]="spinner">
+    <div class="container nep text-justify">
+        <form [formGroup]="form" class="nep" id="print-section">
+            <div class="'container nep text-justify">
+                <div class="col-md-12 viewFull">
+                    <p class="text-right">
+                        मितिः ................/........../..........
+                    </p>
+                    श्री नबिल बैंक लिमिटेड
+                    <br>
+                    <input class="form-field form-control-sm d-print-none" formControlName="addressOfBank"
+                        name="addressOfBank" placeholder="ठेगाना" type="text" />
+                    <span class="print-only font-weight-bold">{{this.individualData?.branch ?
+                        this.individualData.branch.ct : '__________________________'}}</span>
+                    शाखा ।
+                    <p class="text-center">
+                        <b><u>विषयः पूरक सम्झौता (Supplementary Agreement) ।</u></b>
+                    </p>
+                    महोदय,
+                    <br>
+                    म/हामी
+                    <input class="form-field form-control-sm d-print-none" formControlName="nameOfBorrower"
+                        name="nameOfBorrower" type="text" />
+                    <span class="print-only font-weight-bold">{{this.individualData?.name ? this.individualData.name.ct
+                        : '__________________________'}}</span>
+                    ले मिति
+                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                        formControlName="dateOfHyothenciation" name="dateOfHyothenciation" type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.dateOfHyothenciation ?
+                        supportedInfo?.dateOfHyothenciation : '====================================='}}</span>
+                    मा त्यस बैंकको पक्षमा मेरो/हाम्रो श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र
+                    (General Letter of Hypothecation) को सन्दर्भमा सोही गोश्वारा-पत्रको
+                    अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
+                    <br>
+                    तहांले हाम्रो नाममा जारी गरेको मिति
+                    <input class="form-field form-control-sm d-print-none" formControlName="sanctionLetter"
+                        name="sanctionLetter" type="text" />
+                    <span class="print-only font-weight-bold">{{this.sanctionDate ? this.sanctionDate :
+                        '__________________________'}}</span>
+                    को ऋण स्वीकृति पत्रानुसार म/हामीले रु.
+                    <input class="form-field form-control-sm d-print-none" formControlName="loanAmountInFig"
+                        name="loanAmountInFig" type="text" />
+                    <span class="print-only font-weight-bold">{{this.finalAmount ? this.finalAmount :
+                        '__________________________'}}</span>/-
+                    (अक्षरेपी
+                    <input class="form-field form-control-sm d-print-none" formControlName="loanAmountInWord"
+                        name="loanAmountInWord" type=" " />
+                    <span class="print-only font-weight-bold">{{this.loanAmountWord ? this.loanAmountWord :
+                        '__________________________'}}</span> मात्र)
+                    उपयोग/उपभोग गरेको ठिक सांचो हो, <br>
+                    र
+                    उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा-पत्र वा मिति
+                    <input class="form-field form-control-sm d-print-none nepaliFont" formControlName="dateOfTrust"
+                        name="dateOfTrust" type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.dateOfTrust ?
+                        supportedInfo?.dateOfTrust :'====================================='}}</span>
+                    मा गरीदिएको "न्यासमा सामान बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
+                    मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
+                    <input class="form-field form-control-sm d-print-none nepaliFont" formControlName="letterOfCredit"
+                        name="letterOfCredit" type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.letterOfCredit ?
+                        supportedInfo?.letterOfCredit : '====================================='}}</span>
+                    मिति
+                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                        formControlName="letterOfCreditIssueDate" name="letterOfCreditIssueDate" type="text" />
+                    <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.letterOfCreditIssueDate ?
+                        supportedInfo.letterOfCreditIssueDate : '====================================='}}</span>
+                    को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा उल्लेखित
+                    सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका छौं :
+                    <br>
+                    <br>
+                    <b><u>सुरक्षणमा रहेको सामानको विवरण</u></b>
+                    <ol class="conditions-list">
+                        <button class="d-print-none" nbButton status="primary" size="tiny" (click)="addTextArea()"
+                            style="margin-bottom: 10px">Add
+                            Text Area
+                        </button>
+                        <li *ngFor="let textArea of form.get('securityFreeText')['controls']; let i = index;"
+                            formArrayName="securityFreeText">
+                            <div>
+                                <ng-container [formGroupName]="i">
+                                    <textarea class="form-control disable-print nepaliFont" rows="5"
+                                        style="width:100%;margin-left:2%" formControlName="freeTexts">
+                             </textarea>
+                                    <span
+                                        class="print-only font-weight-bold nepaliFont">{{form?.get(['securityFreeText',
+                                        i, 'freeTexts'])?.value}}</span>
+                                </ng-container>
+                                <div *ngIf="form.get('securityFreeText')['length'] > 1"
+                                    class="col-md-12 text-left mb-3 d-print-none">
+                                    <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                                        style="position: static">
+                                        <em class="fa fa-trash" style="color: white;"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="col-md-12 mt-5 d-flex justify-content-between">
+                        <div class="right-content">
+                        </div>
+                        <div class="left-content">
+                            --------------------------
+                            <br>
+                            अधिकृत दस्तखत
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            छापः
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <p class="text-center"><strong><u>साक्षी</u></strong></p>
+                        <ol class="conditions-list">
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessDistrict1" formControlName="witnessDistrict1" placeholder=""
+                                    type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessMuni1" formControlName="witnessMuni1" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessMuni1 ? this.supportedInfo.witnessMuni1 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessWard1" formControlName="witnessWard1" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessWard1 ? this.supportedInfo.witnessWard1 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessAge1 ? this.supportedInfo.witnessAge1 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessName1" formControlName="witnessName1" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessName1 ? this.supportedInfo.witnessName1 :
+                                    '=====================================') :
+                                    '====================================='}}</span><br>
+                            </li>
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessDistrict2" formControlName="witnessDistrict2" placeholder=""
+                                    type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                जिल्ला<input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessMuni2" formControlName="witnessMuni2" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessMuni2 ? this.supportedInfo.witnessMuni2 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessWard2" formControlName="witnessWard2" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessWard2 ? this.supportedInfo.witnessWard2 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessAge2" formControlName="witnessAge2" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessAge2 ? this.supportedInfo.witnessAge2 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="witnessName2" formControlName="witnessName2" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.witnessName2 ? this.supportedInfo.witnessName2 :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                            </li>
+                            <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    name="karmachariName" formControlName="karmachariName" placeholder="" type="text" />
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ?
+                                    (this.supportedInfo?.karmachariName ? this.supportedInfo.karmachariName :
+                                    '=====================================') :
+                                    '====================================='}}</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="row mt-5 ml-0">
+                        <div class="col-md-12 text-right">
+                            <button [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                                class="d-print-none float-right" printSectionId="print-section" nbButton size="small"
+                                status="info" outline ngxPrint>
+                                Print &nbsp;&nbsp;
+                                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                            </button>
+                            <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                                style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</nb-card>

@@ -1,3 +1,6 @@
+*{
+  line-height: 1.9em;
+}
 .longInput{
   width: 400px;
 }
@@ -7,8 +10,7 @@
 }
 
 .nep {
-  font-size: 16px;
-  line-height: 1.9;
+  font-size: 19px;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 50px;
@@ -63,11 +65,19 @@ ol.conditions li {
     display: inline;
   }
   div.align {
-    font-size: 20px;
-    line-height: 1.9;
+    font-size: 19px;
     text-align: justify;
     text-justify: inter-word;
     margin: 10px 70px;
   }
 
+}
+
+.sav {
+  color: rgb(65,104,207) ;
+  background-color: rgb(235,247,255);
+}
+
+ol li {
+  padding-left: 1em;
 }

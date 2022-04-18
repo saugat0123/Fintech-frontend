@@ -1,0 +1,14 @@
+p, ol li, th, td{
+  line-height: 1.9;
+  font-size: 19px;
+}
+ol li {
+  padding-left: 1em;
+}
+ol.conditions-list {
+  list-style: devanagari;
+  padding-left: 20px;
+  line-height: 40px !important;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}

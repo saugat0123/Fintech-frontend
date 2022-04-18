@@ -1,0 +1,116 @@
+<div class="text-justify col-md-12">
+    <form [formGroup]="form">
+        <div>
+            <div>
+                <!--For New Customer-->
+                <b>बिषयः ऋणकर्जा सुविधा बारे |</b>
+                <br>
+                महोदय,
+                <br>
+                तपाईंले मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="requestLetterDate"
+                       formControlName="requestLetterDate"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
+                बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत
+                गरेको ब्यहोरा अनुरोध गर्दछौं ।
+            </div>
+
+            <div>
+            <!--For existing customer - Plain Renewal-->
+                <b>बिषयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</b>
+                <br>
+                महोदय,
+                <br>
+                तपाईंले यस बैंकको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="previousSanctionLetter"
+                       formControlName="previousSanctionLetter"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु
+                नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="requestLetterDate1"
+                       formControlName="requestLetterDate1"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने
+                गरी देहाय बमोजिमका ऋणकर्जा सुविधाहरु नबिकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
+            </div>
+
+            <div>
+                <!--For existing customer - Renewal with enhancement or additional loan-->
+                <b>बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</b>
+                <br>
+                महोदय,
+                <br>
+                तपाईंले यस बैंकको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="previousSanctionLetter1"
+                       formControlName="previousSanctionLetter1"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु भएकोमा
+                हाल थप/अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु
+                भएको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="requestLetterDate2"
+                       formControlName="requestLetterDate2"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने
+                गरी थप/अतिरिक्त ऋणकर्जा सुविधाहरु सहित देहाय बमोजिमका ऋणकर्जा सुविधाहरु
+                स्वीकृत/नविकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
+            </div>
+
+            <div>
+                <!--For Existing customer - Additional loan-->
+                <b>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</b>
+                <br>
+                महोदय,
+                <br>
+                तपाईंले यस बैंकको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="previousSanctionLetter2"
+                       formControlName="previousSanctionLetter2"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
+                भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="requestLetterDate3"
+                       formControlName="requestLetterDate3"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
+                देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+            </div>
+
+            <div>
+                <!--For NCELL Housing Only-->
+                <b>बिषयः ऋणकर्जा सुविधा बारे ।</b>
+                तपाईंले मिति . वि.सं.
+                <input class="form-field form-control-sm d-print-none"
+                       name="requestLetterDate4"
+                       formControlName="requestLetterDate4"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{'______________________'}}</span>
+                मा संस्थागत कर्मचारी कर्जा सुविधा को लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा
+                यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने
+                गरी (नबिल बैंक लिमिटेड र एनसेल प्रा. लि. विचको संस्थागत कर्मचारी कर्जा सुविधा
+                संझौताको अधिनमा रहनेगरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -21,6 +21,8 @@ import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-templat
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
 
 @Component({
     selector: 'app-udhyamsil-karja-subsidy-template-edit',
@@ -62,6 +64,8 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
     submitted = false;
     loanOptions = CustomerLoanOptions;
     securities;
+    @ViewChild('requiredLegalDocument', {static: false})
+    requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private dialogService: NbDialogService,
@@ -73,6 +77,7 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private datePipe: DatePipe,
                 private engNepDatePipe: EngNepDatePipe,
+                private engDateTransPipe: EnglishDateTransformPipe,
                 private translatedService: SbTranslateService,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -218,7 +223,8 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
             interestSubsidyCT: [undefined],
-        });
+
+    });
         // this.addDefaultSecurity();
     }
 
@@ -393,11 +399,13 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         this.udhyamsilKarja.get('repaymentTypeTrans').patchValue(this.udhyamsilKarja.get('repaymentType').value);
         // Set Translated Date of Approval
         const approvalType = this.udhyamsilKarja.get('dateOfApprovalType').value;
+        let approvalD;
         let approvalDateTrans;
         if (approvalType === 'AD') {
             const approvalForm = this.udhyamsilKarja.get('dateOfApproval').value;
-            approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
+            approvalD = !ObjectUtil.isEmpty(approvalForm) ?
                 this.datePipe.transform(approvalForm) : '';
+            approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engNepDatePipe.transform(approvalD, true) : '';
             this.udhyamsilKarja.get('dateOfApprovalTrans').patchValue(approvalDateTrans);
         } else {
             const approvalNepali = this.udhyamsilKarja.get('dateOfApprovalNepali').value;
@@ -408,11 +416,12 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
 
         // Set Translated Date Of Application:
         const applicationType = this.udhyamsilKarja.get('dateOfApplicationType').value;
+        let appDateTrans;
         let applicationDateTrans;
         if (applicationType === 'AD') {
             const applicationForm = this.udhyamsilKarja.get('dateOfApplication').value;
-            applicationDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
-                this.datePipe.transform(applicationForm) : '';
+            appDateTrans = !ObjectUtil.isEmpty(applicationForm) ? this.datePipe.transform(applicationForm) : '';
+            applicationDateTrans = !ObjectUtil.isEmpty(appDateTrans) ? this.engDateTransPipe.transform(appDateTrans, true) : '';
             this.udhyamsilKarja.get('dateOfApplicationTrans').patchValue(applicationDateTrans);
         } else {
             const applicationNepali = this.udhyamsilKarja.get('dateOfApplicationNepali').value;
@@ -423,11 +432,13 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
 
         // Set Translated Date Of previous Sanction letter:
         const previousSanctionType = this.udhyamsilKarja.get('previousSanctionType').value;
+        let preSDate;
         let prevSancDate;
         if (previousSanctionType === 'AD') {
             const previousForm = this.udhyamsilKarja.get('previousSanctionDate').value;
-            prevSancDate = !ObjectUtil.isEmpty(previousForm) ?
+            preSDate = !ObjectUtil.isEmpty(previousForm) ?
                 this.datePipe.transform(previousForm) : '';
+            prevSancDate = !ObjectUtil.isEmpty(preSDate) ? this.engDateTransPipe.transform(preSDate, true) : '';
             this.udhyamsilKarja.get('previousSanctionDateTrans').patchValue(prevSancDate);
         } else {
             const previousNepali = this.udhyamsilKarja.get('previousSanctionDateNepali').value;
@@ -563,8 +574,7 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         this.udhyamsilKarja.get('dateOfApprovalTypeCT').patchValue(this.udhyamsilKarja.get('dateOfApprovalType').value);
         if (this.ADApproval) {
             const transDate = this.udhyamsilKarja.get('dateOfApprovalTrans').value;
-            const convertDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-            this.udhyamsilKarja.get('dateOfApprovalCT').patchValue(convertDate);
+            this.udhyamsilKarja.get('dateOfApprovalCT').patchValue(transDate);
         }
         if (this.BSApproval) {
             this.udhyamsilKarja.get('dateOfApprovalNepaliCT').patchValue(this.udhyamsilKarja.get('dateOfApprovalNepaliTrans').value);
@@ -574,8 +584,7 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         this.udhyamsilKarja.get('dateOfApplicationTypeCT').patchValue(this.udhyamsilKarja.get('dateOfApplicationType').value);
         if (this.ADApplication) {
             const transDate = this.udhyamsilKarja.get('dateOfApplicationTrans').value;
-            const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-            this.udhyamsilKarja.get('dateOfApplicationCT').patchValue(convertAppDate);
+            this.udhyamsilKarja.get('dateOfApplicationCT').patchValue(transDate);
         }
         if (this.BSApplication) {
             this.udhyamsilKarja.get('dateOfApplicationNepaliCT').patchValue(this.udhyamsilKarja.get('dateOfApplicationNepaliTrans').value);
@@ -585,9 +594,7 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         this.udhyamsilKarja.get('previousSanctionTypeCT').patchValue(this.udhyamsilKarja.get('previousSanctionType').value);
         if (this.ADPrevious) {
             const transPreviousDate = this.udhyamsilKarja.get('previousSanctionDateTrans').value;
-            const convertPreviousDate = !ObjectUtil.isEmpty(transPreviousDate) ?
-                this.engNepDatePipe.transform(transPreviousDate, true) : '';
-            this.udhyamsilKarja.get('previousSanctionDateCT').patchValue(convertPreviousDate);
+            this.udhyamsilKarja.get('previousSanctionDateCT').patchValue(transPreviousDate);
         }
         if (this.BSPrevious) {
             this.udhyamsilKarja.get('previousSanctionDateNepaliCT').patchValue(
@@ -658,6 +665,8 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         //     securities: this.udhyamsilKarja.get('securities').value,
         // }];
         this.tdVal['securities'] = this.udhyamsilKarja.get('securities').value;
+        const tempRequiredDocuments = this.setRequiredDocuments();
+        this.tdVal['requiredDocuments'] = tempRequiredDocuments;
         // For Clearing validation of optional and conditional Fields.
         this.clearConditionalValidation();
         const invalidControls = [];
@@ -895,4 +904,11 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 
+    private setRequiredDocuments() {
+        const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+        const requiredData = {
+            requiredLegalDocument: requiredLegalDocument,
+        };
+        return (requiredData);
+    }
 }

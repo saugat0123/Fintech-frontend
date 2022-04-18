@@ -1,0 +1,440 @@
+<div>
+    <form [formGroup]="autoLoanMasterForm">
+        <div *ngFor="let formDetails of autoLoanMasterForm.get('autoLoanFormArray')['controls']; let i = index"
+            formArrayName="autoLoanFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row">
+                    <div class="col-md-12 pb-2">
+                        <h5>AUTO LOAN {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                        <nb-checkbox #complementaryOther formControlName="complementaryOther">
+                            <i> Is complimentary of other loan ? </i>
+                        </nb-checkbox>
+                    </div>
+                    <div class="col-md-4 mt-3"
+                        *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'complementaryOther']).value">
+                        <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan
+                                Selection</strong></label><br>
+                        <nb-select placeholder="Select Complimentary Loan" fullWidth
+                            formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
+                            <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                                {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' +
+                                loanName?.loanAmount}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <nb-checkbox #vehiclePurchased formControlName="vehiclePurchased">
+                            <i> Is vehicle already purchased ? </i>
+                        </nb-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <nb-checkbox #vehicleRegistered formControlName="vehicleRegistered"
+                            id="{{'vehicleRegistered' + i}}">
+                            <i> Is vehicle already registered in Bank's name ? </i>
+                        </nb-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4" style="margin-top: 1em">
+                        <label><strong>Auto Loan Type</strong></label>
+                        <nb-select (selectedChange)="setAutoLoanType($event, i)" formControlName="autoLoanType"
+                            fullWidth placeholder="Auto Loan Type">
+                            <nb-option value="NEW_EMI_TERM_LOAN">New EMI Term Loan</nb-option>
+                            <nb-option value="OTHER_CREDIT_LIMITS">EMI Term Loan at the time of Annual Review of other
+                                Credit
+                                Limits
+                            </nb-option>
+                            <nb-option value="NEW_INSTALLMENT_BASIS">New Installment Basis Term Loan</nb-option>
+                            <nb-option value="REVIEW_OF_OTHER_CREDIT_LIMIT">Installment Basis Term Loan at the time of
+                                Annual
+                                Review
+                                of Other Credit Limits
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="purposeOfLoan">Purpose of Loan</label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan" nbInput
+                            shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth
+                            id="purposeOfLoanTrans" readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanCT" fullWidth id="purposeOfLoanCT"
+                            nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
+                            (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'autoLoanFormArray')" readonly
+                            nbInput shape="semi-round" status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                            readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT" readonly
+                            nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                            readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                            id="loanAmountWordsTrans" readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth id="loanAmountWordsCT"
+                            readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth id="drawingPower" nbInput
+                            shape="semi-round" status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth id="drawingPowerTrans"
+                            readonly nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth id="drawingPowerCT"
+                            nbInput shape="semi-round" status="success" type="text">
+                    </div>
+                </div>
+
+                <div
+                    *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'
+            || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+            autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT' || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+                    <div
+                        *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label><strong>EMI Payment Type</strong></label>
+                                <nb-select (selectedChange)="setEMIPaymentType($event)" formControlName="emiPaymentType"
+                                    fullWidth placeholder="Set EMI Payment Type">
+                                    <nb-option value="SUBSEQUENT_MONTH">On Subsequent Month</nb-option>
+                                    <nb-option value="EVERY_20TH">On Every 20th English Calender</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate">Base Rate</label>
+                            <input class="form-control" formControlName="baseRate" fullWidth id="baseRate" nbInput
+                                shape="semi-round" (change)="calInterestRate(i, 'autoLoanFormArray')" status="success"
+                                type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                                readonly nbInput shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT" nbInput
+                                shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate">Premium Rate</label>
+                            <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate" nbInput
+                                shape="semi-round" (change)="calInterestRate(i, 'autoLoanFormArray')" status="success"
+                                type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                id="premiumRateTrans" readonly nbInput shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                                nbInput shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate">Interest Rate</label>
+                            <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                                nbInput shape="semi-round" status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                id="interestRateTrans" readonly nbInput shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                                nbInput shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN' ||
+                autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="emiInfigure">EMI in Figure</label>
+                                <input class="form-control" formControlName="emiInfigure" fullWidth id="emiInfigure"
+                                    (input)="getNumAmountWord('emiInfigure', 'emiInWords', i, 'autoLoanFormArray')"
+                                    nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="emiInfigureTrans" fullWidth
+                                    id="emiInfigureTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="emiInfigureCT" fullWidth id="emiInfigureCT"
+                                    nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="emiInWords">EMI in Words</label>
+                                <input class="form-control" formControlName="emiInWords" fullWidth id="emiInWords"
+                                    nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="emiInWordsTrans" fullWidth
+                                    id="emiInWordsTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="emiInWordsCT" fullWidth id="emiInWordsCT"
+                                    nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="numberOfInstallment">Total Number of
+                                    Installment</label>
+                                <input class="form-control" formControlName="numberOfInstallment" fullWidth
+                                    id="numberOfInstallment" nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="numberOfInstallmentTrans" fullWidth
+                                    id="numberOfInstallmentTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="numberOfInstallmentCT" fullWidth
+                                    id="numberOfInstallmentCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--        Payment Amount for Installment-->
+                    <div
+                        *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+                autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label><strong>Payment Terms</strong></label>
+                                <nb-select (selectedChange)="setPaymentTerms($event)" formControlName="paymentTerms"
+                                    fullWidth placeholder="Payment Terms">
+                                    <nb-option value="YEARLY">Yearly</nb-option>
+                                    <nb-option value="SEMI_YEARLY">Semi-Yearly</nb-option>
+                                    <nb-option value="QUARTERLY">Quarterly</nb-option>
+                                    <nb-option value="MONTHLY">Monthly</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="paymentAmountFigure">Payment Amount in
+                                    Figure</label>
+                                <input class="form-control" formControlName="paymentAmountFigure" fullWidth
+                                    id="paymentAmountFigure"
+                                    (input)="getNumAmountWord('paymentAmountFigure', 'paymentAmountWords', i, 'autoLoanFormArray')"
+                                    nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="paymentAmountFigureTrans" fullWidth
+                                    id="paymentAmountFigureTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="paymentAmountFigureCT" fullWidth
+                                    id="paymentAmountFigureCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="paymentAmountWords">Payment Amount in Words</label>
+                                <input class="form-control" formControlName="paymentAmountWords" fullWidth
+                                    id="paymentAmountWords" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="paymentAmountWordsTrans" fullWidth
+                                    id="paymentAmountWordsTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="paymentAmountWordsCT" fullWidth
+                                    id="paymentAmountWordsCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="numberOfPayments">Total Number of Payments</label>
+                                <input class="form-control" formControlName="numberOfPayments" fullWidth
+                                    id="numberOfPayments" nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="numberOfPaymentsTrans" fullWidth
+                                    id="numberOfPaymentsTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="numberOfPaymentsCT" fullWidth
+                                    id="numberOfPaymentsCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--        Tenure of Loan for New EMI/Installment cases-->
+                    <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'
+            || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="serviceCharge">Service Charge (in %)</label>
+                                <input class="form-control" formControlName="serviceCharge" fullWidth id="serviceCharge"
+                                    nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="serviceChargeTrans" fullWidth
+                                    id="serviceChargeTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="serviceChargeCT" fullWidth
+                                    id="serviceChargeCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="tenureOfLoan">Tenure of Loan</label>
+                                <input class="form-control" formControlName="tenureOfLoan" fullWidth id="tenureOfLoan"
+                                    nbInput shape="semi-round" status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="tenureOfLoanTrans" fullWidth
+                                    id="tenureOfLoanTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="tenureOfLoanCT" fullWidth
+                                    id="tenureOfLoanCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <!--        End of Tenure Cases-->
+
+                    <!--        Expiry Date for Annual Cases-->
+                    <div
+                        *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT' || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Loan Expiry/Next
+                                    Review Date</label><br>
+                                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                    formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                    name="{{'dateOfExpiryType' + i}}" status="success">
+                                    <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}
+                                    </nb-radio>
+                                </nb-radio-group>
+                                <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value"
+                                    style="margin-bottom: -50px;">
+                                    <nepali-patro [displayNepali]="true" [responseType]="2"
+                                        formControlName="dateOfExpiryNepali">
+                                    </nepali-patro>
+                                </div>
+                                <input
+                                    *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                                    [nbDatepicker]="previousDate" formControlName="dateOfExpiry" fullWidth
+                                    id="dateOfExpiry" nbInput placeholder="Select Date" shape="semi-round"
+                                    status="success">
+                                <nb-datepicker #previousDate></nb-datepicker>
+                            </div>
+                            <div class="col-md-4 form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                                    id="dateOfExpiryTrans" nbInput readonly shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                                    id="dateOfExpiryCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--       Name of dealer for review credit limit-->
+                    <div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDealer">Name of Dealer</label>
+                                <input class="form-control" formControlName="nameOfDealer" fullWidth id="nameOfDealer"
+                                    nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDealerTrans" fullWidth
+                                    id="nameOfDealerTrans" readonly nbInput shape="semi-round" status="success"
+                                    type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDealerCT" fullWidth
+                                    id="nameOfDealerCT" nbInput shape="semi-round" status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--        End of Expiry date-->
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                            Translate Auto Loan Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

@@ -39,6 +39,11 @@
           </div>
 
           <div class="col-md-3 mb-3">
+            <input class="form-control rounded" formControlName="customerCode" id="customerCode"
+                   placeholder="Enter customer code">
+          </div>
+
+          <div class="col-md-3 mb-3">
             <ng-select placeholder="Province" formControlName="provinceId">
               <ng-option *ngFor="let province of provinces"
                          [value]="province.id">{{province.name}}</ng-option>
@@ -101,16 +106,17 @@
       <thead>
       <tr class="sb-bg-dark text-white">
         <th>S.No.</th>
-        <th *ngIf="!isMaker">Branch</th>
         <th>Customer Name</th>
-        <th>Customer Type</th>
+        <th>Customer Type (Sub-Type)</th>
+        <th>Customer Code</th>
         <th>ID Number</th>
         <th>ID Issue Place</th>
-        <th>ID Reg Date</th>
+        <!--<th>ID Reg Date</th>-->
         <th>Email</th>
         <th>Contact No</th>
+        <th *ngIf="!isMaker">Branch</th>
         <th *ngIf="showBranchProvince">Branch Province</th>
-        <th>Action</th>
+        <th *ngIf="!this.transferCustomer">Action</th>
 <!--        <th *ngIf="transferCustomer">Transfer</th>-->
       </tr>
       </thead>
@@ -118,20 +124,19 @@
       <tr
           *ngFor="let model of customerList;let i=index" class="cursor">
         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-        <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">
           <span *ngIf="model.isJointCustomer">Joint Customer: </span>{{model?.name}}
         </td>
-        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}}</td>
-
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}} ({{model?.customerSubType}})</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerCode || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idNumber || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idRegPlace || 'NA'}}</td>
-        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idRegDate | date}}</td>
+        <!--<td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idRegDate | date}}</td>-->
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.email || 'NA'}}</td>
-
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
+        <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
-        <td><button nbTooltip="Edit Customer" nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button>
+        <td *ngIf="!this.transferCustomer"><button nbTooltip="Edit Customer" nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button>
           <button nbTooltip="Apply Loan" nbButton status="warning" size="tiny"
                   (click)="applyLoan(model.id)">
             <em class="fa fa-plus-circle"></em></button>

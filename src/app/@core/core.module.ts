@@ -22,6 +22,7 @@ import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
+import { EnglishDateTransformPipe } from './pipe/english-date-transform.pipe';
 
 
 const DATA_SERVICES = [];
@@ -84,7 +85,8 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         LoginPopUp,
         NepaliNumberPipe,
-        AmountWordPipe
+        AmountWordPipe,
+        EnglishDateTransformPipe
 
     ], entryComponents: [LoginPopUp]
 })

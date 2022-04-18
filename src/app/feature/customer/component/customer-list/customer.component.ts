@@ -140,7 +140,8 @@ export class CustomerComponent implements OnInit {
             idRegPlace: [undefined],
             branchIds: [undefined],
             groupId: [undefined],
-            provinceId: [undefined]
+            provinceId: [undefined],
+            customerCode: [undefined],
         });
     }
 
@@ -450,9 +451,7 @@ export class CustomerComponent implements OnInit {
     }
 
     editCustomerOrCheckEditable(id: number) {
-        console.log(id);
         this.cadOneFormService.getCustomerById(id).subscribe(resp => {
-            console.log(resp);
             this.dialogService.open(CadOfferLetterConfigurationComponent, {
                 context: {
                     customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,

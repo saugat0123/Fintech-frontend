@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OfferDocument} from '../../../../../model/OfferDocument';
@@ -23,6 +23,8 @@ import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import {KisanKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import {KisanKarjaSubsidyPrintComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @Component({
   selector: 'app-kisan-karja-subsidy-template-data',
@@ -31,6 +33,8 @@ import {KisanKarjaSubsidyPrintComponent} from '../../../../../cad-document-templ
 })
 export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @ViewChild('requiredLegalDocument', {static: false})
+  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   customerLoanOptions: Array<String> = new Array<String>();
@@ -49,6 +53,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   allDistrictList = [];
   selectedAD = true;
   isInterestSubsidy = false;
+  isCollateral = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -72,6 +77,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
               private dialogRef: NbDialogRef<KisanKarjaSubsidyTemplateDataComponent>,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
+              private engDateTransPipe: EnglishDateTransformPipe,
               private datePipe: DatePipe,
               private engNepDatePipe: EngNepDatePipe,
               private translatedService: SbTranslateService,
@@ -129,6 +135,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       nameOfStaff: [undefined],
       nameOfBranchManager: [undefined],
       interestSubsidy: [undefined],
+      collateral: [undefined],
       securities: this.formBuilder.array([]),
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanOptionTrans: [undefined],
@@ -161,6 +168,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       nameOfStaffTrans: [undefined],
       nameOfBranchManagerTrans: [undefined],
       interestSubsidyTrans: [undefined],
+      collateralTrans: [undefined],
       // FIELDS FOR CT VALUE
       loanOptionCT: [undefined],
       repaymentTypeCT: [undefined],
@@ -181,8 +189,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       /////////
       previousSanctionTypeCT: [undefined],
       purposeOfLoanCT: [undefined, Validators.required],
-      loanAmountFigureCT: [undefined, Validators.required],
-      loanAmountFigureWordsCT: [undefined, Validators.required],
+      loanAmountFigureCT: [undefined/*, Validators.required*/],
+      loanAmountFigureWordsCT: [undefined/*, Validators.required*/],
       marginInPercentageCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
@@ -194,6 +202,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       nameOfStaffCT: [undefined, Validators.required],
       nameOfBranchManagerCT: [undefined, Validators.required],
       interestSubsidyCT: [undefined],
+      collateralCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -347,6 +356,10 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.isInterestSubsidy = data;
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
   }
+  collateralCheck(data) {
+    this.isCollateral = data;
+    this.kisanKarjaSubsidy.get('collateral').patchValue(this.isCollateral);
+  }
 
   mappedData() {
     Object.keys(this.kisanKarjaSubsidy.controls).forEach(key => {
@@ -365,15 +378,18 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.spinner = true;
     // Set Translate Data:
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.kisanKarjaSubsidy.get('collateral').patchValue(this.isCollateral);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
     const approvalType = this.kisanKarjaSubsidy.get('dateOfApprovalType').value;
+    let approvalD;
     let approvalDateTrans;
     if (approvalType === 'AD') {
       const approvalForm = this.kisanKarjaSubsidy.get('dateOfApproval').value;
-      approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
+      approvalD = !ObjectUtil.isEmpty(approvalForm) ?
           this.datePipe.transform(approvalForm) : '';
+      approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engNepDatePipe.transform(approvalD, true) : '';
       this.kisanKarjaSubsidy.get('dateOfApprovalTrans').patchValue(approvalDateTrans);
     } else {
       const approvalNepali = this.kisanKarjaSubsidy.get('dateOfApprovalNepali').value;
@@ -384,11 +400,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Date Of Application:
     const applicationType = this.kisanKarjaSubsidy.get('dateOfApplicationType').value;
+    let appDateTrans;
     let applicationDateTrans;
     if (applicationType === 'AD') {
       const applicationForm = this.kisanKarjaSubsidy.get('dateOfApplication').value;
-      applicationDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
+      appDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
           this.datePipe.transform(applicationForm) : '';
+      applicationDateTrans = !ObjectUtil.isEmpty(appDateTrans) ? this.engDateTransPipe.transform(appDateTrans, true) : '';
       this.kisanKarjaSubsidy.get('dateOfApplicationTrans').patchValue(applicationDateTrans);
     } else {
       const applicationNepali = this.kisanKarjaSubsidy.get('dateOfApplicationNepali').value;
@@ -399,11 +417,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Next Review Date:
     const reviewDateType = this.kisanKarjaSubsidy.get('nextReviewDateType').value;
+    let reviewDate;
     let reviewDateTrans;
     if (reviewDateType === 'AD') {
       const reviewForm = this.kisanKarjaSubsidy.get('nextReviewDate').value;
-      reviewDateTrans = !ObjectUtil.isEmpty(reviewForm) ?
+      reviewDate = !ObjectUtil.isEmpty(reviewForm) ?
           this.datePipe.transform(reviewForm) : '';
+      reviewDateTrans = !ObjectUtil.isEmpty(reviewDate) ? this.engDateTransPipe.transform(reviewDate, true) : '';
       this.kisanKarjaSubsidy.get('nextReviewDateTrans').patchValue(reviewDateTrans);
     } else {
       const reviewNepali = this.kisanKarjaSubsidy.get('nextReviewDateNepali').value;
@@ -414,11 +434,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Date Of previous Sanction letter:
     const previousSanctionType = this.kisanKarjaSubsidy.get('previousSanctionType').value;
+    let preSDate;
     let prevSancDate;
     if (previousSanctionType === 'AD') {
       const previousForm = this.kisanKarjaSubsidy.get('previousSanctionDate').value;
-      prevSancDate = !ObjectUtil.isEmpty(previousForm) ?
+      preSDate = !ObjectUtil.isEmpty(previousForm) ?
           this.datePipe.transform(previousForm) : '';
+      prevSancDate = !ObjectUtil.isEmpty(preSDate) ? this.engDateTransPipe.transform(preSDate, true) : '';
       this.kisanKarjaSubsidy.get('previousSanctionDateTrans').patchValue(prevSancDate);
     } else {
       const previousNepali = this.kisanKarjaSubsidy.get('previousSanctionDateNepali').value;
@@ -473,6 +495,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       nameOfStaff: this.kisanKarjaSubsidy.get('nameOfStaff').value,
       nameOfBranchManager: this.kisanKarjaSubsidy.get('nameOfBranchManager').value,
       interestSubsidy: this.kisanKarjaSubsidy.get('interestSubsidy').value,
+      collateral: this.kisanKarjaSubsidy.get('collateral').value,
       dateOfApprovalType: this.kisanKarjaSubsidy.get('dateOfApprovalType').value,
       dateOfApplicationType: this.kisanKarjaSubsidy.get('dateOfApplicationType').value,
       nextReviewDateType: this.kisanKarjaSubsidy.get('nextReviewDateType').value,
@@ -529,6 +552,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('nameOfStaffTrans').patchValue(this.translatedValues.nameOfStaff);
     this.kisanKarjaSubsidy.get('nameOfBranchManagerTrans').patchValue(this.translatedValues.nameOfBranchManager);
     this.kisanKarjaSubsidy.get('interestSubsidyTrans').patchValue(this.translatedValues.interestSubsidy);
+    this.kisanKarjaSubsidy.get('collateralTrans').patchValue(this.translatedValues.collateral);
     this.kisanKarjaSubsidy.get('dateOfApprovalTypeTrans').patchValue(this.translatedValues.dateOfApprovalType);
     this.kisanKarjaSubsidy.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
     this.kisanKarjaSubsidy.get('nextReviewDateTypeTrans').patchValue(this.translatedValues.nextReviewDateTypeTrans);
@@ -542,8 +566,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('dateOfApprovalTypeCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApprovalType').value);
     if (this.ADApproval) {
       const transDate = this.kisanKarjaSubsidy.get('dateOfApprovalTrans').value;
-      const convertDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.kisanKarjaSubsidy.get('dateOfApprovalCT').patchValue(convertDate);
+      this.kisanKarjaSubsidy.get('dateOfApprovalCT').patchValue(transDate);
     }
     if (this.BSApproval) {
       this.kisanKarjaSubsidy.get('dateOfApprovalNepaliCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApprovalNepaliTrans').value);
@@ -553,8 +576,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('dateOfApplicationTypeCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApplicationType').value);
     if (this.ADApplication) {
       const transDate = this.kisanKarjaSubsidy.get('dateOfApplicationTrans').value;
-      const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.kisanKarjaSubsidy.get('dateOfApplicationCT').patchValue(convertAppDate);
+      this.kisanKarjaSubsidy.get('dateOfApplicationCT').patchValue(transDate);
     }
     if (this.BSApplication) {
       this.kisanKarjaSubsidy.get('dateOfApplicationNepaliCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApplicationNepaliTrans').value);
@@ -564,8 +586,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (this.ADReview) {
       const transNextReviewDate = this.kisanKarjaSubsidy.get('nextReviewDateTrans').value;
       // tslint:disable-next-line:max-line-length
-      const convertNextReviewDate = !ObjectUtil.isEmpty(transNextReviewDate) ? this.engNepDatePipe.transform(transNextReviewDate, true) : '';
-      this.kisanKarjaSubsidy.get('nextReviewDateCT').patchValue(convertNextReviewDate);
+      this.kisanKarjaSubsidy.get('nextReviewDateCT').patchValue(transNextReviewDate);
     }
     if (this.BSReview) {
       this.kisanKarjaSubsidy.get('nextReviewDateNepaliCT').patchValue(this.kisanKarjaSubsidy.get('nextReviewDateNepaliTrans').value);
@@ -575,9 +596,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('previousSanctionTypeCT').patchValue(this.kisanKarjaSubsidy.get('previousSanctionType').value);
     if (this.ADPrevious) {
       const transPreviousDate = this.kisanKarjaSubsidy.get('previousSanctionDateTrans').value;
-      const convertPreviousDate = !ObjectUtil.isEmpty(transPreviousDate) ?
-          this.engNepDatePipe.transform(transPreviousDate, true) : '';
-      this.kisanKarjaSubsidy.get('previousSanctionDateCT').patchValue(convertPreviousDate);
+      this.kisanKarjaSubsidy.get('previousSanctionDateCT').patchValue(transPreviousDate);
     }
     if (this.BSPrevious) {
       this.kisanKarjaSubsidy.get('previousSanctionDateNepaliCT').patchValue(
@@ -597,6 +616,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('nameOfStaffCT').patchValue(this.kisanKarjaSubsidy.get('nameOfStaffTrans').value);
     this.kisanKarjaSubsidy.get('nameOfBranchManagerCT').patchValue(this.kisanKarjaSubsidy.get('nameOfBranchManagerTrans').value);
     this.kisanKarjaSubsidy.get('interestSubsidyCT').patchValue(this.kisanKarjaSubsidy.get('interestSubsidy').value);
+    this.kisanKarjaSubsidy.get('collateralCT').patchValue(this.kisanKarjaSubsidy.get('collateral').value);
   }
 
   clearConditionalValidation() {
@@ -644,6 +664,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (this.isInterestSubsidy) {
       this.kisanKarjaSubsidy.get('serviceChargeCT').clearValidators();
       this.kisanKarjaSubsidy.get('serviceChargeCT').updateValueAndValidity();
+      this.kisanKarjaSubsidy.get('commitmentFeeCT').clearValidators();
+      this.kisanKarjaSubsidy.get('commitmentFeeCT').updateValueAndValidity();
     } else {
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
@@ -657,6 +679,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     // }];
     this.tdVal['securities'] = this.kisanKarjaSubsidy.get('securities').value;
     // For Clearing validation of optional and conditional Fields.
+    const tempRequiredDocuments = this.setRequiredDocuments();
+    this.tdVal['requiredDocuments'] = tempRequiredDocuments;
     this.clearConditionalValidation();
     const invalidControls = [];
     const controls = this.kisanKarjaSubsidy.controls;
@@ -725,6 +749,14 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (tempVal === 'VDC') {
       this.kisanKarjaSubsidy.get([formArrayName, index, controlName]).setValue(null);
     }
+  }
+
+  private setRequiredDocuments() {
+    const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+    const requiredData = {
+      requiredLegalDocument: requiredLegalDocument,
+    };
+    return (requiredData);
   }
 
 }
