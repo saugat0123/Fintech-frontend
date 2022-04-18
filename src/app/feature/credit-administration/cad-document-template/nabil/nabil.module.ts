@@ -123,7 +123,7 @@ import { Section2LoanTypeRetailComponent } from './nabil-sme/retail-combined-off
 import { Section3FeesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section3-fees/section3-fees.component';
 import { Section4SecurityCollateralComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section4-security-collateral/section4-security-collateral.component';
 import { Section5InterestRatedRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section5-interest-rated-related-clauses/section5-interest-rated-related-clauses.component';
-import { Section5LoanLimitRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section6-loan-limit-related-clauses/section5-loan-limit-related-clauses.component';
+import { Section6LoanLimitRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section6-loan-limit-related-clauses/section6-loan-limit-related-clauses.component';
 import { Section7InterestAndEmiPaymentRelatedComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section7-interest-and-emi-payment-related/section7-interest-and-emi-payment-related.component';
 import { Section8LoanDisbursementRelatedClauseComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section8-loan-disbursement-related-clause/section8-loan-disbursement-related-clause.component';
 import { Section9InsuranceRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section9-insurance-related-clauses/section9-insurance-related-clauses.component';
@@ -135,6 +135,7 @@ import { Section14OtherTermsComponent } from './nabil-sme/retail-combined-offer-
 import { Section16AndSection17Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section16-and-section17/section16-and-section17.component';
 import { Section18RequiredSecurityDocumentsComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section18-required-security-documents/section18-required-security-documents.component';
 import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section19-to-section22/section19-to-section22.component';
+import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 
 @NgModule({
     declarations: [
@@ -161,7 +162,7 @@ import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer
         Section3FeesComponent,
         Section4SecurityCollateralComponent,
         Section5InterestRatedRelatedClausesComponent,
-        Section5LoanLimitRelatedClausesComponent,
+        Section6LoanLimitRelatedClausesComponent,
         Section7InterestAndEmiPaymentRelatedComponent,
         Section8LoanDisbursementRelatedClauseComponent,
         Section9InsuranceRelatedClausesComponent,
@@ -172,7 +173,8 @@ import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer
         Section14OtherTermsComponent,
         Section16AndSection17Component,
         Section18RequiredSecurityDocumentsComponent,
-        Section19ToSection22Component],
+        Section19ToSection22Component,
+        RetailCombinedOfferLetterComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -248,7 +250,9 @@ import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer
         LetterVehicleThirdPartyPartnershipComponent,
         LetterVehicleThirdPartyProprietorshipComponent,
         SingleSmePrimarySecurityViewComponent,
-        SingleSmeSecondarySecurityViewComponent
+        SingleSmeSecondarySecurityViewComponent,
+        CommonSectionTopRetailComponent,
+        Section1CustomerOfferLetterTypeComponent
     ],
     imports: [
         CommonModule,
