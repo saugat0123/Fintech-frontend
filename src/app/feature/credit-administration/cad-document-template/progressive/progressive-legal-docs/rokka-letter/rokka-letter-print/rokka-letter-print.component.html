@@ -1,5 +1,5 @@
 <div class="container text-justify" id="print-section-{{ offerLetterConst.ROKKA_LETTER }}">
-    <form id="rokkaLetter" class="viewFull nepali margin">
+    <form id="rokkaLetter" class="viewFull nepali">
         <div class="row d-flex justify-content-around">
             <div class="col-md-12">
                 <p class="float-right">
@@ -47,18 +47,7 @@
                         {{printDocForm.perWardNumber === null || printDocForm.perWardNumber === '' ? '_______________' : printDocForm?.perWardNumber}}</span>
                     बस्ने श्री
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
-                        {{printDocForm.debtorName === null || printDocForm.debtorName === '' ? '_______________' : printDocForm?.debtorName}}</span>ले
-                    तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु.
-                    <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
-                        {{printDocForm.loanAmount === null || printDocForm.loanAmount === '' ? '_______________' : printDocForm?.loanAmount}}
-                    </span>/-
-                    (अक्षरुपीः <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
-                        {{printDocForm.loanAmountWords === null || printDocForm.loanAmountWords === '' ? '_______________' : printDocForm?.loanAmountWords}}
-                    </span> मात्र ।)</strong> सम्म कर्जा उपभोग
-                    गर्न सक्ने गरी सुरक्षण वापत श्री
-                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.collateralName !== null && printDocForm?.collateralName !== ''}">
-                        {{printDocForm.collateralName === null || printDocForm.collateralName === '' ? '_______________' : printDocForm?.collateralName}}
-                    </span>
+                        {{printDocForm.debtorName === null || printDocForm.debtorName === '' ? '_______________' : printDocForm?.debtorName}}</span>
                 </span>
                 <span *ngIf="loanData?.customerType === 'INSTITUTION'" class="text-justify">
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.corporateDistrict !== null && printDocForm?.corporateDistrict !== ''}">
@@ -104,9 +93,10 @@
                 </p>
             </div>
             <div class="col-md-12">
-                <table class="table table-bordered table-responsive-md">
-                    <caption style="caption-side: top; margin-left: 70px" class="font-weight-bold">रोक्का राख्ने जायजेथाको विवरण</caption>
-                    <thead *ngIf="printDocForm?.personalSignatureArray.length>=1;">
+                <span style="margin-left: 70px" class="font-weight-bold">रोक्का राख्ने जायजेथाको विवरण</span>
+                <table class="table table-bordered table-responsive-md"
+                       *ngIf="printDocForm?.personalSignatureArray.length >= 1;">
+                    <thead>
                     <tr>
                         <th style="width: 45%">जग्गाधनिको विवरण</th>
                         <th style="width: 9%">जिल्ला</th>
@@ -175,8 +165,8 @@
                     </tr>
                     </tbody>
                 </table>
-                <table class="table table-bordered table-responsive-md" *ngIf="loanData?.customerType === 'INSTITUTION'">
-                    <thead *ngIf="printDocForm?.personalSignatureArray2.length>=1;">
+                <table class="table table-bordered table-responsive-md" *ngIf="loanData?.customerType === 'INSTITUTION' && printDocForm?.personalSignatureArray2.length >= 1;">
+                    <thead>
                     <tr>
                         <th style="width: 45%">जग्गाधनिको विवरण</th>
                         <th style="width: 9%">जिल्ला</th>
@@ -258,10 +248,10 @@
                 <p class="font-weight-bold">
                     <u>बोधार्थ,<br>
                         मालपोत कार्यालय<br>
-                        रोक्का फाँट,
+                        रोक्का फाँट,</u>
                         <span [ngClass]="{'nepaliFont':printDocForm?.rokkaFaatOffice !== null && printDocForm?.rokkaFaatOffice !== ''}">
-                        {{printDocForm.rokkaFaatOffice === null || printDocForm.rokkaFaatOffice === '' ? '_______________' : printDocForm?.rokkaFaatOffice}}</span>।
-                    </u>
+                            <u>{{printDocForm.rokkaFaatOffice === null || printDocForm.rokkaFaatOffice === '' ? '_______________' : printDocForm?.rokkaFaatOffice}}</u></span>।
+
                 </p>
             </div>
             </div>

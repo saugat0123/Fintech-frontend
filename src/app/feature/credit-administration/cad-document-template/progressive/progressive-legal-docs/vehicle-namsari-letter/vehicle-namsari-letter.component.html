@@ -130,7 +130,7 @@
                         <tbody *ngFor="let vehicleDetail of form.get('vehicleDetails')['controls']; let i = index;"
                                formArrayName="vehicleDetails">
                         <tr [formGroupName]="i">
-                            <td>{{i+1 | nepaliNumber}}</td>
+                            <td>{{i+1 | nepaliNumber}}.</td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont" id='vehicleSpecification'
                                        formControlName="vehicleSpecification"
@@ -176,8 +176,8 @@
                 <div class="text-center">
                     भवदीय,
                 </div>
-                <div class="row d-flex justify-content-around">
-                    <div class="col-md-6">
+                <div class="row d-flex justify-content-between">
+                    <div class="float-left">
                         <p>
                             .................................
                             <br>
@@ -195,8 +195,8 @@
                                    formControlName="branchName"> शाखा
                         </p>
                     </div>
-                    <div class="col-md-6">
-                        <p class="text-right">
+                    <div class="float-right">
+                        <p>
                             .................................
                             <br>
                                 कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"

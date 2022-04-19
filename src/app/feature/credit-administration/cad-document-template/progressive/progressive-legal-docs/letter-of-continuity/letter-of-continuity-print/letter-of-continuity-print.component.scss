@@ -1,9 +1,5 @@
 @import '../../progressive-legal-docs.component';
 
-.margin {
-  margin: 0.5in 0 0 0.35in;
-}
-
 @media print {
   .page-break { page-break-before: always; }
 }
