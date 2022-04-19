@@ -140,4 +140,8 @@ export class SecurityLandBuildingComponent implements OnInit {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
+  get formControl() {
+    return (this.landBuildingForm.get('landAndBuilding') as FormArray).controls;
+  }
+
 }

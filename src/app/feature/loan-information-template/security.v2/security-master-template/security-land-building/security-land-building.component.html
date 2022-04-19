@@ -83,7 +83,7 @@
                                                     formControlName="province" id="province{{i}}" placeholder="Select Province">
                                                 <ng-option *ngFor="let province of provinceList" [value]="province">{{province?.name}}</ng-option>
                                             </ng-select>
-                                            <span *ngIf="(submitted) && landBuilding.get('province').invalid" class="invalid-feedback">
+                                            <span *ngIf="(submitted) && landBuilding.get('province').errors" class="text-danger">
                                                     Please select province!!
                                             </span>
                                         </div>
@@ -98,7 +98,7 @@
                                                     id="district{{i}}" placeholder="Select District">
                                                 <ng-option *ngFor="let district of districtList" [value]="district">{{district?.name}}</ng-option>
                                             </ng-select>
-                                            <span *ngIf="(submitted) && landBuilding.get('district').errors" class="invalid-feedback">
+                                            <span *ngIf="(submitted) && landBuilding.get('district').errors" class="text-danger">
                                                     Please select district!!
                                             </span>
                                         </div>
@@ -112,7 +112,7 @@
                                                     id="municipalityVdc{{i}}" placeholder="Select Municipality">
                                                 <ng-option *ngFor="let municipality of municipalityList" [value]="municipality">{{municipality?.name}}</ng-option>
                                             </ng-select>
-                                            <span *ngIf="(submitted) && landBuilding.get('municipalityVdc').errors" class="invalid-feedback">
+                                            <span *ngIf="(submitted) && landBuilding.get('municipalityVdc').errors" class="text-danger">
                                                     Please select municipality!!
                                             </span>
                                         </div>
