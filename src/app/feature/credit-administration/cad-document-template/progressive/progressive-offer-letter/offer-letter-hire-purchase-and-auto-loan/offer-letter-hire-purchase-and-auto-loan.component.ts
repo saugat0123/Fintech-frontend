@@ -21,7 +21,7 @@ import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 @Component({
   selector: 'app-offer-letter-hire-purchase-and-auto-loan',
   templateUrl: './offer-letter-hire-purchase-and-auto-loan.component.html',
-  styleUrls: ['./offer-letter-hire-purchase-and-auto-loan.component.scss']
+  styleUrls: ['./offer-letter-hire-purchase-and-auto-loan.component.scss'],
 })
 export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   @Input() offerLetterType;
@@ -35,6 +35,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   nepDataPersonal = new NepDataPersonal();
+  primaryCollaterals = new Array<any>();
+  secondaryCollaterals = new Array<any>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -54,10 +56,21 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   ngOnInit() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'HP') {
+        this.primaryCollaterals.push(value);
+      }
+    });
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'Land_And_Building') {
+        this.secondaryCollaterals.push(value);
+      }
+    });
     this.buildForm();
     this.checkOfferLetter();
-    this.setPrimaryCollaterals(this.nepaliData.collateralDetails);
-    this.setAdditionalCollaterals(this.nepaliData.collateralDetails);
+    this.fillForm();
+    this.setPrimaryCollaterals(this.primaryCollaterals);
+    this.setAdditionalCollaterals(this.secondaryCollaterals);
     this.setIndividualDetails(this.nepaliData.guarantorDetails);
   }
 
@@ -82,7 +95,16 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
         financeBranch: !ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : '',
         amount: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
         amountInWords: !ObjectUtil.isEmpty(this.nepDataPersonal.nepaliWords) ? this.nepDataPersonal.nepaliWords : '',
+        monthlyPayment: !ObjectUtil.isEmpty(this.nepDataPersonal.installmentAmount) ? this.nepDataPersonal.installmentAmount : '',
         yearlyInterest: !ObjectUtil.isEmpty(this.nepDataPersonal.interestRate) ? this.nepDataPersonal.interestRate : '',
+        interestBaseRate: !ObjectUtil.isEmpty(this.nepDataPersonal.baseRate) ? this.nepDataPersonal.baseRate : '',
+        interestPremiumRate: !ObjectUtil.isEmpty(this.nepDataPersonal.premium) ? this.nepDataPersonal.premium : '',
+        interestTempDiscountRate: !ObjectUtil.isEmpty(this.nepDataPersonal.discount) ? this.nepDataPersonal.discount : '',
+        dhitoDate: !ObjectUtil.isEmpty(this.nepaliData.valuationDate) ? this.nepaliData.valuationDate : '',
+        currentDate: !ObjectUtil.isEmpty(this.nepaliData.valuatorName) ? this.nepaliData.valuatorName : '',
+        marketPrice: !ObjectUtil.isEmpty(this.nepaliData.fairMarketValue) ? this.nepaliData.fairMarketValue : '',
+        distestPrice: !ObjectUtil.isEmpty(this.nepaliData.distressValue) ? this.nepaliData.distressValue : '',
+        farePrice: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
         loanLimitTime: !ObjectUtil.isEmpty(this.nepDataPersonal.tenureOfLoanInYears) ? this.nepDataPersonal.tenureOfLoanInYears : '',
         serviceCharge: !ObjectUtil.isEmpty(this.nepDataPersonal.serviceFeePercent) ? this.nepDataPersonal.serviceFeePercent : '',
         telephoneNumber: !ObjectUtil.isEmpty(this.nepaliData.branchTelNo) ? this.nepaliData.branchTelNo : '',
@@ -105,8 +127,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       this.offerLetterDocument = new OfferDocument();
       this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN);
       this.fillForm();
-      // this.addPrimaryCollateral();
-      // this.addAdditionalCollateral();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
@@ -148,10 +168,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   setPrimaryCollaterals(data) {
     const formArray = this.form.get('primaryCollaterals') as FormArray;
-    /*if (data.length === 0) {
-      this.addPrimaryCollateral();
-      return;
-    }*/
     data.forEach((value, i) => {
       if (value.securityDetails === 'HP') {
         formArray.push(this.formBuilder.group({
@@ -162,28 +178,17 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
           chassisNumber: [!ObjectUtil.isEmpty(value.chassisNumber) ? value.chassisNumber : ''],
           vehicleQuotationPrice: [!ObjectUtil.isEmpty(value.vehicleQuotationPrice) ? value.vehicleQuotationPrice : ''],
           marginPercentageOne: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.primaryCollaterals[i].marginPercentageOne : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals[i]) ?
+                      this.initialInfoPrint.primaryCollaterals[i].marginPercentageOne : '' : '' : ''],
           marginPercentageTwo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.primaryCollaterals[i].marginPercentageTwo : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals[i]) ?
+                      this.initialInfoPrint.primaryCollaterals[i].marginPercentageTwo : '' : '' : ''],
         }));
       }
     });
   }
-
- /* addPrimaryCollateral() {
-    (this.form.get('primaryCollaterals') as FormArray).push(
-        this.formBuilder.group({
-          vehicleType: [undefined],
-          vehicleNumber: [undefined],
-          vehicleModelNum: [undefined],
-          engineNumber: [undefined],
-          chassisNumber: [undefined],
-          vehicleQuotationPrice: [undefined],
-          marginPercentage: [undefined],
-          marginPercentageOne: [undefined],
-          marginPercentageTwo: [undefined],
-        }));
-  }*/
 
   removePrimaryCollateral(i: number) {
     (this.form.get('primaryCollaterals') as FormArray).removeAt(i);
@@ -191,10 +196,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   setAdditionalCollaterals(data) {
     const formArray = this.form.get('additionalCollaterals') as FormArray;
-   /* if (data.length === 0) {
-      this.addAdditionalCollateral();
-      return;
-    }*/
     data.forEach(value => {
       if (value.securityDetails === 'Land_And_Building') {
         const tempExistingAddress = value.collateralMunVdcOriginal + ', ' + value.collateralWardNoOld;
