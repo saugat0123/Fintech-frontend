@@ -82,6 +82,7 @@ export class RetailTemplateDataComponent implements OnInit {
   isHomeLoan = false;
   isEducationLoan = false;
   isPersonalAndPersonalOverdraft = false;
+  globalBaseRate: any;
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private nbDialogueService: NbDialogService,
@@ -226,6 +227,8 @@ export class RetailTemplateDataComponent implements OnInit {
     };
     return JSON.stringify(retailCombinedForm);
   }
-
+  getBaseRate(data) {
+    this.globalBaseRate = data;
+  }
 
 }

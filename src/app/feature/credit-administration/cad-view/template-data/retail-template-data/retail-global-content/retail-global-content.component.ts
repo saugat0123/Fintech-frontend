@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
@@ -20,6 +20,7 @@ export class RetailGlobalContentComponent implements OnInit {
   globalForm: FormGroup;
   translatedFormGroup: FormGroup;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Output() globalBaseRateRetail: EventEmitter<any> = new EventEmitter();
   loanTypes = [
     {value: 'New'},
     {value: 'Plain Renewal'},
@@ -29,6 +30,7 @@ export class RetailGlobalContentComponent implements OnInit {
   dateType = ['AD', 'BS'];
   loanOptionsSelected = false;
   initialInformation: any;
+  globalBaseRate: any;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
@@ -167,6 +169,7 @@ export class RetailGlobalContentComponent implements OnInit {
           this.currencyFormatter.transform(afterFix.toString())));
       this.globalForm.get(origin + 'CT').patchValue(this.engToNepaliNumberPipe.transform(
           this.currencyFormatter.transform(afterFix.toString())));
+      this.globalBaseRateRetail.emit(afterFix);
     }
   }
   convertWords(origin, dest) {

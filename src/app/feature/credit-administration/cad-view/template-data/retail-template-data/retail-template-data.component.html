@@ -6,7 +6,7 @@
     </nb-card-header>
     <nb-card-body>
         <app-retail-global-content #retailGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                                [isEdit]="isEdit"></app-retail-global-content>
+                                [isEdit]="isEdit" (globalBaseRateRetail)="getBaseRate($event)"></app-retail-global-content>
         <!-- Type of sme loan start here-->
         <ng-container *ngIf="isPersonalLoan">
             <app-personal-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
@@ -17,7 +17,8 @@
         <ng-container *ngIf="isPersonalOverdraftLoan">
             <app-personal-overdraft-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                                       #personalOverdraftCombined [loanName]="loanExtraDetails"
-                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                           [globalBaseRate]="globalBaseRate">
             </app-personal-overdraft-combined-template-data>
         </ng-container>
         <ng-container *ngIf="isEducationLoan">

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {LoanNameConstant} from '../../nabil-sme-template-data/sme-costant/loan-name-constant';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
@@ -19,6 +18,7 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
   @Input() loanName;
   @Input() cadDocAssignedLoan;
   @Input() offerDocumentList;
+  @Input() globalBaseRate;
   personalOverdraftCombinedForm: FormGroup;
   loanDetails: any = [];
   filteredList: any = [];
@@ -65,16 +65,20 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.length; val++) {
-      const loanExpiryDateType = this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[val].loanExpiryDateType;
+      const loanExpiryDateType = this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[val].
+          loanExpiryDateType;
       if (loanExpiryDateType === 'AD') {
         const loanExpiryDate = this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[val].loanExpiryDate;
         if (!ObjectUtil.isEmpty(loanExpiryDate)) {
-          this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', val, 'loanExpiryDate']).patchValue(new Date(loanExpiryDate));
+          this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', val, 'loanExpiryDate']).patchValue(
+              new Date(loanExpiryDate));
         }
       } else if (loanExpiryDateType === 'BS') {
-        const loanExpiryDate = this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[val].loanExpiryDateNepali;
+        const loanExpiryDate = this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[val].
+            loanExpiryDateNepali;
         if (!ObjectUtil.isEmpty(loanExpiryDate)) {
-          this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', val, 'loanExpiryDateNepali']).patchValue(loanExpiryDate);
+          this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', val, 'loanExpiryDateNepali']).patchValue(
+              loanExpiryDate);
         }
       }
     }
@@ -154,7 +158,8 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
     console.log('Data:', data);
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.personalOverdraftCombinedForm.get([arrayName, index, numLabel]).value);
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.personalOverdraftCombinedForm.get(
+        [arrayName, index, numLabel]).value);
     this.personalOverdraftCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 
@@ -189,9 +194,11 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
     }
 
     const convertMargin = this.convertNumbersToNepali(this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentage']).value ?
-        this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentage']).value.toFixed(2) : '', false);
+        this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentage']).value.
+        toFixed(2) : '', false);
     if (!ObjectUtil.isEmpty(convertMargin)) {
-      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentageTrans']).patchValue(convertMargin);
+      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentageTrans']).patchValue(
+          convertMargin);
       this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentageCT']).patchValue(
           this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'marginInPercentageTrans']).value);
     }
@@ -205,18 +212,21 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
     }
 
     const convertInterestRate = this.convertNumbersToNepali(this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRate']).value ?
-        this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'premiumRate']).value.toFixed(2) : '', false);
+        this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRate']).value.toFixed(2) : '', false);
     if (!ObjectUtil.isEmpty(convertInterestRate)) {
-      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateTrans']).patchValue(convertInterestRate);
+      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateTrans']).patchValue(
+          convertInterestRate);
       this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateCT']).patchValue(
           this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateTrans']).value);
     }
 
-    const tempLoanAdminFee = this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigure']).value ?
+    const tempLoanAdminFee = this.personalOverdraftCombinedForm.get(
+        ['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigure']).value ?
         this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigure']).value.toFixed(2) : '';
     const convertLoanAdminFee = !ObjectUtil.isEmpty(tempLoanAdminFee) ?
         this.convertNumbersToNepali(tempLoanAdminFee, true) : '';
-    this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigureTrans']).patchValue(convertLoanAdminFee);
+    this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigureTrans']).patchValue(
+        convertLoanAdminFee);
     this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigureCT']).patchValue(
         this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanAdminFeeInFigureTrans']).value);
 
@@ -244,10 +254,12 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
         );
       }
     } else {
-      const tempDateOfExpNep = this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepali']).value;
+      const tempDateOfExpNep = this.personalOverdraftCombinedForm.get(
+          ['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepaliTrans']).patchValue(tempExpDate);
+      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepaliTrans']).patchValue(
+          tempExpDate);
       this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepaliCT']).patchValue(
           this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanExpiryDateNepaliTrans']).value
       );
@@ -267,6 +279,18 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
       }
     }
     return finalConvertedVal;
+  }
+
+  calInterestRate(i) {
+    let baseRate;
+    if (!ObjectUtil.isEmpty(this.globalBaseRate)) {
+      baseRate = this.globalBaseRate;
+    } else {
+      baseRate = this.initialInformation.retailGlobalForm.baseRate;
+    }
+    const premiumRate =  this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'premiumRate']).value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRate']).patchValue(sum);
   }
 
 }

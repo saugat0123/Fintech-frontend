@@ -95,11 +95,12 @@
                                status="success" type="text">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
                         <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
                                nbInput
+                               (input)="calInterestRate(i)"
                                shape="semi-round"
                                status="success" type="number">
                     </div>
@@ -123,7 +124,8 @@
                         <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
                                nbInput
                                shape="semi-round"
-                               status="success" type="number">
+                               status="success" type="number"
+                        [ngClass]="{'readOnly': this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}">
                     </div>
                     <div class="col-md-4 form-group fieldMargin">
                         <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
