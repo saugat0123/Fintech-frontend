@@ -54,11 +54,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('all Data', this.cadOfferLetterApprovedDoc);
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
-    console.log('nep Data personal', this.nepDataPersonal);
-    console.log('nepali Data', this.nepaliData);
     (this.nepaliData.collateralDetails).forEach(value => {
       if (value.securityDetails === 'HP') {
         this.primaryCollaterals.push(value);
