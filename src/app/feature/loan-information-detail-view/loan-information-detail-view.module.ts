@@ -19,7 +19,9 @@ import {DbrModule} from '../dbr/dbr.module';
 
 @NgModule({
     declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent, SecurityApprovedViewComponent],
-    exports: [],
+    exports: [
+        SecurityApprovedViewComponent
+    ],
     imports: [
         CommonModule,
         LoanInformationViewModule,

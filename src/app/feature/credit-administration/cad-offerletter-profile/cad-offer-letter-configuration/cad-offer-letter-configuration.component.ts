@@ -50,6 +50,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('this is customer', this.customer);
+        console.log('this is customer', this.customerInfo);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -79,7 +81,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
-            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
             temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ?
                 undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
@@ -89,8 +91,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [this.customer.citizenshipIssuedPlace ? (this.customer.citizenshipIssuedPlace) : ''],
-            citizenshipIssueDate: [this.customer.citizenshipIssuedDate ? (this.customer.citizenshipIssuedDate) : ''],
+            citizenshipIssueDistrict: [this.customer ?  (this.customer.citizenshipIssuedPlace) : ''],
+            citizenshipIssueDate: [this.customer ? this.customer.citizenshipIssuedDate :  ''],
         });
     }
 

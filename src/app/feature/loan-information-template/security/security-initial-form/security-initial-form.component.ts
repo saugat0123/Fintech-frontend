@@ -461,7 +461,6 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.push(
                 this.formBuilder.group({
                     owner: [singleData.owner],
-                    ownerNepali: [singleData.ownerNepali],
                     location: [singleData.location],
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
@@ -1080,9 +1079,7 @@ export class SecurityInitialFormComponent implements OnInit {
             const formControls = this.securityForm.get('landDetails') as FormArray;
             formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
-                f.get('ownerNepali').clearValidators();
                 f.get('owner').updateValueAndValidity();
-                f.get('ownerNepali').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'VehicleSecurity') {
@@ -1320,7 +1317,6 @@ export class SecurityInitialFormComponent implements OnInit {
     landDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
             owner: ['', Validators.required],
-            ownerNepali: ['', Validators.required],
             location: [''],
             plotNumber: [''],
             areaFormat: [''],

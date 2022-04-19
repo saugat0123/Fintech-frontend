@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NbDialogService} from '@nebular/theme';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-security-adder',
@@ -11,37 +11,46 @@ export class SecurityAdderComponent implements OnInit {
     @Input() security;
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
-    msg = '';
-    approvedSecurityData: any;
-    approvedShareSecurityData: any;
     customerShareData: any;
-    // selectedSecurityList: any;
+    selectedShareSecurityList: any;
     securityList: any;
+    msg = '';
+    approvedShareSecurity: any;
+    @Output() saveShareSecurity = new EventEmitter();
 
-    constructor(private nbDialogService: NbDialogService) {
+
+    shareSecurity = new FormControl(undefined, Validators.required);
+
+    constructor() {
     }
 
     ngOnInit() {
-        console.log('security', this.security);
-        if (this.security.approvedData) {
-            this.approvedSecurityData = JSON.parse(this.security.approvedData);
-            console.log('approved security data', this.approvedSecurityData);
-        }
-        if (this.shareSecurityData.approvedData) {
-            this.approvedShareSecurityData = JSON.parse(this.shareSecurityData.approvedData);
-            console.log('approved share security data', this.approvedShareSecurityData);
-        }
         this.customerShareData = this.shareSecurityData.customerShareData;
-        console.log('customer share data', this.customerShareData);
-        console.log('share security data', this.shareSecurityData);
-        console.log('tagged securities', this.taggedShareSecurities);
+        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
     }
 
-    removeShareSecurity(shareSecurity: any) {
-        console.log('remove share security', shareSecurity);
+    removeShareSecurity(data) {
+        const removeIndex = this.findShareSecurityIndex(data);
+        this.approvedShareSecurity.splice(removeIndex, 1);
     }
 
-    openShareSecurityDetailModal(shareSecurity: any) {
-        console.log('open share security details', shareSecurity);
+    findShareSecurityIndex(data) {
+        return this.approvedShareSecurity.indexOf(this.approvedShareSecurity.filter(
+            d => d.totalShareUnit.toString() === data.totalShareUnit.toString() && d.companyName === data.companyName)[0]);
+    }
+
+    addSecurityDetail(data) {
+        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.companyName === data.companyName
+            && d.totalShareUnit === data.totalShareUnit);
+        if (presentShareSecurity.length <= 0) {
+            this.approvedShareSecurity.push(data);
+            this.msg = '';
+        } else {
+            this.msg = 'selected share security is already added !';
+        }
+    }
+
+    save() {
+        this.saveShareSecurity.emit(this.approvedShareSecurity);
     }
 }

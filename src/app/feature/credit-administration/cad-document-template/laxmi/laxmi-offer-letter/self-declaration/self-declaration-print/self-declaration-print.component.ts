@@ -10,6 +10,7 @@ export class SelfDeclarationPrintComponent implements OnInit {
 
   constructor() { }
 @Input() printDocForm;
+  @Input() individual;
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
     this.printDocForm = JSON.parse(this.printDocForm);

@@ -10,6 +10,12 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 
 @Component({
   selector: 'app-self-declaration',
@@ -23,17 +29,28 @@ export class SelfDeclarationComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
+      private routerUtilsService: RouterUtilsService,
+      private currencyFormatPipe: CurrencyFormatterPipe,
+      private engToNepNumberPipe: EngToNepaliNumberPipe,
+      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+      private nepaliToEnglishPipe: NepaliToEngNumberPipe,
+      private nepaliNumber: NepaliNumberPipe,
   ) { }
   form: FormGroup;
   cadCheckListEnum = CadCheckListTemplateEnum;
   initialInfoPrint;
-@Input() cadData;
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId;
   @Input() customerLoanId;
+
+
   spinner = false;
   nepaliData;
+  individual = false;
   ngOnInit() {
+    if (this.cadData.assignedLoan[0].loanCategory === 'INDIVIDUAL') {
+      this.individual = true;
+    }
   this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -58,14 +75,17 @@ export class SelfDeclarationComponent implements OnInit {
       month: [undefined],
       day: [undefined],
       name: [undefined],
-      address: [undefined],
+      // address: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
+      branch: [undefined]
     });
   }
   fillNepaliData() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
       this.form.patchValue({
         name: this.nepaliData.name,
-        address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
+        branch: this.cadData.loanHolder.branch.nepaliName
       });
     }
   }
@@ -110,5 +130,10 @@ export class SelfDeclarationComponent implements OnInit {
       this.spinner = false;
     });
     console.log(this.form.value);
+  }
+  amountChange(e) {
+      this.form.patchValue({
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
+      });
   }
 }

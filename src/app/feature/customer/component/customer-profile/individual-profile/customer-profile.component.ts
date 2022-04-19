@@ -90,6 +90,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     jointInfo = [];
     isJointInfo = false;
     microCustomer: boolean;
+    customerType: CustomerType;
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -125,6 +126,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                     customerInfoId: null
                 };
                 this.paramProp = paramsValue;
+                this.customerType = this.paramProp.customerType;
+                console.log(this.customerType);
                 this.customerInfoId = this.paramProp.customerInfoId;
                 this.getCustomerInfo();
             });
@@ -163,6 +166,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+
             this.isEditableCustomerData();
             this.spinner = false;
         }, error => {

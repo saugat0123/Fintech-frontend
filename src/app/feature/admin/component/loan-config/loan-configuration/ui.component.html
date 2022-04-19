@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><h6>Loan Short Name</h6></label>
+                            <label><h6>Scheme Code</h6></label>
                             <input type="text" class="form-control" name="shortNames" required
                                    placeholder="e.g. WCL for Working capital Loan"
                                    [(ngModel)]="loanConfig.shortNames" #shortNames="ngModel"
@@ -88,7 +88,7 @@
                             <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && shortNames.invalid">
                                 <div *ngIf="shortNames.errors.required"></div>
                                 <div *ngIf="shortNames.invalid && loanConfig.shortNames !== undefined &&loanConfig.shortNames !== null">
-                                    Short Name is required!
+                                    Scheme Code!
                                 </div>
                             </div>
                         </div>
@@ -228,13 +228,13 @@
                          class="col-md-6">
                         <div class="form-group">
                             <label><strong>Post Approval Document</strong></label>
-                            <ng-select [items]="offerLetterList"
-                                       bindLabel="name"
-                                       bindValue="id"
-                                       [multiple]="true" name="offerLetters"
-                                       [(ngModel)]="selectedOfferLetterIdList"
-                                       placeholder="Select Offer Letter">
-                            </ng-select>
+                                <ng-select [items]="offerLetterList"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           [multiple]="true" name="offerLetters"
+                                           [(ngModel)]="selectedOfferLetterIdList"
+                                           placeholder="Select Offer Letter">
+                                </ng-select>
                         </div>
                     </div>
                 </div>

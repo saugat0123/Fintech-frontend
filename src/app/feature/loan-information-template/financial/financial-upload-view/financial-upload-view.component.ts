@@ -18,6 +18,7 @@ export class FinancialUploadViewComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() customerInfoId;
     @Output() customer = new EventEmitter();
+    @Input() fromProfile: boolean;
     form: FormGroup;
     uploadFile;
     fg = new FormData();

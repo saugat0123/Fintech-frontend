@@ -40,6 +40,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() branchId;
     @Input() customerLoanHolder: LoanDataHolder;
     @Input() isRemitLoan;
+    @Output() emitter = new EventEmitter();
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
@@ -51,7 +52,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
     fileUnder = false;
     spinner = false;
-    @Output() emitter = new EventEmitter();
+    approveRemark;
 
     constructor(
         private alertService: AlertService,
@@ -67,6 +68,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
             this.customerLoanHolder = data.detail;
             if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {
                 this.fileUnder = true;
+            }
+            if (this.customerLoanHolder.currentStage.docAction.toString() === DocAction[DocAction.REVERT_APPROVED]) {
+                const remark = this.customerLoanHolder.previousList[this.customerLoanHolder.previousList.length - 1];
+                this.approveRemark = remark.comment;
             }
         });
         this.status = this.customerLoanHolder.documentStatus;
@@ -166,10 +171,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
             case 'approve':
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
-
                     return;
                 }
-                if (this.customerLoanHolder.isHsov && this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+                if (this.customerLoanHolder.isHsov && this.customerLoanHolder.documentStatus.toString()
+                    !== DocStatus.value(DocStatus.HSOV_PENDING)) {
                     context = {
                         popUpTitle: 'Approve',
                         isForward: true,
@@ -181,7 +186,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         docActionMsg: 'Hsov Pending',
                         documentStatus: DocStatus.HSOV_PENDING,
                         isRemitLoan: this.isRemitLoan,
-                        beneficiaryId: this.beneficiaryId
+                        beneficiaryId: this.beneficiaryId,
+                        comment: this.approveRemark
                     };
                 } else if (this.customerLoanHolder.dualApproval && !this.customerLoanHolder.dualApproved) {
                     context = {
@@ -195,7 +201,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         docActionMsg: 'Dual Approval Pending',
                         documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
                         isRemitLoan: this.isRemitLoan,
-                        beneficiaryId: this.beneficiaryId
+                        beneficiaryId: this.beneficiaryId,
+                        comment: this.approveRemark
                     };
                 } else {
                     context = {
@@ -208,7 +215,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         docActionMsg: 'Approved',
                         documentStatus: DocStatus.APPROVED,
                         isRemitLoan: this.isRemitLoan,
-                        beneficiaryId: this.beneficiaryId
+                        beneficiaryId: this.beneficiaryId,
+                        comment: this.approveRemark
                     };
 
                 }
@@ -271,7 +279,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasDeferredDocs: true
             };
         }
-        console.log('context', context);
         if (ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
                 context,
@@ -280,9 +287,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasScroll: true
             });
             this.dialogRef.onClose.subscribe(d => {
-                if(ObjectUtil.isEmpty(d)) {
+                if (ObjectUtil.isEmpty(d)) {
                     this.emitter.emit(false);
-                }   else {
+                } else {
                     this.emitter.emit(true);
                 }
             });
@@ -299,9 +306,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         hasScroll: true
                     });
             this.dialogRef.onClose.subscribe((d: boolean) => {
-                if(ObjectUtil.isEmpty(d)) {
+                if (ObjectUtil.isEmpty(d)) {
                     this.emitter.emit(false);
-                }   else {
+                } else {
                     this.emitter.emit(true);
                 }
             });

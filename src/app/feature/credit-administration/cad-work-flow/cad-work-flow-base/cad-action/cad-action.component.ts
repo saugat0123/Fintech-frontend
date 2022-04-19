@@ -116,6 +116,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 private socketService: SocketService,
                 private routerUtilsService: RouterUtilsService,
                 private nbDialogService: NbDialogService,
+
     ) {
     }
 

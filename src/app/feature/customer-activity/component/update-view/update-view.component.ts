@@ -69,7 +69,8 @@ export class UpdateViewComponent implements OnInit {
             this.calculateShareTotals();
         }
         if (this.activity === 'LOAN_APPROVED' || this.activity === 'DELETE_LOAN'
-            || this.activity === 'RE_INITIATE_LOAN' || this.activity === 'REVERT_APPROVED_LOAN') {
+            || this.activity === 'RE_INITIATE_LOAN' || this.activity === 'REVERT_APPROVED_LOAN'
+            || this.activity === 'LOAN_REJECT' || this.activity === 'LOAN_CLOSED') {
             this.customerLoan = this.data;
             if (ObjectUtil.isEmpty(this.customerLoan.taggedGuarantors)) {
                 this.customerLoan.taggedGuarantors = [];
