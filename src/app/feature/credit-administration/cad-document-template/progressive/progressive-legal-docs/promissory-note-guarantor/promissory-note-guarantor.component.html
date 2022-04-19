@@ -249,17 +249,32 @@
                                 <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी
                                     ठेगाना :—
                                 </td>
-                                <td style="text-align: left;width: 80%"><input
-                                        class="form-field form-control-sm nepaliFont unicode-size"
-                                        formControlName="guarantorPermanentDistrict"
-                                        placeholder=""
-                                        readonly
-                                        type="text"/>
-                                    जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
-                                                   formControlName="guarantorPermanentMunicipality"
-                                                   placeholder=""
-                                                   readonly
-                                                   type="text"/>
+                                <td style="text-align: left;width: 80%">
+                                    <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                        <input class="form-field form-control-sm nepaliFont"
+                                            formControlName="guarantorPermanentDistrict"
+                                            placeholder=""
+                                            readonly
+                                            type="text"/>
+                                        जिल्ला, <input class="form-field form-control-sm nepaliFont"
+                                                       formControlName="guarantorPermanentMunicipality"
+                                                       placeholder=""
+                                                       readonly
+                                                       type="text"/>
+                                    </ng-container>
+                                    <ng-container *ngIf="(loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor')
+                                    || loanCategory === 'INDIVIDUAL'">
+                                        <input class="form-field form-control-sm nepaliFont unicode-size"
+                                               formControlName="guarantorPermanentDistrict"
+                                               placeholder=""
+                                               readonly
+                                               type="text"/>
+                                        जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
+                                                       formControlName="guarantorPermanentMunicipality"
+                                                       placeholder=""
+                                                       readonly
+                                                       type="text"/>
+                                    </ng-container>
                                     गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                                                 formControlName="guarantorPermanentWardNo"
                                                                 placeholder=""
@@ -279,17 +294,32 @@
                                 <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको
                                     ठेगाना :—
                                 </td>
-                                <td style="text-align: left;width: 80%"><input
-                                        class="form-field form-control-sm nepaliFont unicode-size"
-                                        formControlName="guarantorTempDistrict"
-                                        placeholder=""
-                                        readonly
-                                        type="text"/>
-                                    जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
-                                                  formControlName="guarantorTempMunicipality"
-                                                  placeholder=""
-                                                  readonly
-                                                  type="text"/>
+                                <td style="text-align: left;width: 80%">
+                                    <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                        <input class="form-field form-control-sm nepaliFont"
+                                            formControlName="guarantorTempDistrict"
+                                            placeholder=""
+                                            readonly
+                                            type="text"/>
+                                        जिल्ला,<input class="form-field form-control-sm nepaliFont"
+                                                      formControlName="guarantorTempMunicipality"
+                                                      placeholder=""
+                                                      readonly
+                                                      type="text"/>
+                                    </ng-container>
+                                    <ng-container *ngIf="(loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor')
+                                    || loanCategory === 'INDIVIDUAL'">
+                                        <input class="form-field form-control-sm nepaliFont unicode-size"
+                                            formControlName="guarantorTempDistrict"
+                                            placeholder=""
+                                            readonly
+                                            type="text"/>
+                                        जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
+                                                      formControlName="guarantorTempMunicipality"
+                                                      placeholder=""
+                                                      readonly
+                                                      type="text"/>
+                                    </ng-container>
                                     गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                                                 formControlName="guarantorTempWardNo"
                                                                 placeholder=""
