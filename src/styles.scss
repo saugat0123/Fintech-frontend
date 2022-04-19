@@ -183,3 +183,15 @@ button {
   border-color: transparent !important;
   margin-left: 5px !important;
 }
+
+@page {
+  size: A4 !important;
+  margin: 30.9mm 3mm 27.9mm 30.9mm !important;
+}
+
+@media print {
+  @page {
+    size: A4 !important;
+    margin: 30.9mm 3mm 27.9mm 30.9mm !important;
+  }
+}
