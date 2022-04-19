@@ -17,7 +17,7 @@ export class Section9InsuranceRelatedClausesComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      nameOfBranch: [undefined]
     });
   }
 }
