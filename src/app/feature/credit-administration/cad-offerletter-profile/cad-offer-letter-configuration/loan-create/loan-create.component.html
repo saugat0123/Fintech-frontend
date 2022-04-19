@@ -1,5 +1,6 @@
 <form [formGroup]="form" [nbSpinner]="spinner">
-  <div *ngIf="customerType == 'INSTITUTION'">
+<!--  <div *ngIf="customerType == 'INSTITUTION'">-->
+  <div>
     <nb-checkbox [checked]="isCombinedLoan" (change)="combinedLoan($event)">Check if combined loan</nb-checkbox>
     <br>
   </div>

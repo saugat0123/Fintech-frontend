@@ -18,8 +18,8 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import {EngNepDatePipe} from "nepali-patro";
-import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-personal-loan-and-personal-overdraft',
@@ -124,31 +124,29 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
         });
     }
 
-    guarantorDetails(){
-        if (this.guarantorData.length == 1){
-            let temp = JSON.parse(this.guarantorData[0].nepData);
+    guarantorDetails() {
+        if (this.guarantorData.length === 1) {
+            const temp = JSON.parse(this.guarantorData[0].nepData);
             this.finalName =  temp.guarantorName.ct;
-        }
-        else if(this.guarantorData.length == 2){
-            for (let i = 0; i < this.guarantorData.length; i++){
-                let temp = JSON.parse(this.guarantorData[i].nepData);
+        } else if (this.guarantorData.length === 2) {
+            for (let i = 0; i < this.guarantorData.length; i++) {
+                const temp = JSON.parse(this.guarantorData[i].nepData);
                 this.guarantorNames.push(temp.guarantorName.ct);
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-            this.allguarantorNames = this.guarantorNames.join(" र ");
+            this.allguarantorNames = this.guarantorNames.join(' र ');
             this.finalName = this.allguarantorNames;
-        }
-        else{
-            for (let i = 0; i < this.guarantorData.length-1; i++){
-                let temp = JSON.parse(this.guarantorData[i].nepData);
+        } else {
+            for (let i = 0; i < this.guarantorData.length - 1; i++) {
+                const temp = JSON.parse(this.guarantorData[i].nepData);
                 this.guarantorNames.push(temp.guarantorName.ct);
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-            this.allguarantorNames = this.guarantorNames.join(" , ");
-            let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
-            this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+            this.allguarantorNames = this.guarantorNames.join(' , ');
+            const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+            this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
         }
         console.log('Guarantor Name:', this.finalName);
     }
