@@ -51,7 +51,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
-        this.mortgageCombineLoanForm.patchValue(this.initialInformation.mortgageCombineLoanForm);
+        this.mortgageCombineLoanForm.patchValue(this.initialInformation.mortgageCombineForm);
       }
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
