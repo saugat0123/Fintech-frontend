@@ -3,21 +3,18 @@
      xmlns="http://www.w3.org/1999/html">
   <div class="col-md-12 viewFull">
     <div class="text-justify nepaliConfig">
-      <div class="row" style="margin-top: 50px">
-        <div class="col-md-8">
-          <p>
-            प.सं.
-            <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
-                {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
-            </span>
-          </p>
-        </div>
-      </div><br>
-      <div style="...">
-          मिति :
+      <div class="col-lg-12 d-flex justify-content-between">
+         <div class="float-left">मिति :
           <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
                             {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
           </span>
+         </div>
+        <div class="float-right">
+          प.सं.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
+                {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
+            </span>
+        </div>
       </div>
       <div style="...">
           <strong>श्री</strong>
@@ -136,7 +133,7 @@
                     {{printDocForm?.monthlyPayment === null || printDocForm?.monthlyPayment === '' ? '_________________' : printDocForm?.monthlyPayment}}
                   </span>
                   /- सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
-                  <span [ngClass]="{'nepaliFont unicode-size uniFont' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
+                  <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                     {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
                   </span>
                   प्रतिशत वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा सुविधामा व्याज
@@ -179,7 +176,7 @@
                       {{printDocForm?.interestTempDiscountRate === null || printDocForm?.interestTempDiscountRate === '' ? '_________________' : printDocForm?.interestTempDiscountRate}}
                     </span>
                     % =
-                    <span [ngClass]="{'nepaliFont unicode-size uniFont' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
+                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                       {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
                     </span>%
                   </p>
@@ -283,7 +280,7 @@
             नाममा धनि दर्ता कायम गराउनु पर्ने छ ।<br><br>
             <p>ख. <strong>Additional Collateral:  धितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
             <table class="table table-bordered">
-              <thead>
+              <tbody>
               <tr>
                 <th  width="35%">जग्गाधनिको नाम, ठेगाना र तिनपूस्ते</th>
                 <th  width="15%">जिल्ला</th>
@@ -292,7 +289,7 @@
                 <th  width="20%">क्षेत्रफल रोपनी/ब.मी</th>
                 <th  width="20%">सि.नं.</th>
               </tr>
-              </thead>
+              </tbody>
               <tbody>
               <tr *ngFor = "let additionalCollateral of printDocForm?.additionalCollaterals; index as i">
                 <td> जग्गाधनिको नाम :
@@ -370,7 +367,7 @@
               </span>
               को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात
               फाइनान्सको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
-              <span [ngClass]="{'nepaliFont' : printDocForm?.farePrice !== null && printDocForm?.farePrice !== ''}">
+              <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.farePrice !== null && printDocForm?.farePrice !== ''}">
                 {{printDocForm?.farePrice === null || printDocForm?.farePrice === '' ? '_________________' : printDocForm?.farePrice}}
               </span>
               मा दृ.ब पारित गरि यस
@@ -909,15 +906,15 @@
           </p>
         </div>
         <div class="col-md-6 justify-content-end">
-          <table id="fingerXap" class="table table-bordered text-center">
-            <thead>
+          <table id="fingerXap" class="table table-borderless text-center">
+            <tbody>
             <tr>
               <th style="border: none;">दाँ.</th>
               <th style="border: none;">बाँ.</th>
             </tr>
-            </thead>
+            </tbody>
             <tbody>
-            <tr style="height: 150px">
+            <tr>
               <td></td>
               <td></td>
             </tr>
