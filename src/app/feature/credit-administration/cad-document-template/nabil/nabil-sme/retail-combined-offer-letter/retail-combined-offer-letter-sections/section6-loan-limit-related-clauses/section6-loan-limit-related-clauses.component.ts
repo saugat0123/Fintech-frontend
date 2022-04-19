@@ -17,7 +17,8 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      totalLimitInFigure: [undefined],
+      totalLimitInWords: [undefined]
     });
   }
 }

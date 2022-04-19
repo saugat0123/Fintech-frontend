@@ -139,6 +139,9 @@ import { PersonalLoanCombinedTemplateDataComponent } from './cad-view/template-d
 import { EducationLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/education-loan-combined-template-data/education-loan-combined-template-data.component';
 import { MortgageLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/mortgage-loan-combined-template-data/mortgage-loan-combined-template-data.component';
 import { PersonalOverdraftCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-overdraft-combined-template-data/personal-overdraft-combined-template-data.component';
+import {
+    RetailCombinedOfferLetterComponent
+} from './cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -303,7 +306,7 @@ import { PersonalOverdraftCombinedTemplateDataComponent } from './cad-view/templ
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
       KisanKarjaSubsidyTemplateEditComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent,
-      CombinedOfferLetterComponent, SmeMasterTemplateComponent],
+      CombinedOfferLetterComponent, SmeMasterTemplateComponent, RetailTemplateDataComponent, RetailCombinedOfferLetterComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
