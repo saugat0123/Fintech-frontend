@@ -100,6 +100,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     breakException: any;
     isMakerOrApproval = false;
     isLegal = false;
+    isDiscrepancy = false;
+    isCsu = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -122,6 +124,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.checkCadDocument();
+        if(this.cadOfferLetterApprovedDoc.discrepancy) {
+            this.isDiscrepancy = true;
+        }
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
@@ -130,6 +135,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
         if (this.currentUserRole === RoleType.CAD_LEGAL) {
             this.isLegal = true;
+        }
+        if (this.currentUserRole === RoleType.APPROVAL && LocalStorageUtil.getStorage().roleName.toLowerCase() === 'csu') {
+            this.isCsu = true;
         }
         if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
             this.approvedLoan = true;
@@ -199,7 +207,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
-        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
@@ -328,7 +335,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.userList = [];
             this.formAction.patchValue({
                 toRole: null
-            })
+            });
         }
     }
 

@@ -18,7 +18,7 @@
                 <button  nbButton size="small" status="primary" nbTooltip="Upload & Print SCC File"
                          (click)="openModel()" class="m-2"*ngIf="inMyBucket">Scc</button>
                 <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
-                        (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" *ngIf="isMaker && !approvedLoan && inMyBucket">FORWARD
+                        (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" *ngIf="(isMaker || (isDiscrepancy && isCsu)) && !approvedLoan && inMyBucket">FORWARD
                 </button>
                 <ng-container *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'DISCREPANCY_PENDING'; else button">
                     <button nbButton size="small" status="primary" [nbTooltip]="approvedLabel"
@@ -99,8 +99,8 @@
                          style="color: red;">comment is required
                     </div>
                 </div>
-                <div  class="col-md-12 py-4 px-3">
-                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
+                <div  class="col-md-12 py-4 px-3" *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'DISCREPANCY_PENDING'">
+                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
 
                 </div>
                 <div class="form-group col-md-12 py-3">
