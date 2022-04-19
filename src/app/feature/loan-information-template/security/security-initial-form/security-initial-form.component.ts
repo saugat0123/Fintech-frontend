@@ -188,7 +188,6 @@ export class SecurityInitialFormComponent implements OnInit {
             console.error(error);
         });
         if (this.formData !== undefined) {
-            console.log('formData', this.formData);
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
