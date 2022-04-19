@@ -1,9 +1,20 @@
 <section class="row" id="{{offerLetterConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER}}">
-    <div class="col-md-12 viewFull">
+    <div class="col-md-12 viewFull text-justify">
         <form [formGroup]="vehicleDeliveryForm" (ngSubmit)="onSubmit()">
-
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <p class="text-right">
+                        कर्पोरेट कार्यालय, तिनकुने, काठमाण्डौ<br>
+                        मार्फतः शाखा कार्यालय, <input class="form-control-sm form-field nepaliFont size16"
+                                                      type="text"
+                                                      formControlName="branchName">,
+                        <input class="form-control-sm form-field nepaliFont size16"
+                               type="text"
+                               formControlName="branchDistrict">।
+                    </p>
+                </div>
+            </div>
             <div class="nep">
-
                 <div class="row">
                     <div class="col-md-6">
                         <p class="font-weight-bold">प.सं <input class="form-control-sm form-field nepaliFont"
@@ -11,20 +22,23 @@
                                        formControlName="patraNumber"></p>
                         <p><input class="form-control-sm form-field nepaliFont"
                                   type="text"
-                                  formControlName="patraNumberTwo"></p>
-                        <p><input class="form-control-sm form-field nepaliFont"
+                                  formControlName="patraNumberTwo"><br>
+                            <input class="form-control-sm form-field nepaliFont"
                                   type="text"
-                                  formControlName="patraNumberThree"></p>
+                                  formControlName="patraNumberThree">,
+                            <input class="form-control-sm form-field nepaliFont"
+                                   type="text"
+                                   formControlName="patraNumberFour">
+                        </p>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <p class="font-weight-bold">मिति: <input class="form-control-sm form-field nepaliFont"
+                    <div class="col-md-6">
+                        <p class="font-weight-bold text-right">
+                            मिति: <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="date"></p>
                     </div>
                 </div>
-
                 <main class="mt-2">
-
                     <p class="text-center font-weight-bold my-3">
                         विषय: <input class="form-control-sm form-field nepaliFont"
                                      type="text"
@@ -33,7 +47,8 @@
                     </p>
                     <p class="mt-2">महाशय,</p>
 <!--                    FOR INDIVIDUAL/PERSONAL-->
-                    <p *ngIf="isIndividual">
+                    <p>
+                    <span *ngIf="isIndividual">
                         <input style="font-size: 16px !important;" class="form-control-sm form-field nepaliFont"
                                type="text"
                                formControlName="customerPermanentDistrict">
@@ -67,10 +82,10 @@
                                                                                   formControlName="citizenshipNo">
                         , <input class="form-control-sm form-field nepaliFont"
                                  type="text"
-                                 formControlName="citizenshipIssueAddress"> )</p>
+                                 formControlName="citizenshipIssueAddress"> )</span>
 
 <!--                    FOR CORPORATE-->
-                    <p *ngIf="!isIndividual" class="my-3">
+                    <span *ngIf="!isIndividual" class="my-3">
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
                                formControlName="companyDistrict">
@@ -91,6 +106,7 @@
                         का संचालक/अखितयारी प्राप्त व्यक्ति/प्रतिनिधि/प्रोप्राईटर श्री <input class="form-control-sm form-field nepaliFont"
                                                                                              type="text"
                                                                                              formControlName="proprietor">
+                        </span>
                     ले तेहांकोे मिति <input class="form-control-sm form-field nepaliFont"
                                                             type="text"
                                                             formControlName="dateTwo">
@@ -176,7 +192,7 @@
                         <tbody *ngFor="let vehicleDetail of vehicleDeliveryForm.get('vehicleDetails')['controls']; let i = index;"
                                formArrayName="vehicleDetails">
                         <tr [formGroupName]="i">
-                            <td>{{i+1 | nepaliNumber}}</td>
+                            <td>{{i+1 | nepaliNumber}}.</td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont" id='vehicleSpecification'
                                        formControlName="vehicleSpecification"

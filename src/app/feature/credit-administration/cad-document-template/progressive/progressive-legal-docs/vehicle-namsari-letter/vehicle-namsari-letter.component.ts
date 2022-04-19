@@ -31,6 +31,7 @@ export class VehicleNamsariLetterComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   isIndividual = false;
+  primaryCollaterals = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<VehicleNamsariLetterComponent>,
               private formBuilder: FormBuilder,
@@ -65,7 +66,12 @@ export class VehicleNamsariLetterComponent implements OnInit {
         }
       });
 
-      this.setVehicleDetails(this.nepaliData.collateralDetails);
+      (this.nepaliData.collateralDetails).forEach(value => {
+        if (value.securityDetails === 'HP') {
+          this.primaryCollaterals.push(value);
+        }
+      });
+      this.setVehicleDetails(this.primaryCollaterals);
     }
 
     this.form.patchValue({
@@ -79,7 +85,6 @@ export class VehicleNamsariLetterComponent implements OnInit {
       customerTemporaryWard: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
       citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
       citizenshipIssueAddress: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-      vehicleName: this.nepaliData.collateralDetails ? this.nepaliData.collateralDetails[0].vehicleType : '',
       debtorName: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
       isIndividual : this.isIndividual,
       companyDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
@@ -87,7 +92,14 @@ export class VehicleNamsariLetterComponent implements OnInit {
       companyWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
       companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
       panNo: this.nepaliData.panNo ? this.nepaliData.panNo : ''
+    });
 
+    this.nepaliData.collateralDetails.forEach(value => {
+      if (value.securityDetails === 'HP') {
+        this.form.patchValue({
+          vehicleName: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : ''],
+        });
+      }
     });
   }
 
