@@ -9,10 +9,28 @@
                                 [isEdit]="isEdit"></app-retail-global-content>
         <!-- Type of sme loan start here-->
         <ng-container *ngIf="isPersonalLoan">
-            <app-personal-loan-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                                                       #personalLoanTemplate [loanName]="loanExtraDetails"
+            <app-personal-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                       #personalLoanCombined [loanName]="loanExtraDetails"
                                                        [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
-            </app-personal-loan-template-data>
+            </app-personal-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isPersonalOverdraftLoan">
+            <app-personal-overdraft-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #personalOverdraftCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+            </app-personal-overdraft-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isEducationLoan">
+            <app-education-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #educationLoanCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+            </app-education-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isMortgageLoan">
+            <app-mortgage-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #mortgageLoanCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+            </app-mortgage-loan-combined-template-data>
         </ng-container>
         <!-- Type of sme loan end here-->
         <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity

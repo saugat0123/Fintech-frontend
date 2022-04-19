@@ -210,6 +210,7 @@ export class OfferLetterListComponent implements OnInit {
             if (this.offerDocumentList.length === 0) {
               this.toastService.show(new Alert(AlertType.ERROR, `${ObjectUtil.isEmpty(this.docName) ? 'offer letter' : this.docName} not found`));
             }
+            console.log('OfferDocumentList:', this.offerDocumentList);
             this.offerDocumentList.forEach(offerLetter => {
                 this.docName = offerLetter.docName;
                 if (this.docName === 'Educational Loan') {

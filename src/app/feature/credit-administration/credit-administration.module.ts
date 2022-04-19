@@ -135,6 +135,10 @@ import { CommonSecuritySectionPrimaryComponent } from './cad-view/template-data/
 import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 import { RetailTemplateDataComponent } from './cad-view/template-data/retail-template-data/retail-template-data.component';
 import { RetailGlobalContentComponent } from './cad-view/template-data/retail-template-data/retail-global-content/retail-global-content.component';
+import { PersonalLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-loan-combined-template-data/personal-loan-combined-template-data.component';
+import { EducationLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/education-loan-combined-template-data/education-loan-combined-template-data.component';
+import { MortgageLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/mortgage-loan-combined-template-data/mortgage-loan-combined-template-data.component';
+import { PersonalOverdraftCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-overdraft-combined-template-data/personal-overdraft-combined-template-data.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -256,7 +260,11 @@ import { RetailGlobalContentComponent } from './cad-view/template-data/retail-te
         CommonSecuritySectionPrimaryComponent,
         CommonSecuritySectionSecondaryComponent,
         RetailTemplateDataComponent,
-        RetailGlobalContentComponent],
+        RetailGlobalContentComponent,
+        PersonalLoanCombinedTemplateDataComponent,
+        EducationLoanCombinedTemplateDataComponent,
+        MortgageLoanCombinedTemplateDataComponent,
+        PersonalOverdraftCombinedTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
