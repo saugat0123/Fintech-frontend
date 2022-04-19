@@ -47,6 +47,8 @@ import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
 import {SecurityMasterTemplateComponent} from '../../../loan-information-template/security.v2/security-master-template/security-master-template.component';
+import {LandBuilding} from '../../../loan-information-template/security.v2/model/land-building';
+import {Auto} from '../../../loan-information-template/security.v2/model/auto';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -166,6 +168,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     microCustomerTypeEnum = MicroCustomerType;
+    public landBuildings: Array<LandBuilding>;
+    public autos: Array<Auto>;
 
     nbDialogRef: NbDialogRef<any>;
     customer: Customer;
@@ -267,6 +271,12 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
             this.multiBankingResponse = this.customerInfo.multiBanking;
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
+            this.landBuildings = this.customerInfo.landBuildings;
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.autos)) {
+            this.autos = this.customerInfo.autos;
         }
     }
 
@@ -689,11 +699,14 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     public openMasterSecurityTemplate(): void {
+        let context;
+        context = {
+            customerInfoId: this.customerInfoId,
+            landBuildings: this.landBuildings,
+            autos: this.autos,
+        };
         this.nbDialogRef = this.modalService.open(SecurityMasterTemplateComponent,
-            {
-                closeOnBackdropClick: false, closeOnEsc: false,
-            }
-            );
+            {closeOnBackdropClick: false, closeOnEsc: false, context});
     }
 
     public onClose(): void {

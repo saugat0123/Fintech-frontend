@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../../admin/modal/province';
@@ -9,6 +9,8 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Valuator} from '../../../../admin/modal/valuator';
 import {LandBuilding} from '../../model/land-building';
+import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
+import {TemplateName} from '../../../../customer/model/templateName';
 
 @Component({
   selector: 'app-security-land-building',
@@ -21,13 +23,15 @@ export class SecurityLandBuildingComponent implements OnInit {
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   valuatorList: Array<Valuator> = new Array<Valuator>();
-  landBuilding: Array<LandBuilding> = new Array<LandBuilding>();
+  @Input() landBuilding: Array<LandBuilding> = new Array<LandBuilding>();
   submitted = false;
+  @Input() customerInfoId: number;
 
   constructor(private formBuilder: FormBuilder,
               private addressService: AddressService,
               private toastService: ToastService,
-              private valuatorService: ValuatorService,) { }
+              private valuatorService: ValuatorService,
+              private customerInfoService: CustomerInfoService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -134,14 +138,17 @@ export class SecurityLandBuildingComponent implements OnInit {
     formArray.controls.map(val => {
       this.landBuilding.push(val.value);
     });
+    this.customerInfoService.saveLoanInfo(this.landBuilding, this.customerInfoId, TemplateName.LAND_BUILDING_SECURITY)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Land Building detail!'));
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Land Building!'));
+        });
   }
 
   public compareFn(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  }
-
-  get formControl() {
-    return (this.landBuildingForm.get('landAndBuilding') as FormArray).controls;
   }
 
 }

@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Valuator} from '../../../../admin/modal/valuator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {Auto} from '../../model/auto';
+import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
+import {TemplateName} from '../../../../customer/model/templateName';
 
 @Component({
   selector: 'app-security-auto',
@@ -14,12 +16,14 @@ import {Auto} from '../../model/auto';
 export class SecurityAutoComponent implements OnInit {
   autoForm: FormGroup = new FormGroup({});
   valuatorList: Array<Valuator> = new Array<Valuator>();
-  auto: Array<Auto> = new Array<Auto>();
+  @Input() auto: Array<Auto> = new Array<Auto>();
   submitted = false;
+  @Input() customerInfoId: number;
 
   constructor(private formBuilder: FormBuilder,
               private valuatorService: ValuatorService,
-              private toastService: ToastService) { }
+              private toastService: ToastService,
+              private customerInfoService: CustomerInfoService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -77,5 +81,12 @@ export class SecurityAutoComponent implements OnInit {
     formArray.controls.map(val => {
       this.auto.push(val.value);
     });
+    this.customerInfoService.saveLoanInfo(this.auto, this.customerInfoId, TemplateName.AUTO_SECURITY)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Auto Security!'));
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Auto Security!'));
+        });
   }
 }

@@ -24,4 +24,6 @@ export class TemplateName {
   static PREVIOUS_SECURITY = 'previousSecurity';
   static REVIEW_DATE = 'Review Date';
   static MULTI_BANKING = 'MultiBanking';
+  static  LAND_BUILDING_SECURITY = 'Land Building Security';
+  static AUTO_SECURITY = 'Auto Security';
 }

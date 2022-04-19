@@ -27,7 +27,8 @@
                                         <label>Manufacture Year</label>
                                         <div>
                                             <input [ngClass]="{ 'is-invalid': (submitted) && auto.get('manufactureYear').errors }"
-                                                    class="form-control" type="text" placeholder="2022" formControlName="manufactureYear">
+                                                    class="form-control" [nbDatepicker]="manufactureData" formControlName="manufactureYear">
+                                            <nb-datepicker #manufactureData></nb-datepicker>
                                             <span *ngIf="(submitted) && auto.get('manufactureYear').errors" class="invalid-feedback">
                                                 Manufacture year is required!!
                                             </span>

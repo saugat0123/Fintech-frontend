@@ -17,10 +17,10 @@
                 </div>
             </div>
             <div class="col-md-12" [hidden]="!isLandAndBuildingSecuritySelected">
-                <app-security-land-building #landBuilding></app-security-land-building>
+                <app-security-land-building #landBuilding [landBuilding]="landBuildings" [customerInfoId]="customerInfoId"></app-security-land-building>
             </div>
             <div class="col-md-12" [hidden]="!isAutoSecuritySelected">
-                <app-security-auto #auto></app-security-auto>
+                <app-security-auto #auto [auto]="autos" [customerInfoId]="customerInfoId"></app-security-auto>
             </div>
         </div>
     </nb-card-body>
