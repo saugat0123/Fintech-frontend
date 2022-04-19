@@ -37,6 +37,7 @@ import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/templat
 import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component';
 import {SmeMasterTemplateComponent} from '../../../cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component';
 import {ClassASanctionLetterTemplateDataComponent} from '../../../cad-view/template-data/nabil-sme-template-data/class-a-sanction-letter-template-data/class-a-sanction-letter-template-data.component';
+import {RetailTemplateDataComponent} from '../../../cad-view/template-data/retail-template-data/retail-template-data.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -339,8 +340,21 @@ export class OfferLetterListComponent implements OnInit {
                     hasBackdrop: false,
                     dialogClass: 'model-full',
                   });
-                } else if (this.docName === this.offerLetterType.value(this.offerLetterType.COMBINED_LETTER)) {
+                } else if (this.docName === this.offerLetterType.value(this.offerLetterType.COMBINED_LETTER) &&
+                    this.cadOfferLetterApprovedDoc.loanHolder.customerType === 'INSTITUTION') {
                   this.dialogService.open(SmeMasterTemplateComponent, {
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                    context: {
+                      isEdit: true,
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                  });
+                } else if (this.docName === this.offerLetterType.value(this.offerLetterType.COMBINED_LETTER) &&
+                    this.cadOfferLetterApprovedDoc.loanHolder.customerType === 'INDIVIDUAL') {
+                  this.dialogService.open(RetailTemplateDataComponent, {
                     hasBackdrop: false,
                     dialogClass: 'model-full',
                     context: {
