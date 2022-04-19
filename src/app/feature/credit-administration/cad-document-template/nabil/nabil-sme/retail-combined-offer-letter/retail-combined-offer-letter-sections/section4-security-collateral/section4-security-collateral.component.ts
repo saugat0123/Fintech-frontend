@@ -17,7 +17,16 @@ export class Section4SecurityCollateralComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      nameOfClient: [undefined],
+      tenureOfFixedDeposit: [undefined],
+      fixedDepositHolderName: [undefined],
+      amountOfDeposit: [undefined],
+      amountOfDepositInWords: [undefined],
+      expiryDate: [undefined],
+      receiptNum: [undefined],
+      nameOfGuarantor: [undefined],
+      loanAmountInFigure: [undefined],
+      loanAmountInWords: [undefined]
     });
   }
 }
