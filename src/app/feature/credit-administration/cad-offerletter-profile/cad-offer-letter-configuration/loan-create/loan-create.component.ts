@@ -181,15 +181,15 @@ export class LoanCreateComponent implements OnInit {
     this.modalService.open(template);
   }
 
-  dismiss(template){
+  dismiss(template) {
     this.modalService.dismissAll();
   }
 
-  decline(template){
+  decline(template) {
     this.modalService.dismissAll();
   }
 
-  accept(){
+  accept() {
     this.modalService.dismissAll();
     this.dialogRef.close();
   }
