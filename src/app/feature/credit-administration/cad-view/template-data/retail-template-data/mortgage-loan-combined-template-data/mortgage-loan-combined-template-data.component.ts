@@ -28,6 +28,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
   loanNameConstant = LoanNameConstant;
   initialInformation: any;
   loanDetails: any = [];
+  translatedFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -40,7 +41,6 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
               private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
-    console.log('called form mortgage');
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
@@ -72,7 +72,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
   }
 
   filterLoanDetails(loanDetails) {
-    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.MORTGAGE_LOAN_COMBINED);
+    this.filteredList = loanDetails.filter(data => data.name === 'MORTGAGE LOAN COMBINED');
     this.filteredList.forEach(value => {
       this.addLoanFormArr();
     });
@@ -146,36 +146,36 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
   async setTranslatedVal(index, mainArray) {
     this.spinner = true;
     const tempLoanAmount = this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmount']).value;
-    const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
-        this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountTrans']).patchValue(convertNumber);
+    if (!ObjectUtil.isEmpty(tempLoanAmount)) {
+      const convertNumber = this.convertNumbersToNepali(tempLoanAmount.toFixed(2), true);
+      this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountWordsTrans']).patchValue(
-        this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountWords']).value
-    );
-
-    const tempPurpose = this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoan']).value;
-    if (!ObjectUtil.isEmpty(tempPurpose)) {
-      this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoanTrans']);
+      this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountWordsTrans']).patchValue(
+          this.mortgageCombineLoanForm.get([mainArray, index, 'loanAmountWords']).value
+      );
     }
 
-    const convertedPremiumRate = this.convertNumbersToNepali(this.mortgageCombineLoanForm
-        .get([mainArray, index, 'premiumRate']).value.toFixed(2), false);
-    this.mortgageCombineLoanForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
+    const tempPremiumRate = this.mortgageCombineLoanForm.get([mainArray, index, 'premiumRate']).value;
+    if (!ObjectUtil.isEmpty(tempPremiumRate)) {
+      const convertedPremiumRate = this.convertNumbersToNepali(tempPremiumRate.toFixed(2), false);
+      this.mortgageCombineLoanForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
+    }
 
-    const convertedInterestRate = this.convertNumbersToNepali(this.mortgageCombineLoanForm
-        .get([mainArray, index, 'interestRate']).value, false);
-    this.mortgageCombineLoanForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertedInterestRate);
+    const tempInterestRate = this.mortgageCombineLoanForm.get([mainArray, index, 'interestRate']).value;
+    if (!ObjectUtil.isEmpty(tempInterestRate)) {
+      const convertedInterestRate = this.convertNumbersToNepali(tempPremiumRate.toFixed(2), false);
+      this.mortgageCombineLoanForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertedInterestRate);
+    }
 
     const tempMargin = this.mortgageCombineLoanForm.get([mainArray, index, 'marginPercent']).value;
     if (!ObjectUtil.isEmpty(tempMargin)) {
-      const convertMargin = this.convertNumbersToNepali(tempMargin, true);
+      const convertMargin = this.convertNumbersToNepali(tempMargin.toFixed(2), true);
       this.mortgageCombineLoanForm.get([mainArray, index, 'marginPercentTrans']).patchValue(convertMargin);
     }
 
     const tempAdminAmount = this.mortgageCombineLoanForm.get([mainArray, index, 'loanAdmin']).value;
     if (!ObjectUtil.isEmpty(tempAdminAmount)) {
-      const convertAdminNumber = this.convertNumbersToNepali(tempAdminAmount, true);
+      const convertAdminNumber = this.convertNumbersToNepali(Number(tempAdminAmount).toFixed(2), true);
       this.mortgageCombineLoanForm.get([mainArray, index, 'loanAdminTrans']).patchValue(convertAdminNumber);
 
       this.mortgageCombineLoanForm.get([mainArray, index, 'loanAdminWordsTrans']).patchValue(
@@ -185,7 +185,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
 
     const tempEmiAmount = this.mortgageCombineLoanForm.get([mainArray, index, 'emiAmount']).value;
     if (!ObjectUtil.isEmpty(tempEmiAmount)) {
-      const convertEmiNumber = this.convertNumbersToNepali(tempEmiAmount, true);
+      const convertEmiNumber = this.convertNumbersToNepali(Number(tempEmiAmount).toFixed(2), true);
       this.mortgageCombineLoanForm.get([mainArray, index, 'emiAmountTrans']).patchValue(convertEmiNumber);
 
       this.mortgageCombineLoanForm.get([mainArray, index, 'emiAmountWordsTrans']).patchValue(
@@ -198,10 +198,32 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
       this.mortgageCombineLoanForm.get([mainArray, index, 'totalInstallmentTrans']).patchValue(convertedTotalNumber);
     }
 
-    const tempBeneficiaryName = this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryName']).value;
-    if (!ObjectUtil.isEmpty(tempBeneficiaryName)) {
-      this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryNameTrans']).patchValue(tempBeneficiaryName);
-    }
+    /* Constructing Form for translation */
+    this.translatedFormGroup = this.formBuilder.group({
+      purposeOfLoan: [this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoan']).value],
+    });
+
+    // translated by google api
+    this.translatedFormGroup = this.formBuilder.group({
+      purposeOfLoan: !ObjectUtil.isEmpty(this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoan']).value) ?
+          this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoan']).value : '',
+    });
+     const translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
+    this.mortgageCombineLoanForm.get([mainArray, index, 'purposeOfLoanTrans']).patchValue(translatedValue.purposeOfLoan);
+
+    /* Constructing Form for translation */
+    this.translatedFormGroup = this.formBuilder.group({
+      beneficiaryName: [this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryName']).value],
+    });
+
+    // translated by google api
+    this.translatedFormGroup = this.formBuilder.group({
+      beneficiaryName: !ObjectUtil.isEmpty(this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryName']).value) ?
+          this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryName']).value : '',
+    });
+    const beneficiaryTrans =  await this.translateService.translateForm(this.translatedFormGroup);
+    this.mortgageCombineLoanForm.get([mainArray, index, 'beneficiaryNameTrans']).patchValue(beneficiaryTrans.beneficiaryName);
+
     this.setCTValues(index, mainArray);
     this.spinner = false;
   }
@@ -245,4 +267,10 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
     );
   }
 
+  amountInWord(value, index, formControl, wordFormControl) {
+    const amountWord = this.engToNepWord.transform(value);
+    this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, formControl]).patchValue(value);
+    this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, wordFormControl]).patchValue(
+        amountWord ? amountWord : '');
+  }
 }
