@@ -4094,16 +4094,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         const tempData = JSON.parse(this.loanHolder.nepData);
         if (!ObjectUtil.isEmpty(tempData) && !ObjectUtil.isEmpty(tempData.dobDateType.en)) {
             if (tempData.dobDateType.en === 'AD') {
-                this.userConfigForm.get('dob').patchValue(new Date(tempData.dob.en));
+                this.userConfigForm.get('dob').patchValue((!ObjectUtil.isEmpty(tempData.dob) &&
+                    !ObjectUtil.isEmpty(tempData.dob.en)) ? new Date(tempData.dob.en) : '');
             } else {
-                this.userConfigForm.get('dobNepali').patchValue(tempData.dobNepali.en);
+                this.userConfigForm.get('dobNepali').patchValue((!ObjectUtil.isEmpty(tempData.dobNepali) &&
+                    !ObjectUtil.isEmpty(tempData.dobNepali.en)) ? tempData.dobNepali.en : '');
             }
         }
         if (!ObjectUtil.isEmpty(tempData) && !ObjectUtil.isEmpty(tempData.issuedDate.en)) {
             if (tempData.issuedDate.en === 'AD') {
-                this.userConfigForm.get('citizenshipIssueDate').patchValue(new Date(tempData.citizenshipIssueDate.en));
+                this.userConfigForm.get('citizenshipIssueDate').patchValue((!ObjectUtil.isEmpty(tempData.citizenshipIssueDate) &&
+                    !ObjectUtil.isEmpty(tempData.citizenshipIssueDate.en)) ? new Date(tempData.citizenshipIssueDate.en) : '');
             } else {
-                this.userConfigForm.get('citizenshipIssueDateNepali').patchValue(tempData.citizenshipIssueDateNepali.en);
+                this.userConfigForm.get('citizenshipIssueDateNepali').patchValue((!ObjectUtil.isEmpty(tempData.citizenshipIssueDateNepali) &&
+                    !ObjectUtil.isEmpty(tempData.citizenshipIssueDateNepali.en)) ? tempData.citizenshipIssueDateNepali.en : '');
             }
         }
     }
