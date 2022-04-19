@@ -37,6 +37,8 @@ import {
 import {
   RetailCombinedOfferLetterComponent
 } from '../../../cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {SmeSecurityComponent} from '../nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -45,6 +47,8 @@ import {
 })
 export class RetailTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() offerDocumentList: any;
+  @Input() initialInformation: any;
   @Input() isEdit = false;
   @ViewChild('retailGlobalContent', {static: false}) retailGlobalContent: RetailGlobalContentComponent;
   @ViewChild('personalLoanCombined', {static: false})
@@ -56,6 +60,9 @@ export class RetailTemplateDataComponent implements OnInit {
   @ViewChild('mortgageLoanCombined', {static: false})
   mortgageLoanCombined: MortgageLoanCombinedTemplateDataComponent;
 
+  @ViewChild('masterSecurity', {static: false})
+  smeSecurityComponent: SmeSecurityComponent;
+  @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
   requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
   offerLetterConst = NabilOfferLetterConst;
@@ -155,5 +162,70 @@ export class RetailTemplateDataComponent implements OnInit {
     this.modalService.dismissAll();
     this.modalDialogRef.close();
   }
+
+  onSubmit() {
+    this.spinner = true;
+    this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+
+    if (this.isEdit) {
+      if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+        this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+            === this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString())[0];
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          this.existingOfferLetter = true;
+        }
+      }
+      if (this.existingOfferLetter) {
+        console.log('Existing is true:');
+        this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+          if (offerLetterPath.docName.toString() ===
+              this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString()) {
+            offerLetterPath.initialInformation = this.getLoanTemplateFormValue();
+          }
+        });
+      }
+    } else {
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
+      // loan template form value
+      offerDocument.initialInformation = this.getLoanTemplateFormValue();
+      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+    }
+
+    this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.customerApprovedDoc = res.detail;
+      this.spinner = false;
+      this.disableBtn = true;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
+    });
+  }
+  private getLoanTemplateFormValue(): string {
+    const retailGlobalForm = this.retailGlobalContent.globalForm.value;
+    let personalOverdraftForm;
+    if (this.isPersonalOverdraftLoan) {
+      personalOverdraftForm = this.personalOverdraftCombined.personalOverdraftCombinedForm.value;
+    }
+
+    const securityData = this.smeSecurityComponent.setSecurityData();
+    let securityForm;
+    if (!ObjectUtil.isEmpty(securityData)) {
+      securityForm = securityData;
+    }
+
+    const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+
+    const retailCombinedForm = {
+      retailGlobalForm: retailGlobalForm,
+      personalOverdraftCombinedForm: personalOverdraftForm,
+      securities: securityForm,
+      requiredLegalDocument: requiredLegalDocument,
+    };
+    return JSON.stringify(retailCombinedForm);
+  }
+
 
 }

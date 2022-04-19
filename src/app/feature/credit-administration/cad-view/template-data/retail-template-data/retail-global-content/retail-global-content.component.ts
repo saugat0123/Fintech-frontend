@@ -28,6 +28,7 @@ export class RetailGlobalContentComponent implements OnInit {
   ];
   dateType = ['AD', 'BS'];
   loanOptionsSelected = false;
+  initialInformation: any;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
@@ -39,6 +40,59 @@ export class RetailGlobalContentComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.isEdit) {
+      if (this.offerDocumentList.length > 0) {
+        this.offerDocumentList.forEach(offerLetter => {
+          this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.globalForm.patchValue(this.initialInformation.retailGlobalForm);
+
+        // Date patch
+        // Sanction Letter Date
+        const sanctionLetterDateType = this.initialInformation.retailGlobalForm.sanctionLetterDateType;
+        if (sanctionLetterDateType === 'AD') {
+          const sanctionLetter = this.initialInformation.retailGlobalForm.sanctionLetterDate;
+          if (!ObjectUtil.isEmpty(sanctionLetter)) {
+            this.globalForm.get('sanctionLetterDate').patchValue(new Date(sanctionLetter));
+          }
+        } else if (sanctionLetterDateType === 'BS') {
+          const sanctionLetter = this.initialInformation.retailGlobalForm.sanctionLetterDateNepali;
+          if (!ObjectUtil.isEmpty(sanctionLetter)) {
+            this.globalForm.get('sanctionLetterDateNepali').patchValue(sanctionLetter);
+          }
+        }
+
+        // Request Letter Date
+        const requestLetterDateType = this.initialInformation.retailGlobalForm.requestLetterDateType;
+        if (requestLetterDateType === 'AD') {
+          const requestLetter = this.initialInformation.retailGlobalForm.requestLetterDate;
+          if (!ObjectUtil.isEmpty(requestLetter)) {
+            this.globalForm.get('requestLetterDate').patchValue(new Date(requestLetter));
+          }
+        } else if (requestLetterDateType === 'BS') {
+          const requestLetter = this.initialInformation.retailGlobalForm.requestLetterDateNepali;
+          if (!ObjectUtil.isEmpty(requestLetter)) {
+            this.globalForm.get('requestLetterDateNepali').patchValue(requestLetter);
+          }
+        }
+
+        // Previous Sanction Letter Date
+        const previousSanctionLetterDateType = this.initialInformation.retailGlobalForm.previousSanctionLetterDateType;
+        if (previousSanctionLetterDateType === 'AD') {
+          const previousSanctionLetter = this.initialInformation.retailGlobalForm.previousSanctionLetterDate;
+          if (!ObjectUtil.isEmpty(previousSanctionLetter)) {
+            this.globalForm.get('previousSanctionLetterDate').patchValue(new Date(previousSanctionLetter));
+          }
+        } else if (previousSanctionLetterDateType === 'BS') {
+          const previousSanctionLetter = this.initialInformation.retailGlobalForm.previousSanctionLetterDateNepali;
+          if (!ObjectUtil.isEmpty(previousSanctionLetter)) {
+            this.globalForm.get('previousSanctionLetterDateNepali').patchValue(previousSanctionLetter);
+          }
+        }
+      }
+    }
   }
 
   private buildForm(): FormGroup {
