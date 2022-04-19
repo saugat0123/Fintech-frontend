@@ -58,6 +58,7 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
             karmachariName2: [undefined],
             postName2: [undefined],
             branchName: [undefined],
+            branchDistrict: [undefined],
             customerPermanentDistrict: [undefined],
             customerPermanentVdc: [undefined],
             customerPermanentVdcWard: [undefined],
@@ -74,6 +75,7 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
             citizenshipIssueAddress: [undefined],
             patraNumberTwo: [undefined],
             patraNumberThree: [undefined],
+            patraNumberFour: [undefined],
             dateTwo: [undefined],
             thanOne: [undefined],
             thanTwo: [undefined],
@@ -114,6 +116,7 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
         }
         this.vehicleDeliveryForm.patchValue({
             branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+            branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
             customerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict.nepaliName : '',
             customerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
@@ -123,7 +126,6 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
             customerTemporaryWard: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             citizenshipIssueAddress: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-            vehiclePrice: this.nepaliData.collateralDetails ? this.nepaliData.collateralDetails[0].vehicleQuotationPrice : '',
             companyDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
             companyVdcMun: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
             companyWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
@@ -137,7 +139,8 @@ export class VehicleDeliveryPurchaseOrderLetterComponent implements OnInit {
         this.nepaliData.collateralDetails.forEach(value => {
             if (value.securityDetails === 'HP') {
                 this.vehicleDeliveryForm.patchValue({
-                    bisaya: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : '']
+                    bisaya: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : ''],
+                    vehiclePrice: [!ObjectUtil.isEmpty(value.vehicleQuotationPrice) ? value.vehicleQuotationPrice : '']
                 });
             }
         });
