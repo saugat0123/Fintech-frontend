@@ -119,7 +119,7 @@ export class RetailTemplateDataComponent implements OnInit {
         if (v === 'EDUCATIONAL LOAN COMBINED') {
           this.isEducationLoan = true;
         }
-        if (v === 'MORTAGE LOAN COMBINED') {
+        if (v === 'MORTGAGE LOAN COMBINED') {
           this.isMortgageLoan = true;
         }
         if (v === 'HOME LOAN COMBINED') {
