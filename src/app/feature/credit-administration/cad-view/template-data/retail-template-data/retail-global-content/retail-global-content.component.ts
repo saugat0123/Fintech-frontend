@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
@@ -20,6 +20,7 @@ export class RetailGlobalContentComponent implements OnInit {
   globalForm: FormGroup;
   translatedFormGroup: FormGroup;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Output() globalBaseRateRetail: EventEmitter<any> = new EventEmitter();
   loanTypes = [
     {value: 'New'},
     {value: 'Plain Renewal'},
@@ -28,6 +29,8 @@ export class RetailGlobalContentComponent implements OnInit {
   ];
   dateType = ['AD', 'BS'];
   loanOptionsSelected = false;
+  initialInformation: any;
+  globalBaseRate: any;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
@@ -39,6 +42,59 @@ export class RetailGlobalContentComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.isEdit) {
+      if (this.offerDocumentList.length > 0) {
+        this.offerDocumentList.forEach(offerLetter => {
+          this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.globalForm.patchValue(this.initialInformation.retailGlobalForm);
+
+        // Date patch
+        // Sanction Letter Date
+        const sanctionLetterDateType = this.initialInformation.retailGlobalForm.sanctionLetterDateType;
+        if (sanctionLetterDateType === 'AD') {
+          const sanctionLetter = this.initialInformation.retailGlobalForm.sanctionLetterDate;
+          if (!ObjectUtil.isEmpty(sanctionLetter)) {
+            this.globalForm.get('sanctionLetterDate').patchValue(new Date(sanctionLetter));
+          }
+        } else if (sanctionLetterDateType === 'BS') {
+          const sanctionLetter = this.initialInformation.retailGlobalForm.sanctionLetterDateNepali;
+          if (!ObjectUtil.isEmpty(sanctionLetter)) {
+            this.globalForm.get('sanctionLetterDateNepali').patchValue(sanctionLetter);
+          }
+        }
+
+        // Request Letter Date
+        const requestLetterDateType = this.initialInformation.retailGlobalForm.requestLetterDateType;
+        if (requestLetterDateType === 'AD') {
+          const requestLetter = this.initialInformation.retailGlobalForm.requestLetterDate;
+          if (!ObjectUtil.isEmpty(requestLetter)) {
+            this.globalForm.get('requestLetterDate').patchValue(new Date(requestLetter));
+          }
+        } else if (requestLetterDateType === 'BS') {
+          const requestLetter = this.initialInformation.retailGlobalForm.requestLetterDateNepali;
+          if (!ObjectUtil.isEmpty(requestLetter)) {
+            this.globalForm.get('requestLetterDateNepali').patchValue(requestLetter);
+          }
+        }
+
+        // Previous Sanction Letter Date
+        const previousSanctionLetterDateType = this.initialInformation.retailGlobalForm.previousSanctionLetterDateType;
+        if (previousSanctionLetterDateType === 'AD') {
+          const previousSanctionLetter = this.initialInformation.retailGlobalForm.previousSanctionLetterDate;
+          if (!ObjectUtil.isEmpty(previousSanctionLetter)) {
+            this.globalForm.get('previousSanctionLetterDate').patchValue(new Date(previousSanctionLetter));
+          }
+        } else if (previousSanctionLetterDateType === 'BS') {
+          const previousSanctionLetter = this.initialInformation.retailGlobalForm.previousSanctionLetterDateNepali;
+          if (!ObjectUtil.isEmpty(previousSanctionLetter)) {
+            this.globalForm.get('previousSanctionLetterDateNepali').patchValue(previousSanctionLetter);
+          }
+        }
+      }
+    }
   }
 
   private buildForm(): FormGroup {
@@ -113,6 +169,7 @@ export class RetailGlobalContentComponent implements OnInit {
           this.currencyFormatter.transform(afterFix.toString())));
       this.globalForm.get(origin + 'CT').patchValue(this.engToNepaliNumberPipe.transform(
           this.currencyFormatter.transform(afterFix.toString())));
+      this.globalBaseRateRetail.emit(afterFix);
     }
   }
   convertWords(origin, dest) {
