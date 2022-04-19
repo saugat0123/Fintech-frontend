@@ -71,50 +71,66 @@
                 ) (यसपछि जमानतकर्ता
                 भनिएकोछ)
                 आगे, तपाई धनी बैंकले म जमानी बसी दिने शर्तमा
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorGrandParentName">
-                को
-                नाति/नातिनि/बुहारी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorParentName">
-                को
-                छोरा/छोरी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorSpouseName">
-                कोपति/पत्नी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorPermanentDistrict">
-                जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorPermanentMunicipality">
-                न.पा./गा.पा. वडा नं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorPermanentWardNum">
-                भई हाल
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorTemporaryDistrict">
-                जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorTemporaryMunicipality">
-                न.पा./गा.पा. वडा नं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorTemporaryWardNum">
-                मा वस्ने वर्ष
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorAge">
-                को/की
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorName">
-                (ना.प्र.नं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorCitizenshipNum">
-                जि.प्र.का.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorCitizenshipIssuePlace">
-                मिति
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="guarantorCitizenshipIssueDate">
-                (यसपछि ऋणी भनिएको छ) लाई मेरो
+                <ng-container formArrayName="commonData"
+                              *ngFor="let data of form?.get('commonData')['controls']; let i = index;">
+                    <ng-container [formGroupName]="i">
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorGrandParentName">
+                        को
+                         नाति/नातिनि/बुहारी,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorParentName">
+                        को
+                        छोरा/छोरी,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorSpouseName">
+                        कोपति/पत्नी,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorPermanentDistrict">
+                        जिल्ला,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorPermanentMunicipality">
+                        न.पा./गा.पा. वडा नं.
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorPermanentWardNum">
+                        भई हाल
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorTemporaryDistrict">
+                        जिल्ला,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorTemporaryMunicipality">
+                        न.पा./गा.पा. वडा नं.
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorTemporaryWardNum">
+                        मा वस्ने वर्ष
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorAge">
+                        को/की
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorName">
+                        (ना.प्र.नं.
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorCitizenshipNum">
+                        जि.प्र.का.
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorCitizenshipIssuePlace">
+                        मिति
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="guarantorCitizenshipIssueDate">
+                        <ng-container
+                                *ngIf="isJoint && i<form?.get('commonData')?.value?.length - 1">
+                            ––१ र
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="isJoint; else individual">
+                    समेत जना <span>{{form?.get('commonData')?.value?.length | nepaliNumber }}</span> (यसपछि संयुक्त ऋणी
+                    भनिएको छ)
+                </ng-container>
+                <ng-template #individual>
+                    (यसपछि ऋणी भनिएको छ)
+                </ng-template>
+                लाई मेरो
                 जमानीमा प्रदान गर्ने/गरेको जम्मा कर्जा रकम रु
                 <input type="text" class="form-control-sm form-field nepaliFont"
                        (change)="getNumAmountWord('loanAmount', 'loanAmountInWords')"
@@ -204,5 +220,6 @@
         </button>
     </div>
 </div>
-<app-personal-guarantee-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+<app-personal-guarantee-print *ngIf="initialInfoPrint" [isJoint]="isJoint" [printDocForm]="initialInfoPrint"
                               hidden></app-personal-guarantee-print>
+<app-overlay-spinner></app-overlay-spinner>
