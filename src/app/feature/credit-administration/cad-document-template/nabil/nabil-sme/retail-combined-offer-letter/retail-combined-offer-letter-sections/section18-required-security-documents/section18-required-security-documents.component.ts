@@ -17,7 +17,13 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      loanAmountInFigure: [undefined],
+      totalAmountInFigure: [undefined],
+      remortgageDeedAmountInFigure: [undefined],
+      nameOfGuarantors: [undefined],
+      guaranteeAmount: [undefined],
+      guaranteeAmountInWords: [undefined],
+      insuranceAmount: [undefined],
     });
   }
 }
