@@ -187,54 +187,56 @@ export class LetterOfAgreementComponent implements OnInit {
       return;
     }
     data.forEach((value, i) => {
-      formArray.push(this.formBuilder.group({
-        perDistrict: [value.collateralPermanentDistrict.nepaliName ? value.collateralPermanentDistrict.nepaliName : ''],
-        perMunicipality: [value.collateralPermanentMunVdc.nepaliName ? value.collateralPermanentMunVdc.nepaliName : ''],
-        perWardNo: [value.collateralPermanentWardNo ? value.collateralPermanentWardNo : ''],
-        grandFatherName: [value.collateralGrandFatherName ? value.collateralGrandFatherName : ''],
-        fatherName: [value.collateralFatherName ? value.collateralFatherName : ''],
-        loanHolderName: [value.collateralName ? value.collateralName : ''],
-        financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
-        financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
-        financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
-        financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-        officeRegNo: [value.regNo ? value.regNo : ''],
-        districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
-        municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
-        wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
-        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
-        gender: [value.collateralOwnerGender ?  value.collateralOwnerGender : ''],
-        loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        loanHolderAge: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                        !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
-                        !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                        this.initialInfoPrint.collateralDetails[i].loanHolderAge : '' : '' : ''],
-        malpot: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
-                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                this.initialInfoPrint.collateralDetails[i].malpot : '' : '' : ''],
-        financeRegistrationDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
-                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                this.initialInfoPrint.collateralDetails[i].financeRegistrationDate : '' : '' : ''],
-        itiYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+      if (value.securityDetails === 'Land_And_Building') {
+        formArray.push(this.formBuilder.group({
+          perDistrict: [value.collateralPermanentDistrict.nepaliName ? value.collateralPermanentDistrict.nepaliName : ''],
+          perMunicipality: [value.collateralPermanentMunVdc.nepaliName ? value.collateralPermanentMunVdc.nepaliName : ''],
+          perWardNo: [value.collateralPermanentWardNo ? value.collateralPermanentWardNo : ''],
+          grandFatherName: [value.collateralGrandFatherName ? value.collateralGrandFatherName : ''],
+          fatherName: [value.collateralFatherName ? value.collateralFatherName : ''],
+          loanHolderName: [value.collateralName ? value.collateralName : ''],
+          financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+          financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+          financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+          financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+          officeRegNo: [value.regNo ? value.regNo : ''],
+          districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+          municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+          wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+          companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+          gender: [value.collateralOwnerGender ? value.collateralOwnerGender : ''],
+          loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+          loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+          loanHolderAge: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
                   !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                  this.initialInfoPrint.collateralDetails[i].itiYear : '' : '' : ''],
-        itiMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                      this.initialInfoPrint.collateralDetails[i].loanHolderAge : '' : '' : ''],
+          malpot: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
                   !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                  this.initialInfoPrint.collateralDetails[i].itiMonth : '' : '' : ''],
-        itiDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                      this.initialInfoPrint.collateralDetails[i].malpot : '' : '' : ''],
+          financeRegistrationDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
                   !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                  this.initialInfoPrint.collateralDetails[i].itiDate : '' : '' : ''],
-        itiSambat: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                    !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
-                    !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
-                    this.initialInfoPrint.collateralDetails[i].itiSambat : '' : '' : ''],
-      }));
+                      this.initialInfoPrint.collateralDetails[i].financeRegistrationDate : '' : '' : ''],
+          itiYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiYear : '' : '' : ''],
+          itiMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiMonth : '' : '' : ''],
+          itiDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiDate : '' : '' : ''],
+          itiSambat: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiSambat : '' : '' : ''],
+        }));
+      }
     });
   }
   addMoreCollateral(): void {
