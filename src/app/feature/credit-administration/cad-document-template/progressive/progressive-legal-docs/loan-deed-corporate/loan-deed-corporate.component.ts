@@ -143,16 +143,18 @@ export class LoanDeedCorporateComponent implements OnInit {
       return;
     }
     data.forEach((value) => {
-      formArray.push(this.formBuilder.group({
-        SecuritiesSNBibaran: [value.dhitoBibaran],
-        SecuritiesDistrict: [value.collateralDistrict],
-        SecuritiesMunicipality: [value.collateralMunVdcOriginal],
-        SecuritiesWardNo: [value.collateralMunVdcChanged],
-        SecuritiesKeyNo: [value.plotNo],
-        SecuritiesArea: [value.areaOfCollateral],
-        SecuritiesRegNo: [value.regNo],
-        SecuritiesOwnerName: [value.collateralName],
-      }));
+      if (value.securityDetails === 'Land_And_Building') {
+        formArray.push(this.formBuilder.group({
+          SecuritiesSNBibaran: [value.dhitoBibaran],
+          SecuritiesDistrict: [value.collateralDistrict],
+          SecuritiesMunicipality: [value.collateralMunVdcOriginal],
+          SecuritiesWardNo: [value.collateralMunVdcChanged],
+          SecuritiesKeyNo: [value.plotNo],
+          SecuritiesArea: [value.areaOfCollateral],
+          SecuritiesRegNo: [value.regNo],
+          SecuritiesOwnerName: [value.collateralName],
+        }));
+      }
     });
   }
 
