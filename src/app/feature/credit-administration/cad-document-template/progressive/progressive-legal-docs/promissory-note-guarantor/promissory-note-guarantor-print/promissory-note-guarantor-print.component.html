@@ -1,6 +1,6 @@
 <div class="row" id="print-section-{{offerLetterConst.PROMISSORY_NOTE_GUARANTOR}}">
     <div class="col-md-12 viewFull">
-        <form class="nepali margin">
+        <form class="nepali">
             <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" class="mt-4">
                 <h6 class="text-center"><strong>प्रतिज्ञा पत्र<br>
                     (PROMISSORY NOTE)</strong></h6>
@@ -204,14 +204,24 @@
                         <tr>
                             <td style="vertical-align: top; text-align: right; width: 20%">स्थायी ठेगाना :</td>
                             <td style="text-align: left;width: 80%">
-                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentDistrict !== null && guarantor?.guarantorPermanentDistrict !== ''}">
-                         {{guarantor?.guarantorPermanentDistrict === null || guarantor?.guarantorPermanentDistrict === '' ? '_________________' : guarantor?.guarantorPermanentDistrict}}
-                        </span>
-                                जिल्ला,
-                                <span
-                                        [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentMunicipality !== null && guarantor?.guarantorPermanentMunicipality !== ''}">
-                            {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
-                        </span>
+                                <ng-container *ngIf="loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Corporate_Guarantor'">
+                                    <span [ngClass]="{'nepaliFont' : guarantor?.guarantorPermanentDistrict !== null && guarantor?.guarantorPermanentDistrict !== ''}">
+                                     {{guarantor?.guarantorPermanentDistrict === null || guarantor?.guarantorPermanentDistrict === '' ? '_________________' : guarantor?.guarantorPermanentDistrict}}
+                                    </span>
+                                    जिल्ला,
+                                    <span [ngClass]="{'nepaliFont' : guarantor?.guarantorPermanentMunicipality !== null && guarantor?.guarantorPermanentMunicipality !== ''}">
+                                        {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
+                                    <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentDistrict !== null && guarantor?.guarantorPermanentDistrict !== ''}">
+                                     {{guarantor?.guarantorPermanentDistrict === null || guarantor?.guarantorPermanentDistrict === '' ? '_________________' : guarantor?.guarantorPermanentDistrict}}
+                                    </span>
+                                    जिल्ला,
+                                    <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentMunicipality !== null && guarantor?.guarantorPermanentMunicipality !== ''}">
+                                        {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
+                                    </span>
+                                </ng-container>
                                 गा.पा./न.पा., वडा नं.
                                 <span [ngClass]="{'nepaliFont' : guarantor?.guarantorPermanentWardNo !== null && guarantor?.guarantorPermanentWardNo !== ''}">
                          {{guarantor?.guarantorPermanentWardNo === null || guarantor?.guarantorPermanentWardNo === '' ? '_________________' : guarantor?.guarantorPermanentWardNo}}
@@ -228,13 +238,24 @@
                         <tr>
                             <td style="text-align: right; width: 20%">हालको ठेगाना :</td>
                             <td style="text-align: left;width: 80%">
-                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorTempDistrict !== null && guarantor?.guarantorTempDistrict !== ''}">
-                            {{guarantor?.guarantorTempDistrict === null || guarantor?.guarantorTempDistrict === '' ? '_________________' : guarantor?.guarantorTempDistrict}}
-                        </span>
-                                जिल्ला,
-                                <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorTempMunicipality !== null && guarantor?.guarantorTempMunicipality !== ''}">
-                            {{guarantor?.guarantorTempMunicipality === null || guarantor?.guarantorTempMunicipality === '' ? '_________________' : guarantor?.guarantorTempMunicipality}}
-                        </span>
+                                <ng-container *ngIf="loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Corporate_Guarantor'">
+                                    <span [ngClass]="{'nepaliFont' : guarantor?.guarantorTempDistrict !== null && guarantor?.guarantorTempDistrict !== ''}">
+                                        {{guarantor?.guarantorTempDistrict === null || guarantor?.guarantorTempDistrict === '' ? '_________________' : guarantor?.guarantorTempDistrict}}
+                                    </span>
+                                    जिल्ला,
+                                    <span [ngClass]="{'nepaliFont' : guarantor?.guarantorTempMunicipality !== null && guarantor?.guarantorTempMunicipality !== ''}">
+                                        {{guarantor?.guarantorTempMunicipality === null || guarantor?.guarantorTempMunicipality === '' ? '_________________' : guarantor?.guarantorTempMunicipality}}
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
+                                    <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorTempDistrict !== null && guarantor?.guarantorTempDistrict !== ''}">
+                                        {{guarantor?.guarantorTempDistrict === null || guarantor?.guarantorTempDistrict === '' ? '_________________' : guarantor?.guarantorTempDistrict}}
+                                    </span>
+                                    जिल्ला,
+                                    <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorTempMunicipality !== null && guarantor?.guarantorTempMunicipality !== ''}">
+                                        {{guarantor?.guarantorTempMunicipality === null || guarantor?.guarantorTempMunicipality === '' ? '_________________' : guarantor?.guarantorTempMunicipality}}
+                                    </span>
+                                </ng-container>
                                 गा.पा./न.पा., वडा नं.
                                 <span [ngClass]="{'nepaliFont' : guarantor?.guarantorTempWardNo !== null && guarantor?.guarantorTempWardNo !== ''}">
                             {{guarantor?.guarantorTempWardNo === null || guarantor?.guarantorTempWardNo === '' ? '_________________' : guarantor?.guarantorTempWardNo}}
@@ -268,11 +289,11 @@
                                 <table class="table-borderless text-center" id="fingerXap">
                                     <tr>
                                         <th>दाँ.<textarea cols="15" name=""
-                                                          rows="10"
+                                                          rows="7"
                                                           style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                                         </th>
                                         <th>बाँ.<textarea cols="15" name=""
-                                                          rows="10"
+                                                          rows="7"
                                                           style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                                         </th>
                                     </tr>

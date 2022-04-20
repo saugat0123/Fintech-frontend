@@ -259,6 +259,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
     data.forEach((value , i) => {
       if (this.loanCategory === 'INSTITUTION') {
         formArray.push(this.formBuilder.group({
+          guarantorType: [!ObjectUtil.isEmpty(value.guarantorType) ? value.guarantorType : ''],
           guarantorName: [value.guarantorName ? value.guarantorName :
               (value.representativeNameGuarantor ? value.representativeNameGuarantor : '')],
           guarantorCitizenshipNo: [value.citizenNumber ? value.citizenNumber :
@@ -485,6 +486,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
 
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
+      guarantorType: [undefined],
       guarantorName: [undefined],
       guarantorCitizenshipNo: [undefined],
       guarantorCitizenshipIssueDate: [undefined],

@@ -23,9 +23,6 @@
 
 @media print {
 
-  @page {
-    margin: 1.5in 0.36in 0.75in 1.36in !important;
-  }
 
   .pageBreak {
     page-break-before: always !important;

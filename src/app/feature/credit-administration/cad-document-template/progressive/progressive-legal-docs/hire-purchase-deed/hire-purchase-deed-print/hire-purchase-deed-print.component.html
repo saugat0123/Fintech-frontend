@@ -1,4 +1,4 @@
-<div class="row" id="print-section-{{offerLetterConst.HIRE_PURCHASE_DEED}}">
+<div class="container row" id="print-section-{{offerLetterConst.HIRE_PURCHASE_DEED}}">
     <div class="col-md-12  viewFull">
         <form class="nepali">
             <h6 class="text-center"><strong>किस्ताबन्दी खरीद प्रणाली (हायरपर्चेज) सम्झौतापत्र</strong><br>
@@ -291,7 +291,7 @@
             <h6 class="text-center"><strong><u>तपसिल</u></strong></h6>
             <div class="table-responsive-md">
                 <table class="table  table-bordered border-dark text-center">
-                    <thead>
+                    <tbody>
                     <tr>
                         <th>क्र.सं.</th>
                         <th>सवारीको प्रकार</th>
@@ -300,7 +300,7 @@
                         <th>सवारी दर्ता नं.</th>
                         <th>सवारीदर्ता मिति</th>
                     </tr>
-                    </thead>
+                    </tbody>
                     <tbody>
                     <tr  *ngFor="let primaryCollateral of printDocForm.primaryCollaterals; index as i">
                         <td><span class="nepaliFont unicode-size"> {{i + 1 | nepaliNumber}}</span></td>
@@ -410,30 +410,28 @@
                 </p>
                 <p>संस्थाको छाप/औठा छाप
                 <div class="text-center">
-                    <table class="table  table-bordered" id="fingerXap">
-                        <thead>
+                    <table class="table-borderless" id="fingerXap">
+                        <tbody>
                         <tr>
                             <th>दाँ.</th>
                             <th>बाँ.</th>
                         </tr>
-                        </thead>
+                        </tbody>
                         <tbody>
                         <tr>
                             <td><textarea cols="20" name=""
-                                          rows="6"
+                                          rows="2"
                                           style="background-color: transparent;resize:none; border:none; outline:none"></textarea>
                             </td>
                             <td><textarea cols="20" name=""
-                                          rows="6"
+                                          rows="2"
                                           style="background-color: transparent;resize:none;border:none; outline:none"></textarea>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
-            <div class="page-break"></div>
             <strong class="text-left">साक्षी :</strong>
             <div class="col-md-12 ">
                 <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetail; index as i"
