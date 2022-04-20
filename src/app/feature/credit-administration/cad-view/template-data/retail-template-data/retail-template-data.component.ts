@@ -216,6 +216,11 @@ export class RetailTemplateDataComponent implements OnInit {
       mortgageCombineForm = this.mortgageLoanCombined.mortgageCombineLoanForm.value;
     }
 
+    let personalLoanCombinedForm;
+    if (this.isPersonalLoan) {
+      personalLoanCombinedForm = this.personalLoanCombined.personalLoanCombinedForm.value;
+    }
+
     const securityData = this.smeSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
@@ -228,6 +233,7 @@ export class RetailTemplateDataComponent implements OnInit {
       retailGlobalForm: retailGlobalForm,
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,
+      personalLoanCombinedForm: personalLoanCombinedForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };

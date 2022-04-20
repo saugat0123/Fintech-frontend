@@ -18,6 +18,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
   @Input() loanName;
   @Input() cadDocAssignedLoan;
   @Input() offerDocumentList;
+  @Input() globalBaseRate;
   spinner = false;
   mortgageCombineLoanForm: FormGroup;
   yesNoOptions = [
@@ -161,10 +162,11 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
       this.mortgageCombineLoanForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
     }
 
-    const tempInterestRate = this.mortgageCombineLoanForm.get([mainArray, index, 'interestRate']).value;
-    if (!ObjectUtil.isEmpty(tempInterestRate)) {
-      const convertedInterestRate = this.convertNumbersToNepali(tempPremiumRate.toFixed(2), false);
-      this.mortgageCombineLoanForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertedInterestRate);
+    const convertInterestRate = this.convertNumbersToNepali(this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, 'interestRate']).value ?
+        this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, 'interestRate']).value.toFixed(2) : '', false);
+    if (!ObjectUtil.isEmpty(convertInterestRate)) {
+      this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, 'interestRateTrans']).patchValue(
+          convertInterestRate);
     }
 
     const tempMargin = this.mortgageCombineLoanForm.get([mainArray, index, 'marginPercent']).value;
@@ -272,5 +274,17 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
     this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, formControl]).patchValue(value);
     this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, wordFormControl]).patchValue(
         amountWord ? amountWord : '');
+  }
+
+  calInterestRate(i) {
+    let baseRate;
+    if (!ObjectUtil.isEmpty(this.globalBaseRate)) {
+      baseRate = this.globalBaseRate;
+    } else {
+      baseRate = this.initialInformation.retailGlobalForm.baseRate;
+    }
+    const premiumRate =  this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'premiumRate']).value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'interestRate']).patchValue(sum);
   }
 }
