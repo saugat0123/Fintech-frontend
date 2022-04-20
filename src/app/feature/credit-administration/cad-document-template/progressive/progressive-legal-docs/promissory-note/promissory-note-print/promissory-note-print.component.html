@@ -282,7 +282,7 @@
                     <span [ngClass]="{'nepaliFont':printDocForm?.IdentifiedHintNo!==null && printDocForm?.IdentifiedHintNo!==''}">
                         {{printDocForm.IdentifiedHintNo === null || printDocForm.IdentifiedHintNo === '' ? '_______________' : printDocForm?.IdentifiedHintNo}}</span>)
                 </p>
-                <p>ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatYear!==null && printDocForm?.ItisambatYear!==''}">
+                <p class="text-center">ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatYear!==null && printDocForm?.ItisambatYear!==''}">
                         {{printDocForm.ItisambatYear === null || printDocForm.ItisambatYear === '' ? '_______________' : printDocForm?.ItisambatYear}}
                     </span>
                     साल <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatMonth!==null && printDocForm?.ItisambatMonth!==''}">

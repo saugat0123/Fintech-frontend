@@ -163,7 +163,7 @@
                                        formArrayName="swikritiBibaran">
                                 <tr [formGroupName]="i">
                                     <td>
-                                        {{i + 1 | nepaliNumber}}
+                                        {{i + 1 | nepaliNumber}}.
                                     </td>
                                     <td><input class="form-field nepaliFont form-control-sm"
                                                formControlName="approvedSubidhakisim"
@@ -227,7 +227,7 @@
                                 <tbody *ngFor="let guarantor of form.get('security')['controls']; let i=index"
                                        formArrayName="security">
                                 <tr [formGroupName]="i">
-                                    <td>{{i + 1 | nepaliNumber}}</td>
+                                    <td>{{i + 1 | nepaliNumber}}.</td>
                                     <td><input class="form-field nepaliFont form-control"
                                                formControlName="SecuritiesSNBibaran"
                                                type="text"></td>

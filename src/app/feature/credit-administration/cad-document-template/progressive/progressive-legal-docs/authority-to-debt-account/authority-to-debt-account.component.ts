@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -69,9 +69,7 @@ export class AuthorityToDebtAccountComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       if (this.loanCategory === 'INSTITUTION') {
         this.form.patchValue({
-          date: [undefined],
           BranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-          accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
           sincerelyName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
           naPraNaName: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
           mitiName: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
@@ -94,7 +92,6 @@ export class AuthorityToDebtAccountComponent implements OnInit {
       }
       if (this.loanCategory === 'INDIVIDUAL') {
         this.form.patchValue({
-          date: [undefined],
           BranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
           accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
           sincerelyName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -115,7 +112,6 @@ export class AuthorityToDebtAccountComponent implements OnInit {
       }
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -158,7 +154,6 @@ export class AuthorityToDebtAccountComponent implements OnInit {
     });
   }
 
-
   buildForm() {
     this.form = this.formBuilder.group({
       date: [undefined],
@@ -179,6 +174,5 @@ export class AuthorityToDebtAccountComponent implements OnInit {
       husbandWifeName: [undefined]
     });
   }
-
 }
 

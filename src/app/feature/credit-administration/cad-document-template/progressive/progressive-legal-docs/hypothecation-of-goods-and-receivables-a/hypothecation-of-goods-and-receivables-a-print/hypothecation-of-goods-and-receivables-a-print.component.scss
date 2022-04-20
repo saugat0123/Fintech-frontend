@@ -24,3 +24,7 @@ span {
 .nepaliFont{
   font-family: Preeti;
 }
+
+table { overflow: visible !important; }
+thead { display: table-header-group !important; }
+tr { page-break-inside: avoid !important; }
