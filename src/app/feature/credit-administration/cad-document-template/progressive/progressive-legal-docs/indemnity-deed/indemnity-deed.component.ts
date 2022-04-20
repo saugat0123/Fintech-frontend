@@ -35,6 +35,7 @@ export class IndemnityDeedComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     loanData;
+    loanCategory;
 
     constructor(private dialogRef: NbDialogRef<IndemnityDeedComponent>,
                 private formBuilder: FormBuilder,
@@ -46,6 +47,9 @@ export class IndemnityDeedComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+            this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+        }
         this.loanData = this.cadData.loanHolder;
         this.buildForm();
         this.fillForm();

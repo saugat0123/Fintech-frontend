@@ -71,13 +71,22 @@
                     जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
                                       formControlName="sincerlyCdOoffice" placeholder="" type="text"/>)
                     <br>
-                    ठेगाना :-स्थायी <input class="form-field form-control-sm nepaliFont uniFont1"
-                                           formControlName="sincerlyPermanentDistrict" placeholder=""
-                                           type="text"/>
-                    जिल्ला, <input class="form-field form-control-sm nepaliFont uniFont1"
-                                  formControlName="sincerlyPermanentMunicipality" placeholder="" type="text"/>
-                    गा.पा./न.पा., वडा
-                    नं.
+                    ठेगाना :-स्थायी
+                    <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <input class="form-field form-control-sm nepaliFont sizefont"
+                                               formControlName="sincerlyPermanentDistrict" placeholder=""
+                                               type="text"/>
+                        जिल्ला, <input class="form-field form-control-sm nepaliFont sizefont"
+                                      formControlName="sincerlyPermanentMunicipality" placeholder="" type="text"/>
+                    </ng-container>
+                    <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                        <input class="form-field form-control-sm nepaliFont uniFont"
+                                               formControlName="sincerlyPermanentDistrict" placeholder=""
+                                               type="text"/>
+                        जिल्ला, <input class="form-field form-control-sm nepaliFont uniFont"
+                                      formControlName="sincerlyPermanentMunicipality" placeholder="" type="text"/>
+                    </ng-container>
+                    गा.पा./न.पा., वडा नं.
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="sincerlyPermanentWardNo" placeholder="" type="text"/> (साबिक
                     <input class="form-field form-control-sm nepaliFont" formControlName="sabikVDC"
@@ -85,11 +94,21 @@
                     <input class="form-field form-control-sm nepaliFont" formControlName="sabikWardNo"
                            placeholder="" type="text"/>)
                     <br>
-                    हालको ठेगानाः <input class="form-field form-control-sm nepaliFont uniFont1"
-                                         formControlName="sinserlyTempDistrict" placeholder="" type="text"/>
-                    जिल्ला,
-                    <input class="form-field form-control-sm nepaliFont uniFont1"
-                           formControlName="sinserlyTempMunicipality" placeholder="" type="text"/>
+                    हालको ठेगानाः
+                    <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <input class="form-field form-control-sm nepaliFont sizefont"
+                                             formControlName="sinserlyTempDistrict" placeholder="" type="text"/>
+                        जिल्ला,
+                        <input class="form-field form-control-sm nepaliFont sizefont"
+                               formControlName="sinserlyTempMunicipality" placeholder="" type="text"/>
+                    </ng-container>
+                    <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                        <input class="form-field form-control-sm nepaliFont uniFont"
+                                             formControlName="sinserlyTempDistrict" placeholder="" type="text"/>
+                        जिल्ला,
+                        <input class="form-field form-control-sm nepaliFont uniFont"
+                               formControlName="sinserlyTempMunicipality" placeholder="" type="text"/>
+                    </ng-container>
                     गा.पा./न.पा., वडा नं.
                     <input class="form-field form-control-sm nepaliFont" formControlName="sinserlyTempWardNo"
                            placeholder="" type="text"/>
@@ -262,5 +281,5 @@
         </button>
     </div>
 </div>
-<app-indemnity-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+<app-indemnity-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"  [loanCat]="loanCategory"
                           [cadData] = "cadData" hidden></app-indemnity-deed-print>
