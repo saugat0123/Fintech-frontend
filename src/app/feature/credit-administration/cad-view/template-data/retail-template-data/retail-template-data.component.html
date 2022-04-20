@@ -25,7 +25,8 @@
         <ng-container *ngIf="isEducationLoan">
             <app-education-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                                       #educationLoanCombined [loanName]="loanExtraDetails"
-                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
             </app-education-loan-combined-template-data>
         </ng-container>
         <ng-container *ngIf="isMortgageLoan">
