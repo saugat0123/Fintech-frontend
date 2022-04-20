@@ -239,7 +239,6 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       regOffice: [undefined],
       proprietorName: [undefined],
       proprietorAge: [undefined],
-      freeText: [undefined],
       proprietorCitizenNum: [undefined],
       proprietorCitizenAddress: [undefined],
       proprietorCurrentAddress: [undefined],

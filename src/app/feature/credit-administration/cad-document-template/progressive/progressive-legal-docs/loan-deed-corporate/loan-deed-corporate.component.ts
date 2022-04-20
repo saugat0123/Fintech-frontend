@@ -148,7 +148,7 @@ export class LoanDeedCorporateComponent implements OnInit {
           SecuritiesSNBibaran: [value.dhitoBibaran],
           SecuritiesDistrict: [value.collateralDistrict],
           SecuritiesMunicipality: [value.collateralMunVdcOriginal],
-          SecuritiesWardNo: [value.collateralMunVdcChanged],
+          SecuritiesWardNo: [value.collateralWardNoOld],
           SecuritiesKeyNo: [value.plotNo],
           SecuritiesArea: [value.areaOfCollateral],
           SecuritiesRegNo: [value.regNo],

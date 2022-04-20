@@ -91,41 +91,40 @@
             <td style="text-align: right; vertical-align: top;width: 20%">हालको ठेगाना :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTempDistrict !== null && printDocForm?.borrowerTempDistrict !== ''}">
-                                                {{printDocForm?.borrowerTempDistrict === null || printDocForm?.borrowerTempDistrict === '' ? '____________________' : printDocForm?.borrowerTempDistrict}}
-                                            </span>
+                  {{printDocForm?.borrowerTempDistrict === null || printDocForm?.borrowerTempDistrict === '' ? '____________________' : printDocForm?.borrowerTempDistrict}}
+              </span>
               जिल्ला,
-              <span
-                      [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTempMunicipality !== null && printDocForm?.borrowerTempMunicipality !== ''}">
-                                                {{printDocForm?.borrowerTempMunicipality === null || printDocForm?.borrowerTempMunicipality === '' ? '____________________' : printDocForm?.borrowerTempMunicipality}}
-                                            </span>
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTempMunicipality !== null && printDocForm?.borrowerTempMunicipality !== ''}">
+                    {{printDocForm?.borrowerTempMunicipality === null || printDocForm?.borrowerTempMunicipality === '' ? '____________________' : printDocForm?.borrowerTempMunicipality}}
+              </span>
               गा.पा./न.पा., वडा नं.
               <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerTempWardNo !== null && printDocForm?.borrowerTempWardNo !== ''}">
-                                                {{printDocForm?.borrowerTempWardNo === null || printDocForm?.borrowerTempWardNo === '' ? '____________________' : printDocForm?.borrowerTempWardNo}}
-                                            </span>
+                    {{printDocForm?.borrowerTempWardNo === null || printDocForm?.borrowerTempWardNo === '' ? '____________________' : printDocForm?.borrowerTempWardNo}}
+              </span>
             </td>
           </tr>
           <tr>
             <td style="text-align: right;width: 20%">वावु/आमाको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerParentsName !== null && printDocForm?.borrowerParentsName !== ''}">
-                                                {{printDocForm?.borrowerParentsName === null || printDocForm?.borrowerParentsName === '' ? '____________________' : printDocForm?.borrowerParentsName}}
-                                            </span>
+                  {{printDocForm?.borrowerParentsName === null || printDocForm?.borrowerParentsName === '' ? '____________________' : printDocForm?.borrowerParentsName}}
+              </span>
             </td>
           </tr>
           <tr>
             <td style="text-align: right;width: 20%">वाजे/बजैको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerGrandParentsName !== null && printDocForm?.borrowerGrandParentsName !== ''}">
-                                                {{printDocForm?.borrowerGrandParentsName === null || printDocForm?.borrowerGrandParentsName === '' ? '____________________' : printDocForm?.borrowerGrandParentsName}}
-                                            </span>
+                  {{printDocForm?.borrowerGrandParentsName === null || printDocForm?.borrowerGrandParentsName === '' ? '____________________' : printDocForm?.borrowerGrandParentsName}}
+              </span>
             </td>
           </tr>
           <tr>
             <td style="text-align: right;width: 20%">पति/पत्निको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerHusbandWifeName !== null && printDocForm?.borrowerHusbandWifeName !== ''}">
-                                                {{printDocForm?.borrowerHusbandWifeName === null || printDocForm?.borrowerHusbandWifeName === '' ? '____________________' : printDocForm?.borrowerHusbandWifeName}}
-                                            </span></td>
+                  {{printDocForm?.borrowerHusbandWifeName === null || printDocForm?.borrowerHusbandWifeName === '' ? '____________________' : printDocForm?.borrowerHusbandWifeName}}
+              </span></td>
           </tr>
           <tr>
               <td style="text-align: right; width: 20%; vertical-align: top">औठा छाप :</td>
