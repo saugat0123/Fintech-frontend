@@ -36,6 +36,13 @@
                                                       [globalBaseRate]="globalBaseRate">
             </app-mortgage-loan-combined-template-data>
         </ng-container>
+        <ng-container *ngIf="isAutoLoan">
+            <app-auto-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                       #autoLoanCombined [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
+            </app-auto-loan-combined-template-data>
+        </ng-container>
         <!-- Type of sme loan end here-->
         <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
                           [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-security>

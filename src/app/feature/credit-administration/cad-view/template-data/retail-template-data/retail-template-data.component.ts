@@ -39,6 +39,7 @@ import {
 } from '../../../cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {SmeSecurityComponent} from '../nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
+import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-template-data/auto-loan-combined-template-data.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -59,6 +60,8 @@ export class RetailTemplateDataComponent implements OnInit {
   educationLoanCombined: EducationLoanCombinedTemplateDataComponent;
   @ViewChild('mortgageLoanCombined', {static: false})
   mortgageLoanCombined: MortgageLoanCombinedTemplateDataComponent;
+  @ViewChild('autoLoanCombined', {static: false})
+  autoLoanCombined: AutoLoanCombinedTemplateDataComponent;
 
   @ViewChild('masterSecurity', {static: false})
   smeSecurityComponent: SmeSecurityComponent;
@@ -82,6 +85,7 @@ export class RetailTemplateDataComponent implements OnInit {
   isHomeLoan = false;
   isEducationLoan = false;
   isPersonalAndPersonalOverdraft = false;
+  isAutoLoan = false;
   globalBaseRate: any;
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -132,6 +136,9 @@ export class RetailTemplateDataComponent implements OnInit {
         }
         if (v === 'HOME LOAN COMBINED') {
           this.isHomeLoan = true;
+        }
+        if (v === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
         }
       });
     }
@@ -226,6 +233,11 @@ export class RetailTemplateDataComponent implements OnInit {
       educationLoanForm = this.educationLoanCombined.educationLoanCombinedForm.value;
     }
 
+    let autoLoanForm;
+    if (this.isAutoLoan) {
+      autoLoanForm = this.autoLoanCombined.autoLoanCombinedForm.value;
+    }
+
     const securityData = this.smeSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
@@ -240,6 +252,7 @@ export class RetailTemplateDataComponent implements OnInit {
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,
       personalLoanCombinedForm: personalLoanCombinedForm,
+      autoLoanCombinedForm: autoLoanForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };
