@@ -17,6 +17,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
 import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
+import {CommonService} from '../../../../../../@core/service/common.service';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -48,7 +49,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   jsonData;
   olRefNumber;
   documentCheckListData;
-
+  sccPath;
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
               private ngbModal: NgbModal,
@@ -57,14 +58,17 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private companyInfoService: CompanyInfoService,
               private formBuilder: FormBuilder,
-              private spinnerService: NgxSpinnerService
+              private spinnerService: NgxSpinnerService,
+              public service: CommonService
   ) {
   }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
-      console.log('sccData', this.sccData);
+        }
+    if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
+      this.sccPath = JSON.parse(this.cadFile.exposure.data).sccPath;
     }
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
