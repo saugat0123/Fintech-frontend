@@ -83,16 +83,31 @@
                         <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%"> स्थायी ठेगाना
                             :-
                         </td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="sincerlyPermanentAddress"
-                                                                       placeholder=""
-                                                                       readonly
-                                                                       type="text"/>
-                            जिल्ला,<input class="form-field form-control-sm nepaliFont"
-                                         formControlName="jillaName"
-                                         placeholder=""
-                                         readonly
-                                         type="text"/>
+                        <td style="text-align: left;width: 80%">
+                            <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                                <input class="form-field form-control-sm nepaliFont sizefont"
+                                                                           formControlName="sincerlyPermanentAddress"
+                                                                           placeholder=""
+                                                                           readonly
+                                                                           type="text"/>
+                                जिल्ला,<input class="form-field form-control-sm nepaliFont sizefont"
+                                             formControlName="jillaName"
+                                             placeholder=""
+                                             readonly
+                                             type="text"/>
+                            </ng-container>
+                            <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                                <input class="form-field form-control-sm nepaliFont"
+                                                                           formControlName="sincerlyPermanentAddress"
+                                                                           placeholder=""
+                                                                           readonly
+                                                                           type="text"/>
+                                जिल्ला,<input class="form-field form-control-sm nepaliFont"
+                                             formControlName="jillaName"
+                                             placeholder=""
+                                             readonly
+                                             type="text"/>
+                            </ng-container>
                             गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="jagaName"
                                                        placeholder=""
@@ -114,19 +129,33 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="vertical-align: top; padding-top: 10px;width: 20%">हालको ठेगाना
-                            :-
+                        <td class="text-right" style="vertical-align: top; padding-top: 10px;width: 20%">हालको ठेगाना :-
                         </td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="sincerlytempAddress"
-                                                                       placeholder=""
-                                                                       readonly
-                                                                       type="text"/>
-                            जिल्ला,<input class="form-field form-control-sm nepaliFont"
-                                         formControlName="jillaName1"
-                                         placeholder=""
-                                         readonly
-                                         type="text"/>
+                        <td style="text-align: left;width: 80%">
+                            <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                                <input class="form-field form-control-sm nepaliFont sizefont"
+                                                                           formControlName="sincerlytempAddress"
+                                                                           placeholder=""
+                                                                           readonly
+                                                                           type="text"/>
+                                जिल्ला,<input class="form-field form-control-sm nepaliFont sizefont"
+                                             formControlName="jillaName1"
+                                             placeholder=""
+                                             readonly
+                                             type="text"/>
+                            </ng-container>
+                            <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                                <input class="form-field form-control-sm nepaliFont"
+                                                                           formControlName="sincerlytempAddress"
+                                                                           placeholder=""
+                                                                           readonly
+                                                                           type="text"/>
+                                जिल्ला,<input class="form-field form-control-sm nepaliFont"
+                                             formControlName="jillaName1"
+                                             placeholder=""
+                                             readonly
+                                             type="text"/>
+                            </ng-container>
                             गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="jagaName1"
                                                        placeholder=""
