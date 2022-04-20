@@ -69,6 +69,7 @@ export class OfferLetterCorporateComponent implements OnInit {
         });
         this.buildForm();
         this.checkOfferLetter();
+        this.fillForm();
         if (ObjectUtil.isEmpty(this.initialInfoPrint)) {
             this.addLoan();
         }
@@ -133,6 +134,10 @@ export class OfferLetterCorporateComponent implements OnInit {
             shreeName1 : [guarantorName ? guarantorName : ''],
             financeBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
             financeMunicipality: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
+            employeeFinanceBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
+            employeeFinanceDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
+            employeeFinanceBranch2: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
+            employeeFinanceDistrict2: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
             financeWardNum: [!ObjectUtil.isEmpty(this.nepaliData.branchWardNo) ? this.nepaliData.branchWardNo : ''],
             financeDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchDistrict) ? this.nepaliData.branchDistrict : ''],
             financeTelephoneNum: [!ObjectUtil.isEmpty(this.nepaliData.branchTelNo) ? this.nepaliData.branchTelNo : ''],
@@ -516,11 +521,11 @@ export class OfferLetterCorporateComponent implements OnInit {
             loanLimitMonths: [!ObjectUtil.isEmpty(this.nepDataPersonal.tenureOfLoanInMonths) ?
                 this.nepDataPersonal.tenureOfLoanInMonths : ''],
             // loan free text
+            interestFinalRate: !ObjectUtil.isEmpty(this.nepDataPersonal.interestRate) ? this.nepDataPersonal.interestRate : '',
+            interestBaseRate: !ObjectUtil.isEmpty(this.nepDataPersonal.baseRate) ? this.nepDataPersonal.baseRate : '',
+            interestPremiumRate: !ObjectUtil.isEmpty(this.nepDataPersonal.premium) ? this.nepDataPersonal.premium : '',
+            interestTempDiscountRate: !ObjectUtil.isEmpty(this.nepDataPersonal.discount) ? this.nepDataPersonal.discount : '',
             interestRepayMonths: [undefined],
-            interestBaseRate: [undefined],
-            interestPremiumRate: [undefined],
-            interestTempDiscountRate: [undefined],
-            interestFinalRate: [undefined],
             pratibadhataAdditionalAmount: [undefined],
             pratibadhataRate: [undefined],
             pratibadhataYearlyRate: [undefined],
