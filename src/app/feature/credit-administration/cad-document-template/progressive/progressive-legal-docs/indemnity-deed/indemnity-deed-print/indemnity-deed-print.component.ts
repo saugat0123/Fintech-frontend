@@ -10,6 +10,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/custome
 export class IndemnityDeedPrintComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() printDocForm;
+  @Input() loanCat;
   offerLetterConst = ProgressiveLegalDocConst;
   loanData;
   constructor() {
