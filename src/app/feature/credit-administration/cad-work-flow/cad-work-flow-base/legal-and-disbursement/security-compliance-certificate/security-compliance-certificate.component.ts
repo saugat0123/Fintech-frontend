@@ -69,6 +69,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
         }
     if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
       this.sccPath = JSON.parse(this.cadFile.exposure.data).sccPath;
+      console.log(JSON.parse(this.cadFile.exposure.data));
     }
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
@@ -229,6 +230,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.obtainedOnForm.get('obtainedFormData').value);
       this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
       this.cadFile.sccData = JSON.stringify(this.sccForm.value);
+      this.saveCadFile();
     } else {
       const formData: FormData = new FormData();
       formData.append('file', this.uploadFile);
@@ -250,6 +252,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
         };
         this.spinnerService.hide();
         this.cadFile.exposure.data = JSON.stringify(mergeData);
+        this.saveCadFile();
       }, error => {
         console.log(error);
         this.spinnerService.hide();
@@ -257,6 +260,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, error));
       });
     }
+  }
+
+  saveCadFile() {
     this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
       this.modelClose();
       this.onClose();
@@ -272,7 +278,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, error));
     });
   }
-
   modelClose() {
     this.ngbModal.dismissAll();
   }
