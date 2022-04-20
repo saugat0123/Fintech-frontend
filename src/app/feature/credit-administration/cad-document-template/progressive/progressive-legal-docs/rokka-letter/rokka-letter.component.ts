@@ -36,6 +36,7 @@ export class RokkaLetterComponent implements OnInit {
   customerIndividual = false;
   loanData;
   tempData;
+  primaryCollaterals = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<RokkaLetterComponent>,
               private formBuilder: FormBuilder,
@@ -143,21 +144,16 @@ export class RokkaLetterComponent implements OnInit {
         representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
       });
     }
-
-    this.setPersonalSampleTest(this.nepaliData.collateralDetails);
-    this.setPersonalSampleTest2(this.nepaliData.collateralDetails);
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'Land_And_Building') {
+        this.primaryCollaterals.push(value);
+      }
+    });
+    this.setPersonalSampleTest(this.primaryCollaterals);
+    this.setPersonalSampleTest2(this.primaryCollaterals);
 
     //this.setPersonalSampleTest(this.nepaliData.collateralDetails);
 
-    this.nepaliData.collateralDetails.forEach((value, i) => {
-      try {
-        this.setSecurityDetails(value, i);
-      } catch (error) {
-        this.addPersonalSampleTable();
-        this.addPersonalSampleTable2();
-        this.setSecurityDetails(value, i);
-      }
-    });
   }
 
   onSubmit() {
@@ -327,27 +323,4 @@ export class RokkaLetterComponent implements OnInit {
   //   const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
   //   this.form.get(wordLabel).patchValue(convertedVal);
   // }
-
-  setSecurityDetails(value, i) {
-    this.form.get(['personalSignatureArray', i, 'tableLandOwnerName']).patchValue(value.collateralName);
-    this.form.get(['personalSignatureArray', i, 'tableFatherName']).patchValue(value.collateralFatherName);
-    this.form.get(['personalSignatureArray', i, 'tableGrandFather']).patchValue(value.collateralGrandFatherName);
-    this.form.get(['personalSignatureArray', i, 'tableDistrictName']).patchValue(value.collateralDistrict);
-    this.form.get(['personalSignatureArray', i, 'tablePerMun']).patchValue(value.collateralMunVdcOriginal);
-    this.form.get(['personalSignatureArray', i, 'tablePerWardNo']).patchValue(value.collateralWardNoOld);
-    this.form.get(['personalSignatureArray', i, 'tableTempMun2']).patchValue(value.collateralMunVdcChanged);
-    this.form.get(['personalSignatureArray', i, 'tableTempWardNo2']).patchValue(value.wardNoNew);
-    this.form.get(['personalSignatureArray', i, 'tableKittaNo']).patchValue(value.plotNo);
-    this.form.get(['personalSignatureArray', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
-    this.form.get(['personalSignatureArray', i, 'tableSitNo']).patchValue(value.seatNo);
-    this.form.get(['personalSignatureArray', i, 'landOwnerDistrict']).patchValue(value.collateralPermanentDistrict.nepaliName);
-    this.form.get(['personalSignatureArray', i, 'tableMunicipality']).patchValue(value.collateralMunVdcOriginal);
-    this.form.get(['personalSignatureArray', i, 'tableOldWardNum']).patchValue(value.collateralWardNoOld);
-    this.form.get(['personalSignatureArray2', i, 'tableDistrictName']).patchValue(value.collateralDistrict);
-    this.form.get(['personalSignatureArray2', i, 'tableMunicipality']).patchValue(value.collateralMunVdcOriginal);
-    this.form.get(['personalSignatureArray2', i, 'tableOldWardNum']).patchValue(value.collateralWardNoOld);
-    this.form.get(['personalSignatureArray2', i, 'tableKittaNo']).patchValue(value.plotNo);
-    this.form.get(['personalSignatureArray2', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
-    this.form.get(['personalSignatureArray2', i, 'tableSitNo']).patchValue(value.seatNo);
-  }
 }
