@@ -104,6 +104,7 @@
                         <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
                         <input class="form-control" formControlName="premiumRate" fullWidth
                                id="premiumRate"
+                               (input)="calInterestRate(i)"
                                nbInput
                                shape="semi-round"
                                status="success" type="number">
@@ -127,6 +128,7 @@
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
                         <input class="form-control" formControlName="interestRate" fullWidth
+                               [ngClass]="{'readOnly': this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}"
                                id="interestRate"
                                nbInput
                                shape="semi-round"

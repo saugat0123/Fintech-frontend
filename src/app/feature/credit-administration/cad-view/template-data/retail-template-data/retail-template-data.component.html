@@ -11,7 +11,8 @@
         <ng-container *ngIf="isPersonalLoan">
             <app-personal-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                                        #personalLoanCombined [loanName]="loanExtraDetails"
-                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                        [globalBaseRate]="globalBaseRate">
             </app-personal-loan-combined-template-data>
         </ng-container>
         <ng-container *ngIf="isPersonalOverdraftLoan">
@@ -24,13 +25,15 @@
         <ng-container *ngIf="isEducationLoan">
             <app-education-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                                       #educationLoanCombined [loanName]="loanExtraDetails"
-                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
             </app-education-loan-combined-template-data>
         </ng-container>
         <ng-container *ngIf="isMortgageLoan">
             <app-mortgage-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                                       #mortgageLoanCombined [loanName]="loanExtraDetails"
-                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                      [globalBaseRate]="globalBaseRate">
             </app-mortgage-loan-combined-template-data>
         </ng-container>
         <!-- Type of sme loan end here-->

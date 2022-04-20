@@ -124,7 +124,7 @@ export class RetailTemplateDataComponent implements OnInit {
         if (v === 'PERSONAL LOAN AND PERSONAL OVERDRAFT COMBINED') {
           this.isPersonalAndPersonalOverdraft = true;
         }
-        if (v === 'EDUCATIONAL LOAN COMBINED') {
+        if (v === 'EDUCATION LOAN COMBINED') {
           this.isEducationLoan = true;
         }
         if (v === 'MORTGAGE LOAN COMBINED') {
@@ -216,6 +216,16 @@ export class RetailTemplateDataComponent implements OnInit {
       mortgageCombineForm = this.mortgageLoanCombined.mortgageCombineLoanForm.value;
     }
 
+    let personalLoanCombinedForm;
+    if (this.isPersonalLoan) {
+      personalLoanCombinedForm = this.personalLoanCombined.personalLoanCombinedForm.value;
+    }
+
+    let educationLoanForm;
+    if (this.isEducationLoan) {
+      educationLoanForm = this.educationLoanCombined.educationLoanCombinedForm.value;
+    }
+
     const securityData = this.smeSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
@@ -226,8 +236,10 @@ export class RetailTemplateDataComponent implements OnInit {
 
     const retailCombinedForm = {
       retailGlobalForm: retailGlobalForm,
+      educationLoanForm: educationLoanForm,
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,
+      personalLoanCombinedForm: personalLoanCombinedForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };
