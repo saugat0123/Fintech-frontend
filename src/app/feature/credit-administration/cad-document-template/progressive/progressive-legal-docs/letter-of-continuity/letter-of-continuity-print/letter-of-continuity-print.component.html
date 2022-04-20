@@ -147,6 +147,7 @@
           </tbody>
         </table>
       </div>
+        <div class="row col-md-12">
       <p class="mt-n2"><strong> साक्षी :</strong></p>
 
 
@@ -259,8 +260,7 @@
             <span [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo1 !== null && printDocForm?.witnessWardNo1 !== ''}">
                                                 {{printDocForm?.witnessWardNo1 === null || printDocForm?.witnessWardNo1 === '' ? '__________' : printDocForm?.witnessWardNo1}}
                                             </span></p>
-
-
+        </div>
       <div class="row col-md-12">
         <p><strong class="text-left">सनाखत साक्षी</strong>
           <br>
@@ -268,39 +268,36 @@
           संस्थामा कार्यरत
           कर्मचारी
           <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.IdentifiedGuarantorName !== null && printDocForm?.IdentifiedGuarantorName !== ''}">
-                                                {{printDocForm?.IdentifiedGuarantorName === null || printDocForm?.IdentifiedGuarantorName === '' ? '____________________' : printDocForm?.IdentifiedGuarantorName}}
-                                            </span>
+              {{printDocForm?.IdentifiedGuarantorName === null || printDocForm?.IdentifiedGuarantorName === '' ? '____________________' : printDocForm?.IdentifiedGuarantorName}}
+          </span>
 
           (कर्मचारी संकेत नं.
           <span [ngClass]="{'nepaliFont' : printDocForm?.IdentifiedHintNo !== null && printDocForm?.IdentifiedHintNo !== ''}">
-                                                {{printDocForm?.IdentifiedHintNo === null || printDocForm?.IdentifiedHintNo === '' ? '____________________' : printDocForm?.IdentifiedHintNo}}
-                                            </span>)
+              {{printDocForm?.IdentifiedHintNo === null || printDocForm?.IdentifiedHintNo === '' ? '____________________' : printDocForm?.IdentifiedHintNo}}
+          </span>)
           <br><br>
           ईति सम्बत
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatYear !== null && printDocForm?.ItisambatYear !== ''}">
-                                                {{printDocForm?.ItisambatYear === null || printDocForm?.ItisambatYear === '' ? '____________________' : printDocForm?.ItisambatYear}}
-                                            </span>
+              {{printDocForm?.ItisambatYear === null || printDocForm?.ItisambatYear === '' ? '____________________' : printDocForm?.ItisambatYear}}
+          </span>
           साल
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatMonth !== null && printDocForm?.ItisambatMonth !== ''}">
-                                                {{printDocForm?.ItisambatMonth === null || printDocForm?.ItisambatMonth === '' ? '____________________' : printDocForm?.ItisambatMonth}}
-                                            </span>
+              {{printDocForm?.ItisambatMonth === null || printDocForm?.ItisambatMonth === '' ? '____________________' : printDocForm?.ItisambatMonth}}
+          </span>
           महिना
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatDay !== null && printDocForm?.ItisambatDay !== ''}">
-                                                {{printDocForm?.ItisambatDay === null || printDocForm?.ItisambatDay === '' ? '____________________' : printDocForm?.ItisambatDay}}
-                                            </span>
+              {{printDocForm?.ItisambatDay === null || printDocForm?.ItisambatDay === '' ? '____________________' : printDocForm?.ItisambatDay}}
+          </span>
           गते
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatTime !== null && printDocForm?.ItisambatTime !== ''}">
-                                                {{printDocForm?.ItisambatTime === null || printDocForm?.ItisambatTime === '' ? '____________________' : printDocForm?.ItisambatTime}}
-                                            </span>
+              {{printDocForm?.ItisambatTime === null || printDocForm?.ItisambatTime === '' ? '____________________' : printDocForm?.ItisambatTime}}
+          </span>
           रोज शुभम्
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatRojSubham !== null && printDocForm?.ItisambatRojSubham !== ''}">
-                                                {{printDocForm?.ItisambatRojSubham === null || printDocForm?.ItisambatRojSubham === '' ? '____________________' : printDocForm?.ItisambatRojSubham}}
-                                            </span>। </p>
-
+                {{printDocForm?.ItisambatRojSubham === null || printDocForm?.ItisambatRojSubham === '' ? '____________________' : printDocForm?.ItisambatRojSubham}}
+          </span>। </p>
       </div>
     </form>
-
   </div>
-
 </div>
 
