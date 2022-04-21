@@ -71,7 +71,7 @@
                 <th>{{loanDataHolder?.loan?.name}}</th>
                 <th>
                     <div
-                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
+                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
                         {{proposedLimit | currency:'NPR '}}
                     </div>
                     <ng-template #dash>
@@ -80,7 +80,7 @@
                 </th>
                 <th>
                     <div
-                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
+                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
                         {{proposedLimit | currency:'NPR '}}
                     </div>
                     <ng-template #dash>
@@ -88,11 +88,11 @@
                     </ng-template>
                 </th>
                 <th>
-                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder.loanType === 'NEW_LOAN' ?
+                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
                     (proposedLimit | currency:"NPR ") : '-' }}</th>
                 <th>
-                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable) &&
-                    loanDataHolder.loanType === 'NEW_LOAN' ?
+                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder?.loan?.isFundable) &&
+                    loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
                     (proposedLimit | currency:"NPR ") : '-'}}</th>
                 <th colspan="6"></th>
                 <th colspan="11"></th>

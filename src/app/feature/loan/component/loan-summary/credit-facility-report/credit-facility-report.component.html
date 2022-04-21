@@ -111,7 +111,7 @@
                 </td>
                 <th colspan="1" class="text-center pr-1">
                     <div
-                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
+                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
                         {{proposedLimit | currency:'NPR '}}
                     </div>
                     <ng-template #dash>
@@ -120,7 +120,7 @@
                 </th>
                 <th colspan="1" class="text-center pr-1">
                     <div
-                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
+                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
                         {{proposedLimit | currency:'NPR '}}
                     </div>
                     <ng-template #dash>
@@ -128,12 +128,12 @@
                     </ng-template>
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder.loanType === 'NEW_LOAN' ?
+                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
                     (proposedLimit | currency:"NPR ") : '-' }}
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable) &&
-                    loanDataHolder.loanType === 'NEW_LOAN' ?
+                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder?.loan?.isFundable) &&
+                    loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
                     (proposedLimit | currency:"NPR ") : '-'}}
                 </th>
                 <td colspan="1" class="text-left pr-1">
@@ -170,7 +170,7 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.landValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator.name}}</span>
+                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator?.name}}</span>
                             Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
@@ -206,7 +206,7 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.buildingValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator.name}}</span>
+                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator?.name}}</span>
                             Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
@@ -232,7 +232,7 @@
                     </div>
 
                     <div class="building-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityDetails.initialForm.buildingDetails">
+                        <span *ngFor="let item of securityDetails?.initialForm?.buildingDetails">
                             Registered mortgage over <br>
                             Building Name: <span class="font-weight-bold">{{item?.buildingName}}</span><br>
                             <!-- Location: <span class="font-weight-bold">{{item?.location}}</span>
@@ -242,7 +242,7 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br> -->
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.ApartmentValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator.name}}</span>
+                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator?.name}}</span>
                             Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
@@ -252,7 +252,7 @@
                                 <td>FMV</td>
                                 <td>DV</td>
                             </tr>
-                            <tr *ngFor="let item of securityDetails.initialForm.buildingDetails">
+                            <tr *ngFor="let item of securityDetails?.initialForm?.buildingDetails">
                                 <td>Building</td>
                                 <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
                                 <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
@@ -268,7 +268,7 @@
                     </div>
 
                     <div class="building-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityDetails.initialForm.vehicleDetails">
+                        <span *ngFor="let item of securityDetails?.initialForm?.vehicleDetails">
                             Registration of Vehicle in bank's name <br>
                             PI price after discount: <br>
                             Buyer Name: <br>
@@ -277,7 +277,7 @@
                             Vehicle Type: <span class="font-weight-bold">{{item?.model}}</span><br>
                             Registration Number: <span class="font-weight-bold">{{item?.registrationNumber}}</span><br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.vehicalValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator.name}}</span>
+                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator?.name}}</span>
                             Pvt.Ltd.
                         </span>
                     </div>
