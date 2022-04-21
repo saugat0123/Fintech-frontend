@@ -45,7 +45,7 @@
         </ng-container>
         <ng-container *ngIf="isHomeLoan">
             <app-home-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                                                  #autoLoanCombined [loanName]="loanExtraDetails"
+                                                  #homeLoanCombined [loanName]="loanExtraDetails"
                                                   [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
                                                   [globalBaseRate]="globalBaseRate">
             </app-home-loan-combined-template-data>

@@ -17,7 +17,7 @@
                             <nb-option value="TAKEOVER"> Takeover </nb-option>
                         </nb-select>
                     </div>
-                    <div class="col-md-4" mt-3>
+                    <div class="col-md-4 pt-5">
                         <div class="col-md-12">
                             <nb-checkbox #homeBuyerCheck
                                          formControlName="firstTimeHomeBuyerCheck">
@@ -467,12 +467,12 @@
                                 <div class="row">
                                     <div class="col-md-4 form-group">
                                         <label class="font-weight-bold" for="nPhaseConstructionCost">
-                                            Cost of Construction in {{index + 2}} Phase </label>
+                                            Cost of Construction in {{index + 2 | wordNumbering}} Phase </label>
                                         <input class="form-control" formControlName="nPhaseConstructionCost" fullWidth
                                                id="nPhaseConstructionCost"
                                                nbInput
                                                shape="semi-round"
-                                               status="success" type="text">
+                                               status="success" type="number">
                                     </div>
                                     <div class="col-md-4 form-group fieldMargin">
                                         <input class="form-control" formControlName="nPhaseConstructionCostTrans"
@@ -494,11 +494,11 @@
 
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="font-weight-bold" for="nPhaseInstallmentAmountInFigure">{{index + 2}}  Installment
+                                        <label class="font-weight-bold" for="nPhaseInstallmentAmountInFigure">{{index + 2 | wordNumbering}}  Installment
                                             Amount In Figure</label>
                                         <input class="form-control" formControlName="nPhaseInstallmentAmountInFigure" fullWidth
                                                id="nPhaseInstallmentAmountInFigure"
-                                               (input)="getNumAmountWord('nPhaseInstallmentAmountInFigure', 'nPhaseInstallmentAmountInWords', i, 'homeLoanCombinedFormArray')"
+                                               (input)="getNumAmountWordDyna('nPhaseInstallmentAmountInFigure', 'nPhaseInstallmentAmountInWords', i, 'homeLoanCombinedFormArray', index, 'middlePhaseConstruction')"
                                                nbInput
                                                shape="semi-round"
                                                status="success" type="number">
@@ -522,7 +522,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 form-group">
-                                        <label class="font-weight-bold" for="nPhaseInstallmentAmountInWords">{{index + 2}}  Installment Amount
+                                        <label class="font-weight-bold" for="nPhaseInstallmentAmountInWords">{{index + 2 | wordNumbering}}  Installment Amount
                                             In Words</label>
                                         <input class="form-control" formControlName="nPhaseInstallmentAmountInWords" fullWidth
                                                id="nPhaseInstallmentAmountInWords"
@@ -549,7 +549,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i,'middlePhaseConstruction'])['length'] > 1"
+                            <div *ngIf="homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i,'middlePhaseConstruction'])['length'] > 0"
                                  class="col-md-12">
                                 <button (click)="removeConstructionDetails(i, index, 'homeLoanCombinedFormArray')" nbButton size="tiny"
                                         status="danger"
@@ -562,8 +562,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button (click)="addConstructionDetails(i, 'homeLoanCombinedFormArray')" class="float-right" nbButton size="tiny"
-                                    status="primary">Add
-                                Depositor
+                                    status="primary">Add Construction Cost Details
                             </button>
                         </div>
                     </div>
@@ -658,7 +657,7 @@
                 <div class="row pt-5 pb-2 pr-4">
                     <div class="col-md-12 text-right">
                         <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
-                            Translate Education Loan Details
+                            Translate Home Loan Details
                         </button>
                     </div>
                 </div>

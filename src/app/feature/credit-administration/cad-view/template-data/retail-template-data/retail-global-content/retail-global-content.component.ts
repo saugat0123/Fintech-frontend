@@ -169,7 +169,9 @@ export class RetailGlobalContentComponent implements OnInit {
           this.currencyFormatter.transform(afterFix.toString())));
       this.globalForm.get(origin + 'CT').patchValue(this.engToNepaliNumberPipe.transform(
           this.currencyFormatter.transform(afterFix.toString())));
-      this.globalBaseRateRetail.emit(afterFix);
+      if (origin === 'baseRate') {
+        this.globalBaseRateRetail.emit(afterFix);
+      }
     }
   }
   convertWords(origin, dest) {
