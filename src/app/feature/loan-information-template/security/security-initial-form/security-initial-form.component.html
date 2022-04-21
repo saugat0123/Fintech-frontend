@@ -35,7 +35,9 @@
                  class="font-weight-bold"
                  formArrayName="landDetails">
                 <div [formGroupName]="i">
-                    <input type="checkbox" formControlName="landOtherBranchChecked"> Property on another branch location
+                    <input type="checkbox" formControlName="landOtherBranchChecked"
+                           (change)="otherBranchChecked($event.target?.checked, i, 'landDetails',
+                           'landOtherBranchChecked', 'landBranch')"> Property on another branch location
                     <div class="row justify-content-end">
                         <button class="btn btn-primary sb-small mr-2"
                                 (click)="openSiteVisitModel('Land Security'+' '+(i+1))">Inspect Site Visit</button>
@@ -144,7 +146,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,'land',i)"
+                                            (change)="valuator(securityForm?.get(['landDetails',i,'landBranch'])?.value?.id,'land',i)"
                                             [multiple]="false"
                                             bindLabel="name"
                                             formControlName="landBranch"
@@ -235,7 +237,9 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="landValuator" (click)="valuator(null,'land',i)">
+                                           formControlName="landValuator"
+                                           (click)="valuator((securityForm?.get(['landDetails',i,'landBranch'])?.value ?
+                                                    securityForm?.get(['landDetails',i,'landBranch'])?.value?.id : null), 'land',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
@@ -501,7 +505,9 @@
                                     (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>
                         </div>
                         <ng-template #apartment>
-                            <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
+                            <input type="checkbox" formControlName="apartmentOtherBranchChecked"
+                                   (change)="otherBranchChecked($event.target?.checked, i, 'buildingDetails',
+                                   'apartmentOtherBranchChecked', 'apartmentBranch')"> Property on another
                             branch location
                             <div class="row">
                                 <div class="col-md-4">
@@ -715,7 +721,7 @@
                                         <div class="form-group">
                                             <label>Select Branch</label>
                                             <ng-select
-                                                    (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
+                                                    (change)="valuator(securityForm?.get(['buildingDetails',i,'apartmentBranch'])?.value?.id,'apartment', i)"
                                                     [multiple]="false"
                                                     bindLabel="name"
                                                     formControlName="apartmentBranch"
@@ -735,7 +741,8 @@
                                                    bindLabel="name"
                                                    placeholder=""
                                                    formControlName="ApartmentValuator"
-                                                   (click)="valuator(null,'apartment',i)">
+                                                   (click)="valuator((securityForm?.get(['buildingDetails',i,'apartmentBranch'])?.value ?
+                                                            securityForm?.get(['buildingDetails',i,'apartmentBranch'])?.value?.id : null),'apartment', i)">
                                             <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
                                                        [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
@@ -1312,7 +1319,9 @@
                         <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is
                         Under Construction
                         <br>
-                        <input type="checkbox" formControlName="landBuildingOtherBranchChecked"> Property on another
+                        <input type="checkbox" formControlName="landBuildingOtherBranchChecked"
+                               (change)="otherBranchChecked($event.target?.checked, i, 'landBuilding',
+                               'landBuildingOtherBranchChecked', 'buildingBranch')"> Property on another
                         branch location
                         <div class="row pt-2">
                             <div class="col-md-3">
@@ -1466,7 +1475,7 @@
                                     <div class="form-group">
                                         <label>Select Branch</label>
                                         <ng-select
-                                                (change)="valuator(securityForm.get(['landBuilding',i,'buildingBranch']).value.id,'building',i)"
+                                                (change)="valuator(securityForm?.get(['landBuilding',i,'buildingBranch'])?.value?.id, 'building',i)"
                                                 [multiple]="false"
                                                 bindLabel="name"
                                                 formControlName="buildingBranch"
@@ -1555,7 +1564,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Valuator Name</label>
-                                    <ng-select (click)="valuator(null,'building',i)"
+                                    <ng-select (click)="valuator((securityForm?.get(['landBuilding',i,'buildingBranch'])?.value ?
+                                               securityForm?.get(['landBuilding',i,'buildingBranch'])?.value?.id : null), 'building', i)"
                                                [multiple]="false"
                                                bindLabel="name"
                                                formControlName="buildingValuator"
@@ -1974,7 +1984,9 @@
                  class="font-weight-bold"
                  formArrayName="plantDetails">
                 <div [formGroupName]="i">
-                    <input type="checkbox" formControlName="plantOtherBranchChecked"> Property on another branch
+                    <input type="checkbox" formControlName="plantOtherBranchChecked"
+                           (change)="otherBranchChecked($event.target?.checked, i, 'plantDetails',
+                           'plantOtherBranchChecked', 'plantBranch')"> Property on another branch
                     location
                     <div class="row">
                         <div class="col-md-3">
@@ -2041,7 +2053,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
+                                            (change)="valuator(securityForm?.get(['plantDetails',i,'plantBranch'])?.value?.id,'plant',i)"
                                             [multiple]="false"
                                             bindLabel="name"
                                             formControlName="plantBranch"
@@ -2060,7 +2072,8 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
+                                           formControlName="plantMachineryValuator" (click)="valuator((securityForm?.get(['plantDetails',i,'plantBranch'])?.value ?
+                                           securityForm?.get(['plantDetails',i,'plantBranch'])?.value?.id : null),'plant',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
@@ -2177,7 +2190,9 @@
                     <div class="row">
                         <div class="col-md-10">
                             <h5>{{i + 1}}) Details of Security Offered: Vehicle</h5>
-                            <input type="checkbox" formControlName="vehicleOtherBranchChecked"> Property on another
+                            <input type="checkbox" formControlName="vehicleOtherBranchChecked"
+                                   (change)="otherBranchChecked($event.target?.checked, i, 'vehicleDetails',
+                                   'vehicleOtherBranchChecked', 'vehicalBranch')"> Property on another
                             branch location
                         </div>
                         <div *ngIf="securityForm.get('vehicleDetails')['length']>1"
@@ -2334,7 +2349,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,'vehicle',i)"
+                                            (change)="valuator(securityForm?.get(['vehicleDetails',i,'vehicalBranch'])?.value?.id,'vehicle', i)"
                                             [multiple]="false"
                                             bindLabel="name"
                                             formControlName="vehicalBranch"
@@ -2353,7 +2368,9 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
+                                           formControlName="vehicalValuator"
+                                           (click)="valuator((securityForm?.get(['vehicleDetails',i,'vehicalBranch'])?.value ?
+                                           securityForm?.get(['vehicleDetails',i,'vehicalBranch'])?.value?.id : null),'vehicle',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
