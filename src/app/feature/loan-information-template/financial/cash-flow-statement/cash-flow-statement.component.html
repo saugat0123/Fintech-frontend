@@ -364,7 +364,7 @@
             </tbody>
 
             <tbody>
-            <tr>
+            <tr *ngIf="formData['balanceSheetData']['otherLongTermLiabilitiesCategory'].length > 0">
                 <th scope="row">d</th>
                 <td>Change in Other Long Term Liabilities</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
