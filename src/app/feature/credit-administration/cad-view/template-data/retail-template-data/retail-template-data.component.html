@@ -43,6 +43,20 @@
                                                        [globalBaseRate]="globalBaseRate">
             </app-auto-loan-combined-template-data>
         </ng-container>
+        <ng-container *ngIf="isHomeLoan">
+            <app-home-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #autoLoanCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-home-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isNabilSahayatri">
+            <app-nabil-sahayatri-karja-combined [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #sahayatriCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-nabil-sahayatri-karja-combined>
+        </ng-container>
         <!-- Type of sme loan end here-->
         <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
                           [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-security>
