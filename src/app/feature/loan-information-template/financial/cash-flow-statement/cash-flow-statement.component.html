@@ -364,7 +364,7 @@
             </tbody>
 
             <tbody>
-            <tr *ngIf="formData['cashFlowStatementData']['changeInOtherLongTermLiabilities'].length > 0">
+            <tr>
                 <th scope="row">d</th>
                 <td>Change in Other Long Term Liabilities</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
@@ -385,7 +385,7 @@
             </tbody>
 
             <tbody>
-            <tr *ngIf="formData['cashFlowStatementData']['changeInOtherProvisions'].length > 0">
+            <tr>
                 <th scope="row">e</th>
                 <td>Change in Other Provisions</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherProvisions')['controls']; let j = index"
