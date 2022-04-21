@@ -113,7 +113,7 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
       purposeOfLoan: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
-      marginInPercentage: [undefined],
+      nameOfCompany: [undefined],
       loanAdminFeeInFigure: [undefined],
       loanAdminFeeInWords: [undefined],
       loanExpiryDateType: [undefined],
@@ -125,7 +125,7 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
       purposeOfLoanTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
-      marginInPercentageTrans: [undefined],
+      nameOfCompanyTrans: [undefined],
       loanAdminFeeInFigureTrans: [undefined],
       loanAdminFeeInWordsTrans: [undefined],
       loanExpiryDateTypeTrans: [undefined],
@@ -137,7 +137,7 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
       purposeOfLoanCT: [undefined],
       premiumRateCT: [undefined],
       interestRateCT: [undefined],
-      marginInPercentageCT: [undefined],
+      nameOfCompanyCT: [undefined],
       loanAdminFeeInFigureCT: [undefined],
       loanAdminFeeInWordsCT: [undefined],
       loanExpiryDateTypeCT: [undefined],
@@ -205,14 +205,19 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
             translatedValue.purposeOfLoan);
       }
     }
-
-    const convertMargin = this.convertNumbersToNepali(this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'marginInPercentage']).value ?
-        this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'marginInPercentage']).value.toFixed(2) : '', false);
-    if (!ObjectUtil.isEmpty(convertMargin)) {
-      this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'marginInPercentageTrans']).patchValue(
-          convertMargin);
-      this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'marginInPercentageCT']).patchValue(
-          this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'marginInPercentageTrans']).value);
+    const tempCompanyNameWord = this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'nameOfCompany']).value;
+    if (!ObjectUtil.isEmpty(tempCompanyNameWord)) {
+      this.translatedFormGroup = this.formBuilder.group({
+        nameOfCompany: tempCompanyNameWord,
+      });
+      const translatedValue = await this.translateService.translateForm(this.translatedFormGroup);
+      if (!ObjectUtil.isEmpty(translatedValue)) {
+        this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'nameOfCompanyTrans']).patchValue(
+            translatedValue.nameOfCompany);
+        // tslint:disable-next-line:max-line-length
+        this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'nameOfCompanyCT']).patchValue(
+            translatedValue.nameOfCompany);
+      }
     }
 
     const convertPremiumRate = this.convertNumbersToNepali(this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'premiumRate']).value ?

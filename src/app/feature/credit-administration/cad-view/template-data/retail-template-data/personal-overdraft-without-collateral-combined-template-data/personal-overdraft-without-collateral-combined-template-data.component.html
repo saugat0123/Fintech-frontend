@@ -4,7 +4,7 @@
             <ng-container [formGroupName]="i">
                 <div class="row">
                     <div class="col-md-12 pb-2">
-                        <h5> NABIL SAHAYATRI KARJA {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                        <h5> PERSONAL OVERDRAFT WITHOUT COLLATERAL {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
                     </div>
                     <div class="col-md-12 mt-3">
                         <nb-checkbox #renewalCheck (checkedChange)="renewalCheckFunc(renewalCheck.checked, i)"
@@ -141,28 +141,6 @@
                                status="success" type="text">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
-                        <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="number">
-                    </div>
-                    <div class="col-md-4 form-group fieldMargin">
-                        <input class="form-control" formControlName="marginInPercentageTrans" fullWidth id="marginInPercentageTrans"
-                               readonly
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="text">
-                    </div>
-                    <div class="col-md-4 form-group fieldMargin">
-                        <input class="form-control" formControlName="marginInPercentageCT" fullWidth id="marginInPercentageCT"
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="text">
-                    </div>
-                </div>
 
                 <div class="row pt-4">
                     <div class="col-md-4">
@@ -207,6 +185,29 @@
                     <div class="col-md-4 form-group fieldMargin">
                         <input class="form-control" formControlName="loanAdminFeeInWordsCT" fullWidth id="loanAdminFeeInWordsCT"
                                readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="nameOfCompany">Name of Company Where Customer is Working</label>
+                        <input class="form-control" formControlName="nameOfCompany" fullWidth id="nameOfCompany"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfCompanyTrans" fullWidth id="nameOfCompanyTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfCompanyCT" fullWidth id="nameOfCompanyCT"
                                nbInput
                                shape="semi-round"
                                status="success" type="text">
