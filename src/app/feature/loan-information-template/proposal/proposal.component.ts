@@ -62,6 +62,7 @@ export class ProposalComponent implements OnInit {
   othersSubsidyLoan = false;
   existInterestLimit: number;
   showInterestAmount = true;
+  threeDigitPattern = '^[0-9]+\.[0-9]{0,3}$';
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -196,7 +197,7 @@ export class ProposalComponent implements OnInit {
       existingLimit: [undefined],
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
-      swapCharge: [undefined],
+      swapCharge: [undefined, Validators.pattern(this.threeDigitPattern)],
       subsidizedLoan: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
@@ -666,6 +667,10 @@ export class ProposalComponent implements OnInit {
         this.isAllExposureFieldNull = false;
       }
     });
+  }
+
+  get swapCharge() {
+    return this.proposalForm.get('swapCharge');
   }
 
 }
