@@ -267,8 +267,9 @@ export class AutoLoanCombinedTemplateDataComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.globalBaseRate)) {
       baseRate = this.globalBaseRate;
     } else {
-      baseRate = this.initialInformation.retailGlobalForm.baseRate;
-    }
+      baseRate = (!ObjectUtil.isEmpty(this.initialInformation) && !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.baseRate)) ?
+          this.initialInformation.retailGlobalForm.baseRate : 0;    }
     const premiumRate =  this.autoLoanCombinedForm.get(['autoLoanCombinedFormArray', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.autoLoanCombinedForm.get(['autoLoanCombinedFormArray', i, 'interestRate']).patchValue(sum);
