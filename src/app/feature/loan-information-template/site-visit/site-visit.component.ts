@@ -992,7 +992,7 @@ export class SiteVisitComponent implements OnInit {
                 this.formBuilder.group({
                     officeAddress: [singleData.officeAddress],
                     nameOfThePersonContacted: [singleData.nameOfThePersonContacted, Validators.required],
-                    dateOfVisit: [singleData.dateOfVisit],
+                    dateOfVisit: [new Date(singleData.dateOfVisit)],
                     objectiveOfVisit: [singleData.objectiveOfVisit, Validators.required],
                     staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
                     staffRepresentativeName: [singleData.staffRepresentativeName],
@@ -1014,7 +1014,7 @@ export class SiteVisitComponent implements OnInit {
         currentData.forEach((singleData) => {
             currentAssetsDetails.push(
                 this.formBuilder.group({
-                    dateOfInspection: [singleData.dateOfInspection, [Validators.required, DateValidator.isValidBefore]],
+                    dateOfInspection: [new Date(singleData.dateOfInspection), [Validators.required, DateValidator.isValidBefore]],
                     particularsOfGoodInspected: [singleData.particularsOfGoodInspected],
                     stockValueReported: [singleData.stockValueReported],
                     rents: [singleData.rents],
@@ -1025,7 +1025,7 @@ export class SiteVisitComponent implements OnInit {
                         assetsMortgaged: [singleData.insuranceVerification.assetsMortgaged],
                         insuredAmount: [singleData.insuranceVerification.insuredAmount],
                         insuranceCompany: [singleData.insuranceVerification.insuranceCompany],
-                        expiryDate: [singleData.insuranceVerification.expiryDate],
+                        expiryDate: [new Date(singleData.insuranceVerification.expiryDate)],
                         clientsOverallRating: [singleData.insuranceVerification.clientsOverallRating],
                         comments: [singleData.insuranceVerification.comments],
                         stockValueConfirmed: [singleData.insuranceVerification.stockValueConfirmed],
