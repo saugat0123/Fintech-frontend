@@ -142,6 +142,9 @@ import { PersonalOverdraftCombinedTemplateDataComponent } from './cad-view/templ
 import {
     RetailCombinedOfferLetterComponent
 } from './cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
+import { AutoLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/auto-loan-combined-template-data/auto-loan-combined-template-data.component';
+import { HomeLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/home-loan-combined-template-data/home-loan-combined-template-data.component';
+import { NabilSahayatriKarjaCombinedComponent } from './cad-view/template-data/retail-template-data/nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -267,7 +270,10 @@ import {
         PersonalLoanCombinedTemplateDataComponent,
         EducationLoanCombinedTemplateDataComponent,
         MortgageLoanCombinedTemplateDataComponent,
-        PersonalOverdraftCombinedTemplateDataComponent],
+        PersonalOverdraftCombinedTemplateDataComponent,
+        AutoLoanCombinedTemplateDataComponent,
+        HomeLoanCombinedTemplateDataComponent,
+        NabilSahayatriKarjaCombinedComponent],
   imports: [
     ThemeModule,
     CommonModule,
