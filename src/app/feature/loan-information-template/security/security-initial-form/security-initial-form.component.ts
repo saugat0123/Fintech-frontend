@@ -342,13 +342,13 @@ export class SecurityInitialFormComponent implements OnInit {
             this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
             return;
         }
-        const valuatorSearch = {
-            'branchIds': LocalStorageUtil.getStorage().branch
-        };
+        let branchIds = 0;
         if (!ObjectUtil.isEmpty(branchId)) {
-            valuatorSearch.branchIds = JSON.stringify(branchId);
+            branchIds = Number(branchId);
+        } else {
+            branchIds = Number(LocalStorageUtil.getStorage().branch);
         }
-        this.valuatorDataList = await this.getValuatorList(valuatorSearch);
+        this.valuatorDataList = await this.getValuatorList(branchIds);
         switch (type) {
             case 'land':
                 this.securityValuator.landValuator[index] = [];
@@ -2388,9 +2388,9 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    async getValuatorList(valuatorSearch): Promise<Array<Valuator>> {
+    async getValuatorList(id): Promise<Array<Valuator>> {
         let data = [];
-        await this.valuatorService.getListWithSearchObject(valuatorSearch).toPromise().then((res: any) => {
+        await this.valuatorService.getListWithBranchId(id).toPromise().then((res: any) => {
             data = res.detail;
         });
         return data;
