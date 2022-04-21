@@ -57,6 +57,14 @@
                                                   [globalBaseRate]="globalBaseRate">
             </app-nabil-sahayatri-karja-combined>
         </ng-container>
+
+        <ng-container *ngIf="isPersonalOverDraftWithoutCollateral">
+            <app-personal-overdraft-without-collateral-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #personalOverDraftWithoutCollateralCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-personal-overdraft-without-collateral-combined-template-data>
+        </ng-container>
         <!-- Type of sme loan end here-->
         <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
                           [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-security>
