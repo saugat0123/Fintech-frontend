@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -31,6 +31,8 @@ import {FormUtils} from '../../../../@core/utils/form.utils';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {Valuator} from '../../../admin/modal/valuator';
+import {ValuatingField} from '../../../admin/modal/valuatingField';
 
 
 @Component({
@@ -150,6 +152,7 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    valuatorDataList = [];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -333,42 +336,68 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    valuator(branchId, type: string, index: number) {
+    async valuator(branchId, type: string, index: number) {
+        this.valuatorDataList = [];
         if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
             this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
             return;
         }
-        const valuatorSearch = {
-            'branchIds': LocalStorageUtil.getStorage().branch
-        };
+        let branchIds = 0;
         if (!ObjectUtil.isEmpty(branchId)) {
-            valuatorSearch.branchIds = JSON.stringify(branchId);
+            branchIds = Number(branchId);
+        } else {
+            branchIds = Number(LocalStorageUtil.getStorage().branch);
         }
+        this.valuatorDataList = await this.getValuatorList(branchIds);
         switch (type) {
             case 'land':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.landValuator[index] = res.detail;
+                this.securityValuator.landValuator[index] = [];
+                this.valuatorDataList.forEach((vl: Valuator) => {
+                    if (vl.valuatingFields.length > 0) {
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
+                            (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
+                            this.securityValuator.landValuator[index].push(vl);
+                        }
+                    }
                 });
                 break;
             case 'apartment':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.apartmentValuator[index] = res.detail;
+                this.securityValuator.apartmentValuator[index] = [];
+                this.valuatorDataList.forEach((vl: Valuator) => {
+                    if (vl.valuatingFields.length > 0) {
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
+                            (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
+                            this.securityValuator.apartmentValuator[index].push(vl);
+                        }
+                    }
+                });
+                break;
+            case 'building':
+                this.securityValuator.buildingValuator[index] = [];
+                this.valuatorDataList.forEach((vl: Valuator) => {
+                    if (vl.valuatingFields.length > 0) {
+                        if ((vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND_BUILDING.split(' ')
+                                .join('').replace('&', '_').toUpperCase())) ||
+                            (vl.valuatingFields.includes(<ValuatingField>ValuatingField.LAND.toUpperCase()))) {
+                            this.securityValuator.buildingValuator[index].push(vl);
+                        }
+                    }
                 });
                 break;
             case 'vehicle':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.vehicalValuator[index] = res.detail;
+                this.securityValuator.vehicalValuator[index] = [];
+                this.valuatorDataList.forEach((vl: Valuator) => {
+                    if (vl.valuatingFields.length > 0) {
+                        if (vl.valuatingFields.includes(<ValuatingField>ValuatingField.VEHICLE.toUpperCase())) {
+                            this.securityValuator.vehicalValuator[index].push(vl);
+                        }
+                    }
                 });
                 break;
             case 'plant':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.plantValuator[index] = res.detail;
-                });
-                break;
-            case  'building':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.buildingValuator[index] = res.detail;
-                });
+                this.securityValuator.plantValuator[index] = this.valuatorDataList;
                 break;
         }
     }
@@ -406,7 +435,7 @@ export class SecurityInitialFormComponent implements OnInit {
             if (!ObjectUtil.isEmpty(singleData.kycCheckForLand) && singleData.kycCheckForLand === true) {
                 this.ownerKycRelationInfoCheckedForLand = true;
             }
-            if (this.landOtherBranchChecked && singleData['landBranch']) {
+            if (singleData['landOtherBranchChecked'] && singleData['landBranch']) {
                 this.valuator(singleData['landBranch']['id'], 'land', index);
             } else {
                 this.valuator(null, 'land', index);
@@ -562,7 +591,7 @@ export class SecurityInitialFormComponent implements OnInit {
     setBuildingDetails(Data) {
         const buildingDetails = this.securityForm.get('buildingDetails') as FormArray;
         Data.forEach((singleData, index) => {
-            if (this.apartmentOtherBranchChecked && singleData.apartmentBranch) {
+            if (singleData['apartmentOtherBranchChecked'] && singleData.apartmentBranch) {
                 this.valuator(singleData['apartmentBranch']['id'], 'apartment', index);
             } else {
                 this.valuator(null, 'apartment', index);
@@ -617,7 +646,7 @@ export class SecurityInitialFormComponent implements OnInit {
             if (!ObjectUtil.isEmpty(singleData.kycCheckForLandAndBuilding) && singleData.kycCheckForLandAndBuilding) {
                 this.ownerKycRelationInfoCheckedForLandBuilding = true;
             }
-            if (this.otherBranchcheck && singleData.buildingBranch) {
+            if (singleData['landBuildingOtherBranchChecked'] && singleData.buildingBranch) {
                 this.valuator(singleData['buildingBranch']['id'], 'building', index);
             } else {
                 this.valuator(null, 'building', index);
@@ -2357,5 +2386,22 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
+    }
+
+    async getValuatorList(id): Promise<Array<Valuator>> {
+        let data = [];
+        await this.valuatorService.getListWithBranchId(id).toPromise().then((res: any) => {
+            data = res.detail;
+        });
+        return data;
+    }
+
+    otherBranchChecked(checked, i: number, security: string, formControlName: string, branch: string) {
+        if (checked) {
+            this.securityForm.get([security, i, formControlName]).patchValue(checked);
+        } else {
+            this.securityForm.get([security, i, formControlName]).patchValue(checked);
+            this.securityForm.get([security, i, branch]).patchValue(null);
+        }
     }
 }
