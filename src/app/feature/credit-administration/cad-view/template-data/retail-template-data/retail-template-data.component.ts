@@ -43,6 +43,9 @@ import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-templa
 import {HomeLoanCombinedTemplateDataComponent} from './home-loan-combined-template-data/home-loan-combined-template-data.component';
 import {NabilSahayatriKarjaCombinedComponent} from './nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
 import {PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent} from './personal-overdraft-without-collateral-combined-template-data/personal-overdraft-without-collateral-combined-template-data.component';
+import {RetailMasterSecurityComponent} from './retail-master-security/retail-master-security.component';
+import {NabilShareLoanPodTemplateDataComponent} from './nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
+import {ShareLoanDemandTemplateDataComponent} from './share-loan-demand-template-data/share-loan-demand-template-data.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -71,9 +74,13 @@ export class RetailTemplateDataComponent implements OnInit {
   sahayatriCombined: NabilSahayatriKarjaCombinedComponent;
   @ViewChild('personalOverDraftWithoutCollateralCombined', {static: false})
   personalOverDraftWithoutCollateralCombined: PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent;
+  @ViewChild('nabilShareLoanCombined', {static: false})
+  nabilShareLoanCombined: NabilShareLoanPodTemplateDataComponent;
+  @ViewChild('shareLoanDemandCombined', {static: false})
+  shareLoanDemandCombined: ShareLoanDemandTemplateDataComponent;
 
   @ViewChild('masterSecurity', {static: false})
-  smeSecurityComponent: SmeSecurityComponent;
+  retailSecurityComponent: RetailMasterSecurityComponent;
   @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
   requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
@@ -97,6 +104,8 @@ export class RetailTemplateDataComponent implements OnInit {
   isAutoLoan = false;
   isNabilSahayatri = false;
   isPersonalOverDraftWithoutCollateral = false;
+  isNabilShareLoan = false;
+  isShareLoanDemand = false;
   globalBaseRate: any;
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -156,6 +165,12 @@ export class RetailTemplateDataComponent implements OnInit {
         }
         if (v === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
           this.isPersonalOverDraftWithoutCollateral = true;
+        }
+        if (v === 'NABIL SHARE LOAN POD COMBINED') {
+          this.isNabilShareLoan = true;
+        }
+        if (v === 'SHARE LOAN DEMAND COMBINED') {
+          this.isShareLoanDemand = true;
         }
       });
     }
@@ -271,7 +286,16 @@ export class RetailTemplateDataComponent implements OnInit {
       personalOverDraftWithoutCollateralForm = this.personalOverDraftWithoutCollateralCombined.personalOverDraftWithoutCollateralCombinedForm.value;
     }
 
-    const securityData = this.smeSecurityComponent.setSecurityData();
+    let shareLoanDemandForm;
+    if (this.isShareLoanDemand) {
+      shareLoanDemandForm = this.shareLoanDemandCombined.shareLoanDemandCombinedForm.value;
+    }
+
+    let nabilShareLoanPODForm;
+    if (this.isNabilShareLoan) {
+      nabilShareLoanPODForm = this.nabilShareLoanCombined.nabilShareLoanPODForm.value;
+    }
+    const securityData = this.retailSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
       securityForm = securityData;
@@ -289,6 +313,8 @@ export class RetailTemplateDataComponent implements OnInit {
       homeLoanCombinedForm: homeLoanForm,
       nabilSahayatriCombinedForm: nabilSahayatriForm,
       personalOverDraftWithoutCollateralCombinedForm: personalOverDraftWithoutCollateralForm,
+      nabilShareLoanPODForm: nabilShareLoanPODForm,
+      shareLoanDemandCombinedForm: shareLoanDemandForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };
