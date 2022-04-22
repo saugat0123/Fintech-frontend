@@ -541,8 +541,6 @@ export class CompanyFormComponent implements OnInit {
             // Sister concert
             sisterConcern: this.formBuilder.array([]),
             // company background
-            companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.companyBackground, Validators.required],
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
             companyBackgroundBusiness: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
