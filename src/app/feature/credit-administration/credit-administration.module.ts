@@ -145,6 +145,9 @@ import {
 import { AutoLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/auto-loan-combined-template-data/auto-loan-combined-template-data.component';
 import { HomeLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/home-loan-combined-template-data/home-loan-combined-template-data.component';
 import { NabilSahayatriKarjaCombinedComponent } from './cad-view/template-data/retail-template-data/nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
+import { RetailMasterSecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-master-security.component';
+import { RetailPrimarySecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-primary-security/retail-primary-security.component';
+import { RetailSecondarySecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-secondary-security/retail-secondary-security.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -273,7 +276,10 @@ import { NabilSahayatriKarjaCombinedComponent } from './cad-view/template-data/r
         PersonalOverdraftCombinedTemplateDataComponent,
         AutoLoanCombinedTemplateDataComponent,
         HomeLoanCombinedTemplateDataComponent,
-        NabilSahayatriKarjaCombinedComponent],
+        NabilSahayatriKarjaCombinedComponent,
+        RetailMasterSecurityComponent,
+        RetailPrimarySecurityComponent,
+        RetailSecondarySecurityComponent],
   imports: [
     ThemeModule,
     CommonModule,

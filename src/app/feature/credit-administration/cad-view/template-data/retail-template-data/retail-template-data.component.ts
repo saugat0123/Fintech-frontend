@@ -42,6 +42,7 @@ import {SmeSecurityComponent} from '../nabil-sme-template-data/sme-template-data
 import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-template-data/auto-loan-combined-template-data.component';
 import {HomeLoanCombinedTemplateDataComponent} from './home-loan-combined-template-data/home-loan-combined-template-data.component';
 import {NabilSahayatriKarjaCombinedComponent} from './nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
+import {RetailMasterSecurityComponent} from './retail-master-security/retail-master-security.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -70,7 +71,7 @@ export class RetailTemplateDataComponent implements OnInit {
   sahayatriCombined: NabilSahayatriKarjaCombinedComponent;
 
   @ViewChild('masterSecurity', {static: false})
-  smeSecurityComponent: SmeSecurityComponent;
+  retailSecurityComponent: RetailMasterSecurityComponent;
   @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
   requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
@@ -258,7 +259,7 @@ export class RetailTemplateDataComponent implements OnInit {
       nabilSahayatriForm = this.sahayatriCombined.nabilSahayatriCombinedForm.value;
     }
 
-    const securityData = this.smeSecurityComponent.setSecurityData();
+    const securityData = this.retailSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
       securityForm = securityData;
