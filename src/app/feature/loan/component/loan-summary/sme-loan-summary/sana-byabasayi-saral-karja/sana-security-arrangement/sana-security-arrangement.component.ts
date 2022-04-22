@@ -15,15 +15,21 @@ export class SanaSecurityArrangementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.checkData();
+  }
+
+  checkData() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      this.loanData = this.loanDataHolder.security;
-      if (!ObjectUtil.isEmpty(this.loanData.data)) {
-        const data = JSON.parse(this.loanData.data);
-        this.landDataList = data.initialForm.landDetails;
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        this.loanData = this.loanDataHolder.security;
+        if (!ObjectUtil.isEmpty(this.loanData)) {
+          const data = JSON.parse(this.loanData.data);
+          this.landDataList = data.initialForm.landDetails;
+        }
       }
-    }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
-      this.insuranceList = this.loanDataHolder.insurance;
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
+        this.insuranceList = this.loanDataHolder.insurance;
+      }
     }
   }
 

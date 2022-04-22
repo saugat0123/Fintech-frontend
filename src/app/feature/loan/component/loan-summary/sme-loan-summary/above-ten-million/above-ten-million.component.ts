@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../../model/loanData';
 
 @Component({
   selector: "app-above-ten-million",
@@ -6,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./above-ten-million.component.scss"],
 })
 export class AboveTenMillionComponent implements OnInit {
+  @Input() loanDataHolder: LoanDataHolder;
   isUsedForAboveTenMillion: boolean = true;
 
   constructor() {}

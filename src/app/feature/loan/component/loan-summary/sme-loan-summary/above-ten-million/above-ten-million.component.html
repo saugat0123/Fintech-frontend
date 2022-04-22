@@ -10,11 +10,11 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Background of the Customer</strong></p>
-        <app-above-background-of-customer></app-above-background-of-customer>
+        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"></app-above-background-of-customer>
     </li>
     <li>
         <p class="text-uppercase"><strong>Business Related Information</strong></p>
-        <app-above-business-related-information></app-above-business-related-information>
+        <app-above-business-related-information [companyInfo]="loanDataHolder?.companyInfo"></app-above-business-related-information>
     </li>
     <li>
         <p class="text-uppercase"><strong>Group Exposure with CCBL (as of dd/mm/yyyy)</strong></p>
