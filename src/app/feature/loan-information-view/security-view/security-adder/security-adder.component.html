@@ -1,24 +1,42 @@
 <nb-card>
     <nb-card-header class="text-center">
+        <!--        <div class="row mt-3">-->
+        <!--            <div class="col-md-12 input-group-prepend">-->
+        <!--                <nb-select placeholder="Select Share Security" fullWidth #selectedShareSecurity-->
+        <!--                           [formControl]="shareSecurity">-->
+        <!--                    <nb-option *ngFor="let shareSecurity of customerShareData" [value]="shareSecurity">-->
+        <!--                        {{shareSecurity.companyName}} / {{shareSecurity.shareType}} / {{shareSecurity.totalShareUnit}}-->
+        <!--                        unit-->
+        <!--                    </nb-option>-->
+        <!--                </nb-select>-->
+        <!--                <button [disabled]="!shareSecurity.valid" nbButton size="small"-->
+        <!--                        (click)="addSecurityDetail(selectedShareSecurity.selected)"><i-->
+        <!--                        class="fa fa-plus"></i></button>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="row mt-3">
-            <div class="col-md-12 input-group-prepend">
-                <nb-select placeholder="Select Share Security" fullWidth #selectedShareSecurity
-                           [formControl]="shareSecurity">
-                    <nb-option *ngFor="let shareSecurity of customerShareData" [value]="shareSecurity">
-                        {{shareSecurity.companyName}} / {{shareSecurity.shareType}} / {{shareSecurity.totalShareUnit}}
-                        unit
+            <div class="col-md-6 input-group-prepend">
+                <nb-select placeholder="Select  Security" fullWidth #selectedShareSecurity
+                           (selectedChange)="selectedSecurity()"
+                           [(ngModel)]="selectedSecurities">
+                    <nb-option *ngFor="let shareSecurity of( customerInfo?.selectedArray | jsonParse)"
+                               [value]="shareSecurity">
+                        <!--                        {{shareSecurity.companyName}} / {{shareSecurity.shareType}} / {{shareSecurity.totalShareUnit}}-->
+                        <!--                        unit-->
+                        {{shareSecurity}}
                     </nb-option>
                 </nb-select>
-                <button [disabled]="!shareSecurity.valid" nbButton size="small"
-                        (click)="addSecurityDetail(selectedShareSecurity.selected)"><i
-                        class="fa fa-plus"></i></button>
+                <!--                <button [disabled]="!shareSecurity.valid" nbButton size="small"-->
+                <!--                        (click)="addSecurityDetail(selectedShareSecurity.selected)"><i-->
+                <!--                        class="fa fa-plus"></i></button>-->
             </div>
+
         </div>
         <p><strong class="mt-2 text-danger">{{msg}}</strong></p>
     </nb-card-header>
     <nb-card-body>
         <div class="row mt-5">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="share">
                 <p><strong>Share Security Details</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -52,6 +70,142 @@
                 </table>
                 <!--                <p *ngIf="selectedSecurityList.length === 0" class="text-center">No Guarantor tagged yet!</p>-->
             </div>
+            <div class="col-md-12" *ngIf="auto">
+                <p><strong>Auto Details</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Model</th>
+                        <th>Engine Number</th>
+                        <th>Considered Value</th>
+                        <th>Manufactured Year</th>
+                        <th>Condition</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let autoSecurity of customerInfo?.autos; let i= index">
+                        <td>{{i + 1}}</td>
+                        <td>{{autoSecurity?.model}}</td>
+                        <td>{{autoSecurity?.engineNo}}</td>
+                        <td>Rs. {{(autoSecurity?.considerValue)}}</td>
+                        <td>{{autoSecurity?.manufactureYear}}</td>
+                        <td>{{autoSecurity?.isNew ? 'New' : 'Second Hand'}}</td>
+                        <td>
+                            <button *ngIf="!autoId?.includes(autoSecurity?.id)" nbButton size="small"
+                                    (click)="tagSecurity(autoSecurity, 'auto')"><i
+                                    class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--                <p *ngIf="selectedSecurityList.length === 0" class="text-center">No Guarantor tagged yet!</p>-->
+            </div>
+            <div class="col-md-12" *ngIf="landBuilding">
+                <p><strong>Land Building Details</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Considered Value</th>
+                        <th>Fair Market Value</th>
+                        <th>Government Rate</th>
+                        <th>Geo Location</th>
+                        <th>District</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let landBuilding of customerInfo?.landBuildings; let i= index">
+                        <td>{{i + 1}}</td>
+                        <td> Rs {{(landBuilding?.considerValue)}}</td>
+                        <td>Rs {{(landBuilding?.fairMarketValue)}}</td>
+                        <td> Rs {{(landBuilding?.governmentRate)}}</td>
+                        <td>{{landBuilding?.geoLocation}}</td>
+                        <td>{{landBuilding?.district?.name}}</td>
+                        <td>
+                            <button nbButton size="small"
+                                    *ngIf="!landBuildingId?.includes(landBuilding?.id)"
+                                    (click)="tagSecurity(landBuilding, 'landBuilding')"><i
+                                    class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--                <p *ngIf="selectedSecurityList.length === 0" class="text-center">No Guarantor tagged yet!</p>-->
+            </div>
+
+            <div class="col-md-12" *ngIf="loanHolder?.autos?.length > 0">
+                <p><strong>Auto Details</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Model</th>
+                        <th>Engine Number</th>
+                        <th>Considered Value</th>
+                        <th>Manufactured Year</th>
+                        <th>Condition</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let autoSecurity of loanHolder?.autos; let i= index">
+                        <td>{{i + 1}}</td>
+                        <td>{{autoSecurity?.model}}</td>
+                        <td>{{autoSecurity?.engineNo}}</td>
+                        <td>Rs. {{(autoSecurity?.considerValue)}}</td>
+                        <td>{{autoSecurity?.manufactureYear}}</td>
+                        <td>{{autoSecurity?.isNew ? 'New' : 'Second Hand'}}</td>
+                        <td>
+                            <button (click)="removeAutoSecurity(autoSecurity?.id)"
+                                    class="btn btn-sm btn-flat btn-danger">
+                                <em class="fa fa-trash bg-transparent"></em>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12" *ngIf="loanHolder?.landBuildings?.length > 0">
+                <p><strong>Land Building Details</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Considered Value</th>
+                        <th>Fair Market Value</th>
+                        <th>Government Rate</th>
+                        <th>Geo Location</th>
+                        <th>District</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let landBuilding of loanHolder?.landBuildings; let i= index">
+                        <td>{{i + 1}}</td>
+                        <td> Rs {{(landBuilding?.considerValue)}}</td>
+                        <td>Rs {{(landBuilding?.fairMarketValue)}}</td>
+                        <td> Rs {{(landBuilding?.governmentRate)}}</td>
+                        <td>{{landBuilding?.geoLocation}}</td>
+                        <td>{{landBuilding?.district?.name}}</td>
+                        <td>
+                            <button (click)="removeLandBuilding(landBuilding?.id)"
+                                    class="btn btn-sm btn-flat btn-danger">
+                                <em class="fa fa-trash bg-transparent"></em>
+                            </button>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </nb-card-body>
 </nb-card>

@@ -27,6 +27,8 @@ import {MicroCrgParams} from './MicroCrgParams';
 import {ReviewDate} from './reviewDate';
 import {MultiBanking} from './multiBanking';
 import {Gender} from '../../../@core/model/enum/gender';
+import {Auto} from './Auto';
+import {LandBuilding} from './LandBuilding';
 
 export class CustomerInfoData {
     id: number;
@@ -83,5 +85,8 @@ export class CustomerInfoData {
     reviewDate: ReviewDate;
     multiBanking: MultiBanking;
     maritalStatus: any;
+    autos: Array<Auto>;
+    landBuildings: Array<LandBuilding>;
+    selectedArray: string;
 
 }

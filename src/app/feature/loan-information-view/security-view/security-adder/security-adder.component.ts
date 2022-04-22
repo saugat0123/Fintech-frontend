@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-security-adder',
@@ -11,46 +14,90 @@ export class SecurityAdderComponent implements OnInit {
     @Input() security;
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
+    @Input() customerInfo: CustomerInfoData;
+    @Input() loanHolder: LoanDataHolder;
     customerShareData: any;
     selectedShareSecurityList: any;
     securityList: any;
     msg = '';
-    approvedShareSecurity: any;
     @Output() saveShareSecurity = new EventEmitter();
 
-
-    shareSecurity = new FormControl(undefined, Validators.required);
-
+    selectedSecurities;
+    landBuilding = false;
+    auto = false;
+    share = false;
+    autoId = [];
+    landBuildingId  = [];
     constructor() {
     }
 
     ngOnInit() {
-        this.customerShareData = this.shareSecurityData.customerShareData;
-        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
-    }
-
-    removeShareSecurity(data) {
-        const removeIndex = this.findShareSecurityIndex(data);
-        this.approvedShareSecurity.splice(removeIndex, 1);
-    }
-
-    findShareSecurityIndex(data) {
-        return this.approvedShareSecurity.indexOf(this.approvedShareSecurity.filter(
-            d => d.totalShareUnit.toString() === data.totalShareUnit.toString() && d.companyName === data.companyName)[0]);
-    }
-
-    addSecurityDetail(data) {
-        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.companyName === data.companyName
-            && d.totalShareUnit === data.totalShareUnit);
-        if (presentShareSecurity.length <= 0) {
-            this.approvedShareSecurity.push(data);
-            this.msg = '';
-        } else {
-            this.msg = 'selected share security is already added !';
+        console.log('this is loan holder', this.loanHolder);
+        if (!ObjectUtil.isEmpty(this.loanHolder.selectedArray)) {
+            this.selectedSecurities = JSON.parse(this.loanHolder.selectedArray);
+            this.selectedSecurity();
         }
     }
 
+    removeAutoSecurity(id) {
+        this.loanHolder.autos.splice(this.findIndex(this.loanHolder.autos, id), 1);
+        this.selectedSecurity();
+    }
+
+    removeLandBuilding(id) {
+        this.loanHolder.landBuildings.splice(this.findIndex(this.loanHolder.landBuildings, id), 1);
+        this.selectedSecurity();
+    }
+
+    findIndex(array, id) {
+        return array.indexOf(array.filter(
+            d => d.id === id));
+    }
     save() {
-        this.saveShareSecurity.emit(this.approvedShareSecurity);
+        this.loanHolder.selectedArray = JSON.stringify(this.selectedSecurities);
+        this.saveShareSecurity.emit(this.loanHolder);
+    }
+
+    selectedSecurity() {
+        this.landBuilding = false;
+        this.auto = false;
+        this.share = false;
+            switch (this.selectedSecurities) {
+                case 'Land and Building Security': {
+                    this.landBuilding = true;
+                    this.landBuildingId = [];
+                    if (!ObjectUtil.isEmpty(this.loanHolder.landBuildings)) {
+                        this.loanHolder.landBuildings.forEach((da: any) => {
+                            this.landBuildingId.push(da.id);
+                        });
+                    }
+                }
+                    break;
+                case 'VehicleSecurity': {
+                    this.auto = true;
+                    if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
+                        this.loanHolder.autos.forEach((da: any) => {
+                            this.autoId.push(da.id);
+                        });
+                    }
+                }
+                    break;
+                default :
+                    return;
+            }
+
+    }
+
+    tagSecurity(security, key) {
+        switch (key) {
+            case 'auto': {
+                this.loanHolder.autos.push(security);
+            }
+            break;
+            case 'landBuilding': {
+                this.loanHolder.landBuildings.push(security);
+            }
+        }
+        this.selectedSecurity();
     }
 }

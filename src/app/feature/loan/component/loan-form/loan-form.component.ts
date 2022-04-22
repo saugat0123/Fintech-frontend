@@ -410,14 +410,14 @@ export class LoanFormComponent implements OnInit {
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
-            if ((this.loanType === 'NEW_LOAN') || this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' ||
-                this.loanType === 'RENEW_WITH_ENHANCEMENT') {
-                this.templateList.forEach((value, index) => {
-                    if (value.name === 'Security') {
-                        this.templateList.splice(index, 1);
-                    }
-                });
-            }
+            // if ((this.loanType === 'NEW_LOAN') || this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' ||
+            //     this.loanType === 'RENEW_WITH_ENHANCEMENT') {
+            //     this.templateList.forEach((value, index) => {
+            //         if (value.name === 'Security') {
+            //             this.templateList.splice(index, 1);
+            //         }
+            //     });
+            // }
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
@@ -675,19 +675,19 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Security' && action) {
             this.shareSecurity.save();
-            this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
-            if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
-                const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;
-                const stringifyShareData = JSON.parse(updatedShareData);
-                stringifyShareData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
-                this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(stringifyShareData);
-            }
-            if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
-                const updatedShareApprovedData = this.loanDocument.loanHolder.shareSecurity.approvedData;
-                const stringifyShareApprovedData = JSON.parse(updatedShareApprovedData);
-                stringifyShareApprovedData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
-                this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(stringifyShareApprovedData);
-            }
+            // this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
+            // if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
+            //     const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;
+            //     const stringifyShareData = JSON.parse(updatedShareData);
+            //     stringifyShareData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+            //     this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(stringifyShareData);
+            // }
+            // if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
+            //     const updatedShareApprovedData = this.loanDocument.loanHolder.shareSecurity.approvedData;
+            //     const stringifyShareApprovedData = JSON.parse(updatedShareApprovedData);
+            //     stringifyShareApprovedData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+            //     this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(stringifyShareApprovedData);
+            // }
         }
 
 
@@ -884,6 +884,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     updateSecurityList(event) {
-        this.approvedShareSecurity = event;
+        this.loanDocument = event;
+        console.log(this.loanDocument);
     }
 }
