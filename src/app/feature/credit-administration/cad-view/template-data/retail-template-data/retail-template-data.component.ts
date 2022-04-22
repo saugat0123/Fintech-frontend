@@ -43,6 +43,7 @@ import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-templa
 import {HomeLoanCombinedTemplateDataComponent} from './home-loan-combined-template-data/home-loan-combined-template-data.component';
 import {NabilSahayatriKarjaCombinedComponent} from './nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
 import {PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent} from './personal-overdraft-without-collateral-combined-template-data/personal-overdraft-without-collateral-combined-template-data.component';
+import {ExistingLoanTemplateDataComponent} from './existing-loan-template-data/existing-loan-template-data.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -55,6 +56,7 @@ export class RetailTemplateDataComponent implements OnInit {
   @Input() initialInformation: any;
   @Input() isEdit = false;
   @ViewChild('retailGlobalContent', {static: false}) retailGlobalContent: RetailGlobalContentComponent;
+  @ViewChild('existingLoanContent', {static: false}) existingLoanContent: ExistingLoanTemplateDataComponent;
   @ViewChild('personalLoanCombined', {static: false})
   personalLoanCombined: PersonalLoanCombinedTemplateDataComponent;
   @ViewChild('personalOverdraftCombined', {static: false})
@@ -230,6 +232,7 @@ export class RetailTemplateDataComponent implements OnInit {
   }
   private getLoanTemplateFormValue(): string {
     const retailGlobalForm = this.retailGlobalContent.globalForm.value;
+    const existingLoanForm = this.existingLoanContent.existingLoanCombinedForm.value;
     let personalOverdraftForm;
     if (this.isPersonalOverdraftLoan) {
       personalOverdraftForm = this.personalOverdraftCombined.personalOverdraftCombinedForm.value;
@@ -281,6 +284,7 @@ export class RetailTemplateDataComponent implements OnInit {
 
     const retailCombinedForm = {
       retailGlobalForm: retailGlobalForm,
+      existingLoanForm: existingLoanForm,
       educationLoanForm: educationLoanForm,
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,
