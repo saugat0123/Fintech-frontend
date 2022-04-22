@@ -1,0 +1,22 @@
+<nb-card>
+    <nb-card-header>
+        <h5>REQUIRED LEGAL DOCUMENTS</h5>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="requireDocumentForm">
+            <div class="row mb-4">
+                <div class="col-md-6 mb-2">
+                    <label><strong> Required Documents </strong></label>
+                    <nb-select
+                            multiple
+                            formControlName="requiredDocument"
+                            fullWidth
+                            placeholder="Select Required Document ">
+                        <nb-option *ngFor="let legal of legalList"
+                                   [value]="legal?.value"> {{legal?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
