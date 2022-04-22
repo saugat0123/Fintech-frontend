@@ -70,8 +70,8 @@ export class RokkaLetterComponent implements OnInit {
       tempWardNo: [undefined],
       tempAddress: [undefined],
       debtorName: [undefined],
-      loanAmount: [!ObjectUtil.isEmpty(this.tempData.numberNepali) ? this.tempData.numberNepali : ''],
-      loanAmountWords: [!ObjectUtil.isEmpty(this.tempData.nepaliWords) ? this.tempData.nepaliWords : ''],
+      loanAmount: [undefined],
+      loanAmountWords: [undefined],
       companyStaffName: [undefined],
       naPramanPatraNumber: [undefined],
       tableLandOwnerName: [undefined],
@@ -323,4 +323,9 @@ export class RokkaLetterComponent implements OnInit {
   //   const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
   //   this.form.get(wordLabel).patchValue(convertedVal);
   // }
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
 }

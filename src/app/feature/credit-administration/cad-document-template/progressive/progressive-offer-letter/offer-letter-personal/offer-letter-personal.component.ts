@@ -290,8 +290,6 @@ export class OfferLetterPersonalComponent implements OnInit {
                 guarantorCitizenIssuedOffice: [value.issuedPlace],
                 guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
                 name: [value.name],
-                officeType: [value.officeType],
-                branchName: [value.branchName],
                 loanApprovalDate: [!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.initDate : ''],
                 loanApprovalNo: [!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.loanApprovalNo : ''],
                 loanHolderName: [this.nepaliData.name],
@@ -333,7 +331,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         return this.formBuilder.group({
             name: [undefined],
             guarantorLegalDocumentAddress: [undefined],
-            officeType: [undefined],
             branchName: [undefined],
             loanApprovalDate: [undefined],
             loanApprovalNo: [undefined],
