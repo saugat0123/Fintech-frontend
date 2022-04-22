@@ -87,8 +87,8 @@
     </nb-card-body>
     <nb-card-footer>
         <!-- Required Document Section -->
-        <app-required-legal-document-section #requiredLegalDocumentSectionComponent
-                                             [initialInformation]="initialInformation"></app-required-legal-document-section>
+        <app-retail-combined-required-document #requiredLegalDocumentSectionComponent
+                                             [initialInformation]="initialInformation"></app-retail-combined-required-document>
         <div class="row">
             <div class="col-md-12">
                 <button class="float-right" *ngIf="!isEdit" nbButton size="small" (click)="openCloseTemplate(confirm)"

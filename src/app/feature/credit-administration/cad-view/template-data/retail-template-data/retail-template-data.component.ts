@@ -139,7 +139,6 @@ export class RetailTemplateDataComponent implements OnInit {
   private checkLoanName(): void {
     if (this.loanData.length > 0) {
       this.loanData.forEach(v => {
-        console.log('VAlue of V:', v);
         if (v === 'PERSONAL LOAN COMBINED') {
           this.isPersonalLoan = true;
         }
