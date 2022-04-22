@@ -46,6 +46,7 @@ import {PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent} from '.
 import {RetailMasterSecurityComponent} from './retail-master-security/retail-master-security.component';
 import {NabilShareLoanPodTemplateDataComponent} from './nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
 import {ShareLoanDemandTemplateDataComponent} from './share-loan-demand-template-data/share-loan-demand-template-data.component';
+import {RetailCombinedRequiredDocumentComponent} from './retail-combined-required-document/retail-combined-required-document.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -82,7 +83,7 @@ export class RetailTemplateDataComponent implements OnInit {
   @ViewChild('masterSecurity', {static: false})
   retailSecurityComponent: RetailMasterSecurityComponent;
   @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
-  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
+  requiredLegalDocumentSectionComponent: RetailCombinedRequiredDocumentComponent;
 
   offerLetterConst = NabilOfferLetterConst;
 
