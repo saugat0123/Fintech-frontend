@@ -42,6 +42,7 @@ import {SmeSecurityComponent} from '../nabil-sme-template-data/sme-template-data
 import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-template-data/auto-loan-combined-template-data.component';
 import {HomeLoanCombinedTemplateDataComponent} from './home-loan-combined-template-data/home-loan-combined-template-data.component';
 import {NabilSahayatriKarjaCombinedComponent} from './nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
+import {PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent} from './personal-overdraft-without-collateral-combined-template-data/personal-overdraft-without-collateral-combined-template-data.component';
 import {RetailMasterSecurityComponent} from './retail-master-security/retail-master-security.component';
 
 @Component({
@@ -69,6 +70,8 @@ export class RetailTemplateDataComponent implements OnInit {
   homeLoanCombined: HomeLoanCombinedTemplateDataComponent;
   @ViewChild('sahayatriCombined', {static: false})
   sahayatriCombined: NabilSahayatriKarjaCombinedComponent;
+  @ViewChild('personalOverDraftWithoutCollateralCombined', {static: false})
+  personalOverDraftWithoutCollateralCombined: PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent;
 
   @ViewChild('masterSecurity', {static: false})
   retailSecurityComponent: RetailMasterSecurityComponent;
@@ -94,6 +97,7 @@ export class RetailTemplateDataComponent implements OnInit {
   isPersonalAndPersonalOverdraft = false;
   isAutoLoan = false;
   isNabilSahayatri = false;
+  isPersonalOverDraftWithoutCollateral = false;
   globalBaseRate: any;
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -150,6 +154,9 @@ export class RetailTemplateDataComponent implements OnInit {
         }
         if (v === 'NABIL SAHAYATRI KARJA') {
           this.isNabilSahayatri = true;
+        }
+        if (v === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          this.isPersonalOverDraftWithoutCollateral = true;
         }
       });
     }
@@ -259,6 +266,12 @@ export class RetailTemplateDataComponent implements OnInit {
       nabilSahayatriForm = this.sahayatriCombined.nabilSahayatriCombinedForm.value;
     }
 
+    let personalOverDraftWithoutCollateralForm;
+    if (this.isPersonalOverDraftWithoutCollateral) {
+      // tslint:disable-next-line:max-line-length
+      personalOverDraftWithoutCollateralForm = this.personalOverDraftWithoutCollateralCombined.personalOverDraftWithoutCollateralCombinedForm.value;
+    }
+
     const securityData = this.retailSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
@@ -276,6 +289,7 @@ export class RetailTemplateDataComponent implements OnInit {
       autoLoanCombinedForm: autoLoanForm,
       homeLoanCombinedForm: homeLoanForm,
       nabilSahayatriCombinedForm: nabilSahayatriForm,
+      personalOverDraftWithoutCollateralCombinedForm: personalOverDraftWithoutCollateralForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };
