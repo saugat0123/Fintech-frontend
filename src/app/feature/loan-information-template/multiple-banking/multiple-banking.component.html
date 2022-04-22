@@ -1,0 +1,229 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="multiBankingForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <span><strong>Multi Banking ?</strong></span>
+                    <nb-radio-group class="ml-1 d-inline-flex"
+                                    formControlName="isMultiBanking"
+                                    name="isMultiBanking"
+                                    id="isMultiBanking">
+                        <nb-radio [value]="true">Yes</nb-radio>
+                        <nb-radio [value]="false">No</nb-radio>
+                    </nb-radio-group>
+                    <ng-container *ngIf="multiBankingForm.get('isMultiBanking').value === true">
+                        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                            <thead>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>S.N</th>
+                                <th>Name of Banks/FIs</th>
+                                <th>Facilities</th>
+                                <th>Limit</th>
+                                <th>OutStanding</th>
+                                <th>Overdue</th>
+                                <th *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let data of multiBankingForm.get('multiBanking')['controls']; let i = index"
+                                   formArrayName="multiBanking">
+                            <tr [formGroupName]="i">
+                                <td>{{i + 1}}</td>
+                                <td><input class="form-control text-center"
+                                           formControlName="bankName"
+                                           placeholder="Bank Name"
+                                           type="text"/></td>
+                                <td>
+                                    <input class="form-control text-center"
+                                           formControlName="facilityName"
+                                           placeholder="Facility Name"
+                                           type="text"/>
+                                    <!--                                <nb-datepicker #date></nb-datepicker>-->
+                                </td>
+                                <td><input class="form-control text-center"
+                                           formControlName="limit"
+                                           placeholder="Limit"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="outstanding"
+                                           placeholder="Outstanding"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="overDue"
+                                           placeholder="Overdue"
+                                           type="text"/></td>
+                                <td *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">
+                                    <input (click)="removeData(i, 'multiBanking')"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button" value="Delete"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tr class="font-weight-bold">
+                                <td colspan="2">Total</td>
+                                <td></td>
+                                <td></td>
+                                <td><input [readOnly]="true" class="form-control text-center"
+                                           formControlName="totalLimit"
+                                           type="number"></td>
+                                <td><input [readOnly]="true" class="form-control text-center"
+                                           formControlName="totalOutstanding"
+                                           type="number"></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="text-right">
+                            <input (click)="addMultipleBanking()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </ng-container>
+                </div>
+
+<!--                <div class="col-md-12">-->
+<!--                    <span><strong>Consortium Financing ? </strong></span>-->
+<!--                    <nb-radio-group class="ml-1 d-inline-flex"-->
+<!--                                    formControlName="isConsortium"-->
+<!--                                    name="isConsortium" id="isConsortium">-->
+<!--                        <nb-radio [value]="true">Yes</nb-radio>-->
+<!--                        <nb-radio [value]="false">No</nb-radio>-->
+<!--                    </nb-radio-group>-->
+<!--                    <ng-container *ngIf="multiBankingForm.get('isConsortium').value === true">-->
+<!--                        <div class="row col-md-6">-->
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="remark"><strong>First Facilities Agreement Date</strong></label>-->
+<!--                                    <input class="form-control text-center"-->
+<!--                                           formControlName="firstFacility"-->
+<!--                                           placeholder="First Facilities Agreement Date"-->
+<!--                                           type="date"/>-->
+<!--                                    &lt;!&ndash;                                <input *ngIf="calendarType === 'BS'" formControlName="firstFacility" hidden>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('firstFacility').value"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                              (messageToEmit)="multiBankingForm.get('firstFacility').patchValue($event?.eDate)"></app-calendar>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <nb-datepicker #firstFacility></nb-datepicker>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="remark"><strong>Latest Facilities Agreement Date</strong></label>-->
+<!--                                    <input class="form-control text-center"-->
+<!--                                           formControlName="latestFacility"-->
+<!--                                           placeholder="Latest Facilities Agreement Date"-->
+<!--                                           type="date"/>-->
+<!--                                    &lt;!&ndash;  <input *ngIf="calendarType === 'BS'" formControlName="latestFacility" hidden>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;  <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('latestFacility').value"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;              (messageToEmit)="multiBankingForm.get('latestFacility').patchValue($event?.eDate)"></app-calendar>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <nb-datepicker #latestFacility></nb-datepicker>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">-->
+<!--                            <thead>-->
+<!--                            <tr class="sb-bg-secondary text-white">-->
+<!--                                <th>S.N</th>-->
+<!--                                <th>Bank Name</th>-->
+<!--                                <th>Date</th>-->
+<!--                                <th>Funded Limited</th>-->
+<!--                                <th>Non Funded Limited</th>-->
+<!--                                <th>Total Limit</th>-->
+<!--                                <th>Funded O.S</th>-->
+<!--                                <th>Non Funded O.S</th>-->
+<!--                                <th>Total O.S</th>-->
+<!--                                <th>Remark (if any)</th>-->
+<!--                                <th *ngIf="multiBankingForm.get('consortium')['length'] > 1">Action</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody *ngFor="let data of multiBankingForm.get('consortium')['controls']; let index = index"-->
+<!--                                   formArrayName="consortium">-->
+<!--                            <tr [formGroupName]="index">-->
+<!--                                <td>{{index + 1}}</td>-->
+<!--                                <td><input class="form-control text-center"-->
+<!--                                           formControlName="conBankName"-->
+<!--                                           placeholder="Bank Name"-->
+<!--                                           type="text"/></td>-->
+<!--                                <td>-->
+<!--                                    <input class="form-control text-center"-->
+<!--                                           formControlName="conDate"-->
+<!--                                           placeholder="Date"-->
+<!--                                           type="date"/>-->
+<!--                                    &lt;!&ndash;                                <nb-datepicker #date1></nb-datepicker></td>&ndash;&gt;-->
+<!--                                <td><input (keyup)="calculateTotalConsortium()"-->
+<!--                                           (change)="consortiumTotalLimit(index)"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conFundedLimited"-->
+<!--                                           placeholder="Funded Limited"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input (keyup)="calculateTotalConsortium()"-->
+<!--                                           (change)="consortiumTotalLimit(index)"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conNonFundedLimited"-->
+<!--                                           placeholder="Non Funded Limited"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input [readOnly]="true"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conTotalLimit"-->
+<!--                                           placeholder="Total Limit"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input (keyup)="calculateTotalConsortium()"-->
+<!--                                           (change)="consortiumTotalOS(index)"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conFundedOS"-->
+<!--                                           placeholder="Funded O.S"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input (keyup)="calculateTotalConsortium()"-->
+<!--                                           (change)="consortiumTotalOS(index)"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conNonFundedOS"-->
+<!--                                           placeholder="Non Funded O.S"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input [readOnly]="true"-->
+<!--                                           class="form-control text-center"-->
+<!--                                           formControlName="conTotalOS"-->
+<!--                                           placeholder="Total O.S"-->
+<!--                                           type="number"/></td>-->
+<!--                                <td><input class="form-control text-center"-->
+<!--                                           formControlName="conRemarks"-->
+<!--                                           placeholder="Remarks (if any)"-->
+<!--                                           type="text"/></td>-->
+<!--                                <td *ngIf="multiBankingForm.get('consortium')['length'] > 1">-->
+<!--                                    <input (click)="removeConsortium(index)"-->
+<!--                                           class="align-self-end btn btn-sm btn-danger btn-primary"-->
+<!--                                           type="button" value="Delete"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                            <tr class="font-weight-bold">-->
+<!--                                <td colspan="2">Total</td>-->
+<!--                                <td></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalFundedLimited"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalNonFundedLimited"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalLimited1"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalFundedOS"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalNonFundedOS"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="conTotalOS1"-->
+<!--                                           type="number"></td>-->
+<!--                                <td></td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                        <div class="text-right">-->
+<!--                            <input (click)="addConsortium()" class="btn btn-sm btn-flat btn-primary"-->
+<!--                                   type="button" value="Add More"/>-->
+<!--                        </div>-->
+<!--                    </ng-container>-->
+<!--                </div>-->
+            </div>
+            <nb-card-footer *ngIf="fromProfile">
+                <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
+            </nb-card-footer>
+        </form>
+    </nb-card-body>
+</nb-card>
