@@ -65,9 +65,25 @@
                                                   [globalBaseRate]="globalBaseRate">
             </app-personal-overdraft-without-collateral-combined-template-data>
         </ng-container>
+
+        <ng-container *ngIf="isNabilShareLoan">
+            <app-nabil-share-loan-pod-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #nabilShareLoanCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-nabil-share-loan-pod-template-data>
+        </ng-container>
+
+        <ng-container *ngIf="isShareLoanDemand">
+            <app-share-loan-demand-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #shareLoanDemandCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-share-loan-demand-template-data>
+        </ng-container>
         <!-- Type of sme loan end here-->
-        <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
-                          [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-security>
+        <app-retail-master-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
+                          [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-retail-master-security>
     </nb-card-body>
     <nb-card-footer>
         <!-- Required Document Section -->
