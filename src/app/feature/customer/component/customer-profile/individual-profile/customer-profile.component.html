@@ -261,10 +261,20 @@
                         </div>
                     </nb-card-header>
                     <nb-card-body>
-                        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
-                                                 [formValue]="customer"></app-customer-group-loan>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                                         [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                                         [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                         [formValue]="customer"></app-customer-group-loan>
+                            </div>
+                            <div class="col-md-5" style="overflow-y: auto; height: 765px;">
+                                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                  (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
+                            </div>
+                        </div>
+
+
                     </nb-card-body>
                     <nb-card-footer>
                         <div class="row">
@@ -278,7 +288,8 @@
                                 <form [formGroup]="basicForm">
                                     <label><b>Within Limit Remarks (if any):</b></label>
                                     <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
-                                              formControlName="withinLimitRemarks" (change)="setWithin($event)"></textarea>
+                                              formControlName="withinLimitRemarks"
+                                              (change)="setWithin($event)"></textarea>
                                 </form>
                                 <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
                                     Remark
@@ -337,7 +348,8 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>
+                                                        (responseData)="setMGroupData($event)"
+                                                        [customerInfo]="customerInfo"></app-customer-group>
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
@@ -377,12 +389,6 @@
                                                     [customerType]="customerType"
                                                     [fromProfile]="true"
                                                     [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
-                                  (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
             </div>
         </div>
     </nb-card-body>
