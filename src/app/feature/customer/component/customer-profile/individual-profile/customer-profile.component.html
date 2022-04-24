@@ -482,6 +482,29 @@
                                                     [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                        <select
+                                class="form-control rounded"
+                                name="loanId" required>
+                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                            <ng-container *ngFor="let allList of nonMicroLoanList">
+                                <option *ngIf="!allList?.isRemit" [ngValue]="allList.id" >{{allList.name}}</option>
+                            </ng-container>
+                        </select>
+            </div>
+            <div class="col-md-3">
+                        <select
+                                class="form-control rounded"
+                                name="loanId" required>
+                            <option [ngValue]="undefined" hidden> Select Loan</option>
+                            <option *ngFor="let allList of microLoanList"
+                                    [ngValue]="allList.id">{{allList.name}}</option>
+                        </select>
+                </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"

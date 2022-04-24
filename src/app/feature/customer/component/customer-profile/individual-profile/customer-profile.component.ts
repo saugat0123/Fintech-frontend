@@ -91,6 +91,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isJointInfo = false;
     microCustomer: boolean;
     customerType: CustomerType;
+    nonMicroLoanList = [];
+    microLoanList = [];
+    loanList = [];
+
+
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -151,6 +156,16 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
+
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+            this.loanList = response.detail;
+            this.nonMicroLoanList = this.loanList;
+            this.spinner = false;
+        }, (err) => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
+            // this.activeModal.dismiss();
+        });
     }
 
     ngAfterContentInit(): void {
