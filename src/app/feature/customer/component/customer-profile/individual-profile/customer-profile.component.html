@@ -3,7 +3,7 @@
         <div class="row shadow-sm">
 
             <div class="col-md-4">
-                <ng-container  *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
+                <ng-container *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
                     <strong>Associated Group:</strong>
                     <span *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
                     {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
@@ -95,18 +95,19 @@
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
                     <div class="row">
-                        <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
+                        <span> <strong>Introduction :</strong> <span
+                                [innerHTML]="customer.introduction | safeHtml"></span></span></div>
                 </div>
                 <div *ngIf="isJointInfo">
                     <div *ngFor="let jointCustomer of jointInfo">
-                            <ng-container *ngFor="let info of jointCustomer">
-                                <strong>Name :</strong><span>{{info?.customerName}}</span><br/>
-                                <strong>Date of Birth :</strong><span>{{info?.dob | date}}</span><br/>
-                                <strong>Address :</strong><span>{{info?.province?.name}},{{info?.district?.name}},
-                                {{info?.municipalities?.name}},{{info?.wardNumber}}</span><br/>
-                                <strong>Email :</strong><span>{{info?.email}}</span><br/>
-                                <strong>Mobile Number :</strong><span>{{info?.contactNumber}}</span><br/>
-                            </ng-container>
+                        <ng-container *ngFor="let info of jointCustomer">
+                            <strong>Name :</strong><span>{{info?.customerName}}</span><br/>
+                            <strong>Date of Birth :</strong><span>{{info?.dob | date}}</span><br/>
+                            <strong>Address :</strong><span>{{info?.province?.name}},{{info?.district?.name}},
+                            {{info?.municipalities?.name}},{{info?.wardNumber}}</span><br/>
+                            <strong>Email :</strong><span>{{info?.email}}</span><br/>
+                            <strong>Mobile Number :</strong><span>{{info?.contactNumber}}</span><br/>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="col-md-1 sb-small">
@@ -116,7 +117,7 @@
                 </div>
 
                 <div class="col-md-6 sb-small" style="overflow-y: auto; height:200px;">
-                    <ng-container class="bg-light"  style="height: 200px">
+                    <ng-container class="bg-light" style="height: 200px">
                         <ng-container>
                             <div class="row justify-content-lg-start">
                                 <div class="col-md-6"><strong>KYC</strong></div>
@@ -171,7 +172,7 @@
                                         <span> <strong>Age</strong></span></div>
                                     <div class="col-md-1">
                                         <span> <strong>:</strong></span></div>
-                                    <div class="col-md-5">{{(customerRelative.age)?(customerRelative.age):'N/A'}}</div>
+                                    <div class="col-md-5">{{(customerRelative.age) ? (customerRelative.age) : 'N/A'}}</div>
                                 </div>
                                 <hr>
                             </div>
@@ -184,9 +185,12 @@
                                         <div *ngFor="let infos of info.customerRelations">
                                             <strong>Name : </strong><span>{{infos?.customerRelativeName || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{infos?.customerRelation || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{infos?.citizenshipNumber || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{infos?.citizenshipIssuedPlace || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{infos?.citizenshipNumber || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{infos?.citizenshipIssuedPlace || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                     </ng-container>
@@ -194,41 +198,56 @@
                                         <div *ngIf="info?.customerRelativeName1">
                                             <strong>Name : </strong><span>{{info?.customerRelativeName1 || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{info?.customerRelation1 || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber1 || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace1 || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{info?.citizenshipNumber1 || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{info?.citizenshipIssuedPlace1 || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                         <div *ngIf="info?.customerRelativeName2">
                                             <strong>Name : </strong><span>{{info?.customerRelativeName2 || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{info?.customerRelation2 || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber2 || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace2 || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{info?.citizenshipNumber2 || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{info?.citizenshipIssuedPlace2 || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                         <div *ngIf="info?.customerRelativeName3">
                                             <strong>Name : </strong><span>{{info?.customerRelativeName3 || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{info?.customerRelation3 || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber3 || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace3 || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{info?.citizenshipNumber3 || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{info?.citizenshipIssuedPlace3 || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                         <div *ngIf="info?.customerRelativeName4">
                                             <strong>Name : </strong><span>{{info?.customerRelativeName4 || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{info?.customerRelation4 || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber4 || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace4 || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{info?.citizenshipNumber4 || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{info?.citizenshipIssuedPlace4 || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                         <div *ngIf="info?.customerRelativeName5">
                                             <strong>Name : </strong><span>{{info?.customerRelativeName5 || 'NA'}}</span><br/>
                                             <strong>Relation : </strong><span>{{info?.customerRelation5 || 'NA'}}</span><br/>
-                                            <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber5 || 'NA'}}</span><br/>
-                                            <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace5 || 'NA'}}</span><br/>
-                                            <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'NA'}}</span><br/>
+                                            <strong>Citizenship no
+                                                : </strong><span>{{info?.citizenshipNumber5 || 'NA'}}</span><br/>
+                                            <strong>Issued Place
+                                                : </strong><span>{{info?.citizenshipIssuedPlace5 || 'NA'}}</span><br/>
+                                            <strong>Issued Date
+                                                : </strong><span>{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'NA'}}</span><br/>
                                             <hr/>
                                         </div>
                                     </ng-template>
@@ -278,7 +297,8 @@
                                 <form [formGroup]="basicForm">
                                     <label><b>Within Limit Remarks (if any):</b></label>
                                     <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
-                                              formControlName="withinLimitRemarks" (change)="setWithin($event)"></textarea>
+                                              formControlName="withinLimitRemarks"
+                                              (change)="setWithin($event)"></textarea>
                                 </form>
                                 <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
                                     Remark
@@ -337,7 +357,8 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>
+                                                        (responseData)="setMGroupData($event)"
+                                                        [customerInfo]="customerInfo"></app-customer-group>
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
@@ -360,8 +381,9 @@
         <!--        //cbs Group-->
         <div class="row  py-2" *ngIf="maker && !isEditable">
             <div class="col-md-12 text-danger">
-                <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edited.
-            </strong> </div>
+                <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information
+                cannot be Edited.
+            </strong></div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -380,27 +402,44 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
+        <nb-card accent="primary">
+            <nb-card-header>
+                Loan Apply Section
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-4">
+                        <!--                    <label><strong>Loan Type</strong></label>-->
+                        <select [(ngModel)]="selectedLoanType"
+                                class="form-control rounded" name="loanType" required>
+                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                            <option *ngFor="let list of multipleSelectedLoanType"
+                                    [ngValue]="list.key">{{list.value}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
                         <select
                                 class="form-control rounded"
                                 name="loanId" required>
                             <option [ngValue]="undefined" hidden> Select Loan Type</option>
                             <ng-container *ngFor="let allList of nonMicroLoanList">
-                                <option *ngIf="!allList?.isRemit" [ngValue]="allList.id" >{{allList.name}}</option>
+                                <option *ngIf="!allList?.isRemit" [ngValue]="allList.id">{{allList.name}}</option>
                             </ng-container>
                         </select>
-            </div>
-            <div class="col-md-3">
-                        <select
-                                class="form-control rounded"
-                                name="loanId" required>
-                            <option [ngValue]="undefined" hidden> Select Loan</option>
-                            <option *ngFor="let allList of microLoanList"
-                                    [ngValue]="allList.id">{{allList.name}}</option>
-                        </select>
+                    </div>
+                    <div class="px-2">
+                        <button (click)="openLoanApplyTemplate()" *ngIf="!isEdited && maker"
+                                nbButton size="small" type="button">Apply Loan
+                        </button>
+                    </div>
+                    <div class="px-2">
+                        <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
+                                nbButton size="small" type="button">Combine Loan
+                        </button>
+                    </div>
                 </div>
-        </div>
+            </nb-card-body>
+        </nb-card>
 
         <div class="row">
             <div class="col-md-12">

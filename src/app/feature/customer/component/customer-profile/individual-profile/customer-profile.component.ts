@@ -94,6 +94,12 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     nonMicroLoanList = [];
     microLoanList = [];
     loanList = [];
+    loanTypeList = LoanType.value();
+    multipleSelectedLoanType = [];
+    selectedLoanType;
+
+
+
 
 
 
@@ -166,6 +172,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
             // this.activeModal.dismiss();
         });
+        this.sliceLoan();
+        this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     }
 
     ngAfterContentInit(): void {
@@ -227,6 +235,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 this.refreshCustomerInfo();
             }
         });
+    }
+
+    openLoanApplyTemplate() {
+        console.log('loan apply section');
     }
 
     openCombineSelectLoanTemplate() {
@@ -465,5 +477,17 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
         this.customer.customerCode = this.customerInfo.customerCode;
+    }
+
+    sliceLoan() {
+        this.loanTypeList.forEach((val) => {
+            if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+                || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+                || val.key === 'INTEREST_RATE_REVISION') {
+                return true;
+            }
+            this.multipleSelectedLoanType.push(val);
+
+        });
     }
 }
