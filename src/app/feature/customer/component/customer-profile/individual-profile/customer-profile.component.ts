@@ -99,10 +99,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     selectedLoanType;
 
 
-
-
-
-
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
                 private customerInfoService: CustomerInfoService,
@@ -238,7 +234,21 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     openLoanApplyTemplate() {
-        console.log('loan apply section');
+        this.routeToLoanForm();
+    }
+
+    routeToLoanForm() {
+        this.router.navigate(['/home/loan/loanForm'], {
+            queryParams: {
+                // loanId: this.applyForm.loanId,
+                customerInfoId: this.paramProp.customerInfoId,
+                customerType: this.paramProp.customerType,
+                customerProfileId: this.associateId,
+                loanCategory: this.customerType,
+                loanType: this.selectedLoanType
+            }
+        });
+
     }
 
     openCombineSelectLoanTemplate() {
@@ -310,7 +320,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
-            maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus)  ? undefined : this.customer.maritalStatus, Validators.required],
+            maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus) ? undefined : this.customer.maritalStatus, Validators.required],
             gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
             bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
@@ -465,11 +475,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     isEditableCustomerData() {
         if (this.maker) {
-        this.customerLoanService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
-            this.isEditable = res.detail;
-        }); }
+            this.customerLoanService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
+                this.isEditable = res.detail;
+            });
+        }
 
     }
+
     setWithin(event) {
         this.customer.withinLimitRemarks = event.target.value;
         this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
