@@ -429,6 +429,7 @@
                     </div>
                     <div class="col-md-3">
                         <select
+                                [(ngModel)]="facilityType"
                                 class="form-control rounded"
                                 name="loanId" required>
                             <option [ngValue]="undefined" hidden> Select Loan Type</option>
@@ -452,6 +453,9 @@
         </nb-card>
 
 
+    </nb-card-body>
+    <nb-card-body>
+<!--        <app-loan-form *ngIf="this.applyLoan" [allId]="allId" ></app-loan-form>-->
     </nb-card-body>
 </nb-card>
 

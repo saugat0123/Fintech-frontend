@@ -31,7 +31,6 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {Clients} from '../../../../../../environments/Clients';
 
 
@@ -97,7 +96,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     loanTypeList = LoanType.value();
     multipleSelectedLoanType = [];
     selectedLoanType;
-
+    facilityType;
+    allId;
+    applyLoan = false;
 
 
 
@@ -174,6 +175,14 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.sliceLoan();
         this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
+        this.allId = {
+            loanId: this.facilityType,
+            customerInfoId: this.customerInfoId,
+            customerType: this.customerType,
+            customerProfileId: this.associateId,
+            loanCategory: this.customerType,
+            loanType: this.selectedLoanType
+        };
     }
 
     ngAfterContentInit(): void {
@@ -238,7 +247,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     openLoanApplyTemplate() {
-        console.log('loan apply section');
+        // console.log('loan apply section');
+        this.applyLoan = true;
     }
 
     openCombineSelectLoanTemplate() {

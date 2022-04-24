@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -108,7 +108,6 @@ export class LoanFormComponent implements OnInit {
     };
     first = false;
     last = false;
-    allId;
     nxtParameter = {
         url: null,
         name: null,
@@ -158,6 +157,8 @@ export class LoanFormComponent implements OnInit {
 
     showDocStatusDropDown = true;
     isBlackListed = false;
+
+    @Input() allId;
 
     @ViewChild('priorityFormNav', {static: false})
     priorityFormNav: ElementRef;
@@ -277,19 +278,6 @@ export class LoanFormComponent implements OnInit {
         this.buildDocStatusForm();
         this.buildCreditRiskForm();
 
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    loanId: null,
-                    customerId: null,
-                    loanCategory: null,
-                    customerProfileId: null,  // CustomerInfo->associateId
-                    customerType: null,
-                    customerInfoId: null,   // CustomerInfo->id
-                    loanType: null
-                };
-
-                this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
                 this.customerId = this.allId.customerId;
@@ -346,7 +334,6 @@ export class LoanFormComponent implements OnInit {
                     this.populateTemplate();
                 }
 
-            });
         this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
             this.currentNepDate = response.detail;
         });
