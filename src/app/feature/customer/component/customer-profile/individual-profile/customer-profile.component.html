@@ -280,10 +280,20 @@
                         </div>
                     </nb-card-header>
                     <nb-card-body>
-                        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
-                                                 [formValue]="customer"></app-customer-group-loan>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                                         [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                                         [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                         [formValue]="customer"></app-customer-group-loan>
+                            </div>
+                            <div class="col-md-5" style="overflow-y: auto; height: 765px;">
+                                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                  (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
+                            </div>
+                        </div>
+
+
                     </nb-card-body>
                     <nb-card-footer>
                         <div class="row">
@@ -447,6 +457,7 @@
                                   (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
             </div>
         </div>
+
     </nb-card-body>
 </nb-card>
 

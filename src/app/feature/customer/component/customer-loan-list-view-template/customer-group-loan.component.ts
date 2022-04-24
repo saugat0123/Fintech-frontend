@@ -99,7 +99,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   currentUserId = LocalStorageUtil.getStorage().userId;
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
-  loanAction: any;
   loanActionList = [];
   loan = [];
   loanTag = LoanTag;
@@ -110,7 +109,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   reInitiateLoanFacilityName: string;
   reInitiateLoanBranchName: string;
   reInitiateLoanType: string;
-  showBranch = true;
   formAction: FormGroup;
   displaySecurity = false;
   isCombineLoan = false;
@@ -372,15 +370,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     closed: SingleCombinedLoanDto[],
     approved: SingleCombinedLoanDto[],
   } {
-    return {
-      pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
-          && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
-      funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
-      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
-      rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
-      closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
-      approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
-    };
+    if (!ObjectUtil.isEmpty(this.loanHistories)) {
+      return {
+        pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
+            && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
+        funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
+        nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
+        rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
+        closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
+        approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
+      };
+    }
   }
 
   getLoanOfCustomerAssociatedToByKYC() {
