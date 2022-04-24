@@ -54,4 +54,9 @@ export class MultipleBankingComponent implements OnInit {
   removeData(i: number, arrayName: string) {
     (this.multiBankingForm.get(arrayName) as FormArray).removeAt(i);
   }
+
+  submitForm() {
+    this.multiBanking.data = JSON.stringify(this.multiBankingForm.value);
+    this.multiBankingDataEmitter.emit(this.multiBanking);
+  }
 }

@@ -665,20 +665,22 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveMultiBanking(data: MultipleBanking) {
+        console.log('before', this.multiBankingResponse);
         if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
             this.multiBankingResponse = new MultipleBanking();
         }
         this.multiBankingResponse = data;
+        console.log('multiBankingResponse', this.multiBankingResponse);
         this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
             .subscribe(() => {
                 this.overlay.hide();
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Multiple Banking/Consortium'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
                 this.dataFromPreviousSecurity.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
                 this.overlay.hide();
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
             });
     }
 
