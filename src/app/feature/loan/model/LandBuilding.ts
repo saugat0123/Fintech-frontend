@@ -21,5 +21,6 @@ export  class LandBuilding extends BaseEntity {
     addressLine2: string;
     registerOffice: string;
     data: string;
+    freeLimit: number;
 
 }

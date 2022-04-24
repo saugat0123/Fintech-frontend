@@ -21,4 +21,6 @@ export class Auto extends BaseEntity {
     discountPrice: number;
 
     data: string;
+
+    freeLimit: number;
 }

@@ -148,8 +148,8 @@
                         <th>Model</th>
                         <th>Engine Number</th>
                         <th>Considered Value</th>
-                        <th>Manufactured Year</th>
                         <th>Condition</th>
+                        <th>Free Limit</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -159,8 +159,8 @@
                         <td>{{autoSecurity?.model}}</td>
                         <td>{{autoSecurity?.engineNo}}</td>
                         <td>Rs. {{(autoSecurity?.considerValue)}}</td>
-                        <td>{{autoSecurity?.manufactureYear}}</td>
                         <td>{{autoSecurity?.isNew ? 'New' : 'Second Hand'}}</td>
+                        <td>{{autoSecurity?.freeLimit}}</td>
                         <td>
                             <button (click)="removeAutoSecurity(autoSecurity?.id)"
                                     class="btn btn-sm btn-flat btn-danger">
