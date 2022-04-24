@@ -414,12 +414,26 @@
 
         <nb-card accent="primary">
             <nb-card-header>
-                Loan Apply Section
+                <div class="row">
+                    Apply Loan
+
+                    <!--                    <div class="float-right">-->
+                    <div class="px-2">
+                        <button (click)="openLoanApplyTemplate()" *ngIf="!isEdited && maker"
+                                nbButton size="small" type="button">Apply Loan
+                        </button>
+                    </div>
+                    <div class="px-2">
+                        <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
+                                nbButton size="small" type="button">Combine Loan
+                        </button>
+                    </div>
+                    <!--                    </div>-->
+                </div>
             </nb-card-header>
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
-                        <!--                    <label><strong>Loan Type</strong></label>-->
                         <select [(ngModel)]="selectedLoanType"
                                 class="form-control rounded" name="loanType" required>
                             <option [ngValue]="undefined" hidden> Select Loan Type</option>
@@ -438,16 +452,7 @@
                             </ng-container>
                         </select>
                     </div>
-                    <div class="px-2">
-                        <button (click)="openLoanApplyTemplate()" *ngIf="!isEdited && maker"
-                                nbButton size="small" type="button">Apply Loan
-                        </button>
-                    </div>
-                    <div class="px-2">
-                        <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                                nbButton size="small" type="button">Combine Loan
-                        </button>
-                    </div>
+
                 </div>
             </nb-card-body>
         </nb-card>
