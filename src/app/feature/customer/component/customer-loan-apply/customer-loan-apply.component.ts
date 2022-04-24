@@ -61,12 +61,12 @@ export class CustomerLoanApplyComponent implements OnInit {
 
   ngOnInit() {
     this.spinner = true;
+    this.sliceLoan();
     this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
       this.nonMicroLoanList = this.loanList;
-      console.log('non micro loan list', this.nonMicroLoanList);
       this.spinner = false;
     }, (err) => {
       this.spinner = false;
@@ -192,6 +192,18 @@ export class CustomerLoanApplyComponent implements OnInit {
     } else if (!this.combinedLoansIds.includes(id) && checked) {
       this.combinedLoansIds.push(id);
     }
+  }
+
+  sliceLoan() {
+    this.loanTypeList.forEach((val) => {
+      if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+          || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+          || val.key === 'INTEREST_RATE_REVISION') {
+        return true;
+      }
+      this.multipleSelectedLoanType.push(val);
+
+    });
   }
 
 }
