@@ -54,7 +54,7 @@ import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loa
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 // import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
-import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
+// import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 // import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 // import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
@@ -227,7 +227,7 @@ export class LoanFormComponent implements OnInit {
       private customerInfoService: CustomerInfoService,
       private companyInfoService: CompanyInfoService,
       private commonRoutingUtilsService: CommonRoutingUtilsService,
-      protected riskQuestionService: RiskGradingService
+      // protected riskQuestionService: RiskGradingService
   ) {
   }
 
@@ -413,7 +413,7 @@ export class LoanFormComponent implements OnInit {
         this.router.navigate(['/home/dashboard']);
       }
 
-      this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
+      /*this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
         const crgQuestionsList = riskQsnRes.detail as Array<any>;
         if (!(crgQuestionsList.length > 0)) {
           this.removeCrgGammaFromTemplateList();
@@ -449,7 +449,7 @@ export class LoanFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
         this.removeCrgGammaFromTemplateList();
         this.pushProposalTemplateToLast();
-      });
+      });*/
     });
   }
 

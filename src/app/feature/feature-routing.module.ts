@@ -43,10 +43,10 @@ const routes: Routes = [
         path: 'update-loan',
         loadChildren: () => import('./loan-update/loan-update.module').then(m => m.LoanUpdateModule)
       },
-      {
-        path: 'crg',
-        loadChildren: () => import('./credit-risk-grading/credit-risk-grading.module').then(m => m.CreditRiskGradingModule)
-      },
+      // {
+      //   path: 'crg',
+      //   loadChildren: () => import('./credit-risk-grading/credit-risk-grading.module').then(m => m.CreditRiskGradingModule)
+      // },
 
       {
         path: 'customer-activity',
