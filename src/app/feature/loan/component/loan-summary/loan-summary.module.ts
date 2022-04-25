@@ -10,7 +10,7 @@ import {CustomerGroupSummaryComponent} from './customer-group-summary/customer-g
 import {ThemeModule} from '../../../../@theme/theme.module';
 import {LoanSummaryRoutingModule} from './loan-summary-routing.module';
 import {ProposalSummaryComponent} from './proposal-summary/proposal-summary.component';
-import {ReportingModule} from '../../../reporting/reporting.module';
+// import {ReportingModule} from '../../../reporting/reporting.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../../@core/core.module';
 import {CompanyInfoSummaryComponent} from './company-info-summary/company-info-summary.component';
@@ -71,7 +71,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ThemeModule,
         LoanInformationTemplateModule,
         LoanSummaryRoutingModule,
-        ReportingModule,
+        // ReportingModule,
         NgxPrintModule,
         CoreModule,
         CbsGroupModule,

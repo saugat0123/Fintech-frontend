@@ -52,9 +52,9 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
-import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+// import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
-import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+// import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -132,11 +132,11 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
 
-    @ViewChild('microCompanyFormComponent', {static: false})
+    /*@ViewChild('microCompanyFormComponent', {static: false})
     microCompanyFormComponent: MicroCompanyFormComponentComponent;
 
     @ViewChild('microIndividualFormComponent', {static: false})
-    microIndividualFormComponent: MicroIndividualFormComponent;
+    microIndividualFormComponent: MicroIndividualFormComponent;*/
 
 
     experiences = Experience.enumObject();
@@ -864,7 +864,7 @@ export class CompanyFormComponent implements OnInit {
             this.bankingRelationComponent.onSubmit();
         }
 
-        if (this.microCustomer) {
+        /*if (this.microCustomer) {
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
                 this.microCompanyFormComponent.onSubmit();
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
@@ -874,7 +874,7 @@ export class CompanyFormComponent implements OnInit {
                     return;
                 }
             }
-        }
+        }*/
 
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid ||
@@ -1040,14 +1040,14 @@ export class CompanyFormComponent implements OnInit {
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
 
-        if (this.microCustomer) {
-            /** micro data **/
+        /*if (this.microCustomer) {
+            /!** micro data **!/
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
                 submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
                 submitData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
             }
-        }
+        }*/
 
 
         // swot

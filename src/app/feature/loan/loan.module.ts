@@ -42,7 +42,7 @@ import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bik
 import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
-import {ReportingModule} from '../reporting/reporting.module';
+// import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 // import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
@@ -64,7 +64,7 @@ import {MicroIndividualComponent} from './component/micro-loan-summary/micro-ind
 import {MicroInstitutionComponent} from './component/micro-loan-summary/micro-institution/micro-institution.component';
 import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
 import {BorrowerPortfolioSummaryComponent} from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
-import {MicroLoanModule} from '../micro-loan/micro-loan.module';
+// import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
 import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
@@ -171,7 +171,7 @@ const modules = {
     }),
     CustomerModule,
     NepaliCalendarModule,
-    ReportingModule,
+    // ReportingModule,
     LoanInformationTemplateModule,
     // LoanInformationViewModule,
     LoanSummaryModule,
@@ -179,7 +179,7 @@ const modules = {
     AngularDraggableModule,
     // LoanInformationDetailViewModule,
     NbTooltipModule,
-    MicroLoanModule,
+    // MicroLoanModule,
     NepaliPatroModule,
     TransferLoanModule,
     CreditAdministrationModule

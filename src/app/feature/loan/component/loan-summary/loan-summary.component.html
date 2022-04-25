@@ -827,14 +827,14 @@
             <div>
                 <app-comments-summary *ngIf="commentsSummary"
                                              [formData]="dataFromComments"></app-comments-summary>
-                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+<!--                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>-->
             </div>
 
             <br>
-            <div>
+            <!--<div>
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-            </div>
+            </div>-->
             <div class="row mt-3">
                 <div class="col-md-12">
                     <app-sitevist-summary-component *ngIf="siteVisitSummary"
@@ -843,15 +843,15 @@
                 </div>
             </div>
 
-            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+            <!--<div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
                 <app-report-summary
                         [approved]="true"
                         *ngIf="loanDataHolder?.reportingInfoLog"
                         [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
                 </app-report-summary>
-            </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+            </div>-->
+            <!--<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
                 <span><strong>Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
@@ -866,14 +866,14 @@
                 <app-report-summary
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-            </div>
+            </div>-->
 
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div>
+            <!--<div>
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-md-12 disable-print">
           <span>

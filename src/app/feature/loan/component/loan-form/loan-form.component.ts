@@ -40,7 +40,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
-import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+// import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
 import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
@@ -56,8 +56,8 @@ import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
-import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
+// import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
+// import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
@@ -169,8 +169,8 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('creditRiskGradingLambda', {static: false})
   creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
-  @ViewChild('crgMicro', {static: false})
-  crgMicro: CrgMicroComponent;
+  /*@ViewChild('crgMicro', {static: false})
+  crgMicro: CrgMicroComponent;*/
 
   @ViewChild('crgGamma', {static: false})
   crgGamma: CreditRiskGradingGammaComponent;
@@ -193,14 +193,14 @@ export class LoanFormComponent implements OnInit {
   // @ViewChild('guarantor', {static: false})
   // guarantorComponent: GuarantorAdderComponent;
 
-  @ViewChild('reportingInfoTagging', {static: false})
-  reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
+  // @ViewChild('reportingInfoTagging', {static: false})
+  // reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
   @ViewChild('insurance', {static: false})
   insuranceComponent: InsuranceComponent;
 
-  @ViewChild('microProposalInfo', {static: false})
-  microProposalInfo: MicroProposalComponent;
+  // @ViewChild('microProposalInfo', {static: false})
+  // microProposalInfo: MicroProposalComponent;
 
   loanTag: string;
   loanHolder = new CustomerInfoData();
@@ -583,7 +583,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.customerInfo.customerRelatives = customerRelatives;
     }
 
-    if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
+    /*if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
       if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
         this.microProposalInfo.scrollToFirstInvalidControl();
         this.microProposalInfo.submitted = true;
@@ -591,7 +591,7 @@ export class LoanFormComponent implements OnInit {
       }
       this.microProposalInfo.onSubmit();
       this.loanDocument.proposal = this.microProposalInfo.proposalData;
-    }
+    }*/
 
     if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
       if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
@@ -652,10 +652,10 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
     }
 
-    if (name === 'Credit Risk Grading - Micro' && action) {
+    /*if (name === 'Credit Risk Grading - Micro' && action) {
       this.crgMicro.onSubmit();
       this.loanDocument.crgMicro = this.crgMicro.creditRiskData;
-    }
+    }*/
 
     if (name === 'Credit Risk Grading - Gamma' && action) {
       this.crgGamma.onSubmit();
@@ -671,10 +671,10 @@ export class LoanFormComponent implements OnInit {
     //   this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
     // }
 
-    if (name === 'Reporting Info' && action) {
+    /*if (name === 'Reporting Info' && action) {
       this.reportingInfoTaggingComponent.onSubmit();
       this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
-    }
+    }*/
     // if (name === 'Insurance' && action) {
     //   if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
     //     this.insuranceComponent.isSubmitted = true;
