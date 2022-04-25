@@ -18,6 +18,7 @@ import {CustomerInfoService} from '../../customer/service/customer-info.service'
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../loan/model/loanData';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-proposal',
@@ -32,6 +33,8 @@ export class ProposalComponent implements OnInit {
   @Input() loanIds;
   @Input() loanType;
   @Input() customerInfo;
+  @Input() fromProfile;
+  @Input() loan: LoanDataHolder;
   @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
   @Output() emitter = new EventEmitter();
   proposalForm: FormGroup;
@@ -123,7 +126,8 @@ export class ProposalComponent implements OnInit {
               private el: ElementRef,
               private nbService: NgbModal,
               private customerInfoService: CustomerInfoService,
-              private loanFormService: LoanFormService
+              private loanFormService: LoanFormService,
+              private spinner: NgxSpinnerService
   ) {
   }
 
@@ -186,57 +190,59 @@ export class ProposalComponent implements OnInit {
       this.setActiveBaseRate();
       this.addGroupExposureData();
     }
-    this.activatedRoute.queryParams.subscribe(
-        (paramsValue: Params) => {
-          this.allId = {
-            loanId: null,
-            customerId: null,
-            loanCategory: null
-          };
-          this.allId = paramsValue;
-          this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
-          this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
-            this.minimumAmountLimit = response.detail.minimumProposedAmount;
-            this.collateralRequirement = response.detail.collateralRequirement;
-            this.isFundable = response.detail.isFundable;
-            this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
-            this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
-            this.isGeneral = response.detail.loanTag === 'GENERAL';
-            this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
-            this.isVehicle = response.detail.loanTag === 'VEHICLE';
-            this.loanNature = response.detail.loanNature;
-            if (!ObjectUtil.isEmpty(this.loanNature)) {
-              this.loanNatureSelected = true;
-              this.isTerminating = this.loanNature === 'Terminating';
-              this.isRevolving = this.loanNature === 'Revolving';
-              if (this.isRevolving) {
-                this.isGeneral = false;
-              }
-            }
-            if (!this.isFundable) {
-              this.isGeneral = false;
-            }
-            if (this.isFixedDeposit) {
-              this.loanNatureSelected = false;
-              this.fundableNonFundableSelcted = false;
-            }
-            this.proposalForm.get('proposedLimit').setValidators([Validators.required,
-              MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
-            this.proposalForm.get('proposedLimit').updateValueAndValidity();
-            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-              this.interestLimit = response.detail.interestRate;
-            }
-            this.setCollateralRequirement(this.collateralRequirement);
-            // this.checkLoanConfig();
-            this.setValidatorForPrepaymentField();
-            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-              this.existInterestLimit = response.detail.existInterestRate;
-            }
-          }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
-          });
-        });
+ if(!this.fromProfile) {
+   this.activatedRoute.queryParams.subscribe(
+       (paramsValue: Params) => {
+         this.allId = {
+           loanId: null,
+           customerId: null,
+           loanCategory: null
+         };
+         this.allId = paramsValue;
+         this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
+         this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
+           this.minimumAmountLimit = response.detail.minimumProposedAmount;
+           this.collateralRequirement = response.detail.collateralRequirement;
+           this.isFundable = response.detail.isFundable;
+           this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
+           this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
+           this.isGeneral = response.detail.loanTag === 'GENERAL';
+           this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
+           this.isVehicle = response.detail.loanTag === 'VEHICLE';
+           this.loanNature = response.detail.loanNature;
+           if (!ObjectUtil.isEmpty(this.loanNature)) {
+             this.loanNatureSelected = true;
+             this.isTerminating = this.loanNature === 'Terminating';
+             this.isRevolving = this.loanNature === 'Revolving';
+             if (this.isRevolving) {
+               this.isGeneral = false;
+             }
+           }
+           if (!this.isFundable) {
+             this.isGeneral = false;
+           }
+           if (this.isFixedDeposit) {
+             this.loanNatureSelected = false;
+             this.fundableNonFundableSelcted = false;
+           }
+           this.proposalForm.get('proposedLimit').setValidators([Validators.required,
+             MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
+           this.proposalForm.get('proposedLimit').updateValueAndValidity();
+           if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+             this.interestLimit = response.detail.interestRate;
+           }
+           this.setCollateralRequirement(this.collateralRequirement);
+           // this.checkLoanConfig();
+           this.setValidatorForPrepaymentField();
+           if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+             this.existInterestLimit = response.detail.existInterestRate;
+           }
+         }, error => {
+           console.error(error);
+           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+         });
+       });
+ }
     this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
     .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
     this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
@@ -376,28 +382,6 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
-    if (!ObjectUtil.isEmpty(this.formValue)) {
-      this.proposalData = this.formValue;
-    }
-    this.proposalData.data = JSON.stringify(this.proposalForm.value);
-
-    const mergeChecked = {
-      solChecked: this.solChecked,
-      waiverChecked: this.waiverChecked,
-      riskChecked: this.riskChecked,
-      swapChargeChecked: this.swapChargeChecked,
-      subsidizedLoanChecked: this.subsidizedLoanChecked,
-      deviationChecked: this.deviationChecked,
-      commitmentChecked: this.commitmentChecked,
-      swapDoubleChargeChecked: this.swapDoubleChargeChecked,
-      prepaymentChargeChecked: this.prepaymentChargeChecked,
-      purposeChecked: this.purposeChecked,
-      debtChecked: this.debtChecked,
-      netChecked: this.netChecked,
-    };
-    this.proposalData.checkedData = JSON.stringify(mergeChecked);
-
-    // Proposed Limit value--
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
@@ -416,6 +400,46 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
     this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
     this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
+    if (!this.fromProfile) {
+      if (!ObjectUtil.isEmpty(this.formValue)) {
+        this.proposalData = this.formValue;
+      }
+      this.proposalData.data = JSON.stringify(this.proposalForm.value);
+
+      const mergeChecked = {
+        solChecked: this.solChecked,
+        waiverChecked: this.waiverChecked,
+        riskChecked: this.riskChecked,
+        swapChargeChecked: this.swapChargeChecked,
+        subsidizedLoanChecked: this.subsidizedLoanChecked,
+        deviationChecked: this.deviationChecked,
+        commitmentChecked: this.commitmentChecked,
+        swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+        prepaymentChargeChecked: this.prepaymentChargeChecked,
+        purposeChecked: this.purposeChecked,
+        debtChecked: this.debtChecked,
+        netChecked: this.netChecked,
+      };
+      this.proposalData.checkedData = JSON.stringify(mergeChecked);
+
+      // Proposed Limit value--
+    } else {
+      this.spinner.show();
+      this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
+      this.proposalData.data = JSON.stringify(this.proposalForm.value);
+      this.loan.proposal = this.proposalData;
+      this.loanFormService.save(this.loan).subscribe((response: any) => {
+        this.spinner.hide();
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
+        this.loan = response.detail;
+        this.emitter.emit(this.loan);
+      }, error => {
+        this.spinner.hide();
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
+      });
+    }
+
   }
 
   get formControls() {

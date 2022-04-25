@@ -778,8 +778,29 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             console.log('this is the data', this.customerInfo);
-            this.commonLoanData.patchValue(JSON.parse(this.customerInfo.commonLoanData));
+            const commonData = JSON.parse(this.customerInfo.commonLoanData);
+            this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+            if (!ObjectUtil.isEmpty(commonData.vehicle)) {
+                this.setFormData(commonData.vehicle, 'vehicle');
+            } else {
+                this.addKeyValue('vehicle');
+            }
+            if (!ObjectUtil.isEmpty(commonData.realState)) {
+                this.setFormData(commonData.realState, 'realState');
+            } else {
+                this.addKeyValue('realState');
+            }
+            if (!ObjectUtil.isEmpty(commonData.shares)) {
+                this.setFormData(commonData.shares, 'shares');
+            } else {
+                this.addKeyValue('shares');
+            }
+            if (!ObjectUtil.isEmpty(commonData.deposit)) {
+                this.setFormData(commonData.deposit, 'deposit');
+            } else {
+                this.addKeyValue('deposit');
+            }
         }
     }
 
@@ -810,23 +831,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 } else {
                     this.riskChecked = false;
                     this.commonLoanData.get('riskConclusionRecommendation').setValue(null);
-                }
-                break;
-            case 'swapCharge':
-                if (event) {
-                    this.swapChargeChecked = true;
-                } else {
-                    this.swapChargeChecked = false;
-                    this.commonLoanData.get('swapCharge').setValue(null);
-                }
-                break;
-            case 'subsidizedLoan':
-                if (event) {
-                    this.subsidizedLoanChecked = true;
-                } else {
-                    this.subsidizedLoanChecked = false;
-                    this.commonLoanData.get('subsidizedLoan').setValue(null);
-                    this.commonLoanData.get('subsidyLoanType').setValue(null);
                 }
                 break;
             case 'deviation':
@@ -881,7 +885,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             netChecked: this.netChecked,
         };
         this.commonLoanData.patchValue({
-            mergedChecked: JSON.stringify(mergeChecked)
+            mergedCheck: JSON.stringify(mergeChecked)
         });
         this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
         this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
@@ -896,6 +900,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
+        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
             this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
@@ -939,5 +944,16 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
     ngOnChanges(changes: SimpleChanges): void {
         this.buildProposalCommonForm();
+    }
+    setFormData(data, formControl) {
+        const form = this.commonLoanData.get(formControl) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                form.push(this.formBuilder.group({
+                    assets: [l.assets],
+                    amount: [l.amount]
+                }));
+            });
+        }
     }
 }

@@ -34,7 +34,11 @@ import {MGroup} from '../../../model/mGroup';
 import {Clients} from '../../../../../../environments/Clients';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Editor} from '../../../../../@core/utils/constants/editor';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
+import {ProposalComponent} from '../../../../loan-information-template/proposal/proposal.component';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {CompanyInfoService} from '../../../../admin/service/company-info.service';
+import {CompanyInfo} from '../../../../admin/modal/company-info';
 
 
 @Component({
@@ -108,7 +112,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     multipleSelectedLoanType = [];
     selectedLoanType;
     facilityType;
-    allId;
     loanForm: FormGroup;
     // Priority options--
     dropdownPriorities = [
@@ -141,6 +144,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private activatedRoute: ActivatedRoute,
                 private dialogService: NbDialogService,
                 private utilService: ProductUtilService,
+                private companyInfoService: CompanyInfoService,
+
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -553,6 +558,48 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             documentStatus: [undefined]
         });
 
+    }
+
+    applyLoans() {
+        const loan = new LoanDataHolder();
+        loan.priority = this.loanForm.get('priority').value;
+        loan.approvingLevel = this.loanForm.get('approvingLevel').value;
+        loan.creditRisk = this.loanForm.get('creditRisk').value;
+        loan.documentStatus = this.loanForm.get('documentStatus').value;
+        loan.loanType = this.selectedLoanType;
+        const loanConfig = new LoanConfig();
+        loanConfig.id = this.facilityType;
+        loan.loan = loanConfig;
+        loan.loanHolder = this.customerInfo;
+        // loan.loanType = LoanType.
+        if (!ObjectUtil.isEmpty(this.customer)) {
+            if (CustomerType[this.customer.customerType] === CustomerType.INDIVIDUAL) {
+               // @ts-ignore
+                loan.customerInfo = this.getCustomerInfos(this.customer.id);
+            } else {
+               // @ts-ignore
+                loan.companyInfo =  this.getCompanyInfo(this.customer.id);
+            }
+        }
+       const ref =  this.modalService.open(ProposalComponent, {size: 'xl', backdrop: true, scrollable: true});
+        ref.componentInstance.loan = loan;
+        ref.componentInstance.fromProfile = true;
+        ref.componentInstance.customerInfo = this.customerInfo;
+        ref.result.then((res) => {
+                console.log('this is response after loan saved', res);
+        });
+    }
+
+    getCustomerInfos(id){
+        this.customerService.detail(id).subscribe((res: any) => {
+            return  res.detail;
+        });
+    }
+
+    getCompanyInfo(id) {
+        this.companyInfoService.detail(id).subscribe((res: any) => {
+            return res.detail;
+        });
     }
 
 }
