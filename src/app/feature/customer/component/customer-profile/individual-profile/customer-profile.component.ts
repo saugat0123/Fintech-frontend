@@ -32,12 +32,23 @@ import {ProductUtilService} from '../../../../../@core/service/product-util.serv
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
 import {Clients} from '../../../../../../environments/Clients';
+import {DocStatus} from '../../../../loan/model/docStatus';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 
 @Component({
     selector: 'app-customer-profile',
     templateUrl: './customer-profile.component.html',
-    styleUrls: ['./customer-profile.component.scss']
+    styleUrls: ['./customer-profile.component.scss'],
+    animations: [
+        trigger('displayState', [
+            state('false', style({ overflow: 'hidden', height: '0px'})),
+            state('true', style({ overflow: 'hidden', height: '*'})),
+            transition('false => true', animate('200ms ease-in')),
+            transition('true => false', animate('200ms ease-out'))
+        ]),
+    ]
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('customerListGroupComponent', {static: false})
@@ -98,7 +109,24 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     selectedLoanType;
     facilityType;
     allId;
+    loanForm: FormGroup;
+    // Priority options--
+    dropdownPriorities = [
+        {id: 'HIGH', name: 'High'},
+        {id: 'MEDIUM', name: 'Medium'},
+        {id: 'LOW', name: 'Low'},
+
+    ];
+
+    dropdownApprovalLevel = [
+        {id: 'L1', name: 'L1'},
+        {id: 'L2', name: 'L2'},
+        {id: 'L3', name: 'L3'}
+    ];
+    docStatusMakerList = [];
     applyLoan = false;
+
+
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -112,7 +140,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private commonLocation: AddressService,
                 private activatedRoute: ActivatedRoute,
                 private dialogService: NbDialogService,
-                private utilService: ProductUtilService) {
+                private utilService: ProductUtilService,
+    ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
@@ -126,6 +155,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        this.buildLoanForm();
+        this.docStatusForMaker();
         this.associateId = this.route.snapshot.params.id;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -182,6 +213,16 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         }
     }
 
+    docStatusForMaker() {
+        DocStatus.values().forEach((value) => {
+            if (value === DocStatus.value(DocStatus.DISCUSSION) ||
+                value === DocStatus.value(DocStatus.DOCUMENTATION) ||
+                value === DocStatus.value(DocStatus.VALUATION) ||
+                value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+                this.docStatusMakerList.push(value);
+            }
+        });
+    }
     getCustomerInfo() {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
@@ -235,7 +276,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     openLoanApplyTemplate() {
-        this.routeToLoanForm();
+        this.applyLoan = !this.applyLoan;
+        // this.routeToLoanForm();
     }
 
     routeToLoanForm() {
@@ -503,4 +545,14 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
         });
     }
+    buildLoanForm() {
+        this.loanForm = this.formBuilder.group({
+            priority: [undefined],
+            approvingLevel: [undefined],
+            creditRisk: [undefined],
+            documentStatus: [undefined]
+        });
+
+    }
+
 }

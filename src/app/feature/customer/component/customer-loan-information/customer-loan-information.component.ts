@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {TemplateName} from '../../model/templateName';
 import {CustomerInfoService} from '../../service/customer-info.service';
@@ -46,13 +46,18 @@ import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
+import {DocStatus} from '../../../loan/model/docStatus';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-customer-loan-information',
     templateUrl: './customer-loan-information.component.html',
     styleUrls: ['./customer-loan-information.component.scss']
 })
-export class CustomerLoanInformationComponent implements OnInit {
+export class CustomerLoanInformationComponent implements OnInit, OnChanges {
+    
 
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
@@ -168,6 +173,20 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     nbDialogRef: NbDialogRef<any>;
     customer: Customer;
+    commonLoanData: FormGroup;
+    ckeConfig;
+    solChecked = false;
+    waiverChecked = false;
+    deviationChecked = false;
+    riskChecked = false;
+    commitmentChecked = false;
+    swapDoubleChargeChecked = false;
+    prepaymentChargeChecked = false;
+    purposeChecked = false;
+    debtChecked = false;
+    netChecked = false;
+    swapChargeChecked = false;
+    subsidizedLoanChecked = false;
 
     constructor(
         private toastService: ToastService,
@@ -175,14 +194,18 @@ export class CustomerLoanInformationComponent implements OnInit {
         private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
+        private nbService: NgbModal,
+        private formBuilder: FormBuilder
+
     ) {
     }
 
     ngOnInit() {
+        this.ckeConfig = Editor.CK_CONFIG;
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         this.customerService.detail(this.customerInfo.associateId).subscribe((res)=>{
             this.customer = res.detail;
-        })
+        });
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
             this.siteVisit = this.customerInfo.siteVisit;
         }
@@ -267,6 +290,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
             this.multiBankingResponse = this.customerInfo.multiBanking;
         }
+        this.buildProposalCommonForm();
     }
 
     get otherMicroDetailsVisibility() {
@@ -726,5 +750,194 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     update(data) {
         this.customerInfo = data;
+    }
+
+    buildProposalCommonForm() {
+        this.commonLoanData = this.formBuilder.group({
+            borrowerInformation: [undefined],
+            disbursementCriteria: [undefined],
+            repayment: [undefined],
+            remark: [undefined],
+            summeryRecommendation: [undefined],
+            waiverConclusionRecommendation: [undefined],
+            deviationConclusionRecommendation: [undefined],
+            solConclusionRecommendation: [undefined],
+            riskConclusionRecommendation: [undefined],
+            termsAndCondition: [undefined],
+            mergedCheck: [undefined],
+            shares: this.formBuilder.array([]),
+            realState: this.formBuilder.array([]),
+            vehicle: this.formBuilder.array([]),
+            deposit: this.formBuilder.array([]),
+            depositBank: [undefined],
+            depositOther: [undefined],
+            depositBankRemark: [undefined],
+            depositOtherRemark: [undefined],
+            total: [undefined],
+            totals: [undefined],
+        });
+        if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+            console.log('this is the data', this.customerInfo);
+            this.commonLoanData.patchValue(JSON.parse(this.customerInfo.commonLoanData));
+            this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+        }
+    }
+
+    openCadSetup(data) {
+        this.nbService.open(data, {size: 'xl', backdrop: true});
+    }
+    checkChecked(event, type) {
+        switch (type) {
+            case 'sol':
+                if (event) {
+                    this.solChecked = true;
+                } else {
+                    this.solChecked = false;
+                    this.commonLoanData.get('solConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'waiver':
+                if (event) {
+                    this.waiverChecked = true;
+                } else {
+                    this.waiverChecked = false;
+                    this.commonLoanData.get('waiverConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'risk':
+                if (event) {
+                    this.riskChecked = true;
+                } else {
+                    this.riskChecked = false;
+                    this.commonLoanData.get('riskConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'swapCharge':
+                if (event) {
+                    this.swapChargeChecked = true;
+                } else {
+                    this.swapChargeChecked = false;
+                    this.commonLoanData.get('swapCharge').setValue(null);
+                }
+                break;
+            case 'subsidizedLoan':
+                if (event) {
+                    this.subsidizedLoanChecked = true;
+                } else {
+                    this.subsidizedLoanChecked = false;
+                    this.commonLoanData.get('subsidizedLoan').setValue(null);
+                    this.commonLoanData.get('subsidyLoanType').setValue(null);
+                }
+                break;
+            case 'deviation':
+                if (event) {
+                    this.deviationChecked = true;
+                } else {
+                    this.deviationChecked = false;
+                    this.commonLoanData.get('deviationConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'commitment': {
+                this.commitmentChecked = event;
+            }
+                break;
+            case 'swapDoubleCharge': {
+                this.swapDoubleChargeChecked = event;
+            }
+                break;
+            case 'prepayment': {
+                this.prepaymentChargeChecked = event;
+            }
+                break;
+            case 'purpose': {
+                this.purposeChecked = event;
+            }
+                break;
+            case 'debt': {
+                this.debtChecked = event;
+            }
+                break;
+            case 'net': {
+                this.netChecked = event;
+            }
+                break;
+        }
+    }
+
+    saveCommonLoanData() {
+        this.spinner.show();
+        const mergeChecked = {
+            solChecked: this.solChecked,
+            waiverChecked: this.waiverChecked,
+            riskChecked: this.riskChecked,
+            swapChargeChecked: this.swapChargeChecked,
+            subsidizedLoanChecked: this.subsidizedLoanChecked,
+            deviationChecked: this.deviationChecked,
+            commitmentChecked: this.commitmentChecked,
+            swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+            prepaymentChargeChecked: this.prepaymentChargeChecked,
+            purposeChecked: this.purposeChecked,
+            debtChecked: this.debtChecked,
+            netChecked: this.netChecked,
+        };
+        this.commonLoanData.patchValue({
+            mergedChecked: JSON.stringify(mergeChecked)
+        });
+        this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
+        this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
+            this.customerInfo = res.detail;
+            this.nbDialogRef.close();
+            this.spinner.hide();
+            this.triggerCustomerRefresh.emit(true);
+        }, error => {
+            this.spinner.hide();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
+    }
+    setCheckedData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['solChecked'], 'sol');
+            this.checkChecked(data['waiverChecked'], 'waiver');
+            this.checkChecked(data['riskChecked'], 'risk');
+            this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+            this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
+            this.checkChecked(data['deviationChecked'], 'deviation');
+            this.checkChecked(data['commitmentChecked'], 'commitment');
+            this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
+            this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
+            this.checkChecked(data['purposeChecked'], 'purpose');
+            this.checkChecked(data['debtChecked'], 'debt');
+            this.checkChecked(data['netChecked'], 'net');
+        }
+    }
+    removeValue(formControl: string, index: number) {
+        (<FormArray>this.commonLoanData.get(formControl)).removeAt(index);
+    }
+    addKeyValue(formControl: string) {
+        (this.commonLoanData.get(formControl) as FormArray).push(
+            this.formBuilder.group({
+                assets: undefined,
+                amount: 0,
+            })
+        );
+    }
+    calculate() {
+        let total = this.commonLoanData.get('depositBank').value + this.commonLoanData.get('depositOther').value;
+        total += this.getArrayTotal('shares');
+        total += this.getArrayTotal('vehicle');
+        total += this.getArrayTotal('realState');
+        total += this.getArrayTotal('deposit');
+        this.commonLoanData.get('total').patchValue(total);
+    }
+    getArrayTotal(formControl): number {
+        let total = 0;
+        (this.commonLoanData.get(formControl).value).forEach((d, i) => {
+            total += d.amount;
+        });
+        return total;
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.buildProposalCommonForm();
     }
 }

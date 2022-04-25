@@ -414,25 +414,17 @@
 
         <nb-card accent="primary">
             <nb-card-header>
-                <div class="row">
-                    Apply Loan
 
-                    <!--                    <div class="float-right">-->
+                <div class="row float-right">
                     <div class="px-2">
                         <button (click)="openLoanApplyTemplate()" *ngIf="!isEdited && maker"
                                 nbButton size="small" type="button">Apply Loan
                         </button>
                     </div>
-                    <div class="px-2">
-                        <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                                nbButton size="small" type="button">Combine Loan
-                        </button>
-                    </div>
-                    <!--                    </div>-->
                 </div>
             </nb-card-header>
             <nb-card-body>
-                <div class="row">
+                <div class="row" [@displayState]="applyLoan" *ngIf="applyLoan">
                     <div class="col-md-4">
                         <select [(ngModel)]="selectedLoanType"
                                 class="form-control rounded" name="loanType" required>
@@ -452,15 +444,68 @@
                             </ng-container>
                         </select>
                     </div>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <div class="col-md-12">
+                    <form [formGroup]="loanForm">
+                        <div class="row" *ngIf="selectedLoanType && facilityType">
 
+                            <div class="col-md-3">
+                                <label><strong>Priority</strong></label>
+                                <ng-select [items]="dropdownPriorities"
+                                           [multiple]="false"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           formControlName="priority"
+                                >
+                                </ng-select>
+                                <div *ngIf="loanForm.get('priority').errors">
+                                    <small class="text-danger">
+                                        Priority is required!
+                                    </small>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <label><strong>Approving Level</strong></label>
+                                <ng-select [items]="dropdownApprovalLevel"
+                                           [multiple]="false"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           formControlName="approvingLevel"
+                                >
+                                </ng-select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label><strong>Credit Risk Grade</strong></label>
+                                <input type="number" nbInput formControlName="creditRisk" fullWidth>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label><strong>
+                                    <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
+                                    <!--                                Loan Type: {{loanType}}-->
+                                </strong></label>
+                                <ng-select [items]="docStatusMakerList"
+                                           [multiple]="false"
+                                           bindLabel="name"
+                                           bindValue="name"
+                                           formControlName="documentStatus">
+                                </ng-select>
+                            </div>
+                            <div class="col-md-1">
+                                <a (click)="applyLoans()" nbButton><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </nb-card-body>
         </nb-card>
 
 
-    </nb-card-body>
-    <nb-card-body>
-<!--        <app-loan-form *ngIf="this.applyLoan" [allId]="allId" ></app-loan-form>-->
     </nb-card-body>
 </nb-card>
 
