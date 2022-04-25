@@ -17,7 +17,8 @@ export class Section3FeesComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      PODPercentage: [undefined],
+      PODPercentage2: [undefined]
     });
   }
 }
