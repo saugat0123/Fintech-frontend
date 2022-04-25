@@ -13,7 +13,7 @@ import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
+// import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
@@ -498,13 +498,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const customerName = this.basicInfo.get('customerName').value;
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
-        const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
+        /*const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
         if (ObjectUtil.isEmpty(customerName) || ObjectUtil.isEmpty(citizenShipIssuedDate
             || ObjectUtil.isEmpty(citizenShipNo))) {
             modalRef.componentInstance.model = undefined;
         } else {
             modalRef.componentInstance.model = this.customer;
-        }
+        }*/
     }
 
     private getAllDistrict() {
