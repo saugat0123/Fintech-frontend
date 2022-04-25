@@ -8,35 +8,35 @@
                         लिखितम धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ
                         महानगरपालिका कमलादि स्थित नविल हाउसमा मुख्य कार्यालय रहिएको
                         <span [ngClass]="{'nepaliFont outside' : letterData?.branchName !== null && letterData?.branchName !== ''}">
-                            {{letterData?.branchName === null || letterData?.branchName === '' ? '___________' : letterData?.branchName}}
+                            {{letterData?.branchName === null || letterData?.branchName === '' ? '======================' : letterData?.branchName}}
                         </span>
                         शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक भनिएको छ) लिखत गरी दिने ऋणीका नाम
                         <span [ngClass]="{'nepaliFont outside' : letterData?.grandFatherName !== null && letterData?.grandFatherName !== ''}">
-                            {{letterData?.grandFatherName === null || letterData?.grandFatherName === '' ? '___________' : letterData?.grandFatherName}}
+                            {{letterData?.grandFatherName === null || letterData?.grandFatherName === '' ? '======================' : letterData?.grandFatherName}}
                         </span>
                         को नाति
                         <span [ngClass]="{'nepaliFont outside' : letterData?.fatherName !== null && letterData?.fatherName !== ''}">
-                            {{letterData?.fatherName === null || letterData?.fatherName === '' ? '___________' : letterData?.fatherName}}
+                            {{letterData?.fatherName === null || letterData?.fatherName === '' ? '======================' : letterData?.fatherName}}
                         </span>
                         को छोरा
                         <span [ngClass]="{'nepaliFont outside' : letterData?.District !== null && letterData?.District !== ''}">
-                            {{letterData?.District === null || letterData?.District === '' ? '___________' : letterData?.District}}
+                            {{letterData?.District === null || letterData?.District === '' ? '======================' : letterData?.District}}
                         </span>
                         जिल्ला
                         <span [ngClass]="{'nepaliFont outside' : letterData?.Municipality !== null && letterData?.Municipality !== ''}">
-                            {{letterData?.Municipality === null || letterData?.Municipality === '' ? '___________' : letterData?.Municipality}}
+                            {{letterData?.Municipality === null || letterData?.Municipality === '' ? '======================' : letterData?.Municipality}}
                         </span>
                         उपमहानगरपालिका वडा नंं.
                         <span [ngClass]="{'nepaliFont outside' : letterData?.WadNo !== null && letterData?.WadNo !== ''}">
-                            {{letterData?.WadNo === null || letterData?.WadNo === '' ? '___________' : letterData?.WadNo}}
+                            {{letterData?.WadNo === null || letterData?.WadNo === '' ? '======================' : letterData?.WadNo}}
                         </span>
                         बस्ने बर्ष
                         <span [ngClass]="{'nepaliFont outside' : letterData?.age !== null && letterData?.age !== ''}">
-                            {{letterData?.age === null || letterData?.age === '' ? '___________' : letterData?.age}}
+                            {{letterData?.age === null || letterData?.age === '' ? '======================' : letterData?.age}}
                         </span>
                         को
                         <span [ngClass]="{'nepaliFont outside' : letterData?.borrowerName !== null && letterData?.borrowerName !== ''}">
-                            {{letterData?.borrowerName === null || letterData?.borrowerName === '' ? '___________' : letterData?.borrowerName}}
+                            {{letterData?.borrowerName === null || letterData?.borrowerName === '' ? '======================' : letterData?.borrowerName}}
                         </span>
                         (जसलाई यसपछि ऋणी भनिएको छ) आगे म ऋणीलाई
 <!--                        यस अघि देखि नै तपाईं धनी बैंकसंग-->
@@ -45,7 +45,7 @@
                         ऋणकर्जा सुविधा आवश्यक भई सोको लागि तपाई धनी बैंकसंग अनुरोध
                         गरेकोमा तपाई धनी बैंकले म ऋणीको नाउंमा जारी गरेको मिति
                         <span [ngClass]="{'nepaliFont outside' : letterData?.issueDate !== null && letterData?.issueDate !== ''}">
-                            {{letterData?.issueDate === null || letterData?.issueDate === '' ? '___________' : letterData?.issueDate}}
+                            {{letterData?.issueDate === null || letterData?.issueDate === '' ? '======================' : letterData?.issueDate}}
                         </span>
                         को समेतको ऋण स्वीकृति पत्रानुसार स्वीकृत निम्नानुसारका ऋणकर्जा तथा बैंकिग सुविधाहरु
                         सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक
@@ -91,22 +91,22 @@
                         <tr>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.facilityName !== null && letterData?.facilityName !== ''}">
-                                    {{letterData?.facilityName === null || letterData?.facilityName === '' ? '___________' : letterData?.facilityName}}
+                                    {{letterData?.facilityName === null || letterData?.facilityName === '' ? '======================' : letterData?.facilityName}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.loanAmount !== null && letterData?.loanAmount !== ''}">
-                                    {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '___________' : letterData?.loanAmount}}
+                                    {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '======================' : letterData?.loanAmount}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.Interest !== null && letterData?.Interest !== ''}">
-                                    {{letterData?.Interest === null || letterData?.Interest === '' ? '___________' : letterData?.Interest}}
+                                    {{letterData?.Interest === null || letterData?.Interest === '' ? '======================' : letterData?.Interest}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.expiryDate !== null && letterData?.expiryDate !== ''}">
-                                    {{letterData?.expiryDate === null || letterData?.expiryDate === '' ? '___________' : letterData?.expiryDate}}
+                                    {{letterData?.expiryDate === null || letterData?.expiryDate === '' ? '======================' : letterData?.expiryDate}}
                                 </span>
                             </td>
                         </tr>
@@ -117,11 +117,11 @@
                     <div>
                         <p>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.
                             <span [ngClass]="{'nepaliFont outside' : letterData?.totalLoanAmount !== null && letterData?.totalLoanAmount !== ''}">
-                                {{letterData?.totalLoanAmount === null || letterData?.totalLoanAmount === '' ? '___________' : letterData?.totalLoanAmount}}
+                                {{letterData?.totalLoanAmount === null || letterData?.totalLoanAmount === '' ? '======================' : letterData?.totalLoanAmount}}
                             </span>।
                             (अक्षरेपी
                             <span [ngClass]="{'nepaliFont outside' : letterData?.totalLoanAmountWord !== null && letterData?.totalLoanAmountWord !== ''}">
-                                {{letterData?.totalLoanAmountWord === null || letterData?.totalLoanAmountWord === '' ? '___________' : letterData?.totalLoanAmountWord}}
+                                {{letterData?.totalLoanAmountWord === null || letterData?.totalLoanAmountWord === '' ? '======================' : letterData?.totalLoanAmountWord}}
                             </span>)
                         </p>
                     </div>
@@ -147,64 +147,64 @@
                         <tr>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.propertyOwnerName1 !== null && letterData?.propertyOwnerName1 !== ''}">
-                                    {{letterData?.propertyOwnerName1 === null || letterData?.propertyOwnerName1 === '' ? '___________' : letterData?.propertyOwnerName1}}
+                                    {{letterData?.propertyOwnerName1 === null || letterData?.propertyOwnerName1 === '' ? '======================' : letterData?.propertyOwnerName1}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.District1 !== null && letterData?.District1 !== ''}">
-                                    {{letterData?.District1 === null || letterData?.District1 === '' ? '___________' : letterData?.District1}}
+                                    {{letterData?.District1 === null || letterData?.District1 === '' ? '======================' : letterData?.District1}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.Municipality1 !== null && letterData?.Municipality1 !== ''}">
-                                    {{letterData?.Municipality1 === null || letterData?.Municipality1 === '' ? '___________' : letterData?.Municipality1}}
+                                    {{letterData?.Municipality1 === null || letterData?.Municipality1 === '' ? '======================' : letterData?.Municipality1}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.WadNo1 !== null && letterData?.WadNo1 !== ''}">
-                                    {{letterData?.WadNo1 === null || letterData?.WadNo1 === '' ? '___________' : letterData?.WadNo1}}
+                                    {{letterData?.WadNo1 === null || letterData?.WadNo1 === '' ? '======================' : letterData?.WadNo1}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.plotNo1 !== null && letterData?.plotNo1 !== ''}">
-                                    {{letterData?.plotNo1 === null || letterData?.plotNo1 === '' ? '___________' : letterData?.plotNo1}}
+                                    {{letterData?.plotNo1 === null || letterData?.plotNo1 === '' ? '======================' : letterData?.plotNo1}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.area1 !== null && letterData?.area1 !== ''}">
-                                    {{letterData?.area1 === null || letterData?.area1 === '' ? '___________' : letterData?.area1}}
+                                    {{letterData?.area1 === null || letterData?.area1 === '' ? '======================' : letterData?.area1}}
                                 </span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.propertyOwnerName2 !== null && letterData?.propertyOwnerName2 !== ''}">
-                                    {{letterData?.propertyOwnerName2 === null || letterData?.propertyOwnerName2 === '' ? '___________' : letterData?.propertyOwnerName2}}
+                                    {{letterData?.propertyOwnerName2 === null || letterData?.propertyOwnerName2 === '' ? '======================' : letterData?.propertyOwnerName2}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.District2 !== null && letterData?.District2 !== ''}">
-                                    {{letterData?.District2 === null || letterData?.District2 === '' ? '___________' : letterData?.District2}}
+                                    {{letterData?.District2 === null || letterData?.District2 === '' ? '======================' : letterData?.District2}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.Municipality2 !== null && letterData?.Municipality2 !== ''}">
-                                    {{letterData?.Municipality2 === null || letterData?.Municipality2 === '' ? '___________' : letterData?.Municipality2}}
+                                    {{letterData?.Municipality2 === null || letterData?.Municipality2 === '' ? '======================' : letterData?.Municipality2}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.WadNo2 !== null && letterData?.WadNo2 !== ''}">
-                                    {{letterData?.WadNo2 === null || letterData?.WadNo2 === '' ? '___________' : letterData?.WadNo2}}
+                                    {{letterData?.WadNo2 === null || letterData?.WadNo2 === '' ? '======================' : letterData?.WadNo2}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.plotNo2 !== null && letterData?.plotNo2 !== ''}">
-                                    {{letterData?.plotNo2 === null || letterData?.plotNo2 === '' ? '___________' : letterData?.plotNo2}}
+                                    {{letterData?.plotNo2 === null || letterData?.plotNo2 === '' ? '======================' : letterData?.plotNo2}}
                                 </span>
                             </td>
                             <td>
                                 <span [ngClass]="{'nepaliFont outside' : letterData?.area2 !== null && letterData?.area2 !== ''}">
-                                    {{letterData?.area2 === null || letterData?.area2 === '' ? '___________' : letterData?.area2}}
+                                    {{letterData?.area2 === null || letterData?.area2 === '' ? '======================' : letterData?.area2}}
                                 </span>
                             </td>
                         </tr>
@@ -217,18 +217,18 @@
                     <div>
                         <p>
                             ईति सम्वत् २०<span [ngClass]="{'nepaliFont outside sizefont' : letterData?.year !== null && letterData?.year !== ''}">
-                                {{letterData?.year === null || letterData?.year === '' ? '___________' : letterData?.year}}
+                                {{letterData?.year === null || letterData?.year === '' ? '======================' : letterData?.year}}
                             </span>
                             <span [ngClass]="{'nepaliFont outside sizefont' : letterData?.month !== null && letterData?.month !== ''}">
-                                {{letterData?.month === null || letterData?.month === '' ? '___________' : letterData?.month}}
+                                {{letterData?.month === null || letterData?.month === '' ? '======================' : letterData?.month}}
                             </span>
                             महिना
                             <span [ngClass]="{'nepaliFont outside sizefont' : letterData?.day !== null && letterData?.day !== ''}">
-                                {{letterData?.day === null || letterData?.day === '' ? '___________' : letterData?.day}}
+                                {{letterData?.day === null || letterData?.day === '' ? '======================' : letterData?.day}}
                             </span>
                             गते रोज
                             <span [ngClass]="{'nepaliFont outside sizefont' : letterData?.time !== null && letterData?.time !== ''}">
-                                {{letterData?.time === null || letterData?.time === '' ? '___________' : letterData?.time}}
+                                {{letterData?.time === null || letterData?.time === '' ? '======================' : letterData?.time}}
                             </span>
                             शुभम् ।
                         </p>
