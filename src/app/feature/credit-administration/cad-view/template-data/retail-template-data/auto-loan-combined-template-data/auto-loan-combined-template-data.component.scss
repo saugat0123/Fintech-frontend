@@ -1,0 +1,12 @@
+@import "../../../template-data/template-data.component";
+
+.fieldMargin {
+  margin-top: 28px;
+}
+
+.readOnly {
+  background-color:#f5f5f5;
+  border-color:#ddd;
+  cursor:not-allowed;
+  pointer-events: none;
+}

@@ -39,6 +39,15 @@ import {
 } from '../../../cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {SmeSecurityComponent} from '../nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
+import {AutoLoanCombinedTemplateDataComponent} from './auto-loan-combined-template-data/auto-loan-combined-template-data.component';
+import {HomeLoanCombinedTemplateDataComponent} from './home-loan-combined-template-data/home-loan-combined-template-data.component';
+import {NabilSahayatriKarjaCombinedComponent} from './nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
+import {PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent} from './personal-overdraft-without-collateral-combined-template-data/personal-overdraft-without-collateral-combined-template-data.component';
+import {RetailMasterSecurityComponent} from './retail-master-security/retail-master-security.component';
+import {NabilShareLoanPodTemplateDataComponent} from './nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
+import {ShareLoanDemandTemplateDataComponent} from './share-loan-demand-template-data/share-loan-demand-template-data.component';
+import {RetailCombinedRequiredDocumentComponent} from './retail-combined-required-document/retail-combined-required-document.component';
+import {ExistingLoanTemplateDataComponent} from './existing-loan-template-data/existing-loan-template-data.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -51,6 +60,7 @@ export class RetailTemplateDataComponent implements OnInit {
   @Input() initialInformation: any;
   @Input() isEdit = false;
   @ViewChild('retailGlobalContent', {static: false}) retailGlobalContent: RetailGlobalContentComponent;
+  @ViewChild('existingLoanContent', {static: false}) existingLoanContent: ExistingLoanTemplateDataComponent;
   @ViewChild('personalLoanCombined', {static: false})
   personalLoanCombined: PersonalLoanCombinedTemplateDataComponent;
   @ViewChild('personalOverdraftCombined', {static: false})
@@ -59,11 +69,23 @@ export class RetailTemplateDataComponent implements OnInit {
   educationLoanCombined: EducationLoanCombinedTemplateDataComponent;
   @ViewChild('mortgageLoanCombined', {static: false})
   mortgageLoanCombined: MortgageLoanCombinedTemplateDataComponent;
+  @ViewChild('autoLoanCombined', {static: false})
+  autoLoanCombined: AutoLoanCombinedTemplateDataComponent;
+  @ViewChild('homeLoanCombined', {static: false})
+  homeLoanCombined: HomeLoanCombinedTemplateDataComponent;
+  @ViewChild('sahayatriCombined', {static: false})
+  sahayatriCombined: NabilSahayatriKarjaCombinedComponent;
+  @ViewChild('personalOverDraftWithoutCollateralCombined', {static: false})
+  personalOverDraftWithoutCollateralCombined: PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent;
+  @ViewChild('nabilShareLoanCombined', {static: false})
+  nabilShareLoanCombined: NabilShareLoanPodTemplateDataComponent;
+  @ViewChild('shareLoanDemandCombined', {static: false})
+  shareLoanDemandCombined: ShareLoanDemandTemplateDataComponent;
 
   @ViewChild('masterSecurity', {static: false})
-  smeSecurityComponent: SmeSecurityComponent;
+  retailSecurityComponent: RetailMasterSecurityComponent;
   @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
-  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
+  requiredLegalDocumentSectionComponent: RetailCombinedRequiredDocumentComponent;
 
   offerLetterConst = NabilOfferLetterConst;
 
@@ -82,6 +104,11 @@ export class RetailTemplateDataComponent implements OnInit {
   isHomeLoan = false;
   isEducationLoan = false;
   isPersonalAndPersonalOverdraft = false;
+  isAutoLoan = false;
+  isNabilSahayatri = false;
+  isPersonalOverDraftWithoutCollateral = false;
+  isNabilShareLoan = false;
+  isShareLoanDemand = false;
   globalBaseRate: any;
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -132,6 +159,21 @@ export class RetailTemplateDataComponent implements OnInit {
         }
         if (v === 'HOME LOAN COMBINED') {
           this.isHomeLoan = true;
+        }
+        if (v === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
+        }
+        if (v === 'NABIL SAHAYATRI KARJA') {
+          this.isNabilSahayatri = true;
+        }
+        if (v === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          this.isPersonalOverDraftWithoutCollateral = true;
+        }
+        if (v === 'NABIL SHARE LOAN POD COMBINED') {
+          this.isNabilShareLoan = true;
+        }
+        if (v === 'SHARE LOAN DEMAND COMBINED') {
+          this.isShareLoanDemand = true;
         }
       });
     }
@@ -206,6 +248,7 @@ export class RetailTemplateDataComponent implements OnInit {
   }
   private getLoanTemplateFormValue(): string {
     const retailGlobalForm = this.retailGlobalContent.globalForm.value;
+    const existingLoanForm = this.existingLoanContent.existingLoanCombinedForm.value;
     let personalOverdraftForm;
     if (this.isPersonalOverdraftLoan) {
       personalOverdraftForm = this.personalOverdraftCombined.personalOverdraftCombinedForm.value;
@@ -226,7 +269,37 @@ export class RetailTemplateDataComponent implements OnInit {
       educationLoanForm = this.educationLoanCombined.educationLoanCombinedForm.value;
     }
 
-    const securityData = this.smeSecurityComponent.setSecurityData();
+    let autoLoanForm;
+    if (this.isAutoLoan) {
+      autoLoanForm = this.autoLoanCombined.autoLoanCombinedForm.value;
+    }
+
+    let homeLoanForm;
+    if (this.isHomeLoan) {
+      homeLoanForm = this.homeLoanCombined.homeLoanCombinedForm.value;
+    }
+
+    let nabilSahayatriForm;
+    if (this.isNabilSahayatri) {
+      nabilSahayatriForm = this.sahayatriCombined.nabilSahayatriCombinedForm.value;
+    }
+
+    let personalOverDraftWithoutCollateralForm;
+    if (this.isPersonalOverDraftWithoutCollateral) {
+      // tslint:disable-next-line:max-line-length
+      personalOverDraftWithoutCollateralForm = this.personalOverDraftWithoutCollateralCombined.personalOverDraftWithoutCollateralCombinedForm.value;
+    }
+
+    let shareLoanDemandForm;
+    if (this.isShareLoanDemand) {
+      shareLoanDemandForm = this.shareLoanDemandCombined.shareLoanDemandCombinedForm.value;
+    }
+
+    let nabilShareLoanPODForm;
+    if (this.isNabilShareLoan) {
+      nabilShareLoanPODForm = this.nabilShareLoanCombined.nabilShareLoanPODForm.value;
+    }
+    const securityData = this.retailSecurityComponent.setSecurityData();
     let securityForm;
     if (!ObjectUtil.isEmpty(securityData)) {
       securityForm = securityData;
@@ -236,10 +309,17 @@ export class RetailTemplateDataComponent implements OnInit {
 
     const retailCombinedForm = {
       retailGlobalForm: retailGlobalForm,
+      existingLoanForm: existingLoanForm,
       educationLoanForm: educationLoanForm,
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,
       personalLoanCombinedForm: personalLoanCombinedForm,
+      autoLoanCombinedForm: autoLoanForm,
+      homeLoanCombinedForm: homeLoanForm,
+      nabilSahayatriCombinedForm: nabilSahayatriForm,
+      personalOverDraftWithoutCollateralCombinedForm: personalOverDraftWithoutCollateralForm,
+      nabilShareLoanPODForm: nabilShareLoanPODForm,
+      shareLoanDemandCombinedForm: shareLoanDemandForm,
       securities: securityForm,
       requiredLegalDocument: requiredLegalDocument,
     };

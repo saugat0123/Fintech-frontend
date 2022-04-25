@@ -114,6 +114,30 @@
                                status="success" type="text">
                     </div>
                 </div>
+                <div class="row" *ngIf="this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'TD' &&
+                this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                        <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
+                               nbInput
+                               (input)="calInterestRate(i)"
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
                 <div class="row" *ngIf="this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>

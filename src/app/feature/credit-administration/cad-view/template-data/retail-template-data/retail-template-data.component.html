@@ -7,6 +7,9 @@
     <nb-card-body>
         <app-retail-global-content #retailGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                 [isEdit]="isEdit" (globalBaseRateRetail)="getBaseRate($event)"></app-retail-global-content>
+        <app-existing-loan-template-data #existingLoanContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                         [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                [isEdit]="isEdit" [globalBaseRate]="globalBaseRate"></app-existing-loan-template-data>
         <!-- Type of sme loan start here-->
         <ng-container *ngIf="isPersonalLoan">
             <app-personal-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
@@ -36,14 +39,59 @@
                                                       [globalBaseRate]="globalBaseRate">
             </app-mortgage-loan-combined-template-data>
         </ng-container>
+        <ng-container *ngIf="isAutoLoan">
+            <app-auto-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                       #autoLoanCombined [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
+            </app-auto-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isHomeLoan">
+            <app-home-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #homeLoanCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-home-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isNabilSahayatri">
+            <app-nabil-sahayatri-karja-combined [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #sahayatriCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-nabil-sahayatri-karja-combined>
+        </ng-container>
+
+        <ng-container *ngIf="isPersonalOverDraftWithoutCollateral">
+            <app-personal-overdraft-without-collateral-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #personalOverDraftWithoutCollateralCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-personal-overdraft-without-collateral-combined-template-data>
+        </ng-container>
+
+        <ng-container *ngIf="isNabilShareLoan">
+            <app-nabil-share-loan-pod-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #nabilShareLoanCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-nabil-share-loan-pod-template-data>
+        </ng-container>
+
+        <ng-container *ngIf="isShareLoanDemand">
+            <app-share-loan-demand-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #shareLoanDemandCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-share-loan-demand-template-data>
+        </ng-container>
         <!-- Type of sme loan end here-->
-        <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
-                          [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-security>
+        <app-retail-master-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
+                          [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-retail-master-security>
     </nb-card-body>
     <nb-card-footer>
         <!-- Required Document Section -->
-        <app-required-legal-document-section #requiredLegalDocumentSectionComponent
-                                             [initialInformation]="initialInformation"></app-required-legal-document-section>
+        <app-retail-combined-required-document #requiredLegalDocumentSectionComponent
+                                             [initialInformation]="initialInformation"></app-retail-combined-required-document>
         <div class="row">
             <div class="col-md-12">
                 <button class="float-right" *ngIf="!isEdit" nbButton size="small" (click)="openCloseTemplate(confirm)"
