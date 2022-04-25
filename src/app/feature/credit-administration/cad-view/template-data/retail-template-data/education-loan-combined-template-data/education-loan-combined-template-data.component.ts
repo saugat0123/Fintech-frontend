@@ -109,6 +109,7 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       purposeOfLoan: [undefined],
+      baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
       marginInPercentage: [undefined],
@@ -128,6 +129,7 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       loanAmountInFigureTrans: [undefined],
       loanAmountInWordsTrans: [undefined],
       purposeOfLoanTrans: [undefined],
+      baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
       marginInPercentageTrans: [undefined],
@@ -147,6 +149,7 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       loanAmountInFigureCT: [undefined],
       loanAmountInWordsCT: [undefined],
       purposeOfLoanCT: [undefined],
+      baseRateCT: [undefined],
       premiumRateCT: [undefined],
       interestRateCT: [undefined],
       marginInPercentageCT: [undefined],
@@ -189,13 +192,21 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
 
   calInterestRate(i) {
     let baseRate;
-    if (!ObjectUtil.isEmpty(this.globalBaseRate)) {
-      baseRate = this.globalBaseRate;
-    } else {
-      baseRate = (!ObjectUtil.isEmpty(this.initialInformation) && !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm) &&
-          !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.baseRate)) ?
-          this.initialInformation.retailGlobalForm.baseRate : 0;    }
-    const premiumRate =  this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'premiumRate']).value;
+    if (this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'TD') {
+      baseRate = this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRate']).value ?
+          this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRate']).value : '';
+    }
+    if (this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value !== 'TD') {
+      if (!ObjectUtil.isEmpty(this.globalBaseRate)) {
+        baseRate = this.globalBaseRate;
+      } else {
+        baseRate = (!ObjectUtil.isEmpty(this.initialInformation) && !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm) &&
+            !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.baseRate)) ?
+            this.initialInformation.retailGlobalForm.baseRate : 0;
+      }
+    }
+    const premiumRate =  this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'premiumRate']).value ?
+        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'premiumRate']).value : '';
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'interestRate']).patchValue(sum);
   }
@@ -247,6 +258,13 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
           this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'marginInPercentageTrans']).value);
     }
 
+    const convertBaseRate = this.convertNumbersToNepali(this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRate']).value ?
+        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRate']).value.toFixed(2) : '', false);
+    if (!ObjectUtil.isEmpty(convertBaseRate)) {
+      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRateTrans']).patchValue(convertBaseRate);
+      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRateCT']).patchValue(
+          this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'baseRateTrans']).value);
+    }
     const convertPremiumRate = this.convertNumbersToNepali(this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'premiumRate']).value ?
         this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'premiumRate']).value.toFixed(2) : '', false);
     if (!ObjectUtil.isEmpty(convertPremiumRate)) {
