@@ -639,6 +639,22 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="financingPerOfFmv"><strong>Financing % of FMV</strong></label>
+                                        <input
+                                                class="form-control"
+                                                formControlName="financingPerOfFmv" id="financingPerOfFmv"
+                                                name="financingPerOfFmv"
+                                                placeholder="Financing % of FMV" type="number" appDecimalNumber/>
+                                        <!--                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"-->
+                                        <!--                         class="invalid-feedback">-->
+                                        <!--                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>-->
+                                        <!--                    </div>-->
+
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
