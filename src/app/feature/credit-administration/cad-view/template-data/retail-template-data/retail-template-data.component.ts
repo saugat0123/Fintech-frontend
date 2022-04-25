@@ -47,6 +47,7 @@ import {RetailMasterSecurityComponent} from './retail-master-security/retail-mas
 import {NabilShareLoanPodTemplateDataComponent} from './nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
 import {ShareLoanDemandTemplateDataComponent} from './share-loan-demand-template-data/share-loan-demand-template-data.component';
 import {RetailCombinedRequiredDocumentComponent} from './retail-combined-required-document/retail-combined-required-document.component';
+import {ExistingLoanTemplateDataComponent} from './existing-loan-template-data/existing-loan-template-data.component';
 
 @Component({
   selector: 'app-retail-template-data',
@@ -59,6 +60,7 @@ export class RetailTemplateDataComponent implements OnInit {
   @Input() initialInformation: any;
   @Input() isEdit = false;
   @ViewChild('retailGlobalContent', {static: false}) retailGlobalContent: RetailGlobalContentComponent;
+  @ViewChild('existingLoanContent', {static: false}) existingLoanContent: ExistingLoanTemplateDataComponent;
   @ViewChild('personalLoanCombined', {static: false})
   personalLoanCombined: PersonalLoanCombinedTemplateDataComponent;
   @ViewChild('personalOverdraftCombined', {static: false})
@@ -246,6 +248,7 @@ export class RetailTemplateDataComponent implements OnInit {
   }
   private getLoanTemplateFormValue(): string {
     const retailGlobalForm = this.retailGlobalContent.globalForm.value;
+    const existingLoanForm = this.existingLoanContent.existingLoanCombinedForm.value;
     let personalOverdraftForm;
     if (this.isPersonalOverdraftLoan) {
       personalOverdraftForm = this.personalOverdraftCombined.personalOverdraftCombinedForm.value;
@@ -306,6 +309,7 @@ export class RetailTemplateDataComponent implements OnInit {
 
     const retailCombinedForm = {
       retailGlobalForm: retailGlobalForm,
+      existingLoanForm: existingLoanForm,
       educationLoanForm: educationLoanForm,
       personalOverdraftCombinedForm: personalOverdraftForm,
       mortgageCombineForm: mortgageCombineForm,

@@ -152,6 +152,7 @@ import { RetailSecondarySecurityComponent } from './cad-view/template-data/retai
 import { NabilShareLoanPodTemplateDataComponent } from './cad-view/template-data/retail-template-data/nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
 import { ShareLoanDemandTemplateDataComponent } from './cad-view/template-data/retail-template-data/share-loan-demand-template-data/share-loan-demand-template-data.component';
 import { RetailCombinedRequiredDocumentComponent } from './cad-view/template-data/retail-template-data/retail-combined-required-document/retail-combined-required-document.component';
+import { ExistingLoanTemplateDataComponent } from './cad-view/template-data/retail-template-data/existing-loan-template-data/existing-loan-template-data.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -288,7 +289,9 @@ import { RetailCombinedRequiredDocumentComponent } from './cad-view/template-dat
         RetailSecondarySecurityComponent,
         NabilShareLoanPodTemplateDataComponent,
         ShareLoanDemandTemplateDataComponent,
-        RetailCombinedRequiredDocumentComponent],
+        RetailCombinedRequiredDocumentComponent,
+        PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent,
+        ExistingLoanTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
