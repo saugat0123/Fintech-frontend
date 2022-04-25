@@ -130,10 +130,12 @@
                                            placeholder="Bank Name"
                                            type="text"/></td>
                                 <td>
-                                    <input class="form-control text-center"
-                                           formControlName="facilityName"
-                                           placeholder="Facility Name"
-                                           type="text"/>
+                                    <nb-select formControlName="facilityName">
+                                        <nb-option [value]="null">Select Facility</nb-option>
+                                        <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
+                                            {{ll?.name}}
+                                        </nb-option>
+                                    </nb-select>
                                 </td>
                                 <td><input class="form-control text-center"
                                            formControlName="limit"

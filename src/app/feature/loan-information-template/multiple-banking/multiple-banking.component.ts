@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MultipleBanking} from '../../admin/modal/multipleBanking';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {CustomerType} from '../../customer/model/customerType';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-multiple-banking',
@@ -13,17 +16,27 @@ export class MultipleBankingComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Input() multiBankingData: MultipleBanking;
     @Output() multiBankingDataEmitter = new EventEmitter();
+    customerType: CustomerType;
     calendarType = 'AD';
     multiBankingForm: FormGroup;
     multiBanking: MultipleBanking = new MultipleBanking();
     bankName = ['CCBL', 'Other Banks'];
     financialArrange = ['None', 'Sole', 'Multiple Banking', 'Consortium'];
     swapChecked = false;
+    loanList = [];
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private loanConfigService: LoanConfigService,
+                private router: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.router.queryParams.subscribe((res: any) => {
+           this.customerType = res.customerType;
+        });
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((res: any) => {
+            this.loanList = res.detail;
+        });
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             const multiData = JSON.parse(this.multiBankingData.data);

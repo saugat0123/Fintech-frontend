@@ -527,7 +527,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #dataFromMultiBanking>
+      <nb-accordion-item #dataFromMultiBanking *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
