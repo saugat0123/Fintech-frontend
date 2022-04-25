@@ -50,7 +50,7 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {CommonAddressComponent} from '../../../../common-address/common-address.component';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+// import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 // import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
@@ -71,7 +71,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
-    @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
+    // @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
     microCustomer = false;

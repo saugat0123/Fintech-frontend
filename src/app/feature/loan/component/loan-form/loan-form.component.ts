@@ -19,14 +19,14 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
-import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
+// import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
-import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
-import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
+// import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
+// import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {SecurityComponent} from '../../../loan-information-template/security/security.component';
+// import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanDocumentComponent} from '../../../loan-information-template/customer-loan-document/customer-loan-document.component';
 import {DocStatus} from '../../model/docStatus';
@@ -41,19 +41,19 @@ import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder'
 import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 // import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
-import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+// import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
+// import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
-import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
+// import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 // import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
-import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+// import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+// import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 // import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
@@ -157,7 +157,7 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('proposalInfo', {static: false})
   proposalDetail: ProposalComponent;
 
-  @ViewChild('cicl', {static: false})
+  /*@ViewChild('cicl', {static: false})
   cicl: CiclComponent;
 
   @ViewChild('creditGrading', {static: false})
@@ -169,8 +169,8 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('creditRiskGradingLambda', {static: false})
   creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
-  /*@ViewChild('crgMicro', {static: false})
-  crgMicro: CrgMicroComponent;*/
+  @ViewChild('crgMicro', {static: false})
+  crgMicro: CrgMicroComponent;
 
   @ViewChild('crgGamma', {static: false})
   crgGamma: CreditRiskGradingGammaComponent;
@@ -183,24 +183,24 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('security', {static: false})
   security: SecurityComponent;
-
+*/
   @ViewChild('customerDocument', {static: false})
   customerDocument: CustomerLoanDocumentComponent;
 
   @ViewChild('group', {static: false})
   group: GroupComponent;
 
-  // @ViewChild('guarantor', {static: false})
-  // guarantorComponent: GuarantorAdderComponent;
+  /*@ViewChild('guarantor', {static: false})
+  guarantorComponent: GuarantorAdderComponent;
 
-  // @ViewChild('reportingInfoTagging', {static: false})
-  // reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
+  @ViewChild('reportingInfoTagging', {static: false})
+  reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
   @ViewChild('insurance', {static: false})
   insuranceComponent: InsuranceComponent;
 
-  // @ViewChild('microProposalInfo', {static: false})
-  // microProposalInfo: MicroProposalComponent;
+  @ViewChild('microProposalInfo', {static: false})
+  microProposalInfo: MicroProposalComponent;*/
 
   loanTag: string;
   loanHolder = new CustomerInfoData();
@@ -642,7 +642,7 @@ export class LoanFormComponent implements OnInit {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
     }*/
-    if (name === 'Credit Risk Grading - Alpha' && action) {
+    /*if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
     }
@@ -650,17 +650,17 @@ export class LoanFormComponent implements OnInit {
     if (name === 'Credit Risk Grading - Lambda' && action) {
       this.creditRiskGradingLambda.onSubmit();
       this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
-    }
+    }*/
 
     /*if (name === 'Credit Risk Grading - Micro' && action) {
       this.crgMicro.onSubmit();
       this.loanDocument.crgMicro = this.crgMicro.creditRiskData;
     }*/
 
-    if (name === 'Credit Risk Grading - Gamma' && action) {
-      this.crgGamma.onSubmit();
-      this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
-    }
+    // if (name === 'Credit Risk Grading - Gamma' && action) {
+    //   this.crgGamma.onSubmit();
+    //   this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
+    // }
 
     if (name === 'Group' && action) {
       this.group.onSubmit();
