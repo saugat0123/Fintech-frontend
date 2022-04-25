@@ -81,7 +81,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
-        // kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
+        kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : ''
       });

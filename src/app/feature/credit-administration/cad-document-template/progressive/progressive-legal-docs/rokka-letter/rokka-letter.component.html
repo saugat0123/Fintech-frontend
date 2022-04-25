@@ -73,8 +73,9 @@
                                formControlName="representativeName">
                     </span>
                         ले तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु.
-                        <input class="form-control-sm form-field nepaliFont unicode-size16"
-                               type="text" formControlName="loanAmount">/-
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text" formControlName="loanAmount"
+                               (input)="getNumAmountWord('loanAmount','loanAmountWords')">/-
                         (अक्षरुपीः <input class="form-control-sm form-field nepaliFont longMediumInput unicode-size16"
                                           type="text"
                                           formControlName="loanAmountWords"> मात्र ।)</strong> सम्म कर्जा उपभोग

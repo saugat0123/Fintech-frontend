@@ -67,7 +67,7 @@
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.representativeName !== null && printDocForm?.representativeName !== ''}">
                         {{printDocForm.representativeName === null || printDocForm.representativeName === '' ? '_______________' : printDocForm?.representativeName}}</span></span>ले
                 तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु.
-                    <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
+                    <span [ngClass]="{'nepaliFont':printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
                         {{printDocForm.loanAmount === null || printDocForm.loanAmount === '' ? '_______________' : printDocForm?.loanAmount}}
                     </span>/-
                     (अक्षरुपीः <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">

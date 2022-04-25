@@ -36,6 +36,7 @@ export class LetterOfAgreementComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   nepDataPersonal = new NepDataPersonal();
+  landAndBuildingCollaterals = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<LetterOfAgreementComponent>,
               private formBuilder: FormBuilder,
@@ -64,10 +65,12 @@ export class LetterOfAgreementComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      this.setCollaterals(this.nepaliData.collateralDetails);
-      this.form.patchValue({
-
+      (this.nepaliData.collateralDetails).forEach(value => {
+        if (value.securityDetails === 'Land_And_Building') {
+          this.landAndBuildingCollaterals.push(value);
+        }
       });
+      this.setCollaterals(this.landAndBuildingCollaterals);
     }
   }
 
@@ -115,6 +118,7 @@ export class LetterOfAgreementComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       collateralDetails: this.formBuilder.array([]),
+      landAndBuildingCollaterals: this.formBuilder.array([]),
       malpot: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
@@ -187,7 +191,6 @@ export class LetterOfAgreementComponent implements OnInit {
       return;
     }
     data.forEach((value, i) => {
-      if (value.securityDetails === 'Land_And_Building') {
         formArray.push(this.formBuilder.group({
           perDistrict: [value.collateralPermanentDistrict.nepaliName ? value.collateralPermanentDistrict.nepaliName : ''],
           perMunicipality: [value.collateralPermanentMunVdc.nepaliName ? value.collateralPermanentMunVdc.nepaliName : ''],
@@ -199,7 +202,6 @@ export class LetterOfAgreementComponent implements OnInit {
           financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
           financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
           financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-          officeRegNo: [value.regNo ? value.regNo : ''],
           districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
           municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
           wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
@@ -235,8 +237,11 @@ export class LetterOfAgreementComponent implements OnInit {
               !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
                   !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
                       this.initialInfoPrint.collateralDetails[i].itiSambat : '' : '' : ''],
+          officeRegNo : [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].officeRegNo : '' : '' : '']
         }));
-      }
     });
   }
   addMoreCollateral(): void {
