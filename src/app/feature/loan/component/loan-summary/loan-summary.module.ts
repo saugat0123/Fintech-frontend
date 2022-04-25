@@ -28,12 +28,12 @@ import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-s
 import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
-import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
+// import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
 import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy-chain.component';
 import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
-import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
+// import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
 
@@ -65,7 +65,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, SignatureSectionComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -76,7 +76,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CoreModule,
         CbsGroupModule,
         NgSelectModule,
-        LoanInformationViewModule,
+        // LoanInformationViewModule,
         NepaliPatroModule
     ],
     exports: [
@@ -98,7 +98,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
-        PreviousSecuritySummaryComponent,
+        // PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         SignatureSectionComponent
     ],

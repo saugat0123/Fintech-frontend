@@ -14,7 +14,7 @@ import {MicroIndividualViewComponent} from './detail-view/micro-loan-detail-view
 import {CoreModule} from '../../@core/core.module';
 import {MicroCompanyInfoViewComponent} from './detail-view/micro-loan-detail-view-base/micro-company-info-view/micro-company-info-view.component';
 import {MicroProposalViewComponent} from './detail-view/micro-loan-detail-view-base/micro-proposal-view/micro-proposal-view.component';
-import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+// import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
@@ -72,7 +72,7 @@ import { MicroOtherInfoAndConfirmationComponent } from './detail-view/micro-loan
         ReactiveFormsModule,
         NgxPrintModule,
         CoreModule,
-        LoanInformationViewModule,
+        // LoanInformationViewModule,
         LoanSummaryModule,
         ReportingModule,
         LoanInformationTemplateModule,

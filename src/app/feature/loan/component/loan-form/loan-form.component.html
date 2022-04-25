@@ -170,7 +170,7 @@
             <app-group #group [groupValue]="loanDocument?.group"
                        [proposalDataHolder]="loanDocument?.proposal"></app-group>
           </ng-template>
-          <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
+          <!--<ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
             <div class="py-4">
               <app-guarantor-adder #guarantor
                                    [taggedGuarantors]="loanDocument?.taggedGuarantors"
@@ -178,7 +178,7 @@
 
               </app-guarantor-adder>
             </div>
-          </ng-template>
+          </ng-template>-->
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
             <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
             <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha

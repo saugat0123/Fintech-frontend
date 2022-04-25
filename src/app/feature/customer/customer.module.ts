@@ -18,7 +18,7 @@ import {CompanyProfileComponent} from './component/customer-profile/company-prof
 import {CompanyProfileAdditionalInformationComponent} from './component/customer-profile/company-profile/company-profile-additional-information/company-profile-additional-information.component';
 import {CustomerDocComponent} from './component/customer-doc-management/customer-doc.component';
 import {CustomerLoanInformationViewComponent} from './component/customer-loan-information-view/customer-loan-information-view.component';
-import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+// import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {GroupTaggingComponent} from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 // tslint:disable-next-line:max-line-length
@@ -89,7 +89,7 @@ const COMPONENTS = [
         NepaliCalendarModule,
         NbDialogModule.forRoot(),
         LoanInformationTemplateModule,
-        LoanInformationViewModule,
+        // LoanInformationViewModule,
         InfiniteScrollModule,
         ReportingModule,
         CoreModule,

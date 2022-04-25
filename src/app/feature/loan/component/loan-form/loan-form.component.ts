@@ -48,7 +48,7 @@ import {CustomerInfoService} from '../../../customer/service/customer-info.servi
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
-import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
+// import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
@@ -190,8 +190,8 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('group', {static: false})
   group: GroupComponent;
 
-  @ViewChild('guarantor', {static: false})
-  guarantorComponent: GuarantorAdderComponent;
+  // @ViewChild('guarantor', {static: false})
+  // guarantorComponent: GuarantorAdderComponent;
 
   @ViewChild('reportingInfoTagging', {static: false})
   reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
@@ -667,9 +667,9 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.group = this.group.modelData;
     }
 
-    if (name === 'Guarantor' && action) {
-      this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
-    }
+    // if (name === 'Guarantor' && action) {
+    //   this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
+    // }
 
     if (name === 'Reporting Info' && action) {
       this.reportingInfoTaggingComponent.onSubmit();

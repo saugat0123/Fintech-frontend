@@ -44,17 +44,17 @@ import {CustomerModule} from '../customer/customer.module';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
-import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+// import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
 import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
 import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
-import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
-import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
+// import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
+// import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
-import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
+// import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
@@ -104,8 +104,8 @@ const COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorAdderComponent,
-    GuarantorDetailComponent,
+    // GuarantorAdderComponent,
+    // GuarantorDetailComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
@@ -125,7 +125,7 @@ const ENTRY_COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent,
+    // GuarantorDetailComponent,
 ];
 
 const modules = {
@@ -173,11 +173,11 @@ const modules = {
     NepaliCalendarModule,
     ReportingModule,
     LoanInformationTemplateModule,
-    LoanInformationViewModule,
+    // LoanInformationViewModule,
     LoanSummaryModule,
     QuillModule.forRoot({modules: modules}),
     AngularDraggableModule,
-    LoanInformationDetailViewModule,
+    // LoanInformationDetailViewModule,
     NbTooltipModule,
     MicroLoanModule,
     NepaliPatroModule,
