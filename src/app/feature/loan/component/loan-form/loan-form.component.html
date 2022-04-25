@@ -81,7 +81,7 @@
       <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
         <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                  [id]="i.toString(10)" [disabled]="isBlackListed">
-          <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
+<!--          <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">-->
 
 <!--            <div class="py-4">-->
 <!--              <app-individual-view [individual]="loanDocument?.customerInfo"-->
