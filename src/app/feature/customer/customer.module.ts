@@ -28,14 +28,14 @@ import {EditPartnerInfoComponent} from './component/customer-profile/company-pro
 import {CustomerLoanApplyComponent} from './component/customer-loan-apply/customer-loan-apply.component';
 import {CustomerLoanEditComponent} from './component/customer-loan-edit/customer-loan-edit.component';
 // import {ReportingModule} from '../reporting/reporting.module';
-import {CustomerListGroupComponent} from './component/customer-group-associate-loan-list/customer-list-group.component';
+// import {CustomerListGroupComponent} from './component/customer-group-associate-loan-list/customer-list-group.component';
 import {CoreModule} from '../../@core/core.module';
 import {ActivityListComponent} from './component/activity-list/activity-list.component';
 import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
 import {BankingRelationComponent} from './component/customer-form/banking-relation/banking-relation.component';
 import {CompanyOtherDetailComponent} from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
 import {MarketScenarioComponent} from './component/customer-form/company-form/market-scenario/market-scenario.component';
-import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+// import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
@@ -66,7 +66,7 @@ const COMPONENTS = [
   EditPartnerInfoComponent,
   EditManagementTeamComponent,
   CustomerLoanEditComponent,
-  CustomerListGroupComponent,
+  // CustomerListGroupComponent,
   BankingRelationComponent,
   JointFormComponent
 ];
@@ -94,7 +94,7 @@ const COMPONENTS = [
         // ReportingModule,
         CoreModule,
         CustomerActivityModule,
-        LoanSummaryModule,
+        // LoanSummaryModule,
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
