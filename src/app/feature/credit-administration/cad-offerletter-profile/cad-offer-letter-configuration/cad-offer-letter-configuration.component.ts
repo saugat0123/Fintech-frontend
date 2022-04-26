@@ -3984,7 +3984,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
                 permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
                     this.oneFormCustomer.wardNumber : (!ObjectUtil.isEmpty(this.loanHolder) &&
-                        !ObjectUtil.isEmpty(this.loanHolder.nepData)) ? JSON.parse(this.loanHolder.nepData).permanentWard.en : undefined,
+                        !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                        !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).permanentWard)) ?
+                        JSON.parse(this.loanHolder.nepData).permanentWard.en : undefined,
                 temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
                 citizenshipIssueDistrict: ObjectUtil.isEmpty(this.nepData) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
                     this.nepData.citizenshipIssueDistrict.ct : undefined,
