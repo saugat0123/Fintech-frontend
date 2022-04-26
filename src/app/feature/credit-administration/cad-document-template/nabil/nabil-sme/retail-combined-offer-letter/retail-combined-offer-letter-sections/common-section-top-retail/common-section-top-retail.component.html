@@ -8,7 +8,7 @@
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
-                <span class="print-only">{{'______________________'}}</span>
+                <span class="print-only">{{this.refNum ? this.refNum : '______________________'}}</span>
                 <br>
                 <br>
                 <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
@@ -18,19 +18,19 @@
                              formControlName="sanctionLetterDate"
                              name="sanctionLetterDate"
                              type="text"/>
-                <span class="print-only">{{'______________________'}}</span>
+                <span class="print-only">{{this.sanctionLetterDate ? this.sanctionLetterDate : '______________________'}}</span>
                 <br>
                 श्री <input class="form-field form-control-sm"
                             formControlName="nameOfBorrower"
                             name="nameOfBorrower"
                             type="text"/>
-                <span class="print-only">{{'______________________'}}</span>|
+                <span class="print-only">{{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '______________________'}}</span>|
                 <br>
                 ठेगानाः <input class="form-field form-control-sm"
                                formControlName="addressOfBorrower"
                                name="addressOfBorrower"
                                type="text"/>
-                <span class="print-only">{{'______________________'}}</span>
+                <span class="print-only">{{this.address ? this.address : '______________________'}}</span>
                 <br>
             </div>
         </form>

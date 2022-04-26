@@ -14,6 +14,9 @@ export class CommonSectionTopRetailComponent implements OnInit {
   assignedData;
   sanctionDate;
   loanHolderInfo;
+  refNum;
+  sanctionLetterDate;
+  address;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -35,25 +38,23 @@ export class CommonSectionTopRetailComponent implements OnInit {
     });
   }
   fillform() {
-    let refNum;
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan[0];
-      refNum = this.assignedData.refNo;
+      this.refNum = this.assignedData.refNo;
     }
-    let sanctionLetterDate;
     if (!ObjectUtil.isEmpty(this.tempData.retailGlobalForm)) {
       this.sanctionDate = this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate ?
       this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate : '';
-      sanctionLetterDate = this.sanctionDate ? this.sanctionDate : '';
+      this.sanctionLetterDate = this.sanctionDate ? this.sanctionDate : '';
     }
-    const address = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+    this.address = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
         this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
     this.form.patchValue({
-      referenceNumber: refNum ? refNum : '',
-      sanctionLetterDate: sanctionLetterDate ? sanctionLetterDate : '',
+      referenceNumber: this.refNum ? this.refNum : '',
+      sanctionLetterDate: this.sanctionLetterDate ? this.sanctionLetterDate : '',
       nameOfBorrower : this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '',
-      addressOfBorrower : address ? address : '',
+      addressOfBorrower : this.address ? this.address : '',
     });
   }
 }
