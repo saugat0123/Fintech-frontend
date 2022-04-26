@@ -30,6 +30,7 @@ export class GuarantorAdderComponent implements OnInit {
     } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
     this.selectedGuarantorList = this.taggedGuarantors;
     }
+    console.log('this is guarantor list', this.guarantorList);
   }
 
   addGuarantorDetail(data) {

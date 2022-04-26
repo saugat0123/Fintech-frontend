@@ -21,6 +21,7 @@ import {LoanDataHolder} from '../../loan/model/loanData';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CombinedLoanService} from '../../service/combined-loan.service';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-proposal',
@@ -34,7 +35,7 @@ export class ProposalComponent implements OnInit {
     @Input() formValue: Proposal;
     @Input() loanIds;
     @Input() loanType;
-    @Input() customerInfo;
+    @Input() customerInfo: CustomerInfoData;
     @Input() fromProfile;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;

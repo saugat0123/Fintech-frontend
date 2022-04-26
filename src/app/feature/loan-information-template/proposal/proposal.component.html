@@ -868,11 +868,13 @@
                                     </div>
                                 </ng-container>
                                 <ng-container *ngIf="fromProfile">
-                                    <app-guarantor-adder  (emitter)="guarantors($event)"
-                                                         [taggedGuarantors]="loan?.taggedGuarantors"
-                                                         [guarantorData]="customerInfo?.guarantors">
+                                    <div class="col-md-12">
+                                        <app-guarantor-adder  (emitter)="guarantors($event)"
 
-                                    </app-guarantor-adder>
+                                                              [guarantorData]="customerInfo?.guarantors">
+
+                                        </app-guarantor-adder>
+                                    </div>
                                 </ng-container>
                             </div>
                         </form>

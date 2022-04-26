@@ -563,10 +563,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
     buildLoanForm() {
         this.loanForm = this.formBuilder.group({
-            priority: [undefined],
-            approvingLevel: [undefined],
-            creditRisk: [undefined],
-            documentStatus: [undefined]
+            priority: [undefined, Validators.required],
+            approvingLevel: [undefined, Validators.required],
+            creditRisk: [undefined, Validators.required],
+            documentStatus: [undefined, Validators.required]
         });
 
     }
@@ -592,7 +592,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 this.loan.companyInfo =  this.getCompanyInfo(this.customer.id);
             }
         }
-        this.modalService.open(proposal, {size: 'xl', backdrop: true, scrollable: true});
+        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
     }
 
     getCustomerInfos(id) {
@@ -612,5 +612,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customerLoanService.save(loan).subscribe((res => {
                 this.customerLoans[i] = res.detail;
         }));
+    }
+
+    close() {
+        this.modalService.dismissAll();
     }
 }
