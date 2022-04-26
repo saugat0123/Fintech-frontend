@@ -53,7 +53,7 @@ import {GuarantorAdderComponent} from './loan/component/loan-main-template/guara
 
       ],
     // tslint:disable-next-line:max-line-length
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, GuarantorAdderComponent, GuarantorAdderComponent],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, GuarantorAdderComponent,],
       providers: [SafePipe]
     }
 )

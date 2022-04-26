@@ -870,13 +870,15 @@
                             </div>
                         </form>
                     </div>
-                    <ng-container *ngIf="fromProfile">
-                        <div class="col-md-12">
+                    <ng-template #guarantor *ngIf="fromProfile">
+                        <div class="col-md-12 modal">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
+                                                  [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
-                    </ng-container>
+                    </ng-template>
+                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>
                     <button nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>
                 </nb-card-body>
             </nb-card>

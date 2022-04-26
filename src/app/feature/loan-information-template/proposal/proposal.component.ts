@@ -26,7 +26,7 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 @Component({
     selector: 'app-proposal',
     templateUrl: './proposal.component.html',
-    styleUrls: ['./proposal.component.css']
+    styleUrls: ['./proposal.component.scss']
 })
 export class ProposalComponent implements OnInit {
 
@@ -428,6 +428,7 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         // Proposal Form Data--
+        this.submitted = true;
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
@@ -990,5 +991,9 @@ export class ProposalComponent implements OnInit {
 
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;
+    }
+    openGuarantor(g) {
+        // this.nbService.dismissAll();
+        this.nbService.open(g, {size: 'xl', windowClass: 'modal-xl', backdrop: true});
     }
 }

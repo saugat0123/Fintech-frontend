@@ -129,6 +129,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     docStatusMakerList = [];
     loan = new LoanDataHolder();
     customerLoans: LoanDataHolder [];
+    documentSpinner = false;
 
 
 
@@ -608,9 +609,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+        this.documentSpinner = true;
         loan.customerDocument = document;
         this.customerLoanService.save(loan).subscribe((res => {
                 this.customerLoans[i] = res.detail;
+            this.documentSpinner = false;
         }));
     }
 

@@ -26,6 +26,12 @@ import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MGroup} from '../../../model/mGroup';
 import {environment} from '../../../../../../environments/environment';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {LoanType} from '../../../../loan/model/loanType';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
+import {CommonService} from '../../../../../@core/service/common.service';
+import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-company-profile',
@@ -71,6 +77,30 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
     isAccountEdited = false;
+    loanForm: FormGroup;
+    loanTypeList = LoanType.value();
+    multipleSelectedLoanType = [];
+    selectedLoanType;
+    facilityType;
+    loan = new LoanDataHolder();
+    customerLoans: LoanDataHolder [];
+    customerType: CustomerType;
+    nonMicroLoanList = [];
+    // Priority options--
+    dropdownPriorities = [
+        {id: 'HIGH', name: 'High'},
+        {id: 'MEDIUM', name: 'Medium'},
+        {id: 'LOW', name: 'Low'},
+
+    ];
+
+    dropdownApprovalLevel = [
+        {id: 'L1', name: 'L1'},
+        {id: 'L2', name: 'L2'},
+        {id: 'L3', name: 'L3'}
+    ];
+    documentSpinner = false;
+
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -83,7 +113,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private commonLocation: AddressService,
                 private formBuilder: FormBuilder,
                 private utilService: ProductUtilService,
-                private loanFormService: LoanFormService) {
+                private loanFormService: LoanFormService,
+                public service: CommonService) {
     }
 
     get form() {
@@ -93,14 +124,33 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     ngOnInit() {
         this.buildCompanyForm();
         this.getAllDistrict();
+        this.sliceLoan();
+        this.buildLoanForm();
         this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
             this.customerInfoId = paramObject.id;
             this.paramProp = paramObject;
+            this.customerType = this.paramProp.customerType;
             this.getCompanyInfo(this.paramProp.companyInfoId);
             this.getCustomerInfo(this.customerInfoId);
         });
+        this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
+        this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+            console.log('this is customer loan', this.customerLoans);
+        });
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+            this.loanList = response.detail;
+            // this.nonMicroLoanList = this.loanList;
+            this.spinner = false;
+        }, (err) => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
+            // this.activeModal.dismiss();
+        });
         this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
             this.loanList = response.detail;
+            this.nonMicroLoanList = this.loanList;
         });
 
         this.utilService.getProductUtil().then(r =>
@@ -177,6 +227,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     public refreshCustomerInfo(): void {
         this.customerInfo = undefined;
         this.getCustomerInfo(this.customerInfoId);
+        this.modalService.dismissAll();
+        this.selectedLoanType = null;
+        this.facilityType = null;
+        this.buildLoanForm();
     }
 
     openSingleSelectLoanTemplate() {
@@ -334,4 +388,52 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.isEditable = res.detail;
         }); }
     }
+
+    sliceLoan() {
+        this.loanTypeList.forEach((val) => {
+            if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+                || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+                || val.key === 'INTEREST_RATE_REVISION') {
+                return true;
+            }
+            this.multipleSelectedLoanType.push(val);
+        });
+    }
+    buildLoanForm() {
+        this.loanForm = this.formBuilder.group({
+            priority: [undefined, Validators.required],
+            approvingLevel: [undefined, Validators.required],
+            creditRisk: [undefined, Validators.required],
+            documentStatus: ['UNDER_REVIEW']
+        });
+
+    }
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+        this.documentSpinner = true;
+        loan.customerDocument = document;
+        this.loanFormService.save(loan).subscribe((res => {
+            this.documentSpinner = false;
+            this.customerLoans[i] = res.detail;
+        }));
+    }
+
+    applyLoans(proposal) {
+        this.loan = new LoanDataHolder();
+        this.loan.priority = this.loanForm.get('priority').value;
+        this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
+        this.loan.creditRisk = this.loanForm.get('creditRisk').value;
+        this.loan.documentStatus = this.loanForm.get('documentStatus').value;
+        this.loan.loanType = this.selectedLoanType;
+        const loanConfig = new LoanConfig();
+        loanConfig.id = this.facilityType;
+        this.loan.loan = loanConfig;
+        this.loan.loanHolder = this.customerInfo;
+        // loan.loanType = LoanType.
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+                // @ts-ignore
+                this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
+        }
+        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
+    }
+
 }
