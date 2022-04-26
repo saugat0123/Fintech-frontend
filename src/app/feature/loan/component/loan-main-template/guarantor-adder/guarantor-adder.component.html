@@ -10,7 +10,7 @@
             {{guarantor.name}} / {{guarantor.issuedPlace}}
           </ng-option>
         </ng-select>
-        <button [disabled]="!guarantor.valid" nbButton size="small" (click)="addGuarantorDetail(selectedGuarantor.selected)"> <i
+        <button [disabled]="!guarantor.valid" nbButton size="small" (click)="addGuarantorDetail(guarantor.value)"> <i
                 class="fa fa-plus"></i></button>
       </div>
     </div>

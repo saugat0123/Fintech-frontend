@@ -521,7 +521,7 @@
         <div class = "col-md-7">
             <nb-tabset  *ngIf="customerLoans?.length > 0">
                 <nb-tab tabId="0" *ngFor="let loan of customerLoans; let i = index;" [tabTitle]="loan?.loan?.shortNames">
-                    <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
+                    <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING' || loan?.documentStatus === 'DISCUSSION' || loan?.documentStatus === 'UNDER_REVIEW'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
                             [loanDataHolder]="loan"
                             [loanType]="loan?.loanType"></app-customer-loan-document>
                     <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">

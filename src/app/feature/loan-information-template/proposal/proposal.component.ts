@@ -240,7 +240,7 @@ export class ProposalComponent implements OnInit {
         this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             this.customerGroupLoanList
-                .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
+                // .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
                 .forEach((l) => this.combinedLoansIds.push(l.id));
             this.removeFromCombinedLoan = this.combinedLoansIds.length > 0;
             if (this.combinedLoansIds.length > 0) {
@@ -469,7 +469,6 @@ export class ProposalComponent implements OnInit {
                 this.spinner.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
-
                 this.combinedLoansIds.push(this.loan.id);
                 if (this.combinedLoansIds.length > 1) {
                     const combinedLoans: LoanDataHolder[] = this.combinedLoansIds.map((id) => {
@@ -485,12 +484,14 @@ export class ProposalComponent implements OnInit {
                     this.combinedLoanService.save(combinedLoan).subscribe(() => {
                         const msg = `Successfully saved combined loan`;
                         this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+                        this.emitter.emit(this.loan);
                     }, error => {
                         console.error(error);
                         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
                     });
+                } else {
+                    this.emitter.emit(this.loan);
                 }
-                this.emitter.emit(this.loan);
                 // this.nbService.dismissAll(this.loan);
             }, error => {
                 this.spinner.hide();

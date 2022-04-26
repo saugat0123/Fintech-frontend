@@ -30,23 +30,23 @@ export class GuarantorAdderComponent implements OnInit {
     } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
     this.selectedGuarantorList = this.taggedGuarantors;
     }
-    console.log('this is guarantor list', this.guarantorList);
   }
 
   addGuarantorDetail(data) {
     const presentGuarantor = this.selectedGuarantorList.filter(d => d.id === data.id);
     if (presentGuarantor.length <= 0) {
       this.selectedGuarantorList.push(data);
-      this.emitter.emit(this.selectedGuarantorList);
       this.msg = '';
     } else {
       this.msg = 'selected guarantor is already added !';
     }
+    this.emitter.emit(this.selectedGuarantorList);
   }
 
   removeGuarantor(data) {
     const removeIndex = this.findGuarantorIndex(data);
     this.selectedGuarantorList.splice(removeIndex, 1);
+    this.emitter.emit(this.selectedGuarantorList);
   }
 
   findGuarantorIndex(data) {
