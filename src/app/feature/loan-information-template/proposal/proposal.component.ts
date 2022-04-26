@@ -190,19 +190,19 @@ export class ProposalComponent implements OnInit {
       this.setActiveBaseRate();
       this.addGroupExposureData();
     }
- if(!this.fromProfile) {
-   this.activatedRoute.queryParams.subscribe(
-       (paramsValue: Params) => {
-         this.allId = {
-           loanId: null,
-           customerId: null,
-           loanCategory: null
-         };
-         this.allId = paramsValue;
-         this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
-         this.getLoanData();
-       });
- }
+    if (!this.fromProfile) {
+      this.activatedRoute.queryParams.subscribe(
+          (paramsValue: Params) => {
+            this.allId = {
+              loanId: null,
+              customerId: null,
+              loanCategory: null
+            };
+            this.allId = paramsValue;
+            this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
+          });
+    }
+    this.getLoanData();
     this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
     .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
     this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
