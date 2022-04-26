@@ -46,50 +46,52 @@
             Risk Grade
         </td>
     </tr>
-    <tr>
+    <tr *ngFor="let reportingData of tempData">
         <td></td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td rowspan="4"></td>
-        <td rowspan="4"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{reportingData?.code}}</td>
+        <td>{{reportingData?.description}}</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
-    <tr>
+    <tr *ngFor="let reportingData of tempData1">
         <td></td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{reportingData?.code}}</td>
+        <td>{{reportingData?.description}}</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
+<!--    <tr>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
 </table>

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: "app-above-ten-million",
@@ -8,9 +9,17 @@ import {LoanDataHolder} from '../../../../model/loanData';
 })
 export class AboveTenMillionComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
-  isUsedForAboveTenMillion: boolean = true;
-
+  isUsedForAboveTenMillion: boolean;
+  proposalData;
+  tempData;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      this.tempData = this.loanDataHolder.proposal;
+      if (!ObjectUtil.isEmpty(this.tempData.data)) {
+        this.proposalData = JSON.parse(this.tempData.data);
+      }
+    }
+  }
 }
