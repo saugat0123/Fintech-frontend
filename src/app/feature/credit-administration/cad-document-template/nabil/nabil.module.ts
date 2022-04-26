@@ -117,6 +117,25 @@ import { LetterVehicleThirdPartyPartnershipComponent } from './letter-vehicle-th
 import { LetterVehicleThirdPartyProprietorshipComponent } from './letter-vehicle-third-party-proprietorship/letter-vehicle-third-party-proprietorship.component';
 import { SingleSmePrimarySecurityViewComponent } from './single-sme-primary-security-view/single-sme-primary-security-view.component';
 import { SingleSmeSecondarySecurityViewComponent } from './single-sme-secondary-security-view/single-sme-secondary-security-view.component';
+import { CommonSectionTopRetailComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/common-section-top-retail/common-section-top-retail.component';
+import { Section1CustomerOfferLetterTypeComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section1-customer-offer-letter-type/section1-customer-offer-letter-type.component';
+import { Section2LoanTypeRetailComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section2-loan-type-retail/section2-loan-type-retail.component';
+import { Section3FeesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section3-fees/section3-fees.component';
+import { Section4SecurityCollateralComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section4-security-collateral/section4-security-collateral.component';
+import { Section5InterestRatedRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section5-interest-rated-related-clauses/section5-interest-rated-related-clauses.component';
+import { Section6LoanLimitRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section6-loan-limit-related-clauses/section6-loan-limit-related-clauses.component';
+import { Section7InterestAndEmiPaymentRelatedComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section7-interest-and-emi-payment-related/section7-interest-and-emi-payment-related.component';
+import { Section8LoanDisbursementRelatedClauseComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section8-loan-disbursement-related-clause/section8-loan-disbursement-related-clause.component';
+import { Section9InsuranceRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section9-insurance-related-clauses/section9-insurance-related-clauses.component';
+import { Section10ExtraChargesRelatedClausesComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section10-extra-charges-related-clauses/section10-extra-charges-related-clauses.component';
+import { Section11ExtraClausesForAutoLoanComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section11-extra-clauses-for-auto-loan/section11-extra-clauses-for-auto-loan.component';
+import { Section12ClausesForLoanReviewComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section12-clauses-for-loan-review/section12-clauses-for-loan-review.component';
+import { Section13ClausesPersonalLoanAndOverdraftComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section13-clauses-personal-loan-and-overdraft/section13-clauses-personal-loan-and-overdraft.component';
+import { Section14OtherTermsComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section14-other-terms/section14-other-terms.component';
+import { Section16AndSection17Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section16-and-section17/section16-and-section17.component';
+import { Section18RequiredSecurityDocumentsComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section18-required-security-documents/section18-required-security-documents.component';
+import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section19-to-section22/section19-to-section22.component';
+import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 
 @NgModule({
     declarations: [
@@ -136,7 +155,26 @@ import { SingleSmeSecondarySecurityViewComponent } from './single-sme-secondary-
         LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent, LoanDeedProprietorshipComponent, CounterGuaranteeProprietorshipComponent, CounterGuaranteePartnershipComponent, MortgageTermLoanComponent, MortgageTermLoanPrintComponent, LetterOfContinuityProprietorshipComponent, LetterOfContinuityCompanyComponent, LetterOfContinuityPartnershipComponent, GeneralLetterOfTrustReceiptPartnershipComponent, GeneralLetterOfTrustReceiptProprietorshipComponent, GeneralLetterOfTrustReceiptCompanyComponent, CrossGuaranteeCompanyComponent, CrossGuaranteeProprietorshipComponent, CrossGuaranteePartnershipComponent, LandSubOrdinatePartnershipComponent, LandSubOrdinateProprietorshipComponent, LandSubOrdinateCompanyComponent, ConsentLetterForMortgageCompanyComponent, ConsentLetterForMortgagePartnershipComponent, ConsentLetterForMortgageProprietorshipComponent, HirePurchaseProprietorshipComponent, HirePurchasePartnershipComponent, HirePurchaseCompanyComponent, LetterOfSetOffCompanyComponent, LetterOfSetOffProprietorshipComponent, LetterOfSetOffPartnershipComponent, LetterVehicleThirdPartyPartnershipComponent,
         LetterVehicleThirdPartyProprietorshipComponent,
         SingleSmePrimarySecurityViewComponent,
-        SingleSmeSecondarySecurityViewComponent],
+        SingleSmeSecondarySecurityViewComponent,
+        CommonSectionTopRetailComponent,
+        Section1CustomerOfferLetterTypeComponent,
+        Section2LoanTypeRetailComponent,
+        Section3FeesComponent,
+        Section4SecurityCollateralComponent,
+        Section5InterestRatedRelatedClausesComponent,
+        Section6LoanLimitRelatedClausesComponent,
+        Section7InterestAndEmiPaymentRelatedComponent,
+        Section8LoanDisbursementRelatedClauseComponent,
+        Section9InsuranceRelatedClausesComponent,
+        Section10ExtraChargesRelatedClausesComponent,
+        Section11ExtraClausesForAutoLoanComponent,
+        Section12ClausesForLoanReviewComponent,
+        Section13ClausesPersonalLoanAndOverdraftComponent,
+        Section14OtherTermsComponent,
+        Section16AndSection17Component,
+        Section18RequiredSecurityDocumentsComponent,
+        Section19ToSection22Component,
+        RetailCombinedOfferLetterComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -212,7 +250,9 @@ import { SingleSmeSecondarySecurityViewComponent } from './single-sme-secondary-
         LetterVehicleThirdPartyPartnershipComponent,
         LetterVehicleThirdPartyProprietorshipComponent,
         SingleSmePrimarySecurityViewComponent,
-        SingleSmeSecondarySecurityViewComponent
+        SingleSmeSecondarySecurityViewComponent,
+        CommonSectionTopRetailComponent,
+        Section1CustomerOfferLetterTypeComponent
     ],
     imports: [
         CommonModule,
