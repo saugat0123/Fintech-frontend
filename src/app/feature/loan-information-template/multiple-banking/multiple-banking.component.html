@@ -262,6 +262,43 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
+                    <strong>Past Performance with the Bank:</strong>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Delays/Default made during the past 12 months by the borrower/ group:</label>
+                            <ckeditor formControlName="delayRemark"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Past Dues/Over-dues status, <em>(if any):</em></label>
+                            <ckeditor formControlName="pastDue"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>NRB/Audit observations, <em>(if any):</em></label>
+                            <ckeditor formControlName="auditObservation"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Comments:</label>
+                            <ckeditor formControlName="comments"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
                     <p><strong>Average Utilization of Facilities</strong></p>
                     <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
                         <tbody class="sb-bg-dark text-white">

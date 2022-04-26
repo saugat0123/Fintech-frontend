@@ -67,8 +67,6 @@ export class MultipleBankingComponent implements OnInit {
             multiBankingDate: [undefined],
             multiBanking: this.formBuilder.array([]),
             consortium: this.formBuilder.array([]),
-            // totalLimit: [undefined],
-            // totalOutstanding: [undefined],
             totalFunded: [undefined],
             totalNonFunded: [undefined],
             totalTermLoan: [undefined],
@@ -79,6 +77,10 @@ export class MultipleBankingComponent implements OnInit {
             swapComment: [undefined],
             utilization: this.formBuilder.array([]),
             consortiumDate: [undefined],
+            delayRemark: [undefined],
+            pastDue: [undefined],
+            auditObservation: [undefined],
+            comments: [undefined],
         });
     }
 
