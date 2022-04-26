@@ -2266,9 +2266,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     !ObjectUtil.isEmpty(nepaData.temporaryWard.ct)) ? nepaData.temporaryWard.ct : undefined],
                 temporaryWardTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
                     !ObjectUtil.isEmpty(nepaData.temporaryWard.np)) ? nepaData.temporaryWard.np : undefined],
-                isSameTemporaryAndPermanent: (!ObjectUtil.isEmpty(value.isSameTemporaryAndPermanent) &&
-                !ObjectUtil.isEmpty(value.isSameTemporaryAndPermanent.en)) ?
-                    value.isSameTemporaryAndPermanent.en : undefined,
+                isSameTemporaryAndPermanent: (!ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent) &&
+                !ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent.en)) ?
+                    nepaData.isSameTemporaryAndPermanent.en : undefined,
                 isSameTemporaryAndPermanentCT: [undefined],
                 isSameTemporaryAndPermanentTrans: [undefined],
                 guarantorPermanentMunicipalityOrVdc: [(!ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) &&
@@ -5754,10 +5754,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 );
                 // console.log('Filtered Value:', tempDetail);
                 if (tempDetail.length > 0) {
-                    this.getGuarantorDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince) ? null : tempDetail[0].ownerPermanentProvince.id, null, 0);
-                    this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict) ? null : tempDetail[0].ownerPermanentDistrict.id, null, 0);
-                    this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince) ? null : tempDetail[0].ownerTemporaryProvince.id, null, 0);
-                    this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrict) ? null : tempDetail[0].ownerTemporaryDistrict.id, null, 0);
+                    this.getGuarantorDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince) ? null : tempDetail[0].ownerPermanentProvince.id, null, i);
+                    this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict) ? null : tempDetail[0].ownerPermanentDistrict.id, null, i);
+                    this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince) ? null : tempDetail[0].ownerTemporaryProvince.id, null, i);
+                    this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrict) ? null : tempDetail[0].ownerTemporaryDistrict.id, null, i);
 
                     // Proprietor to guarantor tagging
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerName) ? tempDetail[0].ownerName : undefined);
@@ -5838,7 +5838,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
                     // Address Patch (Temporary)
 
-                    this.userConfigForm.get(['guarantorDetails', i, 'isSameGuarantorRegisteredAndCurrentAddress']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].isSameTemporaryAndPermanent) ? tempDetail[0].isSameTemporaryAndPermanent : undefined);
+                    this.userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].isSameTemporaryAndPermanent) ? tempDetail[0].isSameTemporaryAndPermanent : undefined);
 
                     this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince) &&
                     !ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince.name) ? tempDetail[0].ownerTemporaryProvince : undefined);
