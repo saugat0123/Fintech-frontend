@@ -14,6 +14,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CommonService} from '../../../@core/service/common.service';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -47,7 +48,8 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
-                private modelService: NgbModal) {
+                private modelService: NgbModal,
+                public service: CommonService) {
     }
 
     ngOnInit() {
@@ -110,6 +112,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         this.initialDocuments.forEach((initDoc, j) => {
                             if (singleDoc.document.id === initDoc.id) {
                                 initDoc.checked = true;
+                                if (this.fromProfile) {
+                                    initDoc.url = singleDoc.documentPath;
+                                }
                             }
                         });
                     });
@@ -226,16 +231,5 @@ export class CustomerLoanDocumentComponent implements OnInit {
         });
         this.documentEmitter.emit(this.customerDocumentArray);
         this.modelService.dismissAll();
-    }
-    openDocument(file) {
-        let fileName = file;
-        if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
-
-            const link = document.createElement('a');
-            link.href = fileName;
-            link.target = '_blank';
-            link.click();
-        }
     }
 }

@@ -517,9 +517,35 @@
         <div class = "col-md-7">
             <nb-tabset  *ngIf="customerLoans?.length > 0">
                 <nb-tab tabId="0" *ngFor="let loan of customerLoans; let i = index;" [tabTitle]="loan?.loan?.shortNames">
-                    <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
+                    <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
                             [loanDataHolder]="loan"
                             [loanType]="loan?.loanType"></app-customer-loan-document>
+                    <ng-container *ngIf="loan?.documentStatus === 'APPROVED'">
+                        <table class="table-responsive-md">
+                                <tr *ngIf="loan?.customerDocument?.length < 1">
+                                    NO DOCUMENT available in this loan
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <div class="col-md-12 ">
+                                            <div class="row">
+                                                <div class="col-md-3 img-hover flex-wrap"
+                                                     *ngFor="let data of loan?.customerDocument;let i =index"
+                                                     [nbTooltip]="data?.document?.displayName">
+                                                    <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                                                            [className]="service.SET_CLASS_NAME"></em>
+                                                        <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
+                                                            data?.document?.displayName?.substring(0, 12) + '..' :
+                                                            data?.document?.displayName}}</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                        </table>
+                    </ng-container>
+
                 </nb-tab>
             </nb-tabset>
         </div>

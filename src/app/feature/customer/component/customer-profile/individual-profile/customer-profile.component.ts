@@ -38,6 +38,7 @@ import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
 import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
+import {CommonService} from '../../../../../@core/service/common.service';
 
 
 @Component({
@@ -146,6 +147,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private dialogService: NbDialogService,
                 private utilService: ProductUtilService,
                 private companyInfoService: CompanyInfoService,
+                public service: CommonService
 
     ) {
 

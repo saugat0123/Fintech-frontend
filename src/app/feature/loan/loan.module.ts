@@ -87,6 +87,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
+import {FeatureModule} from '../feature.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -135,7 +136,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     CustomerAssociateComponent,
-    GuarantorAdderComponent,
     GuarantorDetailComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
@@ -210,7 +210,8 @@ const modules = {
         MicroLoanModule,
         NepaliPatroModule,
         TransferLoanModule,
-        ProductPaperModule
+        ProductPaperModule,
+        FeatureModule
     ],
 
     providers: [

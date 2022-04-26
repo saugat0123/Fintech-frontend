@@ -51,10 +51,13 @@
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
 
-                <div class="img-hover flex-wrap"
+                <div *ngIf="document?.url && fromProfile" class="col-md-3 img-hover flex-wrap"
                      [nbTooltip]="document?.displayName">
-                  <a (click)="openDocument(document?.url)" class="cursor"><em
-                          ></em></a>
+                  <a (click)="service.openDocument(document?.url)" class="cursor"><em
+                          [className]="service.SET_CLASS_NAME"></em>
+                    <span class="mx-1"> {{document?.displayName?.length > 15 ?
+                            document?.displayName?.substring(0, 12) + '..' :
+                            document?.displayName}}</span></a>
                 </div>
               </td>
               <td class="cursor" *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId">
