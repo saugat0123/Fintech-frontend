@@ -149,6 +149,7 @@ export class ProposalComponent implements OnInit {
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
+            console.log('this is form data edit', this.formDataForEdit);
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
                     (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
@@ -240,7 +241,7 @@ export class ProposalComponent implements OnInit {
         this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             this.customerGroupLoanList
-                // .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
+                .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
                 .forEach((l) => this.combinedLoansIds.push(l.id));
             this.removeFromCombinedLoan = this.combinedLoansIds.length > 0;
             if (this.combinedLoansIds.length > 0) {
@@ -248,6 +249,9 @@ export class ProposalComponent implements OnInit {
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))[0];
                 this.existingCombinedLoan.id = loan.combinedLoan.id;
                 this.existingCombinedLoan.version = loan.combinedLoan.version;
+            } else {
+                this.customerGroupLoanList
+                    .forEach((l) => this.combinedLoansIds.push(l.id));
             }
         });
     }
@@ -463,10 +467,14 @@ export class ProposalComponent implements OnInit {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.data = JSON.stringify(this.proposalForm.value);
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
+                const commonData = JSON.parse(this.customerInfo.commonLoanData);
+                    this.setFormData(commonData.vehicle, 'vehicle');
+                    this.setFormData(commonData.deposit, 'deposit');
+                    this.setFormData(commonData.realState, 'realState');
+                    this.setFormData(commonData.shares, 'shares');
                 this.loan.proposal = this.proposalData;
             }
             this.loanFormService.save(this.loan).subscribe((response: any) => {
-                this.spinner.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
                 this.combinedLoansIds.push(this.loan.id);
@@ -485,14 +493,16 @@ export class ProposalComponent implements OnInit {
                         const msg = `Successfully saved combined loan`;
                         this.toastService.show(new Alert(AlertType.SUCCESS, msg));
                         this.emitter.emit(this.loan);
+                        this.spinner.hide();
                     }, error => {
                         console.error(error);
+                        this.spinner.hide();
                         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
                     });
                 } else {
+                    this.spinner.hide();
                     this.emitter.emit(this.loan);
                 }
-                // this.nbService.dismissAll(this.loan);
             }, error => {
                 this.spinner.hide();
                 console.error(error);
