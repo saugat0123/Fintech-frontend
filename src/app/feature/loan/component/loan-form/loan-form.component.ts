@@ -10,54 +10,54 @@ import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-servi
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanFormService} from './service/loan-form.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
-import {CompanyInfoComponent} from '../loan-main-template/company-info/company-info.component';
-import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
+// import {CompanyInfoComponent} from '../loan-main-template/company-info/company-info.component';
+// import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
-import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
+// import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
-import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
+// import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
-import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
-import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
+// import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
+// import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {SecurityComponent} from '../../../loan-information-template/security/security.component';
+// import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanDocumentComponent} from '../../../loan-information-template/customer-loan-document/customer-loan-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {GroupComponent} from '../loan-main-template/group/group.component';
-import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
+// import {GroupComponent} from '../loan-main-template/group/group.component';
+// import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
-import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
-import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+// import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+// import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
+// import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
-import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
+// import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
-import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
-import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+// import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
+// import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
-import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
+// import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+// import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
-import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
+// import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
+// import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
@@ -142,22 +142,22 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('container', {static: false})
   container: ElementRef;
 
-  @ViewChild('basicInfo', {static: false})
-  basicInfo: BasicInfoComponent;
+  // @ViewChild('basicInfo', {static: false})
+  // basicInfo: BasicInfoComponent;
 
   @ViewChild('dmsLoanFile', {static: false})
   dmsLoanFile: DmsLoanFileComponent;
 
-  @ViewChild('companyInfo', {static: false})
-  companyInfoComponent: CompanyInfoComponent;
-
-  @ViewChild('kycInfo', {static: false})
-  kycInfo: KycInfoComponent;
+  // @ViewChild('companyInfo', {static: false})
+  // companyInfoComponent: CompanyInfoComponent;
+  //
+  // @ViewChild('kycInfo', {static: false})
+  // kycInfo: KycInfoComponent;
 
   @ViewChild('proposalInfo', {static: false})
   proposalDetail: ProposalComponent;
 
-  @ViewChild('cicl', {static: false})
+  /*@ViewChild('cicl', {static: false})
   cicl: CiclComponent;
 
   @ViewChild('creditGrading', {static: false})
@@ -183,11 +183,11 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('security', {static: false})
   security: SecurityComponent;
-
+*/
   @ViewChild('customerDocument', {static: false})
   customerDocument: CustomerLoanDocumentComponent;
 
-  @ViewChild('group', {static: false})
+  /*@ViewChild('group', {static: false})
   group: GroupComponent;
 
   @ViewChild('guarantor', {static: false})
@@ -200,7 +200,7 @@ export class LoanFormComponent implements OnInit {
   insuranceComponent: InsuranceComponent;
 
   @ViewChild('microProposalInfo', {static: false})
-  microProposalInfo: MicroProposalComponent;
+  microProposalInfo: MicroProposalComponent;*/
 
   loanTag: string;
   loanHolder = new CustomerInfoData();
@@ -227,7 +227,7 @@ export class LoanFormComponent implements OnInit {
       private customerInfoService: CustomerInfoService,
       private companyInfoService: CompanyInfoService,
       private commonRoutingUtilsService: CommonRoutingUtilsService,
-      protected riskQuestionService: RiskGradingService
+      // protected riskQuestionService: RiskGradingService
   ) {
   }
 
@@ -413,7 +413,7 @@ export class LoanFormComponent implements OnInit {
         this.router.navigate(['/home/dashboard']);
       }
 
-      this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
+      /*this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
         const crgQuestionsList = riskQsnRes.detail as Array<any>;
         if (!(crgQuestionsList.length > 0)) {
           this.removeCrgGammaFromTemplateList();
@@ -449,7 +449,7 @@ export class LoanFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
         this.removeCrgGammaFromTemplateList();
         this.pushProposalTemplateToLast();
-      });
+      });*/
     });
   }
 
@@ -554,7 +554,7 @@ export class LoanFormComponent implements OnInit {
     //   this.loanDocument.customerInfo = this.basicInfo.customer;
     // }
 
-    if (name === 'General' && action) {
+    /*if (name === 'General' && action) {
       if (this.dmsLoanFile.loanForm.invalid) {
         this.dmsLoanFile.customerFormField.showFormField = true;
         this.dmsLoanFile.companyFormField.showFormField = true;
@@ -566,7 +566,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
       this.loanDocument.companyInfo = this.dmsLoanFile.loanDataHolder.companyInfo;
       this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
-    }
+    }*/
 
     // if (name === 'Company Info' && action) {
     //   if (this.companyInfoComponent.companyInfoFormGroup.invalid && this.nextButtonAction) {
@@ -577,13 +577,13 @@ export class LoanFormComponent implements OnInit {
     //   this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
     //   this.loanDocument.customerInfo = this.companyInfoComponent.customer;
     // }
-    if (name === 'Kyc Info' && action) {
-      this.kycInfo.onSubmit();
-      const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
-      this.loanDocument.customerInfo.customerRelatives = customerRelatives;
-    }
+    // if (name === 'Kyc Info' && action) {
+    //   this.kycInfo.onSubmit();
+    //   const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
+    //   this.loanDocument.customerInfo.customerRelatives = customerRelatives;
+    // }
 
-    if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
+    /*if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
       if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
         this.microProposalInfo.scrollToFirstInvalidControl();
         this.microProposalInfo.submitted = true;
@@ -591,7 +591,7 @@ export class LoanFormComponent implements OnInit {
       }
       this.microProposalInfo.onSubmit();
       this.loanDocument.proposal = this.microProposalInfo.proposalData;
-    }
+    }*/
 
     if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
       if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
@@ -607,41 +607,41 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
     }
 
-    // if (name === 'CICL' && action) {
-    //   if (this.cicl.ciclForm.invalid ) {
-    //     this.cicl.submitted = true;
-    //     // return true;
-    //   }
-    //   this.cicl.onSubmit();
-    //   this.loanDocument.ciclList = this.cicl.ciclList;
-    //   this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
-    //   // this.loanDocument.insurance = this.cicl.insurance;
-    // }
+    /*if (name === 'CICL' && action) {
+      if (this.cicl.ciclForm.invalid ) {
+        this.cicl.submitted = true;
+        // return true;
+      }
+      this.cicl.onSubmit();
+      this.loanDocument.ciclList = this.cicl.ciclList;
+      this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
+      // this.loanDocument.insurance = this.cicl.insurance;
+    }
 
-    // if (name === 'Financial' && action) {
-    //     this.financial.onSubmit();
-    //     this.loanDocument.financial = this.financial.financialData;
-    // }
+    if (name === 'Financial' && action) {
+        this.financial.onSubmit();
+        this.loanDocument.financial = this.financial.financialData;
+    }
 
-    // if (name === 'Site Visit' && action) {
-    //     this.siteVisit.onSubmit();
-    //     this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
-    // }
-    // if (name === 'Security' && action) {
-    //   this.security.onSubmit();
-    //   this.loanDocument.security = this.security.securityData;
-    //   this.security.initialSecurity.selectedArray.forEach((selected) => {
-    //     if (selected === 'ShareSecurity') {
-    //       this.loanDocument.shareSecurity = this.security.shareSecurityData;
-    //     } else {
-    //       this.loanDocument.shareSecurity = undefined;
-    //     }
-    //   });
-    // }
-    /*if (name === 'Credit Risk Grading' && action) {
+    if (name === 'Site Visit' && action) {
+        this.siteVisit.onSubmit();
+        this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
+    }
+    if (name === 'Security' && action) {
+      this.security.onSubmit();
+      this.loanDocument.security = this.security.securityData;
+      this.security.initialSecurity.selectedArray.forEach((selected) => {
+        if (selected === 'ShareSecurity') {
+          this.loanDocument.shareSecurity = this.security.shareSecurityData;
+        } else {
+          this.loanDocument.shareSecurity = undefined;
+        }
+      });
+    }
+    if (name === 'Credit Risk Grading' && action) {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
-    }*/
+    }
     if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
@@ -661,12 +661,10 @@ export class LoanFormComponent implements OnInit {
       this.crgGamma.onSubmit();
       this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
     }
-
     if (name === 'Group' && action) {
       this.group.onSubmit();
       this.loanDocument.group = this.group.modelData;
     }
-
     if (name === 'Guarantor' && action) {
       this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
     }
@@ -675,14 +673,14 @@ export class LoanFormComponent implements OnInit {
       this.reportingInfoTaggingComponent.onSubmit();
       this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
     }
-    // if (name === 'Insurance' && action) {
-    //   if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
-    //     this.insuranceComponent.isSubmitted = true;
-    //     return true;
-    //   }
-    //   this.insuranceComponent.submit();
-    //   this.loanDocument.insurance = this.insuranceComponent.insurance;
-    // }
+    if (name === 'Insurance' && action) {
+      if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
+        this.insuranceComponent.isSubmitted = true;
+        return true;
+      }
+      this.insuranceComponent.submit();
+      this.loanDocument.insurance = this.insuranceComponent.insurance;
+    }*/
 
     return false;
   }
@@ -746,7 +744,7 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
-  nepaliFormTemplate() {
+  /*nepaliFormTemplate() {
     if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {
       this.loanDocument.customerInfo = new Customer();
     }
@@ -770,7 +768,7 @@ export class LoanFormComponent implements OnInit {
           console.log(dismiss);
         }
     );
-  }
+  }*/
 
   getIsBlackListed(isBlackListed: boolean) {
     this.isBlackListed = isBlackListed;
