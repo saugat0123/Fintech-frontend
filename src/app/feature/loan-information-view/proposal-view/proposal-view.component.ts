@@ -51,6 +51,7 @@ export class ProposalViewComponent implements OnInit {
 
   ngOnInit() {
     this.proposalAllData = JSON.parse(this.proposalData.data);
+    console.log('financingPerOfFmv', this.proposalAllData.financingPerOfFmv);
     this.checkedData = JSON.parse(this.proposalData.checkedData);
     if (this.loanDataHolder.customerLoanDtoList !== null) {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;

@@ -11,7 +11,6 @@ import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-proposal',
@@ -79,6 +78,7 @@ export class ProposalComponent implements OnInit {
   ];
   groupExposureData;
   isAllExposureFieldNull = false;
+  firstTimeHomeBuyerChecked = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -173,13 +173,14 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
+    console.log('proposalData', this.proposalData);
   }
 
   buildForm() {
     this.proposalForm = this.formBuilder.group({
-
-      // Proposed Limit--
       proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+      // Proposed Limit--
+
 
       interestRate: [undefined],
       baseRate: [undefined],
@@ -304,7 +305,8 @@ export class ProposalComponent implements OnInit {
       riskChecked: this.riskChecked,
       swapChargeChecked: this.swapChargeChecked,
       subsidizedLoanChecked: this.subsidizedLoanChecked,
-      swapChargeVar: this.swapChargeVar
+      swapChargeVar: this.swapChargeVar,
+      firstTimeHomeBuyerChecked: this.firstTimeHomeBuyerChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -396,6 +398,13 @@ export class ProposalComponent implements OnInit {
           // this.proposalForm.get('subsidyLoanType').setValue(null);
         }
         break;
+      case 'firstTimeHomeBuyer':
+        if (event) {
+          this.firstTimeHomeBuyerChecked = true;
+        } else {
+          this.firstTimeHomeBuyerChecked = false;
+        }
+        break;
     }
   }
 
@@ -407,6 +416,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['swapChargeVar'], 'swapChVar');
+      this.checkChecked(data['firstTimeHomeBuyerChecked'], 'firstTimeHomeBuyer');
     }
   }
 
@@ -527,7 +537,6 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').clearValidators();
       this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
-
     }
   }
 
@@ -682,5 +691,4 @@ export class ProposalComponent implements OnInit {
       }
     });
   }
-
 }
