@@ -1,154 +1,89 @@
 <div class="container">
     <p><strong>7.1. Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
-    If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of credit facilities <strong>as of dd/mm/yyyy:</strong>
-</p>
+        If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of
+        credit facilities
+        <strong>as of {{multiBankingData?.consortiumDate ? (multiBankingData?.consortiumDate | date) : 'N/A'}}</strong>
+    </p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-    <tr class="sb-bg-dark text-white">
-        <th>
-            SN
-        </th>
-        <th>
-            Banks
-        </th>
-        <th>
-            Funded (WCL)
-        </th>
-        <th>
-            Non-Funded
-        </th>
-        <th>
-            Term Loans
-        </th>
-        <th>
-            Total
-        </th>
-        <th>
-            %
-        </th>
+    <tr class="sb-bg-dark text-white text-center">
+        <th class="sn">SN</th>
+        <th>Banks</th>
+        <th>Funded (WCL)</th>
+        <th>Non-Funded</th>
+        <th>Term Loans</th>
+        <th>Total</th>
+        <th>Percent (%)</th>
     </tr>
-    <tr>
-        <td>
-            1.
-        </td>
-        <td>
-            CCBL
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>
-            2.
-        </td>
-        <td>
-            Other Banks
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>
-
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let con of multiBankingData?.consortium; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{con?.coBankName}}</td>
+        <td>Rs. {{con?.funded}}</td>
+        <td>Rs. {{con?.nonFunded}}</td>
+        <td>Rs. {{con?.termLoan}}</td>
+        <td>Rs. {{con?.total}}</td>
+        <td>{{con?.bankPercent}} %</td>
     </tr>
     <tr>
         <td></td>
-        <td> Total </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td> 100% </td>
+        <td><b>Total</b></td>
+        <td><b>Rs. {{multiBankingData?.totalFunded}}</b></td>
+        <td><b>Rs. {{multiBankingData?.totalNonFunded}}</b></td>
+        <td><b>Rs. {{multiBankingData?.totalTermLoan}}</b></td>
+        <td><b>Rs. {{multiBankingData?.totalTotal}}</b></td>
+        <td><b>{{multiBankingData?.totalPercent}}</b> %</td>
     </tr>
 </table>
 <div class="container">
-<p> <strong>7.2. Multiple Banking Declaration </strong> (date of declaration: dd/mm/yyyy) </p>
+    <p><strong>7.2. Multiple Banking Declaration </strong> (date of
+        declaration: {{multiBankingData?.multiBankingDate ? (multiBankingData?.multiBankingDate | date) : 'N/A'}}) </p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-    <tr class="sb-bg-dark text-white">
-        <th>
-            SN
-        </th>
-        <th>
-            Name of Banks/ FIs
-        </th>
-        <th>
-            Facilities
-        </th>
-        <th>
-            Limit
-        </th>
-        <th>
-            Outstanding
-        </th>
-        <th>
-            Overdue
-        </th>
+    <tr class="sb-bg-dark text-white text-center">
+        <th>SN</th>
+        <th>Name of Banks/ FIs</th>
+        <th>Facilities</th>
+        <th>Limit</th>
+        <th>Outstanding</th>
+        <th>Overdue</th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let mul of multiBankingData?.multiBanking; let ii = index">
+        <td>{{ii + 1}}</td>
+        <td>{{mul?.bankName}}</td>
+        <td>{{mul?.facilityName}}</td>
+        <td>Rs. {{mul?.limit}}</td>
+        <td>Rs. {{mul?.outstanding}}</td>
+        <td>Rs. {{mul?.overDue}}</td>
     </tr>
 </table>
 <div class="container">
-    <p> <strong>7.3. Report from the existing BFIs in case of swap </strong> (date of report:dd/mm/yyyy) </p>
+    <p><strong>7.3. Report from the existing BFIs in case of swap
+    </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date) : 'N/A'}}) </p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-    <tr class="sb-bg-dark text-white">
-        <th>
-            Name of Banks/ FIs
-        </th>
-        <th>
-            Facilities
-        </th>
-        <th>
-            Limit
-        </th>
-        <th>
-            Outstanding
-        </th>
-        <th>
-            Classification
-        </th>
-        <th>
-            Account conduct
-        </th>
+    <tr class="sb-bg-dark text-white text-center">
+        <th>Name of Banks/ FIs</th>
+        <th>Facilities</th>
+        <th>Limit</th>
+        <th>Outstanding</th>
+        <th>Classification</th>
+        <th>Account conduct</th>
+    </tr>
+    <tr *ngFor="let swa of multiBankingData?.bfiSwap; let iii = index">
+        <td>{{swa?.bankName}}</td>
+        <td>{{swa?.facilityName}}</td>
+        <td>Rs. {{swa?.limit}}</td>
+        <td>Rs. {{swa?.outstanding}}</td>
+        <td>{{swa?.classification}}</td>
+        <td>{{swa?.account}}</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <th colspan="6" class="text-center">Comments</th>
+    </tr>
+    <tr>
+        <td colspan="6" [innerHTML]="multiBankingData?.swapComment"></td>
     </tr>
 </table>
-<p>Comments: ………….</p>
 <div class="container">
     <p><strong>7.4. Report from CIC </strong>(date of report: dd/mm/yyyy) </p>
 </div>
@@ -178,7 +113,7 @@
     </tr>
     <tr>
         <td></td>
-        <td> Mr </td>
+        <td> Mr</td>
         <td></td>
         <td></td>
         <td></td>
@@ -187,7 +122,7 @@
     </tr>
     <tr>
         <td></td>
-        <td> Mrs </td>
+        <td> Mrs</td>
         <td></td>
         <td></td>
         <td></td>
@@ -213,72 +148,46 @@
 </div>
 <p><strong>Comments:</strong> Present status / pending issues, if any</p>
 <div class="container">
-    <p><strong> 7.6. Account strategy:</strong></p>
+    <p>
+        <strong> 7.6. Account strategy:</strong>
+        <span [innerHTML]="proposalData?.accountStrategy"></span>
+    </p>
     <p><strong>7.7. Average Utilization of facilities by the customer during the last 12 months with CCBL</strong></p>
-<div class="row">
-    <div class="col-md-4">
-        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-            <tr class="sb-bg-dark text-white">
-                <th>
-                    SN
-                </th>
-                <th>
-                    Facilities
-                </th>
-                <th>
-                    Avg. utilization (%)
-                </th>
-            </tr>
-            <tr>
-                <td> 1 </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td> 2 </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td> 3 </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td> 4 </td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                <tbody class="sb-bg-dark text-white text-center">
+                <tr>
+                    <th rowspan="2" class="sn">S.N</th>
+                    <th rowspan="2">Facilities</th>
+                    <th rowspan="2">Avg. utilization(%)</th>
+                    <th rowspan="2" class="border-top-0 border-bottom-0" style="color: white"></th>
+                    <th colspan="7">Transaction Records</th>
+                </tr>
+                <tr>
+                    <th>Debit</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>Credit</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                </tr>
+                </tbody>
+                <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
+                <tr>
+                    <td>{{iv + 1}}</td>
+                    <td>{{avg?.facilityName}}</td>
+                    <td>{{avg?.avgUtil}}</td>
+                    <td></td>
+                    <td>{{avg?.debit}}</td>
+                    <td>{{avg?.debitNo}}</td>
+                    <td>Rs. {{avg?.debitAmount}}</td>
+                    <td>{{avg?.credit}}</td>
+                    <td>{{avg?.creditNo}}</td>
+                    <td>Rs. {{avg?.creditAmount}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="col-md-8">
-        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-            <tr class="sb-bg-dark text-white">
-                <th colspan="6" class="text-center">
-                    Transaction Records
-                </th>
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <th>
-                    Debit
-                </th>
-                <th>
-                    No.
-                </th>
-                <th>
-                    Amount
-                </th>
-                <th>
-                    Credit
-                </th>
-                <th>
-                    No.
-                </th>
-                <th>
-                    Amount
-                </th>
-            </tr>
-        </table>
-    </div>
-</div>
 </div>

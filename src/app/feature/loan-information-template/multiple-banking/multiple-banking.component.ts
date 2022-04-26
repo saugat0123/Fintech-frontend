@@ -185,13 +185,11 @@ export class MultipleBankingComponent implements OnInit {
             case 'totalTermLoan':
                 this.multiBankingForm.get(total).patchValue(termLoan);
                 break;
-            case 'totalTotal':
-                this.multiBankingForm.get(total).patchValue(totalTotal);
-                break;
             case 'totalPercent':
                 this.multiBankingForm.get(total).patchValue(totalPercent);
                 break;
         }
+        this.multiBankingForm.get('totalTotal').patchValue(totalTotal);
         totalAmount = array.value[index].funded + array.value[index].nonFunded + array.value[index].termLoan;
         this.multiBankingForm.get([arrayName, index, 'total']).patchValue(totalAmount);
     }
