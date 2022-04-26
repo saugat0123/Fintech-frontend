@@ -252,38 +252,3 @@
     </nb-card-body>
 </nb-card>
 
-<ng-template #templateRef>
-    <nb-card>
-        <nb-card-header>
-            <div class="text-right">
-                <a role="button" class="cursor" (click)="onClose()">x</a>
-            </div>
-        </nb-card-header>
-        <nb-card-body>
-            <form [formGroup]="form">
-                <div class="row">
-                    <strong> Consider Value</strong> : <span>{{totalFreeLimit}}</span>
-                    <span *ngIf="isLimitExceed" class="text-danger">Limit Exceed!!</span>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Consider Amount to Use</label>
-                        <input nbInput fullWidth formControlName="usedAmount" type="number"
-                        (input)="calculateFreeLimit(form.get('usedAmount').value)">
-                    </div>
-                    <div class="col-md-6">
-                        <label>Free Limit Left</label>
-                        <input nbInput fullWidth formControlName="freeLimit" type="number" readonly>
-                    </div>
-                </div>
-            </form>
-        </nb-card-body>
-        <nb-card-footer>
-            <div class="text-right">
-                <button nbButton status="success" size="tiny" [disabled]="form.invalid || isLimitExceed"
-                (click)="onSubmit()">Save</button>
-            </div>
-        </nb-card-footer>
-    </nb-card>
-</ng-template>
-
