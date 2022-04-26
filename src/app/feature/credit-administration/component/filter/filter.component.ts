@@ -46,6 +46,7 @@ export class FilterComponent implements OnInit {
   @Input() fromCadDashboard;
   @Input() docStatus;
   @Input() isDefaultCADROLEFILTER: boolean;
+  @Input() loanpull: boolean;
   possessionRoleList: Array<Role>;
   branchAccessIsOwn = false;
   clientType = [];
