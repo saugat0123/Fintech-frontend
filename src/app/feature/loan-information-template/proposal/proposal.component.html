@@ -870,15 +870,15 @@
                             </div>
                         </form>
                     </div>
-                    <ng-template #guarantor *ngIf="fromProfile">
+                    <ng-container #guarantor *ngIf="fromProfile">
                         <div class="col-md-12 modal">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
-                    </ng-template>
-                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>
+                    </ng-container>
+<!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->
                     <button nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>
                 </nb-card-body>
             </nb-card>

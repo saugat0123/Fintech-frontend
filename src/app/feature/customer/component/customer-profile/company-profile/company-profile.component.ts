@@ -433,7 +433,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 // @ts-ignore
                 this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
         }
-        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
+        this.dialogService.open(proposal, { closeOnBackdropClick: false,
+            closeOnEsc: false,
+            hasBackdrop: false,
+            hasScroll: true});
     }
 
 }
