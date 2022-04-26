@@ -22,10 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
         canActivate: [RouteGuard]
       },
-      {
+      /*{
         path: 'memo',
         loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule)
-      },
+      },*/
       {
         path: 'loan',
         loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule)
@@ -34,19 +34,19 @@ const routes: Routes = [
         path: 'customer',
         loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
       },
-      {
+      /*{
         path: 'report',
         loadChildren: () => import('./reporting/reporting.module').then(m => m.ReportingModule),
         canActivate: [RouteGuard]
-      },
+      },*/
       {
         path: 'update-loan',
         loadChildren: () => import('./loan-update/loan-update.module').then(m => m.LoanUpdateModule)
       },
-      {
-        path: 'crg',
-        loadChildren: () => import('./credit-risk-grading/credit-risk-grading.module').then(m => m.CreditRiskGradingModule)
-      },
+      // {
+      //   path: 'crg',
+      //   loadChildren: () => import('./credit-risk-grading/credit-risk-grading.module').then(m => m.CreditRiskGradingModule)
+      // },
 
       {
         path: 'customer-activity',
