@@ -214,6 +214,14 @@ export class ProposalComponent implements OnInit {
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
+        } else {
+            if(!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+                const commonData = JSON.parse(this.customerInfo.commonLoanData);
+                this.setFormData(commonData.vehicle, 'vehicle');
+                this.setFormData(commonData.deposit, 'deposit');
+                this.setFormData(commonData.realState, 'realState');
+                this.setFormData(commonData.shares, 'shares');
+            }
         }
         this.getLoanData();
         this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
@@ -462,18 +470,13 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
-            this.spinner.show();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
-                this.proposalData.data = JSON.stringify(this.proposalForm.value);
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
-                const commonData = JSON.parse(this.customerInfo.commonLoanData);
-                    this.setFormData(commonData.vehicle, 'vehicle');
-                    this.setFormData(commonData.deposit, 'deposit');
-                    this.setFormData(commonData.realState, 'realState');
-                    this.setFormData(commonData.shares, 'shares');
-                this.loan.proposal = this.proposalData;
             }
+            this.proposalData.data = JSON.stringify(this.proposalForm.value);
+            this.loan.proposal = this.proposalData;
+            this.spinner.show();
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
