@@ -20,7 +20,7 @@ import {Group} from './group';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {GuarantorDetail} from './guarantor-detail';
-import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
+// import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
@@ -79,7 +79,7 @@ export class LoanDataHolder extends BaseEntity {
     group: Group;
     shareSecurity: ShareSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
-    reportingInfoLevels: Array<ReportingInfoLevel>;
+    // reportingInfoLevels: Array<ReportingInfoLevel>;
     loanHolder: CustomerInfoData;
     combinedLoan: CombinedLoan;
     refNo: string;
