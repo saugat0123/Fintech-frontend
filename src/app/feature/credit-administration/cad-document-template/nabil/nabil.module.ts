@@ -252,7 +252,12 @@ import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-
         SingleSmePrimarySecurityViewComponent,
         SingleSmeSecondarySecurityViewComponent,
         CommonSectionTopRetailComponent,
-        Section1CustomerOfferLetterTypeComponent
+        Section1CustomerOfferLetterTypeComponent,
+        Section4SecurityCollateralComponent,
+        Section5InterestRatedRelatedClausesComponent,
+        Section6LoanLimitRelatedClausesComponent,
+        Section7InterestAndEmiPaymentRelatedComponent,
+        Section9InsuranceRelatedClausesComponent
     ],
     imports: [
         CommonModule,

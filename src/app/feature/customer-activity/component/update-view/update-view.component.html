@@ -27,8 +27,8 @@
       </div>
     </div>
     <hr>
-    <app-loan-view *ngIf="(activity === 'LOAN_APPROVED' || activity === 'DELETE_LOAN' || activity === 'RE_INITIATE_LOAN') && data" [customerLoan]="customerLoan"></app-loan-view>
-    <app-insurance-view [insurance]="data"
+<!--    <app-loan-view *ngIf="(activity === 'LOAN_APPROVED' || activity === 'DELETE_LOAN' || activity === 'RE_INITIATE_LOAN') && data" [customerLoan]="customerLoan"></app-loan-view>-->
+    <!--<app-insurance-view [insurance]="data"
                         *ngIf="activity === 'INSURANCE_UPDATE' && data"></app-insurance-view>
 
     <app-financial-view *ngIf="activity === 'FINANCIAL_UPDATE' && data"
@@ -44,7 +44,7 @@
     </app-site-visit-view>
 
     <app-security-view *ngIf="activity === 'SECURITY' && data"
-                       [security]="data" [shareSecurityData]="null"></app-security-view>
+                       [security]="data" [shareSecurityData]="null"></app-security-view>-->
 
     <div *ngIf="activity === 'SHARE_SECURITY' && data"
     >
@@ -89,17 +89,17 @@
         </div>
       </div>
     </div>
-    <app-individual-view [individual]="data"
+    <!--<app-individual-view [individual]="data"
                          [customerInfo]="profile"
                          *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
     </app-individual-view>
     <app-company-info-view [formValue]="data"
                            *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INSTITUTION'">
-    </app-company-info-view>
+    </app-company-info-view>-->
 
-    <app-credit-grading [formData]="data" [fromProfile]="false"
-                        *ngIf="activity === 'CRG_UPDATE' && data">
-    </app-credit-grading>
+<!--    <app-credit-grading [formData]="data" [fromProfile]="false"-->
+<!--                        *ngIf="activity === 'CRG_UPDATE' && data">-->
+<!--    </app-credit-grading>-->
 
     <!--<app-credit-risk-grading-alpha [creditRiskGradingAlpha]="data" [fromProfile]="false"
                                    [financial]="profile?.financial" [companyInfo]="companyInfo"
@@ -108,7 +108,7 @@
 <!--    <app-credit-risk-grading-gamma [fromProfile]="false" [formData]="data"-->
 <!--                                   *ngIf="activity === 'CRG_GAMMA_UPDATE' && data"></app-credit-risk-grading-gamma>-->
 
-    <app-cicl-view [ciclValue]="data" *ngIf="activity === 'CICL_UPDATE' && data"></app-cicl-view>
+<!--    <app-cicl-view [ciclValue]="data" *ngIf="activity === 'CICL_UPDATE' && data"></app-cicl-view>-->
 
     <div class="col-md-12" *ngIf="activity === 'CUSTOMER_GROUP_UPDATE' && data">
       <div class="d-flex justify-content-center">
@@ -142,8 +142,8 @@
       </table>
 
 
-      <app-guarantor-view *ngIf="loanUpdateData?.guarantor"
-                          [guarantorData]="loanUpdateData?.guarantor"></app-guarantor-view>
+      <!--<app-guarantor-view *ngIf="loanUpdateData?.guarantor"
+                          [guarantorData]="loanUpdateData?.guarantor"></app-guarantor-view>-->
     </div>
 
     <div class="col-md-12">

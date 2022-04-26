@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-retail-combined-offer-letter',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./retail-combined-offer-letter.component.scss']
 })
 export class RetailCombinedOfferLetterComponent implements OnInit {
-
+  @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   constructor() { }
 
   ngOnInit() {

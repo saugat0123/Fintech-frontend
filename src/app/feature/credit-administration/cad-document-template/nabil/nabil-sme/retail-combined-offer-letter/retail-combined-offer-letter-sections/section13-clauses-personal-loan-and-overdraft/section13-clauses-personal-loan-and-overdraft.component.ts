@@ -17,7 +17,9 @@ export class Section13ClausesPersonalLoanAndOverdraftComponent implements OnInit
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      nameOfCompany: [undefined],
+      nameOfCompany1: [undefined],
+      nameOfCompany2: [undefined]
     });
   }
 }

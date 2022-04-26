@@ -30,7 +30,8 @@
                         <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApprovalNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
-                        <input [nbDatepicker]="doa"
+                        <input shape="semi-round"
+                               status="success" [nbDatepicker]="doa"
                                *ngIf="dateTypeAD"
                                class="form-control form-control-sm-error rounded"
                                formControlName="dateOfApproval"
@@ -43,10 +44,12 @@
                 </tr>
 <!--                <tr>-->
 <!--                    <td>Reference Number</td>-->
-<!--                    <td><input type="text" class="form-control" formControlName="refNumber"/></td>-->
+<!--                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="refNumber"/></td>-->
 <!--                    <td class="abc">{{translatedData?.refNumber}}</td>-->
 <!--                    <td>-->
-<!--                        <input type="text" class="form-control"-->
+<!--                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"-->
 <!--                               [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"-->
 <!--                               formControlName="refNumberTransVal"/>-->
 <!--                        <div *ngIf="submitted && Form.refNumberTransVal.errors"-->
@@ -75,7 +78,8 @@
                         <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplicationNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
-                        <input [nbDatepicker]="doap"
+                        <input shape="semi-round"
+                               status="success" [nbDatepicker]="doap"
                                *ngIf="dateTypeAD1"
                                class="form-control form-control-sm-error rounded"
                                formControlName="dateofApplication"
@@ -88,10 +92,12 @@
                 </tr>
                 <tr>
                     <td>Purpose Of Loan</td>
-                    <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="purposeOfLoan"/></td>
                     <td class="abc">{{translatedData?.purposeOfLoan}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
                                formControlName="purposeOfLoanTransVal"/>
                         <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
@@ -102,10 +108,12 @@
                 </tr>
                 <tr>
                     <td>Base Rate</td>
-                    <td><input type="number" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.baseRate}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
                                formControlName="baseRateTransVal"/>
                         <div *ngIf="submitted && Form.baseRateTransVal.errors"
@@ -116,10 +124,12 @@
                 </tr>
                 <tr>
                     <td>Premium Rate</td>
-                    <td><input type="number" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.premiumRate}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
                                formControlName="premiumRateTransVal"/>
                         <div *ngIf="submitted && Form.premiumRateTransVal.errors"
@@ -130,10 +140,12 @@
                 </tr>
                 <tr>
                     <td>Interest Rate</td>
-                    <td><input type="number" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
                     <td class="abc">{{translatedData?.yearlyFloatingInterestRate}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.yearlyFloatingInterestRateTransVal.errors }"
                                formControlName="yearlyFloatingInterestRateTransVal"/>
                         <div *ngIf="submitted && Form.yearlyFloatingInterestRateTransVal.errors"
@@ -145,13 +157,15 @@
                 <tr>
                     <td>Loan Admin Fee in Figures</td>
                     <td>
-                        <input type="number" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="number" class="form-control"
                                formControlName="loanAdminFee"
                                (input)="getNumAmountWord('loanAdminFee', 'loanAdminFeeinWords')"/>
                     </td>
                     <td class="abc">{{translatedData?.loanAdminFee}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeTransVal.errors }"
                                formControlName="loanAdminFeeTransVal"/>
                         <div *ngIf="submitted && Form.loanAdminFeeTransVal.errors"
@@ -162,10 +176,12 @@
                 </tr>
                 <tr>
                     <td>Loan Admin Fee in Words</td>
-                    <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
                     <td class="abc">{{translatedData?.loanAdminFeeinWords}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
                                formControlName="loanAdminFeeinWordsTransVal"/>
                         <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
@@ -176,12 +192,14 @@
                 </tr>
                 <tr>
                     <td>Emi Amount Figure</td>
-                    <td><input type="number" class="form-control"
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control"
                                formControlName="emiAmount"
                                (input)="getNumAmountWord('emiAmount', 'emiAmountWords');translateNumber('emiAmount', 'emiAmountTransVal')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.emiAmountTransVal.errors }"
                                formControlName="emiAmountTransVal"/>
                         <div *ngIf="submitted && Form.emiAmountTransVal.errors"
@@ -192,26 +210,32 @@
                 </tr>
                 <tr>
                     <td>Emi Amount Words</td>
-                    <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="emiAmountWords"/></td>
                     <td class="abc">{{translatedData?.emiAmountWords}}</td>
                     <td>
-                        <input type="text" class="form-control" formControlName="emiAmountWordsTransVal"/>
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="emiAmountWordsTransVal"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Loan Period in Month</td>
-                    <td><input type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber1('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber1('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
                     <td class="abc">{{translatedData?.loanPeriodInMonth}}</td>
                     <td>
-                        <input type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Name of Company</td>
-                    <td><input type="text" class="form-control" formControlName="companyName"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="companyName"/></td>
                     <td class="abc">{{translatedData?.companyName}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.companyNameTransVal.errors }"
                                formControlName="companyNameTransVal"/>
                         <div *ngIf="submitted && Form.companyNameTransVal.errors"
@@ -223,11 +247,13 @@
 
                 <tr>
                     <td>Account Number</td>
-                    <td><input type="number" class="form-control" formControlName="accountNumber"
+                    <td><input shape="semi-round"
+                               status="success" type="number" class="form-control" formControlName="accountNumber"
                                (input)="translateNumber1('accountNumber', 'accountNumberTransVal')"/></td>
                     <td class="abc">{{translatedData?.accountNumber}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.accountNumberTransVal.errors }"
                                formControlName="accountNumberTransVal"/>
                         <div *ngIf="submitted && Form.accountNumberTransVal.errors"
@@ -238,10 +264,12 @@
                 </tr>
                 <tr>
                     <td>Relationship Officer Name</td>
-                    <td><input type="text" class="form-control" formControlName="relationshipOfficer"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="relationshipOfficer"/></td>
                     <td class="abc">{{translatedData?.relationshipOfficer}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.relationshipOfficerTransVal.errors }"
                                formControlName="relationshipOfficerTransVal"/>
                         <div *ngIf="submitted && Form.relationshipOfficerTransVal.errors"
@@ -252,10 +280,12 @@
                 </tr>
                 <tr>
                     <td>Branch Manager</td>
-                    <td><input type="text" class="form-control" formControlName="managerName"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="managerName"/></td>
                     <td class="abc">{{translatedData?.managerName}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                [ngClass]="{ 'is-invalid':submitted && Form.managerNameTransVal.errors }"
                                formControlName="managerNameTransVal"/>
                         <div *ngIf="submitted && Form.managerNameTransVal.errors"
@@ -267,37 +297,45 @@
 
                 <!--<tr>
                     <td>Witness District</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiDistrict"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="sakshiDistrict"/></td>
                     <td class="abc">{{translatedData?.sakshiDistrict}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                formControlName="sakshiDistrictTransVal"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Witness Municipality</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiMunicipality"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="sakshiMunicipality"/></td>
                     <td class="abc">{{translatedData?.sakshiMunicipality}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                formControlName="sakshiMunicipalityTransVal"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Witness Ward No</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiWardNum"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="sakshiWardNum"/></td>
                     <td class="abc">{{translatedData?.sakshiWardNum}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                formControlName="sakshiWardNumTransVal"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Witness Name</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiName"/></td>
+                    <td><input shape="semi-round"
+                               status="success" type="text" class="form-control" formControlName="sakshiName"/></td>
                     <td class="abc">{{translatedData?.sakshiName}}</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input shape="semi-round"
+                               status="success" type="text" class="form-control"
                                formControlName="sakshiNameTransVal"/>
                     </td>
                 </tr>-->

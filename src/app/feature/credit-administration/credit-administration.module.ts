@@ -133,6 +133,26 @@ import {Section2SmeSecurityComponent} from './cad-view/template-data/nabil-sme-t
 import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 import { CommonSecuritySectionPrimaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-primary/common-security-section-primary.component';
 import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-secondary/common-security-section-secondary.component';
+import { RetailTemplateDataComponent } from './cad-view/template-data/retail-template-data/retail-template-data.component';
+import { RetailGlobalContentComponent } from './cad-view/template-data/retail-template-data/retail-global-content/retail-global-content.component';
+import { PersonalLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-loan-combined-template-data/personal-loan-combined-template-data.component';
+import { EducationLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/education-loan-combined-template-data/education-loan-combined-template-data.component';
+import { MortgageLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/mortgage-loan-combined-template-data/mortgage-loan-combined-template-data.component';
+import { PersonalOverdraftCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-overdraft-combined-template-data/personal-overdraft-combined-template-data.component';
+import {
+    RetailCombinedOfferLetterComponent
+} from './cad-document-template/nabil/nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
+import { AutoLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/auto-loan-combined-template-data/auto-loan-combined-template-data.component';
+import { HomeLoanCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/home-loan-combined-template-data/home-loan-combined-template-data.component';
+import { NabilSahayatriKarjaCombinedComponent } from './cad-view/template-data/retail-template-data/nabil-sahayatri-karja-combined/nabil-sahayatri-karja-combined.component';
+import { PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent } from './cad-view/template-data/retail-template-data/personal-overdraft-without-collateral-combined-template-data/personal-overdraft-without-collateral-combined-template-data.component';
+import { RetailMasterSecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-master-security.component';
+import { RetailPrimarySecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-primary-security/retail-primary-security.component';
+import { RetailSecondarySecurityComponent } from './cad-view/template-data/retail-template-data/retail-master-security/retail-secondary-security/retail-secondary-security.component';
+import { NabilShareLoanPodTemplateDataComponent } from './cad-view/template-data/retail-template-data/nabil-share-loan-pod-template-data/nabil-share-loan-pod-template-data.component';
+import { ShareLoanDemandTemplateDataComponent } from './cad-view/template-data/retail-template-data/share-loan-demand-template-data/share-loan-demand-template-data.component';
+import { RetailCombinedRequiredDocumentComponent } from './cad-view/template-data/retail-template-data/retail-combined-required-document/retail-combined-required-document.component';
+import { ExistingLoanTemplateDataComponent } from './cad-view/template-data/retail-template-data/existing-loan-template-data/existing-loan-template-data.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -252,7 +272,26 @@ import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-dat
         Section2SmeSecurityComponent,
         RequiredLegalDocumentSectionComponent,
         CommonSecuritySectionPrimaryComponent,
-        CommonSecuritySectionSecondaryComponent],
+        CommonSecuritySectionSecondaryComponent,
+        RetailTemplateDataComponent,
+        RetailGlobalContentComponent,
+        PersonalLoanCombinedTemplateDataComponent,
+        EducationLoanCombinedTemplateDataComponent,
+        MortgageLoanCombinedTemplateDataComponent,
+        PersonalOverdraftCombinedTemplateDataComponent,
+        AutoLoanCombinedTemplateDataComponent,
+        HomeLoanCombinedTemplateDataComponent,
+        NabilSahayatriKarjaCombinedComponent,
+        PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent,
+        NabilSahayatriKarjaCombinedComponent,
+        RetailMasterSecurityComponent,
+        RetailPrimarySecurityComponent,
+        RetailSecondarySecurityComponent,
+        NabilShareLoanPodTemplateDataComponent,
+        ShareLoanDemandTemplateDataComponent,
+        RetailCombinedRequiredDocumentComponent,
+        PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent,
+        ExistingLoanTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -291,7 +330,7 @@ import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-dat
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
       KisanKarjaSubsidyTemplateEditComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent,
-      CombinedOfferLetterComponent, SmeMasterTemplateComponent],
+      CombinedOfferLetterComponent, SmeMasterTemplateComponent, RetailTemplateDataComponent, RetailCombinedOfferLetterComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

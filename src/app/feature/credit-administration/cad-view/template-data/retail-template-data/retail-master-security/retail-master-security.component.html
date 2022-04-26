@@ -1,0 +1,13 @@
+<nb-card accent="success" class="mt-3">
+    <nb-card-header>
+        <h5>SECURITY SECTION</h5>
+    </nb-card-header>
+    <nb-card-body>
+        <!--         different sections of security -->
+        <!-- Primary security -->
+        <app-retail-primary-security #primarySecurity [initialData]="parseSecurityData"></app-retail-primary-security>
+        <hr>
+        <!-- Secondary Security -->
+        <app-retail-secondary-security #secondarySecurity [initialData]="parseSecurityData"></app-retail-secondary-security>
+    </nb-card-body>
+</nb-card>
