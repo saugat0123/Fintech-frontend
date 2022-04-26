@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Auto} from '../../../loan/model/Auto';
+import {LandBuilding} from '../../../loan/model/LandBuilding';
 
 @Component({
     selector: 'app-security-adder',
@@ -10,7 +12,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
     styleUrls: ['./security-adder.component.scss']
 })
 export class SecurityAdderComponent implements OnInit {
-
+    form: FormGroup;
     @Input() security;
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
@@ -28,15 +30,61 @@ export class SecurityAdderComponent implements OnInit {
     share = false;
     autoId = [];
     landBuildingId  = [];
-    constructor() {
+    autoSecurity: Auto;
+    landBuildingSecurity: LandBuilding;
+    considerValue = 0;
+    isLimitExceed = false;
+    totalFreeLimit = 0;
+
+    constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        console.log('this is loan holder', this.loanHolder);
+        this.buildForm();
         if (!ObjectUtil.isEmpty(this.loanHolder.selectedArray)) {
             this.selectedSecurities = JSON.parse(this.loanHolder.selectedArray);
             this.selectedSecurity();
         }
+        if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
+            this.setLandBuildingDetail();
+        }
+    }
+
+    private buildForm(): FormGroup {
+        return this.form = this.fb.group({
+            landBuildingForm: this.fb.array([])
+        });
+    }
+
+    get landBuildingForm(): FormArray {
+        return this.form.get('landBuildingForm') as FormArray;
+    }
+
+    public landBuildingFormGroup(): FormGroup {
+        return  this.form = this.fb.group({
+            usedAmount: [undefined],
+            freeLimit: [undefined],
+            considerValue: [undefined],
+            fairMarketValue: [undefined],
+            governmentRate: [undefined],
+            geoLocation: [undefined],
+            name: [undefined],
+        });
+    }
+
+    public setLandBuildingDetail(): void {
+        const arrayForm = this.form.get('landBuildingForm') as FormArray;
+        this.customerInfo.landBuildings.forEach((singleData: any) => {
+            arrayForm.push(this.fb.group({
+                usedAmount: [singleData.usedAmount],
+                freeLimit: [singleData.freeLimit],
+                considerValue: [singleData.considerValue],
+                fairMarketValue: [singleData.marketValue],
+                governmentRate: [singleData.governmentRate],
+                geoLocation: [singleData.geoLocation],
+                name: [singleData.district.name]
+            }));
+        });
     }
 
     removeAutoSecurity(id) {
@@ -88,16 +136,44 @@ export class SecurityAdderComponent implements OnInit {
 
     }
 
-    tagSecurity(security, key) {
-        switch (key) {
-            case 'auto': {
-                this.loanHolder.autos.push(security);
-            }
-            break;
-            case 'landBuilding': {
-                this.loanHolder.landBuildings.push(security);
-            }
+    public tagSecurity(security: any, key): void {
+        if (key === 'auto') {
+            this.autoSecurity = security;
         }
-        this.selectedSecurity();
-    }
+        if (key === 'landBuilding') {
+            this.landBuildingSecurity = security;
+        }
+        // switch (key) {
+        //     case 'auto': {
+        //         this.loanHolder.autos.push(security);
+        //     }
+        //         break;
+        //     case 'landBuilding': {
+        //         this.loanHolder.landBuildings.push(security);
+        //     }
+        // }
+        // this.selectedSecurity();
+        }
+
+        public onSubmit(): void {
+            // submit logic goes here
+
+        }
+
+        public calculateFreeLimit(val: number): void {
+            let freeLimit = this.considerValue;
+            freeLimit -= val;
+            this.totalFreeLimit = this.considerValue;
+            this.totalFreeLimit -= val;
+            this.isLimitExceed = this.totalFreeLimit < 0;
+            this.form.get('freeLimit').setValue(freeLimit);
+        }
+
+        public calc(index: number, considerValue: number,  value: any): void {
+            let freeLimit = considerValue;
+            freeLimit -= value;
+            this.totalFreeLimit = considerValue;
+            this.totalFreeLimit -= value;
+            this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
+        }
 }

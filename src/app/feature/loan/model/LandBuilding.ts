@@ -4,7 +4,7 @@ import {District} from '../../admin/modal/district';
 import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
 import {Valuator} from '../../admin/modal/valuator';
 
-export  class LandBuilding extends BaseEntity {
+export class LandBuilding extends BaseEntity {
     governmentRate: number;
     marketRate: number;
     fairMarketValue: number;
@@ -22,5 +22,6 @@ export  class LandBuilding extends BaseEntity {
     registerOffice: string;
     data: string;
     freeLimit: number;
+    usedAmount: number;
 
 }
