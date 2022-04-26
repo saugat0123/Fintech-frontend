@@ -26,6 +26,7 @@ import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
 import {MaritalStatus} from '../../../@core/model/enum/marital-status';
 import {Gender} from '../../../@core/model/enum/gender';
+import {MultipleBanking} from '../../admin/modal/multipleBanking';
 
 export class CustomerInfoData {
     id: number;
@@ -80,4 +81,5 @@ export class CustomerInfoData {
     subsectorDetail: string;
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
+    multiBanking: MultipleBanking;
 }

@@ -527,6 +527,32 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
+      <nb-accordion-item #dataFromMultiBanking *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>MULTI-BANKING/CONSORTIUM</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.multiBanking" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.multiBanking" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-multiple-banking
+                  #multipleBankingComponent
+                  [fromProfile]="true"
+                  [multiBankingData]="customerInfo?.multiBanking"
+                  (multiBankingDataEmitter)="saveMultiBanking($event)">
+          </app-multiple-banking>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
       <!--   CRG GAMMA-->
 <!--      <nb-accordion-item #itemCrgGamma>-->
 <!--        <nb-accordion-item-header>-->
