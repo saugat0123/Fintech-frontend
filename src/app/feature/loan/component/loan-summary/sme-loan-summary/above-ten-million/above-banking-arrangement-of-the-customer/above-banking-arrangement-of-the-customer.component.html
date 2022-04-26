@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="checkedData?.consortiumChecked">
     <p><strong>7.1. Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
         If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of
         credit facilities
@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="checkedData?.multiBankingChecked">
     <p><strong>7.2. Multiple Banking Declaration </strong> (date of
         declaration: {{multiBankingData?.multiBankingDate ? (multiBankingData?.multiBankingDate | date) : 'N/A'}}) </p>
     <div class="row">
@@ -64,7 +64,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="checkedData?.swapChecked">
     <p><strong>7.3. Report from the existing BFIs in case of swap
     </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date) : 'N/A'}}) </p>
     <div class="row">
