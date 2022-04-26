@@ -870,8 +870,8 @@
                             </div>
                         </form>
                     </div>
-                    <ng-container #guarantor *ngIf="fromProfile">
-                        <div class="col-md-12 modal">
+                    <ng-container  *ngIf="fromProfile">
+                        <div class="col-md-12">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">

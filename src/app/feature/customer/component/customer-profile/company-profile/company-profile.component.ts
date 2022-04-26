@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {CustomerInfoService} from '../../../service/customer-info.service';
 import {CustomerType} from '../../../model/customerType';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
@@ -114,7 +114,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private formBuilder: FormBuilder,
                 private utilService: ProductUtilService,
                 private loanFormService: LoanFormService,
-                public service: CommonService) {
+                public service: CommonService,
+                config: NgbModalConfig) {
+        config.backdrop = 'static';
+        config.keyboard = false;
     }
 
     get form() {
@@ -137,7 +140,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
             this.customerLoans = res.detail;
-            console.log('this is customer loan', this.customerLoans);
+            // console.log('this is customer loan', this.customerLoans);
         });
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
@@ -433,10 +436,11 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 // @ts-ignore
                 this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
         }
-        this.dialogService.open(proposal, { closeOnBackdropClick: false,
-            closeOnEsc: false,
-            hasBackdrop: false,
-            hasScroll: true});
+        const ref = this.modalService.open(proposal, {
+            size: 'xl',
+            windowClass: 'modal-holder',
+            scrollable: true,
+        });
     }
 
 }

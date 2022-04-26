@@ -5,7 +5,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Customer} from '../../../../admin/modal/customer';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {LoanType} from '../../../../loan/model/loanType';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -147,10 +147,12 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private dialogService: NbDialogService,
                 private utilService: ProductUtilService,
                 private companyInfoService: CompanyInfoService,
-                public service: CommonService
+                public service: CommonService,
+                config: NgbModalConfig
 
     ) {
-
+        config.backdrop = 'static';
+        config.keyboard = false;
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
         };
