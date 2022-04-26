@@ -370,16 +370,9 @@
         <nb-card accent="primary">
             <nb-card-header>
 
-                <div class="row float-right">
-                    <div class="px-2">
-                        <button (click)="openLoanApplyTemplate()" *ngIf="!isEdited && maker"
-                                nbButton size="small" type="button">Apply Loan
-                        </button>
-                    </div>
-                </div>
             </nb-card-header>
             <nb-card-body>
-                <div class="row" [@displayState]="applyLoan" *ngIf="applyLoan">
+                <div class="row" [@displayState]="maker" *ngIf="maker">
                     <div class="col-md-4">
                         <select [(ngModel)]="selectedLoanType"
                                 class="form-control rounded" name="loanType" required>
@@ -520,13 +513,11 @@
                     <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
                             [loanDataHolder]="loan"
                             [loanType]="loan?.loanType"></app-customer-loan-document>
-                    <ng-container *ngIf="loan?.documentStatus === 'APPROVED'">
-                        <table class="table-responsive-md">
-                                <tr *ngIf="loan?.customerDocument?.length < 1">
+                    <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">
+                                <ng-container *ngIf="loan?.customerDocument?.length < 1">
                                     NO DOCUMENT available in this loan
-                                </tr>
-                                <tr>
-                                    <td class="text-left">
+                                </ng-container>
+
                                         <div class="col-md-12 ">
                                             <div class="row">
                                                 <div class="col-md-3 img-hover flex-wrap"
@@ -541,9 +532,6 @@
                                             </div>
                                         </div>
 
-                                    </td>
-                                </tr>
-                        </table>
                     </ng-container>
 
                 </nb-tab>

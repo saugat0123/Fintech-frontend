@@ -127,7 +127,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         {id: 'L3', name: 'L3'}
     ];
     docStatusMakerList = [];
-    applyLoan = false;
     loan = new LoanDataHolder();
     customerLoans: LoanDataHolder [];
 
@@ -213,6 +212,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
             this.customerLoans = res.detail;
+            console.log('this is customer loan', this.customerLoans);
         });
     }
 
@@ -256,7 +256,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.selectedLoanType = null;
         this.facilityType = null;
         this.buildLoanForm();
-        this.applyLoan = !this.applyLoan;
     }
 
     getProvince() {
@@ -292,10 +291,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
-    openLoanApplyTemplate() {
-        this.applyLoan = !this.applyLoan;
-        // this.routeToLoanForm();
-    }
+    // openLoanApplyTemplate() {
+    //     this.applyLoan = !this.applyLoan;
+    //     // this.routeToLoanForm();
+    // }
 
     routeToLoanForm() {
         this.router.navigate(['/home/loan/loanForm'], {
