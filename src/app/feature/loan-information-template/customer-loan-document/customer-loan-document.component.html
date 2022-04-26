@@ -1,10 +1,10 @@
 <nb-card>
   <nb-card-header>
-    <h3><strong>Loan Documents</strong></h3>
+    <h3><strong>Loan Documents ({{(loanConfig?.name)?.toUpperCase()}})</strong></h3>
   </nb-card-header>
   <nb-card-body>
     <div *ngIf="initialDocuments.length > 0" class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="box-header with-border">
           <em><span
               style="color:red;">(Select file smaller than 5MB)</span></em>
@@ -34,6 +34,7 @@
 
               <td><input (change)="documentUploader($event, document.name, document.id, i)"
                          class="form-control-file"
+                         *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
                 <!--<div *ngIf="submitted && form.file.errors"
@@ -49,8 +50,14 @@
                   <i class="fas fa-check-circle"></i></span>
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
+
+                <div class="img-hover flex-wrap"
+                     [nbTooltip]="document?.displayName">
+                  <a (click)="openDocument(document?.url)" class="cursor"><em
+                          ></em></a>
+                </div>
               </td>
-              <td class="cursor">
+              <td class="cursor" *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId">
                 <span *ngIf="document.checked">
                   <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
                 </span>

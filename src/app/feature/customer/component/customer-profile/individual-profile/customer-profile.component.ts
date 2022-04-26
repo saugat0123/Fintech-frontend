@@ -35,10 +35,9 @@ import {Clients} from '../../../../../../environments/Clients';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
-import {ProposalComponent} from '../../../../loan-information-template/proposal/proposal.component';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
-import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
 
 
 @Component({
@@ -128,6 +127,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     ];
     docStatusMakerList = [];
     applyLoan = false;
+    loan = new LoanDataHolder();
+    customerLoans: LoanDataHolder [];
 
 
 
@@ -207,6 +208,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.sliceLoan();
         this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
+        this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+        });
     }
 
     ngAfterContentInit(): void {
@@ -245,6 +250,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     public refreshCustomerInfo(): void {
         this.customerInfo = undefined;
         this.getCustomerInfo();
+        this.modalService.dismissAll();
+        this.selectedLoanType = null;
+        this.facilityType = null;
+        this.buildLoanForm();
+        this.applyLoan = !this.applyLoan;
     }
 
     getProvince() {
@@ -560,37 +570,31 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     }
 
-    applyLoans() {
-        const loan = new LoanDataHolder();
-        loan.priority = this.loanForm.get('priority').value;
-        loan.approvingLevel = this.loanForm.get('approvingLevel').value;
-        loan.creditRisk = this.loanForm.get('creditRisk').value;
-        loan.documentStatus = this.loanForm.get('documentStatus').value;
-        loan.loanType = this.selectedLoanType;
+    applyLoans(proposal) {
+        this.loan = new LoanDataHolder();
+        this.loan.priority = this.loanForm.get('priority').value;
+        this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
+        this.loan.creditRisk = this.loanForm.get('creditRisk').value;
+        this.loan.documentStatus = this.loanForm.get('documentStatus').value;
+        this.loan.loanType = this.selectedLoanType;
         const loanConfig = new LoanConfig();
         loanConfig.id = this.facilityType;
-        loan.loan = loanConfig;
-        loan.loanHolder = this.customerInfo;
+        this.loan.loan = loanConfig;
+        this.loan.loanHolder = this.customerInfo;
         // loan.loanType = LoanType.
         if (!ObjectUtil.isEmpty(this.customer)) {
             if (CustomerType[this.customer.customerType] === CustomerType.INDIVIDUAL) {
                // @ts-ignore
-                loan.customerInfo = this.getCustomerInfos(this.customer.id);
+                this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
             } else {
                // @ts-ignore
-                loan.companyInfo =  this.getCompanyInfo(this.customer.id);
+                this.loan.companyInfo =  this.getCompanyInfo(this.customer.id);
             }
         }
-       const ref =  this.modalService.open(ProposalComponent, {size: 'xl', backdrop: true, scrollable: true});
-        ref.componentInstance.loan = loan;
-        ref.componentInstance.fromProfile = true;
-        ref.componentInstance.customerInfo = this.customerInfo;
-        ref.result.then((res) => {
-                console.log('this is response after loan saved', res);
-        });
+        this.modalService.open(proposal, {size: 'xl', backdrop: true, scrollable: true});
     }
 
-    getCustomerInfos(id){
+    getCustomerInfos(id) {
         this.customerService.detail(id).subscribe((res: any) => {
             return  res.detail;
         });
@@ -602,4 +606,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+        loan.customerDocument = document;
+        this.customerLoanService.save(loan).subscribe((res => {
+                this.customerLoans[i] = res.detail;
+        }));
+    }
 }

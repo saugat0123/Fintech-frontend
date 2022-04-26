@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Document} from '../../admin/modal/document';
 import {LoanType} from '../../loan/model/loanType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
@@ -12,6 +12,8 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -23,6 +25,8 @@ export class CustomerLoanDocumentComponent implements OnInit {
     public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
     @Input() loanType: LoanType;
+    @Output() documentEmitter = new EventEmitter();
+    @Input() fromProfile;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
@@ -37,6 +41,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     initialDocIndex;
     actualLoanId;
     deleteDocument = [];
+    localStorage = LocalStorageUtil.getStorage();
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
@@ -176,6 +181,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
                     this.initialDocuments[index].checked = true;
+                    this.documentEmitter.emit(this.customerDocumentArray);
                 },
                 error => {
                     console.error(error);
@@ -218,6 +224,18 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             }
         });
+        this.documentEmitter.emit(this.customerDocumentArray);
         this.modelService.dismissAll();
+    }
+    openDocument(file) {
+        let fileName = file;
+        if (file !== null) {
+            fileName = ApiConfig.URL + '/' + file;
+
+            const link = document.createElement('a');
+            link.href = fileName;
+            link.target = '_blank';
+            link.click();
+        }
     }
 }

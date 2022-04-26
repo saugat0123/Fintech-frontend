@@ -200,47 +200,7 @@ export class ProposalComponent implements OnInit {
          };
          this.allId = paramsValue;
          this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
-         this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
-           this.minimumAmountLimit = response.detail.minimumProposedAmount;
-           this.collateralRequirement = response.detail.collateralRequirement;
-           this.isFundable = response.detail.isFundable;
-           this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
-           this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
-           this.isGeneral = response.detail.loanTag === 'GENERAL';
-           this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
-           this.isVehicle = response.detail.loanTag === 'VEHICLE';
-           this.loanNature = response.detail.loanNature;
-           if (!ObjectUtil.isEmpty(this.loanNature)) {
-             this.loanNatureSelected = true;
-             this.isTerminating = this.loanNature === 'Terminating';
-             this.isRevolving = this.loanNature === 'Revolving';
-             if (this.isRevolving) {
-               this.isGeneral = false;
-             }
-           }
-           if (!this.isFundable) {
-             this.isGeneral = false;
-           }
-           if (this.isFixedDeposit) {
-             this.loanNatureSelected = false;
-             this.fundableNonFundableSelcted = false;
-           }
-           this.proposalForm.get('proposedLimit').setValidators([Validators.required,
-             MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
-           this.proposalForm.get('proposedLimit').updateValueAndValidity();
-           if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-             this.interestLimit = response.detail.interestRate;
-           }
-           this.setCollateralRequirement(this.collateralRequirement);
-           // this.checkLoanConfig();
-           this.setValidatorForPrepaymentField();
-           if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-             this.existInterestLimit = response.detail.existInterestRate;
-           }
-         }, error => {
-           console.error(error);
-           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
-         });
+         this.getLoanData();
        });
  }
     this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
@@ -266,6 +226,52 @@ export class ProposalComponent implements OnInit {
     }
   }
 
+  getLoanData() {
+    if (!ObjectUtil.isEmpty(this.loan)) {
+      this.loanId = this.loan.loan.id;
+    }
+    this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
+      this.minimumAmountLimit = response.detail.minimumProposedAmount;
+      this.collateralRequirement = response.detail.collateralRequirement;
+      this.isFundable = response.detail.isFundable;
+      this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
+      this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
+      this.isGeneral = response.detail.loanTag === 'GENERAL';
+      this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
+      this.isVehicle = response.detail.loanTag === 'VEHICLE';
+      this.loanNature = response.detail.loanNature;
+      if (!ObjectUtil.isEmpty(this.loanNature)) {
+        this.loanNatureSelected = true;
+        this.isTerminating = this.loanNature === 'Terminating';
+        this.isRevolving = this.loanNature === 'Revolving';
+        if (this.isRevolving) {
+          this.isGeneral = false;
+        }
+      }
+      if (!this.isFundable) {
+        this.isGeneral = false;
+      }
+      if (this.isFixedDeposit) {
+        this.loanNatureSelected = false;
+        this.fundableNonFundableSelcted = false;
+      }
+      this.proposalForm.get('proposedLimit').setValidators([Validators.required,
+        MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
+      this.proposalForm.get('proposedLimit').updateValueAndValidity();
+      if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+        this.interestLimit = response.detail.interestRate;
+      }
+      this.setCollateralRequirement(this.collateralRequirement);
+      // this.checkLoanConfig();
+      this.setValidatorForPrepaymentField();
+      if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+        this.existInterestLimit = response.detail.existInterestRate;
+      }
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+    });
+  }
   buildForm() {
     this.proposalForm = this.formBuilder.group({
       proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
@@ -425,14 +431,18 @@ export class ProposalComponent implements OnInit {
       // Proposed Limit value--
     } else {
       this.spinner.show();
-      this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
-      this.proposalData.data = JSON.stringify(this.proposalForm.value);
-      this.loan.proposal = this.proposalData;
+      if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+        this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
+        this.proposalData.data = JSON.stringify(this.proposalForm.value);
+        this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
+        this.loan.proposal = this.proposalData;
+      }
       this.loanFormService.save(this.loan).subscribe((response: any) => {
         this.spinner.hide();
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
         this.loan = response.detail;
         this.emitter.emit(this.loan);
+        // this.nbService.dismissAll(this.loan);
       }, error => {
         this.spinner.hide();
         console.error(error);
@@ -908,5 +918,9 @@ export class ProposalComponent implements OnInit {
         proposalFormArray.clear();
       });
     }
+  }
+
+  guarantors(guarantors) {
+    this.loan.taggedGuarantors = guarantors;
   }
 }
