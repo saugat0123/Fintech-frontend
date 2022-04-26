@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'app-retail-combined-offer-letter',
@@ -8,9 +9,15 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 })
 export class RetailCombinedOfferLetterComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  constructor() { }
+  spinner = false;
+  constructor(private dialogRef: NbDialogRef<RetailCombinedOfferLetterComponent>,
+  ) { }
 
   ngOnInit() {
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }

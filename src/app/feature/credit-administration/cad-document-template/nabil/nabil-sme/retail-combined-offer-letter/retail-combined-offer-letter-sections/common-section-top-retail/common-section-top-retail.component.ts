@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-common-section-top-retail',
@@ -19,6 +21,8 @@ export class CommonSectionTopRetailComponent implements OnInit {
   address;
   constructor(
       private formBuilder: FormBuilder,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) { }
 
   ngOnInit() {
@@ -42,7 +46,13 @@ export class CommonSectionTopRetailComponent implements OnInit {
       this.assignedData = this.cadData.assignedLoan[0];
       this.refNum = this.assignedData.refNo;
     }
-    if (!ObjectUtil.isEmpty(this.tempData.retailGlobalForm)) {
+    // Sanction-letter-date
+    // tslint:disable-next-line:max-line-length
+    const sanctionLetterDateType  = this.tempData.retailGlobalForm.sanctionLetterDateType ? this.tempData.retailGlobalForm.sanctionLetterDateType : '';
+    if (sanctionLetterDateType === 'AD') {
+      const sanctionLetDate = this.tempData.retailGlobalForm.sanctionLetterDate ? this.tempData.retailGlobalForm.sanctionLetterDate : '';
+      this.sanctionLetterDate = this.engNepDatePipe.transform(this.datePipe.transform(sanctionLetDate), true);
+    } else {
       this.sanctionDate = this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate ?
       this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate : '';
       this.sanctionLetterDate = this.sanctionDate ? this.sanctionDate : '';
