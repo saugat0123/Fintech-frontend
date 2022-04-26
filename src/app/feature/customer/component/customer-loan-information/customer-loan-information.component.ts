@@ -41,6 +41,8 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {MultipleBanking} from '../../../admin/modal/multipleBanking';
+import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -120,6 +122,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     private dataFromPreviousSecurity: NbAccordionItemComponent;
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
+    @ViewChild('multipleBankingComponent', {static: false})
+    public multipleBankingComponent: MultipleBankingComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -153,6 +157,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     microCustomerTypeEnum = MicroCustomerType;
     spinner = false;
     submittedCheck: boolean;
+    multiBankingResponse: MultipleBanking;
 
     constructor(
         private toastService: ToastService,
@@ -224,6 +229,9 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.reportingInfoLevelCode = f.code;
                 this.reportingInfoLevelDescription = f.description;
             });
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
+            this.multiBankingResponse = this.customerInfo.multiBanking;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
             this.commentsData = this.customerInfo.data;
@@ -656,6 +664,26 @@ export class CustomerLoanInformationComponent implements OnInit {
                 console.error(error);
                 this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
+            });
+    }
+
+    saveMultiBanking(data: MultipleBanking) {
+        console.log('before', this.multiBankingResponse);
+        if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
+            this.multiBankingResponse = new MultipleBanking();
+        }
+        this.multiBankingResponse = data;
+        console.log('multiBankingResponse', this.multiBankingResponse);
+        this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
+            .subscribe(() => {
+                this.overlay.hide();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
+                this.dataFromPreviousSecurity.close();
+                this.triggerCustomerRefresh.emit(true);
+            }, error => {
+                console.error(error);
+                this.overlay.hide();
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
             });
     }
 

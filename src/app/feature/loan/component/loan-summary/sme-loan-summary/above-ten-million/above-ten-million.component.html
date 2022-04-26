@@ -26,7 +26,10 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Banking Arrangement of the Customer</strong></p>
-        <app-above-banking-arrangement-of-the-customer></app-above-banking-arrangement-of-the-customer>
+        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                       [proposal]="loanDataHolder?.proposal"
+                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"></app-above-banking-arrangement-of-the-customer>
     </li>
     <li>
         <p class="text-uppercase"><strong>Stock Statement</strong></p>

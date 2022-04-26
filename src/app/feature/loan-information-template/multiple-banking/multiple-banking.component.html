@@ -1,0 +1,382 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="multiBankingForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Consortium</strong>
+                    <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'consortium')"
+                                 [checked]="consortiumChecked"><b>Consortium Needed ?</b>
+                    </nb-checkbox>
+                    <br>
+                    <ng-container *ngIf="consortiumChecked">
+                        <span class="form-group col-md-5" style="display: flex">
+                            <label>Details of credit facilities:</label>
+                            <input [nbDatepicker]="consortiumDate"
+                                   class="form-control text-center"
+                                   formControlName="consortiumDate"
+                                   placeholder="Select Date"/>
+                            <nb-datepicker #consortiumDate></nb-datepicker>
+                        </span>
+                        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                            <thead>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>S.N</th>
+                                <th>Banks</th>
+                                <th>Funded(WCL)</th>
+                                <th>Non-Funded</th>
+                                <th>Term Loans</th>
+                                <th>Total</th>
+                                <th>Percent(%)</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let co of multiBankingForm?.get('consortium')['controls']; let ii = index"
+                                   formArrayName="consortium">
+                            <tr [formGroupName]="ii">
+                                <td>{{ii+1}}</td>
+                                <td>{{co?.get('coBankName')?.value}}</td>
+                                <td><input (change)="calculateAmount(ii, 'totalFunded', 'consortium')"
+                                           class="form-control text-center"
+                                           formControlName="funded"
+                                           placeholder="Funded(WCL)"
+                                           type="number"/>
+                                </td>
+                                <td><input (change)="calculateAmount(ii, 'totalNonFunded', 'consortium')"
+                                           class="form-control text-center"
+                                           formControlName="nonFunded"
+                                           placeholder="Non-Funded"
+                                           type="number"/></td>
+                                <td><input (change)="calculateAmount(ii, 'totalTermLoan', 'consortium')"
+                                           class="form-control text-center"
+                                           formControlName="termLoan"
+                                           placeholder="Term Loans"
+                                           type="number"/></td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="total"
+                                           placeholder="Total"
+                                           type="number"/></td>
+                                <td><input (change)="calculateAmount(ii, 'totalPercent', 'consortium')"
+                                           class="form-control text-center"
+                                           formControlName="bankPercent"
+                                           placeholder="Percent(%)"
+                                           type="number"/></td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Total</td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="totalFunded"
+                                           placeholder="Total Funded"
+                                           type="number"/></td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="totalNonFunded"
+                                           placeholder="Total Non-Funded"
+                                           type="number"/></td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="totalTermLoan"
+                                           placeholder="Term Loans"
+                                           type="number"/></td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="totalTotal"
+                                           placeholder="Total"
+                                           type="number"/></td>
+                                <td><input [readOnly]="true"
+                                           class="form-control text-center"
+                                           formControlName="totalPercent"
+                                           placeholder="Total Percent"
+                                           type="number"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Multiple Banking</strong>
+                    <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'multiBanking')"
+                                 [checked]="multiBankingChecked"><b>Multiple Banking Needed</b>
+                    </nb-checkbox>
+                    <br>
+                    <ng-container *ngIf="multiBankingChecked">
+                        <span class="form-group col-md-5" style="display: flex">
+                            Date of declaration:
+                            <input [nbDatepicker]="multiBankDate"
+                                   class="form-control text-center"
+                                   formControlName="multiBankingDate"
+                                   placeholder="Select Date"/>
+                            <nb-datepicker #multiBankDate></nb-datepicker>
+                        </span>
+                        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                            <thead>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>S.N</th>
+                                <th>Name of Banks/FIs</th>
+                                <th>Facilities</th>
+                                <th>Limit</th>
+                                <th>OutStanding</th>
+                                <th>Overdue</th>
+                                <th *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let data of multiBankingForm.get('multiBanking')['controls']; let i = index"
+                                   formArrayName="multiBanking">
+                            <tr [formGroupName]="i">
+                                <td>{{i + 1}}</td>
+                                <td><input class="form-control text-center"
+                                           formControlName="bankName"
+                                           placeholder="Bank Name"
+                                           type="text"/></td>
+                                <td>
+                                    <nb-select formControlName="facilityName">
+                                        <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
+                                            {{ll?.name}}
+                                        </nb-option>
+                                    </nb-select>
+                                </td>
+                                <td><input class="form-control text-center"
+                                           formControlName="limit"
+                                           placeholder="Limit"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="outstanding"
+                                           placeholder="Outstanding"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="overDue"
+                                           placeholder="Overdue"
+                                           type="text"/></td>
+                                <td *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">
+                                    <input (click)="removeData(i, 'multiBanking')"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button" value="Delete"/>
+                                </td>
+                            </tr>
+                            </tbody>
+<!--                            <tr class="font-weight-bold">-->
+<!--                                <td colspan="2">Total</td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="totalLimit"-->
+<!--                                           type="number"></td>-->
+<!--                                <td><input [readOnly]="true" class="form-control text-center"-->
+<!--                                           formControlName="totalOutstanding"-->
+<!--                                           type="number"></td>-->
+<!--                                <td *ngIf="multiBankingForm.get('multiBanking')['length'] > 1"></td>-->
+<!--                            </tr>-->
+                        </table>
+                        <div class="text-right">
+                            <input (click)="addMultipleBanking()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>BFIs Swap</strong>
+                    <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'swap')"
+                                 [checked]="swapChecked"><b>Swap Needed</b>
+                    </nb-checkbox>
+                    <br>
+                    <ng-container *ngIf="swapChecked">
+                        <span class="form-group col-md-5" style="display: flex">
+                            Date of Report:
+                            <input [nbDatepicker]="swap"
+                                   class="form-control text-center"
+                                   formControlName="swapDate"
+                                   placeholder="Select Date"/>
+                            <nb-datepicker #swap></nb-datepicker>
+                        </span>
+                        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                            <thead>
+                            <tr class="sb-bg-secondary text-white">
+                                <!--                                <th>S.N</th>-->
+                                <th>Name of Banks/FIs</th>
+                                <th>Facilities</th>
+                                <th>Limit</th>
+                                <th>OutStanding</th>
+                                <th>Classification</th>
+                                <th>Account conduct</th>
+                                <!--                                <th *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">Action</th>-->
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let sw of multiBankingForm?.get('bfiSwap')['controls']; let iii = index"
+                                   formArrayName="bfiSwap">
+                            <tr [formGroupName]="iii">
+                                <!--                                <td>{{iii + 1}}</td>-->
+                                <td><input class="form-control text-center"
+                                           formControlName="bankName"
+                                           placeholder="Bank Name"
+                                           type="text"/></td>
+                                <td>
+                                    <nb-select formControlName="facilityName">
+                                        <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
+                                            {{ll?.name}}
+                                        </nb-option>
+                                    </nb-select>
+                                </td>
+                                <td><input class="form-control text-center"
+                                           formControlName="limit"
+                                           placeholder="Limit"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="outstanding"
+                                           placeholder="Outstanding"
+                                           type="number"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="classification"
+                                           placeholder="Classification"
+                                           type="text"/></td>
+                                <td><input class="form-control text-center"
+                                           formControlName="account"
+                                           placeholder="Account Conduct"
+                                           type="text"/></td>
+                                <!--                                <td *ngIf="multiBankingForm.get('bfiSwap')['length'] > 1">-->
+                                <!--                                    <input (click)="removeData(iii, 'bfiSwap')"-->
+                                <!--                                           class="align-self-end btn btn-sm btn-danger btn-primary"-->
+                                <!--                                           type="button" value="Delete"/>-->
+                                <!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--                        <div class="text-right">-->
+                        <!--                            <input (click)="addSwap()" class="btn btn-sm btn-flat btn-primary"-->
+                        <!--                                   type="button" value="Add More"/>-->
+                        <!--                        </div>-->
+                        <label>Comments:</label>
+                        <ckeditor formControlName="swapComment"
+                                  [config]="ckeConfig"></ckeditor>
+                    </ng-container>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Past Performance with the Bank:</strong>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Delays/Default made during the past 12 months by the borrower/ group:</label>
+                            <ckeditor formControlName="delayRemark"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Past Dues/Over-dues status, <em>(if any):</em></label>
+                            <ckeditor formControlName="pastDue"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>NRB/Audit observations, <em>(if any):</em></label>
+                            <ckeditor formControlName="auditObservation"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Comments:</label>
+                            <ckeditor formControlName="comments"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><strong>Average Utilization of Facilities</strong></p>
+                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                        <tbody class="sb-bg-dark text-white">
+                        <tr>
+                            <th rowspan="2">S.N</th>
+                            <th rowspan="2">Facilities</th>
+                            <th rowspan="2">Avg. utilization(%)</th>
+                            <th rowspan="2" class="border-top-0 border-bottom-0" style="color: white"></th>
+                            <th colspan="7">Transaction Records</th>
+                        </tr>
+                        <tr>
+                            <th>Debit</th>
+                            <th>No.</th>
+                            <th>Amount</th>
+                            <th>Credit</th>
+                            <th>No.</th>
+                            <th>Amount</th>
+                            <th *ngIf="multiBankingForm?.get('utilization')['length'] > 1">Action</th>
+                        </tr>
+                        </tbody>
+                        <tbody *ngFor="let uti of multiBankingForm?.get('utilization')['controls']; let iv = index"
+                               formArrayName="utilization">
+                        <tr [formGroupName]="iv">
+                            <td>{{iv + 1}}</td>
+                            <td>
+                                <nb-select formControlName="facilityName">
+                                    <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
+                                        {{ll?.name}}
+                                    </nb-option>
+                                </nb-select>
+                            </td>
+                            <td><input class="form-control text-center"
+                                       formControlName="avgUtil"
+                                       placeholder="Avg. utilization(%)"
+                                       type="number"/></td>
+                            <td></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="debit"
+                                       placeholder="Debit"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="debitNo"
+                                       placeholder="No."
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="debitAmount"
+                                       placeholder="Amount"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="credit"
+                                       placeholder="Credit"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="creditNo"
+                                       placeholder="No."
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="creditAmount"
+                                       placeholder="Amount"
+                                       type="number"/></td>
+                            <td *ngIf="multiBankingForm?.get('utilization')['length'] > 1">
+                                <input (click)="removeData(iv, 'utilization')"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <div class="text-right">
+                            <input (click)="addAvgUtilization()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+
+                    </table>
+                </div>
+            </div>
+            <nb-card-footer *ngIf="fromProfile">
+                <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
+            </nb-card-footer>
+        </form>
+    </nb-card-body>
+</nb-card>
