@@ -1,0 +1,341 @@
+<div [nbSpinner]="spinner" [nbSpinnerMessage]="'Translating....'" nbSpinnerStatus="success">
+    <form [formGroup]="mortgageCombineLoanForm">
+        <div *ngFor="let formDetails of mortgageCombineLoanForm.get('mortgageCombineLoanFormArray')['controls']; let i = index"
+             formArrayName="mortgageCombineLoanFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mt-2">
+                    <div class="col-md-12 pb-2">
+                        <h5> MORTGAGE LOAN {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="interestRateType"> Interest Rate Type </label>
+                        <nb-select
+                                formControlName="interestRateType"
+                                fullWidth id="interestRateType"
+                                placeholder="Select Interest Rate Type">
+                            <nb-option value="FLOATING_INTEREST"> Floating Interest Rate</nb-option>
+                            <nb-option value="FIXED_INTEREST"> Fixed Interest Rate</nb-option>
+                        </nb-select>
+                    </div>
+
+                </div>
+                <!-- FOR INPUT FIELDS OF LOAN -->
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmount"
+                               readonly
+                               fullWidth
+                               id="loanAmount"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                               readonly
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               id="loanAmountWordsTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               id="loanAmountWordsCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="purposeOfLoan"> Purpose Of Loan </label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth id="purposeOfLoanTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanCT" fullWidth id="purposeOfLoanCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <!-- INTEREST, PREMIUM RATE SECTION -->
+                <div class="row pt-4" *ngIf="mortgageCombineLoanForm?.get(['mortgageCombineLoanFormArray', i, 'interestRateType'])?.value === 'FLOATING_INTEREST'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                        <input class="form-control" formControlName="premiumRate" fullWidth
+                               id="premiumRate"
+                               (input)="calInterestRate(i)"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                        <input class="form-control" formControlName="interestRate" fullWidth
+                               [ngClass]="{'readOnly': this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}"
+                               id="interestRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF INTEREST SECTION -->
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="marginPercent"> Margin(in %) </label>
+                        <input class="form-control" formControlName="marginPercent" fullWidth id="marginPercent"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="marginPercentTrans" fullWidth id="marginPercentTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="marginPercentCT" fullWidth id="marginPercentCT"
+                               nbInput
+                               id="marginPercentCT"
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAdmin">Loan Admin Fee</label>
+                        <input (change)="amountInWord($event?.target?.value, i, 'loanAdmin', 'loanAdminWords')"
+                               class="form-control" formControlName="loanAdmin"
+                               fullWidth
+                               id="loanAdmin"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminTrans" fullWidth id="loanAdminTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminCT" fullWidth id="loanAdminCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAdminWords">Loan Admin Fee in Words</label>
+                        <input class="form-control" formControlName="loanAdminWords" fullWidth id="loanAdminWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminWordsTrans" fullWidth
+                               id="loanAdminWordsTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminWordsCT" fullWidth
+                               id="loanAdminWordsCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <!--EMI started-->
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="emiAmount">EMI Amount</label>
+                        <input class="form-control" formControlName="emiAmount"
+                               (change)="amountInWord($event?.target?.value, i, 'emiAmount', 'emiAmountWords')"
+                               fullWidth
+                               id="emiAmount" nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="emiAmountTrans" fullWidth id="emiAmountTrans"
+                               nbInput readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="emiAmountCT" fullWidth id="emiAmountCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="emiAmountWords">EMI Amount in Words</label>
+                        <input class="form-control" formControlName="emiAmountWords" fullWidth id="emiAmountWords"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="emiAmountWordsTrans" fullWidth
+                               id="emiAmountWordsTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="emiAmountWordsCT" fullWidth
+                               id="emiAmountWordsCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!--EMI Ended-->
+                <div class="row pt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInstallment">Total Number of Installments</label>
+                        <input class="form-control" formControlName="totalInstallment"
+                               fullWidth
+                               id="totalInstallment"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInstallmentTrans" fullWidth id="totalInstallmentTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInstallmentCT" fullWidth id="totalInstallmentCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="beneficiaryName">Name of Beneficiary</label>
+                        <input class="form-control" formControlName="beneficiaryName" fullWidth id="beneficiaryName"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="beneficiaryNameTrans" fullWidth
+                               id="beneficiaryNameTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="beneficiaryNameCT" fullWidth
+                               id="beneficiaryNameCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="setTranslatedVal(i, 'mortgageCombineLoanFormArray')" nbButton outline size="small" status="info">
+                            Translate Mortgage Loan
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+    </form>
+</div>

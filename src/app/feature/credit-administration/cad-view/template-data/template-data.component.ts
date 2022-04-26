@@ -27,6 +27,7 @@ export class TemplateDataComponent implements OnInit, OnChanges {
     spinner = false;
     @Input() isTabActive = false;
     offerLetterNames = [];
+    customerCategory = [];
     isCombinedOfferLetter = false;
     isAutoLoan = false;
     isEducationLoan = false;
@@ -43,7 +44,7 @@ export class TemplateDataComponent implements OnInit, OnChanges {
     isInterestSubsidy = false;
     isDdslWithoutSubsidy = false;
     isClassA = false;
-
+    retailCombined = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -119,10 +120,18 @@ export class TemplateDataComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (this.isTabActive) {
             this.getLoanOfferLetterName();
+            this.getCustomerCategory();
         }
         if (this.isTabActive && this.offerLetterNames.length > 0) {
+            console.log('Cad Data:', this.cadData);
             this.showTemplate(this.offerLetterNames);
         }
+    }
+
+    private getCustomerCategory() {
+        this.cadData.assignedLoan.forEach((loanDataHolder: LoanDataHolder) => {
+            this.customerCategory.push(loanDataHolder.loan.loanCategory);
+        });
     }
 
    private getLoanOfferLetterName(): void {
@@ -132,7 +141,7 @@ export class TemplateDataComponent implements OnInit, OnChanges {
    }
 
    private showTemplate(offerLetterNames): void {
-        offerLetterNames.forEach(name => {
+        offerLetterNames.forEach((name, index) => {
             console.log('name', name);
             if (name === NabilConstants.AUTO_LOAN) {
                 this.isAutoLoan = true;
@@ -179,8 +188,11 @@ export class TemplateDataComponent implements OnInit, OnChanges {
             if (name === NabilConstants.CLASS_A) {
                 this.isClassA = true;
             }
-            if (name === NabilConstants.COMBINED_LETTER) {
+            if (name === NabilConstants.COMBINED_LETTER && this.customerCategory[index] === 'INSTITUTION') {
                 this.isCombinedOfferLetter = true;
+            }
+            if (name === NabilConstants.COMBINED_LETTER && this.customerCategory[index] === 'INDIVIDUAL') {
+                this.retailCombined = true;
             }
         });
    }
