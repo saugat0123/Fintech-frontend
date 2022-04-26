@@ -5,6 +5,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-multiple-banking',
@@ -22,12 +23,16 @@ export class MultipleBankingComponent implements OnInit {
     multiBanking: MultipleBanking = new MultipleBanking();
     bankName = ['CCBL', 'Other Banks'];
     financialArrange = ['None', 'Sole', 'Multiple Banking', 'Consortium'];
-    swapChecked = false;
     loanList = [];
+    multiBankingChecked = true;
+    consortiumChecked = true;
+    swapChecked = true;
+    ckeConfig;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
-                private router: ActivatedRoute) {
+                private router: ActivatedRoute,
+                private overlay: NgxSpinnerService) {
     }
 
     ngOnInit() {
@@ -43,6 +48,7 @@ export class MultipleBankingComponent implements OnInit {
             this.setMultiBankingData(multiData.multiBanking);
             this.setConsortiumData(multiData.consortium);
             this.setSwapData(multiData.bfiSwap);
+            this.setAvgUtilization(multiData.utilization);
             this.multiBankingForm.patchValue(multiData);
             this.patchDate(multiData);
         } else {
@@ -52,6 +58,7 @@ export class MultipleBankingComponent implements OnInit {
             });
             this.addMultipleBanking();
             this.addSwap();
+            this.addAvgUtilization();
         }
     }
 
@@ -60,8 +67,8 @@ export class MultipleBankingComponent implements OnInit {
             multiBankingDate: [undefined],
             multiBanking: this.formBuilder.array([]),
             consortium: this.formBuilder.array([]),
-            totalLimit: [undefined],
-            totalOutstanding: [undefined],
+            // totalLimit: [undefined],
+            // totalOutstanding: [undefined],
             totalFunded: [undefined],
             totalNonFunded: [undefined],
             totalTermLoan: [undefined],
@@ -69,7 +76,9 @@ export class MultipleBankingComponent implements OnInit {
             totalPercent: [undefined],
             bfiSwap: this.formBuilder.array([]),
             swapDate: [undefined],
-            swapComment: [undefined]
+            swapComment: [undefined],
+            utilization: this.formBuilder.array([]),
+            consortiumDate: [undefined],
         });
     }
 
@@ -90,8 +99,19 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     submitForm() {
+        this.overlay.show();
+        if (!ObjectUtil.isEmpty(this.multiBankingData)) {
+            this.multiBanking = this.multiBankingData;
+        }
+        const mergeChecked = {
+            consortiumChecked: this.consortiumChecked,
+            multiBankingChecked: this.multiBankingChecked,
+            swapChecked: this.swapChecked,
+        };
+        this.multiBanking.checkedData = JSON.stringify(mergeChecked);
         this.multiBanking.data = JSON.stringify(this.multiBankingForm.value);
         this.multiBankingDataEmitter.emit(this.multiBanking);
+        this.overlay.hide();
     }
 
     setMultiBankingData(data) {
@@ -176,18 +196,29 @@ export class MultipleBankingComponent implements OnInit {
         this.multiBankingForm.get([arrayName, index, 'total']).patchValue(totalAmount);
     }
 
-    changeFinancialArrange(event) {
-        console.log('selected data', event);
-    }
-
     checkChecked(checked, type) {
         switch (type) {
             case 'swap':
-            if (checked) {
-                this.swapChecked = true;
-            } else {
-                this.swapChecked = false;
-            }
+                if (checked) {
+                    this.swapChecked = true;
+                } else {
+                    this.swapChecked = false;
+                }
+                break;
+            case 'consortium':
+                if (checked) {
+                    this.consortiumChecked = true;
+                } else {
+                    this.consortiumChecked = false;
+                }
+                break;
+            case 'multiBanking':
+                if (checked) {
+                    this.multiBankingChecked = true;
+                } else {
+                    this.multiBankingChecked = false;
+                }
+                break;
         }
     }
 
@@ -222,12 +253,56 @@ export class MultipleBankingComponent implements OnInit {
         }
     }
 
-    private patchDate(multiData) {
+    patchDate(multiData) {
         if (!ObjectUtil.isEmpty(multiData.multiBankingDate)) {
             this.multiBankingForm.get('multiBankingDate').patchValue(new Date(multiData.multiBankingDate));
         }
         if (!ObjectUtil.isEmpty(multiData.swapDate)) {
             this.multiBankingForm.get('swapDate').patchValue(new Date(multiData.swapDate));
+        }
+        if (!ObjectUtil.isEmpty(multiData.consortiumDate)) {
+            this.multiBankingForm.get('consortiumDate').patchValue(new Date(multiData.consortiumDate));
+        }
+    }
+
+    addAvgUtilization() {
+        (this.multiBankingForm.get('utilization') as FormArray).push(
+            this.formBuilder.group({
+                facilityName: [undefined],
+                avgUtil: [undefined],
+                debit: [undefined],
+                debitNo: [undefined],
+                debitAmount: [undefined],
+                credit: [undefined],
+                creditNo: [undefined],
+                creditAmount: [undefined],
+            })
+        );
+    }
+
+    setAvgUtilization(data) {
+        const uti = this.multiBankingForm.get('utilization') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                uti.push(this.formBuilder.group({
+                    facilityName: [d.facilityName],
+                    avgUtil: [d.avgUtil],
+                    debit: [d.debit],
+                    debitNo: [d.debitNo],
+                    debitAmount: [d.debitAmount],
+                    credit: [d.credit],
+                    creditNo: [d.creditNo],
+                    creditAmount: [d.creditAmount],
+                }));
+            });
+        }
+    }
+
+    setCheckedData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['swapChecked'], 'swap');
+            this.checkChecked(data['consortiumChecked'], 'consortium');
+            this.checkChecked(data['multiBankingChecked'], 'multiBanking');
         }
     }
 }

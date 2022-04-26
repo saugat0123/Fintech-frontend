@@ -157,7 +157,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     microCustomerTypeEnum = MicroCustomerType;
     spinner = false;
     submittedCheck: boolean;
-    public multiBankingResponse: MultipleBanking;
+    multiBankingResponse: MultipleBanking;
 
     constructor(
         private toastService: ToastService,
@@ -229,6 +229,9 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.reportingInfoLevelCode = f.code;
                 this.reportingInfoLevelDescription = f.description;
             });
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
+            this.multiBankingResponse = this.customerInfo.multiBanking;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
             this.commentsData = this.customerInfo.data;
