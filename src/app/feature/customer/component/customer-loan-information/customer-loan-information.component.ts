@@ -41,6 +41,11 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
+import {ActivatedRoute} from '@angular/router';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {InstitutionalCrgGammaComponent} from '../../../loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -120,6 +125,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     private dataFromPreviousSecurity: NbAccordionItemComponent;
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
+    @ViewChild('institutionalCrgGamma', {static: false})
+    public institutionalCrgGamma: InstitutionalCrgGammaComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -148,16 +155,22 @@ export class CustomerLoanInformationComponent implements OnInit {
     public commentsData: string;
     public securityDataResponse: PreviousSecurity;
     private securityData: string;
+    private gammaData: string;
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
+    checkCrgGamma = false;
     microCustomerTypeEnum = MicroCustomerType;
     spinner = false;
     submittedCheck: boolean;
-
+    loanDocument: LoanDataHolder;
+    loanTag: string;
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
-        private overlay: NgxSpinnerService
+        private overlay: NgxSpinnerService,
+        private loanFormService: LoanFormService,
+        private route: ActivatedRoute,
+        private loanConfigService: LoanConfigService
     ) {
     }
 
@@ -175,9 +188,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
             this.creditRiskGrading = this.customerInfo.creditRiskGrading;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
-            this.crgGamma = this.customerInfo.crgGamma;
-        }
+        // if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
+        //     this.crgGamma = this.customerInfo.crgGamma;
+        // }
         if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
             this.security = this.customerInfo.security;
         }
@@ -233,14 +246,26 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.checkedPreviousComments = true;
             }
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
-            this.securityData = this.customerInfo.data;
-            const jsonSec = JSON.parse(this.securityData);
-            const secParseJson = JSON.parse(jsonSec.data);
-            if (!ObjectUtil.isEmpty(secParseJson.securityDetails)) {
-                this.checkedPreviousSecurity = true;
+        if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
+            this.gammaData = this.customerInfo.crgGamma.data;
+            const jsonSec = JSON.parse(this.gammaData);
+            if (!ObjectUtil.isEmpty(jsonSec.totalPoint)) {
+                this.checkCrgGamma = true;
             }
         }
+
+       this.route.queryParamMap.subscribe((q: any) =>{
+           this.loanConfigService.detail(q.get('id')).subscribe(s=>{
+               console.log(s,'TAG');
+               this.loanTag = s.detail.loanTag;
+           })
+
+           this.loanFormService.detail(q.get('id')).subscribe(
+               (response: any) => {
+                   this.loanDocument = response.detail;
+
+               })
+       })
     }
 
     get otherMicroDetailsVisibility() {
@@ -412,6 +437,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveCrgGamma(data: string) {
+        console.log(data);
         if (ObjectUtil.isEmpty(this.crgGamma)) {
             this.crgGamma = new CreditRiskGradingGamma();
         }

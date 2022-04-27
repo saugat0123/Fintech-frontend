@@ -351,6 +351,23 @@
             <div class="row p-2">
                 <div class="col-md-12 border-bottom border-dark mb-4">
                     <div class="form-group">
+                        <label class="title"><strong>{{crgQuestionsList?.description}}</strong></label>
+                        <nb-radio-group class="d-contents form-control"
+                                        formControlName="salesProjectionVsAchievement"
+                                        name="salesProjectionVsAchievement"
+                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid }">
+                            <nb-radio *ngFor="let field of crgQuestionsList?.answers"
+                                      [value]="field?.description">{{field?.description}}
+                            </nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="(submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid"
+                             class="invalid-feedback">
+                            Sales - Projection Vs Achievement is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 border-bottom border-dark mb-4">
+                    <div class="form-group">
                         <label class="title"><strong>Sales - Projection Vs Achievement</strong></label>
                         <nb-radio-group class="d-contents form-control"
                                         formControlName="salesProjectionVsAchievement"

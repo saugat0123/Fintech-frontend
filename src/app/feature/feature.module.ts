@@ -18,6 +18,8 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {CreditRiskGradingAlphaComponent} from './loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CreditRiskGradingGammaComponent} from './loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 
 
 @NgModule({
@@ -43,10 +45,13 @@ import {ErrorPageComponent} from './error-page/error-page.component';
         MouseScrollDisableDirective,
         CommonAddressComponent,
         CustomerWisePendingComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+          CreditRiskGradingAlphaComponent,
+          CreditRiskGradingGammaComponent
 
       ],
-      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
+      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+          CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent],
       providers: [SafePipe]
     }
 )

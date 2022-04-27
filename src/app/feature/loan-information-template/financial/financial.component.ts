@@ -27,6 +27,8 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgxSpinnerService} from "ngx-spinner";
+import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
+import {CrgQuestion} from '../../credit-risk-grading/model/CrgQuestion';
 
 @Component({
     selector: 'app-financial',
@@ -184,12 +186,13 @@ export class FinancialComponent implements OnInit {
     ];
 
     numberUtils = NumberUtils;
-
+    crgQuestionsList: CrgQuestion;
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
                 private overlay: NgxSpinnerService,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private questionService: RiskGradingService) {
     }
 
     get form() {
@@ -240,6 +243,11 @@ export class FinancialComponent implements OnInit {
             }
         }
         this.checkDisableAlpha();
+        this.questionService.getAllQuestions(4).subscribe(s=>{
+            console.log(s,'QUESTION');
+            this.crgQuestionsList = s.detail[0];
+            console.log(this.crgQuestionsList, 'LISSSTT');
+        })
     }
 
     buildForm() {
