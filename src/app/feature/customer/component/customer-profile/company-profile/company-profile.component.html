@@ -511,7 +511,7 @@
                           [ngValue]="list.key">{{list.value}}</option>
                 </select>
               </div>
-              <div class="col-md-3" *ngIf="maker">
+              <div class="col-md-4" *ngIf="maker">
                 <select
                         [(ngModel)]="facilityType"
                         class="form-control rounded"
@@ -531,7 +531,7 @@
 
 
 
-              <div class="col-md-1" *ngIf="proposal && facilityType && selectedLoanType">
+              <div class="col-md-1" *ngIf="priority && facilityType && selectedLoanType">
                 <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus"></i></a>
                 <!--                <a  nbButton><i class="fa fa-plus"></i></a>-->
               </div>
