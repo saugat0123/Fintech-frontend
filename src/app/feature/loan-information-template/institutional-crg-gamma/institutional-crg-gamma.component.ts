@@ -55,7 +55,7 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         if (!this.fromProfile) {
             this.totalPointsColspan = 2;
         }
-        this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
+        this.questionService.getAllQuestions(0).subscribe((res: any) => {
             const questionsList = res.detail;
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;
