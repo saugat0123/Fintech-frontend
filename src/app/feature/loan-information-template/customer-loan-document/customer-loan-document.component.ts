@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Document} from '../../admin/modal/document';
 import {LoanType} from '../../loan/model/loanType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
@@ -12,7 +12,10 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CommonService} from '../../../@core/service/common.service';
+import {RoleType} from '../../admin/modal/roleType';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -24,6 +27,8 @@ export class CustomerLoanDocumentComponent implements OnInit {
     public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
     @Input() loanType: LoanType;
+    @Output() documentEmitter = new EventEmitter();
+    @Input() fromProfile;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
@@ -38,15 +43,20 @@ export class CustomerLoanDocumentComponent implements OnInit {
     initialDocIndex;
     actualLoanId;
     deleteDocument = [];
-
+    localStorage = LocalStorageUtil.getStorage();
+    isMaker = false;
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
-                private modelService: NgbModal) {
+                private modelService: NgbModal,
+                public service: CommonService) {
     }
 
     ngOnInit() {
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+            this.isMaker = true;
+        }
         let loanId = null;
         let customerId = null;
         this.activatedRoute.queryParams.subscribe(
@@ -106,6 +116,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         this.initialDocuments.forEach((initDoc, j) => {
                             if (singleDoc.document.id === initDoc.id) {
                                 initDoc.checked = true;
+                                if (this.fromProfile) {
+                                    initDoc.url = singleDoc.documentPath;
+                                }
                             }
                         });
                     });
@@ -177,6 +190,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
                     this.initialDocuments[index].checked = true;
+                    this.documentEmitter.emit(this.customerDocumentArray);
                 },
                 error => {
                     console.error(error);
@@ -219,6 +233,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             }
         });
+        this.documentEmitter.emit(this.customerDocumentArray);
         this.modelService.dismissAll();
     }
 
