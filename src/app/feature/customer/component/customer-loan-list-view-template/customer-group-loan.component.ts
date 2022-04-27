@@ -24,6 +24,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DocAction} from '../../../loan/model/docAction';
 import {RoleType} from '../../../admin/modal/roleType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 
 @Component({
@@ -99,14 +100,30 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanAction: any;
   loanActionList = [];
+  loan = [];
+  loanTag = LoanTag;
+  isLoaded = false;
   canReInitiateLoan = false;
   reInitiateSpinner = false;
   reInitiateLoanCustomerName: string;
   reInitiateLoanFacilityName: string;
   reInitiateLoanBranchName: string;
   reInitiateLoanType: string;
-  showBranch = true;
   formAction: FormGroup;
+  isCombineLoan = false;
+  loanConfigData = [{
+    loanName: null,
+    loanType: null
+  }];
+  loanData = [{
+    loanConfigId: null,
+    customerLoanId: null,
+    toUser: null,
+    toRole: null,
+    docAction: null,
+    comment: null,
+    documentStatus: null
+  }];
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -119,6 +136,11 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
+      this.loan = data.detail;
+      this.isLoaded = true;
+      this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
+    });
     if (LocalStorageUtil.getStorage().username === 'SPADMIN'
         || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
         || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
@@ -194,18 +216,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           totalClosedProposedAmount.push(val.proposal.proposedLimit);
         }
       });
-      this.totalClosedProposedAmount = totalClosedProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+      this.totalClosedProposedAmount = totalClosedProposedAmount.reduce((a, b) => Number(a) + Number(b), 0);
 
 
       // Total Closed Collateral Amount
 
-      let totalClosedCollateralAmount =0;
+      let totalClosedCollateralAmount = 0;
       this.customerGroupLoanList.forEach(value => {
         if(value.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED )){
           totalClosedCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
         }
       });
-      this.totalClosedCollateralAmount = totalClosedCollateralAmount
+      this.totalClosedCollateralAmount = totalClosedCollateralAmount;
 
 
 // Total Initial Pending UnderDiscussion Under Review Proposed Amount
@@ -223,15 +245,15 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
 
       // Total Initial Pending UnderDiscussion Under Review Proposed Amount
-      let totalInitialPendingCollateralAmount =0;
+      let totalInitialPendingCollateralAmount = 0;
       this.customerGroupLoanList.forEach(value => {
-        if  (value.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)||
+        if (value.documentStatus.toString() === DocStatus.value(DocStatus.PENDING) ||
             (value.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION)) ||
             (value.documentStatus.toString() === DocStatus.value(DocStatus.INITIAL)) ||
             (value.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) ||
-            (value.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION))||
-            (value.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION))){
-          totalInitialPendingCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION))) {
+          totalInitialPendingCollateralAmount += value.proposal.proposedLimit * (value.proposal.collateralRequirement / 100);
         }
       });
       this.totalInitialPendingCollateralAmount = totalInitialPendingCollateralAmount
@@ -292,6 +314,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
         .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
         // create single combined dto
+        let documentStat = null;
+        const result = combinedLoans.filter((value, index, self) =>
+            self.findIndex((m) => m.documentStatus === value.documentStatus) === index);
+        if (result.length > 1) {
+          documentStat = 'N/A';
+        } else {
+          documentStat = combinedLoans[0].documentStatus;
+        }
         const dto: SingleCombinedLoanDto = {
           collateralRequirement: 0, requiredCollateral: 0,
           id: combinedLoans[0].combinedLoan.id,
@@ -336,15 +366,19 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     nonFunded: SingleCombinedLoanDto[],
     rejected: SingleCombinedLoanDto[],
     closed: SingleCombinedLoanDto[],
+    approved: SingleCombinedLoanDto[],
   } {
-    return {
-      pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
-          && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
-      funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
-      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
-      rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
-      closed: loans.filter((l) => l.documentStatus=== DocStatus[DocStatus.CLOSED]),
-    };
+    if (!ObjectUtil.isEmpty(this.loanHistories)) {
+      return {
+        pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
+            && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
+        funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
+        nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
+        rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
+        closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
+        approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
+      };
+    }
   }
 
   getLoanOfCustomerAssociatedToByKYC() {
@@ -482,17 +516,44 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
-    this.reInitiateLoanCustomerName = customerName;
-    this.reInitiateLoanFacilityName = loanFacilityName;
-    this.reInitiateLoanType = loanType;
-    this.reInitiateLoanBranchName = branchName;
-    this.formAction.patchValue({
-          customerLoanId: customerLoanId,
+  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName, combineLoan) {
+    this.loanData = [];
+    if (!ObjectUtil.isEmpty(combineLoan)) {
+      this.loanConfigData = [];
+      this.isCombineLoan = true;
+      combineLoan.forEach((cl) => {
+        this.reInitiateLoanCustomerName = customerName;
+        this.reInitiateLoanBranchName = branchName;
+        // this.reInitiateLoanType = cl.loanType;
+        this.loanConfigData.push({
+          loanType: cl.loanType,
+          loanName: cl.loanName,
+        });
+        this.loanData.push({
+          loanConfigId: null,
+          customerLoanId: cl.id,
+          toUser: null,
+          toRole: null,
           docAction: DocAction.value(DocAction.RE_INITIATE),
-          comment: 'Re-initiate'
-        }
-    );
+          comment: 'Re-initiate',
+          documentStatus: null,
+        });
+      });
+    } else {
+      this.reInitiateLoanCustomerName = customerName;
+      this.reInitiateLoanFacilityName = loanFacilityName;
+      this.reInitiateLoanType = loanType;
+      this.reInitiateLoanBranchName = branchName;
+      this.loanData.push({
+        loanConfigId: null,
+        customerLoanId: customerLoanId,
+        toUser: null,
+        toRole: null,
+        docAction: DocAction.value(DocAction.RE_INITIATE),
+        comment: 'Re-initiate',
+        documentStatus: null,
+      });
+    }
     this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
   }
 
@@ -504,10 +565,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       if (isAuthorized) {
         this.modalService.dismissAll();
         this.reInitiateSpinner = true;
-        this.formAction.patchValue({
-          comment: comment
+        this.loanData.forEach((cl) => {
+          cl.comment = comment;
         });
-        this.customerLoanService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+        // this.formAction.patchValue({
+        //   comment: comment
+        // });
+        this.customerLoanService.reInitiateLoan(this.loanData).subscribe((response: any) => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
           this.reInitiateSpinner = false;
           this.modalService.dismissAll();

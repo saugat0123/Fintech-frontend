@@ -46,7 +46,12 @@
                             </td>
 
                             <td *ngIf="document?.checked" align="center">
-                                <i (click)="previewDocument(document.id)" class="fas fa-eye"></i>
+                           <span *ngIf="document?.url && fromProfile" class="col-md-3 img-hover flex-wrap"
+                                 [nbTooltip]="document?.displayName">
+                  <a (click)="service.openDocument(document?.url)" class="cursor"><em
+                          [className]="service.SET_CLASS_NAME"></em>
+                  </a>
+                </span>
                                 <i *ngIf="!document?.checked || document?.checked === null"
                                    class="fas fa-times-circle"></i>
                             </td>
