@@ -85,7 +85,7 @@
                                 </td>
                                 <td>{{auto.get('freeLimit').value}}</td>
                                 <td>
-                                    <button *ngIf="!autoId?.includes(autoSecurity?.id)" nbButton size="small"
+                                    <button *ngIf="!autoId?.includes(auto.get('id').value)" nbButton size="small"
                                             (click)="tagSecurity(auto, 'auto')">
                                         <i class="fa fa-plus"></i></button>
                                 </td>
@@ -127,7 +127,7 @@
                                     <td>{{landBuilding.get('freeLimit').value}}</td>
                                     <td>
                                         <button nbButton size="small"
-                                                *ngIf="!landBuildingId?.includes(landBuildingSecurity?.id)"
+                                                *ngIf="!landBuildingId?.includes(landBuilding.get('id').value)"
                                                 (click)="tagSecurity(landBuilding, 'landBuilding')"><i
                                                 class="fa fa-plus"></i></button>
                                     </td>
@@ -164,7 +164,7 @@
                         <td>{{autoSecurity?.usedAmount}}</td>
                         <td>{{autoSecurity?.freeLimit}}</td>
                         <td>
-                            <button (click)="removeAutoSecurity(autoSecurity?.id)"
+                            <button (click)="removeAutoSecurity(i)"
                                     class="btn btn-sm btn-flat btn-danger">
                                 <em class="fa fa-trash bg-transparent"></em>
                             </button>
@@ -199,7 +199,7 @@
                         <td>{{landBuilding?.usedAmount}}</td>
                         <td>{{landBuilding?.freeLimit}}</td>
                         <td>
-                            <button (click)="removeLandBuilding(landBuilding?.id)"
+                            <button (click)="removeLandBuilding(i)"
                                     class="btn btn-sm btn-flat btn-danger">
                                 <em class="fa fa-trash bg-transparent"></em>
                             </button>

@@ -50,11 +50,9 @@ export class SecurityAdderComponent implements OnInit {
             this.selectedSecurity();
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
-            console.log(this.customerInfo.landBuildings);
             this.setLandBuildingDetail();
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.autos)) {
-            console.log(this.customerInfo.autos);
             this.setAutoDetail();
         }
     }
@@ -72,45 +70,6 @@ export class SecurityAdderComponent implements OnInit {
 
     get autoForm(): FormArray {
         return this.form.get('autoForm') as FormArray;
-    }
-
-    public landBuildingFormGroup(): FormGroup {
-        return  this.form = this.fb.group({
-            addressLine1: [undefined],
-            addressLine2: [undefined],
-            buildingValuator: [undefined],
-            considerValue: [undefined],
-            data: [undefined],
-            distressValue: [undefined],
-            district: [undefined],
-            freeLimit: [undefined],
-            geoLocation: [undefined],
-            governmentRate: [undefined],
-            marketRate: [undefined],
-            marketValue: [undefined],
-            municipalityVdc: [undefined],
-            plotNumber: [undefined],
-            province: [undefined],
-            registerOffice: [undefined],
-            sheetNo: [undefined],
-            usedAmount: [undefined],
-        });
-    }
-
-    public autoFormGroup(): FormGroup {
-        return  this.form = this.fb.group({
-            chassisNumber: [undefined],
-            considerValue: [undefined],
-            data: [undefined],
-            discountPrice: [undefined],
-            engineNumber: [undefined],
-            freeLimit: [undefined],
-            isNew: [undefined],
-            model: [undefined],
-            quotationAmount: [undefined],
-            usedAmount: [undefined],
-            vehicalValuator: [undefined],
-        });
     }
 
     public setLandBuildingDetail(): void {
@@ -161,13 +120,13 @@ export class SecurityAdderComponent implements OnInit {
         });
     }
 
-    removeAutoSecurity(id) {
-        this.loanHolder.autos.splice(this.findIndex(this.loanHolder.autos, id), 1);
+    removeAutoSecurity(idx) {
+        this.loanHolder.autos.splice(idx, 1);
         this.selectedSecurity();
     }
 
-    removeLandBuilding(id) {
-        this.loanHolder.landBuildings.splice(this.findIndex(this.loanHolder.landBuildings, id), 1);
+    removeLandBuilding(idx) {
+        this.loanHolder.landBuildings.splice(idx, 1);
         this.selectedSecurity();
     }
 
@@ -208,6 +167,8 @@ export class SecurityAdderComponent implements OnInit {
                 case 'VehicleSecurity': {
                     this.auto = true;
                     if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
+                        this.auto = true;
+                        this.autoId = [];
                         this.loanHolder.autos.forEach((da: any) => {
                             this.autoId.push(da.id);
                         });
@@ -222,37 +183,12 @@ export class SecurityAdderComponent implements OnInit {
 
     public tagSecurity(security: any, key): void {
         if (key === 'auto') {
-            console.log('Auto', security.value);
             this.loanHolder.autos.push(security.value);
         }
         if (key === 'landBuilding') {
-            console.log('Land Building', security.value);
             this.loanHolder.landBuildings.push(security.value);
         }
-        // switch (key) {
-        //     case 'auto': {
-        //         this.loanHolder.autos.push(security);
-        //     }
-        //         break;
-        //     case 'landBuilding': {
-        //         this.loanHolder.landBuildings.push(security);
-        //     }
-        // }
         this.selectedSecurity();
-        }
-
-        public onSubmit(): void {
-            // submit logic goes here
-
-        }
-
-        public calculateFreeLimit(val: number): void {
-            let freeLimit = this.considerValue;
-            freeLimit -= val;
-            this.totalFreeLimit = this.considerValue;
-            this.totalFreeLimit -= val;
-            this.isLimitExceed = this.totalFreeLimit < 0;
-            this.form.get('freeLimit').setValue(freeLimit);
         }
 
         public calcFreeLimitForLandBuilding(index: number, considerValue: number,  value: any): void {
