@@ -2,7 +2,6 @@
     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
         <thead>
         <tr class="sb-bg-dark text-white">
-            <th></th>
             <th width="32%">Risk Types Perceived risks Mitigating factors</th>
             <th>Perceived risks</th>
             <th>Mitigating factors</th>
@@ -10,7 +9,6 @@
         </thead>
         <tbody>
         <tr>
-            <td></td>
             <td>Industry Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -24,7 +22,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Business Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -38,7 +35,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Financial Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -52,7 +48,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Management Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -66,7 +61,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Succession Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -80,7 +74,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Environmental/Climate Change/Safety issues</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -94,7 +87,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Adverse features with other group concerns</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -108,7 +100,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Political Risk</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -122,7 +113,6 @@
             </td>
         </tr>
         <tr>
-            <td></td>
             <td>Other Risks</td>
             <td>
                 <textarea rows="4" class="form-control mt-1 mb-1"
@@ -137,4 +127,7 @@
         </tr>
         </tbody>
     </table>
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>
 </div>
