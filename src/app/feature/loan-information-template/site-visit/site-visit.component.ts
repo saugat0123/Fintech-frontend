@@ -14,6 +14,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {DateValidator} from '../../../@core/validator/date-validator';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 declare let google: any;
 
@@ -27,6 +28,7 @@ export class SiteVisitComponent implements OnInit {
   @Input() fromProfile: boolean;
   @Output() siteVisitDataEmitter = new EventEmitter();
   calendarType = CalendarType.AD;
+  @Input() customerInfo: CustomerInfoData;
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;

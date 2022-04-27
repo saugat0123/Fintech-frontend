@@ -44,6 +44,8 @@ import {CustomerGroupComponent} from './component/customer-profile/individual-pr
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { RiskAnalysisComponent } from './component/customer-form/company-form/risk-analysis/risk-analysis.component';
+import {MultipleBankingComponent} from '../loan-information-template/multiple-banking/multiple-banking.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -71,7 +73,8 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent],
+    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent,
+        MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, RiskAnalysisComponent],
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,

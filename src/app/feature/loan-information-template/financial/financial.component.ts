@@ -29,6 +29,7 @@ import {Clients} from '../../../../environments/Clients';
 import {NgxSpinnerService} from "ngx-spinner";
 import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
 import {CrgQuestion} from '../../credit-risk-grading/model/CrgQuestion';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-financial',
@@ -43,6 +44,7 @@ export class FinancialComponent implements OnInit {
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();
+    @Input() customerInfo: CustomerInfoData;
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
 
