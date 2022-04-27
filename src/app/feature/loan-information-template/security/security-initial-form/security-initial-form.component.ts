@@ -39,6 +39,7 @@ import {Province} from '../../../admin/modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() customerSecurityId;
     @Input() approvedData: string;
     @Input() customerType: CustomerType;
+    @Input() customerInfo: CustomerInfoData;
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -204,7 +206,6 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
-            console.log('this is security form data', this.formDataForEdit);
             this.selectedArray = this.formData['selectedArray'];
             this.securityForm.patchValue(this.formDataForEdit);
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -254,6 +255,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
+        this.addSecurityToSelectedArray();
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
                 this.shareSecurityData.id = this.shareSecurity.id;
@@ -272,6 +274,19 @@ export class SecurityInitialFormComponent implements OnInit {
         this.reArrangeEnumType();
         this.getLoanConfig();
     }
+
+    private addSecurityToSelectedArray(): void {
+        const stringArray: any = this.customerInfo.selectedArray;
+       if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray) || stringArray.length > 0) {
+           if (this.customerInfo.selectedArray.indexOf('VehicleSecurity') !== -1) {
+               this.selectedArray.push('VehicleSecurity');
+           }
+           if (this.customerInfo.selectedArray.indexOf('Land and Building Security') !== -1) {
+               this.selectedArray.push('Land and Building Security');
+           }
+       }
+    }
+
     private uuid(): string {
         // tslint:disable-next-line:no-bitwise
         let firstPart: any = (Math.random() * 46656) | 0;
