@@ -29,17 +29,18 @@
                            placeholder="" type="text"/>
                     बस्ने
                     <input class="form-field form-control-sm nepaliFont " formControlName="grandFatherName"
-                           placeholder="" type="text"/>को
-                    <span *ngIf="form.get('gender').value === '1'; else granddaughter">नाति</span>
+                           placeholder="" type="text"/>को नाति/नातिनि
+                    <!--<span *ngIf="form.get('gender').value === '1'; else granddaughter">नाति</span>
                     <ng-template #granddaughter>
                         <span>नातिनि</span>
-                    </ng-template>
+                    </ng-template>-->
                     <input class="form-field form-control-sm nepaliFont " formControlName="fatherName"
                            placeholder="" type="text"/>
-                    को <span *ngIf="form.get('gender').value === '1'; else daughter">छोरा</span>
+                    को छोरा/छोरी
+                    <!--<span *ngIf="form.get('gender').value === '1'; else daughter">छोरा</span>
                     <ng-template #daughter>
                         <span>छोरी</span>
-                    </ng-template>
+                    </ng-template>-->
                     वर्ष
                     <input class="form-field form-control-sm nepaliFont shortInput" formControlName="loanHolderAge"
                            placeholder="" type="text"/>को
