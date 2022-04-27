@@ -88,7 +88,7 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf=" (customerInfo?.customerType === customerType?.INDIVIDUAL)">
+      <div class="col-md-4" *ngIf="!isMicroCustomer">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -96,7 +96,8 @@
                 <div class="col-md-8">
                   <p class="custom-font">
                 <span
-                        *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+                    <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+                    <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -116,7 +117,7 @@
             <nb-card-header>
                 <span
                         *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-              <!--            <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>-->
+                          <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -398,11 +399,12 @@
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
+            <span *ngIf="customerInfo?.netTradingAssets" style="color:green"
+                  title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
                   <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!customerInfo?.netTradingAssets" class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
               </div>
@@ -807,11 +809,12 @@
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
+                <span *ngIf="multiBankingResponse" style="color:green"
+                      title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
                   <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!multiBankingResponse" class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
               </div>
