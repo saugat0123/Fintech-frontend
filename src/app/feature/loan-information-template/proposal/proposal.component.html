@@ -617,7 +617,7 @@
                                                     [type]="swapChargeVar ? 'text' : 'number'"/>
                                     </div>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-12 form-group" *ngIf="isHomeLoan">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
                                                  [checked]="firstTimeHomeBuyerChecked"><b>First time home buyer</b>
                                     </nb-checkbox>

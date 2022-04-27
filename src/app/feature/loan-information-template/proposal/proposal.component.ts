@@ -174,7 +174,6 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
-    console.log('proposalData', this.proposalData);
   }
 
   buildForm() {
