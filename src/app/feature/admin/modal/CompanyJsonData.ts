@@ -2,6 +2,7 @@ import {OtherCompanyDetail} from './otherCompanyDetail';
 import {ManagementTeam} from './management-team';
 import {Swot} from './swot';
 import {Proprietors} from './proprietors';
+import {ReviewDate} from './reviewDate';
 
 export class CompanyJsonData {
 
@@ -35,4 +36,5 @@ export class CompanyJsonData {
   companyBackgroundBusiness: string = undefined;
   promotersKeyPersons: string = undefined;
   // loanType: string = undefined;
+  reviewDate: ReviewDate = undefined;
 }

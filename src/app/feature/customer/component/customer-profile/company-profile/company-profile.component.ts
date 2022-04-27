@@ -36,6 +36,8 @@ import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('mGroupAccordion', {static: false})
     public mGroupAccordion: NbAccordionItemComponent;
+    @ViewChild('mReviewAccordion', {static: false})
+    public mReviewAccordion: NbAccordionItemComponent;
     microCustomerType = MicroCustomerType;
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
