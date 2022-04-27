@@ -12,11 +12,6 @@ export class DefaultLoanTemplate {
         },
         {
             active: false,
-            name: 'Credit Risk Grading - Micro',
-            templateUrl: null
-        },
-        {
-            active: false,
             name: 'Credit Risk Grading - Gamma',
             templateUrl: null
         },
