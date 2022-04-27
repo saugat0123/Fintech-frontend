@@ -57,6 +57,7 @@ import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
+import {RiskAnalysisComponent} from './risk-analysis/risk-analysis.component';
 
 @Component({
     selector: 'app-company-form',
@@ -76,6 +77,7 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
     @ViewChild('companyCorrespondenceLocation', {static: true}) companyCorrespondenceLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
+    @ViewChild('riskAnalysis', {static: true}) riskAnalysis: RiskAnalysisComponent;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
     microCustomer = false;
@@ -168,6 +170,7 @@ export class CompanyFormComponent implements OnInit {
     companyCorrespondenceAddress;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
+    riskAnalysisData: any;
     groupTable = '<table border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     constructor(
         private formBuilder: FormBuilder,
@@ -217,7 +220,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-            // this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
         this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
         if (this.additionalFieldSelected) {
@@ -326,7 +328,6 @@ export class CompanyFormComponent implements OnInit {
         }
 
         if (!ObjectUtil.isEmpty(this.companyJsonData)) {
-            console.log('I am here');
             this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
     }
@@ -985,6 +986,7 @@ export class CompanyFormComponent implements OnInit {
         }
 
         this.companyLocation.onSubmit();
+        this.riskAnalysis.onSubmit();
         this.companyProjectLocation.onSubmit();
         // this.companyCorrespondenceLocation.onSubmit();
         // if (this.companyInfoFormGroup.invalid ||
@@ -1076,6 +1078,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
+        this.companyJsonData.businessManagementRisk = JSON.stringify(this.riskAnalysis.submitData);
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;
@@ -1165,7 +1168,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
-        submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.businessManagementRisk = this.companyJsonData.businessManagementRisk;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
         submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
