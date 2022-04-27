@@ -35,24 +35,34 @@ export class SecurityAdderComponent implements OnInit {
     considerValue = 0;
     isLimitExceed = false;
     totalFreeLimit = 0;
+    totalFreeLimitAuto = 0;
+    approvedShareSecurity: any;
 
     constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
         this.buildForm();
+        this.customerShareData = this.shareSecurityData.customerShareData;
+        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
         if (!ObjectUtil.isEmpty(this.loanHolder.selectedArray)) {
             this.selectedSecurities = JSON.parse(this.loanHolder.selectedArray);
             this.selectedSecurity();
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
+            console.log(this.customerInfo.landBuildings);
             this.setLandBuildingDetail();
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.autos)) {
+            console.log(this.customerInfo.autos);
+            this.setAutoDetail();
         }
     }
 
     private buildForm(): FormGroup {
         return this.form = this.fb.group({
-            landBuildingForm: this.fb.array([])
+            landBuildingForm: this.fb.array([]),
+            autoForm: this.fb.array([])
         });
     }
 
@@ -60,15 +70,46 @@ export class SecurityAdderComponent implements OnInit {
         return this.form.get('landBuildingForm') as FormArray;
     }
 
+    get autoForm(): FormArray {
+        return this.form.get('autoForm') as FormArray;
+    }
+
     public landBuildingFormGroup(): FormGroup {
         return  this.form = this.fb.group({
-            usedAmount: [undefined],
-            freeLimit: [undefined],
+            addressLine1: [undefined],
+            addressLine2: [undefined],
+            buildingValuator: [undefined],
             considerValue: [undefined],
-            fairMarketValue: [undefined],
-            governmentRate: [undefined],
+            data: [undefined],
+            distressValue: [undefined],
+            district: [undefined],
+            freeLimit: [undefined],
             geoLocation: [undefined],
-            name: [undefined],
+            governmentRate: [undefined],
+            marketRate: [undefined],
+            marketValue: [undefined],
+            municipalityVdc: [undefined],
+            plotNumber: [undefined],
+            province: [undefined],
+            registerOffice: [undefined],
+            sheetNo: [undefined],
+            usedAmount: [undefined],
+        });
+    }
+
+    public autoFormGroup(): FormGroup {
+        return  this.form = this.fb.group({
+            chassisNumber: [undefined],
+            considerValue: [undefined],
+            data: [undefined],
+            discountPrice: [undefined],
+            engineNumber: [undefined],
+            freeLimit: [undefined],
+            isNew: [undefined],
+            model: [undefined],
+            quotationAmount: [undefined],
+            usedAmount: [undefined],
+            vehicalValuator: [undefined],
         });
     }
 
@@ -76,13 +117,46 @@ export class SecurityAdderComponent implements OnInit {
         const arrayForm = this.form.get('landBuildingForm') as FormArray;
         this.customerInfo.landBuildings.forEach((singleData: any) => {
             arrayForm.push(this.fb.group({
-                usedAmount: [singleData.usedAmount],
-                freeLimit: [singleData.freeLimit],
+                id: [singleData.id],
+                addressLine1: [singleData.addressLine1],
+                addressLine2: [singleData.addressLine2],
+                buildingValuator: [singleData.buildingValuator],
                 considerValue: [singleData.considerValue],
-                fairMarketValue: [singleData.marketValue],
-                governmentRate: [singleData.governmentRate],
+                data: [singleData.data],
+                distressValue: [singleData.distressValue],
+                district: [singleData.district],
+                freeLimit: [singleData.freeLimit],
                 geoLocation: [singleData.geoLocation],
-                name: [singleData.district.name]
+                governmentRate: [singleData.governmentRate],
+                marketRate: [singleData.marketRate],
+                marketValue: [singleData.marketValue],
+                municipalityVdc: [singleData.municipalityVdc],
+                plotNumber: [singleData.plotNumber],
+                province: [singleData.province],
+                registerOffice: [singleData.registerOffice],
+                sheetNo: [singleData.sheetNo],
+                usedAmount: [singleData.usedAmount],
+            }));
+        });
+    }
+
+    public setAutoDetail(): void {
+        const arrayForm = this.form.get('autoForm') as FormArray;
+        this.customerInfo.autos.forEach((singleData: any) => {
+            arrayForm.push(this.fb.group({
+                id: [singleData.id],
+                chassisNumber: [singleData.chassisNumber],
+                considerValue: [singleData.considerValue],
+                data: [singleData.data],
+                discountPrice: [singleData.discountPrice],
+                engineNumber: [singleData.engineNumber],
+                freeLimit: [singleData.freeLimit],
+                isNew: [singleData.isNew],
+                manufactureYear: [singleData.manufactureYear],
+                model: [singleData.model],
+                quotationAmount: [singleData.quotationAmount],
+                usedAmount: [singleData.usedAmount],
+                vehicalValuator: [singleData.vehicalValuator],
             }));
         });
     }
@@ -95,6 +169,16 @@ export class SecurityAdderComponent implements OnInit {
     removeLandBuilding(id) {
         this.loanHolder.landBuildings.splice(this.findIndex(this.loanHolder.landBuildings, id), 1);
         this.selectedSecurity();
+    }
+
+    removeShareSecurity(data) {
+        const removeIndex = this.findShareSecurityIndex(data);
+        this.approvedShareSecurity.splice(removeIndex, 1);
+    }
+
+    findShareSecurityIndex(data) {
+        return this.approvedShareSecurity.indexOf(this.approvedShareSecurity.filter(
+            d => d.totalShareUnit.toString() === data.totalShareUnit.toString() && d.companyName === data.companyName)[0]);
     }
 
     findIndex(array, id) {
@@ -138,10 +222,12 @@ export class SecurityAdderComponent implements OnInit {
 
     public tagSecurity(security: any, key): void {
         if (key === 'auto') {
-            this.autoSecurity = security;
+            console.log('Auto', security.value);
+            this.loanHolder.autos.push(security.value);
         }
         if (key === 'landBuilding') {
-            this.landBuildingSecurity = security;
+            console.log('Land Building', security.value);
+            this.loanHolder.landBuildings.push(security.value);
         }
         // switch (key) {
         //     case 'auto': {
@@ -152,7 +238,7 @@ export class SecurityAdderComponent implements OnInit {
         //         this.loanHolder.landBuildings.push(security);
         //     }
         // }
-        // this.selectedSecurity();
+        this.selectedSecurity();
         }
 
         public onSubmit(): void {
@@ -169,11 +255,19 @@ export class SecurityAdderComponent implements OnInit {
             this.form.get('freeLimit').setValue(freeLimit);
         }
 
-        public calc(index: number, considerValue: number,  value: any): void {
+        public calcFreeLimitForLandBuilding(index: number, considerValue: number,  value: any): void {
             let freeLimit = considerValue;
             freeLimit -= value;
             this.totalFreeLimit = considerValue;
             this.totalFreeLimit -= value;
             this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
+        }
+
+        public calculateFreeLimitForAuto(index: number, considerValue: number,  value: any): void {
+            let freeLimit = considerValue;
+            freeLimit -= value;
+            this.totalFreeLimitAuto = considerValue;
+            this.totalFreeLimitAuto -= value;
+            this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
         }
 }
