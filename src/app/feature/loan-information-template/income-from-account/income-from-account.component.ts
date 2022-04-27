@@ -8,6 +8,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -18,6 +19,7 @@ export class IncomeFromAccountComponent implements OnInit {
   @Input() incomeFromAccountDataResponse: IncomeFromAccount;
   @Input() fromProfile;
   @Output() incomeFromAccountDataEmitter = new EventEmitter();
+  @Input() customerInfo: CustomerInfoData;
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;

@@ -10,7 +10,7 @@
             </tr>
             <tr>
                 <td>Firm registration No. and date</td>
-                <td></td>
+                <td>{{companyInfo?.legalStatus?.registrationNo}}, {{companyInfo?.legalStatus?.registrationDate}}</td>
             </tr>
             <tr>
                 <td>Registered at</td>
@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Firm renewed up to</td>
-                <td>FY...</td>
+                <td>FY {{jsonData?.otherCompanyDetail?.firmRenew}}</td>
             </tr>
             <tr>
                 <td>PAN No., date, and place of issue</td>

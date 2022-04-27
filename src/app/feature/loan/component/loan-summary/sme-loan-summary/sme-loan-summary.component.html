@@ -326,6 +326,9 @@
                             </li>
                             <li>
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
+                                <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+
                             </li>
                             <li>
                                 <!-- details of the customer -->
@@ -961,7 +964,7 @@
                 <app-upto-ten-million></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion && !isUpToTenMillion">
-                <app-above-ten-million [loanDataHolder]="loanDataHolder"></app-above-ten-million>
+                <app-above-ten-million [loanDataHolder]="loanDataHolder" [customerAllLoanList] = "customerAllLoanList"></app-above-ten-million>
             </ng-container>
         </nb-card-body>
     </nb-card>

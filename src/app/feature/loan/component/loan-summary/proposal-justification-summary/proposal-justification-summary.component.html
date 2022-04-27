@@ -1,6 +1,4 @@
 <div class="py-2">
-    <div><span><strong>Purpose and Justification of Credit Proposal</strong></span></div>
-    <hr>
     <div class="py-2">
         <ol>
             <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
@@ -12,22 +10,19 @@
                 </div>
 
                 <div>
-                    <div class="row sb-small mt-2">
-                        <p><strong class="heading">Purpose: </strong></p>
-                    </div>
                     <div class="sb-small">
                         <span [innerHTML]="(data.proposal.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
                     </div>
                 </div>
-                <div>
-                    <div class="row sb-small">
-                        <p><strong class="heading">Justification of limit :</strong></p>
-                    </div>
-                    <div class="sb-small">
-                        <span
-                            [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
-                    </div>
-                </div>
+<!--                <div>-->
+<!--                    <div class="row sb-small">-->
+<!--                        <p><strong class="heading">Justification of limit :</strong></p>-->
+<!--                    </div>-->
+<!--                    <div class="sb-small">-->
+<!--                        <span-->
+<!--                            [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <hr>
             </li>
         </ol>
