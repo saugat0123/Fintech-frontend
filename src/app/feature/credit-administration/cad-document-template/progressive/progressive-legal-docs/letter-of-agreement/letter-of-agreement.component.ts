@@ -180,7 +180,6 @@ export class LetterOfAgreementComponent implements OnInit {
       itiMonth: [undefined],
       itiDate: [undefined],
       itiSambat: [undefined],
-      gender: [undefined]
     });
   }
   setCollaterals(data) {
@@ -206,7 +205,6 @@ export class LetterOfAgreementComponent implements OnInit {
           municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
           wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
           companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
-          gender: [value.collateralOwnerGender ? value.collateralOwnerGender : ''],
           loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
           loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
           loanHolderAge: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
