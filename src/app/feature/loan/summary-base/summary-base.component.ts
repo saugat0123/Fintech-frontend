@@ -23,6 +23,7 @@ import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
 import { CustomerType } from '../../customer/model/customerType';
 import { CustomerInfoData } from '../model/customerInfoData';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
 
 @Component({
     selector: 'app-summary-base',
@@ -51,6 +52,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     approvalSheetActive = false;
     loanTag = LoanTag;
     customerAllLoanList;
+    institutionalTotalRiskScore;
+    customerInfoId;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -64,7 +67,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 private modalService: NgbModal,
                 private documentService: DocumentService,
                 private customerLoanService: LoanFormService,
-                private combinedLoanService: CombinedLoanService) {
+                private combinedLoanService: CombinedLoanService,
+                private customerInfoService: CustomerInfoService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -86,14 +90,20 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.allId = {
                     loanConfigId: null,
                     customerId: null,
-                    catalogue: null
+                    catalogue: null,
+                    customerInfoId: null
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
+                this.customerInfoId = this.allId.customerInfoId
                 if (this.allId.catalogue) {
                     this.catalogueStatus = true;
                 }
+                this.customerInfoService.detail(this.customerInfoId).subscribe(res=>{
+                    this.institutionalTotalRiskScore = JSON.parse(res.detail.crgGamma.data).totalPoint;
+                    console.log(this.institutionalTotalRiskScore, "SCORE");
+                })
             });
         this.id = this.activatedRoute.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(

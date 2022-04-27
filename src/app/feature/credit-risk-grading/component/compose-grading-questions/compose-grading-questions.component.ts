@@ -54,7 +54,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     getSchemeList() {
         this.loanConfigService.getAll().subscribe((response: any) => {
-            this.schemeList = response.detail;
+            this.schemeList = response.detail.filter((r: any) => r.loanCategory === 'INDIVIDUAL');
         });
     }
 
