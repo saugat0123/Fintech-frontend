@@ -38,6 +38,7 @@ export class CommentsComponent implements OnInit {
     previousComments: [undefined],
     auditorComments: [undefined],
     securityDetails: [undefined],
+    nrbComments: [undefined],
   });
   }
 
