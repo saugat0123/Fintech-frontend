@@ -95,6 +95,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     documentSpinner = false;
     priority;
+    pendingLoanList: LoanDataHolder [] = [];
+    approvedLoanList = [];
 
 
     constructor(private companyInfoService: CompanyInfoService,
@@ -134,6 +136,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
             this.customerLoans = res.detail;
+            this.approvedLoanList = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
+            this.pendingLoanList = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING'));
         });
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
@@ -419,11 +423,14 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 // @ts-ignore
                 this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
         }
-        const ref = this.modalService.open(proposal, {
+       this.openModal(proposal);
+    }
+
+    openModal(additional) {
+        this.modalService.open(additional, {
             size: 'xl',
             windowClass: 'modal-holder',
             scrollable: true,
         });
     }
-
 }

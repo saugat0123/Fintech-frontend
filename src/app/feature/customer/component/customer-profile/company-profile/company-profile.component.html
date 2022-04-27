@@ -215,11 +215,11 @@
                   status="danger" type="button" (click)="saveCompanyInfoDetail()">Save
           </button>
         </div>
-<!--        <div class="px-2">-->
-<!--          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
-<!--                  nbButton size="small" type="button">Apply Loan-->
-<!--          </button>-->
-<!--        </div>-->
+        <div class="px-2">
+          <button (click)="openModal(additionalInformation)"
+                  nbButton size="small" type="button">Additional Information
+          </button>
+        </div>
 <!--        <div class="px-2">-->
 <!--          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
 <!--                  nbButton size="small" type="button">Combine Loan-->
@@ -300,115 +300,6 @@
           </nb-card-body>
 
         </nb-card>
-        <nb-card accent="primary">
-          <nb-card-header>
-            Additional Information
-          </nb-card-header>
-          <nb-card-body>
-            <nb-accordion>
-
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>Information of Proprietor/Shareholder/Partner</span>
-                    </div>
-                  </div>
-
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <br>
-                  <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                      <th scope="col"> S.N </th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Contact No.</th>
-                      <th scope="col">Share</th>
-                      <th scope="col">Province</th>
-                      <th scope="col">District</th>
-                      <th scope="col">Municipality/VDC</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;
-                                        let i = index">
-                      <td>{{i + 1}}</td>
-                      <td>{{proprietorInfo?.type}}</td>
-                      <td>{{proprietorInfo?.name}}</td>
-                      <td>{{proprietorInfo?.contactNo}}</td>
-                      <td>{{proprietorInfo?.share}}</td>
-                      <td>{{proprietorInfo?.province?.name}}</td>
-                      <td>{{proprietorInfo?.district?.name}}</td>
-                      <td>{{proprietorInfo?.municipalityVdc?.name}}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>Management Team</span>
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <br>
-                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
-                    <thead>
-                    <tr class="sb-bg-dark text-white">
-                      <th scope="col"> S.N</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Designation</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
-                                        let i = index">
-                      <td>{{i + 1}}</td>
-                      <td>{{singleManagementTeam?.name}}</td>
-                      <td>{{singleManagementTeam?.designation}}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>SWOT Analysis</span>
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <br>
-                  <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
-                    <tr>
-                      <td class="sb-bg-dark text-white"> Strengths</td>
-                      <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                    </tr>
-                    <tr>
-                      <td class="sb-bg-dark text-white"> Weaknesses</td>
-                      <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                    </tr>
-                    <tr>
-                      <td class="sb-bg-dark text-white"> Opportunities</td>
-                      <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                    </tr>
-                    <tr>
-                      <td class="sb-bg-dark text-white"> Threats</td>
-                      <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
-                    </tr>
-                  </table>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
-          </nb-card-body>
-        </nb-card>
       </div>
     </div>
 
@@ -444,53 +335,6 @@
 
 <div class="row">
   <div class="col-md-12">
-    <nb-card accent="primary">
-      <nb-card-header>
-        Loan History
-        <div class="float-right" nbTooltip="">Total Loan Amount
-          : {{totalLoanProposedAmount | number}}
-        </div>
-      </nb-card-header>
-      <nb-card-body>
-        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
-        ></app-customer-group-loan>
-      </nb-card-body>
-      <nb-card-footer>
-        <div class="row">
-          <div class="col" *ngIf=" !isRemarkEdited ">
-            <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                    class="fa fa-edit"></em></a>
-            <label><b>Within Limit Remarks (if any):</b></label>
-            {{companyInfo.withinLimitRemarks}}
-          </div>
-          <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-            <form [formGroup]="companyForm">
-              <label><b>Within Limit Remarks (if any):</b></label>
-              <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
-            </form>
-            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
-          </div>
-        </div>
-<!--        <div class="row">-->
-<!--          <div class="col" *ngIf=" !isAccountEdited ">-->
-<!--            <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em-->
-<!--                    class="fa fa-edit"></em></a>-->
-<!--            <label><b>Account Strategy(if any):</b></label>-->
-<!--            {{companyInfo.accountStrategy}}-->
-<!--          </div>-->
-<!--          <div *ngIf="isAccountEdited" class="col-md-12 form-group">-->
-<!--            <form [formGroup]="companyForm">-->
-<!--              <label><b>Account Strategy(if any):</b></label>-->
-<!--              <textarea  rows="2" placeholder="Account Strategy" class="form-control border"  formControlName="accountStrategy"></textarea>-->
-<!--            </form>-->
-<!--            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Account Strategy</button>-->
-<!--          </div>-->
-<!--        </div>-->
-      </nb-card-footer>
-    </nb-card>
-
     <nb-card accent="primary">
       <nb-card-header>
         <strong class="float-left">Apply Loan</strong>
@@ -539,6 +383,52 @@
         </div>
       </nb-card-body>
     </nb-card>
+    <nb-card accent="primary">
+      <nb-card-header>
+        Loan History
+        <div class="float-right" nbTooltip="">Total Loan Amount
+          : {{totalLoanProposedAmount | number}}
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
+        ></app-customer-group-loan>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row">
+          <div class="col" *ngIf=" !isRemarkEdited ">
+            <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
+                    class="fa fa-edit"></em></a>
+            <label><b>Within Limit Remarks (if any):</b></label>
+            {{companyInfo.withinLimitRemarks}}
+          </div>
+          <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
+            <form [formGroup]="companyForm">
+              <label><b>Within Limit Remarks (if any):</b></label>
+              <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
+            </form>
+            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
+          </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--          <div class="col" *ngIf=" !isAccountEdited ">-->
+        <!--            <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em-->
+        <!--                    class="fa fa-edit"></em></a>-->
+        <!--            <label><b>Account Strategy(if any):</b></label>-->
+        <!--            {{companyInfo.accountStrategy}}-->
+        <!--          </div>-->
+        <!--          <div *ngIf="isAccountEdited" class="col-md-12 form-group">-->
+        <!--            <form [formGroup]="companyForm">-->
+        <!--              <label><b>Account Strategy(if any):</b></label>-->
+        <!--              <textarea  rows="2" placeholder="Account Strategy" class="form-control border"  formControlName="accountStrategy"></textarea>-->
+        <!--            </form>-->
+        <!--            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Account Strategy</button>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </nb-card-footer>
+    </nb-card>
 
 
     <ng-template #proposal let-data let-ref="dialogRef" >
@@ -564,43 +454,52 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-5" style="overflow-y: auto; height:600px;">
+      <div class="col-md-12" style="overflow-y: auto; height:600px;">
         <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
                           (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
       </div>
-      <div class = "col-md-7" style="overflow-y: auto; height:600px;">
-        <ngb-tabset [destroyOnHide]="false" *ngIf="customerLoans?.length > 0">
-          <ngb-tab  *ngFor="let loan of customerLoans; let i = index;" [title]="loan?.loan?.shortNames"  [id]="i.toString(10)">
-            <ng-template ngbTabContent>
-              <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING' || loan?.documentStatus === 'UNDER_REVIEW'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
-                                          [loanDataHolder]="loan"
-                                          [loanType]="loan?.loanType"></app-customer-loan-document>
-              <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">
-                <ng-container *ngIf="loan?.customerDocument?.length < 1">
-                  NO DOCUMENT available in this loan
-                </ng-container>
-
-                <div class="col-md-12 ">
-                  <div class="row">
-                    <div class="col-md-3 img-hover flex-wrap"
-                         *ngFor="let data of loan?.customerDocument;let i =index"
-                         [nbTooltip]="data?.document?.displayName">
-                      <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
-                              [className]="service.SET_CLASS_NAME"></em>
-                        <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                                data?.document?.displayName?.substring(0, 12) + '..' :
-                                data?.document?.displayName}}</span></a>
-                    </div>
-                  </div>
-                </div>
-
-              </ng-container>
-            </ng-template>
-
-          </ngb-tab>
-        </ngb-tabset>
-      </div>
     </div>
+  </nb-card-body>
+  <nb-card-body>
+<!--    <div class = "col-md-7" style="overflow-y: auto; height:600px;">-->
+<strong>Pending Loan Document</strong>
+  <ng-container *ngFor="let loan of pendingLoanList; let i = index">
+    <nb-card>
+
+    <app-customer-loan-document  [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
+                                [loanDataHolder]="loan"
+                                [loanType]="loan?.loanType"></app-customer-loan-document>
+    </nb-card>
+  </ng-container>
+    <hr>
+    <strong>Approved Document</strong>
+  <ng-container *ngFor="let loan of approvedLoanList; let i = index">
+      <ng-container *ngIf="loan?.customerDocument?.length < 1">
+        NO DOCUMENT available in this loan
+      </ng-container>
+
+      <div class="col-md-12 ">
+        <div class="row">
+          <div class="col-md-3 img-hover flex-wrap"
+               *ngFor="let data of loan?.customerDocument;let i =index"
+               [nbTooltip]="data?.document?.displayName">
+            <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                    [className]="service.SET_CLASS_NAME"></em>
+              <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
+                      data?.document?.displayName?.substring(0, 12) + '..' :
+                      data?.document?.displayName}}</span></a>
+          </div>
+        </div>
+      </div>
+
+  </ng-container>
+
+
+
+<!--            <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">-->
+
+
+<!--    </div>-->
   </nb-card-body>
 </nb-card>
 
@@ -642,4 +541,116 @@
       </ul>
     </nb-card-body>
   </nb-card>
+</ng-template>
+
+<ng-template #additionalInformation>
+  <nb-card accent="primary">
+    <nb-card-header>
+    <strong> Additional Information</strong>
+      <a aria-label="Close" class="close cursor"
+         data-dismiss="modal" (click)="onClose()">
+                      <span style="color: red" (click)="onClose()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="row col-md-12">
+          <div class="col-md-6">
+            <span>Information of Proprietor/Shareholder/Partner</span>
+          </div>
+        </div>
+
+
+        <br>
+        <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
+          <thead>
+          <tr class="text-white sb-bg-dark">
+            <th scope="col"> S.N </th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Contact No.</th>
+            <th scope="col">Share</th>
+            <th scope="col">Province</th>
+            <th scope="col">District</th>
+            <th scope="col">Municipality/VDC</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;
+                                        let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{proprietorInfo?.type}}</td>
+            <td>{{proprietorInfo?.name}}</td>
+            <td>{{proprietorInfo?.contactNo}}</td>
+            <td>{{proprietorInfo?.share}}</td>
+            <td>{{proprietorInfo?.province?.name}}</td>
+            <td>{{proprietorInfo?.district?.name}}</td>
+            <td>{{proprietorInfo?.municipalityVdc?.name}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="row col-md-12">
+          <div class="col-md-6">
+            <strong>Management Team</strong>
+          </div>
+        </div>
+
+        <br>
+        <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
+          <thead>
+          <tr class="sb-bg-dark text-white">
+            <th scope="col"> S.N</th>
+            <th scope="col">Name</th>
+            <th scope="col">Designation</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
+                                        let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{singleManagementTeam?.name}}</td>
+            <td>{{singleManagementTeam?.designation}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <hr>
+      <div class="row">
+        <div class="row col-md-12">
+          <div class="col-md-6">
+            <strong>SWOT Analysis</strong>
+          </div>
+        </div>
+
+        <br>
+        <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
+          <tr>
+            <td class="sb-bg-dark text-white"> Strengths</td>
+            <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+          </tr>
+          <tr>
+            <td class="sb-bg-dark text-white"> Weaknesses</td>
+            <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+          </tr>
+          <tr>
+            <td class="sb-bg-dark text-white"> Opportunities</td>
+            <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+          </tr>
+          <tr>
+            <td class="sb-bg-dark text-white"> Threats</td>
+            <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+          </tr>
+        </table>
+
+      </div>
+    </nb-card-body>
+  </nb-card>
+
 </ng-template>

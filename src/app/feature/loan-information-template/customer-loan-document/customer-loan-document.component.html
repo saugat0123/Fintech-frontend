@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        <h3><strong>Loan Documents</strong></h3>
+        <h3><strong>{{loanDataHolder?.loan?.name || 'Loan Document'}}</strong></h3>
     </nb-card-header>
     <nb-card-body>
         <div *ngIf="initialDocuments.length > 0" class="row">
