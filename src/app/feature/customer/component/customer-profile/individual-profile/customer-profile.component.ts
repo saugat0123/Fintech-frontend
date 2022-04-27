@@ -548,7 +548,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
 
         }
-        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
+        this.modalService.open(proposal, {
+            size: 'xl',
+            windowClass: 'modal-holder',
+            scrollable: true,
+        });
     }
 
     getCustomerInfos(id) {

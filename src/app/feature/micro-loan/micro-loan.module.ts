@@ -31,6 +31,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NepaliPatroModule} from 'nepali-patro';
 import { MicroOtherInfoAndConfirmationComponent } from './detail-view/micro-loan-detail-view-base/micro-other-info-and-confirmation/micro-other-info-and-confirmation.component';
+import {FeatureModule} from '../feature.module';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { MicroOtherInfoAndConfirmationComponent } from './detail-view/micro-loan
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        FeatureModule,
     ]
 })
 export class MicroLoanModule { }

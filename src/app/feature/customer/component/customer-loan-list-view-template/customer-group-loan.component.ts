@@ -420,7 +420,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.router.navigate(['/home/loan/summary'], {
           queryParams: {
             loanConfigId: loanConfigId,
-            customerId: customerId
+            customerId: customerId,
+            customerInfoId: this.activatedRoute.snapshot.queryParamMap.get('customerInfoId')
           }
         });
       } else {

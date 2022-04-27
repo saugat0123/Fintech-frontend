@@ -1,6 +1,6 @@
 <p>The customer has requested the branch for approving the following credit facilities:</p>
 <ul>
-    <li *ngFor="let item of creditFacilities; let i = index">
-        1.{{i + 1}} {{item}}
+    <li *ngFor="let loan of customerAllLoanList; let i = index">
+        1. {{i+1}} {{loan?.loan?.name}}
     </li>
 </ul>

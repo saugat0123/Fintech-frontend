@@ -152,7 +152,8 @@ const modules = {
 
 @NgModule({
     // tslint:disable-next-line:max-line-length
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent,
+        PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
     imports: [
         ThemeModule,
         CommonModule,

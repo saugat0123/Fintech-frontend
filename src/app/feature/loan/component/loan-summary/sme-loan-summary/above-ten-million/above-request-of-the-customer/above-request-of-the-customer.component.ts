@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../../../model/loanData';
 
 @Component({
   selector: "app-above-request-of-the-customer",
@@ -6,7 +7,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./above-request-of-the-customer.component.scss"],
 })
 export class AboveRequestOfTheCustomerComponent implements OnInit {
+  @Input() customerAllLoanList: LoanDataHolder[];
   constructor() {}
-  creditFacilities = [".....", ".....", ".....", "....."];
+  creditFacilities = ['.....', ".....", ".....", "....."];
   ngOnInit() {}
 }
