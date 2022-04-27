@@ -86,7 +86,7 @@
                                 <td>{{auto.get('freeLimit').value}}</td>
                                 <td>
                                     <button *ngIf="!autoId?.includes(auto.get('id').value)" nbButton size="small"
-                                            (click)="tagSecurity(auto, 'auto')">
+                                            (click)="tagSecurity(auto, 'auto')" [disabled]="isAutoFreeLimitExceed[i]">
                                         <i class="fa fa-plus"></i></button>
                                 </td>
                             </ng-container>
@@ -128,7 +128,7 @@
                                     <td>
                                         <button nbButton size="small"
                                                 *ngIf="!landBuildingId?.includes(landBuilding.get('id').value)"
-                                                (click)="tagSecurity(landBuilding, 'landBuilding')"><i
+                                                (click)="tagSecurity(landBuilding, 'landBuilding')" [disabled]="isLandBuildingFreeLimitExceed[i]"><i
                                                 class="fa fa-plus"></i></button>
                                     </td>
                                 </ng-container>

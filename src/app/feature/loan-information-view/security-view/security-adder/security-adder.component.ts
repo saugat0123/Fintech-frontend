@@ -37,6 +37,8 @@ export class SecurityAdderComponent implements OnInit {
     totalFreeLimit = 0;
     totalFreeLimitAuto = 0;
     approvedShareSecurity: any;
+    isAutoFreeLimitExceed = [];
+    isLandBuildingFreeLimitExceed = [];
 
     constructor(private fb: FormBuilder) {
     }
@@ -196,6 +198,7 @@ export class SecurityAdderComponent implements OnInit {
             freeLimit -= value;
             this.totalFreeLimit = considerValue;
             this.totalFreeLimit -= value;
+            this.isLandBuildingFreeLimitExceed[index] = this.totalFreeLimit < 0;
             this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
         }
 
@@ -204,6 +207,7 @@ export class SecurityAdderComponent implements OnInit {
             freeLimit -= value;
             this.totalFreeLimitAuto = considerValue;
             this.totalFreeLimitAuto -= value;
+            this.isAutoFreeLimitExceed[index] = this.totalFreeLimitAuto < 0;
             this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
         }
 }
