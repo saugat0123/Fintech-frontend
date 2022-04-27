@@ -57,6 +57,7 @@ import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
+import {RiskAnalysisComponent} from './risk-analysis/risk-analysis.component';
 
 @Component({
     selector: 'app-company-form',
@@ -76,6 +77,7 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
     @ViewChild('companyCorrespondenceLocation', {static: true}) companyCorrespondenceLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
+    @ViewChild('riskAnalysis', {static: true}) riskAnalysis: RiskAnalysisComponent;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
     microCustomer = false;
@@ -168,6 +170,8 @@ export class CompanyFormComponent implements OnInit {
     companyCorrespondenceAddress;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
+    riskAnalysisData: any;
+    groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -317,10 +321,14 @@ export class CompanyFormComponent implements OnInit {
         } else {
             this.addAccountNumber();
         }
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            this.setSisterConcern(this.companyJsonData.sisterConcern);
-        } else {
-            this.addSisterConcern();
+        // if (!ObjectUtil.isEmpty(this.companyInfo)) {
+        //     this.setSisterConcern(this.companyJsonData.sisterConcern);
+        // } else {
+        //     this.addSisterConcern();
+        // }
+
+        if (ObjectUtil.isEmpty(this.companyJsonData.group)) {
+            this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
     }
 
@@ -539,16 +547,24 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.rawMaterialAvailability],
 
             // Sister concert
-            sisterConcern: this.formBuilder.array([]),
+            // sisterConcern: this.formBuilder.array([]),
             // company background
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
-            companyBackgroundBusiness: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.companyBackgroundBusiness, Validators.required],
+            promoterBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.promoterBackground],
+            lineOfBusiness: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.lineOfBusiness],
+            discriptionWithComment: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.discriptionWithComment],
+            majorBuyersSuppliers: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.majorBuyersSuppliers],
             promotersKeyPersons: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.promotersKeyPersons],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.BusinessIndustryOutlook],
+            group: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.group],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
@@ -950,7 +966,7 @@ export class CompanyFormComponent implements OnInit {
     onSubmit() {
         this.spinner = true;
         this.submitted = true;
-        this.marketScenarioComponent.onSubmit();
+        // this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
         if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
@@ -970,6 +986,7 @@ export class CompanyFormComponent implements OnInit {
         }
 
         this.companyLocation.onSubmit();
+        this.riskAnalysis.onSubmit();
         this.companyProjectLocation.onSubmit();
         // this.companyCorrespondenceLocation.onSubmit();
         // if (this.companyInfoFormGroup.invalid ||
@@ -1061,6 +1078,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
+        this.companyJsonData.businessManagementRisk = JSON.stringify(this.riskAnalysis.submitData);
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;
@@ -1142,20 +1160,24 @@ export class CompanyFormComponent implements OnInit {
         submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
         submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
-        submitData.marketScenario = this.marketScenarioComponent.submitData;
+        // submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
-        submitData.sisterConcern = this.companyInfoFormGroup.get('sisterConcern').value;
+        // submitData.sisterConcern = this.companyInfoFormGroup.get('sisterConcern').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
-        submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.businessManagementRisk = this.companyJsonData.businessManagementRisk;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
-        submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
+        // submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
         submitData.promotersKeyPersons = this.companyInfoFormGroup.get('promotersKeyPersons').value;
-
+        submitData.promoterBackground = this.companyInfoFormGroup.get('promoterBackground').value;
+        submitData.lineOfBusiness = this.companyInfoFormGroup.get('lineOfBusiness').value;
+        submitData.discriptionWithComment = this.companyInfoFormGroup.get('discriptionWithComment').value;
+        submitData.majorBuyersSuppliers = this.companyInfoFormGroup.get('majorBuyersSuppliers').value;
+        submitData.group = this.companyInfoFormGroup.get('group').value;
         if (this.microCustomer) {
             /** micro data **/
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
@@ -1296,7 +1318,7 @@ export class CompanyFormComponent implements OnInit {
 
     microCustomerTypeValidation(microCustomerType) {
         this.microCustomerType = microCustomerType;
-        const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
+        const microDirectExcludeFields = ['strength', 'weakness', 'opportunity', 'threats'];
         if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
 
         } else {

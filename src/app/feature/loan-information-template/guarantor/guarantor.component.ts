@@ -95,7 +95,13 @@ export class GuarantorComponent implements OnInit {
             this.getMunicipalitiesTemporary(v.districtTemporary.id, index);
           }
         }
-        formArray.push(this.addGuarantorDetails(v));
+        formArray.push(this.addGuarantorDetails(v, index));
+        if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'personalGuarantor') {
+          this.removeCorporateGuarantorValidators(index);
+        }
+        if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'corporateGuarantor') {
+          this.removePersonalGuarantorValidators(index);
+        }
       });
     }
   }
@@ -108,11 +114,18 @@ export class GuarantorComponent implements OnInit {
     this.addressList.push(new Address());
     this.addressListTemporary.push(new Address());
     const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray.push(this.addGuarantorDetails(new Guarantor()));
+    formArray.push(this.addGuarantorDetails(new Guarantor(), 0));
   }
 
-  addGuarantorDetails(data: Guarantor) {
+  addGuarantorDetails(data: Guarantor, index) {
     return this.formBuilder.group({
+      guarantorType: [ObjectUtil.setUndefinedIfNull(data.guarantorType)],
+      registrationNumber: [ObjectUtil.setUndefinedIfNull(data.registrationNumber),
+        Validators.required],
+      panNumber: [ObjectUtil.setUndefinedIfNull(data.panNumber),
+        Validators.required],
+      rnwDate: [ObjectUtil.isEmpty(data.rnwDate) ? undefined : new Date(data.rnwDate),
+        Validators.required],
       id: [
         ObjectUtil.setUndefinedIfNull(data.id)
       ],
@@ -261,6 +274,38 @@ export class GuarantorComponent implements OnInit {
       this.addressListTemporary[i].municipalityVdcList = this.municipalitiesList;
     });
   }
+  guarantorChange(data, index) {
+    if (data) {
+      if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'personalGuarantor') {
+        this.removeCorporateGuarantorValidators(index);
+      }
+      if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'corporateGuarantor') {
+        this.removePersonalGuarantorValidators(index);
+      }
+    }
+  }
+  removePersonalGuarantorValidators(i) {
+    this.form.get(['guarantorDetails', i, 'citizenNumber']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'citizenNumber']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'issuedYear']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'issuedYear']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'issuedPlace']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'issuedPlace']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'dateOfBirth']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'dateOfBirth']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'fatherName']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'fatherName']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'grandFatherName']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'grandFatherName']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'relationship']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'relationship']).updateValueAndValidity();
+  }
+  removeCorporateGuarantorValidators(i) {
+    this.form.get(['guarantorDetails', i, 'registrationNumber']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'registrationNumber']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'panNumber']).clearValidators();
+    this.form.get(['guarantorDetails', i, 'panNumber']).updateValueAndValidity();
+  }
 
   onSubmit() {
     this.overlay.show();
@@ -275,6 +320,7 @@ export class GuarantorComponent implements OnInit {
     this.guarantorDetail.guarantorList = new Array<Guarantor>();
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray['controls'].forEach(c => {
+      console.log('value of c:', c);
       const guarantor: Guarantor = c.value;
       if (!ObjectUtil.isEmpty(c.get('province').value)) {
         const province = new Province();
