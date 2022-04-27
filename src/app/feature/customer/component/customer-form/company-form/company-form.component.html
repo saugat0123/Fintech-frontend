@@ -1508,32 +1508,32 @@
                             </div>
                         </div>
                         <!--sister concern starts-->
-                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                            <div>
-                                <h5>6.1. Sister Concern</h5>
-                            </div>
-                            <div *ngFor="let sis of companyInfoFormGroup?.get('sisterConcern')['controls']; let i = index"
-                                 formArrayName="sisterConcern" class="col-md-4">
-                                <div [formGroupName]="i" class="form-group">
-                                    <input formControlName="sisterCon"
-                                           class="form-control"
-                                           type="text"
-                                           placeholder="Sister Concern"/>
-                                    <div class="mt-2">
-                                        <button (click)="removeSisterConcern(i)"
-                                                *ngIf="companyInfoFormGroup?.get('sisterConcern')['length'] > 1"
-                                                nbButton size="small"
-                                                status="primary">
-                                            <nb-icon icon="trash-outline"></nb-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <button (click)="addSisterConcern()"
-                                    nbButton status="primary" size="small"
-                                    value="Add More">Add
-                            </button>
-                        </ng-container>
+<!--                        <ng-container *ngIf="microCustomerType != 'DIRECT'">-->
+<!--                            <div>-->
+<!--                                <h5>6.1. Sister Concern</h5>-->
+<!--                            </div>-->
+<!--                            <div *ngFor="let sis of companyInfoFormGroup?.get('sisterConcern')['controls']; let i = index"-->
+<!--                                 formArrayName="sisterConcern" class="col-md-4">-->
+<!--                                <div [formGroupName]="i" class="form-group">-->
+<!--                                    <input formControlName="sisterCon"-->
+<!--                                           class="form-control"-->
+<!--                                           type="text"-->
+<!--                                           placeholder="Sister Concern"/>-->
+<!--                                    <div class="mt-2">-->
+<!--                                        <button (click)="removeSisterConcern(i)"-->
+<!--                                                *ngIf="companyInfoFormGroup?.get('sisterConcern')['length'] > 1"-->
+<!--                                                nbButton size="small"-->
+<!--                                                status="primary">-->
+<!--                                            <nb-icon icon="trash-outline"></nb-icon>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <button (click)="addSisterConcern()"-->
+<!--                                    nbButton status="primary" size="small"-->
+<!--                                    value="Add More">Add-->
+<!--                            </button>-->
+<!--                        </ng-container>-->
                        <hr>
                        <div class="box-header with-border">
                            <h5 class="box-title title">7. Management Team</h5>
@@ -1635,7 +1635,7 @@
 
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">9. Succession Risk & Mitigation</h5>
+                           <h5 class="box-title">8. Succession Risk & Mitigation</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1656,13 +1656,13 @@
                        </div>
                        <hr>
                        <!--market scenario-->
-                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
-                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
-                       <hr>
+<!--                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"-->
+<!--                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>-->
+<!--                       <hr>-->
                        <!--10. SWOT Analysis-->
                   <ng-container *ngIf="microCustomerType != 'DIRECT'">
                       <div class="box-header with-border">
-                          <h5 class="box-title">11. SWOT Analysis</h5>
+                          <h5 class="box-title">9. SWOT Analysis</h5>
                       </div>
                       <div class="row">
                           <div class="col-md-6">
@@ -1728,7 +1728,7 @@
                        <hr>
                        <!--Business Objective-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">12. Business Objective</h5>
+                           <h5 class="box-title">10. Business Objective</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1751,7 +1751,7 @@
                        <!--Raw materials-->
                     <ng-container *ngIf="microCustomerType != 'DIRECT'">
                         <div class="box-header with-border">
-                            <h5 class="box-title">13. Raw Materials</h5>
+                            <h5 class="box-title">11. Raw Materials</h5>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -1805,7 +1805,7 @@
                        <div class="row">
                            <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
                                <div class="form-group">
-                                   <h5 class="box-title">14. Group’s
+                                   <h5 class="box-title">12. Group’s
                                        background</h5>
                                    <ckeditor
                                        rows="4"
@@ -1822,7 +1822,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">15.Legal review
+                                   <h5 class="box-title">13.Legal review
                                        Remarks</h5>
                                    <input
                                        [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
@@ -1840,7 +1840,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">16. RISK ANALYSIS</h5>
+                                   <h5 class="box-title">14. RISK ANALYSIS</h5>
                                    <app-risk-analysis #riskAnalysis
                                                       [riskData]="companyJsonData?.businessManagementRisk"></app-risk-analysis>
                                </div>
@@ -1986,7 +1986,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">16. Business & Industry</h5>
+                           <h5 class="box-title">15. Business & Industry</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">
