@@ -45,8 +45,8 @@ export class SecurityAdderComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.customerShareData = this.shareSecurityData.customerShareData;
-        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
+        // this.customerShareData = this.shareSecurityData.customerShareData;
+        // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
         if (!ObjectUtil.isEmpty(this.loanHolder.selectedArray)) {
             this.selectedSecurities = JSON.parse(this.loanHolder.selectedArray);
             this.selectedSecurity();
@@ -79,6 +79,7 @@ export class SecurityAdderComponent implements OnInit {
         this.customerInfo.landBuildings.forEach((singleData: any) => {
             arrayForm.push(this.fb.group({
                 id: [singleData.id],
+                version: [singleData.version],
                 addressLine1: [singleData.addressLine1],
                 addressLine2: [singleData.addressLine2],
                 buildingValuator: [singleData.buildingValuator],
@@ -106,6 +107,7 @@ export class SecurityAdderComponent implements OnInit {
         this.customerInfo.autos.forEach((singleData: any) => {
             arrayForm.push(this.fb.group({
                 id: [singleData.id],
+                version: [singleData.version],
                 chassisNumber: [singleData.chassisNumber],
                 considerValue: [singleData.considerValue],
                 data: [singleData.data],
