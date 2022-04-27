@@ -130,7 +130,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private utilService: ProductUtilService,
                 private companyInfoService: CompanyInfoService,
                 public service: CommonService,
-                config: NgbModalConfig) {
+                config: NgbModalConfig
+
+    ) {
         config.backdrop = 'static';
         config.keyboard = false;
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
