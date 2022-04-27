@@ -1416,71 +1416,73 @@
                       <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
-                           <h5>6. Company Background</h5>
+                           <h5>6. BUSINESS RELATED INFORMATION</h5>
+                           <h6>6.1 The Customer:</h6>
                        </div>
-<!--                       <div class="row">-->
-<!--                           <div class="col-md-12">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="companyBackground"><strong></strong></label>-->
-<!--                                   <ckeditor id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"-->
-<!--                                             [config]="ckeConfig"-->
-<!--                                             [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>-->
-<!--                                   <div *ngIf="(submitted) && form.companyBackground.invalid"-->
-<!--                                        class="text-danger">-->
-<!--                                       <div *ngIf="form.companyBackground.errors.required">-->
-<!--                                           Company Background is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
-<!--                       <hr>-->
-<!--                       <div class="row">-->
-<!--                           <div class="col-md-12">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="businessManagementRisk"><strong>Business/Management Risk & Mitigation</strong></label>-->
-<!--                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessManagementRisk.errors }"-->
-<!--                                             formControlName="businessManagementRisk" id="businessManagementRisk"-->
-<!--                                             name="businessManagementRisk" [config]="ckeConfig"-->
-<!--                                             type="text"></ckeditor>-->
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="promoterBackground"><strong>6.1.1 Promoters background, experience and resources</strong></label>
+                                   <ckeditor id="promoterBackground" formControlName="promoterBackground" name="promoterBackground" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && form.promoterBackground.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && form.promoterBackground.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="form.promoterBackground.errors.required">
+                                           Promoters background, experience and resources is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="lineOfBusiness"><strong>6.1.2. Line/s of business activity</strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.lineOfBusiness.errors }"
+                                             formControlName="lineOfBusiness" id="lineOfBusiness"
+                                             name="lineOfBusiness" [config]="ckeConfig"
+                                             type="text"></ckeditor>
 
-<!--                                   <div *ngIf="submitted && form.businessManagementRisk?.errors "-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.businessManagementRisk?.errors.required">-->
-<!--                                           Business/Management Risk & Mitigation is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
-<!--                       <div class="row">-->
-<!--                           <div class="col-md-12">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="marketRisk"><strong>Industry outlook </strong></label>-->
-<!--                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"-->
-<!--                                             formControlName="BusinessIndustryOutlook" id="marketRisk"-->
-<!--                                             name="marketRisk" [config]="ckeConfig"-->
-<!--                                             type="text"></ckeditor>-->
-<!--                                   <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.BusinessIndustryOutlook?.errors.required">-->
-<!--                                           Industry outlook  is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
+                                   <div *ngIf="submitted && form.lineOfBusiness?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.lineOfBusiness?.errors.required">
+                                           Line/s of business activity is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="discriptionWithComment"><strong>6.1.3. Description with comments on major items dealt in </strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.discriptionWithComment.errors }"
+                                             formControlName="discriptionWithComment" id="discriptionWithComment"
+                                             name="discriptionWithComment" [config]="ckeConfig"
+                                             type="text"></ckeditor>
+                                   <div *ngIf="submitted && form.discriptionWithComment?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.discriptionWithComment?.errors.required">
+                                           Industry outlook  is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="companyBackgroundBusiness"><strong>6.1 BUSINESS:</strong></label>
-                                    <ckeditor id="companyBackgroundBusiness" formControlName="companyBackgroundBusiness" name="companyBackgroundBusiness" type="text"
-                                              [config]="ckeConfig"
-                                              [ngClass]="{ 'is-invalid': (submitted) && form.companyBackgroundBusiness.errors }"></ckeditor>
-                                    <div *ngIf="(submitted) && form.companyBackgroundBusiness.invalid"
-                                         class="text-danger">
-                                        <div *ngIf="form.companyBackgroundBusiness.errors.required">
-                                            Company Background is required
+                                    <label for="majorBuyersSuppliers"><strong>6.1.4. Major Buyers and Suppliers/Manufacturers </strong></label>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.majorBuyersSuppliers.errors }"
+                                              formControlName="majorBuyersSuppliers" id="majorBuyersSuppliers"
+                                              name="majorBuyersSuppliers" [config]="ckeConfig"
+                                              type="text"></ckeditor>
+                                    <div *ngIf="submitted && form.majorBuyersSuppliers?.errors "
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.majorBuyersSuppliers?.errors.required">
+                                            Major Buyers and Suppliers/Manufacturers  is required
                                         </div>
                                     </div>
                                 </div>
@@ -1490,16 +1492,16 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="promotersKeyPersons"><strong>6.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong></label>
-                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.promotersKeyPersons.errors }"
-                                              formControlName="promotersKeyPersons" id="promotersKeyPersons"
-                                              name="promotersKeyPersons" [config]="ckeConfig"
+                                    <label for="group"><strong>6.2 The Group</strong></label>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.group.errors }"
+                                              formControlName="group" id="group"
+                                              name="group" [config]="ckeConfig"
                                               type="text"></ckeditor>
 
-                                    <div *ngIf="submitted && form.promotersKeyPersons?.errors "
+                                    <div *ngIf="submitted && form.group?.errors "
                                          class="invalid-feedback">
-                                        <div *ngIf="form.promotersKeyPersons?.errors.required">
-                                            Business/Management Risk & Mitigation is required
+                                        <div *ngIf="form.group?.errors.required">
+                                            Group is required
                                         </div>
                                     </div>
                                 </div>
