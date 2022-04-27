@@ -11,6 +11,7 @@ import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-proposal',
@@ -178,9 +179,9 @@ export class ProposalComponent implements OnInit {
 
   buildForm() {
     this.proposalForm = this.formBuilder.group({
-      proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
-      // Proposed Limit--
 
+      // Proposed Limit--
+      proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
 
       interestRate: [undefined],
       baseRate: [undefined],
@@ -249,6 +250,7 @@ export class ProposalComponent implements OnInit {
       yesNo3: [undefined],
       yesNo4: [undefined],
       yesNo5: [undefined],
+      accountStrategy: [undefined],
       financingPerOfFmv: [undefined]
     });
   }
