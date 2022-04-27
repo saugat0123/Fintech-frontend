@@ -502,7 +502,7 @@
       </nb-card-header>
       <nb-card-body>
         <div class="col-md-12" style="max-height: 300px;">
-            <div class="row" *ngIf="selectedLoanType && facilityType">
+            <div class="row" >
               <div class="col-md-4" *ngIf="maker">
                 <select [(ngModel)]="selectedLoanType"
                         class="form-control rounded" name="loanType" required>
@@ -522,7 +522,7 @@
                   </ng-container>
                 </select>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3" *ngIf="selectedLoanType && facilityType">
                 <label><strong>Priority</strong></label>
                 <select nbInput class="form-control rounded" [(ngModel)]="priority">
                   <option *ngFor="let item of dropdownPriorities" [value]="item?.id">{{item?.name}}</option>
