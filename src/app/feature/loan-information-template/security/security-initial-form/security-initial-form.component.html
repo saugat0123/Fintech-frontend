@@ -1845,11 +1845,11 @@
                                     <label class="title" for="landBuildingRate">Sheet No.</label>
                                     <input
                                            class="form-control rounded"
-                                           formControlName="geoLocation"
+                                           formControlName="sheetNo"
                                            id="sheetNo"
                                            placeholder="Sheet No"
                                            name="sheetNo"
-                                           type="number" appDecimalNumber />
+                                           type="text"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -2781,7 +2781,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="manufactureYear"><strong>Chassis Number</strong></label>
+                                <label class="title" for="manufactureYear"><strong>Manufacture Year</strong></label>
                                 <input *ngIf="calendarType === 'AD'" class="form-control rounded"
                                        formControlName="manufactureYear"
                                        id="manufactureYear"
