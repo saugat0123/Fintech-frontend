@@ -27,6 +27,7 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-financial',
@@ -41,6 +42,7 @@ export class FinancialComponent implements OnInit {
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();
+    @Input() customerInfo: CustomerInfoData;
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
 
