@@ -597,7 +597,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.customerLoans = res.detail;
             const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
             this.approvedLoanList = this.managedArray(approved);
-            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING'));
+            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
             this.pendingLoanList = this.managedArray(array);
         });
     }
