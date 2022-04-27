@@ -15,6 +15,8 @@ export class SignatureSectionComponent implements OnInit {
   // approval feature and filter signature approval sheet
   @Input() loanDataHolder: LoanDataHolder;
   @Output() commentApproval = new EventEmitter<boolean>();
+  @Input()
+  isUsedForAboveTenMillion: boolean;
   breakException: any;
   RootUrl = ApiConfig.URL;
   signatureList: Array<LoanStage> = new Array<LoanStage>();
