@@ -72,13 +72,13 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo?.guarantors">
+      <div class="col-md-4" *ngIf="customerInfo?.guarantors?.guarantorList.length > 0">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemGuarantor>
             <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
               <div class="row">
                 <div class="col-md-8">
-                  <p class="custom-font">GUARANTOR {{customerInfo?.guarantors}}</p>
+                  <p class="custom-font">GUARANTOR</p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
