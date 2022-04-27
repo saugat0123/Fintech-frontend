@@ -595,7 +595,7 @@
                                </ng-container>
                                <strong>{{datas?.loan?.name }} {{datas?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{datas?.proposal?.proposedLimit || ''}}</strong>
                                <div class="col-md-3 img-hover flex-wrap"
-                                    *ngFor="let data of datas?.customerDocument;let i =index"
+                                    *ngFor="let data of datas?.customerDocument;"
                                     [nbTooltip]="data?.document?.displayName">
                                    <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
                                            [className]="service.SET_CLASS_NAME"></em>
