@@ -71,6 +71,7 @@ import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise
 import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
+import {FeatureModule} from '../feature.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -153,7 +154,8 @@ const modules = {
 
 @NgModule({
     // tslint:disable-next-line:max-line-length
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent,
+        PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -180,7 +182,8 @@ const modules = {
         NbTooltipModule,
         MicroLoanModule,
         NepaliPatroModule,
-        TransferLoanModule
+        TransferLoanModule,
+        FeatureModule
     ],
 
     providers: [

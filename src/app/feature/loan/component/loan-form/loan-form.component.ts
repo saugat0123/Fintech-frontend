@@ -207,6 +207,7 @@ export class LoanFormComponent implements OnInit {
   loanTypeKeyValue = LoanType;
   loanType;
   nbSpinner = false;
+  customerType: any;
 
   constructor(
       private loanDataService: LoanDataService,
@@ -255,6 +256,7 @@ export class LoanFormComponent implements OnInit {
           this.customerId = this.allId.customerId;
           this.loanHolder.id = this.allId.customerInfoId;
           this.loanType = this.allId.loanType;
+          this.customerType = this.allId.customerType;
 
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
@@ -345,6 +347,7 @@ export class LoanFormComponent implements OnInit {
       // this.templateList = response.detail.templateList;
       this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
       // Splicing customer loan for Personal Type Loan--
+
       if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
         this.templateList.forEach((value, index) => {
           if (value.name === 'Company Info') {
@@ -388,6 +391,8 @@ export class LoanFormComponent implements OnInit {
         this.templateList.forEach((value, i) => {
           if (value.name === 'Customer Info') {
             this.templateList.splice(i, 1);
+          } else  if (value.name === 'Credit Risk Grading - Gamma') {
+            this.templateList.splice(i, 1);
           }
 
         });
@@ -417,19 +422,19 @@ export class LoanFormComponent implements OnInit {
         const crgQuestionsList = riskQsnRes.detail as Array<any>;
         if (!(crgQuestionsList.length > 0)) {
           this.removeCrgGammaFromTemplateList();
-          this.templateList.forEach((value, index) => {
-            if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
-              if (!this.loanDocument.customerInfo.isMicroCustomer
-                  && value.name === 'Credit Risk Grading - Micro') {
-                this.templateList.splice(index, 1);
-              }
-            } else {
-              if (this.loanDocument.companyInfo.microCustomerType !== MicroCustomerType.DIRECT
-                  && value.name === 'Credit Risk Grading - Micro') {
-                this.templateList.splice(index, 1);
-              }
-            }
-          });
+          // this.templateList.forEach((value, index) => {
+          //   if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
+          //     if (!this.loanDocument.customerInfo.isMicroCustomer
+          //         && value.name === 'Credit Risk Grading - Micro') {
+          //       this.templateList.splice(index, 1);
+          //     }
+          //   } else {
+          //     if (this.loanDocument.companyInfo.microCustomerType !== MicroCustomerType.DIRECT
+          //         && value.name === 'Credit Risk Grading - Micro') {
+          //       this.templateList.splice(index, 1);
+          //     }
+          //   }
+          // });
         } else {
           this.templateList.forEach((value, index) => {
             if (value.name === 'Credit Risk Grading - Lambda') {
@@ -797,6 +802,7 @@ export class LoanFormComponent implements OnInit {
       if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
         this.loanDocument.customerInfo = null;
       }
+
       if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
         this.spinner.hide();
         this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
@@ -807,7 +813,10 @@ export class LoanFormComponent implements OnInit {
         this.loanDocument = response.detail;
         this.customerLoanId = this.loanDocument.id;
         this.loanDocument = new LoanDataHolder();
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+        this.router.navigate(['/home/loan/summary'], {queryParams: {
+          loanConfigId: this.id,
+            customerId: this.customerLoanId,
+            customerInfoId: this.activatedRoute.snapshot.queryParamMap.get('customerInfoId')}})
         .then(() => {
           this.spinner.hide();
         });
