@@ -680,6 +680,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveMultiBanking(data: MultipleBanking) {
+    this.spinner.show();
         console.log('before', this.multiBankingResponse);
         if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
             this.multiBankingResponse = new MultipleBanking();
@@ -688,14 +689,14 @@ export class CustomerLoanInformationComponent implements OnInit {
         console.log('multiBankingResponse', this.multiBankingResponse);
         this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
             .subscribe(() => {
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
-                this.dataFromPreviousSecurity.close();
+                this.nbDialogRef.close();
                 this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
             }, error => {
                 console.error(error);
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
+                this.spinner.hide();
             });
     }
 
