@@ -28,4 +28,9 @@ export class Proposal {
     existCashMarginMethod: string;
     existCommissionPercentage: number;
     groupExposure: string;
+    lastReviewDate: string;
+    currentExtendedDate: string;
+    scheduledReviewDate: string;
+    nextReviewDate: string;
+
 }
