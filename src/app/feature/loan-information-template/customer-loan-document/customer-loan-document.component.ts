@@ -186,6 +186,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
                     this.initialDocuments[index].checked = true;
+                    this.documentEmitter.emit(this.customerDocumentArray);
                 },
                 error => {
                     console.error(error);
@@ -228,6 +229,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             }
         });
+        this.documentEmitter.emit(this.customerDocumentArray);
         this.modelService.dismissAll();
     }
 

@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="p-5 row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="profile-img">
             <label class="container" for="file-input">
               <img *ngIf="customerInfo?.profilePic !==null " class="image"
@@ -83,7 +83,7 @@
 
           </div>
         </div>
-        <div *ngIf="!isEdited" class="col-md-9 sb-small">
+        <div *ngIf="!isEdited" class="col-md-5 sb-small">
 
           <div class="row">
             <span> <strong>Company name :</strong> {{companyInfo?.companyName}}</span></div>
@@ -113,6 +113,25 @@
             <span> <strong>Business type :</strong> {{companyInfo?.businessType }}</span></div>
 
         </div>
+        <div class="col-md-1 sb-small">
+          <div class="d-flex" style="height: 200px;">
+            <div class="vr"></div>
+          </div>
+        </div>
+        <div class="col-md-4 sb-small" style="overflow-y: auto; height:200px;">
+          <ng-container accent="primary" style="height: 650px">
+            <nb-card-header>
+             <strong>Company Detail</strong>
+            </nb-card-header>
+            <nb-card-body>
+              <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
+                                                          [companyLocationData]="companyLocationData"
+                                                          [companyInfo]="companyInfo">
+              </app-company-profile-additional-information>
+            </nb-card-body>
+          </ng-container>
+        </div>
+
         <div [hidden]="!isEdited" class="col-md-9 sb-small">
           <form [formGroup]="companyForm">
             <div class="row form-inline">
@@ -196,16 +215,16 @@
                   status="danger" type="button" (click)="saveCompanyInfoDetail()">Save
           </button>
         </div>
-        <div class="px-2">
-          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                  nbButton size="small" type="button">Apply Loan
-          </button>
-        </div>
-        <div class="px-2">
-          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                  nbButton size="small" type="button">Combine Loan
-          </button>
-        </div>
+<!--        <div class="px-2">-->
+<!--          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
+<!--                  nbButton size="small" type="button">Apply Loan-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="px-2">-->
+<!--          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
+<!--                  nbButton size="small" type="button">Combine Loan-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
     </div>
     <div *ngIf="customerInfo?.loanFlags && customerInfo?.loanFlags?.length > 0" class="row mb-2">
@@ -216,43 +235,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="d-block mb-3">
           <span class="d-flex justify-content-end text-success text-uppercase">
             <strong>Aggregated Amount : {{totalProposalAmount |number}}</strong>
           </span>
         </div>
-        <nb-card accent="primary">
-          <nb-card-header>
-            Loan History
-            <div class="float-right" nbTooltip="">Total Loan Amount
-              : {{totalLoanProposedAmount | number}}
-            </div>
-          </nb-card-header>
-          <nb-card-body>
-            <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                     [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                     [customerInfo]="customerInfo" *ngIf="customerInfo"
-            ></app-customer-group-loan>
-          </nb-card-body>
-          <nb-card-footer>
-              <div class="row">
-                <div class="col" *ngIf=" !isRemarkEdited ">
-                  <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                      class="fa fa-edit"></em></a>
-                  <label><b>Within Limit Remarks (if any):</b></label>
-                  {{companyInfo.withinLimitRemarks}}
-                </div>
-                <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-                  <form [formGroup]="companyForm">
-                  <label><b>Within Limit Remarks (if any):</b></label>
-                  <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
-                  </form>
-                  <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
-                </div>
-              </div>
-          </nb-card-footer>
-        </nb-card>
 
         <nb-card accent="primary" *ngIf="sbsGroupEnabled">
           <nb-card-header>
@@ -388,7 +376,7 @@
                   </table>
                 </nb-accordion-item-body>
               </nb-accordion-item>
-              <nb-accordion-item *ngIf="companyInfo.microCustomerType === microCustomerType.INDIRECT">
+              <nb-accordion-item>
                 <nb-accordion-item-header>
                   <div class="row col-md-12">
                     <div class="col-md-6">
@@ -422,19 +410,6 @@
           </nb-card-body>
         </nb-card>
       </div>
-      <div class="col-md-4">
-        <nb-card accent="primary" style="height: 650px">
-          <nb-card-header>
-            Company Detail
-          </nb-card-header>
-          <nb-card-body>
-            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
-                                                        [companyLocationData]="companyLocationData"
-                                                        [companyInfo]="companyInfo">
-            </app-company-profile-additional-information>
-          </nb-card-body>
-        </nb-card>
-      </div>
     </div>
 
     <!--        //cbs Group-->
@@ -459,18 +434,175 @@
             [isMicroCustomer]="companyInfo?.isMicroCustomer"
             [companyInfo]="companyInfo"></app-customer-loan-information>
         <app-customer-loan-information-view *ngIf="!isEditable"
-                                            [customerInfo]="customerInfo"></app-customer-loan-information-view>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
-                          (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
+                                            [customerInfo]="customerInfo"
+                                          ></app-customer-loan-information-view>
       </div>
     </div>
   </nb-card-body>
 </nb-card>
 
+
+<div class="row">
+  <div class="col-md-12">
+    <nb-card accent="primary">
+      <nb-card-header>
+        Loan History
+        <div class="float-right" nbTooltip="">Total Loan Amount
+          : {{totalLoanProposedAmount | number}}
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
+        ></app-customer-group-loan>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row">
+          <div class="col" *ngIf=" !isRemarkEdited ">
+            <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
+                    class="fa fa-edit"></em></a>
+            <label><b>Within Limit Remarks (if any):</b></label>
+            {{companyInfo.withinLimitRemarks}}
+          </div>
+          <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
+            <form [formGroup]="companyForm">
+              <label><b>Within Limit Remarks (if any):</b></label>
+              <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
+            </form>
+            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
+          </div>
+        </div>
+<!--        <div class="row">-->
+<!--          <div class="col" *ngIf=" !isAccountEdited ">-->
+<!--            <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em-->
+<!--                    class="fa fa-edit"></em></a>-->
+<!--            <label><b>Account Strategy(if any):</b></label>-->
+<!--            {{companyInfo.accountStrategy}}-->
+<!--          </div>-->
+<!--          <div *ngIf="isAccountEdited" class="col-md-12 form-group">-->
+<!--            <form [formGroup]="companyForm">-->
+<!--              <label><b>Account Strategy(if any):</b></label>-->
+<!--              <textarea  rows="2" placeholder="Account Strategy" class="form-control border"  formControlName="accountStrategy"></textarea>-->
+<!--            </form>-->
+<!--            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Account Strategy</button>-->
+<!--          </div>-->
+<!--        </div>-->
+      </nb-card-footer>
+    </nb-card>
+
+    <nb-card accent="primary">
+      <nb-card-header>
+        <strong class="float-left">Apply Loan</strong>
+        <div class="px-2 float-right">
+          <button (click)="openCombineSelectLoanTemplate()" *ngIf="maker"
+                  nbButton size="small" type="button">Combine Loan
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="col-md-12" style="max-height: 300px;">
+            <div class="row" *ngIf="selectedLoanType && facilityType">
+              <div class="col-md-4" *ngIf="maker">
+                <select [(ngModel)]="selectedLoanType"
+                        class="form-control rounded" name="loanType" required>
+                  <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                  <option *ngFor="let list of multipleSelectedLoanType"
+                          [ngValue]="list.key">{{list.value}}</option>
+                </select>
+              </div>
+              <div class="col-md-3" *ngIf="maker">
+                <select
+                        [(ngModel)]="facilityType"
+                        class="form-control rounded"
+                        name="loanId" required>
+                  <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                  <ng-container *ngFor="let allList of nonMicroLoanList">
+                    <option [ngValue]="allList.id">{{allList.name}}</option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label><strong>Priority</strong></label>
+                <select nbInput class="form-control rounded" [(ngModel)]="priority">
+                  <option *ngFor="let item of dropdownPriorities" [value]="item?.id">{{item?.name}}</option>
+                </select>
+              </div>
+
+
+
+              <div class="col-md-1" *ngIf="proposal && facilityType && selectedLoanType">
+                <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus"></i></a>
+                <!--                <a  nbButton><i class="fa fa-plus"></i></a>-->
+              </div>
+            </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+
+    <ng-template #proposal let-data let-ref="dialogRef">
+      <nb-card class="template-css">
+        <nb-card-header> Loan Form
+          <a aria-label="Close" class="close cursor"
+             data-dismiss="modal" (click)="onClose()">
+                      <span style="color: red" (click)="onClose()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+        </nb-card-header>
+        <nb-card-body>
+          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" (emitter)="refreshCustomerInfo()"></app-proposal>
+        </nb-card-body>
+      </nb-card>
+    </ng-template>
+  </div>
+</div>
+
+<nb-card [nbSpinner] = "documentSpinner">
+  <nb-card-header>
+    Document
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-5" style="overflow-y: auto; height:600px;">
+        <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
+                          (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
+      </div>
+      <div class = "col-md-7" style="overflow-y: auto; height:600px;">
+        <ngb-tabset [destroyOnHide]="false" *ngIf="customerLoans?.length > 0">
+          <ngb-tab  *ngFor="let loan of customerLoans; let i = index;" [title]="loan?.loan?.shortNames"  [id]="i.toString(10)">
+            <ng-template ngbTabContent>
+              <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING' || loan?.documentStatus === 'UNDER_REVIEW'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
+                                          [loanDataHolder]="loan"
+                                          [loanType]="loan?.loanType"></app-customer-loan-document>
+              <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">
+                <ng-container *ngIf="loan?.customerDocument?.length < 1">
+                  NO DOCUMENT available in this loan
+                </ng-container>
+
+                <div class="col-md-12 ">
+                  <div class="row">
+                    <div class="col-md-3 img-hover flex-wrap"
+                         *ngFor="let data of loan?.customerDocument;let i =index"
+                         [nbTooltip]="data?.document?.displayName">
+                      <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                              [className]="service.SET_CLASS_NAME"></em>
+                        <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
+                                data?.document?.displayName?.substring(0, 12) + '..' :
+                                data?.document?.displayName}}</span></a>
+                    </div>
+                  </div>
+                </div>
+
+              </ng-container>
+            </ng-template>
+
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
 
 <ng-template #uploadConfirm>
   <div class="modal-content">

@@ -3,12 +3,12 @@
         <div class="row shadow-sm">
 
             <div class="col-md-4">
-                <ng-container  *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
+                <ng-container  *ngIf="productUtils?.CBS_ENABLE || sbsGroupEnabled">
                     <strong>Associated Group:</strong>
-                    <span *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
+                    <span *ngIf="!productUtils?.CBS_ENABLE && sbsGroupEnabled">
                     {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
                 </span>
-                    <span *ngIf="productUtils.CBS_ENABLE">
+                    <span *ngIf="productUtils?.CBS_ENABLE">
                     {{customerInfo?.obligor || ' No group has been assigned.'}}
                 </span>
                 </ng-container>
@@ -24,7 +24,7 @@
 
             <div class="offset-4 col-md-4 float-right">
 
-                <div *ngIf="productUtils.CBS_ENABLE">
+                <div *ngIf="productUtils?.CBS_ENABLE">
                     <app-tag-cbs-customer [customerInfo]="customerInfo" *ngIf="customerInfo"
                                           (stringValue)="cbsGroupUpdate($event)">
                     </app-tag-cbs-customer>
@@ -415,7 +415,7 @@
         </div>
 
         <!--        //cbs Group-->
-        <div class="row" *ngIf="productUtils.CBS_ENABLE">
+        <div class="row" *ngIf="productUtils?.CBS_ENABLE">
             <div class="col-md-12">
                 <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
             </div>
@@ -467,7 +467,7 @@
                                         name="loanId" required>
                                     <option [ngValue]="undefined" hidden> Select Loan Type</option>
                                     <ng-container *ngFor="let allList of nonMicroLoanList">
-                                        <option *ngIf="!allList?.isRemit" [ngValue]="allList.id">{{allList.name}}</option>
+                                        <option *ngIf="!allList?.isRemit" [ngValue]="allList">{{allList.name}}</option>
                                     </ng-container>
                                 </select>
                             </div>

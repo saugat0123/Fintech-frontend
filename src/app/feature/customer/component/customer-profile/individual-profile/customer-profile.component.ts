@@ -540,8 +540,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         // this.loan.creditRisk = this.loanForm.get('creditRisk').value;
         this.loan.documentStatus = DocStatus.UNDER_REVIEW;
         this.loan.loanType = this.selectedLoanType;
-        const loanConfig = new LoanConfig();
-        loanConfig.id = this.facilityType;
+        const loanConfig = this.facilityType;
         this.loan.loan = loanConfig;
         this.loan.loanHolder = this.customerInfo;
         // loan.loanType = LoanType.

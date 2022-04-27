@@ -32,6 +32,7 @@ import {CommonService} from '../../../../../@core/service/common.service';
 import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {DocStatus} from '../../../../loan/model/docStatus';
 
 @Component({
     selector: 'app-company-profile',
@@ -76,7 +77,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
     isAccountEdited = false;
-    loanForm: FormGroup;
     loanTypeList = LoanType.value();
     multipleSelectedLoanType = [];
     selectedLoanType;
@@ -94,6 +94,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     ];
 
     documentSpinner = false;
+    priority;
 
 
     constructor(private companyInfoService: CompanyInfoService,
@@ -122,7 +123,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.buildCompanyForm();
         this.getAllDistrict();
         this.sliceLoan();
-        this.buildLoanForm();
         this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
             this.customerInfoId = paramObject.id;
             this.paramProp = paramObject;
@@ -227,7 +227,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.modalService.dismissAll();
         this.selectedLoanType = null;
         this.facilityType = null;
-        this.buildLoanForm();
+        this.priority = null;
     }
 
     openSingleSelectLoanTemplate() {
@@ -394,15 +394,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.multipleSelectedLoanType.push(val);
         });
     }
-    buildLoanForm() {
-        this.loanForm = this.formBuilder.group({
-            priority: [undefined, Validators.required],
-            approvingLevel: [undefined, Validators.required],
-            creditRisk: [undefined, Validators.required],
-            documentStatus: ['UNDER_REVIEW']
-        });
 
-    }
     saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
         this.documentSpinner = true;
         loan.customerDocument = document;
@@ -414,10 +406,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     applyLoans(proposal) {
         this.loan = new LoanDataHolder();
-        this.loan.priority = this.loanForm.get('priority').value;
+        this.loan.priority = this.priority;
         // this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
         // this.loan.creditRisk = this.loanForm.get('creditRisk').value;
-        this.loan.documentStatus = this.loanForm.get('documentStatus').value;
+        this.loan.documentStatus = DocStatus.UNDER_REVIEW;
         this.loan.loanType = this.selectedLoanType;
         const loanConfig = new LoanConfig();
         loanConfig.id = this.facilityType;
