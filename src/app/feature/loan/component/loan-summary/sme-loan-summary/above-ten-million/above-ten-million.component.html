@@ -92,16 +92,21 @@
     <li>
         <p><strong>MIS/NRB REPORTING </strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-mis-nrb-reporting></app-mis-nrb-reporting>
+        <app-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-mis-nrb-reporting>
     </li>
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
-        <app-above-review-of-credit-facilities></app-above-review-of-credit-facilities>
+        <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
     </li>
     <li>
         <p><strong>CONCLUSIONS AND RECOMMENDATIONS</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-conlusion-review-table [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-conlusion-review-table>
+<!--        <app-conlusion-review-table [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-conlusion-review-table>-->
+        <div class="p-2 background-info col-md-12 mb-3">
+            <span [innerHTML]="proposalData?.summeryRecommendation | safeHtml"></span>
+        </div>
+        <app-signature-section [loanDataHolder]="loanDataHolder"
+                               [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>
     <li>
         <p><strong>CREDIT CARD REQUIREMENT</strong></p>
