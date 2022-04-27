@@ -49,6 +49,7 @@ export class CompanyOtherDetailComponent implements OnInit {
             ClassificationByNRB: [undefined],
             negativeList: [undefined],
             negativeListRemark: [undefined],
+            firmRenew: [undefined],
         });
     }
 

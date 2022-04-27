@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 })
 export class AboveTenMillionComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() customerAllLoanList: LoanDataHolder[];
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;

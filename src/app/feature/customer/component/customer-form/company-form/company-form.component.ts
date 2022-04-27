@@ -168,6 +168,7 @@ export class CompanyFormComponent implements OnInit {
     companyCorrespondenceAddress;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
+    groupTable = '<table border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -216,6 +217,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+            // this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
         this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
         if (this.additionalFieldSelected) {
@@ -321,6 +323,11 @@ export class CompanyFormComponent implements OnInit {
             this.setSisterConcern(this.companyJsonData.sisterConcern);
         } else {
             this.addSisterConcern();
+        }
+
+        if (!ObjectUtil.isEmpty(this.companyJsonData)) {
+            console.log('I am here');
+            this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
     }
 
@@ -543,12 +550,20 @@ export class CompanyFormComponent implements OnInit {
             // company background
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
-            companyBackgroundBusiness: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.companyBackgroundBusiness, Validators.required],
+            promoterBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.promoterBackground],
+            lineOfBusiness: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.lineOfBusiness],
+            discriptionWithComment: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.discriptionWithComment],
+            majorBuyersSuppliers: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.majorBuyersSuppliers],
             promotersKeyPersons: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.promotersKeyPersons],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.BusinessIndustryOutlook],
+            group: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.group],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({

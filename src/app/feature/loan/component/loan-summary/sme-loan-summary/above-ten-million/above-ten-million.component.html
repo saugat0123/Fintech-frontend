@@ -2,11 +2,12 @@
 <ol class="above-ten-million-list">
     <li>
         <p class="text-uppercase"><strong>Request of the Customer</strong></p>
-        <app-above-request-of-the-customer></app-above-request-of-the-customer>
+        <app-above-request-of-the-customer [customerAllLoanList]="customerAllLoanList"></app-above-request-of-the-customer>
     </li>
     <li>
         <p class="text-uppercase"><strong>Purpose of, and Justification for, the Proposal</strong></p>
-        <app-above-purpose-justification-for-proposal></app-above-purpose-justification-for-proposal>
+        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                            [proposalData]="proposalData"></app-proposal-justification-summary>
     </li>
     <li>
         <p class="text-uppercase"><strong>Background of the Customer</strong></p>
@@ -30,6 +31,10 @@
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"></app-above-banking-arrangement-of-the-customer>
+    </li>
+
+    <li>
+        <app-report-summary [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
     </li>
     <li>
         <p class="text-uppercase"><strong>Stock Statement</strong></p>
