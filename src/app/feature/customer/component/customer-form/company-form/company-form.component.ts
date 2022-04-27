@@ -1068,8 +1068,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyJsonData.businessManagementRisk = JSON.stringify(this.riskAnalysis.submitData);
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
-        console.log('risk json data:: ', this.companyJsonData);
-        console.log('company info:: ', this.companyInfo);
         let proprietorsIndex = 0;
         while (proprietorsIndex < this.getProprietor().length) {
             const proprietors = new Proprietors();
