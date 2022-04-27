@@ -112,7 +112,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private utilService: ProductUtilService,
                 private loanFormService: LoanFormService,
                 public service: CommonService,
-                config: NgbModalConfig) {
+                private config: NgbModalConfig) {
         config.backdrop = 'static';
         config.keyboard = false;
     }

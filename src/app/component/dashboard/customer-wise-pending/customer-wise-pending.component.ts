@@ -74,7 +74,7 @@ export class CustomerWisePendingComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
-    clientType = [];
+    clientType: any;
     loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
@@ -169,7 +169,6 @@ export class CustomerWisePendingComponent implements OnInit {
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
-                console.log('this is c;ient type', this.clientType);
             }
             , error => {
                 console.error(error);
@@ -343,7 +342,7 @@ export class CustomerWisePendingComponent implements OnInit {
 
         this.modalService.open(template, {
             size: 'xl',
-            windowClass: 'loan-activity full-width modal'
+            windowClass: 'loan-activity full-width modal',
         });
     }
 
