@@ -459,6 +459,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveCrgGamma(data: string) {
+    this.spinner.show();
         console.log(data);
         if (ObjectUtil.isEmpty(this.crgGamma)) {
             this.crgGamma = new CreditRiskGradingGamma();
@@ -467,11 +468,14 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
-                this.itemCrgGamma.close();
                 this.triggerCustomerRefresh.emit(true);
+                this.nbDialogRef.close();
+                this.spinner.hide();
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
+                this.spinner.hide();
+
             });
     }
 
@@ -705,6 +709,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveMultiBanking(data: MultipleBanking) {
+    this.spinner.show();
         console.log('before', this.multiBankingResponse);
         if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
             this.multiBankingResponse = new MultipleBanking();
@@ -713,14 +718,14 @@ export class CustomerLoanInformationComponent implements OnInit {
         console.log('multiBankingResponse', this.multiBankingResponse);
         this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
             .subscribe(() => {
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
-                this.dataFromPreviousSecurity.close();
+                this.nbDialogRef.close();
                 this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
             }, error => {
                 console.error(error);
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
+                this.spinner.hide();
             });
     }
 
