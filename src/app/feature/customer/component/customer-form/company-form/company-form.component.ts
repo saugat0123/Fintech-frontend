@@ -171,7 +171,7 @@ export class CompanyFormComponent implements OnInit {
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
     riskAnalysisData: any;
-    groupTable = '<table border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
+    groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -327,7 +327,7 @@ export class CompanyFormComponent implements OnInit {
             this.addSisterConcern();
         }
 
-        if (!ObjectUtil.isEmpty(this.companyJsonData)) {
+        if (ObjectUtil.isEmpty(this.companyJsonData.group)) {
             this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         }
     }
@@ -1171,9 +1171,13 @@ export class CompanyFormComponent implements OnInit {
         submitData.businessManagementRisk = this.companyJsonData.businessManagementRisk;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
-        submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
+        // submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
         submitData.promotersKeyPersons = this.companyInfoFormGroup.get('promotersKeyPersons').value;
-
+        submitData.promoterBackground = this.companyInfoFormGroup.get('promoterBackground').value;
+        submitData.lineOfBusiness = this.companyInfoFormGroup.get('lineOfBusiness').value;
+        submitData.discriptionWithComment = this.companyInfoFormGroup.get('discriptionWithComment').value;
+        submitData.majorBuyersSuppliers = this.companyInfoFormGroup.get('majorBuyersSuppliers').value;
+        submitData.group = this.companyInfoFormGroup.get('group').value;
         if (this.microCustomer) {
             /** micro data **/
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
