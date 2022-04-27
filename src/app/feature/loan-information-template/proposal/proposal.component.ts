@@ -23,13 +23,13 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
-    selector: 'app-proposal',
-    templateUrl: './proposal.component.html',
-    styleUrls: ['./proposal.component.css']
+  selector: 'app-proposal',
+  templateUrl: './proposal.component.html',
+  styleUrls: ['./proposal.component.css']
 })
 export class ProposalComponent implements OnInit {
 
-    submitted = false;
+  submitted = false;
 
     @Input() formValue: Proposal;
     @Input() loanIds;
@@ -420,7 +420,12 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
-        });
+      lastReviewDate: [undefined, [Validators.required]],
+      currentExtendedDate: [undefined, [Validators.required]],
+      scheduledReviewDate: [undefined, [Validators.required]],
+      nextReviewDate: [undefined, [Validators.required]]
+
+    });
     }
 
     setValidatorForPrepaymentField() {
@@ -484,8 +489,12 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
+      this.proposalData.lastReviewDate = this.proposalForm.get('lastReviewDate').value;
+      this.proposalData.currentExtendedDate = this.proposalForm.get('currentExtendedDate').value;
+      this.proposalData.scheduledReviewDate = this.proposalForm.get('scheduledReviewDate').value;
+      this.proposalData.nextReviewDate = this.proposalForm.get('nextReviewDate').value;
 
-        if (!this.fromProfile) {
+      if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
                 this.proposalData = this.formValue;
             }
@@ -659,209 +668,200 @@ export class ProposalComponent implements OnInit {
         }
     }
 
-    setCheckedData(data) {
-        if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['solChecked'], 'sol');
-            this.checkChecked(data['waiverChecked'], 'waiver');
-            this.checkChecked(data['riskChecked'], 'risk');
-            this.checkChecked(data['swapChargeChecked'], 'swapCharge');
-            this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
-            this.checkChecked(data['swapChargeVar'], 'swapChVar');
-            this.checkChecked(data['commitmentChecked'], 'commitment');
-            this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
-            this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
-            this.checkChecked(data['purposeChecked'], 'purpose');
-            this.checkChecked(data['debtChecked'], 'debt');
-            this.checkChecked(data['netChecked'], 'net');
-            this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
-            this.checkChecked(data['deviationChecked'], 'deviation');
-        }
+  setCheckedData(data) {
+    if (!ObjectUtil.isEmpty(data)) {
+      this.checkChecked(data['solChecked'], 'sol');
+      this.checkChecked(data['waiverChecked'], 'waiver');
+      this.checkChecked(data['riskChecked'], 'risk');
+      this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+      this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
+      this.checkChecked(data['swapChargeVar'], 'swapChVar');
     }
+  }
 
-    checkRepaymentMode() {
-        if (this.showInstallmentAmount) {
-            this.proposalForm.get('interestAmount').patchValue(0);
-            const repaymentMode = this.proposalForm.get('repaymentMode').value;
-            switch (repaymentMode) {
-                case 'EMI':
-                    this.calculateEmiEqiAmount('emi');
-                    break;
-                case 'EQI':
-                    this.calculateEmiEqiAmount('eqi');
-                    break;
-            }
-        } else {
-            this.proposalForm.get('installmentAmount').patchValue(0);
-        }
+  checkRepaymentMode() {
+    if (this.showInstallmentAmount) {
+      this.proposalForm.get('interestAmount').patchValue(0);
+      const repaymentMode = this.proposalForm.get('repaymentMode').value;
+      switch (repaymentMode) {
+        case 'EMI':
+          this.calculateEmiEqiAmount('emi');
+          break;
+        case 'EQI':
+          this.calculateEmiEqiAmount('eqi');
+          break;
+      }
+    } else {
+      this.proposalForm.get('installmentAmount').patchValue(0);
     }
+  }
 
-    checkCustomRepaymentMode() {
-        if (this.showRepaymentMode) {
-            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value, 'PRINCIPAL');
-            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value, 'INTEREST');
-        }
+  checkCustomRepaymentMode() {
+   if (this.showRepaymentMode) {
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value , 'PRINCIPAL');
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value , 'INTEREST');
+   }
+  }
+
+  calculateEmiEqiAmount(repaymentMode) {
+    const proposedAmount = this.proposalForm.get('proposedLimit').value;
+    const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
+    const n = this.proposalForm.get('tenureDurationInMonths').value;
+    if (proposedAmount && rate && n) {
+      const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+      switch (repaymentMode) {
+        case 'emi':
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          break;
+        case 'eqi':
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          break;
+      }
+    } else {
+      this.proposalForm.get('installmentAmount').patchValue(undefined);
     }
+  }
 
-    calculateEmiEqiAmount(repaymentMode) {
-        const proposedAmount = this.proposalForm.get('proposedLimit').value;
-        const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
-        const n = this.proposalForm.get('tenureDurationInMonths').value;
-        if (proposedAmount && rate && n) {
-            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-            switch (repaymentMode) {
-                case 'emi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
-                    break;
-                case 'eqi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
-                    break;
-            }
-        } else {
-            this.proposalForm.get('installmentAmount').patchValue(undefined);
-        }
+  /** @param key - calculate type identifier,
+   * @param repaymentMode - period of calculation*/
+  calculateRepaymentModeAmounts(repaymentMode, key) {
+    let principleAmount = 0;
+    let interestAmount = 0;
+    const rate = Number(this.proposalForm.get('interestRate').value) / 100;
+    const proposedAmount = this.proposalForm.get('proposedLimit').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
+    if (proposedAmount) {
+      switch (repaymentMode) {
+        case 'MONTHLY':
+          interestAmount = (proposedAmount * rate) / 12;
+          principleAmount = (proposedAmount / tenure);
+          break;
+        case 'QUARTERLY':
+          interestAmount = ((proposedAmount * rate) / 12) * 3;
+          principleAmount = (proposedAmount / tenure) * 3;
+          break;
+        case 'SEMI-ANNUALLY' :
+          interestAmount = ((proposedAmount * rate) / 12) * 6;
+          principleAmount = (proposedAmount / tenure) * 6;
+          break;
+        case 'ANNUALLY':
+          interestAmount = (proposedAmount * rate);
+          principleAmount = (proposedAmount / tenure) * 12;
+          break;
+        case 'AT MATURITY':
+          principleAmount = proposedAmount;
+          break;
+        default:
+          principleAmount = 0;
+          interestAmount = 0;
+      }
+      if (key === 'INTEREST') {
+        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
+      }if (key === 'PRINCIPAL') {
+        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
+      }
     }
+  }
 
-    /** @param key - calculate type identifier,
-     * @param repaymentMode - period of calculation*/
-    calculateRepaymentModeAmounts(repaymentMode, key) {
-        let principleAmount = 0;
-        let interestAmount = 0;
-        const rate = Number(this.proposalForm.get('interestRate').value) / 100;
-        const proposedAmount = this.proposalForm.get('proposedLimit').value;
-        const tenure = this.proposalForm.get('tenureDurationInMonths').value;
-        if (proposedAmount) {
-            switch (repaymentMode) {
-                case 'MONTHLY':
-                    interestAmount = (proposedAmount * rate) / 12;
-                    principleAmount = (proposedAmount / tenure);
-                    break;
-                case 'QUARTERLY':
-                    interestAmount = ((proposedAmount * rate) / 12) * 3;
-                    principleAmount = (proposedAmount / tenure) * 3;
-                    break;
-                case 'SEMI-ANNUALLY' :
-                    interestAmount = ((proposedAmount * rate) / 12) * 6;
-                    principleAmount = (proposedAmount / tenure) * 6;
-                    break;
-                case 'ANNUALLY':
-                    interestAmount = (proposedAmount * rate);
-                    principleAmount = (proposedAmount / tenure) * 12;
-                    break;
-                case 'AT MATURITY':
-                    principleAmount = proposedAmount;
-                    break;
-                default:
-                    principleAmount = 0;
-                    interestAmount = 0;
-            }
-            if (key === 'INTEREST') {
-                this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
-            }
-            if (key === 'PRINCIPAL') {
-                this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
-            }
-        }
+  setCollateralRequirement(collateralRequirement) {
+    if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
+      this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
     }
+  }
 
-    setCollateralRequirement(collateralRequirement) {
-        if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
-            this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
-        }
+  checkLimitExpiryBuildValidation(limitExpiry) {
+    if (limitExpiry === 'ABSOLUTE') {
+      this.absoluteSelected = true;
+      this.customSelected = false;
+      this.proposalForm.get('dateOfExpiry').setValidators([Validators.required]);
+      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
+      this.proposalForm.get('duration').clearValidators();
+      this.proposalForm.get('duration').patchValue(undefined);
+      this.proposalForm.get('duration').updateValueAndValidity();
+      this.proposalForm.get('condition').clearValidators();
+      this.proposalForm.get('condition').updateValueAndValidity();
+      this.proposalForm.get('condition').patchValue(undefined);
+      this.proposalForm.get('frequency').clearValidators();
+      this.proposalForm.get('frequency').updateValueAndValidity();
+      this.proposalForm.get('frequency').patchValue(undefined);
+    } else if (limitExpiry === 'CUSTOM') {
+      this.customSelected = true;
+      this.absoluteSelected = false;
+      this.proposalForm.get('duration').setValidators([Validators.required]);
+      this.proposalForm.get('duration').updateValueAndValidity();
+      this.proposalForm.get('condition').setValidators([Validators.required]);
+      this.proposalForm.get('condition').updateValueAndValidity();
+      this.proposalForm.get('frequency').setValidators([Validators.required]);
+      this.proposalForm.get('frequency').updateValueAndValidity();
+      this.proposalForm.get('dateOfExpiry').clearValidators();
+      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
+      this.proposalForm.get('dateOfExpiry').patchValue(undefined);
+
     }
+  }
 
-    checkLimitExpiryBuildValidation(limitExpiry) {
-        if (limitExpiry === 'ABSOLUTE') {
-            this.absoluteSelected = true;
-            this.customSelected = false;
-            this.proposalForm.get('dateOfExpiry').setValidators([Validators.required]);
-            this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
-            this.proposalForm.get('duration').clearValidators();
-            this.proposalForm.get('duration').patchValue(undefined);
-            this.proposalForm.get('duration').updateValueAndValidity();
-            this.proposalForm.get('condition').clearValidators();
-            this.proposalForm.get('condition').updateValueAndValidity();
-            this.proposalForm.get('condition').patchValue(undefined);
-            this.proposalForm.get('frequency').clearValidators();
-            this.proposalForm.get('frequency').updateValueAndValidity();
-            this.proposalForm.get('frequency').patchValue(undefined);
-        } else if (limitExpiry === 'CUSTOM') {
-            this.customSelected = true;
-            this.absoluteSelected = false;
-            this.proposalForm.get('duration').setValidators([Validators.required]);
-            this.proposalForm.get('duration').updateValueAndValidity();
-            this.proposalForm.get('condition').setValidators([Validators.required]);
-            this.proposalForm.get('condition').updateValueAndValidity();
-            this.proposalForm.get('frequency').setValidators([Validators.required]);
-            this.proposalForm.get('frequency').updateValueAndValidity();
-            this.proposalForm.get('dateOfExpiry').clearValidators();
-            this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
-            this.proposalForm.get('dateOfExpiry').patchValue(undefined);
-
-        }
+  checkInstallmentAmount() {
+    if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
+      this.showInstallmentAmount = true;
+      this.showRepaymentMode = false;
+      this.checkRepaymentMode();
+      this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
+    } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
+      this.showRepaymentMode = true;
+      this.showInstallmentAmount = false;
+      this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
+    } else {
+      this.calculateInterestAmountForRepaymentMode();
+      this.showInstallmentAmount = false;
+      this.showRepaymentMode = false;
     }
+  }
 
-    checkInstallmentAmount() {
-        if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
-            this.showInstallmentAmount = true;
-            this.showRepaymentMode = false;
-            this.checkRepaymentMode();
-            this.controlValidation(['repaymentModeInterest', 'repaymentModePrincipal'], false);
-        } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
-            this.showRepaymentMode = true;
-            this.showInstallmentAmount = false;
-            this.controlValidation(['repaymentModeInterest', 'repaymentModePrincipal'], true);
-        } else {
-            this.calculateInterestAmountForRepaymentMode();
-            this.showInstallmentAmount = false;
-            this.showRepaymentMode = false;
-        }
-    }
+  controlValidation(controlNames, addValidation) {
+    controlNames.forEach(s => {
+      if (addValidation) {
+        this.proposalForm.get(s).setValidators(Validators.required);
+      } else {
+      this.proposalForm.get(s).clearValidators();
+      }
+      this.proposalForm.get(s).updateValueAndValidity();
+    });
+  }
 
-    controlValidation(controlNames, addValidation) {
-        controlNames.forEach(s => {
-            if (addValidation) {
-                this.proposalForm.get(s).setValidators(Validators.required);
-            } else {
-                this.proposalForm.get(s).clearValidators();
-            }
-            this.proposalForm.get(s).updateValueAndValidity();
-        });
-    }
-
-    // checkLoanConfig() {
-    //   if (this.isFixedDeposit) {
-    //     this.proposalForm.get('couponRate').setValidators(Validators.required);
-    //     this.proposalForm.get('couponRate').updateValueAndValidity();
-    //     this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
-    //     this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
-    //   }
-    //   if (!this.isFundable) {
-    //     this.proposalForm.get('cashMargin').setValidators(Validators.required);
-    //     this.proposalForm.get('cashMargin').updateValueAndValidity();
-    //     this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
-    //     this.proposalForm.get('commissionPercentage').updateValueAndValidity();
-    //     this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
-    //     this.proposalForm.get('commissionFrequency').updateValueAndValidity();
-    //   }
-    // }
+  // checkLoanConfig() {
+  //   if (this.isFixedDeposit) {
+  //     this.proposalForm.get('couponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('couponRate').updateValueAndValidity();
+  //     this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
+  //   }
+  //   if (!this.isFundable) {
+  //     this.proposalForm.get('cashMargin').setValidators(Validators.required);
+  //     this.proposalForm.get('cashMargin').updateValueAndValidity();
+  //     this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionPercentage').updateValueAndValidity();
+  //     this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionFrequency').updateValueAndValidity();
+  //   }
+  // }
 
     calculateLimitValues() {
 
         switch (this.loanType) {
-            case  'PARTIAL_SETTLEMENT_LOAN':
-                const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
-                return;
-            case  'ENHANCED_LOAN':
-                const enhancementAmount = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhancementAmount));
-                return;
-            case  'RENEW_WITH_ENHANCEMENT':
-                const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
-                return;
-            default:
-                return;
+          case  'PARTIAL_SETTLEMENT_LOAN':
+            const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
+            return;
+          case  'ENHANCED_LOAN':
+            const enhancementAmount = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhancementAmount));
+            return;
+          case  'RENEW_WITH_ENHANCEMENT':
+            const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
+            return;
+          default:
+            return;
         }
 
     }
@@ -875,82 +875,82 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
     }
 
-    calculateInterestRate() {
-        const baseRate = Number(this.proposalForm.get('baseRate').value);
-        const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
-        const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+  calculateInterestRate() {
+    const baseRate = Number(this.proposalForm.get('baseRate').value);
+    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
 
-        const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-        return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
-    }
+    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
 
-    onChange() {
-        const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
-        if (isOtherSelected) {
-            this.othersSubsidyLoan = true;
-        } else {
-            this.othersSubsidyLoan = false;
-            this.proposalForm.get('others').setValue(null);
-        }
+  onChange() {
+    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+    if (isOtherSelected) {
+      this.othersSubsidyLoan = true;
+    } else {
+      this.othersSubsidyLoan = false;
+      this.proposalForm.get('others').setValue(null);
     }
+  }
 
-    addGroupExposureData() {
-        this.checkGroupExposureNull();
-        if (this.isAllExposureFieldNull) {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Please fill at least one field'));
-        } else {
-            (this.proposalForm.get('groupExposure') as FormArray).push(
-                this.formBuilder.group({
-                    facilityType: [undefined],
-                    loanLimit: [undefined],
-                    osLimit: [undefined],
-                    proposedLimit: [undefined],
-                    fmvDv: [undefined],
-                    exposure: [undefined],
-                    remarks: [undefined],
-                })
-            );
-        }
+  addGroupExposureData() {
+    this.checkGroupExposureNull();
+    if (this.isAllExposureFieldNull) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Please fill at least one field'));
+    } else {
+      (this.proposalForm.get('groupExposure') as FormArray).push (
+          this.formBuilder.group({
+            facilityType: [undefined],
+            loanLimit: [undefined],
+            osLimit: [undefined],
+            proposedLimit: [undefined],
+            fmvDv: [undefined],
+            exposure: [undefined],
+            remarks: [undefined],
+          })
+      );
     }
+  }
 
-    setGroupExposureData(data) {
-        const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(singleData => {
-                groupExposuresArray.push(this.formBuilder.group({
-                    facilityType: [singleData.facilityType],
-                    loanLimit: [singleData.loanLimit],
-                    osLimit: [singleData.osLimit],
-                    proposedLimit: [singleData.proposedLimit],
-                    fmvDv: [singleData.fmvDv],
-                    exposure: [singleData.exposure],
-                    remarks: [singleData.remarks],
-                }));
-            });
-        }
+  setGroupExposureData(data) {
+    const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
+    if (!ObjectUtil.isEmpty(data)) {
+      data.forEach(singleData => {
+        groupExposuresArray.push(this.formBuilder.group({
+          facilityType: [singleData.facilityType],
+          loanLimit: [singleData.loanLimit],
+          osLimit: [singleData.osLimit],
+          proposedLimit: [singleData.proposedLimit],
+          fmvDv: [singleData.fmvDv],
+          exposure: [singleData.exposure],
+          remarks: [singleData.remarks],
+        }));
+      });
     }
+  }
 
     removeGroupExposureData(index: number) {
         (<FormArray>this.proposalForm.get('groupExposure')).removeAt(index);
     }
 
-    checkGroupExposureNull() {
-        const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
-        groupExposuresArray.controls.forEach((data) => {
-            const facilityType = data.get('facilityType').value;
-            const loanLimit = data.get('loanLimit').value;
-            const osLimit = data.get('osLimit').value;
-            const proposedLimit = data.get('proposedLimit').value;
-            const fmvDv = data.get('fmvDv').value;
-            const exposure = data.get('exposure').value;
-            if (ObjectUtil.isEmpty(facilityType) && ObjectUtil.isEmpty(loanLimit) && ObjectUtil.isEmpty(osLimit)
-                && ObjectUtil.isEmpty(proposedLimit) && ObjectUtil.isEmpty(fmvDv) && ObjectUtil.isEmpty(exposure)) {
-                this.isAllExposureFieldNull = true;
-            } else {
-                this.isAllExposureFieldNull = false;
-            }
-        });
-    }
+  checkGroupExposureNull() {
+    const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
+    groupExposuresArray.controls.forEach((data) => {
+      const facilityType = data.get('facilityType').value;
+      const loanLimit = data.get('loanLimit').value;
+      const osLimit = data.get('osLimit').value;
+      const proposedLimit = data.get('proposedLimit').value;
+      const fmvDv = data.get('fmvDv').value;
+      const exposure = data.get('exposure').value;
+      if (ObjectUtil.isEmpty(facilityType) && ObjectUtil.isEmpty(loanLimit) && ObjectUtil.isEmpty(osLimit)
+          && ObjectUtil.isEmpty(proposedLimit) && ObjectUtil.isEmpty(fmvDv) && ObjectUtil.isEmpty(exposure)) {
+        this.isAllExposureFieldNull = true;
+      } else {
+        this.isAllExposureFieldNull = false;
+      }
+    });
+  }
 
     openCadSetup(data) {
         this.nbService.open(data, {size: 'xl', backdrop: true});
