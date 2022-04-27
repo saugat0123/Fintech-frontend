@@ -552,15 +552,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         const dobDateType = this.userConfigForm.get('dobDateType').value;
         if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
             if (dobDateType === 'AD') {
-                this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+                this.oneFormCustomer.dob = this.userConfigForm.get('dob').value ? this.userConfigForm.get('dob').value : undefined;
             } else {
-                this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dobNepali').value.eDate);
+                this.oneFormCustomer.dob = this.userConfigForm.get('dobNepali').value &&
+                this.userConfigForm.get('dobNepali').value.eDate ? new Date(this.userConfigForm.get('dobNepali').value.eDate) : undefined;
             }
             const issuedDate = this.userConfigForm.get('issuedDate').value;
             if (issuedDate === 'AD') {
-                this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+                this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value ? this.userConfigForm.get('citizenshipIssueDate').value : undefined;
             } else {
-                this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDateNepali').value.eDate);
+                this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDateNepali').value &&
+                    this.userConfigForm.get('citizenshipIssueDateNepali').value.eDate ? new Date(this.userConfigForm.get('citizenshipIssueDateNepali').value.eDate) : undefined;
             }
         }
         this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
@@ -3958,17 +3960,29 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
     patchValue(): void {
         if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
-            this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
-            /*this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);*/
-            this.userConfigForm.get('dobDateType').patchValue(JSON.parse(this.loanHolder.nepData).dobDateType.en);
-            this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
-            this.userConfigForm.get('permanentMunType').patchValue(ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).permanentMunType)
-                ? undefined : JSON.parse(this.loanHolder.nepData).permanentMunType.en);
-            this.addressSameAsAbove = JSON.parse(this.oneFormCustomer.individualJsonData).sameAddress;
-            this.userConfigForm.get('relationMedium').patchValue(Number(JSON.parse(this.oneFormCustomer.individualJsonData).relationMedium));
-            this.userConfigForm.get('municipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc);
-            this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).temporaryMunicipalityOrVdc);
-            this.setDobCitizenDate();
+            if (!ObjectUtil.isEmpty(this.loanHolder) &&
+            !ObjectUtil.isEmpty(this.loanHolder.nepData)) {
+                const parsedNepData = JSON.parse(this.loanHolder.nepData);
+                if (!ObjectUtil.isEmpty(parsedNepData)) {
+                    this.userConfigForm.get('issuedDate').patchValue(parsedNepData.issuedDate ? parsedNepData.issuedDate.en : undefined);
+                    /*this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);*/
+                    this.userConfigForm.get('dobDateType').patchValue(parsedNepData.dobDateType ? parsedNepData.dobDateType.en : undefined);
+                    this.userConfigForm.get('issuedDate').patchValue(parsedNepData.issuedDate ? parsedNepData.issuedDate.en : undefined);
+                    this.userConfigForm.get('permanentMunType').patchValue(parsedNepData.permanentMunType ? parsedNepData.permanentMunType.en : undefined);
+                }
+                this.setDobCitizenDate();
+            }
+            if (!ObjectUtil.isEmpty(this.oneFormCustomer) &&
+            !ObjectUtil.isEmpty(this.oneFormCustomer.individualJsonData)) {
+                const parsedIndividualData = JSON.parse(this.oneFormCustomer.individualJsonData);
+                if (!ObjectUtil.isEmpty(parsedIndividualData)) {
+                    this.addressSameAsAbove = parsedIndividualData.sameAddress ? parsedIndividualData.sameAddress : undefined;
+                    this.userConfigForm.get('relationMedium').patchValue(parsedIndividualData.relationMedium ?
+                        Number(parsedIndividualData.relationMedium) : undefined);
+                    this.userConfigForm.get('municipalityOrVdc').patchValue(parsedIndividualData.municipalityOrVdc ? parsedIndividualData.municipalityOrVdc : undefined);
+                    this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue(parsedIndividualData.temporaryMunicipalityOrVdc ? parsedIndividualData.temporaryMunicipalityOrVdc : undefined);
+                }
+            }
         }
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
@@ -4108,18 +4122,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
     setDobCitizenDate() {
         const tempData = JSON.parse(this.loanHolder.nepData);
-        if (!ObjectUtil.isEmpty(tempData) && !ObjectUtil.isEmpty(tempData.dobDateType.en)) {
+        console.log('Temp Data:', tempData);
+        if (!ObjectUtil.isEmpty(tempData) &&
+            !ObjectUtil.isEmpty(tempData.dobDateType) && !ObjectUtil.isEmpty(tempData.dobDateType.en)) {
             if (tempData.dobDateType.en === 'AD') {
-                this.userConfigForm.get('dob').patchValue(new Date(tempData.dob.en));
+                this.userConfigForm.get('dob').patchValue(!ObjectUtil.isEmpty(tempData.dob) &&
+                    !ObjectUtil.isEmpty(tempData.dob.en) ? new Date(tempData.dob.en) : undefined);
             } else {
-                this.userConfigForm.get('dobNepali').patchValue(tempData.dobNepali.en);
+                this.userConfigForm.get('dobNepali').patchValue(!ObjectUtil.isEmpty(tempData.dobNepali) &&
+                    !ObjectUtil.isEmpty(tempData.dobNepali.en) ? tempData.dobNepali.en : undefined);
             }
         }
-        if (!ObjectUtil.isEmpty(tempData) && !ObjectUtil.isEmpty(tempData.issuedDate.en)) {
+        if (!ObjectUtil.isEmpty(tempData) &&
+            !ObjectUtil.isEmpty(tempData.issuedDate) &&
+            !ObjectUtil.isEmpty(tempData.issuedDate.en)) {
             if (tempData.issuedDate.en === 'AD') {
-                this.userConfigForm.get('citizenshipIssueDate').patchValue(new Date(tempData.citizenshipIssueDate.en));
+                this.userConfigForm.get('citizenshipIssueDate').patchValue(!ObjectUtil.isEmpty(tempData.citizenshipIssueDate) &&
+                !ObjectUtil.isEmpty(tempData.citizenshipIssueDate.en) ? new Date(tempData.citizenshipIssueDate.en) : undefined);
             } else {
-                this.userConfigForm.get('citizenshipIssueDateNepali').patchValue(tempData.citizenshipIssueDateNepali.en);
+                this.userConfigForm.get('citizenshipIssueDateNepali').patchValue(!ObjectUtil.isEmpty(tempData.citizenshipIssueDateNepali) &&
+                    !ObjectUtil.isEmpty(tempData.citizenshipIssueDateNepali.en) ? tempData.citizenshipIssueDateNepali.en : undefined);
             }
         }
     }
