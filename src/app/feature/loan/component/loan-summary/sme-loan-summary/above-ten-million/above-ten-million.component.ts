@@ -12,6 +12,7 @@ export class AboveTenMillionComponent implements OnInit {
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;
+  guarantorData;
   constructor() {}
 
   ngOnInit() {
@@ -19,6 +20,11 @@ export class AboveTenMillionComponent implements OnInit {
       this.tempData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.tempData.data)) {
         this.proposalData = JSON.parse(this.tempData.data);
+      }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) &&
+      !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
+          !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
+        this.guarantorData = this.loanDataHolder.loanHolder.guarantors.guarantorList;
       }
     }
   }

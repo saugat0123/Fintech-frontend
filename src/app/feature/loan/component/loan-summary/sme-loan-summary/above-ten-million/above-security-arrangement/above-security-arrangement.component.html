@@ -173,35 +173,15 @@
         <td>Amount</td>
         <td>Date</td>
     </tr>
-    <tr>
-        <td>i</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>ii</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>iii</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let personalData of personalGuarantorData; let i = index">
+        <td>{{i+1}}.</td>
+        <td>{{personalData?.name}}</td>
+        <td>{{personalData?.relationship}}</td>
+        <td>{{personalData?.citizenNumber}}</td>
+        <td>{{personalData?.issuedPlace}}</td>
+        <td>Rs. {{personalData?.guaranteeAmount}}</td>
+        <td>Rs. {{personalData?.netWorth}}</td>
+        <td>{{personalData?.rnwDate | date}}</td>
     </tr>
 </table>
 <p>*Reported net worth</p>
@@ -220,32 +200,14 @@
         <td>Amount</td>
         <td>As of FY ........</td>
     </tr>
-    <tr>
-        <td>i</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>ii</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>iii</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let corporateData of corporateGuarantorData; let i = index">
+        <td>{{i+1}}.</td>
+        <td>{{corporateData?.name}}</td>
+        <td>{{corporateData?.registrationNumber}}</td>
+        <td>{{corporateData?.panNumber}}</td>
+        <td>Rs. {{corporateData?.guaranteeAmount}}</td>
+        <td>Rs. {{corporateData?.netWorth}}</td>
+        <td>{{corporateData?.rnwDate | date}}</td>
     </tr>
 </table>
 <div class="mr-4">

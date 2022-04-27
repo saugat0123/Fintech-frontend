@@ -38,4 +38,8 @@ export class Guarantor {
     profession: string;
     background: string;
     guarantorLegalDocumentAddress: string;
+    guarantorType: string;
+    registrationNumber: string;
+    panNumber: string;
+    rnwDate: Date;
 }
