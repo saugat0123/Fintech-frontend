@@ -169,6 +169,7 @@ export class CustomerWisePendingComponent implements OnInit {
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
+                console.log('this is c;ient type', this.clientType);
             }
             , error => {
                 console.error(error);

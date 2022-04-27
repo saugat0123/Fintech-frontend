@@ -393,6 +393,7 @@
       <nb-card-body>
         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                 [customerLoans]="customerLoans"
                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
         ></app-customer-group-loan>
       </nb-card-body>
@@ -441,65 +442,72 @@
               </span></a>
         </nb-card-header>
         <nb-card-body>
-          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="refreshCustomerInfo()"></app-proposal>
+          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
         </nb-card-body>
       </nb-card>
     </ng-template>
   </div>
 </div>
 
-<nb-card [nbSpinner] = "documentSpinner">
+<nb-card [nbSpinner]="documentSpinner">
   <nb-card-header>
-    Document
+    <p><strong>Document</strong></p>
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-12" style="overflow-y: auto; height:600px;">
+      <div class="col-md-12" style="overflow-y: auto;min-height: 100px;height: auto;">
         <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
                           (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
       </div>
     </div>
   </nb-card-body>
   <nb-card-body>
-<!--    <div class = "col-md-7" style="overflow-y: auto; height:600px;">-->
-<strong>Pending Loan Document</strong>
-  <ng-container *ngFor="let loan of pendingLoanList; let i = index">
-    <nb-card>
-
-    <app-customer-loan-document  [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
-                                [loanDataHolder]="loan"
-                                [loanType]="loan?.loanType"></app-customer-loan-document>
-    </nb-card>
-  </ng-container>
-    <hr>
-    <strong>Approved Document</strong>
-  <ng-container *ngFor="let loan of approvedLoanList; let i = index">
-      <ng-container *ngIf="loan?.customerDocument?.length < 1">
-        NO DOCUMENT available in this loan
-      </ng-container>
-
-      <div class="col-md-12 ">
-        <div class="row">
-          <div class="col-md-3 img-hover flex-wrap"
-               *ngFor="let data of loan?.customerDocument;let i =index"
-               [nbTooltip]="data?.document?.displayName">
-            <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
-                    [className]="service.SET_CLASS_NAME"></em>
-              <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                      data?.document?.displayName?.substring(0, 12) + '..' :
-                      data?.document?.displayName}}</span></a>
+    <div class="col-md-12">
+      <p><strong>Pending Loan Document</strong></p>
+    </div>
+    <ng-container *ngFor="let loan of pendingLoanList; let i = index">
+      <nb-card>
+        <div class="row" style="overflow-y: auto; height: 700px;">
+          <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
+            <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
+                                        [loanDataHolder]="subLoan"
+                                        [loanType]="subLoan?.loanType"></app-customer-loan-document>
           </div>
         </div>
-      </div>
+      </nb-card>
+    </ng-container>
+    <hr>
+    <div class="col-md-12">
 
-  </ng-container>
+    </div><p><strong>Approved Document</strong></p>
+
+    <ng-container *ngFor="let loan of approvedLoanList; let i = index">
+
+      <nb-card>
+        <nb-card-body>
+          <div class="row">
+
+            <div class="col-md-6" *ngFor="let datas of loan">
+              <ng-container *ngIf="datas?.customerDocument?.length < 1">
+                <strong> NO DOCUMENT available in this loan</strong>
+              </ng-container>
+              <div class="col-md-3 img-hover flex-wrap"
+                   *ngFor="let data of loan?.customerDocument;let i =index"
+                   [nbTooltip]="data?.document?.displayName">
+                <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                        [className]="service.SET_CLASS_NAME"></em>
+                  <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
+                          data?.document?.displayName?.substring(0, 12) + '..' :
+                          data?.document?.displayName}}</span></a>
+              </div>
+            </div>
+          </div>
+
+        </nb-card-body>
+      </nb-card>
 
 
-
-<!--            <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">-->
-
-
-<!--    </div>-->
+    </ng-container>
   </nb-card-body>
 </nb-card>
 

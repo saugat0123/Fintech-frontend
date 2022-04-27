@@ -15,6 +15,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {CommonService} from '../../../@core/service/common.service';
+import {RoleType} from '../../admin/modal/roleType';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -43,7 +44,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     actualLoanId;
     deleteDocument = [];
     localStorage = LocalStorageUtil.getStorage();
-
+    isMaker = false;
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
@@ -53,6 +54,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+            this.isMaker = true;
+        }
         let loanId = null;
         let customerId = null;
         this.activatedRoute.queryParams.subscribe(

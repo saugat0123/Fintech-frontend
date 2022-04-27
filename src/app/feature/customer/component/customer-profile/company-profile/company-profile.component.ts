@@ -95,7 +95,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     documentSpinner = false;
     priority;
-    pendingLoanList: LoanDataHolder [] = [];
+    pendingLoanList = [];
     approvedLoanList = [];
 
 
@@ -133,12 +133,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.getCustomerInfo(this.customerInfoId);
         });
         this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
-        this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
-            this.customerLoans = [];
-            this.customerLoans = res.detail;
-            this.approvedLoanList = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
-            this.pendingLoanList = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING'));
-        });
+        this.getCustomerLoans();
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
             // this.nonMicroLoanList = this.loanList;
@@ -398,12 +393,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
-    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number, ix: number) {
         this.documentSpinner = true;
         loan.customerDocument = document;
         this.loanFormService.save(loan).subscribe((res => {
             this.documentSpinner = false;
-            this.customerLoans[i] = res.detail;
+            this.pendingLoanList[i][ix] = res.detail;
         }));
     }
 
@@ -431,6 +426,38 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             size: 'xl',
             windowClass: 'modal-holder',
             scrollable: true,
+        });
+    }
+
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
+    }
+    getCustomerLoans() {
+        this.modalService.dismissAll();
+        this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+            const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
+            this.approvedLoanList = this.managedArray(approved);
+            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING'));
+            this.pendingLoanList = this.managedArray(array);
         });
     }
 }
