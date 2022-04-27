@@ -248,6 +248,7 @@ export class ProposalComponent implements OnInit {
       yesNo3: [undefined],
       yesNo4: [undefined],
       yesNo5: [undefined],
+      accountStrategy: [undefined],
       lastReviewDate: [undefined, [Validators.required]],
       currentExtendedDate: [undefined, [Validators.required]],
       scheduledReviewDate: [undefined, [Validators.required]],
