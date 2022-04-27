@@ -33,8 +33,25 @@
                             </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Guarantor Type </strong></label>
+                                        <select class="form-control form-control-sm-error rounded"
+                                                formControlName="guarantorType"
+                                                (change)="guarantorChange($event, i)"
+                                                id="guarantorType"
+                                                name="guarantorType">
+                                            <option [value]="null">Select Guarantor</option>
+                                            <option value="personalGuarantor"> PERSONAL GUARANTOR</option>
+                                            <option value="corporateGuarantor"> CORPORATE GUARANTOR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <nb-checkbox formControlName="consentOfLegalHeirs">Consent of Legal Heirs</nb-checkbox>
+                                    <nb-checkbox formControlName="consentOfLegalHeirs">Consent of Legal Heirs
+                                    </nb-checkbox>
                                 </div>
                             </div>
                             <div class="row">
@@ -62,7 +79,55 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'corporateGuarantor'">
+                                    <div class="form-group">
+                                        <label><strong> Registration Number: </strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('registrationNumber').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="registrationNumber"
+                                               id="registrationNumber"
+                                               name="registrationNumber"
+                                               placeholder="Registration Number"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('registrationNumber').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('registrationNumber').errors.required">Registration Number is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('registrationNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('registrationNumber').errors.required">
+                                                Please fill registration number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'corporateGuarantor'">
+                                    <div class="form-group">
+                                        <label><strong> PAN/VAT Number: </strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('panNumber').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="panNumber"
+                                               id="panNumber"
+                                               name="panNumber"
+                                               placeholder="PAN/VAT No:"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('panNumber').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('panNumber').errors.required">PAN Number is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('panNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('panNumber').errors.required">
+                                                Please fill PAN Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Citizenship Number</strong></label>
                                         <input (change)="checkBlackListByCitizenshipNo(guarantorDetails.get('citizenNumber').value, i)"
@@ -87,7 +152,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued Date</strong></label>
                                         <input [nbDatepicker]="issuedYear"
@@ -120,11 +185,8 @@
                                     </div>
 
                                 </div>
-                            </div>
 
-                            <!--END ROW-->
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued District</strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
@@ -150,7 +212,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Date Of Birth</strong></label>
                                         <input [nbDatepicker]="dob"
@@ -208,7 +270,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Profession</strong></label>
                                         <select class="form-control form-control-sm-error rounded"
@@ -221,7 +283,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Father's Name</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('fatherName').errors }"
@@ -246,7 +308,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong> Grandfather Name</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('grandFatherName').errors }"
@@ -270,7 +332,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong> Mother's Name</strong></label>
                                         <input class="form-control form-control-sm-error rounded"
@@ -281,7 +343,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong> Spouse's Name</strong></label>
                                         <input class="form-control form-control-sm-error rounded"
@@ -292,7 +354,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong> Father-in-Law's Name </strong></label>
                                         <input
@@ -304,7 +366,7 @@
                                             type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
                                     <div class="form-group">
                                         <label><strong>Relationship</strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
@@ -347,7 +409,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><b>Net Worth</b></label>
+                                        <label><b>Reported Net Worth (RNW)</b></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('netWorth').errors }" class="form-control" formControlName="netWorth" type="number" placeholder="Net Worth Amount">
                                         <div *ngIf="addMore && guarantorDetails.get('netWorth').invalid" class="alert-warning">
                                             <div *ngIf="guarantorDetails.get('netWorth').errors.required">
@@ -360,6 +422,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Reported Net Worth (RNW) Date</strong></label>
+                                        <input [nbDatepicker]="dob"
+                                               *ngIf="calendarType === 'AD'"
+                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('rnwDate').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="rnwDate"
+                                               id="rnwDate"
+                                               name="rnwDate"
+                                               placeholder="RNW Date"
+                                               type="text">
+                                        <app-calendar
+                                                [ePreDate]="form.get(['guarantorDetails', i, 'rnwDate']).value"
+                                                *ngIf="calendarType === 'BS'"
+                                                (messageToEmit)="form.get(['guarantorDetails', i, 'rnwDate']).patchValue($event?.eDate)"></app-calendar>
+
+                                        <nb-datepicker #dob></nb-datepicker>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('rnwDate').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('rnwDate').errors.required">
+                                               RNW Date is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('rnwDate').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('rnwDate').errors.required">
+                                                Please fill RNW Date
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="col-md-12">

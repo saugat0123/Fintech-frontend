@@ -24,10 +24,8 @@ import {SecurityInitialFormComponent} from './security/security-initial-form/sec
 import {GuarantorComponent} from './guarantor/guarantor.component';
 import {InsuranceComponent} from './insurance/insurance.component';
 import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-loan-document.component';
-import {CreditRiskGradingAlphaComponent} from './credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CreditGradingComponent} from './credit-grading/credit-grading.component';
 import {ProposalComponent} from './proposal/proposal.component';
-import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CiclComponent} from './cicl/cicl.component';
 import {FinancialDeleteComponentComponent} from './financial/financial-delete-component/financial-delete-component.component';
 import {TemplateDocumentComponent} from './template-document/template-document.component';
@@ -41,15 +39,14 @@ import {SecurityRevaluationComponent} from './security/security-initial-form/sec
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
-import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import { CommentsComponent } from './comments/comments.component';
-import { PreviousSecurityComponent } from './previous-security/previous-security.component';
-import { FixAssetCollateralComponent } from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
+import {MicroProposalComponent} from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import {CommentsComponent} from './comments/comments.component';
+import {PreviousSecurityComponent} from './previous-security/previous-security.component';
+import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
-import { CrgMicroComponent } from './crg-micro/crg-micro.component';
-import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
-import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
-import { MultipleBankingComponent } from './multiple-banking/multiple-banking.component';
+import {CrgMicroComponent} from './crg-micro/crg-micro.component';
+import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
+import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -66,10 +63,8 @@ const COMPONENTS = [
     GuarantorComponent,
     InsuranceComponent,
     CustomerLoanDocumentComponent,
-    CreditRiskGradingAlphaComponent,
     CreditGradingComponent,
     ProposalComponent,
-    CreditRiskGradingGammaComponent,
     FinancialDeleteComponentComponent,
     CiclComponent,
     TemplateDocumentComponent,
@@ -89,10 +84,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent,
-      MultipleBankingComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, MultipleBankingComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        CrgMicroComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
