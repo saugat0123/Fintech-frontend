@@ -205,6 +205,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   radioSelected: any;
   tempData;
   companyInfo: CompanyInfo = new CompanyInfo();
+  @Input() crgTotalRiskScore: any;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
