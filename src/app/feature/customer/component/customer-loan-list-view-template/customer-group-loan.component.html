@@ -44,16 +44,10 @@
                                             class="fa fa-cog"></em></a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
-                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && loan[i]?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) &&loan[i]?.loan?.isRemit "  (click)="addVideoKyc(model)">
-                                        <em class="fa fa-camera"></em>
-                                    </a>&nbsp;
-                                    <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
-                                            class="fa fa-trash"></em></a>&nbsp;
-
 
                                 </td>
                             </tr>
-                            <ng-container *ngIf="toggleArray[i].toggled">
+                            <ng-container *ngIf="model?.combinedLoans">
                                 <tr *ngFor="let single of model?.combinedLoans;let i=index"
                                     class="cursor" style="background-color: #cccccc;">
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>

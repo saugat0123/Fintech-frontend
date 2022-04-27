@@ -219,7 +219,6 @@ export class ProposalComponent implements OnInit {
                     };
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
-                    this.getLoanData();
                 });
         } else {
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
@@ -231,13 +230,6 @@ export class ProposalComponent implements OnInit {
             }
         }
         this.getLoanData();
-        this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
-            .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
-        this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
-            .patchValue((Number(this.proposalForm.get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
-        this.checkInstallmentAmount();
-        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-            .patchValue(Number(value)));
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
         }
@@ -270,6 +262,7 @@ export class ProposalComponent implements OnInit {
                     .forEach((l) => this.combinedLoansIds.push(l.id));
             }
         });
+
         this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
             .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
@@ -285,6 +278,9 @@ export class ProposalComponent implements OnInit {
             this.loanId = this.loan.loan.id;
         }
         this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
+            if (!this.fromProfile) {
+                this.loan = new LoanDataHolder();
+            }
             this.loan.loan = response.detail;
             this.checkLoan();
         }, error => {

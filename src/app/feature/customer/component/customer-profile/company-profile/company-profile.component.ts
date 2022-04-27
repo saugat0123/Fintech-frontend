@@ -134,7 +134,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
             this.customerLoans = res.detail;
-            console.log('this is customer loan', this.customerLoans);
         });
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
@@ -420,7 +419,11 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 // @ts-ignore
                 this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
         }
-        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
+        const ref = this.modalService.open(proposal, {
+            size: 'xl',
+            windowClass: 'modal-holder',
+            scrollable: true,
+        });
     }
 
 }
