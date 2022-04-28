@@ -33,7 +33,7 @@
                             <td>{{document.name}}</td>
                             <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
-                            <td><input *ngIf="loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId && isMaker" #inputFile (change)="documentUploader($event, document.name, document.id, i)"
+                            <td class="upload-cs"><input *ngIf="loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId && isMaker" #inputFile (change)="documentUploader($event, document.name, document.id, i)"
                                        class="form-control-file" (click)="inputFile.value = null"
                                        id="uploadDocument{{i}}" multiple=""
                                        type="file">

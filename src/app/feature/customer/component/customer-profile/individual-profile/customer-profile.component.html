@@ -439,7 +439,7 @@
             </div>
         </div>
 
-        <nb-card accent="primary">
+        <nb-card accent="primary" *ngIf="maker">
             <nb-card-header>
                 <strong class="float-left">Apply Loan</strong>
                 <div class="px-2 float-right">
@@ -453,6 +453,7 @@
                         <div class="row"  class="row"  *ngIf="maker" >
 
                             <div class="col-md-4">
+                                <p class="font-weight-bold">Loan Type</p>
                                 <select [(ngModel)]="selectedLoanType"
                                         class="form-control rounded" name="loanType" required>
                                     <option [ngValue]="undefined" hidden> Select Loan Type</option>
@@ -461,6 +462,7 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
+                                <p class="font-weight-bold">Facility Type</p>
                                 <select
                                         [(ngModel)]="facilityType"
                                         class="form-control rounded"
@@ -472,6 +474,8 @@
                                 </select>
                             </div>
                             <div class="col-md-3" *ngIf="selectedLoanType && facilityType">
+                                <p class="font-weight-bold">Priority</p>
+
                                 <select
                                            bindLabel="name"
                                            bindValue="id"
