@@ -387,7 +387,7 @@
 
                 <nb-card accent="primary" *ngIf="megaGroupEnabled">
                     <nb-card-header>
-                        Customer Groups
+                        GROUP EXPOSURE WITH CCBL
                     </nb-card-header>
                     <nb-card-body>
                         <nb-accordion>
@@ -395,13 +395,13 @@
                                 <nb-accordion-item-header>
                                     <div class="row col-md-12">
                                         <div class="col-md-6">
-                                            <span>Customer Group</span>
+                                            <span>Group Exposure with CCBL</span>
                                         </div>
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>
+                                    <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion.expanded"
+                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
