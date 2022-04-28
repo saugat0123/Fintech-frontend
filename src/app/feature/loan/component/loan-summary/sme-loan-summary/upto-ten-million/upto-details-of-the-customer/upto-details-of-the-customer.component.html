@@ -2,82 +2,126 @@
     All amounts in NPR million (unless otherwise indicated)</p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
-        <td>Legal status</td>
-        <td>{{companyInfo?.legalStatus?.corporateStructure?.name}}</td>
-        <td>Customer ID:</td>
+        <td><b>Legal status</b></td>
+        <td colspan="2">{{companyInfo?.legalStatus?.corporateStructure?.name}}</td>
+        <td><b>Customer ID:</b></td>
         <td>{{companyInfo?.customerCode}}</td>
-        <td>Next review</td>
+        <td colspan="2">Next review</td>
         <td>dd/mm/yyyy</td>
     </tr>
     <tr>
-        <td>Group</td>
-        <td>{{mGroup?.groupName}}</td>
-        <td>VAT /PAN No.</td>
-        <td>{{companyInfo?.panNumber}}</td>
+        <td><b>Group</b></td>
+        <td colspan="2">{{mGroup?.groupName}}</td>
+        <td><b>VAT /PAN No.</b></td>
+        <td>{{companyInfo?.vatNo}}/{{companyInfo?.panNumber}}</td>
         <td colspan="2" style="text-align: center">Banking with CCBL since</td>
     </tr>
     <tr>
-        <td>Firm/Com. Reg. No.</td>
-        <td>{{companyInfo?.registrationNumber}}</td>
-        <td>Reg. Date</td>
-        <td>{{registrationDate}}</td>
-        <td>Group</td>
-        <td>Customer</td>
+        <td><b>Firm/Com. Reg. No.</b></td>
+        <td colspan="2">{{companyInfo?.registrationNumber}}</td>
+        <td><b>Reg. Date</b></td>
+        <td>{{companyInfo?.legalStatus?.registrationDate
+            ? (companyInfo?.legalStatus?.registrationDate | date) : 'N/A'}}</td>
+        <td colspan="2"><b>Group</b></td>
+        <td><b>Customer</b></td>
     </tr>
     <tr>
-        <td>Firm renewed</td>
-        <td>For FY …..</td>
-        <td>A/C strategy </td>
+        <td><b>Firm renewed</b></td>
+        <td colspan="2">For FY {{companyInfo?.otherCompanyDetail?.firmRenew}}</td>
+        <td><b>A/C strategy</b> </td>
         <td></td>
-        <td>{{relationGroup}}</td>
+        <td colspan="2">{{relationGroup}}</td>
         <td>{{relationCustomer}}</td>
     </tr>
+    <tbody>
     <tr>
-        <td>Line of business</td>
-        <td colspan="2">{{companyJsonData?.businessObjective}}</td>
-        <td>Banking Arrangement</td>
-        <td colspan="2">Multiple Banking /Sole</td>
+        <td rowspan="2"><b>Line of business</b></td>
+        <td rowspan="2" colspan="2">
+            <span [innerHTML]="companyJsonData?.lineOfBusiness"></span>
+        </td>
+        <td><b>Banking Arrangement</b></td>
+        <td colspan="4">{{checkedData?.swapChecked}}</td>
     </tr>
     <tr>
-        <td>CIC Report</td>
-        <td colspan="2">Date: dd/mm/yyyy; Status: Clean/Overdue</td>
-        <td colspan="3" style="text-align: center">Main Promoters/Partners/Proprietor</td>
+        <td>Particular</td>
+        <td>FB</td>
+        <td>NFB</td>
+        <td>TL</td>
+        <td>Total</td>
     </tr>
     <tr>
-        <td colspan="3">Rating/NRB Classification/risk weight</td>
-        <td>Name</td>
-        <td>Type</td>
-        <td>Percentage</td>
+        <td><b>CIC Report</b></td>
+        <td colspan="2">
+            Date: {{loanDataHolder?.loanHolder?.cicl?.cibDate
+            ? (loanDataHolder?.loanHolder?.cicl?.cibDate | date) : 'N/A'}}; <br>
+            Status: Clean/Overdue</td>
+        <ng-container *ngIf="multiBankingData?.consortium">
+            <td>{{multiBankingData?.consortium[0]?.coBankName}}</td>
+            <td>{{multiBankingData?.consortium[0]?.funded}}</td>
+            <td>{{multiBankingData?.consortium[0]?.nonFunded}}</td>
+            <td>{{multiBankingData?.consortium[0]?.termLoan}}</td>
+            <td>{{multiBankingData?.consortium[0]?.total}}</td>
+        </ng-container>
+
+    </tr>
+    <tr>
+        <td><b>ESRM Rating</b></td>
+        <td colspan="2"> </td>
+        <ng-container *ngIf="multiBankingData?.consortium">
+            <td>{{multiBankingData?.consortium[1]?.coBankName}}</td>
+            <td>{{multiBankingData?.consortium[1]?.funded}}</td>
+            <td>{{multiBankingData?.consortium[1]?.nonFunded}}</td>
+            <td>{{multiBankingData?.consortium[1]?.termLoan}}</td>
+            <td>{{multiBankingData?.consortium[1]?.total}}</td>
+        </ng-container>
+    </tr>
+    </tbody>
+
+    <tr>
+        <td colspan="2"><b>Rating/NRB Classification/risk weight</b></td>
+        <td><b>Total</b></td>
+        <td>{{multiBankingData?.totalFunded}}</td>
+        <td>{{multiBankingData?.totalNonFunded}}</td>
+        <td>{{multiBankingData?.totalTermLoan}}</td>
+        <td>{{multiBankingData?.totalTotal}}</td>
+        <td>{{multiBankingData?.totalPercent}}</td>
     </tr>
     <tbody>
+    <tr>
+        <td><b>CCBL</b></td>
+        <td><b>External (name)</b></td>
+        <td><b>NRB</b></td>
+        <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
+        <!--            <td>{{propList[0]?.name}}</td>-->
+        <!--            <td>{{propList[0]?.type}}</td>-->
+        <!--            <td>{{propList[0]?.share}}</td>-->
+    </tr>
+    <tr>
+        <td>{{commentData?.previousComments}}</td>
+        <td>{{commentData?.auditorComments}}</td>
+        <td>{{commentData?.nrbComments}}</td>
+        <td>SN</td>
+        <td colspan="2">Name</td>
+        <td>Designation</td>
+        <th>Share(in %)</th>
+    </tr>
+    </tbody>
+    <tbody>
         <tr>
-            <td [rowSpan]="propList?.length + 1">CCBL</td>
-            <td [rowSpan]="propList?.length + 1">External (name)</td>
-            <td [rowSpan]="propList?.length + 1">NRB</td>
-            <td>{{propList[0]?.name}}</td>
-            <td>{{propList[0]?.type}}</td>
-            <td>{{propList[0]?.share}}</td>
+            <td colspan="3" [rowSpan]="propList?.length +1">
+                <b>Address:</b> Office: {{companyLocation?.address1}}, {{companyLocation?.municipalityVdc.name}}, {{companyLocation?.district.name}}
+                <br>
+                <b>Factory/Business</b>: {{businessLocation?.address1}}, {{businessLocation?.municipalityVdc.name}}, {{businessLocation?.district.name}}
+            </td>
         </tr>
         <ng-container *ngIf="propList?.length > 1">
-            <tr *ngFor="let prop of propList.slice(1); let i = index">
-                <td>{{prop?.name}}</td>
+            <tr *ngFor="let prop of propList; let i = index">
+                <td>{{i+1}}</td>
+                <td colspan="2">{{prop?.name}}</td>
                 <td>{{prop?.type}}</td>
                 <td>{{prop?.share}}</td>
             </tr>
         </ng-container>
     </tbody>
     <tr>
-    <tr>
-        <td colspan="3">Address: Office: {{companyLocation?.address1}}, {{companyLocation?.municipalityVdc.name}}, {{companyLocation?.district.name}}</td>
-        <td colspan="2" style="text-align: right">Total :</td>
-        <td>{{sum}}</td>
-    </tr>
-    <tr>
-        <td colspan="3">Factory/Business: {{businessLocation?.address1}}, {{businessLocation?.municipalityVdc.name}}, {{businessLocation?.district.name}}</td>
-        <td colspan="3">CCBL Counterparty Risk Rating: {{totalCrgPoint}}</td>
-    </tr>
-    <tr>
-        <td colspan="3">Main Person(s): tole/street, .Municipality, …(district)</td>
-        <td colspan="3">Outcome of CCBL Counterparty Risk Rating: {{totalCrgPoint}}</td>
-    </tr>
 </table>
