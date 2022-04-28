@@ -21,6 +21,7 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 
 @Component({
   selector: 'app-proposal',
@@ -38,6 +39,7 @@ export class ProposalComponent implements OnInit {
     @Input() fromProfile;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
+    @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @Output() emitter = new EventEmitter();
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
@@ -150,6 +152,7 @@ export class ProposalComponent implements OnInit {
     ngOnInit() {
         this.configEditor();
         this.buildForm();
+        console.log(this.loan, 'LOAN');
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
@@ -434,7 +437,14 @@ export class ProposalComponent implements OnInit {
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
 
+    setIndividualCrgGamma(crgGamma: any): void
+    {
+        this.loan.crgGamma = crgGamma;
+        console.log(this.loan, 'CRGDATA');
+    }
+
     onSubmit() {
+        this.crgGammaComponent.onSubmit();
         // Proposal Form Data--
         this.submitted = true;
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
