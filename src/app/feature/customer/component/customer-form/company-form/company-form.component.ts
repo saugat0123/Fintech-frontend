@@ -77,7 +77,6 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
     @ViewChild('companyCorrespondenceLocation', {static: true}) companyCorrespondenceLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
-    @ViewChild('riskAnalysis', {static: true}) riskAnalysis: RiskAnalysisComponent;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
     microCustomer = false;
@@ -986,7 +985,6 @@ export class CompanyFormComponent implements OnInit {
         }
 
         this.companyLocation.onSubmit();
-        this.riskAnalysis.onSubmit();
         this.companyProjectLocation.onSubmit();
         // this.companyCorrespondenceLocation.onSubmit();
         // if (this.companyInfoFormGroup.invalid ||
@@ -1078,7 +1076,6 @@ export class CompanyFormComponent implements OnInit {
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
-        this.companyJsonData.businessManagementRisk = JSON.stringify(this.riskAnalysis.submitData);
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;

@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-risk-analysis',
@@ -8,13 +9,17 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
     styleUrls: ['./risk-analysis.component.scss']
 })
 export class RiskAnalysisComponent implements OnInit {
+    @Input() customerInfo;
+    @Input() fromProfile: boolean;
     @Input() riskData;
     riskAnalysisForm: FormGroup;
     submitData;
     submitted = false;
     tempData;
+    @Output() riskAnalysisDataEmitter = new EventEmitter();
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private overlay: NgxSpinnerService) {
     }
 
     ngOnInit() {
@@ -55,8 +60,14 @@ export class RiskAnalysisComponent implements OnInit {
     }
 
     onSubmit() {
+        this.overlay.show();
         this.submitted = true;
-        this.submitData = this.riskAnalysisForm.value;
+        if (!ObjectUtil.isEmpty(this.riskData)) {
+            this.submitData = this.riskData;
+        }
+        this.submitData = JSON.stringify(this.riskAnalysisForm.value);
+        this.overlay.hide();
+        this.riskAnalysisDataEmitter.emit(this.submitData);
     }
 
 }
