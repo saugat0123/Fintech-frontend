@@ -1,6 +1,7 @@
 <nb-card>
     <nb-card-header>
-        <strong>{{loanDataHolder?.loan?.name || 'Loan Document'}} {{loanDataHolder?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loanDataHolder?.proposal?.proposedLimit || ''}}</strong>
+      <strong>{{loanDataHolder?.loan?.name || 'Loan Document'}} </strong>
+      <em class="sb-small">{{loanDataHolder?.proposal?.proposedLimit ? 'Proposed Limit: Rs. ' : ''}} <mark>{{loanDataHolder?.proposal?.proposedLimit || ''}}</mark></em>
     </nb-card-header>
     <nb-card-body>
         <div *ngIf="initialDocuments.length > 0" class="row">
@@ -33,7 +34,7 @@
                             <td>{{document.name}}</td>
                             <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
-                            <td><input *ngIf="loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId && isMaker" #inputFile (change)="documentUploader($event, document.name, document.id, i)"
+                            <td class="upload-cs"><input *ngIf="loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId && isMaker" #inputFile (change)="documentUploader($event, document.name, document.id, i)"
                                        class="form-control-file" (click)="inputFile.value = null"
                                        id="uploadDocument{{i}}" multiple=""
                                        type="file">

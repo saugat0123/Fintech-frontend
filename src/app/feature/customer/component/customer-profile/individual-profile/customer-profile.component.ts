@@ -237,6 +237,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.modalService.dismissAll();
         this.selectedLoanType = null;
         this.facilityType = null;
+        this.getCustomerLoans();
     }
 
     getProvince() {
