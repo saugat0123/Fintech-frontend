@@ -18,8 +18,8 @@
         <app-above-business-related-information [companyInfo]="loanDataHolder?.companyInfo"></app-above-business-related-information>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Group Exposure with CCBL (as of dd/mm/yyyy)</strong></p>
-        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-m-group-summary>
+        <p class="text-uppercase"><strong>Group Exposure with CCBL  (as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date}})</strong></p>
+        <app-above-group-exposure-with-ccbl [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-above-group-exposure-with-ccbl>
     </li>
     <li>
         <p class="text-uppercase"><strong>Proposal View</strong></p>

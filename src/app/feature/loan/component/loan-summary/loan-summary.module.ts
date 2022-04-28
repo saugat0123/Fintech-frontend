@@ -59,6 +59,7 @@ import { AboveInspectionComponent } from './sme-loan-summary/above-ten-million/a
 import { AboveFinancialHighlightsComponent } from './sme-loan-summary/above-ten-million/above-financial-highlights/above-financial-highlights.component';
 import { AboveAssessmentOfFacilitiesRequirementComponent } from './sme-loan-summary/above-ten-million/above-assessment-of-facilities-requirement/above-assessment-of-facilities-requirement.component';
 import { AboveSecurityArrangementComponent } from './sme-loan-summary/above-ten-million/above-security-arrangement/above-security-arrangement.component';
+import { AboveGroupExposureWithCcblComponent } from './sme-loan-summary/above-ten-million/above-group-exposure-with-ccbl/above-group-exposure-with-ccbl.component';
 import { AboveBankingArrangementOfTheCustomerComponent } from './sme-loan-summary/above-ten-million/above-banking-arrangement-of-the-customer/above-banking-arrangement-of-the-customer.component';
 import { AboveStockStatementComponent } from './sme-loan-summary/above-ten-million/above-stock-statement/above-stock-statement.component';
 import { AboveRiskAnalysisComponent } from './sme-loan-summary/above-ten-million/above-risk-analysis/above-risk-analysis.component';
@@ -174,6 +175,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     OtherChargesComponent,
     CovenantsComponent,
     NrbStatutoryRemarksStatusComponent,
+    AboveGroupExposureWithCcblComponent,
     AboveBankingArrangementOfTheCustomerComponent,
     AboveStockStatementComponent,
     AboveRiskAnalysisComponent,
