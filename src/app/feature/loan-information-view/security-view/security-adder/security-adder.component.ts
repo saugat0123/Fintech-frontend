@@ -43,6 +43,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     isAutoFreeLimitExceed = [];
     isLandBuildingFreeLimitExceed = [];
     listSecurities = [{value: 'Land and Building Security'}, {value: 'VehicleSecurity'}];
+    toggleArray: { toggled: boolean }[] = [];
+    spinner = false;
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -167,6 +169,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     selectedSecurity() {
+        this.toggleArray = [];
         this.landBuilding = false;
         this.auto = false;
         this.share = false;
@@ -178,6 +181,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                         this.loanHolder.landBuildings.forEach((da: any) => {
                             this.landBuildingId.push(da.id);
                         });
+                        this.setToggled(this.customerInfo.landBuildings);
                     }
                 }
                     break;
@@ -190,6 +194,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                             this.autoId.push(da.id);
                         });
                     }
+                    this.setToggled(this.customerInfo.autos);
                 }
                     break;
                 default :
@@ -253,4 +258,19 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
             this.isAutoFreeLimitExceed[index] = this.totalFreeLimitAuto < 0;
             this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
         }
+
+        setToggled(array) {
+        this.toggleArray = [];
+        array.forEach(() => this.toggleArray.push({toggled: false}));
+        }
+
+    getSecurityDetails(id) {
+        this.spinner = true;
+        this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
+            this.spinner = false;
+            return res.detail;
+        }, (err) => {
+            this.spinner = false;
+        });
+    }
 }
