@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CompanyInfo} from '../../../../../admin/modal/company-info';
 
 @Component({
   selector: 'app-above-ten-million',
@@ -8,6 +9,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./above-ten-million.component.scss'],
 })
 export class AboveTenMillionComponent implements OnInit {
+  @Input() companyInfo: CompanyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   @Input() customerAllLoanList: LoanDataHolder[];
   isUsedForAboveTenMillion: boolean;

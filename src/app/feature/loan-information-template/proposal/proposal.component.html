@@ -639,66 +639,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="lastReviewDate"><strong>Last Review Date</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.lastReviewDate.errors }"
-                                                class="form-control"
-                                                formControlName="lastReviewDate" id="lastReviewDate"
-                                                name="lastReviewDate"
-                                                type="text"/>
-                                        <div *ngIf="(submitted) && formControls.lastReviewDate.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.lastReviewDate.errors.required">Last Review Date is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="currentExtendedDate"><strong>Current Extended Date</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.currentExtendedDate.errors }"
-                                                class="form-control"
-                                                formControlName="currentExtendedDate" id="currentExtendedDate"
-                                                name="currentExtendedDate"
-                                                type="text"/>
-                                        <div *ngIf="(submitted) && formControls.currentExtendedDate.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.currentExtendedDate.errors.required">Current Extended Date is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="scheduledReviewDate"><strong>Scheduled Review Date</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.scheduledReviewDate.errors }"
-                                                class="form-control"
-                                                formControlName="scheduledReviewDate" id="scheduledReviewDate"
-                                                name="scheduledReviewDate"
-                                                type="text"/>
-                                        <div *ngIf="(submitted) && formControls.scheduledReviewDate.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.scheduledReviewDate.errors.required">Scheduled Review Date is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="nextReviewDate"><strong>Next Review Date</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.nextReviewDate.errors }"
-                                                class="form-control"
-                                                formControlName="nextReviewDate" id="nextReviewDate"
-                                                name="nextReviewDate"
-                                                type="text"/>
-                                        <div *ngIf="(submitted) && formControls.nextReviewDate.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.nextReviewDate.errors.required">Next Review Date Date is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <div class="col-md-4 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
