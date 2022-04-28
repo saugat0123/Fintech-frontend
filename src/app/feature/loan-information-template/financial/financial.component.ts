@@ -17,16 +17,10 @@ import {NetWorthOfFirmOrCompany} from '../model/net-worth-of-firm-or-company';
 import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {Pattern} from '../../../@core/utils/constants/pattern';
-import {
-    TypeOfSourceOfIncome,
-    TypeOfSourceOfIncomeArray,
-    TypeOfSourceOfIncomeMap
-} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
 import {CrgQuestion} from '../../credit-risk-grading/model/CrgQuestion';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
@@ -189,6 +183,7 @@ export class FinancialComponent implements OnInit {
 
     numberUtils = NumberUtils;
     crgQuestionsList: CrgQuestion;
+
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
@@ -245,11 +240,11 @@ export class FinancialComponent implements OnInit {
             }
         }
         this.checkDisableAlpha();
-        this.questionService.getAllQuestions(4).subscribe(s=>{
-            console.log(s,'QUESTION');
+        this.questionService.getAllQuestions(0).subscribe(s => {
+            console.log(s, 'QUESTION');
             this.crgQuestionsList = s.detail[0];
             console.log(this.crgQuestionsList, 'LISSSTT');
-        })
+        });
     }
 
     buildForm() {
@@ -283,6 +278,7 @@ export class FinancialComponent implements OnInit {
             totalObligationCurrentBank: [undefined],
             totalBankObligation: [undefined],
             obligationGrossIncomeRatio: [undefined],
+            crgProfileOfAuditors: [undefined]
             // riskFactorForm: this.buildRiskFactorForm(),
         });
     }
@@ -639,6 +635,7 @@ export class FinancialComponent implements OnInit {
             case 'Key Indicators':
                 this.keyIndicators.ngOnDestroy();
         }
+
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
@@ -652,6 +649,7 @@ export class FinancialComponent implements OnInit {
         if (this.isBusinessLoan) {
             this.currentFormData['auditorList'] = this.auditorList;
         }
+
         this.financialData.data = JSON.stringify(this.currentFormData);
         this.financialDataEmitter.emit(this.financialData.data);
     }
@@ -686,8 +684,8 @@ export class FinancialComponent implements OnInit {
 
     totalObligationRatio() {
         this.financialForm.get('obligationGrossIncomeRatio').setValue((
-                this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(2));
-        }
+            this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(2));
+    }
 
     controlValidation(controlNames: string[], validate) {
         controlNames.forEach(s => {
