@@ -83,7 +83,7 @@
 
           </div>
         </div>
-        <div *ngIf="!isEdited" class="col-md-5 sb-small">
+        <div *ngIf="!isEdited" class="col-md-5 sb-small md-padding">
 
           <div class="row">
             <span> <strong>Company name :</strong> {{companyInfo?.companyName}}</span></div>
@@ -335,7 +335,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <nb-card accent="primary">
+    <nb-card accent="primary" *ngIf="maker">
       <nb-card-header>
         <strong class="float-left">Apply Loan</strong>
         <div class="px-2 float-right">
@@ -348,6 +348,7 @@
         <div class="col-md-12" style="max-height: 300px;">
             <div class="row" >
               <div class="col-md-4" *ngIf="maker">
+                <p class="font-weight-bold">Loan Type</p>
                 <select [(ngModel)]="selectedLoanType"
                         class="form-control rounded" name="loanType" required>
                   <option [ngValue]="undefined" hidden> Select Loan Type</option>
@@ -356,6 +357,7 @@
                 </select>
               </div>
               <div class="col-md-4" *ngIf="maker">
+                <p class="font-weight-bold">Facility Type</p>
                 <select
                         [(ngModel)]="facilityType"
                         class="form-control rounded"
@@ -367,6 +369,7 @@
                 </select>
               </div>
               <div class="col-md-3" *ngIf="selectedLoanType && facilityType">
+                <p class="font-weight-bold">Priority</p>
                 <select nbInput class="form-control rounded" [(ngModel)]="priority">
                   <option [ngValue]="undefined" hidden> Select Priority</option>
                   <option *ngFor="let item of dropdownPriorities" [value]="item?.id">{{item?.name}}</option>
@@ -491,10 +494,10 @@
             <div class="row">
 
               <div class="col-md-6" *ngFor="let datas of loan">
-                <strong>{{datas?.loan?.name}} {{datas?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{datas?.proposal?.proposedLimit || ''}}</strong>
-                <ng-container *ngIf="datas?.customerDocument?.length < 1">
-                  <strong> NO DOCUMENT available in this loan</strong>
-                </ng-container>
+                <strong>{{datas?.loan?.name}}</strong> <em>{{datas?.proposal?.proposedLimit ? ' Proposed Limit: ' : ''}} <mark>{{datas?.proposal?.proposedLimit || ''}}</mark></em>
+                <span *ngIf="datas?.customerDocument?.length < 1">
+                  <br> NO DOCUMENT AVAILABLE
+                </span>
                 <div class="col-md-3 img-hover flex-wrap"
                      *ngFor="let data of datas?.customerDocument;let i =index"
                      [nbTooltip]="data?.document?.displayName">
