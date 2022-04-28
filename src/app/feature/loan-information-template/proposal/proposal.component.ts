@@ -102,7 +102,7 @@ export class ProposalComponent implements OnInit {
     ];
     groupExposureData;
     isAllExposureFieldNull = false;
-  firstTimeHomeBuyerChecked = false;
+    firstTimeHomeBuyerChecked = false;
     files = [];
     incomeFromAccountDataResponse;
     purposes: Array<string> = [
@@ -300,6 +300,7 @@ export class ProposalComponent implements OnInit {
         this.isGeneral = this.loan.loan.loanTag === 'GENERAL';
         this.isShare = this.loan.loan.loanTag === 'SHARE_SECURITY';
         this.isVehicle = this.loan.loan.loanTag === 'VEHICLE';
+        this.isHomeLoan = this.loan.loan.loanTag === 'HOME_LOAN';
         this.loanNature = this.loan.loan.loanNature;
         if (!ObjectUtil.isEmpty(this.loanNature)) {
             this.loanNatureSelected = true;
