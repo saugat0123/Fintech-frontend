@@ -1,4 +1,4 @@
-<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+<table class="table  table-bordered table-hover sb-small text-center" style="width: 100%">
     <thead>
     <tr class="sb-bg-dark text-white">
         <th>Indicators</th>
@@ -8,19 +8,19 @@
     <tbody>
     <tr>
         <td>Strengths</td>
-        <td></td>
+        <td><span [innerHTML]="swotData ? swotData?.strength : '' | safeHtml"></span></td>
     </tr>
     <tr>
         <td>Weaknesses</td>
-        <td></td>
+        <td><span [innerHTML]="swotData ? swotData?.weakness : '' | safeHtml"></span></td>
     </tr>
     <tr>
         <td>Opportunities</td>
-        <td></td>
+        <td><span [innerHTML]="swotData ? swotData?.opportunity : '' | safeHtml"></span></td>
     </tr>
     <tr>
         <td>Threats</td>
-        <td></td>
+        <td><span [innerHTML]="swotData ? swotData?.threats : '' | safeHtml"></span></td>
     </tr>
     </tbody>
 </table>
