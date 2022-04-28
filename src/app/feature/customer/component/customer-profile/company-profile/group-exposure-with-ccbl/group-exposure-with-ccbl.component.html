@@ -1,0 +1,57 @@
+<div class="row" [formGroup]="form" [nbSpinner]="spinner">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="groupName">Group Name</label>
+            <input class="form-control"
+                   placeholder="Group Name" id="groupName" formControlName="groupName">
+        </div>
+        <div class="form-group">
+            <label for="groupCode">Group Code</label>
+            <input class="form-control"
+                   placeholder="Group Code" id="groupCode" formControlName="groupCode">
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group Exposure Date</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <nb-radio-group class="d-inline-flex"
+                                        formControlName="groupExposureDateType">
+                            <nb-radio value="AD">AD</nb-radio>
+                            <nb-radio value="BS">BS</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input [nbDatepicker]="issuedYear"
+                           *ngIf="form.get('groupExposureDateType').value === 'AD'"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="groupExposureDate"
+                           id="groupExposureDate"
+                           name="groupExposureDate"
+                           placeholder="Group Exposure Date"
+                           type="text">
+                    <app-calendar
+                            [ePreDate]="form.get('groupExposureDate').value"
+                            *ngIf="form.get('groupExposureDateType').value === 'BS'"
+                            (messageToEmit)="form.get('groupExposureDate').patchValue($event?.eDate)"></app-calendar>
+                    <nb-datepicker #issuedYear></nb-datepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="detailInformation">Detail Information</label>
+            <ckeditor id="detailInformation" formControlName="detailInformation"
+                      [config]="ckeConfig"></ckeditor>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <button nbButton (click)="onSubmit()" class="float-right">Submit</button>
+    </div>
+</div>
