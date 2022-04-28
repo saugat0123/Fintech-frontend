@@ -663,92 +663,25 @@
         </table>
 
       </div>
-    </div>
-    <!--        //cbs Group-->
-    <div class="row  py-2" *ngIf="maker && !isEditable">
-      <div class="col-md-12 text-danger">
-        <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edited.
-      </strong> </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <app-customer-loan-information
-            (triggerCustomerRefresh)="refreshCustomerInfo()"
-            *ngIf="customerInfo && isEditable"
-            [customerInfoId]="customerInfoId"
-            [customerInfo]="customerInfo"
-            [isMicroCustomer]="companyInfo?.isMicroCustomer"
-            [companyInfo]="companyInfo"></app-customer-loan-information>
-        <app-customer-loan-information-view *ngIf="!isEditable"
-                                            [customerInfo]="customerInfo"></app-customer-loan-information-view>
-      </div>
-    </div>
-    <nb-card accent="primary">
-      <nb-card-body>
-        <nb-accordion>
-          <nb-accordion-item #mReviewAccordion>
-            <nb-accordion-item-header>
-              <div class="row col-md-12">
-                <div class="col-md-6">
-                  <span>Review Dates</span>
-                </div>
-              </div>
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <app-review-date [formValue]="companyInfo" [companyInfo]="companyJsonData?.reviewDate"
-                               *ngIf="customerInfo && mReviewAccordion.expanded"></app-review-date>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
-        </nb-accordion>
-      </nb-card-body>
-    </nb-card>
-    <div class="row">
-      <div class="col-md-12">
-        <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
-                          (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
-      </div>
-    </div>
-  </nb-card-body>
-</nb-card>
-
-
-<ng-template #uploadConfirm>
-  <div class="modal-content">
-    <div class="modal-header" style="display:block">
-      <a (click)="onClose()" aria-label="Close"
-         class="close cursor" data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
-      <h4 class="nav  navbar-right pull-left">Confirm</h4>
-    </div>
-    <div class="col-md-12">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group py-4">
-              Do you want to upload this file?
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end pb-md-3">
-
-        <button (click)="confirmUpload()" class="btn btn-success float-right" type="submit">
-          Save
-        </button>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-
-<ng-template #loanFlagsTemplate>
-  <nb-card style="margin-bottom: 0">
-    <nb-card-header>Loan Flags</nb-card-header>
-    <nb-card-body>
-      <ul>
-        <li *ngFor="let flag of customerInfo?.loanFlags">{{flag?.description}}</li>
-      </ul>
     </nb-card-body>
   </nb-card>
-
+  <nb-card accent="primary">
+    <nb-card-body>
+      <nb-accordion>
+        <nb-accordion-item #mReviewAccordion>
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-6">
+                <span>Review Dates</span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-review-date [formValue]="companyInfo" [companyInfo]="companyJsonData?.reviewDate"
+                             *ngIf="customerInfo && mReviewAccordion.expanded"></app-review-date>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </nb-card-body>
+  </nb-card>
 </ng-template>
