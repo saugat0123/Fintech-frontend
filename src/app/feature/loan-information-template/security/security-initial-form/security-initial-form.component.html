@@ -1775,7 +1775,7 @@
                                     <input (input)="calConsiderValue('landBuilding', i)"
                                            class="form-control rounded"
                                            formControlName="totalLandRealisableValue"
-                                           id="totalLandBuildingRaste"
+                                           id="totalLandBuildingRate"
                                            placeholder="Rate"
                                            name="landBuildingRate"
                                            type="number" appDecimalNumber/>
@@ -1818,11 +1818,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingRate">Considered Value</label>
+                                    <label class="title" for="consideredValue">Considered Value</label>
                                     <input
                                            class="form-control rounded"
                                            formControlName="considerValue"
-                                           id="governmentRate"
+                                           id="consideredValue"
                                            placeholder="Consider Value"
                                            name="considerValue"
                                            type="number" appDecimalNumber/>
@@ -1830,11 +1830,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingRate">Geo Location</label>
+                                    <label class="title" for="getLocation">Geo Location</label>
                                     <input
                                            class="form-control rounded"
                                            formControlName="geoLocation"
-                                           id="geoLocation"
+                                           id="getLocation"
                                            placeholder="Geo Location"
                                            name="geoLocation"
                                            type="text" />
@@ -1842,7 +1842,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingRate">Sheet No.</label>
+                                    <label class="title" for="sheetNo">Sheet No.</label>
                                     <input
                                            class="form-control rounded"
                                            formControlName="sheetNo"
@@ -1854,11 +1854,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingRate">Registered Office</label>
+                                    <label class="title" for="registeredOffice">Registered Office</label>
                                     <input
                                            class="form-control rounded"
                                            formControlName="registerOffice"
-                                           id="sheetNo"
+                                           id="registeredOffice"
                                            placeholder="Registered Office"
                                            name="registerOffice"
                                            type="text" />
@@ -1880,7 +1880,6 @@
                             <div class="col-md-3 ">
                                 <label for="province">Province</label>
                                 <ng-select (change)="getDistrict(landAndBuilding?.get('province')?.value)"
-                                        class="custom-select"
                                         formControlName="province"
                                         id="province">
                                     <ng-option *ngFor="let provinceVal of provinces"
@@ -1892,7 +1891,6 @@
                             <div class="col-md-3 ">
                                 <label for="district">District</label>
                                 <ng-select (change)="getMunicipality(landAndBuilding?.get('district').value)"
-                                        class="custom-select"
                                         formControlName="district"
                                         id="district">
                                     <ng-option *ngFor="let districtVal of districtList"
@@ -1905,7 +1903,6 @@
                             <div class="col-md-3 ">
                                 <label for="municipality">Municipalities or VDC</label>
                                 <ng-select
-                                        class="custom-select"
                                         formControlName="municipalityVdc"
                                         id="municipality"
                                         name="municipality">
@@ -3310,9 +3307,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="consideredValue">Realisable Value</label>
+                                    <label for="realisableValue">Realisable Value</label>
                                     <input class="form-control" formControlName="consideredValue"
-                                           id="consideredValue" name="total" placeholder="Realisable Value" readonly>
+                                           id="realisableValue" name="total" placeholder="Realisable Value" readonly>
                                 </div>
                             </div>
                         </div>
