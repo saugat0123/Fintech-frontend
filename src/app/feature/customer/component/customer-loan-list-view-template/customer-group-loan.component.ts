@@ -69,6 +69,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   fetchLoan = FetchLoan;
   @Input()
   total: number;
+  @Input() customerLoans;
   spinner = false;
   loanHistories: SingleCombinedLoanDto[];
   toggleArray: { toggled: boolean }[] = [];
@@ -99,7 +100,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   currentUserId = LocalStorageUtil.getStorage().userId;
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
-  loanAction: any;
   loanActionList = [];
   loan = [];
   loanTag = LoanTag;
@@ -110,7 +110,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   reInitiateLoanFacilityName: string;
   reInitiateLoanBranchName: string;
   reInitiateLoanType: string;
-  showBranch = true;
   formAction: FormGroup;
   displaySecurity = false;
   isCombineLoan = false;
@@ -139,11 +138,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
-    this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
-      this.loan = data.detail;
+    if (!ObjectUtil.isEmpty(this.customerLoans)) {
+      this.loan = this.customerLoans;
       this.isLoaded = true;
       this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
-    });
+    } else {
+      this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
+        this.loan = data.detail;
+        this.isLoaded = true;
+        this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
+      });
+    }
+
     if (LocalStorageUtil.getStorage().username === 'SPADMIN'
         || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
         || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
@@ -372,15 +378,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     closed: SingleCombinedLoanDto[],
     approved: SingleCombinedLoanDto[],
   } {
-    return {
-      pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
-          && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
-      funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
-      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
-      rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
-      closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
-      approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
-    };
+    if (!ObjectUtil.isEmpty(this.loanHistories)) {
+      return {
+        pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
+            && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
+        funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
+        nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
+        rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
+        closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
+        approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
+      };
+    }
   }
 
   getLoanOfCustomerAssociatedToByKYC() {
