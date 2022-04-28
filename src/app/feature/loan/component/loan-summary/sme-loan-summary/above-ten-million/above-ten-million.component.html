@@ -19,7 +19,8 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Group Exposure with CCBL (as of dd/mm/yyyy)</strong></p>
-        <app-above-group-exposure-with-ccbl></app-above-group-exposure-with-ccbl>
+        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-m-group-summary>
+<!--        <app-above-group-exposure-with-ccbl></app-above-group-exposure-with-ccbl>-->
     </li>
     <li>
         <p class="text-uppercase"><strong>The Bank's SOL</strong></p>
@@ -54,7 +55,7 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Risk Analysis</strong></p>
-        <app-above-risk-analysis [companyInfo]="loanDataHolder?.companyInfo"></app-above-risk-analysis>
+        <app-above-risk-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
     </li>
     <li>
         <p class="text-uppercase"><strong>SWOT Analysis</strong></p>

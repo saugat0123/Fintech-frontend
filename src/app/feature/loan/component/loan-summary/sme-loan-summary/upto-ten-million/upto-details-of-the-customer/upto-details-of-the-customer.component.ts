@@ -23,13 +23,16 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   totalCrgPoint;
   mGroup;
   sum = 0;
+  checkedData;
+  multiBankingData;
+  commentData;
   constructor(
       public datepipe: DatePipe
   ) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+      this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
       this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
@@ -39,6 +42,14 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         this.totalCrgPoint = gamma.totalPoint;
       }
       this.totalsum();
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
+        this.multiBankingData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.data);
+        this.checkedData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.checkedData);
+      }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+        const oldData = JSON.parse(this.loanDataHolder.loanHolder.data);
+        this.commentData = JSON.parse(oldData.data);
+      }
     }
     this.relationshipSinceDate();
    }
