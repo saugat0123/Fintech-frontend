@@ -152,6 +152,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
       groupExposureDateType: [undefined],
       groupExposureDate: [undefined],
       detailInformation: [this.default_table],
+      groupName: [undefined],
+      groupCode: [undefined],
     });
   }
 
@@ -183,6 +185,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.groupExposureDateType = this.formControls.groupExposureDateType.value;
     mGroup.detailInformation = this.formControls.detailInformation.value;
     mGroup.groupExposureDate = this.formControls.groupExposureDate.value;
+    mGroup.groupName = this.formControls.groupName.value;
+    mGroup.groupCode = this.formControls.groupCode.value;
     return mGroup;
   }
 
