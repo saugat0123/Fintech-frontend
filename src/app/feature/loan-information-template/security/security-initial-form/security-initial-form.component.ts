@@ -276,15 +276,16 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     private addSecurityToSelectedArray(): void {
-        const stringArray: any = this.customerInfo.selectedArray;
-       if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray) || stringArray.length > 0) {
-           if (this.customerInfo.selectedArray.indexOf('VehicleSecurity') !== -1) {
-               this.selectedArray.push('VehicleSecurity');
-           }
-           if (this.customerInfo.selectedArray.indexOf('Land and Building Security') !== -1) {
-               this.selectedArray.push('Land and Building Security');
-           }
-       }
+        if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
+            if (this.customerInfo.selectedArray.length > 0) {
+                if (this.customerInfo.selectedArray.indexOf('VehicleSecurity') !== -1) {
+                    this.selectedArray.push('VehicleSecurity');
+                }
+                if (this.customerInfo.selectedArray.indexOf('Land and Building Security') !== -1) {
+                    this.selectedArray.push('Land and Building Security');
+                }
+            }
+        }
     }
 
     private uuid(): string {
