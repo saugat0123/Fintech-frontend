@@ -83,4 +83,5 @@ export class CustomerInfoData {
     customerLegalDocumentAddress: string;
     multiBanking: MultipleBanking;
     commonLoanData: string;
+    riskAnalysis: string;
 }
