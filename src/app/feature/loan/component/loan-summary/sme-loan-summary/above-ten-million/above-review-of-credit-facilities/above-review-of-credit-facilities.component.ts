@@ -10,15 +10,15 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 export class AboveReviewOfCreditFacilitiesComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   tempData;
-  proposalData;
+  tempData1;
 
   constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      this.tempData = this.loanDataHolder.proposal;
-      if (!ObjectUtil.isEmpty(this.tempData.data)) {
-        this.proposalData = JSON.parse(this.tempData.data);
+      this.tempData = this.loanDataHolder.companyInfo;
+      if (!ObjectUtil.isEmpty(this.tempData.companyJsonData)) {
+        this.tempData1 = JSON.parse(this.tempData.companyJsonData);
       }
     }
   }

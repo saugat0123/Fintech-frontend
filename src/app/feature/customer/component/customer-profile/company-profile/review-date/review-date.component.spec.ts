@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MisNrbReportingComponent } from './mis-nrb-reporting.component';
+import { ReviewDateComponent } from './review-date.component';
 
-describe('MisNrbReportingComponent', () => {
-  let component: MisNrbReportingComponent;
-  let fixture: ComponentFixture<MisNrbReportingComponent>;
+describe('ReviewDateComponent', () => {
+  let component: ReviewDateComponent;
+  let fixture: ComponentFixture<ReviewDateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MisNrbReportingComponent ]
+      declarations: [ ReviewDateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MisNrbReportingComponent);
+    fixture = TestBed.createComponent(ReviewDateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

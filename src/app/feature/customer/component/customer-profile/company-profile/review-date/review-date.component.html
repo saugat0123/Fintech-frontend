@@ -1,0 +1,41 @@
+<div class="row" [formGroup]="form" [nbSpinner]="spinner">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="title" for="lastReviewDate"><strong>Last Review Date</strong></label>
+            <input class="form-control"
+                   formControlName="lastReviewDate" id="lastReviewDate"
+                   name="lastReviewDate"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="title" for="currentExtendedDate"><strong>Current Extended Date</strong></label>
+            <input class="form-control"
+                   formControlName="currentExtendedDate" id="currentExtendedDate"
+                   name="currentExtendedDate"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="title" for="scheduledReviewDate"><strong>Scheduled Review Date</strong></label>
+            <input class="form-control"
+                   formControlName="scheduledReviewDate" id="scheduledReviewDate"
+                   name="scheduledReviewDate"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="title" for="nextReviewDate"><strong>Next Review Date</strong></label>
+            <input class="form-control"
+                   formControlName="nextReviewDate" id="nextReviewDate"
+                   name="nextReviewDate"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button nbButton (click)="onSubmit()" class="float-right">Save</button>
+    </div>
+</div>
