@@ -18,7 +18,6 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
-      console.log('companyInfo', this.companyInfo);
       this.jsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.registeredAddress = JSON.parse(this.companyInfo.companyLocations.address);
       this.currentAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
