@@ -43,8 +43,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     isAutoFreeLimitExceed = [];
     isLandBuildingFreeLimitExceed = [];
     listSecurities = [{value: 'Land and Building Security'}, {value: 'VehicleSecurity'}];
-    toggleArray: { toggled: boolean }[] = [];
+    toggleArray: { toggled: boolean, security: any }[] = [];
     spinner = false;
+    tagged;
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -261,16 +262,20 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
 
         setToggled(array) {
         this.toggleArray = [];
-        array.forEach(() => this.toggleArray.push({toggled: false}));
+        array.forEach(() => this.toggleArray.push({toggled: false, security: null}));
         }
 
-    getSecurityDetails(id) {
-        this.spinner = true;
-        this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
-            this.spinner = false;
-            return res.detail;
-        }, (err) => {
-            this.spinner = false;
-        });
+    getSecurityDetails(id, index) {
+        this.toggleArray[index].toggled = !this.toggleArray[index].toggled;
+        if (this.toggleArray[index].toggled) {
+            this.spinner = true;
+            this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
+                this.spinner = false;
+                this.toggleArray[index].security = res.detail;
+            }, (err) => {
+                this.spinner = false;
+            });
+        }
+
     }
 }

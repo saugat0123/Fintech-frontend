@@ -73,7 +73,8 @@
                         </tr>
                         </thead>
                         <tbody formArrayName="autoForm">
-                        <tr *ngFor="let auto of autoForm.controls; let i=index;">
+                        <ng-container *ngFor="let auto of autoForm.controls; let i=index;">
+                            <tr >
                             <ng-container [formGroupName]="i">
                                 <td>{{i + 1}}</td>
                                 <td>{{auto.get('model').value}}</td>
@@ -91,7 +92,7 @@
                                 </td>
                                 <td>
                                     <a class="px-2 cursor"
-                                       (click)="toggleArray[i].toggled = !toggleArray[i].toggled"
+                                       (click)="getSecurityDetails(auto?.get('id').value, i);"
                                        nbTooltip="click to view detail security">
                                         <em class="fa fa-eye"></em>
                                     </a>
@@ -100,10 +101,14 @@
                                         <i class="fa fa-plus"></i></button>
                                 </td>
                             </ng-container>
-                            <ng-container *ngIf="toggleArray[i].toggled">
-                                <app-security-tagged-component [tagged]="getSecurityDetails(auto?.get('id').value)"></app-security-tagged-component>
+                        </tr>
+                        <tr>
+                            <ng-container *ngIf="toggleArray[i].toggled" >
+                                <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
                             </ng-container>
                         </tr>
+                        </ng-container>
+
                         </tbody>
                     </table>
                 </div>
@@ -124,7 +129,9 @@
                             </tr>
                             </thead>
                             <tbody formArrayName="landBuildingForm">
-                            <tr *ngFor="let landBuilding of landBuildingForm.controls; let i=index;">
+                            <ng-container *ngFor="let landBuilding of landBuildingForm.controls; let i=index;">
+
+                            <tr >
                                 <ng-container [formGroupName]="i">
                                     <td>{{i+1}}</td>
                                     <td>{{landBuilding.get('considerValue').value}}</td>
@@ -140,7 +147,7 @@
                                     </td>
                                     <td>
                                         <a class="px-2 cursor"
-                                           (click)="toggleArray[i].toggled = !toggleArray[i].toggled"
+                                           (click)="getSecurityDetails(landBuilding?.get('id').value, i)"
                                            nbTooltip="click to view detail security">
                                             <em class="fa fa-eye"></em>
                                         </a>
@@ -150,10 +157,13 @@
                                                 class="fa fa-plus"></i></button>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="toggleArray[i].toggled" [nbSpinner]="spinner">
-                                    <app-security-tagged-component [tagged]="getSecurityDetails(landBuilding?.get('id').value)"></app-security-tagged-component>
-                                </ng-container>
                             </tr>
+                                <tr>
+                                    <ng-container *ngIf="toggleArray[i].toggled" >
+                                        <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
                             </tbody>
                         </table>
                 </div>
