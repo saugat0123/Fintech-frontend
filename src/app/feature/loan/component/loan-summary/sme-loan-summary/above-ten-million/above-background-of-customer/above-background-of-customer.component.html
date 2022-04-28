@@ -10,7 +10,8 @@
             </tr>
             <tr>
                 <td>Firm registration No. and date</td>
-                <td>{{companyInfo?.legalStatus?.registrationNo}}, {{companyInfo?.legalStatus?.registrationDate}}</td>
+                <td>{{companyInfo?.registrationNumber}}, {{companyInfo?.legalStatus?.registrationDate
+                    ? (companyInfo?.legalStatus?.registrationDate | date) : 'N/A'}}</td>
             </tr>
             <tr>
                 <td>Registered at</td>
