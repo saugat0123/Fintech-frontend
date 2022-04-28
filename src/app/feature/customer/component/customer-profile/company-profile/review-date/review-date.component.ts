@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -17,11 +18,12 @@ export class ReviewDateComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   spinner = false;
+  submitData;
+  @Output() reviewDataEmitter = new EventEmitter();
 
   constructor(
       private formBuilder: FormBuilder,
-      private toastService: ToastService,
-      private companyInfoService: CompanyInfoService,
+      private overlay: NgxSpinnerService
   ) { }
 
   get formControls() {
@@ -30,7 +32,7 @@ export class ReviewDateComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
-      this.form.patchValue(this.companyInfo);
+      this.form.patchValue(JSON.parse(this.companyInfo));
     }
   }
   buildForm() {
@@ -42,21 +44,13 @@ export class ReviewDateComponent implements OnInit {
     });
   }
   onSubmit() {
+    this.overlay.show();
     this.submitted = true;
-    if (this.form.invalid) {
-      return;
+    if (!ObjectUtil.isEmpty(this.companyInfo)) {
+      this.submitData = this.companyInfo;
     }
-    this.spinner = true;
-    const existingDetails = JSON.parse(this.formValue.companyJsonData);
-    existingDetails['reviewDate'] = this.form.value;
-    this.formValue.companyJsonData = JSON.stringify(existingDetails);
-    this.companyInfoService.save(this.formValue).subscribe((res) => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Review Date'));
-      this.spinner = false;
-    }, error => {
-        console.log(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Error while saving: ' + error));
-        this.spinner = false;
-    });
+    this.submitData = JSON.stringify(this.form.value);
+    this.overlay.hide();
+    this.reviewDataEmitter.emit(this.submitData);
   }
 }

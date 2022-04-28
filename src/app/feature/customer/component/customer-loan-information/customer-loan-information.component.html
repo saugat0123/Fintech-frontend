@@ -972,11 +972,11 @@
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="companyJsonData?.reviewDate" style="color:green" title="Status : Saved">
+              <span *ngIf="reviewDate" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
                   <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!companyJsonData?.reviewDate" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!reviewDate" class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
               </div>
@@ -994,7 +994,8 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-review-date [formValue]="companyInfo" [companyInfo]="companyJsonData?.reviewDate"></app-review-date>
+              <app-review-date [formValue]="companyInfo" [companyInfo]="reviewDate"
+                               (reviewDataEmitter)="saveReviewDate($event)"></app-review-date>
             </nb-card-body>
           </nb-card>
         </ng-template>
