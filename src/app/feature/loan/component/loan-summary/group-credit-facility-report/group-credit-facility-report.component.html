@@ -47,8 +47,8 @@
                 </td>
                 <td colspan="16">
                     <p>Group Risk Grade:</p>
-                    <p>Group Code: <span class="font-weight-bold">{{mGroupInfo.groupCode}}</span></p>
-                    <p>Group Name: <span class="font-weight-bold">{{mGroupInfo.groupName}}</span></p>
+                    <p>Group Code: <span class="font-weight-bold">{{mGroupInfo?.groupCode}}</span></p>
+                    <p>Group Name: <span class="font-weight-bold">{{mGroupInfo?.groupName}}</span></p>
                 </td>
             </tr>
             <tr class="sb-bg-dark text-white">
@@ -67,7 +67,7 @@
                 <td colspan="6"></td>
             </tr>
             <tr>
-                <th>{{loanDataHolder?.loanHolder.name}}</th>
+                <th>{{loanDataHolder?.loanHolder?.name}}</th>
                 <th>{{loanDataHolder?.loan?.name}}</th>
                 <th>
                     <div
@@ -80,7 +80,7 @@
                 </th>
                 <th>
                     <div
-                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
+                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder?.loan?.isFundable); else dash">
                         {{proposedLimit | currency:'NPR '}}
                     </div>
                     <ng-template #dash>
