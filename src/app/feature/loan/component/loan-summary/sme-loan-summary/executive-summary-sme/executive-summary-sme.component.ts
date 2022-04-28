@@ -13,6 +13,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   securityData: Object;
   shareSecurityData: ShareSecurity = new ShareSecurity();
+  jsonData;
 
   constructor() { }
 
@@ -22,6 +23,9 @@ export class ExecutiveSummarySmeComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
       this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+      this.jsonData = this.loanDataHolder.companyInfo.companyJsonData;
     }
   }
 

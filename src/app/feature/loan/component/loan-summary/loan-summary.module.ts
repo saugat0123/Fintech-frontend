@@ -43,7 +43,6 @@ import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-revi
 import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/mis-nrb-reporting.component';
 import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
 import { ExecutiveSummarySmeComponent } from './sme-loan-summary/executive-summary-sme/executive-summary-sme.component';
-import { ExecutiveRecommendationApprovalComponent } from './sme-loan-summary/executive-summary-sme/executive-recommendation-approval/executive-recommendation-approval.component';
 import { AboveTenMillionComponent } from './sme-loan-summary/above-ten-million/above-ten-million.component';
 import { AboveBackgroundOfCustomerComponent } from './sme-loan-summary/above-ten-million/above-background-of-customer/above-background-of-customer.component';
 import { AssessmentForRequirementOfFundComponent } from './sme-loan-summary/assessment-for-requirement-of-fund/assessment-for-requirement-of-fund.component';
@@ -139,7 +138,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
     ExecutiveSummarySmeComponent,
-    ExecutiveRecommendationApprovalComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
     AssessmentForRequirementOfFundComponent,
@@ -169,7 +167,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
     ExecutiveSummarySmeComponent,
-    ExecutiveRecommendationApprovalComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
     AssessmentForRequirementOfFundComponent,
