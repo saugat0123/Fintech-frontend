@@ -54,7 +54,6 @@ export class MultipleBankingComponent implements OnInit {
             this.patchDate(multiData);
             this.setCheckedData(checkData);
         } else {
-            console.log('else part');
             const consortium = this.multiBankingForm.get('consortium') as FormArray;
             this.bankName.forEach((bn: any) => {
                 consortium.push(this.addConsortium(bn));
@@ -200,12 +199,9 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     checkChecked(checked, type) {
-        console.log('checked', checked);
-        console.log('type', type);
         const swap = this.multiBankingForm.get('bfiSwap') as FormArray;
         const consortium = this.multiBankingForm.get('consortium') as FormArray;
         const mul = this.multiBankingForm.get('multiBanking') as FormArray;
-        console.log(swap.length, consortium.length, mul.length);
         switch (type) {
             case 'swap':
                 if (checked) {

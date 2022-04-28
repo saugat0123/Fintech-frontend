@@ -1,5 +1,6 @@
-<p><strong>Name:</strong> M/S {{loanDataHolder?.companyInfo?.companyName}} (Chairman: Mr/Ms…….., mobile……)
-    All amounts in NPR million (unless otherwise indicated)</p>
+<p><strong>Name:</strong> M/S <b>{{loanDataHolder?.companyInfo?.companyName}}</b>
+    (Mr/Ms: <b>{{contactedPerson[0]?.contactName}}</b>, mobile: <b>{{contactedPerson[0]?.contactNumber}}</b>)</p>
+<p class="float-right">All amounts in NPR million (unless otherwise indicated)</p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
         <td><b>Legal status</b></td>
@@ -100,7 +101,7 @@
         <td>{{commentData?.previousComments}}</td>
         <td>{{commentData?.auditorComments}}</td>
         <td>{{commentData?.nrbComments}}</td>
-        <td>SN</td>
+        <td class="sn">SN</td>
         <td colspan="2">Name</td>
         <td>Designation</td>
         <th>Share(in %)</th>

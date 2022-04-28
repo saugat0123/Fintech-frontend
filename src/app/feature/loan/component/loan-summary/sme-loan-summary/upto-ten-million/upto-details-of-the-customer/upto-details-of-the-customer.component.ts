@@ -26,9 +26,8 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   checkedData;
   multiBankingData;
   commentData;
-  constructor(
-      public datepipe: DatePipe
-  ) { }
+  contactedPerson = [];
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
@@ -41,7 +40,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
       }
-      this.totalsum();
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
         this.multiBankingData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.data);
         this.checkedData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.checkedData);
@@ -50,25 +48,9 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         const oldData = JSON.parse(this.loanDataHolder.loanHolder.data);
         this.commentData = JSON.parse(oldData.data);
       }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+        this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
+      }
     }
-    this.relationshipSinceDate();
    }
-
-  relationshipSinceDate() {
-    let relationG;
-    relationG = this.companyJsonData.relationshipSince;
-    this.relationGroup = this.datepipe.transform(relationG, 'yyyy-MM-dd');
-    let relationC;
-    relationC = this.companyJsonData.relationshipSinceWithCustomer;
-    this.relationCustomer = this.datepipe.transform(relationC, 'yyyy-MM-dd');
-    let regDate;
-    regDate = this.companyInfo.establishmentDate;
-    this.registrationDate = this.datepipe.transform(regDate, 'yyyy-MM-dd');
-  }
-  totalsum() {
-    this.propList.forEach((value) => {
-     const sum1 = value.share;
-     this.sum = this.sum + sum1;
-    });
-  }
 }

@@ -202,7 +202,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   isAboveTenMillion = false;
   isUpToTenMillion = false;
   isDetailedView = false;
+  isSaneView = false;
   radioSelected: any;
+  viewName = ['Sana Byabasahi Karja', 'Upto Ten Million', 'Above Ten Million'];
   tempData;
   companyInfo: CompanyInfo = new CompanyInfo();
   @Input() crgTotalRiskScore: any;
@@ -893,22 +895,25 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   // }
   detailViewCheck() {
     this.isDetailedView = !this.isDetailedView;
+    this.isSaneView = false;
+    this.isAboveTenMillion = false;
+    this.isUpToTenMillion = false;
   }
 
-  isRadioSelected() {
-    if (this.radioSelected === 'sana') {
-      this.isDetailedView = true;
-      this.isUpToTenMillion = false;
-      this.isAboveTenMillion = false;
-    }
-    else if (this.radioSelected === 'upto') {
-      this.isUpToTenMillion = true;
-      this.isAboveTenMillion = false;
-    }
-    else if (this.radioSelected === 'above') {
-      this.isAboveTenMillion = true;
-      this.isUpToTenMillion = false;
-
+  isRadioSelected(event) {
+    this.isSaneView = false;
+    this.isAboveTenMillion = false;
+    this.isUpToTenMillion = false;
+    switch (event) {
+      case 'Sana Byabasahi Karja':
+        this.isSaneView = true;
+        break;
+      case 'Upto Ten Million':
+        this.isUpToTenMillion = true;
+        break;
+      case 'Above Ten Million':
+        this.isAboveTenMillion = true;
+        break;
     }
   }
 }
