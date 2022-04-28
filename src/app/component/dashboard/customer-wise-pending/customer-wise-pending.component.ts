@@ -74,7 +74,7 @@ export class CustomerWisePendingComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
-    clientType = [];
+    clientType: any;
     loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
@@ -342,7 +342,7 @@ export class CustomerWisePendingComponent implements OnInit {
 
         this.modalService.open(template, {
             size: 'xl',
-            windowClass: 'loan-activity full-width modal'
+            windowClass: 'loan-activity full-width modal',
         });
     }
 
