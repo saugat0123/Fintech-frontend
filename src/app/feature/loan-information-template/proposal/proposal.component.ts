@@ -170,26 +170,6 @@ export class ProposalComponent implements OnInit {
                     }));
                 }
             }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
-                this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
-            } else {
-                this.addKeyValue('vehicle');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.realState)) {
-                this.setFormData(this.formDataForEdit.realState, 'realState');
-            } else {
-                this.addKeyValue('realState');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.shares)) {
-                this.setFormData(this.formDataForEdit.shares, 'shares');
-            } else {
-                this.addKeyValue('shares');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.deposit)) {
-                this.setFormData(this.formDataForEdit.deposit, 'deposit');
-            } else {
-                this.addKeyValue('deposit');
-            }
             this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
             this.proposalForm.patchValue(this.formDataForEdit);
             this.setCheckedData(this.checkedDataEdit);
@@ -224,14 +204,6 @@ export class ProposalComponent implements OnInit {
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
-        } else {
-            if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
-                const commonData = JSON.parse(this.customerInfo.commonLoanData);
-                this.setFormData(commonData.vehicle, 'vehicle');
-                this.setFormData(commonData.deposit, 'deposit');
-                this.setFormData(commonData.realState, 'realState');
-                this.setFormData(commonData.shares, 'shares');
-            }
         }
         this.getLoanData();
         if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -973,52 +945,5 @@ export class ProposalComponent implements OnInit {
 
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;
-    }
-
-    openGuarantor(g) {
-        // this.nbService.dismissAll();
-        this.nbService.open(g, {size: 'xl', windowClass: 'modal-xl', backdrop: true});
-    }
-
-    calculate() {
-        let total = this.proposalForm.get('depositBank').value + this.proposalForm.get('depositOther').value;
-        total += this.getArrayTotal('shares');
-        total += this.getArrayTotal('vehicle');
-        total += this.getArrayTotal('realState');
-        total += this.getArrayTotal('deposit');
-        this.proposalForm.get('total').patchValue(total);
-    }
-
-    getArrayTotal(formControl): number {
-        let total = 0;
-        (this.proposalForm.get(formControl).value).forEach((d, i) => {
-            total += d.amount;
-        });
-        return total;
-    }
-
-    setFormData(data, formControl) {
-        const form = this.proposalForm.get(formControl) as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(l => {
-                form.push(this.formBuilder.group({
-                    assets: [l.assets],
-                    amount: [l.amount]
-                }));
-            });
-        }
-    }
-
-    removeValue(formControl: string, index: number) {
-        (<FormArray>this.proposalForm.get(formControl)).removeAt(index);
-    }
-
-    addKeyValue(formControl: string) {
-        (this.proposalForm.get(formControl) as FormArray).push(
-            this.formBuilder.group({
-                assets: undefined,
-                amount: 0,
-            })
-        );
     }
 }
