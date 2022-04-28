@@ -22,6 +22,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 
 @Component({
     selector: 'app-proposal',
@@ -39,6 +40,7 @@ export class ProposalComponent implements OnInit {
     @Input() fromProfile;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
+    @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
@@ -482,6 +484,7 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
+            this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
@@ -1004,8 +1007,8 @@ export class ProposalComponent implements OnInit {
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;
     }
-    openGuarantor(g) {
-        // this.nbService.dismissAll();
-        this.nbService.open(g, {size: 'xl', windowClass: 'modal-xl', backdrop: true});
+
+    setLoanHolder(loan: LoanDataHolder) {
+        this.loan = loan;
     }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
@@ -25,7 +25,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     selectedShareSecurityList: any;
     securityList: any;
     msg = '';
-    @Output() saveShareSecurity = new EventEmitter();
+    @Output() tagSecurityEmitter = new EventEmitter();
 
     selectedSecurities;
     landBuilding = false;
@@ -45,7 +45,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     listSecurities = [{value: 'Land and Building Security'}, {value: 'VehicleSecurity'}];
 
     constructor(private fb: FormBuilder,
-                private securityLoanReferenceService: SecurityLoanReferenceService) {
+                private securityLoanReferenceService: SecurityLoanReferenceService,
+                private change: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -66,6 +67,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.proposedLimit = changes.proposedAmount.currentValue;
+        this.change.detectChanges();
     }
 
     private buildForm(): FormGroup {
@@ -161,7 +163,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
     save() {
         this.loanHolder.selectedArray = JSON.stringify(this.selectedSecurities);
-        this.saveShareSecurity.emit(this.loanHolder);
+        this.tagSecurityEmitter.emit(this.loanHolder);
     }
 
     selectedSecurity() {
@@ -214,6 +216,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
             this.loanHolder.landBuildings.push(security.value);
         }
         this.selectedSecurity();
+        // this.tagSecurityEmitter.emit(this.loanHolder);
     }
 
     private calculateLoanForLandBuildingCoverage(usedAmount): number {
