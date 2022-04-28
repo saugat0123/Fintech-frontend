@@ -177,7 +177,6 @@
                     && ((loanDto?.proposal?.data | jsonParse)?.existingServiceCharge === null)
                     && ((loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
         </td>
-
         <td>
                     <span *ngIf="loanDto.isFundable">
                         BR : {{ (loanDto?.proposal?.data | jsonParse)?.baseRate}} %,
