@@ -36,7 +36,6 @@ export class CompanyOtherDetailComponent implements OnInit {
     }
 
     setData() {
-        console.log(this.companyOtherDetail);
         if (!ObjectUtil.isEmpty(this.companyOtherDetail)) {
             this.companyOtherDetailGroupForm.patchValue(this.companyOtherDetail);
         }
