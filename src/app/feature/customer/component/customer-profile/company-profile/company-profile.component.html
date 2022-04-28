@@ -302,6 +302,25 @@
         </nb-card>
       </div>
     </div>
+    <nb-card accent="primary">
+      <nb-card-body>
+        <nb-accordion>
+          <nb-accordion-item #mReviewAccordion>
+            <nb-accordion-item-header>
+              <div class="row col-md-12">
+                <div class="col-md-6">
+                  <span>Review Dates</span>
+                </div>
+              </div>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <app-review-date [formValue]="companyInfo" [companyInfo]="companyJsonData?.reviewDate"
+                               *ngIf="customerInfo && mReviewAccordion.expanded"></app-review-date>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </nb-card-body>
+    </nb-card>
 
     <!--        //cbs Group-->
     <div class="row" *ngIf="productUtils?.CBS_ENABLE">
@@ -663,25 +682,6 @@
         </table>
 
       </div>
-    </nb-card-body>
-  </nb-card>
-  <nb-card accent="primary">
-    <nb-card-body>
-      <nb-accordion>
-        <nb-accordion-item #mReviewAccordion>
-          <nb-accordion-item-header>
-            <div class="row col-md-12">
-              <div class="col-md-6">
-                <span>Review Dates</span>
-              </div>
-            </div>
-          </nb-accordion-item-header>
-          <nb-accordion-item-body>
-            <app-review-date [formValue]="companyInfo" [companyInfo]="companyJsonData?.reviewDate"
-                             *ngIf="customerInfo && mReviewAccordion.expanded"></app-review-date>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
     </nb-card-body>
   </nb-card>
 </ng-template>
