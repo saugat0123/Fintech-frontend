@@ -5,5 +5,6 @@ export class SecurityLoanReference {
     securityId: number;
     securityType: SecurityType;
     usedAmount: number;
+    coverage: number;
     data: string;
 }
