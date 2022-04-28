@@ -63,7 +63,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
@@ -87,6 +86,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
+import {FeatureModule} from '../feature.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -135,7 +135,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     CustomerAssociateComponent,
-    GuarantorAdderComponent,
     GuarantorDetailComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
@@ -210,7 +209,8 @@ const modules = {
         MicroLoanModule,
         NepaliPatroModule,
         TransferLoanModule,
-        ProductPaperModule
+        ProductPaperModule,
+        FeatureModule
     ],
 
     providers: [
