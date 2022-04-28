@@ -261,8 +261,9 @@
                         </app-retail-financial-performance>
                     </li>
                     <li>
-                        <p><strong>Purpose and Justifaction of Credit Proposal:</strong></p>
-                        <app-retail-purpose-and-justification></app-retail-purpose-and-justification>
+                        <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
+                        <app-retail-purpose-and-justification [loanDataHolder]="loanDataHolder"
+                                                              [proposalData]="proposalData"></app-retail-purpose-and-justification>
                     </li>
                     <li>
                         <div class="row">
@@ -458,8 +459,6 @@
             </div>
             <app-signature-section *ngIf="loaded" [loanDataHolder]="loanDataHolder" [signApprovalOn]="false">
             </app-signature-section> -->
-
-
         </div>
     </nb-card-body>
 </nb-card>

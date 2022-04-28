@@ -708,11 +708,7 @@
                                         <nb-checkbox (change)="checkChecked($event.target.checked,'swapChVar')"
                                                      [checked]="swapChargeVar">Add Variable &nbsp;
                                         </nb-checkbox>
-<!--                                            <input formControlName="swapChargeMethod"-->
-<!--                                                    name="swapChargeMethod" type="radio"-->
-<!--                                                    value="PERCENT"><strong> % </strong>-->
-<!--                                            <input formControlName="swapChargeMethod" name="swapChargeMethod"-->
-<!--                                                   type="radio" value="FLAT"><strong> Flat</strong>-->
+
                                             <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
                                                     class="form-control" formControlName="swapCharge"
                                                     id="swapCharge"

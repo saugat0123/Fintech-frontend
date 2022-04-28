@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./retail-financial-performance.component.scss']
 })
 export class RetailFinancialPerformanceComponent implements OnInit {
-  @Input() loanDataHolder: LoanDataHolder
-  @Input() financialData:any;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() financialData: any;
   constructor() { }
 
   ngOnInit() {
