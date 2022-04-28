@@ -5,6 +5,7 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Auto} from '../../../loan/model/Auto';
 import {LandBuilding} from '../../../loan/model/LandBuilding';
+import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 
 @Component({
     selector: 'app-security-adder',
@@ -40,7 +41,8 @@ export class SecurityAdderComponent implements OnInit {
     isAutoFreeLimitExceed = [];
     isLandBuildingFreeLimitExceed = [];
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+                private securityLoanReferenceService: SecurityLoanReferenceService) {
     }
 
     ngOnInit() {
@@ -194,6 +196,11 @@ export class SecurityAdderComponent implements OnInit {
         }
         this.selectedSecurity();
         }
+
+    private getAllSecurityLoanReference(securityId: number): void {
+
+    }
+
 
         public calcFreeLimitForLandBuilding(index: number, considerValue: number,  value: any): void {
             let freeLimit = considerValue;
