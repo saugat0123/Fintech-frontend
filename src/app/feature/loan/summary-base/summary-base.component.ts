@@ -96,14 +96,15 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
-                this.customerInfoId = this.allId.customerInfoId
+                this.customerInfoId = this.allId.customerInfoId;
                 if (this.allId.catalogue) {
                     this.catalogueStatus = true;
                 }
-                this.customerInfoService.detail(this.customerInfoId).subscribe(res=>{
-                    this.institutionalTotalRiskScore = JSON.parse(res.detail.crgGamma.data).totalPoint;
-                    console.log(this.institutionalTotalRiskScore, "SCORE");
-                })
+                this.customerInfoService.detail(this.customerInfoId).subscribe(res => {
+                    if (!ObjectUtil.isEmpty(res.detail.crgGamma)) {
+                        this.institutionalTotalRiskScore = JSON.parse(res.detail.crgGamma.data).totalPoint;
+                    }
+                });
             });
         this.id = this.activatedRoute.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(
