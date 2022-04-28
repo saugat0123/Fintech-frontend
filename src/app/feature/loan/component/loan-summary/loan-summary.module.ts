@@ -40,7 +40,6 @@ import { CreditFacilityReportComponent } from './credit-facility-report/credit-f
 import { SmeLoanSummaryComponent } from './sme-loan-summary/sme-loan-summary.component';
 import { CurrentStatusTableComponent } from './sme-loan-summary/current-status-table/current-status-table.component';
 import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-review-table/conlusion-review-table.component';
-import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/mis-nrb-reporting.component';
 import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
 import { ExecutiveCurrentStatusComponent } from './sme-loan-summary/executive-summary-sme/executive-current-status/executive-current-status.component';
 import { ExecutiveSecurityArrangementComponent } from './sme-loan-summary/executive-summary-sme/executive-security-arrangement/executive-security-arrangement.component';
@@ -141,7 +140,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
     ExecutiveCurrentStatusComponent,
     ExecutiveSecurityArrangementComponent,
@@ -175,7 +173,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
     ExecutiveCurrentStatusComponent,
     ExecutiveSecurityArrangementComponent,

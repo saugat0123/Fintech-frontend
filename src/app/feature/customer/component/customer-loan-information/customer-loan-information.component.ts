@@ -55,9 +55,8 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
-import {Swot} from '../../../admin/modal/swot';
-import {log} from 'util';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -179,7 +178,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     microCustomerTypeEnum = MicroCustomerType;
     submittedCheck: boolean;
     multiBankingResponse: MultipleBanking;
-    swotResponse: Swot;
       nbDialogRef: NbDialogRef<any>;
       customer: Customer;
     commonLoanData: FormGroup;
@@ -198,6 +196,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     subsidizedLoanChecked = false;
     loanDocument: LoanDataHolder;
     loanTag: string;
+    reviewDate;
 
     constructor(
         private toastService: ToastService,
@@ -208,7 +207,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         private loanFormService: LoanFormService,
         private route: ActivatedRoute,
         private loanConfigService: LoanConfigService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private companyInfoService: CompanyInfoService
 
     ) {
     }
@@ -311,6 +311,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
                 });
         });
+        if (this.companyInfo.companyJsonData) {
+            const mapData = JSON.parse(this.companyInfo.companyJsonData);
+            this.reviewDate = mapData.reviewDate;
+        }
     }
 
     get otherMicroDetailsVisibility() {
@@ -939,5 +943,24 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.buildProposalCommonForm();
     }
 
+
+    saveReviewDate(data: string) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            const existingDetails = JSON.parse(this.companyInfo.companyJsonData);
+            existingDetails['reviewDate'] = data;
+            this.companyInfo.companyJsonData = JSON.stringify(existingDetails);
+            this.companyInfoService.save(this.companyInfo).subscribe((res) => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved review dates'));
+                    this.triggerCustomerRefresh.emit(true);
+                    this.nbDialogRef.close();
+                    this.spinner.hide();
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save review dates'));
+                    this.spinner.hide();
+                });
+        }
+    }
 
 }
