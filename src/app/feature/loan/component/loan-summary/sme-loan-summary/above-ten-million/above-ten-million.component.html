@@ -95,36 +95,7 @@
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
         <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
     </li>
-    <li>
-        <p><strong>MIS/NRB REPORTING </strong></p>
-        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-<!--        <app-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-mis-nrb-reporting>-->
-        <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
-            <app-mis-nrb-reporting
-                    [approved]="true"
-                    *ngIf="loanDataHolder?.reportingInfoLog"
-                    [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-            </app-mis-nrb-reporting>
-        </div>
-        <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-            <span><strong>Loan Reporting Information</strong></span>
-            <app-mis-nrb-reporting
-                    [approved]="false"
-                    *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                    [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-mis-nrb-reporting>
-            <ng-template #noinfo>
-                <p>No any information tagged</p>
-            </ng-template>
-        </div>
-        <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
-            <span><strong>Customer Reporting Information</strong></span>
-            <app-mis-nrb-reporting
-                    [approved]="false"
-                    [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-mis-nrb-reporting>
-        </div>
-
-    </li>
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
         <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>

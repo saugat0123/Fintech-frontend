@@ -55,6 +55,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
+import {CompanyJsonData} from '../../../admin/modal/CompanyJsonData';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -192,6 +193,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     subsidizedLoanChecked = false;
     loanDocument: LoanDataHolder;
     loanTag: string;
+    companyJsonData: CompanyJsonData = new CompanyJsonData();
 
     constructor(
         private toastService: ToastService,
