@@ -226,6 +226,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.selectedLoanType = null;
         this.facilityType = null;
         this.priority = null;
+        this.getCustomerLoans();
     }
 
     openSingleSelectLoanTemplate() {
