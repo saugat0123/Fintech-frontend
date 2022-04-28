@@ -3,12 +3,12 @@
         <div class="row shadow-sm">
 
             <div class="col-md-4">
-                <ng-container *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
+                <ng-container  *ngIf="productUtils?.CBS_ENABLE || sbsGroupEnabled">
                     <strong>Associated Group:</strong>
-                    <span *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
+                    <span *ngIf="!productUtils?.CBS_ENABLE && sbsGroupEnabled">
                     {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
                 </span>
-                    <span *ngIf="productUtils.CBS_ENABLE">
+                    <span *ngIf="productUtils?.CBS_ENABLE">
                     {{customerInfo?.obligor || ' No group has been assigned.'}}
                 </span>
                 </ng-container>
@@ -24,7 +24,7 @@
 
             <div class="offset-4 col-md-4 float-right">
 
-                <div *ngIf="productUtils.CBS_ENABLE">
+                <div *ngIf="productUtils?.CBS_ENABLE">
                     <app-tag-cbs-customer [customerInfo]="customerInfo" *ngIf="customerInfo"
                                           (stringValue)="cbsGroupUpdate($event)">
                     </app-tag-cbs-customer>
@@ -338,7 +338,7 @@
         </div>
 
         <!--        //cbs Group-->
-        <div class="row" *ngIf="productUtils.CBS_ENABLE">
+        <div class="row" *ngIf="productUtils?.CBS_ENABLE">
             <div class="col-md-12">
                 <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
             </div>
@@ -443,105 +443,128 @@
             </nb-card-body>
         </nb-card>
 
-
-            <ng-template #proposal let-data let-ref="dialogRef">
-                <nb-card class="template-css">
-                    <nb-card-header> Loan Form
-                        <a aria-label="Close" class="close cursor"
-                           data-dismiss="modal" (click)="close()">
+        <ng-template #proposal let-data let-ref="dialogRef">
+            <nb-card class="template-css" class="template-css" style="height: 100vh; overflow-y: auto">
+                <nb-card-header> Loan Form
+                    <a aria-label="Close" class="close cursor"
+                       data-dismiss="modal" (click)="close()">
                       <span style="color: red" (click)="close()">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
-                    </nb-card-header>
-                    <nb-card-body>
-                        <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" (emitter)="refreshCustomerInfo()"></app-proposal>
-                    </nb-card-body>
-                </nb-card>
+                </nb-card-header>
+                <nb-card-body>
+                    <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="refreshCustomerInfo()"></app-proposal>
+                </nb-card-body>
+            </nb-card>
         </ng-template>
+
+        <nb-card accent="primary">
+            <nb-card-header>
+                Loan History
+                <div class="float-right" nbTooltip="">Total Loan Amount
+                    : Rs. {{totalLoanProposedAmount | currencyFormatter}}
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                                 [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                                 [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                 [formValue]="customer"></app-customer-group-loan>
+                    </div>
+                </div>
+
+
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="row">
+                    <div class="col" *ngIf=" !isRemarkEdited ">
+                        <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
+                                class="fa fa-edit"></em></a>
+                        <label><b>Within Limit Remarks (if any):</b></label>
+                        {{customer.withinLimitRemarks}}
+                    </div>
+                    <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
+                        <form [formGroup]="basicForm">
+                            <label><b>Within Limit Remarks (if any):</b></label>
+                            <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
+                                      formControlName="withinLimitRemarks"
+                                      (change)="setWithin($event)"></textarea>
+                        </form>
+                        <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
+                            Remark
+                        </button>
+                    </div>
+                </div>
+            </nb-card-footer>
+        </nb-card>
     </nb-card-body>
 </nb-card>
-<nb-card accent="primary">
+<nb-card [nbSpinner]="documentSpinner"  style="overflow-y: auto; height: auto0;">
     <nb-card-header>
-        Loan History
-        <div class="float-right" nbTooltip="">Total Loan Amount
-            : Rs. {{totalLoanProposedAmount | currencyFormatter}}
-        </div>
+        <p><strong>Document</strong></p>
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-md-12">
-                <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                         [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                         [customerInfo]="customerInfo" *ngIf="customerInfo"
-                                         [formValue]="customer"></app-customer-group-loan>
+            <div class="col-md-12" style="overflow-y: auto;min-height: 100px;height: auto;">
+                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                  (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
             </div>
         </div>
-
-
     </nb-card-body>
-    <nb-card-footer>
-        <div class="row">
-            <div class="col" *ngIf=" !isRemarkEdited ">
-                <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                        class="fa fa-edit"></em></a>
-                <label><b>Within Limit Remarks (if any):</b></label>
-                {{customer.withinLimitRemarks}}
-            </div>
-            <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-                <form [formGroup]="basicForm">
-                    <label><b>Within Limit Remarks (if any):</b></label>
-                    <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
-                              formControlName="withinLimitRemarks"
-                              (change)="setWithin($event)"></textarea>
-                </form>
-                <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
-                    Remark
-                </button>
-            </div>
-        </div>
-    </nb-card-footer>
-</nb-card>
-
-<nb-card [nbSpinner] ="documentSpinner">
     <nb-card-body>
-    <div class="row">
-        <div class="col-md-5">
-            <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
-                              (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
-        </div>
-        <div class = "col-md-7">
-            <ngb-tabset [destroyOnHide]="false"  *ngIf="customerLoans?.length > 0">
-                <ngb-tab tabId="0" *ngFor="let loan of customerLoans; let i = index;" [title]="loan?.loan?.shortNames"  [id]="i.toString(10)">
-                 <ng-template ngbTabContent>
-                     <app-customer-loan-document *ngIf="loan?.documentStatus === 'PENDING' || loan?.documentStatus === 'DISCUSSION' || loan?.documentStatus === 'UNDER_REVIEW'" [fromProfile]="true" (documentEmitter)="saveLoan(loan,$event , i)"
-                                                 [loanDataHolder]="loan"
-                                                 [loanType]="loan?.loanType"></app-customer-loan-document>
-                     <ng-container class="col-md-12" *ngIf="loan?.documentStatus === 'APPROVED'">
-                         <ng-container *ngIf="loan?.customerDocument?.length < 1">
-                             NO DOCUMENT available in this loan
-                         </ng-container>
+      <ng-container *ngIf="pendingLoanList?.length > 0">
+          <div class="col-md-12">
+              <p><strong>Pending Loan Document</strong></p>
+          </div>
+          <ng-container *ngFor="let loan of pendingLoanList; let i = index">
+              <nb-card>
+                  <div class="row" style="overflow-y: auto; min-height: 100px; height: auto">
+                      <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
+                          <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
+                                                      [loanDataHolder]="subLoan"
+                                                      [loanType]="subLoan?.loanType"></app-customer-loan-document>
+                      </div>
+                  </div>
+              </nb-card>
+          </ng-container>
+      </ng-container>
+        <hr>
+       <ng-container *ngIf="approvedLoanList?.length > 0">
+           <div class="col-md-12">
 
-                         <div class="col-md-12 ">
-                             <div class="row">
-                                 <div class="col-md-3 img-hover flex-wrap"
-                                      *ngFor="let data of loan?.customerDocument;let i =index"
-                                      [nbTooltip]="data?.document?.displayName">
-                                     <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
-                                             [className]="service.SET_CLASS_NAME"></em>
-                                         <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                                             data?.document?.displayName?.substring(0, 12) + '..' :
-                                             data?.document?.displayName}}</span></a>
-                                 </div>
-                             </div>
-                         </div>
+           </div><p><strong>Approved Document</strong></p>
 
-                     </ng-container>
-                 </ng-template>
+           <ng-container *ngFor="let loan of approvedLoanList; let i = index">
 
-                </ngb-tab>
-            </ngb-tabset>
-        </div>
-    </div>
+               <nb-card>
+                   <nb-card-body>
+                       <div class="row">
+
+                           <div class="col-md-6" *ngFor="let datas of loan">
+                               <ng-container *ngIf="datas?.customerDocument?.length < 1">
+                                   <strong> NO DOCUMENT available in this loan</strong>
+                               </ng-container>
+                               <strong>{{datas?.loan?.name }} {{datas?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{datas?.proposal?.proposedLimit || ''}}</strong>
+                               <div class="col-md-3 img-hover flex-wrap"
+                                    *ngFor="let data of datas?.customerDocument;"
+                                    [nbTooltip]="data?.document?.displayName">
+                                   <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                                           [className]="service.SET_CLASS_NAME"></em>
+                                       <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
+                                           data?.document?.displayName?.substring(0, 12) + '..' :
+                                           data?.document?.displayName}}</span></a>
+                               </div>
+                           </div>
+                       </div>
+
+                   </nb-card-body>
+               </nb-card>
+
+
+           </ng-container>
+       </ng-container>
     </nb-card-body>
 </nb-card>
 <ng-template #uploadConfirm>

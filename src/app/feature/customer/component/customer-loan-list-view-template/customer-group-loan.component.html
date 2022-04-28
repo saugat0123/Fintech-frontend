@@ -53,7 +53,7 @@
 
                                 </td>
                             </tr>
-                            <ng-container *ngIf="toggleArray[i].toggled">
+                            <ng-container *ngIf="model?.combinedLoans">
                                 <tr *ngFor="let single of model?.combinedLoans;let i=index"
                                     class="cursor" style="background-color: #cccccc;">
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>

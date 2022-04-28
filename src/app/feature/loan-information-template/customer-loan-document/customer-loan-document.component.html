@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-    <h3><strong>Loan Documents ({{(loanConfig?.name)?.toUpperCase()}})</strong></h3>
+    <strong>{{loanDataHolder?.loan?.name || 'Loan Document'}} {{loanDataHolder?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loanDataHolder?.proposal?.proposedLimit || ''}}</strong>
   </nb-card-header>
   <nb-card-body>
     <div *ngIf="initialDocuments.length > 0" class="row">

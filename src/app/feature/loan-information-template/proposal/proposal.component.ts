@@ -269,46 +269,56 @@ export class ProposalComponent implements OnInit {
             this.loanId = this.loan.loan.id;
         }
         this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
-            this.minimumAmountLimit = response.detail.minimumProposedAmount;
-            this.collateralRequirement = response.detail.collateralRequirement;
-            this.isFundable = response.detail.isFundable;
-            this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
-            this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
-            this.isGeneral = response.detail.loanTag === 'GENERAL';
-            this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
-            this.isVehicle = response.detail.loanTag === 'VEHICLE';
-            this.loanNature = response.detail.loanNature;
-            if (!ObjectUtil.isEmpty(this.loanNature)) {
-                this.loanNatureSelected = true;
-                this.isTerminating = this.loanNature === 'Terminating';
-                this.isRevolving = this.loanNature === 'Revolving';
-                if (this.isRevolving) {
-                    this.isGeneral = false;
-                }
+            if (!this.fromProfile) {
+                this.loan = new LoanDataHolder();
             }
-            if (!this.isFundable) {
-                this.isGeneral = false;
-            }
-            if (this.isFixedDeposit) {
-                this.loanNatureSelected = false;
-                this.fundableNonFundableSelcted = false;
-            }
-            this.proposalForm.get('proposedLimit').setValidators([Validators.required,
-                MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
-            this.proposalForm.get('proposedLimit').updateValueAndValidity();
-            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-                this.interestLimit = response.detail.interestRate;
-            }
-            this.setCollateralRequirement(this.collateralRequirement);
-            // this.checkLoanConfig();
-            this.setValidatorForPrepaymentField();
-            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-                this.existInterestLimit = response.detail.existInterestRate;
-            }
+            this.loan.loan = response.detail;
+            this.checkLoan();
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+    }
+
+
+    checkLoan() {
+        this.minimumAmountLimit = this.loan.loan.minimumProposedAmount;
+        this.collateralRequirement = this.loan.loan.collateralRequirement;
+        this.isFundable = this.loan.loan.isFundable;
+        this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(this.loan.loan.isFundable);
+        this.isFixedDeposit = this.loan.loan.loanTag === 'FIXED_DEPOSIT';
+        this.isGeneral = this.loan.loan.loanTag === 'GENERAL';
+        this.isShare = this.loan.loan.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loan.loan.loanTag === 'VEHICLE';
+        this.loanNature = this.loan.loan.loanNature;
+        if (!ObjectUtil.isEmpty(this.loanNature)) {
+            this.loanNatureSelected = true;
+            this.isTerminating = this.loanNature === 'Terminating';
+            this.isRevolving = this.loanNature === 'Revolving';
+            if (this.isRevolving) {
+                this.isGeneral = false;
+            }
+        }
+        if (!this.isFundable) {
+            this.isGeneral = false;
+        }
+        if (this.isFixedDeposit) {
+            this.loanNatureSelected = false;
+            this.fundableNonFundableSelcted = false;
+        }
+        this.proposalForm.get('proposedLimit').setValidators([Validators.required,
+            MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
+        this.proposalForm.get('proposedLimit').updateValueAndValidity();
+        if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+            this.interestLimit = this.loan.loan.interestRate;
+        }
+        this.setCollateralRequirement(this.collateralRequirement);
+        // this.checkLoanConfig();
+        this.setValidatorForPrepaymentField();
+        if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+            // this.existInterestLimit = this.loan.existInterestRate;
+
+        }
     }
 
     buildForm() {

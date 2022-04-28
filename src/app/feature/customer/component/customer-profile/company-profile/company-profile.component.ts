@@ -100,6 +100,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         {id: 'L3', name: 'L3'}
     ];
     documentSpinner = false;
+    pendingLoanList = [];
+    approvedLoanList = [];
 
 
     constructor(private companyInfoService: CompanyInfoService,
@@ -115,7 +117,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private utilService: ProductUtilService,
                 private loanFormService: LoanFormService,
                 public service: CommonService,
-                config: NgbModalConfig) {
+                private config: NgbModalConfig) {
         config.backdrop = 'static';
         config.keyboard = false;
     }
@@ -137,11 +139,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.getCustomerInfo(this.customerInfoId);
         });
         this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
-        this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
-            this.customerLoans = [];
-            this.customerLoans = res.detail;
-            // console.log('this is customer loan', this.customerLoans);
-        });
+        this.getCustomerLoans();
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
             // this.nonMicroLoanList = this.loanList;
@@ -409,14 +407,14 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             creditRisk: [undefined, Validators.required],
             documentStatus: ['UNDER_REVIEW']
         });
-
     }
-    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number, ix: number) {
         this.documentSpinner = true;
         loan.customerDocument = document;
         this.loanFormService.save(loan).subscribe((res => {
             this.documentSpinner = false;
-            this.customerLoans[i] = res.detail;
+            this.pendingLoanList[i][ix] = res.detail;
         }));
     }
 
@@ -436,11 +434,46 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 // @ts-ignore
                 this.loan.companyInfo =  this.getCompanyInfo(this.companyInfo.id);
         }
-        const ref = this.modalService.open(proposal, {
+       this.openModal(proposal);
+    }
+
+    openModal(additional) {
+        this.modalService.open(additional, {
             size: 'xl',
             windowClass: 'modal-holder',
             scrollable: true,
         });
     }
 
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
+    }
+    getCustomerLoans() {
+        this.modalService.dismissAll();
+        this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+            const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
+            this.approvedLoanList = this.managedArray(approved);
+            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
+            this.pendingLoanList = this.managedArray(array);
+        });
+    }
 }

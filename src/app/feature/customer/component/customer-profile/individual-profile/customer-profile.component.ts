@@ -130,6 +130,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     loan = new LoanDataHolder();
     customerLoans: LoanDataHolder [];
     documentSpinner = false;
+    approvedLoanList;
+    pendingLoanList;
 
 
 
@@ -148,7 +150,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private utilService: ProductUtilService,
                 private companyInfoService: CompanyInfoService,
                 public service: CommonService,
-                config: NgbModalConfig
+                private config: NgbModalConfig
 
     ) {
         config.backdrop = 'static';
@@ -200,6 +202,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
+        this.getCustomerLoans();
 
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
@@ -212,11 +215,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.sliceLoan();
         this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
-        this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
-            this.customerLoans = [];
-            this.customerLoans = res.detail;
-            console.log('this is customer loan', this.customerLoans);
-        });
+        this.getCustomerLoans();
     }
 
     ngAfterContentInit(): void {
@@ -242,7 +241,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
-
             this.isEditableCustomerData();
             this.spinner = false;
         }, error => {
@@ -466,6 +464,12 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveBasic() {
+        this.customer.withinLimitRemarks = this.basicForm.get('withinLimitRemarks').value;
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.customerCode = this.customerInfo.customerCode;
+        this.customer.gender = this.customerInfo.gender;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -587,15 +591,15 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.loan.loanHolder = this.customerInfo;
         // loan.loanType = LoanType.
         if (!ObjectUtil.isEmpty(this.customer)) {
-            if (CustomerType[this.customer.customerType] === CustomerType.INDIVIDUAL) {
-               // @ts-ignore
-                this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
-            } else {
-               // @ts-ignore
-                this.loan.companyInfo =  this.getCompanyInfo(this.customer.id);
-            }
+                // @ts-ignore
+            this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
+
         }
-        this.modalService.open(proposal, {size: 'xl', windowClass: 'modal-xl', backdrop: false, centered: true});
+        this.modalService.open(proposal, {
+            size: 'xl',
+            windowClass: 'modal-holder',
+            scrollable: true,
+        });
     }
 
     getCustomerInfos(id) {
@@ -610,16 +614,47 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
-    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number) {
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number, ix: number) {
         this.documentSpinner = true;
         loan.customerDocument = document;
         this.customerLoanService.save(loan).subscribe((res => {
-                this.customerLoans[i] = res.detail;
+            this.pendingLoanList[i][ix] = res.detail;
             this.documentSpinner = false;
         }));
     }
 
     close() {
         this.modalService.dismissAll();
+    }
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
+    }
+    getCustomerLoans() {
+        this.modalService.dismissAll();
+        this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+            const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
+            this.approvedLoanList = this.managedArray(approved);
+            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
+            this.pendingLoanList = this.managedArray(array);
+        });
     }
 }
