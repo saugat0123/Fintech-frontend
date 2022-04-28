@@ -67,6 +67,15 @@ textarea, select {
 .white-color{
   color: white;
 }
+.vr {
+  border-left: 0.5px solid black;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 10px;
+  bottom: 10px;
+}
 
 
 
