@@ -22,6 +22,7 @@ import {CreditRiskGradingAlphaComponent} from './loan-information-template/credi
 import {CreditRiskGradingGammaComponent} from './loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {MultipleBankingComponent} from './loan-information-template/multiple-banking/multiple-banking.component';
 import {InstitutionalCrgGammaComponent} from './loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
+import {GuarantorAdderComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-adder.component';
 
 
 @NgModule({
@@ -51,12 +52,15 @@ import {InstitutionalCrgGammaComponent} from './loan-information-template/instit
           CreditRiskGradingAlphaComponent,
           CreditRiskGradingGammaComponent,
           MultipleBankingComponent,
-          InstitutionalCrgGammaComponent
+          InstitutionalCrgGammaComponent,
+          GuarantorAdderComponent
+
 
       ],
       exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
           CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent, MultipleBankingComponent,
-          InstitutionalCrgGammaComponent],
+          InstitutionalCrgGammaComponent,           GuarantorAdderComponent
+      ],
       providers: [SafePipe]
     }
 )
