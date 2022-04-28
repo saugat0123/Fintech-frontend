@@ -418,11 +418,7 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
-            lastReviewDate: [undefined, [Validators.required]],
-            currentExtendedDate: [undefined, [Validators.required]],
-            scheduledReviewDate: [undefined, [Validators.required]],
-            nextReviewDate: [undefined, [Validators.required]],
-            financingPerOfFmv: [undefined]
+
     });
     }
 
@@ -487,10 +483,6 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
-        this.proposalData.lastReviewDate = this.proposalForm.get('lastReviewDate').value;
-        this.proposalData.currentExtendedDate = this.proposalForm.get('currentExtendedDate').value;
-        this.proposalData.scheduledReviewDate = this.proposalForm.get('scheduledReviewDate').value;
-        this.proposalData.nextReviewDate = this.proposalForm.get('nextReviewDate').value;
 
       if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
