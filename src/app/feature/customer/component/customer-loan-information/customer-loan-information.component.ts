@@ -53,6 +53,8 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
+import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
+import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -135,6 +137,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public institutionalCrgGamma: InstitutionalCrgGammaComponent;
     @ViewChild('multipleBankingComponent', {static: false})
     public multipleBankingComponent: MultipleBankingComponent;
+    @ViewChild('riskAnalysisComponent', {static: false})
+    public riskAnalysisComponent: RiskAnalysisComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -732,7 +736,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.multiBankingResponse = new MultipleBanking();
         }
         this.multiBankingResponse = data;
-        console.log('multiBankingResponse', this.multiBankingResponse);
         this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
@@ -744,6 +747,23 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
                 this.spinner.hide();
             });
+    }
+    saveRiskAnalysis(data: string) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.riskAnalysis = data;
+            this.customerInfoService.save(this.customerInfo)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
+                    this.triggerCustomerRefresh.emit(true);
+                    this.nbDialogRef.close();
+                    this.spinner.hide();
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
+                    this.spinner.hide();
+                });
+        }
     }
 
     buildProposalCommonForm() {
