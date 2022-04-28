@@ -493,10 +493,10 @@
             <div class="row">
 
               <div class="col-md-6" *ngFor="let datas of loan">
-                <strong>{{datas?.loan?.name}} {{datas?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{datas?.proposal?.proposedLimit || ''}}</strong>
-                <ng-container *ngIf="datas?.customerDocument?.length < 1">
-                  <strong> NO DOCUMENT available in this loan</strong>
-                </ng-container>
+                <strong>{{datas?.loan?.name}}</strong> <em>{{datas?.proposal?.proposedLimit ? ' Proposed Limit: ' : ''}} <mark>{{datas?.proposal?.proposedLimit || ''}}</mark></em>
+                <span *ngIf="datas?.customerDocument?.length < 1">
+                  <br> NO DOCUMENT AVAILABLE
+                </span>
                 <div class="col-md-3 img-hover flex-wrap"
                      *ngFor="let data of datas?.customerDocument;let i =index"
                      [nbTooltip]="data?.document?.displayName">
