@@ -102,6 +102,7 @@ export class ProposalComponent implements OnInit {
     ];
     groupExposureData;
     isAllExposureFieldNull = false;
+    firstTimeHomeBuyerChecked = false;
     files = [];
     incomeFromAccountDataResponse;
     purposes: Array<string> = [
@@ -299,6 +300,7 @@ export class ProposalComponent implements OnInit {
         this.isGeneral = this.loan.loan.loanTag === 'GENERAL';
         this.isShare = this.loan.loan.loanTag === 'SHARE_SECURITY';
         this.isVehicle = this.loan.loan.loanTag === 'VEHICLE';
+        this.isHomeLoan = this.loan.loan.loanTag === 'HOME_LOAN';
         this.loanNature = this.loan.loan.loanNature;
         if (!ObjectUtil.isEmpty(this.loanNature)) {
             this.loanNatureSelected = true;
@@ -501,6 +503,7 @@ export class ProposalComponent implements OnInit {
                 purposeChecked: this.purposeChecked,
                 debtChecked: this.debtChecked,
                 netChecked: this.netChecked,
+                firstTimeHomeBuyerChecked: this.firstTimeHomeBuyerChecked
             };
             this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -653,6 +656,13 @@ export class ProposalComponent implements OnInit {
                 this.netChecked = event;
             }
                 break;
+            case 'firstTimeHomeBuyer':
+                if (event) {
+                  this.firstTimeHomeBuyerChecked = true;
+                } else {
+                  this.firstTimeHomeBuyerChecked = false;
+                }
+                break;
         }
     }
 
@@ -664,6 +674,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['swapChargeVar'], 'swapChVar');
+      this.checkChecked(data['firstTimeHomeBuyerChecked'], 'firstTimeHomeBuyer');
     }
   }
 
@@ -784,7 +795,6 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').clearValidators();
       this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
-
     }
   }
 

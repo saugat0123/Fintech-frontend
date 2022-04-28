@@ -57,6 +57,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     individualData: any;
     incomeSource: any;
     financialData: any;
+    proposalData: any;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -86,6 +87,10 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.individualData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
                 console.log(this.individualData);
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+                this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
+                console.log(this.proposalData);
             }
             this.loaded = true;
             this.id = this.loanDataHolder.id;
