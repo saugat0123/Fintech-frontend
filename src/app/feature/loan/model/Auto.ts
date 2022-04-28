@@ -25,4 +25,6 @@ export class Auto extends BaseEntity {
     freeLimit: number;
 
     usedAmount: number;
+
+    coverage: number;
 }

@@ -40,6 +40,7 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @Output() emitter = new EventEmitter();
+    proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: any;
@@ -648,6 +649,7 @@ export class ProposalComponent implements OnInit {
     }
 
     checkRepaymentMode() {
+        this.proposedLimit = this.proposalForm.get('proposedLimit').value;
         if (this.showInstallmentAmount) {
             this.proposalForm.get('interestAmount').patchValue(0);
             const repaymentMode = this.proposalForm.get('repaymentMode').value;

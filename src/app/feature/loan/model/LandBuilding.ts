@@ -23,5 +23,6 @@ export class LandBuilding extends BaseEntity {
     data: string;
     freeLimit: number;
     usedAmount: number;
+    coverage: number;
 
 }

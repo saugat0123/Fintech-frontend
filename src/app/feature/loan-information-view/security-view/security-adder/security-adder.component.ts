@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
@@ -12,13 +12,15 @@ import {SecurityLoanReferenceService} from '../../../security-service/security-l
     templateUrl: './security-adder.component.html',
     styleUrls: ['./security-adder.component.scss']
 })
-export class SecurityAdderComponent implements OnInit {
+export class SecurityAdderComponent implements OnInit, OnChanges {
     form: FormGroup;
     @Input() security;
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
     @Input() customerInfo: CustomerInfoData;
     @Input() loanHolder: LoanDataHolder;
+    @Input() proposedAmount: number;
+    proposedLimit: number;
     customerShareData: any;
     selectedShareSecurityList: any;
     securityList: any;
@@ -40,6 +42,7 @@ export class SecurityAdderComponent implements OnInit {
     approvedShareSecurity: any;
     isAutoFreeLimitExceed = [];
     isLandBuildingFreeLimitExceed = [];
+    listSecurities = [{value: 'Land and Building Security'}, {value: 'VehicleSecurity'}];
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService) {
@@ -49,8 +52,8 @@ export class SecurityAdderComponent implements OnInit {
         this.buildForm();
         // this.customerShareData = this.shareSecurityData.customerShareData;
         // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
-        if (!ObjectUtil.isEmpty(this.loanHolder.selectedArray)) {
-            this.selectedSecurities = JSON.parse(this.loanHolder.selectedArray);
+        if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
+            this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray);
             this.selectedSecurity();
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
@@ -59,6 +62,10 @@ export class SecurityAdderComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.autos)) {
             this.setAutoDetail();
         }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.proposedLimit = changes.proposedAmount.currentValue;
     }
 
     private buildForm(): FormGroup {
@@ -100,6 +107,7 @@ export class SecurityAdderComponent implements OnInit {
                 registerOffice: [singleData.registerOffice],
                 sheetNo: [singleData.sheetNo],
                 usedAmount: [singleData.usedAmount],
+                coverage: [singleData.coverage],
             }));
         });
     }
@@ -121,6 +129,7 @@ export class SecurityAdderComponent implements OnInit {
                 model: [singleData.model],
                 quotationAmount: [singleData.quotationAmount],
                 usedAmount: [singleData.usedAmount],
+                coverage: [singleData.coverage],
                 vehicalValuator: [singleData.vehicalValuator],
             }));
         });
@@ -187,15 +196,37 @@ export class SecurityAdderComponent implements OnInit {
 
     }
 
-    public tagSecurity(security: any, key): void {
+    public tagSecurity(security: any, key, idx: number): void {
         if (key === 'auto') {
+            if (this.loanHolder.autos.length > 0) {
+                this.loanHolder.autos.splice(idx, 1);
+            }
+            const coverage = this.calculateLoanForAutoBuildingCoverage(security.value.usedAmount);
+            this.form.get(['autoForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.autos.push(security.value);
         }
         if (key === 'landBuilding') {
+            if (this.loanHolder.landBuildings.length > 0) {
+                this.loanHolder.landBuildings.splice(idx, 1);
+            }
+            const coverage = this.calculateLoanForLandBuildingCoverage(security.value.usedAmount);
+            this.form.get(['landBuildingForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.landBuildings.push(security.value);
         }
         this.selectedSecurity();
-        }
+    }
+
+    private calculateLoanForLandBuildingCoverage(usedAmount): number {
+        let coverage = 0;
+        coverage = (usedAmount / this.proposedLimit) * 100;
+        return coverage;
+    }
+
+    private calculateLoanForAutoBuildingCoverage(usedAmount): number {
+        let coverage = 0;
+        coverage = (usedAmount / this.proposedLimit) * 100;
+        return coverage;
+    }
 
     private getAllSecurityLoanReference(securityId: number): void {
 

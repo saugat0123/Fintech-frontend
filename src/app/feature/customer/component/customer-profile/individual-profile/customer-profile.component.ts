@@ -573,7 +573,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             priority: [undefined, Validators.required],
             approvingLevel: [undefined, Validators.required],
             creditRisk: [undefined, Validators.required],
-            documentStatus: ["UNDER_REVIEW"]
+            documentStatus: ['UNDER_REVIEW']
         });
 
     }

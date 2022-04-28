@@ -1,15 +1,18 @@
 <nb-card>
     <nb-card-header class="text-center">
         <div class="row mt-3">
-            <div class="col-md-6 input-group-prepend">
-                <nb-select placeholder="Select  Security" fullWidth #selectedShareSecurity
-                           (selectedChange)="selectedSecurity()"
+            <div class="col-md-4">
+                <div class="text-left">
+                    <label>Select Security</label>
+                </div>
+                <select class="form-control"
+                           (change)="selectedSecurity()"
                            [(ngModel)]="selectedSecurities">
-                    <nb-option *ngFor="let shareSecurity of( customerInfo?.selectedArray | jsonParse)"
-                               [value]="shareSecurity">
-                        {{shareSecurity}}
-                    </nb-option>
-                </nb-select>
+                    <option *ngFor="let security of( customerInfo?.selectedArray | jsonParse)"
+                               [value]="security">
+                        {{security}}
+                    </option>
+                </select>
             </div>
 
         </div>
@@ -64,8 +67,8 @@
                             <th>Engine Number</th>
                             <th>Considered Value</th>
                             <th>Manufactured Year</th>
+                            <th>Free Limit</th>
                             <td>Amount to Use</td>
-                            <td>Free Limit Left</td>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -78,15 +81,16 @@
                                 <td>{{auto.get('engineNumber').value}}</td>
                                 <td>Rs. {{(auto.get('considerValue').value)}}</td>
                                 <td>{{auto.get('manufactureYear').value | date}}</td>
+                                <td>{{auto.get('freeLimit').value === null ?
+                                    auto.get('considerValue').value : auto.get('freeLimit').value}}</td>
                                 <td>
                                     <input type="number" formControlName="usedAmount" class="form-control"
                                            (input)="calculateFreeLimitForAuto(i,auto.get('considerValue').value,
                                             auto.get('usedAmount').value)">
                                 </td>
-                                <td>{{auto.get('freeLimit').value}}</td>
                                 <td>
-                                    <button *ngIf="!autoId?.includes(auto.get('id').value)" nbButton size="small"
-                                            (click)="tagSecurity(auto, 'auto')" [disabled]="isAutoFreeLimitExceed[i]">
+                                    <button  nbButton size="small"
+                                            (click)="tagSecurity(auto, 'auto', i)" [disabled]="isAutoFreeLimitExceed[i]">
                                         <i class="fa fa-plus"></i></button>
                                 </td>
                             </ng-container>
@@ -96,7 +100,6 @@
                 </div>
                 <div class="col-md-12" *ngIf="landBuilding">
                     <p><strong>Land Building Details</strong></p>
-<!--                    <form [formGroup]="form">-->
                         <table
                                 class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                             <thead>
@@ -106,8 +109,8 @@
                                 <th>Fair Market Value</th>
                                 <th>Government Rate</th>
                                 <th>Geo Location</th>
+                                <th>Free Limit</th>
                                 <th>Amount to Use</th>
-                                <th>Free Limit Left</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -118,24 +121,24 @@
                                     <td>{{landBuilding.get('considerValue').value}}</td>
                                     <td>{{landBuilding.get('marketValue').value}}</td>
                                     <td>{{landBuilding.get('governmentRate').value}}</td>
-                                    <td>{{landBuilding.get('geoLocation').value}}
+                                    <td>{{landBuilding.get('geoLocation').value}}</td>
+                                    <td>{{landBuilding.get('freeLimit').value === null ?
+                                        landBuilding.get('considerValue').value : landBuilding.get('freeLimit').value}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
                                             (input)="calcFreeLimitForLandBuilding(i,landBuilding.get('considerValue').value,
                                              landBuilding.get('usedAmount').value)">
                                     </td>
-                                    <td>{{landBuilding.get('freeLimit').value}}</td>
                                     <td>
                                         <button nbButton size="small"
-                                                *ngIf="!landBuildingId?.includes(landBuilding.get('id').value)"
-                                                (click)="tagSecurity(landBuilding, 'landBuilding')" [disabled]="isLandBuildingFreeLimitExceed[i]"><i
+                                                (click)="tagSecurity(landBuilding, 'landBuilding', i)"
+                                                [disabled]="isLandBuildingFreeLimitExceed[i]"><i
                                                 class="fa fa-plus"></i></button>
                                     </td>
                                 </ng-container>
                             </tr>
                             </tbody>
                         </table>
-<!--                    </form>-->
                 </div>
                 </form>
             </div>
