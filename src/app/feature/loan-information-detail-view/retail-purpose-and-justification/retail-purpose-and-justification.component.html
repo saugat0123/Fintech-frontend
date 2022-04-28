@@ -2,11 +2,11 @@
     <p><span [innerHTML]="proposalData?.borrowerInformation || 'N/A' | safeHtml"></span></p>
     <p><span [innerHTML]="proposalData?.purposeOfLoan || 'N/A' | safeHtml"></span></p>
 </div>
-<p class="font-weight-bold mt-3" *ngIf="isHomeLoan">(If incase the Borrower is first home buyer)</p>
-<p *ngIf="isHomeLoan">Mrs. <span [innerHTML]="loanDataHolder?.loanHolder?.name || 'N/A' | safeHtml"></span> is first home buyer. As per the NRB circular we can finance upto 70%. But we are financing only
+<p class="font-weight-bold mt-3" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">(If incase the Borrower is first home buyer)</p>
+<p *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Mr/Mrs. <span [innerHTML]="loanDataHolder?.loanHolder?.name || 'N/A' | safeHtml"></span> is first home buyer. As per the NRB circular we can finance upto 70%. But we are financing only
     <span [innerHTML]="proposalData?.financingPerOfFmv || 'N/A' | safeHtml"></span>% of FMV.</p>
-<p *ngIf="isHomeLoan">Note: As per Unified NRB Directive 3/076, clause number 10, drawdown has been allowed up to 70% is allowed in case of fulfillment of below mentioned criteria;</p>
-<table class="table table-bordered sb-small" *ngIf="isHomeLoan">
+<p *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Note: As per Unified NRB Directive 3/076, clause number 10, drawdown has been allowed up to 70% is allowed in case of fulfillment of below mentioned criteria;</p>
+<table class="table table-bordered sb-small" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">
     <tr class="sb-bg-dark text-white">
         <th>S.N</th>
         <th>Particulars</th>
