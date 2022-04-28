@@ -84,4 +84,5 @@ export class CustomerInfoData {
     multiBanking: MultipleBanking;
     commonLoanData: string;
     riskAnalysis: string;
+    swotAnalysis: string;
 }

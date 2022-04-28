@@ -23,4 +23,5 @@ export class TemplateName {
   static COMMENTS = 'Comments';
   static PREVIOUS_SECURITY = 'previousSecurity';
   static MULTI_BANKING = 'multiBanking';
+  static SWOT_ANALYSIS = 'swot';
 }
