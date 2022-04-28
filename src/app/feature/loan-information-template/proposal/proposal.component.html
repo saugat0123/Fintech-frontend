@@ -922,86 +922,36 @@
                       [config]="ckeConfig"></ckeditor>
         </div>
     </div>
-<!--    <div class="col-md-12">-->
-<!--        <div class="form-group">-->
-<!--            <nb-checkbox (change)="checkChecked($event.target.checked,'net')"-->
-<!--                         [checked]="netChecked"><b>Net Worth</b>-->
-<!--            </nb-checkbox>-->
-<!--            <table *ngIf="netChecked"-->
-<!--                   class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
-<!--                <thead>-->
-<!--                <tr class="sb-bg-dark text-white">-->
-<!--                    <th>Assets</th>-->
-<!--                    <th>Amount</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody class="text-left">-->
-<!--                <tr>-->
-<!--                    <td colspan="1"><b>Deposit</b></td>-->
-<!--                    <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>-->
-<!--                </tr>-->
-<!--                <tr *ngFor="let controls of proposalForm?.get('deposit')['controls'];let i = index" formArrayName="deposit">-->
-<!--                    <ng-container [formGroupName]="i">-->
-<!--                        <td><input nbInput type="text" formControlName="assets"></td>-->
-<!--                        <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>-->
-<!--                    </ng-container>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td colspan="1"><b>Shares & Securities</b></td>-->
-<!--                    <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>-->
-<!--                </tr>-->
-<!--                <tr *ngFor="let controls of proposalForm?.get('shares')['controls'];let i = index" formArrayName="shares">-->
-<!--                    <ng-container [formGroupName]="i">-->
-<!--                        <td><input nbInput type="text" formControlName="assets"></td>-->
-<!--                        <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>-->
-<!--                    </ng-container>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td><b>Real Estate (Land and Building)</b></td>-->
-<!--                    <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>-->
 
-<!--                </tr>-->
-
-<!--                <tr *ngFor="let controls of proposalForm?.get('realState')['controls'];let i = index" formArrayName="realState">-->
-<!--                    <ng-container [formGroupName]="i">-->
-<!--                        <td><input nbInput type="text" formControlName="assets"></td>-->
-<!--                        <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="proposalForm?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>-->
-<!--                    </ng-container>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td><b>Vehicles</b></td>-->
-<!--                    <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>-->
-<!--                </tr>-->
-<!--                <tr *ngFor="let controls of proposalForm?.get('vehicle')['controls'];let i = index" formArrayName="vehicle">-->
-<!--                    <ng-container [formGroupName]="i">-->
-<!--                        <td><input nbInput type="text" formControlName="assets"></td>-->
-<!--                        <td>-->
-<!--                            <input nbInput type="number" (change)="calculate()" formControlName="amount">-->
-<!--                            <a *ngIf="proposalForm?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>-->
-<!--                        </td>-->
-<!--                    </ng-container>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="text-right"><b>Total:</b></td>-->
-<!--                    <td><input nbInput formControlName="total" (change)="calculate()" type="number"></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="text-right"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b></td>-->
-<!--                    <td><input nbInput formControlName="totals"  type="number"></td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-
-<!--            </table>-->
-
-<!--        </div>-->
-<!--    </div>-->
 </ng-container>
                             </div>
 
 
                         </form>
                     </div>
-                    <ng-container  *ngIf="fromProfile">
+                    <ng-container>
+                        <div class="col-md-12">
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        Credit Risk Score
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                        <app-credit-risk-grading-gamma  #crgGamma
+                                                                        [formData]="loan?.crgGamma"
+                                                                       [fromProfile]="true"
+                                                                       [loanConfigId]="loan?.loan?.id"
+                                                                        (crgDataEmitter)="setIndividualCrgGamma($event)"
+                                                                       ></app-credit-risk-grading-gamma>
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+
+
+                            </nb-accordion>
+                        </div>
+                    </ng-container>
+                    <br>
+                    <ng-container  *ngIf="fromProfile" >
                         <div class="col-md-12">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
@@ -1009,6 +959,8 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-container>
+
+
                     <!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->
                     <button class="float-right" nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>
                 </nb-card-body>
