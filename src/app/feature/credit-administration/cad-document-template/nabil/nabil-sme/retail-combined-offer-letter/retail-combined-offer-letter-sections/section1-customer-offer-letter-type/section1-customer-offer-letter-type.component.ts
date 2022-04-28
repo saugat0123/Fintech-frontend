@@ -14,7 +14,6 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   form: FormGroup;
   tempData;
   loanOption;
-  isHomeLoan;
   loanData;
   assignedData;
   loanName;
@@ -34,15 +33,6 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
     }
     this.loanOption = this.tempData.retailGlobalForm.loanType;
     this.fillForm();
-  }
-  private checkloan(): void {
-    if (this.loanData.length > 0) {
-      this.loanData.forEach(v => {
-        if (v === 'HOME LOAN COMBINED') {
-          this.isHomeLoan = true;
-        }
-      });
-    }
   }
   buildForm() {
     return this.form = this.formBuilder.group({
