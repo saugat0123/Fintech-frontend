@@ -53,6 +53,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
+import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
 
 @Component({
     selector: 'app-customer-loan-information',
