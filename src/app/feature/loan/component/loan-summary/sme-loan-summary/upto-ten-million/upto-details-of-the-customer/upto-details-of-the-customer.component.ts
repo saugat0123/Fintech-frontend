@@ -14,7 +14,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
-  relationGroup;
   relationCustomer;
   registrationDate;
   companyLocation;

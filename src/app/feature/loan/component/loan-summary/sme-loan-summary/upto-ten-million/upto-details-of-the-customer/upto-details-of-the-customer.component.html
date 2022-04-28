@@ -31,8 +31,8 @@
         <td colspan="2">For FY {{companyInfo?.otherCompanyDetail?.firmRenew}}</td>
         <td><b>A/C strategy</b> </td>
         <td></td>
-        <td colspan="2">{{relationGroup}}</td>
-        <td>{{relationCustomer}}</td>
+        <td colspan="2">{{companyJsonData?.relationshipSince ? (companyJsonData?.relationshipSince | date) : 'N/A'}}</td>
+        <td>{{companyJsonData?.relationshipSinceWithCustomer ? (companyJsonData?.relationshipSinceWithCustomer | date) : 'N/A'}}</td>
     </tr>
     <tbody>
     <tr>
@@ -41,7 +41,11 @@
             <span [innerHTML]="companyJsonData?.lineOfBusiness"></span>
         </td>
         <td><b>Banking Arrangement</b></td>
-        <td colspan="4">{{checkedData?.swapChecked}}</td>
+        <td colspan="4">
+            {{checkedData?.swapChecked ? 'Swap' : ''}},
+            {{checkedData?.consortiumChecked ? 'Consortium' : ''}},
+            {{checkedData?.multiBankingChecked ? 'MultiBanking' : ''}}
+        </td>
     </tr>
     <tr>
         <td>Particular</td>

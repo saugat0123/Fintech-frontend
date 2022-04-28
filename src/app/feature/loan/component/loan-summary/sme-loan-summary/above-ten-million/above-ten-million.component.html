@@ -20,7 +20,12 @@
     <li>
         <p class="text-uppercase"><strong>Group Exposure with CCBL (as of dd/mm/yyyy)</strong></p>
         <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-m-group-summary>
-<!--        <app-above-group-exposure-with-ccbl></app-above-group-exposure-with-ccbl>-->
+    </li>
+    <li>
+        <p class="text-uppercase"><strong>Proposal View</strong></p>
+        <app-proposal-view [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"> </app-proposal-view>
     </li>
     <li>
         <p class="text-uppercase"><strong>The Bank's SOL</strong></p>
