@@ -11,8 +11,8 @@
         <td>dd/mm/yyyy</td>
     </tr>
     <tr>
-        <td><b>Group</b></td>
-        <td colspan="2">{{mGroup?.groupName}}</td>
+        <td><b>Group(Name, Code)</b></td>
+        <td colspan="2">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</td>
         <td><b>VAT /PAN No.</b></td>
         <td>{{companyInfo?.vatNo}}/{{companyInfo?.panNumber}}</td>
         <td colspan="2" style="text-align: center">Banking with CCBL since</td>
@@ -59,7 +59,7 @@
         <td colspan="2">
             Date: {{loanDataHolder?.loanHolder?.cicl?.cibDate
             ? (loanDataHolder?.loanHolder?.cicl?.cibDate | date) : 'N/A'}}; <br>
-            Status: Clean/Overdue</td>
+            Status: {{ciclData[ciclData?.length - 1]?.status}}</td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[0]?.coBankName}}</td>
             <td>{{multiBankingData?.consortium[0]?.funded}}</td>
