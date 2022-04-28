@@ -31,7 +31,6 @@ export class CustomerGeneralDocumentService extends BaseService<Object> {
 
     public uploadMultipleDoc(formData: FormData): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-multiple-document`);
-        console.log(formData.getAll('file'));
         return this.http.post(req.url, formData, {headers: req.header});
     }
 

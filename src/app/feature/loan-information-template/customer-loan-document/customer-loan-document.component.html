@@ -46,7 +46,7 @@
                             </td>
 
                             <td *ngIf="document?.checked" align="center">
-                           <span *ngIf="document?.url && fromProfile" class="col-md-3 img-hover flex-wrap"
+                           <span *ngIf="document?.url" class="col-md-3 img-hover flex-wrap"
                                  [nbTooltip]="document?.displayName">
                   <a (click)="service.openDocument(document?.url)" class="cursor"><em
                           [className]="service.SET_CLASS_NAME"></em>
