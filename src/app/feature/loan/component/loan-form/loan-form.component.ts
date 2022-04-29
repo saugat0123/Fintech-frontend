@@ -381,7 +381,7 @@ export class LoanFormComponent implements OnInit {
         });
       }
 
-      // Remove Customer Info Template for Business Loan Type
+      // Remove Customer Info and CRG Gamma Template for Business Loan Type
       if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
         this.templateList.forEach((value, i) => {
           if (value.name === 'Customer Info') {

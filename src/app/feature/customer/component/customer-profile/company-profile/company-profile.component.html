@@ -534,7 +534,7 @@
 </ng-template>
 
 <ng-template #additionalInformation>
-  <nb-card accent="primary">
+  <nb-card accent="primary" style="overflow-y: auto">
     <nb-card-header>
     <strong> Additional Information</strong>
       <a aria-label="Close" class="close cursor"
@@ -618,27 +618,10 @@
             <strong>SWOT Analysis</strong>
           </div>
         </div>
-
         <br>
-        <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
-          <tr>
-            <td class="sb-bg-dark text-white"> Strengths</td>
-            <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-          </tr>
-          <tr>
-            <td class="sb-bg-dark text-white"> Weaknesses</td>
-            <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-          </tr>
-          <tr>
-            <td class="sb-bg-dark text-white"> Opportunities</td>
-            <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-          </tr>
-          <tr>
-            <td class="sb-bg-dark text-white"> Threats</td>
-            <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
-          </tr>
-        </table>
-
+        <div class="col-md-12">
+          <app-above-swot-analysis [customerInfo] = "customerInfo"></app-above-swot-analysis>
+        </div>
       </div>
     </nb-card-body>
   </nb-card>

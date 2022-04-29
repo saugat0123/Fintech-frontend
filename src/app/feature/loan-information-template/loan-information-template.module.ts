@@ -45,6 +45,7 @@ import {FixAssetCollateralComponent} from './security/security-initial-form/fix-
 import {AngularDraggableModule} from 'angular2-draggable';
 import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
+import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -81,8 +82,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        SwotAnalysisComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, SwotAnalysisComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

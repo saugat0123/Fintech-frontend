@@ -54,8 +54,8 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
-import {CompanyJsonData} from '../../../admin/modal/CompanyJsonData';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -137,6 +137,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public multipleBankingComponent: MultipleBankingComponent;
     @ViewChild('riskAnalysisComponent', {static: false})
     public riskAnalysisComponent: RiskAnalysisComponent;
+    @ViewChild('swotAnalysisComponent', {static: false})
+    public swotAnalysisComponent: SwotAnalysisComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -738,13 +740,30 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.customerInfo.riskAnalysis = data;
             this.customerInfoService.save(this.customerInfo)
                 .subscribe(() => {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved risk analysis'));
                     this.triggerCustomerRefresh.emit(true);
                     this.nbDialogRef.close();
                     this.spinner.hide();
                 }, error => {
                     console.error(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save risk analysis'));
+                    this.spinner.hide();
+                });
+        }
+    }
+    saveSwotAnalysis(data: string) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.swotAnalysis = data;
+            this.customerInfoService.save(this.customerInfo)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved swot analysis'));
+                    this.triggerCustomerRefresh.emit(true);
+                    this.nbDialogRef.close();
+                    this.spinner.hide();
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save swot analysis'));
                     this.spinner.hide();
                 });
         }
@@ -779,26 +798,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
-            if (!ObjectUtil.isEmpty(commonData.vehicle)) {
-                this.setFormData(commonData.vehicle, 'vehicle');
-            } else {
-                this.addKeyValue('vehicle');
-            }
-            if (!ObjectUtil.isEmpty(commonData.realState)) {
-                this.setFormData(commonData.realState, 'realState');
-            } else {
-                this.addKeyValue('realState');
-            }
-            if (!ObjectUtil.isEmpty(commonData.shares)) {
-                this.setFormData(commonData.shares, 'shares');
-            } else {
-                this.addKeyValue('shares');
-            }
-            if (!ObjectUtil.isEmpty(commonData.deposit)) {
-                this.setFormData(commonData.deposit, 'deposit');
-            } else {
-                this.addKeyValue('deposit');
-            }
         }
     }
 
@@ -915,46 +914,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.checkChecked(data['netChecked'], 'net');
         }
     }
-    removeValue(formControl: string, index: number) {
-        (<FormArray>this.commonLoanData.get(formControl)).removeAt(index);
-    }
-    addKeyValue(formControl: string) {
-        (this.commonLoanData.get(formControl) as FormArray).push(
-            this.formBuilder.group({
-                assets: undefined,
-                amount: 0,
-            })
-        );
-    }
-    calculate() {
-        let total = this.commonLoanData.get('depositBank').value + this.commonLoanData.get('depositOther').value;
-        total += this.getArrayTotal('shares');
-        total += this.getArrayTotal('vehicle');
-        total += this.getArrayTotal('realState');
-        total += this.getArrayTotal('deposit');
-        this.commonLoanData.get('total').patchValue(total);
-    }
-    getArrayTotal(formControl): number {
-        let total = 0;
-        (this.commonLoanData.get(formControl).value).forEach((d, i) => {
-            total += d.amount;
-        });
-        return total;
-    }
+
     ngOnChanges(changes: SimpleChanges): void {
         this.buildProposalCommonForm();
     }
-    setFormData(data, formControl) {
-        const form = this.commonLoanData.get(formControl) as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(l => {
-                form.push(this.formBuilder.group({
-                    assets: [l.assets],
-                    amount: [l.amount]
-                }));
-            });
-        }
-    }
+
 
     saveReviewDate(data: string) {
         this.spinner.show();
