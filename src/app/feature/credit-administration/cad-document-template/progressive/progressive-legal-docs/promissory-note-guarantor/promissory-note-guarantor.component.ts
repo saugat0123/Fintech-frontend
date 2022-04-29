@@ -60,9 +60,9 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
           /*if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             this.setGuarantorDetails(initialInfo.guarantorDetails);
           }*/
-          if (initialInfo.witnessDetails) {
+          /*if (initialInfo.witnessDetails) {
             this.setWitnessDetails(initialInfo.witnessDetails);
-          }
+          }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
