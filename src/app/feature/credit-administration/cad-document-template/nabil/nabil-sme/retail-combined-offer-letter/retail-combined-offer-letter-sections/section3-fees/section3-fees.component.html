@@ -65,29 +65,33 @@
                         </ng-container>
                     </td>
                 </tr>
-                <tr *ngIf="loanName === 'PERSONAL OVERDRAFT COMBINED' || loanName === 'NABIL SAHAYATRI KARJA' || loanName === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED' || loanName === 'SHARE LOAN DEMAND COMBINED'">
+                <tr>
                     <td><strong>ऋण प्रतिबद्धता शुल्क </strong></td>
                     <td>
                         <div>
-                            स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
-                            <input class="form-field form-control-sm d-print-none"
-                                   name="PODPercentage"
-                                   formControlName="PODPercentage"
-                                   value="०.१५"
-                                   type="text"/>
-                            <span class="print-only">{{'______________________'}}</span>
-                            प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                            <ng-container *ngIf="!isPersonalOD || !isNabilSahayatri || !isPersonalWoCollateral || !isShareLoan">
+                                स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="PODPercentage"
+                                       formControlName="PODPercentage"
+                                       value="०.१५"
+                                       type="text"/>
+                                <span class="print-only">{{'______________________'}}</span>
+                                प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                            </ng-container>
                             <br>
-                            अल्पकालिन तथा चालु पुञजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा
-                            सिमाको औसत ६० प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको
-                            <input class="form-field form-control-sm d-print-none"
-                                   name="PODPercentage"
-                                   formControlName="PODPercentage"
-                                   value="०.१५"
-                                   type="text"/>
-                            <span class="print-only">{{'______________________'}}</span> प्रतिशतका
-                            दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु
-                            पर्ने छ ।
+                            <ng-container *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral || isShareLoan">
+                                अल्पकालिन तथा चालु पुञजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा
+                                सिमाको औसत ६० प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="PODPercentage"
+                                       formControlName="PODPercentage"
+                                       value="०.१५"
+                                       type="text"/>
+                                <span class="print-only">{{'______________________'}}</span> प्रतिशतका
+                                दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु
+                                पर्ने छ ।
+                            </ng-container>
                         </div>
                     </td>
                 </tr>
@@ -123,12 +127,12 @@
                                 सम्मको कर्जाका लागि रु. २,५००/- र रु. एक करोड भन्दा माथिको कर्जाका लागि रु. ५,०००/-
                                 परिवर्तन/संशोधन शुल्क लाग्नेछ ।
                             </li>
-                            <li *ngIf="this.loanName === 'Auto Loan'">
+                            <li *ngIf="isAutoLoan">
                                 धितो सुरक्षणमा रहेको चल सम्पत्तीहरु सुरक्षित कारोबार ऐन २०६३ बमोजिम बैंकले सम्बन्धित
                                 निकायमा विवरण दर्ता (रजिष्ट्रेशन) गराउने तथा सोमा संसोधन र निरन्तरता कायम गराउन सक्ने
                                 अधिकार बैंकलाई प्रदान गरिएको मानिनेछ ।
                             </li>
-                            <li *ngIf="this.loanName === 'Auto Loan'">
+                            <li *ngIf="isAutoLoan">
                                 शेयर फुक्का बापत प्रती कम्पनी रु ५०० शुल्क लाग्नेछ । उक्त शुल्क ऋणीको खातामा खर्च जनाई
                                 कट्टा गरी लिईनेछ ।
                             </li>

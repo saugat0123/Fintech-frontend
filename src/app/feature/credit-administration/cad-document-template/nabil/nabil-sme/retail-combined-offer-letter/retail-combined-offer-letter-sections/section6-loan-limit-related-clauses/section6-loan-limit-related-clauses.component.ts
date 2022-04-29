@@ -11,9 +11,18 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   @Input() cadData;
   form: FormGroup;
   tempData;
-  loanName;
+  loanName: Array<any> = new Array<any>();
   assignedData;
   isOthers: boolean;
+  isMortgageLoan: boolean;
+  isHomeLoan: boolean;
+  isAutoLoan: boolean;
+  isPersonalLoan: boolean;
+  isShareLoan: boolean;
+  isPersonalOD: boolean;
+  isPersonalWoCollateral: boolean;
+  isNabilShareLoan: boolean;
+  isNabilSahayatri: boolean;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -31,15 +40,45 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   }
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.assignedData = this.cadData.assignedLoan[0];
-      this.loanName = this.assignedData.loan.name;
-      if (this.loanName === 'EDUCATION LOAN COMBINED') {
-        this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
-          if (val.countryName === 'OTHERS') {
-            this.isOthers = true;
-          }
-        });
-      }
+      this.assignedData = this.cadData.assignedLoan.forEach(value => {
+        this.loanName.push(value.loan.name);
+      });
+      this.loanName.forEach(value => {
+        if (value === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
+        }
+        if (value === 'EDUCATION LOAN COMBINED') {
+          this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
+            if (val.countryName === 'OTHERS') {
+              this.isOthers = true;
+            }
+          });
+        }
+        if (value === 'HOME LOAN COMBINED') {
+          this.isHomeLoan = true;
+        }
+        if (value === 'MORTGAGE LOAN COMBINED') {
+          this.isMortgageLoan = true;
+        }
+        if (value === 'NABIL SAHAYATRI KARJA') {
+          this.isNabilSahayatri = true;
+        }
+        if (value === 'NABIL SHARE LOAN POD COMBINED') {
+          this.isNabilShareLoan = true;
+        }
+        if (value === 'PERSONAL LOAN COMBINED') {
+          this.isPersonalLoan = true;
+        }
+        if (value === 'PERSONAL OVERDRAFT COMBINED') {
+          this.isPersonalOD = true;
+        }
+        if (value === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          this.isPersonalWoCollateral = true;
+        }
+        if (value === 'SHARE LOAN DEMAND COMBINED') {
+          this.isShareLoan = true;
+        }
+      });
     }
     this.form.patchValue({
       totalLimitInFigure: this.tempData.retailGlobalForm.totalLimitInFigureCT ? this.tempData.retailGlobalForm.totalLimitInFigureCT : '',
