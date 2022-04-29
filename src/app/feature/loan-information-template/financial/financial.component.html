@@ -360,66 +360,13 @@
                                       [value]="field?.description">{{field?.description}}
                             </nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="(submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid"
+                        <div *ngIf="(submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid"
                              class="invalid-feedback">
-                            Sales - Projection Vs Achievement is required
+                          Profile of Auditors is required
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 border-bottom border-dark mb-4">
-                    <div class="form-group">
-                        <label class="title"><strong>Sales - Projection Vs Achievement</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="salesProjectionVsAchievement"
-                                        id="salesProjectionVsAchievement"
-                                        name="salesProjectionVsAchievement"
-                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid }">
-                            <nb-radio *ngFor="let field of salesProjectionVsAchievementArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="(submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid"
-                             class="invalid-feedback">
-                            Sales - Projection Vs Achievement is required
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 border-bottom border-dark mb-4">
-                    <div class="form-group">
-                        <label class="title"><strong>Net Worth of Firm/Company</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="netWorthOfFirmOrCompany"
-                                        id="netWorthOfFirmOrCompany"
-                                        name="netWorthOfFirmOrCompany"
-                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm.get('netWorthOfFirmOrCompany').invalid }">
-                            <nb-radio *ngFor="let field of netWorthOfFirmOrCompanyArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="(submitted) && financialForm.get('netWorthOfFirmOrCompany').invalid"
-                             class="invalid-feedback">
-                            Net Worth of Firm/Company is required
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="title"><strong>Tax Compliance</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="taxCompliance"
-                                        id="taxCompliance"
-                                        name="taxCompliance"
-                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm.get('taxCompliance').invalid }">
-                            <nb-radio *ngFor="let field of taxComplianceArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="(submitted) && financialForm.get('taxCompliance').invalid"
-                             class="invalid-feedback">
-                            Tax Compliance is required
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </nb-card-body>
     </nb-card>
