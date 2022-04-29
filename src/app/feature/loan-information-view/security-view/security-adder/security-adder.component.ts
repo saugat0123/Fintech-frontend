@@ -59,6 +59,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
             this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray);
             this.selectedSecurity();
+            this.toggleSecurity();
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.landBuildings)) {
             this.setLandBuildingDetail();
@@ -109,9 +110,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                 municipalityVdc: [singleData.municipalityVdc],
                 plotNumber: [singleData.plotNumber],
                 province: [singleData.province],
+                usedAmount: [undefined],
                 registerOffice: [singleData.registerOffice],
                 sheetNo: [singleData.sheetNo],
-                usedAmount: [singleData.usedAmount],
                 coverage: [singleData.coverage],
             }));
         });
@@ -133,7 +134,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                 manufactureYear: [singleData.manufactureYear],
                 model: [singleData.model],
                 quotationAmount: [singleData.quotationAmount],
-                usedAmount: [singleData.usedAmount],
+                usedAmount: [undefined],
                 coverage: [singleData.coverage],
                 vehicalValuator: [singleData.vehicalValuator],
             }));
@@ -170,7 +171,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     selectedSecurity() {
-        this.toggleArray = [];
         this.landBuilding = false;
         this.auto = false;
         this.share = false;
@@ -182,7 +182,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                         this.loanHolder.landBuildings.forEach((da: any) => {
                             this.landBuildingId.push(da.id);
                         });
-                        this.setToggled(this.customerInfo.landBuildings);
                     }
                 }
                     break;
@@ -195,12 +194,27 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                             this.autoId.push(da.id);
                         });
                     }
-                    this.setToggled(this.customerInfo.autos);
                 }
                     break;
                 default :
                     return;
             }
+
+    }
+    toggleSecurity() {
+        this.toggleArray = [];
+        switch (this.selectedSecurities) {
+            case 'Land and Building Security': {
+                this.setToggled(this.customerInfo.landBuildings);
+            }
+                break;
+            case 'VehicleSecurity': {
+                this.setToggled(this.customerInfo.autos);
+            }
+                break;
+            default :
+                return;
+        }
 
     }
 
