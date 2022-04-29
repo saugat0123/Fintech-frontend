@@ -892,10 +892,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   detailViewCheck() {
-    this.isDetailedView = !this.isDetailedView;
-    this.isSaneView = false;
-    this.isAboveTenMillion = false;
-    this.isUpToTenMillion = false;
+    if (this.isDetailedView) {
+      this.isDetailedView = false;
+      this.isSaneView = false;
+      this.isAboveTenMillion = false;
+      this.isUpToTenMillion = false;
+    } else {
+      this.isDetailedView = true;
+    }
   }
 
   isRadioSelected(event) {

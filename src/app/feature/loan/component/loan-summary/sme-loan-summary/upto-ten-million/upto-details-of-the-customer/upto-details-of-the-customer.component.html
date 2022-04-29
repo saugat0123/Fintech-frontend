@@ -48,11 +48,11 @@
         </td>
     </tr>
     <tr>
-        <td>Particular</td>
-        <td>FB</td>
-        <td>NFB</td>
-        <td>TL</td>
-        <td>Total</td>
+        <th>Particular</th>
+        <th>FB</th>
+        <th>NFB</th>
+        <th>TL</th>
+        <th>Total</th>
     </tr>
     <tr>
         <td><b>CIC Report</b></td>
@@ -83,13 +83,12 @@
     </tbody>
 
     <tr>
-        <td colspan="2"><b>Rating/NRB Classification/risk weight</b></td>
+        <td colspan="3"><b>Rating/NRB Classification/risk weight</b></td>
         <td><b>Total</b></td>
         <td>{{multiBankingData?.totalFunded}}</td>
         <td>{{multiBankingData?.totalNonFunded}}</td>
         <td>{{multiBankingData?.totalTermLoan}}</td>
         <td>{{multiBankingData?.totalTotal}}</td>
-        <td>{{multiBankingData?.totalPercent}}</td>
     </tr>
     <tbody>
     <tr>
@@ -97,17 +96,14 @@
         <td><b>External (name)</b></td>
         <td><b>NRB</b></td>
         <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
-        <!--            <td>{{propList[0]?.name}}</td>-->
-        <!--            <td>{{propList[0]?.type}}</td>-->
-        <!--            <td>{{propList[0]?.share}}</td>-->
     </tr>
     <tr>
         <td>{{commentData?.previousComments}}</td>
         <td>{{commentData?.auditorComments}}</td>
         <td>{{commentData?.nrbComments}}</td>
-        <td class="sn">SN</td>
-        <td colspan="2">Name</td>
-        <td>Designation</td>
+        <th class="sn">SN</th>
+        <th colspan="2">Name</th>
+        <th>Designation</th>
         <th>Share(in %)</th>
     </tr>
     </tbody>

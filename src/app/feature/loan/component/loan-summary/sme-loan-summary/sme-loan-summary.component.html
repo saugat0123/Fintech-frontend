@@ -159,7 +159,7 @@
             <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
                 <div class="col-md-6">
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
-                        (click)="detailViewCheck()">DETAILED VIEW</button>
+                        (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
                 </div>
                 <div class="col-md-12 mt-4" style="margin-left: 0.3rem" *ngIf="isDetailedView">
                     <nb-radio-group class="d-flex" (valueChange)="isRadioSelected($event)">
