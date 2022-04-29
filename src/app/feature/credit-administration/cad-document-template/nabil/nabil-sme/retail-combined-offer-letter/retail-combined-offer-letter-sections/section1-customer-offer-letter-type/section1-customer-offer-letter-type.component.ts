@@ -59,11 +59,13 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
       this.reqDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.requestLetterDateNepaliCT : '';
     }
     // for previous sanction date
-    if (this.tempData.retailGlobalForm.previousSanctionLetterDateType === 'AD') {
-      const prevSanctionDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDate : '';
-      this.prevDate = this.engNepDatePipe.transform(this.datepipe.transform(prevSanctionDate), true);
-    } else {
-      this.prevDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDateNepali.nDate : '';
+    if (!ObjectUtil.isEmpty(this.tempData.retailGlobalForm.previousSanctionLetterDateType)) {
+      if (this.tempData.retailGlobalForm.previousSanctionLetterDateType === 'AD') {
+        const prevSanctionDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDate : '';
+        this.prevDate = this.engNepDatePipe.transform(this.datepipe.transform(prevSanctionDate), true);
+      } else {
+        this.prevDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDateNepali.nDate : '';
+      }
     }
     this.form.patchValue({
       requestLetterDate: this.reqDate ? this.reqDate : '',

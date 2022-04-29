@@ -45,7 +45,7 @@ export class Section3FeesComponent implements OnInit {
         });
       }
       if (this.loanName === 'EDUCATION LOAN COMBINED') {
-        this.tempData.educationLoanCombinedForm.educationLoanCombinedFormArray.forEach(val => {
+        this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
           if (val.interestRateType === 'FIXED_INTEREST') {
             this.isFixed = true;
           }if (val.interestRateType === 'FLOATING_INTEREST') {
@@ -72,7 +72,7 @@ export class Section3FeesComponent implements OnInit {
         });
       }
       if (this.loanName === 'MORTGAGE LOAN COMBINED') {
-        this.tempData.mortgageCombineLoanForm.mortgageCombineLoanFormArray.forEach(val => {
+        this.tempData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
           if (val.interestRateType === 'FIXED_INTEREST') {
             this.isFixed = true;
           }if (val.interestRateType === 'FLOATING_INTEREST') {
