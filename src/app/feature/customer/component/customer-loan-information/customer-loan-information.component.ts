@@ -454,7 +454,6 @@ export class CustomerLoanInformationComponent implements OnInit {
                 jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
                 this.customer.jointInfo = JSON.stringify(jointInfo);
             }
-            console.log('this is client', this.customer.customerType);
             if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
                 bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
