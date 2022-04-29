@@ -340,30 +340,29 @@
                                     <strong>BACKGROUND INFORMATION:</strong><br>
                                     <strong>5.1 BUSINESS:</strong>
                                 </p>
-<!--                                <p class="text-justify" style="margin-top: -10px">-->
-<!--                                    (Details of business operations – nature of business, product ranges, installed and running-->
-<!--                                    capacity, product market, market presence, supply chain, buyers and sellers, business operating-->
-<!--                                    tenure, previous business extension/expansion, manpower used, innovative technology/equipment used,-->
-<!--                                    scientific research and development etc, wherever applicable.)-->
-<!--                                </p>-->
                                 <div class="p-2 background-info col-md-12">
                                     <span [innerHTML]="tempData?.companyBackgroundBusiness | safeHtml"></span>
                                 </div>
                                 <p class="mt-2">
                                     <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
                                 </p>
-<!--                                <p class="text-justify" style="margin-top: -10px">-->
-<!--                                    (Promoter/key person’s family background, education, experiences in related fields, history of-->
-<!--                                    business ownership and management, net-worth, social standings, other related businesses or occupation etc.)</p>-->
                                 <div class="p-2 background-info col-md-12">
                                     <span [innerHTML]="tempData?.promotersKeyPersons | safeHtml"></span></div>
                             </li>
                             <li class="mt-3">
-                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>
+                                <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong>
+                                <app-proposal-view [proposalData]="loanDataHolder?.proposal"
+                                                   [loanDataHolder]="loanDataHolder"
+                                                   [customerAllLoanList]="customerAllLoanList"></app-proposal-view>
+<!--                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>-->
                             </li>
-                            <li>
+                            <li *ngIf="loanDataHolder?.security">
                                 <strong>SECURITY ARRANGEMENT</strong>
-                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>
+                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"
+                                                   [securityId]="loanDataHolder?.security?.id"
+                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"
+                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+<!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
                             <li>
                                 <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)

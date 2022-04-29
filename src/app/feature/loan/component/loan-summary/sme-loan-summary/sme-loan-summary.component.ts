@@ -441,9 +441,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     // setting share-secuirty data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
       this.shareSecuritySummary = true;
-      this.shareSecurityData = JSON.parse(
-        this.loanDataHolder.shareSecurity.data
-      );
+      this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
     }
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.currentIndex = this.loanDataHolder.previousList.length;
