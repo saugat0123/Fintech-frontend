@@ -135,6 +135,7 @@ export class ProposalComponent implements OnInit {
     customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
+    customerType: any;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -199,7 +200,8 @@ export class ProposalComponent implements OnInit {
                     this.allId = {
                         loanId: null,
                         customerId: null,
-                        loanCategory: null
+                        loanCategory: null,
+                        customerType: null,
                     };
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
@@ -263,6 +265,7 @@ export class ProposalComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+        this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
     }
 
 
