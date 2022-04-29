@@ -441,9 +441,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     // setting share-secuirty data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
       this.shareSecuritySummary = true;
-      this.shareSecurityData = JSON.parse(
-        this.loanDataHolder.shareSecurity.data
-      );
+      this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
     }
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.currentIndex = this.loanDataHolder.previousList.length;
@@ -890,14 +888,16 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.hidePreviewButton = false;
     }
   }
-  // toggle(checked: boolean) {
-  //   this.isDetailedView = checked;
-  // }
+
   detailViewCheck() {
-    this.isDetailedView = !this.isDetailedView;
-    this.isSaneView = false;
-    this.isAboveTenMillion = false;
-    this.isUpToTenMillion = false;
+    if (this.isDetailedView) {
+      this.isDetailedView = false;
+      this.isSaneView = false;
+      this.isAboveTenMillion = false;
+      this.isUpToTenMillion = false;
+    } else {
+      this.isDetailedView = true;
+    }
   }
 
   isRadioSelected(event) {
