@@ -44,7 +44,7 @@ export class CommonSectionTopRetailComponent implements OnInit {
   fillform() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan[0];
-      this.refNum = this.assignedData.refNo;
+      this.refNum = this.assignedData.refNo ? this.assignedData.refNo : '';
     }
     // Sanction-letter-date
     // tslint:disable-next-line:max-line-length
