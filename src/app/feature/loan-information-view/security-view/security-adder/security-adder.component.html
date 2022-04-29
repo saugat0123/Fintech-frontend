@@ -20,40 +20,40 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row mt-5">
-            <div class="col-md-12" *ngIf="share">
-                <p><strong>Share Security Details</strong></p>
-                <table
-                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>S.N</th>
-                        <th>Name of Company</th>
-                        <th>Share Type</th>
-                        <th>Share Unit</th>
-                        <th>Rate</th>
-                        <th>Total Value</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let shareSecurity of approvedShareSecurity; let i= index">
-                        <td>{{i + 1}}</td>
-                        <td>{{shareSecurity?.companyName}}</td>
-                        <td>{{shareSecurity?.shareType}}</td>
-                        <td>{{shareSecurity?.totalShareUnit}}</td>
-                        <td>{{shareSecurity?.amountPerUnit}}</td>
-                        <td>{{shareSecurity?.totalShareUnit * shareSecurity.amountPerUnit}}</td>
-                        <td>
-                            <button (click)="removeShareSecurity(shareSecurity)"
-                                    class="btn btn-sm btn-flat btn-danger">
-                                <em class="fa fa-trash bg-transparent"></em>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div>
+<!--            <div class="col-md-12" *ngIf="share">-->
+<!--                <p><strong>Share Security Details</strong></p>-->
+<!--                <table-->
+<!--                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                    <thead>-->
+<!--                    <tr class="text-white sb-bg-dark">-->
+<!--                        <th>S.N</th>-->
+<!--                        <th>Name of Company</th>-->
+<!--                        <th>Share Type</th>-->
+<!--                        <th>Share Unit</th>-->
+<!--                        <th>Rate</th>-->
+<!--                        <th>Total Value</th>-->
+<!--                        <th>Action</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let shareSecurity of approvedShareSecurity; let i= index">-->
+<!--                        <td>{{i + 1}}</td>-->
+<!--                        <td>{{shareSecurity?.companyName}}</td>-->
+<!--                        <td>{{shareSecurity?.shareType}}</td>-->
+<!--                        <td>{{shareSecurity?.totalShareUnit}}</td>-->
+<!--                        <td>{{shareSecurity?.amountPerUnit}}</td>-->
+<!--                        <td>{{shareSecurity?.totalShareUnit * shareSecurity.amountPerUnit}}</td>-->
+<!--                        <td>-->
+<!--                            <button (click)="removeShareSecurity(shareSecurity)"-->
+<!--                                    class="btn btn-sm btn-flat btn-danger">-->
+<!--                                <em class="fa fa-trash bg-transparent"></em>-->
+<!--                            </button>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--            <div>-->
                 <form [formGroup]="form">
                 <div class="col-md-12" *ngIf="auto">
                     <p><strong>Auto Details</strong></p>
@@ -92,7 +92,7 @@
                                 </td>
                                 <td>
                                     <a class="px-2 cursor"
-                                       (click)="getSecurityDetails(auto?.get('id').value, i);"
+                                       (click)="toggleArray[i].toggled = !this.toggleArray[i].toggled"
                                        nbTooltip="click to view detail security">
                                         <em class="fa fa-eye"></em>
                                     </a>
@@ -103,9 +103,11 @@
                             </ng-container>
                         </tr>
                         <tr>
-                            <ng-container *ngIf="toggleArray[i].toggled" >
-                                <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
-                            </ng-container>
+                            <td colspan="9">
+                                <ng-container *ngIf="toggleArray[i].toggled" >
+                                    <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                </ng-container>
+                            </td>
                         </tr>
                         </ng-container>
 
@@ -147,7 +149,7 @@
                                     </td>
                                     <td>
                                         <a class="px-2 cursor"
-                                           (click)="getSecurityDetails(landBuilding?.get('id').value, i)"
+                                           (click)="this.toggleArray[i].toggled = !this.toggleArray[i].toggled"
                                            nbTooltip="click to view detail security">
                                             <em class="fa fa-eye"></em>
                                         </a>
@@ -159,9 +161,11 @@
                                 </ng-container>
                             </tr>
                                 <tr>
-                                    <ng-container *ngIf="toggleArray[i].toggled" >
-                                        <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
-                                    </ng-container>
+                                    <td colspan="9">
+                                        <ng-container *ngIf="toggleArray[i].toggled" >
+                                            <app-security-tagged-component [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                        </ng-container>
+                                    </td>
                                 </tr>
                             </ng-container>
                             </tbody>
@@ -240,7 +244,7 @@
                 </table>
             </div>
 
-        </div>
+<!--        </div>-->
     </nb-card-body>
 </nb-card>
 

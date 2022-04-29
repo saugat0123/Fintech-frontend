@@ -260,22 +260,23 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
             this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
         }
 
-        setToggled(array) {
+    setToggled(array) {
         this.toggleArray = [];
-        array.forEach(() => this.toggleArray.push({toggled: false, security: null}));
-        }
+        array.forEach((a, i) => {
+            this.toggleArray.push({toggled: false, security: null});
+            this.getSecurityDetails(a.id, i);
+        });
+    }
 
-    getSecurityDetails(id, index) {
-        this.toggleArray[index].toggled = !this.toggleArray[index].toggled;
-        if (this.toggleArray[index].toggled) {
-            this.spinner = true;
+    getSecurityDetails(id, i) {
+        this.spinner = true;
+
             this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
                 this.spinner = false;
-                this.toggleArray[index].security = res.detail;
+                this.toggleArray[i].security = res.detail;
             }, (err) => {
                 this.spinner = false;
             });
-        }
 
     }
 }
