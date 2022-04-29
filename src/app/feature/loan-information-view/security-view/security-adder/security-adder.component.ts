@@ -32,7 +32,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     auto = false;
     share = false;
     autoId = [];
-    landBuildingId  = [];
+    landBuildingId = [];
     autoSecurity: Auto;
     landBuildingSecurity: LandBuilding;
     considerValue = 0;
@@ -53,6 +53,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log('proposed amount ::', this.proposedAmount);
+        console.log('proposed amount ::', this.proposedLimit);
+        console.log('Loan Holder::', this.loanHolder);
         this.buildForm();
         // this.customerShareData = this.shareSecurityData.customerShareData;
         // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
@@ -165,6 +168,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         return array.indexOf(array.filter(
             d => d.id === id));
     }
+
     save() {
         this.loanHolder.selectedArray = JSON.stringify(this.selectedSecurities);
         this.tagSecurityEmitter.emit(this.loanHolder);
@@ -174,33 +178,34 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         this.landBuilding = false;
         this.auto = false;
         this.share = false;
-            switch (this.selectedSecurities) {
-                case 'Land and Building Security': {
-                    this.landBuilding = true;
-                    this.landBuildingId = [];
-                    if (!ObjectUtil.isEmpty(this.loanHolder.landBuildings)) {
-                        this.loanHolder.landBuildings.forEach((da: any) => {
-                            this.landBuildingId.push(da.id);
-                        });
-                    }
+        switch (this.selectedSecurities) {
+            case 'Land and Building Security': {
+                this.landBuilding = true;
+                this.landBuildingId = [];
+                if (!ObjectUtil.isEmpty(this.loanHolder.landBuildings)) {
+                    this.loanHolder.landBuildings.forEach((da: any) => {
+                        this.landBuildingId.push(da.id);
+                    });
                 }
-                    break;
-                case 'VehicleSecurity': {
-                    this.auto = true;
-                    if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
-                        this.auto = true;
-                        this.autoId = [];
-                        this.loanHolder.autos.forEach((da: any) => {
-                            this.autoId.push(da.id);
-                        });
-                    }
-                }
-                    break;
-                default :
-                    return;
             }
+                break;
+            case 'VehicleSecurity': {
+                this.auto = true;
+                if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
+                    this.auto = true;
+                    this.autoId = [];
+                    this.loanHolder.autos.forEach((da: any) => {
+                        this.autoId.push(da.id);
+                    });
+                }
+            }
+                break;
+            default :
+                return;
+        }
 
     }
+
     toggleSecurity() {
         this.toggleArray = [];
         switch (this.selectedSecurities) {
@@ -251,28 +256,27 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         return coverage;
     }
 
-    private getAllSecurityLoanReference(securityId: number): void {
-
+    public calcFreeLimitForLandBuilding(index: number, considerValue: number, usedAmount: number): void {
+        let freeLimit = considerValue;
+        freeLimit -= usedAmount;
+        this.totalFreeLimit = considerValue;
+        this.totalFreeLimit -= usedAmount;
+        const coverage = (usedAmount / this.proposedLimit) * 100;
+        this.isLandBuildingFreeLimitExceed[index] = this.totalFreeLimit < 0;
+        this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
+        this.form.get(['landBuildingForm', index, 'coverage']).setValue(coverage.toFixed(2));
     }
 
-
-        public calcFreeLimitForLandBuilding(index: number, considerValue: number,  value: any): void {
-            let freeLimit = considerValue;
-            freeLimit -= value;
-            this.totalFreeLimit = considerValue;
-            this.totalFreeLimit -= value;
-            this.isLandBuildingFreeLimitExceed[index] = this.totalFreeLimit < 0;
-            this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
-        }
-
-        public calculateFreeLimitForAuto(index: number, considerValue: number,  value: any): void {
-            let freeLimit = considerValue;
-            freeLimit -= value;
-            this.totalFreeLimitAuto = considerValue;
-            this.totalFreeLimitAuto -= value;
-            this.isAutoFreeLimitExceed[index] = this.totalFreeLimitAuto < 0;
-            this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
-        }
+    public calculateFreeLimitForAuto(index: number, considerValue: number, usedAmount: number): void {
+        let freeLimit = considerValue;
+        freeLimit -= usedAmount;
+        this.totalFreeLimitAuto = considerValue;
+        this.totalFreeLimitAuto -= usedAmount;
+        const coverage = (usedAmount / this.proposedLimit) * 100;
+        this.isAutoFreeLimitExceed[index] = this.totalFreeLimitAuto < 0;
+        this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
+        this.form.get(['autoForm', index, 'coverage']).setValue(coverage.toFixed(2));
+    }
 
     setToggled(array) {
         this.toggleArray = [];
@@ -284,13 +288,11 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
 
     getSecurityDetails(id, i) {
         this.spinner = true;
-
-            this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
-                this.spinner = false;
-                this.toggleArray[i].security = res.detail;
-            }, (err) => {
-                this.spinner = false;
-            });
-
+        this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
+            this.spinner = false;
+            this.toggleArray[i].security = res.detail;
+        }, (err) => {
+            this.spinner = false;
+        });
     }
 }
