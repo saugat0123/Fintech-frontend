@@ -203,7 +203,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
-        this.customerService.detail(this.customerInfo.associateId).subscribe((res)=>{
+        this.customerService.detail(this.customerInfo.associateId).subscribe((res) => {
             this.customer = res.detail;
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
@@ -472,17 +472,19 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
-        if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
-            const jointInfo = JSON.parse(this.customer.jointInfo);
-            jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
-            this.customer.jointInfo = JSON.stringify(jointInfo);
+        if(!ObjectUtil.isEmpty(data.cibRemark)) {
+            if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
+                const jointInfo = JSON.parse(this.customer.jointInfo);
+                jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+                this.customer.jointInfo = JSON.stringify(jointInfo);
+            }
+            if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+                const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
+                bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+                this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
+            }
+            this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
         }
-            if (ObjectUtil.isEmpty(this.customer.individualJsonData) && ObjectUtil.isEmpty(this.customer.jointInfo)) {
-            const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
-            bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
-            this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
-        }
-        this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
         this.customer.clientType = this.customerInfo.clientType;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
