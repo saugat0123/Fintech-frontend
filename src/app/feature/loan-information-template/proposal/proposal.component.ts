@@ -447,7 +447,10 @@ export class ProposalComponent implements OnInit {
     }
 
     onSubmit() {
-        this.crgGammaComponent.onSubmit();
+        if (this.customerType === 'INDIVIDUAL')
+        {
+            this.crgGammaComponent.onSubmit();
+        }
         // Proposal Form Data--
         this.submitted = true;
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
