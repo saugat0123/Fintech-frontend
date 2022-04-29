@@ -1,6 +1,16 @@
-<nb-card>
-    <app-common-section-top-retail [cadData]= "customerApprovedDoc"></app-common-section-top-retail>
-    <app-section1-customer-offer-letter-type [cadData]= "customerApprovedDoc"></app-section1-customer-offer-letter-type>
-    <app-section3-fees [cadData]= "customerApprovedDoc"></app-section3-fees>
-    <app-section5-interest-rated-related-clauses [cadData]= "customerApprovedDoc"></app-section5-interest-rated-related-clauses>
-</nb-card>
+<div class="text-justify">
+    <nb-card [nbSpinner]="spinner">
+        <nb-card-header>
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <app-common-section-top-retail [cadData]= "customerApprovedDoc"></app-common-section-top-retail>
+            <app-section1-customer-offer-letter-type [cadData]= "customerApprovedDoc"></app-section1-customer-offer-letter-type>
+            <app-section3-fees [cadData]= "customerApprovedDoc"></app-section3-fees>
+            <app-section4-security-collateral [cadData]= "customerApprovedDoc"></app-section4-security-collateral>
+            <app-section5-interest-rated-related-clauses [cadData]= "customerApprovedDoc"></app-section5-interest-rated-related-clauses>
+        </nb-card-body>
+    </nb-card>
+</div>
