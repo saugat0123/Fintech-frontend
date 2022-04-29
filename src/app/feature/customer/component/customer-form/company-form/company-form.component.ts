@@ -58,6 +58,7 @@ import {MicroIndividualFormComponent} from '../../../../micro-loan/form-componen
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
 import {RiskAnalysisComponent} from './risk-analysis/risk-analysis.component';
+import {CustomerCategory} from '../../../model/customerCategory';
 
 @Component({
     selector: 'app-company-form',
@@ -71,7 +72,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
-    // @Input() loanTypeInput: any;
+    @Input() customerCategory: CustomerCategory;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
@@ -85,14 +86,11 @@ export class CompanyFormComponent implements OnInit {
     customerId;
     spinner = false;
     submitted = false;
-
     microCustomerTypes = MicroCustomerType.enumObject();
-
     companyFormField = {
         showFormField: false,
         isOldCustomer: false
     };
-
     companySearch = {
         registrationNumber: undefined
     };
@@ -171,6 +169,7 @@ export class CompanyFormComponent implements OnInit {
     microCustomerType: string;
     riskAnalysisData: any;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
+    customerCate = CustomerCategory;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -210,13 +209,14 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+        this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
             if (this.microCustomer) {
                 this.microCustomerType = this.formValue.microCustomerType;
             }
+            this.customerCategory = this.formValue.customerCategory;
         }
-        this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
@@ -676,7 +676,14 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.branchAddress],
             warehouseAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.warehouseAddress)) ? undefined :
-                this.companyJsonData.warehouseAddress]
+                this.companyJsonData.warehouseAddress],
+            business: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.business)) ? undefined :
+                this.companyJsonData.business],
+            promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
+                this.companyJsonData.promoterNetWorth],
+            customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined : this.companyInfo.customerCategory]
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -1175,6 +1182,8 @@ export class CompanyFormComponent implements OnInit {
         submitData.discriptionWithComment = this.companyInfoFormGroup.get('discriptionWithComment').value;
         submitData.majorBuyersSuppliers = this.companyInfoFormGroup.get('majorBuyersSuppliers').value;
         submitData.group = this.companyInfoFormGroup.get('group').value;
+        submitData.business = this.companyInfoFormGroup.get('business').value;
+        submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
         if (this.microCustomer) {
             /** micro data **/
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
@@ -1190,6 +1199,7 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo.accountStrategy = this.formValue.accountStrategy;
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
+        this.companyInfo.customerCategory = this.customerCategory;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
