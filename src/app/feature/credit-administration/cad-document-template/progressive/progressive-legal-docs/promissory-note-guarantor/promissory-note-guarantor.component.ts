@@ -296,47 +296,89 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
               (value.representativeFatherNameGuarantor ? value.representativeFatherNameGuarantor : '')],
           gender: this.nepaliData.gender ? this.nepaliData.gender : '',
           witnessName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessName : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessName : '' : '' : ''],
           witnessCitizenshipNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipNo : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipNo : '' : '' : ''],
           witnessCitizenshipIssueDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipIssueDate : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipIssueDate : '' : '' : ''],
           witnessCDOoffice: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCDOoffice : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCDOoffice : '' : '' : ''],
           witnessIssuedPlace: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessIssuedPlace : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessIssuedPlace : '' : '' : ''],
           witnessMunicipality: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessMunicipality : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessMunicipality : '' : '' : ''],
           witnessWardNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessWardNo : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessWardNo : '' : '' : ''],
           witnessName1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessName1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessName1 : '' : '' : ''],
           witnessCitizenshipNo1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipNo1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipNo1 : '' : '' : ''],
           witnessCitizenshipIssueDate1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipIssueDate1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCitizenshipIssueDate1 : '' : '' : ''],
           witnessCDOoffice1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessCDOoffice1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessCDOoffice1 : '' : '' : ''],
           witnessIssuedPlace1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessIssuedPlace1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessIssuedPlace1 : '' : '' : ''],
           witnessMunicipality1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessMunicipality1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessMunicipality1 : '' : '' : ''],
           witnessWardNo1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].witnessWardNo1 : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].witnessWardNo1 : '' : '' : ''],
           IdentifiedGuarantorName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].IdentifiedGuarantorName : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].IdentifiedGuarantorName : '' : '' : ''],
           IdentifiedHintNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].IdentifiedHintNo : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].IdentifiedHintNo : '' : '' : ''],
           itiSambatYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].itiSambatYear : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].itiSambatYear : '' : '' : ''],
           itiSambatMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].itiSambatMonth : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].itiSambatMonth : '' : '' : '' ],
           itiSambatDay: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].itiSambatDay : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].itiSambatDay : '' : '' : ''],
           itiSambatTime: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].itiSambatTime : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].itiSambatTime : '' : '' : ''],
           itiSambatRojSubham: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].itiSambatRojSubham : ''],
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].itiSambatRojSubham : '' : '' : ''],
 
           // for Institution
           MinistryOffice: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
@@ -355,9 +397,14 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
           bottomGrandfatherName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
           bottomFatherName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
           bottomHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
-          bottomMotherName: !ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.guarantorDetails[i].bottomMotherName : '',
-          address1:  !ObjectUtil.isEmpty(this.initialInfoPrint) ? this.initialInfoPrint.guarantorDetails[i].address1 : '',
+          bottomMotherName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].bottomMotherName : '' : '' : ''],
+          address1:  [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.guarantorDetails[i]) ?
+                      this.initialInfoPrint.guarantorDetails[i].address1 : '' : '' : ''],
           bottomDistrictName: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
           bottomMunicipalityName: this.nepaliData.representativePermanentMunicipality ?
               this.nepaliData.representativePermanentMunicipality : '',
