@@ -20,12 +20,12 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   businessLocation;
   propList: Array<Proprietors>;
   totalCrgPoint;
-  mGroup;
   sum = 0;
   checkedData;
   multiBankingData;
   commentData;
   contactedPerson = [];
+  ciclData;
   constructor() { }
 
   ngOnInit() {
@@ -34,7 +34,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
       this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
-      this.mGroup = this.loanDataHolder.loanHolder.mgroupInfo;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
@@ -49,6 +48,9 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
         this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
+      }
+      if (this.loanDataHolder.loanHolder.cicl) {
+        this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);
       }
     }
    }
