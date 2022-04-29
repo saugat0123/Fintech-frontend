@@ -15,9 +15,8 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   tempData;
   loanOption;
   loanData;
-  assignedData;
-  loanName;
-  NCELL;
+  loanName: Array<any> = new Array<any>();
+  NCELL: boolean;
   reqDate;
   prevDate;
   constructor(
@@ -43,13 +42,18 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   }
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.assignedData = this.cadData.assignedLoan[0];
-      this.loanName = this.assignedData.loan.name;
-      if (this.loanName === 'HOME LOAN COMBINED') {
-        this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(value => {
-          this.NCELL = value.NcellStaffCheck ? value.NcellStaffCheck : '';
-        });
-      }
+      this.cadData.assignedLoan.forEach(val => {
+        this.loanName.push(val.loan.name);
+      });
+      this.loanName.forEach(value => {
+        if (value === 'HOME LOAN COMBINED') {
+          this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
+            if (val.NcellStaffCheck = true) {
+              this.NCELL = true;
+            }
+          });
+        }
+      });
      }
     // for request letter date
     if (this.tempData.retailGlobalForm.requestLetterDateType === 'AD') {
