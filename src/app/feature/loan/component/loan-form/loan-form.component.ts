@@ -57,8 +57,6 @@ import {CreditRiskGradingLambdaComponent} from '../../../loan-information-templa
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
-import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
   selector: 'app-loan-form',
@@ -168,9 +166,6 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('creditRiskGradingLambda', {static: false})
   creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
-
-  @ViewChild('crgMicro', {static: false})
-  crgMicro: CrgMicroComponent;
 
   @ViewChild('crgGamma', {static: false})
   crgGamma: CreditRiskGradingGammaComponent;
@@ -655,11 +650,6 @@ export class LoanFormComponent implements OnInit {
     if (name === 'Credit Risk Grading - Lambda' && action) {
       this.creditRiskGradingLambda.onSubmit();
       this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
-    }
-
-    if (name === 'Credit Risk Grading - Micro' && action) {
-      this.crgMicro.onSubmit();
-      this.loanDocument.crgMicro = this.crgMicro.creditRiskData;
     }
 
     if (name === 'Credit Risk Grading - Gamma' && action) {

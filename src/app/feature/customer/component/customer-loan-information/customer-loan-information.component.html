@@ -218,49 +218,6 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="otherMicroDetailsVisibility">
-        <div class="row">
-          <nb-card class="col-md-11 py-2" #microCrgParamsComponent >
-            <a class="cursor info-label" (click)="openModel(microCrgParamsComponentTemplate)">
-              <div class="row cursor">
-
-                <div class="col-md-8">
-                  <p class="custom-font">
-                    OTHER DETAILS (MANDATORY FOR MICRO CRG)
-                  </p>
-                </div>
-                <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-                  <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>
-              </span>
-                </div>
-              </div>
-            </a>
-          </nb-card>
-        </div>
-        <ng-template #microCrgParamsComponentTemplate let-data let-ref="dialogRef">
-          <nb-card class="template-css">
-            <nb-card-header>
-              OTHER DETAILS (MANDATORY FOR MICRO CRG)
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-            </nb-card-header>
-            <nb-card-body>
-              <app-micro-crg-params #microCrgParamsComponent
-                                    (dataEmitter)="saveMicroCrgParams($event)"
-                                    [fromProfile]="true"
-                                    [microCrgParams]="customerInfo?.microOtherParameters"
-              ></app-micro-crg-params>
-            </nb-card-body>
-          </nb-card>
-        </ng-template>
-      </div>
       <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer && isMicroInDirectCustomer">
         <div class="row">
           <nb-card class="col-md-11 py-2" #marketingActivities >

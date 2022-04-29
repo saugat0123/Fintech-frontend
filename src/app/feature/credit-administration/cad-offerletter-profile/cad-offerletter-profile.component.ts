@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogService} from '@nebular/theme';
@@ -63,8 +62,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-                this.offerLetterTypes = MegaOfferLetterConst.enumObject();
-                this.offerLetterConst = MegaOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;
     }
 

@@ -30,7 +30,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import { LoanInformationViewModule } from '../../../loan-information-view/loan-information-view.module';
 import { RoleHierarchyChainComponent } from './role-heirarchy-chain/role-hierarchy-chain.component';
-import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
 import { PreviousSecuritySummaryComponent } from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
@@ -115,8 +114,7 @@ const COMPONENTS = [
   NtaSummaryComponent,
   ProposalTermsAndConditionSummeryComponent,
   ApprovalSheetComponent,
-  RoleHierarchyChainComponent,
-  NtaMegaSummaryComponent,
+  RoleHierarchyChainComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -230,7 +228,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     NtaSummaryComponent,
     ProposalTermsAndConditionSummeryComponent,
     ApprovalSheetComponent,
-    NtaMegaSummaryComponent,
     ApprovalSheetComponent,
     CollateralSummaryComponent,
     ProposalJustificationSummaryComponent,

@@ -34,7 +34,6 @@ import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda
 import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
-import {CrgMicro} from './CrgMicro';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 import {CustomerLoanDto} from './customerLoanDto';
 
@@ -55,7 +54,6 @@ export class LoanDataHolder extends BaseEntity {
     customerDocument: Array<CustomerDocuments>;
     siteVisit: SiteVisit;
     financial: Financial;
-    crgMicro: CrgMicro;
     security: Security;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
