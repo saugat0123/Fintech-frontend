@@ -46,6 +46,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     toggleArray: { toggled: boolean, security: any }[] = [];
     spinner = false;
     tagged;
+    limitExceed = [];
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -53,9 +54,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('proposed amount ::', this.proposedAmount);
-        console.log('proposed amount ::', this.proposedLimit);
-        console.log('Loan Holder::', this.loanHolder);
         this.buildForm();
         // this.customerShareData = this.shareSecurityData.customerShareData;
         // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
@@ -187,6 +185,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                         this.landBuildingId.push(da.id);
                     });
                 }
+                this.setLimitExceed(this.customerInfo.landBuildings);
             }
                 break;
             case 'VehicleSecurity': {
@@ -198,6 +197,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                         this.autoId.push(da.id);
                     });
                 }
+                this.setLimitExceed(this.customerInfo.landBuildings);
             }
                 break;
             default :
@@ -256,28 +256,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         return coverage;
     }
 
-    public calcFreeLimitForLandBuilding(index: number, considerValue: number, usedAmount: number): void {
-        let freeLimit = considerValue;
-        freeLimit -= usedAmount;
-        this.totalFreeLimit = considerValue;
-        this.totalFreeLimit -= usedAmount;
-        const coverage = (usedAmount / this.proposedLimit) * 100;
-        this.isLandBuildingFreeLimitExceed[index] = this.totalFreeLimit < 0;
-        this.form.get(['landBuildingForm', index, 'freeLimit']).setValue(freeLimit);
-        this.form.get(['landBuildingForm', index, 'coverage']).setValue(coverage.toFixed(2));
-    }
-
-    public calculateFreeLimitForAuto(index: number, considerValue: number, usedAmount: number): void {
-        let freeLimit = considerValue;
-        freeLimit -= usedAmount;
-        this.totalFreeLimitAuto = considerValue;
-        this.totalFreeLimitAuto -= usedAmount;
-        const coverage = (usedAmount / this.proposedLimit) * 100;
-        this.isAutoFreeLimitExceed[index] = this.totalFreeLimitAuto < 0;
-        this.form.get(['autoForm', index, 'freeLimit']).setValue(freeLimit);
-        this.form.get(['autoForm', index, 'coverage']).setValue(coverage.toFixed(2));
-    }
-
     setToggled(array) {
         this.toggleArray = [];
         array.forEach((a, i) => {
@@ -293,6 +271,22 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
             this.toggleArray[i].security = res.detail;
         }, (err) => {
             this.spinner = false;
+        });
+    }
+
+
+    public calcFreeLimit(index: number, considerValue: number, usedAmount: number, formControlName: string): void {
+        let freeLimit = considerValue;
+        freeLimit -= usedAmount;
+        const coverage = (usedAmount / this.proposedLimit) * 100;
+        this.limitExceed[index] = this.totalFreeLimitAuto < 0;
+        this.form.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
+        this.form.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(2));
+    }
+    setLimitExceed(array) {
+        this.limitExceed = [];
+        array.forEach((s: any) => {
+          this.limitExceed.push(s.freeLimit < 0);
         });
     }
 }

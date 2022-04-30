@@ -232,8 +232,11 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
             .patchValue((Number(this.proposalForm.get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
         this.checkInstallmentAmount();
-        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-            .patchValue(Number(value)));
+        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
+            this.proposalForm.get('principalAmount')
+                .patchValue(Number(value));
+            this.proposedLimit = this.proposalForm.get('proposedLimit').value;
+        });
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
         }
@@ -652,7 +655,6 @@ export class ProposalComponent implements OnInit {
     }
 
     checkRepaymentMode() {
-        this.proposedLimit = this.proposalForm.get('proposedLimit').value;
         if (this.showInstallmentAmount) {
             this.proposalForm.get('interestAmount').patchValue(0);
             const repaymentMode = this.proposalForm.get('repaymentMode').value;

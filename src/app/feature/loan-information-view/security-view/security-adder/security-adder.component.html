@@ -87,8 +87,8 @@
                                         auto.get('considerValue').value : auto.get('freeLimit').value}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calculateFreeLimitForAuto(i,auto.get('considerValue').value,
-                                            auto.get('usedAmount').value)">
+                                               (input)="calcFreeLimit(i, customerInfo?.autos[i]?.freeLimit,
+                                            auto.get('usedAmount').value, 'autoForm')">
                                     </td>
                                     <td>{{auto.get('coverage').value === null ?
                                         auto.get('coverage').value : auto.get('coverage').value}}</td>
@@ -100,7 +100,7 @@
                                         </a>
                                         <button nbButton size="small"
                                                 (click)="tagSecurity(auto, 'auto', i)"
-                                                [disabled]="isAutoFreeLimitExceed[i]">
+                                                [disabled]="limitExceed[i]">
                                             <i class="fa fa-plus"></i></button>
                                     </td>
                                 </ng-container>
@@ -149,8 +149,8 @@
                                         landBuilding.get('considerValue').value : landBuilding.get('freeLimit').value}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calcFreeLimitForLandBuilding(i,landBuilding.get('considerValue').value,
-                                             landBuilding.get('usedAmount').value)">
+                                               (input)="calcFreeLimit(i, customerInfo?.landBuildings[i]?.freeLimit,
+                                             landBuilding.get('usedAmount').value, 'landBuildingForm')">
                                     </td>
                                     <td>{{landBuilding.get('coverage').value === null ?
                                         landBuilding.get('coverage').value : landBuilding.get('coverage').value}}</td>
@@ -162,7 +162,7 @@
                                         </a>
                                         <button nbButton size="small"
                                                 (click)="tagSecurity(landBuilding, 'landBuilding', i)"
-                                                [disabled]="isLandBuildingFreeLimitExceed[i]"><i
+                                                [disabled]="limitExceed[i]"><i
                                                 class="fa fa-plus"></i></button>
                                     </td>
                                 </ng-container>
