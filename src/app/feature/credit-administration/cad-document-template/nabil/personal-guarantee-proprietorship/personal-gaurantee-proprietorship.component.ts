@@ -253,6 +253,20 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                     if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                         return;
                     }
+                    let fatherName;
+                    let grandFatherName;
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'MALE')) {
+                        fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                        grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+                    }
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '0')) {
+                        fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
+                        grandFatherName = individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : '';
+                    }
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '1')) {
+                        fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                        grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+                    }
                     this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
                     (this.personalGuaranteeProprietorship.get('guaranteeProprietorship') as FormArray).push(
                         this.formBuilder.group({
@@ -260,7 +274,9 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                             actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
                             actYearInFigure: [this.setActYear()],
                             // tslint:disable-next-line:max-line-length
-                            headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
+                            authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
+                            headDepartment: [this.loanHolderNepData.registeredWith &&
+                            this.loanHolderNepData.registeredWith.ct ? this.loanHolderNepData.registeredWith.ct : ''],
                             registrationDate: [this.setRegistrationDate()],
                             registrationNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
                             registeredDistrict: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
@@ -280,9 +296,9 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                             freeText: [undefined],
                             guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
                             // tslint:disable-next-line:max-line-length
-                            guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
+                            guarantorFatherOrHusbandName: [fatherName ? fatherName : ''],
                             // tslint:disable-next-line:max-line-length
-                            grandFatherOrFatherInLaw: [individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''],
+                            grandFatherOrFatherInLaw: [grandFatherName ? grandFatherName : ''],
                             permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
                             // tslint:disable-next-line:max-line-length
                             permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],

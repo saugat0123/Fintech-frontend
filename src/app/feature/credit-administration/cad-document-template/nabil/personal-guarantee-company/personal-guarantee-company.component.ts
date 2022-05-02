@@ -233,7 +233,8 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
                       actYearInFigure: [this.setActYear()],
                       authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
-                      headDepartment: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
+                      headDepartment: [this.loanHolderNepData.registeredWith &&
+                      this.loanHolderNepData.registeredWith.ct ? this.loanHolderNepData.registeredWith.ct : ''],
                       registrationDate: [this.setRegistrationDate()],
                       registrationNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
                       location: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
