@@ -84,7 +84,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isRemarkEdited = false;
     json = JSON;
     sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     crgLambdaDisabled = environment.disableCrgLambda;
     isEditable = false;
