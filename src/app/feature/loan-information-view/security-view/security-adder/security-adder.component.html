@@ -95,7 +95,7 @@
                                     <td>{{auto.get('coverage').value === null ?
                                         auto.get('coverage').value : auto.get('coverage').value}}</td>
                                     <td>
-                                        <a class="px-2 cursor"
+                                        <a class="px-2 cursor" *ngIf="securityPresent[i]"
                                            (click)="toggleArray[i].toggled = !this.toggleArray[i].toggled"
                                            nbTooltip="click to view detail security">
                                             <em class="fa fa-eye"></em>
@@ -159,7 +159,7 @@
                                     <td>{{landBuilding.get('coverage').value === null ?
                                         landBuilding.get('coverage').value : landBuilding.get('coverage').value}}</td>
                                     <td>
-                                        <a class="px-2 cursor"
+                                        <a class="px-2 cursor" *ngIf="securityPresent[i]"
                                            (click)="this.toggleArray[i].toggled = !this.toggleArray[i].toggled"
                                            nbTooltip="click to view detail security">
                                             <em class="fa fa-eye"></em>

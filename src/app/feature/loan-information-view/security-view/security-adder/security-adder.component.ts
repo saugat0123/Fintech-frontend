@@ -39,6 +39,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     limitExceed = [];
     isUsedAmount = [];
     coveragePercent = [];
+    securityPresent = [];
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -282,6 +283,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
             this.spinner = false;
             this.toggleArray[i].security = res.detail;
+            this.securityPresent[i] = this.toggleArray[i].security.length > 0;
         }, (err) => {
             this.spinner = false;
         });
