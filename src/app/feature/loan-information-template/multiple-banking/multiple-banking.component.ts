@@ -6,6 +6,7 @@ import {CustomerType} from '../../customer/model/customerType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerCategory} from '../../customer/model/customerCategory';
 
 @Component({
     selector: 'app-multiple-banking',
@@ -17,6 +18,7 @@ export class MultipleBankingComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Input() multiBankingData: MultipleBanking;
     @Output() multiBankingDataEmitter = new EventEmitter();
+    @Input() customerCategory;
     customerType: CustomerType;
     calendarType = 'AD';
     multiBankingForm: FormGroup;
@@ -28,6 +30,7 @@ export class MultipleBankingComponent implements OnInit {
     consortiumChecked = true;
     swapChecked = true;
     ckeConfig;
+    customerCate = CustomerCategory;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -36,6 +39,8 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('customerCategory', this.customerCategory);
+        console.log('Condition', this.customerCate[this.customerCategory] === this.customerCate.SME_ABOVE_TEN_MILLION);
         this.router.queryParams.subscribe((res: any) => {
            this.customerType = res.customerType;
         });
@@ -83,6 +88,7 @@ export class MultipleBankingComponent implements OnInit {
             pastDue: [undefined],
             auditObservation: [undefined],
             comments: [undefined],
+            pastPerformance: [undefined],
         });
     }
 

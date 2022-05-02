@@ -338,13 +338,13 @@
                                     <strong>5.1 BUSINESS:</strong>
                                 </p>
                                 <div class="p-2 background-info col-md-12">
-                                    <span [innerHTML]="tempData?.companyBackgroundBusiness | safeHtml"></span>
+                                    <span [innerHTML]="tempData?.business | safeHtml"></span>
                                 </div>
                                 <p class="mt-2">
                                     <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
                                 </p>
                                 <div class="p-2 background-info col-md-12">
-                                    <span [innerHTML]="tempData?.promotersKeyPersons | safeHtml"></span></div>
+                                    <span [innerHTML]="tempData?.promoterNetWorth | safeHtml"></span></div>
                             </li>
                             <li class="mt-3">
                                 <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong>
@@ -377,7 +377,12 @@
                             <li>
                                 <!-- banking relationship -->
                                 <p><strong>BANKING RELATIONSHIP:</strong></p>
-                                <app-upto-banking-relationship></app-upto-banking-relationship>
+                                <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                                                               [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                                               [proposal]="loanDataHolder?.proposal"
+                                                                               [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                                               [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+<!--                                <app-upto-banking-relationship></app-upto-banking-relationship>-->
                             </li>
                             <li>
                                 <!-- other charges -->
