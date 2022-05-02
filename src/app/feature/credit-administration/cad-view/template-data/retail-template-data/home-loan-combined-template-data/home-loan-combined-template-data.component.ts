@@ -161,6 +161,7 @@ export class HomeLoanCombinedTemplateDataComponent implements OnInit {
       firstTimeHomeBuyerCheck: [undefined],
       NcellStaffCheck: [undefined],
       interestRateType: [undefined],
+      moratoriumPeriodCheck: [undefined],
 
       loanId: [undefined]
     });
