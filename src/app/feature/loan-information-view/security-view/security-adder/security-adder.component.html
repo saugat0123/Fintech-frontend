@@ -88,7 +88,9 @@
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
                                                (input)="calcFreeLimit(i, customerInfo?.autos[i]?.freeLimit,
-                                            auto.get('usedAmount').value, 'autoForm')">
+                                            auto.get('usedAmount').value, 'autoForm')"
+                                               [readOnly]="proposedLimit <= 0">
+                                        <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>
                                     <td>{{auto.get('coverage').value === null ?
                                         auto.get('coverage').value : auto.get('coverage').value}}</td>
@@ -146,11 +148,13 @@
                                     <td>{{landBuilding.get('governmentRate').value}}</td>
                                     <td>{{landBuilding.get('geoLocation').value}}</td>
                                     <td>{{landBuilding.get('freeLimit').value === null ?
-                                        landBuilding.get('considerValue').value : landBuilding.get('freeLimit').value}}</td>
+                                        customerInfo?.landBuildings[i]?.freeLimit : landBuilding.get('freeLimit').value}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
                                                (input)="calcFreeLimit(i, customerInfo?.landBuildings[i]?.freeLimit,
-                                             landBuilding.get('usedAmount').value, 'landBuildingForm')">
+                                             landBuilding.get('usedAmount').value, 'landBuildingForm')"
+                                        [readOnly]="proposedLimit <= 0">
+                                        <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>
                                     <td>{{landBuilding.get('coverage').value === null ?
                                         landBuilding.get('coverage').value : landBuilding.get('coverage').value}}</td>
@@ -250,13 +254,10 @@
                             <em class="fa fa-trash bg-transparent"></em>
                         </button>
                     </td>
-
                 </tr>
                 </tbody>
             </table>
         </div>
-
-        <!--        </div>-->
     </nb-card-body>
 </nb-card>
 

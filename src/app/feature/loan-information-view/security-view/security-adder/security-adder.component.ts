@@ -3,8 +3,6 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {Auto} from '../../../loan/model/Auto';
-import {LandBuilding} from '../../../loan/model/LandBuilding';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 
 @Component({
@@ -22,8 +20,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     @Input() proposedAmount: number;
     proposedLimit: number;
     customerShareData: any;
-    selectedShareSecurityList: any;
-    securityList: any;
     msg = '';
     @Output() tagSecurityEmitter = new EventEmitter();
 
@@ -33,20 +29,13 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     share = false;
     autoId = [];
     landBuildingId = [];
-    autoSecurity: Auto;
-    landBuildingSecurity: LandBuilding;
     considerValue = 0;
-    isLimitExceed = false;
-    totalFreeLimit = 0;
-    totalFreeLimitAuto = 0;
     approvedShareSecurity: any;
-    isAutoFreeLimitExceed = [];
-    isLandBuildingFreeLimitExceed = [];
-    listSecurities = [{value: 'Land and Building Security'}, {value: 'VehicleSecurity'}];
     toggleArray: { toggled: boolean, security: any }[] = [];
     spinner = false;
     tagged;
     limitExceed = [];
+    isUsedAmount = [];
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -58,7 +47,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         // this.customerShareData = this.shareSecurityData.customerShareData;
         // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
         if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
-            this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray);
+            this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray)[0];
             this.selectedSecurity();
             this.toggleSecurity();
         }
@@ -197,7 +186,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                         this.autoId.push(da.id);
                     });
                 }
-                this.setLimitExceed(this.customerInfo.landBuildings);
+                this.setLimitExceed(this.customerInfo.autos);
             }
                 break;
             default :
@@ -224,6 +213,10 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     public tagSecurity(security: any, key, idx: number): void {
+        if (security.value.usedAmount <= 0) {
+            this.isUsedAmount[idx] = true;
+            return;
+        }
         if (key === 'auto') {
             if (this.loanHolder.autos.length > 0) {
                 this.loanHolder.autos.splice(idx, 1);
@@ -275,11 +268,11 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
 
-    public calcFreeLimit(index: number, considerValue: number, usedAmount: number, formControlName: string): void {
-        let freeLimit = considerValue;
+    public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string): void {
         freeLimit -= usedAmount;
         const coverage = (usedAmount / this.proposedLimit) * 100;
-        this.limitExceed[index] = this.totalFreeLimitAuto < 0;
+        this.limitExceed[index] = freeLimit < 0;
+        this.isUsedAmount[index] = false;
         this.form.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
         this.form.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(2));
     }

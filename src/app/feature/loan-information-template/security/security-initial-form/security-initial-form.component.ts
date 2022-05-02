@@ -168,6 +168,7 @@ export class SecurityInitialFormComponent implements OnInit {
     provinces: Province[];
     districtList: District [];
     municipalityList: MunicipalityVdc [];
+    isEdit = false;
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -205,6 +206,7 @@ export class SecurityInitialFormComponent implements OnInit {
             console.error(error);
         });
         if (!ObjectUtil.isEmpty(this.formData)) {
+            this.isEdit = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.securityForm.patchValue(this.formDataForEdit);
@@ -1506,7 +1508,8 @@ export class SecurityInitialFormComponent implements OnInit {
             geoLocation: [undefined],
             addressLine1: [undefined],
             addressLine2: [undefined],
-            registerOffice: [undefined]
+            registerOffice: [undefined],
+            freeLimit: [undefined]
         });
     }
 
@@ -1716,6 +1719,7 @@ export class SecurityInitialFormComponent implements OnInit {
             manufactureYear: [undefined],
             discountPrice: [undefined],
             considerValue: [undefined],
+            freeLimit: [undefined]
         });
     }
 
@@ -2700,5 +2704,11 @@ export class SecurityInitialFormComponent implements OnInit {
         this.location.getMunicipalityVDCByDistrict(district).subscribe((res: any) => {
             this.municipalityList = res.detail;
         });
+    }
+
+    public setFreeLimitAmount(index, formArrayName: string, considerValue: number, ) {
+        if (this.isEdit === false) {
+            this.securityForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
+        }
     }
 }

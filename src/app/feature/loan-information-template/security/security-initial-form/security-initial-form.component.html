@@ -1822,6 +1822,7 @@
                                     <input
                                            class="form-control rounded"
                                            formControlName="considerValue"
+                                           (change)="setFreeLimitAmount(i, 'landBuilding', landAndBuilding.get('considerValue')?.value)"
                                            id="consideredValue"
                                            placeholder="Consider Value"
                                            name="considerValue"
@@ -2826,6 +2827,7 @@
                                 <input
                                         class="form-control" formControlName="considerValue" id="considerValue"
                                         name="considerValue"
+                                        (change)="setFreeLimitAmount(i, 'vehicleDetails', addMoreVehicle.get('considerValue')?.value)"
                                         placeholder="Consider Value"
                                         type="number">
                             </div>
