@@ -9,6 +9,7 @@ import {NbDialogRef} from '@nebular/theme';
 export class CadOfferLetterModalComponent implements OnInit {
     @Input() offerLetterType;
     @Input() cadOfferLetterApprovedDoc;
+    offerLetterTypeConst: any;
 
     constructor(protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
     ) {
