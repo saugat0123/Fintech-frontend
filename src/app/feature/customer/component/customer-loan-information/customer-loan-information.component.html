@@ -821,6 +821,7 @@
                       #multipleBankingComponent
                       [fromProfile]="true"
                       [multiBankingData]="customerInfo?.multiBanking"
+                      [customerCategory]="customerInfo?.customerCategory"
                       (multiBankingDataEmitter)="saveMultiBanking($event)">
               </app-multiple-banking>
             </nb-card-body>
