@@ -5,7 +5,6 @@ import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
-import {RelationshipWithBank} from './relationship-with-bank';
 import {ShareholderKyc} from './shareholder-kyc';
 
 export class CompanyInfo {
@@ -50,4 +49,5 @@ export class CompanyInfo {
     vatNo: string;
     accountNo: string;
     accountStrategy: string;
+    customerCategory: any;
 }

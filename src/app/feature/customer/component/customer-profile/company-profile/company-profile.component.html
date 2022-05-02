@@ -275,31 +275,6 @@
           </nb-card-body>
 
         </nb-card>
-        <nb-card accent="primary" *ngIf="megaGroupEnabled">
-          <nb-card-header>
-            GROUP EXPOSURE WITH CCBL
-          </nb-card-header>
-          <nb-card-body>
-            <nb-accordion>
-              <nb-accordion-item #mGroupAccordion>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span> Group Exposure with CCBL</span>
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion.expanded"
-                                      (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
-
-
-          </nb-card-body>
-
-        </nb-card>
       </div>
     </div>
     <!--        //cbs Group-->

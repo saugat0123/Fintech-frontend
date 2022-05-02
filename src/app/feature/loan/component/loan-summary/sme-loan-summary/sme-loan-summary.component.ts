@@ -57,6 +57,7 @@ import { DocStatus } from "../../../model/docStatus";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ApprovalRoleHierarchyComponent } from "../../../approval/approval-role-hierarchy.component";
 import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {CustomerCategory} from '../../../../customer/model/customerCategory';
 
 @Component({
   selector: "app-sme-loan-summary",
@@ -178,7 +179,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   notApprove = "notApprove";
 
   sbsGroupEnabled = environment.SBS_GROUP;
-  megaGroupEnabled = environment.MEGA_GROUP;
   commentsSummary = false;
   dataFromComments;
   previousSecuritySummary = false;
@@ -207,6 +207,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   viewName = ['Sana Byabasahi Karja', 'Upto Ten Million', 'Above Ten Million'];
   tempData;
   companyInfo: CompanyInfo = new CompanyInfo();
+  customerCategory = CustomerCategory;
+
   @Input() crgTotalRiskScore: any;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
@@ -441,9 +443,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     // setting share-secuirty data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
       this.shareSecuritySummary = true;
-      this.shareSecurityData = JSON.parse(
-        this.loanDataHolder.shareSecurity.data
-      );
+      this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
     }
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.currentIndex = this.loanDataHolder.previousList.length;
@@ -890,30 +890,22 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.hidePreviewButton = false;
     }
   }
-  // toggle(checked: boolean) {
-  //   this.isDetailedView = checked;
-  // }
-  detailViewCheck() {
-    this.isDetailedView = !this.isDetailedView;
-    this.isSaneView = false;
-    this.isAboveTenMillion = false;
-    this.isUpToTenMillion = false;
-  }
 
-  isRadioSelected(event) {
-    this.isSaneView = false;
-    this.isAboveTenMillion = false;
-    this.isUpToTenMillion = false;
-    switch (event) {
-      case 'Sana Byabasahi Karja':
+  detailViewCheck() {
+    if (this.isDetailedView) {
+      this.isDetailedView = false;
+      this.isSaneView = false;
+      this.isAboveTenMillion = false;
+      this.isUpToTenMillion = false;
+    } else {
+      this.isDetailedView = true;
+      if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
         this.isSaneView = true;
-        break;
-      case 'Upto Ten Million':
+      } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
         this.isUpToTenMillion = true;
-        break;
-      case 'Above Ten Million':
+      } else {
         this.isAboveTenMillion = true;
-        break;
+      }
     }
   }
 }

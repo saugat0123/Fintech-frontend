@@ -40,7 +40,6 @@ export class DetailViewBaseComponent implements OnInit {
   fiscalYearArray: Array<FiscalYear>;
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
-  megaGroupEnabled = environment.MEGA_GROUP;
   dataFromComments: any;
   commentsSummary = false;
   previousSecuritySummary = false;
