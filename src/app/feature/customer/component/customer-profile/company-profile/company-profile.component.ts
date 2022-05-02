@@ -76,7 +76,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     companyJsonData: CompanyJsonData = new CompanyJsonData();
     sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
     isAccountEdited = false;
     loanTypeList = LoanType.value();

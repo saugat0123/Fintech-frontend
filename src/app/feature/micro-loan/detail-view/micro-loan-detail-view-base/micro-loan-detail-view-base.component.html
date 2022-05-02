@@ -58,11 +58,6 @@
                 [loanTag]="loanDataHolder?.loan?.loanTag"
                 [formData]="loanDataHolder?.creditRiskGradingAlpha">
         </app-crg-alpha-detailed-view>
-        <app-crg-micro *ngIf="loanDataHolder?.crgMicro"
-                       [formData]="loanDataHolder?.crgMicro"
-                       [incomeFromAccount]="loanDataHolder?.loanHolder?.incomeFromAccount"
-                       [security]="loanDataHolder?.security"
-                       [microOtherParameters]="loanHolder?.microOtherParameters"></app-crg-micro>
         <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                             [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
         <app-site-visit-view *ngIf="loanHolder?.siteVisit"
@@ -71,11 +66,6 @@
                                     [fromProfile]="false"
                                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
          -->
-        <ng-container>
-            <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-        </ng-container>
         <div>
             <app-comments-summary
                     [formData]="dataFromComments"></app-comments-summary>

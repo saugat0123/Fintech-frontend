@@ -179,7 +179,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   notApprove = "notApprove";
 
   sbsGroupEnabled = environment.SBS_GROUP;
-  megaGroupEnabled = environment.MEGA_GROUP;
   commentsSummary = false;
   dataFromComments;
   previousSecuritySummary = false;
