@@ -1,5 +1,5 @@
 <ol type="a">
-    <li *ngIf="customerCategory?.SME_ABOVE_TEN_MILLION === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
         <p><strong>Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
             If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of
             credit facilities
@@ -69,7 +69,7 @@
             </div>
         </div>
     </li>
-    <li *ngIf="customerCategory?.SME_ABOVE_TEN_MILLION === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
         <p><strong>Report from the existing BFIs in case of swap
         </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date) : 'N/A'}}) </p>
         <div class="container" *ngIf="checkedData?.swapChecked">
@@ -146,7 +146,7 @@
     <li>
         <p><strong>Past performance with the Bank: </strong></p>
         <div class="container">
-            <div class="row" *ngIf="customerCategory?.SME_ABOVE_TEN_MILLION === customerCate?.SME_ABOVE_TEN_MILLION; else sana">
+            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana">
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
                         <tbody>
@@ -189,13 +189,13 @@
             </ng-template>
         </div>
     </li>
-    <li *ngIf="customerCategory?.SME_ABOVE_TEN_MILLION === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
         <p><strong>Account strategy:</strong></p>
         <div class="container">
             <span [innerHTML]="proposalData?.accountStrategy | safeHtml"></span>
         </div>
     </li>
-    <li *ngIf="customerCategory?.SME_ABOVE_TEN_MILLION === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
         <p><strong>Average Utilization of facilities by the customer during the last 12 months with CCBL</strong></p>
         <div class="container">
             <div class="row">
