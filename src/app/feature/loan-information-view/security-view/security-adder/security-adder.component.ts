@@ -4,6 +4,8 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
+import {Auto} from '../../../loan/model/Auto';
+import {LandBuilding} from '../../../loan/model/LandBuilding';
 
 @Component({
     selector: 'app-security-adder',
@@ -36,6 +38,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     tagged;
     limitExceed = [];
     isUsedAmount = [];
+    coveragePercent = [];
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -134,11 +137,15 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     removeAutoSecurity(idx) {
         this.loanHolder.autos.splice(idx, 1);
         this.selectedSecurity();
+        this.coveragePercent.splice(idx, 1);
+        this.totalCoverage();
     }
 
     removeLandBuilding(idx) {
         this.loanHolder.landBuildings.splice(idx, 1);
         this.selectedSecurity();
+        this.coveragePercent.splice(idx, 1);
+        this.totalCoverage();
     }
 
     removeShareSecurity(data) {
@@ -212,6 +219,14 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
 
     }
 
+    public totalCoverage(): number {
+        let percent = 0;
+     this.coveragePercent.forEach(v => {
+         percent += v.percent;
+     });
+     return Number(percent.toFixed(2));
+    }
+
     public tagSecurity(security: any, key, idx: number): void {
         if (security.value.usedAmount <= 0) {
             this.isUsedAmount[idx] = true;
@@ -220,20 +235,25 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         if (key === 'auto') {
             if (this.loanHolder.autos.length > 0) {
                 this.loanHolder.autos.splice(idx, 1);
+                this.coveragePercent.splice(idx, 1);
             }
             const coverage = this.calculateLoanForAutoBuildingCoverage(security.value.usedAmount);
             this.form.get(['autoForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.autos.push(security.value);
+            this.coveragePercent.push({percent: coverage});
         }
         if (key === 'landBuilding') {
             if (this.loanHolder.landBuildings.length > 0) {
                 this.loanHolder.landBuildings.splice(idx, 1);
+                this.coveragePercent.splice(idx, 1);
             }
             const coverage = this.calculateLoanForLandBuildingCoverage(security.value.usedAmount);
             this.form.get(['landBuildingForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.landBuildings.push(security.value);
+            this.coveragePercent.push({percent: coverage});
         }
         this.selectedSecurity();
+        this.totalCoverage();
         // this.tagSecurityEmitter.emit(this.loanHolder);
     }
 
