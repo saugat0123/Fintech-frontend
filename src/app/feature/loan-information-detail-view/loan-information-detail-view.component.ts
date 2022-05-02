@@ -26,7 +26,6 @@ import {SiteVisitDocument} from '../loan-information-template/security/security-
     styleUrls: ['./loan-information-detail-view.component.scss']
 })
 export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
-    megaGroupEnabled = environment.MEGA_GROUP;
     allId;
     customerId;
     loanConfigId;
