@@ -36,10 +36,12 @@
         <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
-                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"></app-above-banking-arrangement-of-the-customer>
+                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>
 
     <li>
+        <p class="text-uppercase">Reporting Info</p>
         <app-report-summary [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
     </li>
     <li>
