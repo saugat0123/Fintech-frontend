@@ -1,7 +1,7 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form">
-            <div>
+            <div *ngIf="isAutoLoan">
                 <!--For Auto Loan Only-->
                 <b>
                     सवारी कर्जा सम्बन्धी थप शर्तहरुः
