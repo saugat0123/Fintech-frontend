@@ -42,8 +42,7 @@
         [checked]="ciclHistory"><strong>CICL History Found</strong></nb-checkbox>
       </div>
       <div *ngIf="ciclHistory">
-        <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
-             formArrayName="ciclArray">
+        <div formArrayName="ciclArray" *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;">
           <div [formGroupName]="ciclIndex.toString()">
 
             <div class="row">
@@ -104,15 +103,6 @@
             </div>
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="ciclStatus"><b>Status</b></label>
-                <input class="form-control" formControlName="ciclStatus" id="ciclStatus"
-                       placeholder="Status"
-                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('ciclStatus').invalid) }">
-                <div *ngIf="(submitted) && cicl.get('ciclStatus').errors" class="invalid-feedback">
-                  <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
-                </div>
-              </div>
-              <div class="col-md-4 form-group">
                 <label for="obtaineddate"><b>Obtained Date</b></label>
                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="obtainedDatePicker"
                        [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }"
@@ -128,7 +118,6 @@
                   <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
                 </div>
               </div>
-
               <div class="col-md-4 form-group">
                 <label for="loanamount"><b>Loan Limit</b></label>
                 <input class="form-control" formControlName="loanamount" id="loanamount"
@@ -153,6 +142,51 @@
                        placeholder="overdue">
               </div>
             </div>
+            <nb-checkbox #blacklist (checkedChange)="blackListFound(blacklist.checked, ciclIndex)"
+                         [checked]="cicl?.get('blacklistChecked')?.value"><strong>BlackList History</strong></nb-checkbox>
+            <br>
+            <div class="row">
+              <div class="col-md-6" *ngIf="cicl?.get('blacklistChecked')?.value">
+                <table class="table table-bordered table-responsive-md">
+                  <thead>
+                  <tr>
+                    <th>SN</th>
+                    <th>Blacklist Number</th>
+                    <th>Blacklist Date</th>
+                    <th *ngIf="cicl?.get('blacklistHistory')['length'] > 0">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody formArrayName="blacklistHistory" *ngFor="let blackList of cicl?.get('blacklistHistory')['controls']; let bi = index">
+                  <tr [formGroupName]="bi">
+                    <td>{{bi + 1}}</td>
+                    <td><input class="form-control" formControlName="blacklistNumber" id="blacklistNumber"
+                               placeholder="Blacklist Number" type="text"></td>
+                    <td>
+                      <input *ngIf="calendarType === 'AD'" [nbDatepicker]="blackListDate"
+                             class="form-control" formControlName="blacklistDate" id="blacklistDate"
+                             placeholder="Blacklist Date" type="text">
+                      <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
+                      <app-calendar [ePreDate]="blackList?.get('blacklistDate')?.value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="blackList?.get('blacklistDate')?.patchValue($event?.eDate)"></app-calendar>
+                      <nb-datepicker #blackListDate></nb-datepicker>
+                    </td>
+                    <td *ngIf="cicl?.get('blacklistHistory')['length'] > 0">
+                      <button (click)="removeBlacklist(ciclIndex)"
+                              nbButton class="float-right"
+                              size="small" status="danger">Remove
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div>
+                  <button (click)="addBlackList(ciclIndex)" class="float-right" nbButton status="primary">
+                    Add More
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <button (click)="removeCICL(ciclIndex)" *ngIf="ciclArray['controls'].length > 1"
@@ -175,9 +209,6 @@
       <div class="row">
         <div class="col-md-12 form-group">
           <label for="ciclRemarks"><b>Remarks</b></label>
-          <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
-          <!--                    placeholder="remarks" rows="5" -->
-          <!--          ></textarea>-->
           <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
         </div>
       </div>

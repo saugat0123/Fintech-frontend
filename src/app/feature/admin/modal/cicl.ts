@@ -12,6 +12,8 @@ export class Cicl {
   lastModifiedAt: Date;
   version: number;
   ciclRelation: string;
+  blacklistChecked: boolean;
+  blacklistHistory: string;
 }
 
 export class CiclArray {
