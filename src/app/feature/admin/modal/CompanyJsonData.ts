@@ -42,4 +42,6 @@ export class CompanyJsonData {
   group: string = undefined;
   // loanType: string = undefined;
   reviewDate: ReviewDate = undefined;
+  promoterNetWorth: string;
+  business: string;
 }

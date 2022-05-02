@@ -85,4 +85,5 @@ export class CustomerInfoData {
     commonLoanData: string;
     riskAnalysis: string;
     swotAnalysis: string;
+    customerCategory: string;
 }

@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CompanyJsonData} from '../../../../../../admin/modal/CompanyJsonData';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../model/loanData';
-import {DatePipe} from '@angular/common';
 import {Proprietors} from '../../../../../../admin/modal/proprietors';
 
 @Component({
@@ -25,7 +24,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   multiBankingData;
   commentData;
   contactedPerson = [];
-  ciclData;
+  ciclData = [];
   constructor() { }
 
   ngOnInit() {

@@ -58,8 +58,9 @@
         <td><b>CIC Report</b></td>
         <td colspan="2">
             Date: {{loanDataHolder?.loanHolder?.cicl?.cibDate
-            ? (loanDataHolder?.loanHolder?.cicl?.cibDate | date) : 'N/A'}}; <br>
-            Status: {{ciclData[ciclData?.length - 1]?.status}}</td>
+            ? (loanDataHolder?.loanHolder?.cicl?.cibDate | date) : 'N/A'}};<br>
+            Status: {{ciclData[ciclData?.length - 1]?.status}}
+        </td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[0]?.coBankName}}</td>
             <td>{{multiBankingData?.consortium[0]?.funded}}</td>

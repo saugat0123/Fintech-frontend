@@ -161,13 +161,6 @@
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
                         (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
                 </div>
-                <div class="col-md-12 mt-4" style="margin-left: 0.3rem" *ngIf="isDetailedView">
-                    <nb-radio-group class="d-flex" (valueChange)="isRadioSelected($event)">
-                        <nb-radio *ngFor="let view of viewName"
-                                  [value]="view">{{view}}
-                        </nb-radio>
-                    </nb-radio-group>
-                </div>
             </div>
 
             <hr class="print-line disable-print">
@@ -302,6 +295,10 @@
                         </div>
                     </div>
                 </div>
+            </ng-container>
+            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
+                <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
+                                           [customerAllLoanList] = "customerAllLoanList"></app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
                 <div class="row">
@@ -763,10 +760,6 @@
 <!--                    <app-company-info-summary [approveSheet]="notApprove" [companyInfo]="loanDataHolder?.companyInfo"-->
 <!--                        [loanDataHolder]="loanDataHolder"></app-company-info-summary>-->
 <!--                </div>-->
-            </ng-container>
-            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
-                <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
-                                           [customerAllLoanList] = "customerAllLoanList"></app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million></app-upto-ten-million>
