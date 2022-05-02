@@ -238,19 +238,8 @@ export class CustomerComponent implements OnInit {
     }
 
     getForm(chooseAcType: TemplateRef<any>) {
-        console.log('choose', chooseAcType);
         this.onClose();
         this.modalService.open(chooseAcType);
-        // if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
-        //     this.openChooseAcType(chooseAcType);
-        // } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
-        //     this.dialogService.open(CompanyFormComponent, {
-        //         closeOnBackdropClick: true,
-        //         closeOnEsc: false,
-        //         hasBackdrop: false,
-        //         hasScroll: true
-        //     }).onClose.subscribe(res => CustomerComponent.loadData(this));
-        // }
     }
 
     openTemplate(template) {
@@ -518,7 +507,6 @@ export class CustomerComponent implements OnInit {
 
     changeCustomerType(value) {
         this.selectedValue = value;
-        console.log('value', value);
     }
 
     openCustomerForm(val) {
