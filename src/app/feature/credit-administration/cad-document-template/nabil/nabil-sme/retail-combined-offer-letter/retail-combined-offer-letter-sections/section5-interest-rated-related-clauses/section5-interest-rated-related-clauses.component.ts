@@ -63,7 +63,7 @@ export class Section5InterestRatedRelatedClausesComponent implements OnInit {
           });
         }
         if (value === 'MORTGAGE LOAN COMBINED') {
-          this.tempData.mortgageCombineLoanForm.mortgageCombineLoanFormArray.forEach(val => {
+          this.tempData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
             if (val.interestRateType === 'FIXED_INTEREST') {
               this.isFixed = true;
             }if (val.interestRateType === 'FLOATING_INTEREST') {
