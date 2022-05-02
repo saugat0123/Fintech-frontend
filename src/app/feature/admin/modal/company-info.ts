@@ -44,8 +44,6 @@ export class CompanyInfo {
     businessGiven: string;
     companyLegalDocumentAddress: string;
     shareholderKycList: Array<ShareholderKyc>;
-    isMicroCustomer: boolean;
-    microCustomerType: string;
     vatNo: string;
     accountNo: string;
     accountStrategy: string;
