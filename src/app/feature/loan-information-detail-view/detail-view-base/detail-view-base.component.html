@@ -11,9 +11,6 @@
                    [customerAllLoanList]="customerAllLoanList"
                    [proposalData]="proposalData"
                    [loanDataHolder]="loanDataHolder"></app-proposal-view>
-<div *ngIf="megaGroupEnabled">
-    <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
-</div>
 
 <div *ngIf="productUtils.CBS_ENABLE">
     <div class="row mt-5">
@@ -65,11 +62,6 @@
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-<ng-container>
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</ng-container>
 
 <div>
     <app-comments-summary

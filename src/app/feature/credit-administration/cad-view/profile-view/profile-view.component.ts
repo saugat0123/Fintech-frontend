@@ -11,9 +11,6 @@ import {ToastService} from '../../../../@core/utils';
 import {NbDialogService} from '@nebular/theme';
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
-import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
-import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-
 
 @Component({
     selector: 'app-profile-view',

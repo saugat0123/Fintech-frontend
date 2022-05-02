@@ -291,13 +291,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
-                if (this.client !== this.clientName.MEGA) {
                     const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
                     ageControl.controls.filter(f => {
                         f.get('age').clearValidators();
                         f.get('age').updateValueAndValidity();
                     });
-                }
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
