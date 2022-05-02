@@ -32,7 +32,12 @@
                                        formControlName="actYearInFigure" placeholder="" type="text"/>
                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "actYearInFigure"]).value || '_____________________'}}</span>
                             </span>
-                                बमोजिम नेपाल सरकार
+                                बमोजिम
+                                <span>
+                                <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                       formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "authorizedBodyName"]).value}}</strong>
+                            </span>,
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="headDepartment"
                                        formControlName="headDepartment" placeholder="" type="text"/>
