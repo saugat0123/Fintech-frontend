@@ -3,7 +3,7 @@
         <form [formGroup]="form">
             <div>
                 स्वीकृती पत्र नं.
-                <input class="form-field form-control-sm"
+                <input class="form-field form-control-sm d-print-none"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
@@ -14,19 +14,19 @@
                 <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
                 <br>
                 <br>
-                मितिः <input class="form-field form-control-sm"
+                मितिः <input class="form-field form-control-sm d-print-none"
                              formControlName="sanctionLetterDate"
                              name="sanctionLetterDate"
                              type="text"/>
                 <span class="print-only">{{this.sanctionLetterDate ? this.sanctionLetterDate : '______________________'}}</span>
                 <br>
-                श्री <input class="form-field form-control-sm"
+                श्री <input class="form-field form-control-sm d-print-none"
                             formControlName="nameOfBorrower"
                             name="nameOfBorrower"
                             type="text"/>
                 <span class="print-only">{{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '______________________'}}</span>|
                 <br>
-                ठेगानाः <input class="form-field form-control-sm"
+                ठेगानाः <input class="form-field form-control-sm d-print-none"
                                formControlName="addressOfBorrower"
                                name="addressOfBorrower"
                                type="text"/>

@@ -4,7 +4,7 @@
             <div>
                 <!--If land/land & building is proposed as collateral-->
                 <b>कर्जाका लागि सुरक्षण विवरण</b>
-                <div>
+                <div *ngIf="isLandAndBuilding">
                     <b>क.  प्राथमिक सुरक्षण (Primary Security)</b>
                     <div style="margin-left: 20px">
                         <!--Applicable only if Land/building as primary collateral-->
@@ -72,7 +72,7 @@
                     </div>
                     <br>
                     <table class="table table-bordered table-sm sb-small text-center">
-                        <thead>
+                        <tbody>
                             <tr>
                                 <th rowspan="2">
                                     घर/जग्गा
@@ -102,25 +102,26 @@
                                     वडा नं.
                                 </th>
                             </tr>
-                        </thead>
+                        </tbody>
                         <!--Content of this table can be multiple-->
-                        <tbody>
-                            <tr>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                                <td>{{"__________________"}}</td>
-                            </tr>
+                        <tbody *ngFor="let primaryCol of primaryCollateral">
+                        <tr>
+                            <td [attr.rowspan] = "primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersNameCT}}</td>
+                            <td [attr.rowspan] = "primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersDistrictCT}}</td>
+                            <td [attr.rowspan] = "primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersMunicipalityCT}}</td>
+                        </tr>
+                        <tr *ngFor="let detail of primaryCol?.propertyDetails">
+                            <td>{{detail?.securityOwnersWardNoCT}}</td>
+                            <td>{{detail?.securityOwnersSheetNoCT}}</td>
+                            <td>{{detail?.securityOwnersKittaNoCT}}</td>
+                            <td>{{detail?.securityOwnersLandAreaCT}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-
                 <div>
                     <!--For Auto loan/Auto Commercial Loan-->
-                    <ng-container>
+                    <ng-container *ngIf="isAutoLoan">
                         <b>सवारी साधन कर्जा</b>
                         <br>
                         क. ऋणकर्जाको सुरक्षण स्वरुप उपरोक्त सवारी साधन कर्जाबाट खरिद गरेको सवारी साधन
@@ -194,43 +195,31 @@
                     पक्षमा रोक्का कायम गराई धितोेबन्धक तमसुक गरीदिनु पर्नेछ/गरिदिनुभएको यथावत कायम रहनेछ ।
 
                     <table class="table table-bordered table-sm sb-small text-center">
-                        <thead>
+                        <tbody>
                             <tr>
                                 <th>
                                     क्र.सं.
-                                    <br>
-                                    Serial Number
                                 </th>
                                 <th>
                                     शेयरधनीको नाम
-                                    <br>
-                                    ShareHolder Name
                                 </th>
                                 <th>
                                     कम्पनीको नाम
-                                    <br>
-                                    Name of the Company
                                 </th>
                                 <th>
                                     हितग्राही नं.
-                                    <br>
-                                    BOID Number
                                 </th>
                                 <th>
                                     शेयर संख्या
-                                    <br>
-                                    Number of Share
                                 </th>
                                 <th>
                                     आधार मुल्य
-                                    <br>
-                                    Price
                                 </th>
                                 <th>
                                     Drawing Power
                                 </th>
                             </tr>
-                        </thead>
+                        </tbody>
                         <!--Multiple rows are required for number  of companies that could be copied from other excel sheet-->
                         <tbody>
                             <td>{{"__________________"}}</td>

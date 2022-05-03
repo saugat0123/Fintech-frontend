@@ -14,11 +14,9 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   form: FormGroup;
   tempData;
   loanOption;
-  isHomeLoan;
   loanData;
-  assignedData;
-  loanName;
-  NCELL;
+  loanName: Array<any> = new Array<any>();
+  NCELL: boolean;
   reqDate;
   prevDate;
   constructor(
@@ -35,15 +33,6 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
     this.loanOption = this.tempData.retailGlobalForm.loanType;
     this.fillForm();
   }
-  private checkloan(): void {
-    if (this.loanData.length > 0) {
-      this.loanData.forEach(v => {
-        if (v === 'HOME LOAN COMBINED') {
-          this.isHomeLoan = true;
-        }
-      });
-    }
-  }
   buildForm() {
     return this.form = this.formBuilder.group({
       requestLetterDate: [undefined],
@@ -53,13 +42,18 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   }
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.assignedData = this.cadData.assignedLoan[0];
-      this.loanName = this.assignedData.loan.name;
-      if (this.loanName === 'HOME LOAN COMBINED') {
-        this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(value => {
-          this.NCELL = value.NcellStaffCheck ? value.NcellStaffCheck : '';
-        });
-      }
+      this.cadData.assignedLoan.forEach(val => {
+        this.loanName.push(val.loan.name);
+      });
+      this.loanName.forEach(value => {
+        if (value === 'HOME LOAN COMBINED') {
+          this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
+            if (val.NcellStaffCheck = true) {
+              this.NCELL = true;
+            }
+          });
+        }
+      });
      }
     // for request letter date
     if (this.tempData.retailGlobalForm.requestLetterDateType === 'AD') {
@@ -69,11 +63,13 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
       this.reqDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.requestLetterDateNepaliCT : '';
     }
     // for previous sanction date
-    if (this.tempData.retailGlobalForm.previousSanctionLetterDateType === 'AD') {
-      const prevSanctionDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDate : '';
-      this.prevDate = this.engNepDatePipe.transform(this.datepipe.transform(prevSanctionDate), true);
-    } else {
-      this.prevDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDateNepali.nDate : '';
+    if (!ObjectUtil.isEmpty(this.tempData.retailGlobalForm.previousSanctionLetterDateType)) {
+      if (this.tempData.retailGlobalForm.previousSanctionLetterDateType === 'AD') {
+        const prevSanctionDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDate : '';
+        this.prevDate = this.engNepDatePipe.transform(this.datepipe.transform(prevSanctionDate), true);
+      } else {
+        this.prevDate = this.tempData.retailGlobalForm ? this.tempData.retailGlobalForm.previousSanctionLetterDateNepali.nDate : '';
+      }
     }
     this.form.patchValue({
       requestLetterDate: this.reqDate ? this.reqDate : '',
