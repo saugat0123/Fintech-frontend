@@ -24,6 +24,8 @@ import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alp
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-checklist.component';
+import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
+import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-chec
     CrgGammaDetailViewComponent,
     CrgAlphaDetailedViewComponent,
     CrgLambdaDetailViewComponent,
-    HomeLoanChecklistComponent
+    HomeLoanChecklistComponent,
+      SecurityAdderComponent,
   ],
     exports: [
         InsuranceViewComponent,
@@ -60,7 +63,8 @@ import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-chec
         CrgGammaDetailViewComponent,
         CrgAlphaDetailedViewComponent,
         CrgLambdaDetailViewComponent,
-        HomeLoanChecklistComponent
+        HomeLoanChecklistComponent,
+        SecurityAdderComponent,
     ],
     imports: [
         CommonModule,
@@ -71,6 +75,7 @@ import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-chec
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        SecurityTaggedModule,
 
     ],
     entryComponents: [

@@ -137,18 +137,13 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.getCustomerLoans();
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
-            // this.nonMicroLoanList = this.loanList;
+            this.nonMicroLoanList = this.loanList;
             this.spinner = false;
         }, (err) => {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
             // this.activeModal.dismiss();
         });
-        this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
-            this.loanList = response.detail;
-            this.nonMicroLoanList = this.loanList;
-        });
-
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
 

@@ -43,12 +43,14 @@
                 <!-- Security Summary -->
                 <p>
                     <strong>SECURITY ARRANGEMENT</strong><br>
-                    <app-security-summary *ngIf="loanDataHolder?.security"
-                                          [shareSecurity]="shareSecurityData"
-                                          [formData]="securityData"
-                                          [securityId]="loanDataHolder?.security?.id"
-                                          [collateralData]="loanDataHolder?.collateralSiteVisits"
-                                          [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
+                    <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
+
+<!--                    <app-security-summary *ngIf="loanDataHolder?.security"-->
+<!--                                          [shareSecurity]="shareSecurityData"-->
+<!--                                          [formData]="securityData"-->
+<!--                                          [securityId]="loanDataHolder?.security?.id"-->
+<!--                                          [collateralData]="loanDataHolder?.collateralSiteVisits"-->
+<!--                                          [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>-->
                 </p>
             </li>
             <li>

@@ -25,6 +25,7 @@ import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-co
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-security',
@@ -40,6 +41,8 @@ export class SecurityComponent implements OnInit {
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
     @Input() submittedCheckFromParent: boolean;
+    @Input() customerType: CustomerType;
+    @Input() customerInfo: CustomerInfoData;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;

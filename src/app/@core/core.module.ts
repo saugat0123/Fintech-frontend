@@ -22,6 +22,7 @@ import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
+import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
 
 
 const DATA_SERVICES = [];
@@ -35,7 +36,8 @@ export const NB_CORE_PROVIDERS = [
     PermissionService,
     LoanStatusPipe,
     EngToNepaliNumberPipe,
-    NepaliCurrencyWordPipe
+    NepaliCurrencyWordPipe,
+    NepaliCurrencyFormatterPipe
 ];
 
 const UTILITY_MODULES = [
@@ -66,7 +68,8 @@ const UTILITY_MODULES = [
     ...UTILITY_MODULES,
     LoginPopUp,
     NepaliNumberPipe,
-    AmountWordPipe
+    AmountWordPipe,
+      NepaliCurrencyFormatterPipe
   ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -84,7 +87,8 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         LoginPopUp,
         NepaliNumberPipe,
-        AmountWordPipe
+        AmountWordPipe,
+        NepaliCurrencyFormatterPipe
 
     ], entryComponents: [LoginPopUp]
 })

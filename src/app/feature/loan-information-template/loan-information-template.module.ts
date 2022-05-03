@@ -44,6 +44,7 @@ import {FixAssetCollateralComponent} from './security/security-initial-form/fix-
 import {AngularDraggableModule} from 'angular2-draggable';
 import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
 
 const COMPONENTS = [
@@ -82,7 +83,8 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent,  CommentsComponent, PreviousSecurityComponent,
-        SwotAnalysisComponent],
+        SwotAnalysisComponent,
+        ],
     exports: [...COMPONENTS,  CommentsComponent, SwotAnalysisComponent],
     entryComponents: [...COMPONENTS],
     imports: [
@@ -101,7 +103,8 @@ const COMPONENTS = [
         CoreModule,
         CKEditorModule,
         FeatureModule,
-        AngularDraggableModule
+        AngularDraggableModule,
+        LoanInformationViewModule
     ],
     providers: [
         NgbActiveModal

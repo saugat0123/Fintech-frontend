@@ -1,0 +1,101 @@
+<div class="col-md-12" *ngIf="hasAuto || hasLandBuilding">
+    <p><strong class="float-left">Security Arrangement</strong></p>
+    <p [hidden]="!hasAuto"><b>Vehicle Security</b></p>
+    <table [hidden]="!hasAuto" *ngFor="let vehicle of loanDataHolder?.autos; let i = index" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tbody>
+        <tr>
+            <td class = "sb-bg-dark text-white">S.N</td>
+            <td>{{i+1}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Model</td>
+            <td>{{vehicle?.model || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Manufactured Year</td>
+            <td>{{(vehicle?.manufactureYear | date) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Is New?</td>
+            <td>{{(vehicle?.isNew?'Yes':'No' )}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Engine Number</td>
+            <td>{{vehicle?.engineNo || 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Chasis Number</td>
+            <td>{{vehicle?.chasisNo || 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Quotation Amount</td>
+            <td>{{vehicle?.quotationAmount || 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Considered Amount</td>
+            <td>{{(vehicle?.considerValue | nepaliCurrencyFormatter) || 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Used Amount Amount</td>
+            <td>{{(vehicle?.usedAmount | nepaliCurrencyFormatter) || 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Valuator Name</td>
+            <td>{{(vehicle?.valuators[0]?.name ) || 'N/A' }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p [hidden]="!hasLandBuilding"><b>Vehicle Security</b></p>
+    <p  [hidden]="!hasLandBuilding"><b>Land & Building Security</b></p>
+
+    <table [hidden]="!hasLandBuilding" *ngFor="let lb of loanDataHolder?.landBuildings; let i = index;" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr>
+            <td class = "sb-bg-dark text-white">S.N</td>
+            <td>{{i + 1}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Owner</td>
+            <td>{{lb?.owner || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Plot Number</td>
+            <td>{{lb?.plotNumber || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Registered Office</td>
+            <td>{{lb?.registerOffice || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">District</td>
+            <td>{{lb?.district?.name || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Municipality/VDC</td>
+            <td>{{lb?.municipalityVdc?.name || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Government Rate</td>
+            <td>{{(lb?.governmentRate | nepaliCurrencyFormatter) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Market Value</td>
+            <td>{{(lb?.fairMarketValue | nepaliCurrencyFormatter) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Location Coordinates</td>
+            <td>{{(lb?.geoLocation) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Considered Value</td>
+            <td>{{(lb?.considerValue) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Coverage</td>
+            <td>{{(lb?.coverage) || 'N/A'}}</td>
+        </tr>
+        <tr>
+            <td class = "sb-bg-dark text-white">Used Amount</td>
+            <td>{{(lb?.usedAmount) || 'N/A'}}</td>
+        </tr>
+    </table>
+</div>

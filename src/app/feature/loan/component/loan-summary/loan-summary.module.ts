@@ -89,6 +89,8 @@ import { SanaCovenantsComponent } from './sme-loan-summary/sana-byabasayi-saral-
 import { SanaDisbursementModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-disbursement-modality/sana-disbursement-modality.component';
 import { SanaRepaymentModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-repayment-modality/sana-repayment-modality.component';
 import { SanaMisNrbReportingComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-mis-nrb-reporting/sana-mis-nrb-reporting.component';
+import {SecurityTaggedModule} from '../../../loan-information-template/security/security-tagged-component/security-tagged.module';
+import {SecurityTaggedViewModule} from '../../../loan-information-template/security/security-tagged-view/security-tagged-view.module';
 
 
 const COMPONENTS = [
@@ -197,19 +199,20 @@ const ENTRY_COMPONENTS = [];
     SanaRepaymentModalityComponent,
     SanaMisNrbReportingComponent,
   ],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    LoanInformationTemplateModule,
-    LoanSummaryRoutingModule,
-    ReportingModule,
-    NgxPrintModule,
-    CoreModule,
-    CbsGroupModule,
-    NgSelectModule,
-    LoanInformationViewModule,
-    NepaliPatroModule,
-  ],
+    imports: [
+        CommonModule,
+        ThemeModule,
+        LoanInformationTemplateModule,
+        LoanSummaryRoutingModule,
+        ReportingModule,
+        NgxPrintModule,
+        CoreModule,
+        CbsGroupModule,
+        NgSelectModule,
+        LoanInformationViewModule,
+        NepaliPatroModule,
+        SecurityTaggedViewModule,
+    ],
     exports: [
         LoanSummaryComponent,
         CustomerGroupSummaryComponent,
