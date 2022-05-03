@@ -94,24 +94,21 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
           for (let a = 0; a < this.constructionArray.length; a++) {
             (this.form.get('homeLoanConstructionFormArray') as FormArray).push(this.setAllFormFields());
             for (let b = 0; b < this.constructionArray[a].middlePhaseConstruction.length; b++) {
-              console.log('construction', this.constructionArray[a]);
-              (this.form.get(['homeLoanConstructionFormArray', b, 'middlePhaseConstruction']) as FormArray).push(
+              (this.form.get(['homeLoanConstructionFormArray', a, 'middlePhaseConstruction']) as FormArray).push(
                   this.formBuilder.group({
                     freetext4: [undefined],
                     freetext5: [undefined],
                     freetext10: [undefined]
                   })
               );
+            }
           }
-          }
-          console.log('homeloanArray:', this.form.get('homeLoanConstructionFormArray').value);
-          console.log('Construction Array:', this.constructionArray);
         }
-      }
-      this.takeOverArray = this.initialData.homeLoanCombinedForm.homeLoanCombinedFormArray.filter(val =>
-          val.homeLoanCase === 'TAKEOVER');
-      for (let a = 0; a < this.takeOverArray.length; a++) {
-        (this.form.get('homeLoanTakeOverFormArray') as FormArray).push(this.setAllFormFields());
+        this.takeOverArray = this.initialData.homeLoanCombinedForm.homeLoanCombinedFormArray.filter(val =>
+            val.homeLoanCase === 'TAKEOVER');
+        for (let a = 0; a < this.takeOverArray.length; a++) {
+          (this.form.get('homeLoanTakeOverFormArray') as FormArray).push(this.setAllFormFields());
+        }
       }
 
       if (!ObjectUtil.isEmpty(this.initialData.autoLoanCombinedForm) &&
@@ -149,13 +146,6 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
         }
       }
     }
-  }
-  setMiddleConstruction() {
-    return this.formBuilder.group({
-      freetext4: [undefined],
-      freetext5: [undefined],
-      freetext10: [undefined]
-    });
   }
 
   setAllFormFields() {
