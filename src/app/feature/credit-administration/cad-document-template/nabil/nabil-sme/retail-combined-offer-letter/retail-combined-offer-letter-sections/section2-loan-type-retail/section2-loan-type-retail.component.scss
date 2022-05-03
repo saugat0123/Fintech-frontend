@@ -1,6 +1,7 @@
 *{
   line-height: 1.9em !important;
   font-size: 19px !important;
+  text-align: justify !important;
 }
 
 .form-field {
@@ -24,6 +25,9 @@
     height: auto;
   }
 }
+.table-pad {
+  padding: 20px;
+}
 
 @media screen {
   .print-only {
@@ -45,4 +49,9 @@
     text-justify: inter-word;
     margin: 10px 70px;
   }
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
+
 }

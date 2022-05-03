@@ -334,8 +334,9 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'LAND' ||
-                     this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'LAND_BUILDING'">
+                <div class="row" *ngIf="(this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'LAND' ||
+                     this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'LAND_BUILDING') &&
+                       this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'moratoriumPeriodCheck']).value">
                     <div class="col-md-4">
                         <label class="font-weight-bold" for="moratoriumPeriod"> Moratorium Period </label>
                         <input class="form-control" formControlName="moratoriumPeriod" fullWidth id="moratoriumPeriod"
@@ -384,7 +385,7 @@
                 </div>
                 <div class="row" *ngIf="this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'TD'">
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="FDAmountInWords">FD AMount In Words</label>
+                        <label class="font-weight-bold" for="FDAmountInWords">FD Amount In Words</label>
                         <input class="form-control" formControlName="FDAmountInWords" fullWidth id="FDAmountInWords"
                                readonly
                                nbInput
