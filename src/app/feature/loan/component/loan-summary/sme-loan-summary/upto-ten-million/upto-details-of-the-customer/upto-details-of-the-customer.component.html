@@ -6,15 +6,15 @@
         <td><b>Legal status</b></td>
         <td colspan="2">{{companyInfo?.legalStatus?.corporateStructure?.name}}</td>
         <td><b>Customer ID:</b></td>
-        <td>{{companyInfo?.customerCode}}</td>
-        <td colspan="2">Next review</td>
-        <td>dd/mm/yyyy</td>
+        <td>{{loanDataHolder?.loanHolder?.customerCode}}</td>
+        <td colspan="2"><b>Next review</b></td>
+        <td>{{reviewDate?.nextReviewDate}}</td>
     </tr>
     <tr>
         <td><b>Group(Name, Code)</b></td>
         <td colspan="2">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</td>
         <td><b>VAT /PAN No.</b></td>
-        <td>{{companyInfo?.vatNo}}/{{companyInfo?.panNumber}}</td>
+        <td>{{companyInfo?.panNumber}}</td>
         <td colspan="2" style="text-align: center">Banking with CCBL since</td>
     </tr>
     <tr>
