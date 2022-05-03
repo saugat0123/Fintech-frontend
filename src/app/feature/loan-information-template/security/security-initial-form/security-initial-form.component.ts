@@ -1062,16 +1062,16 @@ export class SecurityInitialFormComponent implements OnInit {
             formControls.controls.forEach( f => {
                 f.get('model').setValidators(Validators.required);
                 f.get('model').updateValueAndValidity();
-                f.get('valuationAmount').setValidators(Validators.required);
-                f.get('valuationAmount').updateValueAndValidity();
+                f.get('quotationAmount').setValidators(Validators.required);
+                f.get('quotationAmount').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
             formControls.controls.forEach( f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
-                f.get('valuationAmount').clearValidators();
-                f.get('valuationAmount').updateValueAndValidity();
+                f.get('quotationAmount').clearValidators();
+                f.get('quotationAmount').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'ApartmentSecurity') {

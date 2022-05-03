@@ -40,7 +40,7 @@ export class SecurityComponent implements OnInit {
     @Output() submittedCheck = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
-    @Input() isMicroCustomer: boolean;
+    @Input() submittedCheckFromParent: boolean;
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
 

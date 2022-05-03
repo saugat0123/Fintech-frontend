@@ -56,7 +56,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.buildForm();
         // this.customerShareData = this.shareSecurityData.customerShareData;
-        // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
         if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
             this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray);
             this.selectedSecurity();
@@ -93,6 +92,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     public setLandBuildingDetail(): void {
         const arrayForm = this.form.get('landBuildingForm') as FormArray;
         this.customerInfo.landBuildings.forEach((singleData: any) => {
+            if (ObjectUtil.isEmpty(singleData.freeLimit)) {
+                singleData.freeLimit = singleData.considerValue;
+            }
             arrayForm.push(this.fb.group({
                 id: [singleData.id],
                 version: [singleData.version],
@@ -122,6 +124,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     public setAutoDetail(): void {
         const arrayForm = this.form.get('autoForm') as FormArray;
         this.customerInfo.autos.forEach((singleData: any) => {
+            if (ObjectUtil.isEmpty(singleData.freeLimit)) {
+                singleData.freeLimit = singleData.considerValue;
+            }
             arrayForm.push(this.fb.group({
                 id: [singleData.id],
                 version: [singleData.version],

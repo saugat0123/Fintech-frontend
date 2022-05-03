@@ -1373,7 +1373,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="landConsideredValue">Considered Value</label>
+                                    <label for="landConsideredValue">Land Considered Value</label>
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
                                            class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
@@ -1469,28 +1469,6 @@
                                             placeholder="Rate"
                                             name="landBuildingRate"
                                             type="number" appDecimalNumber/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="marketValue">Fair Market Value</label>
-                                    <input class="form-control rounded"
-                                           formControlName="marketValue"
-                                           name="marketValue"
-                                           placeholder="Fair Market Value"
-                                           type="number" appDecimalNumber/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="distressValue"> Distress Value</label>
-                                    <input
-                                           class="form-control rounded"
-                                           formControlName="distressValue"
-                                           name="distressValue"
-                                           placeholder="Market Value"
-                                           type="text" appDecimalNumber/>
                                 </div>
                             </div>
                             <div class="col-md-3">
