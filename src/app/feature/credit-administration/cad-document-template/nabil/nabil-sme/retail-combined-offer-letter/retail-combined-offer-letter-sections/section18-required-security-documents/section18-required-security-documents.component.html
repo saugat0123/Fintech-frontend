@@ -6,7 +6,7 @@
                     आवश्यक कागजात सम्बन्धी शर्तः
                 </b>
                 <br>
-                <ng-container>
+                <ng-container *ngIf="initialInfo?.retailGlobalForm?.loanType === 'New' || initialInfo?.retailGlobalForm?.loanType === 'Additional Loan'">
                     <!--For All typs of New and additional Loan types-->
                     तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन 
                     गर्नु पर्नेछ ।
@@ -23,7 +23,7 @@
                 </ng-container>
 
                 <ul>
-                    <li>
+                    <li *ngIf="promissoryVisible">
                         <!--Could be multiple as per facility type-->
                        रु.
                         <input class="form-field form-control-sm d-print-none"
@@ -34,13 +34,13 @@
                         <span class="print-only">{{'______________________'}}</span>/-
                         को प्रतिज्ञा पत्र । (Promissory Note)
                     </li>
-                    <li>
+                    <li *ngIf="continuityVisible">
                        निरन्तरताको लिखत । (Letter of Continuity)
                     </li>
                     <li>
                         बहुबैंकिङ घोषणा पत्र ।
                     </li>
-                    <li>
+                    <li *ngIf="loanDeedVisible">
                         रु. <input class="form-field form-control-sm d-print-none"
                                    name="totalAmountInFigure"
                                    formControlName="totalAmountInFigure"
@@ -50,7 +50,7 @@
                         को ऋणकर्जा तमसुक । (Loan deed)
 
                     </li>
-                    <li>
+                    <li *ngIf="mortgagedVisible">
                         रु. <input class="form-field form-control-sm d-print-none"
                                    name="mortgageDeedAmountInFigure"
                                    formControlName="mortgageDeedAmountInFigure"
@@ -59,7 +59,7 @@
                         <span class="print-only">{{'______________________'}}</span>/–
                         को धितोबन्धक तमसुक । (Mortgage Deed)
                     </li>
-                    <li>
+                    <li *ngIf="reMortgagedVisible">
                         रु. <input class="form-field form-control-sm d-print-none"
                                     name="remortgageDeedAmountInFigure"
                                     formControlName="remortgageDeedAmountInFigure"
@@ -68,46 +68,49 @@
                         <span class="print-only">{{'______________________'}}</span>/–
                         को पुंनधितोबन्धक तमसुक । (Re-Mortgage Deed)
                     </li>
-                    <li>
+                    <li *ngFor="let guarantors of guarantorParsed">
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="nameOfGuarantors"
                                     formControlName="nameOfGuarantors"
                                     placeholder=" "
-                                    type="text"/>
+                                    type="text"
+                                    [value]="guarantors.guarantorName.ct"/>
                         <span class="print-only">{{'______________________'}}</span>
                         को बैकको पक्षमा रु.
                         <input class="form-field form-control-sm d-print-none"
                                name="guaranteeAmount"
                                formControlName="guaranteeAmount"
                                placeholder=" "
-                               type="text"/>
+                               type="text"
+                               [value]="guarantors.gurantedAmount.ct"/>
                         <span class="print-only">{{'______________________'}}</span>/-
                         ( अक्षरेपी रु.
                         <input class="form-field form-control-sm d-print-none"
                                              name="guaranteeAmountInWords"
                                              formControlName="guaranteeAmountInWords"
                                              placeholder=" "
-                                             type="text"/>
+                                             type="text"
+                                             [value]="nepaliCurrencyWordPipe.transform(guarantors.gurantedAmount.en)"/>
                         <span class="print-only">{{'______________________'}}</span>/- मात्र)
                         बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                     </li>
-                    <li>
+                    <li *ngIf="hirePurchaseAgreement">
                         हायर पर्चेज सम्झौता । (Hire Purchase Agreement)
                     </li>
-                    <li>
+                    <li *ngIf="insurance">
                         तेश्रो पक्ष दायित्व सहित बैंकिङ शर्त सहितको सवारी साधनको विस्तृत बिमालेख । (Insurance Policy of Vehicle)
                     </li>
-                    <li>
+                    <li *ngIf="blueBook">
                        बैंकको नाममा सवारी साधन दर्ता (बैंकको नाममा ब्लु बुक) । (Vehicle ‘s Blue Book)
                     </li>
-                    <li>
+                    <li *ngIf="thirdPartyConsent">
                        तेश्रो पक्ष स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का लागि  ऋणीको
                         मञ्जुरीनामा । (Third Party Consent)
                     </li>
-                    <li>
+                    <li *ngIf="valuationReport">
                         मूल्याङकन प्रतिवेदन । (Valuation Report)
                     </li>
-                    <li>
+                    <li *ngIf="insuranceOfBuilding">
                       बैकर्स शर्त सहितको कम्तीमा रु.
                         <input class="form-field form-control-sm d-print-none"
                                name="insuranceAmount"
@@ -117,16 +120,16 @@
                         <span class="print-only">{{'______________________'}}</span>/-
                         को भवनको विमालेख । (Insurance of Building)
                     </li>
-                    <li>
+                    <li *ngIf="pan">
                       स्थाई लेखा नम्बरको प्रमाण पत्र । (PAN)
                     </li>
-                    <li>
+                    <li *ngIf="selfDeclaration">
                       ग्राहक स्वःघोषणा फारम । (Self Declaration)
                     </li>
-                    <li>
+                    <li *ngIf="undertakingLetter">
                       ऋणीबाट undertaking letter (undertaking letter)
                     </li>
-                    <li>
+                    <li *ngIf="sharePledgeDeed">
                       धितोबन्धक लिखत (Share pledge deed)
                     </li>
                     <li>
@@ -135,13 +138,13 @@
                     <li>
                         समग्र बैंक तथा बितिय सस्था वाट रु ५०,००,०००/ भन्दा वढि अधिविकर्ष कर्जा नलिएको स्वघोषणा ।
                     </li>
-                    <li>
+                    <li *ngIf="nrbDeclarationForm">
                       ग्राहक स्वघोषणा फारम । (NRB Declaration Form)
                     </li>
-                    <li>
+                    <li *ngIf="riskTakerDetail">
                       रिस्क टेकर विवरण । (Risk Taker Detail)
                     </li>
-                    <li>
+                    <li *ngIf="sharePledgeConfirmation">
                       सम्बन्धित निक्षेप सदस्यबाट चेक (DIS) मा हस्ताक्षर प्रमाणित गराई सो चेक सहित यस बैंकको
                         पक्षमा उल्लेखित शेयरहरु रोक्का राखिएको पत्र (Share pledge Confirmation)
                     </li>
@@ -157,7 +160,7 @@
                     </li>
                 </ul>
 
-                <ng-container>
+                <ng-container *ngIf="initialInfo?.retailGlobalForm?.loanType !== 'New'">
                     <!--Not required in new case-->
                     <b>
                         यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको
