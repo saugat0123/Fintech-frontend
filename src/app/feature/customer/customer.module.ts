@@ -38,13 +38,11 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
-import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CustomerGroupComponent} from './component/customer-profile/individual-profile/customer-group/customer-group.component';
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import { RiskAnalysisComponent } from './component/customer-form/company-form/risk-analysis/risk-analysis.component';
-import {MultipleBankingComponent} from '../loan-information-template/multiple-banking/multiple-banking.component';
 import { GroupExposureWithCcblComponent } from './component/customer-profile/company-profile/group-exposure-with-ccbl/group-exposure-with-ccbl.component';
 import { ReviewDateComponent } from './component/customer-profile/company-profile/review-date/review-date.component';
 
@@ -100,7 +98,6 @@ const COMPONENTS = [
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
-        MicroLoanModule,
         NepaliPatroModule
 
 

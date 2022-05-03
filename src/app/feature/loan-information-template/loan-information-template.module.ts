@@ -38,7 +38,6 @@ import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upl
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
-import {MicroProposalComponent} from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {CommentsComponent} from './comments/comments.component';
 import {PreviousSecurityComponent} from './previous-security/previous-security.component';
 import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
@@ -82,9 +81,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+    declarations: [...COMPONENTS, CadDocumentUploadComponent,  CommentsComponent, PreviousSecurityComponent,
         SwotAnalysisComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, SwotAnalysisComponent],
+    exports: [...COMPONENTS,  CommentsComponent, SwotAnalysisComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

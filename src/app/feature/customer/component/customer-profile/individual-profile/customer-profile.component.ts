@@ -89,7 +89,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isEditable = false;
     jointInfo = [];
     isJointInfo = false;
-    microCustomer: boolean;
     customerType: CustomerType;
     nonMicroLoanList = [];
     microLoanList = [];
@@ -172,9 +171,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 const jointCustomerInfo = JSON.parse(this.customer.jointInfo);
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 this.isJointInfo = true;
-            }
-            if (!ObjectUtil.isEmpty(this.customer.isMicroCustomer)) {
-                this.microCustomer = true;
             }
             this.customerBasicFormBuilder();
             this.getProvince();

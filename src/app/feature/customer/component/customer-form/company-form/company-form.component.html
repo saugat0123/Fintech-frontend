@@ -2,17 +2,7 @@
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
     <nb-card-header>
-        <!--        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"-->
-        <!--                     (click)="microCustomerValidation(!micro_checked.checked); microRestData(!micro_checked.checked)"-->
-        <!--                     #micro_checked>Micro Customer-->
-        <!--        </nb-checkbox>-->
 
-        <!--      <div class="ml-5">-->
-        <!--            <strong>Micro Customer Type: </strong>-->
-        <!--        <ng-select  [(ngModel)]="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >-->
-        <!--            <ng-option *ngFor="let data of microCustomerTypes" [value]="data">{{data}}</ng-option>-->
-        <!--        </ng-select>-->
-        <!--      </div>-->
 
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
@@ -1378,7 +1368,9 @@
                             </div>
                         </div>
                         <hr>
-
+                        <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail"
+                                                  #companyOtherDetailComponent></app-company-other-detail>
+                        <hr>
                         <div>
                             <h5>6. BUSINESS RELATED INFORMATION</h5>
                             <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]">6.1 The Customer:</h6>

@@ -46,7 +46,6 @@ export class Customer {
     customerLegalDocumentAddress: string;
     individualJsonData: string;
     jointInfo: string;
-    isMicroCustomer: boolean;
     isJointCustomer: boolean;
     panNumber: string;
     sameAddress: boolean;

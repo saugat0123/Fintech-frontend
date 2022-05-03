@@ -800,10 +800,6 @@ export class CompanyFormComponent implements OnInit {
     addProprietor() {
         this.addressList.push(new Address());
         const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
-        // if (FormUtils.checkEmptyProperties(controls)) {
-        //     this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
-        //     return;
-        // }
         controls.push(this.proprietorsFormGroup());
     }
 
@@ -859,48 +855,6 @@ export class CompanyFormComponent implements OnInit {
         );
     }
 
-    // todo remove if not used in future
-    /*searchByRegNO() {
-        this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
-        const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
-        this.blackListService.checkBlacklistByRef(regNo).subscribe((response: any) => {
-            this.isBlackListed = response.detail;
-
-            if (this.isBlackListed) {
-                this.companyFormField.showFormField = false;
-                this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Company'));
-            } else {
-                this.companyFormField.showFormField = true;
-                this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((data: any) => {
-                    if (data.detail.content <= 0) {
-                        this.companyFormField.isOldCustomer = false;
-
-                        this.companyInfo = undefined;
-                        this.buildForm();
-                        this.companyInfoFormGroup.get('registrationNumber').patchValue(regNo);
-                        this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
-                    } else {
-                        this.companyFormField.isOldCustomer = true;
-                        this.companyInfo = data.detail.content[0];
-                        // todo change these patching in common function
-                        if (!ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
-                            this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
-                            this.additionalFieldSelected = true;
-                        }
-                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
-                            this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
-                        }
-                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
-                            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-                        }
-                        this.buildForm();
-                        this.setCompanyInfo(this.companyInfo);
-                    }
-                }, error => console.error(error));
-                this.companyFormField.showFormField = true;
-            }
-        });
-    }*/
     scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
