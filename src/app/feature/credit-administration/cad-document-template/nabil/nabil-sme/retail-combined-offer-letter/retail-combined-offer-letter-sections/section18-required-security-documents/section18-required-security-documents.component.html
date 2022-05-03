@@ -12,7 +12,7 @@
                     गर्नु पर्नेछ ।
                 </ng-container>
                 <br>
-                <ng-container>
+                <ng-container *ngIf="isPODSelected">
                     <!--POD Renewal, Nabil Sahayatri Karja,POD without Collateral, Any
                     Additional loan type which cover existing mortgage deed-->
                     यस अघिको ऋण स्विकृती पत्रको आधारमा सम्पादन वा कार्यान्वयन गर्नु भएको सम्पूर्ण कर्जा सम्बन्धी 
@@ -31,7 +31,7 @@
                                formControlName="loanAmountInFigure"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{'______________________'}}</span>/-
+                        <span class="print-only">{{form?.get('loanAmountInFigure').value ? form?.get('loanAmountInFigure').value : '______________________'}}</span>/-
                         को प्रतिज्ञा पत्र । (Promissory Note)
                     </li>
                     <li *ngIf="continuityVisible">
@@ -46,7 +46,7 @@
                                    formControlName="totalAmountInFigure"
                                    placeholder=" "
                                    type="text"/>
-                        <span class="print-only">{{'______________________'}}</span>/–
+                        <span class="print-only">{{form?.get('totalAmountInFigure').value ? form?.get('totalAmountInFigure').value : '______________________'}}</span>/–
                         को ऋणकर्जा तमसुक । (Loan deed)
 
                     </li>
@@ -56,7 +56,7 @@
                                    formControlName="mortgageDeedAmountInFigure"
                                    placeholder=" "
                                    type="text"/>
-                        <span class="print-only">{{'______________________'}}</span>/–
+                        <span class="print-only">{{form?.get('mortgageDeedAmountInFigure').value ? form?.get('mortgageDeedAmountInFigure').value : '______________________'}}</span>/–
                         को धितोबन्धक तमसुक । (Mortgage Deed)
                     </li>
                     <li *ngIf="reMortgagedVisible">
@@ -65,7 +65,7 @@
                                     formControlName="remortgageDeedAmountInFigure"
                                     placeholder=" "
                                     type="text"/>
-                        <span class="print-only">{{'______________________'}}</span>/–
+                        <span class="print-only">{{form?.get('remortgageDeedAmountInFigure').value ? form?.get('remortgageDeedAmountInFigure').value : '______________________'}}</span>/–
                         को पुंनधितोबन्धक तमसुक । (Re-Mortgage Deed)
                     </li>
                     <li *ngFor="let guarantors of guarantorParsed">
@@ -75,7 +75,7 @@
                                     placeholder=" "
                                     type="text"
                                     [value]="guarantors.guarantorName.ct"/>
-                        <span class="print-only">{{'______________________'}}</span>
+                        <span class="print-only">{{form.get('nameOfGuarantors').value ? form.get('nameOfGuarantors').value : '______________________'}}</span>
                         को बैकको पक्षमा रु.
                         <input class="form-field form-control-sm d-print-none"
                                name="guaranteeAmount"
@@ -83,7 +83,7 @@
                                placeholder=" "
                                type="text"
                                [value]="guarantors.gurantedAmount.ct"/>
-                        <span class="print-only">{{'______________________'}}</span>/-
+                        <span class="print-only">{{form.get('guaranteeAmount').value ? form.get('guaranteeAmount').value : '______________________'}}</span>/-
                         ( अक्षरेपी रु.
                         <input class="form-field form-control-sm d-print-none"
                                              name="guaranteeAmountInWords"
@@ -91,7 +91,7 @@
                                              placeholder=" "
                                              type="text"
                                              [value]="nepaliCurrencyWordPipe.transform(guarantors.gurantedAmount.en)"/>
-                        <span class="print-only">{{'______________________'}}</span>/- मात्र)
+                        <span class="print-only">{{form.get('guaranteeAmountInWords').value ? form.get('guaranteeAmountInWords').value : '______________________'}}</span>/- मात्र)
                         बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                     </li>
                     <li *ngIf="hirePurchaseAgreement">
@@ -117,7 +117,7 @@
                                formControlName="insuranceAmount"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{'______________________'}}</span>/-
+                        <span class="print-only">{{form.get('insuranceAmount').value ? form.get('insuranceAmount').value : '______________________'}}</span>/-
                         को भवनको विमालेख । (Insurance of Building)
                     </li>
                     <li *ngIf="pan">
@@ -156,7 +156,7 @@
                                name="freeText2"
                                formControlName="freeText2">
                         </textarea>
-                        <span class="print-only">{{'______________________'}}</span>
+                        <span class="print-only">{{form.get('freeText2').value ? form.get('freeText2').value : '========================'}}</span>
                     </li>
                 </ul>
 
