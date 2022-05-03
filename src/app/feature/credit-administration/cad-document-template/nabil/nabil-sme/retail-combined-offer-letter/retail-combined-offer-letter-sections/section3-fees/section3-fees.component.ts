@@ -21,6 +21,7 @@ export class Section3FeesComponent implements OnInit {
   isPersonalWoCollateral: boolean;
   isShareLoan: boolean;
   isAutoLoan: boolean;
+  isShareLoanDemand: boolean;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -95,6 +96,17 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isShareLoan = true;
+        }
+        if (value === 'SHARE LOAN DEMAND COMBINED') {
+          this.tempData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+          this.isShareLoanDemand = true;
         }
         if (value === 'PERSONAL LOAN COMBINED') {
           this.tempData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(val => {

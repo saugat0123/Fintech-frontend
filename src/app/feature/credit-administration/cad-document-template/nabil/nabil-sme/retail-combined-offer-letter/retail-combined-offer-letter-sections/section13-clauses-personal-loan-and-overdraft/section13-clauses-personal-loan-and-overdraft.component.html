@@ -1,21 +1,21 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form">
-            <div>
+            <div *ngIf="isPersonalLoan || isPersonalWoCollateral">
                 <!--Clause of For Personal Loan and Personal overdraft without collateral only-->
                 <ol style="list-style: devanagari">
                     <li>
                         यो ऋण कर्जा सुविधा तथा ऋणकर्जासंग सम्वन्धित शर्त बन्देजनामाहरु तपाई
                         <input class="form-field form-control-sm d-print-none"
-                               name="nameOfBranch"
+                               name="nameOfCompany"
                                formControlName="nameOfCompany"
                                placeholder=" "
                                type="text"/>
                         <span class="print-only">{{'______________________'}}</span>
                         मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका लागि मात्र कायम रहनेछ ।
                         <input class="form-field form-control-sm d-print-none"
-                               name="nameOfBranch"
-                               formControlName="nameOfCompany1"
+                               name="nameOfCompany"
+                               formControlName="nameOfCompany"
                                placeholder=" "
                                type="text"/>
                         <span class="print-only">{{'______________________'}}</span>
@@ -26,8 +26,8 @@
                     <li>
                         कथंकदाचित
                         <input class="form-field form-control-sm d-print-none"
-                               name="nameOfCompany2"
-                               formControlName="nameOfCompany2"
+                               name="nameOfCompany"
+                               formControlName="nameOfCompany"
                                placeholder=" "
                                type="text"/>
                         <span class="print-only">{{'______________________'}}</span>
