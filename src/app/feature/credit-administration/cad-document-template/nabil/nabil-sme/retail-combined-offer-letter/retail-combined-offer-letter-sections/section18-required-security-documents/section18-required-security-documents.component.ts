@@ -16,6 +16,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   assignedData;
   guarantorData;
   guarantorParsed: Array<any> = new Array<any>();
+  loanName: Array<any> = new Array<any>();
   promissoryVisible: boolean;
   continuityVisible: boolean;
   loanDeedVisible: boolean;
@@ -34,6 +35,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   nrbDeclarationForm: boolean;
   riskTakerDetail: boolean;
   sharePledgeConfirmation: boolean;
+  isPODSelected: boolean;
   constructor(
       private formBuilder: FormBuilder,
       public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe
@@ -50,6 +52,12 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       this.guarantorData = this.cadData.assignedLoan[0].taggedGuarantors;
     }
     this.requiredDocument();
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.cadData.assignedLoan.forEach(val => {
+        this.loanName.push(val.loan);
+      });
+    }
+    this.checkCondition();
     this.fillForm();
     this.guarantorData.forEach(any => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
@@ -161,5 +169,12 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         && temp.requiredLegalDocument.requiredDocument.includes('Share Pledge Confirmation')) {
       this.sharePledgeConfirmation = true;
     }
+  }
+  checkCondition() {
+    this.loanName.forEach(val => {
+      if ((val.name === 'PERSONAL OVERDRAFT' && val.isRenewable === true) || val.name === 'NABIL SAHAYATRI KARJA') {
+        this.isPODSelected = true;
+      }
+    });
   }
 }
