@@ -38,7 +38,9 @@ export class ProposalComponent implements OnInit {
     @Input() fromProfile;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
+    @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
+    proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: any;
@@ -269,8 +271,11 @@ export class ProposalComponent implements OnInit {
             .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
         this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
-        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-            .patchValue(Number(value)));
+        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
+            this.proposalForm.get('principalAmount')
+                .patchValue(Number(value));
+            this.proposedLimit = this.proposalForm.get('proposedLimit').value;
+        });
     }
 
     getLoanData() {
@@ -514,6 +519,7 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
+            this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
@@ -1008,5 +1014,8 @@ export class ProposalComponent implements OnInit {
                 amount: 0,
             })
         );
+    }
+    setLoanHolder(loan: LoanDataHolder) {
+        this.loan = loan;
     }
 }

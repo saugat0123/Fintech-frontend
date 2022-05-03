@@ -47,6 +47,7 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {CrgMicroComponent} from './crg-micro/crg-micro.component';
 import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -104,7 +105,8 @@ const COMPONENTS = [
         CoreModule,
         CKEditorModule,
         FeatureModule,
-        AngularDraggableModule
+        AngularDraggableModule,
+        LoanInformationViewModule
     ],
     providers: [
         NgbActiveModal
