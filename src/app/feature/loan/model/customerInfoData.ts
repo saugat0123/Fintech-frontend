@@ -23,6 +23,8 @@ import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MaritalStatus} from '../../../@core/model/enum/marital-status';
 import {Gender} from '../../../@core/model/enum/gender';
 import {MultipleBanking} from '../../admin/modal/multipleBanking';
+import {Auto} from './Auto';
+import {LandBuilding} from './LandBuilding';
 
 export class CustomerInfoData {
     id: number;
@@ -77,4 +79,7 @@ export class CustomerInfoData {
     riskAnalysis: string;
     swotAnalysis: string;
     customerCategory: string;
+    autos: Array<Auto>;
+    landBuildings: Array<LandBuilding>;
+    selectedArray: string;
 }

@@ -1373,7 +1373,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="landConsideredValue">Considered Value</label>
+                                    <label for="landConsideredValue">Land Considered Value</label>
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
                                            class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
@@ -1458,6 +1458,122 @@
                                            placeholder="Distress Value"
                                            type="text"/>
                                 </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="governmentRate">Government Rate</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="governmentRate"
+                                            id="governmentRate"
+                                            placeholder="Rate"
+                                            name="landBuildingRate"
+                                            type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="consideredValues">Considered Value</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="considerValue"
+                                            id="consideredValues"
+                                            placeholder="Consider Value"
+                                            name="considerValue"
+                                            type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="getLocation">Geo Location</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="geoLocation"
+                                            id="getLocation"
+                                            placeholder="Geo Location"
+                                            name="geoLocation"
+                                            type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="sheetNo">Sheet No.</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="sheetNo"
+                                            id="sheetNo"
+                                            placeholder="Sheet No"
+                                            name="sheetNo"
+                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="registeredOffice">Registered Office</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="registerOffice"
+                                            id="registeredOffice"
+                                            placeholder="Registered Office"
+                                            name="registerOffice"
+                                            type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <label for="province">Province</label>
+                                <ng-select (change)="getDistrict(landAndBuilding?.get('province')?.value)"
+                                           formControlName="province"
+                                           id="province">
+                                    <ng-option *ngFor="let provinceVal of provinces"
+                                               [value]="provinceVal">
+                                        {{provinceVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                            <div class="col-md-3 ">
+                                <label for="district">District</label>
+                                <ng-select (change)="getMunicipality(landAndBuilding?.get('district').value)"
+                                           formControlName="district"
+                                           id="district">
+                                    <ng-option *ngFor="let districtVal of districtList"
+                                               [value]="districtVal">
+                                        {{districtVal.name}}
+                                    </ng-option>
+                                </ng-select>
+
+                            </div>
+                            <div class="col-md-3 ">
+                                <label for="municipality">Municipalities or VDC</label>
+                                <ng-select
+                                        formControlName="municipalityVdc"
+                                        id="municipality"
+                                        name="municipality">
+                                    <ng-option *ngFor="let municipalityVal of municipalityList"
+                                               [value]="municipalityVal">
+                                        {{municipalityVal.name}}
+                                    </ng-option>
+                                </ng-select>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="addressLineOne"><strong>Address Line One</strong></label>
+                                <textarea class="form-control"
+                                          formControlName="addressLine1"
+                                          id="addressLineOne"
+                                          name="addressLineOne"
+                                          placeholder="Address Line One"
+                                          rows="5"
+                                          type="text" maxlength="256"></textarea>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="addressLineTwo"><strong>Address Line Two</strong></label>
+                                <textarea class="form-control"
+                                          formControlName="addressLine2"
+                                          id="addressLineTwo"
+                                          name="addressLineTwo"
+                                          placeholder="Address Line Two"
+                                          rows="5"
+                                          type="text" maxlength="256"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -2240,40 +2356,94 @@
                             <div class="form-group">
                                 <label class="title" for="engineNumber"><strong>Engine Number</strong></label>
                                 <input
-                                        class="form-control" formControlName="engineNumber" id="engineNumber"
+                                        class="form-control" formControlName="engineNo" id="engineNumber"
                                         name="model"
                                         placeholder="Engine Number" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="chassisNumber"><strong>Chassis Number</strong></label>
+                                <label class="title" for="chasisNo"><strong>Chassis Number</strong></label>
                                 <input
-                                        class="form-control" formControlName="chassisNumber" id="chassisNumber"
-                                        name="chassisNumber"
+                                        class="form-control" formControlName="chasisNo" id="chasisNo"
+                                        name="chasisNo"
                                         placeholder="Chassis Number" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>Valuation Amount</strong></label>
-                                <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('valuationAmount').errors ||
-                                        addMoreVehicle.get('valuationAmount').invalid) }"
+                                <label class="title" for="manufactureYear"><strong>Manufacture Year</strong></label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                       formControlName="manufactureYear"
+                                       id="manufactureYear"
+                                       name="manufactureYear" placeholder="Manufacture Date"
+                                       [nbDatepicker]="manufactureYear"
+                                       type="text"/>
+                                <app-calendar
+                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'manufactureYear']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'manufactureYear']).value"></app-calendar>
+                                <nb-datepicker #manufactureYear></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="quotationAmount"><strong>Quotation/Valuation Amount</strong></label>
+                                <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('quotationAmount').errors ||
+                                        addMoreVehicle.get('quotationAmount').invalid) }"
                                         (keyup)="vehicleRemainingAmount(i)"
-                                        class="form-control" formControlName="valuationAmount" id="valuationAmount"
-                                        name="valuationAmount"
+                                        class="form-control" formControlName="quotationAmount" id="quotationAmount"
+                                        name="quotationAmount"
                                         placeholder="Valuation Amount"
-                                        type="number">
-                                <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('valuationAmount').invalid)"
+                                        type="number" required>
+                                <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('quotationAmount').invalid)"
                                      class="invalid-feedback">
-                                    <div *ngIf="addMoreVehicle.get('valuationAmount').errors.required">
+                                    <div *ngIf="addMoreVehicle.get('quotationAmount').errors.required">
                                         Valuation amount is required
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="quotationAmount"><strong>Realisable Rate</strong></label>
+                                <input (change)="calcRealiasable(i,'vehicle')"
+                                        class="form-control" formControlName="vehicleRate" id="vehicleRate"
+                                        name="vehicleRate"
+                                        placeholder="Rate %"
+                                        type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="considerValue"><strong>Consider Value</strong></label>
+                                <input
+                                        class="form-control" formControlName="considerValue" id="considerValue"
+                                        name="considerValue"
+                                        placeholder="Consider Value"
+                                        type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="discountPrice"><strong>Discount Price</strong></label>
+                                <input
+                                        class="form-control" formControlName="discountPrice" id="discountPrice"
+                                        name="discountPrice"
+                                        placeholder="Discount Price"
+                                        type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
+                                <input (change)="calcRealiasable(i,'vehicle')"
+                                        class="form-control" formControlName="vehicleRealiasableAmount" id="vehicleRealiasableAmount"
+                                        name="vehicleRealiasableAmount"
+                                        placeholder="Realiasable Amount"
+                                        type="number" disabled>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -2346,7 +2516,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <nb-checkbox class="form-control"  formControlName="isNew">Is vehicle new?</nb-checkbox>
+                    <div class="row" *ngIf="!securityForm.get(['vehicleDetails',i,'isNew']).value">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Valuator Name</label>
@@ -2356,7 +2527,7 @@
                                            formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
-                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
+                                               [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
