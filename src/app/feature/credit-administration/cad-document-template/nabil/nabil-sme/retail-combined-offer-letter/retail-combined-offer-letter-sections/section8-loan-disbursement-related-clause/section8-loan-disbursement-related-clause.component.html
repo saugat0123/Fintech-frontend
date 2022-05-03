@@ -141,6 +141,8 @@
                                                    type="text"/>
                                             <span class="print-only font-weight-bold">{{val?.finalPhaseConstructionCostCT || '______________________'}}</span>
                                             /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि
+
+                                            <!-- to be clear -->
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="freetext7"
                                                    formControlName="freetext7"
@@ -188,25 +190,20 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
                                 /- (अक्षरेपि रु.
                                 <input class="form-field form-control-sm d-print-none"
-                                       name="nameOfFig"
-                                       formControlName="nameOfFig"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
-                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम
-                                <input class="form-field form-control-sm d-print-none"
                                        name="loanAmtWords"
                                        formControlName="loanAmtWords"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
-                                बैंकलाई
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम
                                 <input class="form-field form-control-sm d-print-none"
                                        name="nameOfBank"
                                        formControlName="nameOfBank"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.nameOfBankCT || '______________________'}}</span>
+                                बैंकलाई
+                                A/C Payee Cheque/MC/Draft
                                 मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                             </p>
                         </ng-container>
@@ -284,21 +281,21 @@
                                        formControlName="branchName1"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
                                 शाखामा खोल्नु भएको चल्ती खातामा रु.
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="loanAmtInWords"
-                                       formControlName="loanAmtInWords"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
-                                /- (अक्षरेपि रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAmtInFig"
                                        formControlName="loanAmtInFig"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInWords"
+                                       formControlName="loanAmtInWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
                                 मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                             </p>
                         </ng-container>
@@ -319,21 +316,21 @@
                                        formControlName="branchName2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
                                 शाखामा खोल्नु भएको खातामा रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAmtFig"
                                        formControlName="loanAmtFig"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
                                 /- (अक्षरेपि रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAmtWords1"
                                        formControlName="loanAmtWords1"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
                                 मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                             </p>
                         </ng-container>
@@ -358,15 +355,15 @@
                                 <span class="print-only font-weight-bold">{{'____________________'}}</span>
                                 मा रु.
                                 <input class="form-field form-control-sm d-print-none"
-                                       name="loanAmtInWords1"
-                                       formControlName="loanAmtInWords1"
+                                       name="loanAmtFig1"
+                                       formControlName="loanAmtFig1"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '____________________'}}</span>
                                 /- (अक्षरेपि रु.
                                 <input class="form-field form-control-sm d-print-none"
-                                       name="loanAmtFig1"
-                                       formControlName="loanAmtFig1"
+                                       name="loanAmtInWords1"
+                                       formControlName="loanAmtInWords1"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '____________________'}}</span>
@@ -387,15 +384,15 @@
                                 कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको, पुल्चोक
                                 शाखामा रहेको चल्ती खातामा रु.
                                 <input class="form-field form-control-sm d-print-none"
-                                       name="loanAmtWords3"
-                                       formControlName="loanAmtWords3"
+                                       name="loanAmtFigure1"
+                                       formControlName="loanAmtFigure1"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountCT || '____________________'}}</span>
                                 /- (अक्षरेपि रु.
                                 <input class="form-field form-control-sm d-print-none"
-                                       name="loanAmtFigure1"
-                                       formControlName="loanAmtFigure1"
+                                       name="loanAmtWords3"
+                                       formControlName="loanAmtWords3"
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountWordsCT || '____________________'}}</span>
@@ -434,18 +431,18 @@
                                         <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
                                         शाखामा खोल्नु भएको चल्ती खातामा रु.
                                         <input class="form-field form-control-sm d-print-none"
-                                               name="loanAmtWords4"
-                                               formControlName="loanAmtWords4"
-                                               placeholder=" "
-                                               type="text"/>
-                                        <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
-                                        /- (अक्षरेपी रु.
-                                        <input class="form-field form-control-sm d-print-none"
                                                name="loanAmtFig4"
                                                formControlName="loanAmtFig4"
                                                placeholder=" "
                                                type="text"/>
                                         <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                        /- (अक्षरेपी रु.
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="loanAmtWords4"
+                                               formControlName="loanAmtWords4"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
                                         मात्र) को अधिविकर्ष सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि
                                         समयमा
                                         सो सिमा भन्दा बढी हुनु हुनेछैन ।

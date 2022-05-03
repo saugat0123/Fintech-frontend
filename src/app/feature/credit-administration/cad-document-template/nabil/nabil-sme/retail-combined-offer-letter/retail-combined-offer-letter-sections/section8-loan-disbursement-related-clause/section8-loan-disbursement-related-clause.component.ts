@@ -64,6 +64,127 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       branchName: [undefined]
     });
     this.setFormArrays();
+    this.patchFormData();
+  }
+  patchFormData() {
+    if (!ObjectUtil.isEmpty(this.initialData)) {
+      if (!ObjectUtil.isEmpty(this.initialData.mortgageCombineForm) &&
+          !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+        this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach((val, i) => {
+          this.form.get(['mortgageLoanFormArray', i, 'loanAmtFigure1']).patchValue(val.loanAmountCT ? val.loanAmountCT : '');
+          this.form.get(['mortgageLoanFormArray', i, 'loanAmtWords3']).patchValue(val.loanAmountWordsCT ? val.loanAmountWordsCT : '');
+          this.form.get(['mortgageLoanFormArray', i, 'nameOfBeneficiary4']).patchValue(val.beneficiaryNameCT ? val.beneficiaryNameCT : '');
+        });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+        this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
+          this.form.get(['personalLoanFormArray', i, 'loanAmtFig1']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+          this.form.get(['personalLoanFormArray', i, 'loanAmtInWords1']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+          // this.form.get(['personalLoanFormArray', i, 'amtNum']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+        });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.homeLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.homeLoanCombinedForm.homeLoanCombinedFormArray)) {
+        if (this.purchaseArray.length > 0) {
+          this.purchaseArray.forEach((val, i) => {
+            this.form.get(['homeLoanPurchaseFormArray', i, 'loanAmountInFigure']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+            this.form.get(['homeLoanPurchaseFormArray', i, 'loanAmountInWords']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+            this.form.get(['homeLoanPurchaseFormArray', i, 'nameOfBeneficiary']).patchValue(val.nameOfBeneficiaryCT ? val.nameOfBeneficiaryCT : '');
+          });
+        }
+        if (this.constructionArray.length > 0) {
+          this.constructionArray.forEach((val, i) => {
+            this.form.get(['homeLoanConstructionFormArray', i, 'branchName']).patchValue(
+                this.branchName ? this.branchName : '');
+
+            // First Phase
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext1']).patchValue(
+                val.firstPhaseConstructionCostCT ? val.firstPhaseConstructionCostCT : '');
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext2']).patchValue(
+                val.firstInstallmentAmountInFigureCT ? val.firstInstallmentAmountInFigureCT : '');
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext3']).patchValue(
+                val.firstInstallmentAmountInWordsCT ? val.firstInstallmentAmountInWordsCT : '');
+
+            // Middle Phase
+            this.constructionArray[i].middlePhaseConstruction.forEach((midVal, j) => {
+              this.form.get(['homeLoanConstructionFormArray', i, 'middlePhaseConstruction', j, 'freetext10']).patchValue(
+                  midVal.nPhaseConstructionCostCT ? midVal.nPhaseConstructionCostCT : '');
+              this.form.get(['homeLoanConstructionFormArray', i, 'middlePhaseConstruction', j, 'freetext4']).patchValue(
+                  midVal.nPhaseInstallmentAmountInFigureCT ? midVal.nPhaseInstallmentAmountInFigureCT : '');
+              this.form.get(['homeLoanConstructionFormArray', i, 'middlePhaseConstruction', j, 'freetext5']).patchValue(
+                  midVal.nPhaseInstallmentAmountInWordsCT ? midVal.nPhaseInstallmentAmountInWordsCT : '');
+            });
+
+            // Final Phase
+            // this.form.get(['homeLoanConstructionFormArray', i, 'freetext7']).patchValue(
+            //     val.finalPhaseConstructionCostCT ? val.finalPhaseConstructionCostCT : '');
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext6']).patchValue(
+                val.finalPhaseConstructionCostCT ? val.finalPhaseConstructionCostCT : '');
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext8']).patchValue(
+                val.finalInstallmentAmountInFigureCT ? val.finalInstallmentAmountInFigureCT : '');
+            this.form.get(['homeLoanConstructionFormArray', i, 'freetext9']).patchValue(
+                val.finalInstallmentAmountInWordsCT ? val.finalInstallmentAmountInWordsCT : '');
+          });
+        }
+        if (this.takeOverArray.length > 0) {
+          this.takeOverArray.forEach((val, i) => {
+            this.form.get(['homeLoanTakeOverFormArray', i, 'loanAmt']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+            this.form.get(['homeLoanTakeOverFormArray', i, 'loanAmtWords']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+            this.form.get(['homeLoanTakeOverFormArray', i, 'nameOfBank']).patchValue(val.nameOfBankCT ? val.nameOfBankCT : '');
+          });
+        }
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.autoLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.autoLoanCombinedForm.autoLoanCombinedFormArray)) {
+        this.initialData.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach((val, i) => {
+          this.form.get(['autoLoanFormArray', i, 'branchName']).patchValue(this.branchName ? this.branchName : '');
+          this.form.get(['autoLoanFormArray', i, 'nameOfBeneficiary3']).patchValue(val.nameOfBeneficiaryCT ? val.nameOfBeneficiaryCT : '');
+          this.form.get(['autoLoanFormArray', i, 'loanFig']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+          this.form.get(['autoLoanFormArray', i, 'loanWords']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+        });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+       this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach((val, i) => {
+         this.form.get(['personalOverdraftFormArray', i, 'branchName1']).patchValue(this.branchName ? this.branchName : '');
+         this.form.get(['personalOverdraftFormArray', i, 'loanAmtInFig']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+         this.form.get(['personalOverdraftFormArray', i, 'loanAmtInWords']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+       });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
+        this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach((val, i) => {
+          this.form.get(['personalOverdraftWithoutCollateralFormArray', i, 'branchName2']).patchValue(this.branchName ? this.branchName : '');
+          this.form.get(['personalOverdraftWithoutCollateralFormArray', i, 'loanAmtFig']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+          this.form.get(['personalOverdraftWithoutCollateralFormArray', i, 'loanAmtWords1']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+        });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.nabilShareLoanPODForm) &&
+          !ObjectUtil.isEmpty(this.initialData.nabilShareLoanPODForm.nabilShareLoanPODFormArray)) {
+        this.initialData.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach((val, i) => {
+            this.form.get(['nabilShareLoanFormArray', i, 'branchName3']).patchValue(this.branchName ? this.branchName : '');
+            this.form.get(['nabilShareLoanFormArray', i, 'loanAmtFig4']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+            this.form.get(['nabilShareLoanFormArray', i, 'loanAmtWords4']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+        });
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+        this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
+          this.form.get(['shareLoanDemandFormArray', i, 'bName']).patchValue(this.branchName ? this.branchName : '');
+          this.form.get(['shareLoanDemandFormArray', i, 'loanAmtDemand']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+          this.form.get(['shareLoanDemandFormArray', i, 'loanAmtFigDemand']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+          // this.form.get(['shareLoanDemandFormArray', i, 'freetext11']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+        });
+      }
+    }
   }
   setFormArrays() {
     if (!ObjectUtil.isEmpty(this.initialData)) {

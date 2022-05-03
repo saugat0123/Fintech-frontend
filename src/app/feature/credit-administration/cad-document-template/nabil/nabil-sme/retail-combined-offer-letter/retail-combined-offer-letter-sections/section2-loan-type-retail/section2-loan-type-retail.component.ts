@@ -325,6 +325,11 @@ export class Section2LoanTypeRetailComponent implements OnInit {
       this.patchCommonData('nabilSahayatriLoanFormArray', this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray);
     }
     if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm) &&
+        !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+      this.patchCommonData('personalOverdraftLoanFormArray', this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray);
+    }
+    if (!ObjectUtil.isEmpty(this.initialData) &&
         !ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm) &&
         !ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
       this.patchCommonData('personalOverdraftWithoutCollateralFormArray', this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray);
