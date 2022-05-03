@@ -22,7 +22,6 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
@@ -36,7 +35,6 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
-import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
@@ -57,7 +55,6 @@ import {DocStatus} from '../../model/docStatus';
 })
 export class LoanSummaryComponent implements OnInit, OnDestroy {
 
-    @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -165,9 +162,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
 
-    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
-    showApprovalSheetInfo = false;
     notApprove = 'notApprove';
 
     sbsGroupEnabled = environment.SBS_GROUP;
@@ -606,9 +601,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
     }
 
-    goToApprovalSheet() {
-        this.changeToApprovalSheetActive.next();
-    }
 
     SetRoleHierarchy(loanId: number) {
         let context;
@@ -645,18 +637,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
     }
 
-    openApprovalSheetInfoModal() {
-        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
-        modal.componentInstance.loanConfig = this.loanConfig;
-        modal.componentInstance.loanDataHolder = this.loanData;
-    }
+
 
     checkDocUploadConfig() {
         const storage = LocalStorageUtil.getStorage();
         const docStatus = this.loanDataHolder.documentStatus.toString();
-        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
-            && storage.roleType === 'COMMITTEE'
-            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
+
     }
 
     public customSafePipe(val) {

@@ -49,7 +49,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     hasMissingDeferredDocs = false;
 
     loanSummaryActive = true;
-    approvalSheetActive = false;
     loanTag = LoanTag;
     customerAllLoanList;
     institutionalTotalRiskScore;
@@ -233,12 +232,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     }
 
     activeApprovalSheet() {
-        this.approvalSheetActive = true;
         this.loanSummaryActive = false;
     }
 
     activeLoanSummary() {
-        this.approvalSheetActive = false;
         this.loanSummaryActive = true;
     }
 
