@@ -41,7 +41,6 @@ export class CompanyInfo {
     businessGiven: string;
     companyLegalDocumentAddress: string;
     shareholderKycList: Array<ShareholderKyc>;
-    vatNo: string;
     accountNo: string;
     accountStrategy: string;
     customerCategory: any;

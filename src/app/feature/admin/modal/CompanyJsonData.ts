@@ -37,7 +37,7 @@ export class CompanyJsonData {
   majorBuyersSuppliers: string = undefined;
   group: string = undefined;
   // loanType: string = undefined;
-  reviewDate: ReviewDate = undefined;
+  reviewDate: string = undefined;
   promoterNetWorth: string;
   business: string;
 }
