@@ -30,6 +30,7 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cicl)) {
       this.ciclData = JSON.parse(this.cicl.data);
+      console.log('ciclData', this.ciclData);
     }
     if (!ObjectUtil.isEmpty(this.proposal)) {
       this.proposalData = JSON.parse(this.proposal.data);
