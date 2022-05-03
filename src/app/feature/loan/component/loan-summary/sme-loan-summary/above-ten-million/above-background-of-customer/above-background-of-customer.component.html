@@ -84,16 +84,14 @@
                 <th>SN</th>
                 <th>Name</th>
                 <th>Position</th>
-<!--                <th>Address as per Legal Document</th>-->
             </tr>
             </thead>
 
             <tbody>
-            <tr *ngFor="let data of jsonData?.managementTeamList; let i = index">
+            <tr *ngFor="let pro of jsonData?.proprietorList; let i = index">
                 <td>{{i+1}}</td>
-                <td>{{data?.name}}</td>
-                <td>{{data?.designation}}</td>
-                <td>{{data?.companyLegalDocumentAddress}}</td>
+                <td>{{pro?.name}}</td>
+                <td>{{pro?.type}}</td>
             </tr>
             </tbody>
         </table>

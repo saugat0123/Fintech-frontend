@@ -583,33 +583,6 @@
       </div>
       <hr>
 
-      <div class="row">
-        <div class="row col-md-12">
-          <div class="col-md-6">
-            <strong>Management Team</strong>
-          </div>
-        </div>
-
-        <br>
-        <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
-          <thead>
-          <tr class="sb-bg-dark text-white">
-            <th scope="col"> S.N</th>
-            <th scope="col">Name</th>
-            <th scope="col">Designation</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
-                                        let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{singleManagementTeam?.name}}</td>
-            <td>{{singleManagementTeam?.designation}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-      </div>
       <hr>
       <div class="row">
         <div class="row col-md-12">

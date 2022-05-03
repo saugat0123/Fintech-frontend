@@ -22,7 +22,6 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import {GroupTaggingComponent} from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 // tslint:disable-next-line:max-line-length
-import {EditManagementTeamComponent} from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
 import {EditSwotComponent} from './component/customer-profile/company-profile/edit-swot/edit-swot.component';
 import {EditPartnerInfoComponent} from './component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component';
 import {CustomerLoanApplyComponent} from './component/customer-loan-apply/customer-loan-apply.component';
@@ -64,7 +63,6 @@ const COMPONENTS = [
   CustomerLoanApplyComponent,
   EditSwotComponent,
   EditPartnerInfoComponent,
-  EditManagementTeamComponent,
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
   JointFormComponent
@@ -105,7 +103,6 @@ const COMPONENTS = [
   entryComponents: [
     CustomerFormComponent,
     CompanyFormComponent,
-    EditManagementTeamComponent,
     EditPartnerInfoComponent,
     EditSwotComponent,
     CustomerLoanApplyComponent,
