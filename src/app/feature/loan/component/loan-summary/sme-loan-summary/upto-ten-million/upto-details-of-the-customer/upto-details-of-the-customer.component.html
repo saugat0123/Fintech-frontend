@@ -1,6 +1,5 @@
 <p><strong>Name:</strong> M/S <b>{{loanDataHolder?.companyInfo?.companyName}}</b>
     (Mr/Ms: <b>{{contactedPerson[0]?.contactName}}</b>, mobile: <b>{{contactedPerson[0]?.contactNumber}}</b>)</p>
-<p class="float-right">All amounts in NPR million (unless otherwise indicated)</p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
         <td><b>Legal status</b></td>
@@ -15,7 +14,7 @@
         <td colspan="2">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</td>
         <td><b>VAT /PAN No.</b></td>
         <td>{{companyInfo?.panNumber}}</td>
-        <td colspan="2" style="text-align: center">Banking with CCBL since</td>
+        <td colspan="3" class="font-weight-bold" style="text-align: center;">Banking with CCBL since</td>
     </tr>
     <tr>
         <td><b>Firm/Com. Reg. No.</b></td>
@@ -99,14 +98,22 @@
         <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
     </tr>
     <tr>
-        <td>{{commentData?.previousComments}}</td>
-        <td>{{commentData?.auditorComments}}</td>
-        <td>{{commentData?.nrbComments}}</td>
+        <td [attr.rowspan]="propList?.length+1">{{commentData?.previousComments}}</td>
+        <td [attr.rowspan]="propList?.length+1">{{commentData?.auditorComments}}</td>
+        <td [attr.rowspan]="propList?.length+1">{{commentData?.nrbComments}}</td>
         <th class="sn">SN</th>
         <th colspan="2">Name</th>
         <th>Designation</th>
         <th>Share(in %)</th>
     </tr>
+    <ng-container *ngIf="propList?.length > 1">
+        <tr *ngFor="let prop of propList; let i = index">
+            <td>{{i+1}}</td>
+            <td colspan="2">{{prop?.name}}</td>
+            <td>{{prop?.type}}</td>
+            <td>{{prop?.share}}</td>
+        </tr>
+    </ng-container>
     </tbody>
     <tbody>
         <tr>
@@ -116,14 +123,6 @@
                 <b>Factory/Business</b>: {{businessLocation?.address1}}, {{businessLocation?.municipalityVdc.name}}, {{businessLocation?.district.name}}
             </td>
         </tr>
-        <ng-container *ngIf="propList?.length > 1">
-            <tr *ngFor="let prop of propList; let i = index">
-                <td>{{i+1}}</td>
-                <td colspan="2">{{prop?.name}}</td>
-                <td>{{prop?.type}}</td>
-                <td>{{prop?.share}}</td>
-            </tr>
-        </ng-container>
     </tbody>
     <tr>
 </table>
