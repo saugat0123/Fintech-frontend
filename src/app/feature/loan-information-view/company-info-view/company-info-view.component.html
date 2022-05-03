@@ -201,36 +201,6 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="8">Management Team</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Address as per Legal Document</th>
-            </tr>
-            </thead>
-            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
-            <tr>
-                <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{management?.name}}</td>
-                <td class="text-left pl-1">{{management?.designation}}</td>
-                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
-            </tr>
-
-            </tbody>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3">Note</th>
-            </tr>
-            <tr>
-                <td colspan="3" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
-            </tr>
-        </table>
-
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
                 <th colspan="100%">Information of Proprietor/Shareholder/Partner with holder %</th>
             </tr>
             </thead>

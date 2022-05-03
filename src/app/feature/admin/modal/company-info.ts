@@ -1,7 +1,6 @@
 import {LegalStatus} from './legal-status';
 import {Capital} from './capital';
 import {Swot} from './swot';
-import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
@@ -13,7 +12,6 @@ export class CompanyInfo {
     capital: Capital;
     swot: Swot;
     companyLocations: CompanyLocations;
-    managementTeamList: Array<ManagementTeam>;
     proprietorsList: Array<Proprietors>;
     companyName: string;
     registrationNumber: string;

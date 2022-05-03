@@ -6,7 +6,6 @@ import {LegalStatus} from '../../../../admin/modal/legal-status';
 import {Capital} from '../../../../admin/modal/capital';
 import {Swot} from '../../../../admin/modal/swot';
 import {CompanyLocations} from '../../../../admin/modal/companyLocations';
-import {ManagementTeam} from '../../../../admin/modal/management-team';
 import {Proprietors} from '../../../../admin/modal/proprietors';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
@@ -92,7 +91,6 @@ export class CompanyFormComponent implements OnInit {
     capital: Capital = new Capital();
     swot: Swot = new Swot();
     locations: CompanyLocations = new CompanyLocations();
-    managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
     proprietors: Proprietors = new Proprietors();
     provinceList: Array<Province> = new Array<Province>();
     districtList: Array<District> = new Array<District>();
@@ -207,11 +205,7 @@ export class CompanyFormComponent implements OnInit {
         this.getCompanyStructure();
         this.getClientType();
         this.getSubSector();
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            this.setManagementTeams(this.companyJsonData.managementTeamList);
-        } else {
-            this.addManagementTeam();
-        }
+
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
                 this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
@@ -449,12 +443,6 @@ export class CompanyFormComponent implements OnInit {
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.numberOfShareholder],
-            // managementTeams
-            managementTeams: this.formBuilder.array([]),
-            // managementTeamNote
-            managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
-                this.companyJsonData.managementTeamNote],
             // proprietors
             proprietors: this.formBuilder.array([]),
             // contact person
@@ -614,38 +602,10 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.setControl('contactPersons', this.setContactPersons(info.contactPersons));
     }
 
-    managementTeamFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [undefined],
-            designation: [undefined],
-            companyLegalDocumentAddress: [undefined],
-        });
-    }
-
-    // set managementTeams data
-    setManagementTeams(data) {
-        const control = this.companyInfoFormGroup.get('managementTeams') as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(singleData => {
-                control.push(
-                    this.formBuilder.group({
-                        name: [singleData.name],
-                        designation: [singleData.designation],
-                        companyLegalDocumentAddress: [singleData.companyLegalDocumentAddress]
-                    })
-                );
-            });
-        }
-    }
-
-    removeManagementTeam(index: number) {
-        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
-    }
-
     onCloseCreateCustomer() {
         this.onClose();
     }
-
+F
     onClose() {
         this.modalService.dismissAll();
     }
@@ -653,15 +613,6 @@ export class CompanyFormComponent implements OnInit {
     changeAction(template) {
         this.onClose();
         this.modalService.open(template);
-    }
-
-    addManagementTeam() {
-        const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
-        if (FormUtils.checkEmptyProperties(controls)) {
-            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Management Detail To Add More'));
-            return;
-        }
-        controls.push(this.managementTeamFormGroup());
     }
 
     proprietorsFormGroup(): FormGroup {
@@ -901,9 +852,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.capital = this.capital;
 
 
-        // management Team Note
-        this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
-
         // contactPerson
         this.companyInfo.contactPersons = JSON.stringify(this.companyInfoFormGroup.get('contactPersons').value);
 
@@ -978,7 +926,6 @@ export class CompanyFormComponent implements OnInit {
         submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
         submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
-        submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
