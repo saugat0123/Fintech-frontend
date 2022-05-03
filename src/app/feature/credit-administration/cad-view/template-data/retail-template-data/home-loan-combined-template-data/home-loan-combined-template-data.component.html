@@ -41,6 +41,12 @@
                             <nb-option value="FIXED_INTEREST"> Fixed Interest Rate </nb-option>
                         </nb-select>
                     </div>
+                    <div class="col-md-12 mt-3" *ngIf="homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'homeLoanCase']).value === 'CONSTRUCTION'">
+                        <nb-checkbox #moratoriumCheck
+                                     formControlName="moratoriumPeriodCheck">
+                            Moratorium Period Required ?
+                        </nb-checkbox>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -305,7 +311,8 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'homeLoanCase']).value === 'CONSTRUCTION'">
+                <div class="row" *ngIf="homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'homeLoanCase']).value === 'CONSTRUCTION' &&
+                homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'moratoriumPeriodCheck']).value">
                     <div class="col-md-4">
                         <label class="font-weight-bold" for="moratoriumPeriod"> Moratorium Period (In Months) </label>
                         <input class="form-control" formControlName="moratoriumPeriod" fullWidth id="moratoriumPeriod"
