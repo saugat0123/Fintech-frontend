@@ -8,29 +8,29 @@
                <b>
                    द्रष्टब्य : माथि उल्लिखित ब्यक्तिगत कर्जाको ब्याजदर यस नबिल बैंक लिमिटेड र
                    <input class="form-field form-control-sm d-print-none"
-                          name=" "
-                          formControlName=" "
+                          name="freeText1"
+                          formControlName="freeText1"
                           placeholder=" "
                           type="text"/>
                    <span class="print-only">{{'______________________'}}</span>
                    का
                    <input class="form-field form-control-sm d-print-none"
-                          name=" "
-                          formControlName=" "
+                          name="freeText2"
+                          formControlName="freeText2"
                           placeholder=" "
                           type="text"/>
                    <span class="print-only">{{'______________________'}}</span>
                    को सुबिधाको लागि मिति
                    <input class="form-field form-control-sm d-print-none"
-                          name=" "
-                          formControlName=" "
+                          name="freeText3"
+                          formControlName="freeText3"
                           placeholder=" "
                           type="text"/>
                    <span class="print-only">{{'______________________'}}</span>
                    मा सम्पन्न सम्झौता ज्ञापनपत्र बमोजिम तोकिएको छ । उक्त ब्याजदर तपाई
                    <input class="form-field form-control-sm d-print-none"
-                          name=" "
-                          formControlName=" "
+                          name="freeText4"
+                          formControlName="freeText4"
                           placeholder=" "
                           type="text"/>
                    <span class="print-only">{{'______________________'}}</span>
@@ -38,8 +38,8 @@
                    <br>
                    साथै, नबिल बैंक लिमिटेड र
                    <input class="form-field form-control-sm d-print-none"
-                          name=" "
-                          formControlName=" "
+                          name="freeText5"
+                          formControlName="freeText5"
                           placeholder=" "
                           type="text"/>
                    <span class="print-only">{{'______________________'}}</span>
@@ -141,10 +141,14 @@
                     </li>
                     <li>
                         म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि
-                        <ng-container>
-                            <!--For Loan having Below /above 10M -->
-                            नभएको/ भएको
-                        </ng-container>
+                        <span *ngIf="initialInfo?.retailGlobalForm?.loanAboveCrore === false">
+                            <!--For Loan having Below -->
+                            नभएको
+                        </span>
+                        <span *ngIf="initialInfo?.retailGlobalForm?.loanAboveCrore === true">
+                            <!--For Loan having above 10M -->
+                            भएको
+                        </span>
                         बिनाशर्त उद्घोष गर्दछु ।
                     </li>
                     <li>
