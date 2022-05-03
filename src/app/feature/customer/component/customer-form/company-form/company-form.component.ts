@@ -105,8 +105,6 @@ export class CompanyFormComponent implements OnInit {
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
-    additionalFieldSelected = false;
-    additionalFieldData: any;
     subSector = [];
     clientType: any;
     loanTypeList = [{
@@ -167,10 +165,6 @@ export class CompanyFormComponent implements OnInit {
         return this.companyInfoFormGroup.controls;
     }
 
-    get additionalInfoForm() {
-        return this.companyInfoFormGroup.controls.additionalCompanyInfo['controls'];
-    }
-
     switchLang() {
         if (this.calendarType === CalendarType.BS) {
             this.translate.use('en');
@@ -190,10 +184,7 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
-        this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
-        if (this.additionalFieldSelected) {
-            this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
-        }
+
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
         }
@@ -515,25 +506,6 @@ export class CompanyFormComponent implements OnInit {
             group: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.group],
 
-            // additional company detail
-            additionalCompanyInfo: this.formBuilder.group({
-                registrationType: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.registrationType],
-                licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseHolderName],
-                licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    new Date(this.additionalFieldData.licenseExpiryDate)],
-                licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    new Date(this.additionalFieldData.licenseIssuedDate)],
-                licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuePlace],
-                licenseNo: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseNo],
-                issuerOfLiscence: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.issuerOfLiscence],
-                additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.additionalInfoRemark],
-            }),
 
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
@@ -635,9 +607,6 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.promoterNetWorth],
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined : this.companyInfo.customerCategory]
         });
-        if (!this.additionalFieldSelected) {
-            this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
-        }
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -938,9 +907,6 @@ export class CompanyFormComponent implements OnInit {
         // contactPerson
         this.companyInfo.contactPersons = JSON.stringify(this.companyInfoFormGroup.get('contactPersons').value);
 
-        // additional registration/license information
-        this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
-
         // succession planning
         this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
 
@@ -1015,7 +981,6 @@ export class CompanyFormComponent implements OnInit {
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
-        submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyJsonData.businessManagementRisk;
@@ -1075,20 +1040,7 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
-    checkChecked(event, type) {
-        switch (type) {
-            case 'additionalInfo':
-                if (event) {
-                    this.additionalFieldSelected = true;
-                    this.companyInfoFormGroup.enable();
-                } else {
-                    this.additionalFieldSelected = false;
-                    this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
-                    this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
-                }
-                break;
-        }
-    }
+
 
     checkPanNumberNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {

@@ -48,37 +48,6 @@
             </tr>
         </table>
         <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" *ngIf="companyJsonData?.isAdditionalCompanyInfo">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="5">Additional registration/license information
-                </th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <td>Type of Registration/License</td>
-                <td>Name of license holder</td>
-                <td>License Issued Date(AD/BS)</td>
-                <td>License Expiry Date(AD/BS)</td>
-                <td>License Issue Place</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}} ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}} {{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Remarks</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">

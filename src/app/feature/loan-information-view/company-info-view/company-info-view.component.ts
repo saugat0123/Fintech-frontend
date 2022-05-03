@@ -24,7 +24,6 @@ export class CompanyInfoViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() loanId: any;
   companyJsonData: CompanyJsonData;
-  additionalInfoJsonData;
   contactPersonJsonData;
   bankingRelation;
   businessAndIndustry: BusinessAndIndustry;
@@ -39,7 +38,6 @@ export class CompanyInfoViewComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
-      this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
       this.contactPersonJsonData = JSON.parse(this.formValue.contactPersons);
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
       this.businessGiven = JSON.parse(this.formValue.businessGiven);

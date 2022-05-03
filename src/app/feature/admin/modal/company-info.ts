@@ -26,7 +26,6 @@ export class CompanyInfo {
     issuePlace: string;
     email: string;
     contactNum: string;
-    additionalCompanyInfo: string;
     successionPlanning: string;
     customerCode: string;
     bankingRelationship: string;
