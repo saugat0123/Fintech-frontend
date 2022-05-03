@@ -105,10 +105,10 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          // ciclStatus: [undefined, Validators.required],
-          obtaineddate: [undefined, Validators.required],
+          // obtaineddate: [undefined, Validators.required],
+          overdueStatus: [undefined],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined],
+          // overdue: [undefined],
           ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
@@ -128,10 +128,10 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          // ciclStatus: [undefined, Validators.required],
-          obtaineddate: [undefined, Validators.required],
+          // obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined],
+          // overdue: [undefined],
+          overdueStatus: [undefined],
           ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
@@ -152,10 +152,10 @@ export class CiclComponent implements OnInit {
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
-            // ciclStatus: [cicl.status, Validators.required],
-            obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
+            // obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
-            overdue: [cicl.overdue],
+              overdueStatus: [cicl.overdueStatus, Validators.required],
+            // overdue: [cicl.overdue],
             ciclRelation: [cicl.ciclRelation],
             blacklistChecked: [cicl.blacklistChecked],
             blacklistHistory: this.formBuilder.array([]),
@@ -208,10 +208,10 @@ export class CiclComponent implements OnInit {
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
       cicl.outstandingAmount = controls.outstandingAmount.value;
-      // cicl.status = controls.ciclStatus.value;
-      cicl.obtaineddate = controls.obtaineddate.value;
+      // cicl.obtaineddate = controls.obtaineddate.value;
       cicl.loanamount = controls.loanamount.value;
-      cicl.overdue = controls.overdue.value;
+      cicl.overdueStatus = controls.overdueStatus.value;
+      // cicl.overdue = controls.overdue.value;
       cicl.ciclRelation = controls.ciclRelation.value;
       cicl.blacklistChecked = controls.blacklistChecked.value;
       cicl.blacklistHistory = controls.blacklistHistory.value,

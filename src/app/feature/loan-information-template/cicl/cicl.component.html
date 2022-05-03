@@ -44,7 +44,6 @@
       <div *ngIf="ciclHistory">
         <div formArrayName="ciclArray" *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;">
           <div [formGroupName]="ciclIndex.toString()">
-
             <div class="row">
               <div class="col-md-4 form-group">
                 <label for="nameOfBorrower"><b>Name</b></label>
@@ -55,7 +54,6 @@
                   <span *ngIf="(cicl.get('nameOfBorrower').errors.required)">Borrower Name is required</span>
                 </div>
               </div>
-
               <div class="col-md-4">
                 <label><strong>Cicl Relation</strong></label>
                 <select
@@ -71,7 +69,6 @@
             </div>
 
             <div class="row">
-
               <div class="col-md-4 form-group">
                 <label for="fiName"><b>Name of FI</b></label>
                 <input class="form-control" formControlName="fiName" id="fiName"
@@ -90,7 +87,6 @@
                   <span *ngIf="(cicl.get('facilityName').errors.required)">Facility Name is required</span>
                 </div>
               </div>
-
               <div class="col-md-4 form-group">
                 <label for="overdueAmount"><b>Overdue Amount</b></label>
                 <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
@@ -102,20 +98,29 @@
               </div>
             </div>
             <div class="row">
+<!--              <div class="col-md-4 form-group">-->
+<!--                <label for="obtaineddate"><b>Obtained Date</b></label>-->
+<!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="obtainedDatePicker"-->
+<!--                       [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }"-->
+<!--                       class="form-control rounded"-->
+<!--                       formControlName="obtaineddate" placeholder="Obtained Date"-->
+<!--                       id="obtaineddate"-->
+<!--                       type="text"/>-->
+<!--                <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>-->
+<!--                <app-calendar [ePreDate]="cicl.get('obtaineddate').value" *ngIf="calendarType === 'BS'"-->
+<!--                              (messageToEmit)="cicl.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>-->
+<!--                <nb-datepicker #obtainedDatePicker></nb-datepicker>-->
+<!--                <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">-->
+<!--                  <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>-->
+<!--                </div>-->
+<!--              </div>-->
               <div class="col-md-4 form-group">
-                <label for="obtaineddate"><b>Obtained Date</b></label>
-                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="obtainedDatePicker"
-                       [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }"
-                       class="form-control rounded"
-                       formControlName="obtaineddate" placeholder="Obtained Date"
-                       id="obtaineddate"
-                       type="text"/>
-                <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
-                <app-calendar [ePreDate]="cicl.get('obtaineddate').value" *ngIf="calendarType === 'BS'"
-                              (messageToEmit)="cicl.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>
-                <nb-datepicker #obtainedDatePicker></nb-datepicker>
-                <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
-                  <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
+                <label for="overdueStatus"><b>Overdue status</b></label>
+                <input class="form-control" formControlName="overdueStatus" id="overdueStatus"
+                       placeholder="Overdue status"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdueStatus').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('overdueStatus').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('overdueStatus').errors.required)">Overdue status is required</span>
                 </div>
               </div>
               <div class="col-md-4 form-group">
@@ -136,11 +141,11 @@
                   <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
                 </div>
               </div>
-              <div class="col-md-4 form-group">
-                <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
-                <input class="form-control" formControlName="overdue" id="overdue"
-                       placeholder="overdue">
-              </div>
+<!--              <div class="col-md-4 form-group">-->
+<!--                <label for="overdue"><b>Number of Overdue Installment(s)</b></label>-->
+<!--                <input class="form-control" formControlName="overdue" id="overdue"-->
+<!--                       placeholder="overdue">-->
+<!--              </div>-->
             </div>
             <nb-checkbox #blacklist (checkedChange)="blackListFound(blacklist.checked, ciclIndex)"
                          [checked]="cicl?.get('blacklistChecked')?.value"><strong>BlackList History</strong></nb-checkbox>
