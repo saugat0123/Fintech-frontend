@@ -87,6 +87,7 @@ export class CiclComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
         this.patchCiclFormGroup(this.ciclList);
+        this.setBlacklistHistory(this.ciclList);
       } else {
         this.addCiclFormGroup();
       }
@@ -135,7 +136,6 @@ export class CiclComponent implements OnInit {
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
         }));
-
   }
 
   removeCICL(index: number) {
@@ -157,8 +157,8 @@ export class CiclComponent implements OnInit {
             loanamount: [cicl.loanamount, Validators.required],
             overdue: [cicl.overdue],
             ciclRelation: [cicl.ciclRelation],
-              blacklistChecked: [cicl.blacklistChecked],
-            blacklistHistory: [this.setBlacklistHistory(cicl.blacklistHistory, index)],
+            blacklistChecked: [cicl.blacklistChecked],
+            blacklistHistory: this.formBuilder.array([]),
           }));
     });
   }
@@ -202,7 +202,6 @@ export class CiclComponent implements OnInit {
     const ciclControls = this.ciclArray as FormArray;
     for (const arrayControl of ciclControls.controls) {
       const controls = (arrayControl as FormGroup).controls;
-        console.log('controls', controls);
       const cicl: Cicl = new Cicl();
       cicl.nameOfBorrower = controls.nameOfBorrower.value;
       cicl.nameOfFI = controls.fiName.value;
@@ -215,11 +214,10 @@ export class CiclComponent implements OnInit {
       cicl.overdue = controls.overdue.value;
       cicl.ciclRelation = controls.ciclRelation.value;
       cicl.blacklistChecked = controls.blacklistChecked.value;
-      cicl.blacklistHistory = JSON.stringify(controls.blacklistHistory.value),
+      cicl.blacklistHistory = controls.blacklistHistory.value,
       this.ciclList.push(cicl);
 
     }
-      console.log('ciclList', this.ciclList);
     // uncomment if value is need
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
@@ -276,13 +274,17 @@ export class CiclComponent implements OnInit {
       }
     }
 
-    setBlacklistHistory(blackListHistory: string, index) {
-      const data = JSON.parse(blackListHistory);
-        console.log('data', data);
-        console.log('blackListHistory', blackListHistory);
-        const test = this.ciclForm.get(['ciclArray', index, 'blacklistHistory']) as FormArray;
-        // const formArray = (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index, ''])).get('blacklistHistory'));
-        // console.log('formArray', formArray);
-        console.log('test', test);
+    setBlacklistHistory(ciclList: Array<Cicl>) {
+      ciclList.forEach((cl, i) => {
+          const arr = (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', i])).get('blacklistHistory'));
+          if (!ObjectUtil.isEmpty(cl.blacklistHistory)) {
+              cl.blacklistHistory.forEach((bl: any) => {
+                  arr.push(this.formBuilder.group({
+                      blacklistNumber: [bl.blacklistNumber],
+                      blacklistDate: [new Date(bl.blacklistDate)],
+                  }));
+              });
+          }
+      });
     }
 }

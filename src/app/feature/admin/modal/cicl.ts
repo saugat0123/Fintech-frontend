@@ -13,7 +13,7 @@ export class Cicl {
   version: number;
   ciclRelation: string;
   blacklistChecked: boolean;
-  blacklistHistory: string;
+  blacklistHistory: [];
 }
 
 export class CiclArray {
