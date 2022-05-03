@@ -399,7 +399,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="panNumber"><strong>PAN</strong></label>
+                                    <label for="panNumber"><strong>VAT/PAN</strong></label>
                                     <div class="input-group mb-3">
                                         <input #PanNumber
                                                [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
@@ -464,28 +464,14 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="vatNo"><strong>VAT</strong></label>
-                                    <div class="input-group mb-3">
-                                        <input #vatNumber
-                                               [ngClass]="{ 'is-invalid':submitted && form.vatNo.errors }"
-                                               class="form-control rounded"
-                                               formControlName="vatNo"
-                                               id="vatNo"
-                                               placeholder="Enter Vat"
-                                               type="text"/>
-                                        <div *ngIf="submitted && form.vatNo.errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="form.vatNo.errors.required">
-                                                Vat is required.
-                                            </div>
-                                            <div *ngIf="form.vatNo.errors.maxlength || form.vatNo.errors.minlength">
-                                                Length should be of 9 digit
-                                            </div>
-                                            <div *ngIf="form.vatNo.errors.cannotContainSpace">
-                                                White space is invalid
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label for="registrationDistrict"><strong>Registration District</strong></label>
+                                    <select formControlName="registrationDistrict" id="registrationDistrict"
+                                            [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}"
+                                            class="form-control">
+                                        <option [value]="null">Select Registration District</option>
+                                        <option *ngFor="let district of allDistrict" [value]="district?.name">
+                                            {{district?.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -589,18 +575,6 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="registrationDistrict"><strong>Registration District</strong></label>
-                                    <select formControlName="registrationDistrict" id="registrationDistrict"
-                                            [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}"
-                                            class="form-control">
-                                        <option [value]="null">Select Registration District</option>
-                                        <option *ngFor="let district of allDistrict" [value]="district?.name">
-                                            {{district?.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="udhyogBibag">Registered at Udhyog Bibhag?</label>

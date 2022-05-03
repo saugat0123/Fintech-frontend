@@ -109,7 +109,6 @@ export class ProposalComponent implements OnInit {
     isAllExposureFieldNull = false;
     firstTimeHomeBuyerChecked = false;
     files = [];
-    incomeFromAccountDataResponse;
     purposes: Array<string> = [
         'Purchase of Land',
         'Construction of Building',
@@ -183,9 +182,9 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
             this.interestLimit = this.formDataForEdit['interestRate'];
             /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
-            this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
-                ? new Date(this.formValue.dateOfExpiry) : undefined);
-            this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
+            this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.dateOfExpiry)
+                ? new Date(this.formDataForEdit.dateOfExpiry) : undefined);
+            this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
             if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
                 this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -220,9 +219,6 @@ export class ProposalComponent implements OnInit {
                     this.files = JSON.parse(data.files);
                 }
             }
-        }
-        if (!ObjectUtil.isEmpty(this.customerInfo.incomeFromAccount)) {
-            this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
         }
 
         this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {

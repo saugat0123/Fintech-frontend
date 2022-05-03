@@ -32,27 +32,6 @@
                     <br>
                     <button nbButton shape="rectangle" status="primary" size="tiny" (click)="goToCustomer()"><em
                             class="fas fa-backward"></em> <span class="px-2">Customer Profile</span></button>
-
-                    <button *ngIf="!disableApprovalSheetFlag" nbButton shape="rectangle" status="primary"
-                        class="float-right" size="tiny" (click)="goToApprovalSheet()">
-                        <span class="text-right px-2">
-                            Approval Sheet
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>
-                    <!--
-                  uncomment if needed
-                  <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
-                            nbButton
-                            shape="rectangle"
-                            status="success"
-                            class="float-right"
-                            size="tiny" (click)="openApprovalSheetInfoModal()">
-                        <span class="text-right">
-                            Approval Doc Info
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>-->
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
@@ -149,6 +128,9 @@
                     <div class="clearfix">
                         <div class="float-left">
                             <p><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</p>
+                        </div>
+                        <div class="float-right">
+                            <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span>
                         </div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>

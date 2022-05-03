@@ -22,12 +22,8 @@ import { FinancialRiskSummaryComponent } from './financial-risk-summary/financia
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
 import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
-import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
 import { CbsGroupModule } from '../../../cbs-group/cbs-group.module';
-import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-sheet-config.component';
-import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import { LoanInformationViewModule } from '../../../loan-information-view/loan-information-view.module';
 import { RoleHierarchyChainComponent } from './role-heirarchy-chain/role-hierarchy-chain.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
@@ -115,18 +111,14 @@ const COMPONENTS = [
   CollateralSummaryComponent,
   NtaSummaryComponent,
   ProposalTermsAndConditionSummeryComponent,
-  ApprovalSheetComponent,
   RoleHierarchyChainComponent
 ];
 
-const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
+const ENTRY_COMPONENTS = [];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ApprovalSheetConfigComponent,
-    ApprovalSheetInfoComponent,
-    ApprovalSheetDocumentListComponent,
     MGroupSummaryComponent,
     CommentsSummaryComponent,
     PreviousSecuritySummaryComponent,
@@ -152,9 +144,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveFinancialHighlightsComponent,
     AboveAssessmentOfFacilitiesRequirementComponent,
     AboveSecurityArrangementComponent,
-    ApprovalSheetConfigComponent,
-    ApprovalSheetInfoComponent,
-    ApprovalSheetDocumentListComponent,
     MGroupSummaryComponent,
     CommentsSummaryComponent,
     PreviousSecuritySummaryComponent,
@@ -230,8 +219,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         IncomeFromAccountSummeryComponent,
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        ApprovalSheetComponent,
-        ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
         SecuritySummaryComponent,
