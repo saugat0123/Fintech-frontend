@@ -176,6 +176,7 @@ export class CompanyFormComponent implements OnInit {
 
     ngOnInit() {
         this.companyInfo = this.formValue;
+        console.log(this.companyInfo)
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.customerCategory = this.formValue.customerCategory;
         }
