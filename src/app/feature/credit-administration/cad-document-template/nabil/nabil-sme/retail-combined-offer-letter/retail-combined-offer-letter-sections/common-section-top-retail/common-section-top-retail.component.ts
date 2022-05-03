@@ -53,7 +53,7 @@ export class CommonSectionTopRetailComponent implements OnInit {
       const sanctionLetDate = this.tempData.retailGlobalForm.sanctionLetterDate ? this.tempData.retailGlobalForm.sanctionLetterDate : '';
       this.sanctionLetterDate = this.engNepDatePipe.transform(this.datePipe.transform(sanctionLetDate), true);
     } else {
-      this.sanctionDate = this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate ?
+      this.sanctionDate = this.tempData.retailGlobalForm.sanctionLetterDateNepali ?
       this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate : '';
       this.sanctionLetterDate = this.sanctionDate ? this.sanctionDate : '';
     }
