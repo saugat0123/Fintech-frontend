@@ -48,7 +48,6 @@ import { Security } from '../../../model/security';
 import { LoanFormService } from '../../loan-form/service/loan-form.service';
 import { DmsLoanService } from '../../loan-main-template/dms-loan-file/dms-loan-service';
 import { ReadmoreModelComponent } from '../../readmore-model/readmore-model.component';
-import { ApprovalSheetInfoComponent } from '../approval-sheet-info/approval-sheet-info.component';
 // tslint:disable-next-line:max-line-length
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import { saveAs as importedSaveAs } from 'file-saver';
@@ -65,7 +64,6 @@ import {CustomerCategory} from '../../../../customer/model/customerCategory';
   styleUrls: ['./sme-loan-summary.component.scss'],
 })
 export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
-  @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
   @Input() loanData;
   loanDataHolder: LoanDataHolder;
@@ -173,9 +171,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
-  disableApprovalSheetFlag = environment.disableApprovalSheet;
   roleType;
-  showApprovalSheetInfo = false;
   notApprove = 'notApprove';
 
   sbsGroupEnabled = environment.SBS_GROUP;
@@ -706,10 +702,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     );
   }
 
-  goToApprovalSheet() {
-    this.changeToApprovalSheetActive.next();
-  }
-
   SetRoleHierarchy(loanId: number) {
     let context;
     context = {
@@ -746,23 +738,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  openApprovalSheetInfoModal() {
-    const modal = this.modalService.open(ApprovalSheetInfoComponent, {
-      size: 'lg',
-    });
-    modal.componentInstance.loanConfig = this.loanConfig;
-    modal.componentInstance.loanDataHolder = this.loanData;
-  }
-
   checkDocUploadConfig() {
     const storage = LocalStorageUtil.getStorage();
     const docStatus = this.loanDataHolder.documentStatus.toString();
-    this.showApprovalSheetInfo =
-      docStatus !== 'APPROVED' &&
-      docStatus !== 'CLOSED' &&
-      docStatus !== 'REJECTED' &&
-      storage.roleType === 'COMMITTEE' &&
-      this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
   }
 
   public customSafePipe(val) {

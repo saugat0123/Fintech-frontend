@@ -15,7 +15,7 @@
                 [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
         ></app-loan-action>
 
-        <button *ngIf="loanDataHolder && approvalSheetActive"
+        <button *ngIf="loanDataHolder"
                 [useExistingCss]="true" class="btn-sm btn-warning float-right"
                 ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
             PRINT<i class="col-md-1 fa fa-print"></i>
@@ -28,7 +28,6 @@
                 <ng-container *ngSwitchDefault>
 
                     <app-loan-summary *ngIf="customerType === 'INDIVIDUAL'"
-                            (changeToApprovalSheetActive)="activeApprovalSheet()"
                                       (customerLoanList)="customerLoanList($event)"
                                       [loanConfig]="loanConfig"
                                       [loanData]="loanDataHolder"
@@ -36,7 +35,6 @@
                     </app-loan-summary>
          
                     <app-sme-loan-summary *ngIf="customerType === 'INSTITUTION'"
-                            (changeToApprovalSheetActive)="activeApprovalSheet()"
                                       (customerLoanList)="customerLoanList($event)"
                                       [loanConfig]="loanConfig"
                                       [loanData]="loanDataHolder"
@@ -49,12 +47,6 @@
        </ng-container>
         </ng-container>
 
-        <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"
-                            *ngIf="approvalSheetActive && loanDataHolder?.id"
-                            [loanConfig]="loanConfig"
-                            [loanData]="loanDataHolder"
-                            [nepaliDate]="nepaliDate">
-        </app-approval-sheet>
 
     </nb-card-body>
 </nb-card>
