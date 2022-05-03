@@ -33,6 +33,7 @@ export class RetailSecondarySecurityComponent implements OnInit {
   ];
   mortgageType = [
     {value: 'New'},
+      {value: 'Existing'},
     {value: 'Remortgage'},
     {value: 'Enhancement'}
   ];
@@ -47,6 +48,41 @@ export class RetailSecondarySecurityComponent implements OnInit {
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   ckEditorConfig = TableMaker.CK_CONFIG;
   shareTable: Array<any> = new Array<any>();
+    table: String = '<table border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
+        '  <thead>\n' +
+        '  <tr>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">क्र.सं.</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">शेयरधनीको नाम</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">कम्पनीको नाम</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">हितग्राही नं.</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">शेयर संख्या</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">आधार मुल्य</span></th>\n' +
+        '    <th scope="col" style="text-align:center"><span style="font-size:18px">Drawing Power</span></th>\n' +
+        '  </tr>\n' +
+        '  </thead>\n' +
+        '  <tbody>\n' +
+        '  <tr>\n' +
+        '    <td style="text-align:center"><span style="font-size:18px"><span style="font-family:Preeti">!</span>.</span></td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '  </tr>\n' +
+        '  <tr>\n' +
+        '    <td style="text-align:center"><span style="font-size:18px"><span style="font-family:Preeti">@</span>.</span></td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '    <td style="text-align:center">&nbsp;</td>\n' +
+        '  </tr>\n' +
+        '  </tbody>\n' +
+        '</table>\n' +
+        '\n' +
+        '<p>&nbsp;</p>';
   constructor(private formBuilder: FormBuilder,
               private engNepNumberPipe: EngToNepaliNumberPipe,
               private translateService: SbTranslateService,
@@ -70,7 +106,7 @@ export class RetailSecondarySecurityComponent implements OnInit {
     }
     /* FOR DEFAULT FORM*/
     if (!this.securitySelected) {
-      this.addMoreSecurityDetails();
+      this.addMoreSecurityDetails(0);
     }
   }
 
@@ -85,8 +121,9 @@ export class RetailSecondarySecurityComponent implements OnInit {
     return this.retailSecondarySecurityForm.controls;
   }
 
-  addMoreSecurityDetails() {
+  addMoreSecurityDetails(i) {
     (this.retailSecondarySecurityForm.get('securityDetails') as FormArray).push(this.setSecurityDetailsArr());
+    this.shareTable[i] = this.table;
   }
 
   setSecurityDetailsArr() {
@@ -434,13 +471,13 @@ export class RetailSecondarySecurityComponent implements OnInit {
             FDExpiryDateTypeCT: [val.FDExpiryDateTypeCT],
             FDExpiryDateCT: [val.FDExpiryDateCT],
             FDExpiryDateNepaliCT: [val.FDExpiryDateNepaliCT],
-            shareSecurityTable: [val.shareSecurityTable],
+            shareSecurityTable: [!ObjectUtil.isEmpty(val.shareSecurityTable) ? val.shareSecurityTable : this.table],
 
             propertyDetails: this.formBuilder.array([]),
           })
       );
       this.setPropertyDetails(val.propertyDetails, index);
-      this.shareTable[index] = val.shareSecurityTable;
+      this.shareTable[index] = !ObjectUtil.isEmpty(val.shareSecurityTable) ? val.shareSecurityTable : this.table;
     });
   }
 
