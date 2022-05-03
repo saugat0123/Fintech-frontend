@@ -150,6 +150,9 @@
                         <div class="float-left">
                             <p><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</p>
                         </div>
+                        <div class="float-right">
+                            <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span>
+                        </div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
                         </div>
