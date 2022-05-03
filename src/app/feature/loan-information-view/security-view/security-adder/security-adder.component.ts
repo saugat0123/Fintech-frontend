@@ -284,7 +284,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         let freeLimit = considerValue;
         freeLimit -= usedAmount;
         const coverage = (usedAmount / this.proposedLimit) * 100;
-        this.limitExceed[index] = this.totalFreeLimitAuto < 0;
+        this.limitExceed[index] = freeLimit < 0;
         this.form.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
         this.form.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(2));
     }

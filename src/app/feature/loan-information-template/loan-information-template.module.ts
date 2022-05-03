@@ -83,7 +83,8 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent,  CommentsComponent, PreviousSecurityComponent,
-        SwotAnalysisComponent],
+        SwotAnalysisComponent,
+        ],
     exports: [...COMPONENTS,  CommentsComponent, SwotAnalysisComponent],
     entryComponents: [...COMPONENTS],
     imports: [
