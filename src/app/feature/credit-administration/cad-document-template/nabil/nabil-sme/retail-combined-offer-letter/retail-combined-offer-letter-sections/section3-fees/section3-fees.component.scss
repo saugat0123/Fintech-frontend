@@ -45,4 +45,8 @@
     text-justify: inter-word;
     margin: 10px 70px;
   }
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
 }

@@ -352,7 +352,8 @@
                                        formControlName="amtNum"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{'____________________'}}</span>
+                                <span class="print-only font-weight-bold">
+                                    {{tempInformation?.section8?.personalLoanFreeText[i1]?.amtNum ? tempInformation?.section8?.personalLoanFreeText[i1]?.amtNum : '____________________'}}</span>
                                 मा रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAmtFig1"
@@ -491,7 +492,8 @@
                                                formControlName="freetext11"
                                                placeholder=" "
                                                type="text"/>
-                                        <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                        <span class="print-only font-weight-bold">
+                                            {{tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 ? tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 : '______________________'}}</span>
                                         को सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा सो सिमा
                                         भन्दा
                                         बढी हुनु हुनेछैन ।

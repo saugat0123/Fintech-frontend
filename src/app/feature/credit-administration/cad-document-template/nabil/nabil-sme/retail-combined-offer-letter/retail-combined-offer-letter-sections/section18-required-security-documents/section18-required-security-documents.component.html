@@ -148,15 +148,27 @@
                       सम्बन्धित निक्षेप सदस्यबाट चेक (DIS) मा हस्ताक्षर प्रमाणित गराई सो चेक सहित यस बैंकको
                         पक्षमा उल्लेखित शेयरहरु रोक्का राखिएको पत्र (Share pledge Confirmation)
                     </li>
-                    <li>
+                    <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px" class="d-print-none">Add
+                        Text Area
+                    </button>
+                    <li *ngFor="let textArea of form.get('freeText2')['controls']; let i = index;" formArrayName="freeText2">
+                        <ng-container [formGroupName]="i">
                        <textarea
-                               class="form-control nepaliFont"
+                               class="form-control d-print-none"
                                rows="5"
                                style="width: 100%; display: block; color: black;"
-                               name="freeText2"
-                               formControlName="freeText2">
+                               name="additionalGuarantorDetails"
+                               formControlName="additionalGuarantorDetails">
                         </textarea>
-                        <span class="print-only">{{'______________________'}}</span>
+                        <span class="print-only">
+                            {{this.freeTextVal?.section18[i]?.additionalGuarantorDetails || ''}}</span>
+                        </ng-container>
+                        <div *ngIf="form.get('freeText2')['length'] > 1" class="col-md-12 text-left">
+                            <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                                    style="position: static" class="d-print-none">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
                     </li>
                 </ul>
 

@@ -166,7 +166,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
       this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       if (!ObjectUtil.isEmpty(this.freeTextVal.section10) && !ObjectUtil.isEmpty(this.freeTextVal.section10[0].additionalGuarantorDetails)) {
-        for (let val = 0; val < this.freeTextVal.section10.length - 1; val++){
+        for (let val = 0; val < this.freeTextVal.section10.length - 1; val++) {
           this.addTextArea();
         }
         for (let val = 0; val < this.freeTextVal.section10.length; val++) {

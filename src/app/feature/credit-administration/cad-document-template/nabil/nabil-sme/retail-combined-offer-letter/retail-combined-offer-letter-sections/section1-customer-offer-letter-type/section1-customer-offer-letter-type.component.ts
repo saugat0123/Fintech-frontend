@@ -19,16 +19,20 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   NCELL: boolean;
   reqDate;
   prevDate;
+  tempInformation;
   constructor(
       private formBuilder: FormBuilder,
       private datepipe: DatePipe,
       private engNepDatePipe: EngNepDatePipe
   ) { }
-
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0]) &&
+      !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+        this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+      }
     }
     this.loanOption = this.tempData.retailGlobalForm.loanType;
     this.fillForm();
@@ -73,7 +77,9 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
     }
     this.form.patchValue({
       requestLetterDate: this.reqDate ? this.reqDate : '',
-      previousSanctionLetter: this.prevDate ? this.prevDate : ''
+      previousSanctionLetter: this.prevDate ? this.prevDate : '',
+      freetext1: !ObjectUtil.isEmpty(this.tempInformation) &&
+          !ObjectUtil.isEmpty(this.tempInformation.section1) ? this.tempInformation.section1 : ''
     });
   }
 }
