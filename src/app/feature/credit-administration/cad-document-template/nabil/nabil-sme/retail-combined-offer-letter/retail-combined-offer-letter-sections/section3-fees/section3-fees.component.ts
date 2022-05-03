@@ -10,13 +10,17 @@ import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 export class Section3FeesComponent implements OnInit {
   @Input() cadData;
   form: FormGroup;
-  assignedData;
-  loanName;
+  loanName: Array<any> = new Array<any>();
   tempData;
   loanCommitmentCheck;
   loanCommitmentFeeInPercent;
   isFloating: boolean;
   isFixed: boolean;
+  isPersonalOD: boolean;
+  isNabilSahayatri: boolean;
+  isPersonalWoCollateral: boolean;
+  isShareLoan: boolean;
+  isAutoLoan: boolean;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -33,91 +37,107 @@ export class Section3FeesComponent implements OnInit {
   }
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.assignedData = this.cadData.assignedLoan[0];
-      this.loanName = this.assignedData.loan.name;
-      if (this.loanName === 'AUTO LOAN COMBINED') {
-        this.tempData.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'EDUCATION LOAN COMBINED') {
-        this.tempData.educationLoanCombinedForm.educationLoanCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
+      this.cadData.assignedLoan.forEach(val => {
+        this.loanName.push(val.loan.name);
+      });
+      this.loanName.forEach(value => {
+        if (value === 'AUTO LOAN COMBINED') {
+          this.tempData.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'EDUCATION LOAN COMBINED') {
+          this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'HOME LOAN COMBINED') {
+          this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'MORTGAGE LOAN COMBINED') {
+          this.tempData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'NABIL SAHAYATRI KARJA') {
+          this.tempData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+          this.isNabilSahayatri = true;
+        }
+        if (value === 'NABIL SHARE LOAN POD COMBINED') {
+          this.tempData.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'PERSONAL LOAN COMBINED') {
+          this.tempData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+        }
+        if (value === 'PERSONAL OVERDRAFT COMBINED') {
+          this.tempData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+          this.isPersonalOD = true;
+        }
+        if (value === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          this.tempData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+          this.isPersonalWoCollateral = true;
+        }
+        if (value === 'SHARE LOAN DEMAND COMBINED') {
+          this.tempData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach(val => {
+            if (val.interestRateType === 'FIXED_INTEREST') {
+              this.isFixed = true;
+            }if (val.interestRateType === 'FLOATING_INTEREST') {
+              this.isFloating = true;
+            }
+          });
+          this.isPersonalWoCollateral = true;
+        }
+      });
       if (this.tempData.existingLoanForm.isExistingLoan = true) {
         this.tempData.existingLoanForm.existingLoanFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'HOME LOAN COMBINED') {
-        this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'MORTGAGE LOAN COMBINED') {
-        this.tempData.mortgageCombineLoanForm.mortgageCombineLoanFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'NABIL SAHAYATRI KARJA') {
-        this.tempData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'NABIL SHARE LOAN POD COMBINED') {
-        this.tempData.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'PERSONAL LOAN COMBINED') {
-        this.tempData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'PERSONAL OVERDRAFT COMBINED') {
-        this.tempData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
-      if (this.loanName === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
-        this.tempData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach(val => {
           if (val.interestRateType === 'FIXED_INTEREST') {
             this.isFixed = true;
           }if (val.interestRateType === 'FLOATING_INTEREST') {

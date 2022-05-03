@@ -1,7 +1,8 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form">
-            <div>
+            <div *ngIf="isInsuranceRequired">
+                <!--All below clause is required where insurance has been selected on the template -->
                 <b>बिमा सम्बन्धी शर्तहरुः</b>
                 <br>
                 <ol style="list-style: devanagari">
