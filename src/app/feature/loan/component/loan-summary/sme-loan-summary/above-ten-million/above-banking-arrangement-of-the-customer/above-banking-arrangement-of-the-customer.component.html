@@ -1,4 +1,4 @@
-<ol type="a">
+<ol type="a" style="padding-left: 0">
     <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
         <p><strong>Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
             If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of
@@ -105,41 +105,68 @@
     </li>
     <li>
         <p><strong>Report from CIC </strong>(date of report: {{cicl?.cibDate ? (cicl?.cibDate | date) : 'N/A' }}) </p>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th>SN</th>
-                            <th>Financial liability of:</th>
-                            <th>As a Borrower</th>
-                            <th>As a Guarantor</th>
-                            <th>As a shareholder/ Director</th>
-                            <th>Overdue</th>
-                            <th>Blacklisting Status</th>
-                        </tr>
-                        <tbody>
-                        <tr *ngFor="let cic of ciclData; let ci = index">
-                            <td>{{ci + 1}}</td>
-                            <td>{{cic?.nameOfBorrower}}</td>
-                            <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'borrower'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                            <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'guarantor'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                            <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'shareholder'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                            <td>{{cic?.overdueAmount}}</td>
-                            <td>{{cic?.status}}</td>
-                        </tr>
-                        <tr class="text-center sb-bg-dark text-white">
-                            <th colspan="7">Comments:</th>
-                        </tr>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>SN</th>
+                        <th>Financial liability of:</th>
+                        <th>As a Borrower</th>
+                        <th>As a Guarantor</th>
+                        <th>As a shareholder/ Director</th>
+                        <th>Overdue Amount</th>
+                        <th>Loan Limit</th>
+                        <th>Outstanding Amount</th>
+                        <th>Overdue Status</th>
+                        <th>Blacklisting History</th>
+                    </tr>
+                    <tbody>
+                    <tr *ngFor="let cic of ciclData; let ci = index">
+                        <td>{{ci + 1}}</td>
+                        <td>{{cic?.nameOfBorrower}}</td>
+                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'borrower'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
+                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'guarantor'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
+                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'shareholder'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
+                        <td>{{cic?.overdueAmount}}</td>
+                        <td>{{cic?.loanamount}}</td>
+                        <td>{{cic?.outstandingAmount}}</td>
+                        <td>{{cic?.overdueStatus}}</td>
+                        <td>{{cic?.blacklistChecked ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngFor="let cicData of ciclData">
+                    <ng-container *ngIf="cicData?.blacklistChecked">
                         <tr>
-                            <td colspan="7" [innerHTML]="cicl?.remarks | safeHtml"></td>
+                            <br>
+                            <td colspan="10" class="text-center text-justify">
+                                <span><b>Blacklist Detail of {{cicData?.nameOfBorrower}}</b></span>
+                            </td>
                         </tr>
-                        <ng-template #setEmpty>
-                            <span class="text-right pr-1">-</span>
-                        </ng-template>
-                        </tbody>
-                    </table>
-                </div>
+                        <tr class="sb-bg-dark text-white">
+                            <th class="sn" colspan="2">SN</th>
+                            <th colspan="4">Blacklist Number</th>
+                            <th colspan="4">Blacklist Date</th>
+                        </tr>
+                        <tr *ngFor="let bl of cicData?.blacklistHistory; let bi=index">
+                            <td colspan="2">{{bi +1}}</td>
+                            <td colspan="4">{{bl?.blacklistNumber}}</td>
+                            <td colspan="4">{{bl?.blacklistDate ? (bl?.blacklistDate | date) : 'NA'}}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                    <tbody>
+
+                    <tr class="text-center sb-bg-dark text-white">
+                        <th colspan="10">Comments:</th>
+                    </tr>
+                    <tr>
+                        <td colspan="10" [innerHTML]="cicl?.remarks | safeHtml"></td>
+                    </tr>
+                    <ng-template #setEmpty>
+                        <span class="text-right pr-1">-</span>
+                    </ng-template>
+                    </tbody>
+                </table>
             </div>
         </div>
     </li>
