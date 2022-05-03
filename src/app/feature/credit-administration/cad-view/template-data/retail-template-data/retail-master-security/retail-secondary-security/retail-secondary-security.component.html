@@ -625,7 +625,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button (click)="addMoreSecurityDetails()" *ngIf="selectedValue" nbButton outline size="small"
+                <button (click)="addMoreSecurityDetails(retailSecondarySecurityForm.get('securityDetails')['length'])" *ngIf="selectedValue" nbButton outline size="small"
                         status="success">
                     Add More Secondary Securities
                 </button>
