@@ -1,0 +1,39 @@
+<div [formGroup]="swotAnalysisForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="strength"><strong>Strength</strong></label>
+                <ckeditor formControlName="strength" id="strength"
+                          name="strength" [config]="ckeConfig"
+                          type="text"></ckeditor>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="weakness"><strong>Weakness</strong></label>
+                <ckeditor formControlName="weakness" id="weakness"
+                          name="weakness" [config]="ckeConfig"
+                          type="text"></ckeditor>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="opportunity"><strong>Opportunity</strong></label>
+                <ckeditor formControlName="opportunity" id="opportunity"
+                          name="opportunity" [config]="ckeConfig"></ckeditor>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="threats"><strong>Threats</strong></label>
+                <ckeditor formControlName="threats"
+                          id="threats"
+                          name="threats" [config]="ckeConfig"></ckeditor>
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>
+</div>

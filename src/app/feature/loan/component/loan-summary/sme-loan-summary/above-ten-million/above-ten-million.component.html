@@ -18,9 +18,14 @@
         <app-above-business-related-information [companyInfo]="loanDataHolder?.companyInfo"></app-above-business-related-information>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Group Exposure with CCBL (as of dd/mm/yyyy)</strong></p>
-        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-m-group-summary>
-<!--        <app-above-group-exposure-with-ccbl></app-above-group-exposure-with-ccbl>-->
+        <p class="text-uppercase"><strong>Group Exposure with CCBL  (as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date}})</strong></p>
+        <app-above-group-exposure-with-ccbl [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-above-group-exposure-with-ccbl>
+    </li>
+    <li>
+        <p class="text-uppercase"><strong>Proposal View</strong></p>
+        <app-proposal-view [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"> </app-proposal-view>
     </li>
     <li>
         <p class="text-uppercase"><strong>The Bank's SOL</strong></p>
@@ -31,10 +36,12 @@
         <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
-                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"></app-above-banking-arrangement-of-the-customer>
+                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>
 
     <li>
+        <p class="text-uppercase">Reporting Info</p>
         <app-report-summary [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
     </li>
     <li>
@@ -59,7 +66,7 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>SWOT Analysis</strong></p>
-        <app-above-swot-analysis></app-above-swot-analysis>
+        <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
     </li>
     <li>
         <p class="text-uppercase"><strong>Pricing and Estimated Income From the Account</strong></p>
@@ -95,11 +102,7 @@
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
         <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
     </li>
-    <li>
-        <p><strong>MIS/NRB REPORTING </strong></p>
-        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-mis-nrb-reporting>
-    </li>
+
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
         <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>

@@ -158,24 +158,13 @@
             </div>
             <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
                 <div class="col-md-6">
-                    <!-- <nb-checkbox class="disable-print" size="large" (checkedChange)="toggle($event)">Detailed View
-                    </nb-checkbox> -->
-                    <!-- <button nbButton size="small" status="primary" (click)="detailViewCheck()">Detailed
-                        View</button> -->
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
-                        (click)="detailViewCheck()">DETAILED VIEW</button>
-                </div>
-                <div class="col-md-12 mt-4" style="margin-left: 0.3rem" *ngIf="isDetailedView">
-                    <nb-radio-group [(ngModel)]="radioSelected">
-                        <nb-radio (click)=isRadioSelected() value="sana">Sana Byabasahi Karja</nb-radio>
-                        <nb-radio (click)=isRadioSelected() value="upto">Upto Ten Million</nb-radio>
-                        <nb-radio (click)=isRadioSelected() value="above">Above Ten Million</nb-radio>
-                    </nb-radio-group>
+                        (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
                 </div>
             </div>
 
             <hr class="print-line disable-print">
-            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
+            <ng-container>
                 <div class="row">
                     <div *ngIf="crgGammaSummary" class="col-md-12">
                         <nb-card class="sb-medium">
@@ -307,7 +296,11 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="!isAboveTenMillion && !isUpToTenMillion">
+            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
+                <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
+                                           [customerAllLoanList] = "customerAllLoanList"></app-executive-summary-sme>
+            </ng-container>
+            <ng-container *ngIf="isSaneView">
                 <div class="row">
                     <div class="col-md-12">
                         <ol>
@@ -344,30 +337,29 @@
                                     <strong>BACKGROUND INFORMATION:</strong><br>
                                     <strong>5.1 BUSINESS:</strong>
                                 </p>
-<!--                                <p class="text-justify" style="margin-top: -10px">-->
-<!--                                    (Details of business operations – nature of business, product ranges, installed and running-->
-<!--                                    capacity, product market, market presence, supply chain, buyers and sellers, business operating-->
-<!--                                    tenure, previous business extension/expansion, manpower used, innovative technology/equipment used,-->
-<!--                                    scientific research and development etc, wherever applicable.)-->
-<!--                                </p>-->
                                 <div class="p-2 background-info col-md-12">
-                                    <span [innerHTML]="tempData?.companyBackgroundBusiness | safeHtml"></span>
+                                    <span [innerHTML]="tempData?.business | safeHtml"></span>
                                 </div>
                                 <p class="mt-2">
                                     <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
                                 </p>
-<!--                                <p class="text-justify" style="margin-top: -10px">-->
-<!--                                    (Promoter/key person’s family background, education, experiences in related fields, history of-->
-<!--                                    business ownership and management, net-worth, social standings, other related businesses or occupation etc.)</p>-->
                                 <div class="p-2 background-info col-md-12">
-                                    <span [innerHTML]="tempData?.promotersKeyPersons | safeHtml"></span></div>
+                                    <span [innerHTML]="tempData?.promoterNetWorth | safeHtml"></span></div>
                             </li>
                             <li class="mt-3">
-                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>
+                                <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong>
+                                <app-proposal-view [proposalData]="loanDataHolder?.proposal"
+                                                   [loanDataHolder]="loanDataHolder"
+                                                   [customerAllLoanList]="customerAllLoanList"></app-proposal-view>
+<!--                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>-->
                             </li>
-                            <li>
+                            <li *ngIf="loanDataHolder?.security">
                                 <strong>SECURITY ARRANGEMENT</strong>
-                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>
+                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"
+                                                   [securityId]="loanDataHolder?.security?.id"
+                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"
+                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+<!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
                             <li>
                                 <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)
@@ -385,7 +377,12 @@
                             <li>
                                 <!-- banking relationship -->
                                 <p><strong>BANKING RELATIONSHIP:</strong></p>
-                                <app-upto-banking-relationship></app-upto-banking-relationship>
+                                <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                                                               [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                                               [proposal]="loanDataHolder?.proposal"
+                                                                               [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                                               [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+<!--                                <app-upto-banking-relationship></app-upto-banking-relationship>-->
                             </li>
                             <li>
                                 <!-- other charges -->
@@ -769,202 +766,12 @@
 <!--                        [loanDataHolder]="loanDataHolder"></app-company-info-summary>-->
 <!--                </div>-->
             </ng-container>
-
-<!--            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">-->
-
-<!--                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"-->
-<!--                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
-
-<!--                &lt;!&ndash; background information &ndash;&gt;-->
-
-<!--                <div *ngIf="loanCategory === 'INSTITUTION'" class="row mt-4">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Company Info</strong></p>-->
-<!--                        <app-company-info-summary [approveSheet]="notApprove"-->
-<!--                            [companyInfo]="loanDataHolder?.companyInfo" [loanDataHolder]="loanDataHolder">-->
-<!--                        </app-company-info-summary>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; current status and present proposal &ndash;&gt;-->
-<!--                <div class="mt-3">-->
-<!--                    <app-current-status-table></app-current-status-table>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; security arrangement insurance &ndash;&gt;-->
-
-<!--                <app-security-summary class="mt-3" *ngIf="securitySummary" [formData]="securityData"-->
-<!--                    [shareSecurity]="shareSecurityData" [collateralSiteVisitDetail]="collateralSiteVisitDetail"-->
-<!--                    [securityId]="securityId" [siteVisitDocuments]="siteVisitDocuments"-->
-<!--                    [isCollateralSiteVisit]="isCollateralSiteVisit"-->
-<!--                    [collateralData]="loanDataHolder?.collateralSiteVisits" [docStatus]="loanDataHolder?.documentStatus"-->
-<!--                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>-->
-
-<!--                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity">-->
-<!--                </app-previous-security-summary>-->
-
-<!--                &lt;!&ndash; INSURANCE &ndash;&gt;-->
-<!--                <app-insurance-summary *ngIf="loanDataHolder?.insurance" [insurance]="loanDataHolder?.insurance">-->
-<!--                </app-insurance-summary>-->
-<!--                <div *ngIf="minOneInsuranceDoc" class="row disable-print">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Insurance Documents</strong></p>-->
-<!--                        <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
-<!--                            <thead>-->
-<!--                                <tr class="text-white sb-bg-dark">-->
-<!--                                    <th>S.N</th>-->
-<!--                                    <th>Policy Number</th>-->
-<!--                                    <th>Company</th>-->
-<!--                                    <th>Document</th>-->
-<!--                                    <th *ngIf="!hidePreviewButton">Preview</th>-->
-<!--                                    <th *ngIf="!hidePreviewButton">Download</th>-->
-<!--                                </tr>-->
-<!--                            </thead>-->
-<!--                            <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">-->
-<!--                                <tbody-->
-<!--                                    *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">-->
-<!--                                    <tr *ngIf="singleDoc">-->
-<!--                                        <td>{{i + 1}}.{{j + 1}}</td>-->
-<!--                                        <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>-->
-<!--                                        <td class="text-left pl-1">{{singleInsurance?.company}}</td>-->
-<!--                                        <td class="text-left pl-1">-->
-<!--                                            {{singleDoc.substring(singleDoc.lastIndexOf('/') + 1,-->
-<!--                                            singleDoc.length)}}</td>-->
-
-<!--                                        &lt;!&ndash; Preview Document &ndash;&gt;-->
-<!--                                        <td *ngIf="!hidePreviewButton">-->
-<!--                                            <i (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"-->
-<!--                                                class="fas fa-eye"></i>-->
-<!--                                        </td>-->
-
-<!--                                        &lt;!&ndash; Download Document &ndash;&gt;-->
-<!--                                        <td *ngIf="!hidePreviewButton">-->
-<!--                                            <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"-->
-<!--                                                aria-hidden="true" class="fa fa-download" style="cursor: pointer"></i>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                </tbody>-->
-<!--                            </ng-container>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; key financial issues &ndash;&gt;-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Key Financial Figures </strong>(audited for last 1 year, estimated for current-->
-<!--                            year, and-->
-<!--                            projected up to loan tenure)</p>-->
-<!--                        <app-key-financial-figures></app-key-financial-figures>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"-->
-<!--                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
-
-<!--                &lt;!&ndash; group position  &ndash;&gt;-->
-<!--                &lt;!&ndash; limits-->
-<!--                        detail of security held for group exposure-->
-<!--                        outstanding, overde and r/e collateral (EXECUTIVE)-->
-<!--                     &ndash;&gt;-->
-<!--                <section class="row mt-3">-->
-<!--                    <div *ngIf="megaGroupEnabled" class="col-md-12">-->
-<!--                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>-->
-<!--                    </div>-->
-
-<!--                    <div *ngIf="sbsGroupEnabled" class="col-md-12">-->
-<!--                        <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
-<!--                            [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder">-->
-<!--                        </app-customer-group-summary>-->
-<!--                    </div>-->
-<!--                    <div *ngIf="productUtils.CBS_ENABLE">-->
-<!--                        <div class="row mt-5">-->
-<!--                            <div class="col-md-12">-->
-<!--                                <p><strong>Group Details</strong>-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-12">-->
-<!--                                <app-cbs-table [customerInfo]="loanDataHolder.loanHolder">-->
-<!--                                </app-cbs-table>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </section>-->
-<!--                <div class="mt-3">-->
-<!--                    <p><strong>Assessment for Requirement of Fund</strong></p>-->
-<!--                    <ng-container>-->
-<!--                        <app-assessment-for-requirement-of-fund></app-assessment-for-requirement-of-fund>-->
-<!--                    </ng-container>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; 11.	BANKING RELATIONSHIP &ndash;&gt;-->
-<!--                <div class="row mt-3 banking-relationship">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-banking-relationship [loanDataHolder]="loanDataHolder"></app-banking-relationship>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                Other cHarges&ndash;&gt;-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-other-charges [customerAllLoanList]="customerAllLoanList"></app-other-charges>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;-->
-<!--    13.	COVENANTS &ndash;&gt;-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-covenants></app-covenants>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;14.	DISBURSEMENT MODALITY: (FACILITY WISE (SME)&ndash;&gt;-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Disbursement Criteria </strong></p>-->
-<!--                        <span [innerHTML]="proposalView?.disbursementCriteria || 'N/A' | safeHtml"></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;15.	REPAYMENT MODALITY:&ndash;&gt;-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Repayment </strong></p>-->
-<!--                        <span [innerHTML]="proposalView?.repayment || 'N/A' | safeHtml"></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;16.	NTA STATEMENT AND INSPECTION (SME)&ndash;&gt;-->
-<!--                <ng-container>-->
-<!--                    <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"-->
-<!--                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">-->
-<!--                    </app-nta-mega-summary>-->
-<!--                </ng-container>-->
-
-<!--                <ng-template #otherBank>-->
-<!--                    <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"-->
-<!--                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">-->
-<!--                    </app-nta-summary>-->
-<!--                </ng-template>-->
-<!--                <br>-->
-<!--                <div>-->
-<!--                    <app-comments-summary *ngIf="commentsSummary" [formData]="dataFromComments">-->
-<!--                    </app-comments-summary>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; 17.	WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY &ndash;&gt;-->
-
-<!--                <div class="row">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p class="mt-3"><strong>Waiver/Deviation </strong></p>-->
-<!--                        <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </ng-container>-->
-<!--            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">-->
-<!--                <div class="col-md-12">-->
-<!--                    <app-executive-summary-sme></app-executive-summary-sme>-->
-<!--                </div>-->
-<!--            </div>-->
-            <ng-container *ngIf="isUpToTenMillion && !isAboveTenMillion">
+            <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million></app-upto-ten-million>
             </ng-container>
-            <ng-container *ngIf="isAboveTenMillion && !isUpToTenMillion">
-                <app-above-ten-million [loanDataHolder]="loanDataHolder" [customerAllLoanList] = "customerAllLoanList"></app-above-ten-million>
+            <ng-container *ngIf="isAboveTenMillion">
+                <app-above-ten-million [loanDataHolder]="loanDataHolder"
+                                       [customerAllLoanList]="customerAllLoanList"></app-above-ten-million>
             </ng-container>
         </nb-card-body>
     </nb-card>

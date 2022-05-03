@@ -35,6 +35,8 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import { CustomerType  } from 'src/app/feature/customer/model/customerType';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 
 @Component({
@@ -49,6 +51,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() shareSecurity;
     @Input() customerSecurityId;
     securityEmitValue: string;
+    @Input() customerType: CustomerType;
+    @Input() customerInfo: CustomerInfoData;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
@@ -241,6 +245,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
+        this.addSecurityToSelectedArray();
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
             this.addShareSecurity();
@@ -253,6 +258,18 @@ export class SecurityInitialFormComponent implements OnInit {
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
 
+    }
+    private addSecurityToSelectedArray(): void {
+        if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
+            if (this.customerInfo.selectedArray.length > 0) {
+                if (this.customerInfo.selectedArray.indexOf('VehicleSecurity') !== -1) {
+                    this.selectedArray.push('VehicleSecurity');
+                }
+                if (this.customerInfo.selectedArray.indexOf('Land and Building Security') !== -1) {
+                    this.selectedArray.push('Land and Building Security');
+                }
+            }
+        }
     }
 
     eventLandSecurity($event) {
@@ -2150,7 +2167,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     vehicleRemainingAmount(index: number) {
         const v = this.vehicleDetails.at(index);
-        v.get('remainingAmount').setValue(v.get('valuationAmount').value - v.get('downPayment').value);
+        v.get('remainingAmount').setValue(v.get('quotationAmount').value - v.get('downPayment').value);
     }
 
     get totalVehicleExposure() {
@@ -2159,7 +2176,7 @@ export class SecurityInitialFormComponent implements OnInit {
         let exposures = 0;
         this.vehicleDetails.controls.forEach((c: AbstractControl) => {
             totalRemaining += c.get('remainingAmount').value;
-            totalValuation += c.get('valuationAmount').value;
+            totalValuation += c.get('quotationAmount').value;
         });
         exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
         this.securityForm.get('vehicleLoanExposure').setValue(exposures);

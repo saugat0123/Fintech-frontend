@@ -1,33 +1,73 @@
-<div class="row mt-3">
+<div class="row">
     <div class="col-md-12">
-        <app-executive-current-status></app-executive-current-status>
+        <ol>
+            <li>
+                <p><b>PROPOSAL: </b> {{jsonData?.promoterBackground ? jsonData?.promoterBackground : 'NA'}}</p>
+            </li>
+            <li>
+                <p><strong>APPROVING AUTHORITY:</strong>
+                    <app-role-heirarchy-chain
+                            [refId]="loanDataHolder?.id" [loanDataHolder]="loanDataHolder"
+                            [branchId]="loanDataHolder?.branch?.id"
+                            [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                            [loanFlags]="loanDataHolder?.loanHolder?.loanFlags">
+                    </app-role-heirarchy-chain>
+                </p>
+            </li>
+            <li>
+                <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
+                <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                    [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+
+            </li>
+            <li>
+                <!-- details of the customer -->
+                <p>
+                    <strong>DETAILS OF THE CUSTOMER:</strong><br>
+                    <app-upto-details-of-the-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                                      [loanDataHolder]="loanDataHolder"></app-upto-details-of-the-customer>
+                </p>
+            </li>
+
+            <li>
+                <!-- Proposal-view of the customer -->
+                <p>
+                    <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong><br>
+                    <app-proposal-summary *ngIf="loanDataHolder?.proposal"
+                                          [loanDataHolder]="loanDataHolder"
+                                          [customerAllLoanList]="customerAllLoanList"
+                                          [proposalData]="loanDataHolder?.proposal"></app-proposal-summary>
+                </p>
+            </li>
+            <li>
+                <!-- Security Summary -->
+                <p>
+                    <strong>SECURITY ARRANGEMENT</strong><br>
+                    <app-security-summary *ngIf="loanDataHolder?.security"
+                                          [shareSecurity]="shareSecurityData"
+                                          [formData]="securityData"
+                                          [securityId]="loanDataHolder?.security?.id"
+                                          [collateralData]="loanDataHolder?.collateralSiteVisits"
+                                          [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
+                </p>
+            </li>
+            <li>
+                <!-- Key financial -->
+                <p>
+                    <strong>KEY FINANCIAL FIGURES</strong><br>
+                    <app-financial-summary *ngIf="loanDataHolder?.financial"
+                                           [formData]="loanDataHolder?.financial"
+                                           [loanType]="loanDataHolder?.loanCategory"> </app-financial-summary>
+                </p>
+            </li>
+
+            <li>
+                <!-- signature -->
+                <p>
+                    <strong>RECOMMENDATIONS, REVIEW, AND APPROVAL</strong><br>
+                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+                </p>
+            </li>
+        </ol>
     </div>
 </div>
-
-<!--            EXECUTIVE SUMMARY SECURITY-->
-<div class="row mt-3">
-    <div class="col-md-12">
-        <app-executive-security-arrangement></app-executive-security-arrangement>
-    </div>
-</div>
-
-<!--            EXECUTIVE SUMMARY-->
-<div class="row mt-3">
-    <div class="col-md-12">
-        <app-executive-key-financial-figures></app-executive-key-financial-figures>
-    </div>
-</div>
-
-<!--            executive group position-->
-<div class="row mt-3">
-    <div class="col-md-12">
-        <app-executive-group-position></app-executive-group-position>
-    </div>
-</div>
-<div class="row mt-3">
-    <div class="col-md-12">
-        <app-executive-recommendation-approval></app-executive-recommendation-approval>
-    </div>
-</div>
-
-

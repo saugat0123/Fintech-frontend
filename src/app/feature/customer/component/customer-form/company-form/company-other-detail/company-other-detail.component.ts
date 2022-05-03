@@ -36,7 +36,6 @@ export class CompanyOtherDetailComponent implements OnInit {
     }
 
     setData() {
-        console.log(this.companyOtherDetail);
         if (!ObjectUtil.isEmpty(this.companyOtherDetail)) {
             this.companyOtherDetailGroupForm.patchValue(this.companyOtherDetail);
         }
@@ -58,10 +57,4 @@ export class CompanyOtherDetailComponent implements OnInit {
         this.submitData = this.companyOtherDetailGroupForm.value;
     }
 
-    /*ngOnChanges(changes: SimpleChanges): void {
-      if (!ObjectUtil.isEmpty(changes.companyOtherDetail.currentValue && !ObjectUtil.isEmpty(this.companyOtherDetailGroupForm))) {
-        console.log(changes.companyOtherDetail.currentValue);
-        this.companyOtherDetailGroupForm.patchValue(changes.companyOtherDetail.currentValue);
-      }
-    }*/
 }

@@ -35,6 +35,7 @@ import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CustomerCategory} from '../../model/customerCategory';
 
 @Component({
     selector: 'app-customer-component',
@@ -73,6 +74,9 @@ export class CustomerComponent implements OnInit {
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
     onActionChangeSpinner = false;
+    customerCategory = CustomerCategory.enumObject();
+    selectedValue: string;
+
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
@@ -233,18 +237,9 @@ export class CustomerComponent implements OnInit {
         this.modalService.open(modal);
     }
 
-    getForm(chooseAcType) {
+    getForm(chooseAcType: TemplateRef<any>) {
         this.onClose();
-        if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
-            this.openChooseAcType(chooseAcType);
-        } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
-            this.dialogService.open(CompanyFormComponent, {
-                closeOnBackdropClick: true,
-                closeOnEsc: false,
-                hasBackdrop: false,
-                hasScroll: true
-            }).onClose.subscribe(res => CustomerComponent.loadData(this));
-        }
+        this.modalService.open(chooseAcType);
     }
 
     openTemplate(template) {
@@ -510,4 +505,22 @@ export class CustomerComponent implements OnInit {
         }
     }
 
+    changeCustomerType(value) {
+        this.selectedValue = value;
+    }
+
+    openCustomerForm(val) {
+        this.onClose();
+        const context = {
+            customerCategory: val
+        };
+        this.dialogService.open(CompanyFormComponent, {
+            context,
+            closeOnBackdropClick: true,
+            closeOnEsc: false,
+            hasBackdrop: false,
+            hasScroll: true
+        }).onClose.subscribe(res => CustomerComponent.loadData(this));
+
+    }
 }

@@ -15,9 +15,6 @@
             <nb-radio value="AD">AD</nb-radio>
             <nb-radio value="BS">BS</nb-radio>
         </nb-radio-group>
-        <div *ngIf="microEnabled">
-            <nb-checkbox #checkboxComponent [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
-        </div>
        <div class="form-group">
            <form [formGroup]="basicInfo" class="form-horizontal">
            <!--    <button (click)="showHideNep()">NepDate</button>-->
@@ -183,7 +180,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Father's Name</strong></label>
                                    <input class="form-control" formControlName="fatherName"
@@ -191,7 +188,7 @@
                                           type="text">
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Grandfather's Name</strong></label>
                                    <input class="form-control" formControlName="grandFatherName"
@@ -786,7 +783,7 @@
                                </div>
                            </div>
                        </div>
-                       <div class="row" *ngIf="!microCustomer">
+                       <div class="row" >
                            <div class="col-md-12 form-group">
                                <h6><strong>Additional Description</strong></h6>
                                <nb-checkbox (change)="onChecked($event.target.checked,'income')"
@@ -901,9 +898,6 @@
                        </div>
                        <!-- END ROW -->
 
-               </nb-tab>
-               <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                   <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>
                </nb-tab>
            </nb-tabset>
            </form>

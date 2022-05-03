@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -42,6 +42,8 @@ import {DocStatus} from '../../../../loan/model/docStatus';
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('mGroupAccordion', {static: false})
     public mGroupAccordion: NbAccordionItemComponent;
+    @ViewChild('mReviewAccordion', {static: false})
+    public mReviewAccordion: NbAccordionItemComponent;
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
     customerInfoId;
@@ -74,7 +76,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     companyJsonData: CompanyJsonData = new CompanyJsonData();
     sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
     isAccountEdited = false;
     loanTypeList = LoanType.value();
@@ -226,6 +227,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.selectedLoanType = null;
         this.facilityType = null;
         this.priority = null;
+        this.getCustomerLoans();
     }
 
     openSingleSelectLoanTemplate() {

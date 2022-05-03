@@ -26,11 +26,7 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
-import {environment} from '../../../../../environments/environment';
-import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
-import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
-import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financial';
 import {MarketingActivities} from '../../../loan/model/marketing-activities';
 import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
@@ -38,9 +34,6 @@ import {Comments} from '../../../admin/modal/comments';
 import {CommentsComponent} from '../../../loan-information-template/comments/comments.component';
 import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
-import {Clients} from '../../../../../environments/Clients';
-import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
-import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
@@ -50,11 +43,12 @@ import {InstitutionalCrgGammaComponent} from '../../../loan-information-template
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -65,7 +59,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
-    @Input() isMicroCustomer: boolean;
 
     @ViewChild('siteVisitComponent', {static: false})
     public siteVisitComponent: SiteVisitComponent;
@@ -75,10 +68,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public financialComponent: FinancialComponent;
     @ViewChild('itemFinancial', {static: false})
     private itemFinancial: NbAccordionItemComponent;
-    /*@ViewChild('CrgAlphaComponent', {static: false})
-    public CrgAlphaComponent: CreditRiskGradingAlphaComponent;
-    @ViewChild('itemCrgAlpha', {static: false})
-    private itemCrgAlpha: NbAccordionItemComponent;*/
     @ViewChild('CrgComponent', {static: false})
     public CrgComponent: CreditGradingComponent;
     @ViewChild('itemCrg', {static: false})
@@ -112,9 +101,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     @ViewChild('borrowerFinancialHighlight', {static: false})
     private borrowerFinancialHighlight: NbAccordionItemComponent;
 
-    @ViewChild('microCrgParamsComponent', {static: false})
-    private microCrgParamsComponent: NbAccordionItemComponent;
-
     @ViewChild('baselRiskAccordion', {static: false})
     private marketingActivitiesAccordian: NbAccordionItemComponent;
     @ViewChild('marketingActivitiesAccordian', {static: false})
@@ -139,6 +125,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public multipleBankingComponent: MultipleBankingComponent;
     @ViewChild('riskAnalysisComponent', {static: false})
     public riskAnalysisComponent: RiskAnalysisComponent;
+    @ViewChild('swotAnalysisComponent', {static: false})
+    public swotAnalysisComponent: SwotAnalysisComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -153,12 +141,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public incomeFromAccountDataResponse: IncomeFromAccount;
     public netTradingAssets: NetTradingAssets;
     public creditChecklistGeneral: CreditChecklistGeneral;
-    public microLoanSynopsis: MicroLoanSynopsis;
     public borrowerPortfolio: BorrowerPortfolio;
     public marketingActivities: MarketingActivities;
-    public microBaselRiskExposure: MicroBaselRiskExposure;
-    public microBorrowerFinancial: MicroBorrowerFinancial;
-    public microCrgParams: MicroCrgParams;
     customerType = CustomerType;
     public reportingInfoLevels: Array<ReportingInfoLevel>;
     public reportingInfoLevelCode: string;
@@ -171,7 +155,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     checkCrgGamma = false;
-    microCustomerTypeEnum = MicroCustomerType;
     submittedCheck: boolean;
     multiBankingResponse: MultipleBanking;
       nbDialogRef: NbDialogRef<any>;
@@ -192,6 +175,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     subsidizedLoanChecked = false;
     loanDocument: LoanDataHolder;
     loanTag: string;
+    reviewDate;
 
     constructor(
         private toastService: ToastService,
@@ -202,14 +186,14 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         private loanFormService: LoanFormService,
         private route: ActivatedRoute,
         private loanConfigService: LoanConfigService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private companyInfoService: CompanyInfoService
 
     ) {
     }
 
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
-        this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         this.customerService.detail(this.customerInfo.associateId).subscribe((res) => {
             this.customer = res.detail;
         });
@@ -219,15 +203,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
             this.financial = this.customerInfo.financial;
         }
-        /*if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
-          this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;
-        }*/
+
         if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
             this.creditRiskGrading = this.customerInfo.creditRiskGrading;
         }
-        // if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
-        //     this.crgGamma = this.customerInfo.crgGamma;
-        // }
+
         if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
             this.security = this.customerInfo.security;
         }
@@ -250,24 +230,14 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
             this.creditChecklistGeneral = this.customerInfo.creditChecklist;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
-            this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
-        }
-        if (!ObjectUtil.isEmpty(this.customerInfo.microBaselRiskExposure)) {
-            this.microBaselRiskExposure = this.customerInfo.microBaselRiskExposure;
-        }
+
         if (!ObjectUtil.isEmpty(this.customerInfo.borrowerPortFolio)) {
             this.borrowerPortfolio = this.customerInfo.borrowerPortFolio;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.marketingActivities)) {
             this.marketingActivities = this.customerInfo.marketingActivities;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
-            this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
-        }
-        if (!ObjectUtil.isEmpty(this.customerInfo.microOtherParameters)) {
-            this.microCrgParams = this.customerInfo.microOtherParameters;
-        }
+
         if (!ObjectUtil.isEmpty(this.customerInfo.reportingInfoLevels)) {
             this.reportingInfoLevels = this.customerInfo.reportingInfoLevels;
             this.reportingInfoLevels.filter(f => {
@@ -305,29 +275,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
                 });
         });
-    }
-
-    get otherMicroDetailsVisibility() {
-        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
-            return true;
-        } else {
-            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-                this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+        if (this.companyInfo.companyJsonData) {
+            const mapData = JSON.parse(this.companyInfo.companyJsonData);
+            this.reviewDate = mapData.reviewDate;
         }
     }
-
-    get isMicroInDirectCustomer() {
-        if (!this.isMicroCustomer) {
-            return true;
-        }
-        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL) {
-            return true;
-        } else {
-            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-                this.companyInfo.microCustomerType === MicroCustomerType.INDIRECT;
-        }
-    }
-
 
     public saveSiteVisit(data: string) {
         this.spinner.show();
@@ -578,21 +530,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             });
     }
 
-    saveSynopsisCreditworthiness(data: MicroLoanSynopsis) {
-        if (ObjectUtil.isEmpty(this.microLoanSynopsis)) {
-            this.microLoanSynopsis = new MicroLoanSynopsis();
-        }
-        this.microLoanSynopsis = data;
-        this.customerInfoService.saveLoanInfo(this.microLoanSynopsis, this.customerInfoId, TemplateName.SYNOPSIS_CREDITWORTHINESS)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Synopsis Creditworthiness!'));
-                this.nbDialogRef.close();
-                this.triggerCustomerRefresh.emit(true);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Synopsis Creditworthiness!'));
-            });
-    }
+
 
     saveBorrowerPortFolio(data: BorrowerPortfolio) {
         if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
@@ -610,53 +548,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             });
     }
 
-    saveBaselRiskExposure(data: MicroBaselRiskExposure) {
-        if (ObjectUtil.isEmpty(this.microBaselRiskExposure)) {
-            this.microBaselRiskExposure = new MicroBaselRiskExposure();
-        }
-        this.microBorrowerFinancial = data;
-        this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Basel Wise Risk Exposure!'));
-                this.nbDialogRef.close();
-                this.triggerCustomerRefresh.emit(true);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Basel Wise Risk Exposure!'));
-            });
-    }
 
-    saveBorrowerFinancial(data: MicroBorrowerFinancial) {
-        if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
-            this.borrowerPortfolio = new BorrowerPortfolio();
-        }
-        this.borrowerPortfolio = data;
-        this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
-                this.nbDialogRef.close();
-                this.triggerCustomerRefresh.emit(true);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
-            });
-    }
-
-    saveMicroCrgParams(data: MicroCrgParams) {
-        if (ObjectUtil.isEmpty(this.microCrgParams)) {
-            this.microCrgParams = new MicroCrgParams();
-        }
-        this.microCrgParams = data;
-        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_OTHER_PARAMETERS)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
-                this.nbDialogRef.close();
-                this.triggerCustomerRefresh.emit(true);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Micro CRG Params!'));
-            });
-    }
 
     saveMarketingActivities(data: MarketingActivities) {
         if (ObjectUtil.isEmpty(this.marketingActivities)) {
@@ -754,13 +646,30 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.customerInfo.riskAnalysis = data;
             this.customerInfoService.save(this.customerInfo)
                 .subscribe(() => {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved multiple banking/consortium'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved risk analysis'));
                     this.triggerCustomerRefresh.emit(true);
                     this.nbDialogRef.close();
                     this.spinner.hide();
                 }, error => {
                     console.error(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save multiple banking/consortium'));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save risk analysis'));
+                    this.spinner.hide();
+                });
+        }
+    }
+    saveSwotAnalysis(data: string) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.swotAnalysis = data;
+            this.customerInfoService.save(this.customerInfo)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved swot analysis'));
+                    this.triggerCustomerRefresh.emit(true);
+                    this.nbDialogRef.close();
+                    this.spinner.hide();
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save swot analysis'));
                     this.spinner.hide();
                 });
         }
@@ -795,26 +704,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
-            if (!ObjectUtil.isEmpty(commonData.vehicle)) {
-                this.setFormData(commonData.vehicle, 'vehicle');
-            } else {
-                this.addKeyValue('vehicle');
-            }
-            if (!ObjectUtil.isEmpty(commonData.realState)) {
-                this.setFormData(commonData.realState, 'realState');
-            } else {
-                this.addKeyValue('realState');
-            }
-            if (!ObjectUtil.isEmpty(commonData.shares)) {
-                this.setFormData(commonData.shares, 'shares');
-            } else {
-                this.addKeyValue('shares');
-            }
-            if (!ObjectUtil.isEmpty(commonData.deposit)) {
-                this.setFormData(commonData.deposit, 'deposit');
-            } else {
-                this.addKeyValue('deposit');
-            }
         }
     }
 
@@ -931,45 +820,33 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.checkChecked(data['netChecked'], 'net');
         }
     }
-    removeValue(formControl: string, index: number) {
-        (<FormArray>this.commonLoanData.get(formControl)).removeAt(index);
-    }
-    addKeyValue(formControl: string) {
-        (this.commonLoanData.get(formControl) as FormArray).push(
-            this.formBuilder.group({
-                assets: undefined,
-                amount: 0,
-            })
-        );
-    }
-    calculate() {
-        let total = this.commonLoanData.get('depositBank').value + this.commonLoanData.get('depositOther').value;
-        total += this.getArrayTotal('shares');
-        total += this.getArrayTotal('vehicle');
-        total += this.getArrayTotal('realState');
-        total += this.getArrayTotal('deposit');
-        this.commonLoanData.get('total').patchValue(total);
-    }
-    getArrayTotal(formControl): number {
-        let total = 0;
-        (this.commonLoanData.get(formControl).value).forEach((d, i) => {
-            total += d.amount;
-        });
-        return total;
-    }
+
     ngOnChanges(changes: SimpleChanges): void {
         this.buildProposalCommonForm();
     }
-    setFormData(data, formControl) {
-        const form = this.commonLoanData.get(formControl) as FormArray;
+
+
+    saveReviewDate(data: string) {
+        this.spinner.show();
         if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(l => {
-                form.push(this.formBuilder.group({
-                    assets: [l.assets],
-                    amount: [l.amount]
-                }));
-            });
+            const existingDetails = JSON.parse(this.companyInfo.companyJsonData);
+            existingDetails['reviewDate'] = data;
+            this.companyInfo.companyJsonData = JSON.stringify(existingDetails);
+            this.companyInfoService.save(this.companyInfo).subscribe((res) => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved review dates'));
+                    this.triggerCustomerRefresh.emit(true);
+                    this.nbDialogRef.close();
+                    this.spinner.hide();
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save review dates'));
+                    this.spinner.hide();
+                });
         }
+    }
+
+    submittedCheck1(event) {
+        this.submittedCheck = event;
     }
 
 }

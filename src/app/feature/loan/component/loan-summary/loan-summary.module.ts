@@ -30,7 +30,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import { LoanInformationViewModule } from '../../../loan-information-view/loan-information-view.module';
 import { RoleHierarchyChainComponent } from './role-heirarchy-chain/role-hierarchy-chain.component';
-import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
 import { PreviousSecuritySummaryComponent } from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
@@ -40,14 +39,8 @@ import { CreditFacilityReportComponent } from './credit-facility-report/credit-f
 import { SmeLoanSummaryComponent } from './sme-loan-summary/sme-loan-summary.component';
 import { CurrentStatusTableComponent } from './sme-loan-summary/current-status-table/current-status-table.component';
 import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-review-table/conlusion-review-table.component';
-import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/mis-nrb-reporting.component';
 import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
-import { ExecutiveCurrentStatusComponent } from './sme-loan-summary/executive-summary-sme/executive-current-status/executive-current-status.component';
-import { ExecutiveSecurityArrangementComponent } from './sme-loan-summary/executive-summary-sme/executive-security-arrangement/executive-security-arrangement.component';
-import { ExecutiveKeyFinancialFiguresComponent } from './sme-loan-summary/executive-summary-sme/executive-key-financial-figures/executive-key-financial-figures.component';
-import { ExecutiveGroupPositionComponent } from './sme-loan-summary/executive-summary-sme/executive-group-position/executive-group-position.component';
 import { ExecutiveSummarySmeComponent } from './sme-loan-summary/executive-summary-sme/executive-summary-sme.component';
-import { ExecutiveRecommendationApprovalComponent } from './sme-loan-summary/executive-summary-sme/executive-recommendation-approval/executive-recommendation-approval.component';
 import { AboveTenMillionComponent } from './sme-loan-summary/above-ten-million/above-ten-million.component';
 import { AboveBackgroundOfCustomerComponent } from './sme-loan-summary/above-ten-million/above-background-of-customer/above-background-of-customer.component';
 import { AssessmentForRequirementOfFundComponent } from './sme-loan-summary/assessment-for-requirement-of-fund/assessment-for-requirement-of-fund.component';
@@ -121,8 +114,7 @@ const COMPONENTS = [
   NtaSummaryComponent,
   ProposalTermsAndConditionSummeryComponent,
   ApprovalSheetComponent,
-  RoleHierarchyChainComponent,
-  NtaMegaSummaryComponent,
+  RoleHierarchyChainComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -141,14 +133,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
-    ExecutiveCurrentStatusComponent,
-    ExecutiveSecurityArrangementComponent,
-    ExecutiveKeyFinancialFiguresComponent,
-    ExecutiveGroupPositionComponent,
     ExecutiveSummarySmeComponent,
-    ExecutiveRecommendationApprovalComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
     AssessmentForRequirementOfFundComponent,
@@ -175,14 +161,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    MisNrbReportingComponent,
     KeyFinancialFiguresComponent,
-    ExecutiveCurrentStatusComponent,
-    ExecutiveSecurityArrangementComponent,
-    ExecutiveKeyFinancialFiguresComponent,
-    ExecutiveGroupPositionComponent,
     ExecutiveSummarySmeComponent,
-    ExecutiveRecommendationApprovalComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
     AssessmentForRequirementOfFundComponent,
@@ -241,32 +221,32 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     LoanInformationViewModule,
     NepaliPatroModule,
   ],
-  exports: [
-    LoanSummaryComponent,
-    CustomerGroupSummaryComponent,
-    IncomeFromAccountSummeryComponent,
-    NtaSummaryComponent,
-    ProposalTermsAndConditionSummeryComponent,
-    ApprovalSheetComponent,
-    NtaMegaSummaryComponent,
-    ApprovalSheetComponent,
-    CollateralSummaryComponent,
-    ProposalJustificationSummaryComponent,
-    SecuritySummaryComponent,
-    GuarantorSummaryComponent,
-    SitevistSummaryComponentComponent,
-    InsuranceSummaryComponent,
-    FinancialSummaryComponent,
-    ProposalSummaryComponent,
-    MGroupSummaryComponent,
-    CommentsSummaryComponent,
-    PreviousSecuritySummaryComponent,
-    RoleHierarchyChainComponent,
-    SignatureSectionComponent,
-    CreditFacilityReportComponent,
-    SmeLoanSummaryComponent,
-    CreditCardRequirementComponent,
-  ],
+    exports: [
+        LoanSummaryComponent,
+        CustomerGroupSummaryComponent,
+        IncomeFromAccountSummeryComponent,
+        NtaSummaryComponent,
+        ProposalTermsAndConditionSummeryComponent,
+        ApprovalSheetComponent,
+        ApprovalSheetComponent,
+        CollateralSummaryComponent,
+        ProposalJustificationSummaryComponent,
+        SecuritySummaryComponent,
+        GuarantorSummaryComponent,
+        SitevistSummaryComponentComponent,
+        InsuranceSummaryComponent,
+        FinancialSummaryComponent,
+        ProposalSummaryComponent,
+        MGroupSummaryComponent,
+        CommentsSummaryComponent,
+        PreviousSecuritySummaryComponent,
+        RoleHierarchyChainComponent,
+        SignatureSectionComponent,
+        CreditFacilityReportComponent,
+        SmeLoanSummaryComponent,
+        CreditCardRequirementComponent,
+        AboveSwotAnalysisComponent,
+    ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
 export class LoanSummaryModule {}

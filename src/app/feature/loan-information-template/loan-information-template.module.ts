@@ -38,16 +38,14 @@ import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upl
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
-import {NtaMegaComponent} from './nta-mega/nta-mega.component';
-import {MicroProposalComponent} from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {CommentsComponent} from './comments/comments.component';
 import {PreviousSecurityComponent} from './previous-security/previous-security.component';
 import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
-import {CrgMicroComponent} from './crg-micro/crg-micro.component';
 import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -76,7 +74,6 @@ const COMPONENTS = [
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
-    NtaMegaComponent,
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
     SecurityTableComponent,
@@ -85,9 +82,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-        CrgMicroComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent,  CommentsComponent, PreviousSecurityComponent,
+        SwotAnalysisComponent],
+    exports: [...COMPONENTS,  CommentsComponent, SwotAnalysisComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

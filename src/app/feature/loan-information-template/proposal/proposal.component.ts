@@ -21,6 +21,8 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 
 @Component({
   selector: 'app-proposal',
@@ -38,6 +40,7 @@ export class ProposalComponent implements OnInit {
     @Input() fromProfile;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
+    @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
     proposedLimit: number;
@@ -104,6 +107,7 @@ export class ProposalComponent implements OnInit {
     ];
     groupExposureData;
     isAllExposureFieldNull = false;
+    firstTimeHomeBuyerChecked = false;
     files = [];
     incomeFromAccountDataResponse;
     purposes: Array<string> = [
@@ -134,6 +138,7 @@ export class ProposalComponent implements OnInit {
     customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
+    customerType: any;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -168,26 +173,6 @@ export class ProposalComponent implements OnInit {
                     }));
                 }
             }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
-                this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
-            } else {
-                this.addKeyValue('vehicle');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.realState)) {
-                this.setFormData(this.formDataForEdit.realState, 'realState');
-            } else {
-                this.addKeyValue('realState');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.shares)) {
-                this.setFormData(this.formDataForEdit.shares, 'shares');
-            } else {
-                this.addKeyValue('shares');
-            }
-            if (!ObjectUtil.isEmpty(this.formDataForEdit.deposit)) {
-                this.setFormData(this.formDataForEdit.deposit, 'deposit');
-            } else {
-                this.addKeyValue('deposit');
-            }
             this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
             this.proposalForm.patchValue(this.formDataForEdit);
             this.setCheckedData(this.checkedDataEdit);
@@ -217,19 +202,12 @@ export class ProposalComponent implements OnInit {
                     this.allId = {
                         loanId: null,
                         customerId: null,
-                        loanCategory: null
+                        loanCategory: null,
+                        customerType: null,
                     };
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
-        } else {
-            if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
-                const commonData = JSON.parse(this.customerInfo.commonLoanData);
-                this.setFormData(commonData.vehicle, 'vehicle');
-                this.setFormData(commonData.deposit, 'deposit');
-                this.setFormData(commonData.realState, 'realState');
-                this.setFormData(commonData.shares, 'shares');
-            }
         }
         this.getLoanData();
         if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -292,6 +270,7 @@ export class ProposalComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+        this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
     }
 
 
@@ -304,6 +283,7 @@ export class ProposalComponent implements OnInit {
         this.isGeneral = this.loan.loan.loanTag === 'GENERAL';
         this.isShare = this.loan.loan.loanTag === 'SHARE_SECURITY';
         this.isVehicle = this.loan.loan.loanTag === 'VEHICLE';
+        this.isHomeLoan = this.loan.loan.loanTag === 'HOME_LOAN';
         this.loanNature = this.loan.loan.loanNature;
         if (!ObjectUtil.isEmpty(this.loanNature)) {
             this.loanNatureSelected = true;
@@ -421,10 +401,6 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
-      lastReviewDate: [undefined, [Validators.required]],
-      currentExtendedDate: [undefined, [Validators.required]],
-      scheduledReviewDate: [undefined, [Validators.required]],
-      nextReviewDate: [undefined, [Validators.required]]
 
     });
     }
@@ -469,7 +445,15 @@ export class ProposalComponent implements OnInit {
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
 
+    setIndividualCrgGamma(crgGamma: any): void {
+        this.loan.crgGamma = crgGamma;
+        console.log(this.loan, 'CRGDATA');
+    }
+
     onSubmit() {
+        if (this.customerType === 'INDIVIDUAL') {
+            this.crgGammaComponent.onSubmit();
+        }
         // Proposal Form Data--
         this.submitted = true;
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
@@ -490,10 +474,6 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
-      this.proposalData.lastReviewDate = this.proposalForm.get('lastReviewDate').value;
-      this.proposalData.currentExtendedDate = this.proposalForm.get('currentExtendedDate').value;
-      this.proposalData.scheduledReviewDate = this.proposalForm.get('scheduledReviewDate').value;
-      this.proposalData.nextReviewDate = this.proposalForm.get('nextReviewDate').value;
 
       if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -514,6 +494,7 @@ export class ProposalComponent implements OnInit {
                 purposeChecked: this.purposeChecked,
                 debtChecked: this.debtChecked,
                 netChecked: this.netChecked,
+                firstTimeHomeBuyerChecked: this.firstTimeHomeBuyerChecked
             };
             this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -667,6 +648,13 @@ export class ProposalComponent implements OnInit {
                 this.netChecked = event;
             }
                 break;
+            case 'firstTimeHomeBuyer':
+                if (event) {
+                  this.firstTimeHomeBuyerChecked = true;
+                } else {
+                  this.firstTimeHomeBuyerChecked = false;
+                }
+                break;
         }
     }
 
@@ -678,6 +666,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['swapChargeVar'], 'swapChVar');
+      this.checkChecked(data['firstTimeHomeBuyerChecked'], 'firstTimeHomeBuyer');
     }
   }
 
@@ -954,10 +943,6 @@ export class ProposalComponent implements OnInit {
     });
   }
 
-    openCadSetup(data) {
-        this.nbService.open(data, {size: 'xl', backdrop: true});
-    }
-
     getData(data) {
         this.files = data;
         this.proposalForm.patchValue({
@@ -969,52 +954,6 @@ export class ProposalComponent implements OnInit {
         this.loan.taggedGuarantors = guarantors;
     }
 
-    openGuarantor(g) {
-        // this.nbService.dismissAll();
-        this.nbService.open(g, {size: 'xl', windowClass: 'modal-xl', backdrop: true});
-    }
-
-    calculate() {
-        let total = this.proposalForm.get('depositBank').value + this.proposalForm.get('depositOther').value;
-        total += this.getArrayTotal('shares');
-        total += this.getArrayTotal('vehicle');
-        total += this.getArrayTotal('realState');
-        total += this.getArrayTotal('deposit');
-        this.proposalForm.get('total').patchValue(total);
-    }
-
-    getArrayTotal(formControl): number {
-        let total = 0;
-        (this.proposalForm.get(formControl).value).forEach((d, i) => {
-            total += d.amount;
-        });
-        return total;
-    }
-
-    setFormData(data, formControl) {
-        const form = this.proposalForm.get(formControl) as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(l => {
-                form.push(this.formBuilder.group({
-                    assets: [l.assets],
-                    amount: [l.amount]
-                }));
-            });
-        }
-    }
-
-    removeValue(formControl: string, index: number) {
-        (<FormArray>this.proposalForm.get(formControl)).removeAt(index);
-    }
-
-    addKeyValue(formControl: string) {
-        (this.proposalForm.get(formControl) as FormArray).push(
-            this.formBuilder.group({
-                assets: undefined,
-                amount: 0,
-            })
-        );
-    }
     setLoanHolder(loan: LoanDataHolder) {
         this.loan = loan;
     }

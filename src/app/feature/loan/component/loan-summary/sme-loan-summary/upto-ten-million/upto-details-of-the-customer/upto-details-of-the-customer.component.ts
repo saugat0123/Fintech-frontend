@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CompanyJsonData} from '../../../../../../admin/modal/CompanyJsonData';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../model/loanData';
-import {DatePipe} from '@angular/common';
 import {Proprietors} from '../../../../../../admin/modal/proprietors';
 
 @Component({
@@ -14,21 +13,19 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
-  relationGroup;
   relationCustomer;
   registrationDate;
   companyLocation;
   businessLocation;
   propList: Array<Proprietors>;
   totalCrgPoint;
-  mGroup;
   sum = 0;
   checkedData;
   multiBankingData;
   commentData;
-  constructor(
-      public datepipe: DatePipe
-  ) { }
+  contactedPerson = [];
+  ciclData = [];
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
@@ -36,12 +33,10 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
       this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
-      this.mGroup = this.loanDataHolder.loanHolder.mgroupInfo;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
       }
-      this.totalsum();
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
         this.multiBankingData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.data);
         this.checkedData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.checkedData);
@@ -50,25 +45,12 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         const oldData = JSON.parse(this.loanDataHolder.loanHolder.data);
         this.commentData = JSON.parse(oldData.data);
       }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+        this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
+      }
+      if (this.loanDataHolder.loanHolder.cicl) {
+        this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);
+      }
     }
-    this.relationshipSinceDate();
    }
-
-  relationshipSinceDate() {
-    let relationG;
-    relationG = this.companyJsonData.relationshipSince;
-    this.relationGroup = this.datepipe.transform(relationG, 'yyyy-MM-dd');
-    let relationC;
-    relationC = this.companyJsonData.relationshipSinceWithCustomer;
-    this.relationCustomer = this.datepipe.transform(relationC, 'yyyy-MM-dd');
-    let regDate;
-    regDate = this.companyInfo.establishmentDate;
-    this.registrationDate = this.datepipe.transform(regDate, 'yyyy-MM-dd');
-  }
-  totalsum() {
-    this.propList.forEach((value) => {
-     const sum1 = value.share;
-     this.sum = this.sum + sum1;
-    });
-  }
 }

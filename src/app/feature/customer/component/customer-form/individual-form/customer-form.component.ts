@@ -23,7 +23,6 @@ import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
-import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 
@@ -51,7 +50,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         return this.basicInfo.controls;
     }
 
-    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
 
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
@@ -64,13 +62,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     calendarType = 'AD';
-    microCustomer = false;
-    microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
     submitted = false;
     spinner = false;
-    displayEngDate = true;
     formLabel: string;
 
     customerDetailField = {
@@ -144,7 +139,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.successionRiskChecked = true;
                 }
             }
-            this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             if (this.customer.sameAddress !== undefined) {
@@ -291,27 +285,18 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
-                if (this.client !== this.clientName.MEGA) {
                     const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
                     ageControl.controls.filter(f => {
                         f.get('age').clearValidators();
                         f.get('age').updateValueAndValidity();
                     });
-                }
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
                     this.spinner = false;
                     return;
                 }
-                if (this.microCustomer) {
-                    this.microIndividualFormComponent.onSubmit();
-                    if (this.microIndividualFormComponent.microCustomerForm.invalid) {
-                        this.spinner = false;
-                        this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                        return;
-                    }
-                }
+
                 {
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
@@ -360,7 +345,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
-                    this.customer.isMicroCustomer = this.microCustomer;
                     this.customer.sameAddress = this.sameAddress;
                     this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     this.customerService.save(this.customer).subscribe(res => {
@@ -479,7 +463,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             accountDetails: this.formBuilder.array([]),
         });
 
-        this.onCustomerTypeChange(this.microCustomer);
     }
 
     setIndividualJsonData() {
@@ -501,9 +484,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
         individualJsonData.checkedData = checkedData;
-        if (this.microCustomer) {
-            individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
-        }
         return JSON.stringify(individualJsonData);
     }
 

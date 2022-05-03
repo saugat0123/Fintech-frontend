@@ -25,6 +25,7 @@ import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-co
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-security',
@@ -40,7 +41,8 @@ export class SecurityComponent implements OnInit {
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
     @Input() isMicroCustomer: boolean;
-    @Input() submittedCheckFromParent: boolean;
+    @Input() customerType: CustomerType;
+    @Input() customerInfo: CustomerInfoData;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -115,7 +117,7 @@ export class SecurityComponent implements OnInit {
             this.initialSecurityValue = undefined;
         }
         this.checkDisableAlpha();
-        if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
+        if ( !this.crgLambdaDisabled && !this.isBusinessLoan) {
             this.checkDisableLamdha();
         }
     }
@@ -133,8 +135,7 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: [undefined],
             lambdaScheme: [undefined,
                 !this.crgLambdaDisabled
-                && !this.isBusinessLoan
-                && !this.isMicroCustomer ? Validators.required : undefined],
+                && !this.isBusinessLoan ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -148,7 +149,7 @@ export class SecurityComponent implements OnInit {
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
             lambdaScheme: [formData.lambdaScheme,
-                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
+                !this.crgLambdaDisabled && !this.isBusinessLoan  ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
             facCategory: [formData.facCategory],
             securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
@@ -416,7 +417,7 @@ export class SecurityComponent implements OnInit {
     }
 
     checkDisableAlpha() {
-        if (!this.isMicroCustomer && !this.disableCrgAlphaParams && this.isBusinessLoan) {
+        if ( !this.disableCrgAlphaParams && this.isBusinessLoan) {
             this.controlValidation(this.alphaControls, true);
         } else {
             this.controlValidation(this.alphaControls, false);

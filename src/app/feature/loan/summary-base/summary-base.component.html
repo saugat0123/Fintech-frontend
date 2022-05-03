@@ -25,14 +25,7 @@
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
        <ng-container [ngSwitch]="loanConfig.loanTag">
-           <app-micro-loan-summary
-                   *ngSwitchCase="'MICRO_LOAN'"
-                   (changeToApprovalSheetActive)="activeApprovalSheet()"
-                   [loanConfig]="loanConfig"
-                   [loanData]="loanDataHolder"
-                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>  
-
-                <ng-container *ngSwitchDefault>     
+                <ng-container *ngSwitchDefault>
 
                     <app-loan-summary *ngIf="customerType === 'INDIVIDUAL'"
                             (changeToApprovalSheetActive)="activeApprovalSheet()"

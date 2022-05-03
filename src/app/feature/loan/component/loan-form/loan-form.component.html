@@ -108,10 +108,8 @@
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-            <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()"
+            <app-proposal [formValue]="loadProposal()"  [customerInfo]="loanHolder"
                           [loanType]="loanType" #proposalInfo></app-proposal>
-            <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()"
-                                [loanType]="loanType" #microProposalInfo></app-micro-proposal>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
             <div class="py-4">
@@ -127,7 +125,7 @@
                                 [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
           </ng-template>
 
-          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma' && customerType === 'INDIVIDUAL'">
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma' && allId?.loanCategory === 'INDIVIDUAL'">
             <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
             <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
                                            [fromProfile]="true"

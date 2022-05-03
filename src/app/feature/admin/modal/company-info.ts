@@ -5,7 +5,6 @@ import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
-import {RelationshipWithBank} from './relationship-with-bank';
 import {ShareholderKyc} from './shareholder-kyc';
 
 export class CompanyInfo {
@@ -45,9 +44,8 @@ export class CompanyInfo {
     businessGiven: string;
     companyLegalDocumentAddress: string;
     shareholderKycList: Array<ShareholderKyc>;
-    isMicroCustomer: boolean;
-    microCustomerType: string;
     vatNo: string;
     accountNo: string;
     accountStrategy: string;
+    customerCategory: any;
 }

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
@@ -22,7 +21,7 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
   spinner = false;
   existingOfferLetter = false;
   initialInfoPrint;
-  offerLetterConst = MegaOfferLetterConst;
+  offerLetterConst;
   offerLetterDocument: OfferDocument;
   docName;
 

@@ -84,13 +84,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isRemarkEdited = false;
     json = JSON;
     sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     crgLambdaDisabled = environment.disableCrgLambda;
     isEditable = false;
     jointInfo = [];
     isJointInfo = false;
-    microCustomer: boolean;
     customerType: CustomerType;
     nonMicroLoanList = [];
     microLoanList = [];
@@ -174,9 +172,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 this.isJointInfo = true;
             }
-            if (!ObjectUtil.isEmpty(this.customer.isMicroCustomer)) {
-                this.microCustomer = true;
-            }
             this.customerBasicFormBuilder();
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);
@@ -237,6 +232,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.modalService.dismissAll();
         this.selectedLoanType = null;
         this.facilityType = null;
+        this.getCustomerLoans();
     }
 
     getProvince() {

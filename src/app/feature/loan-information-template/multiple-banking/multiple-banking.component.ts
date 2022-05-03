@@ -6,6 +6,7 @@ import {CustomerType} from '../../customer/model/customerType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerCategory} from '../../customer/model/customerCategory';
 
 @Component({
     selector: 'app-multiple-banking',
@@ -17,6 +18,7 @@ export class MultipleBankingComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Input() multiBankingData: MultipleBanking;
     @Output() multiBankingDataEmitter = new EventEmitter();
+    @Input() customerCategory;
     customerType: CustomerType;
     calendarType = 'AD';
     multiBankingForm: FormGroup;
@@ -28,6 +30,7 @@ export class MultipleBankingComponent implements OnInit {
     consortiumChecked = true;
     swapChecked = true;
     ckeConfig;
+    customerCate = CustomerCategory;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -36,6 +39,8 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('customerCategory', this.customerCategory);
+        console.log('Condition', this.customerCate[this.customerCategory] === this.customerCate.SME_ABOVE_TEN_MILLION);
         this.router.queryParams.subscribe((res: any) => {
            this.customerType = res.customerType;
         });
@@ -46,13 +51,13 @@ export class MultipleBankingComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             const multiData = JSON.parse(this.multiBankingData.data);
             const checkData = JSON.parse(this.multiBankingData.checkedData);
-            this.setCheckedData(checkData);
             this.setMultiBankingData(multiData.multiBanking);
             this.setConsortiumData(multiData.consortium);
             this.setSwapData(multiData.bfiSwap);
             this.setAvgUtilization(multiData.utilization);
             this.multiBankingForm.patchValue(multiData);
             this.patchDate(multiData);
+            this.setCheckedData(checkData);
         } else {
             const consortium = this.multiBankingForm.get('consortium') as FormArray;
             this.bankName.forEach((bn: any) => {
@@ -83,6 +88,7 @@ export class MultipleBankingComponent implements OnInit {
             pastDue: [undefined],
             auditObservation: [undefined],
             comments: [undefined],
+            pastPerformance: [undefined],
         });
     }
 
@@ -199,25 +205,31 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     checkChecked(checked, type) {
+        const swap = this.multiBankingForm.get('bfiSwap') as FormArray;
+        const consortium = this.multiBankingForm.get('consortium') as FormArray;
+        const mul = this.multiBankingForm.get('multiBanking') as FormArray;
         switch (type) {
             case 'swap':
                 if (checked) {
                     this.swapChecked = true;
-                    this.addSwap();
+                    if (swap.length === 0) {
+                        this.addSwap();
+                    }
                 } else {
                     this.swapChecked = false;
                     this.multiBankingForm.get('swapDate').patchValue(null);
-                    const swap = this.multiBankingForm.get('bfiSwap') as FormArray;
+                    // const swap = this.multiBankingForm.get('bfiSwap') as FormArray;
                     swap.clear();
                 }
                 break;
             case 'consortium':
                 if (checked) {
                     this.consortiumChecked = true;
-                    const consortium = this.multiBankingForm.get('consortium') as FormArray;
-                    this.bankName.forEach((bn: any) => {
-                        consortium.push(this.addConsortium(bn));
-                    });
+                    if (consortium.length === 0) {
+                        this.bankName.forEach((bn: any) => {
+                            consortium.push(this.addConsortium(bn));
+                        });
+                    }
                 } else {
                     this.consortiumChecked = false;
                     this.multiBankingForm.get('totalFunded').patchValue(0);
@@ -226,18 +238,18 @@ export class MultipleBankingComponent implements OnInit {
                     this.multiBankingForm.get('totalTotal').patchValue(0);
                     this.multiBankingForm.get('totalPercent').patchValue(0);
                     this.multiBankingForm.get('consortiumDate').patchValue(null);
-                    const consortium = this.multiBankingForm.get('consortium') as FormArray;
                     consortium.clear();
                 }
                 break;
             case 'multiBanking':
                 if (checked) {
                     this.multiBankingChecked = true;
-                    this.addMultipleBanking();
+                    if (mul.length === 0) {
+                        this.addMultipleBanking();
+                    }
                 } else {
                     this.multiBankingChecked = false;
                     this.multiBankingForm.get('multiBankingDate').patchValue(null);
-                    const mul = this.multiBankingForm.get('multiBanking') as FormArray;
                     mul.clear();
                 }
                 break;
