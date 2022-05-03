@@ -281,7 +281,7 @@ export class CiclComponent implements OnInit {
               cl.blacklistHistory.forEach((bl: any) => {
                   arr.push(this.formBuilder.group({
                       blacklistNumber: [bl.blacklistNumber],
-                      blacklistDate: [new Date(bl.blacklistDate)],
+                      blacklistDate: [ObjectUtil.isEmpty(bl.blacklistDate) ? undefined : new Date(bl.blacklistDate)],
                   }));
               });
           }
