@@ -26,6 +26,7 @@ export class RetailGlobalContentComponent implements OnInit {
     {value: 'Plain Renewal'},
     {value: 'Renewal with Enhancement or Additional Loan'},
     {value: 'Additional Loan'},
+    {value: 'Other'}
   ];
   dateType = ['AD', 'BS'];
   loanOptionsSelected = false;

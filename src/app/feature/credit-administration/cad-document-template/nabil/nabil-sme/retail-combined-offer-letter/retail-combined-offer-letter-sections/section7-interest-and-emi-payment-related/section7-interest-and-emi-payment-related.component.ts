@@ -59,7 +59,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                 val === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
                 this.isPODSelected = true;
             }
-            if (val === 'EDUCATION LOAN COMBINED' || val === 'SHARE LOAN DEMAND COMBINED') {
+            if (val === 'EDUCATION LOAN COMBINED' || val === 'SHARE LOAN DEMAND COMBINED' || val === 'NABIL SHARE LOAN POD COMBINED') {
                 this.isEducationSelected = true;
             }
         });

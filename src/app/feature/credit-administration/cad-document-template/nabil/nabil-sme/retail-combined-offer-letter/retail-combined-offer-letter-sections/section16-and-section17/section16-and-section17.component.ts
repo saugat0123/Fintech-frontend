@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./section16-and-section17.component.scss']
 })
 export class Section16AndSection17Component implements OnInit {
+  @Input() cadData;
   form: FormGroup;
   constructor(
       private formBuilder: FormBuilder,
@@ -19,5 +20,11 @@ export class Section16AndSection17Component implements OnInit {
     return this.form = this.formBuilder.group({
 
     });
+  }
+  showDefaultCheck(data) {
+    console.log('Show Default Check?', data);
+  }
+  showCollateralCheck(data) {
+    console.log('Show Collateral Check?', data);
   }
 }

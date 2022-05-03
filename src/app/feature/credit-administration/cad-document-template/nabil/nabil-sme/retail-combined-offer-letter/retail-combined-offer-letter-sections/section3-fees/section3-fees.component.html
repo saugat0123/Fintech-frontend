@@ -69,7 +69,7 @@
                     <td><strong>ऋण प्रतिबद्धता शुल्क </strong></td>
                     <td>
                         <div>
-                            <ng-container *ngIf="!isPersonalOD || !isNabilSahayatri || !isPersonalWoCollateral || !isShareLoan">
+                            <ng-container *ngIf="!isPersonalOD || !isNabilSahayatri || !isPersonalWoCollateral || !isShareLoan || !isShareLoanDemand">
                                 स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
                                 <input class="form-field form-control-sm d-print-none"
                                        name="PODPercentage"
@@ -80,7 +80,7 @@
                                 प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                             </ng-container>
                             <br>
-                            <ng-container *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral || isShareLoan">
+                            <ng-container *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral || isShareLoan || isShareLoanDemand">
                                 अल्पकालिन तथा चालु पुञजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा
                                 सिमाको औसत ६० प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको
                                 <input class="form-field form-control-sm d-print-none"
