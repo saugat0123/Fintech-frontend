@@ -12,7 +12,6 @@ import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {LoanDataService} from '../../../service/loan-data.service';
-import {ManagementTeam} from '../../../../admin/modal/management-team';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Address} from '../../../model/address';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
@@ -59,7 +58,6 @@ export class CompanyInfoComponent implements OnInit {
     capital: Capital = new Capital();
     swot: Swot = new Swot();
     locations: CompanyLocations = new CompanyLocations();
-    managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
     proprietors: Proprietors = new Proprietors();
     proprietorsList: Array<Proprietors> = new Array<Proprietors>();
     provinceList: Array<Province> = new Array<Province>();
@@ -236,10 +234,6 @@ export class CompanyInfoComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.numberOfShareholder, Validators.required],
 
-            // managementTeams
-            managementTeams: this.formBuilder.array([
-                this.managementTeamFormGroup()
-            ]),
             // proprietors
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
@@ -302,37 +296,9 @@ export class CompanyInfoComponent implements OnInit {
     }
 
     setCompanyInfo(info: CompanyInfo) {
-        // set managementTeams data
-        this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
+
         // proprietors data
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
-    }
-
-    managementTeamFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [undefined, Validators.required],
-            designation: [undefined, Validators.required]
-        });
-    }
-
-    // set managementTeams data
-    setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        managementTeamList.forEach(managementTeam => {
-            managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
-            }));
-        });
-        return managementTeamFormArray;
-    }
-
-    removeManagementTeam(index: number) {
-        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
-    }
-
-    addManagementTeam() {
-        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
     }
 
     proprietorsFormGroup(): FormGroup {
@@ -507,8 +473,7 @@ export class CompanyInfoComponent implements OnInit {
         this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
         this.companyInfo.swot = this.swot;
-        // management team list
-        this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
         // contactPerson
         this.customer.version = this.companyInfoFormGroup.get('contactVersion').value;
         this.customer.id = this.companyInfoFormGroup.get('contactId').value;
