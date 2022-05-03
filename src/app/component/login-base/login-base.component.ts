@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-base.component.scss']
 })
 export class LoginBaseComponent implements OnInit {
+  date;
 
   constructor() { }
 
   ngOnInit() {
+    this.date = (new Date()).getFullYear();
   }
 
 }
