@@ -22,7 +22,7 @@
         </app-security-initial-form>
         <div class="form-group">
             <form [formGroup]="securityForm">
-                <ng-container *ngIf="!isMicroCustomer && !disableCrgAlphaParams && isBusinessLoan">
+                <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">
                     <div>
                         <h4>Guarantee</h4>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                 </ng-container>
 
-                <ng-container *ngIf="!isMicroCustomer && !crgLambdaDisabled && !isBusinessLoan">
+                <ng-container *ngIf="!crgLambdaDisabled && !isBusinessLoan">
                     <div class="row">
                         <div class="col">
                             <nb-card>

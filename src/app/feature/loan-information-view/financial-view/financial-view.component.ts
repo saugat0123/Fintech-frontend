@@ -17,7 +17,6 @@ export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
   @Input() customerType: any;
-  @Input() microCustomer;
   isMicro = false;
   financialData: any;
   isBusinessLoan = false;
@@ -31,7 +30,7 @@ export class FinancialViewComponent implements OnInit {
   ngOnInit() {
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
-      if (CustomerType[this.customerType] === CustomerType.INSTITUTION && !this.microCustomer) {
+      if (CustomerType[this.customerType] === CustomerType.INSTITUTION ) {
         this.isBusinessLoan = true;
       }
     }

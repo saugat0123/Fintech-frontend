@@ -2,17 +2,7 @@
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
     <nb-card-header>
-        <!--        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"-->
-        <!--                     (click)="microCustomerValidation(!micro_checked.checked); microRestData(!micro_checked.checked)"-->
-        <!--                     #micro_checked>Micro Customer-->
-        <!--        </nb-checkbox>-->
 
-        <!--      <div class="ml-5">-->
-        <!--            <strong>Micro Customer Type: </strong>-->
-        <!--        <ng-select  [(ngModel)]="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >-->
-        <!--            <ng-option *ngFor="let data of microCustomerTypes" [value]="data">{{data}}</ng-option>-->
-        <!--        </ng-select>-->
-        <!--      </div>-->
 
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
@@ -31,21 +21,8 @@
     <nb-card-body>
         <div class="form-group">
             <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
-                <nb-tabset fullWidth>
-                    <nb-tab tabTitle="Company Detail">
                         <div>
                             <div class="row">
-                                <div class="col-md-4" *ngIf="microCustomer">
-                                    <div class="form-group">
-                                        <label><strong>Micro Customer Type</strong></label>
-                                        <select (change)="microCustomerTypeValidation(microType?.value)" #microType
-                                                formControlName="microCustomerType" id="microCustomerType"
-                                                class="form-control">
-                                            <option *ngFor="let data of microCustomerTypes"
-                                                    [value]="data.key">{{data.value}}</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Customer Client Type</strong></label>
@@ -65,32 +42,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Customer Loan Type</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid':submitted && form.loanType.errors }"
-                                                class="custom-select" formControlName="loanType">
-                                            <option [ngValue]="null">Select Loan Type</option>
-
-                                            <option *ngFor="let data of loanTypeList"
-                                                    [ngValue]="data.key">{{data.value}}</option>
-                                        </select>
-                                        <div *ngIf="submitted && form.loanType.errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="form.loanType.errors.required">Customer Loan Type is required</div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!--                               <div class="col-md-4">-->
-                                <!--                                   <div class="form-group">-->
-                                <!--                                       <label ><strong>SubSector</strong></label>-->
-                                <!--                                       <select class="custom-select" formControlName="subsectorDetail">-->
-                                <!--                                           <option  [ngValue]="null">Select  Subsector</option>-->
-                                <!--                                           <option *ngFor="let data of subSector " [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>-->
-                                <!--                                       </select>-->
-                                <!--                                   </div>-->
-                                <!--                               </div>-->
                             </div>
                         </div>
 
@@ -1417,8 +1368,7 @@
                             </div>
                         </div>
                         <hr>
-                        <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'"
-                                                  [companyOtherDetail]="companyJsonData?.otherCompanyDetail"
+                        <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail"
                                                   #companyOtherDetailComponent></app-company-other-detail>
                         <hr>
                         <div>
@@ -1713,78 +1663,7 @@
                             </div>
                         </div>
                         <hr>
-                        <!--market scenario-->
-                        <!--                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"-->
-                        <!--                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>-->
-                        <!--                       <hr>-->
-                        <!--10. SWOT Analysis-->
-                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                            <div class="box-header with-border">
-                                <h5 class="box-title">9. SWOT Analysis</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="strength"><strong>Strength</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"
-                                                  formControlName="strength" id="strength"
-                                                  name="strength" [config]="ckeConfig"
-                                                  type="text"></ckeditor>
-                                        <div *ngIf="(submitted) && form.strength.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.strength.errors.required">
-                                                Strength is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="weakness"><strong>Weakness</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"
-                                                  formControlName="weakness" id="weakness"
-                                                  name="weakness" [config]="ckeConfig"
-                                                  type="text"></ckeditor>
-                                        <div *ngIf="(submitted) && form.weakness.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.weakness.errors.required">
-                                                Weakness is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="opportunity"><strong>Opportunity</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"
-                                                  formControlName="opportunity" id="opportunity"
-                                                  name="opportunity" [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && form.opportunity.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.opportunity.errors.required">
-                                                Opportunity is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="threats"><strong>Threats</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }"
-                                                  formControlName="threats"
-                                                  id="threats"
-                                                  name="threats" [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && form.threats.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.threats.errors.required">
-                                                Threats is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <hr>
+
                         <!--Business Objective-->
                         <div class="box-header with-border">
                             <h5 class="box-title">10. Business Objective</h5>
@@ -1903,291 +1782,7 @@
                         </div>
                         <!--  Business Given -->
                         <hr>
-                        <!--                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">-->
-                        <!--                           <h5 class="box-title">16. Business given</h5>-->
-                        <!--                           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">-->
-                        <!--                               <tr class="sb-bg-secondary text-white">-->
-                        <!--                                   <th>Particular</th>-->
-                        <!--                                   <th>Amount</th>-->
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Interest Income</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="interestIncomeDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
 
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Loan Processing Fee</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="loanProcessingFeeDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>LC Commission</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="lcCommissionDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Guarantee Commission</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="guaranteeCommissionDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Other Commission</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="otherCommissionDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-                        <!--                                   </td>-->
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Saving Account</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="savingAccountDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Payroll Account</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="payrollAccountDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Debit Cards</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="debitCardsDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Credit Cards</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="creditCardsDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Mobile Bank / Internet Banking</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="mobileBankingDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td>Locker</td>-->
-                        <!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
-                        <!--                                              class="form-control text-center"-->
-                        <!--                                              formControlName="lockerDuringReview"-->
-                        <!--                                              type="number" appDecimalNumber>-->
-
-                        <!--                                   </td>-->
-
-                        <!--                               </tr>-->
-                        <!--                               <tr>-->
-                        <!--                                   <td><strong>Total</strong></td>-->
-                        <!--                                   <td><input readonly formControlName="total" class="form-control text-center"></td>-->
-                        <!--                               </tr>-->
-
-                        <!--                           </table>-->
-                        <!--                       </ng-container>-->
-                    </nb-tab>
-                    <!--  new tab detail start from here-->
-                    <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">
-                        <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating
-                            CRG (Alpha)</em></em>
-                        <hr>
-                        <app-banking-relation #bankingRelationComponent
-                                              [formValue]="bankingRelationshipInput">
-                        </app-banking-relation>
-                        <div class="col-md-3 form-group">
-                            <label><strong>IRD report obtained and attached</strong></label>
-                            <select class="form-control" formControlName="irdReport">
-                                <option [value]="null" hidden>--Select Yes/No--</option>
-                                <option value="YES">Yes</option>
-                                <option value="NO">No</option>
-                            </select>
-                        </div>
-                        <hr>
-                        <div class="box-header with-border">
-                            <h5 class="box-title">14. Business & Industry</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label><strong>Regulatory Concern</strong></label>
-                                <select formControlName="regulatoryConcern" id="regulatoryConcern"
-                                        [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select regulatory concern here</option>
-                                    <option *ngFor="let regConcern of regulatoryConcernList"
-                                            [value]="regConcern?.value">
-                                        {{regConcern?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
-                                    <div *ngIf="form.regulatoryConcern.errors.required">
-                                        Regulatory Concern is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label><strong>Supplier</strong></label>
-                                <select formControlName="supplier" id="supplier" class="form-control">
-                                    <option [value]="null" hidden>Select supplier</option>
-                                    <option *ngFor="let supplier of supplierList"
-                                            [value]="supplier?.value">
-                                        {{supplier?.value}}
-                                    </option>
-                                </select>
-                                <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
-                                    <div *ngIf="form.supplier.errors.required">
-                                        Supplier is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label><strong>Buyer</strong></label>
-                                <select formControlName="buyer" id="buyer"
-                                        [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select Buyer</option>
-                                    <option *ngFor="let buyer of buyerList"
-                                            [value]="buyer?.value">
-                                        {{buyer?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
-                                    <div *ngIf="form.buyer.errors.required">
-                                        Buyer is required
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Industry Growth </strong></label>
-                                </div>
-                                <div class="form-group">
-                                    <select formControlName="industryGrowth" id="industryGrowth"
-                                            [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Industry Growth</option>
-                                        <option *ngFor="let industryGrowth of industryGrowthList"
-                                                [value]="industryGrowth?.value">
-                                            {{industryGrowth?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
-                                        <div *ngIf="form.industryGrowth.errors.required">
-                                            Industry Growth is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Market Competition</strong></label>
-                                </div>
-                                <div class="form-group">
-                                    <select formControlName="marketCompetition" id="marketCompetition"
-                                            [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Market Competition</option>
-                                        <option *ngFor="let marketComp of marketCompetitionList"
-                                                [value]="marketComp?.value">
-                                            {{marketComp?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.marketCompetition.errors"
-                                         class="small text-danger">
-                                        <div *ngIf="form.marketCompetition.errors.required">
-                                            Market Competition Growth is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Experience </strong></label>
-                                </div>
-                                <div class="form-group">
-                                    <select formControlName="experience" id="experience"
-                                            [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Experience</option>
-                                        <option *ngFor="let experience of experiences"
-                                                [value]="experience?.value">
-                                            {{experience?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
-                                        <div *ngIf="form.experience.errors.required">
-                                            Experience Growth is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Succession </strong></label>
-                                </div>
-                                <select formControlName="succession" id="succession"
-                                        [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select succession</option>
-                                    <option *ngFor="let succession of successionList"
-                                            [value]="succession?.value">
-                                        {{succession?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
-                                    <div *ngIf="form.succession.errors.required">
-                                        Succession is required
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </nb-tab>
-                    <!--micro customer detail-->
-                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                        <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'"
-                                                          #microCompanyFormComponent
-                                                          [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
-                        <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent
-                                                   [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
-
-                    </nb-tab>
-                </nb-tabset>
             </form>
         </div>
     </nb-card-body>

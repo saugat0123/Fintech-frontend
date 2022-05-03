@@ -32,20 +32,17 @@ import {CustomerListGroupComponent} from './component/customer-group-associate-l
 import {CoreModule} from '../../@core/core.module';
 import {ActivityListComponent} from './component/activity-list/activity-list.component';
 import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
-import {BankingRelationComponent} from './component/customer-form/banking-relation/banking-relation.component';
 import {CompanyOtherDetailComponent} from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
 import {MarketScenarioComponent} from './component/customer-form/company-form/market-scenario/market-scenario.component';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
-import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CustomerGroupComponent} from './component/customer-profile/individual-profile/customer-group/customer-group.component';
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import { RiskAnalysisComponent } from './component/customer-form/company-form/risk-analysis/risk-analysis.component';
-import {MultipleBankingComponent} from '../loan-information-template/multiple-banking/multiple-banking.component';
 import { GroupExposureWithCcblComponent } from './component/customer-profile/company-profile/group-exposure-with-ccbl/group-exposure-with-ccbl.component';
 import { ReviewDateComponent } from './component/customer-profile/company-profile/review-date/review-date.component';
 
@@ -70,7 +67,6 @@ const COMPONENTS = [
   EditManagementTeamComponent,
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
-  BankingRelationComponent,
   JointFormComponent
 ];
 
@@ -102,7 +98,6 @@ const COMPONENTS = [
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
-        MicroLoanModule,
         NepaliPatroModule
 
 

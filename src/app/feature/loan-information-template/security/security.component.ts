@@ -39,7 +39,6 @@ export class SecurityComponent implements OnInit {
     @Output() submittedCheck = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
-    @Input() isMicroCustomer: boolean;
     @Input() submittedCheckFromParent: boolean;
 
     @ViewChild('initialSecurity' , {static: false})
@@ -115,7 +114,7 @@ export class SecurityComponent implements OnInit {
             this.initialSecurityValue = undefined;
         }
         this.checkDisableAlpha();
-        if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
+        if ( !this.crgLambdaDisabled && !this.isBusinessLoan) {
             this.checkDisableLamdha();
         }
     }
@@ -133,8 +132,7 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: [undefined],
             lambdaScheme: [undefined,
                 !this.crgLambdaDisabled
-                && !this.isBusinessLoan
-                && !this.isMicroCustomer ? Validators.required : undefined],
+                && !this.isBusinessLoan ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -148,7 +146,7 @@ export class SecurityComponent implements OnInit {
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
             lambdaScheme: [formData.lambdaScheme,
-                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
+                !this.crgLambdaDisabled && !this.isBusinessLoan  ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
             facCategory: [formData.facCategory],
             securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
@@ -416,7 +414,7 @@ export class SecurityComponent implements OnInit {
     }
 
     checkDisableAlpha() {
-        if (!this.isMicroCustomer && !this.disableCrgAlphaParams && this.isBusinessLoan) {
+        if ( !this.disableCrgAlphaParams && this.isBusinessLoan) {
             this.controlValidation(this.alphaControls, true);
         } else {
             this.controlValidation(this.alphaControls, false);
