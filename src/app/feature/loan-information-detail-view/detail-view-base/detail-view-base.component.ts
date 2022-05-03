@@ -61,7 +61,6 @@ export class DetailViewBaseComponent implements OnInit {
     hasMissingDeferredDocs = false;
     nepaliDate;
     loanSummaryActive = true;
-    approvalSheetActive = false;
     loanConfig: LoanConfig = new LoanConfig();
     allId;
     loanConfigId;
@@ -273,7 +272,6 @@ export class DetailViewBaseComponent implements OnInit {
     }
 
     activeApprovalSheet() {
-        this.approvalSheetActive = true;
         this.loanSummaryActive = false;
     }
 

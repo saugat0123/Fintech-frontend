@@ -67,7 +67,6 @@ export class UIComponent implements OnInit, DoCheck {
     cadDocumentUploadList = [];
     finalCadDocumentUploadList = Array<Document>();
     formLabel: string;
-    enableMicro = environment.microLoan;
     form: FormGroup;
 
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
@@ -291,7 +290,7 @@ export class UIComponent implements OnInit, DoCheck {
             }
         });
 
-        if (!other.enableMicro) {
+
             const index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
             other.loanTagList.forEach(value => {
                 if (value.toString() === 'MICRO LOAN') {
@@ -299,7 +298,6 @@ export class UIComponent implements OnInit, DoCheck {
                 }
             });
             other.loanTagList.splice(index, 1);
-        }
     }
 
     ngOnInit() {
