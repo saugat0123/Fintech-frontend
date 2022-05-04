@@ -861,8 +861,10 @@
     </div>
 
 </ng-container>
+
                             </div>
 
+                            <app-cad-file-setup #cadFile [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
 
                         </form>
                     </div>

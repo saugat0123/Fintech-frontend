@@ -23,6 +23,7 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
+import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
   selector: 'app-proposal',
@@ -42,6 +43,7 @@ export class ProposalComponent implements OnInit {
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadFile', {static: false}) cadFile: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
@@ -450,6 +452,7 @@ export class ProposalComponent implements OnInit {
         if (this.customerType === 'INDIVIDUAL') {
             this.crgGammaComponent.onSubmit();
         }
+        this.cadFile.save();
         // Proposal Form Data--
         this.submitted = true;
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;

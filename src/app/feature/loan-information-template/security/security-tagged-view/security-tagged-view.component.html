@@ -37,11 +37,11 @@
         </tr>
         <tr>
             <td class = "sb-bg-dark text-white">Used Amount Amount</td>
-            <td>{{(vehicle?.usedAmount | nepaliCurrencyFormatter) || 'N/A' }}</td>
+            <td>{{(vehicle?.usedAmount ) || 'N/A' }}</td>
         </tr>
         <tr>
             <td class = "sb-bg-dark text-white">Valuator Name</td>
-            <td>{{(vehicle?.valuators[0]?.name ) || 'N/A' }}</td>
+            <td>{{(vehicle?.vehicalValuator?.name ) || 'N/A' }}</td>
         </tr>
         </tbody>
     </table>
@@ -98,4 +98,16 @@
             <td>{{(lb?.usedAmount) || 'N/A'}}</td>
         </tr>
     </table>
+    <div class="row mt-1">
+        <div class="col-md-12">
+            <p class="security-header"><strong class="security-header">Other Security Document</strong></p>
+            <table class="table table-bordered text-center table-sm sb-small" *ngIf="files!==null">
+                <tbody>
+                <tr *ngFor="let data of files; let index = index">
+                    <td  class="text-left" colspan="2">{{data?.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

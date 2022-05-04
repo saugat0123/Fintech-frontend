@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../loan/model/loanData';
+import {Proposal} from '../../../admin/modal/proposal';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-security-tagged-view',
@@ -10,11 +12,19 @@ export class SecurityTaggedViewComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   hasLandBuilding = false;
   hasAuto = false;
+  files;
+  proposal: Proposal;
   constructor() { }
   ngOnInit() {
   // this.checkSecurity();
     this.hasLandBuilding = this.checkIndividualSecurity(this.loanDataHolder.landBuildings);
     this.hasAuto = this.checkIndividualSecurity(this.loanDataHolder.autos);
+    this.proposal = this.loanDataHolder.proposal;
+    if (!ObjectUtil.isEmpty(this.proposal.data)) {
+      if (!ObjectUtil.isEmpty(JSON.parse(this.proposal.data).files)) {
+        this.files = JSON.parse(JSON.parse(this.proposal.data).files);
+      }
+    }
   }
 
   // checkSecurity() {
