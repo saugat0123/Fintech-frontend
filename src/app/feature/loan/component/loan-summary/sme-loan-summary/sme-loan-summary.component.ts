@@ -254,7 +254,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
 
-    console.log(this.loanDataHolder, 'HOLDER');
   }
 
   ngOnDestroy(): void {
