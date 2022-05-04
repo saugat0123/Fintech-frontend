@@ -46,6 +46,8 @@ export class SecurityTaggedViewComponent implements OnInit {
   //   });
   // }
   checkIndividualSecurity(array: Array<any>) {
-    return array.length > 0;
+    if (!ObjectUtil.isEmpty(array)) {
+      return array.length > 0;
+    }
   }
 }
