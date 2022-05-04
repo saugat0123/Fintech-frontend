@@ -347,6 +347,11 @@
 <!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
 <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
+<!--                            insurance-->
+                            <li *ngIf="loanDataHolder?.insurance">
+                                <app-insurance-summary  [insurance]="loanDataHolder?.insurance">
+                                </app-insurance-summary>
+                            </li>
                             <li>
                                 <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)
                                 <app-sana-key-financial-figure></app-sana-key-financial-figure>
