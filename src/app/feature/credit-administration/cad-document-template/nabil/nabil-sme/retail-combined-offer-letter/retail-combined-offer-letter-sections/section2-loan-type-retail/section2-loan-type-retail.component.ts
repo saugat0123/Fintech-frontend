@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {executeKarmaBuilder} from '@angular-devkit/build-angular';
 
 @Component({
   selector: 'app-section2-loan-type-retail',
@@ -16,16 +17,24 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   educationLoanOtherAgainstTDArray: Array<any> = new Array<any>();
   educationLoanAustraliaArray: Array<any> = new Array<any>();
   educationLoanOtherCountriesArray: Array<any> = new Array<any>();
+  freeTextVal: any = {};
+  shareLoanFreeTextArray: Array<any> = new Array<any>();
+  personalLoanFreeTextArray: Array<any> = new Array<any>();
+  tempInformation;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadData) &&
-    !ObjectUtil.isEmpty(this.cadData.offerDocumentList) &&
-        !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
-      this.initialData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+    !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
+        this.initialData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      }
       // this.loanOption = this.initialData.smeGlobalForm.loanOption;
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+        this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+      }
     }
     console.log('Initial Data:', this.initialData);
     this.buildForm();
@@ -316,8 +325,34 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     this.patchHousingFormData();
     this.patchAutoLoanFormData();
     this.patchCommonFormData();
+    this.patchShareDemandFreeText();
   }
 
+  patchShareDemandFreeText() {
+    if (!ObjectUtil.isEmpty(this.tempInformation) &&
+    !ObjectUtil.isEmpty(this.tempInformation.section2)) {
+      if (!ObjectUtil.isEmpty(this.initialData) &&
+      !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
+      !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+        this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
+          this.form.get(['shareLoanDemandFormArray', i, 'freeText']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section2.loanDemandFreeText[i]) &&
+                  !ObjectUtil.isEmpty(this.tempInformation.section2.loanDemandFreeText[i].freeText) ?
+                  this.tempInformation.section2.loanDemandFreeText[i].freeText : '');
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialData) &&
+          !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+        this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
+          this.form.get(['personalLoanFormArray', i, 'freeDate']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i]) &&
+                  !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i].freeDate) ?
+                  this.tempInformation.section2.personalLoanFreeText[i].freeDate : '');
+        });
+      }
+    }
+  }
   patchCommonFormData() {
     if (!ObjectUtil.isEmpty(this.initialData) &&
         !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm) &&
@@ -869,6 +904,41 @@ export class Section2LoanTypeRetailComponent implements OnInit {
           return formArray.loanExpiryDateNepaliCT;
         }
       }
+    }
+  }
+  setTextAreaValue() {
+    this.freeTextVal = {
+      loanDemandFreeText: this.shareLoanFreeText(),
+      personalLoanFreeText: this.personalLoanFreeText(),
+    };
+    return this.freeTextVal;
+  }
+  shareLoanFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
+        !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+      for (let val = 0; val < this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.length; val++) {
+        const tempFreeText = {
+          freeText: this.form.get(['shareLoanDemandFormArray', val, 'freeText']).value ?
+              this.form.get(['shareLoanDemandFormArray', val, 'freeText']).value : '',
+        };
+        this.shareLoanFreeTextArray.push(tempFreeText);
+      }
+      return this.shareLoanFreeTextArray;
+    }
+  }
+  personalLoanFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
+        !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+      for (let val = 0; val < this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.length; val++) {
+        const tempFreeText = {
+          freeDate: this.form.get(['personalLoanFormArray', val, 'freeDate']).value ?
+              this.form.get(['personalLoanFormArray', val, 'freeDate']).value : '',
+        };
+        this.personalLoanFreeTextArray.push(tempFreeText);
+      }
+      return this.personalLoanFreeTextArray;
     }
   }
 }

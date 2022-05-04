@@ -24,6 +24,7 @@ import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
 import { EnglishDateTransformPipe } from './pipe/english-date-transform.pipe';
 import { WordNumberingPipe } from './pipe/word-numbering.pipe';
+import { NepaliWordNumberingPipe } from './pipe/nepali-word-numbering.pipe';
 
 
 const DATA_SERVICES = [];
@@ -69,7 +70,8 @@ const UTILITY_MODULES = [
         LoginPopUp,
         NepaliNumberPipe,
         AmountWordPipe,
-        WordNumberingPipe
+        WordNumberingPipe,
+        NepaliWordNumberingPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -89,7 +91,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         AmountWordPipe,
         EnglishDateTransformPipe,
-        WordNumberingPipe
+        WordNumberingPipe,
+        NepaliWordNumberingPipe
 
     ], entryComponents: [LoginPopUp]
 })
