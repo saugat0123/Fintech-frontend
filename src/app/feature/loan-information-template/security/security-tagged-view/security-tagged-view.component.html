@@ -37,11 +37,11 @@
         </tr>
         <tr>
             <td class = "sb-bg-dark text-white">Used Amount Amount</td>
-            <td>{{(vehicle?.usedAmount | nepaliCurrencyFormatter) || 'N/A' }}</td>
+            <td>{{(vehicle?.usedAmount ) || 'N/A' }}</td>
         </tr>
         <tr>
             <td class = "sb-bg-dark text-white">Valuator Name</td>
-            <td>{{(vehicle?.valuators[0]?.name ) || 'N/A' }}</td>
+            <td>{{(vehicle?.vehicalValuator?.name ) || 'N/A' }}</td>
         </tr>
         </tbody>
     </table>
