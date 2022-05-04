@@ -1,4 +1,4 @@
-<div class="text-justify">
+<div class="text-justify" [nbSpinner]="spinner">
     <form [formGroup]="guarantorindividualGroup" id="print-section">
         <div class="row" *ngFor="let guarantors of guarantorindividualGroup.get('individualGuarantors')['controls']; let i = index"
         formArrayName="individualGuarantors">
@@ -375,9 +375,9 @@
                         </div>
                         <div class="row w-100">
                             <div class="col-md-12">
-                                <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control nepaliFont d-print-none" name="freeText" formControlName="freeText">
+                                <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control d-print-none" name="freeText" formControlName="freeText">
                                 </textarea>
-                                <span class="print-only nepaliFont"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'freeText']).value}}</strong></span>
+                                <span class="print-only" style="padding-left: 4em">{{guarantorindividualGroup?.get(['individualGuarantors', i, 'freeText'])?.value ? guarantorindividualGroup?.get(['individualGuarantors', i, 'freeText'])?.value : ''}}</span>
                             </div>
                         </div>
                         <div>
@@ -519,62 +519,122 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="text-left mt-2">
-                                <p class="font-weight-bold">
-                                    साक्षीः
-                                </p>
-                                <ul class="nepaliList">
-                                    <app-sakhshi-common></app-sakhshi-common>
-                                    <li>
-                                        कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                        ____________________________
-                                    </li>
-                                </ul>
+                            <div class="row" style="margin-top: 3em">
+                                <div class="col-md-12" style="padding-left: 3em">
+                                    <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                                    <ol class="conditions">
+                                        <li>
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiDistrict1"
+                                                   formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict1 ? this.cadInitialInfo[i]?.sakshiDistrict1 : '______________________________'}}
+                                </span>
+                                            जिल्ला
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiMunicipality1"
+                                                   formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality1 ? this.cadInitialInfo[i]?.sakshiMunicipality1 : '______________________________'}}
+                                </span>
+                                            न.पा/गा.वि.स. वडा नं.
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
+                                                   formControlName="sakshiWard1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard1 ? this.cadInitialInfo[i]?.sakshiWard1 : '______________________________'}}
+                                </span>
+                                            बस्ने बर्ष
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
+                                                   formControlName="sakshiAge1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge1 ? this.cadInitialInfo[i]?.sakshiAge1 : '______________________________'}}
+                                </span>
+                                            को/की
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiName1"
+                                                   formControlName="sakshiName1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName1 ? this.cadInitialInfo[i]?.sakshiName1 : '______________________________'}}
+                                </span>
+                                        </li>
+                                        <li>
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiDistrict2"
+                                                   formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict2 ? this.cadInitialInfo[i]?.sakshiDistrict2 : '______________________________'}}
+                                </span>
+                                            जिल्ला
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiMunicipality2"
+                                                   formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality2 ? this.cadInitialInfo[i]?.sakshiMunicipality2 : '______________________________'}}
+                                </span>
+                                            न.पा/गा.वि.स. वडा नं.
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
+                                                   formControlName="sakshiWard2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard2 ? this.cadInitialInfo[i]?.sakshiWard2 : '______________________________'}}
+                                </span>
+                                            बस्ने बर्ष
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
+                                                   formControlName="sakshiAge2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge2 ? this.cadInitialInfo[i]?.sakshiAge2 : '______________________________'}}
+                                </span>
+                                            को/की
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiName2"
+                                                   formControlName="sakshiName2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName2 ? this.cadInitialInfo[i]?.sakshiName2 : '______________________________'}}
+                                </span>
+                                        </li>
+                                        <li>
+                                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल
+                                            बैंक लिमिटेडका कर्मचारी
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="nameOfBankStaff"
+                                                   formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.nameOfBankStaff ? this.cadInitialInfo[i]?.nameOfBankStaff : '______________________________'}}
+                                </span>
+                                        </li>
+                                    </ol>
+                                </div>
                             </div>
                             <br/>
                             <div>
                                 <p style="text-align:center">
                                     ईति सम्वत् &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="year"
-                                        formControlName="year" placeholder="साल" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value : '_________________'}}</strong></span>
+                                           name="year"
+                                           formControlName="year" placeholder="साल" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value : '_________________'}}</strong></span>
                                     साल &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="month"
-                                        formControlName="month" placeholder="महिना" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value : '___________'}}</strong></span>
+                                           name="month"
+                                           formControlName="month" placeholder="महिना" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value : '___________'}}</strong></span>
                                     महिना &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="day"
-                                        formControlName="day" placeholder="गते" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value : '________'}}</strong></span>
+                                           name="day"
+                                           formControlName="day" placeholder="गते" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value : '________'}}</strong></span>
                                     गते रोज &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="date"
-                                        formControlName="date" placeholder="दिन" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value : '_________'}}</strong></span>
+                                           name="date"
+                                           formControlName="date" placeholder="दिन" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value : '_________'}}</strong></span>
                                     शुभम् ।
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="pageBreak"></div>
+                <div *ngIf="i < guarantorindividualGroup.get('individualGuarantors')['length'] - 1"
+                     class="pageBreak"></div>
             </div>
-            <!-- <div class="row d-print-none">
-                <div class="col-sm-6 text-left">
-                    <button nbButton status="danger" size="small" (click)="removeIndividualGuarantors(i)">
-                        <em class="fa fa-trash" style="color: white;"></em>
-                    </button>
-                </div>
-            </div> -->
-            <hr class ="d-print-none mt-2 mb-2 w-100 "/>
+            <hr class="d-print-none mt-2 mb-2 w-100 "/>
         </div>
-        <!-- <div *ngIf="guarantorindividualGroup.get('individualGuarantors')['length'] > 0" class="row d-print-none">
-            <div class="col-md-12 text-right">
-                <button nbButton status="success" size="small" (click)="submit()">Save</button>
-            </div>
-        </div> -->
         <div *ngIf="guarantorindividualGroup.get('individualGuarantors')['length'] == 0" class="row">
             <div class="col-md-12">
                 <p>Could not find guarantors details.</p>
@@ -582,17 +642,17 @@
         </div>
     </form>
     <div class="row mt-5 ml-0">
-        <!-- <div class="col-md-6 text-left">
-            <button nbButton status="primary" (click)="refreshGuarantors()" outline title="Refresh Data" size="small">
-                <i class="fas fa-sync-alt"></i>
-            </button>
-        </div> -->
         <div class="col-md-12 text-right">
             <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
                 nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
                 <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
             </button>
+            <button nbButton size="small"
+                    class="d-print-none sav"
+                    status="success"
+                    (click)="submit()"
+                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
         </div>
     </div>
 </div>
-<!-- <app-personal-guarantee-individual-print *ngIf="initialInfoPrint" [letterData]="this.guarantorindividualGroup.get('individualGuarantors')" hidden></app-personal-guarantee-individual-print> -->
