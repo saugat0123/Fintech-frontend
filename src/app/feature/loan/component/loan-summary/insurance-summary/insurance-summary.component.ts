@@ -8,7 +8,6 @@ import {Insurance} from '../../../../admin/modal/insurance';
 })
 export class InsuranceSummaryComponent implements OnInit {
   @Input() insurance: Array<Insurance>;
-  @Input() labelNo : any;
 
   constructor() { }
 
