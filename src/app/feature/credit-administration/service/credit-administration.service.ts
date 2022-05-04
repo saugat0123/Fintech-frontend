@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from '../../../@core/BaseService';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
@@ -105,6 +105,19 @@ export class CreditAdministrationService extends BaseService<any> {
         const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
+    public saveCadForm(formData: FormData): Observable<any> {
+        const api = `${this.getApi()}/uploadCadDocument`;
+        const req = ApiUtils.getRequestWithFileSupport(api);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+
+    public getBookMark(formData: FormData): Observable<any> {
+        const api = `${this.getApi()}/getBookmark`;
+        const req = ApiUtils.getRequestWithFileSupport(api);
+        return this.http.post(req.url, formData, {headers: req.header});
     }
 
 }

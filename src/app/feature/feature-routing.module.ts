@@ -66,6 +66,9 @@ const routes: Routes = [
         path: 'credit',
         loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
       },
+      { path: 'cad',
+        loadChildren: () => import('./cad/cad.module').then(m => m.CadModule)
+      },
       {
         path: 'error',
         component: ErrorPageComponent
@@ -74,6 +77,7 @@ const routes: Routes = [
       {path: '**', redirectTo: 'dashboard'}
     ],
   },
+
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NbAccordionModule, NbDatepickerModule, NbSelectModule} from '@nebular/theme';
+import {NbAccordionModule, NbCardModule, NbDatepickerModule, NbSelectModule} from '@nebular/theme';
 import {ThemeModule} from '../@theme/theme.module';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {FeatureRoutingModule} from './feature-routing.module';
@@ -30,7 +30,8 @@ import {ErrorPageComponent} from './error-page/error-page.component';
         NbDatepickerModule.forRoot(),
         NgSelectModule,
         DragDropModule,
-        NepaliCalendarModule
+        NepaliCalendarModule,
+
       ],
       declarations: [
         FeatureComponent,

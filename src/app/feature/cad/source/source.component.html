@@ -1,0 +1,93 @@
+<nb-card status="info">
+    <nb-card-header ><h3 class="text-white">CAD</h3></nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="cadForm" >
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="customerAssociation"> Customer Association</label>
+                    <select formControlName="customerAssociation" class="form-control" id="customerAssociation" >
+                        <option value="Institutional">Institutional</option>
+                        <option value="Individual">Individual</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="loanAssociation">Loan Association</label>
+                    <select (change)="getLoanAssociation()" formControlName="loanAssociation"  class="form-control" id="loanAssociation">
+                        <option value="Loan">Loan</option>
+                        <option value="All">All</option>
+                    </select>
+                </div>
+                <div *ngIf="loanAssociation === 'All'" class="col-md-4">
+                    <label for="loanListALl">Select Loan</label>
+                    <select formControlName="loanList" class="form-control" id="loanListALl">
+                        <option *ngFor="let data of loanList" [ngValue]="loanList">{{data.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="loanAssociation === 'Loan'" class="col-md-4">
+                    <label for="loanList">Select Loan</label>
+                    <select formControlName="loanList" class="form-control" id="loanList">
+                        <option *ngFor="let data of activeLoan" [ngValue]="activeLoan">{{data.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="cadFile">Upload File</label>
+                    <input (input)="getBookMark($event)" class="form-control" id="cadFile" placeholder="File" type="file">
+                </div>
+            </div>
+
+            <hr>
+<!--            <div *ngIf="listOfBookMark.length > 0">-->
+<!--                <h1>Bookmark Mapper Section</h1>-->
+
+<!--                    <div class="col-md-4 mt-2" *ngFor="let label of listOfBookMark; let i = index">-->
+<!--                        <div>-->
+<!--                        <label>{{label}}</label>-->
+<!--                        <div>-->
+<!--                            <select class="form-control" [formControlName]="label+i">-->
+<!--                                <option value="Proposed Limit">Proposed Limit</option>-->
+<!--                                <option value="Proposed Limit in words">Proposed Limit in words</option>-->
+<!--                                <option value="Interest Rate">Interest Rate</option>-->
+<!--                                <option value="Customer District">Customer District</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+
+
+
+            <hr>
+            <button (click)="onSubmit()"  nbButton status="success">Save</button>
+        </form>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>BookMark Mapper</nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="bookMarkForm">
+            <ng-container>
+                <div *ngIf="listOfBookMark.length > 0">
+                    <div class="col-md-4 mt-2" *ngFor="let label of listOfBookMark; let i = index">
+                        <div>
+                            <label>{{label}}</label>
+                            <div>
+                                <select class="form-control" [formControlName]="label+i">
+                                    <option value="Proposed Limit">Proposed Limit</option>
+                                    <option value="Proposed Limit in words">Proposed Limit in words</option>
+                                    <option value="Interest Rate">Interest Rate</option>
+                                    <option value="Customer District">Customer District</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </form>
+    </nb-card-body>
+</nb-card>
+
