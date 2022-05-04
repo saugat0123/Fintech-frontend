@@ -46,6 +46,7 @@ import {SecurityTableComponent} from './security/security-initial-form/security-
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
+import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -104,7 +105,8 @@ const COMPONENTS = [
         CKEditorModule,
         FeatureModule,
         AngularDraggableModule,
-        LoanInformationViewModule
+        LoanInformationViewModule,
+        CreditAdministrationModule
     ],
     providers: [
         NgbActiveModal
