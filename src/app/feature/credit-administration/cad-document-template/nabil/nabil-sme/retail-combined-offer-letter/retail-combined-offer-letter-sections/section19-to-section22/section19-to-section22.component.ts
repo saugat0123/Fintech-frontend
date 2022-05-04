@@ -62,7 +62,8 @@ export class Section19ToSection22Component implements OnInit {
     });
   }
   fillForm() {
-    console.log('Free Information for section last:', this.freeInformation);
+    this.form.get('position').patchValue(this.position);
+    this.form.get('position1').patchValue(this.position1);
     this.form.patchValue({
       branchName: !ObjectUtil.isEmpty(this.loanHolderInfo) &&
                   !ObjectUtil.isEmpty(this.loanHolderInfo.branch) &&

@@ -1,3 +1,6 @@
+*{
+  line-height: 1.9em !important;
+}
 .nep {
   font-size: 16px;
   line-height: 1.9;
@@ -12,7 +15,15 @@
     }
   }
 
+ol.conditions {
+  padding: 15px !important;
+}
 
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
+  padding-left: 10px;
+}
 .form-field {
   background: yellow;
   margin: 0px 5px 5px 5px;
