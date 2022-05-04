@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
+import {Insurance} from '../../../../../../admin/modal/insurance';
 
 @Component({
   selector: 'app-above-security-arrangement',
@@ -11,6 +12,7 @@ export class AboveSecurityArrangementComponent implements OnInit {
   @Input() guarantorData;
   personalGuarantorData: Array<any> = new Array<any>();
   corporateGuarantorData: Array<any> = new Array<any>();
+  @Input() insurance: Insurance;
   constructor(public datePipe: DatePipe) { }
 
   ngOnInit() {

@@ -75,7 +75,9 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
-        <app-above-security-arrangement [guarantorData]="guarantorData"></app-above-security-arrangement>
+        <app-above-security-arrangement
+                [insurance]="loanDataHolder?.insurance"
+                [guarantorData]="guarantorData"></app-above-security-arrangement>
         <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 
     </li>
