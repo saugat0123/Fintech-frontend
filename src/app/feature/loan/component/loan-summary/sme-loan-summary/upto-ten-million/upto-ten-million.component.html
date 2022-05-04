@@ -1,13 +1,16 @@
 
 <ol class="upto-ten-million-list">
     <li>
-        <p><strong>PROPOSAL:</strong> To seek approval for providing credit facilities of NPR…. to M/S…………., with details as under:</p>
+        <p><strong>PROPOSAL:</strong> To seek approval for providing credit facilities of NPR <b>{{totalProposed}}</b>
+            to M/S <b>{{loanDataHolder?.loanHolder?.name}}</b>, with details as under:</p>
     </li>
     <li>
         <p><strong>APPROVING AUTHORITY:</strong> …., as per …(CPG/PP...) because of …(the amount involved/…)</p>
     </li>
     <li>
-        <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
+        <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
+        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                            [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
     </li>
     <li>
         <!-- details of the customer -->
@@ -44,9 +47,11 @@
         <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.financial">
         <!-- key financial figures -->
         <p><strong>KEY FINANCIAL FIGURES </strong>(audited for last 2 years, estimated for current year, and projected for the next 2 years)</p>
+        <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
+                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
         <app-key-financial-figures></app-key-financial-figures>
     </li>
     <li>

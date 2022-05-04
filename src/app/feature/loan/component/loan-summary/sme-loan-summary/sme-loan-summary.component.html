@@ -179,103 +179,6 @@
                             </nb-card-body>
                         </nb-card>
                     </div>
-
-                    <!--CRG - Alpha-->
-                    <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
-                        <div *ngIf="creditRiskAlphaSummary">
-                            <nb-card class="sb-medium">
-                                <nb-card-header>
-                                    <p><strong>Credit Risk Gauge (Alpha)</strong></p>
-                                </nb-card-header>
-                                <nb-card-body>
-                                    <div class="row">
-                                        <div class="col-md-6 mr-0 pr-0 text-right">
-                                            <app-gauge-chart [chartWidth]="275" gaugeIdentifier="crg-alpha"
-                                                [chartHeight]="180" [maxValue]="100"
-                                                [obtainedValue]="creditRiskAlphaScore">
-                                            </app-gauge-chart>
-                                        </div>
-                                        <div class="col-md-6 ml-0 gauge-label-padding">
-                                            <div class="vertical-line">
-                                                <div class="text-left pl-2">
-                                                    Current year (as) :
-                                                    <span><strong> {{ creditRiskRatingAlphaCurrentYear
-                                                            }}</strong></span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Grade :
-                                                    <span [class]="creditGradeAlphaStatusBadge">
-                                                        {{creditRiskGradeAlpha | titlecase}}</span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Rating :
-                                                    <span [class]="creditGradeAlphaStatusBadge">
-                                                        {{ creditRiskRatingAlpha | titlecase }}</span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Score :
-                                                    <span><strong> {{ creditRiskAlphaScore }}</strong></span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Premium :
-                                                    <span><strong> {{ creditRiskAlphaPremium }}</strong></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </nb-card-body>
-                            </nb-card>
-                        </div>
-                    </div>
-
-                    <!--CRG - Lambda-->
-                    <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
-                        <div *ngIf="creditRiskLambdaSummary">
-                            <nb-card class="sb-medium">
-                                <nb-card-header>
-                                    <p>Credit Risk Gauge (Lambda)</p>
-                                </nb-card-header>
-                                <nb-card-body>
-                                    <div class="row">
-                                        <div class="col-md-6 mr-0 pr-0 text-right">
-                                            <app-gauge-chart [chartWidth]="275" gaugeIdentifier="crg-lambda"
-                                                [chartHeight]="180" [maxValue]="100"
-                                                [obtainedValue]="creditRiskLambdaScore"></app-gauge-chart>
-                                        </div>
-                                        <div class="col-md-6 ml-0 gauge-label-padding">
-                                            <div class="vertical-line">
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Grade :
-                                                    <span [class]="creditGradeLambdaStatusBadge">
-                                                        {{creditRiskGradeLambda | titlecase}}</span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Rating :
-                                                    <span [class]="creditGradeLambdaStatusBadge">
-                                                        {{ creditRiskRatingLambda | titlecase }}</span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Credit Risk Score :
-                                                    <span><strong> {{ creditRiskLambdaScore }}</strong></span>
-                                                </div>
-                                                <br>
-                                                <div class="text-left pl-2">
-                                                    Premium :
-                                                    <span><strong> {{ creditRiskLambdaPremium }}</strong></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </nb-card-body>
-                            </nb-card>
-                        </div>
-                    </div>
                 </div>
             </ng-container>
             <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
@@ -288,8 +191,8 @@
                     <div class="col-md-12">
                         <ol>
                             <li>
-                                <p><strong>PROPOSAL:</strong> To seek approval for providing {{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}
-                                    of NRP {{totalProposedLimit}} to M/s {{loanDataHolder?.loanHolder?.name}} with details of under:</p>
+                                <p><strong>PROPOSAL:</strong> To seek approval for providing <b>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}</b>
+                                    of NRP <b>{{totalProposedLimit}}</b> to M/s <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
                             </li>
                             <li>
                                 <p><strong>APPROVING AUTHORITY:</strong>
@@ -347,9 +250,10 @@
 <!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
 <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
-                            <li>
+                            <li *ngIf="loanDataHolder?.loanHolder?.financial">
                                 <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)
-                                <app-sana-key-financial-figure></app-sana-key-financial-figure>
+                                <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
+                                                    [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
                             </li>
                             <li>
                                 <!-- group position -->
@@ -412,14 +316,16 @@
                                 <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                             </li>
                         </ol>
-                        <h5>Annexure - 1</h5>
-                        <app-credit-card-requirement></app-credit-card-requirement>
+<!--                        <h5>Annexure - 1</h5>-->
+<!--                        <app-credit-card-requirement></app-credit-card-requirement>-->
                     </div>
                 </div>
             </ng-container>
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million [loanDataHolder]="loanDataHolder"
-                                      [fiscalYear]="fiscalYearArray"></app-upto-ten-million>
+                                      [fiscalYear]="fiscalYearArray"
+                                      [totalProposed]="totalProposedLimit"
+                                      [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
                 <app-above-ten-million [loanDataHolder]="loanDataHolder"
