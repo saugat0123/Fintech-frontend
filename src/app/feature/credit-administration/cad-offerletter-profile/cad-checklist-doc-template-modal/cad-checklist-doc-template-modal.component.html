@@ -222,35 +222,37 @@
                                                [customerLoanId]="customerLoanId">
                 </app-land-sub-ordinate-company>
 
-                <app-hire-purchase-company *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_COMPANY"
+                <app-hire-purchase *ngSwitchCase= "nabilCadTemplate.HIRE_PURCHASE_PARTNERSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
-                </app-hire-purchase-company>
-
+                </app-hire-purchase>
+                <app-hire-purchase *ngSwitchCase= "nabilCadTemplate.HIRE_PURCHASE_PROPRIETORSHIP"
+                                   [cadData]="cadData"
+                                   [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId">
+                </app-hire-purchase>
+                <app-hire-purchase *ngSwitchCase= "nabilCadTemplate.HIRE_PURCHASE_INDIVIDUAL"
+                                   [cadData]="cadData"
+                                   [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId">
+                </app-hire-purchase>
+                <app-hire-purchase *ngSwitchCase= "nabilCadTemplate.HIRE_PURCHASE_COMPANY"
+                                   [cadData]="cadData"
+                                   [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId">
+                </app-hire-purchase>
                 <app-letter-of-set-off-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_COMPANY"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-letter-of-set-off-company>
 
-                <app-hire-purchase-partnership *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_PARTNERSHIP"
-                                               [cadData]="cadData"
-                                               [documentId]="documentId"
-                                               [customerLoanId]="customerLoanId">
-                </app-hire-purchase-partnership>
-
                 <app-letter-of-set-off-partnership *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_PARTNERSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-letter-of-set-off-partnership>
-
-                <app-hire-purchase-proprietorship *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_PROPRIETORSHIP"
-                                               [cadData]="cadData"
-                                               [documentId]="documentId"
-                                               [customerLoanId]="customerLoanId">
-                </app-hire-purchase-proprietorship>
 
                 <app-letter-of-set-off-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_PROPRIETORSHIP"
                                                    [cadData]="cadData"
