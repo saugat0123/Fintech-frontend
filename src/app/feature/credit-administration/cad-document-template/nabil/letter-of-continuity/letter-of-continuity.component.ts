@@ -20,11 +20,11 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-letter-of-continuity-proprietorship',
-  templateUrl: './letter-of-continuity-proprietorship.component.html',
-  styleUrls: ['./letter-of-continuity-proprietorship.component.scss']
+  selector: 'app-letter-of-continuity',
+  templateUrl: './letter-of-continuity.component.html',
+  styleUrls: ['./letter-of-continuity.component.scss']
 })
-export class LetterOfContinuityProprietorshipComponent implements OnInit {
+export class LetterOfContinuityComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   form: FormGroup;
   @Input() documentId: number;
