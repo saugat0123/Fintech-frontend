@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
+import {FiscalYear} from '../../../../../admin/modal/FiscalYear';
 
 @Component({
   selector: 'app-upto-ten-million',
@@ -7,8 +8,9 @@ import {LoanDataHolder} from '../../../../model/loanData';
   styleUrls: ['./upto-ten-million.component.scss']
 })
 export class UptoTenMillionComponent implements OnInit {
-  @Input() loanData;
-  loanDataHolder: LoanDataHolder;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() fiscalYear;
+  // loanDataHolder: LoanDataHolder;
   constructor() { }
 
   ngOnInit() {

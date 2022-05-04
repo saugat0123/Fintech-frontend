@@ -204,6 +204,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   tempData;
   companyInfo: CompanyInfo = new CompanyInfo();
   customerCategory = CustomerCategory;
+  totalProposedLimit = 0;
 
   @Input() crgTotalRiskScore: any;
   constructor(
@@ -568,12 +569,19 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             }
           );
         }
+        this.calculateTotalProposedLimit(this.customerAllLoanList);
         this.customerLoanList.emit(this.customerAllLoanList);
       },
       (error) => {
         console.error(error);
       }
     );
+  }
+
+  calculateTotalProposedLimit(customerAllLoanList: LoanDataHolder[]) {
+    customerAllLoanList.forEach(cl => {
+      this.totalProposedLimit += cl.proposal.proposedLimit;
+    });
   }
 
   download(i) {

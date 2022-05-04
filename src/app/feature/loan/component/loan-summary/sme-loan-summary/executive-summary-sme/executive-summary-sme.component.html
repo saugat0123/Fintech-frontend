@@ -2,7 +2,9 @@
     <div class="col-md-12">
         <ol>
             <li>
-                <p><b>PROPOSAL: </b> {{jsonData?.promoterBackground ? jsonData?.promoterBackground : 'NA'}}</p>
+                <p><b>PROPOSAL: </b>
+                    To seek approval for providing {{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}
+                    of NRP {{totalProposed}} to M/s {{loanDataHolder?.loanHolder?.name}} with details of under:</p>
             </li>
             <li>
                 <p><strong>APPROVING AUTHORITY:</strong>

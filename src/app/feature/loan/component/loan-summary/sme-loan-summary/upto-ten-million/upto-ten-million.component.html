@@ -14,8 +14,8 @@
         <p>
             <strong>DETAILS OF THE CUSTOMER:</strong><br>
             <app-upto-details-of-the-customer
-                    [companyInfo]="loanData?.companyInfo"
-                    [loanDataHolder]="loanData"></app-upto-details-of-the-customer>
+                    [companyInfo]="loanDataHolder?.companyInfo"
+                    [loanDataHolder]="loanDataHolder"></app-upto-details-of-the-customer>
         </p>
     </li>
     <li>
@@ -62,7 +62,11 @@
     <li>
         <!-- banking relationship -->
         <p><strong>BANKING RELATIONSHIP:</strong></p>
-        <app-upto-banking-relationship></app-upto-banking-relationship>
+        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                       [proposal]="loanDataHolder?.proposal"
+                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>
     <li>
         <!-- other charges -->
@@ -100,6 +104,9 @@
     </li>
     <li>
         <!-- mis nrb reporting -->
+        <p><strong>MIS/NRB REPORTING</strong></p>
+        <app-report-summary [approved]="false"
+                            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
     </li>
     <li>
         <!-- conlusion review table -->
