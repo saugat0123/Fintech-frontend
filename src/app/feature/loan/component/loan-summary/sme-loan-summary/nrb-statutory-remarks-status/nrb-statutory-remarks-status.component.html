@@ -2,71 +2,22 @@
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <thead>
     <tr class="sb-bg-dark text-white">
-        <th>
-            Type
-        </th>
-        <th>
-            Comments
-        </th>
-        <th>
-            Current Status
-        </th>
+        <th>Type</th>
+        <th>Comments/ Current Status</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>
-            Internal
-        </td>
-        <td>
-            <ol>
-                <li>
-
-                </li>
-                <li>
-
-                </li>
-            </ol>
-        </td>
-        <td>
-
-        </td>
+        <td>Internal</td>
+        <td>{{commentData?.previousComments}}</td>
     </tr>
     <tr>
-        <td>
-            External
-        </td>
-        <td>
-            <ol>
-                <li>
-
-                </li>
-                <li>
-
-                </li>
-            </ol>
-        </td>
-        <td>
-
-        </td>
+        <td>External</td>
+        <td>{{commentData?.auditorComments}}</td>
     </tr>
     <tr>
-        <td>
-            NRB
-        </td>
-        <td>
-            <ol>
-                <li>
-
-                </li>
-                <li>
-
-                </li>
-            </ol>
-        </td>
-        <td>
-
-        </td>
+        <td>NRB</td>
+        <td>{{commentData?.nrbComments}}</td>
     </tr>
     </tbody>
 </table>
