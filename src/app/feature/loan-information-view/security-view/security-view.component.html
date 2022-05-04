@@ -1153,41 +1153,41 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!crgLambdaDisabled && !disableCrgAlphaParams ">
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-      <thead>
-      <tr>
-        <th colspan="7">Other Security Detail</th>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <ng-container *ngIf="securityData?.securityGuarantee !== null">
-          <th>Security Guarantee</th>
-          <th>FAC (land & building) Location</th>
-          <th>Vehicle Security Coverage</th>
-        </ng-container>
-        <ng-container *ngIf="securityData?.lambdaScheme === 'GENERAL'">
-          <th>Road access of primary property</th>
-          <th>Primary FAC categorization</th>
-        </ng-container >
-        <th *ngIf="securityData?.lambdaScheme === 'AUTO_PRIVATE'">Auto Loan (Private - Personal) Security Coverage</th>
-        <th *ngIf="securityData?.lambdaScheme === 'AUTO_COMMERCIAL'">Auto Loan (Commercial - Personal) Security Coverage</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngIf="securityData?.securityGuarantee !== null">
-        <td class="text-left pl-1">{{securityData['securityGuarantee']}}</td>
-        <td class="text-left pl-1">{{securityData['buildingLocation']}}</td>
-        <td class="text-left pl-1">{{securityData['vehicleSecurityCoverage']}}</td>
-      </ng-container>
-      <ng-container *ngIf="securityData?.lambdaScheme === 'GENERAL'">
-        <td class="text-left pl-1">{{securityData['roadAccessOfPrimaryProperty']}}</td>
-        <td class="text-left pl-1">{{securityData['facCategory']}}</td>
-      </ng-container>
-      <td *ngIf="securityData?.lambdaScheme === 'AUTO_PRIVATE'" class="text-left pl-1">{{securityData['securityCoverageAutoPrivate']}}</td>
-      <td *ngIf="securityData?.lambdaScheme === 'AUTO_COMMERCIAL'" class="text-left pl-1">{{securityData['securityCoverageAutoCommercial']}}</td>
-      </tbody>
-    </table>
-  </div>
+<!--  <div class="row" *ngIf="!crgLambdaDisabled && !disableCrgAlphaParams ">-->
+<!--    <table class="table table-sm table-bordered text-center table-sm sb-small">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th colspan="7">Other Security Detail</th>-->
+<!--      </tr>-->
+<!--      <tr class="text-white sb-bg-dark">-->
+<!--        <ng-container *ngIf="securityData?.securityGuarantee !== null">-->
+<!--          <th>Security Guarantee</th>-->
+<!--          <th>FAC (land & building) Location</th>-->
+<!--          <th>Vehicle Security Coverage</th>-->
+<!--        </ng-container>-->
+<!--        <ng-container *ngIf="securityData?.lambdaScheme === 'GENERAL'">-->
+<!--          <th>Road access of primary property</th>-->
+<!--          <th>Primary FAC categorization</th>-->
+<!--        </ng-container >-->
+<!--        <th *ngIf="securityData?.lambdaScheme === 'AUTO_PRIVATE'">Auto Loan (Private - Personal) Security Coverage</th>-->
+<!--        <th *ngIf="securityData?.lambdaScheme === 'AUTO_COMMERCIAL'">Auto Loan (Commercial - Personal) Security Coverage</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <ng-container *ngIf="securityData?.securityGuarantee !== null">-->
+<!--        <td class="text-left pl-1">{{securityData['securityGuarantee']}}</td>-->
+<!--        <td class="text-left pl-1">{{securityData['buildingLocation']}}</td>-->
+<!--        <td class="text-left pl-1">{{securityData['vehicleSecurityCoverage']}}</td>-->
+<!--      </ng-container>-->
+<!--      <ng-container *ngIf="securityData?.lambdaScheme === 'GENERAL'">-->
+<!--        <td class="text-left pl-1">{{securityData['roadAccessOfPrimaryProperty']}}</td>-->
+<!--        <td class="text-left pl-1">{{securityData['facCategory']}}</td>-->
+<!--      </ng-container>-->
+<!--      <td *ngIf="securityData?.lambdaScheme === 'AUTO_PRIVATE'" class="text-left pl-1">{{securityData['securityCoverageAutoPrivate']}}</td>-->
+<!--      <td *ngIf="securityData?.lambdaScheme === 'AUTO_COMMERCIAL'" class="text-left pl-1">{{securityData['securityCoverageAutoCommercial']}}</td>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
   <div class="row" *ngIf="isCollateralSiteVisit">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>

@@ -12,7 +12,7 @@ export class Auto extends BaseEntity {
 
     isNew: boolean;
 
-    valuators: Array<Valuator>;
+    vehicalValuator: Valuator;
 
     quotationAmount: number;
 
