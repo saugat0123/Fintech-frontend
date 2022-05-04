@@ -9,7 +9,7 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {CalendarType} from '../../../@core/model/calendar-type';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-cicl',
@@ -87,6 +87,7 @@ export class CiclComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
         this.patchCiclFormGroup(this.ciclList);
+        this.setBlacklistHistory(this.ciclList);
       } else {
         this.addCiclFormGroup();
       }
@@ -104,11 +105,13 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required],
-          obtaineddate: [undefined, Validators.required],
+          // obtaineddate: [undefined, Validators.required],
+          overdueStatus: [undefined],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined],
-          ciclRelation: [undefined]
+          // overdue: [undefined],
+          ciclRelation: [undefined],
+          blacklistChecked: [false],
+          blacklistHistory: this.formBuilder.array([]),
         }));
   }
 
@@ -125,14 +128,14 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required],
-          obtaineddate: [undefined, Validators.required],
+          // obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined],
-          ciclRelation: [undefined]
-
+          // overdue: [undefined],
+          overdueStatus: [undefined],
+          ciclRelation: [undefined],
+          blacklistChecked: [false],
+          blacklistHistory: this.formBuilder.array([]),
         }));
-
   }
 
   removeCICL(index: number) {
@@ -141,7 +144,7 @@ export class CiclComponent implements OnInit {
 
   patchCiclFormGroup(ciclList: Array<Cicl>) {
     const controls = this.ciclForm.controls.ciclArray as FormArray;
-    ciclList.forEach(cicl => {
+    ciclList.forEach((cicl, index) => {
       controls.push(
           this.formBuilder.group({
             nameOfBorrower: [cicl.nameOfBorrower, Validators.required],
@@ -149,12 +152,13 @@ export class CiclComponent implements OnInit {
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
-            ciclStatus: [cicl.status, Validators.required],
-            obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
+            // obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
-            overdue: [cicl.overdue],
-            ciclRelation: [cicl.ciclRelation]
-
+              overdueStatus: [cicl.overdueStatus, Validators.required],
+            // overdue: [cicl.overdue],
+            ciclRelation: [cicl.ciclRelation],
+            blacklistChecked: [cicl.blacklistChecked],
+            blacklistHistory: this.formBuilder.array([]),
           }));
     });
   }
@@ -204,12 +208,13 @@ export class CiclComponent implements OnInit {
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
       cicl.outstandingAmount = controls.outstandingAmount.value;
-      cicl.status = controls.ciclStatus.value;
-      cicl.obtaineddate = controls.obtaineddate.value;
+      // cicl.obtaineddate = controls.obtaineddate.value;
       cicl.loanamount = controls.loanamount.value;
-      cicl.overdue = controls.overdue.value;
+      cicl.overdueStatus = controls.overdueStatus.value;
+      // cicl.overdue = controls.overdue.value;
       cicl.ciclRelation = controls.ciclRelation.value;
-
+      cicl.blacklistChecked = controls.blacklistChecked.value;
+      cicl.blacklistHistory = controls.blacklistHistory.value,
       this.ciclList.push(cicl);
 
     }
@@ -245,5 +250,41 @@ export class CiclComponent implements OnInit {
         if (!ObjectUtil.isEmpty(data)) {
             this.checkChecked(data['chargeChecked']);
         }
+    }
+
+    addBlackList(index) {
+      const controls = (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index])).get('blacklistHistory'));
+      controls.push(
+          this.formBuilder.group({
+              blacklistNumber: [undefined],
+              blacklistDate: [undefined],
+          })
+      );
+    }
+
+    removeBlacklist(index: number) {
+        (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index])).get('blacklistHistory')).removeAt(index);
+    }
+
+    blackListFound(checked: boolean, index: number) {
+      if (checked) {
+          this.ciclForm.get(['ciclArray', index, 'blacklistChecked']).patchValue(true);
+      } else {
+          this.ciclForm.get(['ciclArray', index, 'blacklistChecked']).patchValue(false);
+      }
+    }
+
+    setBlacklistHistory(ciclList: Array<Cicl>) {
+      ciclList.forEach((cl, i) => {
+          const arr = (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', i])).get('blacklistHistory'));
+          if (!ObjectUtil.isEmpty(cl.blacklistHistory)) {
+              cl.blacklistHistory.forEach((bl: any) => {
+                  arr.push(this.formBuilder.group({
+                      blacklistNumber: [bl.blacklistNumber],
+                      blacklistDate: [ObjectUtil.isEmpty(bl.blacklistDate) ? undefined : new Date(bl.blacklistDate)],
+                  }));
+              });
+          }
+      });
     }
 }

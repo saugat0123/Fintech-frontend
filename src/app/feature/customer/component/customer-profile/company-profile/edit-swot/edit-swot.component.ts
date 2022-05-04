@@ -6,7 +6,6 @@ import {LegalStatus} from '../../../../../admin/modal/legal-status';
 import {Capital} from '../../../../../admin/modal/capital';
 import {Swot} from '../../../../../admin/modal/swot';
 import {CompanyLocations} from '../../../../../admin/modal/companyLocations';
-import {ManagementTeam} from '../../../../../admin/modal/management-team';
 import {Proprietors} from '../../../../../admin/modal/proprietors';
 import {Province} from '../../../../../admin/modal/province';
 import {District} from '../../../../../admin/modal/district';
@@ -58,7 +57,6 @@ export class EditSwotComponent implements OnInit {
   capital: Capital = new Capital();
   swot: Swot = new Swot();
   locations: CompanyLocations = new CompanyLocations();
-  managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
   proprietors: Proprietors = new Proprietors();
   proprietorsList: Array<Proprietors> = new Array<Proprietors>();
   provinceList: Array<Province> = new Array<Province>();

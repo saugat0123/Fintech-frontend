@@ -4,14 +4,16 @@ export class Cicl {
   facility: string;
   outstandingAmount: number;
   overdueAmount: number;
-  status: string;
+  overdueStatus: string;
   obtaineddate: Date;
   loanamount: number;
-  overdue: string;
+  // overdue: string;
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
   ciclRelation: string;
+  blacklistChecked: boolean;
+  blacklistHistory: [];
 }
 
 export class CiclArray {

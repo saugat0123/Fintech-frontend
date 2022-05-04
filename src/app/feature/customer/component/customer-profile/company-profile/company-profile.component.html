@@ -275,6 +275,31 @@
           </nb-card-body>
 
         </nb-card>
+        <nb-card accent="primary">
+          <nb-card-header>
+            GROUP EXPOSURE WITH CCBL
+          </nb-card-header>
+          <nb-card-body>
+            <nb-accordion>
+              <nb-accordion-item #mGroupAccordion>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span> Group Exposure with CCBL</span>
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion.expanded"
+                                                (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+
+
+          </nb-card-body>
+
+        </nb-card>
       </div>
     </div>
     <!--        //cbs Group-->
@@ -296,7 +321,6 @@
             *ngIf="customerInfo && isEditable"
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"
-            [isMicroCustomer]="companyInfo?.isMicroCustomer"
             [companyInfo]="companyInfo"></app-customer-loan-information>
         <app-customer-loan-information-view *ngIf="!isEditable"
                                             [customerInfo]="customerInfo"
@@ -584,33 +608,6 @@
       </div>
       <hr>
 
-      <div class="row">
-        <div class="row col-md-12">
-          <div class="col-md-6">
-            <strong>Management Team</strong>
-          </div>
-        </div>
-
-        <br>
-        <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
-          <thead>
-          <tr class="sb-bg-dark text-white">
-            <th scope="col"> S.N</th>
-            <th scope="col">Name</th>
-            <th scope="col">Designation</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
-                                        let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{singleManagementTeam?.name}}</td>
-            <td>{{singleManagementTeam?.designation}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-      </div>
       <hr>
       <div class="row">
         <div class="row col-md-12">

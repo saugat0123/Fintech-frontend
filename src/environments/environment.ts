@@ -24,8 +24,6 @@ export const environment = {
   enablePreAddingAccountNumber: true,
   disableCrgAlpha: false,
   disableCrgLambda: false,
-  disableApprovalSheet: false,
-  microLoan: true,
   SBS_GROUP: false,
   MEGA_GROUP: true,
   versionCheckUrl: 'http://localhost:84/version.json',

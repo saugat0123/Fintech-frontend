@@ -1,0 +1,262 @@
+<nb-card  [nbSpinner]="spinner">
+    <nb-card-header class="text-center" >
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="text-left">
+                    <label>Select Security</label>
+                </div>
+                <select class="form-control"
+                           (change)="selectedSecurity(); toggleSecurity()"
+                           [(ngModel)]="selectedSecurities">
+                    <option *ngFor="let security of( customerInfo?.selectedArray | jsonParse)"
+                               [value]="security">
+                        {{security}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+        <p><strong class="mt-2 text-danger">{{msg}}</strong></p>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row mt-5">
+            <!--            <div class="col-md-12" *ngIf="share">-->
+            <!--                <p><strong>Share Security Details</strong></p>-->
+            <!--                <table-->
+            <!--                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+            <!--                    <thead>-->
+            <!--                    <tr class="text-white sb-bg-dark">-->
+            <!--                        <th>S.N</th>-->
+            <!--                        <th>Name of Company</th>-->
+            <!--                        <th>Share Type</th>-->
+            <!--                        <th>Share Unit</th>-->
+            <!--                        <th>Rate</th>-->
+            <!--                        <th>Total Value</th>-->
+            <!--                        <th>Action</th>-->
+            <!--                    </tr>-->
+            <!--                    </thead>-->
+            <!--                    <tbody>-->
+            <!--                    <tr *ngFor="let shareSecurity of approvedShareSecurity; let i= index">-->
+            <!--                        <td>{{i + 1}}</td>-->
+            <!--                        <td>{{shareSecurity?.companyName}}</td>-->
+            <!--                        <td>{{shareSecurity?.shareType}}</td>-->
+            <!--                        <td>{{shareSecurity?.totalShareUnit}}</td>-->
+            <!--                        <td>{{shareSecurity?.amountPerUnit}}</td>-->
+            <!--                        <td>{{shareSecurity?.totalShareUnit * shareSecurity.amountPerUnit}}</td>-->
+            <!--                        <td>-->
+            <!--                            <button (click)="removeShareSecurity(shareSecurity)"-->
+            <!--                                    class="btn btn-sm btn-flat btn-danger">-->
+            <!--                                <em class="fa fa-trash bg-transparent"></em>-->
+            <!--                            </button>-->
+            <!--                        </td>-->
+            <!--                    </tr>-->
+            <!--                    </tbody>-->
+            <!--                </table>-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <form [formGroup]="form">
+                <div class="col-md-12" *ngIf="auto">
+                    <p><strong>Auto Details</strong></p>
+                    <table
+                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Model</th>
+                            <th>Chassis Number</th>
+                            <th>Engine Number</th>
+                            <th>Considered Value</th>
+                            <th>Manufactured Year</th>
+                            <th>Free Limit</th>
+                            <th>Amount to Use</th>
+                            <th>Coverage(%)</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody formArrayName="autoForm">
+                        <ng-container *ngFor="let auto of autoForm.controls; let i=index;">
+                            <tr>
+                                <ng-container [formGroupName]="i">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{auto.get('model').value}}</td>
+                                    <td>{{auto.get('chassisNumber').value}}</td>
+                                    <td>{{auto.get('engineNumber').value}}</td>
+                                    <td>Rs. {{(auto.get('considerValue').value)}}</td>
+                                    <td>{{auto.get('manufactureYear').value | date}}</td>
+                                    <td>{{auto.get('freeLimit').value === null ?
+                                        auto.get('considerValue').value : auto.get('freeLimit').value}}</td>
+                                    <td>
+                                        <input type="number" formControlName="usedAmount" class="form-control"
+                                               (input)="calcFreeLimit(i, customerInfo?.autos[i]?.freeLimit,
+                                            auto.get('usedAmount').value, 'autoForm')">
+                                    </td>
+                                    <td>{{auto.get('coverage').value === null ?
+                                        auto.get('coverage').value : auto.get('coverage').value}}</td>
+                                    <td>
+                                        <a class="px-2 cursor"
+                                           (click)="toggleArray[i].toggled = !this.toggleArray[i].toggled"
+                                           nbTooltip="click to view detail security">
+                                            <em class="fa fa-eye"></em>
+                                        </a>
+                                        <button nbButton size="small"
+                                                (click)="tagSecurity(auto, 'auto', i)"
+                                                [disabled]="limitExceed[i]">
+                                            <i class="fa fa-plus"></i></button>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td colspan="9">
+                                    <ng-container *ngIf="toggleArray[i].toggled">
+                                        <app-security-tagged-component
+                                                [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12" *ngIf="landBuilding">
+                    <p><strong>Land Building Details</strong></p>
+                    <table
+                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Considered Value</th>
+                            <th>Fair Market Value</th>
+                            <th>Government Rate</th>
+                            <th>Geo Location</th>
+                            <th>Free Limit</th>
+                            <th>Amount to Use</th>
+                            <th>Coverage(%)</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody formArrayName="landBuildingForm">
+                        <ng-container *ngFor="let landBuilding of landBuildingForm.controls; let i=index;">
+
+                            <tr>
+                                <ng-container [formGroupName]="i">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{landBuilding.get('considerValue').value}}</td>
+                                    <td>{{landBuilding.get('marketValue').value}}</td>
+                                    <td>{{landBuilding.get('governmentRate').value}}</td>
+                                    <td>{{landBuilding.get('geoLocation').value}}</td>
+                                    <td>{{landBuilding.get('freeLimit').value === null ?
+                                        landBuilding.get('considerValue').value : landBuilding.get('freeLimit').value}}</td>
+                                    <td>
+                                        <input type="number" formControlName="usedAmount" class="form-control"
+                                               (input)="calcFreeLimit(i, customerInfo?.landBuildings[i]?.freeLimit,
+                                             landBuilding.get('usedAmount').value, 'landBuildingForm')">
+                                    </td>
+                                    <td>{{landBuilding.get('coverage').value === null ?
+                                        landBuilding.get('coverage').value : landBuilding.get('coverage').value}}</td>
+                                    <td>
+                                        <a class="px-2 cursor"
+                                           (click)="this.toggleArray[i].toggled = !this.toggleArray[i].toggled"
+                                           nbTooltip="click to view detail security">
+                                            <em class="fa fa-eye"></em>
+                                        </a>
+                                        <button nbButton size="small"
+                                                (click)="tagSecurity(landBuilding, 'landBuilding', i)"
+                                                [disabled]="limitExceed[i]"><i
+                                                class="fa fa-plus"></i></button>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td colspan="9">
+                                    <ng-container *ngIf="toggleArray[i].toggled">
+                                        <app-security-tagged-component
+                                                [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12" *ngIf="loanHolder?.autos?.length > 0">
+            <p><strong>Tagged Auto Details</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Model</th>
+                    <th>Engine Number</th>
+                    <th>Considered Value</th>
+                    <th>Used Amount</th>
+                    <th>Free Limit</th>
+                    <th>Coverage(%)</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let autoSecurity of loanHolder?.autos; let i= index">
+                    <td>{{i + 1}}</td>
+                    <td>{{autoSecurity?.model}}</td>
+                    <td>{{autoSecurity?.engineNo}}</td>
+                    <td>Rs. {{(autoSecurity?.considerValue)}}</td>
+                    <td>{{autoSecurity?.usedAmount}}</td>
+                    <td>{{autoSecurity?.freeLimit}}</td>
+                    <td>{{(((autoSecurity?.usedAmount) / (proposedAmount)) * 100).toFixed(2)}} % </td>
+                    <td>
+                        <button (click)="removeAutoSecurity(i)"
+                                class="btn btn-sm btn-flat btn-danger">
+                            <em class="fa fa-trash bg-transparent"></em>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12" *ngIf="loanHolder?.landBuildings?.length > 0">
+            <p><strong>Tagged Land Building Details</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Considered Value</th>
+                    <th>Fair Market Value</th>
+                    <th>Government Rate</th>
+                    <th>Geo Location</th>
+                    <th>Used Amount</th>
+                    <th>Free Limit</th>
+                    <th>Coverage(%)</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let landBuilding of loanHolder?.landBuildings; let i= index">
+                    <td>{{i + 1}}</td>
+                    <td> Rs {{(landBuilding?.considerValue)}}</td>
+                    <td>Rs {{(landBuilding?.fairMarketValue)}}</td>
+                    <td> Rs {{(landBuilding?.governmentRate)}}</td>
+                    <td>{{landBuilding?.geoLocation}}</td>
+                    <td>{{landBuilding?.usedAmount}}</td>
+                    <td>{{landBuilding?.freeLimit}}</td>
+                    <td>{{(((landBuilding?.usedAmount) / (proposedAmount)) * 100)?.toFixed(2) }}</td>
+                    <td>
+                        <button (click)="removeLandBuilding(i)"
+                                class="btn btn-sm btn-flat btn-danger">
+                            <em class="fa fa-trash bg-transparent"></em>
+                        </button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--        </div>-->
+    </nb-card-body>
+</nb-card>
+

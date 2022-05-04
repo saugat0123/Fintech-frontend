@@ -22,12 +22,8 @@ import { FinancialRiskSummaryComponent } from './financial-risk-summary/financia
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
 import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
-import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
 import { CbsGroupModule } from '../../../cbs-group/cbs-group.module';
-import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-sheet-config.component';
-import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import { LoanInformationViewModule } from '../../../loan-information-view/loan-information-view.module';
 import { RoleHierarchyChainComponent } from './role-heirarchy-chain/role-hierarchy-chain.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
@@ -93,6 +89,8 @@ import { SanaCovenantsComponent } from './sme-loan-summary/sana-byabasayi-saral-
 import { SanaDisbursementModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-disbursement-modality/sana-disbursement-modality.component';
 import { SanaRepaymentModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-repayment-modality/sana-repayment-modality.component';
 import { SanaMisNrbReportingComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-mis-nrb-reporting/sana-mis-nrb-reporting.component';
+import {SecurityTaggedModule} from '../../../loan-information-template/security/security-tagged-component/security-tagged.module';
+import {SecurityTaggedViewModule} from '../../../loan-information-template/security/security-tagged-view/security-tagged-view.module';
 
 
 const COMPONENTS = [
@@ -113,18 +111,14 @@ const COMPONENTS = [
   CollateralSummaryComponent,
   NtaSummaryComponent,
   ProposalTermsAndConditionSummeryComponent,
-  ApprovalSheetComponent,
   RoleHierarchyChainComponent
 ];
 
-const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
+const ENTRY_COMPONENTS = [];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ApprovalSheetConfigComponent,
-    ApprovalSheetInfoComponent,
-    ApprovalSheetDocumentListComponent,
     MGroupSummaryComponent,
     CommentsSummaryComponent,
     PreviousSecuritySummaryComponent,
@@ -150,9 +144,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveFinancialHighlightsComponent,
     AboveAssessmentOfFacilitiesRequirementComponent,
     AboveSecurityArrangementComponent,
-    ApprovalSheetConfigComponent,
-    ApprovalSheetInfoComponent,
-    ApprovalSheetDocumentListComponent,
     MGroupSummaryComponent,
     CommentsSummaryComponent,
     PreviousSecuritySummaryComponent,
@@ -208,27 +199,26 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SanaRepaymentModalityComponent,
     SanaMisNrbReportingComponent,
   ],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    LoanInformationTemplateModule,
-    LoanSummaryRoutingModule,
-    ReportingModule,
-    NgxPrintModule,
-    CoreModule,
-    CbsGroupModule,
-    NgSelectModule,
-    LoanInformationViewModule,
-    NepaliPatroModule,
-  ],
+    imports: [
+        CommonModule,
+        ThemeModule,
+        LoanInformationTemplateModule,
+        LoanSummaryRoutingModule,
+        ReportingModule,
+        NgxPrintModule,
+        CoreModule,
+        CbsGroupModule,
+        NgSelectModule,
+        LoanInformationViewModule,
+        NepaliPatroModule,
+        SecurityTaggedViewModule,
+    ],
     exports: [
         LoanSummaryComponent,
         CustomerGroupSummaryComponent,
         IncomeFromAccountSummeryComponent,
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        ApprovalSheetComponent,
-        ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
         SecuritySummaryComponent,

@@ -3,6 +3,7 @@ import {MultipleBanking} from '../../../../../../admin/modal/multipleBanking';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {Proposal} from '../../../../../../admin/modal/proposal';
 import {Cicl, CiclArray} from '../../../../../../admin/modal/cicl';
+import {CustomerCategory} from '../../../../../../customer/model/customerCategory';
 
 @Component({
   selector: 'app-above-banking-arrangement-of-the-customer',
@@ -13,10 +14,12 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   @Input() multiBanking: MultipleBanking;
   @Input() proposal: Proposal;
   @Input() cicl: CiclArray;
+  @Input() customerCategory;
   multiBankingData;
   checkedData;
   proposalData;
   ciclData;
+  customerCate = CustomerCategory;
 
   constructor() { }
 
@@ -27,6 +30,7 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cicl)) {
       this.ciclData = JSON.parse(this.cicl.data);
+      console.log('ciclData', this.ciclData);
     }
     if (!ObjectUtil.isEmpty(this.proposal)) {
       this.proposalData = JSON.parse(this.proposal.data);

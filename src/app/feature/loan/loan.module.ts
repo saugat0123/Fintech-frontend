@@ -57,19 +57,9 @@ import {LoanInformationDetailViewModule} from '../loan-information-detail-view/l
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
-import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
-import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
-import {MicroIndividualComponent} from './component/micro-loan-summary/micro-individual/micro-individual.component';
-import {MicroInstitutionComponent} from './component/micro-loan-summary/micro-institution/micro-institution.component';
-import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
-import {BorrowerPortfolioSummaryComponent} from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
-import {MicroLoanModule} from '../micro-loan/micro-loan.module';
-import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
-import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
-import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {FeatureModule} from '../feature.module';
 
 const COMPONENTS = [
@@ -103,16 +93,8 @@ const COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent,
-    MicroLoanSummaryComponent,
-    MicroSynopsisCreditworthinessComponent,
-    MicroIndividualComponent,
-    MicroInstitutionComponent,
-    MicroProposalSummaryComponent,
-    BorrowerPortfolioSummaryComponent,
-    MicroBaselRiskExposureSummaryComponent,
-    MarketingActivitiesSummaryComponent,
-    MicroCommonDetailComponent
+    GuarantorDetailComponent
+
 ];
 
 const ENTRY_COMPONENTS = [
@@ -178,7 +160,6 @@ const modules = {
         AngularDraggableModule,
         LoanInformationDetailViewModule,
         NbTooltipModule,
-        MicroLoanModule,
         NepaliPatroModule,
         TransferLoanModule,
         FeatureModule
@@ -193,9 +174,7 @@ const modules = {
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
         KycInfoComponent,
-        MicroProposalSummaryComponent,
-        MicroBaselRiskExposureSummaryComponent
-        , CustomerWiseLoanPullComponent
+        CustomerWiseLoanPullComponent
     ]
 })
 export class LoanModule {
