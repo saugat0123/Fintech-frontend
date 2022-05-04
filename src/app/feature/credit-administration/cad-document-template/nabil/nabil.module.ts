@@ -134,6 +134,7 @@ import { Section16AndSection17Component } from './nabil-sme/retail-combined-offe
 import { Section18RequiredSecurityDocumentsComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section18-required-security-documents/section18-required-security-documents.component';
 import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section19-to-section22/section19-to-section22.component';
 import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
+import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-for-mortgage-individual/consent-letter-for-mortgage-individual.component';
 
 @NgModule({
     declarations: [
@@ -172,7 +173,8 @@ import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-
         Section16AndSection17Component,
         Section18RequiredSecurityDocumentsComponent,
         Section19ToSection22Component,
-        RetailCombinedOfferLetterComponent],
+        RetailCombinedOfferLetterComponent,
+        ConsentLetterForMortgageIndividualComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -253,7 +255,8 @@ import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-
         Section5InterestRatedRelatedClausesComponent,
         Section6LoanLimitRelatedClausesComponent,
         Section7InterestAndEmiPaymentRelatedComponent,
-        Section9InsuranceRelatedClausesComponent
+        Section9InsuranceRelatedClausesComponent,
+        ConsentLetterForMortgageIndividualComponent
     ],
     imports: [
         CommonModule,

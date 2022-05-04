@@ -48,7 +48,7 @@
                                        formControlName="nameOfClient"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
                                 को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                 <ng-container *ngIf="isPrimaryMortgageNew || isPrimaryRemortgage"> गरिदिनु पर्नेछ ।
                                     <!--For new mortgage/remortgage--> </ng-container>
@@ -64,7 +64,7 @@
                                    formControlName="nameOfClient"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
+                            <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
                             को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
                             गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित
                             सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
@@ -146,7 +146,7 @@
                                        formControlName="tenureOfFixedDeposit"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'tenureOfFixedDeposit']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'tenureOfFixedDeposit']) ?
                                     form.get(['TDPrimaryDetails', i, 'tenureOfFixedDeposit'])?.value : '___________________'}}</span>
                                 बर्षे मुद्धति श्री
                                 <input class="form-field form-control-sm d-print-none"
@@ -154,7 +154,7 @@
                                        formControlName="fixedDepositHolderName"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'fixedDepositHolderName']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'fixedDepositHolderName']) ?
                                     form.get(['TDPrimaryDetails', i, 'fixedDepositHolderName'])?.value : '___________________'}}</span>
                                 को नाममा रहेको रु.
                                 <input class="form-field form-control-sm d-print-none"
@@ -162,7 +162,7 @@
                                        formControlName="amountOfDeposit"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'amountOfDeposit']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'amountOfDeposit']) ?
                                     form.get(['TDPrimaryDetails', i, 'amountOfDeposit'])?.value : '___________________'}}</span>
                                 /- (अक्षरेपी
                                 <input class="form-field form-control-sm d-print-none"
@@ -170,7 +170,7 @@
                                        formControlName="amountOfDepositInWords"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'amountOfDepositInWords']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'amountOfDepositInWords']) ?
                                     form.get(['TDPrimaryDetails', i, 'amountOfDepositInWords'])?.value : '___________________'}}</span>
                                 ) बराबरको मिति
                                 <input class="form-field form-control-sm d-print-none"
@@ -178,7 +178,7 @@
                                        formControlName="expiryDate"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'expiryDate']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'expiryDate']) ?
                                     form.get(['TDPrimaryDetails', i, 'expiryDate'])?.value : '___________________'}}</span>
                                 सम्म अवधि रहेको मुद्धति रसिद नं.
                                 <input class="form-field form-control-sm d-print-none"
@@ -186,7 +186,7 @@
                                        formControlName="receiptNum"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDPrimaryDetails', i, 'receiptNum']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDPrimaryDetails', i, 'receiptNum']) ?
                                     form.get(['TDPrimaryDetails', i, 'receiptNum'])?.value : '___________________'}}</span>
                                 उपर बैंकले उल्लिखित मुद्धति रसिद बैंकको पक्षमा रसिद ग्रहणाधिकार (Lien) रवा धितो र/वा
                                 हकाधिकार लेखिदिई सो वापतको रकम कर्जामा समायोजन वा कर्जा भुक्तानी/फछ्र्यौट/राफसाफ
@@ -224,7 +224,7 @@
                                    formControlName="nameOfGuarantor"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'nameOfGuarantor']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'nameOfGuarantor']) ?
                                 form.get(['guarantorDetails', i, 'nameOfGuarantor'])?.value : '___________________'}}</span>
                             ले बैंकको पक्षमा रु.
                             <input class="form-field form-control-sm d-print-none"
@@ -232,7 +232,7 @@
                                    formControlName="loanAmountInFigure"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'loanAmountInFigure']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'loanAmountInFigure']) ?
                                 form.get(['guarantorDetails', i, 'loanAmountInFigure'])?.value : '___________________'}}</span>
                             /-(अक्षरेपि रु.
                             <input class="form-field form-control-sm d-print-none"
@@ -240,7 +240,7 @@
                                    formControlName="loanAmountInWords"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'loanAmountInWords']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'loanAmountInWords']) ?
                                 form.get(['guarantorDetails', i, 'loanAmountInWords'])?.value : '___________________'}}</span>
                             मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ । <br>
                         </ng-container>
@@ -291,7 +291,7 @@
                                        formControlName="nameOfClient2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
                                 को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                 <ng-container *ngIf="isSecondaryMortgageNew || isSecondaryRemortgage"> गरिदिनु पर्नेछ
                                     <!--For new motgage/remortgage--> </ng-container>
@@ -307,7 +307,7 @@
                                    formControlName="nameOfClient2"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
+                            <span class="print-only font-weight-bold">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
                             को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
                             गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण
                             ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
@@ -390,7 +390,7 @@
                                        formControlName="tenureOfFixedDeposit2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'tenureOfFixedDeposit2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'tenureOfFixedDeposit2']) ?
                                     form.get(['TDSecondaryDetails', i, 'tenureOfFixedDeposit2'])?.value : '___________________'}}</span>
                                 बर्षे मुद्धति श्री
                                 <input class="form-field form-control-sm d-print-none"
@@ -398,7 +398,7 @@
                                        formControlName="fixedDepositHolderName2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'fixedDepositHolderName2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'fixedDepositHolderName2']) ?
                                     form.get(['TDSecondaryDetails', i, 'fixedDepositHolderName2'])?.value : '___________________'}}</span>
                                 को नाममा रहेको रु.
                                 <input class="form-field form-control-sm d-print-none"
@@ -406,7 +406,7 @@
                                        formControlName="amountOfDeposit2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'amountOfDeposit2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'amountOfDeposit2']) ?
                                     form.get(['TDSecondaryDetails', i, 'amountOfDeposit2'])?.value : '___________________'}}</span>
                                 /- (अक्षरेपी
                                 <input class="form-field form-control-sm d-print-none"
@@ -414,7 +414,7 @@
                                        formControlName="amountOfDepositInWords2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'amountOfDepositInWords2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'amountOfDepositInWords2']) ?
                                     form.get(['TDSecondaryDetails', i, 'amountOfDepositInWords2'])?.value : '___________________'}}</span>
                                 ) बराबरको मिति
                                 <input class="form-field form-control-sm d-print-none"
@@ -422,7 +422,7 @@
                                        formControlName="expiryDate2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'expiryDate2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'expiryDate2']) ?
                                     form.get(['TDSecondaryDetails', i, 'expiryDate2'])?.value : '___________________'}}</span>
                                 सम्म अवधि रहेको मुद्धति रसिद नं.
                                 <input class="form-field form-control-sm d-print-none"
@@ -430,7 +430,7 @@
                                        formControlName="receiptNum2"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{form.get(['TDSecondaryDetails', i, 'receiptNum2']) ?
+                                <span class="print-only font-weight-bold">{{form.get(['TDSecondaryDetails', i, 'receiptNum2']) ?
                                     form.get(['TDSecondaryDetails', i, 'receiptNum2'])?.value : '___________________'}}</span>
                                 उपर बैंकले उल्लिखित मुद्धति रसिद बैंकको पक्षमा रसिद ग्रहणाधिकार (Lien) रवा धितो र/वा
                                 हकाधिकार लेखिदिई सो वापतको रकम कर्जामा समायोजन वा कर्जा भुक्तानी/फछ्र्यौट/राफसाफ
@@ -468,7 +468,7 @@
                                    formControlName="nameOfGuarantor"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'nameOfGuarantor']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'nameOfGuarantor']) ?
                                 form.get(['guarantorDetails', i, 'nameOfGuarantor'])?.value : '___________________'}}</span>
                             ले बैंकको पक्षमा रु.
                             <input class="form-field form-control-sm d-print-none"
@@ -476,7 +476,7 @@
                                    formControlName="loanAmountInFigure"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'loanAmountInFigure']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'loanAmountInFigure']) ?
                                 form.get(['guarantorDetails', i, 'loanAmountInFigure'])?.value : '___________________'}}</span>
                             /-(अक्षरेपि रु.
                             <input class="form-field form-control-sm d-print-none"
@@ -484,7 +484,7 @@
                                    formControlName="loanAmountInWords"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{form.get(['guarantorDetails', i, 'loanAmountInWords']) ?
+                            <span class="print-only font-weight-bold">{{form.get(['guarantorDetails', i, 'loanAmountInWords']) ?
                                 form.get(['guarantorDetails', i, 'loanAmountInWords'])?.value : '___________________'}}</span>
                             मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ । <br>
                         </ng-container>

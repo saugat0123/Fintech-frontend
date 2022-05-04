@@ -3,8 +3,8 @@
         <form [formGroup]="form">
             <div>
                 <!-- SECTION 19
-                Additional Clause for Corporate agreement based Lo
-                an: ( Optional as per need basis on all loan types)-->
+                Additional Clause for Corporate agreement based Loan:
+                ( Optional as per need basis on all loan types)-->
                <b>
                    द्रष्टब्य : माथि उल्लिखित ब्यक्तिगत कर्जाको ब्याजदर यस नबिल बैंक लिमिटेड र
                    <input class="form-field form-control-sm d-print-none"
@@ -12,29 +12,31 @@
                           formControlName="freeText1"
                           placeholder=" "
                           type="text"/>
-                   <span class="print-only">{{form.get('freeText1').value ? form.get('freeText1').value : '______________________'}}</span>
+                   <span class="print-only font-weight-bold">
+                       {{freeInformation?.section22?.freeText1 || '______________________'}}</span>
                    का
                    <input class="form-field form-control-sm d-print-none"
                           name="freeText2"
                           formControlName="freeText2"
                           placeholder=" "
                           type="text"/>
-                   <span class="print-only">{{form.get('freeText2').value ? form.get('freeText2').value : '______________________'}}</span>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText2 || '______________________'}}</span>
                    को सुबिधाको लागि मिति
                    <input class="form-field form-control-sm d-print-none"
                           name="freeText3"
                           formControlName="freeText3"
                           placeholder=" "
                           type="text"/>
-                   <span class="print-only">{{form.get('freeText3').value ? form.get('freeText3').value : '______________________'}}</span>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText3 || '______________________'}}</span>
                    मा सम्पन्न सम्झौता ज्ञापनपत्र बमोजिम तोकिएको छ । उक्त ब्याजदर तपाई
                    <input class="form-field form-control-sm d-print-none"
                           name="freeText4"
                           formControlName="freeText4"
                           placeholder=" "
                           type="text"/>
-                   <span class="print-only">{{form.get('freeText4').value ? form.get('freeText4').value : '______________________'}}</span>
-                   मा आवद्ध रहेको अवधिसम्म मात्र लागु हुनेछ । उक्त सम्झौताको शर्त बन्देजनामाहरु भविष्यमा कुनै परीवर्तन भएमा सो अनुसार तपाईले लिनु भएको यस ऋण कर्जामा समेत सोहि बमोजिमको व्यवस्था लागु हुनेछ ।
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText4 || '______________________'}}</span>
+                   मा आवद्ध रहेको अवधिसम्म मात्र लागु हुनेछ । उक्त सम्झौताको शर्त बन्देजनामाहरु भविष्यमा कुनै परीवर्तन
+                   भएमा सो अनुसार तपाईले लिनु भएको यस ऋण कर्जामा समेत सोहि बमोजिमको व्यवस्था लागु हुनेछ ।
                    <br>
                    साथै, नबिल बैंक लिमिटेड र
                    <input class="form-field form-control-sm d-print-none"
@@ -42,7 +44,7 @@
                           formControlName="freeText5"
                           placeholder=" "
                           type="text"/>
-                   <span class="print-only">{{form.get('freeText5').value ? form.get('freeText5').value : '______________________'}}</span>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText5 || '______________________'}}</span>
                    बिच भएको उपरोक्त सम्झौतामा हुने संशोधन, परिमार्जन, नविकरण वा खारेजीले यस
                    ऋण कर्जाको सिमा, सुरक्षण, ब्याजदर लगायत शर्त बन्देजनामाहरु संशोधन हुन सक्नेछन् ।
                    यसरी हुने संशोधनमा ऋणीको पूर्ण मञ्जुरी हुनेछ ।
@@ -64,49 +66,63 @@
             <!-- SECTION 21 For All types of loans-->
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="right-content">
-
-                    .........................................
                     <p>
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="nameOfARO_RO_RM_ARM"
                                name="nameOfARO_RO_RM_ARM"
                                style="width: 200px"
                                type="text"/>
+                        <span class="print-only">
+                            {{initialInfo?.retailGlobalForm?.nameOfRelationshipManagerCT || '________________________'}}
+                        </span>
                         <br>
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="position"
                                type="text"/>
+                        <span class="print-only">
+                            {{freeInformation?.section22?.position || '________________________'}}
+                        </span>
                         <br>
                         नबिल बैंक लि. <br>
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="branchName"
                                name="branchName"
                                style="width: 200px"
                                type="text"/>
+                        <span class="print-only">
+                            {{loanHolderInfo?.branch?.ct || '________________________'}}
+                        </span>
                         शाखा
                     </p>
                 </div>
 
                 <div class="left-content">
-
-                    .........................................
                     <p>
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="nameOfBranchManager"
                                name="nameOfBranchManager"
                                style="width: 200px"
                                type="text"/>
+                        <span class="print-only">
+                            {{initialInfo?.retailGlobalForm?.nameOfBranchManagerCT || '________________________'}}
+                        </span>
                         <br>
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="position1"
                                type="text"/>
+                        <span class="print-only">
+                            {{freeInformation?.section22?.position1 || '________________________'}}
+                        </span>
                         <br>
                         नबिल बैंक लि. <br>
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                formControlName="branchName"
                                name="branchName"
                                style="width: 200px"
                                type="text"/>
+                        <span class="print-only">
+                            {{loanHolderInfo?.branch?.ct || '________________________'}}
+                        </span>
                         शाखा
                     </p>
                 </div>
@@ -179,74 +195,74 @@
                         <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
                         <ol style="list-style: devanagari;">
                             <li>
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiDistrict1"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict1"
                                        formControlName="sakshiDistrict1" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                    {{form.get('sakshiDistrict1').value ? form.get('sakshiDistrict1').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                    {{freeInformation?.section22?.sakshiDistrict1 || '___________________________'}}
                                 </span>
                                 जिल्ला
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiMunicipality1"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality1"
                                        formControlName="sakshiMunicipality1" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiMunicipality1').value ? form.get('sakshiMunicipality1').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiMunicipality1 || '___________________________'}}
                                 </span>
                                 न.पा/गा.वि.स. वडा नं.
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiWard1"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
                                        formControlName="sakshiWard1" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiWard1').value ? form.get('sakshiWard1').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiWard1 || '___________________________'}}
                                 </span>
                                 बस्ने बर्ष
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiAge1"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
                                        formControlName="sakshiAge1" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                    {{form.get('sakshiAge1').value ? form.get('sakshiAge1').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                    {{freeInformation?.section22?.sakshiAge1 || '___________________________'}}
                                 </span>
                                 को/की
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiName1"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName1"
                                        formControlName="sakshiName1" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiName1').value ? form.get('sakshiName1').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiName1 || '___________________________'}}
                                 </span>
                             </li>
                             <li>
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiDistrict2"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict2"
                                        formControlName="sakshiDistrict2" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiDistrict2').value ? form.get('sakshiDistrict2').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiDistrict2 || '___________________________'}}
                                 </span>
                                 जिल्ला
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiMunicipality2"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality2"
                                        formControlName="sakshiMunicipality2" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiMunicipality2').value ? form.get('sakshiMunicipality2').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiMunicipality2 || '___________________________'}}
                                 </span>
                                 न.पा/गा.वि.स. वडा नं.
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiWard2"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
                                        formControlName="sakshiWard2" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiWard2').value ? form.get('sakshiWard2').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiWard2 || '___________________________'}}
                                 </span>
                                 बस्ने बर्ष
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiAge2"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
                                        formControlName="sakshiAge2" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiAge2').value ? form.get('sakshiAge2').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiAge2 || '___________________________'}}
                                 </span>
                                 को/की
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiName2"
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName2"
                                        formControlName="sakshiName2" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('sakshiName2').value ? form.get('sakshiName2').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiName2 || '___________________________'}}
                                 </span>
                             </li>
                             <li>
                                 कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका
                                 कर्मचारी
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="nameOfBankStaff"
+                                <input class="form-field form-control-sm d-print-none" name="nameOfBankStaff"
                                        formControlName="nameOfBankStaff" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">
-                                     {{form.get('nameOfBankStaff').value ? form.get('nameOfBankStaff').value : '========================'}}
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.nameOfBankStaff || '___________________________'}}
                                 </span>
                             </li>
                         </ol>

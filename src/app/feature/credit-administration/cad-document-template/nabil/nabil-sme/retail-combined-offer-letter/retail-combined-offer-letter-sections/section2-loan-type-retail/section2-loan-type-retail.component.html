@@ -1,4 +1,4 @@
-<div class="container text-justify col-md-12 viewFull mt-5">
+<div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form" class="table-pad">
             <div style="text-align: center"><b>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</b></div>
@@ -992,7 +992,7 @@
                                            name="freeText"
                                            formControlName="freeText"
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{'______________________'}}</span>
+                                    <span class="print-only font-weight-bold">{{tempInformation?.section2?.loanDemandFreeText[i1]?.freeText || '______________________'}}</span>
                                     (Share Loan Demand)<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
@@ -1698,7 +1698,7 @@
                                            name="freeDate"
                                            formControlName="freeDate"
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.paymentDateCT || '_________________'}}</span>
+                                    <span class="print-only font-weight-bold">{{tempInformation?.section2?.personalLoanFreeText[i1]?.freeDate || '______________________'}}</span>
                                     का दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले ब्याज भुक्तानी
                                     गर्नुपर्नेछ ।
                                 </ng-container>
