@@ -106,7 +106,7 @@
         <th>Designation</th>
         <th>Share(in %)</th>
     </tr>
-    <ng-container *ngIf="propList?.length > 1">
+    <ng-container *ngIf="propList?.length >= 1">
         <tr *ngFor="let prop of propList; let i = index">
             <td>{{i+1}}</td>
             <td colspan="2">{{prop?.name}}</td>
