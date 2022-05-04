@@ -269,6 +269,11 @@
                                                       [documentId]="documentId"
                                                       [customerLoanId]="customerLoanId">
                 </app-letter-vehicle-third-party-proprietorship>
+                <app-consent-letter-for-mortgage-individual *ngSwitchCase="nabilCadTemplate.CONSENT_LETTER_FOR_MORTGAGE_INDIVIDUAL"
+                                                            [cadData]="cadData"
+                                                            [documentId]="documentId"
+                                                            [customerLoanId]="customerLoanId">
+                </app-consent-letter-for-mortgage-individual>
 
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
