@@ -108,7 +108,8 @@
                                                    placeholder=" "
                                                    type="text"/>
                                             <span class="print-only font-weight-bold">{{middleConstruction?.nPhaseConstructionCostCT || '______________________'}}</span>
-                                            /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि दोस्रो
+                                            /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि
+                                            {{(i+2) | nepaliWordNumbering}}
                                             किस्ता रु.
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="freetext4"
@@ -130,7 +131,7 @@
                                     </ng-container>
                                     <tr>
                                         <td>
-                                            {{val?.middlePhaseConstruction.length + 2 | nepaliWord}}
+                                            {{val?.middlePhaseConstruction.length + 2 | nepaliWord}}.
                                         </td>
                                         <td>
                                             रु.
@@ -141,15 +142,7 @@
                                                    type="text"/>
                                             <span class="print-only font-weight-bold">{{val?.finalPhaseConstructionCostCT || '______________________'}}</span>
                                             /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि
-
-                                            <!-- to be clear -->
-                                            <input class="form-field form-control-sm d-print-none"
-                                                   name="freetext7"
-                                                   formControlName="freetext7"
-                                                   placeholder=" "
-                                                   type="text"/>
-                                            <span class="print-only font-weight-bold">{{val?.finalPhaseConstructionCostCT || '______________________'}}</span>
-                                            किस्ता रु.
+                                            अन्तिम किस्ता रु.
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="freetext8"
                                                    formControlName="freetext8"
