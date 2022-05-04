@@ -269,7 +269,11 @@
                                                       [documentId]="documentId"
                                                       [customerLoanId]="customerLoanId">
                 </app-letter-vehicle-third-party-proprietorship>
-
+                <app-negative-lien-individual *ngSwitchCase="nabilCadTemplate.NEGATIVE_LIEN_INDIVIDUAL"
+                                              [cadData]="cadData"
+                                              [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId">
+                </app-negative-lien-individual>
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
         </div>
