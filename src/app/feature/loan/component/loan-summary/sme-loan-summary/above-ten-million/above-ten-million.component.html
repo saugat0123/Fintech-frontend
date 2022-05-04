@@ -79,6 +79,11 @@
     <li>
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
 <!--        <app-above-security-arrangement [guarantorData]="guarantorData"></app-above-security-arrangement>-->
+        <div>
+            <app-insurance-summary  [insurance]="loanDataHolder?.insurance">
+
+            </app-insurance-summary>
+        </div>
         <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
         <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
