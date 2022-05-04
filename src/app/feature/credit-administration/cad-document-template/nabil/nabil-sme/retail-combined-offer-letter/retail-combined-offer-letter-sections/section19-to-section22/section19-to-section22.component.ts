@@ -22,11 +22,17 @@ export class Section19ToSection22Component implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData)) {
-      this.freeInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder)) {
-      this.loanHolderInfo = JSON.parse(this.cadData.loanHolder.nepData);
-      this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+        if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+          this.freeInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+        }
+        if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
+          this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.cadData.loanHolder)) {
+        this.loanHolderInfo = JSON.parse(this.cadData.loanHolder.nepData);
+      }
     }
     this.fillForm();
   }
@@ -56,29 +62,42 @@ export class Section19ToSection22Component implements OnInit {
     });
   }
   fillForm() {
+    console.log('Free Information for section last:', this.freeInformation);
     this.form.patchValue({
-      branchName: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      nameOfARO_RO_RM_ARM: this.initialInfo.retailGlobalForm.nameOfRelationshipManagerCT ?
-          this.initialInfo.retailGlobalForm.nameOfRelationshipManagerCT : '',
-      nameOfBranchManager: this.initialInfo.retailGlobalForm.nameOfBranchManagerCT ? this.initialInfo.retailGlobalForm.nameOfBranchManagerCT : '',
-      position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : this.position ,
-      position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position1 : this.position1,
-      sakshiDistrict1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiDistrict1 : '',
-      sakshiMunicipality1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiMunicipality1 : '',
-      sakshiWard1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiWard1 : '',
-      sakshiAge1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiAge1 : '',
-      sakshiName1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiName1 : '',
-      sakshiDistrict2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiDistrict2 : '',
-      sakshiMunicipality2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiMunicipality2 : '',
-      sakshiWard2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiWard2 : '',
-      sakshiAge2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiAge2 : '',
-      sakshiName2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiName2 : '',
-      nameOfBankStaff: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.nameOfBankStaff : '',
-      freeText1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.freeText1 : '',
-      freeText2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.freeText2 : '',
-      freeText3: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.freeText3 : '',
-      freeText4: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.freeText4 : '',
-      freeText5: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.freeText5 : '',
+      branchName: !ObjectUtil.isEmpty(this.loanHolderInfo) &&
+                  !ObjectUtil.isEmpty(this.loanHolderInfo.branch) &&
+                  !ObjectUtil.isEmpty(this.loanHolderInfo.branch.ct) ? this.loanHolderInfo.branch.ct : '',
+      nameOfARO_RO_RM_ARM: !ObjectUtil.isEmpty(this.initialInfo) &&
+                            !ObjectUtil.isEmpty(this.initialInfo.retailGlobalForm) &&
+                            !ObjectUtil.isEmpty(this.initialInfo.retailGlobalForm.nameOfRelationshipManagerCT) ?
+                            this.initialInfo.retailGlobalForm.nameOfRelationshipManagerCT : '',
+      nameOfBranchManager: !ObjectUtil.isEmpty(this.initialInfo) &&
+                            !ObjectUtil.isEmpty(this.initialInfo.retailGlobalForm) &&
+                            !ObjectUtil.isEmpty(this.initialInfo.retailGlobalForm.nameOfBranchManagerCT) ?
+                            this.initialInfo.retailGlobalForm.nameOfBranchManagerCT : ''
     });
+    if (!ObjectUtil.isEmpty(this.freeInformation) &&
+    !ObjectUtil.isEmpty(this.freeInformation.section22)) {
+      this.form.patchValue({
+        position : !ObjectUtil.isEmpty(this.freeInformation.section22.position) ? this.freeInformation.section22.position : this.position ,
+        position1 : !ObjectUtil.isEmpty(this.freeInformation.section22.position1) ? this.freeInformation.section22.position1 : this.position1,
+        sakshiDistrict1: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiDistrict1) ? this.freeInformation.section22.sakshiDistrict1 : '',
+        sakshiMunicipality1: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiMunicipality1) ? this.freeInformation.section22.sakshiMunicipality1 : '',
+        sakshiWard1: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiWard1) ? this.freeInformation.section22.sakshiWard1 : '',
+        sakshiAge1: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiAge1) ? this.freeInformation.section22.sakshiAge1 : '',
+        sakshiName1: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiName1) ? this.freeInformation.section22.sakshiName1 : '',
+        sakshiDistrict2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiDistrict2) ? this.freeInformation.section22.sakshiDistrict2 : '',
+        sakshiMunicipality2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiMunicipality2) ? this.freeInformation.section22.sakshiMunicipality2 : '',
+        sakshiWard2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiWard2) ? this.freeInformation.section22.sakshiWard2 : '',
+        sakshiAge2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiAge2) ? this.freeInformation.section22.sakshiAge2 : '',
+        sakshiName2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiName2) ? this.freeInformation.section22.sakshiName2 : '',
+        nameOfBankStaff: !ObjectUtil.isEmpty(this.freeInformation.section22.nameOfBankStaff) ? this.freeInformation.section22.nameOfBankStaff : '',
+        freeText1: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText1) ? this.freeInformation.section22.freeText1 : '',
+        freeText2: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText2) ? this.freeInformation.section22.freeText2 : '',
+        freeText3: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText3) ? this.freeInformation.section22.freeText3 : '',
+        freeText4: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText4) ? this.freeInformation.section22.freeText4 : '',
+        freeText5: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText5) ? this.freeInformation.section22.freeText5 : '',
+      });
+    }
   }
 }

@@ -1,6 +1,7 @@
 *{
   line-height: 1.9em !important;
   font-size: 19px !important;
+  text-align: justify !important;
 }
 
 .form-field {
@@ -47,6 +48,10 @@
   }
   tr {
     page-break-inside: initial;
-    display: block;
   }
 }
+
+ol li {
+  padding-left: 1em;
+}
+

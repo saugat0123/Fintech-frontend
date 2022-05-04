@@ -1,7 +1,7 @@
 <div class="container text-justify col-md-12 p-0">
     <form [formGroup]="form">
         <div>
-            <table class="table table-bordered">
+            <table class="table table-bordered mainTable">
                 <tbody>
                 <tr *ngIf="isFixed || isFloating">
                     <td width="15%"><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप
@@ -21,28 +21,24 @@
                                 समय
                                 समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई थप/घट हुनसक्नेछन ।
                             </div>
-                            <div>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <th>अग्रिम भुक्तानी समय अवधि</th>
-                                        <th>अग्रिम भुक्तानी शुल्क दर</th>
-                                    </tr>
-                                    <tr>
-                                        <td>कर्जा प्रवाह भएको मितिले २ वर्ष भित्र</td>
-                                        <td>अग्रिम भुक्तानी रकमको ०.७५५</td>
-                                    </tr>
-                                    <tr>
-                                        <td>२ वर्ष देखि ५ वर्ष भित्र</td>
-                                        <td>अग्रिम भुक्तानी रकमको ०.३७५५</td>
-                                    </tr>
-                                    <tr>
-                                        <td>५ वर्ष भन्दा पछि</td>
-                                        <td>अग्रिम भुक्तानी रकमको ०.१५५</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table table-sm table-bordered text-center table-sm sb-small innerTable">
+                                <tr>
+                                    <th>अग्रिम भुक्तानी समय अवधि</th>
+                                    <th>अग्रिम भुक्तानी शुल्क दर</th>
+                                </tr>
+                                <tr>
+                                    <td>कर्जा प्रवाह भएको मितिले २ वर्ष भित्र</td>
+                                    <td>अग्रिम भुक्तानी रकमको ०.७५५</td>
+                                </tr>
+                                <tr>
+                                    <td>२ वर्ष देखि ५ वर्ष भित्र</td>
+                                    <td>अग्रिम भुक्तानी रकमको ०.३७५५</td>
+                                </tr>
+                                <tr>
+                                    <td>५ वर्ष भन्दा पछि</td>
+                                    <td>अग्रिम भुक्तानी रकमको ०.१५५</td>
+                                </tr>
+                            </table>
                             <div>
                                 <i>नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको जुनसुकै प्रकारको
                                     कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने छैन । सो सीमाभन्दा बढीको कर्जाको
@@ -66,7 +62,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>ऋण प्रतिबद्धता शुल्क </strong></td>
+                    <td width="15%"><strong>ऋण प्रतिबद्धता शुल्क </strong></td>
                     <td>
                         <div>
                             <ng-container *ngIf="!isPersonalOD || !isNabilSahayatri || !isPersonalWoCollateral || !isShareLoan || !isShareLoanDemand">
@@ -76,7 +72,7 @@
                                        formControlName="PODPercentage"
                                        value="०.१५"
                                        type="text"/>
-                                <span class="print-only">{{'______________________'}}</span>
+                                <span class="print-only font-weight-bold">{{tempData.retailGlobalForm.loanCommitmentCheck && tempData?.retailGlobalForm?.loanCommitmentFeeInPercentCT || '______________________'}}</span>
                                 प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                             </ng-container>
                             <br>
@@ -88,7 +84,7 @@
                                        formControlName="PODPercentage"
                                        value="०.१५"
                                        type="text"/>
-                                <span class="print-only">{{'______________________'}}</span> प्रतिशतका
+                                <span class="print-only font-weight-bold">{{tempData.retailGlobalForm.loanCommitmentCheck && tempData?.retailGlobalForm?.loanCommitmentFeeInPercentCT || '______________________'}}</span> प्रतिशतका
                                 दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु
                                 पर्ने छ ।
                             </ng-container>
@@ -96,7 +92,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>ऋन्य प्रशासनिक शुल्कः</strong></td>
+                    <td width="15%"><strong>ऋन्य प्रशासनिक शुल्कः</strong></td>
                     <td>
                         <ul>
                             <li>

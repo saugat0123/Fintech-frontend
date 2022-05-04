@@ -115,14 +115,26 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
     const section7FreeText = this.section7.form.get('freeDate').value ? this.section7.form.get('freeDate').value : '';
     const section8FreeText = this.section8.setTextAreaValue();
     const section18FreeText = this.section18.form.get('freeText2').value ? this.section18.form.get('freeText2').value : '';
-    // const section22FreeText = {
-    //   freeText2: this.section22.form.get('freeText2').value ? this.section22.form.get('freeText2').value : '',
-    //   // freeText3: this.section22.form.get('freeText3').value ? this.section22.form.get('freeText3').value : '',
-    //   // freeText4: this.section22.form.get('freeText4').value ? this.section22.form.get('freeText4').value : '',
-    //   freeText5: this.section22.form.get('freeText5').value ? this.section22.form.get('freeText5').value : '',
-    //   freeTable: this.section22.form.get('freeTable').value,
-    //   textField: this.section22.form.get('textField').value ? this.section22.form.get('textField').value : '',
-    // }
+    const section22FreeText = {
+      freeText1: this.section22.form.get('freeText1').value ? this.section22.form.get('freeText1').value : '',
+      freeText2: this.section22.form.get('freeText2').value ? this.section22.form.get('freeText2').value : '',
+      freeText3: this.section22.form.get('freeText3').value ? this.section22.form.get('freeText3').value : '',
+      freeText4: this.section22.form.get('freeText4').value ? this.section22.form.get('freeText4').value : '',
+      freeText5: this.section22.form.get('freeText5').value ? this.section22.form.get('freeText5').value : '',
+      position: this.section22.form.get('position').value ? this.section22.form.get('position').value : '',
+      position1: this.section22.form.get('position1').value ? this.section22.form.get('position1').value : '',
+      sakshiDistrict1: this.section22.form.get('sakshiDistrict1').value ? this.section22.form.get('sakshiDistrict1').value : '',
+      sakshiMunicipality1: this.section22.form.get('sakshiMunicipality1').value ? this.section22.form.get('sakshiMunicipality1').value : '',
+      sakshiWard1: this.section22.form.get('sakshiWard1').value ? this.section22.form.get('sakshiWard1').value : '',
+      sakshiAge1: this.section22.form.get('sakshiAge1').value ? this.section22.form.get('sakshiAge1').value : '',
+      sakshiName1: this.section22.form.get('sakshiName1').value ? this.section22.form.get('sakshiName1').value : '',
+      sakshiDistrict2: this.section22.form.get('sakshiDistrict2').value ? this.section22.form.get('sakshiDistrict2').value : '',
+      sakshiMunicipality2: this.section22.form.get('sakshiMunicipality2').value ? this.section22.form.get('sakshiMunicipality2').value : '',
+      sakshiWard2: this.section22.form.get('sakshiWard2').value ? this.section22.form.get('sakshiWard2').value : '',
+      sakshiAge2: this.section22.form.get('sakshiAge2').value ? this.section22.form.get('sakshiAge2').value : '',
+      sakshiName2: this.section22.form.get('sakshiName2').value ? this.section22.form.get('sakshiName2').value : '',
+      nameOfBankStaff: this.section22.form.get('nameOfBankStaff').value ? this.section22.form.get('nameOfBankStaff').value : '',
+    };
 
     const freeTextVal = {
       section1: section1FreeText,
@@ -130,7 +142,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
       section7: section7FreeText,
       section8: section8FreeText,
       section18: section18FreeText,
-      // section22: section22FreeText
+      section22: section22FreeText
     };
     return JSON.stringify(freeTextVal);
   }
