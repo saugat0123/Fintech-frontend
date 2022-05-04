@@ -71,7 +71,6 @@ import { UptoDetailsOfTheCustomerComponent } from './sme-loan-summary/upto-ten-m
 import { SecurityArrangementComponent } from './sme-loan-summary/upto-ten-million/security-arrangement/security-arrangement.component';
 import { GroupPositionComponent } from './sme-loan-summary/upto-ten-million/group-position/group-position.component';
 import {AssessmentRequirementOfFundComponent} from './sme-loan-summary/upto-ten-million/assessment-requirement-of-fund/assessment-requirement-of-fund.component';
-import { UptoBankingRelationshipComponent } from './sme-loan-summary/upto-ten-million/upto-banking-relationship/upto-banking-relationship.component';
 import { UptoOtherChargesComponent } from './sme-loan-summary/upto-ten-million/upto-other-charges/upto-other-charges.component';
 import { UptoConvenantsComponent } from './sme-loan-summary/upto-ten-million/upto-convenants/upto-convenants.component';
 import { UptoDisbursementModalityComponent } from './sme-loan-summary/upto-ten-million/upto-disbursement-modality/upto-disbursement-modality.component';
@@ -178,7 +177,6 @@ const ENTRY_COMPONENTS = [];
     SecurityArrangementComponent,
     GroupPositionComponent,
     AssessmentRequirementOfFundComponent,
-    UptoBankingRelationshipComponent,
     UptoOtherChargesComponent,
     UptoConvenantsComponent,
     UptoDisbursementModalityComponent,
