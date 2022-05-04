@@ -56,6 +56,7 @@ import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
+import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
 
 @Component({
   selector: 'app-loan-form',
@@ -177,6 +178,8 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('security', {static: false})
   security: SecurityComponent;
+  @ViewChild('shareSecurity', {static: false})
+  shareSecurity: SecurityAdderComponent;
 
   @ViewChild('customerDocument', {static: false})
   customerDocument: CustomerLoanDocumentComponent;
@@ -567,7 +570,9 @@ export class LoanFormComponent implements OnInit {
       this.proposalDetail.onSubmit();
       this.loanDocument.proposal = this.proposalDetail.proposalData;
     }
-
+    if (name === 'Security' && action) {
+      this.shareSecurity.save();
+    }
     if (name === 'Loan Document' && action) {
       this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
     }
@@ -740,5 +745,9 @@ export class LoanFormComponent implements OnInit {
   goToCustomer() {
     const loanHolder = this.loanDocument.loanHolder;
     this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+  }
+  updateSecurityList(event) {
+    this.loanDocument = event;
+    console.log(this.loanDocument);
   }
 }

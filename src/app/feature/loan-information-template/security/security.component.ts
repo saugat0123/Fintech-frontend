@@ -48,7 +48,6 @@ export class SecurityComponent implements OnInit {
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
-    securityForm: FormGroup;
     initialSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
@@ -104,22 +103,22 @@ export class SecurityComponent implements OnInit {
             }
         });
         this.buildForm();
-        this.buildCrgSecurityForm();
+        // this.buildCrgSecurityForm();
         this.getProvince();
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
-            this.setCrgSecurityForm(this.securityValueForEdit);
+            // this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
         } else {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-        this.checkDisableAlpha();
-        if ( !this.crgLambdaDisabled && !this.isBusinessLoan) {
-            this.checkDisableLamdha();
-        }
+        // this.checkDisableAlpha();
+        // if ( !this.crgLambdaDisabled && !this.isBusinessLoan) {
+        //     this.checkDisableLamdha();
+        // }
     }
 
     buildForm() {
@@ -128,34 +127,34 @@ export class SecurityComponent implements OnInit {
         });
     }
 
-    buildCrgSecurityForm() {
-        this.securityForm = this.formBuilder.group({
-            securityGuarantee: [undefined],
-            buildingLocation: [undefined],
-            vehicleSecurityCoverage: [undefined],
-            lambdaScheme: [undefined,
-                !this.crgLambdaDisabled
-                && !this.isBusinessLoan ? Validators.required : undefined],
-            roadAccessOfPrimaryProperty: [undefined],
-            facCategory: [undefined],
-            securityCoverageAutoPrivate: [undefined],
-            securityCoverageAutoCommercial: [undefined],
-        });
-    }
+    // buildCrgSecurityForm() {
+    //     this.securityForm = this.formBuilder.group({
+    //         securityGuarantee: [undefined],
+    //         buildingLocation: [undefined],
+    //         vehicleSecurityCoverage: [undefined],
+    //         lambdaScheme: [undefined,
+    //             !this.crgLambdaDisabled
+    //             && !this.isBusinessLoan ? Validators.required : undefined],
+    //         roadAccessOfPrimaryProperty: [undefined],
+    //         facCategory: [undefined],
+    //         securityCoverageAutoPrivate: [undefined],
+    //         securityCoverageAutoCommercial: [undefined],
+    //     });
+    // }
 
-    setCrgSecurityForm(formData) {
-        this.securityForm = this.formBuilder.group({
-            securityGuarantee: formData.securityGuarantee,
-            buildingLocation: formData.buildingLocation,
-            vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            lambdaScheme: [formData.lambdaScheme,
-                !this.crgLambdaDisabled && !this.isBusinessLoan  ? Validators.required : undefined],
-            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
-            facCategory: [formData.facCategory],
-            securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
-            securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
-        });
-    }
+    // setCrgSecurityForm(formData) {
+    //     this.securityForm = this.formBuilder.group({
+    //         securityGuarantee: formData.securityGuarantee,
+    //         buildingLocation: formData.buildingLocation,
+    //         vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
+    //         lambdaScheme: [formData.lambdaScheme,
+    //             !this.crgLambdaDisabled && !this.isBusinessLoan  ? Validators.required : undefined],
+    //         roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
+    //         facCategory: [formData.facCategory],
+    //         securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
+    //         securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
+    //     });
+    // }
 
     setGuarantorsDetails(guarantorList: Array<Guarantor>): FormArray {
         const details = this.guarantorsForm.get('guarantorsDetails') as FormArray;
@@ -253,11 +252,11 @@ export class SecurityComponent implements OnInit {
     onSubmit() {
         this.overlay.show();
         this.submitted = true;
-        if (this.securityForm.invalid) {
-            this.overlay.hide();
-            this.submitted = false;
-            return;
-        }
+        // if (this.securityForm.invalid) {
+        //     this.overlay.hide();
+        //     this.submitted = false;
+        //     return;
+        // }
         if (this.initialSecurity.selectedSecurity === undefined) {
             this.initialSecurity.clearValidationAtInitialStage();
         }
@@ -284,14 +283,14 @@ export class SecurityComponent implements OnInit {
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
             underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
-            securityGuarantee: this.securityForm.get('securityGuarantee').value,
-            buildingLocation: this.securityForm.get('buildingLocation').value,
-            roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
-            lambdaScheme: this.securityForm.get('lambdaScheme').value,
-            facCategory: this.securityForm.get('facCategory').value,
-            securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
-            securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
-            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
+            // securityGuarantee: this.securityForm.get('securityGuarantee').value,
+            // buildingLocation: this.securityForm.get('buildingLocation').value,
+            // roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
+            // lambdaScheme: this.securityForm.get('lambdaScheme').value,
+            // facCategory: this.securityForm.get('facCategory').value,
+            // securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
+            // securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
+            // vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
@@ -405,37 +404,37 @@ export class SecurityComponent implements OnInit {
         return totalSecurityAmount;
     }
 
-    controlValidation(controlNames: string[], validate) {
-        controlNames.forEach(s => {
-            if (validate) {
-                this.securityForm.get(s).setValidators(Validators.required);
-            } else {
-                this.securityForm.get(s).clearValidators();
-            }
-            this.securityForm.get(s).updateValueAndValidity();
-        });
-    }
+    // controlValidation(controlNames: string[], validate) {
+    //     controlNames.forEach(s => {
+    //         if (validate) {
+    //             this.securityForm.get(s).setValidators(Validators.required);
+    //         } else {
+    //             this.securityForm.get(s).clearValidators();
+    //         }
+    //         this.securityForm.get(s).updateValueAndValidity();
+    //     });
+    // }
 
-    checkDisableAlpha() {
-        if ( !this.disableCrgAlphaParams && this.isBusinessLoan) {
-            this.controlValidation(this.alphaControls, true);
-        } else {
-            this.controlValidation(this.alphaControls, false);
-        }
-    }
+    // checkDisableAlpha() {
+    //     if ( !this.disableCrgAlphaParams && this.isBusinessLoan) {
+    //         this.controlValidation(this.alphaControls, true);
+    //     } else {
+    //         this.controlValidation(this.alphaControls, false);
+    //     }
+    // }
 
-    checkDisableLamdha(event?) {
-        this.controlValidation(this.lambdaControls, false);
-        switch (event) {
-            case 'GENERAL':
-                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
-                break;
-            case 'AUTO_PRIVATE':
-                this.controlValidation(['securityCoverageAutoPrivate'], true);
-                break;
-            case 'AUTO_COMMERCIAL':
-                this.controlValidation(['securityCoverageAutoCommercial'], true);
-                break;
-        }
-    }
+    // checkDisableLamdha(event?) {
+    //     this.controlValidation(this.lambdaControls, false);
+    //     switch (event) {
+    //         case 'GENERAL':
+    //             this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
+    //             break;
+    //         case 'AUTO_PRIVATE':
+    //             this.controlValidation(['securityCoverageAutoPrivate'], true);
+    //             break;
+    //         case 'AUTO_COMMERCIAL':
+    //             this.controlValidation(['securityCoverageAutoCommercial'], true);
+    //             break;
+    //     }
+    // }
 }

@@ -1366,11 +1366,11 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             owner: [undefined, Validators.required],
             location: undefined,
-            plotNumber: undefined,
+            plotNumber: [undefined, Validators.required],
             areaFormat: undefined,
             area: undefined,
-            marketValue: undefined,
-            distressValue: undefined,
+            marketValue: [undefined, Validators.required],
+            distressValue: [undefined, Validators.required],
             description: undefined,
             houseNumber: [undefined],
             totalBuildingArea: [undefined],
@@ -1381,7 +1381,7 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingValuatorRepresentative: [undefined],
             buildingStaffRepresentativeName: [undefined],
             buildingBranch: [undefined],
-            landConsideredValue: [undefined, Validators.required],
+            landConsideredValue: [undefined],
             typeOfProperty: [undefined],
             ownershipTransferDate: [undefined],
             ownershipTransferThrough: [undefined],
@@ -1420,17 +1420,17 @@ export class SecurityInitialFormComponent implements OnInit {
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
             kycCheckForLandAndBuilding: [false],
-            governmentRate: [undefined],
+            governmentRate: [undefined, Validators.required],
             dv: [undefined],
-            considerValue: [undefined],
-            sheetNo: [undefined],
-            province: [undefined],
-            district: [undefined],
-            municipalityVdc: [undefined],
-            geoLocation: [undefined],
+            considerValue: [undefined, Validators.required],
+            sheetNo: [undefined, Validators.required],
+            province: [undefined, Validators.required],
+            district: [undefined, Validators.required],
+            municipalityVdc: [undefined, Validators.required],
+            geoLocation: [undefined, Validators.required],
             addressLine1: [undefined],
             addressLine2: [undefined],
-            registerOffice: [undefined]
+            registerOffice: [undefined, Validators.required]
         });
     }
 
@@ -1883,6 +1883,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     submit() {
+        this.submitted = true;
         this.pushSecurityNameInArray();
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
