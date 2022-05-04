@@ -11,6 +11,7 @@ import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
 export class ExecutiveSummarySmeComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() totalProposed;
   securityData: Object;
   shareSecurityData: ShareSecurity = new ShareSecurity();
   jsonData;
