@@ -1,6 +1,7 @@
 *{
   line-height: 1.9em !important;
   font-size: 19px !important;
+  text-align: justify !important;
 }
 
 .form-field {
@@ -45,4 +46,7 @@
     text-justify: inter-word;
     margin: 10px 70px;
   }
+}
+ol li, ul li {
+  padding-left: 1em;
 }

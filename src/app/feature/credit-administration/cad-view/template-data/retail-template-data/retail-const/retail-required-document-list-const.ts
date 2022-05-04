@@ -15,7 +15,7 @@ export enum RetailRequiredDocumentList {
     PAN = 'PAN',
     SELF_DECLARATION = 'Self Declaration',
     UNDERTAKING_LETTER = 'Undertaking Letter',
-    SHARE_PLEDGE_DEED = 'Share PLedge Deed',
+    SHARE_PLEDGE_DEED = 'Share Pledge Deed',
     NRB_DECLARATION_FORM = 'NED Declaration Form',
     RISK_TAKER_DETAIL = 'Risk Taker Detail',
     SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation'

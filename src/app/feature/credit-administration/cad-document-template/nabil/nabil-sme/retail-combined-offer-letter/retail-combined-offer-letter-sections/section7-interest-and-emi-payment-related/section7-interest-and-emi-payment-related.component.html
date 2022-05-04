@@ -19,7 +19,7 @@
                                    formControlName="freeDate"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{'______________________'}}</span>
+                            <span class="print-only font-weight-bold">{{tempInformation?.section7 ? tempInformation?.section7 : '______________________'}}</span>
                             मा तपाईंको खाताबाट कट्टा गरिनेछ ।
                         </li>
                         <li *ngIf="isPODSelected">
