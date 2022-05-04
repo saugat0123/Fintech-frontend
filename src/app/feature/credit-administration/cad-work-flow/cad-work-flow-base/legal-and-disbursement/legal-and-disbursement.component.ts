@@ -10,7 +10,6 @@ import {User} from '../../../../admin/modal/user';
 import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogService} from '@nebular/theme';
 import {CadFileSetupComponent} from './cad-file-setup/cad-file-setup.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-legal-and-disbursement',
@@ -38,7 +37,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
                 private userService: UserService,
-                private nbService: NgbModal
+                private nbService: NbDialogService
     ) {
     }
 
@@ -102,8 +101,11 @@ export class LegalAndDisbursementComponent implements OnInit {
     }
 
     openCadFIleSetup() {
-        const pop = this.nbService.open(CadFileSetupComponent, {size: 'xl', backdrop: true});
-        pop.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
+        this.nbService.open(CadFileSetupComponent, {
+            context: {
+                cadData: this.cadOfferLetterApprovedDoc
+            }
+        });
     }
 
 }

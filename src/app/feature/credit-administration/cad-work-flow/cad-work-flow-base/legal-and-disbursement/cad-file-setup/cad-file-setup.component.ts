@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {DocumentService} from '../../../../../admin/component/document/document.service';
 import {Status} from '../../../../../../@core/Status';
@@ -10,7 +10,6 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {NbDialogRef} from '@nebular/theme';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-file-setup',
@@ -21,9 +20,6 @@ export class CadFileSetupComponent implements OnInit {
 
     @Input()
     cadData: CustomerApprovedLoanCadDocumentation;
-    @Input() files;
-    @Input() proposal;
-    @Output() legalFile = new EventEmitter<any>();
     responseDocList: Array<Document>;
     documentList = [];
     spinner = false;
@@ -35,15 +31,13 @@ export class CadFileSetupComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private routerService: RouterUtilsService,
                 private service: CreditAdministrationService,
-                protected dialogRef: NgbModal
+                protected dialogRef: NbDialogRef<CadFileSetupComponent>
     ) {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.cadData)) {
-            if (ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
-                this.cadData.requiredDocument = [];
-            }
+        if (ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
+            this.cadData.requiredDocument = [];
         }
         this.buildForm();
         this.initial();
@@ -54,38 +48,24 @@ export class CadFileSetupComponent implements OnInit {
         this.spinner = true;
         this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
             this.responseDocList = res.detail;
-            if (this.responseDocList.length > 0) {
-                this.responseDocList.forEach(d => {
-                    const dataDoc = {
-                        document: null,
-                        checked: null
-                    };
-                    dataDoc.document = d;
-                    dataDoc.checked = false;
+            this.responseDocList.forEach(d => {
+                const dataDoc = {
+                    document: null,
+                    checked: null
+                };
+                dataDoc.document = d;
+                dataDoc.checked = false;
 
-                    if (!this.proposal) {
-                        this.cadData.requiredDocument.forEach(e => {
-                            if (d.id === e.id) {
-                                dataDoc.checked = true;
-                            }
-                        });
-                    } else {
-                        if (!ObjectUtil.isEmpty(this.files)) {
-                            this.files.forEach(e => {
-                                if (d.id === e.id) {
-                                    dataDoc.checked = true;
-                                }
-                            });
-                        }
+                this.cadData.requiredDocument.forEach(e => {
+                    if (d.id === e.id) {
+                        dataDoc.checked = true;
                     }
-                    this.documentList.push(dataDoc);
-
-                    this.spinner = false;
-
                 });
-            } else {
+                this.documentList.push(dataDoc);
+
                 this.spinner = false;
-            }
+
+            });
             const array = (this.form.get('documents') as FormArray);
             this.documentList.forEach(d => {
                 array.push(this.formBuilder.group({
@@ -120,29 +100,25 @@ export class CadFileSetupComponent implements OnInit {
                 finalCadDocReq.push(temp);
             }
         });
-        if (!this.proposal) {
-            this.spinner = true;
-            this.cadData.requiredDocument = finalCadDocReq;
-            this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
-                    this.routerService.reloadCadProfileRoute(this.cadData.id);
-                    this.spinner = false;
-                    this.closeModal();
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved data'));
+        this.spinner = true;
+        this.cadData.requiredDocument = finalCadDocReq;
+        this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
+                this.routerService.reloadCadProfileRoute(this.cadData.id);
+                this.spinner = false;
+                this.closeModal();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved data'));
 
 
-                }, error => {
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Error Saving'));
-                    console.log(error);
-                    this.spinner = false;
-                }
-            );
-        } else {
-            this.legalFile.emit(finalCadDocReq);
-        }
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error Saving'));
+                console.log(error);
+                this.spinner = false;
+            }
+        );
     }
 
     closeModal() {
-        this.dialogRef.dismissAll();
+        this.dialogRef.close();
     }
 
 }

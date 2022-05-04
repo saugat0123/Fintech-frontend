@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="spinner" style="height: 500px !important;" accent="primary">
     <nb-card-header>
         Setup Required Cad Legal Document
-        <a *ngIf="!proposal" (click)="closeModal()" aria-label="Close" class="close cursor"
+        <a (click)="closeModal()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
             <span aria-hidden="true">×</span></a>
     </nb-card-header>
@@ -19,7 +19,7 @@
         </form>
 
     </nb-card-body>
-    <nb-card-footer *ngIf="!proposal">
+    <nb-card-footer>
 
             <div class="col-md-12">
                 <button class="float-right" nbButton (click)="save()" >save</button>
