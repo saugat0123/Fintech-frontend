@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company.component';
+import { LetterOfContinuityComponent } from './letter-of-continuity.component';
 
 describe('LetterOfContinuityCompanyComponent', () => {
-  let component: LetterOfContinuityCompanyComponent;
-  let fixture: ComponentFixture<LetterOfContinuityCompanyComponent>;
+  let component: LetterOfContinuityComponent;
+  let fixture: ComponentFixture<LetterOfContinuityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LetterOfContinuityCompanyComponent ]
+      declarations: [ LetterOfContinuityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LetterOfContinuityCompanyComponent);
+    fixture = TestBed.createComponent(LetterOfContinuityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -146,11 +146,6 @@
                                                [customerLoanId]="customerLoanId">
                 </app-power-of-attorney-company>
 
-                <app-letter-of-continuity-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_PROPRIETORSHIP"
-                                               [cadData]="cadData"
-                                               [documentId]="documentId"
-                                               [customerLoanId]="customerLoanId">
-                </app-letter-of-continuity-proprietorship>
                 <app-general-letter-of-trust-receipt-proprietorship *ngSwitchCase="nabilCadTemplate.GENERAL_LETTER_OF_TRUST_RECEIPT_PROPRIETORSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
@@ -171,11 +166,7 @@
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-land-sub-ordinate-proprietorship>
-                <app-letter-of-continuity-partnership *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
-                                               [cadData]="cadData"
-                                               [documentId]="documentId"
-                                               [customerLoanId]="customerLoanId">
-                </app-letter-of-continuity-partnership>
+
                 <app-general-letter-of-trust-receipt-partnership *ngSwitchCase="nabilCadTemplate.GENERAL_LETTER_OF_TRUST_RECEIPT_PARTNERSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
@@ -196,11 +187,26 @@
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-land-sub-ordinate-partnership>
-                <app-letter-of-continuity-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_COMPANY"
+                <app-letter-of-continuity *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_COMPANY"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
-                </app-letter-of-continuity-company>
+                </app-letter-of-continuity>
+                <app-letter-of-continuity *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
+                                          [cadData]="cadData"
+                                          [documentId]="documentId"
+                                          [customerLoanId]="customerLoanId">
+                </app-letter-of-continuity>
+                <app-letter-of-continuity *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_PROPRIETORSHIP"
+                                          [cadData]="cadData"
+                                          [documentId]="documentId"
+                                          [customerLoanId]="customerLoanId">
+                </app-letter-of-continuity>
+                <app-letter-of-continuity *ngSwitchCase="nabilCadTemplate.LETTER_OF_CONTINUITY_INDIVIDUAL"
+                                          [cadData]="cadData"
+                                          [documentId]="documentId"
+                                          [customerLoanId]="customerLoanId">
+                </app-letter-of-continuity>
                 <app-general-letter-of-trust-receipt-company *ngSwitchCase="nabilCadTemplate.GENERAL_LETTER_OF_TRUST_RECEIPT_COMPANY"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
