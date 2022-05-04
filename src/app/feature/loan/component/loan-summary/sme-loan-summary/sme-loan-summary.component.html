@@ -11,21 +11,21 @@
                                 <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <app-role-heirarchy-chain [refId]="id" [loanDataHolder]="loanDataHolder"
-                                        [branchId]="loanDataHolder?.branch?.id"
-                                        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
                     </div>
                     <div class="mt-2"
-                        *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                         *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
                     loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
                     loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small" status="primary"
-                            nbTooltip="Configure Approval Role Hierarchy"
-                            (click)="SetRoleHierarchy(loanDataHolder?.id)">
+                                nbTooltip="Configure Approval Role Hierarchy"
+                                (click)="SetRoleHierarchy(loanDataHolder?.id)">
                             Set Role Hierarchy
                         </button>
                     </div>
@@ -35,19 +35,19 @@
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
-                class="row text-success cursor disable-print">
+                 class="row text-success cursor disable-print">
                 <div class="col-md-6 text-left">
                     <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId,loanDataHolder?.loan?.id)"
-                        *ngIf="loanDataHolder?.parentId !== null"
-                        class="text-left">{{loanType[loanDataHolder?.loanType]}} From <i class="p-1 fa fa-eye"></i></a>
+                       *ngIf="loanDataHolder?.parentId !== null"
+                       class="text-left">{{loanType[loanDataHolder?.loanType]}} From <i class="p-1 fa fa-eye"></i></a>
                 </div>
                 <div class="col-md-6 text-right">
                     <a (click)="renewedOrCloseFrom(loanDataHolder?.childId,loanDataHolder?.loan?.id)"
-                        *ngIf="loanDataHolder?.childId !== null"
-                        class="text-right">{{loanType[loanDataHolder?.loanType]}} to <i class="p-1 fa fa-eye"></i></a>
+                       *ngIf="loanDataHolder?.childId !== null"
+                       class="text-right">{{loanType[loanDataHolder?.loanType]}} to <i class="p-1 fa fa-eye"></i></a>
                 </div>
                 <div class="col-md-12">
-                    <hr />
+                    <hr/>
                 </div>
             </div>
             <div class="row">
@@ -58,7 +58,7 @@
                             <div class="mt-3 mb-1">
                                 <strong> Priority:</strong>
                                 <span class="badge badge-danger ml-1"
-                                    style="font-size: 13px;line-height: 1.9em;line-height: 1.9em">
+                                      style="font-size: 13px;line-height: 1.9em;line-height: 1.9em">
                                     {{loanDataHolder?.priority?.toString() | titlecase}}</span>
                             </div>
                             <div class="mt-2">
@@ -80,7 +80,7 @@
                                 <ng-container *ngIf="isDetailedView; else executiveSummary">
                                     <div>
                                         <span class="report-header-sub-heading"> Credit Appraisal </span>
-                                        <br />
+                                        <br/>
                                         <span class="report-header-sub-heading"> for </span>
                                     </div>
                                     <div *ngIf="!isJointInfo">
@@ -97,7 +97,7 @@
                                             <ng-container *ngFor="let info of jointCustomer">
                                                 <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
                                                     loanDataHolder?.companyInfo?.companyName :
-                                                    info?.customerName}}</span><br />
+                                                    info?.customerName}}</span><br/>
                                             </ng-container>
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-md-3 text-right">
                             <img class="report-log img-thumbnail border-0" alt="logo"
-                                src="../../../../../assets/img/logo.png">
+                                 src="../../../../../assets/img/logo.png">
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
             <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
                 <div class="col-md-6">
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
-                        (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
+                            (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
                 </div>
             </div>
 
@@ -157,7 +157,7 @@
                                 <div class="row">
                                     <div class="col-md-6 text-right">
                                         <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
-                                            [obtainedValue]="crgGammaScore" gaugeIdentifier="crg-gamma">
+                                                         [obtainedValue]="crgGammaScore" gaugeIdentifier="crg-gamma">
                                         </app-gauge-chart>
                                     </div>
                                     <div class="col-md-6 gauge-label-padding">
@@ -183,7 +183,7 @@
             </ng-container>
             <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
                 <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
-                                           [customerAllLoanList] = "customerAllLoanList"
+                                           [customerAllLoanList]="customerAllLoanList"
                                            [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
@@ -191,18 +191,20 @@
                     <div class="col-md-12">
                         <ol>
                             <li>
-                                <p><strong>PROPOSAL:</strong> To seek approval for providing <b>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}</b>
-                                    of NRP <b>{{totalProposedLimit}}</b> to M/s <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
+                                <p><strong>PROPOSAL:</strong> To seek approval for providing
+                                    <b>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}</b>
+                                    of NRP <b>{{totalProposedLimit}}</b> to M/s
+                                    <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
                             </li>
                             <li>
                                 <p><strong>APPROVING AUTHORITY:</strong>
                                     <app-role-heirarchy-chain
-                                               [refId]="id" [loanDataHolder]="loanDataHolder"
-                                               [branchId]="loanDataHolder?.branch?.id"
-                                               [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                                               [loanFlags]="loanDataHolder?.loanHolder?.loanFlags">
+                                            [refId]="id" [loanDataHolder]="loanDataHolder"
+                                            [branchId]="loanDataHolder?.branch?.id"
+                                            [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                            [loanFlags]="loanDataHolder?.loanHolder?.loanFlags">
                                     </app-role-heirarchy-chain>
-                                    </p>
+                                </p>
                             </li>
                             <li>
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
@@ -238,20 +240,25 @@
                                 <app-proposal-view [proposalData]="loanDataHolder?.proposal"
                                                    [loanDataHolder]="loanDataHolder"
                                                    [customerAllLoanList]="customerAllLoanList"></app-proposal-view>
-<!--                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>-->
+                                <!--                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>-->
                             </li>
                             <li *ngIf="loanDataHolder?.security">
                                 <strong>SECURITY ARRANGEMENT</strong>
                                 <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 
                                 <!--                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"-->
-<!--                                                   [securityId]="loanDataHolder?.security?.id"-->
-<!--                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"-->
-<!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
-<!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
+                                <!--                                                   [securityId]="loanDataHolder?.security?.id"-->
+                                <!--                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"-->
+                                <!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
+                                <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
+                            </li>
+                            <!--                            Insurance Deatils-->
+                            <li *ngIf="loanDataHolder?.insurance">
+                                <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                             </li>
                             <li *ngIf="loanDataHolder?.loanHolder?.financial">
-                                <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)
+                                <strong>KEY FINANCIAL FIGURES</strong> (audited for last 1 year, estimated for current
+                                year, and projected up to loan tenure)
                                 <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
                                                     [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
                             </li>
@@ -265,17 +272,18 @@
                                 <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                                  [fiscalYears]="fiscalYearArray"
                                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-<!--                                <app-sana-assessment-for-requirement-of-fund [loanDataHolder]="loanDataHolder"></app-sana-assessment-for-requirement-of-fund>-->
+                                <!--                                <app-sana-assessment-for-requirement-of-fund [loanDataHolder]="loanDataHolder"></app-sana-assessment-for-requirement-of-fund>-->
                             </li>
                             <li>
                                 <!-- banking relationship -->
                                 <p><strong>BANKING RELATIONSHIP:</strong></p>
-                                <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
-                                                                               [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
-                                                                               [proposal]="loanDataHolder?.proposal"
-                                                                               [cicl]="loanDataHolder?.loanHolder?.cicl"
-                                                                               [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
-<!--                                <app-upto-banking-relationship></app-upto-banking-relationship>-->
+                                <app-above-banking-arrangement-of-the-customer
+                                        *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                        [proposal]="loanDataHolder?.proposal"
+                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+                                <!--                                <app-upto-banking-relationship></app-upto-banking-relationship>-->
                             </li>
                             <li>
                                 <!-- other charges -->
@@ -288,36 +296,40 @@
                             </li>
                             <li>
                                 <p><strong>DISBURSEMENT MODALITY:</strong></p>
-                                <app-sana-disbursement-modality [loanDataHolder]="loanDataHolder"></app-sana-disbursement-modality>
+                                <app-sana-disbursement-modality
+                                        [loanDataHolder]="loanDataHolder"></app-sana-disbursement-modality>
                             </li>
                             <li>
                                 <p><strong>
                                     REPAYMENT MODALITY:
                                 </strong></p>
-                                <app-sana-repayment-modality [loanDataHolder]="loanDataHolder"></app-sana-repayment-modality>
+                                <app-sana-repayment-modality
+                                        [loanDataHolder]="loanDataHolder"></app-sana-repayment-modality>
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <app-waiver-deviations-and-deferral [loanDataHolder]="loanDataHolder"></app-waiver-deviations-and-deferral>
+                                <app-waiver-deviations-and-deferral
+                                        [loanDataHolder]="loanDataHolder"></app-waiver-deviations-and-deferral>
                             </li>
                             <li>
-                                <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
+                                <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong>
+                                </p>
                                 <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
                             </li>
                             <li>
                                 <p><strong>MIS/NRB REPORTING</strong></p>
                                 <app-report-summary [approved]="false"
                                                     [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-<!--                                <app-sana-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-sana-mis-nrb-reporting>-->
+                                <!--                                <app-sana-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-sana-mis-nrb-reporting>-->
                             </li>
                             <li>
                                 <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
-<!--                                <app-conlusion-review-table></app-conlusion-review-table>-->
+                                <!--                                <app-conlusion-review-table></app-conlusion-review-table>-->
                                 <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                             </li>
                         </ol>
-<!--                        <h5>Annexure - 1</h5>-->
-<!--                        <app-credit-card-requirement></app-credit-card-requirement>-->
+                        <!--                        <h5>Annexure - 1</h5>-->
+                        <!--                        <app-credit-card-requirement></app-credit-card-requirement>-->
                     </div>
                 </div>
             </ng-container>

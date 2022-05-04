@@ -37,6 +37,8 @@ export class InstitutionalCrgGammaComponent implements OnInit {
     grading: string;
     formDataForEdit;
     customerInfoId: any;
+    customerFinancialData: any;
+    fiscalYears: Array<any> =  new Array<any>();
 
     constructor(
         private crgGroupService: CrgGroupService,
@@ -68,6 +70,7 @@ export class InstitutionalCrgGammaComponent implements OnInit {
                     this.loanFormService.detail(this.customerInfoId).subscribe(rs => {
                         this.formData = rs.detail.crgGamma;
                         this.buildFormAndCheckEdit();
+                        this.getCustomerFinancialData(this.customerInfoId);
                     });
                 }
             });
@@ -76,6 +79,7 @@ export class InstitutionalCrgGammaComponent implements OnInit {
             console.log(error);
             this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
         });
+
 
     }
 
@@ -144,6 +148,19 @@ export class InstitutionalCrgGammaComponent implements OnInit {
             this.grading = 'Not Eligible for new loans';
         }
         this.creditRiskGrading.get('grade').patchValue(this.grading);
+    }
+
+    // things to do --- financial mapping with institutional CRG
+    getCustomerFinancialData(id: any): void
+    {
+        this.loanFormService.detail(id).subscribe(res=>
+        {
+            console.log(JSON.parse(res.detail.financial.data));
+            const keyIndicatorsData = JSON.parse(res.detail.financial.data);
+            this.fiscalYears = keyIndicatorsData.fiscalYear;
+            console.log(this.fiscalYears[0]);
+
+        })
     }
 
     onSubmit() {

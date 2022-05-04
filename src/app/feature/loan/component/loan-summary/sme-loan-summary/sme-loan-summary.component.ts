@@ -253,6 +253,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+
   }
 
   ngOnDestroy(): void {
