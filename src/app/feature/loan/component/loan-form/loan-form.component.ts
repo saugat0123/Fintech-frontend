@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -563,6 +563,7 @@ export class LoanFormComponent implements OnInit {
 
     if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
       if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
+        this.spinner.hide();
         this.proposalDetail.scrollToFirstInvalidControl();
         this.proposalDetail.submitted = true;
         return true;

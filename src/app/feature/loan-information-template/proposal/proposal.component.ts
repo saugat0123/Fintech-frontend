@@ -329,7 +329,7 @@ export class ProposalComponent implements OnInit {
             repaymentModePrincipal: [undefined],
             disbursementCriteria: [undefined, [Validators.required]],
             repayment: [undefined],
-            borrowerInformation: [undefined, [Validators.required]],
+            borrowerInformation: [undefined],
             interestAmount: [undefined],
             existingLimit: [undefined],
             outStandingLimit: [undefined],
