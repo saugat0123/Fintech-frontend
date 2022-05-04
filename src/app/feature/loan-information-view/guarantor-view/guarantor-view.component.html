@@ -1,100 +1,75 @@
 <div *ngIf="guarantorData?.length > 0" class="row">
-  <div class="col-md-12 text-center">
-    <p class="float-left"><strong>Guarantor Details</strong></p>
-    <table *ngFor="let guarantor of guarantorData; let i= index"
-           class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
-      <thead>
-      <tr>
-        <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th colspan="2">Name</th>
-        <th>CitizenNumber</th>
-        <td>Net Worth</td>
-        <th>Issued Year(AD/BS)</th>
-        <th>Issued Place</th>
-        <th>Address 1</th>
-        <th>Address 2</th>
-        <th>Province</th>
-        <th>District</th>
+    <div class="col-md-12 text-center">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+            <p class="text-center"><strong>Personal Guarantor Details</strong></p>
+            <thead>
+            <!--      <tr *ngFor="let guarantor of personalGuarantorData; let i= index">-->
+            <!--        <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>-->
+            <!--      </tr>-->
+            <tr class="text-white sb-bg-dark">
+                <th class="sn" rowspan="2">SN</th>
+                <th rowspan="2">Guarantor Name</th>
+                <th rowspan="2">Relation/Position</th>
+                <th colspan="2">CitizenNumber</th>
+                <th rowspan="2">Guarantor Amount</th>
+                <th colspan="2">RNW*</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>No.</th>
+                <th>District</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let guarantor of personalGuarantorData; let i= index">
+            <tr>
+                <td class="text-center pr-1 pl-1">{{i + 1}}</td>
+                <td class="text-left pl-1">{{guarantor?.name}}</td>
+                <td class="text-left pr-1">{{guarantor?.relationship}}</td>
+                <td class="text-left pl-1">{{guarantor?.citizenNumber}}</td>
+                <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
+                <td class="text-right pr-1">rs. {{guarantor?.guaranteeAmount | currencyFormatter}}</td>
+                <td class="text-right pr-1">rs. {{guarantor?.netWorth | currencyFormatter}}</td>
+                <td class="text-left pl-1">{{guarantor?.rnwDate ? (guarantor?.rnwDate | date) : 'NA'}}
+                    ({{guarantor?.rnwDate ? (guarantor?.rnwDate | engNepDate: false) : 'NA'}})
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td class="text-left pl-1" colspan="2">{{guarantor?.name}}</td>
-        <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.netWorth}}</td>
-        <td class="text-left pl-1">{{guarantor?.issuedYear | date}} ({{guarantor?.issuedYear | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
-        <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>
-        <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>
-        <td class="text-left pl-1">{{guarantor?.province?.name}}</td>
-        <td class="text-left pl-1">{{guarantor?.district?.name}}</td>
-      </tr>
-      </tbody>
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>Address as per Legal Document</th>
-        <th>Municipalities</th>
-        <th>Ward Number</th>
-        <th>Street Name</th>
-        <th>Contact Number</th>
-        <th>Father Name</th>
-        <th>Grand Father Name</th>
-        <td>Mother Name</td>
-        <td>Spouse Name</td>
-        <td>Father-in-Law Name</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-
-        <td class="text-left pl-1">{{guarantor?.guarantorLegalDocumentAddress}}</td>
-
-        <td class="text-left pl-1">{{guarantor?.municipalities?.name}}</td>
-        <td class="text-right pr-1">{{guarantor?.wardNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.streetName}}</td>
-        <td class="text-right pr-1">{{guarantor?.contactNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.fatherName}}</td>
-        <td class="text-left pl-1">{{guarantor?.grandFatherName}}</td>
-        <td class="text-left pl-1">{{guarantor?.motherName}}</td>
-        <td class="text-left pl-1">{{guarantor?.spouseName}}</td>
-        <td class="text-left pl-1">{{guarantor?.fatherInLaw}}</td>
-
-      </tr>
-      </tbody>
-      <tr class="text-white sb-bg-dark">
-        <td>Profession</td>
-        <td>Date of Birth (AD/BS)</td>
-        <th>Relationship</th>
-        <th>Net Worth</th>
-        <th>Temporary Address 1</th>
-        <th>Temporary Address 2</th>
-        <th>Temporary Province</th>
-        <th>Temporary District</th>
-        <th>Temporary Municipalities</th>
-        <th>Temporary Ward Number</th>
-
-      </tr>
-      <tr>
-        <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
-        <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}} ({{guarantor?.dateOfBirth | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{guarantor?.relationship}}</td>
-        <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
-        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>
-        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>
-        <td class="text-left pl-1">{{guarantor?.provinceTemporary?.name}}</td>
-        <td class="text-left pl-1">{{guarantor?.districtTemporary?.name}}</td>
-        <td class="text-left pl-1">{{guarantor?.municipalitiesTemporary?.name}}</td>
-        <td class="text-right pr-1">{{guarantor?.wardNumberTemporary}}</td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <td colspan="10">BackGround</td>
-      </tr>
-      <tr>
-        <th colspan="10" class="text-left pl-1">{{guarantor?.background}}</th>
-      </tr>
-    </table>
-  </div>
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+            <p class="text-center"><strong>Corporate Guarantor Details</strong></p>
+            <thead>
+            <!--      <tr>-->
+            <!--        <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>-->
+            <!--      </tr>-->
+            <tr class="text-white sb-bg-dark">
+                <th class="sn" rowspan="2">SN</th>
+                <th rowspan="2">Name of Corporate Guarantors</th>
+                <th rowspan="2">Registration No.</th>
+                <th rowspan="2">PAN/VAT No.</th>
+                <th rowspan="2">Guarantor Amount</th>
+                <th colspan="2">RNW*</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let guarantor of corporateGuarantorData; let ii= index">
+            <tr>
+                <td class="text-center pr-1 pl-1">{{ii + 1}}</td>
+                <td class="text-left pl-1">{{guarantor?.name}}</td>
+                <td class="text-left pl-1">{{guarantor?.registrationNumber}}</td>
+                <td class="text-left pl-1">{{guarantor?.panNumber}}</td>
+                <td class="text-right pr-1">Rs. {{guarantor?.guaranteeAmount | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
+                <td class="text-left pl-1">{{guarantor?.rnwDate ? (guarantor?.rnwDate | date) : 'NA'}}
+                    ({{guarantor?.rnwDate ? (guarantor?.rnwDate | engNepDate: false) : 'NA'}})
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        `
+    </div>
 </div>
