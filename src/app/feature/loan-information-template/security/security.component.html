@@ -24,7 +24,8 @@
         </app-security-initial-form>
     </div>
     <hr>
+<!--    *ngIf="!submitted || !submittedCheckFromParent"-->
     <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-        <button (click)="onSubmit()" *ngIf="!submitted || !submittedCheckFromParent" nbButton>save</button>
+        <button (click)="onSubmit()"  nbButton>save</button>
     </div>
 </div>
