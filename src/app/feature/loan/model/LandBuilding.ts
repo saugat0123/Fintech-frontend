@@ -16,7 +16,7 @@ export class LandBuilding extends BaseEntity {
     district: District;
     municipalityVdc: MunicipalityVdc;
     geoLocation: string;
-    valuators: Array<Valuator>;
+    buildingValuator: Valuator;
     addressLine1: string;
     addressLine2: string;
     registerOffice: string;

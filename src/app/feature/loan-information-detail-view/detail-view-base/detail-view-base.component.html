@@ -5,6 +5,7 @@
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </div>
+    <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 <app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"

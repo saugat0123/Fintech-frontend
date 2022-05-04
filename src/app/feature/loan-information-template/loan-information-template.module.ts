@@ -57,6 +57,7 @@ import { FinancialUploadViewComponent } from './financial/financial-upload-view/
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {SecurityApprovedFormComponent} from './security/security-approved-form/security-approved-form.component';
+import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -93,7 +94,8 @@ const COMPONENTS = [
     SecurityTableComponent,
     CreateDocumentComponent,
     ReviewDateComponent,
-    MultiBankingComponent
+    MultiBankingComponent,
+    SecurityTaggedViewComponent
 ];
 
 
