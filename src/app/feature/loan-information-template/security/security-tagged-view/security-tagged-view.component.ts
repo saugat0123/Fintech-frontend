@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../loan/model/loanData';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-security-tagged-view',
@@ -36,6 +37,8 @@ export class SecurityTaggedViewComponent implements OnInit {
   //   });
   // }
   checkIndividualSecurity(array: Array<any>) {
-    return array.length > 0;
+    if (!ObjectUtil.isEmpty(array)) {
+      return array.length > 0;
+    }
   }
 }

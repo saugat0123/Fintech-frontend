@@ -31,7 +31,9 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-      this.reviewDate = JSON.parse(this.companyJsonData.reviewDate);
+      if (!ObjectUtil.isEmpty(this.companyJsonData.reviewDate)) {
+        this.reviewDate = JSON.parse(this.companyJsonData.reviewDate);
+      }
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
       this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);

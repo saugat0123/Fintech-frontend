@@ -52,9 +52,10 @@
         <p class="text-uppercase"><strong>Inspection</strong></p>
         <app-above-inspection></app-above-inspection>
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.financial">
         <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
-        <app-above-financial-highlights></app-above-financial-highlights>
+        <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
+                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
     </li>
     <li>
         <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
