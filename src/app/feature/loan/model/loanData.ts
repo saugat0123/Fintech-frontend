@@ -36,6 +36,8 @@ import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 import {CustomerLoanDto} from './customerLoanDto';
+import {Auto} from './Auto';
+import {LandBuilding} from './LandBuilding';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -102,4 +104,7 @@ export class LoanDataHolder extends BaseEntity {
     customerLoanDtoList: Array<CustomerLoanDto>;
     collateralSiteVisits: Array<CollateralSiteVisitDto>;
     zipPath: String;
+    autos: Array<Auto> = [];
+    landBuildings: Array<LandBuilding> = [];
+    selectedArray: string;
 }

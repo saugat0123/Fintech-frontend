@@ -259,7 +259,9 @@
                       [calendarType]="calendarType"
                       [fromProfile]="true"
                       [securityValue]="customerInfo?.security"
-                      [shareSecurity]="customerInfo?.shareSecurity"></app-security>
+                      [customerType]="customerInfo?.customerType"
+                      [shareSecurity]="customerInfo?.shareSecurity"
+                      [customerInfo]="customerInfo"></app-security>
             </nb-card-body>
           </nb-card>
         </ng-template>

@@ -11,7 +11,9 @@
                    [customerAllLoanList]="customerAllLoanList"
                    [proposalData]="proposalData"
                    [loanDataHolder]="loanDataHolder"></app-proposal-view>
-
+<div>
+    <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+</div>
 <div *ngIf="productUtils.CBS_ENABLE">
     <div class="row mt-5">
         <div class="col-md-12">

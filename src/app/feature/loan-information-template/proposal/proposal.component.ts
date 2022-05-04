@@ -22,6 +22,7 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 
 @Component({
   selector: 'app-proposal',
@@ -40,7 +41,9 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
+    @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
+    proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: any;
@@ -152,7 +155,6 @@ export class ProposalComponent implements OnInit {
     ngOnInit() {
         this.configEditor();
         this.buildForm();
-        console.log(this.loan, 'LOAN');
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
@@ -243,8 +245,11 @@ export class ProposalComponent implements OnInit {
             .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
         this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
-        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-            .patchValue(Number(value)));
+        this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
+            this.proposalForm.get('principalAmount')
+                .patchValue(Number(value));
+            this.proposedLimit = this.proposalForm.get('proposedLimit').value;
+        });
     }
 
     getLoanData() {
@@ -436,15 +441,13 @@ export class ProposalComponent implements OnInit {
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
 
-    setIndividualCrgGamma(crgGamma: any): void
-    {
+    setIndividualCrgGamma(crgGamma: any): void {
         this.loan.crgGamma = crgGamma;
         console.log(this.loan, 'CRGDATA');
     }
 
     onSubmit() {
-        if (this.customerType === 'INDIVIDUAL')
-        {
+        if (this.customerType === 'INDIVIDUAL') {
             this.crgGammaComponent.onSubmit();
         }
         // Proposal Form Data--
@@ -493,6 +496,7 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
+            this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
@@ -779,6 +783,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').clearValidators();
       this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
+
     }
   }
 
@@ -934,10 +939,6 @@ export class ProposalComponent implements OnInit {
     });
   }
 
-    openCadSetup(data) {
-        this.nbService.open(data, {size: 'xl', backdrop: true});
-    }
-
     getData(data) {
         this.files = data;
         this.proposalForm.patchValue({
@@ -947,5 +948,9 @@ export class ProposalComponent implements OnInit {
 
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;
+    }
+
+    setLoanHolder(loan: LoanDataHolder) {
+        this.loan = loan;
     }
 }

@@ -339,10 +339,12 @@
                             </li>
                             <li *ngIf="loanDataHolder?.security">
                                 <strong>SECURITY ARRANGEMENT</strong>
-                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"
-                                                   [securityId]="loanDataHolder?.security?.id"
-                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"
-                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+                                <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
+
+                                <!--                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"-->
+<!--                                                   [securityId]="loanDataHolder?.security?.id"-->
+<!--                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"-->
+<!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
 <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
                             <li>
