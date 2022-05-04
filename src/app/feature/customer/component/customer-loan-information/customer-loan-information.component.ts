@@ -448,23 +448,41 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
-        if(!ObjectUtil.isEmpty(data.cibRemark)) {
+        if (!ObjectUtil.isEmpty(data.cibRemark) && JSON.parse(data.cibRemark).checked) {
             if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const jointInfo = JSON.parse(this.customer.jointInfo);
                 jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
                 this.customer.jointInfo = JSON.stringify(jointInfo);
             }
-            if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            if (this.customer.customerType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
                 bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
                 this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
             }
-            this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
+            if (this.customerInfo.customerType === 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+                this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
+            }
         }
         this.customer.clientType = this.customerInfo.clientType;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
-        this.customerService.save(this.customer).subscribe(res => {
+        if (JSON.parse(data.cibRemark).checked) {
+            this.customerService.save(this.customer).subscribe(res => {
+                this.ciclResponse = data;
+                this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
+                    .subscribe(() => {
+                        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
+                        // this.itemCicl.close();
+                        this.nbDialogRef.close();
+                        this.triggerCustomerRefresh.emit(true);
+                        this.spinner.hide();
+                    }, error => {
+                        this.spinner.hide();
+                        console.error(error);
+                        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
+                    });
+            });
+        } else {
             this.ciclResponse = data;
             this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
                 .subscribe(() => {
@@ -478,7 +496,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                     console.error(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
                 });
-        });
+        }
     }
 
     saveIncomeFromAccount(data: IncomeFromAccount) {
