@@ -1175,7 +1175,8 @@
                                                   #companyOtherDetailComponent></app-company-other-detail>
                         <hr>
                         <div>
-                            <h5>6. BUSINESS RELATED INFORMATION</h5>
+                            <h5>6. {{(customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION) ?
+                                'BUSINESS RELATED INFORMATION' : 'BACKGROUND INFORMATION' }}</h5>
                             <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]">6.1 The Customer:</h6>
                         </div>
                         <ng-container *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]; else smeUpToTen">

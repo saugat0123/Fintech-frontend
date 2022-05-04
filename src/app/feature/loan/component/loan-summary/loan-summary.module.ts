@@ -35,7 +35,6 @@ import { CreditFacilityReportComponent } from './credit-facility-report/credit-f
 import { SmeLoanSummaryComponent } from './sme-loan-summary/sme-loan-summary.component';
 import { CurrentStatusTableComponent } from './sme-loan-summary/current-status-table/current-status-table.component';
 import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-review-table/conlusion-review-table.component';
-import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
 import { ExecutiveSummarySmeComponent } from './sme-loan-summary/executive-summary-sme/executive-summary-sme.component';
 import { AboveTenMillionComponent } from './sme-loan-summary/above-ten-million/above-ten-million.component';
 import { AboveBackgroundOfCustomerComponent } from './sme-loan-summary/above-ten-million/above-background-of-customer/above-background-of-customer.component';
@@ -50,7 +49,6 @@ import { AbovePurposeJustificationForProposalComponent } from './sme-loan-summar
 import { AboveBusinessRelatedInformationComponent } from './sme-loan-summary/above-ten-million/above-business-related-information/above-business-related-information.component';
 import { AboveBankSolComponent } from './sme-loan-summary/above-ten-million/above-bank-sol/above-bank-sol.component';
 import { AboveInspectionComponent } from './sme-loan-summary/above-ten-million/above-inspection/above-inspection.component';
-import { AboveFinancialHighlightsComponent } from './sme-loan-summary/above-ten-million/above-financial-highlights/above-financial-highlights.component';
 import { AboveAssessmentOfFacilitiesRequirementComponent } from './sme-loan-summary/above-ten-million/above-assessment-of-facilities-requirement/above-assessment-of-facilities-requirement.component';
 import { AboveSecurityArrangementComponent } from './sme-loan-summary/above-ten-million/above-security-arrangement/above-security-arrangement.component';
 import { AboveGroupExposureWithCcblComponent } from './sme-loan-summary/above-ten-million/above-group-exposure-with-ccbl/above-group-exposure-with-ccbl.component';
@@ -81,7 +79,6 @@ import { UptoCurrentStatusAndPresentProposalComponent } from './sme-loan-summary
 import { SanaByabasayiSaralKarjaComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-byabasayi-saral-karja.component';
 import { SanaCurrentStatusAndPresentProposalComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-current-status-and-present-proposal/sana-current-status-and-present-proposal.component';
 import { SanaSecurityArrangementComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-security-arrangement/sana-security-arrangement.component';
-import { SanaKeyFinancialFigureComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-key-financial-figure/sana-key-financial-figure.component';
 import { SanaAssessmentForRequirementOfFundComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-assessment-for-requirement-of-fund/sana-assessment-for-requirement-of-fund.component';
 import { SanaOtherChargesComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-other-charges/sana-other-charges.component';
 import { SanaCovenantsComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-covenants/sana-covenants.component';
@@ -126,7 +123,6 @@ const ENTRY_COMPONENTS = [];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    KeyFinancialFiguresComponent,
     ExecutiveSummarySmeComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
@@ -140,7 +136,6 @@ const ENTRY_COMPONENTS = [];
     AboveBusinessRelatedInformationComponent,
     AboveBankSolComponent,
     AboveInspectionComponent,
-    AboveFinancialHighlightsComponent,
     AboveAssessmentOfFacilitiesRequirementComponent,
     AboveSecurityArrangementComponent,
     MGroupSummaryComponent,
@@ -151,7 +146,6 @@ const ENTRY_COMPONENTS = [];
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
     ConlusionReviewTableComponent,
-    KeyFinancialFiguresComponent,
     ExecutiveSummarySmeComponent,
     AboveTenMillionComponent,
     AboveBackgroundOfCustomerComponent,
@@ -189,7 +183,6 @@ const ENTRY_COMPONENTS = [];
     SanaByabasayiSaralKarjaComponent,
     SanaCurrentStatusAndPresentProposalComponent,
     SanaSecurityArrangementComponent,
-    SanaKeyFinancialFigureComponent,
     SanaAssessmentForRequirementOfFundComponent,
     SanaOtherChargesComponent,
     SanaCovenantsComponent,

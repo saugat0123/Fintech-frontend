@@ -233,50 +233,11 @@
             </tr>
         </table>
     </div>
-    <p><strong>7.1 DETAIL OF INSURANCE:</strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md sb-small">
-        <thead>
-        <tr class="sb-bg-dark text-white">
-            <th>Detail of Assets</th>
-            <th>Insured Sum
-                <i>In Millions</i>
-            </th>
-            <th>Expiry Date</th>
-            <th>Name of Insurance Co.</th>
-            <th>Risk covered</th>
-        </tr>
-        </thead>
-        <tbody *ngFor="let insurance of insuranceList">
-        <tr *ngIf="insurance.assetInsured === 'Stock'">
-            <td>Stocks</td>
-            <td>{{insurance?.insuredAmount}}</td>
-            <td>{{insurance?.expiryDate | date}}</td>
-            <td>{{insurance?.company}}</td>
-            <td>{{insurance?.policyType}}</td>
-        </tr>
-        <tr *ngIf="insurance.assetInsured === 'Building & Construction'">
-            <td>Building</td>
-            <td>{{insurance?.insuredAmount}}</td>
-            <td>{{insurance?.expiryDate | date}}</td>
-            <td>{{insurance?.company}}</td>
-            <td>{{insurance?.policyType}}</td>
-        </tr>
-        <tr *ngIf="insurance.assetInsured === 'Machineries/Equipment'">
-            <td>Machinery</td>
-            <td>{{insurance?.insuredAmount}}</td>
-            <td>{{insurance?.expiryDate | date}}</td>
-            <td>{{insurance?.company}}</td>
-            <td>{{insurance?.policyType}}</td>
-        </tr>
-        <tr *ngIf="insurance.assetInsured === 'Vehicle'">
-            <td>Equipment</td>
-            <td>{{insurance?.insuredAmount}}</td>
-            <td>{{insurance?.expiryDate | date}}</td>
-            <td>{{insurance?.company}}</td>
-            <td>{{insurance?.policyType}}</td>
-        </tr>
-        </tbody>
-    </table>
+   <div>
+       <app-insurance-summary [insurance]="insuranceList">
+
+       </app-insurance-summary>
+   </div>
     <p class="text-justify">
         Comments: The insured value of assets (fixed and/or current) should be at 100% of value
         of such assets or up to 125% of loan amount, whichever is high. In case of building, the
