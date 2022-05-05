@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
-  selector: 'app-hire-purchase-company',
-  templateUrl: './hire-purchase-company.component.html',
-  styleUrls: ['./hire-purchase-company.component.scss']
+  selector: 'app-hire-purchase',
+  templateUrl: './hire-purchase.component.html',
+  styleUrls: ['./hire-purchase.component.scss']
 })
-export class HirePurchaseCompanyComponent implements OnInit {
+export class HirePurchaseComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
