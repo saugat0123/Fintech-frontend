@@ -311,9 +311,8 @@
                                         [loanDataHolder]="loanDataHolder"></app-waiver-deviations-and-deferral>
                             </li>
                             <li>
-                                <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong>
-                                </p>
-                                <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
+                                <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
+                                <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
                             </li>
                             <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
                                 <p><strong>MIS/NRB REPORTING</strong></p>
