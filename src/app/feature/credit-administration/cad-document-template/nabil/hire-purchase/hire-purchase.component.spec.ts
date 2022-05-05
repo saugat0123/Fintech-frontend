@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HypoOfStockComponent } from './hypo-of-stock.component';
+import { HirePurchaseComponent } from './hire-purchase.component';
 
-describe('HypoOfStockComponent', () => {
-  let component: HypoOfStockComponent;
-  let fixture: ComponentFixture<HypoOfStockComponent>;
+describe('HirePurchaseCompanyComponent', () => {
+  let component: HirePurchaseComponent;
+  let fixture: ComponentFixture<HirePurchaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HypoOfStockComponent ]
+      declarations: [ HirePurchaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HypoOfStockComponent);
+    fixture = TestBed.createComponent(HirePurchaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 
@@ -35,6 +35,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   nrbDeclarationForm: boolean;
   riskTakerDetail: boolean;
   sharePledgeConfirmation: boolean;
+  freeTextVal;
   isPODSelected: boolean;
   constructor(
       private formBuilder: FormBuilder,
@@ -72,7 +73,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       guaranteeAmount: [undefined],
       guaranteeAmountInWords: [undefined],
       insuranceAmount: [undefined],
-      freeText2: [undefined],
+      freeText2: this.formBuilder.array([]),
       mortgageDeedAmountInFigure: [undefined]
     });
   }
@@ -95,6 +96,33 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
       totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? (totalLoanAmount + totalLoanDeed) : '',
     });
+    if (!ObjectUtil.isEmpty(this.cadData) &&
+    !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+        this.freeTextVal = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+        console.log('Free Text Val:', this.freeTextVal);
+        if (!ObjectUtil.isEmpty(this.freeTextVal) &&
+            !ObjectUtil.isEmpty(this.freeTextVal.section18)) {
+          for (let val = 0; val < this.freeTextVal.section18.length; val++) {
+            this.addTextArea();
+          }
+          for (let val = 0; val < this.freeTextVal.section18.length; val++) {
+            this.form.get(['freeText2', val, 'additionalGuarantorDetails']).patchValue(
+                this.freeTextVal.section18[val].additionalGuarantorDetails);
+          }
+        }
+      }
+    }
+  }
+  addTextArea() {
+    (this.form.get('freeText2') as FormArray).push(
+        this.formBuilder.group({
+          additionalGuarantorDetails: [undefined]
+        }));
+  }
+
+  removeAtIndex(i: number) {
+    (this.form.get('freeText2') as FormArray).removeAt(i);
   }
   requiredDocument() {
     const temp = this.initialInfo;

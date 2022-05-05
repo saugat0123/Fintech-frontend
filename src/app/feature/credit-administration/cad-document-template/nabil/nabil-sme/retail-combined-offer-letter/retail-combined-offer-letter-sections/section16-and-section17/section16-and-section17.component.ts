@@ -18,7 +18,8 @@ export class Section16AndSection17Component implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      loanCommitmentCheck: [undefined],
+      crossDefaultCheck: [undefined]
     });
   }
   showDefaultCheck(data) {

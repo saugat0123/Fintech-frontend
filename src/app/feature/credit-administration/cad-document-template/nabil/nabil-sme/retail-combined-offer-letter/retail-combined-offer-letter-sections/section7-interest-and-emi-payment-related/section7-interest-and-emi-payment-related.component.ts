@@ -17,6 +17,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     isCaseBasis: boolean;
     isPODSelected: boolean;
     isEducationSelected: boolean;
+    tempInformation;
 
     constructor(
         private formBuilder: FormBuilder
@@ -30,10 +31,19 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-            this.section7Data = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+            if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
+                this.section7Data = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+            }
+            if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+                this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+            }
         }
         this.buildForm();
         this.checkCondition();
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+        !ObjectUtil.isEmpty(this.tempInformation.section7)) {
+            this.form.get('freeDate').patchValue(this.tempInformation.section7);
+        }
     }
 
     checkCondition() {
