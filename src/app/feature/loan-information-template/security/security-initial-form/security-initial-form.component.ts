@@ -169,6 +169,7 @@ export class SecurityInitialFormComponent implements OnInit {
     districtList: District [];
     municipalityList: MunicipalityVdc [];
     isEdit = false;
+
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -257,7 +258,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
-        this.addSecurityToSelectedArray();
+        // this.addSecurityToSelectedArray();
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
                 this.shareSecurityData.id = this.shareSecurity.id;
@@ -770,9 +771,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingRate: [singleData.landBuildingRate],
                     landbuildingUnderRate: [singleData.landbuildingUnderRate],
                     totalLandRealisableValue: [singleData.totalLandRealisableValue],
-                    apartmentDistressValue:  [singleData.apartmentDistressValue],
-                    apartmentRate:  [singleData.apartmentRate],
-                    totalApartmentRealisableValue:  [singleData.totalApartmentRealisableValue],
+                    apartmentDistressValue: [singleData.apartmentDistressValue],
+                    apartmentRate: [singleData.apartmentRate],
+                    totalApartmentRealisableValue: [singleData.totalApartmentRealisableValue],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     governmentRate: [singleData.governmentRate],
                     dv: [singleData.dv],
@@ -1031,6 +1032,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
+
     clearValidationAtInitialStage() {
         if (this.selectedSecurity === undefined) {
             const landDetailsFormControls = this.securityForm.get('landDetails') as FormArray;
@@ -1107,6 +1109,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         }
     }
+
     clearValidationState() {
         if (this.selectedSecurity === 'LandSecurity') {
             const formControls = this.securityForm.get('landDetails') as FormArray;
@@ -1554,7 +1557,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     assignmentDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
-                amount: [undefined, Validators.required ],
+                amount: [undefined, Validators.required],
                 otherDetail: [undefined],
                 uuid: [this.uuid()],
             }
@@ -2655,6 +2658,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
         }
     }
+
     secondHand(event) {
         this.isSecondHand = event;
     }
@@ -2666,25 +2670,25 @@ export class SecurityInitialFormComponent implements OnInit {
                     * (Number(this.securityForm.get(['buildingDetails', i, 'apartmentRate']).value) / 100));
                 this.securityForm.get(['buildingDetails', i, 'buildingReliasableValue']).patchValue(reliasableValue);
             }
-            break;
+                break;
             case 'vehicle': {
                 const reliasableValue = (Number(this.securityForm.get(['vehicleDetails', i, 'quotationAmount']).value)
                     * (Number(this.securityForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
                 this.securityForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
             }
-            break;
+                break;
             case 'plant': {
                 const reliasableValue = (Number(this.securityForm.get(['plantDetails', i, 'realisableValue']).value)
                     * (Number(this.securityForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
                 this.securityForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
             }
-            break;
+                break;
             case 'share': {
                 const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
                     * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
                 this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
             }
-            break;
+                break;
         }
     }
 
@@ -2706,7 +2710,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    public setFreeLimitAmount(index, formArrayName: string, considerValue: number, ) {
+    public setFreeLimitAmount(index, formArrayName: string, considerValue: number,) {
         if (this.isEdit === false) {
             this.securityForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
         }
