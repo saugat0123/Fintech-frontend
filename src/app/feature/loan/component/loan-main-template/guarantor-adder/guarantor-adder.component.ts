@@ -30,6 +30,7 @@ export class GuarantorAdderComponent implements OnInit {
     } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
     this.selectedGuarantorList = this.taggedGuarantors;
     }
+    this.tagInitialGuarantors();
   }
 
   addGuarantorDetail(data) {
@@ -56,5 +57,12 @@ export class GuarantorAdderComponent implements OnInit {
 
   openGuarantorDetailModal(guarantorData) {
     this.nbDialogService.open(GuarantorDetailComponent ,  {context: {guarantorData}});
+  }
+
+  tagInitialGuarantors(): void
+  {
+   this.guarantorList.forEach(g =>{
+     this.selectedGuarantorList.push(g);
+   })
   }
 }
