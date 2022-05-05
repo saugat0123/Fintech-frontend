@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Optional, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -39,7 +39,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
   @ViewChild('section8', {static: false}) section8: Section8LoanDisbursementRelatedClauseComponent;
   @ViewChild('section18', {static: false}) section18: Section18RequiredSecurityDocumentsComponent;
   @ViewChild('section22', {static: false}) section22: Section19ToSection22Component;
-
+  @Input() preview = false;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
   loanHolderInfo: any;
@@ -47,7 +47,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   offerLetterData;
   allFreeText;
-  constructor(private dialogRef: NbDialogRef<RetailCombinedOfferLetterComponent>,
+  constructor(@Optional() private dialogRef: NbDialogRef<RetailCombinedOfferLetterComponent>,
               private toastService: ToastService,
               private administrationService: CreditAdministrationService
   ) { }
