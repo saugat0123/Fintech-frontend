@@ -9,7 +9,6 @@ import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
-import {PersonalGuaranteeIndividualPrintComponent} from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 import {PersonalGuaranteeIndividualComponent} from './personal-guarantee-individual/personal-guarantee-individual.component';
 import {PersonalGuaranteeCompanyComponent} from './personal-guarantee-company/personal-guarantee-company.component';
 import {NabilLoanDeedCompanyComponent} from './nabil-loan-deed-company/nabil-loan-deed-company.component';
@@ -137,7 +136,7 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
-        LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
+        LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
          LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
@@ -148,7 +147,6 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
         LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
-        PersonalGuaranteeIndividualPrintComponent,
         LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent, LoanDeedProprietorshipComponent, CounterGuaranteeProprietorshipComponent, CounterGuaranteePartnershipComponent, MortgageTermLoanComponent, MortgageTermLoanPrintComponent, LetterOfContinuityComponent, GeneralLetterOfTrustReceiptPartnershipComponent, GeneralLetterOfTrustReceiptProprietorshipComponent, GeneralLetterOfTrustReceiptCompanyComponent, CrossGuaranteeCompanyComponent, CrossGuaranteeProprietorshipComponent, CrossGuaranteePartnershipComponent, LandSubOrdinatePartnershipComponent, LandSubOrdinateProprietorshipComponent, LandSubOrdinateCompanyComponent, ConsentLetterForMortgageCompanyComponent, ConsentLetterForMortgagePartnershipComponent, ConsentLetterForMortgageProprietorshipComponent, HirePurchaseComponent, LetterOfSetOffCompanyComponent, LetterOfSetOffProprietorshipComponent, LetterOfSetOffPartnershipComponent, LetterVehicleThirdPartyPartnershipComponent,
         LetterVehicleThirdPartyProprietorshipComponent,
         SingleSmePrimarySecurityViewComponent,
@@ -252,7 +250,8 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         Section6LoanLimitRelatedClausesComponent,
         Section7InterestAndEmiPaymentRelatedComponent,
         Section9InsuranceRelatedClausesComponent,
-        ConsentLetterForMortgageIndividualComponent
+        ConsentLetterForMortgageIndividualComponent,
+        RetailCombinedOfferLetterComponent
     ],
     imports: [
         CommonModule,
