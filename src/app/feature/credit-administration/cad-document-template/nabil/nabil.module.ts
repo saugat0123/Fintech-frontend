@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PromissoryNoteIndividualComponent} from './promissory-note-individual/promissory-note-individual.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
@@ -135,7 +134,7 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
 
 @NgModule({
     declarations: [
-        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        PromissoryNoteIndividualComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
          LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
@@ -143,7 +142,7 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
          PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent,
-        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        PromissoryNoteIndividualComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
         LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
@@ -178,7 +177,6 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         PersonalGuaranteeCompanyComponent,
         PersonalGuaranteeIndividualComponent,
         LetterOfSetOffPrintComponent,
-        PromissoryNoteIndividualPrintComponent,
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
