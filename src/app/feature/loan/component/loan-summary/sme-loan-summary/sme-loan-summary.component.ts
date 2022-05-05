@@ -57,6 +57,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApprovalRoleHierarchyComponent } from '../../../approval/approval-role-hierarchy.component';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {CustomerCategory} from '../../../../customer/model/customerCategory';
+import {async} from '@angular/core/testing';
 
 @Component({
   selector: 'app-sme-loan-summary',
@@ -260,12 +261,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.navigationSubscription.unsubscribe();
   }
 
-  loadSummary() {
-    this.getLoanDataHolder();
+   async loadSummary() {
+    await this.getLoanDataHolder();
   }
 
-  getLoanDataHolder() {
-    this.getAllLoans(this.loanDataHolder.loanHolder.id);
+  async getLoanDataHolder() {
+    await this.getAllLoans(this.loanDataHolder.loanHolder.id);
+    // await this.getCombineLoanList();
 
     // Setting financial data---
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
@@ -511,12 +513,12 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.getFiscalYears();
   }
 
-  getAllLoans(customerInfoId: number): void {
+  async getAllLoans(customerInfoId: number) {
     const search = {
       loanHolderId: customerInfoId.toString(),
       isStaged: 'true',
     };
-    this.customerLoanService.getAllWithSearch(search).subscribe(
+    await this.customerLoanService.getAllWithSearch(search).subscribe(
       (res: any) => {
         this.customerAllLoanList = res.detail;
         // push current loan if not fetched from staged spec response
@@ -548,30 +550,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             (c: any) => c.currentStage.docAction === this.requestedLoanType
           );
         }
-        // push loans from combined loan if not in the existing array
-        const combinedLoans = this.customerAllLoanList.filter(
-          (l) => !ObjectUtil.isEmpty(l.combinedLoan)
-        );
-        if (combinedLoans.length > 0) {
-          const combinedLoanId = combinedLoans[0].combinedLoan.id;
-          this.combinedLoanService.detail(combinedLoanId).subscribe(
-            (response: any) => {
-              (response.detail as CombinedLoan).loans.forEach((cl) => {
-                const allLoanIds = this.customerAllLoanList.map(
-                  (loan) => loan.id
-                );
-                if (!allLoanIds.includes(cl.id)) {
-                  this.customerAllLoanList.push(cl);
-                }
-              });
-            },
-            (err) => {
-              console.error(err);
-            }
-          );
-        }
-        this.calculateTotalProposedLimit(this.customerAllLoanList);
-        this.customerLoanList.emit(this.customerAllLoanList);
+        this.getCombineLoanList();
       },
       (error) => {
         console.error(error);
@@ -895,5 +874,34 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.isAboveTenMillion = true;
       }
     }
+  }
+
+   async getCombineLoanList() {
+     // push loans from combined loan if not in the existing array
+     const combinedLoans = this.customerAllLoanList.filter(
+         (l) => !ObjectUtil.isEmpty(l.combinedLoan)
+     );
+     if (combinedLoans.length > 0) {
+       const combinedLoanId = combinedLoans[0].combinedLoan.id;
+       await this.combinedLoanService.detail(combinedLoanId).subscribe(
+           (response: any) => {
+             console.log('combne response', response.detail);
+             (response.detail as CombinedLoan).loans.forEach((cl) => {
+               const allLoanIds = this.customerAllLoanList.map(
+                   (loan) => loan.id
+               );
+               if (!allLoanIds.includes(cl.id)) {
+                 this.customerAllLoanList.push(cl);
+               }
+             });
+           },
+           (err) => {
+             console.error(err);
+           }
+       );
+       // this.getCombineLoanList(combinedLoanId);
+     }
+     this.calculateTotalProposedLimit(this.customerAllLoanList);
+     this.customerLoanList.emit(this.customerAllLoanList);
   }
 }

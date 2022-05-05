@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterContentChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
@@ -17,7 +16,8 @@ import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
     templateUrl: './proposal-summary.component.html',
     styleUrls: ['./proposal-summary.component.scss']
 })
-export class ProposalSummaryComponent implements OnInit {
+export class ProposalSummaryComponent implements OnInit, OnChanges {
+
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
     @Input() loanDataHolder;
@@ -28,7 +28,7 @@ export class ProposalSummaryComponent implements OnInit {
     proposalAllData: any;
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
-    loanType: any;
+    loanType = LoanType;
     checkedData;
     isFundable = false;
     fundableNonFundableSelcted = false;
@@ -47,22 +47,32 @@ export class ProposalSummaryComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
+    array = [];
+    dtoArray = [];
+    totalValue = [];
+    dtoTotalValue = [];
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
 
     ngOnInit() {
-        this.proposalAllData = JSON.parse(this.proposalData.data);
-        this.checkedData = JSON.parse(this.proposalData.checkedData);
-        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
-                this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-            }
+        // console.log('customerAllLoanList', this.customerAllLoanList);
+        // this.proposalAllData = JSON.parse(this.proposalData.data);
+        // this.checkedData = JSON.parse(this.proposalData.checkedData);
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
+        //         this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+        //     }
+        // }
+        // this.calculateInterestRate();
+        // this.getLoanConfig();
+        // this.checkInstallmentAmount();
+        console.log('ngoninti', this.customerAllLoanList);
+        if (this.customerAllLoanList.length > 0) {
+            this.getLoanConfig();
+            this.calculateChangeAmount();
         }
-        this.calculateInterestRate();
-        this.getLoanConfig();
-        this.checkInstallmentAmount();
     }
 
     public getTotal(key: string): number {
@@ -138,37 +148,83 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     getLoanConfig() {
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    loanConfigId: null
-                };
-                this.allId = paramsValue;
-                this.loanConfigService.detail(this.allId.loanConfigId).subscribe((response: any) => {
-                    this.isFundable = response.detail.isFundable;
-                    this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
-                    this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
-                    this.isGeneral = response.detail.loanTag === 'GENERAL';
-                    this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
-                    this.isVehicle = response.detail.loanTag === 'VEHICLE';
-                    this.loanNature = response.detail.loanNature;
-                    if (!ObjectUtil.isEmpty(this.loanNature)) {
-                        this.loanNatureSelected = true;
-                        this.isTerminating = this.loanNature === 'Terminating';
-                        this.isRevolving = this.loanNature === 'Revolving';
-                        if (this.isRevolving) {
-                            this.isGeneral = false;
+        console.log('customerAllLoanList', this.customerAllLoanList);
+        this.customerAllLoanList.forEach(c => {
+            console.log('loans', c);
+            const config = {
+                isFundable: c.loan.isFundable,
+                fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
+                isFixedDeposit: c.loan.loanTag === 'FIXED_DEPOSIT',
+                isGeneral: c.loan.loanTag === 'GENERAL',
+                isShare: c.loan.loanTag === 'SHARE_SECURITY',
+                isVehicle: c.loan.loanTag === 'VEHICLE',
+                loanNature: c.loan.loanNature,
+                loanNatureSelected: false,
+                isTerminating: false,
+                isRevolving: false,
+            };
+            if (!ObjectUtil.isEmpty(config.loanNature)) {
+                config.loanNatureSelected = true;
+                if (config.loanNature.toString() === 'Terminating') {
+                    config.isTerminating = true;
+                } else {
+                    config.isRevolving = true;
+                }
+                if (config.isRevolving) {
+                    config.isGeneral = false;
+                }
+            }
+            if (!config.isFundable) {
+                config.isGeneral = false;
+            }
+            if (config.isFixedDeposit) {
+                config.loanNatureSelected = false;
+                config.fundableNonFundableSelcted = false;
+            }
+            this.array.push(config);
+        });
+        if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cd => {
+                let dtoCfonfig;
+                if (!ObjectUtil.isEmpty(cd.loanConfig)) {
+                    dtoCfonfig = {
+                        isFundable: cd.loanConfig.isFundable,
+                        fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
+                        isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
+                        isGeneral: cd.loanConfig.loanTag === 'GENERAL',
+                        isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
+                        isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+                        loanNature: cd.loanConfig.loanNature,
+                        loanNatureSelected: false,
+                        isTerminating: false,
+                        isRevolving: false,
+                    };
+                }
+                if (!ObjectUtil.isEmpty(dtoCfonfig)) {
+                    if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
+                        dtoCfonfig.loanNatureSelected = true;
+                        if (dtoCfonfig.loanNature.toString() === 'Terminating') {
+                            dtoCfonfig.isTerminating = true;
+                        } else {
+                            dtoCfonfig.isRevolving = true;
+                        }
+                        if (dtoCfonfig.isRevolving) {
+                            dtoCfonfig.isGeneral = false;
                         }
                     }
-                    if (!this.isFundable) {
-                        this.isGeneral = false;
+                    if (!dtoCfonfig.isFundable) {
+                        dtoCfonfig.isGeneral = false;
                     }
-                    if (this.isFixedDeposit) {
-                        this.loanNatureSelected = false;
-                        this.fundableNonFundableSelcted = false;
+                    if (dtoCfonfig.isFixedDeposit) {
+                        dtoCfonfig.loanNatureSelected = false;
+                        dtoCfonfig.fundableNonFundableSelcted = false;
                     }
-                });
+                }
+                this.dtoArray.push(dtoCfonfig);
             });
+        }
+        console.log('array', this.array);
+        console.log('dtoArray', this.dtoArray);
     }
 
     checkInstallmentAmount() {
@@ -190,4 +246,71 @@ export class ProposalSummaryComponent implements OnInit {
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
         return interestRate;
     }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log('customerAllLoanListss', this.customerAllLoanList);
+        this.proposalAllData = JSON.parse(this.proposalData.data);
+        this.checkedData = JSON.parse(this.proposalData.checkedData);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
+                this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+            }
+        }
+        this.calculateInterestRate();
+        // this.getLoanConfig();
+        this.checkInstallmentAmount();
+        if (this.customerAllLoanList.length > 0) {
+            this.getLoanConfig();
+            this.calculateChangeAmount();
+        }
+    }
+
+    calculateChangeAmount() {
+        console.log('here');
+       this.totalValue = [];
+       this.dtoTotalValue = [];
+        for (const l of this.customerAllLoanList) {
+            console.log('dadasdasdasd', l);
+            this.totalValue.push( JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
+               ? JSON.parse(l.proposal.data).existingLimit : 0));
+        }
+        console.log('totad', this.totalValue);
+        // this.totalValue = this.customerAllLoanList
+        //     .forEach(l => {
+        //         if (ObjectUtil.isEmpty(l.proposal.existingLimit)) {
+        //             console.log('here');
+        //             l.proposal.existingLimit = 0;
+        //         }
+        //         console.log('existing limit value set 0', l.proposal.existingLimit);
+        //         return l.proposal.proposedLimit - l.proposal.existingLimit;
+        //     });
+        // if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
+        //     this.dtoTotalValue = this.customerLoanDtoList.forEach(cld => {
+        //         if (ObjectUtil.isEmpty(cld.proposal.existingLimit)) {
+        //             cld.proposal.existingLimit = 0;
+        //         }
+        //         return cld.proposal.proposedLimit - cld.proposal.existingLimit;
+        //     });
+        // }
+        console.log('totalValue', this.totalValue);
+        // console.log('dtoTotalValue', this.dtoTotalValue);
+    }
+
+    // ngAfterViewInit(): void {
+    //     console.log('customerAllLoanListss123', this.customerAllLoanList);
+    //     this.proposalAllData = JSON.parse(this.proposalData.data);
+    //     this.checkedData = JSON.parse(this.proposalData.checkedData);
+    //     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+    //         if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
+    //             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+    //         }
+    //     }
+    //     this.calculateInterestRate();
+    //     this.checkInstallmentAmount();
+    //     this.getLoanConfig();
+    //     // if (this.customerAllLoanList.length > 0) {
+    //     //     this.calculateChangeAmount();
+    //     // }
+    //     this.calculateChangeAmount();
+    // }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
@@ -8,7 +8,7 @@ import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
   templateUrl: './executive-summary-sme.component.html',
   styleUrls: ['./executive-summary-sme.component.scss']
 })
-export class ExecutiveSummarySmeComponent implements OnInit {
+export class ExecutiveSummarySmeComponent implements OnInit, OnChanges {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() totalProposed;
@@ -19,6 +19,12 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const data = this.customerAllLoanList;
+    console.log('data', data);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('second parent', this.customerAllLoanList);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
       this.securityData = JSON.parse(this.loanDataHolder.security.data);
     }
