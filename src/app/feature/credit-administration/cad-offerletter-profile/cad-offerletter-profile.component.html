@@ -497,11 +497,6 @@
                   [security]="this.selectedSecurity"
                   [preview]="true"
                   [offerData]="offerLetterData"></app-retail-mortgage-loan-print>
-          <app-auto-loan-commercial-print
-                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.AUTO_LOAN_COMMERCIAL)"
-                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                  [letter]="initialInfoPrint"
-                  [preview]="true"></app-auto-loan-commercial-print>
           <app-personal-overdraft-without-collateral-print
               *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL)"
               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -514,8 +509,8 @@
           </app-personal-overdraft-without-collateral-print>
           <app-kisan-karja-subsidy-print  *ngSwitchCase="offerLetterConst.value(offerLetterConst.KISAN_KARJA_SUBSIDY)"
                                          [letter]="initialInfoPrint"
-                                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                         [offerData] = offerLetterData
+                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                          [offerData]=offerLetterData
                                           [preview]="true">
           </app-kisan-karja-subsidy-print>
           <app-interest-subsidy-sanction-letter-print
@@ -523,7 +518,7 @@
                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                   [letter]="initialInfoPrint"
                   [renewal]="this.renewal"
-                  [offerData] = offerLetterData
+                  [offerData]=offerLetterData
                   [preview]="true">
           </app-interest-subsidy-sanction-letter-print>
           <app-ddsl-without-subsidy-print
@@ -533,11 +528,20 @@
                   [preview]="true">
           </app-ddsl-without-subsidy-print>
           <!-- For Combined Offer letter view -->
-          <app-combined-offer-letter-print
-                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
-                  [customerApprovedDoc]="cadOfferLetterApprovedDoc"
-                  [preview]="true">
-          </app-combined-offer-letter-print>
+          <ng-container *ngIf="this.cadOfferLetterApprovedDoc?.loanHolder?.customerType === 'INSTITUTION'">
+            <app-combined-offer-letter-print
+                    *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                    [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                    [preview]="true">
+            </app-combined-offer-letter-print>
+          </ng-container>
+          <ng-container *ngIf="this.cadOfferLetterApprovedDoc?.loanHolder?.customerType === 'INDIVIDUAL'">
+            <app-retail-combined-offer-letter
+                    *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                    [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                    [preview]="true">
+            </app-retail-combined-offer-letter>
+          </ng-container>
         </nb-card-body>
     </nb-card>
 </ng-template>

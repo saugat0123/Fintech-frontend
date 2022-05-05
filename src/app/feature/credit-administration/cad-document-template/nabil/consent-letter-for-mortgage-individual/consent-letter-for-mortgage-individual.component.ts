@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Optional} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
@@ -47,7 +47,7 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                @Optional() private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,

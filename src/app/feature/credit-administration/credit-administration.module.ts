@@ -79,7 +79,6 @@ import {DocCheckPendingComponent} from './component/doc-check/doc-check-pending/
 import {EducationalLoanTemplateEditComponent} from './cad-view/template-data/educational-loan-template-edit/educational-loan-template-edit.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditLoanDetailComponent} from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
-import {AutoLoanCommercialTemplateDataComponent} from './cad-view/template-data/auto-loan-commercial-template-data/auto-loan-commercial-template-data.component';
 import {PersonalLoanTemplateEditComponent} from './cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
 import {PersonalOverdraftTemplateDataEditComponent} from './cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
 import {HomeLoanTemplateDataComponent} from './cad-view/template-data/home-loan-template-data/home-loan-template-data.component';
@@ -219,7 +218,6 @@ import { ExistingLoanTemplateDataComponent } from './cad-view/template-data/reta
         DocCheckPendingComponent,
         EducationalLoanTemplateEditComponent,
         EditLoanDetailComponent,
-        AutoLoanCommercialTemplateDataComponent,
         EditLoanDetailComponent,
         PersonalLoanTemplateEditComponent,
         PersonalOverdraftTemplateDataEditComponent,

@@ -32,9 +32,6 @@
     <nb-card-body *ngIf="isHomeLoan" [nbSpinner]="spinner">
         <app-home-loan-template-data [customerApprovedDoc]="cadData"></app-home-loan-template-data>
     </nb-card-body>
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN_COMMERCIAL" [nbSpinner]="spinner">-->
-<!--        <app-auto-loan-commercial-template-data [customerApprovedDoc]="cadData"></app-auto-loan-commercial-template-data>-->
-<!--    </nb-card-body>-->
     <nb-card-body *ngIf="isPersonalWithoutCollateral" [nbSpinner]="spinner">
         <app-perosnal-overdraft-without-collateral-template-data [customerApprovedDoc]="cadData"></app-perosnal-overdraft-without-collateral-template-data>
     </nb-card-body>
