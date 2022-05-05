@@ -355,17 +355,29 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
           }
           let fatherName;
           let grandFatherName;
-          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'MALE')) {
-            fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
-            grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
-          }
-          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '0')) {
-            fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
-            grandFatherName = individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : '';
-          }
-          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '1')) {
-            fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
-            grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData)) {
+            if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender) &&
+                !ObjectUtil.isEmpty(individualGuarantorNepData.gender.en)) {
+              if (individualGuarantorNepData.gender.en === 'MALE') {
+                fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+              }
+              if (individualGuarantorNepData.gender.en === 'FEMALE') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus) &&
+                    !ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en)) {
+                  if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Married') {
+                    fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
+                    grandFatherName = individualGuarantorNepData.fatherInLawName ?
+                        individualGuarantorNepData.fatherInLawName.ct : '';
+                  }
+                  if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Unmarried') {
+                    fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                    grandFatherName = individualGuarantorNepData.grandFatherName ?
+                        individualGuarantorNepData.grandFatherName.ct : '';
+                  }
+                }
+              }
+            }
           }
           this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
           (this.form.get('guarantorsPartnership') as FormArray).push(
