@@ -871,6 +871,26 @@
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
+                                <div class="col-md-12 form-group">
+
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
+                                                 [checked]="debtChecked"><b>Borrowing Case</b>
+                                    </nb-checkbox>
+                                    <div *ngIf="debtChecked">
+                                        <ckeditor formControlName="borrowingCase"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
+                                                 [checked]="debtChecked"><b>End use of Fund</b>
+                                    </nb-checkbox>
+                                    <div *ngIf="debtChecked">
+                                        <ckeditor formControlName="endUseOfFund"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <nb-checkbox (change)="checkChecked($event.target.checked,'net')"

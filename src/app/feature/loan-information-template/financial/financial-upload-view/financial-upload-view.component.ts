@@ -7,6 +7,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import { Editor } from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-financial-upload-view',
@@ -25,6 +26,7 @@ export class FinancialUploadViewComponent implements OnInit {
     financialKeys;
     spinner = false;
     financialData;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(
         private activeRoutes: ActivatedRoute,
@@ -47,7 +49,9 @@ export class FinancialUploadViewComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            upload: [undefined]
+            upload: [undefined],
+            changeHistorical: [undefined],
+            changeProjection: [undefined]
         });
     }
 

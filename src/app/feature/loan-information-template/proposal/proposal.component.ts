@@ -76,6 +76,8 @@ export class ProposalComponent implements OnInit {
   purposeChecked = false;
   debtChecked = false;
   netChecked = false;
+  borrowChecked = false;
+  endUseChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -332,6 +334,8 @@ export class ProposalComponent implements OnInit {
       depositOtherRemark: [undefined],
       total: [undefined],
       totals: [undefined],
+      borrowingCase: [undefined],
+      endUseOfFund: [undefined]
     });
   }
 
@@ -503,6 +507,14 @@ export class ProposalComponent implements OnInit {
       break;
       case 'net': {
         this.netChecked = event;
+      }
+      break;
+      case 'borrow': {
+        this.borrowChecked = event;
+      }
+      break;
+      case 'endUse': {
+        this.endUseChecked = event;
       }
       break;
       case 'combineLoan':
