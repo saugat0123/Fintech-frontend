@@ -7,7 +7,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import { Editor } from '../../../../@core/utils/constants/editor';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-financial-upload-view',
@@ -43,13 +43,16 @@ export class FinancialUploadViewComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
                 this.financialData = JSON.parse(this.customerInfo.financial.data);
                 this.financialKeys = Object.keys(this.financialData);
+                this.form.patchValue({
+                    changeHistorical: this.financialData.changeHistorical,
+                    changeProjection: this.financialData.changeProjection
+                });
             }
         }
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            upload: [undefined],
             changeHistorical: [undefined],
             changeProjection: [undefined]
         });
@@ -63,6 +66,11 @@ export class FinancialUploadViewComponent implements OnInit {
 
     submitData() {
         this.spinner = true;
+        if (this.customerInfo.customerType === 'INSTITUTION' && this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.fg.append('sbk', JSON.stringify(this.form.value));
+        } else {
+            this.fg.append('sbk', '');
+        }
         this.customerInfoService.uploadFinancialExcel(this.fg).subscribe((res: any) => {
             this.customerInfo = res.detail;
             this.financialData = JSON.parse(this.customerInfo.financial.data);
@@ -73,6 +81,7 @@ export class FinancialUploadViewComponent implements OnInit {
             this.modalService.dismissAll();
         }, err => {
             this.spinner = false;
+            this.modalService.dismissAll();
             this.toast.show(new Alert(AlertType.ERROR, 'Error While Saving Financial Data'));
         });
     }

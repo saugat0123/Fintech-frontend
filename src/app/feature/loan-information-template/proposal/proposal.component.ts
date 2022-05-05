@@ -116,6 +116,7 @@ export class ProposalComponent implements OnInit {
   isCombineLoan = false;
   combineLoanList: Array<LoanDataHolder> = [];
   guarantor = new FormControl(undefined , Validators.required);
+  isSbk = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -359,6 +360,9 @@ export class ProposalComponent implements OnInit {
 }
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
+    if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+      this.isSbk = true;
+    }
   }
 
   scrollToFirstInvalidControl() {
@@ -398,6 +402,8 @@ export class ProposalComponent implements OnInit {
       purposeChecked: this.purposeChecked,
       debtChecked: this.debtChecked,
       netChecked: this.netChecked,
+      borrowChecked: this.borrowChecked,
+      endUseChecked: this.endUseChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -548,6 +554,8 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['purposeChecked'], 'purpose');
       this.checkChecked(data['debtChecked'], 'debt');
       this.checkChecked(data['netChecked'], 'net');
+      this.checkChecked(data['borrowChecked'], 'borrow');
+      this.checkChecked(data['endUseChecked'], 'endUse');
     }
   }
 
@@ -861,6 +869,8 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(selectedData['purposeChecked'], 'purpose');
       this.checkChecked(selectedData['debtChecked'], 'debt');
       this.checkChecked(selectedData['netChecked'], 'net');
+      this.checkChecked(selectedData['borrowChecked'], 'borrow');
+      this.checkChecked(selectedData['endUseChecked'], 'endUse');
       this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
       this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
       this.proposalForm.get('repayment').patchValue(data.repayment);

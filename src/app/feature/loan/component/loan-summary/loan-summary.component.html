@@ -878,6 +878,14 @@
                                 <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                                 </p>
                     </div>
+                    <div class="col-md-12" *ngIf="smallBusiness && (proposalAllData?.checkedData | jsonParse)?.borrowChecked">
+                        <hr class="print-line">
+                        <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
+                    </div>
+                    <div class="col-md-12" *ngIf="smallBusiness && (proposalAllData?.checkedData | jsonParse)?.endUseChecked">
+                        <hr class="print-line">
+                        <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
+                    </div>
                 </div>
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [individual]="isIndividual"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>

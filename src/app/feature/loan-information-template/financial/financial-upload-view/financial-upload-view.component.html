@@ -5,24 +5,24 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label><strong>Upload Financial Sheet</strong></label>
-                <input type ="file" formControlName="upload" (change)="upload($event)">
+                <input type ="file" (change)="upload($event)">
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="historical"><strong>Justification for change (Historical)</strong></label>
-                <ckeditor name="historical" formControlName="changeHistorical" [config]="ckeConfig" type="text"></ckeditor>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="projection"><strong>Justification for change (Projection)</strong></label>
-                <ckeditor name="projection" formControlName="changeProjection" [config]="ckeConfig" type="text"></ckeditor>
-            </div>
-        </div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-6">-->
+<!--            <div class="form-group">-->
+<!--                <label for="historical"><strong>Justification for change (Historical)</strong></label>-->
+<!--                <ckeditor name="historical" formControlName="changeHistorical" [config]="ckeConfig" type="text"></ckeditor>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-6">-->
+<!--            <div class="form-group">-->
+<!--                <label for="projection"><strong>Justification for change (Projection)</strong></label>-->
+<!--                <ckeditor name="projection" formControlName="changeProjection" [config]="ckeConfig" type="text"></ckeditor>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <button nbButton (click)="submitData()" [disabled]="!uploadFile">Submit</button>
 </form>
     <br>
