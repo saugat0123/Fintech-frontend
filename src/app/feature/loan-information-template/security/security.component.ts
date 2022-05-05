@@ -49,8 +49,6 @@ export class SecurityComponent implements OnInit {
     guarantorsForm: FormGroup;
     securityForm: FormGroup;
     initialSecurityValue: Object;
-    approvedSecurityValue: Object;
-    approvedShareSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
     provinceList: Array<Province> = new Array<Province>();
@@ -105,18 +103,10 @@ export class SecurityComponent implements OnInit {
         this.buildForm();
         this.buildCrgSecurityForm();
         this.getProvince();
-        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
-            if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
-                this.approvedShareSecurityValue = JSON.parse(this.shareSecurity.approvedData);
-            }
-        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
             console.log(this.securityValue);
-            if(!ObjectUtil.isEmpty(this.securityValue.approvedData)) {
-                this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
-            }
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -294,9 +284,6 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.data = JSON.stringify(mergedForm);
-        if (!ObjectUtil.isEmpty(this.approvedSecurityValue)) {
-            this.securityData.approvedData = JSON.stringify(this.approvedSecurityValue);
-        }
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
             if (selected === 'ShareSecurity') {
@@ -306,9 +293,6 @@ export class SecurityComponent implements OnInit {
         if (this.shareSecuritySelected) {
             this.securityData.templateName = TemplateName.SHARE_SECURITY;
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
-            if (!ObjectUtil.isEmpty(this.approvedShareSecurityValue)) {
-                this.shareSecurityData.approvedData = JSON.stringify(this.approvedShareSecurityValue);
-            }
             this.securityData.share = this.shareSecurityData;
         }
         let guarantorIndex = 0;
