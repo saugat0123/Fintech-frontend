@@ -35,38 +35,12 @@
                                 <button class="btn btn-primary sb-medium text-uppercase" nbButton size="tiny"
                                         status="primary" nbTooltip="Configure Approval Role Hierarchy"
                                         (click)="SetRoleHierarchy(loanDataHolder?.id)">
-                                    <!--                            <i class="fa fa-user-shield"></i>-->
                                     Set Role Hierarchy
                                 </button>
                             </div>
                         </div>
                     </div>
                     <br>
-
-<!--                    <button *ngIf="!disableApprovalSheetFlag"-->
-<!--                            nbButton-->
-<!--                            shape="rectangle"-->
-<!--                            status="primary"-->
-<!--                            class="float-right"-->
-<!--                            size="tiny" (click)="goToApprovalSheet()">-->
-<!--                        <span class="text-right px-2">-->
-<!--                            Approval Sheet-->
-<!--                        </span>-->
-<!--                        <em class="fas fa-forward"></em>-->
-<!--                    </button>-->
-                  <!--
-                  uncomment if needed
-                  <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
-                            nbButton
-                            shape="rectangle"
-                            status="success"
-                            class="float-right"
-                            size="tiny" (click)="openApprovalSheetInfoModal()">
-                        <span class="text-right">
-                            Approval Doc Info
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>-->
                 </div>
             </div>
             <div  class=" col-md-12 summary">
@@ -392,16 +366,7 @@
                                   [proposal]="proposalData"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
                                   [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
-            <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed"
-                                           [formData]="approvedSecurityData" [shareSecurity]="approvedShareSecurityData"
-                                           [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                                           [securityId]="securityId"
-                                           [siteVisitDocuments]="siteVisitDocuments"
-                                           [isCollateralSiteVisit]="isCollateralSiteVisit"
-                                           [collateralData]="loanDataHolder?.collateralSiteVisits"
-                                           [docStatus]="loanDataHolder?.documentStatus"
-                                           (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
-            </app-security-approved-summary>
+
             <app-security-schedule   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 

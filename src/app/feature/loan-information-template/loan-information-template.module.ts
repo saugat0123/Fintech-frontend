@@ -49,14 +49,11 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
 import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
-import {CustomerModule} from '../customer/customer.module';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 import { ReviewDateComponent } from './review-date/review-date.component';
 import { MultiBankingComponent } from './multi-banking/multi-banking.component';
 import { FinancialUploadViewComponent } from './financial/financial-upload-view/financial-upload-view.component';
-import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {SecurityApprovedFormComponent} from './security/security-approved-form/security-approved-form.component';
 import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
 
 const COMPONENTS = [
@@ -102,7 +99,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
         CrgMicroComponent,
-        FinancialUploadViewComponent, SecurityApprovedFormComponent],
+        FinancialUploadViewComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [

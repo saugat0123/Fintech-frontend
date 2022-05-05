@@ -13,12 +13,6 @@
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed" [security]="loanHolder?.security"
-                            [shareSecurityData]="loanDataHolder?.shareSecurity"
-                            [securityId]="securityId"
-                            [docStatus]="loanDataHolder?.documentStatus"
-                            [collateralData]="loanDataHolder?.collateralSiteVisits"
-                            (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
 <app-security-schedule  [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"

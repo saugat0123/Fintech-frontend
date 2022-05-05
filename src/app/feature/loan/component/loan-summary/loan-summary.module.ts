@@ -38,12 +38,9 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {RemitDetailsComponent} from './remit-details/remit-details.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-banking-summary.component';
-import {SecurityApprovedSummaryComponent} from './security-approved-summary/security-approved-summary.component';
-import {FeatureModule} from '../../../feature.module';
 import {NetWorthModule} from '../../../newt-worth/net-worth-module';
 import {DbrModule} from '../../../dbr/dbr.module';
 import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
-import {LoanInformationDetailViewModule} from '../../../loan-information-detail-view/loan-information-detail-view.module';
 import {ProductPaperModule} from '../../../loan-information-template/product-paper-checklist/product-paper-.module';
 
 
@@ -74,7 +71,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, SecurityApprovedSummaryComponent, SecurityApprovedSummaryComponent, CollateralSiteVisitComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent],
     imports: [
         CommonModule,
         ThemeModule,
