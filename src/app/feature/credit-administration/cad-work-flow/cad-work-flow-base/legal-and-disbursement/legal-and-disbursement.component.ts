@@ -32,7 +32,6 @@ export class LegalAndDisbursementComponent implements OnInit {
     layoutFlag = false;
     isCad = false;
     isInCurrentUser = false;
-    isInCurrentRole = false;
     isMaker = false;
     productUtils = LocalStorageUtil.getStorage().productUtil;
 
@@ -55,9 +54,6 @@ export class LegalAndDisbursementComponent implements OnInit {
             if (!ObjectUtil.isEmpty(other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser)) {
                 if (other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
                     other.isInCurrentUser = true;
-                }
-                if (other.cadOfferLetterApprovedDoc.cadCurrentStage.toRole.id.toString() === LocalStorageUtil.getStorage().roleId) {
-                    other.isInCurrentRole = true;
                 }
             }
             other.spinner = false;
