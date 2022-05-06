@@ -871,28 +871,48 @@
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
-                              <ng-container *ngIf="isSbk">
-                                  <div class="col-md-12 form-group">
+                                <ng-container *ngIf="isSbk">
+                                    <div class="col-md-12 form-group">
 
-                                      <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
-                                                   [checked]="borrowChecked"><b>Borrowing Case</b>
-                                      </nb-checkbox>
-                                      <div *ngIf="borrowChecked">
-                                          <ckeditor formControlName="borrowingCase"
-                                                    [config]="ckeConfig"></ckeditor>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-12 form-group">
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
+                                                    [checked]="borrowChecked"><b>Borrowing Case</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="borrowChecked">
+                                            <ckeditor formControlName="borrowingCase"
+                                                        [config]="ckeConfig"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
 
-                                      <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
-                                                   [checked]="endUseChecked"><b>End use of Fund</b>
-                                      </nb-checkbox>
-                                      <div *ngIf="endUseChecked">
-                                          <ckeditor formControlName="endUseOfFund"
-                                                    [config]="ckeConfig"></ckeditor>
-                                      </div>
-                                  </div>
-                              </ng-container>
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
+                                                    [checked]="endUseChecked"><b>End use of Fund</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="endUseChecked">
+                                            <ckeditor formControlName="endUseOfFund"
+                                                        [config]="ckeConfig"></ckeditor>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="isInsti">
+                                    <div class="col-md-12 form-group">
+                                        <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')" 
+                                            [checked]="checkedHistorical">
+                                            <b>Justification for change (Historical)</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="checkedHistorical">
+                                            <ckeditor [config]="ckeConfig" formControlName="justificationChangeHistorical"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')" 
+                                                [checked]="checkedProjection">
+                                                <b>Justification for change (Projection)</b>
+                                            </nb-checkbox>
+                                        <div *ngIf="checkedProjection">
+                                            <ckeditor [config]="ckeConfig" formControlName="justificationChangeProjection"></ckeditor>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
@@ -966,14 +986,48 @@
 
                                     </div>
                                 </div>
+                                <div class="col-md-12 form-group" *ngIf="isInsti">
+                                    <h6><strong>Fixed Assets Summary</strong></h6>
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
+                                    </nb-checkbox>
+                                    <table *ngIf="fixedAssetsChecked" class="table table-sm table-bordered table-hover sb-small text-center">
+                                        <thead>
+                                            <tr class="sb-bg-dark text-white">
+                                                <th>S.N</th>
+                                                <th>Particulars</th>
+                                                <th>Unit</th>
+                                                <th>Rate</th>
+                                                <th>Total</th>
+                                                <th>Remarks</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left">
+                                            <tr formArrayName = "fixedAssetsSummary" *ngFor="let controls of proposalForm.get('fixedAssetsSummary')['controls']; let i = index" style="text-align: center;">
+                                                <ng-container formGroupName = "{{i}}">
+                                                    <td>{{i + 1}}</td>
+                                                <td><input class="field-border" formControlName="particular" type="text"></td>
+                                                <td><input class="field-border" formControlName="unit" type="text"></td>
+                                                <td><input class="field-border" formControlName="rate" type="text"></td>
+                                                <td><input class="field-border" formControlName="total" type="text"></td>
+                                                <td><input class="field-border" formControlName="remarks" type="text"></td>
+                                                <td>
+                                                    <a class="float-right" *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)" (click)="removeValue('fixedAssetsSummary', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                                                </td>
+                                                    <a href="javascript: void(0)" (click)="addFixedArray()"><i class="fa fa-plus" nbTooltip="Add Field"></i></a>
+                                                </ng-container>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="col-md-12 form-group">
                                 <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
                                 </button>
                             </div>
-<ng-template #datax>
-    <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
-</ng-template>
+                            <ng-template #datax>
+                                <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
+                            </ng-template>
                         </form>
                     </div>
                 </nb-card-body>

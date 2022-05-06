@@ -78,6 +78,9 @@ export class ProposalComponent implements OnInit {
   netChecked = false;
   borrowChecked = false;
   endUseChecked = false;
+  checkedHistorical = false;
+  checkedProjection = false;
+  fixedAssetsChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -117,6 +120,7 @@ export class ProposalComponent implements OnInit {
   combineLoanList: Array<LoanDataHolder> = [];
   guarantor = new FormControl(undefined , Validators.required);
   isSbk = false;
+  isInsti = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -170,6 +174,11 @@ export class ProposalComponent implements OnInit {
       } else {
         this.addKeyValue('deposit');
       }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.fixedAssetsSummary)) {
+        // this.setFormData(this.formDataForEdit.deposit, 'deposit');
+      } else {
+        this.addFixedArray();
+      }
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
@@ -186,6 +195,7 @@ export class ProposalComponent implements OnInit {
         });
       }
     } else {
+      this.addFixedArray();
       this.setActiveBaseRate();
       this.addGroupExposureData();
     }
@@ -336,7 +346,10 @@ export class ProposalComponent implements OnInit {
       total: [undefined],
       totals: [undefined],
       borrowingCase: [undefined],
-      endUseOfFund: [undefined]
+      endUseOfFund: [undefined],
+      justificationChangeHistorical: [undefined],
+      justificationChangeProjection: [undefined],
+      fixedAssetsSummary : this.formBuilder.array([])
     });
   }
 
@@ -362,6 +375,9 @@ export class ProposalComponent implements OnInit {
     this.ckeConfig = Editor.CK_CONFIG;
     if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
       this.isSbk = true;
+    }
+    if (this.customerInfo.customerType === 'INSTITUTION') {
+      this.isInsti = true;
     }
   }
 
@@ -523,6 +539,18 @@ export class ProposalComponent implements OnInit {
         this.endUseChecked = event;
       }
       break;
+      case 'changeHistorical': {
+        this.checkedHistorical = event;
+      }
+      break;
+      case 'changeProjection': {
+        this.checkedProjection = event;
+      }
+      break;
+      case 'fixedAssets': {
+        this.fixedAssetsChecked = event;
+      }
+      break;
       case 'combineLoan':
         if (event) {
           this.isCombineLoan = event;
@@ -556,6 +584,8 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['netChecked'], 'net');
       this.checkChecked(data['borrowChecked'], 'borrow');
       this.checkChecked(data['endUseChecked'], 'endUse');
+      this.checkChecked(data['checkedHisrotical'], 'changeHistorical');
+      this.checkChecked(data['checkedProjection'], 'changeProjection');
     }
   }
 
@@ -871,6 +901,8 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(selectedData['netChecked'], 'net');
       this.checkChecked(selectedData['borrowChecked'], 'borrow');
       this.checkChecked(selectedData['endUseChecked'], 'endUse');
+      this.checkChecked(selectedData['checkedHistorical'], 'changeHistorical');
+      this.checkChecked(selectedData['checkedProjection'], 'changeProjection');
       this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
       this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
       this.proposalForm.get('repayment').patchValue(data.repayment);
@@ -906,5 +938,17 @@ export class ProposalComponent implements OnInit {
         proposalFormArray.clear();
       });
     }
+  }
+
+  addFixedArray() {
+    (this.proposalForm.get('fixedAssetsSummary') as FormArray).push(
+      this.formBuilder.group({
+        particular: [undefined],
+        unit: [undefined],
+        rate: [undefined],
+        total: [undefined],
+        remarks: [undefined],
+      })
+    );
   }
 }
