@@ -221,9 +221,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
             this.crgGamma = this.customerInfo.crgGamma;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-            this.security = this.customerInfo.security;
-        }
+        // if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+        //     this.security = this.customerInfo.security;
+        // }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
         }
@@ -345,7 +345,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         }
         if (!ObjectUtil.isEmpty(data)) {
             this.security.data = data.data;
-            this.security.totalSecurityAmount = data.totalSecurityAmount;
+            // this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));

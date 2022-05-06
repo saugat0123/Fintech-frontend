@@ -8,7 +8,7 @@
                 <select class="form-control"
                            (change)="selectedSecurity(); toggleSecurity()"
                            [(ngModel)]="selectedSecurities">
-                    <option *ngFor="let security of( customerInfo?.selectedArray | jsonParse)"
+                    <option *ngFor="let security of securityList"
                                [value]="security">
                         {{security}}
                     </option>

@@ -4,8 +4,8 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
-import {Auto} from '../../../loan/model/Auto';
-import {LandBuilding} from '../../../loan/model/LandBuilding';
+import {Security} from '../../../loan/model/security';
+import {SecuritiesType} from '../../../constants/securities-type';
 
 @Component({
     selector: 'app-security-adder',
@@ -40,6 +40,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     isUsedAmount = [];
     coveragePercent = [];
     securityPresent = [];
+    uniqSecurityList: Set<string> = new Set<string>();
+    securityList: Array<string> = new Array<string>();
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -47,11 +49,13 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log(this.customerInfo);
         this.buildForm();
         // this.customerShareData = this.shareSecurityData.customerShareData;
         // this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
-        if (!ObjectUtil.isEmpty(this.customerInfo.selectedArray)) {
-            this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray)[0];
+        if (this.customerInfo.securities.length > 0) {
+            // this.selectedSecurities = JSON.parse(this.customerInfo.selectedArray)[0];
+            console.log('inside security');
             this.selectedSecurity();
             this.toggleSecurity();
         }
@@ -61,6 +65,18 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.autos)) {
             this.setAutoDetail();
         }
+        if (this.customerInfo.securities.length > 0) {
+            this.getAllSecurityTypeList();
+        }
+        if (this.uniqSecurityList.size > 0) {
+            this.securityList.push(...this.uniqSecurityList);
+        }
+    }
+
+    private getAllSecurityTypeList(): void {
+        this.customerInfo.securities.forEach((security: Security) => {
+            this.uniqSecurityList.add(security.securityType.toString());
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -165,7 +181,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     save() {
-        this.loanHolder.selectedArray = JSON.stringify(this.selectedSecurities);
+        // this.loanHolder.selectedArray = JSON.stringify(this.selectedSecurities);
         this.tagSecurityEmitter.emit(this.loanHolder);
     }
 
@@ -174,7 +190,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         this.auto = false;
         this.share = false;
         switch (this.selectedSecurities) {
-            case 'Land and Building Security': {
+            // land building security
+            case 'LAND_BUILDING_SECURITY': {
                 this.landBuilding = true;
                 this.landBuildingId = [];
                 if (!ObjectUtil.isEmpty(this.loanHolder.landBuildings)) {
@@ -185,7 +202,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                 this.setLimitExceed(this.customerInfo.landBuildings);
             }
                 break;
-            case 'VehicleSecurity': {
+            // vehicle security
+            case 'VEHICLE_SECURITY': {
                 this.auto = true;
                 if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
                     this.auto = true;
@@ -206,11 +224,13 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     toggleSecurity() {
         this.toggleArray = [];
         switch (this.selectedSecurities) {
-            case 'Land and Building Security': {
+            // land building security
+            case 'LAND_BUILDING_SECURITY': {
                 this.setToggled(this.customerInfo.landBuildings);
             }
                 break;
-            case 'VehicleSecurity': {
+            // vehicle security
+            case 'VEHICLE_SECURITY': {
                 this.setToggled(this.customerInfo.autos);
             }
                 break;

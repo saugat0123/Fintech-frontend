@@ -49,7 +49,7 @@ export class CustomerInfoData {
     creditRiskGrading: CreditRiskGrading;
     crgGamma: CreditRiskGradingGamma;
     version: number;
-    security: Security;
+    securities: Array<Security>;
     shareSecurity;
     guarantors: GuarantorDetail;
     insurance: Array<Insurance>;
