@@ -30,8 +30,7 @@ export class LeaseAssignmentComponent implements OnInit {
 
   private assignmentsDetailsFormGroup(): FormGroup {
     return this.formBuilder.group({
-          otherDetail: [undefined],
-          ownerKycApplicableData: [undefined],
+          otherDetail: [undefined]
         }
     );
   }
