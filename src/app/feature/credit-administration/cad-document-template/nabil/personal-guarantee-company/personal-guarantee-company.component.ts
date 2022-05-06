@@ -225,9 +225,16 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                           if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus) &&
                               !ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en)) {
                               if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Married') {
-                                  fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
-                                  grandFatherName = individualGuarantorNepData.fatherInLawName ?
-                                      individualGuarantorNepData.fatherInLawName.ct : '';
+                                  if (!ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium.en) &&
+                                      individualGuarantorNepData.relationMedium.en === '1') {
+                                      fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                                      grandFatherName = individualGuarantorNepData.grandFatherName ?
+                                          individualGuarantorNepData.grandFatherName.ct : '';
+                                  } else {
+                                      fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
+                                      grandFatherName = individualGuarantorNepData.fatherInLawName ?
+                                          individualGuarantorNepData.fatherInLawName.ct : '';
+                                  }
                               }
                               if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Unmarried') {
                                   fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
