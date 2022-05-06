@@ -309,6 +309,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       branchName: [undefined],
       actDetails: [undefined],
       actYearInFigure: [undefined],
+      authorizedBodyName: [undefined],
       headDepartment: [undefined],
       registrationDate: [undefined],
       registrationNo: [undefined],
@@ -352,13 +353,29 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
           if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
             return;
           }
+          let fatherName;
+          let grandFatherName;
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'MALE')) {
+            fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+            grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+          }
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '0')) {
+            fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
+            grandFatherName = individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : '';
+          }
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '1')) {
+            fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+            grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+          }
           this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
           (this.form.get('guarantorsPartnership') as FormArray).push(
               this.formBuilder.group({
                 branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
                 actDetails: [!ObjectUtil.isEmpty(this.loanHolderNepData.actName) ? this.loanHolderNepData.actName.ct : this.nameOfAct],
                 actYearInFigure: [this.setActYear()],
-                headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
+                authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
+                headDepartment: [this.loanHolderNepData.registeredWith &&
+                this.loanHolderNepData.registeredWith.ct ? this.loanHolderNepData.registeredWith.ct : ''],
                 registrationDate: [this.setRegistrationDate()],
                 registrationNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
                 registeredDistrict: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
@@ -373,8 +390,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
                 approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
                 approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
                 guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
-                guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
-                guarantorGrandFatherName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : ''],
+                guarantorFatherOrHusbandName: [fatherName ? fatherName : ''],
+                guarantorGrandFatherName: [grandFatherName ? grandFatherName : ''],
                 guarantorPermanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
                 guarantorPermanentMunicipality: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],
                 guarantorPermanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : ''],
