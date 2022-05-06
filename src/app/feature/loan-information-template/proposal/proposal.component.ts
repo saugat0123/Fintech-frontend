@@ -158,24 +158,6 @@ export class ProposalComponent implements OnInit {
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
-                if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
-                    (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
-                        amount: this.formDataForEdit.depositBank,
-                        assets: this.formDataForEdit.depositBankRemark
-                    }));
-                }
-                if (!ObjectUtil.isEmpty(this.formDataForEdit.depositOther)) {
-                    (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
-                        amount: this.formDataForEdit.depositOther,
-                        assets: this.formDataForEdit.depositOtherRemark
-                    }));
-                }
-            }
-            this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
-            this.proposalForm.patchValue(this.formDataForEdit);
-            this.setCheckedData(this.checkedDataEdit);
-            this.interestLimit = this.formDataForEdit['interestRate'];
             this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
             this.proposalForm.patchValue(this.formDataForEdit);
             this.setCheckedData(this.checkedDataEdit);
@@ -209,9 +191,6 @@ export class ProposalComponent implements OnInit {
                 });
         }
         this.getLoanData();
-        if (!ObjectUtil.isEmpty(this.formValue)) {
-            this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
-        }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             if (!ObjectUtil.isEmpty(this.formValue.data)) {
                 const data = JSON.parse(this.formValue.data);
@@ -327,7 +306,7 @@ export class ProposalComponent implements OnInit {
             repaymentMode: [undefined],
             repaymentModeInterest: [undefined],
             repaymentModePrincipal: [undefined],
-            disbursementCriteria: [undefined, [Validators.required]],
+            disbursementCriteria: [undefined],
             repayment: [undefined],
             borrowerInformation: [undefined],
             interestAmount: [undefined],
@@ -493,9 +472,14 @@ export class ProposalComponent implements OnInit {
                 firstTimeHomeBuyerChecked: this.firstTimeHomeBuyerChecked
             };
             this.proposalData.checkedData = JSON.stringify(mergeChecked);
+            this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
 
             // Proposed Limit value--
         } else {
+          if (this.proposalForm.invalid) {
+              this.toastService.show(new Alert(AlertType.WARNING, 'VALIDATION FAILEDs'));
+              return;
+          }
             this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
