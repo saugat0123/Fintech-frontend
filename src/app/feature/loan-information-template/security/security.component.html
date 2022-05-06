@@ -15,6 +15,39 @@
     <div class="row" id="security">
         <div class="col-md-12">
     <div class="form-group">
+
+        <div class="font-weight-bold">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Choose Security Type</label>
+                        <select class="form-control" (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
+                                (ngModelChange)="clearValidationState()"
+                                [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let type of securityTypes" [value]="type?.key">
+                                {{type?.value}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <app-vehicle *ngIf="vehicleSelected"></app-vehicle>
+        <app-apartment *ngIf="apartmentSelected"></app-apartment>
+        <app-land-building *ngIf="landBuilding"></app-land-building>
+        <app-plant-machinery *ngIf="plantSelected"></app-plant-machinery>
+        <app-fixed-deposit *ngIf="depositSelected"></app-fixed-deposit>
+        <app-share *ngIf="shareSelected"></app-share>
+        <app-hypothecation-of-stock *ngIf="hypothecationOfStock"></app-hypothecation-of-stock>
+        <app-corporation-guarantee *ngIf="corporateGuarantee"></app-corporation-guarantee>
+        <app-personal-guarantee *ngIf="personal"></app-personal-guarantee>
+        <app-insurance-policy *ngIf="insurancePolicySelected"></app-insurance-policy>
+        <app-assignment-of-receivable *ngIf="assignmentOfReceivable"></app-assignment-of-receivable>
+        <app-lease-assignment *ngIf="assignments"></app-lease-assignment>
+        <app-other-security *ngIf="securityOther"></app-other-security>
+
         <app-security-initial-form #initialSecurity
                                    [calendarType]="calendarType"
                                    [formData]="initialSecurityValue"

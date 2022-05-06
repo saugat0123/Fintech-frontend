@@ -26,6 +26,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {TemplateName} from '../../customer/model/templateName';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {SecuritiesType} from '../../constants/securities-type';
 
 @Component({
     selector: 'app-security',
@@ -43,7 +44,7 @@ export class SecurityComponent implements OnInit {
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
 
-    @ViewChild('initialSecurity' , {static: false})
+    @ViewChild('initialSecurity', {static: false})
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
@@ -86,6 +87,39 @@ export class SecurityComponent implements OnInit {
     alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
     lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
 
+    landSelected = false;
+    apartmentSelected = false;
+    landOtherBranchChecked = false;
+    plantSelected = false;
+    vehicleSelected = false;
+    shareSelected = false;
+    insurancePolicySelected = false;
+    assignmentOfReceivable = false;
+    underConstructionChecked = false;
+    depositSelected = false;
+    otherBranchcheck = false;
+    isFixedDeposit = false;
+    landBuilding = false;
+    underBuildingConstructionChecked = false;
+    hypothecationOfStock = false;
+    assignments = false;
+    securityOther = false;
+    corporateGuarantee = false;
+    ckeConfig;
+    personal = false;
+
+    apartmentOtherBranchChecked = false;
+    landBuildingOtherBranchChecked = false;
+    vehicleOtherBranchChecked = false;
+    plantOtherBranchChecked = false;
+
+    selectedSecurity: string;
+
+    securityTypes = SecuritiesType.enumObject();
+
+    securityTypeValues = SecuritiesType.values();
+    securityTypeEnumObject = SecuritiesType.enumObject();
+
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -120,6 +154,65 @@ export class SecurityComponent implements OnInit {
         }
     }
 
+    clearValidationState() {
+        console.log('validation state');
+    }
+
+    change(arraySelected) {
+        console.log('array Selected', arraySelected);
+        const selectedSecurity = [];
+        selectedSecurity.push(arraySelected);
+        console.log('selected security', selectedSecurity);
+        selectedSecurity.forEach(selectedValue => {
+            switch (selectedValue) {
+                case 'LAND_SECURITY' :
+                    console.log('land security true');
+                    this.landSelected = true;
+                    break;
+                case 'VEHICLE_SECURITY' :
+                    this.vehicleSelected = true;
+                    break;
+                case 'APARTMENT_SECURITY' :
+                    this.apartmentSelected = true;
+                    break;
+                case 'LAND_BUILDING_SECURITY' :
+                    this.landBuilding = true;
+                    break;
+                case 'PROPERTY_AND_MACHINERY_SECURITY' :
+                    this.plantSelected = true;
+                    break;
+                case 'FIXED_DEPOSIT_RECEIPT ':
+                    this.depositSelected = true;
+                    break;
+                case 'SHARE_SECURITY':
+                    this.shareSelected = true;
+                    break;
+                case 'HYPOTHECATION_OF_STOCK':
+                    this.hypothecationOfStock = true;
+                    break;
+                case ' CORPORATE_GUARANTEE':
+                    this.corporateGuarantee = true;
+                    break;
+                case 'PERSONAL_GUARANTEE':
+                    this.personal = true;
+                    break;
+                case ' INSURANCE_POLICY_SECURITY':
+                    this.insurancePolicySelected = true;
+                    break;
+                case ' ASSIGNMENT_OF_RECEIVABLES':
+                    this.assignmentOfReceivable = true;
+                    break;
+                case 'LEASE_ASSIGNMENT':
+                    this.assignments = true;
+                    break;
+                case 'OTHER_SECURITY':
+                    this.securityOther = true;
+                    break;
+            }
+        });
+    }
+
+
     buildForm() {
         this.guarantorsForm = this.formBuilder.group({
             guarantorsDetails: this.formBuilder.array([])
@@ -144,17 +237,17 @@ export class SecurityComponent implements OnInit {
 
     setCrgSecurityForm(formData) {
         if (!ObjectUtil.isEmpty(formData)) {
-        this.securityForm = this.formBuilder.group({
-            securityGuarantee: formData.securityGuarantee,
-            buildingLocation: formData.buildingLocation,
-            vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            lambdaScheme: [formData.lambdaScheme,
-                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
-            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
-            facCategory: [formData.facCategory],
-            securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
-            securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
-        });
+            this.securityForm = this.formBuilder.group({
+                securityGuarantee: formData.securityGuarantee,
+                buildingLocation: formData.buildingLocation,
+                vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
+                lambdaScheme: [formData.lambdaScheme,
+                    !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
+                roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
+                facCategory: [formData.facCategory],
+                securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
+                securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
+            });
         }
     }
 
@@ -166,30 +259,30 @@ export class SecurityComponent implements OnInit {
             guarantorList.forEach(guarantor => {
                 this.addressList[guarantorIndex] = new Address();
                 if (!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)) {
-                    this.getDistrict(guarantor.province.id , guarantorIndex);
+                    this.getDistrict(guarantor.province.id, guarantorIndex);
                     if (guarantor.district.id !== null) {
-                        this.getMunicipalities(guarantor.district.id , guarantorIndex);
+                        this.getMunicipalities(guarantor.district.id, guarantorIndex);
                     }
                 }
                 guarantorIndex++;
                 details.push(this.formBuilder.group({
-                    id: [guarantor.id === undefined ? undefined : guarantor.id] ,
-                    version: [guarantor.version === undefined ? undefined : guarantor.version] ,
-                    name: [guarantor.name === undefined ? undefined : guarantor.name , Validators.required] ,
-                    citizenNumber: [guarantor.citizenNumber === undefined ? undefined : guarantor.citizenNumber , Validators.required] ,
-                    issuedYear: [guarantor.issuedYear === undefined ? undefined : guarantor.issuedYear , Validators.required] ,
-                    issuedPlace: [guarantor.issuedPlace === undefined ? undefined : guarantor.issuedPlace , Validators.required] ,
-                    contactNumber: [guarantor.contactNumber === undefined ? undefined : guarantor.contactNumber , Validators.required] ,
-                    fatherName: [guarantor.fatherName === undefined ? undefined : guarantor.fatherName , Validators.required] ,
+                    id: [guarantor.id === undefined ? undefined : guarantor.id],
+                    version: [guarantor.version === undefined ? undefined : guarantor.version],
+                    name: [guarantor.name === undefined ? undefined : guarantor.name, Validators.required],
+                    citizenNumber: [guarantor.citizenNumber === undefined ? undefined : guarantor.citizenNumber, Validators.required],
+                    issuedYear: [guarantor.issuedYear === undefined ? undefined : guarantor.issuedYear, Validators.required],
+                    issuedPlace: [guarantor.issuedPlace === undefined ? undefined : guarantor.issuedPlace, Validators.required],
+                    contactNumber: [guarantor.contactNumber === undefined ? undefined : guarantor.contactNumber, Validators.required],
+                    fatherName: [guarantor.fatherName === undefined ? undefined : guarantor.fatherName, Validators.required],
                     grandFatherName: [guarantor.grandFatherName === undefined ? undefined
-                    : guarantor.grandFatherName , Validators.required] ,
-                    relationship: [guarantor.relationship === undefined ? undefined : guarantor.relationship , Validators.required] ,
+                        : guarantor.grandFatherName, Validators.required],
+                    relationship: [guarantor.relationship === undefined ? undefined : guarantor.relationship, Validators.required],
                     province: [!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)
-                    ? guarantor.province.id : undefined , Validators.required] ,
+                        ? guarantor.province.id : undefined, Validators.required],
                     district: [!ObjectUtil.isEmpty(guarantor.district) && !ObjectUtil.isEmpty(guarantor.district.id)
-                    ? guarantor.district.id : undefined , Validators.required] ,
+                        ? guarantor.district.id : undefined, Validators.required],
                     municipalities: [!ObjectUtil.isEmpty(guarantor.municipalities) && !ObjectUtil.isEmpty(guarantor.municipalities.id) ?
-                        guarantor.municipalities.id : undefined , Validators.required]
+                        guarantor.municipalities.id : undefined, Validators.required]
                 }));
 
             });
@@ -202,17 +295,17 @@ export class SecurityComponent implements OnInit {
         this.addressList.push(new Address());
         addDetails.push(
             this.formBuilder.group({
-                name: [undefined , Validators.required] ,
-                province: [null , Validators.required] ,
-                district: [null , Validators.required] ,
-                municipalities: [null , Validators.required] ,
-                citizenNumber: [undefined , Validators.required] ,
-                issuedYear: [undefined , Validators.required] ,
-                issuedPlace: [undefined , Validators.required] ,
-                contactNumber: [undefined , Validators.required] ,
-                fatherName: [undefined , Validators.required] ,
-                grandFatherName: [undefined , Validators.required] ,
-                relationship: [undefined , Validators.required]
+                name: [undefined, Validators.required],
+                province: [null, Validators.required],
+                district: [null, Validators.required],
+                municipalities: [null, Validators.required],
+                citizenNumber: [undefined, Validators.required],
+                issuedYear: [undefined, Validators.required],
+                issuedPlace: [undefined, Validators.required],
+                contactNumber: [undefined, Validators.required],
+                fatherName: [undefined, Validators.required],
+                grandFatherName: [undefined, Validators.required],
+                relationship: [undefined, Validators.required]
             })
         );
     }
@@ -228,7 +321,7 @@ export class SecurityComponent implements OnInit {
             });
     }
 
-    getDistrict(provinceId: number , i: number) {
+    getDistrict(provinceId: number, i: number) {
         const province = new Province();
         province.id = provinceId;
         this.addressServices.getDistrictByProvince(province).subscribe((response: any) => {
@@ -237,7 +330,7 @@ export class SecurityComponent implements OnInit {
         });
     }
 
-    getMunicipalities(districtId: number , i: number) {
+    getMunicipalities(districtId: number, i: number) {
         const district = new District();
         district.id = districtId;
         this.addressServices.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
