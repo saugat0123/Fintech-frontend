@@ -30,6 +30,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
   initialInformation: any;
   loanDetails: any = [];
   translatedFormGroup: FormGroup;
+  filteredLoanIdList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -64,8 +65,16 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
-
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === 'MORTGAGE LOAN COMBINED');
+    this.filteredList.forEach((val, i) => {
+      this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
+  }
   buildForm() {
     this.mortgageCombineLoanForm = this.formBuilder.group({
       mortgageCombineLoanFormArray: this.formBuilder.array([]),
@@ -126,6 +135,8 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
       emiAmountWordsCT: [undefined],
       totalInstallmentCT: [undefined],
       beneficiaryNameCT: [undefined],
+
+      loanId: [undefined]
     });
   }
 
