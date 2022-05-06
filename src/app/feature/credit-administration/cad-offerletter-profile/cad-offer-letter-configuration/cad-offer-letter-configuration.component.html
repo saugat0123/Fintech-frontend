@@ -3562,7 +3562,7 @@
                 </select>
                 </td>
               </tr>
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'">
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married'">
                 <td>
                   <label class="relationMedium">Relation Medium</label>
                 </td>
@@ -3579,7 +3579,8 @@
                   <input class="form-control" formControlName="relationMediumCT" type="text"/>
                 </td>
               </tr>
-              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'
+               && userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Husband Name</label></td>
                 <td><input class="form-control "
                            formControlName="husbandName"
@@ -3595,7 +3596,8 @@
                 </td>
               </tr>
 
-              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'
+               && userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Father In Law Name</label></td>
                 <td><input class="form-control "
                            formControlName="fatherInLawName"
@@ -3611,7 +3613,10 @@
               </tr>
 
               <tr *ngIf="
-               (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+               ((userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && !(userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married'))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1)))">
                 <td>
                   <label class="title">Grand Father Name</label>
                 </td>
@@ -3629,9 +3634,10 @@
                   <input class="form-control" formControlName="grandFatherNameCT" type="text"/>
                 </td>
               </tr>
-              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' ||
-               userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') &&
-               !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="((userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && !(userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married'))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1)))">
                 <td>
                   <label class="title">Father Name</label>
                 </td>
