@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Guarantor} from '../../../../model/guarantor';
 import {NbDialogRef} from '@nebular/theme';
 
@@ -8,10 +8,10 @@ import {NbDialogRef} from '@nebular/theme';
   styleUrls: ['./guarantor-detail.component.scss']
 })
 export class GuarantorDetailComponent implements OnInit {
-   guarantorData: Guarantor;
+   @Input() guarantorData: Guarantor;
 
 
-  constructor(protected dialogRef: NbDialogRef<GuarantorDetailComponent>) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -21,7 +21,4 @@ export class GuarantorDetailComponent implements OnInit {
     return  Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
   }
 
-  onClose() {
-    this.dialogRef.close();
-  }
 }
