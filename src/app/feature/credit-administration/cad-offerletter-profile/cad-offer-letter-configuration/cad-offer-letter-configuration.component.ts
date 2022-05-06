@@ -145,6 +145,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     translatedFormGroup: FormGroup;
     guarantorTranslatedFormGroup: FormGroup;
     shareHolderArray: Array<any> = new Array<any>();
+    jointCustomerArray: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -233,6 +234,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         if (this.jointCustomerNum > 1) {
             for (let i = 1; i < this.jointCustomerNum; i++) {
                 this.addJointCustomerDetails();
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.oneFormCustomer) &&
+        !ObjectUtil.isEmpty(this.oneFormCustomer.jointInfo)) {
+            let tempJson = [];
+            tempJson = JSON.parse(this.oneFormCustomer.jointInfo);
+            if (tempJson.length > 1) {
+                for (let i = 1; i < tempJson.length; i ++) {
+                    this.jointCustomerArray.push(tempJson[i]);
+                }
+            }
+            if (!ObjectUtil.isEmpty(this.jointCustomerArray)) {
+                this.setJointCustomerDetails(this.jointCustomerArray);
             }
         }
 
@@ -2131,7 +2145,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     citizenIssuedDate = undefined;
                 }
             }*/
-            console.log('Nepa Data:', nepaData);
 
             if (!ObjectUtil.isEmpty(nepaData.guarantorType)) {
                 if (nepaData.guarantorType.en !== 'Personal Guarantor') {
@@ -4122,7 +4135,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
     setDobCitizenDate() {
         const tempData = JSON.parse(this.loanHolder.nepData);
-        console.log('Temp Data:', tempData);
         if (!ObjectUtil.isEmpty(tempData) &&
             !ObjectUtil.isEmpty(tempData.dobDateType) && !ObjectUtil.isEmpty(tempData.dobDateType.en)) {
             if (tempData.dobDateType.en === 'AD') {
@@ -5759,7 +5771,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
     setDetailsEntered(i) {
         this.shareHolderArray = this.userConfigForm.get('ownerDetails').value;
-        console.log('Share Holder Array:', this.shareHolderArray);
         if (!this.userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value) {
             this.clearTagging(i);
         }
