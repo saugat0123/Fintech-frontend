@@ -1,4 +1,4 @@
-import {AfterContentChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
@@ -16,7 +16,7 @@ import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
     templateUrl: './proposal-summary.component.html',
     styleUrls: ['./proposal-summary.component.scss']
 })
-export class ProposalSummaryComponent implements OnInit, OnChanges {
+export class ProposalSummaryComponent implements OnInit {
 
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
@@ -51,24 +51,22 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
     dtoArray = [];
     totalValue = [];
     dtoTotalValue = [];
+    totalChanges = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
 
     ngOnInit() {
-        // console.log('customerAllLoanList', this.customerAllLoanList);
-        // this.proposalAllData = JSON.parse(this.proposalData.data);
-        // this.checkedData = JSON.parse(this.proposalData.checkedData);
-        // if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
-        //         this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-        //     }
-        // }
-        // this.calculateInterestRate();
-        // this.getLoanConfig();
-        // this.checkInstallmentAmount();
-        console.log('ngoninti', this.customerAllLoanList);
+        this.proposalAllData = JSON.parse(this.proposalData.data);
+        this.checkedData = JSON.parse(this.proposalData.checkedData);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
+                this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+            }
+        }
+        this.calculateInterestRate();
+        this.checkInstallmentAmount();
         if (this.customerAllLoanList.length > 0) {
             this.getLoanConfig();
             this.calculateChangeAmount();
@@ -148,9 +146,7 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
     }
 
     getLoanConfig() {
-        console.log('customerAllLoanList', this.customerAllLoanList);
         this.customerAllLoanList.forEach(c => {
-            console.log('loans', c);
             const config = {
                 isFundable: c.loan.isFundable,
                 fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
@@ -223,8 +219,6 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
                 this.dtoArray.push(dtoCfonfig);
             });
         }
-        console.log('array', this.array);
-        console.log('dtoArray', this.dtoArray);
     }
 
     checkInstallmentAmount() {
@@ -247,70 +241,20 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
         return interestRate;
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log('customerAllLoanListss', this.customerAllLoanList);
-        this.proposalAllData = JSON.parse(this.proposalData.data);
-        this.checkedData = JSON.parse(this.proposalData.checkedData);
-        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
-                this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-            }
-        }
-        this.calculateInterestRate();
-        // this.getLoanConfig();
-        this.checkInstallmentAmount();
-        if (this.customerAllLoanList.length > 0) {
-            this.getLoanConfig();
-            this.calculateChangeAmount();
-        }
-    }
-
     calculateChangeAmount() {
-        console.log('here');
        this.totalValue = [];
        this.dtoTotalValue = [];
-        for (const l of this.customerAllLoanList) {
-            console.log('dadasdasdasd', l);
-            this.totalValue.push( JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
-               ? JSON.parse(l.proposal.data).existingLimit : 0));
+        for (let i = 0; i < this.customerAllLoanList.length; i++) {
         }
-        console.log('totad', this.totalValue);
-        // this.totalValue = this.customerAllLoanList
-        //     .forEach(l => {
-        //         if (ObjectUtil.isEmpty(l.proposal.existingLimit)) {
-        //             console.log('here');
-        //             l.proposal.existingLimit = 0;
-        //         }
-        //         console.log('existing limit value set 0', l.proposal.existingLimit);
-        //         return l.proposal.proposedLimit - l.proposal.existingLimit;
-        //     });
-        // if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
-        //     this.dtoTotalValue = this.customerLoanDtoList.forEach(cld => {
-        //         if (ObjectUtil.isEmpty(cld.proposal.existingLimit)) {
-        //             cld.proposal.existingLimit = 0;
-        //         }
-        //         return cld.proposal.proposedLimit - cld.proposal.existingLimit;
-        //     });
-        // }
-        console.log('totalValue', this.totalValue);
-        // console.log('dtoTotalValue', this.dtoTotalValue);
+        this.customerAllLoanList.forEach((l, i) => {
+            this.totalValue.push(JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
+                ? JSON.parse(l.proposal.data).existingLimit : 0));
+        });
+        if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
+            this.customerLoanDtoList.forEach(cld => {
+                this.dtoTotalValue.push(JSON.parse(cld.proposal.data).proposedLimit - (JSON.parse(cld.proposal.data).existingLimit
+                    ? JSON.parse(cld.proposal.data).existingLimit : 0));
+            });
+        }
     }
-
-    // ngAfterViewInit(): void {
-    //     console.log('customerAllLoanListss123', this.customerAllLoanList);
-    //     this.proposalAllData = JSON.parse(this.proposalData.data);
-    //     this.checkedData = JSON.parse(this.proposalData.checkedData);
-    //     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-    //         if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
-    //             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-    //         }
-    //     }
-    //     this.calculateInterestRate();
-    //     this.checkInstallmentAmount();
-    //     this.getLoanConfig();
-    //     // if (this.customerAllLoanList.length > 0) {
-    //     //     this.calculateChangeAmount();
-    //     // }
-    //     this.calculateChangeAmount();
-    // }
 }
