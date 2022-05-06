@@ -4,6 +4,7 @@
   color: black;
   text-align: justify;
 }
+
 .form-field {
   background: yellow;
   margin: 0px;
@@ -26,9 +27,20 @@
   height: 40px;
 }
 
-p {
-  line-height: 1.9;
+table tbody tr td {
+  padding-left: 10px;
 }
+
+.sav {
+  color: rgb(65,104,207) ;
+  background-color: rgb(235,247,255);
+}
+
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+
 @media screen {
   .print-only {
     display: none;
@@ -45,11 +57,18 @@ p {
     display: inline;
   }
   div.align {
-    font-size: 16px;
-    line-height: 1.9;
+    font-size: 19px;
+    line-height: 1.6em;
     text-align: justify;
     text-justify: inter-word;
-    margin: 10px 70px;
+  }
+  span {
+    line-height: 1.2em;
+  }
+
+  p {
+    margin: 0%;
   }
 
 }
+

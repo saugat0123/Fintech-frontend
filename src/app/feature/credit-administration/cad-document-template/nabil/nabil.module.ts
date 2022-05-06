@@ -132,6 +132,7 @@ import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer
 import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-for-mortgage-individual/consent-letter-for-mortgage-individual.component';
 import { PromissoryNoteIndividualCombinedComponent } from './promissory-note-individual-combined/promissory-note-individual-combined.component';
+import { NegativeLienIndividualComponent } from './negative-lien-individual/negative-lien-individual.component';
 
 @NgModule({
     declarations: [
@@ -171,7 +172,9 @@ import { PromissoryNoteIndividualCombinedComponent } from './promissory-note-ind
         Section19ToSection22Component,
         RetailCombinedOfferLetterComponent,
         ConsentLetterForMortgageIndividualComponent,
-        PromissoryNoteIndividualCombinedComponent],
+        PromissoryNoteIndividualCombinedComponent,
+        ConsentLetterForMortgageIndividualComponent,
+        NegativeLienIndividualComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -252,7 +255,9 @@ import { PromissoryNoteIndividualCombinedComponent } from './promissory-note-ind
         Section9InsuranceRelatedClausesComponent,
         ConsentLetterForMortgageIndividualComponent,
         RetailCombinedOfferLetterComponent,
-        PromissoryNoteIndividualCombinedComponent
+        PromissoryNoteIndividualCombinedComponent,
+        RetailCombinedOfferLetterComponent,
+        NegativeLienIndividualComponent
     ],
     imports: [
         CommonModule,
