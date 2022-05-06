@@ -256,5 +256,15 @@ export class ProposalSummaryComponent implements OnInit {
                     ? JSON.parse(cld.proposal.data).existingLimit : 0));
             });
         }
+        if (this.totalValue.length > 0) {
+            this.totalValue.forEach(tv => {
+                this.totalChanges += tv;
+            });
+            if (this.dtoTotalValue.length > 0) {
+                this.dtoTotalValue.forEach(dtv => {
+                    this.totalChanges += dtv;
+                });
+            }
+        }
     }
 }

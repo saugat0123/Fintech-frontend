@@ -18,34 +18,31 @@
     </ul>
   </div>
 </div>
-<div class="col-md-12">
-  <div class="row">
-
-  </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <table
             class="table table-bordered table-responsive-md table-sm sb-small text-center">
       <thead>
       <tr class="sb-bg-dark text-white">
-        <th>Loan Facility(Created Date(AD/BS))</th>
-        <th>Existing Limit</th>
-        <th>Outstanding</th>
-        <th>Enhance</th>
-        <th>Settlement</th>
-        <th>Proposed Limit</th>
-        <!--        <th>Existing INT/COM/CM</th>-->
-        <!--        for non funded commision and cash margin combination to be view-->
-        <th>Existing Proposed INT/COM/CM</th>
-        <th>Proposed INT/COM/CM</th>
-
-        <th>Service Charge</th>
-        <th>Limit Expiry/Tenure(AD/BS)</th>
+        <th rowspan="2">Loan Facility(Created Date)</th>
+        <th colspan="3">Existing</th>
+        <th colspan="4">Proposed</th>
+      </tr>
+      <tr class="sb-bg-dark text-white">
+        <th>Limit</th>
+        <!--                <th>Limit Expiry/Tenure (AD/BS)</th>-->
+        <th>O/S</th>
+        <th>Pricing</th>
+        <!--                <th>Overdue Principal</th>-->
+        <!--                <th>Overdue Interest</th>-->
+        <th>Limit</th>
+        <th>Limit Expiry/Tenure (AD/BS)</th>
+        <th>Change</th>
+        <th>Pricing</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let loan of customerAllLoanList"
+      <tr *ngFor="let loan of customerAllLoanList; let i = index;"
           [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
         <td class="text-left pl-1">
           <ng-container
@@ -57,68 +54,77 @@
           {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
         </td>
         <td class="text-right pr-1">
-          <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
-            Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
-          </span>
-          <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-        <td class="text-right pr-1">
-          <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
-            Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</span>
+                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
+                        Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                    </span>
+          <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span>
+        </td>
+        <!--                <td width="150px" class="text-left pl-1">-->
+        <!--                    <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}}-->
+        <!--                        ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>-->
+        <!--                    <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>-->
+        <!--                </td>-->
+        <td class="text-right pl-1">
+                    <span *ngIf="(LoanType[loan?.loanType] !== LoanType?.NEW_LOAN) && (loan?.proposal?.data | jsonParse)?.outStandingLimit">
+                        Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
+                    </span>
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
         </td>
         <td class="text-right pr-1">
-          <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
-            Rs. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
-          </span>
-          <span *ngIf="!(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
+                    <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 && loan.loanType !== LoanType.NEW_LOAN ">
+                        IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}} %
+                    </span>
+          <span *ngIf="(!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted)
+                            && (LoanType[loan?.loanType] !== LoanType?.NEW_LOAN)">
+                        <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+                            CM: Rs. {{(loan?.proposal?.data | jsonParse)?.existCashMargin || 0 | currencyFormatter}}
+                          ,</span>
+                        <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+                            CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}} %,</span>
+                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCommissionPercentage > 0">
+                            COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
+                        </span>
+                    </span>
+          <!--                    <span *ngIf="((array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')-->
+          <!--                    && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare ||-->
+          <!--                    array[i]?.isGeneral) && LoanType[loan?.loanType] !== LoanType?.NEW_LOAN">-->
+          <!--                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loan?.proposal?.data | jsonParse)?.existingServiceCharge !== null">-->
+          <!--                            SC: Rs. {{(loan?.proposal?.data | jsonParse)?.existingServiceCharge}}</span>-->
+          <!--                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loan?.proposal?.data | jsonParse)?.existingServiceCharge !== null">-->
+          <!--                            SC: {{(loan?.proposal?.data | jsonParse)?.existingServiceCharge}} %</span>-->
+          <!--                    </span>-->
+          <span *ngIf="((loan?.proposal?.data | jsonParse)?.existInterestRate === null)
+                    && ((loan?.proposal?.data | jsonParse)?.existCashMargin === null)
+                    && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
         </td>
-        <td class="text-right pr-1">
-          <span *ngIf="(loan?.proposal?.data | jsonParse)?.settlementAmount">
-            Rs. {{(loan?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
-          </span>
-          <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span></td>
-
         <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-        <!--                Existing INT/COM/CM-->
-        <!--        <td>-</td>-->
-        <td>
-                    <span *ngIf="loan?.loan?.isFundable">
-                        IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}}%
-                    </span>
-          <span *ngIf="!loan?.loan?.isFundable">
-                        <span
-                                *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT'">
-                            CM: Rs. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,</span>
-                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT'">
-                            CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}}%,</span>
-                        COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
-                    </span>
-        </td>
-        <td>
-          <span *ngIf="loan?.loan?.isFundable">
-            BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}} %,
-            PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
-            IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %
-          </span>
-          <span *ngIf="!loan?.loan?.isFundable">
-            <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
-              CM: Rs.  {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}} ,</span>
-            <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
-              CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
-            COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
-        </td>
-        <td class="text-right pr-1">
-          <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
-            Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
-          <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>
-        </td>
         <td width="150px" class="text-left pl-1">
-          <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
-          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}} ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>
-          <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
+                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | date}}
+                      ({{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>
+          <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
+        </td>
+        <td class="text-right pr-1">Rs. {{totalValue[i]}}</td>
+        <td class="pr-1 pl-1">
+                    <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
+                    || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral; else setNullEmpty">
+                        IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %,
+                    </span>
+          <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
+                    && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral; else setNullEmpty">
+                        BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}} %,
+                        PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
+                    </span>
+          <span *ngIf="!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted; else setNullEmpty">
+                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
+                            CM: Rs.  {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
+                          ,</span>
+                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
+                            CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
+                        COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %
+                    </span>
         </td>
       </tr>
-      <tr *ngFor="let loanDto of customerLoanDtoList"
+      <tr *ngFor="let loanDto of customerLoanDtoList; let ii = index"
           [class.font-weight-bold]="proposalData?.id === loanDto?.proposal?.id">
         <td class="text-left pl-1">
           <ng-container
@@ -141,122 +147,97 @@
           <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
         </td>
         <td class="text-right pr-1">
-                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount">
-                        Rs. {{(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
-                    </span>
-          <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
-        </td>
-        <td class="text-right pr-1">
-                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.settlementAmount">
-                        Rs. {{(loanDto?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
-                    </span>
-          <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.settlementAmount">-</span>
-        </td>
-
-        <td class="text-right pr-1">Rs. {{loanDto?.proposal?.proposedLimit | currencyFormatter}}</td>
-
-        <td class="text-right pr-1">
-                    <span *ngIf="(loanDto.isFundable) && ((loanDto?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
+                    <span *ngIf="(dtoArray[ii]?.isFundable) && ((loanDto?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
                         IR: {{(loanDto?.proposal?.data | jsonParse)?.existInterestRate}} %
                     </span>
-          <span *ngIf="!loanDto.isFundable">
+          <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted && LoanType[loanDto?.loanType] !== LoanType?.NEW_LOAN">
                         <span *ngIf="((loanDto?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT') && ((loanDto?.proposal?.data | jsonParse)?.existCashMargin > 0)">
-                            CM: Rs. {{(loanDto?.proposal?.data | jsonParse)?.existCashMargin || 0 | currencyFormatter}} ,</span>
+                            CM: Rs. {{(loanDto?.proposal?.data | jsonParse)?.existCashMargin || 0 | currencyFormatter}}
+                          ,</span>
                         <span *ngIf="((loanDto?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT') && ((loanDto?.proposal?.data | jsonParse)?.existCashMargin > 0)">
                             CM: {{ ((loanDto?.proposal?.data | jsonParse)?.existCashMargin || 0)}} %,</span>
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage > 0">
                             COM:{{(loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
                         </span>
                     </span>
-          <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
-                       SC: {{client === clientName?.SHINE_RESUNGA ? '' : 'Rs. '}} {{(loanDto?.proposal?.data | jsonParse)?.existingServiceCharge}}</span>
-          <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
-                            SC: {{(loanDto?.proposal?.data | jsonParse)?.existingServiceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
+          <!--                    <span *ngIf="((dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')-->
+          <!--                    && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare-->
+          <!--                    || dtoArray[ii]?.isGeneral) && LoanType[loanDto?.loanType] !== LoanType?.NEW_LOAN">-->
+          <!--                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">-->
+          <!--                            SC: Rs. {{(loanDto?.proposal?.data | jsonParse)?.existingServiceCharge}}</span>-->
+          <!--                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">-->
+          <!--                            SC: {{(loanDto?.proposal?.data | jsonParse)?.existingServiceCharge}} %</span>-->
+          <!--                    </span>-->
           <span *ngIf="((loanDto?.proposal?.data | jsonParse)?.existInterestRate === null)
                     && ((loanDto?.proposal?.data | jsonParse)?.existCashMargin === null)
-                    && ((loanDto?.proposal?.data | jsonParse)?.existingServiceCharge === null)
                     && ((loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
         </td>
-        <td>
-                    <span *ngIf="loanDto.isFundable">
+        <td class="text-right pr-1">Rs. {{loanDto?.proposal?.proposedLimit | currencyFormatter}}</td>
+        <td class="pr-1 pl-1">
+                    <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving'))
+                    || dtoArray[ii]?.isFixedDeposit || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
+                        IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %,
+                    </span>
+          <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
+                        && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle
+                        || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                         BR : {{ (loanDto?.proposal?.data | jsonParse)?.baseRate}} %,
                         PR : {{ (loanDto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
-                        IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %
                     </span>
-          <span *ngIf="!loanDto.isFundable">
+          <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted">
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
-                            CM: Rs.  {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
-                          ,</span>
+                            CM: Rs.  {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}} ,
+                        </span>
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
                             CM: {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                         COM:{{(loanDto?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
         </td>
 
-        <td class="text-right pr-1">
-                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.serviceCharge !== ''">
-                        SC: {{client === clientName?.SHINE_RESUNGA ? '' : 'Rs. '}}{{(loanDto?.proposal?.data | jsonParse)?.serviceCharge}}</span>
-          <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loanDto?.proposal?.data | jsonParse)?.serviceCharge !== ''">
-                        SC: {{(loanDto?.proposal?.data | jsonParse)?.serviceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
-          <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceCharge === '' || (loanDto?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>
-        </td>
-
-        <!--        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>-->
-        <!--        <td>{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>-->
-        <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>-->
-        <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>-->
-        <!--        <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>-->
-        <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>-->
+        <!--                <td class="text-right pr-1">-->
+        <!--                    <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')-->
+        <!--                    && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">-->
+        <!--                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.serviceCharge !== ''">-->
+        <!--                        SC: Rs. {{(loanDto?.proposal?.data | jsonParse)?.serviceCharge}}</span>-->
+        <!--                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loanDto?.proposal?.data | jsonParse)?.serviceCharge !== ''">-->
+        <!--                        SC: {{(loanDto?.proposal?.data | jsonParse)?.serviceCharge}} %</span>-->
+        <!--                    </span>-->
+        <!--                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceCharge === '' || (loanDto?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>-->
+        <!--                </td>-->
+        <td class="text-right pr-1">Rs. {{dtoTotalValue[ii]}}</td>
         <td width="150px" class="text-left pl-1">
-          <span *ngIf="!loanDto.proposal.limitExpiryMethod">-</span>
-          <span *ngIf="loanDto.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loanDto.proposal?.dateOfExpiry | date}}
-            ({{loanDto.proposal?.dateOfExpiry | engNepDate: false}})</span>
-          <span *ngIf="loanDto.proposal.limitExpiryMethod === 'CUSTOM'">{{loanDto.proposal?.duration}} {{loanDto.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
+                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | date}}
+                      ({{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>
+          <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loanDto.proposal?.duration}} {{loanDto?.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
         </td>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Funded</strong></td>
-        <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
-          </span>
-        </td>
+          Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('enhanceLimitAmount', true, customerAllLoanList) | currencyFormatter }}
-          </span>
+                    <span>
+                        Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
+                    </span>
         </td>
+        <td></td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('settlementAmount', true, customerAllLoanList) | currencyFormatter }}
-          </span>
-        </td>
-        <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-        <td>-</td>
+          Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Non-Funded</strong></td>
-        <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
-          </span>
-        </td>
+          Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('enhanceLimitAmount', false, customerAllLoanList) | currencyFormatter }}
-          </span>
+                    <span>
+                        Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
+                    </span>
         </td>
+        <td></td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotalFundable('settlementAmount', false, customerAllLoanList) | currencyFormatter }}
-          </span>
-        </td>
-        <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-        <td>-</td>
+          Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
@@ -266,24 +247,12 @@
 
         <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
         <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}
-          </span>
+          <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
         </td>
-        <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}
-          </span>
-        </td>
-        <td class="text-right pr-1">
-          <span>
-            Rs. {{ getTotal('settlementAmount') | currencyFormatter }}
-          </span>
-        </td>
+        <td></td>
         <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
         <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <td class="text-right pr-1">{{totalChanges}}</td>
         <td>-</td>
       </tr>
       </tbody>
