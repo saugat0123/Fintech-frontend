@@ -5,8 +5,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
@@ -18,6 +17,7 @@ import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
     styleUrls: ['./proposal-summary.component.scss']
 })
 export class ProposalSummaryComponent implements OnInit {
+
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
     @Input() loanDataHolder;
@@ -28,7 +28,7 @@ export class ProposalSummaryComponent implements OnInit {
     proposalAllData: any;
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
-    loanType: any;
+    loanType = LoanType;
     checkedData;
     isFundable = false;
     fundableNonFundableSelcted = false;
@@ -47,6 +47,11 @@ export class ProposalSummaryComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
+    array = [];
+    dtoArray = [];
+    totalValue = [];
+    dtoTotalValue = [];
+    totalChanges = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -61,8 +66,11 @@ export class ProposalSummaryComponent implements OnInit {
             }
         }
         this.calculateInterestRate();
-        this.getLoanConfig();
         this.checkInstallmentAmount();
+        if (this.customerAllLoanList.length > 0) {
+            this.getLoanConfig();
+            this.calculateChangeAmount();
+        }
     }
 
     public getTotal(key: string): number {
@@ -138,37 +146,79 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     getLoanConfig() {
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    loanConfigId: null
-                };
-                this.allId = paramsValue;
-                this.loanConfigService.detail(this.allId.loanConfigId).subscribe((response: any) => {
-                    this.isFundable = response.detail.isFundable;
-                    this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
-                    this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
-                    this.isGeneral = response.detail.loanTag === 'GENERAL';
-                    this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
-                    this.isVehicle = response.detail.loanTag === 'VEHICLE';
-                    this.loanNature = response.detail.loanNature;
-                    if (!ObjectUtil.isEmpty(this.loanNature)) {
-                        this.loanNatureSelected = true;
-                        this.isTerminating = this.loanNature === 'Terminating';
-                        this.isRevolving = this.loanNature === 'Revolving';
-                        if (this.isRevolving) {
-                            this.isGeneral = false;
+        this.customerAllLoanList.forEach(c => {
+            const config = {
+                isFundable: c.loan.isFundable,
+                fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
+                isFixedDeposit: c.loan.loanTag === 'FIXED_DEPOSIT',
+                isGeneral: c.loan.loanTag === 'GENERAL',
+                isShare: c.loan.loanTag === 'SHARE_SECURITY',
+                isVehicle: c.loan.loanTag === 'VEHICLE',
+                loanNature: c.loan.loanNature,
+                loanNatureSelected: false,
+                isTerminating: false,
+                isRevolving: false,
+            };
+            if (!ObjectUtil.isEmpty(config.loanNature)) {
+                config.loanNatureSelected = true;
+                if (config.loanNature.toString() === 'Terminating') {
+                    config.isTerminating = true;
+                } else {
+                    config.isRevolving = true;
+                }
+                if (config.isRevolving) {
+                    config.isGeneral = false;
+                }
+            }
+            if (!config.isFundable) {
+                config.isGeneral = false;
+            }
+            if (config.isFixedDeposit) {
+                config.loanNatureSelected = false;
+                config.fundableNonFundableSelcted = false;
+            }
+            this.array.push(config);
+        });
+        if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cd => {
+                let dtoCfonfig;
+                if (!ObjectUtil.isEmpty(cd.loanConfig)) {
+                    dtoCfonfig = {
+                        isFundable: cd.loanConfig.isFundable,
+                        fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
+                        isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
+                        isGeneral: cd.loanConfig.loanTag === 'GENERAL',
+                        isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
+                        isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+                        loanNature: cd.loanConfig.loanNature,
+                        loanNatureSelected: false,
+                        isTerminating: false,
+                        isRevolving: false,
+                    };
+                }
+                if (!ObjectUtil.isEmpty(dtoCfonfig)) {
+                    if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
+                        dtoCfonfig.loanNatureSelected = true;
+                        if (dtoCfonfig.loanNature.toString() === 'Terminating') {
+                            dtoCfonfig.isTerminating = true;
+                        } else {
+                            dtoCfonfig.isRevolving = true;
+                        }
+                        if (dtoCfonfig.isRevolving) {
+                            dtoCfonfig.isGeneral = false;
                         }
                     }
-                    if (!this.isFundable) {
-                        this.isGeneral = false;
+                    if (!dtoCfonfig.isFundable) {
+                        dtoCfonfig.isGeneral = false;
                     }
-                    if (this.isFixedDeposit) {
-                        this.loanNatureSelected = false;
-                        this.fundableNonFundableSelcted = false;
+                    if (dtoCfonfig.isFixedDeposit) {
+                        dtoCfonfig.loanNatureSelected = false;
+                        dtoCfonfig.fundableNonFundableSelcted = false;
                     }
-                });
+                }
+                this.dtoArray.push(dtoCfonfig);
             });
+        }
     }
 
     checkInstallmentAmount() {
@@ -189,5 +239,32 @@ export class ProposalSummaryComponent implements OnInit {
         const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
         return interestRate;
+    }
+
+    calculateChangeAmount() {
+       this.totalValue = [];
+       this.dtoTotalValue = [];
+        for (let i = 0; i < this.customerAllLoanList.length; i++) {
+        }
+        this.customerAllLoanList.forEach((l, i) => {
+            this.totalValue.push(JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
+                ? JSON.parse(l.proposal.data).existingLimit : 0));
+        });
+        if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
+            this.customerLoanDtoList.forEach(cld => {
+                this.dtoTotalValue.push(JSON.parse(cld.proposal.data).proposedLimit - (JSON.parse(cld.proposal.data).existingLimit
+                    ? JSON.parse(cld.proposal.data).existingLimit : 0));
+            });
+        }
+        if (this.totalValue.length > 0) {
+            this.totalValue.forEach(tv => {
+                this.totalChanges += tv;
+            });
+            if (this.dtoTotalValue.length > 0) {
+                this.dtoTotalValue.forEach(dtv => {
+                    this.totalChanges += dtv;
+                });
+            }
+        }
     }
 }

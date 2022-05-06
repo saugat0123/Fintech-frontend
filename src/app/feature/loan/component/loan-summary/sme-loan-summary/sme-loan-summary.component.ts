@@ -205,6 +205,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   companyInfo: CompanyInfo = new CompanyInfo();
   customerCategory = CustomerCategory;
   totalProposedLimit = 0;
+  loaded = false;
 
   @Input() crgTotalRiskScore: any;
   constructor(
@@ -239,7 +240,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loanDataHolder = this.loanData;
-    console.log('loanHolder', this.loanDataHolder.loanHolder);
     // if (this.loanDataHolder.loanCategory === 'INSTITUTION' &&
     //     !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
     //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -260,7 +260,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.navigationSubscription.unsubscribe();
   }
 
-  loadSummary() {
+   loadSummary() {
     this.getLoanDataHolder();
   }
 
@@ -511,13 +511,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.getFiscalYears();
   }
 
-  getAllLoans(customerInfoId: number): void {
+  getAllLoans(customerInfoId: number) {
     const search = {
       loanHolderId: customerInfoId.toString(),
       isStaged: 'true',
     };
-    this.customerLoanService.getAllWithSearch(search).subscribe(
-      (res: any) => {
+    this.customerLoanService.getAllWithSearch(search).toPromise().then((res: any) => {
+        this.loaded = true;
         this.customerAllLoanList = res.detail;
         // push current loan if not fetched from staged spec response
         if (ObjectUtil.isEmpty(this.requestedLoanType)) {
@@ -550,24 +550,26 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         }
         // push loans from combined loan if not in the existing array
         const combinedLoans = this.customerAllLoanList.filter(
-          (l) => !ObjectUtil.isEmpty(l.combinedLoan)
+            (l) => !ObjectUtil.isEmpty(l.combinedLoan)
         );
         if (combinedLoans.length > 0) {
+          this.loaded = false;
           const combinedLoanId = combinedLoans[0].combinedLoan.id;
-          this.combinedLoanService.detail(combinedLoanId).subscribe(
-            (response: any) => {
-              (response.detail as CombinedLoan).loans.forEach((cl) => {
-                const allLoanIds = this.customerAllLoanList.map(
-                  (loan) => loan.id
-                );
-                if (!allLoanIds.includes(cl.id)) {
-                  this.customerAllLoanList.push(cl);
-                }
-              });
-            },
-            (err) => {
-              console.error(err);
-            }
+          this.combinedLoanService.detail(combinedLoanId).toPromise().then(
+              (response: any) => {
+                (response.detail as CombinedLoan).loans.forEach((cl) => {
+                  const allLoanIds = this.customerAllLoanList.map(
+                      (loan) => loan.id
+                  );
+                  if (!allLoanIds.includes(cl.id)) {
+                    this.customerAllLoanList.push(cl);
+                  }
+                  this.loaded = true;
+                });
+              },
+              (err) => {
+                console.error(err);
+              }
           );
         }
         this.calculateTotalProposedLimit(this.customerAllLoanList);
