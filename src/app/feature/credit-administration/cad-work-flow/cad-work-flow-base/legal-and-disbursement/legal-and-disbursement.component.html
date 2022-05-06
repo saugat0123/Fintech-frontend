@@ -13,7 +13,7 @@
                         [currentStatus]="cadOfferLetterApprovedDoc?.docStatus"
                         [currentCADStage]="cadOfferLetterApprovedDoc?.cadCurrentStage"
                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                        *ngIf="showHideAction && cadOfferLetterApprovedDoc && (isInCurrentUser || isInCurrentRole)"
+                        *ngIf="showHideAction && cadOfferLetterApprovedDoc && (isInCurrentRole)"
                         (isActionClicked)="changeCssOfCad($event)">
         </app-cad-action>
     </nb-card-header>
