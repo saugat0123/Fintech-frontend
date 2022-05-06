@@ -3615,8 +3615,8 @@
               <tr *ngIf="
                ((userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
                || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && !(userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married'))
-               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
-               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1)))">
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE')
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS'))">
                 <td>
                   <label class="title">Grand Father Name</label>
                 </td>
@@ -3636,8 +3636,8 @@
               </tr>
               <tr *ngIf="((userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
                || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && !(userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).value == 'Married'))
-               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1))
-               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS' && (userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 1)))">
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE')
+               || (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS'))">
                 <td>
                   <label class="title">Father Name</label>
                 </td>
