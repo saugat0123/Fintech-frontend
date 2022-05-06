@@ -203,7 +203,6 @@ export class CompanyFormComponent implements OnInit {
         this.buildForm();
         this.getAllDistrict();
         this.getCompanyStructure();
-        this.getClientType();
         this.getSubSector();
 
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
@@ -350,11 +349,6 @@ export class CompanyFormComponent implements OnInit {
             subsectorDetail:
                 [(ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) ? undefined :
                     this.subSectorDetailCodeInput],
-            clientType:
-                [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
-                    this.clientTypeInput, Validators.required],
-
-
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -815,7 +809,6 @@ F
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
-        this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 
 
@@ -996,14 +989,7 @@ F
     }
 
 
-    getClientType() {
-        this.customerService.clientType().subscribe((res: any) => {
-                this.clientType = res.detail;
-            }
-            , error => {
-                console.error(error);
-            });
-    }
+
 
     getSubSector() {
         this.customerService.subSector().subscribe((res: any) => {

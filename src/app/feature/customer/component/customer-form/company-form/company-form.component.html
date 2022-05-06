@@ -21,29 +21,6 @@
     <nb-card-body>
         <div class="form-group">
             <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Customer Client Type</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
-                                                class="custom-select" formControlName="clientType">
-                                            <option [ngValue]="null">Select Client Type</option>
-
-                                            <option *ngFor="let data of clientType | keyvalue "
-                                                    [ngValue]="data.key">{{data.value}}</option>
-                                        </select>
-                                        <div *ngIf="submitted && form.clientType.errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="form.clientType.errors.required">Customer Client Type is
-                                                required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row" style="margin-top: -0.2rem">
                             <div class="col-md-4">
