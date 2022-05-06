@@ -8,7 +8,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
   styleUrls: ['./other-security.component.scss']
 })
 export class OtherSecurityComponent implements OnInit {
-  otherSecurity: FormGroup;
+  otherSecurityForm: FormGroup;
   ckeConfig;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -23,7 +23,7 @@ export class OtherSecurityComponent implements OnInit {
   }
 
   private buildForm(): FormGroup {
-    return this.otherSecurity = this.formBuilder.group({
+    return this.otherSecurityForm = this.formBuilder.group({
       otherSecurity: this.formBuilder.array([]),
     });
   }
@@ -36,11 +36,11 @@ export class OtherSecurityComponent implements OnInit {
   }
 
   public addOtherSecurity(): void {
-    (this.otherSecurity.get('otherSecurity') as FormArray).push(this.otherSecurityDetailsFormGroup());
+    (this.otherSecurityForm.get('otherSecurity') as FormArray).push(this.otherSecurityDetailsFormGroup());
   }
 
   public removeOtherSecurity(idx: number): void {
-    (this.otherSecurity.get('otherSecurity') as FormArray).removeAt(idx);
+    (this.otherSecurityForm.get('otherSecurity') as FormArray).removeAt(idx);
   }
 
 }
