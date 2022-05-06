@@ -112,4 +112,10 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public unAssignAssignedLoan(id: any): Observable<any> {
+        const api = `${this.getApi()}/delete/${id}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.delete(req.url, {headers: req.header});
+    }
 }

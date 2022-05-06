@@ -19,8 +19,8 @@
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-12"
-             *ngIf="isCad
-             && isInCurrentUser
+             *ngIf="
+             isInCurrentUser
              && productUtils.CONFIGURE_LEGAL_DOCUMENT"
         >
             <div class="clearfix">
@@ -35,7 +35,7 @@
         <div [class]="layoutFlag ? 'col-md-11 float-right':'col-md-12'">
 
 
-            <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING' && !isRoleLegal">
+            <nb-tabset *ngIf="!isRoleLegal && isInCurrentUser;" fullWidth>
                 <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                     <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -60,13 +60,13 @@
                                                  *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-lite>
                 </nb-tab>
             </nb-tabset>
-            <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING' && !isRoleLegal">
-                <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
-                                             [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                             (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>
+<!--            <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING' && !isRoleLegal">-->
+<!--                <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"-->
+<!--                                             [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"-->
+<!--                                             (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>-->
 
-            </div>
-            <nb-tabset *ngIf="isRoleLegal">
+<!--            </div>-->
+            <nb-tabset *ngIf="isRoleLegal || !isInCurrentUser">
                 <nb-tab tabTitle="Basic Info">
                     <app-profile-view *ngIf="cadOfferLetterApprovedDoc && toggleArray"
                                       [toggleArray]="toggleArray"
