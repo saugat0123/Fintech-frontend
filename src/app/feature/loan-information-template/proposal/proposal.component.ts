@@ -306,7 +306,7 @@ export class ProposalComponent implements OnInit {
             repaymentMode: [undefined],
             repaymentModeInterest: [undefined],
             repaymentModePrincipal: [undefined],
-            disbursementCriteria: [undefined, [Validators.required]],
+            disbursementCriteria: [undefined],
             repayment: [undefined],
             borrowerInformation: [undefined],
             interestAmount: [undefined],
@@ -476,6 +476,10 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
+          if (this.proposalForm.invalid) {
+              this.toastService.show(new Alert(AlertType.WARNING, 'VALIDATION FAILEDs'));
+              return;
+          }
             this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
