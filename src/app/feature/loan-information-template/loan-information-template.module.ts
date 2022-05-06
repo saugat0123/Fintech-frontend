@@ -55,6 +55,20 @@ import { MultiBankingComponent } from './multi-banking/multi-banking.component';
 import { FinancialUploadViewComponent } from './financial/financial-upload-view/financial-upload-view.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
+import { LandBuildingComponent } from './security/land-building/land-building.component';
+import { VehicleComponent } from './security/vehicle/vehicle.component';
+import { ApartmentComponent } from './security/apartment/apartment.component';
+import { PlantComponent } from './security/plant/plant.component';
+import { PlantMachineryComponent } from './security/plant-machinery/plant-machinery.component';
+import { FixedDepositComponent } from './security/fixed-deposit/fixed-deposit.component';
+import { ShareComponent } from './security/share/share.component';
+import { HypothecationOfStockComponent } from './security/hypothecation-of-stock/hypothecation-of-stock.component';
+import { CorporationGuaranteeComponent } from './security/corporation-guarantee/corporation-guarantee.component';
+import { PersonalGuaranteeComponent } from './security/personal-guarantee/personal-guarantee.component';
+import { InsurancePolicyComponent } from './security/insurance-policy/insurance-policy.component';
+import { AssignmentOfReceivableComponent } from './security/assignment-of-receivable/assignment-of-receivable.component';
+import { LeaseAssignmentComponent } from './security/lease-assignment/lease-assignment.component';
+import { OtherSecurityComponent } from './security/other-security/other-security.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -99,7 +113,21 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
         CrgMicroComponent,
-        FinancialUploadViewComponent],
+        FinancialUploadViewComponent,
+        LandBuildingComponent,
+        VehicleComponent,
+        ApartmentComponent,
+        PlantComponent,
+        PlantMachineryComponent,
+        FixedDepositComponent,
+        ShareComponent,
+        HypothecationOfStockComponent,
+        CorporationGuaranteeComponent,
+        PersonalGuaranteeComponent,
+        InsurancePolicyComponent,
+        AssignmentOfReceivableComponent,
+        LeaseAssignmentComponent,
+        OtherSecurityComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [
