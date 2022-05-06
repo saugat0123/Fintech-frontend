@@ -258,12 +258,13 @@ export class CiclComponent implements OnInit {
           this.formBuilder.group({
               blacklistNumber: [undefined],
               blacklistDate: [undefined],
+              blacklistReleaseDate: [undefined]
           })
       );
     }
 
-    removeBlacklist(index: number) {
-        (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index])).get('blacklistHistory')).removeAt(index);
+    removeBlacklist(index: number, bi: number) {
+        (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index])).get('blacklistHistory')).removeAt(bi);
     }
 
     blackListFound(checked: boolean, index: number) {
@@ -282,6 +283,7 @@ export class CiclComponent implements OnInit {
                   arr.push(this.formBuilder.group({
                       blacklistNumber: [bl.blacklistNumber],
                       blacklistDate: [ObjectUtil.isEmpty(bl.blacklistDate) ? undefined : new Date(bl.blacklistDate)],
+                      blacklistReleaseDate: [ObjectUtil.isEmpty(bl.blacklistReleaseDate) ? undefined : new Date(bl.blacklistReleaseDate)],
                   }));
               });
           }
