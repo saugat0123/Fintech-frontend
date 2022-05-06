@@ -58,7 +58,6 @@ import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/
 import { LandBuildingComponent } from './security/land-building/land-building.component';
 import { VehicleComponent } from './security/vehicle/vehicle.component';
 import { ApartmentComponent } from './security/apartment/apartment.component';
-import { PlantComponent } from './security/plant/plant.component';
 import { PlantMachineryComponent } from './security/plant-machinery/plant-machinery.component';
 import { FixedDepositComponent } from './security/fixed-deposit/fixed-deposit.component';
 import { ShareComponent } from './security/share/share.component';
@@ -117,7 +116,6 @@ const COMPONENTS = [
         LandBuildingComponent,
         VehicleComponent,
         ApartmentComponent,
-        PlantComponent,
         PlantMachineryComponent,
         FixedDepositComponent,
         ShareComponent,
