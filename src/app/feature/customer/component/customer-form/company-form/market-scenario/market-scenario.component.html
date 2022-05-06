@@ -145,5 +145,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="analysisOfFiveC"><strong>Analysis of 5C</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.analysisOfFiveC.errors }"
+                          formControlName="analysisOfFiveC" id="analysisOfFiveC"
+                          name="analysisOfFiveC" [config]="ckeConfig"
+                          type="text"></ckeditor>
+                <div *ngIf="submitted && form.analysisOfFiveC?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.analysisOfFiveC?.errors.required">
+                        Analysis of 5C is required
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
