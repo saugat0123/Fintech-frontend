@@ -355,7 +355,7 @@
                         <nb-radio-group class="d-contents form-control"
                                         formControlName="crgProfileOfAuditors"
                                         name="crgProfileOfAuditors"
-                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid }">
+                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid }">
                             <nb-radio *ngFor="let field of crgQuestionsList?.answers"
                                       [value]="field?.description">{{field?.description}}
                             </nb-radio>
