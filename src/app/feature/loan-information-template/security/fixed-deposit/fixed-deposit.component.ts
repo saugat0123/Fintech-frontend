@@ -24,11 +24,11 @@ export class FixedDepositComponent implements OnInit {
     });
   }
 
-  removeFixedDeposit(index: number) {
+  public removeFixedDeposit(index: number): void {
     (this.fixedDepositForm.get('fixedDepositDetails') as FormArray).removeAt(index);
   }
 
-  addFixedDeposit() {
+  public addFixedDeposit(): void {
     (this.fixedDepositForm.get('fixedDepositDetails') as FormArray).push(this.fixedDepositFormGroup());
   }
 
