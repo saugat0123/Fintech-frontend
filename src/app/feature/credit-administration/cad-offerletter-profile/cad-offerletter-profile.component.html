@@ -62,7 +62,8 @@
                   <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                           class="float-right" nbButton
                           size="small"
-                          [disabled]="roleType === 'MAKER' ||
+                          *ngIf="(roleType === 'MAKER' || roleType === 'APPROVAL')"
+                          [disabled]="
                               (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">
@@ -76,7 +77,7 @@
 
           <nb-card>
             <nb-card-header>
-                            <span *ngIf="roleType !== 'MAKER' &&
+                            <span *ngIf="
                               !(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
