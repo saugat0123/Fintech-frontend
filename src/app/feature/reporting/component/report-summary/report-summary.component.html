@@ -35,6 +35,50 @@
             </table>
           </ng-container>
         </ng-container>
+
+        <ng-container>
+          <table class="table table-bordered table-sm sb-small text-center">
+            <thead>
+           <ng-container>
+             <tr class="sb-bg-dark text-white">
+               <td colspan="2" *ngFor="let report of reportingInfoSummary">{{report?.name}}</td>
+             </tr>
+           </ng-container>
+            <tr  class="sb-bg-dark text-white">
+              <th>code</th>
+              <th>description</th>
+              <th>code</th>
+              <th>description</th>
+              <th>code</th>
+              <th>description</th>
+              <th>code</th>
+              <th>description</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let report of reportingInfoSummary">
+
+                <ng-container *ngIf="report.name==='SectorwiseCode'">
+                  <ng-container *ngFor="let level of report?.reportingInfoLevels">
+                    <td>{{level?.code}}</td>
+                    <td>{{level?.description}}</td>
+                  </ng-container>
+                </ng-container>
+
+            </tr>
+            <tr>
+
+              <ng-container>
+                <td>s.f</td>
+                <td>s.d</td>
+              </ng-container>
+            </tr>
+
+
+            </tbody>
+          </table>
+        </ng-container>
       </div>
     </div>
   </div>
