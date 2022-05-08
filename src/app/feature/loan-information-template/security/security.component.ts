@@ -164,6 +164,7 @@ export class SecurityComponent implements OnInit {
         selectedSecurity.push(arraySelected);
         console.log('selected security', selectedSecurity);
         selectedSecurity.forEach(selectedValue => {
+            console.log('selected value', selectedValue);
             switch (selectedValue) {
                 case 'LAND_SECURITY' :
                     console.log('land security true');
@@ -181,8 +182,9 @@ export class SecurityComponent implements OnInit {
                 case 'PROPERTY_AND_MACHINERY_SECURITY' :
                     this.plantSelected = true;
                     break;
-                case 'FIXED_DEPOSIT_RECEIPT ':
+                case 'FIXED_DEPOSIT_RECEIPT':
                     this.depositSelected = true;
+                    console.log('deposit selected', this.depositSelected);
                     break;
                 case 'SHARE_SECURITY':
                     this.shareSelected = true;
@@ -190,16 +192,16 @@ export class SecurityComponent implements OnInit {
                 case 'HYPOTHECATION_OF_STOCK':
                     this.hypothecationOfStock = true;
                     break;
-                case ' CORPORATE_GUARANTEE':
+                case 'CORPORATE_GUARANTEE':
                     this.corporateGuarantee = true;
                     break;
                 case 'PERSONAL_GUARANTEE':
                     this.personal = true;
                     break;
-                case ' INSURANCE_POLICY_SECURITY':
+                case 'INSURANCE_POLICY_SECURITY':
                     this.insurancePolicySelected = true;
                     break;
-                case ' ASSIGNMENT_OF_RECEIVABLES':
+                case 'ASSIGNMENT_OF_RECEIVABLES':
                     this.assignmentOfReceivable = true;
                     break;
                 case 'LEASE_ASSIGNMENT':

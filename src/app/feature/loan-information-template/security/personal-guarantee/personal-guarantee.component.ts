@@ -22,7 +22,7 @@ export class PersonalGuaranteeComponent implements OnInit {
 
     private buildForm(): FormGroup {
         return this.personalGuaranteeForm = this.formBuilder.group({
-            personalGuarantee: this.formBuilder.array([])
+            personalGuarantee: this.formBuilder.array([this.personalDetailsFormGroup()])
         });
     }
 

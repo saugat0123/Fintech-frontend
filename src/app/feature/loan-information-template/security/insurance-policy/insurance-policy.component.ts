@@ -22,14 +22,14 @@ export class InsurancePolicyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService) { }
 
-  ngOnInit() {
-    this.configEditor();
-    this.buildForm();
-  }
+    ngOnInit() {
+        this.configEditor();
+        this.buildForm();
+    }
 
   private buildForm(): FormGroup {
     return this.insurancePolicyForm = this.formBuilder.group({
-      insurancePolicy: this.formBuilder.array([])
+      insurancePolicy: this.formBuilder.array([this.insurancePolicyFormGroup()])
     });
   }
 
@@ -64,5 +64,4 @@ export class InsurancePolicyComponent implements OnInit {
         }
     );
   }
-
 }

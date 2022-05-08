@@ -15,12 +15,13 @@ export class FixedDepositComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    console.log('fixed deposit receipt works');
     this.buildForm();
   }
 
   private buildForm(): FormGroup {
     return this.fixedDepositForm = this.formBuilder.group({
-      fixedDepositDetails: this.formBuilder.array([])
+      fixedDepositDetails: this.formBuilder.array([this.fixedDepositFormGroup()])
     });
   }
 

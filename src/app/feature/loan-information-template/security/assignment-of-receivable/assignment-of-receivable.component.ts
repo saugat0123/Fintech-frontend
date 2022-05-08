@@ -15,6 +15,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    console.log('assignment receivable');
     this.configEditor();
     this.buildForm();
   }
@@ -25,8 +26,9 @@ export class AssignmentOfReceivableComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.assignmentForm = this.formBuilder.group({
-      assignmentOfReceivables: this.formBuilder.array([])
+      assignmentOfReceivables: this.formBuilder.array([this.assignmentDetailsFormGroup()])
     });
+
   }
 
   public addAssignment(): void {

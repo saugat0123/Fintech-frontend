@@ -24,7 +24,7 @@ export class LeaseAssignmentComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.leaseAssignmentForm = this.formBuilder.group({
-      leaseAssignment: this.formBuilder.array([]),
+      leaseAssignment: this.formBuilder.array([this.assignmentsDetailsFormGroup()]),
     });
   }
 

@@ -24,7 +24,7 @@ export class OtherSecurityComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.otherSecurityForm = this.formBuilder.group({
-      otherSecurity: this.formBuilder.array([]),
+      otherSecurity: this.formBuilder.array([this.otherSecurityDetailsFormGroup()]),
     });
   }
 

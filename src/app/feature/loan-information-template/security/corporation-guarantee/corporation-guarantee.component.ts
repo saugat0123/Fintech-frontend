@@ -26,7 +26,7 @@ export class CorporationGuaranteeComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.corporateForm = this.formBuilder.group({
-      corporateGuarantee: this.formBuilder.array([])
+      corporateGuarantee: this.formBuilder.array([this.corporateDetailsFormGroup()])
     });
   }
 

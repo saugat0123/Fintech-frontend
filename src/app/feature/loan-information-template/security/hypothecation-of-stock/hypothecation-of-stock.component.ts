@@ -27,7 +27,7 @@ export class HypothecationOfStockComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.hypothecationForm = this.formBuilder.group({
-      hypothecationOfStock: this.formBuilder.array([])
+      hypothecationOfStock: this.formBuilder.array([this.hypothecationDetailsFormGroup()])
     });
   }
 
