@@ -183,7 +183,6 @@
                                 <tr class="sb-bg-dark text-white">
                                     <td>Loan Facility</td>
                                     <td>Proposed Amount</td>
-                                    <td>Priority</td>
                                     <td>Loan Type</td>
                                     <td>Status</td>
                                     <th>Possession Under/Days</th>
@@ -201,7 +200,6 @@
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">
@@ -256,7 +254,6 @@
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">

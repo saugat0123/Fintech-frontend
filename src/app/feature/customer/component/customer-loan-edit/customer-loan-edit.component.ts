@@ -19,16 +19,9 @@ export class CustomerLoanEditComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   @Output() refreshData = new EventEmitter<boolean>();
   spinner;
-  priorityForm: FormGroup;
   docStatusForm: FormGroup;
   docStatusMakerList = [];
   showDocStatusDropDown = true;
-  dropdownPriorities = [
-    {id: 'HIGH', name: 'High'},
-    {id: 'MEDIUM', name: 'Medium'},
-    {id: 'LOW', name: 'Low'},
-
-  ];
 
   @ViewChild('proposal', {static: false})
   proposal: ProposalComponent;
@@ -39,9 +32,6 @@ export class CustomerLoanEditComponent implements OnInit {
   @ViewChild('reportingInfoTagging', {static: false})
   reportingInfoTagging: ReportingInfoTaggingComponent;
 
-  @ViewChild('priorityFormNav', {static: false})
-  priorityFormNav: ElementRef;
-
   constructor(private loanFormService: LoanFormService,
               private toastService: ToastService,
               private formBuilder: FormBuilder,
@@ -51,9 +41,7 @@ export class CustomerLoanEditComponent implements OnInit {
 
   ngOnInit() {
     this.docStatusForMaker();
-    this.buildPriorityForm();
     this.buildDocStatusForm();
-    this.priorityForm.get('priority').patchValue(this.loanDataHolder.priority);
     if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
@@ -83,17 +71,7 @@ export class CustomerLoanEditComponent implements OnInit {
     });
   }
 
-  buildPriorityForm() {
-    this.priorityForm = this.formBuilder.group({
-      priority: [undefined, Validators.required]
-    });
-  }
   onSubmit() {
-    if (this.priorityForm.invalid) {
-      this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
-      return;
-    }
-    this.loanDataHolder.priority = this.priorityForm.get('priority').value;
     this.loanDataHolder.documentStatus = this.docStatusForm.get('documentStatus').value;
     this.proposal.submitted = true;
     if (this.proposal.proposalForm.invalid) {

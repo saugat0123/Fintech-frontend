@@ -20,25 +20,6 @@
 
     <div #container class="row">
 
-      <div class="col-md-3">
-        <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
-          <label><strong>Priority</strong></label>
-          <ng-select [items]="dropdownPriorities"
-                     [multiple]="false"
-                     bindLabel="name"
-                     bindValue="id"
-                     formControlName="priority"
-          >
-          </ng-select>
-          <div *ngIf="priorityForm.get('priority').errors">
-            <small class="text-danger">
-              Priority is required!
-            </small>
-          </div>
-        </form>
-      </div>
-
-
       <div *ngIf="showDocStatusDropDown" class="col-md-3">
         <form [formGroup]="docStatusForm">
           <label><strong>
