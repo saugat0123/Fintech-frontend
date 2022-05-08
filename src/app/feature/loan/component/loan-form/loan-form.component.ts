@@ -104,17 +104,6 @@ export class LoanFormComponent implements OnInit {
     index: null
   };
 
-  // Priority options--
-  dropdownPriorities = [
-    {id: 'HIGH', name: 'High'},
-    {id: 'MEDIUM', name: 'Medium'},
-    {id: 'LOW', name: 'Low'},
-
-  ];
-
-  // Priority Form
-  priorityForm: FormGroup;
-
   docStatusForm: FormGroup;
   loanTypeForm: FormGroup;
   nextButtonAction = false;
@@ -133,9 +122,6 @@ export class LoanFormComponent implements OnInit {
 
   showDocStatusDropDown = true;
   isBlackListed = false;
-
-  @ViewChild('priorityFormNav', {static: false})
-  priorityFormNav: ElementRef;
 
   @ViewChild('container', {static: false})
   container: ElementRef;
@@ -229,7 +215,6 @@ export class LoanFormComponent implements OnInit {
   ngOnInit() {
     this.nbSpinner = true;
     this.docStatusForMaker();
-    this.buildPriorityForm();
     this.buildDocStatusForm();
 
     this.activatedRoute.queryParams.subscribe(
@@ -271,7 +256,6 @@ export class LoanFormComponent implements OnInit {
                   this.loanDocument.id = response.detail.id;
                   this.submitDisable = false;
                   this.loanHolder = this.loanDocument.loanHolder;
-                  this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                   this.loanType = this.loanDocument.loanType;
                   if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
                       this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
@@ -296,7 +280,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument = new LoanDataHolder();
             this.loanDocument.loanCategory = this.allId.loanCategory;
             this.loanFile = new DmsLoanFile();
-            this.priorityForm.get('priority').patchValue('MEDIUM');
             this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
             this.populateTemplate();
           }
@@ -318,12 +301,6 @@ export class LoanFormComponent implements OnInit {
           value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
         this.docStatusMakerList.push(value);
       }
-    });
-  }
-
-  buildPriorityForm() {
-    this.priorityForm = this.formBuilder.group({
-      priority: [undefined, Validators.required]
     });
   }
 
@@ -541,7 +518,6 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
       this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
       this.loanDocument.companyInfo = this.dmsLoanFile.loanDataHolder.companyInfo;
-      this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
     }
 
     // if (name === 'Company Info' && action) {
@@ -693,10 +669,6 @@ export class LoanFormComponent implements OnInit {
   }
 
   save() {
-    if (this.priorityForm.invalid) {
-      this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
-      return;
-    }
     this.nextButtonAction = true;
     this.spinner.show();
 
@@ -706,7 +678,6 @@ export class LoanFormComponent implements OnInit {
       return;
     } else {
       this.loanDocument.loan = this.loan;
-      this.loanDocument.priority = this.priorityForm.get('priority').value;
       this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
       this.loanDocument.loanType = this.loanType;
       this.loanDocument.loanCategory = this.allId.loanCategory;

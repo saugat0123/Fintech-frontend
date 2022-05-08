@@ -19,7 +19,6 @@ export class DmsLoanFile {
     securities: string;
     tenure: Date;
     tenureDuration: number;
-    priority: string;
     recommendationConclusion: string;
     waiver: string;
     documentPathMaps: any;
