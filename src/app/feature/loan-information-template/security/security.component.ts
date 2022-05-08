@@ -140,7 +140,6 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
-            console.log(this.securityValue);
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -159,15 +158,16 @@ export class SecurityComponent implements OnInit {
     }
 
     change(arraySelected) {
-        console.log('array Selected', arraySelected);
         const selectedSecurity = [];
         selectedSecurity.push(arraySelected);
         console.log('selected security', selectedSecurity);
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuilding = this.plantSelected =
+            this.depositSelected = this.shareSelected = this.hypothecationOfStock =
+                this.corporateGuarantee = this.personal = this.insurancePolicySelected =
+                    this.assignmentOfReceivable = this.assignments = this.securityOther = false;
         selectedSecurity.forEach(selectedValue => {
-            console.log('selected value', selectedValue);
             switch (selectedValue) {
                 case 'LAND_SECURITY' :
-                    console.log('land security true');
                     this.landSelected = true;
                     break;
                 case 'VEHICLE_SECURITY' :
@@ -184,7 +184,6 @@ export class SecurityComponent implements OnInit {
                     break;
                 case 'FIXED_DEPOSIT_RECEIPT':
                     this.depositSelected = true;
-                    console.log('deposit selected', this.depositSelected);
                     break;
                 case 'SHARE_SECURITY':
                     this.shareSelected = true;
