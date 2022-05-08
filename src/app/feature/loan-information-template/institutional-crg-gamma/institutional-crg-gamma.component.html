@@ -53,21 +53,6 @@
 
     <form [formGroup]="creditRiskGrading">
         <mark> <strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
-        <div class="float-right">
-            <strong class="pr-2">
-                <em class="fa fa-info-circle">
-                    <em class="ml-2">Please make a selection for current year</em>
-                </em>
-            </strong>
-            <nb-select
-                    [selected]="fiscalYears[fiscalYears.length-1]"
-                       placeholder="Select fiscal year">
-                <nb-option *ngFor="let year of fiscalYears; let i = index"
-                           [value]="year">
-                    {{year}}
-                </nb-option>
-            </nb-select>
-        </div>
         <table class="table table-bordered table-striped text-center">
             <thead>
             <tr>

@@ -2,39 +2,44 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-12">
-        <table *ngIf="layout === 'vertical'" class="table table-bordered table-sm sb-small text-center">
-          <ng-container *ngFor="let report of reportingInfoSummary">
+
+        <ng-container>
+          <table class="table table-bordered table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+              <td colspan="4"></td>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
-              <td class="font-weight-bold text-center" colspan="2">{{report?.name}}</td>
+               <ng-container *ngFor="let report of reportingInfoSummary; let i=index">
+                 <td>
+                   <div>
+                     <ng-container>
+                       <table style="border: none">
+                         <tr class="sb-bg-dark text-white">
+                           <td colspan="2">{{report?.name}}</td>
+                         </tr>
+                         <tr class="sb-bg-dark text-white"><th>code</th>
+                         <th>Description</th></tr>
+                         <tr *ngFor="let data of reportingInfoSummary[i].reportingInfoLevels">
+                           <td>{{data.code}}</td>
+                           <td>{{data.description}}</td>
+                         </tr>
+                       </table>
+                     </ng-container>
+                   </div>
+                 </td>
+
+               </ng-container>
+
             </tr>
-            <tr class="font-weight-bold text-left">
-              <td class="pl-1">Code</td>
-              <td class="pl-1">Description</td>
-            </tr>
-            <tr *ngFor="let level of report?.reportingInfoLevels">
-              <th class="text-center pr-1">{{level?.code}}</th>
-              <th class="text-center pl-1">{{level?.description}}</th>
-            </tr>
-          </ng-container>
-        </table>
-        <ng-container *ngIf="layout === 'horizontal'">
-          <ng-container *ngFor="let report of reportingInfoSummary">
-            <table class="table table-bordered table-sm sb-small text-center">
-              <tr class="sb-bg-dark text-white">
-                <td [attr.colspan]="report?.reportingInfoLevels?.length + 1"
-                    class="font-weight-bold text-center">{{report?.name}}</td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold text-left pl-1">Code</td>
-                <th *ngFor="let level of report?.reportingInfoLevels" class="text-center pr-1">{{level?.code}}</th>
-              </tr>
-              <tr>
-                <td class="font-weight-bold text-left pl-1">Description</td>
-                <th *ngFor="let level of report?.reportingInfoLevels" class="text-center pl-1">{{level?.description}}</th>
-              </tr>
-            </table>
-          </ng-container>
+
+            </tbody>
+          </table>
         </ng-container>
+
+
       </div>
     </div>
   </div>
