@@ -1,7 +1,7 @@
 <div class="col-md-12" *ngIf="hasAuto || hasLandBuilding">
     <p><strong class="float-left">Security Arrangement</strong></p>
     <p [hidden]="!hasAuto"><b>Vehicle Security</b></p>
-    <table [hidden]="!hasAuto" *ngFor="let vehicle of loanDataHolder?.autos; let i = index" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+    <table [hidden]="!hasAuto" *ngFor="let vehicle of iniitialForm?.vehicleDetails; let i = index" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tbody>
         <tr>
             <td class = "sb-bg-dark text-white">S.N</td>
@@ -48,7 +48,7 @@
     <p [hidden]="!hasLandBuilding"><b>Vehicle Security</b></p>
     <p  [hidden]="!hasLandBuilding"><b>Land & Building Security</b></p>
 
-    <table [hidden]="!hasLandBuilding" *ngFor="let lb of loanDataHolder?.landBuildings; let i = index;" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+    <table [hidden]="!hasLandBuilding" *ngFor="let lb of iniitialForm?.landBuilding; let i = index;" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr>
             <td class = "sb-bg-dark text-white">S.N</td>
             <td>{{i + 1}}</td>

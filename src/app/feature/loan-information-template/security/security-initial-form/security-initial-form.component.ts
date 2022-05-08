@@ -2305,7 +2305,7 @@ export class SecurityInitialFormComponent implements OnInit {
         if (event.formArrayName === 'shareSecurityDetails') {
             const shareSecurityFormControl = this.shareSecurityForm.get(event.formArrayName) as FormArray;
             shareSecurityFormControl.controls.forEach(f => {
-                f.reset();
+                // f.reset();
                 f.clearValidators();
                 f.updateValueAndValidity();
                 index++;
