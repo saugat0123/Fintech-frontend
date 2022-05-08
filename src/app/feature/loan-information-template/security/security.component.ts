@@ -27,6 +27,21 @@ import {ToastService} from '../../../@core/utils';
 import {TemplateName} from '../../customer/model/templateName';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecuritiesType} from '../../constants/securities-type';
+import {PlantMachineryComponent} from './plant-machinery/plant-machinery.component';
+import {LandComponent} from './land/land.component';
+import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
+import {ApartmentComponent} from './apartment/apartment.component';
+import {LandBuildingComponent} from './land-building/land-building.component';
+import {FixedDepositComponent} from './fixed-deposit/fixed-deposit.component';
+import {HypothecationOfStockComponent} from './hypothecation-of-stock/hypothecation-of-stock.component';
+import {
+    CorporateGuranteeComponent
+} from '../../credit-administration/cad-document-template/laxmi/laxmi-offer-letter/corporate-guarantee/corporate-gurantee.component';
+import {PersonalGuaranteeComponent} from './personal-guarantee/personal-guarantee.component';
+import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
+import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
+import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.component';
+import {OtherSecurityComponent} from './other-security/other-security.component';
 
 @Component({
     selector: 'app-security',
@@ -44,8 +59,52 @@ export class SecurityComponent implements OnInit {
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
 
+
+    @ViewChild('landSecurity', {static: false})
+    landSecurity: LandComponent;
+
+    @ViewChild('vehicleSecurity', {static: false})
+    vehicleSecurity: VehicleSecurity;
+
+    @ViewChild('apartmentSecurity', {static: false})
+    apartmentSecurity: ApartmentComponent;
+
+    @ViewChild('landBuildingSecurity', {static: false})
+    landBuildingSecurity: LandBuildingComponent;
+
+    @ViewChild('plantMachinery', {static: false})
+    plantMachinery: PlantMachineryComponent;
+
+    @ViewChild('fixedDepositSecurity', {static: false})
+    fixedDepositSecurity: FixedDepositComponent;
+
+    @ViewChild('hypothecationSecurity', {static: false})
+    hypothecationSecurity: HypothecationOfStockComponent;
+
+    @ViewChild('corporateGuaranteeSecurity', {static: false})
+    corporateGuaranteeSecurity: CorporateGuranteeComponent;
+
+    @ViewChild('personalGuaranteeSecurity', {static: false})
+    personalGuaranteeSecurity: PersonalGuaranteeComponent;
+
+    @ViewChild('insurancePolicySecurity', {static: false})
+    insurancePolicySecurity: InsurancePolicyComponent;
+
+    @ViewChild('assignmentOfReceivableSecurity', {static: false})
+    assignmentOfReceivableSecurity: AssignmentOfReceivableComponent;
+
+    @ViewChild('leaseAssignmentSecurity', {static: false})
+    leaseAssignmentSecurity: LeaseAssignmentComponent;
+
+    @ViewChild('otherSecurity', {static: false})
+    otherSecurity: OtherSecurityComponent;
+
+
     @ViewChild('initialSecurity', {static: false})
     initialSecurity: SecurityInitialFormComponent;
+
+
+
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
     securityForm: FormGroup;

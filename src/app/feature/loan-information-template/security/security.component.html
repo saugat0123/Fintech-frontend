@@ -34,22 +34,25 @@
             <hr>
         </div>
 
-        <app-vehicle *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
-        <app-apartment *ngIf="apartmentSelected"></app-apartment>
-        <app-land *ngIf="landSelected" [calendarType]="calendarType"></app-land>
-        <app-land-building *ngIf="landBuilding" [calendarType]="calendarType"></app-land-building>
-        <app-plant-machinery *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
-        <app-fixed-deposit *ngIf="depositSelected" [calendarType]="calendarType"></app-fixed-deposit>
+        <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
+        <app-apartment #apartmentSecurity *ngIf="apartmentSelected"></app-apartment>
+        <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"></app-land>
+        <app-land-building #landBuildingSecurity *ngIf="landBuilding" [calendarType]="calendarType"></app-land-building>
+        <app-plant-machinery #plantMachinery *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
+        <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
+                           [calendarType]="calendarType"></app-fixed-deposit>
         <app-share *ngIf="shareSelected"></app-share>
-        <app-hypothecation-of-stock *ngIf="hypothecationOfStock"></app-hypothecation-of-stock>
-        <app-corporation-guarantee *ngIf="corporateGuarantee"></app-corporation-guarantee>
-        <app-personal-guarantee *ngIf="personal"></app-personal-guarantee>
-        <app-insurance-policy *ngIf="insurancePolicySelected" [calendarType]="calendarType"></app-insurance-policy>
-        <app-assignment-of-receivable *ngIf="assignmentOfReceivable"></app-assignment-of-receivable>
-        <app-lease-assignment *ngIf="assignments"></app-lease-assignment>
-        <app-other-security *ngIf="securityOther"></app-other-security>
+        <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStock"></app-hypothecation-of-stock>
+        <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuarantee"></app-corporation-guarantee>
+        <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personal"></app-personal-guarantee>
+        <app-insurance-policy #insurancePolicySecurity *ngIf="insurancePolicySelected"
+                              [calendarType]="calendarType"></app-insurance-policy>
+        <app-assignment-of-receivable #assignmentOfReceivableSecurity
+                                      *ngIf="assignmentOfReceivable"></app-assignment-of-receivable>
+        <app-lease-assignment #leaseAssignmentSecurity *ngIf="assignments"></app-lease-assignment>
+        <app-other-security #otherSecurity *ngIf="securityOther"></app-other-security>
 
-<!--        <app-security-initial-form #initialSecurity-->
+        <!--        <app-security-initial-form #initialSecurity-->
 <!--                                   [calendarType]="calendarType"-->
 <!--                                   [formData]="initialSecurityValue"-->
 <!--                                   [loanTag]="loanTag"-->
