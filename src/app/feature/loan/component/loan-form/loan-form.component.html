@@ -78,10 +78,6 @@
             <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-            <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-            <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
-            <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
-            <!--                              #companyInfo></app-company-info>-->
             <div class="py-4">
               <app-company-info-view [formValue]="loanDocument?.companyInfo"
                                      [calendarType]="calendarType"
@@ -130,18 +126,6 @@
                                    *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
             </div>
           </ng-template>
-<!--          <ng-template ngbTabContent *ngIf="allList.name === 'Security'">-->
-            <!--            <app-security #security [securityValue]="loanDocument?.security"-->
-            <!--                          [calendarType]="calendarType"-->
-            <!--                          [loanTag]="loanTag"-->
-            <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
-<!--            <div class="py-4">-->
-<!--              <app-security-view [security]="loanHolder?.security"-->
-<!--                                 [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>-->
-<!--                  <app-security-adder #shareSecurity (tagSecurityEmitter)="updateSecurityList($event)" [security]="loanHolder?.security" [customerInfo]="loanHolder"-->
-<!--                                      [shareSecurityData]="loanHolder?.shareSecurity" [loanHolder]="loanDocument" [proposedAmount]="loanDocument?.proposal?.proposedLimit"></app-security-adder>-->
-<!--            </div>-->
-<!--          </ng-template>-->
           <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
             <app-customer-loan-document #customerDocument
                                         [loanDataHolder]="loanDocument"

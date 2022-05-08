@@ -43,12 +43,10 @@
     <li>
         <!-- security arrangement -->
         <p><strong>SECURITY ARRANGEMENT</strong></p>
-<!--        <app-security-arrangement></app-security-arrangement>-->
-<!--        <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>-->
 
         <app-security-summary *ngIf="loanDataHolder?.security"
-                              [shareSecurity]="shareSecurityData"
-                              [formData]="securityData"
+                              [shareSecurity]="(loanDataHolder?.loanHolder?.shareSecurity?.data | jsonParse)"
+                              [formData]="(loanDataHolder?.loanHolder?.security?.data | jsonParse)"
                               [securityId]="loanDataHolder?.security?.id"
                               [collateralData]="loanDataHolder?.collateralSiteVisits"
                               [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
