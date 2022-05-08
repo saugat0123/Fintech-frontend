@@ -18,6 +18,7 @@ export class GuarantorAdderComponent implements OnInit {
   guarantorList: Array<Guarantor> = [];
   selectedGuarantorList: Array<Guarantor> = [];
   msg = '';
+  toggle = [{toggled: false}];
 
   guarantor = new FormControl(undefined , Validators.required);
 
@@ -63,6 +64,7 @@ export class GuarantorAdderComponent implements OnInit {
   {
    this.guarantorList.forEach(g =>{
      this.selectedGuarantorList.push(g);
+     this.toggle.push({toggled: false});
    })
   }
 }
