@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Clients} from '../../../../../../environments/Clients';
 import {environment} from '../../../../../../environments/environment';
+import {FixAssetCollateralComponent} from '../fix-asset-collateral/fix-asset-collateral.component';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-security-table',
@@ -12,6 +14,7 @@ export class SecurityTableComponent implements OnInit {
   @Input() shareSecurity: any;
   @Output() securityEmitter = new EventEmitter<any>();
   @Input() selectedArray = [];
+  @Input() securityId;
   clients = environment.client;
   clientName = Clients;
   isLandSecurity = false;
@@ -44,8 +47,9 @@ export class SecurityTableComponent implements OnInit {
   insurancePolicy: any;
   isShareSecurity = false;
   shareSecurityData: any;
+  dialogRef: NbDialogRef<any>;
 
-  constructor() { }
+  constructor(private nbDialogService: NbDialogService) { }
 
   ngOnInit() {
     if (this.selectedArray !== undefined) {
@@ -198,4 +202,21 @@ export class SecurityTableComponent implements OnInit {
     }
   }
 
+  openSiteVisitModel(security: string, uuid?: string) {
+    // this.close();
+    const context = {
+      securityId: this.securityId,
+      security: security,
+      uuid: uuid
+    };
+    this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
+      context,
+      closeOnBackdropClick: false,
+      hasBackdrop: false,
+      hasScroll: true
+    });
+  }
+  public close() {
+      this.dialogRef.close();
+  }
 }

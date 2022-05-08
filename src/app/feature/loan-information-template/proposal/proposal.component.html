@@ -895,11 +895,11 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="fromProfile">
-                        <div class="col-md-12">
-                            <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)" [proposedAmount]="proposedLimit" [security]="customerInfo?.security" [customerInfo]="customerInfo" [loanHolder]="loan"></app-security-adder>
-                        </div>
-                    </ng-container>
+<!--                    <ng-container *ngIf="fromProfile">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)" [proposedAmount]="proposedLimit" [security]="customerInfo?.security" [customerInfo]="customerInfo" [loanHolder]="loan"></app-security-adder>-->
+<!--                        </div>-->
+<!--                    </ng-container>-->
                     <!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->
                     <button class="float-right" nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>
                 </nb-card-body>

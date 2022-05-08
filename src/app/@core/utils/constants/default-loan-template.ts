@@ -35,10 +35,10 @@ export class DefaultLoanTemplate {
             name: 'Reporting Info',
             templateUrl: null
         },
-        {
-            active: false,
-            name: 'Security',
-            templateUrl: null
-        }
+        // {
+        //     active: false,
+        //     name: 'Security',
+        //     templateUrl: null
+        // }
     ];
 }

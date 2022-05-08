@@ -476,6 +476,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    uuid: [singleData.uuid || this.uuid()]
                 })
             );
         });
@@ -1228,7 +1229,12 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('totalShareUnit').updateValueAndValidity();
             });
         }
+        if(this.selectedSecurity !== 'Land and Building Security') {
+            this.clearLandBuildingValidators();
+        }
     }
+
+
 
     hypothecationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -1325,6 +1331,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
+            uuid: [this.uuid()]
         });
     }
 
@@ -1361,7 +1368,29 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentOtherBranchChecked: [undefined],
         });
     }
-
+    clearLandBuildingValidators() {
+        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
+        landBuildingFormControls.controls.forEach(f => {
+            f.get('owner').clearValidators();
+            f.get('owner').updateValueAndValidity();
+            f.get('landConsideredValue').clearValidators();
+            f.get('landConsideredValue').updateValueAndValidity();
+            f.get('plotNumber').clearValidators();
+            f.get('plotNumber').updateValueAndValidity();
+            f.get('marketValue').clearValidators();
+            f.get('marketValue').updateValueAndValidity();
+            f.get('distressValue').clearValidators();
+            f.get('distressValue').updateValueAndValidity();
+            f.get('governmentRate').clearValidators();
+            f.get('governmentRate').updateValueAndValidity();
+            f.get('considerValue').clearValidators();
+            f.get('considerValue').updateValueAndValidity();
+            f.get('sheetNo').clearValidators();
+            f.get('sheetNo').updateValueAndValidity();
+            f.get('geoLocation').clearValidators();
+            f.get('geoLocation').updateValueAndValidity();
+        });
+    }
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
             owner: [undefined, Validators.required],
@@ -1424,13 +1453,13 @@ export class SecurityInitialFormComponent implements OnInit {
             dv: [undefined],
             considerValue: [undefined, Validators.required],
             sheetNo: [undefined, Validators.required],
-            province: [undefined, Validators.required],
-            district: [undefined, Validators.required],
-            municipalityVdc: [undefined, Validators.required],
+            province: [undefined],
+            district: [undefined],
+            municipalityVdc: [undefined],
             geoLocation: [undefined, Validators.required],
             addressLine1: [undefined],
             addressLine2: [undefined],
-            registerOffice: [undefined, Validators.required]
+            registerOffice: [undefined]
         });
     }
 
@@ -2242,11 +2271,12 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    openSiteVisitModel(security: string) {
+    openSiteVisitModel(security: string,  uuid?: string) {
         this.close();
         const context = {
             securityId: this.customerSecurityId,
-            security: security
+            security: security,
+            uuid: uuid
         };
         this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
             context,
@@ -2363,7 +2393,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
         corporateGuarantee.controls.forEach(f => {
-            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('CorporateGuarantee') === -1) {
                 this.selectedArray.push('CorporateGuarantee');
@@ -2436,5 +2466,14 @@ export class SecurityInitialFormComponent implements OnInit {
         this.location.getMunicipalityVDCByDistrict(district).subscribe((res: any) => {
             this.municipalityList = res.detail;
         });
+    }
+    private uuid(): string {
+        // tslint:disable-next-line:no-bitwise
+        let firstPart: any = (Math.random() * 46656) | 0;
+        // tslint:disable-next-line:no-bitwise
+        let secondPart: any = (Math.random() * 46656) | 0;
+        firstPart = ('000' + firstPart.toString(36)).slice(-3);
+        secondPart = ('000' + secondPart.toString(36)).slice(-3);
+        return firstPart + secondPart;
     }
 }

@@ -12,14 +12,18 @@
         </tr>
         </thead>
         <tbody *ngIf="isLandSecurity">
-        <tr>
+        <tr *ngFor="let landSecurity of landSecurity; let i = index;">
             <td>{{'Land Security'}}</td>
             <td>{{landSecurity.length}}</td>
-            <td><strong>Owner:</strong>{{landSecurity[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity[0]?.area || 'NA'}},
-                <strong>Location: </strong>{{landSecurity[0]?.location }}</td>
+            <td><strong>Owner:</strong>{{landSecurity?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity?.area || 'NA'}},
+                <strong>Location: </strong>{{landSecurity?.location }}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('landDetails', 'LandSecurity')">
-                <i class="fa fa-trash fa-1x"></i></a></td>
+                <i class="fa fa-trash fa-1x"></i></a>
+             <a *ngIf="securityId"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
+                                             (click)="openSiteVisitModel('Land Security'+' '+(i+1), landSecurity?.uuid)"></a>
+            </td>
+
         </tr>
         </tbody>
 
