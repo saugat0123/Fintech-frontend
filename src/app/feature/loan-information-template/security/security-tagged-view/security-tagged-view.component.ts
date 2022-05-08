@@ -31,9 +31,9 @@ export class SecurityTaggedViewComponent implements OnInit {
   iniitialForm;
   constructor() { }
   ngOnInit() {
-    this.security = JSON.parse(this.loanDataHolder.security.data);
-    this.iniitialForm = this.security.iniitialForm;
-  this.checkSecurity();
+    this.security = JSON.parse(this.loanDataHolder.loanHolder.security.data);
+    this.iniitialForm = this.security.initialForm;
+    this.checkSecurity();
   //   this.hasLandBuilding = this.checkIndividualSecurity(this.loanDataHolder.landBuildings);
   //   this.hasAuto = this.checkIndividualSecurity(this.loanDataHolder.autos);
     this.proposal = this.loanDataHolder.proposal;
@@ -46,6 +46,7 @@ export class SecurityTaggedViewComponent implements OnInit {
 
   checkSecurity() {
     // for old security json
+    console.log(this.iniitialForm);
     this.security.selectedArray.forEach((d) => {
       switch (d) {
         case 'Land and Building Security': {
@@ -69,7 +70,7 @@ export class SecurityTaggedViewComponent implements OnInit {
         }
           break;
         case 'ShareSecurity': {
-          const shareSecurity = JSON.parse(this.loanDataHolder.loanHolder.shareSecurity);
+          const shareSecurity = JSON.parse(this.loanDataHolder.loanHolder.shareSecurity.data);
           this.hasShare = this.checkIndividualSecurity(shareSecurity.shareSecurityDetails);
         }
           break;
