@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -35,7 +35,7 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
-import { CustomerType  } from 'src/app/feature/customer/model/customerType';
+import {CustomerType} from 'src/app/feature/customer/model/customerType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 
@@ -973,8 +973,10 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
-                f.get('valuationAmount').clearValidators();
-                f.get('valuationAmount').updateValueAndValidity();
+                // f.get('valuationAmount').clearValidators();
+                // f.get('valuationAmount').updateValueAndValidity();
+                f.get('quotationAmount').clearValidators();
+                f.get('quotationAmount').updateValueAndValidity();
             });
             const buildingDetailsFormControls = this.securityForm.get('buildingDetails') as FormArray;
             buildingDetailsFormControls.controls.forEach(f => {
@@ -2296,9 +2298,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     public resetSecurityForm(event): void {
         const securityIndex = this.selectedArray.indexOf(event.securityName);
-        if (securityIndex > -1) {
-            this.selectedArray.splice(securityIndex, 1);
-        }
+        // if (securityIndex > -1) {
+        //     this.selectedArray.splice(securityIndex, 1);
+        // }
         let index = 1;
         if (event.formArrayName === 'shareSecurityDetails') {
             const shareSecurityFormControl = this.shareSecurityForm.get(event.formArrayName) as FormArray;
@@ -2308,23 +2310,30 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.updateValueAndValidity();
                 index++;
             });
-            for (let i = 1; i <= index; i++) {
-                shareSecurityFormControl.removeAt(i);
-                index--;
-                i--;
+            // for (let i = 1; i <= index; i++) {
+                shareSecurityFormControl.removeAt(event.index);
+            //     index--;
+            //     i--;
+            // }
+            if (shareSecurityFormControl.length < 1) {
+                this.selectedArray.splice(securityIndex, 1);
             }
         } else {
             const formControl = this.securityForm.get(event.formArrayName) as FormArray;
             formControl.controls.forEach(f => {
-                f.reset();
+                // f.reset();
                 f.clearValidators();
                 f.updateValueAndValidity();
                 index++;
             });
-            for (let i = 1; i <= index; i++) {
-                formControl.removeAt(i);
-                index--;
-                i--;
+            // for (let i = 1; i <= index; i++) {
+            //     formControl.removeAt(i);
+            //     index--;
+            //     i--;
+            // }
+            formControl.removeAt(event.index);
+            if (formControl.length < 1) {
+                this.selectedArray.splice(securityIndex, 1);
             }
         }
         this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
@@ -2341,7 +2350,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
         vehicleDetails.controls.forEach(f => {
-            const value = f.value.model || f.value.valuationAmount || f.value.registrationNumber || f.value.engineNumber;
+            const value = f.value.model  || f.value.registrationNumber || f.value.engineNo;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('VehicleSecurity') === -1) {
                 this.selectedArray.push('VehicleSecurity');

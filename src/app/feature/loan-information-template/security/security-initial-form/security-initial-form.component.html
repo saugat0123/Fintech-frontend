@@ -497,8 +497,8 @@
                      formArrayName="buildingDetails">
                     <div [formGroupName]="i">
                         <div class="row justify-content-end">
-                            <button class="btn btn-primary sb-small mr-2"
-                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>
+<!--                            <button class="btn btn-primary sb-small mr-2"-->
+<!--                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>-->
                         </div>
                         <ng-template #apartment>
                             <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
@@ -1292,8 +1292,8 @@
                         *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
                         class="font-weight-bold">
                     <div class="row justify-content-end">
-                        <button class="btn btn-primary sb-small mr-2"
-                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1), landAndBuilding?.get('uuid').value)">Inspect Site Visit</button>
+<!--                        <button class="btn btn-primary sb-small mr-2"-->
+<!--                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1), landAndBuilding?.get('uuid').value)">Inspect Site Visit</button>-->
                     </div>
                     <div class="row">
                         <div class="col-md-10">
