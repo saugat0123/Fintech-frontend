@@ -42,6 +42,7 @@ import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.comp
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
 import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './other-security/other-security.component';
+import {Branch} from '../../admin/modal/branch';
 
 @Component({
     selector: 'app-security',
@@ -406,76 +407,87 @@ export class SecurityComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        if (this.securityForm.invalid) {
-            return;
-        }
-        if (this.initialSecurity.selectedSecurity === undefined) {
-            this.initialSecurity.clearValidationAtInitialStage();
-        }
-        if (this.initialSecurity.securityForm.invalid) {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
-            return;
-        }
-        if (!ObjectUtil.isEmpty(this.securityValue)) {
-            this.securityData = this.securityValue;
-        }
-        this.initialSecurity.submit();
-        const mergedForm = {
-            initialForm: this.initialSecurity.securityForm.value,
-            selectedArray: this.initialSecurity.selectedArray,
-            underConstructionChecked: this.initialSecurity.underConstructionChecked,
-            otherBranchcheck: this.initialSecurity.otherBranchcheck,
-            guarantorsForm: this.guarantorsForm.value,
-            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
-            securityGuarantee: this.securityForm.get('securityGuarantee').value,
-            buildingLocation: this.securityForm.get('buildingLocation').value,
-            roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
-            lambdaScheme: this.securityForm.get('lambdaScheme').value,
-            facCategory: this.securityForm.get('facCategory').value,
-            securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
-            securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
-            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
-        };
-        this.securityData.data = JSON.stringify(mergedForm);
-        this.securityData.guarantor = [];
-        this.initialSecurity.selectedArray.forEach((selected) => {
-            if (selected === 'ShareSecurity') {
-                this.shareSecuritySelected = true;
-            }
+        // if (this.securityForm.invalid) {
+        //     return;
+        // }
+        // if (this.initialSecurity.selectedSecurity === undefined) {
+        //     this.initialSecurity.clearValidationAtInitialStage();
+        // }
+        // if (this.initialSecurity.securityForm.invalid) {
+        //     this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+        //     return;
+        // }
+        // if (!ObjectUtil.isEmpty(this.securityValue)) {
+        //     this.securityData = this.securityValue;
+        // }
+        // this.initialSecurity.submit();
+        // const mergedForm = {
+        //     initialForm: this.initialSecurity.securityForm.value,
+        //     selectedArray: this.initialSecurity.selectedArray,
+        //     underConstructionChecked: this.initialSecurity.underConstructionChecked,
+        //     otherBranchcheck: this.initialSecurity.otherBranchcheck,
+        //     guarantorsForm: this.guarantorsForm.value,
+        //     underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
+        //     securityGuarantee: this.securityForm.get('securityGuarantee').value,
+        //     buildingLocation: this.securityForm.get('buildingLocation').value,
+        //     roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
+        //     lambdaScheme: this.securityForm.get('lambdaScheme').value,
+        //     facCategory: this.securityForm.get('facCategory').value,
+        //     securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
+        //     securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
+        //     vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
+        // };
+        // this.securityData.data = JSON.stringify(mergedForm);
+        // this.securityData.guarantor = [];
+        // this.initialSecurity.selectedArray.forEach((selected) => {
+        //     if (selected === 'ShareSecurity') {
+        //         this.shareSecuritySelected = true;
+        //     }
+        // });
+        // if (this.shareSecuritySelected) {
+        //     this.securityData.templateName = TemplateName.SHARE_SECURITY;
+        //     this.shareSecurityData = this.initialSecurity.shareSecurityData;
+        //     this.securityData.share = this.shareSecurityData;
+        // }
+        // let guarantorIndex = 0;
+        // while (guarantorIndex < this.getGuarantor().length) {
+        //     const guarantor = new Guarantor();
+        //     guarantor.id = this.getGuarantor()[guarantorIndex].id;
+        //     guarantor.version = this.getGuarantor()[guarantorIndex].version;
+        //     guarantor.name = this.getGuarantor()[guarantorIndex].name;
+        //     guarantor.citizenNumber = this.getGuarantor()[guarantorIndex].citizenNumber;
+        //     guarantor.issuedYear = this.getGuarantor()[guarantorIndex].issuedYear;
+        //     guarantor.issuedPlace = this.getGuarantor()[guarantorIndex].issuedPlace;
+        //     guarantor.fatherName = this.getGuarantor()[guarantorIndex].fatherName;
+        //     guarantor.grandFatherName = this.getGuarantor()[guarantorIndex].grandFatherName;
+        //     guarantor.relationship = this.getGuarantor()[guarantorIndex].relationship;
+        //     guarantor.contactNumber = this.getGuarantor()[guarantorIndex].contactNumber;
+        //     if (!ObjectUtil.isEmpty(this.getGuarantor()[guarantorIndex].province)) {
+        //         const province = new Province();
+        //         province.id = this.getGuarantor()[guarantorIndex].province;
+        //         guarantor.province = province;
+        //         const district = new District();
+        //         district.id = this.getGuarantor()[guarantorIndex].district;
+        //         guarantor.district = district;
+        //         const municipalityVdc = new MunicipalityVdc();
+        //         municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
+        //         guarantor.municipalities = municipalityVdc;
+        //     }
+        //     guarantorIndex++;
+        //     this.securityData.guarantor.push(guarantor);
+        // }
+
+        const pmData: Array<Security> = new Array<Security>();
+        console.log('blank array', pmData);
+        const plantMachineryData = this.plantMachinerySecurity.plantMachineryForm.value.plantDetails;
+        plantMachineryData.forEach(plant => {
+            const secObj: Security = new Security();
+            secObj.data = JSON.stringify(plant);
+            pmData.push(secObj);
         });
-        if (this.shareSecuritySelected) {
-            this.securityData.templateName = TemplateName.SHARE_SECURITY;
-            this.shareSecurityData = this.initialSecurity.shareSecurityData;
-            this.securityData.share = this.shareSecurityData;
-        }
-        let guarantorIndex = 0;
-        while (guarantorIndex < this.getGuarantor().length) {
-            const guarantor = new Guarantor();
-            guarantor.id = this.getGuarantor()[guarantorIndex].id;
-            guarantor.version = this.getGuarantor()[guarantorIndex].version;
-            guarantor.name = this.getGuarantor()[guarantorIndex].name;
-            guarantor.citizenNumber = this.getGuarantor()[guarantorIndex].citizenNumber;
-            guarantor.issuedYear = this.getGuarantor()[guarantorIndex].issuedYear;
-            guarantor.issuedPlace = this.getGuarantor()[guarantorIndex].issuedPlace;
-            guarantor.fatherName = this.getGuarantor()[guarantorIndex].fatherName;
-            guarantor.grandFatherName = this.getGuarantor()[guarantorIndex].grandFatherName;
-            guarantor.relationship = this.getGuarantor()[guarantorIndex].relationship;
-            guarantor.contactNumber = this.getGuarantor()[guarantorIndex].contactNumber;
-            if (!ObjectUtil.isEmpty(this.getGuarantor()[guarantorIndex].province)) {
-                const province = new Province();
-                province.id = this.getGuarantor()[guarantorIndex].province;
-                guarantor.province = province;
-                const district = new District();
-                district.id = this.getGuarantor()[guarantorIndex].district;
-                guarantor.district = district;
-                const municipalityVdc = new MunicipalityVdc();
-                municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
-                guarantor.municipalities = municipalityVdc;
-            }
-            guarantorIndex++;
-            this.securityData.guarantor.push(guarantor);
-        }
-        this.securityDataEmitter.emit(this.securityData);
+        console.log('Plant Machinery Data', plantMachineryData);
+        console.log('pm data', pmData);
+        this.securityDataEmitter.emit(pmData);
     }
 
     controlValidation(controlNames: string[], validate) {

@@ -149,8 +149,6 @@ export class PlantMachineryComponent implements OnInit {
       model: [undefined, Validators.required],
       quotation: [undefined, Validators.required],
       supplier: [undefined],
-      downPay: [undefined],
-      loanExp: [undefined],
       plantMachineryValuator: [undefined],
       plantMachineryValuatorDate: [undefined],
       plantMachineryValuatorRepresentative: [undefined],

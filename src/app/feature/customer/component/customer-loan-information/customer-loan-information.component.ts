@@ -339,28 +339,30 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     public saveSecurity(data: Security) {
+        console.log('data', data);
         this.spinner.show();
         if (ObjectUtil.isEmpty(this.security)) {
             this.security = new Security();
         }
         if (!ObjectUtil.isEmpty(data)) {
-            this.security.data = data.data;
+            this.security = data;
+            console.log('security data', this.security);
             // this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
-                if (!ObjectUtil.isEmpty(data.share)) {
-                    this.saveShare(data);
-                } else {
-                    this.triggerCustomerRefresh.emit(true);
-                    this.nbDialogRef.close();
-                }
-                this.spinner.hide();
-            }, error => {
-                this.spinner.hide();
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
-            });
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+                    // if (!ObjectUtil.isEmpty(data.share)) {
+                    //     this.saveShare(data);
+                    // } else {
+                    //     this.triggerCustomerRefresh.emit(true);
+                    //     this.nbDialogRef.close();
+                    // }
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
+                });
         }
     }
 
