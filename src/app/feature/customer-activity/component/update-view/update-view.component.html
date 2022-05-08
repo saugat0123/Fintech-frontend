@@ -131,10 +131,6 @@
             /-</span>
             <span *ngIf="p?.fieldName !== 'Proposed Limit'" [innerHTML]="p?.prevValue | safeHtml"></span></td>
         </tr>
-        <tr *ngIf="loanUpdateData?.priority">
-          <td><strong>Priority</strong></td>
-          <td>{{loanUpdateData?.priority}}</td>
-        </tr>
         <tr *ngIf="loanUpdateData?.documentStatus">
           <td><strong>Document Status</strong></td>
           <td>{{loanUpdateData?.documentStatus}}</td>

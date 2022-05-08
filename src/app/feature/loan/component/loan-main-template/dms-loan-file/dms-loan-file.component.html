@@ -327,23 +327,6 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <label><strong>Priority</strong></label>
-                <ng-select [items]="dropdownPriorities"
-                           [multiple]="false"
-                           [ngClass]="{'is-invalid':submitted &&  form.priority.errors}"
-                           bindLabel="name"
-                           bindValue="id"
-                           class="form-control"
-                           formControlName="priority"
-                           placeholder="Select the priority level">
-                </ng-select>
-                <div *ngIf="submitted && form.priority.errors" class="invalid-feedback">
-                  <div *ngIf="form.priority.errors.required">
-                    Priority is required
-                  </div>
-                </div>
-              </div>
             </div>
             <div class="row">
               <div class="col-md-4">
