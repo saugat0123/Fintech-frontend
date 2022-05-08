@@ -56,7 +56,7 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
   }
 
   public getCollateralByUUID(securityName: string, id: number, uuid: string): Observable<any> {
-    const api = `${this.getApi()}/${securityName}/${id}?uuid=${uuid}`;
+    const api = `${this.getApi()}/${id}?uuid=${uuid}`;
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }
