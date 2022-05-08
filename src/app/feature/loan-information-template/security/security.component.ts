@@ -72,8 +72,8 @@ export class SecurityComponent implements OnInit {
     @ViewChild('landBuildingSecurity', {static: false})
     landBuildingSecurity: LandBuildingComponent;
 
-    @ViewChild('plantMachinery', {static: false})
-    plantMachinery: PlantMachineryComponent;
+    @ViewChild('plantMachinerySecurity', {static: false})
+    plantMachinerySecurity: PlantMachineryComponent;
 
     @ViewChild('fixedDepositSecurity', {static: false})
     fixedDepositSecurity: FixedDepositComponent;
