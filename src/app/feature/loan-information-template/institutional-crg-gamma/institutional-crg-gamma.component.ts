@@ -70,7 +70,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
                     this.loanFormService.detail(this.customerInfoId).subscribe(rs => {
                         this.formData = rs.detail.crgGamma;
                         this.buildFormAndCheckEdit();
-                        this.getCustomerFinancialData(this.customerInfoId);
                     });
                 }
             });
@@ -119,7 +118,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
             this.creditRiskGrading.patchValue(this.formDataForEdit);
             this.calculateTotalViaMap();
         }
-        console.log('jhgfghjkjhgfghjkjhgfghjklkjh: ', this.creditRiskGrading.value);
     }
 
     onChangeOption(field, point, parameter) {
@@ -150,16 +148,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         this.creditRiskGrading.get('grade').patchValue(this.grading);
     }
 
-    // things to do --- financial mapping with institutional CRG
-    getCustomerFinancialData(id: any): void {
-        this.loanFormService.detail(id).subscribe(res => {
-            console.log(JSON.parse(res.detail.financial.data));
-            const keyIndicatorsData = JSON.parse(res.detail.financial.data);
-            this.fiscalYears = keyIndicatorsData.fiscalYear;
-            console.log(keyIndicatorsData, 'KEYINDI');
-            this.mapFinancialData(keyIndicatorsData.keyIndicatorsData, 'averageCollectionPeriod', 'Projected 2078/79');
-        });
-    }
 
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.formData)) {
@@ -169,13 +157,5 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         this.crgDataEmitter.emit(this.creditRiskData.data);
     }
 
-    mapFinancialData(jsonData: any, key: any, year: any) {
-        console.log(jsonData[key]);
-        jsonData[key].forEach(v => {
-                if (v.year === year) {
-                    console.log(v.value);
-                }
-            }
-        );
-    }
+
 }
