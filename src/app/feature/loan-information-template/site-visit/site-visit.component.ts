@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
@@ -11,9 +11,8 @@ import {InsuranceList} from '../../loan/model/insuranceList';
 import {CommonAddressComponent} from '../../common-address/common-address.component';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CalendarType} from '../../../@core/model/calendar-type';
-import {environment} from '../../../../environments/environment';
 import {DateValidator} from '../../../@core/validator/date-validator';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 declare let google: any;
@@ -30,15 +29,15 @@ export class SiteVisitComponent implements OnInit {
   calendarType = CalendarType.AD;
   @Input() customerInfo: CustomerInfoData;
 
-  @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
+  @ViewChildren('currentResidentAddress') currentResidentAddress: QueryList<CommonAddressComponent>;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
-  @ViewChild('businessOfficeAddress', {static: true}) businessOfficeAddress: CommonAddressComponent;
+  @ViewChildren('businessOfficeAddress') businessOfficeAddress:  QueryList<CommonAddressComponent>;
 
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
   submitted = false;
   business = false;
-  fixed = false;
+  resident = false;
   current = false;
   currentResidentForm = false;
   businessSiteVisitForm = false;
@@ -58,6 +57,7 @@ export class SiteVisitComponent implements OnInit {
   designationList = [];
   insuranceList = InsuranceList.insuranceCompanyList;
   spinner = false;
+  breakException: any;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -67,46 +67,12 @@ export class SiteVisitComponent implements OnInit {
     this.date = dateService.today();
   }
 
-  get inspectingStaffsDetailsForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('insuranceVerification'))
-    .get('inspectingStaffsDetails')).controls;
+  get currentResidentDetailsForm() {
+    return (<FormArray>this.siteVisitFormGroup.get('currentResidentDetails')).controls;
   }
 
-  get partyForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('receivablesAndPayables'))
-    .get('parties')).controls;
-  }
-
-  get payablePartyForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('payable'))
-    .get('parties')).controls;
-  }
-
-  get receivableAssetsForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('receivableAssets')).controls;
-  }
-
-  get payableAssetsForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('payableAssets')).controls;
-  }
-
-  get inspectingStaffsForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('inspectingStaffs')).controls;
-  }
-
-  get bankExposureForm() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('bankExposures')).controls;
+  get businessSiteVisitDetailsForm() {
+    return (<FormArray>this.siteVisitFormGroup.get('businessSiteVisitDetails')).controls;
   }
 
   get formControls() {
@@ -122,15 +88,20 @@ export class SiteVisitComponent implements OnInit {
 
     this.buildForm();
     if (this.formDataForEdit !== undefined) {
+      if (ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails)) {
+        this.addBusinessSiteVisitDetails();
+      }
+      if (ObjectUtil.isEmpty(this.formDataForEdit.currentResidentDetails)) {
+        this.addCurrentResidentDetails();
+      }
+      if (ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
+        this.addMoreCurrentAssets();
+      }
       this.populateData();
     } else {
-      this.addStaffOfInsurance();
-      this.addStaffOfOtherAssets();
-      this.addDetailsOfParties('receivablesAndPayables');
-      this.addDetailsOfParties('payable');
-      this.addDetailsOfReceivableAssets();
-      this.addDetailsOfPayableAssets();
-      this.addDetailsOfBankExposure();
+      this.addCurrentResidentDetails();
+      this.addBusinessSiteVisitDetails();
+      this.addMoreCurrentAssets();
     }
   }
 
@@ -140,327 +111,9 @@ export class SiteVisitComponent implements OnInit {
       businessSiteVisitFormChecked: [false],
       fixedAssetCollateralFormChecked: [false],
       currentAssetsInspectionFormChecked: [false],
-      currentResidentDetails: this.formBuilder.group({
-        address: [undefined],
-        nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
-        ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.pattern(Pattern.ALPHABET_ONLY)]],
-        staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],
-        staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.staffRepresentativeName)],
-        staffRepresentativeNameDesignation2: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation2)],
-        staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.staffRepresentativeName2)],
-        findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.findingComment)],
-        locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.locationPreview)],
-        currentSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.currentSiteVisitLongitude)],
-        currentSiteVisiLatitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.currentSiteVisiLatitude)],
-      }),
-      businessSiteVisitDetails: this.formBuilder.group({
-        officeAddress: [undefined],
-        nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted,
-          [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
-        dateOfVisit: [this.formDataForEdit === undefined ? '' :
-            this.formDataForEdit.businessSiteVisitDetails === undefined ? '' :
-            ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit) ? undefined :
-                new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
-        objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation)],
-        staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName)],
-        staffRepresentativeNameDesignation2: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation2)],
-        staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
-            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName2)],
-        locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
-        mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
-        findingsAndComments: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required],
-        businessSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLongitude],
-        businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
-      }),
-      currentAssetsInspectionDetails: this.formBuilder.group({
-        dateOfInspection: [this.formDataForEdit === undefined ? '' :
-            this.formDataForEdit.currentAssetsInspectionDetails === undefined ? '' :
-                ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection) ? undefined :
-                    new Date(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection),
-                    [Validators.required, DateValidator.isValidBefore]],
-        particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected],
-        stockValueReported: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.stockValueReported],
-        rents: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.rents],
-        rentLeased: [this.formDataForEdit === undefined ? undefined
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? undefined
-                : this.formDataForEdit.currentAssetsInspectionDetails.rentLeased],
-        isRentPmtUpToDate: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate],
-        isRentReceiptShown: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentReceiptShown],
-        insuranceVerification: this.formBuilder.group({
-          assetsMortgaged: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged],
-          insuredAmount: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuredAmount],
-          insuranceCompany: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany],
-          expiryDate: [this.formDataForEdit === undefined ? '' :
-              this.formDataForEdit.currentAssetsInspectionDetails === undefined ? '' :
-                  this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? '' :
-                      ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate) ? undefined :
-                          new Date(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate)],
-          clientsOverallRating: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating],
-          comments: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.comments],
-          stockValueConfirmed: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed],
-          insuranceVerificationPosition: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerificationPosition],
-          inspectingStaffsDetails: this.formBuilder.array([])
-        }),
-        majorInquiriesAndObservations: this.formBuilder.group({
-          businessNature: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessNature],
-          businessActivities: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessActivities],
-          businessProgress: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessProgress],
-          businessChallenges: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessChallenges],
-          normalElectricityLine: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.normalElectricityLine],
-          invertorOrGenerator: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.invertorOrGenerator],
-          ledgerBook: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.ledgerBook],
-          electronic: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.electronic],
-        }),
-        stockCheckListQuestionaire: this.formBuilder.group({
-          uptoDateWithCharges: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.uptoDateWithCharges],
-          borrowersPossession: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.borrowersPossession],
-          notUnderTR: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.notUnderTR],
-          otherBankNotInterested: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.otherBankNotInterested],
-          securityOrder: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.securityOrder],
-          goodsSaleable: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.goodsSaleable],
-          stocksUptoDate: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.stocksUptoDate],
-          matchWithTheStockList: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.matchWithTheStockList],
-          storageConditionSatisfactory: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.storageConditionSatisfactory],
-          fireFightingEvidence: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.fireFightingEvidence],
-          buildingStoreCondition: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.buildingStoreCondition],
-          warrantiesUptoDate: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.warrantiesUptoDate],
-          noHazardousNature: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.noHazardousNature],
-          nameBoardProperlyDisplayed: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.nameBoardProperlyDisplayed],
-          padlocksUse: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.padlocksUse],
-          certificate: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.certificate],
-          ncaReport: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.ncaReport],
-          stocksAreLarge: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.stocksAreLarge],
-          otherEntitiesInTheAssets: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.otherEntitiesInTheAssets],
-          findingAndComments: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.findingAndComments],
-          remarksForNoOption: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.remarksForNoOption]
-        }),
-        receivablesAndPayables: this.formBuilder.group({
-          parties: this.formBuilder.array([]),
-          threeMonthTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal],
-          sixMonthTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal],
-          oneYearTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal],
-          moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal],
-          findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection],
-          grandTotal:   [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.grandTotal],
-        }),
-        payable: this.formBuilder.group({
-          parties: this.formBuilder.array([]),
-          threeMonthTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.threeMonthTotal],
-          sixMonthTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.sixMonthTotal],
-          oneYearTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.oneYearTotal],
-          moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.moreThanOneYearTotal],
-          findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails
-                          .payable.findingsAndCommentsForCurrentAssetsInspection],
-          grandTotal:   [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails
-                          .payable.grandTotal],
-        }),
-
-        otherCurrentAssets: this.formBuilder.group({
-          receivableAssets: this.formBuilder.array([]),
-          receivableCurrentAssetsTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.receivableCurrentAssetsTotal],
-          payableAssets: this.formBuilder.array([]),
-          payableCurrentAssetsTotal: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.payableCurrentAssetsTotal],
-          inspectingStaffs: this.formBuilder.array([]),
-          bankExposures: this.formBuilder.array([]),
-          overAllFindings: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings]
-        })
-      })
+      currentResidentDetails: this.formBuilder.array([]),
+      businessSiteVisitDetails: this.formBuilder.array([]),
+      currentAssetsDetails: this.formBuilder.array([])
     });
   }
 
@@ -479,17 +132,28 @@ export class SiteVisitComponent implements OnInit {
   }
 
   populateData() {
-    const currentAssetsInspectionData = this.formDataForEdit.currentAssetsInspectionDetails;
     this.checkboxSelected('currentResident', this.formDataForEdit['currentResidentFormChecked']);
     this.checkboxSelected('businessSiteVisit', this.formDataForEdit['businessSiteVisitFormChecked']);
     this.checkboxSelected('currentAssetsInspection', this.formDataForEdit['currentAssetsInspectionFormChecked']);
-    this.setInspectingStaffsDetails(currentAssetsInspectionData.insuranceVerification.inspectingStaffsDetails);
-    this.setPartyFormDetails(currentAssetsInspectionData.receivablesAndPayables.parties);
-    this.setPayablePartyFormDetails(currentAssetsInspectionData.payable ? currentAssetsInspectionData.payable.parties : undefined);
-    this.setReceivableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.receivableAssets);
-    this.setPayableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.payableAssets);
-    this.setOtherCurrentInspectingStaffs(currentAssetsInspectionData.otherCurrentAssets.inspectingStaffs);
-    this.setBankExposures(currentAssetsInspectionData.otherCurrentAssets.bankExposures);
+    if (!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.currentResidentDetails)) {
+      this.setCurrentResident(this.formDataForEdit.currentResidentDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails)) {
+      this.setBusinessSiteVisit(this.formDataForEdit.businessSiteVisitDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
+      const currentDetail = this.formDataForEdit.currentAssetsDetails;
+      this.setCurrentAssetsDetails(currentDetail);
+      currentDetail.forEach((data, i) => {
+        this.setInspectingStaffsDetails(data.insuranceVerification.inspectingStaffsDetails, i);
+        this.setPartyFormDetails(data.receivablesAndPayables.parties, i);
+        this.setPayablePartyFormDetails(data.payable ? data.payable.parties : undefined, i);
+        this.setReceivableAssetsDetails(data.otherCurrentAssets.receivableAssets, i);
+        this.setPayableAssetsDetails(data.otherCurrentAssets.payableAssets, i);
+        this.setOtherCurrentInspectingStaffs(data.otherCurrentAssets.inspectingStaffs, i);
+        this.setBankExposures(data.otherCurrentAssets.bankExposures, i);
+      });
+    }
   }
 
   staffsFormGroup(): FormGroup {
@@ -501,28 +165,227 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  addInspectingStaffsDetails() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('insuranceVerification'))
-    .get('inspectingStaffsDetails'));
+  addInspectingStaffsDetails(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get('inspectingStaffsDetails') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
     }
     controls.push(this.staffsFormGroup());
   }
 
-  deleteInspectingStaffsDetails(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('insuranceVerification'))
-    .get('inspectingStaffsDetails'))
+  deleteInspectingStaffsDetails(i, index) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get('inspectingStaffsDetails') as FormArray).removeAt(index);
+  }
+
+  currentResidentFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      address: [undefined],
+      nearBy: [undefined, Validators.required],
+      ownerName: [undefined, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
+      dateOfVisit: [undefined, Validators.required],
+      staffRepresentativeNameDesignation: [undefined],
+      staffRepresentativeName: [undefined],
+      staffRepresentativeNameDesignation2: [undefined],
+      staffRepresentativeName2: [undefined],
+      findingComment: [undefined],
+      locationPreview: [undefined],
+      currentSiteVisitLongitude: [undefined],
+      currentSiteVisiLatitude: [undefined],
+    });
+  }
+
+  businessSiteVisitFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      officeAddress: [undefined],
+      nameOfThePersonContacted: [undefined, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
+      dateOfVisit: [undefined],
+      objectiveOfVisit: [undefined, Validators.required],
+      staffRepresentativeNameDesignation: [undefined],
+      staffRepresentativeName: [undefined],
+      staffRepresentativeNameDesignation2: [undefined],
+      staffRepresentativeName2: [undefined],
+      locationPreview: [undefined],
+      mapAddress: [undefined],
+      findingsAndComments: [undefined, Validators.required],
+      businessSiteVisitLongitude: [undefined],
+      businessSiteVisitLatitude: [undefined]
+    });
+  }
+
+  currentAssetsFormGroup() {
+    return this.formBuilder.group({
+      dateOfInspection: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      particularsOfGoodInspected: [undefined],
+      stockValueReported: [undefined],
+      rents: [undefined],
+      rentLeased: [undefined],
+      isRentPmtUpToDate: [undefined],
+      isRentReceiptShown: [undefined],
+      insuranceVerification: this.formBuilder.group({
+        assetsMortgaged: [undefined],
+        insuredAmount: [undefined],
+        insuranceCompany: [undefined],
+        expiryDate: [undefined],
+        clientsOverallRating: [undefined],
+        comments: [undefined],
+        stockValueConfirmed: [undefined],
+        insuranceVerificationPosition: [undefined],
+        inspectingStaffsDetails: this.formBuilder.array([
+          this.formBuilder.group({
+            staffRepresentativeNameDesignation: undefined,
+            staffRepresentativeName: undefined,
+            staffRepresentativeNameDesignation2: undefined,
+            staffRepresentativeName2: undefined,
+          })]),
+      }),
+      majorInquiriesAndObservations: this.formBuilder.group({
+        businessNature: [undefined],
+        businessActivities: [undefined],
+        businessProgress: [undefined],
+        businessChallenges: [undefined],
+        normalElectricityLine: [undefined],
+        invertorOrGenerator: [undefined],
+        ledgerBook: [undefined],
+        electronic: [undefined],
+      }),
+      stockCheckListQuestionaire: this.formBuilder.group({
+        uptoDateWithCharges: [undefined],
+        borrowersPossession: [undefined],
+        notUnderTR: [undefined],
+        otherBankNotInterested: [undefined],
+        securityOrder: [undefined],
+        goodsSaleable: [undefined],
+        stocksUptoDate: [undefined],
+        matchWithTheStockList: [undefined],
+        storageConditionSatisfactory: [undefined],
+        fireFightingEvidence: [undefined],
+        buildingStoreCondition: [undefined],
+        warrantiesUptoDate: [undefined],
+        noHazardousNature: [undefined],
+        nameBoardProperlyDisplayed: [undefined],
+        padlocksUse: [undefined],
+        certificate: [undefined],
+        ncaReport: [undefined],
+        stocksAreLarge: [undefined],
+        otherEntitiesInTheAssets: [undefined],
+        findingAndComments: [undefined],
+        remarksForNoOption: [undefined],
+      }),
+      receivablesAndPayables: this.formBuilder.group({
+        parties: this.formBuilder.array([
+          this.formBuilder.group({
+            party: [undefined],
+            withinThreeMonths: [undefined],
+            sixMonth: [undefined],
+            oneYear: [undefined],
+            oneYearPlus: [undefined]
+          })
+        ]),
+        threeMonthTotal: [undefined],
+        sixMonthTotal: [undefined],
+        oneYearTotal: [undefined],
+        moreThanOneYearTotal: [undefined],
+        findingsAndCommentsForCurrentAssetsInspection: [undefined],
+        grandTotal: [undefined],
+      }),
+      payable: this.formBuilder.group({
+        parties: this.formBuilder.array([
+          this.formBuilder.group({
+            party: [undefined],
+            withinThreeMonths: [undefined],
+            sixMonth: [undefined],
+            oneYear: [undefined],
+            oneYearPlus: [undefined]
+          })
+        ]),
+        threeMonthTotal: [undefined],
+        sixMonthTotal: [undefined],
+        oneYearTotal: [undefined],
+        moreThanOneYearTotal: [undefined],
+        findingsAndCommentsForCurrentAssetsInspection: [undefined],
+        grandTotal: [undefined],
+      }),
+      otherCurrentAssets: this.formBuilder.group({
+        receivableAssets: this.formBuilder.array([
+          this.formBuilder.group({
+            particulars: [undefined],
+            amount: [undefined],
+          })
+        ]),
+        receivableCurrentAssetsTotal: [undefined],
+        payableAssets: this.formBuilder.array([
+          this.formBuilder.group({
+            particulars: [undefined],
+            amount: [undefined]
+          })
+        ]),
+        payableCurrentAssetsTotal: [undefined],
+        inspectingStaffs: this.formBuilder.array([
+          this.formBuilder.group({
+            name: [undefined],
+            position: [undefined]
+          })
+        ]),
+        bankExposures: this.formBuilder.array([
+          this.formBuilder.group({
+            bankName: [undefined],
+            amount: [undefined]
+          })
+        ]),
+        overAllFindings: [undefined],
+      }),
+    });
+  }
+
+  addBusinessSiteVisitDetails() {
+    const controls = (<FormArray>this.siteVisitFormGroup.get('businessSiteVisitDetails'));
+    /*if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Detail To Add More'));
+      return;
+    }*/
+    controls.push(this.businessSiteVisitFormGroup());
+  }
+
+  deleteBusinessSiteVisitDetails(i) {
+    (<FormArray>this.siteVisitFormGroup.get('businessSiteVisitDetails'))
     .removeAt(i);
   }
 
-  inspectingStaffsDetailsLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('insuranceVerification'))
-    .get('inspectingStaffsDetails')).length;
+  businessSiteVisitDetailsLength() {
+    return (<FormArray>this.siteVisitFormGroup.get('businessSiteVisitDetails'))
+        .length;
+  }
+
+  addCurrentResidentDetails() {
+    const controls = (<FormArray>this.siteVisitFormGroup.get('currentResidentDetails'));
+    /*if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Detail To Add More'));
+      return;
+    }*/
+    controls.push(this.currentResidentFormGroup());
+  }
+
+  deleteCurrentResidentDetails(i) {
+    (<FormArray>this.siteVisitFormGroup.get('currentResidentDetails'))
+    .removeAt(i);
+  }
+
+  CurrentResidentDetailsLength() {
+    return (<FormArray>this.siteVisitFormGroup.get('currentResidentDetails'))
+        .length;
+  }
+
+  addMoreCurrentAssets() {
+    (this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray).push(this.currentAssetsFormGroup());
+  }
+
+  removeCurrentAssets(index: number) {
+    (<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails')).removeAt(index);
   }
 
   partyFormGroup() {
@@ -535,10 +398,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  addPartyForm() {
-   const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('receivablesAndPayables'))
-    .get('parties'));
+  addPartyForm(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get('parties') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
@@ -546,10 +409,9 @@ export class SiteVisitComponent implements OnInit {
     controls.push(this.partyFormGroup());
   }
 
-  addPayablePartyForm() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('payable'))
-    .get('parties'));
+  addPayablePartyForm(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'payable']) as FormGroup).get('parties') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
@@ -557,28 +419,16 @@ export class SiteVisitComponent implements OnInit {
     controls.push(this.partyFormGroup());
   }
 
-  deletePartyForm(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('receivablesAndPayables'))
-    .get('parties')).removeAt(i);
+  deletePartyForm(i, ii) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get('parties') as FormArray).removeAt(ii);
   }
 
-  deletePayablePartyForm(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('payable'))
-    .get('parties')).removeAt(i);
-  }
-
-  partyLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('receivablesAndPayables'))
-    .get('parties')).length;
-  }
-
-  payablePartyLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('payable'))
-    .get('parties')).length;
+  deletePayablePartyForm(i, iii) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+        .get('parties') as FormArray).removeAt(iii);
   }
 
   assetsFormGroup() {
@@ -588,73 +438,44 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  addReceivableAssets() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('receivableAssets'));
+  addReceivableAssets(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('receivableAssets') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Assets Data To Add More'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
     }
     controls.push(this.assetsFormGroup());
   }
 
-  deleteReceivableAssets(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('receivableAssets')).removeAt(i);
+  deleteReceivableAssets(i, i3) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('receivableAssets') as FormArray).removeAt(i3);
   }
 
-  receivableAssetsLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('receivableAssets')).length;
-  }
-
-  addPayableAssets() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('payableAssets'));
+  addPayableAssets(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('payableAssets') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Assets Data To Add More'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
     }
     controls.push(this.assetsFormGroup());
   }
 
-  deletePayableAssets(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('payableAssets')).removeAt(i);
+  deletePayableAssets(i, i5) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('payableAssets') as FormArray).removeAt(i5);
   }
 
-  payableAssetsLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('payableAssets')).length;
-  }
-
-  addInspectingStaffs() {
-    const controls =
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('inspectingStaffs'));
-    if (FormUtils.checkEmptyProperties(controls)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
-      return;
-    }
-  }
-
-  deleteInspectingStaffs(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('inspectingStaffs')).removeAt(i);
-  }
-
-  inspectingStaffsLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('inspectingStaffs')).length;
+  deleteInspectingStaffs(i, i4) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('inspectingStaffs') as FormArray).removeAt(i4);
   }
 
   bankExposureFormGroup() {
@@ -664,27 +485,21 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  addBankExposure() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('bankExposures'));
+  addBankExposure(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('bankExposures') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil Exposure Detail To Add More'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
     }
     controls.push(this.bankExposureFormGroup());
   }
 
-  deleteBankExposure(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('bankExposures')).removeAt(i);
-  }
-
-  bankExposureLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
-    .get('otherCurrentAssets'))
-    .get('bankExposures')).length;
+  deleteBankExposure(i, i6) {
+    ((this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('bankExposures') as FormArray).removeAt(i6);
   }
 
   placeMaker(latitude, longitude) {
@@ -775,30 +590,59 @@ export class SiteVisitComponent implements OnInit {
     }
     if (this.currentResidentForm) {
       // current residential details
-      this.currentResidentAddress.onSubmit();
-      if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
-        this.submitted = true;
+      const currentResidentArray = (this.siteVisitFormGroup.get('currentResidentDetails') as FormArray);
+      try {
+        currentResidentArray.controls.forEach((data, index) => {
+          this.currentResidentAddress.forEach((value, i) => {
+            if (value.addressForm.invalid || data.invalid) {
+              value.submitted = true;
+              this.resident = true;
+              throw new this.breakException;
+            }
+            if (i === index) {
+              data.get('address').setValue(value.addressForm.value);
+            }
+          });
+        });
+      } catch (ex) {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Please check Current Resident validation'));
         return;
-      } else {
-        this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
       }
     }
     if (this.businessSiteVisitForm) {
-      this.businessOfficeAddress.onSubmit();
-      if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
-        this.business = true;
+      const businessSiteArray = (this.siteVisitFormGroup.get('businessSiteVisitDetails') as FormArray);
+      try {
+        businessSiteArray.controls.forEach((data, index) => {
+          this.businessOfficeAddress.forEach((value, i) => {
+            if (value.addressForm.invalid || data.invalid) {
+              value.submitted = true;
+              this.business = true;
+              throw new this.breakException;
+            }
+            if (i === index) {
+              data.get('officeAddress').setValue(value.addressForm.value);
+            }
+          });
+        });
+      } catch (ex) {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Please check Business Site Visit validation'));
         return;
-      } else {
-        this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
       }
     }
     if (this.currentAssetsInspectionForm) {
-      if (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid) {
-        this.current = true;
+      const currentAssetsData = this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray;
+      try {
+        currentAssetsData.controls.forEach(data => {
+          if (data.invalid) {
+            this.current = true;
+            throw this.breakException;
+          }
+        });
+      } catch (e) {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Please check current Assets validation'));
         return;
       }
     }
-
 
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
@@ -808,63 +652,54 @@ export class SiteVisitComponent implements OnInit {
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
   }
 
-  onChangeValue(childFormControlName: string, totalFormControlName: string) {
+  onChangeValue(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    this.partyForm.forEach(party => {
+    const receiveData = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get('parties') as FormArray;
+    receiveData.controls.forEach(party => {
       total += Number(party.get(`${childFormControlName}`).value);
     });
-    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('receivablesAndPayables') as FormGroup)
-    .get(`${totalFormControlName}`).patchValue(total);
+    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'receivablesAndPayables'])
+        .get(`${totalFormControlName}`).patchValue(total);
   }
 
-  onChangePayableValue(childFormControlName: string, totalFormControlName) {
+  onChangePayableValue(childFormControlName: string, totalFormControlName, i: number) {
     let total = 0;
-    this.payablePartyForm.forEach(party => {
+    const payData = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+        .get('parties') as FormArray;
+    payData.controls.forEach(party => {
       total += Number(party.get(`${childFormControlName}`).value);
     });
-    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('payable') as FormGroup)
-    .get(`${totalFormControlName}`).patchValue(total);
+    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'payable'])
+        .get(`${totalFormControlName}`).patchValue(total);
   }
 
-
-  onReceivableAssetValueChange(childFormControlName: string, totalFormControlName: string) {
+  onReceivableAssetValueChange(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    this.receivableAssetsForm.forEach(receivableAssets => {
+    const receviable = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('receivableAssets') as FormArray;
+    receviable.controls.forEach(receivableAssets => {
       total += Number(receivableAssets.get(`${childFormControlName}`).value);
     });
-    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('otherCurrentAssets') as FormGroup)
-    .get(`${totalFormControlName}`).patchValue(total);
-
+    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets'])
+        .get(`${totalFormControlName}`).patchValue(total);
   }
 
-  onPayableAssetsValueChange(childFormControlName: string, totalFormControlName: string) {
+  onPayableAssetsValueChange(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    this.payableAssetsForm.forEach(payableAssets => {
+    const payable = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('payableAssets') as FormArray;
+    payable.controls.forEach(payableAssets => {
       total += Number(payableAssets.get(`${childFormControlName}`).value);
     });
-    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('otherCurrentAssets') as FormGroup)
-    .get(`${totalFormControlName}`).patchValue(total);
-
+    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets'])
+        .get(`${totalFormControlName}`).patchValue(total);
   }
 
-  addStaffOfInsurance() {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('insuranceVerification') as FormGroup)
-    .get('inspectingStaffsDetails') as FormArray;
-    controls.push(
-        this.formBuilder.group({
-          staffRepresentativeNameDesignation: undefined,
-          staffRepresentativeName: undefined,
-          staffRepresentativeNameDesignation2: undefined,
-          staffRepresentativeName2: undefined,
-        })
-    );
-  }
-
-  addStaffOfOtherAssets() {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('inspectingStaffs') as FormArray;
+  addStaffOfOtherAssets(i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('inspectingStaffs') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
       return;
@@ -877,79 +712,10 @@ export class SiteVisitComponent implements OnInit {
     );
   }
 
-  addDetailsOfParties(formcontrol) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get(formcontrol) as FormGroup)
-    .get('parties') as FormArray;
-    controls.push(
-        this.formBuilder.group({
-          party: [undefined],
-          withinThreeMonths: [undefined],
-          sixMonth: [undefined],
-          oneYear: [undefined],
-          oneYearPlus: [undefined]
-        })
-    );
-  }
-
-  addDetailsOfReceivableAssets() {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('receivableAssets') as FormArray;
-    controls.push(
-        this.formBuilder.group({
-          particulars: [undefined],
-          amount: [undefined]
-        })
-    );
-  }
-
-  addDetailsOfPayableAssets() {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('payableAssets') as FormArray;
-    controls.push(
-        this.formBuilder.group({
-          particulars: [undefined],
-          amount: [undefined]
-        })
-    );
-  }
-
-  addDetailsOfBankExposure() {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('bankExposures') as FormArray;
-
-    controls.push(
-        this.formBuilder.group({
-          bankName: [undefined],
-          amount: [undefined]
-        })
-    );
-  }
-
-  setStaffDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('fixedAssetCollateralDetails') as FormGroup)
-    .get('vicinityToTheBasicAmenities') as FormGroup)
-    .get('staffs') as FormArray;
-    currentData.forEach(data => {
-      controls.push(
-          this.formBuilder.group({
-            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
-            staffRepresentativeName: [data.staffRepresentativeName],
-            staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
-            staffRepresentativeName2: [data.staffRepresentativeName2],
-          })
-      );
-    });
-  }
-
-  setInspectingStaffsDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('insuranceVerification') as FormGroup)
-    .get('inspectingStaffsDetails') as FormArray;
-
+  setInspectingStaffsDetails(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get('inspectingStaffsDetails') as FormArray;
     if (currentData !== undefined) {
       currentData.forEach(data => {
         controls.push(
@@ -964,29 +730,31 @@ export class SiteVisitComponent implements OnInit {
     }
   }
 
-  setPartyFormDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('receivablesAndPayables') as FormGroup)
-    .get('parties') as FormArray;
-    currentData.forEach(data => {
-      controls.push(
-          this.formBuilder.group({
-            party: [data.party],
-            withinThreeMonths: [data.withinThreeMonths],
-            sixMonth: [data.sixMonth],
-            oneYear: [data.oneYear],
-            oneYearPlus: [data.oneYearPlus]
-          })
-      );
-    });
+  setPartyFormDetails(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get('parties') as FormArray;
+    if (currentData !== undefined) {
+      currentData.forEach(data => {
+        controls.push(
+            this.formBuilder.group({
+              party: [data.party],
+              withinThreeMonths: [data.withinThreeMonths],
+              sixMonth: [data.sixMonth],
+              oneYear: [data.oneYear],
+              oneYearPlus: [data.oneYearPlus]
+            })
+        );
+      });
+    }
   }
 
-  setPayablePartyFormDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('payable') as FormGroup)
-    .get('parties') as FormArray;
+  setPayablePartyFormDetails(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+        .get('parties') as FormArray;
     if (ObjectUtil.isEmpty(currentData)) {
-      this.addPayablePartyForm();
+      // this.addPayablePartyForm();
       return;
     }
     currentData.forEach(data => {
@@ -1002,10 +770,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  setReceivableAssetsDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('receivableAssets') as FormArray;
+  setReceivableAssetsDetails(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('receivableAssets') as FormArray;
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
@@ -1016,10 +784,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  setPayableAssetsDetails(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('payableAssets') as FormArray;
+  setPayableAssetsDetails(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('payableAssets') as FormArray;
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
@@ -1030,10 +798,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  setOtherCurrentInspectingStaffs(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('inspectingStaffs') as FormArray;
+  setOtherCurrentInspectingStaffs(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('inspectingStaffs') as FormArray;
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
@@ -1044,10 +812,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  setBankExposures(currentData) {
-    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('otherCurrentAssets') as FormGroup)
-    .get('bankExposures') as FormArray;
+  setBankExposures(currentData, i) {
+    const controls = (this.siteVisitFormGroup
+        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get('bankExposures') as FormArray;
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
@@ -1058,17 +826,148 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  calculateGrandTotal(formControl) {
-    let grandTotal = 0;
-    grandTotal = this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          formControl, 'threeMonthTotal']).value +
-        this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          formControl, 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          formControl, 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          formControl, 'moreThanOneYearTotal']).value;
-    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-      formControl, 'grandTotal']).patchValue(grandTotal.toFixed(2));
+  setCurrentResident(currentData) {
+    const controls = (this.siteVisitFormGroup.get('currentResidentDetails') as FormArray);
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            address: [data.address],
+            nearBy: [data.nearBy, Validators.required],
+            ownerName: [data.ownerName, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
+            dateOfVisit: [data.dateOfVisit, Validators.required],
+            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+            staffRepresentativeName: [data.staffRepresentativeName],
+            staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
+            staffRepresentativeName2: [data.staffRepresentativeName2],
+            findingComment: [data.findingComment],
+            locationPreview: [data.locationPreview],
+            currentSiteVisitLongitude: [data.currentSiteVisitLongitude],
+            currentSiteVisiLatitude: [data.currentSiteVisiLatitude],
+          })
+      );
+    });
+  }
 
+  setBusinessSiteVisit(currentData) {
+    const controls = (this.siteVisitFormGroup.get('businessSiteVisitDetails') as FormArray);
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            officeAddress: [data.officeAddress],
+            nameOfThePersonContacted: [data.nameOfThePersonContacted, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
+            dateOfVisit: [data.dateOfVisit],
+            objectiveOfVisit: [data.objectiveOfVisit, Validators.required],
+            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+            staffRepresentativeName: [data.staffRepresentativeName],
+            staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
+            staffRepresentativeName2: [data.staffRepresentativeName2],
+            locationPreview: [data.locationPreview],
+            mapAddress: [data.mapAddress],
+            findingsAndComments: [data.findingsAndComments, Validators.required],
+            businessSiteVisitLongitude: [data.businessSiteVisitLongitude],
+            businessSiteVisitLatitude: [data.businessSiteVisitLatitude]
+          })
+      );
+    });
+  }
+
+  setCurrentAssetsDetails(currentData) {
+    const currentAssetsDetails = this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray;
+    currentData.forEach((singleData) => {
+      currentAssetsDetails.push(
+          this.formBuilder.group({
+            dateOfInspection: [new Date(singleData.dateOfInspection), [Validators.required, DateValidator.isValidBefore]],
+            particularsOfGoodInspected: [singleData.particularsOfGoodInspected],
+            stockValueReported: [singleData.stockValueReported],
+            rents: [singleData.rents],
+            rentLeased: [singleData.rentLeased],
+            isRentPmtUpToDate: [singleData.isRentPmtUpToDate],
+            isRentReceiptShown: [singleData.isRentReceiptShown],
+            insuranceVerification: this.formBuilder.group({
+              assetsMortgaged: [singleData.insuranceVerification.assetsMortgaged],
+              insuredAmount: [singleData.insuranceVerification.insuredAmount],
+              insuranceCompany: [singleData.insuranceVerification.insuranceCompany],
+              expiryDate: [new Date(singleData.insuranceVerification.expiryDate)],
+              clientsOverallRating: [singleData.insuranceVerification.clientsOverallRating],
+              comments: [singleData.insuranceVerification.comments],
+              stockValueConfirmed: [singleData.insuranceVerification.stockValueConfirmed],
+              insuranceVerificationPosition: [singleData.insuranceVerification.insuranceVerificationPosition],
+              inspectingStaffsDetails: this.formBuilder.array([])
+            }),
+            majorInquiriesAndObservations: this.formBuilder.group({
+              businessNature: [singleData.majorInquiriesAndObservations.businessNature],
+              businessActivities: [singleData.majorInquiriesAndObservations.businessActivities],
+              businessProgress: [singleData.majorInquiriesAndObservations.businessProgress],
+              businessChallenges: [singleData.majorInquiriesAndObservations.businessChallenges],
+              normalElectricityLine: [singleData.majorInquiriesAndObservations.normalElectricityLine],
+              invertorOrGenerator: [singleData.majorInquiriesAndObservations.invertorOrGenerator],
+              ledgerBook: [singleData.majorInquiriesAndObservations.ledgerBook],
+              electronic: [singleData.majorInquiriesAndObservations.electronic],
+            }),
+            stockCheckListQuestionaire: this.formBuilder.group({
+              uptoDateWithCharges: [singleData.stockCheckListQuestionaire.uptoDateWithCharges],
+              borrowersPossession: [singleData.stockCheckListQuestionaire.borrowersPossession],
+              notUnderTR: [singleData.stockCheckListQuestionaire.notUnderTR],
+              otherBankNotInterested: [singleData.stockCheckListQuestionaire.otherBankNotInterested],
+              securityOrder: [singleData.stockCheckListQuestionaire.securityOrder],
+              goodsSaleable: [singleData.stockCheckListQuestionaire.goodsSaleable],
+              stocksUptoDate: [singleData.stockCheckListQuestionaire.stocksUptoDate],
+              matchWithTheStockList: [singleData.stockCheckListQuestionaire.matchWithTheStockList],
+              storageConditionSatisfactory: [singleData.stockCheckListQuestionaire.storageConditionSatisfactory],
+              fireFightingEvidence: [singleData.stockCheckListQuestionaire.fireFightingEvidence],
+              buildingStoreCondition: [singleData.stockCheckListQuestionaire.buildingStoreCondition],
+              warrantiesUptoDate: [singleData.stockCheckListQuestionaire.warrantiesUptoDate],
+              noHazardousNature: [singleData.stockCheckListQuestionaire.noHazardousNature],
+              nameBoardProperlyDisplayed: [singleData.stockCheckListQuestionaire.nameBoardProperlyDisplayed],
+              padlocksUse: [singleData.stockCheckListQuestionaire.padlocksUse],
+              certificate: [singleData.stockCheckListQuestionaire.certificate],
+              ncaReport: [singleData.stockCheckListQuestionaire.ncaReport],
+              stocksAreLarge: [singleData.stockCheckListQuestionaire.stocksAreLarge],
+              otherEntitiesInTheAssets: [singleData.stockCheckListQuestionaire.otherEntitiesInTheAssets],
+              findingAndComments: [singleData.stockCheckListQuestionaire.findingAndComments],
+              remarksForNoOption: [singleData.stockCheckListQuestionaire.remarksForNoOption],
+            }),
+            receivablesAndPayables: this.formBuilder.group({
+              parties: this.formBuilder.array([]),
+              threeMonthTotal: [singleData.receivablesAndPayables.threeMonthTotal],
+              sixMonthTotal: [singleData.receivablesAndPayables.sixMonthTotal],
+              oneYearTotal: [singleData.receivablesAndPayables.oneYearTotal],
+              moreThanOneYearTotal: [singleData.receivablesAndPayables.moreThanOneYearTotal],
+              findingsAndCommentsForCurrentAssetsInspection:
+                  [singleData.receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection],
+              grandTotal: [singleData.receivablesAndPayables.grandTotal],
+            }),
+            payable: this.formBuilder.group({
+              parties: this.formBuilder.array([]),
+              threeMonthTotal: [singleData.payable.threeMonthTotal],
+              sixMonthTotal: [singleData.payable.sixMonthTotal],
+              oneYearTotal: [singleData.payable.oneYearTotal],
+              moreThanOneYearTotal: [singleData.payable.moreThanOneYearTotal],
+              findingsAndCommentsForCurrentAssetsInspection: [singleData.payable.findingsAndCommentsForCurrentAssetsInspection],
+              grandTotal: [singleData.payable.grandTotal],
+            }),
+            otherCurrentAssets: this.formBuilder.group({
+              receivableAssets: this.formBuilder.array([]),
+              receivableCurrentAssetsTotal: [singleData.otherCurrentAssets.receivableCurrentAssetsTotal],
+              payableAssets: this.formBuilder.array([]),
+              payableCurrentAssetsTotal: [singleData.otherCurrentAssets.payableCurrentAssetsTotal],
+              inspectingStaffs: this.formBuilder.array([]),
+              bankExposures: this.formBuilder.array([]),
+              overAllFindings: [singleData.otherCurrentAssets.overAllFindings],
+            }),
+          })
+      );
+    });
+  }
+
+  calculateGrandTotal(formControl, i: number) {
+    let grandTotal = 0;
+    grandTotal = this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'threeMonthTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'sixMonthTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'oneYearTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'moreThanOneYearTotal']).value;
+    this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'grandTotal'])
+        .patchValue(grandTotal.toFixed(2));
   }
 
   getRoleList() {
