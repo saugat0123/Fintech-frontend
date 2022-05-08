@@ -50,7 +50,7 @@ export class VehicleComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.vehicleForm = this.formBuilder.group({
-      vehicleDetails: this.formBuilder.array([])
+      vehicleDetails: this.formBuilder.array([this.vehicleDetailsFormGroup()])
     });
   }
 
