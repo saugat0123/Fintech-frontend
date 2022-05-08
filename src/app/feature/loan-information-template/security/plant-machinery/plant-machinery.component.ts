@@ -45,7 +45,7 @@ export class PlantMachineryComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.plantMachineryForm = this.formBuilder.group({
-      plantDetails: this.formBuilder.array([])
+      plantDetails: this.formBuilder.array([this.plantDetailsFormGroup()])
     });
   }
 
@@ -54,7 +54,6 @@ export class PlantMachineryComponent implements OnInit {
       this.branchLists = res.detail;
     });
   }
-
 
   public getRoleList(): void {
     this.spinner = true;
