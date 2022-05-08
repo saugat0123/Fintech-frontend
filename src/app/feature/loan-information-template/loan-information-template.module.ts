@@ -68,6 +68,7 @@ import { InsurancePolicyComponent } from './security/insurance-policy/insurance-
 import { AssignmentOfReceivableComponent } from './security/assignment-of-receivable/assignment-of-receivable.component';
 import { LeaseAssignmentComponent } from './security/lease-assignment/lease-assignment.component';
 import { OtherSecurityComponent } from './security/other-security/other-security.component';
+import { LandComponent } from './security/land/land.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -125,7 +126,8 @@ const COMPONENTS = [
         InsurancePolicyComponent,
         AssignmentOfReceivableComponent,
         LeaseAssignmentComponent,
-        OtherSecurityComponent],
+        OtherSecurityComponent,
+        LandComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [

@@ -32,11 +32,7 @@ export class LandBuildingComponent implements OnInit {
   totaldv = 0;
   totalmv = 0;
   totalcv = 0;
-  apartmentOtherBranchChecked = false;
   landBuildingOtherBranchChecked = false;
-  vehicleOtherBranchChecked = false;
-  plantOtherBranchChecked = false;
-  landOtherBranchChecked = false;
   securityValuator: SecurityValuator = new SecurityValuator();
   branchLists;
   collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
@@ -220,7 +216,7 @@ export class LandBuildingComponent implements OnInit {
   }
 
   public valuator(branchId, type: string, index: number) {
-    if ((this.landOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
+    if ((this.landBuildingOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
       return;
     }
     const valuatorSearch = {
