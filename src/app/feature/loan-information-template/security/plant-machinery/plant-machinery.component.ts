@@ -49,14 +49,14 @@ export class PlantMachineryComponent implements OnInit {
     });
   }
 
-  branchList() {
+  public branchList(): void {
     this.branchService.getAll().subscribe((res: any) => {
       this.branchLists = res.detail;
     });
   }
 
 
-  getRoleList() {
+  public getRoleList(): void {
     this.spinner = true;
     this.roleService.getAll().subscribe(res => {
       this.designationList = res.detail;
@@ -67,7 +67,7 @@ export class PlantMachineryComponent implements OnInit {
     });
   }
 
-  calcRealiasable(i, key) {
+  public calcRealiasable(i, key): void {
     switch (key) {
       case 'apartment': {
         const reliasableValue = (Number(this.plantMachineryForm.get(['buildingDetails', i, 'buildingDistressValue']).value)
@@ -96,7 +96,7 @@ export class PlantMachineryComponent implements OnInit {
     }
   }
 
-  valuator(branchId, type: string, index: number) {
+  public valuator(branchId, type: string, index: number): void {
     if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
         this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
       return;
@@ -137,15 +137,15 @@ export class PlantMachineryComponent implements OnInit {
     }
   }
 
-  removePlantDetails(index: number) {
+  public removePlantDetails(index: number): void {
     (this.plantMachineryForm.get('plantDetails') as FormArray).removeAt(index);
   }
 
-  addPlantandMachinery() {
+  public addPlantandMachinery(): void {
     (this.plantMachineryForm.get('plantDetails') as FormArray).push(this.plantDetailsFormGroup());
   }
 
-  plantDetailsFormGroup(): FormGroup {
+  public plantDetailsFormGroup(): FormGroup {
     return this.formBuilder.group({
       model: [undefined, Validators.required],
       quotation: [undefined, Validators.required],
