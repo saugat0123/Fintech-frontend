@@ -98,7 +98,6 @@
                             <th>Contact Number</th>
                             <th>Facility</th>
                             <th>Type</th>
-                            <th>Priority</th>
                             <th>File Possession</th>
                             <th>Stage</th>
                             <th *ngIf="!showDocStatusList && userRoleType !== 'MAKER'">Action(F/B) Date</th>
@@ -123,7 +122,6 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.contactNo || 'NA'}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.documentStatus}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)" *ngIf="userRoleType !== 'MAKER'">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>

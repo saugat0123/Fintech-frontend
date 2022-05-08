@@ -97,14 +97,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     multipleSelectedLoanType = [];
     selectedLoanType;
     facilityType;
-    priority;
-    // Priority options--
-    dropdownPriorities = [
-        {id: 'HIGH', name: 'High'},
-        {id: 'MEDIUM', name: 'Medium'},
-        {id: 'LOW', name: 'Low'},
-
-    ];
 
     docStatusMakerList = [];
     loan = new LoanDataHolder();
@@ -530,7 +522,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     applyLoans(proposal) {
         this.loan = new LoanDataHolder();
-        this.loan.priority = this.priority;
         // this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
         // this.loan.creditRisk = this.loanForm.get('creditRisk').value;
         this.loan.documentStatus = DocStatus.UNDER_REVIEW;

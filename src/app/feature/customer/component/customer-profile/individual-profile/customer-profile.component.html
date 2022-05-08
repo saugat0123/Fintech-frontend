@@ -472,20 +472,7 @@
                                     </ng-container>
                                 </select>
                             </div>
-                            <div class="col-md-3" *ngIf="selectedLoanType && facilityType">
-                                <p class="font-weight-bold">Priority</p>
-
-                                <select
-                                           bindLabel="name"
-                                           bindValue="id"
-                                           class="form-control rounded"
-                                           [(ngModel)]="priority"
-                                >
-                                    <option [ngValue]="undefined" hidden> Priority </option>
-                                    <option *ngFor="let data of dropdownPriorities" [value]="data?.id">{{data?.name}}</option>
-                                </select>
-                            </div>
-                            <div class="col-md-1" *ngIf="selectedLoanType && facilityType  && priority">
+                            <div class="col-md-1" *ngIf="selectedLoanType && facilityType">
                                 <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus"></i></a>
                             </div>
                         </div>

@@ -54,13 +54,6 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
-
-                            <div class="mt-3 mb-1">
-                                <strong> Priority:</strong>
-                                <span class="badge badge-danger ml-1"
-                                      style="font-size: 13px;line-height: 1.9em;line-height: 1.9em">
-                                    {{loanDataHolder?.priority?.toString() | titlecase}}</span>
-                            </div>
                             <div class="mt-2">
                                 <strong>Loan Status:</strong>
                                 <span class="badge badge-info ml-1" style="font-size: 13px;line-height: 1.9em">
@@ -182,7 +175,7 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
-                <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
+                <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
             </ng-container>
