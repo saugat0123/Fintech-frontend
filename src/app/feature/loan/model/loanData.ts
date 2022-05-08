@@ -2,7 +2,6 @@ import {CompanyInfo} from '../../admin/modal/company-info';
 import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {DocStatus} from './docStatus';
-import {Priority} from './priority';
 import {Customer} from '../../admin/modal/customer';
 import {LoanStage} from './loanStage';
 import {Proposal} from '../../admin/modal/proposal';
@@ -59,7 +58,6 @@ export class LoanDataHolder extends BaseEntity {
     security: Security;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
-    priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
