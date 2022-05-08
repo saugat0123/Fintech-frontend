@@ -55,8 +55,8 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     return this.http.delete(req.url, {headers: req.header});
   }
 
-  public getCollateralByUUID(securityName: string, security_id: number, uuid: string): Observable<any> {
-    const api = `${this.getApi()}/${securityName}/${security_id}/${uuid}`;
+  public getCollateralByUUID(securityName: string, id: number, uuid: string): Observable<any> {
+    const api = `${this.getApi()}/${securityName}/${id}/${uuid}`;
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }
