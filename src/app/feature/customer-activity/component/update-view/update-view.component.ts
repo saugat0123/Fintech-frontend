@@ -35,7 +35,6 @@ export class UpdateViewComponent implements OnInit {
     loanUpdateData = {
         proposal: null,
         guarantor: {guarantorList: null},
-        priority: null,
         documentStatus: null
     };
 

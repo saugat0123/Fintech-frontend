@@ -239,9 +239,6 @@ export class DmsLoanFileComponent implements OnInit {
       tenureDuration:
           [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.tenureDuration) ? undefined :
               this.loanDataHolder.dmsLoanFile.tenureDuration, [Validators.required, Validators.min(0)]],
-      priority:
-          [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.priority) ? undefined :
-              this.loanDataHolder.dmsLoanFile.priority, [Validators.required, Validators.min(0)]],
       recommendation:
           [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.recommendationConclusion) ? undefined :
               this.loanDataHolder.dmsLoanFile.recommendationConclusion, Validators.required],
@@ -330,7 +327,6 @@ export class DmsLoanFileComponent implements OnInit {
     this.loanDataHolder.dmsLoanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
     this.loanDataHolder.dmsLoanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
     this.loanDataHolder.dmsLoanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;
-    this.loanDataHolder.dmsLoanFile.priority = this.loanForm.get('priority').value;
     this.loanDataHolder.dmsLoanFile.waiver = this.loanForm.get('waiver').value;
     this.loanDataHolder.dmsLoanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
     this.loanDataHolder.dmsLoanFile.fmvTotal = this.loanForm.get('fmvTotal').value;

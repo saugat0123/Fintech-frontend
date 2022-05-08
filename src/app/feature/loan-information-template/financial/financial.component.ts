@@ -12,9 +12,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Financial} from '../../loan/model/financial';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
-import {SalesProjectionVsAchievement} from '../model/sales-projection-vs-achievement';
-import {NetWorthOfFirmOrCompany} from '../model/net-worth-of-firm-or-company';
-import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
@@ -54,9 +51,6 @@ export class FinancialComponent implements OnInit {
     submitted = false;
 
     // Risk factors---
-    salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();
-    netWorthOfFirmOrCompanyArray = NetWorthOfFirmOrCompany.enumObject();
-    taxComplianceArray = TaxCompliance.enumObject();
 
     // Lambda risk factors---
     typeOfSourceOfIncomeArray = TypeOfSourceOfIncomeArray.typeOfSourceOfIncomeArray;
@@ -214,9 +208,6 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
-            this.financialForm.get('salesProjectionVsAchievement').setValue(initialFormData.salesProjectionVsAchievement);
-            this.financialForm.get('netWorthOfFirmOrCompany').setValue(initialFormData.netWorthOfFirmOrCompany);
-            this.financialForm.get('taxCompliance').setValue(initialFormData.taxCompliance);
             this.financialForm.get('historicalDataPresent').setValue(initialFormData.historicalDataPresent);
             this.financialForm.get('totalWorkingCapitalLimit').setValue(initialFormData.totalWorkingCapitalLimit);
             this.historicalDataPresent = initialFormData.historicalDataPresent;
@@ -256,9 +247,6 @@ export class FinancialComponent implements OnInit {
             totalExpense: [0],
             currentTotal: [0],
             netSaving: [0],
-            salesProjectionVsAchievement: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
-            netWorthOfFirmOrCompany: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
-            taxCompliance: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
             historicalDataPresent: [true],
             totalWorkingCapitalLimit: [0],
             // crg lambda fields---
@@ -640,6 +628,12 @@ export class FinancialComponent implements OnInit {
             this.financialData = this.formData;
         }
         if (this.financialForm.invalid) {
+            const controls = this.financialForm.controls;
+            for (const name in controls) {
+                if (controls[name].invalid) {
+                    console.log(name);
+                }
+            }
             this.overlay.hide();
             return;
         }

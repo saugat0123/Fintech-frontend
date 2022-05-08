@@ -155,6 +155,7 @@
                     <th>SN</th>
                     <th>Blacklist Number</th>
                     <th>Blacklist Date</th>
+                    <th>Blacklist Release Date</th>
                     <th *ngIf="cicl?.get('blacklistHistory')['length'] > 0">Action</th>
                   </tr>
                   </thead>
@@ -173,8 +174,18 @@
                                     (messageToEmit)="blackList?.get('blacklistDate')?.patchValue($event?.eDate)"></app-calendar>
                       <nb-datepicker #blackListDate></nb-datepicker>
                     </td>
+                    <td>
+                      <input *ngIf="calendarType === 'AD'" [nbDatepicker]="blacklistReleaseDate"
+                             class="form-control" formControlName="blacklistReleaseDate" id="blacklistReleaseDate"
+                             placeholder="Blacklist Release Date" type="text">
+                      <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
+                      <app-calendar [ePreDate]="blacklistReleaseDate?.get('blacklistReleaseDate')?.value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="blacklistReleaseDate?.get('blacklistReleaseDate')?.patchValue($event?.eDate)"></app-calendar>
+                      <nb-datepicker #blacklistReleaseDate></nb-datepicker>
+                    </td>
                     <td *ngIf="cicl?.get('blacklistHistory')['length'] > 0">
-                      <button (click)="removeBlacklist(ciclIndex)"
+                      <button (click)="removeBlacklist(ciclIndex, bi)"
                               nbButton class="float-right"
                               size="small" status="danger">Remove
                       </button>

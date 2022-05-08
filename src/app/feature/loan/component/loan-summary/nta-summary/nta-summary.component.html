@@ -46,7 +46,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">Value of Stock</td>
+                    <td class="text-left pl-1">Value of Stock <span class="float-sm-right font-weight-bold">(A)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q2 |currencyFormatter}}</td>
@@ -63,7 +63,7 @@
                     <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.average |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">Value of Debtors/ Receivables/ Trade Advances</td>
+                    <td class="text-left pl-1">Value of Debtors/ Receivables/ Trade Advances<span class="float-sm-right font-weight-bold">(B)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q2 |currencyFormatter}}</td>
@@ -81,7 +81,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">Value of Goods in transit (If applicable)</td>
+                    <td class="text-left pl-1">Trade/Commercial Advances, if any <span class="float-sm-right font-weight-bold">(C)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q2 |currencyFormatter}}</td>
@@ -99,7 +99,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">Value of Creditors</td>
+                    <td class="text-left pl-1">Trade Creditors/ Payable<span class="float-sm-right font-weight-bold">(D)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q2 |currencyFormatter}}</td>
@@ -117,7 +117,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1"><b>Net Trading Assets (Before other bank's financing)</b></td>
+                    <td class="text-left pl-1"><b>NTA (Before other bank's financing)</b><span class="float-sm-right font-weight-bold">(E)=(A+B+C-D)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q2 |currencyFormatter}}</td>
@@ -135,7 +135,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">Other banks' financing</td>
+                    <td class="text-left pl-1">Other banks' financing <span class="float-sm-right font-weight-bold">(F)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q2 |currencyFormatter}}</td>
@@ -153,7 +153,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left pl-1"><b>Net Trading Assets (After other bank's financing)</b></td>
+                    <td class="text-left pl-1"><b>NTA (After other bank's financing)</b><span class="float-sm-right font-weight-bold">(G)=(E-F)</span> </td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q2 |currencyFormatter}}</td>
@@ -172,7 +172,7 @@
                 </tr>
 
                 <tr>
-                    <td class="text-left pl-1"><b>Drawing Power (in %)</b></td>
+                    <td class="text-left pl-1"><b>Drawing Power (in %)</b><span class="float-sm-right font-weight-bold">(H)</span> </td>
                     <!--previous year-->
                     <td class="pr-1">{{prevYearData?.drawingPower?.q1}} %</td>
                     <td class="pr-1">{{prevYearData?.drawingPower?.q2}} %</td>
@@ -190,7 +190,7 @@
                 </tr>
 
                 <tr>
-                    <td class="text-left pl-1"><b>Drawing Power (Amount)</b></td>
+                    <td class="text-left pl-1"><b>Drawing Power (Amount)</b> <span class="float-sm-right font-weight-bold">(I)=(H % G)</span> </td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q2 |currencyFormatter}}</td>
@@ -207,7 +207,7 @@
                 </tr>
 
                 <tr>
-                    <td class="text-left pl-1"><b>Loan From Us</b></td>
+                    <td class="text-left pl-1"><b>Proposed/Existing Facility of CCBL</b> <span class="float-sm-right font-weight-bold">(J)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q2 |currencyFormatter}}</td>
@@ -224,7 +224,7 @@
                 </tr>
 
                 <tr>
-                    <td class="text-left pl-1"><b>Surplus/(Deficit)</b></td>
+                    <td class="text-left pl-1"><b>Surplus/(Deficit)</b>  <span class="float-sm-right font-weight-bold">(I-J)</span></td>
                     <!--previous year-->
                     <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q1 |currencyFormatter}}</td>
                     <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q2 |currencyFormatter}}</td>
