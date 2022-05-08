@@ -55,7 +55,14 @@ export class ApartmentComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.apartmentForm = this.formBuilder.group({
-      buildingDetails: this.formBuilder.array([]),
+      underConstructionCheck: [undefined],
+      apartmentCrossChecked: [undefined],
+      apartmentExposureTotal: [undefined],
+      apartmentRmValueTotal: [undefined],
+      apartmentFmvOfFacTotal: [undefined],
+      buildingDetailsDescription: [undefined],
+      buildingDetails: this.formBuilder.array([this.buildingDetailsFormGroup]),
+      buildingUnderConstructions: this.formBuilder.array([]),
       apartmentCross: this.formBuilder.array([]),
     });
   }
@@ -95,28 +102,12 @@ export class ApartmentComponent implements OnInit {
   }
 
   public checkedChange(event, value): void {
-    switch (value) {
-      case 'landCross':
-        if (event) {
-          this.apartmentForm.get('landCrossChecked').patchValue(event);
-        } else {
-          this.apartmentForm.get('landCrossChecked').patchValue(event);
-        }
-        break;
-      case 'lbCross':
-        if (event) {
-          this.apartmentForm.get('lbCrossChecked').patchValue(event);
-        } else {
-          this.apartmentForm.get('lbCrossChecked').patchValue(event);
-        }
-        break;
-      case 'apartmentCross':
-        if (event) {
-          this.apartmentForm.get('apartmentCrossChecked').patchValue(event);
-        } else {
-          this.apartmentForm.get('apartmentCrossChecked').patchValue(event);
-        }
-        break;
+    if (value === 'apartmentCross') {
+      if (event) {
+        this.apartmentForm.get('apartmentCrossChecked').patchValue(event);
+      } else {
+        this.apartmentForm.get('apartmentCrossChecked').patchValue(event);
+      }
     }
     const sec = this.apartmentForm.get(value) as FormArray;
     sec.clear();
@@ -231,22 +222,10 @@ export class ApartmentComponent implements OnInit {
       totalRmValue += cd.rmValue;
       totalFMV += cd.fmvApportion;
     });
-    switch (security) {
-      case 'landCross':
-        this.apartmentForm.get('landExposureTotal').patchValue(totalExposure);
-        this.apartmentForm.get('landRmValueTotal').patchValue(totalRmValue);
-        this.apartmentForm.get('landFmvOfFacTotal').patchValue(totalFMV);
-        break;
-      case 'lbCross':
-        this.apartmentForm.get('lbExposureTotal').patchValue(totalExposure);
-        this.apartmentForm.get('lbRmValueTotal').patchValue(totalRmValue);
-        this.apartmentForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
-        break;
-      case 'apartmentCross':
-        this.apartmentForm.get('apartmentExposureTotal').patchValue(totalExposure);
-        this.apartmentForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
-        this.apartmentForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
-        break;
+    if (security === 'apartmentCross') {
+      this.apartmentForm.get('apartmentExposureTotal').patchValue(totalExposure);
+      this.apartmentForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
+      this.apartmentForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
     }
   }
 
@@ -300,27 +279,6 @@ export class ApartmentComponent implements OnInit {
               'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
         this.apartmentForm.get(['buildingUnderConstructions', i,
           'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
-        break;
-      case 'landBuilding':
-        const landBuildingTotalBuildRate = (Number(this.apartmentForm.get(['landBuilding', i, 'buildArea']).value)
-            * Number(this.apartmentForm.get(['landBuilding', i, 'buildRate']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuilding', i, 'totalCost']).patchValue(landBuildingTotalBuildRate);
-        break;
-      case 'landBuildingBefore':
-        const landBuildingBeforeTotalBuildRate = (Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsBeforeCompletion', 'buildArea']).value)
-            * Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuildingUnderConstruction', i,
-          'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(landBuildingBeforeTotalBuildRate);
-        break;
-      case 'landBuildingAfter':
-        const landBuildingAfterTotalBuildRate = (Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsAfterCompletion', 'buildArea']).value)
-            * Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuildingUnderConstruction', i,
-          'buildingDetailsAfterCompletion', 'totalCost']).patchValue(landBuildingAfterTotalBuildRate);
         break;
     }
   }
@@ -462,27 +420,6 @@ export class ApartmentComponent implements OnInit {
         this.apartmentForm.get(['buildingUnderConstructions', i,
           'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
         break;
-      case 'landBuilding':
-        const landBuildingEstimatedCost = (Number(this.apartmentForm.get(['landBuilding', i, 'valuationArea']).value)
-            * Number(this.apartmentForm.get(['landBuilding', i, 'ratePerSquareFeet']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuilding', i, 'estimatedCost']).patchValue(landBuildingEstimatedCost);
-        break;
-      case 'landBuildingBefore':
-        const landBuildingBeforeEstimatedCost = (Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsBeforeCompletion', 'valuationArea']).value)
-            * Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuildingUnderConstruction', i,
-          'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(landBuildingBeforeEstimatedCost);
-        break;
-      case 'landBuildingAfter':
-        const landBuildingAfterEstimatedCost = (Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsAfterCompletion', 'valuationArea']).value)
-            * Number(this.apartmentForm.get(['landBuildingUnderConstruction', i,
-              'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-        this.apartmentForm.get(['landBuildingUnderConstruction', i,
-          'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(landBuildingAfterEstimatedCost);
-        break;
     }
   }
 
@@ -494,30 +431,11 @@ export class ApartmentComponent implements OnInit {
         this.apartmentForm.get(['buildingDetails', i, 'buildingReliasableValue']).patchValue(reliasableValue);
       }
         break;
-      case 'vehicle': {
-        const reliasableValue = (Number(this.apartmentForm.get(['vehicleDetails', i, 'quotationAmount']).value)
-            * (Number(this.apartmentForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
-        this.apartmentForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
-      }
-        break;
-      case 'plant': {
-        const reliasableValue = (Number(this.apartmentForm.get(['plantDetails', i, 'realisableValue']).value)
-            * (Number(this.apartmentForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
-        this.apartmentForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
-      }
-        break;
-      // case 'share': {
-      //   const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
-      //       * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
-      //   this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
-      // }
-      //   break;
     }
   }
 
   public valuator(branchId, type: string, index: number): void {
-    if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
-        this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
+    if ((this.apartmentOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
       return;
     }
     const valuatorSearch = {
@@ -526,33 +444,10 @@ export class ApartmentComponent implements OnInit {
     if (!ObjectUtil.isEmpty(branchId)) {
       valuatorSearch.branchIds = JSON.stringify(branchId);
     }
-    switch (type) {
-      case 'land':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND'));
-        });
-        break;
-      case 'apartment':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.apartmentValuator[index] = res.detail;
-        });
-        break;
-      case 'vehicle':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
-        });
-        break;
-      case 'plant':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.plantValuator[index] = res.detail;
-        });
-        break;
-      case  'building':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
-              item.valuatingField.includes('LAND_BUILDING'));
-        });
-        break;
+    if (type === 'apartment') {
+      this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
+        this.securityValuator.apartmentValuator[index] = res.detail;
+      });
     }
   }
 

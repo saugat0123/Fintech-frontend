@@ -5,6 +5,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <nb-checkbox (change)="underConstruction($event.target.checked)"
+                                 formControlName="underConstructionCheck"
                                  [checked]="underConstructionChecked">Check if Under Construction
                     </nb-checkbox>
                 </div>
@@ -18,6 +19,7 @@
             <div class="col-md-12">
                 <div class="box-header with-border">
                     <nb-checkbox (change)="checkedChange($event?.target?.checked, 'apartmentCross')"
+                                 formControlName="apartmentCrossChecked"
                                  [checked]="apartmentForm?.get('apartmentCrossChecked')?.value"><i>Cross Collateralized </i>
                     </nb-checkbox>
                 </div>
@@ -420,7 +422,7 @@
             <div *ngFor="let building of apartmentForm.get('buildingUnderConstructions')['controls']; let i = index"
                  class="font-weight-bold"
                  formArrayName="buildingUnderConstructions">
-                <div [formGroupName]="i">
+                <div [formGroupName]="i.toString()">
                     <div class="box-header with-border">
                         <h2 class="box-title title">Apartment Details Before Completion</h2>
                     </div>
