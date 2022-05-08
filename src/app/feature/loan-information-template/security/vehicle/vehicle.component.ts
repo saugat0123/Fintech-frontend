@@ -22,11 +22,7 @@ export class VehicleComponent implements OnInit {
   @Input() calendarType: CalendarType;
   isEdit = false;
   landOtherBranchChecked = false;
-
-  apartmentOtherBranchChecked = false;
-  landBuildingOtherBranchChecked = false;
   vehicleOtherBranchChecked = false;
-  plantOtherBranchChecked = false;
   securityValuator: SecurityValuator = new SecurityValuator();
   branchLists;
   designationList = [];
@@ -50,6 +46,7 @@ export class VehicleComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.vehicleForm = this.formBuilder.group({
+      vehicleLoanExposure: [undefined],
       vehicleDetails: this.formBuilder.array([this.vehicleDetailsFormGroup()])
     });
   }
@@ -81,31 +78,10 @@ export class VehicleComponent implements OnInit {
   }
 
   public calcRealiasable(i, key): void {
-    switch (key) {
-      case 'apartment': {
-        const reliasableValue = (Number(this.vehicleForm.get(['buildingDetails', i, 'buildingDistressValue']).value)
-            * (Number(this.vehicleForm.get(['buildingDetails', i, 'apartmentRate']).value) / 100));
-        this.vehicleForm.get(['buildingDetails', i, 'buildingReliasableValue']).patchValue(reliasableValue);
-      }
-        break;
-      case 'vehicle': {
-        const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value)
-            * (Number(this.vehicleForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
-        this.vehicleForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
-      }
-        break;
-      case 'plant': {
-        const reliasableValue = (Number(this.vehicleForm.get(['plantDetails', i, 'realisableValue']).value)
-            * (Number(this.vehicleForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
-        this.vehicleForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
-      }
-        break;
-      // case 'share': {
-      //   const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
-      //       * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
-      //   this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
-      // }
-      //   break;
+    if (key === 'vehicle') {
+      const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value)
+          * (Number(this.vehicleForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
+      this.vehicleForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
     }
   }
 
@@ -116,8 +92,7 @@ export class VehicleComponent implements OnInit {
   }
 
   public valuator(branchId, type: string, index: number): void {
-    if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
-        this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
+    if ((this.vehicleOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
       return;
     }
     const valuatorSearch = {
@@ -126,33 +101,10 @@ export class VehicleComponent implements OnInit {
     if (!ObjectUtil.isEmpty(branchId)) {
       valuatorSearch.branchIds = JSON.stringify(branchId);
     }
-    switch (type) {
-      case 'land':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND'));
-        });
-        break;
-      case 'apartment':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.apartmentValuator[index] = res.detail;
-        });
-        break;
-      case 'vehicle':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
-        });
-        break;
-      case 'plant':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.plantValuator[index] = res.detail;
-        });
-        break;
-      case  'building':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
-              item.valuatingField.includes('LAND_BUILDING'));
-        });
-        break;
+    if (type === 'vehicle') {
+      this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
+        this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
+      });
     }
   }
 

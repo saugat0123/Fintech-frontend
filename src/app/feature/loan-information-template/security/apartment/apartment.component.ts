@@ -94,11 +94,7 @@ export class ApartmentComponent implements OnInit {
   }
 
   public underConstruction(checkedStatus): void {
-    if (checkedStatus) {
-      this.underConstructionChecked = true;
-    } else {
-      this.underConstructionChecked = false;
-    }
+    this.underConstructionChecked = !!checkedStatus;
   }
 
   public checkedChange(event, value): void {
