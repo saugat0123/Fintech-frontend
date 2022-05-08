@@ -13,6 +13,10 @@ import {RelationshipList} from '../../../loan/model/relationshipList';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
+import {Province} from '../../../admin/modal/province';
+import {District} from '../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-land-building',
@@ -43,13 +47,18 @@ export class LandBuildingComponent implements OnInit {
   newOwnerShipTransfer = [];
   ownershipTransferEnumPair = OwnershipTransfer.enumObject();
   ownershipTransfers = OwnershipTransfer;
+  provinces: Province[];
+  districtList: District [];
+  municipalityList: MunicipalityVdc [];
+  isEdit = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private valuatorService: ValuatorService,
               private branchService: BranchService,
-              private roleService: RoleService) { }
+              private roleService: RoleService,
+              private location: AddressService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -61,8 +70,13 @@ export class LandBuildingComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
-      landDetails: this.formBuilder.array([]),
-      landCross: this.formBuilder.array([]),
+      lbCrossChecked: [undefined],
+      landBuildingDescription: [undefined],
+      lbExposureTotal: [undefined],
+      lbRmValueTotal: [undefined],
+      lbFmvOfFacTotal: [undefined],
+      landBuilding: this.formBuilder.array([this.LandBuildingDetailsFormGroup()]),
+      lbCross: this.formBuilder.array([this.crossCollateralizedFormGroup()]),
     });
   }
 
@@ -100,28 +114,12 @@ export class LandBuildingComponent implements OnInit {
   }
 
   public checkedChange(event, value): void {
-    switch (value) {
-      case 'landCross':
-        if (event) {
-          this.landBuildingForm.get('landCrossChecked').patchValue(event);
-        } else {
-          this.landBuildingForm.get('landCrossChecked').patchValue(event);
-        }
-        break;
-      case 'lbCross':
-        if (event) {
-          this.landBuildingForm.get('lbCrossChecked').patchValue(event);
-        } else {
-          this.landBuildingForm.get('lbCrossChecked').patchValue(event);
-        }
-        break;
-      case 'apartmentCross':
-        if (event) {
-          this.landBuildingForm.get('apartmentCrossChecked').patchValue(event);
-        } else {
-          this.landBuildingForm.get('apartmentCrossChecked').patchValue(event);
-        }
-        break;
+    if (value === 'lbCross') {
+      if (event) {
+        this.landBuildingForm.get('lbCrossChecked').patchValue(event);
+      } else {
+        this.landBuildingForm.get('lbCrossChecked').patchValue(event);
+      }
     }
     const sec = this.landBuildingForm.get(value) as FormArray;
     sec.clear();
@@ -138,36 +136,24 @@ export class LandBuildingComponent implements OnInit {
       totalRmValue += cd.rmValue;
       totalFMV += cd.fmvApportion;
     });
-    switch (security) {
-      case 'landCross':
-        this.landBuildingForm.get('landExposureTotal').patchValue(totalExposure);
-        this.landBuildingForm.get('landRmValueTotal').patchValue(totalRmValue);
-        this.landBuildingForm.get('landFmvOfFacTotal').patchValue(totalFMV);
-        break;
-      case 'lbCross':
-        this.landBuildingForm.get('lbExposureTotal').patchValue(totalExposure);
-        this.landBuildingForm.get('lbRmValueTotal').patchValue(totalRmValue);
-        this.landBuildingForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
-        break;
-      case 'apartmentCross':
-        this.landBuildingForm.get('apartmentExposureTotal').patchValue(totalExposure);
-        this.landBuildingForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
-        this.landBuildingForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
-        break;
+    if (security === 'lbCross') {
+      this.landBuildingForm.get('lbExposureTotal').patchValue(totalExposure);
+      this.landBuildingForm.get('lbRmValueTotal').patchValue(totalRmValue);
+      this.landBuildingForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
     }
   }
 
-  public removeCrossCollateralized(securityType: string, index: number) {
-    (<FormArray>this.landBuildingForm.get(securityType)).removeAt(index);
+  public removeCrossCollateralized(securityType: string, cin: number) {
+    (<FormArray>this.landBuildingForm.get(securityType)).removeAt(cin);
     this.calculateTotalCross(securityType);
   }
 
-  public addCrossCollateralized(arrayName) {
+  public addCrossCollateralized(arrayName): void {
     (this.landBuildingForm.get(arrayName) as FormArray).push(this.crossCollateralizedFormGroup());
   }
 
 
-  private crossCollateralizedFormGroup(): FormGroup {
+  public crossCollateralizedFormGroup(): FormGroup {
     return this.formBuilder.group({
       borrowerName: [undefined],
       facilityName: [undefined],
@@ -194,17 +180,24 @@ export class LandBuildingComponent implements OnInit {
         this.totalmv += Number(sec['marketValue']);
         this.totalcv += Number(sec['landConsideredValue']);
       }
-
     });
+  }
+
+  public resetOtherTransferParameter(formArray, index: number, resetAmountOnly: boolean) {
+    this.landBuildingForm.get([formArray, index, 'saleRegistrationAmount']).patchValue(undefined);
+    this.landBuildingForm.get([formArray, index, 'familyRegistrationAmount']).patchValue(undefined);
+    this.landBuildingForm.get([formArray, index, 'giftRegistrationAmount']).patchValue(undefined);
+    if (resetAmountOnly) {
+      return;
+    }
+    this.landBuildingForm.get([formArray, index, 'saleOwnershipTransfer']).patchValue(undefined);
+    this.landBuildingForm.get([formArray, index, 'familyTransferOwnershipTransfer']).patchValue(undefined);
+    this.landBuildingForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
+
   }
 
   public calConsiderValue(type, index): void {
     switch (type) {
-      case 'land':
-        const considerValue = (Number(this.landBuildingForm.get(['landDetails', index, 'distressValue']).value)
-            * (Number(this.landBuildingForm.get(['landDetails', index, 'landRate']).value)) / 100);
-        this.landBuildingForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
-        break;
       case 'landBuilding':
         const landConValue = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValue']).value)
             * (Number(this.landBuildingForm.get(['landBuilding', index, 'landBuildingRate']).value / 100)));
@@ -226,9 +219,8 @@ export class LandBuildingComponent implements OnInit {
     this.updateLandSecurityTotal();
   }
 
-  public valuator(branchId, type: string, index: number): void {
-    if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
-        this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
+  public valuator(branchId, type: string, index: number) {
+    if ((this.landOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
       return;
     }
     const valuatorSearch = {
@@ -237,47 +229,12 @@ export class LandBuildingComponent implements OnInit {
     if (!ObjectUtil.isEmpty(branchId)) {
       valuatorSearch.branchIds = JSON.stringify(branchId);
     }
-    switch (type) {
-      case 'land':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND'));
-        });
-        break;
-      case 'apartment':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.apartmentValuator[index] = res.detail;
-        });
-        break;
-      case 'vehicle':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
-        });
-        break;
-      case 'plant':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.plantValuator[index] = res.detail;
-        });
-        break;
-      case  'building':
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-          this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
-              item.valuatingField.includes('LAND_BUILDING'));
-        });
-        break;
+    if (type === 'building') {
+      this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
+        this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
+            item.valuatingField.includes('LAND_BUILDING'));
+      });
     }
-  }
-
-  public resetOtherTransferParameter(formArray, index: number, resetAmountOnly: boolean): void {
-    this.landBuildingForm.get([formArray, index, 'saleRegistrationAmount']).patchValue(undefined);
-    this.landBuildingForm.get([formArray, index, 'familyRegistrationAmount']).patchValue(undefined);
-    this.landBuildingForm.get([formArray, index, 'giftRegistrationAmount']).patchValue(undefined);
-    if (resetAmountOnly) {
-      return;
-    }
-    this.landBuildingForm.get([formArray, index, 'saleOwnershipTransfer']).patchValue(undefined);
-    this.landBuildingForm.get([formArray, index, 'familyTransferOwnershipTransfer']).patchValue(undefined);
-    this.landBuildingForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
-
   }
 
 
@@ -293,16 +250,15 @@ export class LandBuildingComponent implements OnInit {
     // }
   }
 
-  public removeLandDetails(index: number): void {
-    (<FormArray>this.landBuildingForm.get('landDetails')).removeAt(index);
-    this.updateLandSecurityTotal();
+  removeLandBuildingDetails(i) {
+    (this.landBuildingForm.get('landBuilding') as FormArray).removeAt(i);
   }
 
-  public addMoreLand(): void {
-    (this.landBuildingForm.get('landDetails') as FormArray).push(this.landDetailsFormGroup());
+  addLandBuilding() {
+    (this.landBuildingForm.get('landBuilding') as FormArray).push(this.LandBuildingDetailsFormGroup());
   }
 
-  private landDetailsFormGroup(): FormGroup {
+  public LandBuildingDetailsFormGroup() {
     return this.formBuilder.group({
       owner: [undefined, Validators.required],
       location: [undefined],
@@ -312,35 +268,94 @@ export class LandBuildingComponent implements OnInit {
       marketValue: [undefined],
       distressValue: [undefined],
       description: [undefined],
-      landValuator: [undefined],
-      landValuatorDate: [undefined],
-      landValuatorRepresentative: [undefined],
-      landStaffRepresentativeName: [undefined],
-      landBranch: [undefined],
+      houseNumber: [undefined],
+      totalBuildingArea: [undefined],
+      costPerSquare: [undefined],
+      totalCost: [undefined],
+      buildingValuator: [undefined],
+      buildingValuatorDate: [undefined],
+      buildingValuatorRepresentative: [undefined],
+      buildingStaffRepresentativeName: [undefined],
+      buildingBranch: [undefined],
       landConsideredValue: [undefined],
       typeOfProperty: [undefined],
-      revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}],
-      landStaffRepresentativeDesignation: [undefined],
-      landStaffRepresentativeName2: [undefined],
-      landStaffRepresentativeDesignation2: [undefined],
-      landSecurityLegalDocumentAddress: [undefined],
       ownershipTransferDate: [undefined],
       ownershipTransferThrough: [undefined],
-      otherOwnershipTransferValue: [undefined],
+      otherOwnershipTransferValue: undefined,
       saleOwnershipTransfer: [undefined],
       familyTransferOwnershipTransfer: [undefined],
       giftOwnershipTransfer: [undefined],
       saleRegistrationAmount: [undefined],
       familyRegistrationAmount: [undefined],
       giftRegistrationAmount: [undefined],
-      landCollateralOwnerRelationship: [undefined],
+      ownerConstruction: undefined,
+      locationConstruction: undefined,
+      plotNumberConstruction: undefined,
+      areaFormatConstruction: undefined,
+      areaConstruction: undefined,
+      marketValueConstruction: undefined,
+      distressValueConstruction: undefined,
+      descriptionConstruction: undefined,
+      totalBuildingAreaConstruction: undefined,
+      costPerSquareConstruction: undefined,
+      totalCostConstruction: undefined,
+      landConsideredValueConstruction: [undefined],
+      underConstructionChecked: undefined,
+      revaluationData: [undefined],
+      landBuildingStaffRepresentativeDesignation: [undefined],
+      landBuildingStaffRepresentativeDesignation2: [undefined],
+      landBuildingStaffRepresentativeName2: [undefined],
+      landAndBuildingSecurityLegalDocumentAddress: [undefined],
+      landBuildingCollateralOwnerRelationship: [undefined],
       roadAccessBluePrint: [undefined],
       roadAccessDescribe: [undefined],
       ownerKycApplicableData: [undefined],
-      landOtherBranchChecked: [undefined],
-      kycCheckForLand: [false],
-      landRate: [undefined],
+      progessCost: [undefined],
+      landBuildingOtherBranchChecked: [undefined],
+      kycCheckForLandAndBuilding: [false],
+      landBuildingRate: [undefined],
+      landbuildingUnderRate: [undefined],
+      totalLandRealisableValue: [undefined],
+      apartmentDistressValue: [undefined],
+      apartmentRate: [undefined],
+      totalApartmentRealisableValue: [undefined],
+      governmentRate: [undefined],
+      dv: [undefined],
+      considerValue: [undefined],
+      sheetNo: [undefined],
+      province: [undefined],
+      district: [undefined],
+      municipalityVdc: [undefined],
+      geoLocation: [undefined],
+      addressLine1: [undefined],
+      addressLine2: [undefined],
+      registerOffice: [undefined],
+      freeLimit: [undefined]
     });
+  }
+
+  public getProvince(): void {
+    this.location.getProvince().subscribe((res: any) => {
+      this.provinces = res.detail;
+    });
+  }
+
+  public getDistrict(province: Province): void {
+    this.location.getDistrictByProvince(province).subscribe((res: any) => {
+      this.districtList = res.detail;
+    });
+  }
+
+  public getMunicipality(district: District): void {
+    this.location.getMunicipalityVDCByDistrict(district).subscribe((res: any) => {
+      this.municipalityList = res.detail;
+    });
+  }
+
+  public setFreeLimitAmount(index, formArrayName: string, considerValue: number) {
+    if (this.isEdit === false) {
+      this.landBuildingForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
+    }
   }
 
 }
