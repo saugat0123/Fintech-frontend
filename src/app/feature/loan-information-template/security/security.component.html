@@ -34,30 +34,30 @@
             <hr>
         </div>
 
-        <app-vehicle *ngIf="vehicleSelected"></app-vehicle>
+        <app-vehicle *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
         <app-apartment *ngIf="apartmentSelected"></app-apartment>
-        <app-land-building *ngIf="landBuilding"></app-land-building>
-        <app-plant-machinery *ngIf="plantSelected"></app-plant-machinery>
-        <app-fixed-deposit *ngIf="depositSelected"></app-fixed-deposit>
+        <app-land-building *ngIf="landBuilding" [calendarType]="calendarType"></app-land-building>
+        <app-plant-machinery *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
+        <app-fixed-deposit *ngIf="depositSelected" [calendarType]="calendarType"></app-fixed-deposit>
         <app-share *ngIf="shareSelected"></app-share>
         <app-hypothecation-of-stock *ngIf="hypothecationOfStock"></app-hypothecation-of-stock>
         <app-corporation-guarantee *ngIf="corporateGuarantee"></app-corporation-guarantee>
         <app-personal-guarantee *ngIf="personal"></app-personal-guarantee>
-        <app-insurance-policy *ngIf="insurancePolicySelected"></app-insurance-policy>
+        <app-insurance-policy *ngIf="insurancePolicySelected" [calendarType]="calendarType"></app-insurance-policy>
         <app-assignment-of-receivable *ngIf="assignmentOfReceivable"></app-assignment-of-receivable>
         <app-lease-assignment *ngIf="assignments"></app-lease-assignment>
         <app-other-security *ngIf="securityOther"></app-other-security>
 
-        <app-security-initial-form #initialSecurity
-                                   [calendarType]="calendarType"
-                                   [formData]="initialSecurityValue"
-                                   [loanTag]="loanTag"
-                                   [shareSecurity]="shareSecurity"
-                                   [customerSecurityId]="securityId"
-                                   [approvedData]="approvedSecurityValue"
-                                   [customerType]="customerType"
-                                   [customerInfo]="customerInfo">
-        </app-security-initial-form>
+<!--        <app-security-initial-form #initialSecurity-->
+<!--                                   [calendarType]="calendarType"-->
+<!--                                   [formData]="initialSecurityValue"-->
+<!--                                   [loanTag]="loanTag"-->
+<!--                                   [shareSecurity]="shareSecurity"-->
+<!--                                   [customerSecurityId]="securityId"-->
+<!--                                   [approvedData]="approvedSecurityValue"-->
+<!--                                   [customerType]="customerType"-->
+<!--                                   [customerInfo]="customerInfo">-->
+<!--        </app-security-initial-form>-->
         <div class="form-group">
             <form [formGroup]="securityForm">
                 <ng-container *ngIf="!isMicroCustomer && !disableCrgAlphaParams && isBusinessLoan">
