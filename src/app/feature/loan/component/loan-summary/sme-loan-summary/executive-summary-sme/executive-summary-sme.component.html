@@ -41,7 +41,7 @@
                                           [proposalData]="loanDataHolder?.proposal"></app-proposal-summary>
                 </p>
             </li>
-            <li>
+            <li *ngIf="loanDataHolder?.security">
                 <!-- Security Summary -->
                 <p>
                     <strong>SECURITY ARRANGEMENT</strong><br>
@@ -54,7 +54,7 @@
                                           [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
                 </p>
             </li>
-            <li>
+            <li *ngIf="loanDataHolder?.financial">
                 <!-- Key financial -->
                 <p>
                     <strong>KEY FINANCIAL FIGURES</strong><br>
@@ -62,6 +62,14 @@
                                            [formData]="loanDataHolder?.financial"
                                            [loanType]="loanDataHolder?.loanCategory"> </app-financial-summary>
                 </p>
+            </li>
+
+            <li *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">
+                <!-- group position -->
+                <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
+                as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
+                ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b>
+                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </li>
 
             <li>
