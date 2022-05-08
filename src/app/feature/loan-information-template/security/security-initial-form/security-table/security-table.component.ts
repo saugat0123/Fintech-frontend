@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Clients} from '../../../../../../environments/Clients';
 import {environment} from '../../../../../../environments/environment';
+import {FixAssetCollateralComponent} from '../fix-asset-collateral/fix-asset-collateral.component';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-security-table',
@@ -12,6 +14,7 @@ export class SecurityTableComponent implements OnInit {
   @Input() shareSecurity: any;
   @Output() securityEmitter = new EventEmitter<any>();
   @Input() selectedArray = [];
+  @Input() securityId;
   clients = environment.client;
   clientName = Clients;
   isLandSecurity = false;
@@ -44,8 +47,9 @@ export class SecurityTableComponent implements OnInit {
   insurancePolicy: any;
   isShareSecurity = false;
   shareSecurityData: any;
+  dialogRef: NbDialogRef<any>;
 
-  constructor() { }
+  constructor(private nbDialogService: NbDialogService) { }
 
   ngOnInit() {
     if (this.selectedArray !== undefined) {
@@ -151,51 +155,76 @@ export class SecurityTableComponent implements OnInit {
     }
   }
 
-  public sendSecurityName(formArrayName: string, securityName: string) {
-    const valueToEmit = {formArrayName, securityName};
+  public sendSecurityName(formArrayName: string, securityName: string, index: number) {
+    const valueToEmit = {formArrayName, securityName, index};
     this.securityEmitter.emit(valueToEmit);
     if (formArrayName === 'landDetails') {
-      this.isLandSecurity = false;
+     this.isLandSecurity = this.checkArray(this.landSecurity , index);
     }
     if (formArrayName === 'buildingDetails') {
-      this.isApartmentSecurity = false;
+      this.isApartmentSecurity =  this.checkArray(this.apartmentSecurity , index);;
     }
     if (formArrayName === 'landBuilding') {
-      this.isLandAndBuilding = false;
+      this.isLandAndBuilding = this.checkArray(this.landAndBuilding , index);
     }
     if (formArrayName === 'plantDetails') {
-      this.isPlantAndMachinery = false;
+      this.isPlantAndMachinery =  this.checkArray(this.plantAndMachinery , index);;
     }
     if (formArrayName === 'vehicleDetails') {
-      this.isVehicle = false;
+      this.isVehicle = this.checkArray(this.vehicleSecurity , index);;
     }
     if (formArrayName === 'fixedDepositDetails') {
-      this.isFixedDeposit = false;
+      this.isFixedDeposit = this.checkArray(this.fixedDeposit , index);;
     }
     if (formArrayName === 'shareSecurityDetails') {
-      this.isShareSecurity = false;
+      this.isShareSecurity = this.checkArray(this.shareSecurityData.shareSecurityDetails, index);;
     }
     if (formArrayName === 'hypothecationOfStock') {
-      this.isHypothecation = false;
+      this.isHypothecation = this.checkArray(this.hypothecation , index);;
     }
     if (formArrayName === 'assignmentOfReceivables') {
-      this.isAssignmentOfReceivables = false;
+      this.isAssignmentOfReceivables = this.checkArray(this.assignmentOfReceivables , index);;
     }
     if (formArrayName === 'leaseAssignment') {
-      this.isleaseAssignment = false;
+      this.isleaseAssignment = this.checkArray(this.leaseAssignment , index);;
     }
     if (formArrayName === 'otherSecurity') {
-      this.isOtherSecurity = false;
+      this.isOtherSecurity = this.checkArray(this.otherSecurity , index);;
     }
     if (formArrayName === 'corporateGuarantee') {
-      this.isCorporateGuarantee = false;
+      this.isCorporateGuarantee = this.checkArray(this.corporateGuarantee , index);;
     }
     if (formArrayName === 'personalGuarantee') {
-      this.isPersonalGuarantee = false;
+      this.isPersonalGuarantee =  this.checkArray(this.personalGuarantee , index);;
     }
     if (formArrayName === 'insurancePolicy') {
-      this.isInsurancePolicy = false;
+      this.isInsurancePolicy = this.checkArray(this.insurancePolicy , index);;
     }
   }
 
+  openSiteVisitModel(security: string, uuid?: string) {
+    // this.close();
+    const context = {
+      securityId: this.securityId,
+      security: security,
+      uuid: uuid
+    };
+    this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
+      context,
+      closeOnBackdropClick: false,
+      hasBackdrop: false,
+      hasScroll: true
+    });
+  }
+  public close() {
+      this.dialogRef.close();
+  }
+  checkArray(array, i) {
+    array.splice(i, 1);
+    if (array.length < 1) {
+     return  false;
+    } else {
+      return true;
+    }
+  }
 }

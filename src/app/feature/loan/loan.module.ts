@@ -48,7 +48,6 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
 import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
 import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
-import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
@@ -93,8 +92,6 @@ const COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent
-
 ];
 
 const ENTRY_COMPONENTS = [
@@ -105,7 +102,6 @@ const ENTRY_COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent,
 ];
 
 const modules = {
@@ -174,7 +170,7 @@ const modules = {
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
         KycInfoComponent,
-        CustomerWiseLoanPullComponent
+        CustomerWiseLoanPullComponent,
     ]
 })
 export class LoanModule {

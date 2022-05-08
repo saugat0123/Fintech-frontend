@@ -480,7 +480,7 @@ export class ProposalComponent implements OnInit {
               this.toastService.show(new Alert(AlertType.WARNING, 'VALIDATION FAILEDs'));
               return;
           }
-            this.securityAdderComponent.save();
+            // this.securityAdderComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
