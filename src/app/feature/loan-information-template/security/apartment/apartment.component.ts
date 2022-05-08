@@ -61,7 +61,7 @@ export class ApartmentComponent implements OnInit {
       apartmentRmValueTotal: [undefined],
       apartmentFmvOfFacTotal: [undefined],
       buildingDetailsDescription: [undefined],
-      buildingDetails: this.formBuilder.array([this.buildingDetailsFormGroup]),
+      buildingDetails: this.formBuilder.array([this.buildingDetailsFormGroup()]),
       buildingUnderConstructions: this.formBuilder.array([]),
       apartmentCross: this.formBuilder.array([]),
     });
