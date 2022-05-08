@@ -86,16 +86,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     customerLoans: LoanDataHolder [];
     customerType: CustomerType;
     nonMicroLoanList = [];
-    // Priority options--
-    dropdownPriorities = [
-        {id: 'HIGH', name: 'High'},
-        {id: 'MEDIUM', name: 'Medium'},
-        {id: 'LOW', name: 'Low'},
-
-    ];
 
     documentSpinner = false;
-    priority;
     pendingLoanList = [];
     approvedLoanList = [];
 
@@ -221,7 +213,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.modalService.dismissAll();
         this.selectedLoanType = null;
         this.facilityType = null;
-        this.priority = null;
         this.getCustomerLoans();
     }
 
@@ -401,7 +392,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     applyLoans(proposal) {
         this.loan = new LoanDataHolder();
-        this.loan.priority = this.priority;
         // this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
         // this.loan.creditRisk = this.loanForm.get('creditRisk').value;
         this.loan.documentStatus = DocStatus.UNDER_REVIEW;

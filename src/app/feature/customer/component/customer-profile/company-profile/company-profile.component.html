@@ -366,15 +366,6 @@
                   </ng-container>
                 </select>
               </div>
-              <div class="col-md-3" *ngIf="selectedLoanType && facilityType">
-                <p class="font-weight-bold">Priority</p>
-                <select nbInput class="form-control rounded" [(ngModel)]="priority">
-                  <option [ngValue]="undefined" hidden> Select Priority</option>
-                  <option *ngFor="let item of dropdownPriorities" [value]="item?.id">{{item?.name}}</option>
-                </select>
-              </div>
-
-
 
               <div class="col-md-1" *ngIf="priority && facilityType && selectedLoanType">
                 <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus"></i></a>
