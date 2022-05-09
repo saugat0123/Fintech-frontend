@@ -57,17 +57,6 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="proprietePartner">Propiete/Partner</label>
-                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.proprietePartner.invalid
-                                   && (auditorDetailsFormControl.proprietePartner.dirty ||
-                                auditorDetailsFormControl.proprietePartner.touched)}" class="form-control" formControlName="proprietePartner"
-                                   id="proprietePartner"
-                                   placeholder="Enter Propiete/Partner">
-                            <div *ngIf="auditorDetailsFormControl.proprietePartner.invalid" class="invalid-feedback">
-                                Invalid entry!
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-2">
                             <label for="membershipNo">Membership No.</label>
                             <input [ngClass]="{'is-invalid': auditorDetailsFormControl.membershipNo.invalid
                                    && (auditorDetailsFormControl.membershipNo.dirty ||
@@ -75,19 +64,6 @@
                                    id="membershipNo"
                                    placeholder="Enter Membership No.">
                             <div *ngIf="auditorDetailsFormControl.membershipNo.invalid" class="invalid-feedback">
-                                Invalid entry!
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="certificateOfPractice">Certificate of Practice</label>
-                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.certificateOfPractice.invalid
-                                   && (auditorDetailsFormControl.certificateOfPractice.dirty ||
-                                auditorDetailsFormControl.certificateOfPractice.touched)}" class="form-control"
-                                   formControlName="certificateOfPractice"
-                                   id="certificateOfPractice"
-                                   placeholder="Enter Certificate of Practice">
-                            <div *ngIf="auditorDetailsFormControl.certificateOfPractice.invalid"
-                                 class="invalid-feedback">
                                 Invalid entry!
                             </div>
                         </div>

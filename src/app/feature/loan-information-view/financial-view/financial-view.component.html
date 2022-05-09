@@ -156,18 +156,14 @@
                     <th scope="col" class="sn">S.N</th>
                     <th scope="col">Audited</th>
                     <th scope="col">Audit Firm</th>
-                    <th scope="col">Proprietor/Partner</th>
                     <th scope="col">Membership No.</th>
-                    <th scope="col">Certificate of Practice</th>
                     <th scope="col">Class</th>
                 </tr>
                 <tr *ngFor="let auditor of auditorList; let i = index">
                     <td><strong>{{i + 1}}</strong></td>
                     <td class="text-right pr-1">{{auditor['audited']}}</td>
                     <td class="text-left pl-1">{{auditor['auditFirm']}}</td>
-                    <td class="text-left pl-1">{{auditor['proprietePartner']}}</td>
                     <td class="text-right pr-1">{{auditor['membershipNo']}}</td>
-                    <td class="text-left pl-1">{{auditor['certificateOfPractice']}}</td>
                     <td class="text-left pl-1">{{auditor['class']}}</td>
                 </tr>
             </table>
