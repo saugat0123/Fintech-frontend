@@ -55,9 +55,7 @@ export class PlantMachineryAdderComponent implements OnInit {
     });
   }
 
-  public calcFreeLimit(index: number, usedAmount: number, formControlName: string): void {
-      let freeLimit = 0;
-      freeLimit = usedAmount;
+  public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string): void {
       freeLimit -= usedAmount;
       const coverage = (usedAmount / this.proposedLimit) * 100;
       this.limitExceed[index] = freeLimit < 0;
