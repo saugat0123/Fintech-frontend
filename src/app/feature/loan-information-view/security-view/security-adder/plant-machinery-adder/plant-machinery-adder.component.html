@@ -35,7 +35,17 @@
                                     </td>
                                     <td>{{plantMachinery.get('freeLimit')?.value}}</td>
                                     <td>{{plantMachinery.get('coverage')?.value}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a class="px-2 cursor" *ngIf="securityPresent[i]"
+                                           (click)="toggleArray[i].toggled = !this.toggleArray[i].toggled"
+                                           nbTooltip="click to view detail security">
+                                            <em class="fa fa-eye"></em>
+                                        </a>
+                                        <button nbButton size="small"
+                                                (click)="tagSecurity(plantMachinery, 'plantDetails', i)"
+                                                [disabled]="limitExceed[i]">
+                                            <i class="fa fa-plus"></i></button>
+                                    </td>
                                 </ng-container>
                             </tr>
                         </ng-container>

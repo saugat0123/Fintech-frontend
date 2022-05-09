@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Security} from '../../../../loan/model/security';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 
 @Component({
   selector: 'app-plant-machinery-adder',
@@ -13,8 +14,13 @@ export class PlantMachineryAdderComponent implements OnInit {
     limitExceed = [];
     isUsedAmount = [];
     @Input() proposedLimit: number;
+    toggleArray: { toggled: boolean, security: any }[] = [];
+    spinner = false;
+    securityPresent = [];
+    securityList: Array<Security> = new Array<Security>();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private securityLoanReferenceService: SecurityLoanReferenceService) { }
 
   ngOnInit() {
     console.log(this.securities);
@@ -22,6 +28,7 @@ export class PlantMachineryAdderComponent implements OnInit {
     this.buildForm();
     if (this.securities.length > 0) {
       this.setPlantDetails(this.securities);
+      this.toggleSecurity();
     }
   }
 
@@ -61,7 +68,45 @@ export class PlantMachineryAdderComponent implements OnInit {
       this.limitExceed[index] = freeLimit < 0;
       this.isUsedAmount[index] = false;
       this.plantMachineryForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
-      this.plantMachineryForm.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(2));
+      this.plantMachineryForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
+
+    getSecurityDetails(id, i) {
+        this.spinner = true;
+        this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
+            this.spinner = false;
+            this.toggleArray[i].security = res.detail;
+            this.securityPresent[i] = this.toggleArray[i].security.length > 0;
+        }, (err) => {
+            this.spinner = false;
+        });
+    }
+    setToggled(array) {
+        this.toggleArray = [];
+        array.forEach((a, i) => {
+            this.toggleArray.push({toggled: false, security: null});
+            this.getSecurityDetails(a.id, i);
+        });
+    }
+
+    toggleSecurity() {
+        this.toggleArray = [];
+        if (this.securities.length > 0) {
+            this.setToggled(this.securities);
+        }
+    }
+
+    public tagSecurity(security: any, key, idx: number): void {
+        if (security.value.usedAmount <= 0) {
+            this.isUsedAmount[idx] = true;
+            return;
+        }
+        if (key === 'plantDetails') {
+            if (this.securityList.length > 0) {
+                this.securityList.splice(idx, 1);
+            }
+            this.securityList.push(security.value);
+        }
+    }
 
 }
