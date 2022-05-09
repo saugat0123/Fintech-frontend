@@ -40,4 +40,5 @@ export class CompanyJsonData {
   reviewDate: string = undefined;
   promoterNetWorth: string;
   business: string;
+  sameAddress: boolean;
 }

@@ -1128,6 +1128,11 @@
                                 <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
                             </div>
                             <div class="col-md-12">
+                                <nb-checkbox (change)="sameAsPermanent($event?.target?.checked)"
+                                             [checked]="sameAddress">
+                                    <i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                            </div>
+                            <div class="col-md-12">
                                 <label><h6><b>Current Business Location</b></h6></label>
                                 <app-common-address #companyProjectLocation
                                                     [address]="companyProjectAddress"></app-common-address>
