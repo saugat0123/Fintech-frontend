@@ -268,7 +268,7 @@
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
-                            <li *ngIf="this.letterData?.autoLoanMasterForm?.autoLoanTypeCT !== null || this.letterData?.termLoanForm?.termLoanForCT === 'VEHICLE'">
+                            <li *ngIf="vehicleRegister">
                                 <strong> सवारी साधन दर्ता (Vehicle Registration): </strong>
                                 <p class="m-0">
                                     सवारी साधन कर्जाबाट खरिद गरिएका सवारी साधनको व्यापक (Comprehensive) बिमा सहित बैंकको
