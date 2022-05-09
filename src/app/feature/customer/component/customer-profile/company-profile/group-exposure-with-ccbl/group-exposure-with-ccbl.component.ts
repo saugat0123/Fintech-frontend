@@ -38,7 +38,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.default_table = '<table border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
+    this.default_table = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"' +
+        ' border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
         '<tbody>\n' +
         '<tr>\n' +
         '<td colspan="2" rowspan="2" style="text-align:center">Group concerns/facilities</td>\n' +

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-nrb-statutory-remarks-status',
@@ -13,7 +14,9 @@ export class NrbStatutoryRemarksStatusComponent implements OnInit {
 
   ngOnInit() {
       const data =  JSON.parse(this.loanDataHolder.loanHolder.data);
-      this.commentData = JSON.parse(data.data);
+      if (!ObjectUtil.isEmpty(data)) {
+          this.commentData = JSON.parse(data.data);
+      }
   }
 
 }

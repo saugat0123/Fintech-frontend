@@ -137,10 +137,10 @@
                     <div class="col-md-12 sb-small">
                         <div class="row">
                             <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">GROUP</p>
+                                <p class="font-weight-bold sb-small">GROUP(Name,Code)</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>
                             </div>
                         </div>
                     </div>
@@ -280,8 +280,13 @@
                     <li>
                         <p><strong>Name of the companies under the group: NA</strong></p>
                     </li>
-                    <li>
-                        <p><strong>Group Exposure (in NPR. Mio): NA</strong></p>
+
+                    <li *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">
+                        <!-- group position -->
+                        <strong>GROUP EXPOSURE</strong>
+                        as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
+                        ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
+                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
                     </li>
                     <li>
                         <p><strong>Regularity of payments: NA</strong></p>
