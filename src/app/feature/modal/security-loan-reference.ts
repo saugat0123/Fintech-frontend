@@ -1,4 +1,3 @@
-import {SecurityType} from '../constants/security-type';
 import {LoanDataHolder} from '../loan/model/loanData';
 
 export class SecurityLoanReference {
