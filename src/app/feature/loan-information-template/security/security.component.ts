@@ -142,17 +142,17 @@ export class SecurityComponent implements OnInit {
     vehicleSelected = false;
     apartmentSelected = false;
     landSelected = false;
-    landBuilding = false;
+    landBuildingSelected = false;
     plantSelected = false;
     depositSelected = false;
     shareSelected = false;
-    hypothecationOfStock = false;
-    corporateGuarantee = false;
-    personal = false;
+    hypothecationOfStockSelected = false;
+    corporateGuaranteeSelected = false;
+    personalGuaranteeSelected = false;
     insurancePolicySelected = false;
-    assignmentOfReceivable = false;
-    assignments = false;
-    securityOther = false;
+    assignmentOfReceivableSelected = false;
+    leaseAssignmentSelected = false;
+    otherSecuritySelected = false;
 
     underConstructionChecked = false;
     isFixedDeposit = false;
@@ -202,10 +202,10 @@ export class SecurityComponent implements OnInit {
         const selectedSecurity = [];
         selectedSecurity.push(arraySelected);
         console.log('selected security', selectedSecurity);
-        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuilding = this.plantSelected =
-            this.depositSelected = this.shareSelected = this.hypothecationOfStock =
-                this.corporateGuarantee = this.personal = this.insurancePolicySelected =
-                    this.assignmentOfReceivable = this.assignments = this.securityOther = false;
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuildingSelected = this.plantSelected =
+            this.depositSelected = this.shareSelected = this.hypothecationOfStockSelected =
+                this.corporateGuaranteeSelected = this.personalGuaranteeSelected = this.insurancePolicySelected =
+                    this.assignmentOfReceivableSelected = this.leaseAssignmentSelected = this.otherSecuritySelected = false;
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LAND_SECURITY' :
@@ -218,7 +218,7 @@ export class SecurityComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'LAND_BUILDING_SECURITY' :
-                    this.landBuilding = true;
+                    this.landBuildingSelected = true;
                     break;
                 case 'PROPERTY_AND_MACHINERY_SECURITY' :
                     this.plantSelected = true;
@@ -230,25 +230,25 @@ export class SecurityComponent implements OnInit {
                     this.shareSelected = true;
                     break;
                 case 'HYPOTHECATION_OF_STOCK':
-                    this.hypothecationOfStock = true;
+                    this.hypothecationOfStockSelected = true;
                     break;
                 case 'CORPORATE_GUARANTEE':
-                    this.corporateGuarantee = true;
+                    this.corporateGuaranteeSelected = true;
                     break;
                 case 'PERSONAL_GUARANTEE':
-                    this.personal = true;
+                    this.personalGuaranteeSelected = true;
                     break;
                 case 'INSURANCE_POLICY_SECURITY':
                     this.insurancePolicySelected = true;
                     break;
                 case 'ASSIGNMENT_OF_RECEIVABLES':
-                    this.assignmentOfReceivable = true;
+                    this.assignmentOfReceivableSelected = true;
                     break;
                 case 'LEASE_ASSIGNMENT':
-                    this.assignments = true;
+                    this.leaseAssignmentSelected = true;
                     break;
                 case 'OTHER_SECURITY':
-                    this.securityOther = true;
+                    this.otherSecuritySelected = true;
                     break;
             }
         });
@@ -457,7 +457,7 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(landData, SecuritiesType.LAND_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.landBuilding) {
+        if (this.landBuildingSelected) {
             const landBuildingData = this.landBuildingSecurity.landBuildingForm.value;
             const securities = this.constructSecurityArray(landBuildingData, SecuritiesType.LAND_BUILDING_SECURITY);
             this.securityDataEmitter.emit(securities);
@@ -477,17 +477,17 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(shareData, SecuritiesType.SHARE_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.hypothecationOfStock) {
+        if (this.hypothecationOfStockSelected) {
             const hypothecationOfStockData = this.hypothecationSecurity.hypothecationForm.value.hypothecationOfStock;
             const securities = this.constructSecurityArray(hypothecationOfStockData, SecuritiesType.HYPOTHECATION_OF_STOCK);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.corporateGuarantee) {
+        if (this.corporateGuaranteeSelected) {
             const corporateGuaranteeData = this.corporateGuaranteeSecurity.form.value;
             const securities = this.constructSecurityArray(corporateGuaranteeData, SecuritiesType.CORPORATE_GUARANTEE);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.personal) {
+        if (this.personalGuaranteeSelected) {
             const personalGuaranteeData = this.personalGuaranteeSecurity.personalGuaranteeForm.value.personalGuarantee;
             const securities = this.constructSecurityArray(personalGuaranteeData, SecuritiesType.PERSONAL_GUARANTEE);
             this.securityDataEmitter.emit(securities);
@@ -497,17 +497,17 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(insurancePolicyData, SecuritiesType.INSURANCE_POLICY_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.assignmentOfReceivable) {
+        if (this.assignmentOfReceivableSelected) {
             const assignmentOfReceivableData = this.assignmentOfReceivableSecurity.assignmentForm.value.assignmentOfReceivables;
             const securities = this.constructSecurityArray(assignmentOfReceivableData, SecuritiesType.ASSIGNMENT_OF_RECEIVABLES);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.assignments) {
+        if (this.leaseAssignmentSelected) {
             const leaseAssignmentData = this.leaseAssignmentSecurity.leaseAssignmentForm.value.leaseAssignment;
             const securities = this.constructSecurityArray(leaseAssignmentData, SecuritiesType.LEASE_ASSIGNMENT);
             this.securityDataEmitter.emit(securities);
         }
-        if (this.securityOther) {
+        if (this.otherSecuritySelected) {
             const otherSecurityData = this.otherSecurity.otherSecurityForm.value.otherSecurity;
             const securities = this.constructSecurityArray(otherSecurityData, SecuritiesType.OTHER_SECURITY);
             this.securityDataEmitter.emit(securities);
