@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 export class AboveBankSolComponent implements OnInit {
 
   nrpValue:any;
+  asOnDate: any;
 
   constructor(
       private coreCapitalService: CoreCapitalService
@@ -19,6 +20,7 @@ export class AboveBankSolComponent implements OnInit {
     this.coreCapitalService.getActiveBaseRate().subscribe(rs=>{
       if(!ObjectUtil.isEmpty(rs.detail)) {
       this.nrpValue = rs.detail.rate;
+      this.asOnDate = rs.detail.createdAt;
       }
     })
   }
