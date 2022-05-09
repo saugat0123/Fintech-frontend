@@ -117,23 +117,72 @@ export class Section6FacilitiesClauseComponent implements OnInit {
     }
   }
   isApplicable() {
-    const temp = this.tempData;
-    if ((!ObjectUtil.isEmpty(temp.letterOfCreditForm) && temp.letterOfCreditForm.loanOption !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.timeLetterCreditForm) && temp.timeLetterCreditForm !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.importBillsDiscountForm) && temp.importBillsDiscountForm !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.importLoanTrust) && temp.importLoanTrust !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.revolvingShortTermLoan) && temp.revolvingShortTermLoan !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.demandLoanForm) && temp.demandLoanForm
-        || !ObjectUtil.isEmpty(temp.preExportForm) && temp.preExportForm
-        || !ObjectUtil.isEmpty(temp.documentaryBillPurchase) && temp.documentaryBillPurchase
-        || !ObjectUtil.isEmpty(temp.overdraftLoanForm) && temp.overdraftLoanForm
-        || !ObjectUtil.isEmpty(temp.equityMortgaged) && temp.equityMortgaged
-        || !ObjectUtil.isEmpty(temp.overdraftFixedForm) && temp.overdraftFixedForm
-        || !ObjectUtil.isEmpty(temp.overDraftFacilityForm) && temp.overDraftFacilityForm
-        || !ObjectUtil.isEmpty(temp.bridgeGapLoan) && temp.bridgeGapLoan
-        || !ObjectUtil.isEmpty(temp.mortgageEquityTermForm) && temp.mortgageEquityTermForm
-        || !ObjectUtil.isEmpty(temp.bankGuarantee) && temp.bankGuarantee
-        || !ObjectUtil.isEmpty(temp.billPurchaseForm) && temp.billPurchaseForm)) {
+    if (!ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+      this.tempData.letterOfCreditForm.letterOfCreditFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isExcept = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
+      this.tempData.timeLetterCreditForm.timeLetterCreditFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isExcept = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
+      this.tempData.importBillsDiscountForm.importBillsDiscountFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isExcept = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
+      this.tempData.importLoanTrust.importLoanTrustFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isExcept = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
+      this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isExcept = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.demandLoanForm) && this.tempData.demandLoanForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.preExportForm) && this.tempData.preExportForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase) && this.tempData.documentaryBillPurchase) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.overdraftLoanForm) && this.tempData.overdraftLoanForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.equityMortgaged) && this.tempData.equityMortgaged) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm) && this.tempData.overdraftFixedForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) && this.tempData.overDraftFacilityForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.bridgeGapLoan) && this.tempData.bridgeGapLoan) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) && this.tempData.mortgageEquityTermForm) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.bankGuarantee) && this.tempData.bankGuarantee) {
+      this.isExcept = true;
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.billPurchaseForm) && this.tempData.billPurchaseForm) {
       this.isExcept = true;
     }
   }
