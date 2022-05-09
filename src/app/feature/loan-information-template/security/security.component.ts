@@ -165,7 +165,6 @@ export class SecurityComponent implements OnInit {
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
         private activatedRoute: ActivatedRoute,
-        private toastService: ToastService,
     ) {
     }
 
@@ -201,7 +200,6 @@ export class SecurityComponent implements OnInit {
     change(arraySelected) {
         const selectedSecurity = [];
         selectedSecurity.push(arraySelected);
-        console.log('selected security', selectedSecurity);
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuildingSelected = this.plantSelected =
             this.depositSelected = this.shareSelected = this.hypothecationOfStockSelected =
                 this.corporateGuaranteeSelected = this.personalGuaranteeSelected = this.insurancePolicySelected =
@@ -253,7 +251,6 @@ export class SecurityComponent implements OnInit {
             }
         });
     }
-
 
     buildForm() {
         this.guarantorsForm = this.formBuilder.group({
