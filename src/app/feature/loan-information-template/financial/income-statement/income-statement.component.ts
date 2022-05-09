@@ -207,54 +207,54 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         }
         // Calculating Gross Profit--
         const grossProfitValue = (Number(totalSalesRevenue.controls['value'].value)
-            - Number(costOfGoodsSold.controls['value'].value)).toFixed(2);
+            - Number(costOfGoodsSold.controls['value'].value)).toFixed(8);
         grossProfit.controls['value'].setValue(grossProfitValue);
 
         // Calculating operatingProfitValue--
         const operatingProfitValue = (Number(grossProfit.controls['value'].value)
-            - Number(operatingExpenses.controls['value'].value)).toFixed(2);
+            - Number(operatingExpenses.controls['value'].value)).toFixed(8);
         operatingProfit.controls['value'].setValue(operatingProfitValue);
 
         // Calculating profitBeforeTaxAndStaffBonusValue --
         const profitBeforeTaxAndStaffBonusValue = (Number(operatingProfit.controls['value'].value)
             - Number(interestExpenses.controls['value'].value)
-            + Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
+            + Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(8);
         profitBeforeTaxAndStaffBonus.controls['value'].setValue(profitBeforeTaxAndStaffBonusValue);
 
         // Calculating profitBeforeTaxesValue --
-        const profitBeforeTaxesValue = Number(profitBeforeTaxAndStaffBonus.controls['value'].value)
-            - Number(staffBonus.controls['value'].value);
+        const profitBeforeTaxesValue = ( Number(profitBeforeTaxAndStaffBonus.controls['value'].value)
+            - Number(staffBonus.controls['value'].value)).toFixed(8);
         profitBeforeTaxes.controls['value'].setValue(profitBeforeTaxesValue);
 
         // Calculating profitAfterTaxValue --
-        const profitAfterTaxValue = (Number(profitBeforeTaxes.controls['value'].value) - Number(taxes.controls['value'].value)).toFixed(2);
+        const profitAfterTaxValue = (Number(profitBeforeTaxes.controls['value'].value) - Number(taxes.controls['value'].value)).toFixed(8);
         profitAfterTax.controls['value'].setValue(profitAfterTaxValue);
 
         // Calculating accumulatedProfitBOrDValue --
         const accumulatedProfitBOrDValue = profitAfterTax.controls['value'].value === 0 ? 0 :
             (index <= 0 ? accumulatedProfitBOrD.controls['value'].value
                 : ((this.incomeStatementForm.get('netProfitTransferredToBalanceSheet') as FormArray)
-                    .controls[index - 1] as FormGroup).controls['value'].value);
+                    .controls[index - 1] as FormGroup).controls['value'].value).toFixed(8);
         accumulatedProfitBOrD.controls['value'].setValue(Number(accumulatedProfitBOrDValue));
 
         // Calculating netProfitTransferredToBalanceSheetValue --
         const netProfitTransferredToBalanceSheetValue = (Number(profitAfterTax.controls['value'].value)
             - (Number(dividendOrDrawing.controls['value'].value)
-                + Number(otherAdjustment.controls['value'].value)) + Number(accumulatedProfitBOrD.controls['value'].value)).toFixed(2);
+                + Number(otherAdjustment.controls['value'].value)) + Number(accumulatedProfitBOrD.controls['value'].value)).toFixed(8);
         netProfitTransferredToBalanceSheet.controls['value'].setValue(netProfitTransferredToBalanceSheetValue);
         // Reflecting the value of netProfitTransferredToBalanceSheetValue into Balance Sheet (BS43)---
         // balanceSheet.netWorthCategory[1].amount[index].value = netProfitTransferredToBalanceSheetValue;
 
         //
         // Cash Flow Statement Calculation--
-        cashFlowStatement.netProfitForThePeriod[index].value = profitAfterTax.controls['value'].value;
+        cashFlowStatement.netProfitForThePeriod[index].value = (profitAfterTax.controls['value'].value);
         cashFlowStatement.depreciation[index].value = this.financialService
-            .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index).toFixed(2);
+            .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index).toFixed(8);
         cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
             .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
-                'Amortization/Other Non-Cash Expenses', index).toFixed(2);
+                'Amortization/Other Non-Cash Expenses', index).toFixed(8);
         cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
-            Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
+            Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(8);
         cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
 
         this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
@@ -264,24 +264,24 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 this.financialService.fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory,
                     'Net Fixed Assets', (index - 1))) - Number(this.financialService
                     .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
-                - Number(cashFlowStatement.depreciation[index].value)).toFixed(2);
+                - Number(cashFlowStatement.depreciation[index].value)).toFixed(8);
 
             cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index - 1].value)
                 - Number(balanceSheet.otherAssets[index].value) - Number(this.financialService
                     .fetchValuesForSubCategories(this.incomeStatementForm
-                        .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
-            cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
+                        .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(8);
+            cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value.toFixed(8);
 
         } else {
                 cashFlowStatement.changedInFixedAsset[index].value =
                     (Number(this.financialService
                             .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
-                        - Number(cashFlowStatement.depreciation[index].value)).toFixed(2);
+                        - Number(cashFlowStatement.depreciation[index].value)).toFixed(8);
 
                 cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index].value)
                     - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                         .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
-                    .toFixed(2);
+                    .toFixed(8);
 
                 /** Commented this because this made the 'addOpeningBalance' field editable being inexplicable **/
                 // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
@@ -292,9 +292,9 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
 
 
-            cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
-            cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
-            cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
+            cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(8);
+            cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(8);
+            cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(8);
 
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
         this.financialService.netCashFlowTotal(cashFlowStatement, index);
@@ -309,7 +309,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     - Number(((this.incomeStatementForm.get('totalSalesRevenue') as FormArray)
                         .controls[index - 1] as FormGroup).controls['value'].value))
                     / Number(((this.incomeStatementForm.get('totalSalesRevenue') as FormArray)
-                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(2);
+                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(8);
 
             keyIndicators.grossProfitKI[index].value = Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                 .get('totalSalesSubCategory'), 'Direct Sales', index)) === 0 ? 0 :
@@ -317,21 +317,21 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     - Number(((this.incomeStatementForm.get('grossProfit') as FormArray)
                         .controls[index - 1] as FormGroup).controls['value'].value))
                     / Number(((this.incomeStatementForm.get('grossProfit') as FormArray)
-                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(2);
+                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(8);
 
             keyIndicators.operatingProfitKI[index].value = Number(operatingProfit.controls['value'].value) === 0 ? 0 :
                 ((((Number(operatingProfit.controls['value'].value)
                     - Number(((this.incomeStatementForm.get('operatingProfit') as FormArray)
                         .controls[index - 1] as FormGroup).controls['value'].value))
                     / Number(((this.incomeStatementForm.get('operatingProfit') as FormArray)
-                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(2);
+                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(8);
 
             keyIndicators.pAT[index].value = Number(profitAfterTax.controls['value'].value) === 0 ? 0 :
                 ((((Number(profitAfterTax.controls['value'].value)
                     - Number(((this.incomeStatementForm.get('profitAfterTax') as FormArray)
                         .controls[index - 1] as FormGroup).controls['value'].value))
                     / Number(((this.incomeStatementForm.get('profitAfterTax') as FormArray)
-                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(2);
+                        .controls[index - 1] as FormGroup).controls['value'].value))) * 100).toFixed(8);
         }
 
         if (Number(totalSalesRevenue.controls['value'].value) !== 0) {
@@ -352,7 +352,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     .get('operatingExpensesCategory'), 'Depreciation', index))
                 + Number(operatingProfit.controls['value'].value)) /
             (Number(interestExpenses.controls['value'].value)
-                + Number(balanceSheet.principleInstalmentPaidDuringTheYear[index].value))).toFixed(2);
+                + Number(balanceSheet.principleInstalmentPaidDuringTheYear[index].value))).toFixed(8);
 
         keyIndicators.interestCoverageRatio[index].value = Number(interestExpenses.controls['value'].value) === 0 ? 0 :
             ((Number(operatingProfit.controls['value'].value)
@@ -360,28 +360,28 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     .get('operatingExpensesCategory'), 'Depreciation', index))
                 + Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                     .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))) /
-            Number(interestExpenses.controls['value'].value)).toFixed(2);
+            Number(interestExpenses.controls['value'].value)).toFixed(8);
 
         keyIndicators.inventoryTurnoverRatio[index].value =
             ((Number(costOfGoodsSold.controls['value'].value) === 0 || Number(balanceSheet.inventories[index].value) === 0) ? 0 :
-                Number(costOfGoodsSold.controls['value'].value) / Number(balanceSheet.inventories[index].value)).toFixed(2);
+                Number(costOfGoodsSold.controls['value'].value) / Number(balanceSheet.inventories[index].value)).toFixed(8);
         keyIndicators.stockInHandDays[index].value = Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
             .get('costOfGoodsSoldCategory'), 'Raw Material Consumed', index)) === 0 ? 0 : (365 /
-            Number(keyIndicators.inventoryTurnoverRatio[index].value)).toFixed();
+            Number(keyIndicators.inventoryTurnoverRatio[index].value)).toFixed(8);
 
         keyIndicators.debtorTurnOverRatio[index].value = Number(this.financialService
             .fetchValuesForJsonSubCategories(balanceSheet.currentAssetsCategory, 'Account Receivable', index)) === 0 ? 0 :
             (Number(totalSalesRevenue.controls['value'].value) / Number(this.financialService
-                .fetchValuesForJsonSubCategories(balanceSheet.currentAssetsCategory, 'Account Receivable', index))).toFixed(2);
+                .fetchValuesForJsonSubCategories(balanceSheet.currentAssetsCategory, 'Account Receivable', index))).toFixed(8);
         keyIndicators.averageCollectionPeriod[index].value = Number(keyIndicators.debtorTurnOverRatio[index].value) === 0 ? 0 : (365 /
-            Number(keyIndicators.debtorTurnOverRatio[index].value)).toFixed();
+            Number(keyIndicators.debtorTurnOverRatio[index].value)).toFixed(8);
 
         keyIndicators.averagePaymentPeriod[index].value = Number(costOfGoodsSold.controls['value'].value) === 0 ? 0 : (365 /
             (Number(costOfGoodsSold.controls['value'].value) / Number(this.financialService.fetchValuesForJsonSubCategories(balanceSheet
-                .currentLiabilitiesCategory, 'Creditors', index)))).toFixed();
+                .currentLiabilitiesCategory, 'Creditors', index)))).toFixed(8);
 
-        keyIndicators.netOperatingCycle[index].value = Number(keyIndicators.stockInHandDays[index].value)
-            + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
+        keyIndicators.netOperatingCycle[index].value = (Number(keyIndicators.stockInHandDays[index].value)
+            + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value)).toFixed(8);
 
         if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
             keyIndicators.cashFlowKI[index].value =

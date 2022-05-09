@@ -51,7 +51,7 @@ export class FinancialService {
         });
         const headingControl = headingArray as FormArray;
         const formGroup = headingControl.controls[index] as FormGroup;
-        formGroup.controls['value'].setValue(totalSum.toFixed(2));
+        formGroup.controls['value'].setValue(totalSum.toFixed(8));
     }
 
     // Fetching sub category values for FormControls--
