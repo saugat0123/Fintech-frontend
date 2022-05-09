@@ -58,8 +58,14 @@
     </nb-card-header>
     <nb-card-body>
         <div class="bg-light mb-3">
+            <div class="row">
+                <div class="col">
+                    <!--  <a (click)="editCustomer(1)" *ngIf="!isEdited && maker" class="p-2 cursor"><em
+                          class="fa fa-edit"></em></a>-->
+                </div>
+            </div>
             <div class="p-5 row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="profile-img">
                         <label class="container" for="file-input">
                             <img *ngIf="customerInfo?.profilePic !==null " class="image"
@@ -95,27 +101,89 @@
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
                     <div class="row">
-                        <span> <strong>Introduction :</strong> <span
-                                [innerHTML]="customer.introduction | safeHtml"></span></span></div>
+                        <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
                 </div>
-                <div *ngIf="isJointInfo">
+                <div *ngIf="isJointInfo" class="col-md-3 sb small" style="overflow-y:auto; height: 200px; ">
                     <div *ngFor="let jointCustomer of jointInfo">
-                        <ng-container *ngFor="let info of jointCustomer">
-                            <strong>Name :</strong><span>{{info?.customerName}}</span><br/>
-                            <strong>Date of Birth :</strong><span>{{info?.dob | date}}</span><br/>
-                            <strong>Address :</strong><span>{{info?.province?.name}},{{info?.district?.name}},
-                            {{info?.municipalities?.name}},{{info?.wardNumber}}</span><br/>
-                            <strong>Email :</strong><span>{{info?.email}}</span><br/>
-                            <strong>Mobile Number :</strong><span>{{info?.contactNumber}}</span><br/>
-                        </ng-container>
+                            <ng-container *ngFor="let info of jointCustomer">
+                                <strong>Name :</strong><span>{{info?.customerName}}</span><br/>
+                                <strong>Date of Birth :</strong><span>{{info?.dob | date}}</span><br/>
+                                <strong>Address :</strong><span>{{info?.province?.name}},{{info?.district?.name}},
+                                {{info?.municipalities?.name}},{{info?.wardNumber}}</span><br/>
+                                <strong>Email :</strong><span>{{info?.email}}</span><br/>
+                                <strong>Mobile Number :</strong><span>{{info?.contactNumber}}</span><br/>
+                            </ng-container>
                     </div>
                 </div>
-                <div class="col-md-1 sb-small">
-                    <div class="d-flex" style="height: 200px;">
-                        <div class="vr"></div>
-                    </div>
-                </div>
+                <div *ngIf="isEdited" class="col-md-9 sb-small">
+                    <form [formGroup]="basicForm">
+                        <div class="row form-inline">
+                        <span> <strong>Name :</strong> <input formControlName="customerName"
+                                                              placeholder="name"
+                                                              type="text"></span></div>
+                        <div class="row form-inline">
+                        <span> <strong>Date Of Birth :</strong>      <input [nbDatepicker]="dob"
+                                                                            class="form-control"
+                                                                            formControlName="dob"
+                                                                            id="dob"
+                                                                            name="dob"
+                                                                            placeholder="Customer Date of birth">
+                         <nb-datepicker #dob></nb-datepicker></span></div>
 
+                        <div class="row">
+                    <span> <strong>Address :</strong> <select
+                            (change)="getDistricts(this.basicForm.get('province').value)"
+                            formControlName="province"
+                            id="province"
+                            name="province">
+                                <option [value]="null" hidden>Select Province</option>
+                                <option *ngFor="let provinceVal of provinceList"
+                                        [ngValue]="provinceVal"
+                                        [selected]="provinceVal.id === province?.id">
+                                    {{provinceVal.name}}
+                            </select>
+                        <select (change)="getMunicipalities(this.basicForm.get('district').value)"
+                                formControlName="district"
+                                id="district"
+                                name="district">
+                                <option [ngValue]="null" hidden>Select District</option>
+                                <option *ngFor="let districtVal of districtList"
+                                        [ngValue]="districtVal"
+                                        [selected]="districtVal.id === district?.id">{{districtVal.name}}
+
+                                </option>
+                            </select>
+                           <select formControlName="municipalities"
+                                   id="municipality"
+                                   name="municipality">
+                                <option [ngValue]="null" hidden>Select Municipality</option>
+                                <option *ngFor="let municipalityVal of municipalitiesList"
+                                        [ngValue]="municipalityVal"
+                                        [selected]="municipalityVal.id === municipality?.id">
+                                    {{municipalityVal.name}}
+                                </option>
+                            </select>
+                        <input formControlName="street" placeholder="street Address"
+                               type="text">
+                             <input formControlName="wardNumber" placeholder="ward no."
+                                    type="text" width="20px">
+
+                      </span></div>
+                        <div class="row">
+                        <span> <strong>Email :</strong>   <input formControlName="email"
+                                                                 placeholder="name"
+                                                                 type="text"></span></div>
+                        <div class="row">
+                        <span> <strong>Mobile Number :</strong>   <input formControlName="contactNumber"
+                                                                         placeholder="name"
+                                                                         type="text"></span></div>
+                        <div class="row">
+                        <span> <strong>Introduction :</strong>   <input formControlName="introduction"
+                                                                        placeholder="Introduction"
+                                                                        type="text"></span></div>
+                    </form>
+
+                </div>
                 <div class="col-md-6 sb-small" style="overflow-y: auto; height:200px;">
                     <ng-container class="bg-light" style="height: 200px">
                         <ng-container>
