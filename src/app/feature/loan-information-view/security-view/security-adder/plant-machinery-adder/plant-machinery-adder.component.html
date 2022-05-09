@@ -28,7 +28,7 @@
                                     <td>{{plantMachinery.get('considerValue')?.value}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calcFreeLimit(i,plantMachinery.get('usedAmount').value,
+                                               (input)="calcFreeLimit(i,plantMachinery.get('considerValue')?.value, plantMachinery.get('usedAmount').value,
                                                                        'plantDetails')"
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
