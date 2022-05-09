@@ -236,18 +236,21 @@
                                 <!--                                <app-sana-current-status-and-present-proposal [loanDataHolder]="loanDataHolder"></app-sana-current-status-and-present-proposal>-->
                             </li>
                             <li *ngIf="loanDataHolder?.security">
-<!--
 <!--                                <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>-->
-
-                                                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"
-                                                                                   [securityId]="loanDataHolder?.security?.id"
-                                                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"
-                                                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"
+                                                   [securityId]="loanDataHolder?.security?.id"
+                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"
+                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
                                 <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
                             <!--                            Insurance Deatils-->
                             <li *ngIf="loanDataHolder?.insurance">
                                 <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                            </li>
+                            <!--Site-visit-->
+                            <li *ngIf="loanDataHolder?.loanHolder?.siteVisit">
+                                <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit">
+                                </app-site-visit-view>
                             </li>
                             <li *ngIf="loanDataHolder?.loanHolder?.financial">
                                 <strong>KEY FINANCIAL FIGURES</strong> (audited for last 1 year, estimated for current
@@ -255,10 +258,13 @@
                                 <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
                                                     [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
                             </li>
-                            <li>
+
+                            <li *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">
                                 <!-- group position -->
-                                <p><strong>GROUP POSITION</strong></p>
-                                <app-group-position></app-group-position>
+                                <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
+                                as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
+                                ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b>
+                                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
                             </li>
                             <li *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0">
                                 <p><strong>ASSESSTMENT FOR REQUIREMENT OF FUND:</strong></p>
