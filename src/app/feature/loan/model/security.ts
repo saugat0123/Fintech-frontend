@@ -16,5 +16,6 @@ export class Security {
     securityType: SecuritiesType;
     coverage: number;
     usedAmount: number;
+    freeLimit: number;
     templateName: string;
 }

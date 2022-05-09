@@ -216,8 +216,8 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorAdderComponent;
 
-    @ViewChild('shareSecurity', {static: false})
-    shareSecurity: SecurityAdderComponent;
+    @ViewChild('securityAdderComponent', {static: false})
+    securityAdderComponent: SecurityAdderComponent;
 
     @ViewChild('reportingInfoTagging', {static: false})
     reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
@@ -674,7 +674,7 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'Security' && action) {
-            this.shareSecurity.save();
+            this.securityAdderComponent.save();
             // this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
             // if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
             //     const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;

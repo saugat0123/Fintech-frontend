@@ -58,7 +58,7 @@ export class LoanDataHolder extends BaseEntity {
     siteVisit: SiteVisit;
     financial: Financial;
     crgMicro: CrgMicro;
-    security: Security;
+    securities: Array<Security>;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
     priority: Priority;

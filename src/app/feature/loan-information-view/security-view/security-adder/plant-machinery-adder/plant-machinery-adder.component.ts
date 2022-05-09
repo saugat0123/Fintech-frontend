@@ -71,7 +71,7 @@ export class PlantMachineryAdderComponent implements OnInit {
       this.plantMachineryForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
 
-    getSecurityDetails(id, i) {
+    private getSecurityDetails(id, i): void {
         this.spinner = true;
         this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
             this.spinner = false;
@@ -81,7 +81,8 @@ export class PlantMachineryAdderComponent implements OnInit {
             this.spinner = false;
         });
     }
-    setToggled(array) {
+
+    public setToggled(array): void {
         this.toggleArray = [];
         array.forEach((a, i) => {
             this.toggleArray.push({toggled: false, security: null});
@@ -89,7 +90,7 @@ export class PlantMachineryAdderComponent implements OnInit {
         });
     }
 
-    toggleSecurity() {
+    public toggleSecurity(): void {
         this.toggleArray = [];
         if (this.securities.length > 0) {
             this.setToggled(this.securities);
@@ -106,7 +107,12 @@ export class PlantMachineryAdderComponent implements OnInit {
                 this.securityList.splice(idx, 1);
             }
             this.securityList.push(security.value);
+            console.log(this.securityList);
         }
+    }
+
+    public removeSecurity(idx): void {
+        this.securityList.splice(idx, 1);
     }
 
 }

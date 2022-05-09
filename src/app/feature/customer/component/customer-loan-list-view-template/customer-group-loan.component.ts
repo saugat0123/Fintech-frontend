@@ -140,6 +140,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }];
     if (!ObjectUtil.isEmpty(this.customerLoans)) {
       this.loan = this.customerLoans;
+
       this.isLoaded = true;
       this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
     } else {
@@ -163,6 +164,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.spinner = true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
+      console.log('Loan::', this.customerGroupLoanList);
       this.loanHistories = this.groupCombinedLoan(this.customerGroupLoanList);
       this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
       this.spinner = false;
