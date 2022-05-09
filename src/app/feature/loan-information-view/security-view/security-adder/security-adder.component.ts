@@ -24,7 +24,6 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     customerShareData: any;
     msg = '';
     @Output() tagSecurityEmitter = new EventEmitter();
-
     selectedSecurities;
     landBuilding = false;
     auto = false;
@@ -42,6 +41,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     securityPresent = [];
     uniqSecurityList: Set<string> = new Set<string>();
     securityList: Array<string> = new Array<string>();
+    plantMachinery = false;
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -191,7 +191,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         this.share = false;
         switch (this.selectedSecurities) {
             // land building security
-            case 'LAND_BUILDING_SECURITY': {
+            case 'LAND_SECURITY': {
                 this.landBuilding = true;
                 this.landBuildingId = [];
                 if (!ObjectUtil.isEmpty(this.loanHolder.landBuildings)) {
@@ -213,6 +213,34 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                     });
                 }
                 this.setLimitExceed(this.customerInfo.autos);
+            }
+                break;
+            case 'APARTMENT_SECURITY': {
+                this.auto = true;
+                if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
+                    this.auto = true;
+                    this.autoId = [];
+                    this.loanHolder.autos.forEach((da: any) => {
+                        this.autoId.push(da.id);
+                    });
+                }
+                this.setLimitExceed(this.customerInfo.autos);
+            }
+                break;
+            case 'LAND_BUILDING_SECURITY': {
+                this.auto = true;
+                if (!ObjectUtil.isEmpty(this.loanHolder.autos)) {
+                    this.auto = true;
+                    this.autoId = [];
+                    this.loanHolder.autos.forEach((da: any) => {
+                        this.autoId.push(da.id);
+                    });
+                }
+                this.setLimitExceed(this.customerInfo.autos);
+            }
+                break;
+            case 'PLANT_AND_MACHINERY_SECURITY': {
+                this.plantMachinery = true;
             }
                 break;
             default :

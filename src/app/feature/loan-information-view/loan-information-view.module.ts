@@ -31,6 +31,7 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
 import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
+import { PlantMachineryAdderComponent } from './security-view/security-adder/plant-machinery-adder/plant-machinery-adder.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
         SecurityScheduleComponent,
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
-        CrossCollateralizedViewComponent
+        CrossCollateralizedViewComponent,
+        PlantMachineryAdderComponent
     ],
     exports: [
         InsuranceViewComponent,
