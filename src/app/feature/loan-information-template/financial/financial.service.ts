@@ -77,7 +77,7 @@ export class FinancialService {
                 value = amount[index].value as number;
             }
         });
-        return value;
+        return value.toFixed(8);
     }
 
     // Convert a number to percentage--
@@ -100,7 +100,7 @@ export class FinancialService {
             + Number(cashFlowStatementData.increaseDecreaseInCreditors[index].value)
             + Number(cashFlowStatementData.increaseDecreaseInOtherCurrentLiabilities[index].value)
             + Number(cashFlowStatementData.adjustmentForNonOperatingIncome[index].value)
-            + Number(cashFlowStatementData.interestExpensesCFSa[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.interestExpensesCFSa[index].value)).toFixed(8);
     }
 
     cashFromInvestingActivitiesTotal(cashFlowStatementData, index) {
@@ -109,7 +109,7 @@ export class FinancialService {
             + Number(cashFlowStatementData.nonOperatingIncomeExpenses[index].value)
             + Number(cashFlowStatementData.changeInOtherAssets[index].value)
             + Number(cashFlowStatementData.changeInOtherLongTermLiabilities[index].value)
-            + Number(cashFlowStatementData.changeInOtherProvisions[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.changeInOtherProvisions[index].value)).toFixed(8);
     }
 
     cashFromFinancingActivitiesTotal(cashFlowStatementData, index) {
@@ -119,25 +119,25 @@ export class FinancialService {
             + Number(cashFlowStatementData.longTermLoanReceived[index].value)
             + Number(cashFlowStatementData.dividendDrawing[index].value)
             + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
-            + Number(cashFlowStatementData.otherAdjustments[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.otherAdjustments[index].value)).toFixed(8);
     }
 
     netCashFlowTotal(cashFlowStatementData, index) {
         cashFlowStatementData.netCashFlow[index].value =
             (Number(cashFlowStatementData.cashFromOperatingActivities[index].value)
             + Number(cashFlowStatementData.cashFromInvestingActivities[index].value)
-            + Number(cashFlowStatementData.cashFromFinancingActivities[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.cashFromFinancingActivities[index].value)).toFixed(8);
     }
 
     closingCashTotal(cashFlowStatementData, index) {
         cashFlowStatementData.closingCash[index].value =
             (Number(cashFlowStatementData.netCashFlow[index].value)
-            + Number(cashFlowStatementData.addOpeningBalance[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.addOpeningBalance[index].value)).toFixed(8);
     }
 
     differenceCFSTotal(cashFlowStatementData, index) {
         cashFlowStatementData.differenceCFS[index].value =
             (Number(cashFlowStatementData.closingCash[index].value)
-            - Number(cashFlowStatementData.closingBalance[index].value)).toFixed(2);
+            - Number(cashFlowStatementData.closingBalance[index].value)).toFixed(8);
     }
 }
