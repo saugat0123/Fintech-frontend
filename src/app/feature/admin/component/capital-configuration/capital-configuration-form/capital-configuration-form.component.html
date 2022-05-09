@@ -10,13 +10,16 @@
              formArrayName="coreCapital">
             <div class="row" [formGroupName]="i">
                 <div class="col-md-12 form-group">
-                    <label for="capital">capital</label>
+                    <label for="capital">Core Capital (in Billion)</label>
                     <span *ngIf="i >0" class="fa fa-trash float-right" (click)="removeForm(i)"></span>
                     <input
-                           id="capital" formControlName="rate" placeholder="Enter core capital in billion" nbInput fullWidth
+                           id="capital" formControlName="rate" placeholder="eg. NRP 100 billion" nbInput fullWidth
                            type="text"/>
                     <div *ngIf="form.get(['coreCapital',i,'rate']).errors" class="small text-danger">
                         Core capital is required
+                    </div>
+                    <div *ngIf="i===capital.length-1">
+                        <button class="badge badge-primary float-right " (click)="addCoreCapital()">add more</button>
                     </div>
 
 
@@ -24,8 +27,8 @@
                 </div>
             </div>
         </div>
-            <button class="badge badge-primary float-right" (click)="addCoreCapital()">add more</button>
-            <div class="modal-footer  ">
+
+            <div class="modal-footer ">
                 <button nbButton status="info" type="submit" class="float-right" [disabled]="form.invalid" >Save</button>
             </div>
         </form>
