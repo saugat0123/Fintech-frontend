@@ -247,7 +247,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         //
         // Cash Flow Statement Calculation--
-        cashFlowStatement.netProfitForThePeriod[index].value = (profitAfterTax.controls['value'].value);
+        cashFlowStatement.netProfitForThePeriod[index].value = Number(profitAfterTax.controls['value'].value).toFixed(8);
         cashFlowStatement.depreciation[index].value = this.financialService
             .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index).toFixed(8);
         cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
@@ -255,7 +255,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 'Amortization/Other Non-Cash Expenses', index).toFixed(8);
         cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
             Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(8);
-        cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
+        cashFlowStatement.interestExpensesCFSa[index].value = Number(interestExpenses.controls['value'].value).toFixed(8);
 
         this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
 
@@ -270,7 +270,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 - Number(balanceSheet.otherAssets[index].value) - Number(this.financialService
                     .fetchValuesForSubCategories(this.incomeStatementForm
                         .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(8);
-            cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value.toFixed(8);
+            cashFlowStatement.addOpeningBalance[index].value = Number(cashFlowStatement.closingBalance[index - 1].value).toFixed(8);
 
         } else {
                 cashFlowStatement.changedInFixedAsset[index].value =

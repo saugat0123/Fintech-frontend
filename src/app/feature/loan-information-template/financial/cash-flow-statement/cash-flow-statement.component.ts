@@ -258,7 +258,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -545,7 +545,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(increaseDecreaseInCreditors)
             + Number(increaseDecreaseInOtherCurrentLiabilities)
             + Number(adjustmentForNonOperatingIncome)
-            + Number(interestExpensesCFSa)).toFixed(2));
+            + Number(interestExpensesCFSa)).toFixed(8));
 
         const cashFromOperatingActivities = (this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).value[0].value;
         const addOpeningBalance = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
@@ -563,7 +563,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(nonOperatingIncomeExpenses)
             + Number(changeInOtherAssets)
             + Number(changeInOtherLongTermLiabilities)
-            + Number(changeInOtherProvisions)).toFixed(2));
+            + Number(changeInOtherProvisions)).toFixed(8));
         const cashFromInvestingActivities = (this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray).value[0].value;
 
         /** For cashFromFinancingActivities **/
@@ -580,26 +580,26 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(longTermLoanReceived)
             + Number(dividendDrawing)
             + Number(interestExpensesCFSb)
-            + Number(otherAdjustments)).toFixed(2));
+            + Number(otherAdjustments)).toFixed(8));
         const cashFromFinancingActivities = (this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).value[0].value;
 
         /** Calculating net cash flow **/
         ((this.cashFlowStatementForm.get('netCashFlow') as FormArray).controls[0] as FormGroup)
             .controls['value'].patchValue((Number(cashFromOperatingActivities)
             + Number(cashFromInvestingActivities)
-            + Number(cashFromFinancingActivities)).toFixed(2));
+            + Number(cashFromFinancingActivities)).toFixed(8));
         const netCashFlow = (this.cashFlowStatementForm.get('netCashFlow') as FormArray).value[0].value;
 
         /** Calculating closing cash */
         ((this.cashFlowStatementForm.get('closingCash') as FormArray).controls[0] as FormGroup)
             .controls['value'].patchValue((Number(netCashFlow)
-            + Number(addOpeningBalance)).toFixed(2));
+            + Number(addOpeningBalance)).toFixed(8));
         const closingBalance = (this.cashFlowStatementForm.get('closingBalance') as FormArray).value[0].value;
         const closingCash = (this.cashFlowStatementForm.get('closingCash') as FormArray).value[0].value;
 
         /** Calculating difference in CFS **/
         ((this.cashFlowStatementForm.get('differenceCFS') as FormArray).controls[0] as FormGroup)
-            .controls['value'].patchValue((Number(closingCash) - Number(closingBalance)).toFixed(2));
+            .controls['value'].patchValue((Number(closingCash) - Number(closingBalance)).toFixed(8));
     }
 
     saveAdjustmentForWorkingCapital() {
@@ -663,13 +663,13 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const addOpeningBalanceForInitialYear = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
 
         ((this.cashFlowStatementForm.get('closingCash') as FormArray).controls[0] as FormGroup)
-            .controls['value'].patchValue((Number(netCashFlowForInitialYear) + Number(addOpeningBalanceForInitialYear)).toFixed(2));
+            .controls['value'].patchValue((Number(netCashFlowForInitialYear) + Number(addOpeningBalanceForInitialYear)).toFixed(8));
 
         const closingCashForInitialYear = (this.cashFlowStatementForm.get('closingCash') as FormArray).value[0].value;
         const closingBalanceForInitialYear = (this.cashFlowStatementForm.get('closingBalance') as FormArray).value[0].value;
 
         ((this.cashFlowStatementForm.get('differenceCFS') as FormArray).controls[0] as FormGroup)
-            .controls['value'].patchValue((Number(closingCashForInitialYear) - Number(closingBalanceForInitialYear)).toFixed(2));
+            .controls['value'].patchValue((Number(closingCashForInitialYear) - Number(closingBalanceForInitialYear)).toFixed(8));
     }
 
     ngOnDestroy(): void {

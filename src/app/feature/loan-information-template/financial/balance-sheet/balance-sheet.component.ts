@@ -209,7 +209,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         this.balanceSheetForm.get('netWorthCategory')['controls'].some( category => {
             if (category.get('name').value === 'Retained Earning') {
                 const amountIndex = (category.get('amount') as FormArray).controls[index] as FormGroup;
-                amountIndex.controls['value'].setValue(retainedEarningsValue.toFixed(8));
+                amountIndex.controls['value'].setValue(retainedEarningsValue);
             }
         });
 
