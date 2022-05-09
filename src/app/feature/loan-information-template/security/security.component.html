@@ -35,7 +35,7 @@
         </div>
 
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
-        <app-apartment #apartmentSecurity *ngIf="apartmentSelected"></app-apartment>
+        <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"></app-apartment>
         <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"></app-land-building>
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
