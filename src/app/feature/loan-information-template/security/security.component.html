@@ -41,7 +41,7 @@
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
                            [calendarType]="calendarType"></app-fixed-deposit>
-        <app-share *ngIf="shareSelected"></app-share>
+        <app-share #shareSecurityComponent *ngIf="shareSelected"></app-share>
         <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStock"></app-hypothecation-of-stock>
         <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuarantee"></app-corporation-guarantee>
         <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personal"></app-personal-guarantee>

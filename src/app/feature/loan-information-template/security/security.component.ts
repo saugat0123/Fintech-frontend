@@ -38,6 +38,7 @@ import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assign
 import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './other-security/other-security.component';
 import {VehicleComponent} from './vehicle/vehicle.component';
+import {ShareComponent} from './share/share.component';
 
 @Component({
     selector: 'app-security',
@@ -73,6 +74,9 @@ export class SecurityComponent implements OnInit {
 
     @ViewChild('fixedDepositSecurity', {static: false})
     fixedDepositSecurity: FixedDepositComponent;
+
+    @ViewChild('shareSecurityComponent', {static: false})
+    shareSecurityComponent: ShareComponent;
 
     @ViewChild('hypothecationSecurity', {static: false})
     hypothecationSecurity: HypothecationOfStockComponent;
@@ -466,6 +470,11 @@ export class SecurityComponent implements OnInit {
         if (this.depositSelected) {
             const depositData = this.fixedDepositSecurity.fixedDepositForm.value.fixedDepositDetails;
             const securities = this.constructSecurityArray(depositData, SecuritiesType.FIXED_DEPOSIT_RECEIPT);
+            this.securityDataEmitter.emit(securities);
+        }
+        if (this.shareSelected) {
+            const shareData = this.shareSecurityComponent.shareSecurityForm.value;
+            const securities = this.constructSecurityArray(shareData, SecuritiesType.SHARE_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
         if (this.hypothecationOfStock) {
