@@ -1,12 +1,14 @@
 <div [formGroup]="addressForm" class="row">
   <div class="col-md-6 form-group">
     <label class="title" for="address1">Address Line 1</label>
-    <input class="form-control" formControlName="address1" id="address1" name="address1"
+    <input [readonly]="sameAddress"
+           class="form-control" formControlName="address1" id="address1" name="address1"
            placeholder="Address Line 1 (optional)" type="text">
   </div>
   <div class="col-md-6 form-group">
     <label class="title" for="address2">Address Line 2</label>
-    <input class="form-control" formControlName="address2" id="address2" name="address2"
+    <input [readonly]="sameAddress"
+           class="form-control" formControlName="address2" id="address2" name="address2"
            placeholder="Address Line 2 (optional)" type="text">
   </div>
 
@@ -20,6 +22,7 @@
             id="province">
       <option [ngValue]="null" hidden>Province</option>
       <option *ngFor="let provinceVal of provinceList"
+              [hidden] = "sameAddress"
               [ngValue]="provinceVal">
         {{provinceVal.name}}
       </option>
@@ -41,6 +44,7 @@
             id="district">
       <option [ngValue]="null" hidden>District</option>
       <option *ngFor="let districtVal of districts"
+              [hidden] = "sameAddress"
               [ngValue]="districtVal">
         {{districtVal.name}}
       </option>
@@ -61,7 +65,8 @@
             id="municipality"
             name="municipality">
       <option [ngValue]="null" hidden>Municipality/VDC</option>
-      <option *ngFor="let municipalityVal of municipalities"
+      <option [hidden]="sameAddress"
+              *ngFor="let municipalityVal of municipalities"
               [ngValue]="municipalityVal">
         {{municipalityVal.name}}
       </option>
@@ -75,6 +80,7 @@
     <label class="title" for="ward">Ward Number</label>
     <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
            formControlName="ward"
+           [readonly]="sameAddress"
            id="ward" name="ward"
            placeholder="Ward" type="number">
     <div *ngIf="(submitted) && form.ward.invalid"
