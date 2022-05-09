@@ -925,6 +925,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'Land and Building Security' :
+                    this.setLandBuildingValidation();
                     this.landBuilding = true;
                     break;
                 case 'PlantSecurity' :
@@ -1041,6 +1042,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('totalShareUnit').updateValueAndValidity();
             });
         }
+        this.clearLandBuildingValidators();
     }
     clearValidationState() {
         if (this.selectedSecurity === 'LandSecurity') {
@@ -1390,6 +1392,29 @@ export class SecurityInitialFormComponent implements OnInit {
             f.get('sheetNo').clearValidators();
             f.get('sheetNo').updateValueAndValidity();
             f.get('geoLocation').clearValidators();
+            f.get('geoLocation').updateValueAndValidity();
+        });
+    }
+    setLandBuildingValidation() {
+        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
+        landBuildingFormControls.controls.forEach(f => {
+            f.get('owner').setValidators(Validators.required);
+            f.get('owner').updateValueAndValidity();
+            f.get('landConsideredValue').setValidators(Validators.required);
+            f.get('landConsideredValue').updateValueAndValidity();
+            f.get('plotNumber').setValidators(Validators.required);
+            f.get('plotNumber').updateValueAndValidity();
+            f.get('marketValue').setValidators(Validators.required);
+            f.get('marketValue').updateValueAndValidity();
+            f.get('distressValue').setValidators(Validators.required);
+            f.get('distressValue').updateValueAndValidity();
+            f.get('governmentRate').setValidators(Validators.required);
+            f.get('governmentRate').updateValueAndValidity();
+            f.get('considerValue').setValidators(Validators.required);
+            f.get('considerValue').updateValueAndValidity();
+            f.get('sheetNo').setValidators(Validators.required);
+            f.get('sheetNo').updateValueAndValidity();
+            f.get('geoLocation').setValidators(Validators.required);
             f.get('geoLocation').updateValueAndValidity();
         });
     }
