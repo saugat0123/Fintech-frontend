@@ -31,7 +31,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let guarantor of selectedGuarantorList; let i= index">
+          <ng-container  *ngFor="let guarantor of selectedGuarantorList; let i= index">
+          <tr>
             <td>{{i + 1}}</td>
             <td>{{guarantor?.name}}</td>
             <td>{{guarantor?.citizenNumber}}</td>
@@ -41,11 +42,18 @@
                          class="btn btn-sm btn-flat btn-danger">
               <em class="fa fa-trash bg-transparent"></em>
             </button>
-              <button (click)="openGuarantorDetailModal(guarantor)"
+              <button (click)="toggle[i].toggled = !toggle[i].toggled"
                          class="ml-1 btn btn-sm btn-flat btn-primary">
               <em class="fa fa-info bg-transparent"></em>
             </button></td>
           </tr>
+            <tr *ngIf="toggle[i].toggled">
+              <td colspan="6">
+             <app-guarantor-detail [guarantorData]="guarantor"></app-guarantor-detail>
+              </td>
+            </tr>
+          </ng-container>
+
           </tbody>
         </table>
         <p *ngIf="selectedGuarantorList.length === 0" class="text-center">No Guarantor tagged yet!</p>
