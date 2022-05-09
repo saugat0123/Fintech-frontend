@@ -62,6 +62,7 @@ export class LandBuildingComponent implements OnInit {
     this.branchList();
     this.getRoleList();
     this.reArrangeEnumType();
+    this.getProvince();
   }
 
   private buildForm(): FormGroup {
@@ -162,7 +163,7 @@ export class LandBuildingComponent implements OnInit {
   }
 
   public updateLandSecurityTotal(): void {
-    const landDetails = this.landBuildingForm.get('landDetails') as FormArray;
+    const landDetails = this.landBuildingForm.get('landBuilding') as FormArray;
     this.totaldv = 0;
     this.totalmv = 0;
     this.totalcv = 0;
