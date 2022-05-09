@@ -135,7 +135,6 @@ export class SecurityComponent implements OnInit {
     alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
     lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
 
-    landOtherBranchChecked = false;
     vehicleSelected = false;
     apartmentSelected = false;
     landSelected = false;
@@ -154,11 +153,6 @@ export class SecurityComponent implements OnInit {
     underConstructionChecked = false;
     isFixedDeposit = false;
     ckeConfig;
-
-    apartmentOtherBranchChecked = false;
-    landBuildingOtherBranchChecked = false;
-    vehicleOtherBranchChecked = false;
-    plantOtherBranchChecked = false;
 
     selectedSecurity: string;
 
