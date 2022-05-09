@@ -688,19 +688,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             riskConclusionRecommendation: [undefined],
             termsAndCondition: [undefined],
             mergedCheck: [undefined],
-            shares: this.formBuilder.array([]),
-            realState: this.formBuilder.array([]),
-            vehicle: this.formBuilder.array([]),
-            deposit: this.formBuilder.array([]),
-            depositBank: [undefined],
-            depositOther: [undefined],
-            depositBankRemark: [undefined],
-            depositOtherRemark: [undefined],
-            total: [undefined],
-            totals: [undefined],
+            sol: [undefined],
+            sector: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
-            console.log('this is the data', this.customerInfo);
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
