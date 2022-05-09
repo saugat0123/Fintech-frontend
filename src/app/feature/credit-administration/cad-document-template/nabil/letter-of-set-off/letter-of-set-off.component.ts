@@ -85,7 +85,6 @@ export class LetterOfSetOffComponent implements OnInit {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
       });
     }
-    console.log('Supported Information:', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
@@ -381,7 +380,6 @@ export class LetterOfSetOffComponent implements OnInit {
         });
         const free = this.letterOfSetOff.value;
         if (!ObjectUtil.isEmpty(this.cadInitialInfo)) {
-          console.log('this.cad initial Info', this.cadInitialInfo);
           if (!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText)) {
             this.letterOfSetOff.get('date').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.date) ?
                 this.cadInitialInfo.sakshiFreeText.date : '');
@@ -582,7 +580,6 @@ export class LetterOfSetOffComponent implements OnInit {
     let tempFreeText: any;
     const freeArray: any = [];
     const free = this.letterOfSetOff.value;
-    console.log('this.letterofsetoff', this.letterOfSetOff.value);
     for (let val = 0; val < free.tdHolderDetailsArray.length; val++) {
       tempFreeText = {
         grandFatherName: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'grandFatherName']) ?
@@ -656,7 +653,6 @@ export class LetterOfSetOffComponent implements OnInit {
         tdDetails: freeArray ? freeArray : '',
         sakshiFreeText: tempSakshi ? tempSakshi : ''
       };
-      console.log('Free:', freeTextJson);
       this.freeText = freeTextJson;
     return JSON.stringify(this.freeText);
   }
