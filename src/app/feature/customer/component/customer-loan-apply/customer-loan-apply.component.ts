@@ -16,7 +16,6 @@ import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {LoanTag} from '../../../loan/model/loanTag';
 import {Security} from '../../../loan/model/security';
-import {SecurityType} from '../../../constants/security-type';
 import {SecuritiesType} from '../../../constants/securities-type';
 
 @Component({
