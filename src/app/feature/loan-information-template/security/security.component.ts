@@ -441,77 +441,77 @@ export class SecurityComponent implements OnInit {
 
         if (this.vehicleSelected) {
             const vehicleData = this.vehicleSecurity.vehicleForm.value.vehicleDetails;
-            const securities = this.constructSecurityArray(vehicleData, SecuritiesType.VEHICLE_SECURITY);
+            const securities = this.constructSecurityArray(vehicleData, 'VEHICLE_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.apartmentSelected) {
             const apartmentData = this.apartmentSecurity.apartmentForm.value;
-            const securities = this.constructSecurityArray(apartmentData, SecuritiesType.APARTMENT_SECURITY);
+            const securities = this.constructSecurityArray(apartmentData, 'APARTMENT_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.landSelected) {
             const landData = this.landSecurity.landForm.value;
-            const securities = this.constructSecurityArray(landData, SecuritiesType.LAND_SECURITY);
+            const securities = this.constructSecurityArray(landData, 'LAND_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.landBuildingSelected) {
             const landBuildingData = this.landBuildingSecurity.landBuildingForm.value;
-            const securities = this.constructSecurityArray(landBuildingData, SecuritiesType.LAND_BUILDING_SECURITY);
+            const securities = this.constructSecurityArray(landBuildingData, 'LAND_BUILDING_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.plantSelected) {
             const plantMachineryData = this.plantMachinerySecurity.plantMachineryForm.value.plantDetails;
-            const securities = this.constructSecurityArray(plantMachineryData, SecuritiesType.PLANT_AND_MACHINERY_SECURITY);
+            const securities = this.constructSecurityArray(plantMachineryData, 'PLANT_AND_MACHINERY_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.depositSelected) {
             const depositData = this.fixedDepositSecurity.fixedDepositForm.value.fixedDepositDetails;
-            const securities = this.constructSecurityArray(depositData, SecuritiesType.FIXED_DEPOSIT_RECEIPT);
+            const securities = this.constructSecurityArray(depositData, 'FIXED_DEPOSIT_RECEIPT');
             this.securityDataEmitter.emit(securities);
         }
         if (this.shareSelected) {
             const shareData = this.shareSecurityComponent.shareSecurityForm.value;
-            const securities = this.constructSecurityArray(shareData, SecuritiesType.SHARE_SECURITY);
+            const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.hypothecationOfStockSelected) {
             const hypothecationOfStockData = this.hypothecationSecurity.hypothecationForm.value.hypothecationOfStock;
-            const securities = this.constructSecurityArray(hypothecationOfStockData, SecuritiesType.HYPOTHECATION_OF_STOCK);
+            const securities = this.constructSecurityArray(hypothecationOfStockData, 'HYPOTHECATION_OF_STOCK');
             this.securityDataEmitter.emit(securities);
         }
         if (this.corporateGuaranteeSelected) {
             const corporateGuaranteeData = this.corporateGuaranteeSecurity.form.value;
-            const securities = this.constructSecurityArray(corporateGuaranteeData, SecuritiesType.CORPORATE_GUARANTEE);
+            const securities = this.constructSecurityArray(corporateGuaranteeData, 'CORPORATE_GUARANTEE');
             this.securityDataEmitter.emit(securities);
         }
         if (this.personalGuaranteeSelected) {
             const personalGuaranteeData = this.personalGuaranteeSecurity.personalGuaranteeForm.value.personalGuarantee;
-            const securities = this.constructSecurityArray(personalGuaranteeData, SecuritiesType.PERSONAL_GUARANTEE);
+            const securities = this.constructSecurityArray(personalGuaranteeData, 'PERSONAL_GUARANTEE');
             this.securityDataEmitter.emit(securities);
         }
         if (this.insurancePolicySelected) {
             const insurancePolicyData = this.insurancePolicySecurity.insurancePolicyForm.value.insurancePolicy;
-            const securities = this.constructSecurityArray(insurancePolicyData, SecuritiesType.INSURANCE_POLICY_SECURITY);
+            const securities = this.constructSecurityArray(insurancePolicyData, 'INSURANCE_POLICY_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.assignmentOfReceivableSelected) {
             const assignmentOfReceivableData = this.assignmentOfReceivableSecurity.assignmentForm.value.assignmentOfReceivables;
-            const securities = this.constructSecurityArray(assignmentOfReceivableData, SecuritiesType.ASSIGNMENT_OF_RECEIVABLES);
+            const securities = this.constructSecurityArray(assignmentOfReceivableData, 'ASSIGNMENT_OF_RECEIVABLES');
             this.securityDataEmitter.emit(securities);
         }
         if (this.leaseAssignmentSelected) {
             const leaseAssignmentData = this.leaseAssignmentSecurity.leaseAssignmentForm.value.leaseAssignment;
-            const securities = this.constructSecurityArray(leaseAssignmentData, SecuritiesType.LEASE_ASSIGNMENT);
+            const securities = this.constructSecurityArray(leaseAssignmentData, 'LEASE_ASSIGNMENT');
             this.securityDataEmitter.emit(securities);
         }
         if (this.otherSecuritySelected) {
             const otherSecurityData = this.otherSecurity.otherSecurityForm.value.otherSecurity;
-            const securities = this.constructSecurityArray(otherSecurityData, SecuritiesType.OTHER_SECURITY);
+            const securities = this.constructSecurityArray(otherSecurityData, 'OTHER_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
     }
 
-    constructSecurityArray(formValues: any, securityType: SecuritiesType): Array<Security> {
+    constructSecurityArray(formValues: any, securityType: any): Array<Security> {
         const securities: Array<Security> = new Array<Security>();
         formValues.forEach(value => {
             const security: Security = new Security();
