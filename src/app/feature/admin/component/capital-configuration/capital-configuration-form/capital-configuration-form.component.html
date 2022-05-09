@@ -1,0 +1,33 @@
+<div [nbSpinner]="spinner">
+    <div class="modal-header sb-bg-dark ">
+        <h4 class="modal-title  text-white">{{action}} Core Capital</h4>
+        <a (click)="onClose()" aria-label="Close" class="close cursor"><span aria-hidden="true" class="text-white">×</span></a>
+    </div>
+
+    <div class="modal-body">
+        <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
+        <div *ngFor="let coreCapital of form.get('coreCapital')['controls']; let i = index"
+             formArrayName="coreCapital">
+            <div class="row" [formGroupName]="i">
+                <div class="col-md-12 form-group">
+                    <label for="capital">capital</label>
+                    <span *ngIf="i >0" class="fa fa-trash float-right" (click)="removeForm(i)"></span>
+                    <input
+                           id="capital" formControlName="rate" placeholder="Enter core capital in billion" nbInput fullWidth
+                           type="text"/>
+                    <div *ngIf="form.get(['coreCapital',i,'rate']).errors" class="small text-danger">
+                        Core capital is required
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+            <button class="badge badge-primary float-right" (click)="addCoreCapital()">add more</button>
+            <div class="modal-footer  ">
+                <button nbButton status="info" type="submit" class="float-right" [disabled]="form.invalid" >Save</button>
+            </div>
+        </form>
+    </div>
+</div>
