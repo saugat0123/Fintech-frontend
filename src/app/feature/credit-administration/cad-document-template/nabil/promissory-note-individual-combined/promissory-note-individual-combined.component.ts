@@ -382,14 +382,14 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          individualCadFile.initialInformation = this.setFreeText();
+          individualCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        this.initialInfoPrint = cadFile.initialInformation;
+        // cadFile.initialInformation = JSON.stringify(this.form.value);
+        this.initialInfoPrint = cadFile.supportedInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -398,8 +398,8 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-      this.initialInfoPrint = cadFile.initialInformation;
+      // cadFile.initialInformation = JSON.stringify(this.form.value);
+      this.initialInfoPrint = cadFile.supportedInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
