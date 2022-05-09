@@ -421,23 +421,7 @@ export class SecurityComponent implements OnInit {
         //     this.securityData = this.securityValue;
         // }
         // this.initialSecurity.submit();
-        // const mergedForm = {
-        //     initialForm: this.initialSecurity.securityForm.value,
-        //     selectedArray: this.initialSecurity.selectedArray,
-        //     underConstructionChecked: this.initialSecurity.underConstructionChecked,
-        //     otherBranchcheck: this.initialSecurity.otherBranchcheck,
-        //     guarantorsForm: this.guarantorsForm.value,
-        //     underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
-        //     securityGuarantee: this.securityForm.get('securityGuarantee').value,
-        //     buildingLocation: this.securityForm.get('buildingLocation').value,
-        //     roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
-        //     lambdaScheme: this.securityForm.get('lambdaScheme').value,
-        //     facCategory: this.securityForm.get('facCategory').value,
-        //     securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
-        //     securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
-        //     vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
-        // };
-        // this.securityData.data = JSON.stringify(mergedForm);
+
         // this.securityData.guarantor = [];
         // this.initialSecurity.selectedArray.forEach((selected) => {
         //     if (selected === 'ShareSecurity') {
@@ -477,17 +461,17 @@ export class SecurityComponent implements OnInit {
         //     this.securityData.guarantor.push(guarantor);
         // }
 
-        const pmData: Array<Security> = new Array<Security>();
-        console.log('blank array', pmData);
-        const plantMachineryData = this.plantMachinerySecurity.plantMachineryForm.value.plantDetails;
-        plantMachineryData.forEach(plant => {
-            const secObj: Security = new Security();
-            secObj.data = JSON.stringify(plant);
-            pmData.push(secObj);
-        });
-        console.log('Plant Machinery Data', plantMachineryData);
-        console.log('pm data', pmData);
-        this.securityDataEmitter.emit(pmData);
+        if (this.plantSelected) {
+            const pmData: Array<Security> = new Array<Security>();
+            const plantMachineryData = this.plantMachinerySecurity.plantMachineryForm.value.plantDetails;
+            plantMachineryData.forEach(plant => {
+                const secObj: Security = new Security();
+                secObj.data = JSON.stringify(plant);
+                pmData.push(secObj);
+            });
+            this.securityDataEmitter.emit(pmData);
+        }
+
     }
 
     controlValidation(controlNames: string[], validate) {

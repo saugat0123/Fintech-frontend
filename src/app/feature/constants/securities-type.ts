@@ -3,7 +3,7 @@ export enum SecuritiesType {
     VEHICLE_SECURITY = 'Vehicle Security',
     APARTMENT_SECURITY = 'Apartment Security',
     LAND_BUILDING_SECURITY = 'Land Building Security',
-    PROPERTY_AND_MACHINERY_SECURITY = 'Plant and Machinery',
+    PLANT_AND_MACHINERY_SECURITY = 'Plant and Machinery',
     FIXED_DEPOSIT_RECEIPT = 'Fixed Deposit Receipt',
     SHARE_SECURITY = 'Share Security',
     HYPOTHECATION_OF_STOCK = 'Hypothecation of Stock',
