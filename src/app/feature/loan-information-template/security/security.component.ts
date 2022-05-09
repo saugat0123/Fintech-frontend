@@ -218,7 +218,7 @@ export class SecurityComponent implements OnInit {
                 case 'LAND_BUILDING_SECURITY' :
                     this.landBuildingSelected = true;
                     break;
-                case 'PROPERTY_AND_MACHINERY_SECURITY' :
+                case 'PLANT_AND_MACHINERY_SECURITY' :
                     this.plantSelected = true;
                     break;
                 case 'FIXED_DEPOSIT_RECEIPT':
