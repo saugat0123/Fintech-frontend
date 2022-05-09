@@ -20,7 +20,6 @@ import {InitialFormComponent} from './financial/initial-form/initial-form.compon
 import {FiscalYearModalComponent} from './financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CoreModule} from '../../@core/core.module';
 import {SecurityComponent} from './security/security.component';
-import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 import {GuarantorComponent} from './guarantor/guarantor.component';
 import {InsuranceComponent} from './insurance/insurance.component';
 import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-loan-document.component';
@@ -41,34 +40,34 @@ import {SecurityRevaluationComponent} from './security/security-initial-form/sec
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
-import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import { CommentsComponent } from './comments/comments.component';
-import { PreviousSecurityComponent } from './previous-security/previous-security.component';
-import { FixAssetCollateralComponent } from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
+import {MicroProposalComponent} from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import {CommentsComponent} from './comments/comments.component';
+import {PreviousSecurityComponent} from './previous-security/previous-security.component';
+import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
-import { CrgMicroComponent } from './crg-micro/crg-micro.component';
-import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
-import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
+import {CrgMicroComponent} from './crg-micro/crg-micro.component';
+import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
+import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
-import { ReviewDateComponent } from './review-date/review-date.component';
-import { MultiBankingComponent } from './multi-banking/multi-banking.component';
-import { FinancialUploadViewComponent } from './financial/financial-upload-view/financial-upload-view.component';
+import {ReviewDateComponent} from './review-date/review-date.component';
+import {MultiBankingComponent} from './multi-banking/multi-banking.component';
+import {FinancialUploadViewComponent} from './financial/financial-upload-view/financial-upload-view.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
-import { LandBuildingComponent } from './security/land-building/land-building.component';
-import { VehicleComponent } from './security/vehicle/vehicle.component';
-import { ApartmentComponent } from './security/apartment/apartment.component';
-import { PlantMachineryComponent } from './security/plant-machinery/plant-machinery.component';
-import { FixedDepositComponent } from './security/fixed-deposit/fixed-deposit.component';
-import { ShareComponent } from './security/share/share.component';
-import { HypothecationOfStockComponent } from './security/hypothecation-of-stock/hypothecation-of-stock.component';
-import { CorporationGuaranteeComponent } from './security/corporation-guarantee/corporation-guarantee.component';
-import { PersonalGuaranteeComponent } from './security/personal-guarantee/personal-guarantee.component';
-import { InsurancePolicyComponent } from './security/insurance-policy/insurance-policy.component';
-import { AssignmentOfReceivableComponent } from './security/assignment-of-receivable/assignment-of-receivable.component';
-import { LeaseAssignmentComponent } from './security/lease-assignment/lease-assignment.component';
-import { OtherSecurityComponent } from './security/other-security/other-security.component';
-import { LandComponent } from './security/land/land.component';
+import {LandBuildingComponent} from './security/land-building/land-building.component';
+import {VehicleComponent} from './security/vehicle/vehicle.component';
+import {ApartmentComponent} from './security/apartment/apartment.component';
+import {PlantMachineryComponent} from './security/plant-machinery/plant-machinery.component';
+import {FixedDepositComponent} from './security/fixed-deposit/fixed-deposit.component';
+import {ShareComponent} from './security/share/share.component';
+import {HypothecationOfStockComponent} from './security/hypothecation-of-stock/hypothecation-of-stock.component';
+import {CorporationGuaranteeComponent} from './security/corporation-guarantee/corporation-guarantee.component';
+import {PersonalGuaranteeComponent} from './security/personal-guarantee/personal-guarantee.component';
+import {InsurancePolicyComponent} from './security/insurance-policy/insurance-policy.component';
+import {AssignmentOfReceivableComponent} from './security/assignment-of-receivable/assignment-of-receivable.component';
+import {LeaseAssignmentComponent} from './security/lease-assignment/lease-assignment.component';
+import {OtherSecurityComponent} from './security/other-security/other-security.component';
+import {LandComponent} from './security/land/land.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -81,7 +80,6 @@ const COMPONENTS = [
     InitialFormComponent,
     FiscalYearModalComponent,
     SecurityComponent,
-    SecurityInitialFormComponent,
     GuarantorComponent,
     InsuranceComponent,
     CustomerLoanDocumentComponent,

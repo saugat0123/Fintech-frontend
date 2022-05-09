@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../loan/model/security';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {AddressService} from '../../../@core/service/baseservice/address.service';
@@ -16,20 +15,16 @@ import {LandAndBuildingLocation} from '../model/land-and-building-location';
 import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 import {CustomerType} from '../../customer/model/customerType';
 import {ActivatedRoute} from '@angular/router';
-import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 import {RoadAccess} from '../../admin/modal/crg/RoadAccess';
 import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
-import {TemplateName} from '../../customer/model/templateName';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecuritiesType} from '../../constants/securities-type';
 import {PlantMachineryComponent} from './plant-machinery/plant-machinery.component';
 import {LandComponent} from './land/land.component';
-import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 import {ApartmentComponent} from './apartment/apartment.component';
 import {LandBuildingComponent} from './land-building/land-building.component';
 import {FixedDepositComponent} from './fixed-deposit/fixed-deposit.component';
@@ -42,7 +37,6 @@ import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.comp
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
 import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './other-security/other-security.component';
-import {Branch} from '../../admin/modal/branch';
 import {VehicleComponent} from './vehicle/vehicle.component';
 
 @Component({
@@ -101,12 +95,6 @@ export class SecurityComponent implements OnInit {
     @ViewChild('otherSecurity', {static: false})
     otherSecurity: OtherSecurityComponent;
 
-
-    @ViewChild('initialSecurity', {static: false})
-    initialSecurity: SecurityInitialFormComponent;
-
-
-
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
     securityForm: FormGroup;
@@ -130,7 +118,6 @@ export class SecurityComponent implements OnInit {
     locationList = LandAndBuildingLocation.enumObject();
     coverageList = VehicleSecurityCoverage.enumObject();
     newCoverage = VehicleSecurityCoverage.getNew();
-    usedCoverage = VehicleSecurityCoverage.getUsed();
 
     apNewCoverage = SecurityCoverageAutoPrivate.getNew();
     apUsedCoverage = SecurityCoverageAutoPrivate.getUsed();
@@ -148,26 +135,25 @@ export class SecurityComponent implements OnInit {
     alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
     lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
 
-    landSelected = false;
-    apartmentSelected = false;
     landOtherBranchChecked = false;
-    plantSelected = false;
     vehicleSelected = false;
+    apartmentSelected = false;
+    landSelected = false;
+    landBuilding = false;
+    plantSelected = false;
+    depositSelected = false;
     shareSelected = false;
+    hypothecationOfStock = false;
+    corporateGuarantee = false;
+    personal = false;
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
-    underConstructionChecked = false;
-    depositSelected = false;
-    otherBranchcheck = false;
-    isFixedDeposit = false;
-    landBuilding = false;
-    underBuildingConstructionChecked = false;
-    hypothecationOfStock = false;
     assignments = false;
     securityOther = false;
-    corporateGuarantee = false;
+
+    underConstructionChecked = false;
+    isFixedDeposit = false;
     ckeConfig;
-    personal = false;
 
     apartmentOtherBranchChecked = false;
     landBuildingOtherBranchChecked = false;
@@ -177,10 +163,6 @@ export class SecurityComponent implements OnInit {
     selectedSecurity: string;
 
     securityTypes = SecuritiesType.enumObject();
-
-    securityTypeValues = SecuritiesType.values();
-    securityTypeEnumObject = SecuritiesType.enumObject();
-
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
