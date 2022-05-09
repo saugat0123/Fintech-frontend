@@ -92,6 +92,8 @@ import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-h
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import { CapitalConfigurationComponent } from './component/capital-configuration/capital-configuration.component';
+import { CapitalConfigurationFormComponent } from './component/capital-configuration/capital-configuration-form/capital-configuration-form.component';
 
 @NgModule({
     declarations: [
@@ -168,6 +170,8 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         CadRoleHierarchyComponent,
         CbsGroupExecutorComponent,
         RoleAddComponent,
+        CapitalConfigurationComponent,
+        CapitalConfigurationFormComponent,
         // SecurityComponent
     ],
   imports: [
@@ -220,7 +224,8 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         RemarkModalComponent,
         AccountNumberModalComponent,
         FinancialConfigModalComponent,
-        RoleAddComponent
+        RoleAddComponent,
+        CapitalConfigurationFormComponent
     ]
 
 })
