@@ -37,7 +37,6 @@ export class Section6FacilitiesClauseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      console.log('this.tempData', this.tempData);
     }
     this.fillForm();
     this.getLoanName();

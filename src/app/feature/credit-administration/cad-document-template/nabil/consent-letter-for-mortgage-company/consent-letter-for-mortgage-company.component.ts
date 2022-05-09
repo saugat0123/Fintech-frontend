@@ -93,7 +93,6 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
     this.setIssuedDate();
     // this.checkBorrowerData();
     this.fillForm();
-    console.log('this.initialInfo', this.initialInfo);
   }
   buildForm() {
     this.form = this.formBuilder.group({
