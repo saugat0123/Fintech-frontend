@@ -43,6 +43,7 @@ import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assign
 import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './other-security/other-security.component';
 import {Branch} from '../../admin/modal/branch';
+import {VehicleComponent} from './vehicle/vehicle.component';
 
 @Component({
     selector: 'app-security',
@@ -65,7 +66,7 @@ export class SecurityComponent implements OnInit {
     landSecurity: LandComponent;
 
     @ViewChild('vehicleSecurity', {static: false})
-    vehicleSecurity: VehicleSecurity;
+    vehicleSecurity: VehicleComponent;
 
     @ViewChild('apartmentSecurity', {static: false})
     apartmentSecurity: ApartmentComponent;
@@ -461,55 +462,66 @@ export class SecurityComponent implements OnInit {
         //     this.securityData.guarantor.push(guarantor);
         // }
 
-
+        if (this.vehicleSelected) {
+            const vehicleData = this.vehicleSecurity.vehicleForm.value.vehicleDetails;
+            const securities = this.constructSecurityArray(vehicleData, SecuritiesType.VEHICLE_SECURITY);
+            this.securityDataEmitter.emit(securities);
+        }
+        if (this.apartmentSelected) {
+            const apartmentData = this.apartmentSecurity.apartmentForm.value;
+            const securities = this.constructSecurityArray(apartmentData, SecuritiesType.APARTMENT_SECURITY);
+            this.securityDataEmitter.emit(securities);
+        }
+        if (this.landSelected) {
+            const landData = this.landSecurity.landForm.value;
+            const securities = this.constructSecurityArray(landData, SecuritiesType.LAND_SECURITY);
+            this.securityDataEmitter.emit(securities);
+        }
+        if (this.landBuilding) {
+            const landBuildingData = this.landBuildingSecurity.landBuildingForm.value;
+            const securities = this.constructSecurityArray(landBuildingData, SecuritiesType.LAND_BUILDING_SECURITY);
+            this.securityDataEmitter.emit(securities);
+        }
         if (this.plantSelected) {
             const plantMachineryData = this.plantMachinerySecurity.plantMachineryForm.value.plantDetails;
             const securities = this.constructSecurityArray(plantMachineryData, SecuritiesType.PLANT_AND_MACHINERY_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.depositSelected) {
             const depositData = this.fixedDepositSecurity.fixedDepositForm.value.fixedDepositDetails;
             const securities = this.constructSecurityArray(depositData, SecuritiesType.FIXED_DEPOSIT_RECEIPT);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.hypothecationOfStock) {
             const hypothecationOfStockData = this.hypothecationSecurity.hypothecationForm.value.hypothecationOfStock;
             const securities = this.constructSecurityArray(hypothecationOfStockData, SecuritiesType.HYPOTHECATION_OF_STOCK);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.corporateGuarantee) {
             const corporateGuaranteeData = this.corporateGuaranteeSecurity.form.value;
             const securities = this.constructSecurityArray(corporateGuaranteeData, SecuritiesType.CORPORATE_GUARANTEE);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.personal) {
             const personalGuaranteeData = this.personalGuaranteeSecurity.personalGuaranteeForm.value.personalGuarantee;
             const securities = this.constructSecurityArray(personalGuaranteeData, SecuritiesType.PERSONAL_GUARANTEE);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.insurancePolicySelected) {
             const insurancePolicyData = this.insurancePolicySecurity.insurancePolicyForm.value.insurancePolicy;
             const securities = this.constructSecurityArray(insurancePolicyData, SecuritiesType.INSURANCE_POLICY_SECURITY);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.assignmentOfReceivable) {
             const assignmentOfReceivableData = this.assignmentOfReceivableSecurity.assignmentForm.value.assignmentOfReceivables;
             const securities = this.constructSecurityArray(assignmentOfReceivableData, SecuritiesType.ASSIGNMENT_OF_RECEIVABLES);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.assignments) {
             const leaseAssignmentData = this.leaseAssignmentSecurity.leaseAssignmentForm.value.leaseAssignment;
             const securities = this.constructSecurityArray(leaseAssignmentData, SecuritiesType.LEASE_ASSIGNMENT);
             this.securityDataEmitter.emit(securities);
         }
-
         if (this.securityOther) {
             const otherSecurityData = this.otherSecurity.otherSecurityForm.value.otherSecurity;
             const securities = this.constructSecurityArray(otherSecurityData, SecuritiesType.OTHER_SECURITY);
@@ -518,14 +530,14 @@ export class SecurityComponent implements OnInit {
     }
 
     constructSecurityArray(formValues: any, securityType: SecuritiesType): Array<Security> {
-        const pmData: Array<Security> = new Array<Security>();
-        formValues.forEach(plant => {
-            const secObj: Security = new Security();
-            secObj.data = JSON.stringify(plant);
-            secObj.securityType = SecuritiesType.PLANT_AND_MACHINERY_SECURITY;
-            pmData.push(secObj);
+        const securities: Array<Security> = new Array<Security>();
+        formValues.forEach(value => {
+            const security: Security = new Security();
+            security.data = JSON.stringify(value);
+            security.securityType = securityType;
+            securities.push(security);
         });
-        return pmData;
+        return securities;
     }
 
     controlValidation(controlNames: string[], validate) {
