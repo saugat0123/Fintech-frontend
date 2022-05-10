@@ -73,6 +73,7 @@
                 <th>Used Amount</th>
                 <th>Free Limit</th>
                 <th>Coverage(%)</th>
+                <th>Security Type</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -85,7 +86,7 @@
                 <td>{{security?.usedAmount || '0'}}</td>
                 <td>{{security?.freeLimit || '0'}}</td>
                 <td>{{security?.coverage || '0'}}</td>
-                <td>
+                <td>{{security?.securityType}}</td>
                 <td>
                     <button (click)="removeSecurity(i)"
                             class="btn btn-sm btn-flat btn-danger">
