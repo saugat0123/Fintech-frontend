@@ -64,7 +64,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     loanHolderLoanList: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
-    clientType = [];
+    clientType: any;
     subSector = [];
     model: LoanDataHolder = new LoanDataHolder();
     isCombine = false;

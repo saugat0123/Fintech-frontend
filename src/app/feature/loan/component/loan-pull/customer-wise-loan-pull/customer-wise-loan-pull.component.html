@@ -108,11 +108,10 @@
                                 <select
                                         class="form-control form-control-tiny" formControlName="clientType">
                                     <option [ngValue]="null">Select Business Unit</option>
-                                    <option *ngFor="let data of clientType" [ngValue]="data"
-                                    >
+                                    <option *ngFor="let data of (clientType | keyvalue)" [ngValue]="data?.key">
                                         <span
                                                 class="sb-small">
-                                            {{data}}</span></option>
+                                            {{data?.value}}</span></option>
                                 </select>
                             </div>
                             <div class="col-md-3 py-2">

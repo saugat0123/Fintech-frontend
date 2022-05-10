@@ -188,7 +188,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(Number(singleData.value).toFixed(8)).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -201,7 +201,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(Number(singleData.value).toFixed(8)).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -214,7 +214,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -227,7 +227,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -240,7 +240,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -253,7 +253,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -266,7 +266,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -279,7 +279,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -292,7 +292,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -305,7 +305,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -318,7 +318,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -331,7 +331,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -344,7 +344,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -357,7 +357,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -370,7 +370,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -383,7 +383,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -396,7 +396,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -409,7 +409,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -422,7 +422,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -435,7 +435,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -448,7 +448,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -461,7 +461,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -474,7 +474,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -487,7 +487,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -500,7 +500,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -513,7 +513,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -526,7 +526,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -539,7 +539,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -552,7 +552,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -564,7 +564,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
@@ -577,7 +577,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    value: [singleData.value],
+                    value: [Number(singleData.value).toFixed(8)],
                     year: [singleData.year]
                 })
             );
