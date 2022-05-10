@@ -24,9 +24,9 @@
                             <tr>
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
-                                    <td>{{security.get('fairMarketValue')?.value || 'N/A'}}</td>
-                                    <td>{{security.get('distressValue')?.value || 'N/A'}}</td>
-                                    <td>{{security.get('considerValue')?.value || 'N/A'}}</td>
+                                    <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
+                                    <td>{{security.get('distressValue')?.value || '0'}}</td>
+                                    <td>{{security.get('considerValue')?.value || '0'}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
                                                (input)="calcFreeLimit(i,security.get('considerValue')?.value, security.get('usedAmount').value,
@@ -34,8 +34,8 @@
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>
-                                    <td>{{security.get('freeLimit')?.value || 'N/A'}}</td>
-                                    <td>{{security.get('coverage')?.value || 'N/A'}}</td>
+                                    <td>{{security.get('freeLimit')?.value || '0'}}</td>
+                                    <td>{{security.get('coverage')?.value || '0'}}</td>
                                     <td>{{security.get('securityType')?.value || 'N/A'}}</td>
                                     <td>
                                         <a class="px-2 cursor" *ngIf="securityPresent[i]"
@@ -79,12 +79,12 @@
             <tbody>
             <tr *ngFor="let security of securityList; let i=index;">
                 <td>{{i + 1}}</td>
-                <td>{{security?.fairMarketValue || 'N/A'}}</td>
-                <td>{{security?.distressValue || 'N/A'}}</td>
-                <td>{{security?.considerValue || 'N/A'}}</td>
-                <td>{{security?.usedAmount || 'N/A'}}</td>
-                <td>{{security?.freeLimit || 'N/A'}}</td>
-                <td>{{security?.coverage || 'N/A'}}</td>
+                <td>{{security?.fairMarketValue || '0'}}</td>
+                <td>{{security?.distressValue || '0'}}</td>
+                <td>{{security?.considerValue || '0'}}</td>
+                <td>{{security?.usedAmount || '0'}}</td>
+                <td>{{security?.freeLimit || '0'}}</td>
+                <td>{{security?.coverage || '0'}}</td>
                 <td>
                 <td>
                     <button (click)="removeSecurity(i)"
