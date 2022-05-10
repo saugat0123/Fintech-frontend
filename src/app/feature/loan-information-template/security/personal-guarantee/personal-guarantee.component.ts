@@ -46,6 +46,9 @@ export class PersonalGuaranteeComponent implements OnInit {
                 email: [undefined],
                 phoneNumber: [undefined],
                 owner: [undefined],
+                considerValue: 0,
+                fairMarketValue: [undefined],
+                distressValue: [undefined],
                 otherDetail: [undefined]
             }
         );

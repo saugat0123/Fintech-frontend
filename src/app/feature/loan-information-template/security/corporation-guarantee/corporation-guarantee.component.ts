@@ -45,6 +45,9 @@ export class CorporationGuaranteeComponent implements OnInit {
           keyPerson: [undefined],
           email: [undefined],
           phoneNumber: [undefined],
+          considerValue: 0,
+          fairMarketValue: [undefined],
+          distressValue: [undefined],
           otherDetail: [undefined],
         }
     );

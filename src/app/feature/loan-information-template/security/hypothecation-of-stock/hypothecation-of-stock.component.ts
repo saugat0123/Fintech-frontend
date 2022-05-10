@@ -32,19 +32,22 @@ export class HypothecationOfStockComponent implements OnInit {
   }
 
 
-  public hypothecationDetailsFormGroup(): FormGroup {
-    return this.formBuilder.group({
-          owner: [undefined, Validators.required],
-          stock: [undefined],
-          value: [undefined],
-          otherDetail: [undefined],
-          description: [undefined],
-          hypothecationOwnerRelationship: [undefined],
-          ownerKycApplicableData: [undefined],
-          kycCheckForHypthecation: [false],
-        }
-    );
-  }
+    public hypothecationDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                owner: [undefined, Validators.required],
+                stock: [undefined],
+                value: [undefined],
+                otherDetail: [undefined],
+                considerValue: 0,
+                fairMarketValue: [undefined],
+                distressValue: [undefined],
+                description: [undefined],
+                hypothecationOwnerRelationship: [undefined],
+                ownerKycApplicableData: [undefined],
+                kycCheckForHypthecation: [false],
+            }
+        );
+    }
 
  public ownerKycRelationInfoCheck(kycCheck, kycCheckId, index): void {
     // if (kycCheckId === 'land') {
