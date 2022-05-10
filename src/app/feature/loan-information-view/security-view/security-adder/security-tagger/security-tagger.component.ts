@@ -4,11 +4,11 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 
 @Component({
-  selector: 'app-plant-machinery-adder',
-  templateUrl: './plant-machinery-adder.component.html',
-  styleUrls: ['./plant-machinery-adder.component.scss']
+  selector: 'app-security-tagger',
+  templateUrl: './security-tagger.component.html',
+  styleUrls: ['./security-tagger.component.scss']
 })
-export class PlantMachineryAdderComponent implements OnInit {
+export class SecurityTaggerComponent implements OnInit {
   @Input() securities: Array<Security>;
   securityForm: FormGroup;
     limitExceed = [];
