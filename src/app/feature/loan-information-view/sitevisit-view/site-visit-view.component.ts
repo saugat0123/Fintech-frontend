@@ -12,13 +12,16 @@ export class SiteVisitViewComponent implements OnInit {
   businessSiteVisitSummary = false;
   fixedAssetCollateralSummary = false;
   currentAssetsInspectionSummary = false;
+  isRentedLeased = false;
+  isNotRentedLeased = false;
+  rentedLeasedArray: Array<any> = new Array<any>();
+  notRentedLeasedArray: Array<any> = new Array<any>();
   constructor() { }
 
   formData: any;
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.siteVisit)) {
      this.formData = JSON.parse( this.siteVisit.data);
-      console.log('siteVisit::: => ', this.formData);
           switch (this.formData['checkboxSelected']) {
             case 'currentResidentFormChecked' :
               this.currentResidentSummary = true;
@@ -31,6 +34,18 @@ export class SiteVisitViewComponent implements OnInit {
               break;
             case 'currentAssetsInspectionFormChecked' :
               this.currentAssetsInspectionSummary = true;
+      }
+      if (!ObjectUtil.isEmpty(this.formData) &&
+          !ObjectUtil.isEmpty(this.formData['currentAssetsInspectionDetails'])) {
+        this.formData['currentAssetsInspectionDetails'].forEach(val => {
+          if (val.rents === 'Rented/Leased') {
+            this.isRentedLeased = true;
+            this.rentedLeasedArray.push(val);
+          } else {
+            this.isNotRentedLeased = true;
+            this.notRentedLeasedArray.push(val);
+          }
+        });
       }
     }
     }
