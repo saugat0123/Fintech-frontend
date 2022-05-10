@@ -49,6 +49,11 @@ export class DefaultLoanTemplate {
             active: false,
             name: 'Security',
             templateUrl: null
+        },
+        {
+            active: false,
+            name: 'Financial/Account Information',
+            templateUrl: null
         }
     ];
 }

@@ -241,7 +241,7 @@ export class LoanFormComponent implements OnInit {
     paperChecklist;
     allIds = [];
     checklistChecked = false;
-
+    financialInfo = false;
 
     constructor(
         private loanDataService: LoanDataService,

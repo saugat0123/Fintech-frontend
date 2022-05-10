@@ -987,9 +987,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 form-group" *ngIf="isInsti">
-                                    <h6><strong>Fixed Assets Summary</strong></h6>
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
-                                    </nb-checkbox>
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
+                                            </nb-checkbox>&nbsp;
+                                            <h6><strong>Fixed Assets Summary</strong></h6>
+                                        </div>
+                                    </div>
                                     <table *ngIf="fixedAssetsChecked" class="table table-sm table-bordered table-hover sb-small text-center">
                                         <thead>
                                             <tr class="sb-bg-dark text-white">
@@ -1006,16 +1010,81 @@
                                             <tr formArrayName = "fixedAssetsSummary" *ngFor="let controls of proposalForm.get('fixedAssetsSummary')['controls']; let i = index" style="text-align: center;">
                                                 <ng-container formGroupName = "{{i}}">
                                                     <td>{{i + 1}}</td>
-                                                <td><input class="field-border" formControlName="particular" type="text"></td>
-                                                <td><input class="field-border" formControlName="unit" type="text"></td>
-                                                <td><input class="field-border" formControlName="rate" type="text"></td>
-                                                <td><input class="field-border" formControlName="total" type="text"></td>
-                                                <td><input class="field-border" formControlName="remarks" type="text"></td>
-                                                <td>
-                                                    <a class="float-right" *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)" (click)="removeValue('fixedAssetsSummary', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
-                                                </td>
+                                                <td><input class="cellInput text-center" formControlName="particular" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="unit" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="rate" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="total" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="remarks" type="text"></td>
+                                                <td style="display: flex; text-align: center;">
                                                     <a href="javascript: void(0)" (click)="addFixedArray()"><i class="fa fa-plus" nbTooltip="Add Field"></i></a>
+                                                    <a *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)" 
+                                                        (click)="removeValue('fixedAssetsSummary', i)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i>
+                                                    </a>
+                                                </td>
                                                 </ng-container>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 form-group" *ngIf="isSbk">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="fixedAssetsChecked">
+                                            </nb-checkbox>&nbsp;
+                                            <h6><strong>Summary of Environment & Social Risk Assessment</strong></h6>
+                                        </div>
+                                    </div>
+                                    <table *ngIf="summaryEnvChecked" class="table table-sm table-bordered table-hover sb-small text-center">
+                                        <thead>
+                                            <tr class="sb-bg-dark text-white">
+                                                <th>S.N</th>
+                                                <th>Particulars</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left">
+                                            <tr>
+                                                <td>1</td>
+                                                <td class="text-left">Falls under Exclusion and critical sector list</td>
+                                                <td class="text-center">
+                                                    <nb-radio-group class="d-inline-flex">
+                                                        <nb-radio>Yes</nb-radio>
+                                                        <nb-radio>No</nb-radio>
+                                                        <nb-radio>NA</nb-radio>
+                                                    </nb-radio-group>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td class="text-left">E & S Due Diligence process Applicable</td>
+                                                <td class="text-center">
+                                                    <nb-radio-group class="d-inline-flex">
+                                                        <nb-radio [value]="true">Yes</nb-radio>
+                                                        <nb-radio [value]="false">No</nb-radio>
+                                                        <nb-radio [value]="">NA</nb-radio>
+                                                    </nb-radio-group>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td class="text-left">Level of Risk </td>
+                                                <td>
+                                                    <ng-select [items]="dropdownPriorities"
+                                                        [multiple]="false"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        formControlName="priority"
+                                                        class="cellInput text-center"
+                                                    >
+                                                    </ng-select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td class="text-left">Falls under Exclusion and critical sector list </td>
+                                                <td>
+                                                    <input class="cellInput text-center" type="text">
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

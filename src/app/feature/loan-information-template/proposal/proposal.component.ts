@@ -81,6 +81,7 @@ export class ProposalComponent implements OnInit {
   checkedHistorical = false;
   checkedProjection = false;
   fixedAssetsChecked = false;
+  summaryEnvChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -121,6 +122,12 @@ export class ProposalComponent implements OnInit {
   guarantor = new FormControl(undefined , Validators.required);
   isSbk = false;
   isInsti = false;
+
+  dropdownPriorities = [
+    {id: 'HIGH', name: 'High'},
+    {id: 'MEDIUM', name: 'Medium'},
+    {id: 'LOW', name: 'Low'},
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -549,6 +556,10 @@ export class ProposalComponent implements OnInit {
       break;
       case 'fixedAssets': {
         this.fixedAssetsChecked = event;
+      }
+      break;
+      case 'summaryEnv': {
+        this.summaryEnvChecked = event;
       }
       break;
       case 'combineLoan':
