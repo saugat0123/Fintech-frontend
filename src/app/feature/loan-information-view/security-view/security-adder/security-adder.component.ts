@@ -5,6 +5,7 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 import {Security} from '../../../loan/model/security';
 import {PlantMachineryAdderComponent} from './plant-machinery-adder/plant-machinery-adder.component';
+import {LandBuildingAdderComponent} from './land-building-adder/land-building-adder.component';
 
 @Component({
     selector: 'app-security-adder',
@@ -16,6 +17,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     @Input() loanHolder: LoanDataHolder;
     @Input() proposedAmount: number;
     @ViewChild('plantMachineryAdder', {static: false}) plantMachineryAdder: PlantMachineryAdderComponent;
+    @ViewChild('landBuildingAdderComponent', {static: false}) landBuildingAdderComponent: LandBuildingAdderComponent;
     @Output() tagSecurityEmitter = new EventEmitter();
     proposedLimit: number;
     selectedSecurities;
@@ -59,7 +61,10 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
 
     save() {
         if (this.plantMachinery) {
-            this.loanHolder.securities = this.plantMachineryAdder.securityList;
+            this.loanHolder.securities.concat(this.plantMachineryAdder.securityList);
+        }
+        if (this.landBuilding) {
+
         }
         this.tagSecurityEmitter.emit(this.loanHolder);
     }

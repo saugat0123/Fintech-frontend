@@ -17,11 +17,16 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <div [hidden]="!plantMachinery">
+        <div >
             <app-plant-machinery-adder #plantMachineryAdder [securities]="customerInfo?.securities"
                                        [proposedLimit]="proposedLimit"></app-plant-machinery-adder>
         </div>
     </nb-card-body>
+<!--    <nb-card-body>-->
+<!--        <div [hidden]="!landBuilding">-->
+<!--            <app-land-building-adder #landBuildingAdderComponent ></app-land-building-adder>-->
+<!--        </div>-->
+<!--    </nb-card-body>-->
 <!--    <nb-card-body>-->
 <!--        <div class="row mt-5">-->
 <!--            <form [formGroup]="form">-->

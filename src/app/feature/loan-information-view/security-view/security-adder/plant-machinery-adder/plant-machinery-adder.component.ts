@@ -10,7 +10,7 @@ import {SecurityLoanReferenceService} from '../../../../security-service/securit
 })
 export class PlantMachineryAdderComponent implements OnInit {
   @Input() securities: Array<Security>;
-  plantMachineryForm: FormGroup;
+  securityForm: FormGroup;
     limitExceed = [];
     isUsedAmount = [];
     @Input() proposedLimit: number;
@@ -23,8 +23,6 @@ export class PlantMachineryAdderComponent implements OnInit {
               private securityLoanReferenceService: SecurityLoanReferenceService) { }
 
   ngOnInit() {
-    console.log(this.securities);
-    console.log(this.proposedLimit);
     this.buildForm();
     if (this.securities.length > 0) {
       this.setPlantDetails(this.securities);
@@ -33,17 +31,17 @@ export class PlantMachineryAdderComponent implements OnInit {
   }
 
   get plantMachinery(): FormArray {
-    return this.plantMachineryForm.get('plantDetails') as FormArray;
+    return this.securityForm.get('securityDetails') as FormArray;
   }
 
   private buildForm(): FormGroup {
-    return this.plantMachineryForm = this.formBuilder.group({
-      plantDetails: this.formBuilder.array([]),
+    return this.securityForm = this.formBuilder.group({
+      securityDetails: this.formBuilder.array([]),
     });
   }
 
   setPlantDetails(securityData) {
-    const plantDetails = this.plantMachineryForm.get('plantDetails') as FormArray;
+    const plantDetails = this.securityForm.get('securityDetails') as FormArray;
     securityData.forEach((singleData, index) => {
       plantDetails.push(
           this.formBuilder.group({
@@ -67,8 +65,8 @@ export class PlantMachineryAdderComponent implements OnInit {
       const coverage = (usedAmount / this.proposedLimit) * 100;
       this.limitExceed[index] = freeLimit < 0;
       this.isUsedAmount[index] = false;
-      this.plantMachineryForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
-      this.plantMachineryForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
+      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
+      this.securityForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
 
     private getSecurityDetails(id, i): void {
@@ -102,13 +100,11 @@ export class PlantMachineryAdderComponent implements OnInit {
             this.isUsedAmount[idx] = true;
             return;
         }
-        if (key === 'plantDetails') {
             if (this.securityList.length > 0) {
                 this.securityList.splice(idx, 1);
             }
             this.securityList.push(security.value);
             console.log(this.securityList);
-        }
     }
 
     public removeSecurity(idx): void {
