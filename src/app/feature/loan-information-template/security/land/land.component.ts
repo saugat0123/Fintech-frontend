@@ -159,7 +159,7 @@ export class LandComponent implements OnInit {
         this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
       } else {
         this.totaldv += Number(sec['distressValue']);
-        this.totalmv += Number(sec['marketValue']);
+        this.totalmv += Number(sec['fairMarketValue']);
         this.totalcv += Number(sec['landConsideredValue']);
       }
     });
@@ -220,8 +220,9 @@ export class LandComponent implements OnInit {
       plotNumber: [undefined],
       areaFormat: [undefined],
       area: [undefined],
-      marketValue: [undefined],
+      fairMarketValue: [undefined],
       distressValue: [undefined],
+      considerValue: [undefined],
       description: [undefined],
       landValuator: [undefined],
       landValuatorDate: [undefined],

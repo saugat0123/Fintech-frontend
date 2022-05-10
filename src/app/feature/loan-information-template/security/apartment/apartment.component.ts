@@ -26,10 +26,6 @@ export class ApartmentComponent implements OnInit {
   @Input() customerType: CustomerType;
   @Input() calendarType: CalendarType;
   apartmentOtherBranchChecked = false;
-  landBuildingOtherBranchChecked = false;
-  vehicleOtherBranchChecked = false;
-  plantOtherBranchChecked = false;
-  landOtherBranchChecked = false;
   securityValuator: SecurityValuator = new SecurityValuator();
   branchLists;
   designationList = [];
@@ -136,7 +132,9 @@ export class ApartmentComponent implements OnInit {
       sanitation: [undefined],
       electrification: [undefined],
       buildingTotalCost: [undefined],
-      buildingFairMarketValue: [undefined],
+      fairMarketValue: [undefined],
+      considerValue: [undefined],
+      distressValue: [undefined],
       buildingDistressValue: [undefined],
       buildingDetailsDescription: [undefined],
       ApartmentValuator: [undefined],

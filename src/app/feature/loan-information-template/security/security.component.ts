@@ -522,6 +522,9 @@ export class SecurityComponent implements OnInit {
         formValues.forEach(value => {
             const security: Security = new Security();
             security.data = JSON.stringify(value);
+            security.fairMarketValue = value.fairMarketValue;
+            security.distressValue = value.distressValue;
+            security.considerValue = value.considerValue;
             security.securityType = securityType;
             securities.push(security);
         });
