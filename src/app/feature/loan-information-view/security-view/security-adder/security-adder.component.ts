@@ -4,7 +4,6 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 import {Security} from '../../../loan/model/security';
-import {LandBuildingAdderComponent} from './land-building-adder/land-building-adder.component';
 import {SecurityTaggerComponent} from './security-tagger/security-tagger.component';
 
 @Component({
