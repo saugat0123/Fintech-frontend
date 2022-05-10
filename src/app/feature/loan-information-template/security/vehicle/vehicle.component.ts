@@ -157,6 +157,8 @@ export class VehicleComponent implements OnInit {
       manufactureYear: [undefined],
       discountPrice: [undefined],
       considerValue: [undefined],
+      fairMarketValue: [undefined],
+      distressValue: [undefined],
       freeLimit: [undefined]
     });
   }

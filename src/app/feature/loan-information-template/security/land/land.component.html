@@ -152,18 +152,18 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="title" for="marketValue">Fair Market Value</label>
+                            <label class="title" for="fairMarketValue">Fair Market Value</label>
                             <input (change)="updateLandSecurityTotal()"
                                    class="form-control rounded"
-                                   formControlName="marketValue"
-                                   id="marketValue"
-                                   name="marketValue" placeholder="Fair Market Value"
+                                   formControlName="fairMarketValue"
+                                   id="fairMarketValue"
+                                   name="fairMarketValue" placeholder="Fair Market Value"
                                    type="text" appDecimalNumber/>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="title" for="distressValue">Market Value</label>
+                            <label class="title" for="distressValue">Market Value/Distress Value</label>
                             <input (change)="updateLandSecurityTotal()"
                                    (input)="calConsiderValue('land', i)"
                                    class="form-control rounded"
@@ -174,6 +174,20 @@
                                    type="text" appDecimalNumber/>
                         </div>
                     </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="considerValue">Consider Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="considerValue"
+                                   id="considerValue"
+                                   placeholder="Consider Value"
+                                   name="distressValue"
+                                   type="text" appDecimalNumber/>
+                        </div>
+                    </div>
+
+
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="title" for="rate">Realiasable Rate</label>
