@@ -3,6 +3,7 @@ import {Security} from '../../../../loan/model/security';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-security-tagger',
@@ -30,7 +31,7 @@ export class SecurityTaggerComponent implements OnInit {
       this.setPlantDetails(this.securities);
       this.toggleSecurity();
     }
-      if (this.loanDataHolder.securities.length > 0) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {
           this.securityList = this.loanDataHolder.securities;
       }
   }
