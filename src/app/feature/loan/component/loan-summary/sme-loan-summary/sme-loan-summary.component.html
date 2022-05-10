@@ -264,7 +264,8 @@
                                 <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
                                 as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
                                 ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b>
-                                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                                <app-m-group-summary
+                                       [customerCategory]="customerCategoryType" [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
                             </li>
                             <li *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0">
                                 <p><strong>ASSESSTMENT FOR REQUIREMENT OF FUND:</strong></p>

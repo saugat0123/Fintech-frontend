@@ -45,8 +45,25 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="detailInformation">Detail Information</label>
+            <label for="detailInformation"><b>DETAIL INFORMATION</b></label>
             <ckeditor id="detailInformation" formControlName="detailInformation"
+                      [config]="ckeConfig"></ckeditor>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="outstandingOverdue"><b>Outstanding Overdue and R/E collateral</b></label>
+            <ckeditor id="outstandingOverdue" formControlName="outstandingOverdue"
+                      [config]="ckeConfig"></ckeditor>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="groupPosition"><b>GROUP POSITION</b> <i>&nbsp;(including the present proposal)</i>&nbsp;as of dd/mm/yyy</label>
+            <ckeditor id="groupPosition" formControlName="groupPosition"
                       [config]="ckeConfig"></ckeditor>
         </div>
     </div>
