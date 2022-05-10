@@ -255,6 +255,7 @@
                                     <span class="print-only nepaliFont">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '================='}}</span>
                                 </td>
                             </tr>
+                            </tbody>
                             <tbody *ngIf="this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter'">
                             <tr *ngFor="let free of form.get(['combinedFreeText'])['controls']; let i = index"
                                 formArrayName="combinedFreeText">
