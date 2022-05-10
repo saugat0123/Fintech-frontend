@@ -11,6 +11,7 @@ export class UptoTenMillionComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() fiscalYear;
   @Input() totalProposed;
+  @Input() isDetailedView: boolean;
   @Input() customerAllLoanList: LoanDataHolder[];
   // loanDataHolder: LoanDataHolder;
   constructor() { }
