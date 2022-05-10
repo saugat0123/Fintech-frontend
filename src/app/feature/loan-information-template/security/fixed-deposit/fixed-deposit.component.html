@@ -66,6 +66,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Consider Value<strong></strong></label>
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && (deposit.get('considerValue').errors)}"
+                                   formControlName="considerValue" placeholder="Consider Value" type="number">
+                            <div *ngIf="(submitted) && (deposit.get('considerValue').invalid)" class="invalid-feedback">
+                                <div *ngIf="deposit.get('considerValue').errors.required">
+                                    Consider value is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title">Expiry Date<strong></strong></label>

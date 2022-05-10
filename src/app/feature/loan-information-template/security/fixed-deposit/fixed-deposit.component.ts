@@ -37,6 +37,9 @@ export class FixedDepositComponent implements OnInit {
     return this.formBuilder.group({
       receiptNumber: [undefined],
       amount: [undefined, Validators.required],
+      considerValue: [undefined, Validators.required],
+      distressValue: [undefined],
+      fairMarketValue: [undefined],
       expiryDate: [undefined],
       couponRate: [undefined],
       beneficiary: [undefined],
