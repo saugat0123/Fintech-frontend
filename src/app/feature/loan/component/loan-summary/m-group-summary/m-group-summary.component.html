@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
         <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
@@ -14,4 +14,36 @@
             </tbody>
         </table>
     </div>
+
+    <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_UPTO_TEN_MILLION
+     || customerCategory === customerCategoryType.SANA_BYABASAYI || customerCategory === 'executing'">
+        <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
+        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Group Limits</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.groupPosition) || 'NA' " > </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Outstanding Overdue</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.outstandingOverdue) || 'NA' " > </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>

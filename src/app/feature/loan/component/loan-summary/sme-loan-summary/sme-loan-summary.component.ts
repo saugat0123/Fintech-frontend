@@ -206,6 +206,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategory = CustomerCategory;
   totalProposedLimit = 0;
   loaded = false;
+  customerCategoryType = CustomerCategory.SANA_BYABASAYI;
 
   @Input() crgTotalRiskScore: any;
   constructor(

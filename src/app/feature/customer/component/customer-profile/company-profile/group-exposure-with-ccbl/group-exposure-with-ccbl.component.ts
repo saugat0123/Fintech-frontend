@@ -8,6 +8,7 @@ import {MGroupService} from '../../../../service/mgroup.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CalendarType} from '../../../../../../@core/model/calendar-type';
+import {CcblTable} from './ccbl-table';
 
 @Component({
   selector: 'app-group-exposure-with-ccbl',
@@ -27,6 +28,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
   mGroupInfo: MGroup = new MGroup();
   spinner = false;
   default_table: any;
+  outstandingOverdueTable: any;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
@@ -38,114 +40,33 @@ export class GroupExposureWithCcblComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.default_table = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"' +
-        ' border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
-        '<tbody>\n' +
-        '<tr>\n' +
-        '<td colspan="2" rowspan="2" style="text-align:center">Group concerns/facilities</td>\n' +
-        '<td colspan="3" rowspan="1" style="text-align:center">Existing</td>\n' +
-        '<td style="text-align:center">O/S</td>\n' +
-        '<td colspan="2" rowspan="1" style="text-align:center">Overdue</td>\n' +
-        '<td colspan="2" rowspan="1" style="text-align:center">R/E Collateral</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="text-align:center">FB Limit</td>\n' +
-        '<td style="text-align:center">NFB Limit</td>\n' +
-        '<td style="text-align:center">Total</td>\n' +
-        '<td style="text-align:center">Principal</td>\n' +
-        '<td style="text-align:center">Principal</td>\n' +
-        '<td style="text-align:center">Interest</td>\n' +
-        '<td style="text-align:center">FMV</td>\n' +
-        '<td style="text-align:center">DV</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">1.</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td colspan="1" rowspan="5">&nbsp;</td>\n' +
-        '<td colspan="1" rowspan="5">&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '<tr>\n' +
-        '<td style="width:20px">&nbsp;</td>\n' +
-        '<td></td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '<td>&nbsp;</td>\n' +
-        '</tr>\n' +
-        '</tbody>\n' +
-        '</table>\n' +
-        '\n' +
-        '<p>&nbsp;</p>';
+
     this.buildForm();
+    this.patchInitialTable();
     if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
       this.mGroupInfo = this.customerInfo.mgroupInfo;
       this.form.patchValue(this.mGroupInfo);
       if (ObjectUtil.isEmpty(this.mGroupInfo.detailInformation)) {
-        this.form.get('detailInformation').patchValue(this.default_table);
+        this.form.get('detailInformation').patchValue(CcblTable.default_table());
+      }
+      if (ObjectUtil.isEmpty(this.mGroupInfo.outstandingOverdue)){
+        this.form.get('outstandingOverdue').patchValue(CcblTable.outstandingOverdueTable());
+      }
+
+      if (ObjectUtil.isEmpty(this.mGroupInfo.groupPosition)){
+        this.form.get('groupPosition').patchValue(CcblTable.groupPosition());
       }
     }
+
+  }
+  
+  patchInitialTable(): void
+  {
+    this.form.patchValue({
+      detailInformation: CcblTable.default_table(),
+      outstandingOverdue: CcblTable.outstandingOverdueTable(),
+      groupPosition: CcblTable.groupPosition()
+    })
   }
 
   buildForm() {
@@ -155,6 +76,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
       detailInformation: [this.default_table],
       groupName: [undefined],
       groupCode: [undefined],
+      outstandingOverdue: [undefined],
+      groupPosition: [undefined]
     });
   }
 
@@ -188,6 +111,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.groupExposureDate = this.formControls.groupExposureDate.value;
     mGroup.groupName = this.formControls.groupName.value;
     mGroup.groupCode = this.formControls.groupCode.value;
+    mGroup.outstandingOverdue = this.formControls.outstandingOverdue.value;
+    mGroup.groupPosition =this.formControls.groupPosition.value;
     return mGroup;
   }
 
