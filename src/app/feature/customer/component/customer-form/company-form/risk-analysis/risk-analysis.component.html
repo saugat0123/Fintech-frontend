@@ -125,8 +125,41 @@
                           placeholder="Other Risk Factors"></textarea>
             </td>
         </tr>
+        <ng-container *ngFor="let riskAnalysis of riskAnalysisForm?.get('riskAnalysisFreeText')['controls']; let i = index;"
+                      formArrayName="riskAnalysisFreeText">
+            <ng-container [formGroupName]="i">
+                <tr>
+                    <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                        <textarea rows="4" class="form-control mt-1 mb-1"
+                                   formControlName="riskTypeName"
+                                   placeholder="Risk Type"></textarea>
+                    </td>
+                    <td>
+                        <textarea rows="4" class="form-control mt-1 mb-1"
+                                  formControlName="perceiveRisk"
+                                  placeholder="Perceive Risk"></textarea>
+                    </td>
+                    <td>
+                        <textarea rows="4" class="form-control mt-1 mb-1"
+                                  formControlName="mitigatingRisk"
+                                  placeholder="Mitigating Factors"></textarea>
+                    </td>
+                    <td *ngIf="riskAnalysisForm.get('riskAnalysisFreeText') ['length'] > 0" width="2%"
+                        style="vertical-align: middle;font-weight: bold; text-align: center">
+                        <a nbButton status="primary" size="tiny" nbTooltip="Remove"
+                           class="align-self-end btn btn-sm btn-danger btn-primary float-right cursor"
+                           (click)="removeRiskAnalysis(i)">
+                            <i class="fa fa-trash fa-1x"></i></a>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
         </tbody>
     </table>
+    <div class="py-2 d-flex justify-content-end">
+        <input (click)="addRiskAnalysis()" class="btn btn-sm btn-flat float-right btn-primary"
+               type="button" value="Add More Risk"/>
+    </div>
     <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()" nbButton type="button">save</button>
     </div>
