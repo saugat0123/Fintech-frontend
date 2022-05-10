@@ -315,10 +315,10 @@
       <tbody>
       <tr>
         <th>j</th>
-        <td>Debt-Equity Ratio - General (in %)
+        <td>Debt Total Assets Ratio (in %)
         </td>
-        <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioGeneral')['controls']; let j = index"
-            formArrayName="debtEquityRatioGeneral" >
+        <td *ngFor="let amount of keyIndicatorsForm.get('debtTotalAssetsRatio')['controls']; let j = index"
+            formArrayName="debtTotalAssetsRatio" >
           <div [formGroupName]="j" class="text-center">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
