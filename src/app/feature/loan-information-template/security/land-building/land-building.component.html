@@ -241,7 +241,7 @@
                             <div class="form-group">
                                 <label class="title" for="marketValue">Fair Market Value</label>
                                 <input class="form-control rounded"
-                                       formControlName="marketValue"
+                                       formControlName="fairMarketValue"
                                        id="marketValue"
                                        name="marketValue"
                                        placeholder="Fair Market Value"
@@ -250,7 +250,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue"> Land Market Value</label>
+                                <label class="title" for="distressValue"> Land Market Value / Distress Value</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        id="distressValue"
