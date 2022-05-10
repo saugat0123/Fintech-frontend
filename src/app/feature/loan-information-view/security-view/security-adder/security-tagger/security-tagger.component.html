@@ -1,9 +1,9 @@
 <nb-card>
     <nb-card-header>
-        <strong>Plant And Machinery</strong>
+        <strong>All Securities</strong>
     </nb-card-header>
     <nb-card-body>
-        <form [formGroup]="plantMachineryForm">
+        <form [formGroup]="securityForm">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
@@ -15,26 +15,28 @@
                             <th>Amount to Use</th>
                             <th>Free Limit</th>
                             <th>Coverage(%)</th>
+                            <th>Security Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody formArrayName="plantDetails">
-                        <ng-container *ngFor="let plantMachinery of plantMachinery.controls; let i=index;">
+                    <tbody formArrayName="securityDetails">
+                        <ng-container *ngFor="let security of securityControls.controls; let i=index;">
                             <tr>
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
-                                    <td>{{plantMachinery.get('fairMarketValue')?.value}}</td>
-                                    <td>{{plantMachinery.get('distressValue')?.value}}</td>
-                                    <td>{{plantMachinery.get('considerValue')?.value}}</td>
+                                    <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
+                                    <td>{{security.get('distressValue')?.value || '0'}}</td>
+                                    <td>{{security.get('considerValue')?.value || '0'}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calcFreeLimit(i,plantMachinery.get('considerValue')?.value, plantMachinery.get('usedAmount').value,
-                                                                       'plantDetails')"
+                                               (input)="calcFreeLimit(i,security.get('considerValue')?.value, security.get('usedAmount').value,
+                                                                       'securityDetails')"
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>
-                                    <td>{{plantMachinery.get('freeLimit')?.value}}</td>
-                                    <td>{{plantMachinery.get('coverage')?.value}}</td>
+                                    <td>{{security.get('freeLimit')?.value || '0'}}</td>
+                                    <td>{{security.get('coverage')?.value || '0'}}</td>
+                                    <td>{{security.get('securityType')?.value || 'N/A'}}</td>
                                     <td>
                                         <a class="px-2 cursor" *ngIf="securityPresent[i]"
                                            (click)="toggleArray[i].toggled = !this.toggleArray[i].toggled"
@@ -42,7 +44,7 @@
                                             <em class="fa fa-eye"></em>
                                         </a>
                                         <button nbButton size="small"
-                                                (click)="tagSecurity(plantMachinery, 'plantDetails', i)"
+                                                (click)="tagSecurity(security, 'plantDetails', i)"
                                                 [disabled]="limitExceed[i]">
                                             <i class="fa fa-plus"></i></button>
                                     </td>
@@ -77,12 +79,12 @@
             <tbody>
             <tr *ngFor="let security of securityList; let i=index;">
                 <td>{{i + 1}}</td>
-                <td>{{security?.fairMarketValue}}</td>
-                <td>{{security?.distressValue}}</td>
-                <td>{{security?.considerValue}}</td>
-                <td>{{security?.usedAmount}}</td>
-                <td>{{security?.freeLimit}}</td>
-                <td>{{security?.coverage}}</td>
+                <td>{{security?.fairMarketValue || '0'}}</td>
+                <td>{{security?.distressValue || '0'}}</td>
+                <td>{{security?.considerValue || '0'}}</td>
+                <td>{{security?.usedAmount || '0'}}</td>
+                <td>{{security?.freeLimit || '0'}}</td>
+                <td>{{security?.coverage || '0'}}</td>
                 <td>
                 <td>
                     <button (click)="removeSecurity(i)"
