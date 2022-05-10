@@ -197,13 +197,17 @@ export class SecurityComponent implements OnInit {
         console.log('validation state');
     }
 
-    change(arraySelected) {
-        const selectedSecurity = [];
-        selectedSecurity.push(arraySelected);
+    securityInitialState() {
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuildingSelected = this.plantSelected =
             this.depositSelected = this.shareSelected = this.hypothecationOfStockSelected =
                 this.corporateGuaranteeSelected = this.personalGuaranteeSelected = this.insurancePolicySelected =
                     this.assignmentOfReceivableSelected = this.leaseAssignmentSelected = this.otherSecuritySelected = false;
+    }
+
+    change(arraySelected) {
+        const selectedSecurity = [];
+        selectedSecurity.push(arraySelected);
+        this.securityInitialState();
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LAND_SECURITY' :
@@ -469,7 +473,7 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(depositData, 'FIXED_DEPOSIT_RECEIPT');
             this.securityDataEmitter.emit(securities);
         }
-        if (this.shareSelected) {
+         if (this.shareSelected) {
             const shareData = this.shareSecurityComponent.shareSecurityForm.value.shareSecurityDetails;
             const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
             this.securityDataEmitter.emit(securities);

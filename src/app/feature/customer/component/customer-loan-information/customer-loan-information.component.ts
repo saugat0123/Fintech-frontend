@@ -50,6 +50,7 @@ import {DocStatus} from '../../../loan/model/docStatus';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -57,7 +58,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
     styleUrls: ['./customer-loan-information.component.scss']
 })
 export class CustomerLoanInformationComponent implements OnInit, OnChanges {
-    
+
 
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
@@ -135,6 +136,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     private dataFromPreviousSecurity: NbAccordionItemComponent;
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
+
+    @ViewChild('securityComponent', {static: false})
+    public securityComponent: SecurityComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -351,6 +355,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
                 .subscribe(() => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+                    this.securityComponent.securityInitialState();
+                    // this.securityComponent.plantSelected = false;
                     // if (!ObjectUtil.isEmpty(data.share)) {
                     //     this.saveShare(data);
                     // } else {
@@ -474,7 +480,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
-        if(!ObjectUtil.isEmpty(data.cibRemark)) {
+        if (!ObjectUtil.isEmpty(data.cibRemark)) {
             if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const jointInfo = JSON.parse(this.customer.jointInfo);
                 jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
