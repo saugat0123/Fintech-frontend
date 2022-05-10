@@ -28,7 +28,7 @@ export class SecurityTaggerComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (this.securities.length > 0) {
-      this.setPlantDetails(this.securities);
+      this.setSecurities(this.securities);
       this.toggleSecurity();
     }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {
@@ -46,7 +46,7 @@ export class SecurityTaggerComponent implements OnInit {
     });
   }
 
-  setPlantDetails(securityData) {
+  setSecurities(securityData) {
     const plantDetails = this.securityForm.get('securityDetails') as FormArray;
     securityData.forEach((singleData, index) => {
       plantDetails.push(

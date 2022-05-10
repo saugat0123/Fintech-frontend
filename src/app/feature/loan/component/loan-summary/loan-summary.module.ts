@@ -42,6 +42,7 @@ import {NetWorthModule} from '../../../newt-worth/net-worth-module';
 import {DbrModule} from '../../../dbr/dbr.module';
 import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
 import {ProductPaperModule} from '../../../loan-information-template/product-paper-checklist/product-paper-.module';
+import {SecurityViewModule} from '../../../loan-information-view/security-view/security-view/security-view.module';
 
 
 const COMPONENTS = [
@@ -88,6 +89,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         LoanInformationViewModule,
         DbrModule,
         ProductPaperModule,
+        SecurityViewModule,
     ],
     exports: [
         LoanSummaryComponent,

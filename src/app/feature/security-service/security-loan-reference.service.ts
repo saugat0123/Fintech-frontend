@@ -24,4 +24,10 @@ export class SecurityLoanReferenceService extends BaseService<SecurityLoanRefere
     const req = ApiUtils.getRequest(url);
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public getAllSecurityLoanReferencesByLoanId(loanId: number): Observable<any> {
+    const url = `${this.getApi()}/loan/${loanId}`;
+    const req = ApiUtils.getRequest(url);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }
