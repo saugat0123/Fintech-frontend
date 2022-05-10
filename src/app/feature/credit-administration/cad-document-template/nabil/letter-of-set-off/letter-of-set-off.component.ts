@@ -56,6 +56,12 @@ export class LetterOfSetOffComponent implements OnInit {
   offerLetterDocument;
   educationalTemplateData;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  freeText: any;
+  cadInitialInfo: any;
+  spinner = false;
+  documentName;
+  loanPurposeArray: Array<any> = new Array<any>();
+  loanPurpose: any;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -73,15 +79,6 @@ export class LetterOfSetOffComponent implements OnInit {
   async ngOnInit() {
     this.buildForm();
     this.checkOfferLetterData();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(individualCadFile => {
-        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.letterOfSetOff.patchValue(initialInfo);
-        }
-      });
-    }
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.offerDocument = this.cadData.offerDocumentList;
       this.offerDocument.forEach(offerDocument => {
@@ -132,13 +129,19 @@ export class LetterOfSetOffComponent implements OnInit {
       fixedDeposit: [undefined],
       purposeOfLoan: [undefined],
       numberOfPerson: [undefined],
-      sakshiDistrict: [undefined],
-      sakshiVdc: [undefined],
-      sakshiWardNo: [undefined],
-      sakshiAge: [undefined],
-      nameOfWitness: [undefined],
-      nameOfWitnessFromBank: [undefined],
+      sakshiDistrict1: [undefined],
+      sakshiDistrict2: [undefined],
+      sakshiMunicipality1: [undefined],
+      sakshiMunicipality2: [undefined],
+      sakshiWard1: [undefined],
+      sakshiWard2: [undefined],
+      sakshiAge1: [undefined],
+      sakshiAge2: [undefined],
+      sakshiName1: [undefined],
+      sakshiName2: [undefined],
+      nameOfBankStaff: [undefined],
       jointDetailsArr: this.formBuilder.array([]),
+      tdHolderDetailsArray: this.formBuilder.array([]),
     });
   }
 
@@ -192,13 +195,29 @@ export class LetterOfSetOffComponent implements OnInit {
     }
     this.checkOfferLetterData();
     let dateOfApproval;
-    if (!ObjectUtil.isEmpty(this.educationalTemplateData)) {
-      const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
-      if (selectedDateType === 'AD') {
-        const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
-        dateOfApproval = this.engToNepaliDate.transform(tempData, true);
-      } else {
-        dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
+    let combinedApprovalDate: any;
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      if (!ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.sanctionLetterDateType)) {
+        if (this.initialInformation.retailGlobalForm.sanctionLetterDateType === 'AD') {
+          if (!ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.sanctionLetterDateCT)) {
+            combinedApprovalDate = 'ई. स. ' + this.initialInformation.retailGlobalForm.sanctionLetterDateCT;
+          }
+        }
+        if (this.initialInformation.retailGlobalForm.sanctionLetterDateType === 'BS') {
+          if (!ObjectUtil.isEmpty(this.initialInformation.retailGlobalForm.sanctionLetterDateNepaliCT)) {
+            combinedApprovalDate = 'वि.स ' + this.initialInformation.retailGlobalForm.sanctionLetterDateNepaliCT;
+          }
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.educationalTemplateData)) {
+        const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
+        if (selectedDateType === 'AD') {
+          const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
+          dateOfApproval = this.engToNepaliDate.transform(tempData, true);
+        } else {
+          dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
+        }
       }
     }
     if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
@@ -210,7 +229,14 @@ export class LetterOfSetOffComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.initialInformation.tenureDepositReceiptNumber)) {
       this.letterOfSetOff.get('fixedDeposit').patchValue(this.initialInformation.tenureDepositReceiptNumber.ct);
     }
-      this.letterOfSetOff.patchValue(
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList) &&
+    !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0])) {
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].docName)) {
+        this.documentName = this.cadData.offerDocumentList[0].docName;
+      }
+    }
+    this.loanPurpose = this.getloanPurpose();
+    this.letterOfSetOff.patchValue(
         {
           nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
@@ -233,19 +259,210 @@ export class LetterOfSetOffComponent implements OnInit {
           numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
           loanAmountFigure: finalAmount,
           loanAmountWord: loanAmountWord,
-          purposeOfLoan: this.educationalTemplateData ?
+          purposeOfLoan: (!ObjectUtil.isEmpty(this.documentName) && this.documentName === 'Combined Offer Letter' && !ObjectUtil.isEmpty(this.loanPurpose)) ?
+              this.loanPurpose : this.educationalTemplateData ?
               this.educationalTemplateData.purposeOfLoan ?
                   this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np : '',
-          sanctionLetterIssuedDate: dateOfApproval ? dateOfApproval : '',
-          // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
-          //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,
-          // nameOfTd: this.educationalTemplateData.nameOfTd.ct ?
-          //     this.educationalTemplateData.nameOfTd.ct : this.educationalTemplateData.nameOfTd.np,
-          // fixedDeposit: this.educationalTemplateData.fixedDeposit.ct ?
-          //     this.educationalTemplateData.fixedDeposit.ct : this.educationalTemplateData.fixedDeposit.np
-
+          sanctionLetterIssuedDate: !ObjectUtil.isEmpty(dateOfApproval) ? dateOfApproval : !ObjectUtil.isEmpty(combinedApprovalDate) ? combinedApprovalDate : '',
         }
     );
+    this.fillTDSakshiDetails();
+  }
+  getloanPurpose() {
+    let loanPurpose: any;
+    let loanCombinedPurpose: any;
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      if (!ObjectUtil.isEmpty(this.initialInformation.loanPurpose) &&
+          !ObjectUtil.isEmpty(this.initialInformation.loanPurpose.ct)) {
+        loanPurpose = this.initialInformation.loanPurpose.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.purposeofLoan) &&
+          !ObjectUtil.isEmpty(this.initialInformation.purposeofLoan.ct)) {
+        loanPurpose = this.initialInformation.purposeofLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.purposeOfLoan) &&
+          !ObjectUtil.isEmpty(this.initialInformation.purposeOfLoan.ct)) {
+        loanPurpose = this.initialInformation.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.vehicleName) &&
+          !ObjectUtil.isEmpty(this.initialInformation.vehicleName.ct)) {
+        loanPurpose = this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद';
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.loan) &&
+          !ObjectUtil.isEmpty(this.initialInformation.loan.purposeOfLoanCT)) {
+        loanPurpose = this.initialInformation.loan.purposeOfLoanCT;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.existingLoanForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.existingLoanForm.existingLoanFormArray)) {
+        this.initialInformation.existingLoanForm.existingLoanFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.existingLoanForm.existingLoanFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.educationLoanForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.educationLoanForm.educationLoanCombinedFormArray)) {
+        this.initialInformation.educationLoanForm.educationLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.educationLoanForm.educationLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.personalOverdraftCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+        this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.mortgageCombineForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+        this.initialInformation.mortgageCombineForm.mortgageCombineLoanFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.mortgageCombineForm.mortgageCombineLoanFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.personalLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+        this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.autoLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.autoLoanCombinedForm.autoLoanCombinedFormArray)) {
+        this.initialInformation.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.autoLoanCombinedForm.autoLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.homeLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.homeLoanCombinedForm.homeLoanCombinedFormArray)) {
+        this.initialInformation.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.homeLoanCombinedForm.homeLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.personalOverDraftWithoutCollateralCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
+        this.initialInformation.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+        this.initialInformation.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.nabilShareLoanPODForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.nabilShareLoanPODForm.nabilShareLoanPODFormArray)) {
+        this.initialInformation.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.nabilShareLoanPODForm.nabilShareLoanPODFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation.shareLoanDemandCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialInformation.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+        this.initialInformation.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.initialInformation.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanPurposeArray)) {
+      loanCombinedPurpose = this.loanPurposeArray.join(',');
+    }
+    if (!ObjectUtil.isEmpty(loanPurpose)) {
+      return loanPurpose;
+    } else if (!ObjectUtil.isEmpty(loanCombinedPurpose)) {
+      return loanCombinedPurpose;
+    } else {
+      return '';
+    }
+  }
+  fillTDSakshiDetails() {
+    if (this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
+          }
+        });
+        const free = this.letterOfSetOff.value;
+        if (!ObjectUtil.isEmpty(this.cadInitialInfo)) {
+          if (!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText)) {
+            this.letterOfSetOff.get('date').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.date) ?
+                this.cadInitialInfo.sakshiFreeText.date : '');
+            this.letterOfSetOff.get('fixedDeposit').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.fixedDeposit) ?
+                this.cadInitialInfo.sakshiFreeText.fixedDeposit : '');
+            this.letterOfSetOff.get('accountNo').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.accountNo) ?
+                this.cadInitialInfo.sakshiFreeText.accountNo : '');
+            this.letterOfSetOff.get('nameOfTd').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.nameOfTd) ?
+                this.cadInitialInfo.sakshiFreeText.nameOfTd : '');
+            this.letterOfSetOff.get('sakshiDistrict1').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiDistrict1) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiDistrict1 : '');
+            this.letterOfSetOff.get('sakshiDistrict2').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiDistrict2) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiDistrict2 : '');
+            this.letterOfSetOff.get('sakshiMunicipality1').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiMunicipality1) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiMunicipality1 : '');
+            this.letterOfSetOff.get('sakshiMunicipality2').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiMunicipality2) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiMunicipality2 : '');
+            this.letterOfSetOff.get('sakshiAge1').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiAge1) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiAge1 : '');
+            this.letterOfSetOff.get('sakshiAge2').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiAge2) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiAge2 : '');
+            this.letterOfSetOff.get('sakshiWard1').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiWard1) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiWard1 : '');
+            this.letterOfSetOff.get('sakshiWard2').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiWard2) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiWard2 : '');
+            this.letterOfSetOff.get('sakshiName1').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiName1) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiName1 : '');
+            this.letterOfSetOff.get('sakshiName2').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.sakshiName2) ?
+                this.cadInitialInfo.sakshiFreeText.sakshiName2 : '');
+            this.letterOfSetOff.get('nameOfBankStaff').patchValue(!ObjectUtil.isEmpty(this.cadInitialInfo.sakshiFreeText.nameOfBankStaff) ?
+                this.cadInitialInfo.sakshiFreeText.nameOfBankStaff : '');
+          }
+          if (!ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails) &&
+          this.cadInitialInfo.tdDetails.length > 0) {
+            for (let i = 0; i < this.cadInitialInfo.tdDetails.length; i ++) {
+              this.setTdHolderArray();
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'grandFatherName']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].grandFatherName) ?
+                  this.cadInitialInfo.tdDetails[i].grandFatherName : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'grandRelation']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].grandRelation) ?
+                  this.cadInitialInfo.tdDetails[i].grandRelation : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'fatherName']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].fatherName) ?
+                  this.cadInitialInfo.tdDetails[i].fatherName : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'fatherRelation']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].fatherRelation) ?
+                  this.cadInitialInfo.tdDetails[i].fatherRelation : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'vdcMunicipalityOption']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].vdcMunicipalityOption) ?
+                  this.cadInitialInfo.tdDetails[i].vdcMunicipalityOption : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'district']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].district) ?
+                  this.cadInitialInfo.tdDetails[i].district : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'municipality']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].municipality) ?
+                  this.cadInitialInfo.tdDetails[i].municipality : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'wardNumber']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].wardNumber) ?
+                  this.cadInitialInfo.tdDetails[i].wardNumber : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'age']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].age) ?
+                  this.cadInitialInfo.tdDetails[i].age : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'customerType']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].customerType) ?
+                  this.cadInitialInfo.tdDetails[i].customerType : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'nameOfPerson']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].nameOfPerson) ?
+                  this.cadInitialInfo.tdDetails[i].nameOfPerson : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'citizenshipNumber']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].citizenshipNumber) ?
+                  this.cadInitialInfo.tdDetails[i].citizenshipNumber : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'issueDate']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].issueDate) ?
+                  this.cadInitialInfo.tdDetails[i].issueDate : '');
+              this.letterOfSetOff.get(['tdHolderDetailsArray', i, 'issuedDistrict']).patchValue(
+                  !ObjectUtil.isEmpty(this.cadInitialInfo.tdDetails[i].issuedDistrict) ?
+                  this.cadInitialInfo.tdDetails[i].issuedDistrict : '');
+            }
+          }
+        }
+      }
+    }
   }
 
   getGrandFatherName() {
@@ -292,18 +509,19 @@ export class LetterOfSetOffComponent implements OnInit {
 
   submit() {
     let flag = true;
+    this.spinner = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          individualCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+          individualCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
-        this.initialInfoPrint = cadFile.initialInformation;
+        // cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+        this.initialInfoPrint = cadFile.supportedInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -312,8 +530,8 @@ export class LetterOfSetOffComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
-      this.initialInfoPrint = cadFile.initialInformation;
+      // cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+      this.initialInfoPrint = cadFile.supportedInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -322,13 +540,121 @@ export class LetterOfSetOffComponent implements OnInit {
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.spinner = false;
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.spinner = false;
       this.dialogRef.close();
     });
+  }
+  setTdHolderArray() {
+      (this.letterOfSetOff.get('tdHolderDetailsArray') as FormArray).push(
+          this.formBuilder.group({
+            grandFatherName: [undefined],
+            grandRelation: [undefined],
+            fatherName: [undefined],
+            fatherRelation: [undefined],
+            vdcMunicipalityOption: [undefined],
+            district: [undefined],
+            municipality: [undefined],
+            wardNumber: [undefined],
+            age: [undefined],
+            customerType: [undefined],
+            nameOfPerson: [undefined],
+            citizenshipNumber: [undefined],
+            issueDateType: [undefined],
+            issueDate: [undefined],
+            issueDateNepali: [undefined],
+            issuedDistrict: [undefined]
+          })
+      );
+  }
+  removeAtIndex(i: number) {
+    (this.letterOfSetOff.get('tdHolderDetailsArray') as FormArray).removeAt(i);
+  }
+
+  setFreeText() {
+    let tempFreeText: any;
+    const freeArray: any = [];
+    const free = this.letterOfSetOff.value;
+    for (let val = 0; val < free.tdHolderDetailsArray.length; val++) {
+      tempFreeText = {
+        grandFatherName: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'grandFatherName']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'grandFatherName']).value : '',
+        grandRelation: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'grandRelation']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'grandRelation']).value : '',
+        fatherName: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'fatherName']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'fatherName']).value : '',
+        fatherRelation: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'fatherRelation']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'fatherRelation']).value : '',
+        district: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'district']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'district']).value : '',
+        vdcMunicipalityOption: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'vdcMunicipalityOption']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'vdcMunicipalityOption']).value : '',
+        municipality: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'municipality']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'municipality']).value : '',
+        wardNumber: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'wardNumber']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'wardNumber']).value : '',
+        age: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'age']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'age']).value : '',
+        customerType: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'customerType']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'customerType']).value : '',
+        nameOfPerson: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'nameOfPerson']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'nameOfPerson']).value : '',
+        citizenshipNumber: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'citizenshipNumber']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'citizenshipNumber']).value : '',
+        issueDateType: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDateType']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDateType']).value : '',
+        issueDate: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDate']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDate']).value : '',
+        issueDateNepali: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDateNepali']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issueDateNepali']).value : '',
+        issuedDistrict: this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issuedDistrict']) ?
+            this.letterOfSetOff.get(['tdHolderDetailsArray', val, 'issuedDistrict']).value : '',
+      };
+      freeArray.push(tempFreeText);
+    }
+      const tempSakshi = {
+        date: this.letterOfSetOff.get('date').value ?
+            this.letterOfSetOff.get('date').value : '',
+        fixedDeposit: this.letterOfSetOff.get('fixedDeposit').value ?
+            this.letterOfSetOff.get('fixedDeposit').value : '',
+        accountNo: this.letterOfSetOff.get('accountNo').value ?
+            this.letterOfSetOff.get('accountNo').value : '',
+        nameOfTd: this.letterOfSetOff.get('nameOfTd').value ?
+            this.letterOfSetOff.get('nameOfTd').value : '',
+        sakshiDistrict1: this.letterOfSetOff.get('sakshiDistrict1').value ?
+            this.letterOfSetOff.get('sakshiDistrict1').value : '',
+        sakshiDistrict2: this.letterOfSetOff.get('sakshiDistrict2').value ?
+            this.letterOfSetOff.get('sakshiDistrict2').value : '',
+        sakshiMunicipality1: this.letterOfSetOff.get('sakshiMunicipality1').value ?
+            this.letterOfSetOff.get('sakshiMunicipality1').value : '',
+        sakshiMunicipality2: this.letterOfSetOff.get('sakshiMunicipality2').value ?
+            this.letterOfSetOff.get('sakshiMunicipality2').value : '',
+        sakshiWard1: this.letterOfSetOff.get('sakshiWard1').value ?
+            this.letterOfSetOff.get('sakshiWard1').value : '',
+        sakshiWard2: this.letterOfSetOff.get('sakshiWard2').value ?
+            this.letterOfSetOff.get('sakshiWard2').value : '',
+        sakshiAge1: this.letterOfSetOff.get('sakshiAge1').value ?
+            this.letterOfSetOff.get('sakshiAge1').value : '',
+        sakshiAge2: this.letterOfSetOff.get('sakshiAge2').value ?
+            this.letterOfSetOff.get('sakshiAge2').value : '',
+        sakshiName1: this.letterOfSetOff.get('sakshiName1').value ?
+            this.letterOfSetOff.get('sakshiName1').value : '',
+        sakshiName2: this.letterOfSetOff.get('sakshiName2').value ?
+            this.letterOfSetOff.get('sakshiName2').value : '',
+        nameOfBankStaff: this.letterOfSetOff.get('nameOfBankStaff').value ?
+            this.letterOfSetOff.get('nameOfBankStaff').value : '',
+      };
+      const freeTextJson = {
+        tdDetails: freeArray ? freeArray : '',
+        sakshiFreeText: tempSakshi ? tempSakshi : ''
+      };
+      this.freeText = freeTextJson;
+    return JSON.stringify(this.freeText);
   }
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.letterOfSetOff.get(numLabel).value);

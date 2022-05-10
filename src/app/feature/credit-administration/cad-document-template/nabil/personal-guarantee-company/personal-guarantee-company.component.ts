@@ -214,17 +214,36 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
               }
               let fatherName;
               let grandFatherName;
-              if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'MALE')) {
-                  fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
-                  grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
-              }
-              if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '0')) {
-                  fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
-                  grandFatherName = individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : '';
-              }
-              if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE' && individualGuarantorNepData.relationMedium.en === '1')) {
-                  fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
-                  grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+              if (!ObjectUtil.isEmpty(individualGuarantorNepData)) {
+                  if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender) &&
+                      !ObjectUtil.isEmpty(individualGuarantorNepData.gender.en)) {
+                      if (individualGuarantorNepData.gender.en === 'MALE') {
+                          fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                          grandFatherName = individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : '';
+                      }
+                      if (individualGuarantorNepData.gender.en === 'FEMALE') {
+                          if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus) &&
+                              !ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en)) {
+                              if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Married') {
+                                  if (!ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium.en) &&
+                                      individualGuarantorNepData.relationMedium.en === '1') {
+                                      fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                                      grandFatherName = individualGuarantorNepData.grandFatherName ?
+                                          individualGuarantorNepData.grandFatherName.ct : '';
+                                  } else {
+                                      fatherName = individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : '';
+                                      grandFatherName = individualGuarantorNepData.fatherInLawName ?
+                                          individualGuarantorNepData.fatherInLawName.ct : '';
+                                  }
+                              }
+                              if (individualGuarantorNepData.guarantorMaritalStatus.en === 'Unmarried') {
+                                  fatherName = individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : '';
+                                  grandFatherName = individualGuarantorNepData.grandFatherName ?
+                                      individualGuarantorNepData.grandFatherName.ct : '';
+                              }
+                          }
+                      }
+                  }
               }
               this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
               (this.personalGuaranteeCompany.get('guaranteeCompanies') as FormArray).push(
@@ -233,7 +252,8 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
                       actYearInFigure: [this.setActYear()],
                       authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
-                      headDepartment: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
+                      headDepartment: [this.loanHolderNepData.registeredWith &&
+                      this.loanHolderNepData.registeredWith.ct ? this.loanHolderNepData.registeredWith.ct : ''],
                       registrationDate: [this.setRegistrationDate()],
                       registrationNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
                       location: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],

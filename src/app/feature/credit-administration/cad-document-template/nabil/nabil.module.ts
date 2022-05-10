@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PromissoryNoteIndividualComponent} from './promissory-note-individual/promissory-note-individual.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
@@ -132,10 +131,12 @@ import { Section18RequiredSecurityDocumentsComponent } from './nabil-sme/retail-
 import { Section19ToSection22Component } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter-sections/section19-to-section22/section19-to-section22.component';
 import { RetailCombinedOfferLetterComponent } from './nabil-sme/retail-combined-offer-letter/retail-combined-offer-letter.component';
 import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-for-mortgage-individual/consent-letter-for-mortgage-individual.component';
+import { PromissoryNoteIndividualCombinedComponent } from './promissory-note-individual-combined/promissory-note-individual-combined.component';
+import { NegativeLienIndividualComponent } from './negative-lien-individual/negative-lien-individual.component';
 
 @NgModule({
     declarations: [
-        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        PromissoryNoteIndividualComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
          LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
@@ -143,7 +144,7 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
          PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent,
-        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        PromissoryNoteIndividualComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
         LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
@@ -170,7 +171,10 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         Section18RequiredSecurityDocumentsComponent,
         Section19ToSection22Component,
         RetailCombinedOfferLetterComponent,
-        ConsentLetterForMortgageIndividualComponent],
+        ConsentLetterForMortgageIndividualComponent,
+        PromissoryNoteIndividualCombinedComponent,
+        ConsentLetterForMortgageIndividualComponent,
+        NegativeLienIndividualComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -178,7 +182,6 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         PersonalGuaranteeCompanyComponent,
         PersonalGuaranteeIndividualComponent,
         LetterOfSetOffPrintComponent,
-        PromissoryNoteIndividualPrintComponent,
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
@@ -251,7 +254,10 @@ import { ConsentLetterForMortgageIndividualComponent } from './consent-letter-fo
         Section7InterestAndEmiPaymentRelatedComponent,
         Section9InsuranceRelatedClausesComponent,
         ConsentLetterForMortgageIndividualComponent,
-        RetailCombinedOfferLetterComponent
+        RetailCombinedOfferLetterComponent,
+        PromissoryNoteIndividualCombinedComponent,
+        RetailCombinedOfferLetterComponent,
+        NegativeLienIndividualComponent
     ],
     imports: [
         CommonModule,

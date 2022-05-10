@@ -7,9 +7,16 @@
     <nb-card-body>
         <div>
             <div [ngSwitch]="documentId">
-                <app-promissory-note-individual *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
-                                                [cadData]="cadData" [documentId]="documentId"
-                                                [customerLoanId]="customerLoanId"></app-promissory-note-individual>
+                <ng-container *ngIf="this.cadData?.assignedLoan[0]?.loan.offerLetterConst !==  'COMBINED_LETTER'">
+                    <app-promissory-note-individual *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
+                                                    [cadData]="cadData" [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId"></app-promissory-note-individual>
+                </ng-container>
+                <ng-container *ngIf="this.cadData?.assignedLoan[0]?.loan.offerLetterConst ===  'COMBINED_LETTER'">
+                    <app-promissory-note-individual-combined *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
+                                                    [cadData]="cadData" [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId"></app-promissory-note-individual-combined>
+                </ng-container>
                 <app-promissory-note-company *ngSwitchCase="nabilCadTemplate.PROMISSORY_NOTE_COMPANY"
                                              [cadData]="cadData" [documentId]="documentId"
                                              [customerLoanId]="customerLoanId"></app-promissory-note-company>
@@ -277,6 +284,11 @@
                                                       [documentId]="documentId"
                                                       [customerLoanId]="customerLoanId">
                 </app-letter-vehicle-third-party-proprietorship>
+                <app-negative-lien-individual *ngSwitchCase="nabilCadTemplate.NEGATIVE_LIEN_INDIVIDUAL"
+                                              [cadData]="cadData"
+                                              [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId">
+                </app-negative-lien-individual>
                 <app-consent-letter-for-mortgage-individual *ngSwitchCase="nabilCadTemplate.CONSENT_LETTER_FOR_MORTGAGE_INDIVIDUAL"
                                                             [cadData]="cadData"
                                                             [documentId]="documentId"
