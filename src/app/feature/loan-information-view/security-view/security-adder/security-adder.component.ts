@@ -3,7 +3,6 @@ import {FormBuilder} from '@angular/forms';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
-import {Security} from '../../../loan/model/security';
 import {SecurityTaggerComponent} from './security-tagger/security-tagger.component';
 
 @Component({
