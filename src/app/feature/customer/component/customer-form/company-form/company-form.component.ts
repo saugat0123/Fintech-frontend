@@ -11,7 +11,6 @@ import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {Address} from '../../../../loan/model/address';
-import {BusinessType} from '../../../../admin/modal/businessType';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {LoanDataService} from '../../../../loan/service/loan-data.service';
 import {ActivatedRoute} from '@angular/router';
@@ -96,7 +95,6 @@ export class CompanyFormComponent implements OnInit {
     districtList: Array<District> = new Array<District>();
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
-    businessTypes = BusinessType.enumObject();
     contactPerson: ContactPerson = new ContactPerson();
     allDistrict: Array<District> = Array<District>();
     companyStructureList: Array<Company>;
@@ -315,10 +313,6 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
                     new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
-            businessType:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
-                    this.companyInfo.businessType, [Validators.required]],
             majorProductService:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.majorProductService)) ? undefined :
@@ -807,7 +801,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
-        this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;

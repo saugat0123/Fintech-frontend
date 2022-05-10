@@ -195,32 +195,13 @@
                             </div> -->
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="businessType"><strong>Business Type</strong></label>
-                                    <select formControlName="businessType" id="businessType"
-                                            [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Business Type</option>
-                                        <option *ngFor="let business of businessTypes"
-                                                [value]="business.key">{{business.value}}</option>
-                                    </select>
-
-                                    <div *ngIf="submitted && form.businessType?.errors"
-                                         class="text-danger small">
-                                        <div *ngIf="form.businessType?.errors.required">
-                                            Business Type is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="businessType"><strong>Major products/Service</strong></label>
+                                    <label for="majorProductService"><strong>Major Line of Business</strong></label>
                                     <input
                                             [ngClass]="{'is-invalid':submitted &&  form.majorProductService.errors}"
                                             formControlName="majorProductService"
                                             class="form-control"
                                             id="majorProductService"
-                                            placeholder="Enter Major Product/Service"/>
+                                            placeholder="Enter Major Line of Business"/>
                                     <div *ngIf="submitted && form.majorProductService?.errors"
                                          class="text-danger small">
                                         <div *ngIf="form.majorProductService?.errors.required">
@@ -231,7 +212,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="businessType"><strong>Relationship Since (with group)</strong></label>
+                                    <label for="relationshipSince"><strong>Relationship Since (with group)</strong></label>
                                     <input *ngIf="calendarType === 'AD'"
                                            [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
                                            formControlName="relationshipSince"
