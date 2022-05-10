@@ -3,7 +3,7 @@
     </nb-card-header>
     <nb-card-body>
         <div *ngIf="customerInfo?.securities?.length > 0">
-            <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities"
+            <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities" [loanDataHolder]="loanHolder"
                                        [proposedLimit]="proposedLimit"></app-security-tagger>
         </div>
     </nb-card-body>
