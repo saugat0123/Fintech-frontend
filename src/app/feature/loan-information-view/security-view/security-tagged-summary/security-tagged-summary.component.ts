@@ -20,8 +20,6 @@ export class SecurityTaggedSummaryComponent implements OnInit {
 
     ngOnInit() {
         this.getSecurityDetails(this.loanDataHolder.id);
-        this.allSecurity = this.loanDataHolder.securities;
-        this.setCoverage();
     }
 
   setCoverage() {
@@ -41,6 +39,8 @@ export class SecurityTaggedSummaryComponent implements OnInit {
         this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(Number(id)).subscribe(res => {
             this.spinner = false;
             this.securityDetails = res.detail;
+            this.allSecurity = this.loanDataHolder.securities;
+            this.setCoverage();
         }, (err) => {
             this.spinner = false;
         });
