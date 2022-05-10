@@ -30,6 +30,7 @@
 <div *ngIf="!productUtils.CBS_ENABLE">
     <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
                                         [customerAllLoanList]="customerAllLoanList"
+                                        [isDetailedView]="true"
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 

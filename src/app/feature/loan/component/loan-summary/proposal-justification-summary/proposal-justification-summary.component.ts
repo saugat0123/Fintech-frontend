@@ -8,6 +8,7 @@ import {LoanDataHolder} from '../../../model/loanData';
   styleUrls: ['./proposal-justification-summary.component.scss']
 })
 export class ProposalJustificationSummaryComponent implements OnInit {
+  @Input() isDetailedView: boolean;
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
   constructor() { }
