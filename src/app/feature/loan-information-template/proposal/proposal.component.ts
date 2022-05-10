@@ -495,7 +495,6 @@ export class ProposalComponent implements OnInit {
             }
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
-            console.log('Loan Data::', this.loan);
             this.spinner.show();
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
