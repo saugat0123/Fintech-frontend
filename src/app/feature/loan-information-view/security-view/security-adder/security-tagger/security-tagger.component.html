@@ -29,7 +29,7 @@
                                     <td>{{security.get('considerValue')?.value || '0'}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calcFreeLimit(i,security.get('considerValue')?.value, security.get('usedAmount').value,
+                                               (input)="calcFreeLimit(i,toggleArray[i]?.freeLimit, security.get('usedAmount').value,
                                                                        'securityDetails')"
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
