@@ -82,7 +82,7 @@ export class FinancialService {
 
     // Convert a number to percentage--
     convertToPercent(numberValue) {
-        return ((numberValue) * 100).toFixed(2);
+        return ((numberValue) * 100).toFixed(8);
     }
 
     //
