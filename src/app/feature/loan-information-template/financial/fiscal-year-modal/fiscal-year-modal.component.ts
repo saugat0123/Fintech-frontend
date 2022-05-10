@@ -70,9 +70,7 @@ export class FiscalYearModalComponent implements OnInit {
         return this.formBuilder.group({
             audited: [this.financialStatementForm.get('fiscalYear').value],
             auditFirm: [undefined, Validators.required],
-            proprietePartner: [undefined, Validators.required],
             membershipNo: [undefined, Validators.required],
-            certificateOfPractice: [undefined, Validators.required],
             class: [undefined, Validators.required],
         });
     }
@@ -81,9 +79,7 @@ export class FiscalYearModalComponent implements OnInit {
         return this.formBuilder.group({
             audited: [auditor.audited],
             auditFirm: [auditor.auditFirm, Validators.required],
-            proprietePartner: [auditor.proprietePartner, Validators.required],
             membershipNo: [auditor.membershipNo, Validators.required],
-            certificateOfPractice: [auditor.certificateOfPractice, Validators.required],
             class: [auditor.class, Validators.required],
         });
     }

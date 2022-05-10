@@ -152,16 +152,6 @@
                                             id="contactNum"
                                             placeholder="Enter Mobile no!"
                                             type="number"/>
-                                    <div *ngIf="submitted && form.contactNum?.errors "
-                                         class="invalid-feedback">
-                                        <div *ngIf="form.contactNum?.errors.required">
-                                            Enter Mobile no!
-                                        </div>
-                                        <div *ngIf="form.contactNum?.errors.min || form.contactNum?.errors.max">
-                                            Enter 10 Digit Mobile no!
-                                        </div>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>

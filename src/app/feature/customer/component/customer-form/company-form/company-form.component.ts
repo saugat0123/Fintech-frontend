@@ -346,7 +346,7 @@ export class CompanyFormComponent implements OnInit {
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
-                    this.companyInfo.contactNum, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
+                    this.companyInfo.contactNum],
             landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
                 this.companyInfo.landLineNumber],
