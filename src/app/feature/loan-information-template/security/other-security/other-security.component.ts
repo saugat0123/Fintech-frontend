@@ -30,7 +30,10 @@ export class OtherSecurityComponent implements OnInit {
 
   private otherSecurityDetailsFormGroup(): FormGroup {
     return this.formBuilder.group({
-        otherDetail: [undefined],
+          otherDetail: [undefined],
+          considerValue: 0,
+          distressValue: [undefined],
+          fairMarketValue: [undefined]
         }
     );
   }

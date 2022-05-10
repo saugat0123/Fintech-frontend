@@ -42,6 +42,9 @@ export class AssignmentOfReceivableComponent implements OnInit {
   public assignmentDetailsFormGroup(): FormGroup {
     return this.formBuilder.group({
           amount: [undefined, Validators.required],
+          considerValue: 0,
+          distressValue: [undefined],
+          fairMarketValue: [undefined],
           otherDetail: [undefined]
         }
     );

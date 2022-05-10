@@ -25,7 +25,23 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Considered Value</label>
+                            <input [ngClass]="{'is-invalid': (submitted) && (insurancePolicy.get('coniderValue').errors)}"
+                                   class="form-control rounded" formControlName="considerValue"
+                                   placeholder="Consider Value"
+                                   type="number" required/>
+                            <div *ngIf="(submitted) && (insurancePolicy.get('considerValue').invalid)"
+                                 class="invalid-feedback">
+                                <div *ngIf="insurancePolicy.get('considerValue').errors.required">
+                                    Consider Value is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="insuranceCompanyName"><strong>Insurance Company</strong></label>
                             <select class="form-control"

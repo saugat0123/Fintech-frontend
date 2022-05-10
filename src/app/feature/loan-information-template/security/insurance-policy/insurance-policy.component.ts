@@ -50,18 +50,21 @@ export class InsurancePolicyComponent implements OnInit {
     (this.insurancePolicyForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
   }
 
-  public insurancePolicyFormGroup(): FormGroup {
-    return this.formBuilder.group({
-          insuredAmount: [undefined, Validators.required],
-          insuranceCompanyName: [undefined, Validators.required],
-          policyStartDate: [undefined],
-          maturityDate: [undefined],
-          insurancePolicyType: [undefined],
-          surrenderValue: [undefined],
-          earlySurrenderDate: [undefined],
-          consideredValue: [undefined],
-          cashBackAmount: [undefined],
-        }
-    );
-  }
+    public insurancePolicyFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                insuredAmount: [undefined, Validators.required],
+                insuranceCompanyName: [undefined, Validators.required],
+                policyStartDate: [undefined],
+                maturityDate: [undefined],
+                considerValue: [undefined],
+                fairMarketValue: [undefined],
+                distressValue: [undefined],
+                insurancePolicyType: [undefined],
+                surrenderValue: [undefined],
+                earlySurrenderDate: [undefined],
+                consideredValue: [undefined],
+                cashBackAmount: [undefined],
+            }
+        );
+    }
 }
