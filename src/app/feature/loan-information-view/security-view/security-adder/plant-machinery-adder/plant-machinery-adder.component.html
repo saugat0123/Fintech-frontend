@@ -53,5 +53,37 @@
                 </table>
             </div>
         </form>
+        <table *ngIf="securityList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Fair Market Value</th>
+                <th>Distress Value</th>
+                <th>Consider Value</th>
+                <th>Used Amount</th>
+                <th>Free Limit</th>
+                <th>Coverage(%)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let security of securityList; let i=index;">
+                <td>{{i + 1}}</td>
+                <td>{{security?.fairMarketValue}}</td>
+                <td>{{security?.distressValue}}</td>
+                <td>{{security?.considerValue}}</td>
+                <td>{{security?.usedAmount}}</td>
+                <td>{{security?.freeLimit}}</td>
+                <td>{{security?.coverage}}</td>
+                <td>
+                <td>
+                    <button (click)="removeSecurity(i)"
+                            class="btn btn-sm btn-flat btn-danger">
+                        <em class="fa fa-trash bg-transparent"></em>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </nb-card-body>
 </nb-card>

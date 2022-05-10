@@ -6,7 +6,7 @@
                     <label>Select Security</label>
                 </div>
                 <select class="form-control"
-                           (change)="selectedSecurity(); toggleSecurity()"
+                           (change)="selectedSecurity();"
                            [(ngModel)]="selectedSecurities">
                     <option *ngFor="let security of securityList"
                                [value]="security">
@@ -14,13 +14,11 @@
                     </option>
                 </select>
             </div>
-
         </div>
-        <p><strong class="mt-2 text-danger">{{msg}}</strong></p>
     </nb-card-header>
     <nb-card-body>
         <div [hidden]="!plantMachinery">
-            <app-plant-machinery-adder [securities]="customerInfo?.securities"
+            <app-plant-machinery-adder #plantMachineryAdder [securities]="customerInfo?.securities"
                                        [proposedLimit]="proposedLimit"></app-plant-machinery-adder>
         </div>
     </nb-card-body>

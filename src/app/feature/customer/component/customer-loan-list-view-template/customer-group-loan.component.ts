@@ -140,6 +140,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }];
     if (!ObjectUtil.isEmpty(this.customerLoans)) {
       this.loan = this.customerLoans;
+
       this.isLoaded = true;
       this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
     } else {
