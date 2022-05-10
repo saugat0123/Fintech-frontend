@@ -31,7 +31,6 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
 import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
-import { LandBuildingAdderComponent } from './security-view/security-adder/land-building-adder/land-building-adder.component';
 import {SecurityTaggerComponent} from './security-view/security-adder/security-tagger/security-tagger.component';
 
 
@@ -58,7 +57,7 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
         CrossCollateralizedViewComponent,
-        LandBuildingAdderComponent
+        SecurityTaggerComponent,
     ],
     exports: [
         InsuranceViewComponent,
@@ -81,7 +80,6 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
         CrossCollateralizedViewComponent,
-        SecurityTaggerComponent
     ],
     imports: [
         CommonModule,
@@ -94,7 +92,6 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         NepaliPatroModule,
         NetWorthModule,
         SecurityTaggedModule,
-        LoanInformationViewModule,
     ],
     entryComponents: [
         AllDocumentViewComponent

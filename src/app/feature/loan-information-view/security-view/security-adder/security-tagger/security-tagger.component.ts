@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Security} from '../../../../loan/model/security';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
 
 @Component({
   selector: 'app-security-tagger',
@@ -10,6 +11,7 @@ import {SecurityLoanReferenceService} from '../../../../security-service/securit
 })
 export class SecurityTaggerComponent implements OnInit {
   @Input() securities: Array<Security>;
+  @Input() loanDataHolder: LoanDataHolder;
   securityForm: FormGroup;
     limitExceed = [];
     isUsedAmount = [];
@@ -28,6 +30,9 @@ export class SecurityTaggerComponent implements OnInit {
       this.setPlantDetails(this.securities);
       this.toggleSecurity();
     }
+      if (this.loanDataHolder.securities.length > 0) {
+          this.securityList = this.loanDataHolder.securities;
+      }
   }
 
   get securityControls(): FormArray {
