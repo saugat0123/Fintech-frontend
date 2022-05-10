@@ -17,7 +17,7 @@ export class SecurityTaggerComponent implements OnInit {
     limitExceed = [];
     isUsedAmount = [];
     @Input() proposedLimit: number;
-    toggleArray: { toggled: boolean, security: any }[] = [];
+    toggleArray: { toggled: boolean, security: any, freeLimit: any }[] = [];
     spinner = false;
     securityPresent = [];
     securityList: Array<Security> = new Array<Security>();
@@ -80,6 +80,14 @@ export class SecurityTaggerComponent implements OnInit {
         this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
             this.spinner = false;
             this.toggleArray[i].security = res.detail;
+            let totalUsedAmount = 0;
+            this.toggleArray[i].security.forEach((d) => {
+                if (!ObjectUtil.isEmpty(d.usedAmount)) {
+                    totalUsedAmount += d.usedAmount;
+                }
+            });
+            this.toggleArray[i].freeLimit = Number(this.securityForm.get(['securityDetails', i , 'considerValue']).value) - totalUsedAmount;
+            this.securityForm.get(['securityDetails', i , 'freeLimit']).setValue(this.toggleArray[i].freeLimit);
             this.securityPresent[i] = this.toggleArray[i].security.length > 0;
         }, (err) => {
             this.spinner = false;
@@ -89,7 +97,7 @@ export class SecurityTaggerComponent implements OnInit {
     public setToggled(array): void {
         this.toggleArray = [];
         array.forEach((a, i) => {
-            this.toggleArray.push({toggled: false, security: null});
+            this.toggleArray.push({toggled: false, security: null, freeLimit: null});
             this.getSecurityDetails(a.id, i);
         });
     }

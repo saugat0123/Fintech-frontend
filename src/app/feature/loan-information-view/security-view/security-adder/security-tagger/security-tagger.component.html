@@ -29,7 +29,7 @@
                                     <td>{{security.get('considerValue')?.value || '0'}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
-                                               (input)="calcFreeLimit(i,security.get('considerValue')?.value, security.get('usedAmount').value,
+                                               (input)="calcFreeLimit(i,toggleArray[i]?.freeLimit, security.get('usedAmount').value,
                                                                        'securityDetails')"
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
@@ -73,6 +73,7 @@
                 <th>Used Amount</th>
                 <th>Free Limit</th>
                 <th>Coverage(%)</th>
+                <th>Security Type</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -85,7 +86,7 @@
                 <td>{{security?.usedAmount || '0'}}</td>
                 <td>{{security?.freeLimit || '0'}}</td>
                 <td>{{security?.coverage || '0'}}</td>
-                <td>
+                <td>{{security?.securityType}}</td>
                 <td>
                     <button (click)="removeSecurity(i)"
                             class="btn btn-sm btn-flat btn-danger">
