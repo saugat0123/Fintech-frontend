@@ -13,6 +13,7 @@ import {ObjectUtil} from '../../@core/utils/ObjectUtil';
 })
 export class CommonAddressComponent implements OnInit {
   @Input() address;
+  @Input() sameAddress: boolean;
   provinceList: Array<Province> = new Array<Province>();
   districts: Array<District> = new Array<District>();
   municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
@@ -23,6 +24,7 @@ export class CommonAddressComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    console.log('sameAddress', this.sameAddress);
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
