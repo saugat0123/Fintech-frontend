@@ -94,7 +94,7 @@ export class SiteVisitComponent implements OnInit {
       if (ObjectUtil.isEmpty(this.formDataForEdit.currentResidentDetails)) {
         this.addCurrentResidentDetails();
       }
-      if (ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
+      if (ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails)) {
         this.addMoreCurrentAssets();
       }
       this.populateData();
@@ -113,7 +113,7 @@ export class SiteVisitComponent implements OnInit {
       currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.array([]),
       businessSiteVisitDetails: this.formBuilder.array([]),
-      currentAssetsDetails: this.formBuilder.array([])
+      currentAssetsInspectionDetails: this.formBuilder.array([])
     });
   }
 
@@ -141,8 +141,8 @@ export class SiteVisitComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails)) {
       this.setBusinessSiteVisit(this.formDataForEdit.businessSiteVisitDetails);
     }
-    if (!ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
-      const currentDetail = this.formDataForEdit.currentAssetsDetails;
+    if (!ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails)) {
+      const currentDetail = this.formDataForEdit.currentAssetsInspectionDetails;
       this.setCurrentAssetsDetails(currentDetail);
       currentDetail.forEach((data, i) => {
         this.setInspectingStaffsDetails(data.insuranceVerification.inspectingStaffsDetails, i);
@@ -167,7 +167,7 @@ export class SiteVisitComponent implements OnInit {
 
   addInspectingStaffsDetails(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'insuranceVerification']) as FormGroup)
         .get('inspectingStaffsDetails') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
@@ -178,7 +178,7 @@ export class SiteVisitComponent implements OnInit {
 
   deleteInspectingStaffsDetails(i, index) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'insuranceVerification']) as FormGroup)
         .get('inspectingStaffsDetails') as FormArray).removeAt(index);
   }
 
@@ -381,11 +381,11 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addMoreCurrentAssets() {
-    (this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray).push(this.currentAssetsFormGroup());
+    (this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormArray).push(this.currentAssetsFormGroup());
   }
 
   removeCurrentAssets(index: number) {
-    (<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails')).removeAt(index);
+    (<FormArray>this.siteVisitFormGroup.get('currentAssetsInspectionDetails')).removeAt(index);
   }
 
   partyFormGroup() {
@@ -400,7 +400,7 @@ export class SiteVisitComponent implements OnInit {
 
   addPartyForm(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'receivablesAndPayables']) as FormGroup)
         .get('parties') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
@@ -411,7 +411,7 @@ export class SiteVisitComponent implements OnInit {
 
   addPayablePartyForm(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'payable']) as FormGroup).get('parties') as FormArray;
+        .get(['currentAssetsInspectionDetails', i, 'payable']) as FormGroup).get('parties') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
       return;
@@ -421,13 +421,13 @@ export class SiteVisitComponent implements OnInit {
 
   deletePartyForm(i, ii) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'receivablesAndPayables']) as FormGroup)
         .get('parties') as FormArray).removeAt(ii);
   }
 
   deletePayablePartyForm(i, iii) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'payable']) as FormGroup)
         .get('parties') as FormArray).removeAt(iii);
   }
 
@@ -440,7 +440,7 @@ export class SiteVisitComponent implements OnInit {
 
   addReceivableAssets(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('receivableAssets') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
@@ -451,13 +451,13 @@ export class SiteVisitComponent implements OnInit {
 
   deleteReceivableAssets(i, i3) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('receivableAssets') as FormArray).removeAt(i3);
   }
 
   addPayableAssets(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('payableAssets') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
@@ -468,13 +468,13 @@ export class SiteVisitComponent implements OnInit {
 
   deletePayableAssets(i, i5) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('payableAssets') as FormArray).removeAt(i5);
   }
 
   deleteInspectingStaffs(i, i4) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('inspectingStaffs') as FormArray).removeAt(i4);
   }
 
@@ -487,7 +487,7 @@ export class SiteVisitComponent implements OnInit {
 
   addBankExposure(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('bankExposures') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
@@ -498,7 +498,7 @@ export class SiteVisitComponent implements OnInit {
 
   deleteBankExposure(i, i6) {
     ((this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('bankExposures') as FormArray).removeAt(i6);
   }
 
@@ -630,7 +630,7 @@ export class SiteVisitComponent implements OnInit {
       }
     }
     if (this.currentAssetsInspectionForm) {
-      const currentAssetsData = this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray;
+      const currentAssetsData = this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormArray;
       try {
         currentAssetsData.controls.forEach(data => {
           if (data.invalid) {
@@ -654,51 +654,51 @@ export class SiteVisitComponent implements OnInit {
 
   onChangeValue(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    const receiveData = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+    const receiveData = (this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'receivablesAndPayables']) as FormGroup)
         .get('parties') as FormArray;
     receiveData.controls.forEach(party => {
       total += Number(party.get(`${childFormControlName}`).value);
     });
-    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'receivablesAndPayables'])
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'receivablesAndPayables'])
         .get(`${totalFormControlName}`).patchValue(total);
   }
 
   onChangePayableValue(childFormControlName: string, totalFormControlName, i: number) {
     let total = 0;
-    const payData = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+    const payData = (this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'payable']) as FormGroup)
         .get('parties') as FormArray;
     payData.controls.forEach(party => {
       total += Number(party.get(`${childFormControlName}`).value);
     });
-    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'payable'])
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'payable'])
         .get(`${totalFormControlName}`).patchValue(total);
   }
 
   onReceivableAssetValueChange(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    const receviable = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+    const receviable = (this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('receivableAssets') as FormArray;
     receviable.controls.forEach(receivableAssets => {
       total += Number(receivableAssets.get(`${childFormControlName}`).value);
     });
-    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets'])
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets'])
         .get(`${totalFormControlName}`).patchValue(total);
   }
 
   onPayableAssetsValueChange(childFormControlName: string, totalFormControlName: string, i: number) {
     let total = 0;
-    const payable = (this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+    const payable = (this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('payableAssets') as FormArray;
     payable.controls.forEach(payableAssets => {
       total += Number(payableAssets.get(`${childFormControlName}`).value);
     });
-    this.siteVisitFormGroup.get(['currentAssetsDetails', i, 'otherCurrentAssets'])
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets'])
         .get(`${totalFormControlName}`).patchValue(total);
   }
 
   addStaffOfOtherAssets(i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('inspectingStaffs') as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
@@ -714,7 +714,7 @@ export class SiteVisitComponent implements OnInit {
 
   setInspectingStaffsDetails(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'insuranceVerification']) as FormGroup)
         .get('inspectingStaffsDetails') as FormArray;
     if (currentData !== undefined) {
       currentData.forEach(data => {
@@ -732,7 +732,7 @@ export class SiteVisitComponent implements OnInit {
 
   setPartyFormDetails(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'receivablesAndPayables']) as FormGroup)
         .get('parties') as FormArray;
     if (currentData !== undefined) {
       currentData.forEach(data => {
@@ -751,7 +751,7 @@ export class SiteVisitComponent implements OnInit {
 
   setPayablePartyFormDetails(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'payable']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'payable']) as FormGroup)
         .get('parties') as FormArray;
     if (ObjectUtil.isEmpty(currentData)) {
       // this.addPayablePartyForm();
@@ -772,7 +772,7 @@ export class SiteVisitComponent implements OnInit {
 
   setReceivableAssetsDetails(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('receivableAssets') as FormArray;
     currentData.forEach(data => {
       controls.push(
@@ -786,7 +786,7 @@ export class SiteVisitComponent implements OnInit {
 
   setPayableAssetsDetails(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('payableAssets') as FormArray;
     currentData.forEach(data => {
       controls.push(
@@ -800,7 +800,7 @@ export class SiteVisitComponent implements OnInit {
 
   setOtherCurrentInspectingStaffs(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('inspectingStaffs') as FormArray;
     currentData.forEach(data => {
       controls.push(
@@ -814,7 +814,7 @@ export class SiteVisitComponent implements OnInit {
 
   setBankExposures(currentData, i) {
     const controls = (this.siteVisitFormGroup
-        .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
+        .get(['currentAssetsInspectionDetails', i, 'otherCurrentAssets']) as FormGroup)
         .get('bankExposures') as FormArray;
     currentData.forEach(data => {
       controls.push(
@@ -872,9 +872,9 @@ export class SiteVisitComponent implements OnInit {
   }
 
   setCurrentAssetsDetails(currentData) {
-    const currentAssetsDetails = this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray;
+    const currentAssetsInspectionDetails = this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormArray;
     currentData.forEach((singleData) => {
-      currentAssetsDetails.push(
+      currentAssetsInspectionDetails.push(
           this.formBuilder.group({
             dateOfInspection: [new Date(singleData.dateOfInspection), [Validators.required, DateValidator.isValidBefore]],
             particularsOfGoodInspected: [singleData.particularsOfGoodInspected],
@@ -962,11 +962,11 @@ export class SiteVisitComponent implements OnInit {
 
   calculateGrandTotal(formControl, i: number) {
     let grandTotal = 0;
-    grandTotal = this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'threeMonthTotal']).value
-        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'sixMonthTotal']).value
-        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'oneYearTotal']).value
-        + this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'moreThanOneYearTotal']).value;
-    this.siteVisitFormGroup.get(['currentAssetsDetails', i, formControl, 'grandTotal'])
+    grandTotal = this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'threeMonthTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'sixMonthTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'oneYearTotal']).value
+        + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'moreThanOneYearTotal']).value;
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'grandTotal'])
         .patchValue(grandTotal.toFixed(2));
   }
 
