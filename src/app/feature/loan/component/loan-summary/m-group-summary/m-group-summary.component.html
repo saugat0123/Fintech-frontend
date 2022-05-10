@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_UPTO_TEN_MILLION
-     || customerCategory === customerCategoryType.SANA_BYABASAYI">
+     || customerCategory === customerCategoryType.SANA_BYABASAYI || customerCategory === 'executing'">
         <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
@@ -31,7 +31,6 @@
             </tbody>
         </table>
         <br>
-        <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
             <tr class="sb-bg-dark text-white">
@@ -45,4 +44,6 @@
             </tbody>
         </table>
     </div>
+
+
 </div>
