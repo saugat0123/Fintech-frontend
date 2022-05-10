@@ -440,13 +440,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .fetchValuesForSubCategories(this.balanceSheetForm.get('longTermLoanCategory'), 'Loan From Promoters/Proprietor', index)))
             / Number(totalAssets.controls['value'].value)).toFixed(8);
 
-        keyIndicators.debtEquityRatioOverall[index].value = Number(totalAssets.controls['value'].value) === 0 ? 0 :
-            this.financialService.convertToPercent((Number(this.financialService
-                .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                    'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value))
-                / (Number(totalAssets.controls['value'].value) - Number(this.financialService
-                    .fetchValuesForSubCategories(this.balanceSheetForm.get('otherAssetsCategory'),
-                        'Preliminary expenses', index))));
+        keyIndicators.debtEquityRatioOverall[index].value = Number(totalLiabilitiesAndEquity.controls['value'].value) === 0 ? 0 :
+            (Number(totalLiabilitiesAndEquity.controls['value'].value) - Number(netWorth.controls['value'].value))
+                / (Number(netWorth.controls['value'].value));
+        console.log('debtEquityRatioOverall', keyIndicators.debtEquityRatioOverall[index].value)
         keyIndicators.debtEquityRatioLongTerm[index].value = Number(longTermLoan.controls['value'].value) === 0 ? 0 :
             this.financialService.convertToPercent((Number(longTermLoan.controls['value'].value))
                 / (Number(fixedAssets.controls['value'].value) + Number(otherAssets.controls['value'].value)));

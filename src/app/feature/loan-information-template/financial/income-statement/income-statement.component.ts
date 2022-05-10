@@ -234,7 +234,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const accumulatedProfitBOrDValue = profitAfterTax.controls['value'].value === 0 ? 0 :
             (index <= 0 ? accumulatedProfitBOrD.controls['value'].value
                 : ((this.incomeStatementForm.get('netProfitTransferredToBalanceSheet') as FormArray)
-                    .controls[index - 1] as FormGroup).controls['value'].value).toFixed(8);
+                    .controls[index - 1] as FormGroup).controls['value'].value);
         accumulatedProfitBOrD.controls['value'].setValue(Number(accumulatedProfitBOrDValue));
 
         // Calculating netProfitTransferredToBalanceSheetValue --
