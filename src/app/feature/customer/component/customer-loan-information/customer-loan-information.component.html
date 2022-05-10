@@ -380,7 +380,7 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
-            <app-security
+            <app-security #securityComponent
                 (securityDataEmitter)="saveSecurity($event)"
                 [calendarType]="calendarType"
                 [fromProfile]="true"

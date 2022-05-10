@@ -30,7 +30,7 @@ export class PlantMachineryAdderComponent implements OnInit {
     }
   }
 
-  get plantMachinery(): FormArray {
+  get securityControls(): FormArray {
     return this.securityForm.get('securityDetails') as FormArray;
   }
 

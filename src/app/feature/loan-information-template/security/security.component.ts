@@ -197,13 +197,17 @@ export class SecurityComponent implements OnInit {
         console.log('validation state');
     }
 
-    change(arraySelected) {
-        const selectedSecurity = [];
-        selectedSecurity.push(arraySelected);
+    securityInitialState() {
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.landBuildingSelected = this.plantSelected =
             this.depositSelected = this.shareSelected = this.hypothecationOfStockSelected =
                 this.corporateGuaranteeSelected = this.personalGuaranteeSelected = this.insurancePolicySelected =
                     this.assignmentOfReceivableSelected = this.leaseAssignmentSelected = this.otherSecuritySelected = false;
+    }
+
+    change(arraySelected) {
+        const selectedSecurity = [];
+        selectedSecurity.push(arraySelected);
+        this.securityInitialState();
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LAND_SECURITY' :
@@ -445,17 +449,17 @@ export class SecurityComponent implements OnInit {
             this.securityDataEmitter.emit(securities);
         }
         if (this.apartmentSelected) {
-            const apartmentData = this.apartmentSecurity.apartmentForm.value;
+            const apartmentData = this.apartmentSecurity.apartmentForm.value.buildingDetails;
             const securities = this.constructSecurityArray(apartmentData, 'APARTMENT_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.landSelected) {
-            const landData = this.landSecurity.landForm.value;
+            const landData = this.landSecurity.landForm.value.landDetails;
             const securities = this.constructSecurityArray(landData, 'LAND_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
         if (this.landBuildingSelected) {
-            const landBuildingData = this.landBuildingSecurity.landBuildingForm.value;
+            const landBuildingData = this.landBuildingSecurity.landBuildingForm.value.landBuilding;
             const securities = this.constructSecurityArray(landBuildingData, 'LAND_BUILDING_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
@@ -469,8 +473,8 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(depositData, 'FIXED_DEPOSIT_RECEIPT');
             this.securityDataEmitter.emit(securities);
         }
-        if (this.shareSelected) {
-            const shareData = this.shareSecurityComponent.shareSecurityForm.value;
+         if (this.shareSelected) {
+            const shareData = this.shareSecurityComponent.shareSecurityForm.value.shareSecurityDetails;
             const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
@@ -512,6 +516,7 @@ export class SecurityComponent implements OnInit {
     }
 
     constructSecurityArray(formValues: any, securityType: any): Array<Security> {
+        console.log('form values', formValues);
         const securities: Array<Security> = new Array<Security>();
         formValues.forEach(value => {
             const security: Security = new Security();
