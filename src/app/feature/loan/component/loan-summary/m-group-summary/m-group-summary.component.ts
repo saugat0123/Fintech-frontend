@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MGroup} from '../../../../customer/model/mGroup';
+import {CustomerCategory} from '../../../../customer/model/customerCategory';
 
 @Component({
   selector: 'app-m-group-summary',
@@ -9,6 +10,8 @@ import {MGroup} from '../../../../customer/model/mGroup';
 export class MGroupSummaryComponent implements OnInit {
 
   @Input() mGroup: MGroup;
+  @Input() customerCategory: any;
+  customerCategoryType = CustomerCategory;
   constructor() { }
 
   ngOnInit() {

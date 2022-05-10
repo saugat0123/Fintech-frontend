@@ -65,7 +65,7 @@
         <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
         as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
         ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
-        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+        <app-m-group-summary [customerCategory]="customerCategory" [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
     </li>
 
     <li>

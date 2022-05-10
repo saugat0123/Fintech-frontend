@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {FiscalYear} from '../../../../../admin/modal/FiscalYear';
+import {CustomerCategory} from '../../../../../customer/model/customerCategory';
 
 @Component({
   selector: 'app-upto-ten-million',
@@ -14,6 +15,7 @@ export class UptoTenMillionComponent implements OnInit {
   @Input() isDetailedView: boolean;
   @Input() customerAllLoanList: LoanDataHolder[];
   // loanDataHolder: LoanDataHolder;
+  customerCategory = CustomerCategory.SME_UPTO_TEN_MILLION;
   constructor() { }
 
   ngOnInit() {

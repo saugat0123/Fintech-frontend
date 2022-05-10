@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
+import {CustomerCategory} from '../../../../../customer/model/customerCategory';
 
 @Component({
   selector: 'app-above-ten-million',
@@ -18,6 +19,7 @@ export class AboveTenMillionComponent implements OnInit {
   proposalData;
   tempData;
   guarantorData;
+  customerCategory = CustomerCategory.SME_ABOVE_TEN_MILLION;
   constructor() {}
 
   ngOnInit() {

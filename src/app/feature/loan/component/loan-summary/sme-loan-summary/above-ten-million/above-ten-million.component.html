@@ -20,7 +20,9 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Group Exposure with CCBL  (as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date}})</strong></p>
-        <app-above-group-exposure-with-ccbl [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"></app-above-group-exposure-with-ccbl>
+        <app-m-group-summary [customerCategory]="customerCategory" [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo">
+
+        </app-m-group-summary>
     </li>
     <li>
         <p class="text-uppercase"><strong>Proposal View</strong></p>
