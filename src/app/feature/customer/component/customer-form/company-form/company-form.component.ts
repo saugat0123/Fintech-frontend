@@ -140,6 +140,9 @@ export class CompanyFormComponent implements OnInit {
     microCustomerType: string;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     customerCate = CustomerCategory;
+    sameAddress = false;
+
+
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -181,6 +184,7 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+            this.sameAddress = this.companyJsonData.sameAddress;
         }
 
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
@@ -594,7 +598,7 @@ export class CompanyFormComponent implements OnInit {
     onCloseCreateCustomer() {
         this.onClose();
     }
-F
+
     onClose() {
         this.modalService.dismissAll();
     }
@@ -927,6 +931,7 @@ F
         submitData.discriptionWithComment = this.companyInfoFormGroup.get('discriptionWithComment').value;
         submitData.majorBuyersSuppliers = this.companyInfoFormGroup.get('majorBuyersSuppliers').value;
         submitData.group = this.companyInfoFormGroup.get('group').value;
+        submitData.sameAddress = this.sameAddress;
         // submitData.business = this.companyInfoFormGroup.get('business').value;
         // submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -1100,6 +1105,34 @@ F
                     sisterCon: [l.sisterCon]
                 }));
             });
+        }
+    }
+
+    sameAsPermanent(value) {
+        if (value) {
+            this.companyLocation.onSubmit();
+            if (this.companyLocation.addressForm.invalid) {
+                this.sameAddress = false;
+                this.toastService.show(new Alert(AlertType.WARNING, 'Please fill registered address'));
+                return;
+            }
+            const data = this.companyLocation.submitData;
+            if (!ObjectUtil.isEmpty(data)) {
+                if (!ObjectUtil.isEmpty(data.province)) {
+                    this.companyProjectLocation.getDistrictsById(data.province.id, null);
+                    this.companyProjectLocation.getMunicipalitiesById(data.district.id, null);
+                }
+                this.companyProjectLocation.addressForm.patchValue(data);
+            }
+            this.sameAddress = value;
+        } else {
+            this.companyProjectLocation.addressForm.get('address1').patchValue(null);
+            this.companyProjectLocation.addressForm.get('address2').patchValue(null);
+            this.companyProjectLocation.addressForm.get('province').patchValue(null);
+            this.companyProjectLocation.addressForm.get('district').patchValue(null);
+            this.companyProjectLocation.addressForm.get('municipalityVdc').patchValue(null);
+            this.companyProjectLocation.addressForm.get('ward').patchValue(null);
+            this.sameAddress = value;
         }
     }
 }
