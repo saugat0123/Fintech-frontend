@@ -39,6 +39,7 @@ import {LeaseAssignmentComponent} from './lease-assignment/lease-assignment.comp
 import {OtherSecurityComponent} from './other-security/other-security.component';
 import {VehicleComponent} from './vehicle/vehicle.component';
 import {ShareComponent} from './share/share.component';
+import {CorporationGuaranteeComponent} from './corporation-guarantee/corporation-guarantee.component';
 
 @Component({
     selector: 'app-security',
@@ -82,7 +83,7 @@ export class SecurityComponent implements OnInit {
     hypothecationSecurity: HypothecationOfStockComponent;
 
     @ViewChild('corporateGuaranteeSecurity', {static: false})
-    corporateGuaranteeSecurity: CorporateGuranteeComponent;
+    corporateGuaranteeSecurity: CorporationGuaranteeComponent;
 
     @ViewChild('personalGuaranteeSecurity', {static: false})
     personalGuaranteeSecurity: PersonalGuaranteeComponent;
@@ -484,7 +485,7 @@ export class SecurityComponent implements OnInit {
             this.securityDataEmitter.emit(securities);
         }
         if (this.corporateGuaranteeSelected) {
-            const corporateGuaranteeData = this.corporateGuaranteeSecurity.form.value;
+            const corporateGuaranteeData = this.corporateGuaranteeSecurity.corporateForm.value.corporateGuarantee;
             const securities = this.constructSecurityArray(corporateGuaranteeData, 'CORPORATE_GUARANTEE');
             this.securityDataEmitter.emit(securities);
         }
