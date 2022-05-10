@@ -52,5 +52,12 @@
         <td>{{riskData ? riskData?.otherRisk : ''}}</td>
         <td>{{riskData ? riskData?.otherFactor : ''}}</td>
     </tr>
+    <ng-container *ngIf="riskDataFree">
+        <tr *ngFor="let data of riskData?.riskAnalysisFreeText;">
+            <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">{{data ? data?.riskTypeName: ''}}</td>
+            <td>{{data ? data?.perceiveRisk : ''}}</td>
+            <td>{{data ? data?.mitigatingRisk : ''}}</td>
+        </tr>
+    </ng-container>
     </tbody>
 </table>

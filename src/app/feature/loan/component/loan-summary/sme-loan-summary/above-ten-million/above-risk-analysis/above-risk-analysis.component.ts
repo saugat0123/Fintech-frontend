@@ -10,6 +10,7 @@ export class AboveRiskAnalysisComponent implements OnInit {
   @Input() customerInfo;
   tempRiskData;
   riskData;
+  riskDataFree: boolean;
 
   constructor() { }
 
@@ -18,6 +19,9 @@ export class AboveRiskAnalysisComponent implements OnInit {
       this.tempRiskData = JSON.parse(this.customerInfo.riskAnalysis);
       if (!ObjectUtil.isEmpty(this.tempRiskData)) {
         this.riskData = this.tempRiskData;
+        if (!ObjectUtil.isEmpty(this.tempRiskData.riskAnalysisFreeText)) {
+          this.riskDataFree = true;
+        }
       }
     }
   }
