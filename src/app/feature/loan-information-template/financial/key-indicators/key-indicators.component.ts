@@ -51,7 +51,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         ['averagePaymentPeriod', false],
         ['netOperatingCycle', false],
         ['netWCBeforeBank', false],
-        ['cashFlowKI', false]
+        ['cashFlowKI', false],
+        ['returnOnAssets', false]
     ]);
 
     summaryCheckList = KeyIndicatorsConstantsEnum.values();
@@ -75,6 +76,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setNetProfitMargin(keyIndicatorsData.netProfitMargin);
             this.setEBITtoSales(keyIndicatorsData.eBITtoSales);
             this.setReturnOnEquity(keyIndicatorsData.returnOnEquity);
+            this.setReturnOnAssets(keyIndicatorsData.returnOnAssets);
             this.setSolvency(keyIndicatorsData.solvency);
             this.setQuickRatio(keyIndicatorsData.quickRatio);
             this.setCurrentRatio(keyIndicatorsData.currentRatio);
@@ -123,6 +125,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             netProfitMargin: this.formBuilder.array([]),
             eBITtoSales: this.formBuilder.array([]),
             returnOnEquity: this.formBuilder.array([]),
+            returnOnAssets: this.formBuilder.array([]),
             solvency: this.formBuilder.array([]),
             quickRatio: this.formBuilder.array([]),
             currentRatio: this.formBuilder.array([]),
@@ -601,5 +604,18 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         this.formData['keyIndicatorsData'].summaryCheckList = this.keyIndicatorsForm.get('summaryCheckList').value;
         this.formData['keyIndicatorsData'].cashFlowKI = this.keyIndicatorsForm.get('cashFlowKI').value;
         this.formData['keyIndicatorsData'].justificationKeyIndicators = this.keyIndicatorsForm.get('justificationKeyIndicators').value;
+    }
+
+    // returnOnAssets
+    setReturnOnAssets(currentData) {
+        const controls = this.keyIndicatorsForm.get('returnOnAssets') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [Number(singleData.value).toFixed(8)],
+                    year: [singleData.year]
+                })
+            );
+        });
     }
 }

@@ -383,6 +383,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         keyIndicators.netOperatingCycle[index].value = (Number(keyIndicators.stockInHandDays[index].value)
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value)).toFixed(8);
 
+        keyIndicators.returnOnAssets[index].value = this.financialService.convertToPercent(Number(balanceSheet.totalAssets[index].value) === 0 ? 0 :
+            (Number(profitAfterTax.controls['value'].value) / Number(balanceSheet.totalAssets[index].value)));
         if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
             keyIndicators.cashFlowKI[index].value =
                 Number(profitAfterTax.controls['value'].value) +

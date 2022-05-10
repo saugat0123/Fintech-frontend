@@ -443,7 +443,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         keyIndicators.debtEquityRatioOverall[index].value = Number(totalLiabilitiesAndEquity.controls['value'].value) === 0 ? 0 :
             (Number(totalLiabilitiesAndEquity.controls['value'].value) - Number(netWorth.controls['value'].value))
                 / (Number(netWorth.controls['value'].value));
-        console.log('debtEquityRatioOverall', keyIndicators.debtEquityRatioOverall[index].value)
         keyIndicators.debtEquityRatioLongTerm[index].value = Number(longTermLoan.controls['value'].value) === 0 ? 0 :
             this.financialService.convertToPercent((Number(longTermLoan.controls['value'].value))
                 / (Number(fixedAssets.controls['value'].value) + Number(otherAssets.controls['value'].value)));
@@ -489,6 +488,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
             'Creditors', index)) - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
                 .get('currentLiabilitiesCategory'), 'Security Deposits', index))).toFixed(8);
+        keyIndicators.returnOnAssets[index].value = this.financialService.convertToPercent(Number(totalAssets['value'].value) === 0 ? 0 :
+            (Number(incomeStatement.profitAfterTax[index].value) / Number(totalAssets['value'].value)));
     }
 
     checkForLatterFiscalYearChanges(index: number) {

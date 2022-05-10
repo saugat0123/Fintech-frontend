@@ -29,7 +29,8 @@ export enum KeyIndicatorsConstantsEnum {
     AVERAGE_PAYMENT_PERIOD = 'averagePaymentPeriod',
     NET_OPERATING_CYCLE = 'netOperatingCycle',
     NET_WC_BEFORE_BANK = 'netWCBeforeBank',
-    CASH_FLOW_KI = 'cashFlowKI'
+    CASH_FLOW_KI = 'cashFlowKI',
+    RETURN_ON_ASSETS = 'returnOnAssets',
 }
 
 export class KeyIndicatorsHeaderMap {
@@ -64,7 +65,8 @@ export class KeyIndicatorsHeaderMap {
         [KeyIndicatorsConstantsEnum.AVERAGE_PAYMENT_PERIOD, 'Average Payment Period - Days'],
         [KeyIndicatorsConstantsEnum.NET_OPERATING_CYCLE, 'Net Operating Cycle - Days'],
         [KeyIndicatorsConstantsEnum.NET_WC_BEFORE_BANK, 'Net WC before Bank(in Rs.)'],
-        [KeyIndicatorsConstantsEnum.CASH_FLOW_KI, 'Cash Flow(in Rs.)']
+        [KeyIndicatorsConstantsEnum.CASH_FLOW_KI, 'Cash Flow(in Rs.)'],
+        [KeyIndicatorsConstantsEnum.RETURN_ON_ASSETS, 'Return on Assets']
     ]);
 }
 

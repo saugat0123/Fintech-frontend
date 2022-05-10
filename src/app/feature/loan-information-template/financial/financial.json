@@ -263,6 +263,7 @@
       "netWCBeforeBank": [],
       "cashFlowKI": [],
       "justificationKeyIndicators": "",
-      "summaryCheckList": []
+      "summaryCheckList": [],
+      "returnOnAssets": []
     }
 }
