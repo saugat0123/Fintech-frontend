@@ -37,7 +37,7 @@
     <tr>
         <td rowspan="2"><b>Line of business</b></td>
         <td rowspan="2" colspan="2">
-            <span [innerHTML]="companyJsonData?.lineOfBusiness"></span>
+            {{companyJsonData ? companyJsonData?.majorProductService : ''}}
         </td>
         <td><b>Banking Arrangement</b></td>
         <td colspan="4">
