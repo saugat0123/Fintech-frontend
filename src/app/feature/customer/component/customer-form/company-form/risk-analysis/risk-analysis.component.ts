@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 
@@ -27,6 +27,9 @@ export class RiskAnalysisComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.riskData)) {
             this.tempData = JSON.parse(this.riskData);
             this.riskAnalysisForm.patchValue(this.tempData);
+            if (!ObjectUtil.isEmpty(this.tempData.riskAnalysisFreeText)) {
+                this.setRiskAnalysis(this.tempData.riskAnalysisFreeText);
+            }
         }
     }
 
@@ -52,6 +55,34 @@ export class RiskAnalysisComponent implements OnInit {
             adverseFeaturesFactor: [undefined],
             politicalFactor: [undefined],
             otherFactor: [undefined],
+            riskAnalysisFreeText: this.formBuilder.array([])
+        });
+    }
+
+    riskAnalysisFree() {
+       return this.formBuilder.group({
+            riskTypeName: [undefined],
+            perceiveRisk: [undefined],
+            mitigatingRisk: [undefined]
+        });
+    }
+
+    addRiskAnalysis() {
+        (this.riskAnalysisForm.get('riskAnalysisFreeText') as FormArray).push(this.riskAnalysisFree());
+    }
+
+    removeRiskAnalysis(i) {
+        (this.riskAnalysisForm.get('riskAnalysisFreeText') as FormArray).removeAt(i);
+    }
+
+    setRiskAnalysis(data) {
+        const arrayForm = this.riskAnalysisForm.get('riskAnalysisFreeText') as FormArray;
+        data.forEach(val => {
+            arrayForm.push(this.formBuilder.group({
+                riskTypeName: [val ? val.riskTypeName : ''],
+                perceiveRisk: [val ? val.perceiveRisk : ''],
+                mitigatingRisk: [val ? val.mitigatingRisk : '']
+            }));
         });
     }
 
