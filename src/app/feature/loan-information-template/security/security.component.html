@@ -40,7 +40,8 @@
 
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"></app-apartment>
-        <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"></app-land>
+        <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"
+                  [security]="securityValue" [isEdit]="isEdit"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
         [security]="securityValue" [isEdit]="isEdit"></app-land-building>
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
