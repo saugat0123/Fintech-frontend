@@ -37,11 +37,15 @@
     </li>
     <li>
         <!-- current status and present proposal -->
-        <div class="mt-3">
-            <app-upto-current-status-and-present-proposal></app-upto-current-status-and-present-proposal>
-        </div>
+        <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong>
+        <app-proposal-view [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"
+                           [customerAllLoanList]="customerAllLoanList"> </app-proposal-view>
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.insurance">
+        <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+    </li>
+    <li *ngIf="loanDataHolder?.security">
         <!-- security arrangement -->
         <p><strong>SECURITY ARRANGEMENT</strong></p>
 
@@ -73,7 +77,7 @@
         <p><strong>ASSESSTMENT FOR REQUIREMENT OF FUND:</strong></p>
         <app-assessment-requirement-of-fund></app-assessment-requirement-of-fund>
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.multiBanking">
         <!-- banking relationship -->
         <p><strong>BANKING RELATIONSHIP:</strong></p>
         <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
@@ -102,19 +106,22 @@
         <p><strong>REPAYMENT MODALITY:</strong></p>
         <app-upto-repayment-modality></app-upto-repayment-modality>
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.netTradingAssets">
         <!-- nta statement and inspection -->
         <p><strong>NTA STATEMENT AND INSPECTION:</strong></p>
-        <app-nta-statement-and-inspection></app-nta-statement-and-inspection>
+        <app-nta-summary [fiscalYears]="fiscalYear"
+                         [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
+<!--        <app-nta-statement-and-inspection></app-nta-statement-and-inspection>-->
     </li>
     <li>
         <!-- waiver deviations and deferral -->
         <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-        <app-waiver-deviations-and-deferral></app-waiver-deviations-and-deferral>
+        <app-waiver-deviations-and-deferral [loanDataHolder]="loanDataHolder"></app-waiver-deviations-and-deferral>
     </li>
     <li>
         <!-- nrb statutory remarks status -->
-        <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
+        <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
+        <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
     </li>
     <li>
         <!-- mis nrb reporting -->
@@ -124,8 +131,10 @@
     </li>
     <li>
         <!-- conlusion review table -->
-        <app-conlusion-review-table></app-conlusion-review-table>
+        <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
+        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+<!--        <app-conlusion-review-table></app-conlusion-review-table>-->
     </li>
-</ol>
-<!--credit card requirement-->
-<app-credit-card-requirement></app-credit-card-requirement>
+<!--</ol>-->
+<!--&lt;!&ndash;credit card requirement&ndash;&gt;-->
+<!--<app-credit-card-requirement></app-credit-card-requirement>-->
