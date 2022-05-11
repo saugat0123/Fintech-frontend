@@ -71,21 +71,38 @@
                         <td>१.</td>
                         <td>{{this.individualData ? this.individualData?.name?.ct : ''}}</td>
                     </tr>
-                    <ng-container *ngFor="let security of initialInfo.securities?.primarySecurity; let i = index">
+                    <ng-container *ngFor="let security of primarySecurityData; let i = index">
                         <ng-container *ngIf="(security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING') &&
                                 security?.collateralShare === 'YES'">
                             <tr>
                                 <td>{{(i+1)+1 | nepaliNumber}}.</td>
                                 <td>{{security?.nameOfBorrowingClientCT}}</td>
+                                <td class="d-print-none">
+                                    <ng-container>
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removePrimary(i)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </ng-container>
+                                </td>
                             </tr>
                         </ng-container>
                     </ng-container>
-                    <ng-container *ngFor="let security of initialInfo.securities?.secondarySecurity; let i2 = index">
+                    <ng-container *ngFor="let security of secondarySecurityData; let i2 = index">
                         <ng-container *ngIf="(security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING') &&
                                 security?.collateralShare === 'YES'">
                             <tr>
-                                <td>{{tempPrimarySecurity.length +(i2+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData.length == 1">{{tempPrimarySecurity.length +(i2+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData == 0">{{tempPrimarySecurity.length + 1 | nepaliNumber}}.</td>
                                 <td>{{security?.nameOfBorrowingClientCT}}</td>
+                                <td class="d-print-none">
+                                    <ng-container>
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecondary(i2)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </ng-container>
+                                </td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -93,19 +110,23 @@
                                   formArrayName="nameFreeText">
                         <ng-container [formGroupName]="i3">
                             <tr>
-                                <td>{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData.length == 1 && this.secondarySecurityData.length == 1">{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData.length == 0">{{tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.tempSecondarySecurity.length == 0">{{tempPrimarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
                                 <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="borrowerName"
                                            formControlName="borrowerName"
                                            type="text"/>
                                     <span class="print-only nepaliFont">{{form.get(['nameFreeText', i3, 'borrowerName']) ? form.get(['nameFreeText', i3, 'borrowerName'])?.value : '===================================='}}</span>
                                 </td>
-                                <ng-container *ngIf="form.get('nameFreeText')['length'] > 0">
-                                    <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeAtIndex(i3)"
-                                            style="position: static">
-                                        <em class="fa fa-trash" style="color: white;"></em>
-                                    </button>
-                                </ng-container>
+                                <td class="d-print-none">
+                                    <ng-container *ngIf="form.get('nameFreeText')['length'] > 0">
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeAtIndex(i3)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </ng-container>
+                                </td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -168,6 +189,14 @@
                                                type="text"/>
                                     <span class="print-only nepaliFont">{{form?.get(['borrowerNameArray', i, 'freeAmount']) ? form?.get(['borrowerNameArray', i, 'freeAmount'])?.value : '===================================='}}</span>/-
                                 </td>
+                                <td class="d-print-none">
+                                    <ng-container *ngIf="form.get('borrowerNameArray')['length'] > 0">
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeBorrowerNameIndex(i)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </ng-container>
+                                </td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -189,6 +218,14 @@
                                                type="text"/>
                                     <span class="print-only nepaliFont">{{form.get(['borrowerNameArray1', i2, 'freeAmount1']) ? form.get(['borrowerNameArray1', i2, 'freeAmount1'])?.value : '===================================='}}</span>/-
                                 </td>
+                                <td class="d-print-none">
+                                    <ng-container *ngIf="form.get('borrowerNameArray1')['length'] > 0">
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecurityAtIndex(i2)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </ng-container>
+                                </td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -196,7 +233,9 @@
                                   formArrayName="borrowerDetails">
                         <ng-container [formGroupName]="i3">
                             <tr>
-                                <td>{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData.length == 1 && this.secondarySecurityData.length == 1">{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.primarySecurityData.length == 0">{{tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td *ngIf="this.tempSecondarySecurity.length == 0">{{tempPrimarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
                                 <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="borrowerName1"
                                            formControlName="borrowerName1"
@@ -215,12 +254,14 @@
                                                type="text"/>
                                     <span class="print-only nepaliFont">{{form.get(['borrowerDetails', i3, 'freeAmount2']) ? form.get(['borrowerDetails', i3, 'freeAmount2'])?.value : '===================================='}}</span>/-
                                 </td>
-                                <ng-container *ngIf="form.get('borrowerDetails')['length'] > 0">
-                                    <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeBorrowerAtIndex(i3)"
-                                            style="position: static">
-                                        <em class="fa fa-trash" style="color: white;"></em>
-                                    </button>
-                                </ng-container>
+                             <td class="d-print-none">
+                                 <ng-container *ngIf="form.get('borrowerDetails')['length'] > 0">
+                                     <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeBorrowerAtIndex(i3)"
+                                             style="position: static">
+                                         <em class="fa fa-trash" style="color: white;"></em>
+                                     </button>
+                                 </ng-container>
+                             </td>
                             </tr>
                         </ng-container>
                     </ng-container>
