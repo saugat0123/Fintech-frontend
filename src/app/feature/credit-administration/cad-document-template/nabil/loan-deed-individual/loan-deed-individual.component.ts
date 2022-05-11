@@ -68,6 +68,9 @@ export class LoanDeedIndividualComponent implements OnInit {
   offerLoanType;
   expDate;
   freeText: Array<any> = new Array<any>();
+  loanPurposeArray: Array<any> = new Array<any>();
+  loanPurpose: any;
+  cadInitialInfo: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -93,6 +96,13 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.clientType = this.cadData.loanHolder['customerSubType'];
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
+    }
     this.getLoanDetails();
     await this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) &&
@@ -106,13 +116,6 @@ export class LoanDeedIndividualComponent implements OnInit {
           this.loanDeedIndividual.patchValue(initialInfo);
         }
       });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.clientType = this.cadData.loanHolder['customerSubType'];
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
@@ -132,6 +135,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList.length > 0)) {
       this.setLoanExpiryDate();
     }
+    this.fillGuarantee();
   }
 
   setCombinedFreeText() {
@@ -142,9 +146,34 @@ export class LoanDeedIndividualComponent implements OnInit {
       };
       this.freeText.push(tempFreeText);
     }
+    const free2 = {
+      sakshiDistrict1: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict1']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict1']).value : '',
+      sakshiDistrict2: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict2']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict2']).value : '',
+      sakshiMunicipality1: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality1']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality1']).value : '',
+      sakshiMunicipality2: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality2']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality2']).value : '',
+      sakshiWard1: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard1']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard1']).value : '',
+      sakshiWard2: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard2']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard2']).value : '',
+      sakshiAge1: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge1']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge1']).value : '',
+      sakshiAge2: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge2']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge2']).value : '',
+      sakshiName1: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName1']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName1']).value : '',
+      sakshiName2: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName2']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName2']).value : '',
+      nameOfBankStaff: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).value : '',
+    };
     const free1 = {
       // dateOfExpirySingle: this.loanDeedIndividual.get('expiryDate') ? this.loanDeedIndividual.get('expiryDate').value : '',
-      combinedFreeText: this.freeText
+      combinedFreeText: this.freeText,
+      guarantorFreeText: free2
     };
     return JSON.stringify(free1);
   }
@@ -164,6 +193,108 @@ export class LoanDeedIndividualComponent implements OnInit {
     });
     await this.getJointInfoData();
     this.addIndividualLoandeedForm();
+  }
+  getloanPurpose() {
+    let loanPurpose: any;
+    let loanCombinedPurpose: any;
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.loanPurpose) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.loanPurpose.ct)) {
+        loanPurpose = this.offerDocumentDetails.loanPurpose.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.purposeofLoan) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.purposeofLoan.ct)) {
+        loanPurpose = this.offerDocumentDetails.purposeofLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.purposeOfLoan) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.purposeOfLoan.ct)) {
+        loanPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.vehicleName) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.vehicleName.ct)) {
+        loanPurpose = this.offerDocumentDetails.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद';
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.loan) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.loan.purposeOfLoanCT)) {
+        loanPurpose = this.offerDocumentDetails.loan.purposeOfLoanCT;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm.existingLoanFormArray)) {
+        this.offerDocumentDetails.existingLoanForm.existingLoanFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.existingLoanForm.existingLoanFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.educationLoanForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray)) {
+        this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverdraftCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+        this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.mortgageCombineForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+        this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+        this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.autoLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray)) {
+        this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.homeLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray)) {
+        this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
+        this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+        this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.nabilShareLoanPODForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray)) {
+        this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray[i].purposeOfLoanCT);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.shareLoanDemandCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+        this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
+          this.loanPurposeArray.push(this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray[i].purposeOfLoanCT);
+        });
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanPurposeArray)) {
+      loanCombinedPurpose = this.loanPurposeArray.join(',');
+    }
+    if (!ObjectUtil.isEmpty(loanPurpose)) {
+      return loanPurpose;
+    } else if (!ObjectUtil.isEmpty(loanCombinedPurpose)) {
+      return loanCombinedPurpose;
+    } else {
+      return '';
+    }
   }
 
   initIndividualLoandeed() {
@@ -189,33 +320,53 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     let approvedDate: any;
     let approvedDateFinal: any;
+    let combinedApprovalDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) ||
-        !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
-      // tslint:disable-next-line:max-line-length
-      // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
-      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
-        // tslint:disable-next-line:max-line-length
-        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-      } else {
-        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+      console.log('Offer:', this.offerDocumentDetails);
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType)) {
+        if (this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType === 'AD') {
+          if (!ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateCT)) {
+            combinedApprovalDate = 'ई. स. ' + this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateCT;
+          }
+        }
+        if (this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType === 'BS') {
+          if (!ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateNepaliCT)) {
+            combinedApprovalDate = 'वि.स ' + this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateNepaliCT;
+          }
+        }
       }
-    }
-    if (this.docName === 'Home Loan') {
-      if (this.offerDocumentDetails.loan.dateType === 'AD') {
-        approvedDateFinal = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
-        approvedDate = this.englishNepaliDatePipe.transform(approvedDateFinal || '', true);
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) ||
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
+        if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
+          approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+        } else {
+          approvedDate = (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali) &&
+              !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali.ct)) ?
+              this.offerDocumentDetails.dateOfApprovalNepali.ct :
+              (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali) &&
+                  !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali.en) &&
+                  !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali.en.nDate)) ?
+                  this.offerDocumentDetails.dateOfApprovalNepali.en.nDate : '';
+        }
       }
-      if (this.offerDocumentDetails.loan.dateType === 'BS') {
-        approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
+      if (this.docName === 'Home Loan') {
+        if (this.offerDocumentDetails.loan.dateType === 'AD') {
+          approvedDateFinal = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+          approvedDate = this.englishNepaliDatePipe.transform(approvedDateFinal || '', true);
+        }
+        if (this.offerDocumentDetails.loan.dateType === 'BS') {
+          approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
+        }
       }
-    }
-    if (this.docName === 'DDSL Without Subsidy') {
-      const dateOfApproval = !ObjectUtil.isEmpty(this.offerDocumentDetails.sanctionLetterDateType) ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-      if (dateOfApproval === 'AD') {
-        approvedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
-      } else {
-        approvedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+      if (this.docName === 'DDSL Without Subsidy') {
+        const dateOfApproval = !ObjectUtil.isEmpty(this.offerDocumentDetails.sanctionLetterDateType) ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
+          approvedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+        } else {
+          approvedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+        }
       }
     }
     // tslint:disable-next-line:max-line-length
@@ -273,6 +424,26 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : '';
       this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
     }
+    let totalLoanAmount = 0;
+    let totalLoanDeed = 0;
+    let total = 0;
+    if (!ObjectUtil.isEmpty(this.cadData) &&
+    !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.cadData.assignedLoan.forEach(value => {
+        const val = value.proposal.proposedLimit;
+        totalLoanAmount = totalLoanAmount + val;
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+        !ObjectUtil.isEmpty(this.initialInfo.existingLoanForm) &&
+        !ObjectUtil.isEmpty(this.initialInfo.existingLoanForm.existingLoanFormArray)) {
+      this.initialInfo.existingLoanForm.existingLoanFormArray.forEach(value => {
+        const totalAmount = value.loanAmountInFigure ? value.loanAmountInFigure : 0;
+        totalLoanDeed = totalLoanDeed + totalAmount;
+      });
+    }
+    total = totalLoanAmount + totalLoanDeed;
+    const loanPurpose = this.getloanPurpose();
     return this.formBuilder.group({
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
@@ -296,14 +467,14 @@ export class LoanDeedIndividualComponent implements OnInit {
       fatherInLawName: [undefined],
       husbandName: [undefined],
       age: [ageNepaliNumber],
-      issueDate: [approvedDate ? approvedDate : ''],
+      issueDate: [!ObjectUtil.isEmpty(approvedDate) ? approvedDate : !ObjectUtil.isEmpty(combinedApprovalDate) ? combinedApprovalDate : ''],
       facilityName: [undefined],
       loanAmount: [undefined],
       Interest: [undefined],
       expiryDate: [undefined],
       expiryDateOd: [undefined],
-      totalLoanAmount: [this.nepaliNumber.numberNepali],
-      totalLoanAmountWord: ['रु. ' + this.nepaliNumber.nepaliWords],
+      totalLoanAmount: [total ? this.engToNepNumberPipe.transform(total.toString()) : ''],
+      totalLoanAmountWord: ['रु. ' +  this.nepaliCurrencyWordPipe.transform(!ObjectUtil.isEmpty(total) ? total : '')],
       propertyOwnerName: [undefined],
       plotNo: [undefined],
       area: [undefined],
@@ -326,10 +497,21 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [this.purposeOfLoan ? this.purposeOfLoan : ''],
+      purposeOfLoan: [loanPurpose],
       loanDeedJoint: this.formBuilder.array([]),
       combinedFreeText: this.formBuilder.array([]),
       nameOfBank: [bankName ? bankName : ''],
+      sakshiDistrict1: [undefined],
+      sakshiMunicipality1: [undefined],
+      sakshiWard1: [undefined],
+      sakshiAge1: [undefined],
+      sakshiName1: [undefined],
+      sakshiDistrict2: [undefined],
+      sakshiMunicipality2: [undefined],
+      sakshiWard2: [undefined],
+      sakshiAge2: [undefined],
+      sakshiName2: [undefined],
+      nameOfBankStaff: [undefined],
     });
   }
 
@@ -425,6 +607,7 @@ export class LoanDeedIndividualComponent implements OnInit {
 
   submit() {
     let flag = true;
+    this.spinner = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach((individualCadFile) => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -463,6 +646,7 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(
       () => {
+        this.spinner = false;
         this.toastService.show(
           new Alert(AlertType.SUCCESS, 'Successfully saved ')
         );
@@ -471,6 +655,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       },
       (error) => {
         console.error(error);
+        this.spinner = false;
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
         this.dialogRef.close();
       }
@@ -910,6 +1095,56 @@ export class LoanDeedIndividualComponent implements OnInit {
               this.newData
           );
         });
+      }
+    }
+  }
+  fillGuarantee() {
+    if (this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
+          }
+        });
+        const free = this.loanDeedIndividual.value;
+        if (this.cadInitialInfo !== null) {
+          console.log('CAd Initial Info:', this.cadInitialInfo);
+          for (let val = 0; val < free.loanDeedIndividuals.length; val++) {
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict1']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiDistrict1 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict2']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiDistrict2 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality1']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiMunicipality1 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiMunicipality2']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiMunicipality2 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge1']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiAge1 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiAge2']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiAge2 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard1']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiWard1 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiWard2']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiWard2 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName1']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiName1 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName2']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.sakshiName2 : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.nameOfBankStaff : '' : '');
+          }
+        }
       }
     }
   }
