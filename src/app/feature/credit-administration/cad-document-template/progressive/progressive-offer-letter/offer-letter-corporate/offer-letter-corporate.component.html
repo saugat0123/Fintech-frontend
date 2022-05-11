@@ -252,9 +252,10 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
+                                    <ng-container *ngIf="isLandAndBuilding">
                                     <b>क. धितो राखिने जायजेथाको बिबरण</b>
                                     <table class="table-bordered custom-table-bordered" style="text-align: left !important;">
-                                        <thead>
+                                        <tbody>
                                         <tr>
                                             <th width="25%">घर जग्गाधनिको नाम र तिनपूस्ते</th>
                                             <th width="15%">जिल्ला.</th>
@@ -263,7 +264,7 @@
                                             <th width="15%">क्षेत्रफल बर्ग मि.</th>
                                             <th width="20%">सिट न.</th>
                                         </tr>
-                                        </thead>
+                                        </tbody>
                                         <tbody *ngFor="let securityDetail of form.get('securityDetails')['controls']; index as i"
                                                formArrayName="securityDetails">
                                         <tr [formGroupName]="i">
@@ -347,8 +348,9 @@
                                            formControlName="dhitoLekhi"
                                            type="text">
                                     मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
-
-                                    <p class="mt-3"><strong>ख. धितो राखिने सवारी साधनको बिबरण</strong></p>
+                                    </ng-container>
+                                    <ng-container *ngIf="isHP">
+                                    <p class="mt-3"><strong>{{isLandAndBuilding ? 'ख' : 'क'}}. धितो राखिने सवारी साधनको बिबरण</strong></p>
                                     <table class="table table-bordered">
                                         <tbody>
                                         <tr>
@@ -410,6 +412,7 @@
                                     </table>
                                     उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
                                     नाममा धनि दर्ता कायम गराउनु पर्ने छ ।<br><br>
+                                    </ng-container>
                                 </td>
                             </tr>
                             <tr>
@@ -1090,11 +1093,11 @@
                                     (कर्मचारीको नाम)<br>
                                     प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
                                     शाखाकार्यालय,
-                                    <input class="form-control-sm form-field nepaliFont"
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                            type="text"
                                            formControlName="employeeFinanceBranch">,
 
-                                    <input class="form-control-sm form-field nepaliFont"
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                            type="text"
                                            formControlName="employeeFinanceDistrict">
                                     जिल्ला
@@ -1111,12 +1114,12 @@
                                     (कर्मचारीको नाम)<br>
                                     प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
                                     शाखाकार्यालय,
-                                    <input class="form-control-sm form-field nepaliFont"
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                            type="text"
                                            formControlName="employeeFinanceBranch2">
                                     ,
 
-                                    <input class="form-control-sm form-field nepaliFont"
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                            type="text"
                                            formControlName="employeeFinanceDistrict2">
                                     जिल्ला
