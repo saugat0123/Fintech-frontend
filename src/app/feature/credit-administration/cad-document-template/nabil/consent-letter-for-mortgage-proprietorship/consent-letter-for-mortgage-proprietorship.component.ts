@@ -42,6 +42,8 @@ export class ConsentLetterForMortgageProprietorshipComponent implements OnInit {
   borrowerFreeText1: Array<any> = new Array<any>();
   freeTextVal: Array<any> = new Array<any>();
   borrowerDetailsVal: Array<any> = new Array<any>();
+  primarySecurityData: any[] = [];
+  secondarySecurityData: any[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -68,6 +70,12 @@ export class ConsentLetterForMortgageProprietorshipComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+        this.primarySecurityData = this.initialInfo.securities.primarySecurity;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+        this.secondarySecurityData = this.initialInfo.securities.secondarySecurity;
+      }
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
@@ -162,6 +170,18 @@ export class ConsentLetterForMortgageProprietorshipComponent implements OnInit {
 
   removeAtIndex(i: number) {
     (this.form.get('nameFreeText') as FormArray).removeAt(i);
+  }
+  removePrimary(i: number) {
+    this.primarySecurityData.splice(i, 1);
+  }
+  removeSecondary(i: number) {
+    this.secondarySecurityData.splice(i, 1);
+  }
+  removeBorrowerNameIndex(ii: number) {
+    (this.form.get('borrowerNameArray') as FormArray).removeAt(ii);
+  }
+  removeSecurityAtIndex(ii: number) {
+    (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
   }
 
   removeBorrowerAtIndex(ii: number) {
