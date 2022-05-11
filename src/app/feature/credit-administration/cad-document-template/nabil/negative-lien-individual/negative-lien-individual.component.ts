@@ -255,9 +255,10 @@ export class NegativeLienIndividualComponent implements OnInit {
         this.setSignatureData(this.selectiveArr);
         // this.setIssuedDate();
       }
+      console.log('This. individual data', this.individualData);
       this.negativeLienForm.patchValue({
-        nameOfGrandfather: this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '',
-        fatherOrHusbandName: nameOfFatherOrHusband ? nameOfFatherOrHusband : '',
+        nameOfGrandfather: this.getGrandFatherName(),
+        fatherOrHusbandName: this.getFatherName(),
         sonOrDaughterName: this.individualData.name.ct ? this.individualData.name.ct : '',
         districtName: this.individualData.permanentDistrict ? this.individualData.permanentDistrict.ct : '',
         municipalityVdcName: this.individualData.permanentMunicipality ? this.individualData.permanentMunicipality.ct : '',
@@ -289,6 +290,54 @@ export class NegativeLienIndividualComponent implements OnInit {
         subham: this.supportedInfo ? this.supportedInfo.subham : '',
       });
     }
+  }
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.individualData) && !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
+      if (this.individualData.gender.en === 'MALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.grandFatherName)) {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.fatherInLawName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherInLawName.ct) ? this.individualData.fatherInLawName.ct : '';
+        }
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
+      if (this.individualData.gender.en === 'MALE') {
+        fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+        !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+          if (this.individualData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+                !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+          }
+          if (this.individualData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+            !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+          }
+        }
+      }
+    }
+    return fatherName;
   }
 
   submit() {

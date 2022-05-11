@@ -480,17 +480,24 @@ export class LetterOfSetOffComponent implements OnInit {
   }
 
   getGrandFatherName() {
-    console.log('Individual Data:', this.individualData);
     let grandFatherName;
-    if (!ObjectUtil.isEmpty(this.individualData)) {
+    if (!ObjectUtil.isEmpty(this.individualData) && !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
-        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+        if (!ObjectUtil.isEmpty(this.individualData.grandFatherName)) {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
       }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
-        grandFatherName = this.individualData.fatherInLawName ? this.individualData.fatherInLawName.ct : '';
-      }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
-        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.fatherInLawName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherInLawName.ct) ? this.individualData.fatherInLawName.ct : '';
+        }
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
       }
     }
     return grandFatherName;
@@ -498,19 +505,29 @@ export class LetterOfSetOffComponent implements OnInit {
 
   getFatherName() {
     let fatherName;
-    if (!ObjectUtil.isEmpty(this.individualData)) {
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+        fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+        !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
       }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
-        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
-      }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      if (this.individualData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+          if (this.individualData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+            !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+          }
+          if (this.individualData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+            !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+          }
+        }
       }
     }
     return fatherName;
   }
+
 
   ageCalculation(startDate) {
     startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
