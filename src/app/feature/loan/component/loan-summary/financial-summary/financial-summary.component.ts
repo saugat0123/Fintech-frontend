@@ -155,7 +155,7 @@ export class FinancialSummaryComponent implements OnInit {
           (0.9 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
           'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
           Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
-              'Creditors', key)))).toFixed(2));
+              'Creditors', key)))).toFixed(8));
     });
   }
 
@@ -187,7 +187,7 @@ export class FinancialSummaryComponent implements OnInit {
 
   getDPTermLoan() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.termDrawingPowerArray.push((0.8 * Number(this.financialData.balanceSheetData.fixedAssets[key].value)).toFixed(2));
+      this.termDrawingPowerArray.push((0.8 * Number(this.financialData.balanceSheetData.fixedAssets[key].value)).toFixed(8));
     });
   }
 
@@ -203,7 +203,7 @@ export class FinancialSummaryComponent implements OnInit {
     this.projectedYearsMap.forEach( (value, key) => {
       this.termLoanDPC.push(
           (100 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
-          'Term Loan', key)) / Number(this.financialData.balanceSheetData.fixedAssets[key].value))).toFixed(2));
+          'Term Loan', key)) / Number(this.financialData.balanceSheetData.fixedAssets[key].value))).toFixed(8));
     });
   }
 }

@@ -178,6 +178,18 @@ export class FinancialComponent implements OnInit {
 
     numberUtils = NumberUtils;
     crgQuestionsList: CrgQuestion;
+    projectedFinancialData = [
+        'Reliability of projections',
+        'Debt equity ratio',
+        'Debt to assets ratio',
+        'Current ratio',
+        'Net profitability',
+        'Rerurn on assets',
+        'Debt service coverage ratio',
+        'Stock turnover (days)',
+        'Debtors turnover (days)',
+        'FBWC loans / sales'
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
@@ -267,7 +279,9 @@ export class FinancialComponent implements OnInit {
             totalObligationCurrentBank: [undefined],
             totalBankObligation: [undefined],
             obligationGrossIncomeRatio: [undefined],
-            crgProfileOfAuditors: [undefined]
+            crgProfileOfAuditors: [undefined],
+            financialDetailCheckBtn: ['old'],
+            projectedFinancialsCheckBtn:[undefined]
             // riskFactorForm: this.buildRiskFactorForm(),
         });
     }
@@ -652,15 +666,15 @@ export class FinancialComponent implements OnInit {
     totalEmiMonthlyGross() {
         const totalNetMonthly = Number(this.financialForm.get('totalIncome').value) -
             Number(this.financialForm.get('totalExpense').value);
-        const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(2);
+        const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(8);
         this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
 
         // const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
-        //     Number(this.financialForm.get('totalExpense').value)).toFixed(2);
+        //     Number(this.financialForm.get('totalExpense').value)).toFixed(8);
         // this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
 
         const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
-            Number(this.financialForm.get('totalIncome').value)).toFixed(2);
+            Number(this.financialForm.get('totalIncome').value)).toFixed(8);
         this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
     }
 
@@ -679,7 +693,7 @@ export class FinancialComponent implements OnInit {
 
     totalObligationRatio() {
         this.financialForm.get('obligationGrossIncomeRatio').setValue((
-            this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(2));
+            this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(8));
     }
 
     controlValidation(controlNames: string[], validate) {

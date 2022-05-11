@@ -195,7 +195,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   calculateMultibanking(ciClParsed) {
     const conditionValue = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, ciClParsed);
-    const automatedValue = conditionValue.toFixed(2);
+    const automatedValue = conditionValue.toFixed(8);
     if (conditionValue > 10000000) {
       this.setValueForCriteria('multibanking', 'Above 10 Million', 1.50, automatedValue);
     } else if (conditionValue > 7500000 && conditionValue <= 10000000) {
@@ -213,7 +213,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   calculateNetWorth() {
     const conditionValue = (Number(this.customer.netWorth) / Number(this.totalLoanLimitApprovedPending)) * 100;
-    const automatedValue = conditionValue.toFixed(2);
+    const automatedValue = conditionValue.toFixed(8);
     if (conditionValue > 150) {
       this.setValueForCriteria('netWorth', 'Covers loan by above 150%', 3, automatedValue);
     } else if (conditionValue >= 100 && conditionValue <= 150) {
@@ -227,7 +227,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   calculateSecurityCoverage() {
     const conditionValue = (Number(this.security.totalSecurityAmount) / this.totalLoanLimitApprovedPending) * 100;
-    const automatedValue = conditionValue.toFixed(2);
+    const automatedValue = conditionValue.toFixed(8);
     if (conditionValue > 200) {
       this.setValueForCriteria('securityCoverage', 'Above 200%', 21, automatedValue);
     } else if (conditionValue > 150 && conditionValue <= 200) {
@@ -256,7 +256,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   calculateAlternateOrSecondarySourceOfIncome() {
     const conditionValue = (Number(this.parsedFinancialData.initialForm.alternateIncomeSourceAmount)
         / Number(this.parsedFinancialData.initialForm.emiWithProposal)) * 100;
-    const automatedValue = conditionValue.toFixed(2);
+    const automatedValue = conditionValue.toFixed(8);
     if (conditionValue > 20) {
       this.setValueForCriteria('alternateOrSecondarySourceOfIncome', 'Equivalent or above 20% of EMI/EQI', 6, automatedValue);
     } else if (conditionValue > 15 && conditionValue <= 20) {
@@ -286,7 +286,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
       if (!incomeFromAccountParsed.newCustomerChecked) {
         const conditionValue = (Number(incomeFromAccountParsed.accountTransactionForm.creditTransactionValue)
             / Number(this.parsedFinancialData.initialForm.totalIncome)) * 100;
-        const automatedValue = conditionValue.toFixed(2);
+        const automatedValue = conditionValue.toFixed(8);
         if (conditionValue > 70) {
           this.setValueForCriteria('incomeRoutingThroughBank',
               'Amount routed (total credit transaction amount) more than 70% of income proceeds i.e. deposit via pure cash/cheque/IPS/RTGS only',
@@ -366,7 +366,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.repaymentRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('repaymentRiskTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('repaymentRiskTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -375,7 +375,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.relationshipRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('relationshipRiskTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('relationshipRiskTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -384,7 +384,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.securityRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('securityRiskTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('securityRiskTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -393,7 +393,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.exposureRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('exposureRiskTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('exposureRiskTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -403,7 +403,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     total = total + this.calculateRelationshipRiskTotal();
     total = total + this.calculateSecurityRiskTotal();
     total = total + this.calculateExposureRiskTotal();
-    this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(8));
     if (total >= 90) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Excellent');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Low Risk');

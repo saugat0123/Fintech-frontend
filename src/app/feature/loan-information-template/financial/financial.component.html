@@ -235,7 +235,7 @@
                         <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
                         <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(8)">
 
                         <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
                              class="invalid-feedback">Invalid Net Monthly Income
@@ -296,7 +296,7 @@
                         <label for="grossTotalIncome"><strong>Gross Total Income</strong></label>
                         <input class="form-control" id="grossTotalIncome"
                                [readOnly]="true"
-                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(2)">
+                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(8)">
                     </div>
                     <div class="col-md-4">
                         <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
@@ -324,7 +324,7 @@
                                type="number"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalBankObligation').invalid}"
                                [readOnly]="true"
-                               [value]="(numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)).toFixed(2)">
+                               [value]="(numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)).toFixed(8)">
                         <div *ngIf="(submitted) && form.totalBankObligation.invalid"
                              class="invalid-feedback">Invalid Total Bank Obligation value
                         </div>
@@ -344,11 +344,35 @@
     </div>
 
     <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
-        <nb-card-header>
-            <h4>Risk factors</h4>
-        </nb-card-header>
+        
         <nb-card-body>
-            <div class="row p-2">
+            <div class="col-md-12  mb-4">
+                <div class="form-group">
+                    <label class="title" for="financialDetail"><strong>Financial Detail of</strong></label><br>
+                    <nb-radio-group formControlName="financialDetailCheckBtn"
+                                    class="ml-1 d-inline-flex text-center"
+                                    id="financialDetail"
+                                    name="financialDetail">
+                        <nb-radio value="old" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'old'">Old firms/ companies </nb-radio>
+                        <nb-radio value="new" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'new'">Newly established firms/companies.</nb-radio>
+                    </nb-radio-group>
+                </div>
+            </div>
+
+            <div class="col-md-12  mb-4">
+            <div class="form-group" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'new'">
+                <label class="title" for="projectedFinancials"><strong>Projected Financials </strong></label><br>
+                <nb-radio-group formControlName="projectedFinancialsCheckBtn"
+                                class="d-contents form-control"
+                                id="projectedFinancials"
+                                name="projectedFinancials">
+                    <nb-radio  [value]="data" *ngFor="let data of projectedFinancialData">{{data}}
+                        </nb-radio>
+
+                </nb-radio-group>
+            </div>
+            </div>
+            <div class="row p-2" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'old'">
                 <div class="col-md-12 border-bottom border-dark mb-4">
                     <div class="form-group">
                         <label class="title"><strong>{{crgQuestionsList?.description}}</strong></label>
@@ -356,7 +380,7 @@
                                         formControlName="crgProfileOfAuditors"
                                         name="crgProfileOfAuditors"
                                         [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid }">
-                            <nb-radio *ngFor="let field of crgQuestionsList?.answers"
+                            <nb-radio  *ngFor="let field of crgQuestionsList?.answers"
                                       [value]="field?.description">{{field?.description}}
                             </nb-radio>
                         </nb-radio-group>
@@ -381,11 +405,6 @@
                    (input)="setTotalWorkingCapitalLimit(totalWorkingCapitalLimit?.value)"
                    type="number" class="form-control mb-2" />
         </div>
-    </div>
-    <div class="text-right m-4">
-        <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
-            Availability of Historical Data
-        </nb-checkbox>
     </div>
     <hr>
     <div class="row my-2">

@@ -34,7 +34,7 @@ export class CbsTableComponent implements OnInit {
         const total = this.list.filter(l => l.jsonDataMap[key]).map(k => k.jsonDataMap[key])
             .reduce((a, b) => parseFloat(this.isNumber(a)) + parseFloat(this.isNumber(b)), 0);
         const finalTotal = this.isNumber(total);
-        return parseFloat(finalTotal).toFixed(2);
+        return parseFloat(finalTotal).toFixed(8);
 
     }
 
@@ -52,7 +52,7 @@ export class CbsTableComponent implements OnInit {
 
     public twoDecimalDigit(value) {
         const number = this.isNumber(value);
-        return parseFloat(number).toFixed(2);
+        return parseFloat(number).toFixed(8);
     }
 
     Number(s: string) {
