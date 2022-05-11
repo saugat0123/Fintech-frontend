@@ -63,6 +63,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log('formData', this.formData);
         this.buildKeyIndicatorsForm();
         if (this.formData['keyIndicatorsData'] !== undefined) {
             const keyIndicatorsData = this.formData['keyIndicatorsData'];
@@ -87,7 +88,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setDebtEquityRatioOverall(keyIndicatorsData.debtEquityRatioOverall);
             this.setDebtEquityRatioLongTerm(keyIndicatorsData.debtEquityRatioLongTerm);
             this.setDebtEquityRatioWorkingCapital(keyIndicatorsData.debtEquityRatioWorkingCapital);
-            this.setDebtEquityRatioGeneral(keyIndicatorsData.debtTotalAssetsRatio);
+            this.setDebtTotalAssetsRatio(keyIndicatorsData.debtTotalAssetsRatio);
             this.setLeverageRatio(keyIndicatorsData.leverageRatio);
             this.setOperatingCycle(keyIndicatorsData.operatingCycle);
             this.setInventoryTurnoverRatio(keyIndicatorsData.inventoryTurnoverRatio);
@@ -446,7 +447,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     // debtTotalAssetsRatio
-    setDebtEquityRatioGeneral(currentData) {
+    setDebtTotalAssetsRatio(currentData) {
         const controls = this.keyIndicatorsForm.get('debtTotalAssetsRatio') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
