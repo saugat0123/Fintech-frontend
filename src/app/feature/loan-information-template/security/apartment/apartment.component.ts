@@ -46,7 +46,7 @@ export class ApartmentComponent implements OnInit {
     this.buildForm();
     this.branchList();
     this.getRoleList();
-    this.getLoanConfig();
+    // this.getLoanConfig();
   }
 
   private buildForm(): FormGroup {

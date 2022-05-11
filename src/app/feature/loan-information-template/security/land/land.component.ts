@@ -53,7 +53,7 @@ export class LandComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.getLoanConfig();
+    // this.getLoanConfig();
     this.branchList();
     this.getRoleList();
     this.reArrangeEnumType();
