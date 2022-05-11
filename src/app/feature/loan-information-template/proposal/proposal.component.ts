@@ -219,9 +219,9 @@ export class ProposalComponent implements OnInit {
         });
 
         this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(8)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(8)));
         this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
         this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
@@ -682,10 +682,10 @@ export class ProposalComponent implements OnInit {
       const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
       switch (repaymentMode) {
         case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
           break;
         case 'eqi':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
           break;
       }
     } else {
@@ -727,9 +727,9 @@ export class ProposalComponent implements OnInit {
           interestAmount = 0;
       }
       if (key === 'INTEREST') {
-        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
+        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(8)));
       }if (key === 'PRINCIPAL') {
-        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
+        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(8)));
       }
     }
   }
@@ -842,8 +842,8 @@ export class ProposalComponent implements OnInit {
         const interestRate = Number(this.proposalForm.get('interestRate').value);
         const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value) / 12;
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
-        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
-        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
+        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(8));
+        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(8));
     }
 
   calculateInterestRate() {
@@ -852,7 +852,7 @@ export class ProposalComponent implements OnInit {
     const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
 
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(8));
   }
 
   onChange() {

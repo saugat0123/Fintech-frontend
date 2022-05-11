@@ -104,7 +104,7 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('otherChargesDuringReview').value +
         this.incomeFormGroup.get('loanProcessingDuringReview').value +
         this.incomeFormGroup.get('lcCommissionDuringReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value).toFixed(2);
+        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value).toFixed(8);
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
@@ -116,7 +116,7 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('otherChargesAfterNextReview').value +
         this.incomeFormGroup.get('loanProcessingAfterNextReview').value +
         this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
+        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(8);
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {
