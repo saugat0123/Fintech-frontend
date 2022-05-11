@@ -385,6 +385,16 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         keyIndicators.returnOnAssets[index].value = this.financialService.convertToPercent(Number(balanceSheet.totalAssets[index].value) === 0 ? 0 :
             (Number(profitAfterTax.controls['value'].value) / Number(balanceSheet.totalAssets[index].value)));
+
+        // const totalOperatingProfitBeforeValue =
+        keyIndicators.debtServiceCoverageRatio[index].value =
+            ((Number(operatingProfit.controls['value'].value) + (Number(this.financialService.fetchValuesForSubCategories(
+                this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index)) * 2)
+            + (Number(this.financialService.fetchValuesForSubCategories(
+                this.incomeStatementForm.get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)) * 2)) /
+            -(-Math.abs(Number(interestExpenses.controls['value'].value)) + (index > 0 ? (Number(this.financialService
+                .fetchValuesForJsonSubCategories(balanceSheet.currentLiabilitiesCategory,
+                    'Current Portion of Long Term Debts', (index - 1)))) : 0))).toFixed(8);
         if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
             keyIndicators.cashFlowKI[index].value =
                 Number(profitAfterTax.controls['value'].value) +

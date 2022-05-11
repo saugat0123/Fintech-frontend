@@ -373,7 +373,9 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingFields.length > 0 ? JSON.parse(item.valuatingField).includes('LAND') : item.valuatingField.includes('LAND') && !item.valuatingField.includes('LAND_BUILDING'));
+                    this.securityValuator.landValuator[index] = res.detail.filter(item =>
+                        item.valuatingFields.length > 0 ? JSON.parse(item.valuatingField).includes('LAND') :
+                            item.valuatingField.includes('LAND') && !item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
             case 'apartment':
@@ -393,7 +395,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
             case  'building':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.buildingValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND_BUILDING'));
+                    this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
+                        item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
         }
@@ -925,7 +928,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'Land and Building Security' :
-                    this.setLandBuildingValidation();
                     this.landBuilding = true;
                     break;
                 case 'PlantSecurity' :
@@ -986,13 +988,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('buildingFairMarketValue').clearValidators();
                 f.get('buildingFairMarketValue').updateValueAndValidity();
             });
-            const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-            landBuildingFormControls.controls.forEach(f => {
-                f.get('owner').clearValidators();
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').clearValidators();
-                f.get('landConsideredValue').updateValueAndValidity();
-            });
             const plantDetailsFormControls = this.securityForm.get('plantDetails') as FormArray;
             plantDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
@@ -1042,7 +1037,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('totalShareUnit').updateValueAndValidity();
             });
         }
-        this.clearLandBuildingValidators();
     }
     clearValidationState() {
         if (this.selectedSecurity === 'LandSecurity') {
@@ -1094,23 +1088,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('buildArea').updateValueAndValidity();
                 f.get('buildingFairMarketValue').clearValidators();
                 f.get('buildingFairMarketValue').updateValueAndValidity();
-            });
-        }
-        if (this.selectedSecurity === 'Land and Building Security') {
-            const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
-                f.get('owner').setValidators(Validators.required);
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').setValidators(Validators.required);
-                f.get('landConsideredValue').updateValueAndValidity();
-            });
-        } else {
-            const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
-                f.get('owner').clearValidators();
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').clearValidators();
-                f.get('landConsideredValue').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'PlantSecurity') {
@@ -1233,12 +1210,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('totalShareUnit').updateValueAndValidity();
             });
         }
-        if(this.selectedSecurity !== 'Land and Building Security') {
-            this.clearLandBuildingValidators();
-        }
     }
-
-
 
     hypothecationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -1372,61 +1344,15 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentOtherBranchChecked: [undefined],
         });
     }
-    clearLandBuildingValidators() {
-        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-        landBuildingFormControls.controls.forEach(f => {
-            f.get('owner').clearValidators();
-            f.get('owner').updateValueAndValidity();
-            f.get('landConsideredValue').clearValidators();
-            f.get('landConsideredValue').updateValueAndValidity();
-            f.get('plotNumber').clearValidators();
-            f.get('plotNumber').updateValueAndValidity();
-            f.get('marketValue').clearValidators();
-            f.get('marketValue').updateValueAndValidity();
-            f.get('distressValue').clearValidators();
-            f.get('distressValue').updateValueAndValidity();
-            f.get('governmentRate').clearValidators();
-            f.get('governmentRate').updateValueAndValidity();
-            f.get('considerValue').clearValidators();
-            f.get('considerValue').updateValueAndValidity();
-            f.get('sheetNo').clearValidators();
-            f.get('sheetNo').updateValueAndValidity();
-            f.get('geoLocation').clearValidators();
-            f.get('geoLocation').updateValueAndValidity();
-        });
-    }
-    setLandBuildingValidation() {
-        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-        landBuildingFormControls.controls.forEach(f => {
-            f.get('owner').setValidators(Validators.required);
-            f.get('owner').updateValueAndValidity();
-            f.get('landConsideredValue').setValidators(Validators.required);
-            f.get('landConsideredValue').updateValueAndValidity();
-            f.get('plotNumber').setValidators(Validators.required);
-            f.get('plotNumber').updateValueAndValidity();
-            f.get('marketValue').setValidators(Validators.required);
-            f.get('marketValue').updateValueAndValidity();
-            f.get('distressValue').setValidators(Validators.required);
-            f.get('distressValue').updateValueAndValidity();
-            f.get('governmentRate').setValidators(Validators.required);
-            f.get('governmentRate').updateValueAndValidity();
-            f.get('considerValue').setValidators(Validators.required);
-            f.get('considerValue').updateValueAndValidity();
-            f.get('sheetNo').setValidators(Validators.required);
-            f.get('sheetNo').updateValueAndValidity();
-            f.get('geoLocation').setValidators(Validators.required);
-            f.get('geoLocation').updateValueAndValidity();
-        });
-    }
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
-            owner: [undefined, Validators.required],
+            owner: [undefined],
             location: undefined,
-            plotNumber: [undefined, Validators.required],
+            plotNumber: [undefined],
             areaFormat: undefined,
             area: undefined,
-            marketValue: [undefined, Validators.required],
-            distressValue: [undefined, Validators.required],
+            marketValue: [undefined],
+            distressValue: [undefined],
             description: undefined,
             houseNumber: [undefined],
             totalBuildingArea: [undefined],
@@ -1476,14 +1402,14 @@ export class SecurityInitialFormComponent implements OnInit {
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
             kycCheckForLandAndBuilding: [false],
-            governmentRate: [undefined, Validators.required],
+            governmentRate: [undefined],
             dv: [undefined],
-            considerValue: [undefined, Validators.required],
-            sheetNo: [undefined, Validators.required],
+            considerValue: [undefined],
+            sheetNo: [undefined],
             province: [undefined],
             district: [undefined],
             municipalityVdc: [undefined],
-            geoLocation: [undefined, Validators.required],
+            geoLocation: [undefined],
             addressLine1: [undefined],
             addressLine2: [undefined],
             registerOffice: [undefined]

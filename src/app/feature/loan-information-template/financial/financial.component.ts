@@ -162,7 +162,7 @@ export class FinancialComponent implements OnInit {
         'debtEquityRatioOverall',
         'debtEquityRatioLongTerm',
         'debtEquityRatioWorkingCapital',
-        'debtEquityRatioGeneral',
+        'debtTotalAssetsRatio',
         'leverageRatio',
         'operatingCycle',
         'inventoryTurnoverRatio',

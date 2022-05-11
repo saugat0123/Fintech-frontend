@@ -65,14 +65,12 @@
                 <app-financial-config *ngIf="financialConfig.expanded"></app-financial-config>
             </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #financialConfig>
+        <nb-accordion-item #capitalFinancialConfig>
             <nb-accordion-item-header>
                 &#9874; &nbsp; Capital Configuration
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-                <app-capital-configuration>
-
-                </app-capital-configuration>
+                <app-capital-configuration *ngIf="capitalFinancialConfig.expanded"></app-capital-configuration>
             </nb-accordion-item-body>
         </nb-accordion-item>
     </nb-accordion>

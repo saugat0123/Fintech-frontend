@@ -19,7 +19,6 @@ export enum KeyIndicatorsConstantsEnum {
     DEBT_EQUITY_RATIO_OVERALL = 'debtEquityRatioOverall',
     DEBT_EQUITY_RATIO_LONG_TERM = 'debtEquityRatioLongTerm',
     DEBT_EQUITY_RATIO_WORKING_CAPITAL = 'debtEquityRatioWorkingCapital',
-    DEBT_EQUITY_RATIO_GENERAL = 'debtEquityRatioGeneral',
     LEVERAGE_RATIO = 'leverageRatio',
     OPERATING_CYCLE = 'operatingCycle',
     INVENTORY_TURNOVER_RATIO = 'inventoryTurnoverRatio',
@@ -31,6 +30,7 @@ export enum KeyIndicatorsConstantsEnum {
     NET_WC_BEFORE_BANK = 'netWCBeforeBank',
     CASH_FLOW_KI = 'cashFlowKI',
     RETURN_ON_ASSETS = 'returnOnAssets',
+    DEBT_TOTAL_ASSETS_RATIO = 'debtTotalAssetsRatio',
 }
 
 export class KeyIndicatorsHeaderMap {
@@ -55,7 +55,7 @@ export class KeyIndicatorsHeaderMap {
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_OVERALL, 'Debt-Equity Ratio (Overall)'],
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_LONG_TERM, 'Debt-Equity Ratio - Long Term (times)(in %)'],
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_WORKING_CAPITAL, 'Debt-Equity Ratio - Working Capital (times)(in %)'],
-        [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_GENERAL, 'Debt-Equity Ratio - General(in %)'],
+        [KeyIndicatorsConstantsEnum.DEBT_TOTAL_ASSETS_RATIO, 'Debt Total Assets Ratio(in %)'],
         [KeyIndicatorsConstantsEnum.LEVERAGE_RATIO, 'Leverage ratio'],
         [KeyIndicatorsConstantsEnum.OPERATING_CYCLE, 'Operating Cycle'],
         [KeyIndicatorsConstantsEnum.INVENTORY_TURNOVER_RATIO, 'Inventory Turnover Ratio (times)'],
