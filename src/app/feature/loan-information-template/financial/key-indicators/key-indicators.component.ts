@@ -63,7 +63,6 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log('formData', this.formData);
         this.buildKeyIndicatorsForm();
         if (this.formData['keyIndicatorsData'] !== undefined) {
             const keyIndicatorsData = this.formData['keyIndicatorsData'];

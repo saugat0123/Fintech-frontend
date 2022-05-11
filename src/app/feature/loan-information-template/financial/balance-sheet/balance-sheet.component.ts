@@ -499,9 +499,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 this.balanceSheetForm.get('currentLiabilitiesCategory'), 'Short Term Loan', index)))
                 + (Number(this.financialService.fetchValuesForSubCategories(
                     this.balanceSheetForm.get('currentLiabilitiesCategory'), 'Current Portion of Long Term Debts', index)))
-                + (Number(this.financialService.fetchValuesForSubCategories(
-                    this.balanceSheetForm.get('longTermLoanCategory'), 'Term Loan', index)))) /
-            Number(totalAssets.controls['value'].value);
+                + (Number(longTermLoan.controls['value'].value))) / Number(totalAssets.controls['value'].value);
     }
 
     checkForLatterFiscalYearChanges(index: number) {
