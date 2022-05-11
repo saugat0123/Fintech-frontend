@@ -317,16 +317,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanData.loanHolder.bankingRelationship)) {
             this.bankingRelation = JSON.parse(this.loanData.loanHolder.bankingRelationship);
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-                this.initialSecurity = true;
-            }
-        }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurity = true;
-            }
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+        //         this.initialSecurity = true;
+        //     }
+        // }
         this.checkDocumentStatus();
     }
 
@@ -351,24 +346,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
 
         // Setting Security data--
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityId = this.loanDataHolder.security.id;
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-                this.securityData = JSON.parse(this.loanDataHolder.security.data);
-                this.securitySummary = true;
-            }
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurity = true;
-                this.approvedSecurityAsProposed = false;
-                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-            }
-            if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
-                !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurityAsProposed = false;
-                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-                this.approvedSecurity = true;
-            }
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        //     this.securityId = this.loanDataHolder.security.id;
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+        //         this.securityData = JSON.parse(this.loanDataHolder.security.data);
+        //         this.securitySummary = true;
+        //     }
+            // if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            //     this.approvedSecurity = true;
+            //     this.approvedSecurityAsProposed = false;
+            //     this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+            // }
+            // if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
+            //     !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            //     this.approvedSecurityAsProposed = false;
+            //     this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+            //     this.approvedSecurity = true;
+            // }
+        // }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
             this.loanDataHolder.insurance.forEach(value => {
@@ -500,24 +495,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.shareSecuritySummary = true;
             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
-                this.shareSecuritySummary = true;
-                this.approvedSecurityAsProposed = false;
-                this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-            }
-        }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-            if (ObjectUtil.isEmpty(ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
-                !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData))) {
-                const selectedArray = this.securityData['selectedArray'];
-                if (selectedArray.indexOf('ShareSecurity') !== -1) {
-                    this.shareSecuritySummary = true;
-                    this.approvedSecurityAsProposed = false;
-                    this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-                }
-            }
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
+        //         this.shareSecuritySummary = true;
+        //         this.approvedSecurityAsProposed = false;
+        //         this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+        //     }
+        // }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+        //     if (ObjectUtil.isEmpty(ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
+        //         !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData))) {
+        //         const selectedArray = this.securityData['selectedArray'];
+        //         if (selectedArray.indexOf('ShareSecurity') !== -1) {
+        //             this.shareSecuritySummary = true;
+        //             this.approvedSecurityAsProposed = false;
+        //             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+        //         }
+        //     }
+        // }
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;
 

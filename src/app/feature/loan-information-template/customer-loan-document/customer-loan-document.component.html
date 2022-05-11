@@ -1,10 +1,10 @@
 <nb-card>
   <nb-card-header>
-    <h3><strong>Loan Documents</strong></h3>
+    <strong>{{loanDataHolder?.loan?.name || 'Loan Document'}} {{loanDataHolder?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loanDataHolder?.proposal?.proposedLimit || ''}}</strong>
   </nb-card-header>
   <nb-card-body>
     <div *ngIf="initialDocuments.length > 0" class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="box-header with-border">
           <em><span
               style="color:red;">(Select file smaller than 5MB)</span></em>
@@ -34,6 +34,7 @@
 
               <td><input (change)="documentUploader($event, document.name, document.id, i)"
                          class="form-control-file"
+                         *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
                 <!--<div *ngIf="submitted && form.file.errors"
@@ -50,9 +51,15 @@
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
               </td>
-              <td class="cursor">
+              <td class="cursor" *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId">
                 <span *ngIf="document.checked">
                   <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
+                </span>
+                <span *ngIf="document?.url && fromProfile" class="col-md-3 img-hover flex-wrap"
+                     [nbTooltip]="document?.displayName">
+                  <a (click)="service.openDocument(document?.url)" class="cursor"><em
+                          [className]="service.SET_CLASS_NAME"></em>
+                  </a>
                 </span>
               </td>
             </tr>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
@@ -22,8 +22,6 @@ import {ExperienceMap} from '../../admin/modal/experience';
 import {Security} from '../../loan/model/security';
 import {LoanTag} from '../../loan/model/loanTag';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
-import {CustomerShareData} from '../../admin/modal/CustomerShareData';
-import {SecurityInitialFormComponent} from '../security/security-initial-form/security-initial-form.component';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 @Component({

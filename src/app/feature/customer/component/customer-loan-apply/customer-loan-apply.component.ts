@@ -15,6 +15,8 @@ import {CustomerType} from '../../model/customerType';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {Security} from '../../../loan/model/security';
+import {SecuritiesType} from '../../../constants/securities-type';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -61,8 +63,8 @@ export class CustomerLoanApplyComponent implements OnInit {
 
   ngOnInit() {
     this.spinner = true;
-    this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.sliceLoan();
+    this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
@@ -134,37 +136,36 @@ export class CustomerLoanApplyComponent implements OnInit {
         }
         this.customerInfoService.detail(this.paramProp.customerInfoId).subscribe(customerInfoResponse => {
               const customerInfo: CustomerInfoData = customerInfoResponse.detail;
-              const securityData = customerInfo.security ? JSON.parse(customerInfo.security.data) : undefined;
-              if (!ObjectUtil.isEmpty(securityData)) {
-                switch (loanConfig.loanTag) {
-                  case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
-                    if (!securityData.selectedArray.includes('ShareSecurity')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
-                    } else {
-                      this.routeToLoanForm();
-                    }
-                    break;
-                  case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
-                    if (!securityData.selectedArray.includes('FixedDeposit')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Fixed Deposit Security for Fixed Deposit Loan'));
-                    } else {
-                      this.routeToLoanForm();
-
-                    }
-                    break;
-                  case LoanTag.getKeyByValue(LoanTag.VEHICLE) :
-                    if (!securityData.selectedArray.includes('VehicleSecurity')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Vehicle Security for Vehicle Loan'));
-                    } else {
-                      this.routeToLoanForm();
-
-                    }
-                    break;
+              customerInfo.securities.forEach((security: Security) => {
+                if (!ObjectUtil.isEmpty(security)) {
+                  switch (loanConfig.loanTag) {
+                    case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
+                      if (security.securityType !== SecuritiesType.SHARE_SECURITY) {
+                        this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
+                      } else {
+                        this.routeToLoanForm();
+                      }
+                      break;
+                    case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
+                      if (security.securityType !== SecuritiesType.FIXED_DEPOSIT_RECEIPT) {
+                        this.toastService.show(new Alert(AlertType.INFO, 'Fill Fixed Deposit Security for Fixed Deposit Loan'));
+                      } else {
+                        this.routeToLoanForm();
+                      }
+                      break;
+                    case LoanTag.getKeyByValue(LoanTag.VEHICLE) :
+                      if (security.securityType !== SecuritiesType.VEHICLE_SECURITY) {
+                        this.toastService.show(new Alert(AlertType.INFO, 'Fill Vehicle Security for Vehicle Loan'));
+                      } else {
+                        this.routeToLoanForm();
+                      }
+                      break;
+                  }
+                } else {
+                  this.toastService.show(new Alert(AlertType.INFO, 'Security is Empty'));
+                  return;
                 }
-              } else {
-                this.toastService.show(new Alert(AlertType.INFO, 'Security is Empty'));
-                return;
-              }
+              });
             }
         );
       });
@@ -197,12 +198,13 @@ export class CustomerLoanApplyComponent implements OnInit {
   sliceLoan() {
     this.loanTypeList.forEach((val) => {
       if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
-      || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
-      || val.key === 'INTEREST_RATE_REVISION') {
+          || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+          || val.key === 'INTEREST_RATE_REVISION') {
         return true;
       }
       this.multipleSelectedLoanType.push(val);
 
     });
   }
+
 }

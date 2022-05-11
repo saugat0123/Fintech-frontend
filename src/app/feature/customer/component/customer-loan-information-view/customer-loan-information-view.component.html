@@ -220,8 +220,7 @@
           </nb-card>
         </ng-template>
       </div>
-
-      <div class="col-md-4" *ngIf="customerInfo?.security">
+      <div class="col-md-4" *ngIf="customerInfo?.securities.length > 0">
        <div class="row">
          <nb-card class="col-md-11 py-2" #security>
            <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
@@ -231,7 +230,7 @@
                </div>
                <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
-                <em [ngClass]="customerInfo?.security?.data ? 'fas fa-check-circle px-2':'fas fa-times-circle px-2'"></em>
+                <em [ngClass]="customerInfo?.securities.length > 0 ? 'fas fa-check-circle px-2':'fas fa-times-circle px-2'"></em>
               </span>
                </div>
              </div>
@@ -249,15 +248,12 @@
               </span></a>
             </nb-card-header>
             <nb-card-body >
-              <app-security-view
-                   *ngIf="customerInfo?.security?.data !== null && customerInfo?.security?.data !== undefined"
-                  [security]="customerInfo?.security"
-                  [shareSecurityData]="customerInfo?.shareSecurity">
-              </app-security-view>
-              <h6 *ngIf=" customerInfo?.security?.data === null ||  customerInfo?.security?.data === undefined" class="text-danger">Note: This customer has no current security.</h6>
-            <hr>
-              <app-security-approved-view *ngIf=" customerInfo?.security?.approvedData" [security]="customerInfo?.security"
-                                          [shareSecurityData]="customerInfo?.shareSecurity"></app-security-approved-view>
+<!--              <app-security-view-->
+<!--                   *ngIf="customerInfo?.securities.length > 0"-->
+<!--                  [security]="customerInfo?.securities"-->
+<!--                  [shareSecurityData]="customerInfo?.shareSecurity">-->
+<!--              </app-security-view>-->
+              <h6 *ngIf=" customerInfo?.securities.length === 0" class="text-danger">Note: This customer has no current security.</h6>
             </nb-card-body>
           </nb-card>
         </ng-template>

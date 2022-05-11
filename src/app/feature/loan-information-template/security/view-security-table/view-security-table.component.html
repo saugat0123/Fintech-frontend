@@ -1,0 +1,35 @@
+<div class="container row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Security Type</th>
+                <th>Fair Market Value</th>
+                <th>Distress Value</th>
+                <th>Consider Value</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let security of securities; let i=index;">
+                <td>{{i + 1}}</td>
+                <td>{{security?.securityType.toString().replace(regex, ' ')}}</td>
+                <td>{{security?.fairMarketValue || '0'}}</td>
+                <td>{{security?.distressValue || '0'}}</td>
+                <td>{{security?.considerValue || '0'}}</td>
+                <td>
+                    <button nbTooltip="Edit"
+                            class="btn btn-sm btn-flat">
+                        <em class="fa fa-edit bg-transparent"></em>
+                    </button>
+                    <button nbTooltip="Site Visit"
+                            class="btn btn-sm btn-flat">
+                        <em class="fa fa-map-signs bg-transparent"></em>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
