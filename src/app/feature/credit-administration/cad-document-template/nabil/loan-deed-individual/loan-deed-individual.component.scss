@@ -4,6 +4,15 @@
   text-align: justify;
   text-justify: inter-word;
 }
+ol.conditions {
+  padding: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
+  padding-left: 10px;
+}
 .form-field {
   background: yellow;
   margin: 0px 5px;

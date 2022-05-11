@@ -15,7 +15,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span> मा
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value : '_______________________'}}</strong></span> मा
           शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस <b> " धनी बैंक " </b>
           भनिएको छ) लिखत गरी दिनेका नाम-
           <input
@@ -24,7 +24,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value : '_______________________'}}</strong></span>
           को
           <span *ngIf="loanHolderNepData?.gender?.en === 'MALE' else relation">नाति </span>
           <ng-template #relation>
@@ -38,7 +38,7 @@
           <input class="form-field form-control-sm d-print-none"
             name="father_husbandName"
             formControlName="father_husbandName" placeholder="" type="text"/>
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value : '_______________________'}}</strong></span>
           को
           <span  *ngIf="loanHolderNepData?.gender?.en === 'MALE' else fatherRelation"> छोरा </span>
           <ng-template #fatherRelation>
@@ -55,7 +55,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value : '_______________________'}}</strong></span>
           जिल्ला,
           <input
             class="form-field form-control-sm d-print-none"
@@ -63,7 +63,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value : '_______________________'}}</strong></span>
           <span *ngIf="loanHolderNepData.municipalityOrVdc.en === vdcOption[0].value">
             न.पा.
           </span>
@@ -74,7 +74,7 @@
             formControlName="wardNo"
             placeholder=""
             type="text"
-          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>,
+          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value : '_______________________'}}</strong></span>,
           बस्ने बर्ष
           <input
             class="form-field form-control-sm d-print-none"
@@ -82,7 +82,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'age']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'age']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'age']).value : '_______________________'}}</strong></span>
           को
           <span *ngIf="loanHolderNepData?.gender?.en === 'MALE' else CustomerRelation">श्री </span>
           <ng-template #CustomerRelation>
@@ -99,7 +99,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'borrowerName']).value}}</strong></span> —१
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'borrowerName']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'borrowerName']).value : '_______________________'}}</strong></span> —१
           <span *ngFor="let data of loanDeedIndividual.get(['loanDeedIndividuals', i, 'loanDeedJoint'])['controls']; let index = index" formArrayName="loanDeedJoint">
               <ng-container [formGroupName]="index" *ngIf="clientType === 'JOINT'" >
                   र <input class="form-field disable-print form-control-sm"
@@ -200,13 +200,13 @@
             जना
           (जसलाई यसपछि ऋणी भनिएको छ) आगे म/हामी ऋणी (हरु)/ ऋणी लाई
             <ng-container *ngIf="offerLoanType === 'TAKE OVER'; else elseTakeOver">
-                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'nameOfBank']).value}}</strong></span>
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'nameOfBank']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'nameOfBank']).value : '______________________'}}</strong></span>
                 <input class="form-field form-control-sm d-print-none" formControlName="nameOfBank"
                        id="nameOfBank" type="text">
                 बैंककाे कर्जा चुक्ता गर्ने
             </ng-container>
             <ng-template #elseTakeOver>
-                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value : '_____________________'}}</strong></span>
                 <input class="form-field form-control-sm d-print-none" formControlName="purposeOfLoan"
                        id="purposeOfLoan" type="text">
             </ng-template>
@@ -219,7 +219,7 @@
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'issueDate']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'issueDate']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'issueDate']).value : '_________________'}}</strong></span>
           को ऋण स्वीकृति पत्रानुसार स्वीकृत निम्नानुसारका ऋणकर्जा तथा बैकिङ्ग सुविधाहरु सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका
           बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरी लिएको ठिक साँचो हो । तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैकिङ्ग
           सुविधाहरुमा लाग्ने ब्याज, कमिशन, शुल्क आदि स्वीकृत ऋणकर्जा तथा बैकिङ्ग सुविधाहरु तल उल्लेखित खण्डमा उल्लेख भएको
@@ -302,7 +302,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value : '_______________________'}}</strong></span>
             /- (अक्षरेपी
             <input
               class="form-field form-control-sm d-print-none disable-print"
@@ -310,7 +310,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value : '_______________________'}}</strong></span>
               मात्र)
           </p>
         </div>
@@ -327,7 +327,7 @@
          </div>
          <div class="free-txt mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'FIXED_DEPOSIT'">
            <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 form-control d-print-none"></textarea>
-           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
+           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value : '_______________________'}}</strong></span>
          </div>
        </ng-container>
           <div *ngIf="primarySecurityTypeCheck">
@@ -442,7 +442,7 @@
               </div>
 <!--              <div class="free-txt mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'FIXED_DEPOSIT'">-->
 <!--                  <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 form-control d-print-none"></textarea>-->
-<!--                  <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>-->
+<!--                  <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value ? only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value : '_______________________'}}</strong></span>-->
 <!--              </div>-->
           </ng-container>
           <div class="mt-4"
@@ -466,18 +466,89 @@
                   ४. गाडी नं. __________________________________
               </p>
           </div>
-        <div class="text-left mt-3">
-          <p class="font-weight-bold">
-            साक्षीः
-          </p>
-          <ul class="nepaliList">
-            <app-sakhshi-common></app-sakhshi-common>
-            <li>
-              कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-              ____________________________
-            </li>
-          </ul>
-        </div>
+          <div class="row" style="margin-top: 3em">
+              <div class="col-md-12" style="padding-left: 3em">
+                  <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                  <ol class="conditions">
+                      <li>
+                          <input class="form-field form-control-sm d-print-none"
+                                 name="sakshiDistrict1"
+                                 formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiDistrict1 ? this.cadInitialInfo?.guarantorFreeText?.sakshiDistrict1 : '______________________________'}}
+                                </span>
+                          जिल्ला
+                          <input class="form-field form-control-sm d-print-none"
+                                 name="sakshiMunicipality1"
+                                 formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiMunicipality1 ? this.cadInitialInfo?.guarantorFreeText?.sakshiMunicipality1 : '______________________________'}}
+                                </span>
+                          न.पा/गा.वि.स. वडा नं.
+                          <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
+                                 formControlName="sakshiWard1" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiWard1 ? this.cadInitialInfo?.guarantorFreeText?.sakshiWard1 : '______________________________'}}
+                                </span>
+                          बस्ने बर्ष
+                          <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
+                                 formControlName="sakshiAge1" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiAge1 ? this.cadInitialInfo?.guarantorFreeText?.sakshiAge1 : '______________________________'}}
+                                </span>
+                          को/की
+                          <input class="form-field form-control-sm d-print-none" name="sakshiName1"
+                                 formControlName="sakshiName1" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiName1 ? this.cadInitialInfo?.guarantorFreeText?.sakshiName1 : '______________________________'}}
+                                </span>
+                      </li>
+                      <li>
+                          <input class="form-field form-control-sm d-print-none"
+                                 name="sakshiDistrict2"
+                                 formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiDistrict2 ? this.cadInitialInfo?.guarantorFreeText?.sakshiDistrict2 : '______________________________'}}
+                                </span>
+                          जिल्ला
+                          <input class="form-field form-control-sm d-print-none"
+                                 name="sakshiMunicipality2"
+                                 formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiMunicipality2 ? this.cadInitialInfo?.guarantorFreeText?.sakshiMunicipality2 : '______________________________'}}
+                                </span>
+                          न.पा/गा.वि.स. वडा नं.
+                          <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
+                                 formControlName="sakshiWard2" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiWard2 ? this.cadInitialInfo?.guarantorFreeText?.sakshiWard2 : '______________________________'}}
+                                </span>
+                          बस्ने बर्ष
+                          <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
+                                 formControlName="sakshiAge2" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiAge2 ? this.cadInitialInfo?.guarantorFreeText?.sakshiAge2 : '______________________________'}}
+                                </span>
+                          को/की
+                          <input class="form-field form-control-sm d-print-none" name="sakshiName2"
+                                 formControlName="sakshiName2" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo?.guarantorFreeText?.sakshiName2 ? this.cadInitialInfo?.guarantorFreeText?.sakshiName2 : '______________________________'}}
+                                </span>
+                      </li>
+                      <li>
+                          कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल
+                          बैंक लिमिटेडका कर्मचारी
+                          <input class="form-field form-control-sm d-print-none"
+                                 name="nameOfBankStaff"
+                                 formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                          <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && this.cadInitialInfo?.guarantorFreeText?.nameOfBankStaff ? this.cadInitialInfo?.guarantorFreeText?.nameOfBankStaff : '______________________________'}}
+                                </span>
+                      </li>
+                  </ol>
+              </div>
+          </div>
         <div class="mt-lg-5">
           <p class="text-center">
             ईति सम्वत् <input
@@ -524,10 +595,16 @@
       </div>
     </div>
   </form>
-    <div class="col-md-12 text-right disable-print">
-        <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                 ngxPrint printSectionId="print-section">Print
+    <div class="col-md-12 text-right">
+        <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
+                nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
+            <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
         </button>
-        <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+        <button nbButton size="small"
+                class="d-print-none sav"
+                status="success"
+                (click)="submit()"
+                style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+            <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
     </div>
 </div>
