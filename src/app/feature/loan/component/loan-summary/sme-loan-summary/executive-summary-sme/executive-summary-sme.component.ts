@@ -12,6 +12,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() totalProposed;
+  @Input() isDetailedView: boolean;
   securityData: Object;
   shareSecurityData: ShareSecurity = new ShareSecurity();
   jsonData;

@@ -59,14 +59,13 @@ export class GroupExposureWithCcblComponent implements OnInit {
     }
 
   }
-  
-  patchInitialTable(): void
-  {
+
+  patchInitialTable(): void {
     this.form.patchValue({
       detailInformation: CcblTable.default_table(),
       outstandingOverdue: CcblTable.outstandingOverdueTable(),
       groupPosition: CcblTable.groupPosition()
-    })
+    });
   }
 
   buildForm() {
@@ -112,7 +111,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.groupName = this.formControls.groupName.value;
     mGroup.groupCode = this.formControls.groupCode.value;
     mGroup.outstandingOverdue = this.formControls.outstandingOverdue.value;
-    mGroup.groupPosition =this.formControls.groupPosition.value;
+    mGroup.groupPosition = this.formControls.groupPosition.value;
     return mGroup;
   }
 

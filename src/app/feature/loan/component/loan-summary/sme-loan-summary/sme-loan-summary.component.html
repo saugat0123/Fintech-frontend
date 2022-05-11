@@ -177,6 +177,7 @@
             <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
                 <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
+                                           [isDetailedView]="isDetailedView"
                                            [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
@@ -202,6 +203,7 @@
                             <li>
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
                                 <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                                    [isDetailedView]="isDetailedView"
                                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
 
                             </li>
@@ -334,12 +336,14 @@
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
+                                      [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
                 <app-above-ten-million [loanDataHolder]="loanDataHolder"
                                        [customerAllLoanList]="customerAllLoanList"
+                                       [isDetailedView]="isDetailedView"
                                        [fiscalYear]="fiscalYearArray"></app-above-ten-million>
             </ng-container>
         </nb-card-body>
