@@ -57,9 +57,20 @@ export class CommonSectionTopRetailComponent implements OnInit {
       this.tempData.retailGlobalForm.sanctionLetterDateNepali.nDate : '';
       this.sanctionLetterDate = this.sanctionDate ? this.sanctionDate : '';
     }
-    this.address = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      this.address =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+              this.loanHolderInfo.permanentMunicipality.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+              '-' + this.loanHolderInfo.permanentWard.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+              ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+              ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+    }
     this.form.patchValue({
       referenceNumber: this.refNum ? this.refNum : '',
       sanctionLetterDate: this.sanctionLetterDate ? this.sanctionLetterDate : '',
