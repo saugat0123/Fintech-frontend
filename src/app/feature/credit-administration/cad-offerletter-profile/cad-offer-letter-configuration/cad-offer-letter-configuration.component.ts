@@ -652,9 +652,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
             const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
             if (issueDateType === 'AD') {
-                this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+                this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value : '';
             } else if (issueDateType === 'BS') {
-                const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value.eDate;
+                const issueDate = !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value.eDate) ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value.eDate : '';
                 this.userConfigForm.value.guarantorDetails[index].citizenIssuedDateNepali = issueDate;
             }
             // this.deleteCTAndTransContorls(index);
@@ -1409,9 +1412,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 this.customerType === CustomerType.INSTITUTION && nepData.guarantorActYearOption.ct === 'BS' &&
                 this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value !== 'Personal Guarantor') {
                 nepData['guarantorActYear'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate,
+                    en: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                        !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate) ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate : '',
+                    np: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                    !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
+                    ct: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                    !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
                 };
             }
 
