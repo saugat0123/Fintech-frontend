@@ -385,7 +385,8 @@
                             <label for="province">Province</label>
                             <ng-select (change)="getDistrict(landAndBuilding?.get('province')?.value)"
                                        formControlName="province"
-                                       id="province">
+                                       id="province"
+                            [compareWith]="compareFn">
                                 <ng-option *ngFor="let provinceVal of provinces"
                                            [value]="provinceVal">
                                     {{provinceVal.name}}
@@ -396,7 +397,8 @@
                             <label for="district">District</label>
                             <ng-select (change)="getMunicipality(landAndBuilding?.get('district').value)"
                                        formControlName="district"
-                                       id="district">
+                                       id="district"
+                                       [compareWith]="compareFn">
                                 <ng-option *ngFor="let districtVal of districtList"
                                            [value]="districtVal">
                                     {{districtVal.name}}
@@ -409,7 +411,8 @@
                             <ng-select
                                     formControlName="municipalityVdc"
                                     id="municipality"
-                                    name="municipality">
+                                    name="municipality"
+                                    [compareWith]="compareFn">
                                 <ng-option *ngFor="let municipalityVal of municipalityList"
                                            [value]="municipalityVal">
                                     {{municipalityVal.name}}

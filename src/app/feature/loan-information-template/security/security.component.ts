@@ -522,6 +522,10 @@ export class SecurityComponent implements OnInit {
         const securities: Array<Security> = new Array<Security>();
         formValues.forEach(value => {
             const security: Security = new Security();
+            if (this.isEdit) {
+                security.id = this.securityValue.id;
+                security.version = this.securityValue.version;
+            }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;
             security.distressValue = value.distressValue;
@@ -570,6 +574,5 @@ export class SecurityComponent implements OnInit {
         this.securityValue = event.security;
         this.isEdit = event.isEdit;
         this.change(event.securityType);
-        console.log(event);
     }
 }
