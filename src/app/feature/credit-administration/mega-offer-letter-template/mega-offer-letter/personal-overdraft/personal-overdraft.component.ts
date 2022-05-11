@@ -177,9 +177,24 @@ buildPersonal() {
   }
   fillForm() {
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+    let customerAddress;
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+     customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+          !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+          this.loanHolderInfo.permanentMunicipality.ct : '') +
+         ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+             '-' + this.loanHolderInfo.permanentWard.ct : '') +
+         ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+                  !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+             ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+         ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+                      !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+             ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+    }
+    /*const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';*/
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -210,7 +225,7 @@ buildPersonal() {
       const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
-    //Mortgage Deed Date:
+    // Mortgage Deed Date:
     const mortgageDeedDateType = this.initialInfoPrint.mortgageDeedDateType ? this.initialInfoPrint.mortgageDeedDateType.en : '';
     let finalMortgageDeedDate;
     if (mortgageDeedDateType === 'AD') {

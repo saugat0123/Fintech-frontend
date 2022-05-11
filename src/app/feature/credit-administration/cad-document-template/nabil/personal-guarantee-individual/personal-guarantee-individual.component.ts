@@ -275,6 +275,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             individualGuarantorNepData.radioCitizenIssuedDate === 'BS') {
             citznIssuedDate = individualGuarantorNepData.citizenIssuedDateNepali ? individualGuarantorNepData.citizenIssuedDateNepali.en.nDate : '';
         }
+          console.log('Individual Guarantor', individualGuarantorNepData);
           (
               this.guarantorindividualGroup.get('individualGuarantors') as FormArray
           ).push(
@@ -298,13 +299,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   loanAmountWords: [undefined],
                   guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
                   guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
-                  guarantorFatherOrHusbandName: [
-                      individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''
-                  ],
-                  guarantorGrandFatherName: [
-                      individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''
-                  ],
-
+                  guarantorFatherOrHusbandName: [this.getGuarantorFatherName(individualGuarantorNepData)],
+                  guarantorGrandFatherName: [this.getGuarantorGrandFatherName(individualGuarantorNepData)],
                   guarantorPermanentDistrict: [
                       individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',
                   ],
@@ -355,6 +351,75 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       });
     }
   }
+    getGuarantorGrandFatherName(individualGuarantorNepData) {
+        let grandFatherName;
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData) && !ObjectUtil.isEmpty(individualGuarantorNepData.gender) &&
+            !ObjectUtil.isEmpty(individualGuarantorNepData.gender.en)) {
+            if (individualGuarantorNepData.gender.en === 'MALE') {
+                grandFatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName) &&
+                !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName.ct) ? individualGuarantorNepData.grandFatherName.ct : '';
+            }
+            if (!ObjectUtil.isEmpty(individualGuarantorNepData.gender.en === 'FEMALE')) {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus) &&
+                    !ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en)) {
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en === 'Unmarried')) {
+                        grandFatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName) &&
+                        !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName.ct) ? individualGuarantorNepData.grandFatherName.ct : '';
+                    }
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en === 'Married')) {
+                        if (!ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium) &&
+                            !ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium.en)) {
+                            if (individualGuarantorNepData.relationMedium.en === '0') {
+                                grandFatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.fatherInLawName) &&
+                                !ObjectUtil.isEmpty(individualGuarantorNepData.fatherInLawName.ct) ?
+                                    individualGuarantorNepData.fatherInLawName.ct : '';
+                            }
+                            if (individualGuarantorNepData.relationMedium.en === '1') {
+                                grandFatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName) &&
+                                !ObjectUtil.isEmpty(individualGuarantorNepData.grandFatherName.ct) ?
+                                    individualGuarantorNepData.grandFatherName.ct : '';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return grandFatherName;
+    }
+    getGuarantorFatherName(individualGuarantorNepData) {
+        let fatherName;
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData) &&
+            !ObjectUtil.isEmpty(individualGuarantorNepData.gender) &&
+            !ObjectUtil.isEmpty(individualGuarantorNepData.gender.en)) {
+            if (individualGuarantorNepData.gender.en === 'MALE') {
+                fatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName) &&
+                !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName.ct) ? individualGuarantorNepData.fatherName.ct : '';
+            }
+            if (individualGuarantorNepData.gender.en === 'FEMALE') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus) &&
+                    !ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en)) {
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en === 'Unmarried')) {
+                        fatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName) &&
+                        !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName.ct) ? individualGuarantorNepData.fatherName.ct : '';
+                    }
+                    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorMaritalStatus.en === 'Married')) {
+                        if (!ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium) &&
+                            !ObjectUtil.isEmpty(individualGuarantorNepData.relationMedium.en)) {
+                            if (individualGuarantorNepData.relationMedium.en === '0') {
+                                fatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.husbandName) &&
+                                !ObjectUtil.isEmpty(individualGuarantorNepData.husbandName.ct) ? individualGuarantorNepData.husbandName.ct : '';
+                            }
+                            if (individualGuarantorNepData.relationMedium.en === '1') {
+                                fatherName = !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName) &&
+                                !ObjectUtil.isEmpty(individualGuarantorNepData.fatherName.ct) ? individualGuarantorNepData.fatherName.ct : '';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return fatherName;
+    }
     getloanPurpose() {
       let loanPurpose: any;
       let loanCombinedPurpose: any;
@@ -458,37 +523,54 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       }
     }
 
-  getGrandFatherName() {
-      let grandFatherName;
-      if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
-          if (this.loanHolderNepData.gender.en === 'MALE') {
-              grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
-          }
-          if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
-              grandFatherName = this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : '';
-          }
-          if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
-              grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
-          }
-      }
-      return grandFatherName;
-  }
+    getGrandFatherName() {
+        let grandFatherName;
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData) && !ObjectUtil.isEmpty(this.loanHolderNepData.gender) &&
+            !ObjectUtil.isEmpty(this.loanHolderNepData.gender.en)) {
+            if (this.loanHolderNepData.gender.en === 'MALE') {
+                if (!ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName)) {
+                    grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName) &&
+                    !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName.ct) ? this.loanHolderNepData.grandFatherName.ct : '';
+                }
+            }
+            if (!ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium) && !ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium.en)) {
+                if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
+                    grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherInLawName) &&
+                    !ObjectUtil.isEmpty(this.loanHolderNepData.fatherInLawName.ct) ? this.loanHolderNepData.fatherInLawName.ct : '';
+                }
+                if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
+                    grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName) &&
+                    !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName.ct) ? this.loanHolderNepData.grandFatherName.ct : '';
+                }
+            }
+        }
+        return grandFatherName;
+    }
 
-  getFatherName() {
-      let fatherName;
-      if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
-          if (this.loanHolderNepData.gender.en === 'MALE') {
-              fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
-          }
-          if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
-              fatherName = this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : '';
-          }
-          if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
-              fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
-          }
-      }
-      return fatherName;
-  }
+    getFatherName() {
+        let fatherName;
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData) &&
+            !ObjectUtil.isEmpty(this.loanHolderNepData.gender) &&
+            !ObjectUtil.isEmpty(this.loanHolderNepData.gender.en)) {
+            if (this.loanHolderNepData.gender.en === 'MALE') {
+                fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName) &&
+                !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName.ct) ? this.loanHolderNepData.fatherName.ct : '';
+            }
+            if (this.loanHolderNepData.gender.en === 'FEMALE') {
+                if (!ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium) && !ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium.en)) {
+                    if (this.loanHolderNepData.relationMedium.en === '0') {
+                        fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.husbandName) &&
+                        !ObjectUtil.isEmpty(this.loanHolderNepData.husbandName.ct) ? this.loanHolderNepData.husbandName.ct : '';
+                    }
+                    if (this.loanHolderNepData.relationMedium.en === '1') {
+                        fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName) &&
+                        !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName.ct) ? this.loanHolderNepData.fatherName.ct : '';
+                    }
+                }
+            }
+        }
+        return fatherName;
+    }
 
 
   calulation() {

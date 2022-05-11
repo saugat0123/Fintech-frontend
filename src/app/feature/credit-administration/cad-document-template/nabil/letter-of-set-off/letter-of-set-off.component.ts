@@ -238,22 +238,36 @@ export class LetterOfSetOffComponent implements OnInit {
     this.loanPurpose = this.getloanPurpose();
     this.letterOfSetOff.patchValue(
         {
-          nameOfBranch: this.individualData.branch.ct ?
+          nameOfBranch: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.branch) &&
+              !ObjectUtil.isEmpty(this.individualData.branch.ct)) ?
               this.individualData.branch.ct : '',
           grandFatherName: this.getGrandFatherName(),
           fatherName: this.getFatherName(),
-          identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
+          identifyIssuedDistrictName: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict.ct)) ?
               this.individualData.citizenshipIssueDistrict.ct : '',
           dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo ?
+          citizenshipNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo.ct)) ?
               this.individualData.citizenshipNo.ct : '',
-          wardNo: this.individualData.permanentWard.ct ?
+          wardNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard.ct)) ?
               this.individualData.permanentWard.ct : '',
-          vdc: this.individualData.permanentMunicipality.ct ?
+          vdc: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality.ct)) ?
               this.individualData.permanentMunicipality.ct : '',
-          district: this.individualData.permanentDistrict.ct ?
+          district: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict.ct)) ?
               this.individualData.permanentDistrict.ct : '',
-          nameOfCustomer: this.individualData.name.ct ?
+          nameOfCustomer: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.name) &&
+              !ObjectUtil.isEmpty(this.individualData.name.ct)) ?
               this.individualData.name.ct : '',
           age: age ? age : '',
           numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
@@ -467,15 +481,23 @@ export class LetterOfSetOffComponent implements OnInit {
 
   getGrandFatherName() {
     let grandFatherName;
-    if (!ObjectUtil.isEmpty(this.individualData)) {
+    if (!ObjectUtil.isEmpty(this.individualData) && !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
-        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+        if (!ObjectUtil.isEmpty(this.individualData.grandFatherName)) {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
       }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
-        grandFatherName = this.individualData.fatherInLawName ? this.individualData.fatherInLawName.ct : '';
-      }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
-        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.fatherInLawName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherInLawName.ct) ? this.individualData.fatherInLawName.ct : '';
+        }
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
       }
     }
     return grandFatherName;
@@ -483,19 +505,29 @@ export class LetterOfSetOffComponent implements OnInit {
 
   getFatherName() {
     let fatherName;
-    if (!ObjectUtil.isEmpty(this.individualData)) {
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+        fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+        !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
       }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
-        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
-      }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      if (this.individualData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+          if (this.individualData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+            !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+          }
+          if (this.individualData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+            !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+          }
+        }
       }
     }
     return fatherName;
   }
+
 
   ageCalculation(startDate) {
     startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');

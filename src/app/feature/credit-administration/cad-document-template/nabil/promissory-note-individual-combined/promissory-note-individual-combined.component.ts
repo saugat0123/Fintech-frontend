@@ -87,12 +87,11 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(individualCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          console.log('INitial Info:', initialInfo);
-          this.form.patchValue(initialInfo);
         }
       });
     }
     this.fillform();
+    this.fillGuarantee();
   }
 
   buildForm() {
@@ -331,7 +330,8 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
         !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
         if (!ObjectUtil.isEmpty(this.individualData.grandFatherName)) {
-          grandFatherName = this.individualData.grandFatherName.ct ? this.individualData.grandFatherName.ct : '';
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
         }
       }
       if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
@@ -341,7 +341,7 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
         }
         if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
           grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
-              !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
         }
       }
     }
@@ -350,15 +350,24 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
 
   getFatherName() {
     let fatherName;
-    if (!ObjectUtil.isEmpty(this.individualData)) {
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
       if (this.individualData.gender.en === 'MALE') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+        fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+        !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
       }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
-        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
-      }
-      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
-        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      if (this.individualData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+          if (this.individualData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+            !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+          }
+          if (this.individualData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+            !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+          }
+        }
       }
     }
     return fatherName;
@@ -433,22 +442,22 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
             this.form.get(['promissoryNoteFormArray', val, 'sakshiDistrict']).value : '',
         sakshiDistrict1: this.form.get(['promissoryNoteFormArray', val, 'sakshiDistrict1']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'sakshiDistrict1']).value : '',
-        sakshiMunicipality: this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc']).value ?
+        sakshiVdc: this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc']).value : '',
-        sakshiMunicipality1: this.form.get(['promissoryNoteFormArray', val, 'sakshiMunicipality1']).value ?
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiMunicipality1']).value : '',
-        sakshiWard: this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo']).value ?
+        sakshiVdc1: this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc1']).value ?
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc1']).value : '',
+        sakshiWardNo: this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo']).value : '',
-        sakshiWard1: this.form.get(['promissoryNoteFormArray', val, 'sakshiWard1']).value ?
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiWard1']).value : '',
+        sakshiWardNo1: this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo1']).value ?
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo1']).value : '',
         sakshiAge: this.form.get(['promissoryNoteFormArray', val, 'sakshiAge']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'sakshiAge']).value : '',
         sakshiAge1: this.form.get(['promissoryNoteFormArray', val, 'sakshiAge1']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'sakshiAge1']).value : '',
-        sakshiName: this.form.get(['promissoryNoteFormArray', val, 'nameofWitness']).value ?
+        nameofWitness: this.form.get(['promissoryNoteFormArray', val, 'nameofWitness']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'nameofWitness']).value : '',
-        sakshiName1: this.form.get(['promissoryNoteFormArray', val, 'sakshiName1']).value ?
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiName1']).value : '',
+        nameofWitness1: this.form.get(['promissoryNoteFormArray', val, 'nameofWitness1']).value ?
+            this.form.get(['promissoryNoteFormArray', val, 'nameofWitness1']).value : '',
         nameofStaff: this.form.get(['promissoryNoteFormArray', val, 'nameofStaff']).value ?
             this.form.get(['promissoryNoteFormArray', val, 'nameofStaff']).value : '',
       };
@@ -479,43 +488,43 @@ export class PromissoryNoteIndividualCombinedComponent implements OnInit {
                     this.cadInitialInfo[val].sakshiDistrict1 : '');
             this.form.get(['promissoryNoteFormArray', val, 'sakshiDistrict']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiDistrict) ?
                     this.cadInitialInfo[val].sakshiDistrict : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiMunicipality1']).patchValue(
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiMunicipality1 : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiMunicipality']).patchValue(
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiVdc) ?
+                    this.cadInitialInfo[val].sakshiVdc : '');
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiVdc1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiMunicipality : '');
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiVdc1) ?
+                    this.cadInitialInfo[val].sakshiVdc1 : '');
             this.form.get(['promissoryNoteFormArray', val, 'sakshiAge1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiAge1) ?
                     this.cadInitialInfo[val].sakshiAge1 : '');
             this.form.get(['promissoryNoteFormArray', val, 'sakshiAge']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiAge) ?
                     this.cadInitialInfo[val].sakshiAge : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiWard1']).patchValue(
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiWard1 : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiWard']).patchValue(
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiWardNo1) ?
+                    this.cadInitialInfo[val].sakshiWardNo1 : '');
+            this.form.get(['promissoryNoteFormArray', val, 'sakshiWardNo']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiWard : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiName1']).patchValue(
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].sakshiWardNo) ?
+                    this.cadInitialInfo[val].sakshiWardNo : '');
+            this.form.get(['promissoryNoteFormArray', val, 'nameofWitness1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiName1 : '');
-            this.form.get(['promissoryNoteFormArray', val, 'sakshiName']).patchValue(
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].nameofWitness1) ?
+                    this.cadInitialInfo[val].nameofWitness1 : '');
+            this.form.get(['promissoryNoteFormArray', val, 'nameofWitness']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
-                    this.cadInitialInfo[val].sakshiName : '');
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].nameofWitness) ?
+                    this.cadInitialInfo[val].nameofWitness : '');
             this.form.get(['promissoryNoteFormArray', val, 'nameofStaff']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) && !ObjectUtil.isEmpty(this.cadInitialInfo[val]) &&
-                    !ObjectUtil.isEmpty(this.cadInitialInfo[val]) ?
+                    !ObjectUtil.isEmpty(this.cadInitialInfo[val].nameofStaff) ?
                     this.cadInitialInfo[val].nameofStaff : '');
           }
         }

@@ -39,6 +39,7 @@ export class LetterOfContinuityComponent implements OnInit {
   initialInfoPrint;
   customerType = CustomerType;
   customerSubType = CustomerSubType;
+  spinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -101,6 +102,7 @@ export class LetterOfContinuityComponent implements OnInit {
   }
 
   submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -130,11 +132,13 @@ export class LetterOfContinuityComponent implements OnInit {
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.spinner = false;
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.spinner = false;
       this.dialogRef.close();
     });
   }

@@ -75,9 +75,24 @@ export class CommonSectionTopComponent implements OnInit {
       this.sanctionLetterDate = sanctionLetDate ? sanctionLetDate : '';
     }
     // address of customer
-    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+    let customerAddress;
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredMunicipality) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.registeredMunicipality.ct)) ?
+              this.loanHolderInfo.registeredMunicipality.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+              '-' + this.loanHolderInfo.permanentWard.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredDistrict) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.registeredDistrict.ct)) ?
+              ', ' + this.loanHolderInfo.registeredDistrict.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredProvince) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.registeredProvince.ct)) ?
+              ' ,' + this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ' : '');
+    }
+    /*const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
-        this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ';
+        this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ';*/
     this.form.patchValue({
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       nameOfBorrower: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
