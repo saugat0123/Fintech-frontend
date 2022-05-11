@@ -68,9 +68,20 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-          this.loanHolderInfo.permanentProvince.ct;
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+                this.loanHolderInfo.permanentMunicipality.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+                '-' + this.loanHolderInfo.permanentWard.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+                ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+                ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+      }
       if (!ObjectUtil.isEmpty(this.guarantorData)) {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
