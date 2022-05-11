@@ -178,6 +178,18 @@ export class FinancialComponent implements OnInit {
 
     numberUtils = NumberUtils;
     crgQuestionsList: CrgQuestion;
+    projectedFinancialData = [
+        'Reliability of projections',
+        'Debt equity ratio',
+        'Debt to assets ratio',
+        'Current ratio',
+        'Net profitability',
+        'Rerurn on assets',
+        'Debt service coverage ratio',
+        'Stock turnover (days)',
+        'Debtors turnover (days)',
+        'FBWC loans / sales'
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
@@ -267,7 +279,9 @@ export class FinancialComponent implements OnInit {
             totalObligationCurrentBank: [undefined],
             totalBankObligation: [undefined],
             obligationGrossIncomeRatio: [undefined],
-            crgProfileOfAuditors: [undefined]
+            crgProfileOfAuditors: [undefined],
+            financialDetailCheckBtn: ['old'],
+            projectedFinancialsCheckBtn:[undefined]
             // riskFactorForm: this.buildRiskFactorForm(),
         });
     }
