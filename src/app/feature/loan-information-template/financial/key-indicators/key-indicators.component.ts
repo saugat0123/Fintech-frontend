@@ -41,7 +41,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         ['debtEquityRatioOverall', false],
         ['debtEquityRatioLongTerm', false],
         ['debtEquityRatioWorkingCapital', false],
-        ['debtEquityRatioGeneral', false],
+        ['debtTotalAssetsRatio', false],
         ['leverageRatio', false],
         ['operatingCycle', false],
         ['inventoryTurnoverRatio', false],
@@ -87,7 +87,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setDebtEquityRatioOverall(keyIndicatorsData.debtEquityRatioOverall);
             this.setDebtEquityRatioLongTerm(keyIndicatorsData.debtEquityRatioLongTerm);
             this.setDebtEquityRatioWorkingCapital(keyIndicatorsData.debtEquityRatioWorkingCapital);
-            this.setDebtEquityRatioGeneral(keyIndicatorsData.debtEquityRatioGeneral);
+            this.setDebtTotalAssetsRatio(keyIndicatorsData.debtTotalAssetsRatio);
             this.setLeverageRatio(keyIndicatorsData.leverageRatio);
             this.setOperatingCycle(keyIndicatorsData.operatingCycle);
             this.setInventoryTurnoverRatio(keyIndicatorsData.inventoryTurnoverRatio);
@@ -136,7 +136,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             debtEquityRatioOverall: this.formBuilder.array([]),
             debtEquityRatioLongTerm: this.formBuilder.array([]),
             debtEquityRatioWorkingCapital: this.formBuilder.array([]),
-            debtEquityRatioGeneral: this.formBuilder.array([]),
+            debtTotalAssetsRatio: this.formBuilder.array([]),
             leverageRatio: this.formBuilder.array([]),
             operatingCycle: this.formBuilder.array([]),
             inventoryTurnoverRatio: this.formBuilder.array([]),
@@ -445,9 +445,9 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         });
     }
 
-    // debtEquityRatioGeneral
-    setDebtEquityRatioGeneral(currentData) {
-        const controls = this.keyIndicatorsForm.get('debtEquityRatioGeneral') as FormArray;
+    // debtTotalAssetsRatio
+    setDebtTotalAssetsRatio(currentData) {
+        const controls = this.keyIndicatorsForm.get('debtTotalAssetsRatio') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({

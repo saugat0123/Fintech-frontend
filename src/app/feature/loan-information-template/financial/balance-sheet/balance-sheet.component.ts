@@ -131,6 +131,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 this.formBuilder.group({
                     name: ['Taxes Payable'],
                     amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Current Portion of Long Term Debts'],
+                    amount: this.formBuilder.array([])
                 })
             ]),
             longTermLoan: this.formBuilder.array([]),
@@ -490,6 +494,23 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .get('currentLiabilitiesCategory'), 'Security Deposits', index))).toFixed(8);
         keyIndicators.returnOnAssets[index].value = this.financialService.convertToPercent(Number(totalAssets['value'].value) === 0 ? 0 :
             (Number(incomeStatement.profitAfterTax[index].value) / Number(totalAssets['value'].value)));
+        keyIndicators.debtTotalAssetsRatio[index].value = this.financialService.convertToPercent(
+            Number(totalAssets.controls['value'].value) === 0 ? 0 :
+            ((Number(this.financialService.fetchValuesForSubCategories(
+                    this.balanceSheetForm.get('currentLiabilitiesCategory'), 'Short Term Loan', index)))
+                + (Number(this.financialService.fetchValuesForSubCategories(
+                    this.balanceSheetForm.get('currentLiabilitiesCategory'), 'Current Portion of Long Term Debts', index)))
+                + (Number(this.financialService.fetchValuesForSubCategories(
+                    this.balanceSheetForm.get('longTermLoanCategory'), 'Term Loan', index)))) /
+            Number(totalAssets.controls['value'].value));
+        keyIndicators.debtServiceCoverageRatio[index].value =
+            ((Number(incomeStatement.operatingProfit[index].value) + (Number(this.financialService
+                    .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index)) * 2)
+                + (Number(this.financialService.fetchValuesForJsonSubCategories(
+                    incomeStatement.operatingExpensesCategory, 'Amortization/Other Non-Cash Expenses', index)) * 2)) /
+            -(-Math.abs(Number(incomeStatement.interestExpenses[index].value)) + (index > 0 ? Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                    'Current Portion of Long Term Debts', index - 1)) : 0))).toFixed(8);
     }
 
     checkForLatterFiscalYearChanges(index: number) {
