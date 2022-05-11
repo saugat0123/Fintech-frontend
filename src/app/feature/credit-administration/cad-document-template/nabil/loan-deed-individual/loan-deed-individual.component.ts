@@ -335,7 +335,7 @@ export class LoanDeedIndividualComponent implements OnInit {
 
   combinedFree() {
     return this.formBuilder.group({
-      expiryDate: [undefined]
+      dateOfExpiry: [undefined]
     });
   }
 
@@ -876,11 +876,17 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.addCombinedFreeText();
         if (this.cadData.cadFileList.length > 0) {
           this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-              this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
+              (!ObjectUtil.isEmpty(this.supportedInfo) &&
+                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i]) &&
+                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i].dateOfExpiry)) ?
+                  this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
           );
         } else {
             this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-                this.newTempData ? this.newTempData[i].dateOfExpiry : ''
+                (!ObjectUtil.isEmpty(this.newTempData) &&
+                    !ObjectUtil.isEmpty(this.newTempData[i]) &&
+                    !ObjectUtil.isEmpty(this.newTempData[i].dateOfExpiry)) ?
+                    this.newTempData[i].dateOfExpiry : ''
             );
         }
       });
