@@ -31,28 +31,13 @@
                         </div>
                         <div class="row pt-2">
                             <div class="col-md-4 form-group">
-                                <label class="font-weight-bold" for="facilityName"> Facility Name</label>
-                                <input (change)="wordsTranslate('existingLoanFormArray', i, 'facilityName')"
-                                       class="form-control" formControlName="facilityName" fullWidth
-                                       id="facilityName"
-                                       nbInput
-                                       shape="semi-round"
-                                       status="success" type="text">
-                            </div>
-                            <div class="col-md-4 form-group fieldMargin">
-                                <input class="form-control" formControlName="facilityNameTrans" fullWidth
-                                       id="facilityNameTrans"
-                                       readonly
-                                       nbInput
-                                       shape="semi-round"
-                                       status="success" type="text">
-                            </div>
-                            <div class="col-md-4 form-group fieldMargin">
-                                <input class="form-control" formControlName="facilityNameCT" fullWidth
-                                       id="facilityNameCT"
-                                       nbInput
-                                       shape="semi-round"
-                                       status="success" type="text">
+                                <label class="font-weight-bold">Facility Name</label>
+                                <select class="custom-select" formControlName="facilityName">
+                                    <option [value]="null" selected hidden>Select Loan Facility</option>
+                                    <option *ngFor="let loanFacility of loanFacilityList"
+                                            [value]="loanFacility.nepaliName">{{loanFacility.name}}||{{loanFacility.nepaliName}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row pt-4">

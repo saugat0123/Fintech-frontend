@@ -5,6 +5,10 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
+import {LoanConfig} from '../../../../../admin/modal/loan-config';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LoanConfigService} from '../../../../../admin/component/loan-config/loan-config.service';
+import {ToastService} from '../../../../../../@core/utils';
 
 @Component({
     selector: 'app-existing-loan-template-data',
@@ -21,8 +25,11 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
     filteredLoanIdList: any = [];
     initialInformation: any;
     translatedFormGroup: FormGroup;
+    loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
 
     constructor(private formBuilder: FormBuilder,
+                private loanConfigService: LoanConfigService,
+                private toastService: ToastService,
                 public engToNepaliNumberPipe: EngToNepaliNumberPipe,
                 public currencyWordPipe: NepaliCurrencyWordPipe,
                 private currencyFormatter: CurrencyFormatterPipe,
@@ -43,6 +50,18 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
                 this.existingLoanCombinedForm.patchValue(this.initialInformation.existingLoanForm);
             }
         }
+        this.loadData();
+    }
+
+    loadData() {
+        this.loanConfigService.getAllByLoanCategory('INDIVIDUAL').subscribe((response: any) => {
+            console.log(response);
+            this.loanFacilityList = response.detail;
+            console.log(response.detail);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+        });
     }
 
     private buildForm(): FormGroup {
@@ -79,7 +98,6 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
             baseRate: [undefined],
             interestRate: [undefined],
 
-            facilityNameTrans: [undefined],
             loanAmountInFigureTrans: [undefined],
             loanAmountInWordsTrans: [undefined],
             purposeOfLoanTrans: [undefined],
@@ -87,7 +105,6 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
             baseRateTrans: [undefined],
             interestRateTrans: [undefined],
 
-            facilityNameCT: [undefined],
             loanAmountInFigureCT: [undefined],
             loanAmountInWordsCT: [undefined],
             purposeOfLoanCT: [undefined],
