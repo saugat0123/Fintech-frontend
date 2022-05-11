@@ -86,39 +86,15 @@ export class OfferLetterCorporateComponent implements OnInit {
     }
 
     fillForm() {
-        let guarantorName = '';
-        if (this.nepaliData.guarantorDetails.length > 0) {
-            if (this.nepaliData.guarantorDetails.length === 1) {
-                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
-                    this.nepaliData.guarantorDetails[0].guarantorName :
-                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
-                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '');
+        let allGuarantors = '';
+        (this.nepaliData.guarantorDetails).forEach(guarantor => {
+            if (guarantor.guarantorType === 'Personal_Guarantor') {
+                allGuarantors = allGuarantors + guarantor.guarantorName + ', ';
             }
-            if (this.nepaliData.guarantorDetails.length === 2) {
-                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
-                    this.nepaliData.guarantorDetails[0].guarantorName :
-                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
-                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '') + ' र ' +
-                    !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].guarantorName) ?
-                        this.nepaliData.guarantorDetails[1].guarantorName :
-                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].companyNameGuarantor) ?
-                            this.nepaliData.guarantorDetails[1].companyNameGuarantor : '');
-            }
-            if (this.nepaliData.guarantorDetails.length > 2) {
-                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
-                    this.nepaliData.guarantorDetails[0].guarantorName :
-                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
-                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '') + ' , ' +
-                    !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].guarantorName) ?
-                        this.nepaliData.guarantorDetails[1].guarantorName :
-                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].companyNameGuarantor) ?
-                            this.nepaliData.guarantorDetails[1].companyNameGuarantor : '') + ' र ' +
-                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[2].guarantorName) ?
-                        this.nepaliData.guarantorDetails[2].guarantorName :
-                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[2].companyNameGuarantor) ?
-                            this.nepaliData.guarantorDetails[2].companyNameGuarantor : '');
-            }
-        }
+        });
+        allGuarantors = allGuarantors.slice(0, -2);
+        allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' /');
+
         const customerAddress =
             this.nepaliData.companyDistrict + ', ' +
             this.nepaliData.companyVdcMun + ', ' +
@@ -135,7 +111,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             dhitoAuditor : [!ObjectUtil.isEmpty(this.nepaliData.valuatorName) ? this.nepaliData.valuatorName : ''],
             dhitoAmount : [!ObjectUtil.isEmpty(this.nepaliData.fairMarketValue) ? this.nepaliData.fairMarketValue : ''],
             dhitoDistress : [!ObjectUtil.isEmpty(this.nepaliData.distressValue) ? this.nepaliData.distressValue : ''],
-            shreeName1 : [guarantorName ? guarantorName : ''],
+            shreeName1 : [allGuarantors ? allGuarantors : ''],
             financeBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
             financeMunicipality: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
             employeeFinanceBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],

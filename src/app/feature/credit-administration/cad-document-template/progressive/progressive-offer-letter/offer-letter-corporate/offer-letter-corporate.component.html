@@ -74,18 +74,18 @@
                            class="d-print-none fa fa-plus-square">Add</i>
                         <div *ngFor="let load of form.get('loan')['controls']; let i=index" formArrayName="loan">
                             <div [formGroupName]="i">
-                                <table class="table table-borderless" width="100%">
+                                <table class="table table-borderless" style="width: 100%">
                                     <tr>
-                                        <td rowspan="9" width="10%">१.
+                                        <td rowspan="9" style="width: 10%">१.
                                             ({{i + 1 | nepaliWord: 'unicode'}})
                                         </td>
-                                        <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+                                        <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
                                         <td *ngIf="form.get('loan')['length']>1">
                                             <i (click)="removeLoan(i)" size="small"
                                                class="d-print-none fa fa-trash"></i></td>
                                     </tr>
                                     <tr>
-                                        <td><b>कर्जा सुविधाको किसिम :</b></td>
+                                        <td><strong>कर्जा सुविधाको किसिम :</strong></td>
                                         <td>
                                             <input class="form-control-sm form-field nepaliFont"
                                                    formControlName="loanTypeNepali"
@@ -97,7 +97,7 @@
                                             loan)<br></td>
                                     </tr>
                                     <tr>
-                                        <td width="15%"><b>कर्जा सिमा :</b></td>
+                                        <td style="width: 15%"><strong>कर्जा सिमा :</strong></td>
                                         <td>
                                             अधिकतम रु.
                                             <input class="form-control-sm form-field nepaliFont uniFont"
@@ -113,7 +113,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><b>उदेश्य :</b></td>
+                                        <td><strong>उदेश्य :</strong></td>
                                         <td>
                                             <input class="form-control-sm form-field nepaliFont"
                                                    formControlName="loanPurpose"
@@ -122,7 +122,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><b>व्याजदर :</b></td>
+                                        <td><strong>व्याजदर :</strong></td>
                                         <td>
                                             स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
                                             <input class="form-control-sm form-field nepaliFont"
@@ -227,7 +227,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><b>स्थानतरण शुल्क:</b></td>
+                                        <td><strong>स्थानतरण शुल्क:</strong></td>
                                         <td>ऋणीले आफनो श्रोत बाहेक यस फाइनान्सको सहयोग बाट कर्जा स्थानतरण गर्नुपरेमा
                                             चुक्ता गर्नुपर्ने रकममा थप
                                             <input class="form-control-sm form-field nepaliFont"
@@ -243,7 +243,7 @@
                         <table class="table table-borderless">
                             <tr>
                                 <td rowspan="3">२.</td>
-                                <td colspan="2"><b>धितो सुरक्षण विवरण (Security Detail):</b></td>
+                                <td colspan="2"><strong>धितो सुरक्षण विवरण (Security Detail):</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="2">ऋणीले लिने वालिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु
@@ -253,16 +253,16 @@
                             <tr>
                                 <td colspan="2">
                                     <ng-container *ngIf="isLandAndBuilding">
-                                    <b>क. धितो राखिने जायजेथाको बिबरण</b>
+                                    <strong>क. धितो राखिने जायजेथाको बिबरण</strong>
                                     <table class="table-bordered custom-table-bordered" style="text-align: left !important;">
                                         <tbody>
                                         <tr>
-                                            <th width="25%">घर जग्गाधनिको नाम र तिनपूस्ते</th>
-                                            <th width="15%">जिल्ला.</th>
-                                            <th width="15%">जग्गाको न.पा./ गा.वि.स.,वडा नं.</th>
-                                            <th width="10%">कि.नं.</th>
-                                            <th width="15%">क्षेत्रफल बर्ग मि.</th>
-                                            <th width="20%">सिट न.</th>
+                                            <th style="width: 25%">घर जग्गाधनिको नाम र तिनपूस्ते</th>
+                                            <th style="width: 15%">जिल्ला.</th>
+                                            <th style="width: 15%">जग्गाको न.पा./ गा.वि.स.,वडा नं.</th>
+                                            <th style="width: 10%">कि.नं.</th>
+                                            <th style="width: 15%">क्षेत्रफल बर्ग मि.</th>
+                                            <th style="width: 20%">सिट न.</th>
                                         </tr>
                                         </tbody>
                                         <tbody *ngFor="let securityDetail of form.get('securityDetails')['controls']; index as i"
@@ -344,7 +344,7 @@
                                            type="text">
                                     को जग्गातथा सो जग्गामा भएका र भविष्यमाहुने समेतका सम्पूर्ण लिगलगापात फाइनान्सको
                                     नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
-                                    <input class="form-control-sm form-field nepaliFont"
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                            formControlName="dhitoLekhi"
                                            type="text">
                                     मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -355,9 +355,9 @@
                                         <tbody>
                                         <tr>
                                             <th>क्र.सं.</th>
-                                            <th width="40%">धितोको विवरण</th>
-                                            <th width="30%">कोटेशन मूल्य/ मुल्याङ्कन रकम</th>
-                                            <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
+                                            <th style="width: 40%">धितोको विवरण</th>
+                                            <th style="width: 30%">कोटेशन मूल्य/ मुल्याङ्कन रकम</th>
+                                            <th style="width: 30%">लगानी तथा मार्जिन प्रतिशत</th>
                                             <th></th>
                                         </tr>
                                         </tbody>
@@ -417,7 +417,7 @@
                             </tr>
                             <tr>
                                 <td>२.१</td>
-                                <td colspan="2"><b>श्री </b>
+                                <td colspan="2"><strong>श्री </strong>
                                     <input class="form-control-sm form-field nepaliFont"
                                            formControlName="shreeName1"
                                            type="text">
@@ -467,7 +467,7 @@
                                 <td>
                                     ३.
                                 </td>
-                                <td colspan="2"><b>व्याज :</b> <br><br>
+                                <td colspan="2"><strong>व्याज :</strong> <br><br>
                                     <ul>
                                         <li> अन्यथा व्यवस्था गरिएकोमा वाहेक यस कर्जा सुबिधा स्वीकृति पत्रमा तोकिएको
                                             व्याज दरले बांकी रहेको कर्जामा दैनिक व्याज गणना गरी
@@ -547,7 +547,7 @@
                                 <td>
                                     ६.३
                                 </td>
-                                <td colspan="2">ऋणीले मासिक÷त्रैमासिक रुपमा व्यवसायसंग सम्वन्ध राख्ने विक्री विवरण, स्टक
+                                <td colspan="2">ऋणीले मासिक/त्रैमासिक रुपमा व्यवसायसंग सम्वन्ध राख्ने विक्री विवरण, स्टक
                                     विवरण, तिर्नु पर्ने खाता र उठाउनु पर्ने उधारो खाताको विवरण त्रैमास समाप्त भएको १५
                                     दिन भित्र फाइनान्स समक्ष पेश गर्नु पर्ने छ ।
                                 </td>
@@ -789,7 +789,7 @@
                             <tr>
                                 <td>८.</td>
                                 <td colspan="2">
-                                    <b>किस्ता/कर्जा खिलाफीको अवस्था :</b>
+                                    <strong>किस्ता/कर्जा खिलाफीको अवस्था :</strong>
                                     देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
                                 </td>
                             </tr>
@@ -893,7 +893,7 @@
                             <tr>
                                 <td>९.</td>
                                 <td colspan="2">
-                                    <b>लागू हुने पूर्व शर्त</b>
+                                    <strong>लागू हुने पूर्व शर्त</strong>
                                     यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा लेखिएको
                                     सम्पत्तिको रुपमा
                                     उपलव्ध गराउन र धितो सम्पत्तिका लिखतहरु लगायतका कर्जा सुविधासंग सम्वन्धित कानूनी
@@ -923,7 +923,7 @@
                             <tr>
                                 <td>१०.</td>
                                 <td colspan="2">
-                                    <b>घोषणा (Decleration)</b> : ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
+                                    <strong>घोषणा (Decleration)</strong> : ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
                                     कुराको विना शर्त घोषणा गर्दछ ।
                                 </td>
                             </tr>
@@ -964,7 +964,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <b>सूचना (Notice)</b> <br>
+                                    <strong>सूचना (Notice)</strong> <br>
                                     कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स मार्फत
                                     आदान प्रदान गर्न सकिने छ ।
                                 </td>
@@ -1202,7 +1202,7 @@
                     <br>
                 </p>
                 </div>
-                <b> साक्षी : </b><br>
+                <strong> साक्षी : </strong><br>
                 <div class="row">
                     <div class=" col-md-12" id="guaranter">
                         <span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
@@ -1230,7 +1230,7 @@
                 </div>
                 <br>
                 <br>
-                <b>सनाखत साक्षी</b>
+                <strong>सनाखत साक्षी</strong>
                 <br>
                 ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत
                 कर्मचारी
@@ -1263,7 +1263,7 @@
                         जमानतकर्ताको स्विकारोक्ति
                     </div>
                     <br>
-                    <b>
+                    <strong>
                         श्री प्रोग्रेशिभ फाइनान्स लिमिटेड.,
                         <br>
                         <input class="form-control-sm form-field nepaliFont uniFont"
@@ -1274,7 +1274,7 @@
                                type="text"
                                formControlName="financeDistrict">
                         ।
-                    </b>
+                    </strong>
                     <br>
                     <br>
                     <p>
@@ -1355,7 +1355,7 @@
                                            type="text"
                                            formControlName="tapsilGuarantorMunicipality">
                                 </ng-container>
-                                न.पा/म.न.पा वडा न
+                                न.पा/म.न.पा., वडा न.
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="tapsilGuarantorWardNum"></p>

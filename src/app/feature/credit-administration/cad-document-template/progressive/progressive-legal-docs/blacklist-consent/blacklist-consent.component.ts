@@ -302,7 +302,7 @@ export class BlacklistConsentComponent implements OnInit {
               value.representativeHusbandWifeNameGuarantor : ''],
         }));
       }
-      if (value.guarantorType === 'Personal_Guarantor') {
+      if (value.guarantorType === 'Personal_Guarantor' || value.guarantorType === '' || value.guarantorType === null) {
         formArray.push(this.formBuilder.group({
           guarantorType: [!ObjectUtil.isEmpty(value.guarantorType) ? value.guarantorType : ''],
           jamanatName: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : ''],
