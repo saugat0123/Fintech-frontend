@@ -73,11 +73,9 @@
                         <td>{{this.individualData ? this.individualData?.name?.ct : ''}}</td>
                     </tr>
                     <ng-container *ngFor="let security of primarySecurityData; let i = index">
-                        <ng-container *ngIf="(security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING') &&
-                                security?.collateralShare === 'YES'">
                             <tr>
                                 <td>{{(i+1)+1 | nepaliNumber}}.</td>
-                                <td>{{security?.nameOfBorrowingClientCT}}</td>
+                                <td>{{security}}</td>
                                 <td class="d-print-none">
                                     <ng-container>
                                         <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removePrimary(i)"
@@ -87,15 +85,11 @@
                                     </ng-container>
                                 </td>
                             </tr>
-                        </ng-container>
                     </ng-container>
                     <ng-container *ngFor="let security of secondarySecurityData; let i2 = index">
-                        <ng-container *ngIf="(security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING') &&
-                                security?.collateralShare === 'YES'">
                             <tr>
-                                <td *ngIf="this.primarySecurityData.length == 1">{{tempPrimarySecurity.length +(i2+1)+1 | nepaliNumber}}.</td>
-                                <td *ngIf="this.primarySecurityData == 0">{{tempPrimarySecurity.length + 1 | nepaliNumber}}.</td>
-                                <td>{{security?.nameOfBorrowingClientCT}}</td>
+                                <td>{{primarySecurityData.length +(i2+1)+1 | nepaliNumber}}.</td>
+                                <td>{{security}}</td>
                                 <td class="d-print-none">
                                     <ng-container>
                                         <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecondary(i2)"
@@ -105,15 +99,12 @@
                                     </ng-container>
                                 </td>
                             </tr>
-                        </ng-container>
                     </ng-container>
                     <ng-container *ngFor="let name of form.get('nameFreeText')['controls']; let i3 = index"
                                   formArrayName="nameFreeText">
                         <ng-container [formGroupName]="i3">
                             <tr>
-                                <td *ngIf="this.primarySecurityData.length == 1 && this.secondarySecurityData.length == 1">{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
-                                <td *ngIf="this.primarySecurityData.length == 0">{{tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
-                                <td *ngIf="this.tempSecondarySecurity.length == 0">{{tempPrimarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td>{{primarySecurityData.length + secondarySecurityData.length +(i3+1)+1 | nepaliNumber}}.</td>
                                 <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="borrowerName"
                                            formControlName="borrowerName"
@@ -205,7 +196,7 @@
                         <ng-container *ngFor="let free1 of form.get(['borrowerNameArray1'])['controls']; let i2 = index"
                                       formArrayName="borrowerNameArray1">
                             <tr [formGroupName]="i2">
-                                <td>{{tempPrimarySecurity.length +(i2+1)+1 | nepaliNumber}}.</td>
+                                <td>{{form.get('borrowerNameArray')['length'] +(i2+1)+1 | nepaliNumber}}.</td>
                                 <td>{{tempSecondarySecurity[i2]?.borrowerName}}</td>
                                 <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="freeSanctionDate1"
@@ -234,9 +225,7 @@
                                   formArrayName="borrowerDetails">
                         <ng-container [formGroupName]="i3">
                             <tr>
-                                <td *ngIf="this.primarySecurityData.length == 1 && this.secondarySecurityData.length == 1">{{tempPrimarySecurity.length + tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
-                                <td *ngIf="this.primarySecurityData.length == 0">{{tempSecondarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
-                                <td *ngIf="this.tempSecondarySecurity.length == 0">{{tempPrimarySecurity.length +(i3+1)+1 | nepaliNumber}}.</td>
+                                <td>{{form.get('borrowerNameArray')['length'] + form.get('borrowerNameArray1')['length'] +(i3+1)+1 | nepaliNumber}}.</td>
                                 <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="borrowerName1"
                                            formControlName="borrowerName1"

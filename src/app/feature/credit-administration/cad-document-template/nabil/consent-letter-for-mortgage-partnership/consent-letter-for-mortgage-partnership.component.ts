@@ -70,10 +70,24 @@ export class ConsentLetterForMortgagePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
       if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
-        this.primarySecurityData = this.initialInfo.securities.primarySecurity;
+        this.initialInfo.securities.primarySecurity.forEach(val => {
+          if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
+            this.secondarySecurityTypeCheck = true;
+            if (val.collateralShare === 'YES') {
+              this.primarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+            }
+          }
+        });
       }
       if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
-        this.secondarySecurityData = this.initialInfo.securities.secondarySecurity;
+        this.initialInfo.securities.secondarySecurity.forEach(val => {
+          if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
+            this.secondarySecurityTypeCheck = true;
+            if (val.collateralShare === 'YES') {
+              this.secondarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+            }
+          }
+        });
       }
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
