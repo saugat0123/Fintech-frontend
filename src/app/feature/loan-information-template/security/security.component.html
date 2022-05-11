@@ -46,19 +46,26 @@
                   [security]="securityValue" [isEdit]="isEdit"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
         [security]="securityValue" [isEdit]="isEdit"></app-land-building>
-        <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
+        <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"
+                             [security]="securityValue" [isEdit]="isEdit"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
-                           [calendarType]="calendarType"></app-fixed-deposit>
-        <app-share #shareSecurityComponent *ngIf="shareSelected"></app-share>
-        <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStockSelected"></app-hypothecation-of-stock>
-        <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuaranteeSelected"></app-corporation-guarantee>
-        <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personalGuaranteeSelected"></app-personal-guarantee>
+                           [calendarType]="calendarType" [security]="securityValue" [isEdit]="isEdit"></app-fixed-deposit>
+        <app-share #shareSecurityComponent *ngIf="shareSelected"
+                   [security]="securityValue" [isEdit]="isEdit"></app-share>
+        <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStockSelected"
+                                    [security]="securityValue" [isEdit]="isEdit"></app-hypothecation-of-stock>
+        <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuaranteeSelected"
+                                   [security]="securityValue" [isEdit]="isEdit"></app-corporation-guarantee>
+        <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personalGuaranteeSelected"
+                                [security]="securityValue" [isEdit]="isEdit"></app-personal-guarantee>
         <app-insurance-policy #insurancePolicySecurity *ngIf="insurancePolicySelected"
-                              [calendarType]="calendarType"></app-insurance-policy>
-        <app-assignment-of-receivable #assignmentOfReceivableSecurity
-                                      *ngIf="assignmentOfReceivableSelected"></app-assignment-of-receivable>
-        <app-lease-assignment #leaseAssignmentSecurity *ngIf="leaseAssignmentSelected"></app-lease-assignment>
-        <app-other-security #otherSecurity *ngIf="otherSecuritySelected"></app-other-security>
+                              [calendarType]="calendarType" [security]="securityValue" [isEdit]="isEdit"></app-insurance-policy>
+        <app-assignment-of-receivable #assignmentOfReceivableSecurity *ngIf="assignmentOfReceivableSelected"
+                                      [security]="securityValue" [isEdit]="isEdit"></app-assignment-of-receivable>
+        <app-lease-assignment #leaseAssignmentSecurity *ngIf="leaseAssignmentSelected"
+                              [security]="securityValue" [isEdit]="isEdit"></app-lease-assignment>
+        <app-other-security #otherSecurity *ngIf="otherSecuritySelected"
+                            [security]="securityValue" [isEdit]="isEdit"></app-other-security>
 
     </div>
 </div>

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepseMaster} from '../../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ShareType} from '../../../loan/model/ShareType';
 import {Nepse} from '../../../admin/modal/nepse';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-share',
@@ -21,6 +22,9 @@ export class ShareComponent implements OnInit {
     companyName: undefined
   };
   submitted = false;
+  @Input() security: Security;
+  @Input() isEdit = false;
+
 
   constructor(private formBuilder: FormBuilder,
               private shareService: NepseService) { }

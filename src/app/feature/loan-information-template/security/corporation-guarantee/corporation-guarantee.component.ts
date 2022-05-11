@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-corporation-guarantee',
@@ -8,27 +9,53 @@ import {Editor} from '../../../../@core/utils/constants/editor';
   styleUrls: ['./corporation-guarantee.component.scss']
 })
 export class CorporationGuaranteeComponent implements OnInit {
-  corporateForm: FormGroup;
-  submitted = false;
-  ckeConfig;
+    corporateForm: FormGroup;
+    submitted = false;
+    ckeConfig;
+    @Input() security: Security;
+    @Input() isEdit = false;
 
 
-  constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder) {
+    }
 
-  ngOnInit() {
-    this.configEditor();
-    this.buildForm();
-  }
+    ngOnInit() {
+        this.configEditor();
+        this.buildForm();
+        if (this.isEdit) {
+            this.setCorporateGuarantee();
+        } else {
+            this.addCorporateGuarantee();
+        }
+    }
 
-  configEditor() {
-    this.ckeConfig = Editor.CK_CONFIG;
-  }
+    setCorporateGuarantee() {
+        const formData = JSON.parse(this.security.data);
+        const corporateGuaranteeData = this.corporateForm.get('corporateGuarantee') as FormArray;
+        corporateGuaranteeData.push(
+            this.formBuilder.group({
+                name: [formData.name],
+                address: [formData.address],
+                keyPerson: [formData.keyPerson],
+                email: [formData.email],
+                phoneNumber: [formData.phoneNumber],
+                considerValue: [formData.considerValue],
+                fairMarketValue: [formData.fairMarketValue],
+                distressValue: [formData.distressValue],
+                otherDetail: [formData.otherDetail],
+            })
+        );
+    }
 
-  private buildForm(): FormGroup {
-    return this.corporateForm = this.formBuilder.group({
-      corporateGuarantee: this.formBuilder.array([this.corporateDetailsFormGroup()])
-    });
-  }
+    configEditor() {
+        this.ckeConfig = Editor.CK_CONFIG;
+    }
+
+    private buildForm(): FormGroup {
+        return this.corporateForm = this.formBuilder.group({
+            corporateGuarantee: this.formBuilder.array([])
+        });
+    }
 
   public addCorporateGuarantee(): void {
     (this.corporateForm.get('corporateGuarantee') as FormArray).push(this.corporateDetailsFormGroup());

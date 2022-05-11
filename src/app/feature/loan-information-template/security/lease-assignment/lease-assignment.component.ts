@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-lease-assignment',
@@ -10,12 +11,33 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 export class LeaseAssignmentComponent implements OnInit {
   leaseAssignmentForm: FormGroup;
   ckeConfig;
+  @Input() security: Security;
+  @Input() isEdit = false;
+
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
     this.configEditor();
+    if (this.isEdit) {
+      this.setAssignment();
+    } else {
+      this.addAssignments();
+    }
+  }
+
+  private setAssignment() {
+    const formData = JSON.parse(this.security.data);
+    const leaseAssignmentData = this.leaseAssignmentForm.get('leaseAssignment') as FormArray;
+    leaseAssignmentData.push(
+        this.formBuilder.group({
+          otherDetail: [formData.otherDetail],
+          considerValue: [formData.considerValue],
+          distressValue: [formData.distressValue],
+          fairMarketValue: [formData.fairMarketValue]
+        })
+    );
   }
 
   configEditor() {
@@ -24,7 +46,7 @@ export class LeaseAssignmentComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.leaseAssignmentForm = this.formBuilder.group({
-      leaseAssignment: this.formBuilder.array([this.assignmentsDetailsFormGroup()]),
+      leaseAssignment: this.formBuilder.array([]),
     });
   }
 

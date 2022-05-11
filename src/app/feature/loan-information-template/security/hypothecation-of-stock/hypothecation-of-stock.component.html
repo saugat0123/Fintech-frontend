@@ -100,7 +100,7 @@
             <hr>
         </div>
     </form>
-    <div class="text-right">
+    <div class="text-right" *ngIf="!isEdit">
         <input (click)="addHypothecationOfStock()" class="btn btn-sm btn-flat btn-primary" type="button"
                value="Add More Hypothecation Of Stock"/>
     </div>

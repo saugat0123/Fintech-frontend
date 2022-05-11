@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RelationshipList} from '../../../loan/model/relationshipList';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-hypothecation-of-stock',
@@ -9,17 +10,45 @@ import {Editor} from '../../../../@core/utils/constants/editor';
   styleUrls: ['./hypothecation-of-stock.component.scss']
 })
 export class HypothecationOfStockComponent implements OnInit {
-  hypothecationForm: FormGroup;
-  submitted = false;
-  collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
-  ckeConfig;
+    hypothecationForm: FormGroup;
+    submitted = false;
+    collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
+    ckeConfig;
+    @Input() security: Security;
+    @Input() isEdit = false;
 
-  constructor(private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
-    this.configEditor();
-    this.buildForm();
-  }
+    constructor(private formBuilder: FormBuilder) { }
+
+    ngOnInit() {
+        this.configEditor();
+        this.buildForm();
+        if (this.isEdit) {
+            this.setHypothecationOfStock();
+        } else {
+            this.addHypothecationOfStock();
+        }
+    }
+
+    setHypothecationOfStock() {
+        const formData = JSON.parse(this.security.data);
+        const hypothecationOfStock = this.hypothecationForm.get('hypothecationOfStock') as FormArray;
+        hypothecationOfStock.push(
+            this.formBuilder.group({
+                owner: [formData.owner],
+                stock: [formData.stock],
+                value: [formData.value],
+                otherDetail: [formData.otherDetail],
+                considerValue: [formData.considerValue],
+                fairMarketValue: [formData.fairMarketValue],
+                distressValue: [formData.distressValue],
+                description: [formData.description],
+                hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
+                ownerKycApplicableData: [formData.ownerKycApplicableData],
+                kycCheckForHypthecation: [formData.kycCheckForHypthecation]
+            })
+        );
+    }
 
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
@@ -27,7 +56,7 @@ export class HypothecationOfStockComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.hypothecationForm = this.formBuilder.group({
-      hypothecationOfStock: this.formBuilder.array([this.hypothecationDetailsFormGroup()])
+      hypothecationOfStock: this.formBuilder.array([])
     });
   }
 
@@ -44,7 +73,7 @@ export class HypothecationOfStockComponent implements OnInit {
                 description: [undefined],
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
-                kycCheckForHypthecation: [false],
+                kycCheckForHypthecation: [false]
             }
         );
     }
