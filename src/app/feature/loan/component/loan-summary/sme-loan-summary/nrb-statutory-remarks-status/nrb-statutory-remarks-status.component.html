@@ -8,16 +8,16 @@
     </thead>
     <tbody>
     <tr>
-        <th>Internal</th>
-        <td>{{commentData?.previousComments}}</td>
+        <th class="sb-bg-secondary text-white" style="width: 5%">Internal</th>
+        <td [innerHTML]="commentData?.previousCommentsDetailView | safeHtml"></td>
     </tr>
     <tr>
-        <th>External</th>
-        <td>{{commentData?.auditorComments}}</td>
+        <th class="sb-bg-secondary text-white" style="width: 5%">External</th>
+        <td [innerHTML]="commentData?.auditorCommentsDetailView | safeHtml"></td>
     </tr>
     <tr>
-        <th>NRB</th>
-        <td>{{commentData?.nrbComments}}</td>
+        <th class="sb-bg-secondary text-white" style="width: 5%">NRB</th>
+        <td [innerHTML]="commentData?.nrbCommentsDetailView | safeHtml"></td>
     </tr>
     </tbody>
 </table>
