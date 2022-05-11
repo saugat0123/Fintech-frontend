@@ -115,25 +115,31 @@ export class NegativeLienIndividualComponent implements OnInit {
     }
     this.checkCondition();
     this.fillForm();
-    if (this.securityDetails.primarySecurity.length > 0) {
-      this.securityDetails.primarySecurity.forEach((i) => {
-        if (
-            i.securityType === 'LAND' ||
-            i.securityType === 'LAND_AND_BUILDING'
-        ) {
-          this.securityTypeCondition = true;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.securityDetails) &&
+        !ObjectUtil.isEmpty(this.securityDetails.primarySecurity)) {
+      if (this.securityDetails.primarySecurity.length > 0) {
+        this.securityDetails.primarySecurity.forEach((i) => {
+          if (
+              i.securityType === 'LAND' ||
+              i.securityType === 'LAND_AND_BUILDING'
+          ) {
+            this.securityTypeCondition = true;
+          }
+        });
+      }
     }
-    if (this.securityDetails.secondarySecurity.length > 0) {
-      this.securityDetails.secondarySecurity.forEach((i) => {
-        if (
-            i.securityType === 'LAND' ||
-            i.securityType === 'LAND_AND_BUILDING'
-        ) {
-          this.securityTypeSecondaryCondition = true;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.securityDetails) &&
+        !ObjectUtil.isEmpty(this.securityDetails.secondarySecurity)) {
+      if (this.securityDetails.secondarySecurity.length > 0) {
+        this.securityDetails.secondarySecurity.forEach((i) => {
+          if (
+              i.securityType === 'LAND' ||
+              i.securityType === 'LAND_AND_BUILDING'
+          ) {
+            this.securityTypeSecondaryCondition = true;
+          }
+        });
+      }
     }
     console.log('this.cadData', this.cadData);
   }
@@ -190,10 +196,15 @@ export class NegativeLienIndividualComponent implements OnInit {
   fillForm() {
     let nameOfFatherOrHusband = '';
     if (!ObjectUtil.isEmpty(this.individualData)) {
-      if (this.individualData.relationMedium.en === '0') {
-        nameOfFatherOrHusband = this.individualData.husbandName.ct;
-      } else {
-        nameOfFatherOrHusband = this.individualData.fatherName.ct;
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) &&
+      !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.relationMedium.en === '0') {
+          nameOfFatherOrHusband = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+              !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+        } else {
+          nameOfFatherOrHusband = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+        }
       }
     }
     let totalLoan = 0;
@@ -372,90 +383,98 @@ export class NegativeLienIndividualComponent implements OnInit {
     });
   }
   checkCondition() {
-    this.initialInfo.securities.primarySecurity.forEach(val => {
-      if (!ObjectUtil.isEmpty(val.securityType)) {
-        if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
-          this.isPrimaryLandAndBuilding = true;
-          this.primaryCollateral.push(val);
-          if (val.mortgageType === 'New') {
-            this.isPrimaryMortgageNew = true;
-          }
-          if (val.mortgageType === 'Remortgage') {
-            this.isPrimaryRemortgage = true;
-          }
-          if (val.mortgageType === 'Enhancement') {
-            this.isPrimaryEnhancement = true;
-          }
-          if (val.mortgageType === 'Existing') {
-            this.isPrimaryExisting = true;
-          }
-          if (val.collateralShare === 'YES') {
-            this.primaryShare.push(val);
-            this.isPrimaryShared = true;
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+    !ObjectUtil.isEmpty(this.initialInfo.securities) &&
+    !ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+      this.initialInfo.securities.primarySecurity.forEach(val => {
+        if (!ObjectUtil.isEmpty(val.securityType)) {
+          if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
+            this.isPrimaryLandAndBuilding = true;
+            this.primaryCollateral.push(val);
+            if (val.mortgageType === 'New') {
+              this.isPrimaryMortgageNew = true;
+            }
+            if (val.mortgageType === 'Remortgage') {
+              this.isPrimaryRemortgage = true;
+            }
             if (val.mortgageType === 'Enhancement') {
-              this.isPrimaryEnhancementShared = true;
+              this.isPrimaryEnhancement = true;
+            }
+            if (val.mortgageType === 'Existing') {
+              this.isPrimaryExisting = true;
+            }
+            if (val.collateralShare === 'YES') {
+              this.primaryShare.push(val);
+              this.isPrimaryShared = true;
+              if (val.mortgageType === 'Enhancement') {
+                this.isPrimaryEnhancementShared = true;
+              }
             }
           }
-        }
-        if (val.securityType === 'AUTO LOAN') {
-          this.isPrimaryAutoLoan = true;
-        }
-        if (val.securityType === 'TD') {
-          this.isPrimaryEducationLoan = true;
-          this.primaryEdu.push(val);
-        }
-        if (val.securityType === 'PERSONAL GUARANTEE') {
-          this.isPrimaryGuarantee = true;
-        }
-        if (val.securityType === 'SHARE SECURITY') {
-          this.primarySharedSecurity.push(val);
-          this.isPrimarySharedSecurity = true;
-        }
-        this.isPrimary = true;
-      }
-    });
-    this.initialInfo.securities.secondarySecurity.forEach(val => {
-      if (!ObjectUtil.isEmpty(val.securityType)) {
-        if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
-          this.isSecondaryLandAndBuilding = true;
-          this.secondaryCollateral.push(val);
-          if (val.mortgageType === 'New') {
-            this.isSecondaryMortgageNew = true;
+          if (val.securityType === 'AUTO LOAN') {
+            this.isPrimaryAutoLoan = true;
           }
-          if (val.mortgageType === 'Remortgage') {
-            this.isSecondaryRemortgage = true;
+          if (val.securityType === 'TD') {
+            this.isPrimaryEducationLoan = true;
+            this.primaryEdu.push(val);
           }
-          if (val.mortgageType === 'Enhancement') {
-            this.isSecondaryEnhancement = true;
+          if (val.securityType === 'PERSONAL GUARANTEE') {
+            this.isPrimaryGuarantee = true;
           }
-          if (val.mortgageType === 'Existing') {
-            this.isSecondaryExisting = true;
+          if (val.securityType === 'SHARE SECURITY') {
+            this.primarySharedSecurity.push(val);
+            this.isPrimarySharedSecurity = true;
           }
-          if (val.collateralShare === 'YES') {
-            this.secondaryShare.push(val);
-            this.isSecondaryShared = true;
+          this.isPrimary = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+        !ObjectUtil.isEmpty(this.initialInfo.securities) &&
+        !ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+      this.initialInfo.securities.secondarySecurity.forEach(val => {
+        if (!ObjectUtil.isEmpty(val.securityType)) {
+          if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
+            this.isSecondaryLandAndBuilding = true;
+            this.secondaryCollateral.push(val);
+            if (val.mortgageType === 'New') {
+              this.isSecondaryMortgageNew = true;
+            }
+            if (val.mortgageType === 'Remortgage') {
+              this.isSecondaryRemortgage = true;
+            }
             if (val.mortgageType === 'Enhancement') {
-              this.isSecondaryEnhancementShared = true;
+              this.isSecondaryEnhancement = true;
+            }
+            if (val.mortgageType === 'Existing') {
+              this.isSecondaryExisting = true;
+            }
+            if (val.collateralShare === 'YES') {
+              this.secondaryShare.push(val);
+              this.isSecondaryShared = true;
+              if (val.mortgageType === 'Enhancement') {
+                this.isSecondaryEnhancementShared = true;
+              }
             }
           }
+          if (val.securityType === 'AUTO LOAN') {
+            this.isSecondaryAutoLoan = true;
+          }
+          if (val.securityType === 'TD') {
+            this.isSecondaryEducationLoan = true;
+            this.secondaryEdu.push(val);
+          }
+          if (val.securityType === 'PERSONAL GUARANTEE') {
+            this.isSecondaryGuarantee = true;
+          }
+          if (val.securityType === 'SHARE SECURITY') {
+            this.secondarySharedSecurity.push(val);
+            this.isSecondarySharedSecurity = true;
+          }
+          this.isSecondary = true;
         }
-        if (val.securityType === 'AUTO LOAN') {
-          this.isSecondaryAutoLoan = true;
-        }
-        if (val.securityType === 'TD') {
-          this.isSecondaryEducationLoan = true;
-          this.secondaryEdu.push(val);
-        }
-        if (val.securityType === 'PERSONAL GUARANTEE') {
-          this.isSecondaryGuarantee = true;
-        }
-        if (val.securityType === 'SHARE SECURITY') {
-          this.secondarySharedSecurity.push(val);
-          this.isSecondarySharedSecurity = true;
-        }
-        this.isSecondary = true;
-      }
-    });
+      });
+    }
     this.loanName.forEach(val => {
       if (val === 'HOME LOAN COMBINED') {
         if (!ObjectUtil.isEmpty(this.initialInfo) && !ObjectUtil.isEmpty(this.initialInfo.homeLoanCombinedForm)

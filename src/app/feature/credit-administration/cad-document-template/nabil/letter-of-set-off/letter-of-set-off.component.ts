@@ -238,22 +238,36 @@ export class LetterOfSetOffComponent implements OnInit {
     this.loanPurpose = this.getloanPurpose();
     this.letterOfSetOff.patchValue(
         {
-          nameOfBranch: this.individualData.branch.ct ?
+          nameOfBranch: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.branch) &&
+              !ObjectUtil.isEmpty(this.individualData.branch.ct)) ?
               this.individualData.branch.ct : '',
           grandFatherName: this.getGrandFatherName(),
           fatherName: this.getFatherName(),
-          identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
+          identifyIssuedDistrictName: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict.ct)) ?
               this.individualData.citizenshipIssueDistrict.ct : '',
           dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo ?
+          citizenshipNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo.ct)) ?
               this.individualData.citizenshipNo.ct : '',
-          wardNo: this.individualData.permanentWard.ct ?
+          wardNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard.ct)) ?
               this.individualData.permanentWard.ct : '',
-          vdc: this.individualData.permanentMunicipality.ct ?
+          vdc: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality.ct)) ?
               this.individualData.permanentMunicipality.ct : '',
-          district: this.individualData.permanentDistrict.ct ?
+          district: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict.ct)) ?
               this.individualData.permanentDistrict.ct : '',
-          nameOfCustomer: this.individualData.name.ct ?
+          nameOfCustomer: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.name) &&
+              !ObjectUtil.isEmpty(this.individualData.name.ct)) ?
               this.individualData.name.ct : '',
           age: age ? age : '',
           numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
@@ -466,6 +480,7 @@ export class LetterOfSetOffComponent implements OnInit {
   }
 
   getGrandFatherName() {
+    console.log('Individual Data:', this.individualData);
     let grandFatherName;
     if (!ObjectUtil.isEmpty(this.individualData)) {
       if (this.individualData.gender.en === 'MALE') {

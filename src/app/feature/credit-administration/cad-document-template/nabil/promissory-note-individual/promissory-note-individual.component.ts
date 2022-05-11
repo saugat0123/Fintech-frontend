@@ -197,16 +197,30 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     this.checkOfferLetterData();
     this.form.patchValue(
         {
-          nameofBranchLocated: this.individualData.branch.ct,
+          nameofBranchLocated: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.branch) &&
+              !ObjectUtil.isEmpty(this.individualData.branch.ct)) ? this.individualData.branch.ct : '',
           nameofGrandFather: this.getGrandFatherName(),
           nameofFather: this.getFatherName(),
-          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict ? this.individualData.citizenshipIssueDistrict.ct : '',
+          nameofIssuedDistrict: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict.ct)) ? this.individualData.citizenshipIssueDistrict.ct : '',
           dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo.ct,
-          nameofPerson: this.individualData.name.ct,
-          wardNo: this.individualData.permanentWard.ct,
-          vdc: this.individualData.permanentMunicipality.ct,
-          district: this.individualData.permanentDistrict.ct,
+          citizenshipNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo.ct)) ? this.individualData.citizenshipNo.ct : '',
+          nameofPerson: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.name) &&
+              !ObjectUtil.isEmpty(this.individualData.name.ct)) ? this.individualData.name.ct : '',
+          wardNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard.ct)) ? this.individualData.permanentWard.ct : '',
+          vdc: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality.ct)) ? this.individualData.permanentMunicipality.ct : '',
+          district: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict.ct)) ? this.individualData.permanentDistrict.ct : '',
           loanamountinFigure: finalAmount,
           loanamountinWords: loanAmountWord,
           age: age ? age : '',
