@@ -56,6 +56,7 @@ export class SecurityComponent implements OnInit {
     @Input() isMicroCustomer: boolean;
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
+    isEdit = false;
 
 
     @ViewChild('landSecurity', {static: false})
@@ -563,5 +564,12 @@ export class SecurityComponent implements OnInit {
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
         }
+    }
+
+    public onEdit(event: any): void {
+        this.securityValue = event.security;
+        this.isEdit = event.isEdit;
+        this.change(event.securityType);
+        console.log(event);
     }
 }

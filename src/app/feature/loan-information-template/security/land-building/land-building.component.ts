@@ -17,6 +17,7 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-land-building',
@@ -46,7 +47,8 @@ export class LandBuildingComponent implements OnInit {
   provinces: Province[];
   districtList: District [];
   municipalityList: MunicipalityVdc [];
-  isEdit = false;
+  @Input() security: Security;
+  @Input() isEdit = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -353,6 +355,10 @@ export class LandBuildingComponent implements OnInit {
     if (this.isEdit === false) {
       this.landBuildingForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
     }
+  }
+
+  public setLandBuildingDetail(): void {
+
   }
 
 }

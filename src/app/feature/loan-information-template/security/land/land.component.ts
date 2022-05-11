@@ -13,6 +13,7 @@ import {RelationshipList} from '../../../loan/model/relationshipList';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-land',
@@ -39,6 +40,8 @@ export class LandComponent implements OnInit {
   newOwnerShipTransfer = [];
   ownershipTransferEnumPair = OwnershipTransfer.enumObject();
   ownershipTransfers = OwnershipTransfer;
+  @Input() security: Security;
+  @Input() isEdit = false;
 
 
   constructor(private loanConfigService: LoanConfigService,
