@@ -335,7 +335,7 @@ export class LoanDeedIndividualComponent implements OnInit {
 
   combinedFree() {
     return this.formBuilder.group({
-      expiryDate: [undefined]
+      dateOfExpiry: [undefined]
     });
   }
 
@@ -345,15 +345,23 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
   getGrandFatherName() {
     let grandFatherName;
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData) && !ObjectUtil.isEmpty(this.loanHolderNepData.gender) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.gender.en)) {
       if (this.loanHolderNepData.gender.en === 'MALE') {
-        grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName)) {
+          grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName.ct) ? this.loanHolderNepData.grandFatherName.ct : '';
+        }
       }
-      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
-        grandFatherName = this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : '';
-      }
-      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
-        grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
+      if (!ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium) && !ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium.en)) {
+        if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
+          grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherInLawName) &&
+          !ObjectUtil.isEmpty(this.loanHolderNepData.fatherInLawName.ct) ? this.loanHolderNepData.fatherInLawName.ct : '';
+        }
+        if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
+          grandFatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.loanHolderNepData.grandFatherName.ct) ? this.loanHolderNepData.grandFatherName.ct : '';
+        }
       }
     }
     return grandFatherName;
@@ -361,15 +369,24 @@ export class LoanDeedIndividualComponent implements OnInit {
 
   getFatherName() {
     let fatherName;
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.gender) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.gender.en)) {
       if (this.loanHolderNepData.gender.en === 'MALE') {
-        fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
+        fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName.ct) ? this.loanHolderNepData.fatherName.ct : '';
       }
-      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
-        fatherName = this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : '';
-      }
-      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
-        fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
+      if (this.loanHolderNepData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium) && !ObjectUtil.isEmpty(this.loanHolderNepData.relationMedium.en)) {
+          if (this.loanHolderNepData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.husbandName) &&
+            !ObjectUtil.isEmpty(this.loanHolderNepData.husbandName.ct) ? this.loanHolderNepData.husbandName.ct : '';
+          }
+          if (this.loanHolderNepData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName) &&
+            !ObjectUtil.isEmpty(this.loanHolderNepData.fatherName.ct) ? this.loanHolderNepData.fatherName.ct : '';
+          }
+        }
       }
     }
     return fatherName;
@@ -859,11 +876,17 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.addCombinedFreeText();
         if (this.cadData.cadFileList.length > 0) {
           this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-              this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
+              (!ObjectUtil.isEmpty(this.supportedInfo) &&
+                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i]) &&
+                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i].dateOfExpiry)) ?
+                  this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
           );
         } else {
             this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-                this.newTempData ? this.newTempData[i].dateOfExpiry : ''
+                (!ObjectUtil.isEmpty(this.newTempData) &&
+                    !ObjectUtil.isEmpty(this.newTempData[i]) &&
+                    !ObjectUtil.isEmpty(this.newTempData[i].dateOfExpiry)) ?
+                    this.newTempData[i].dateOfExpiry : ''
             );
         }
       });
@@ -878,7 +901,7 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
           }
           this.newData = {
-            loanNepaliName: val.facilityNameCT,
+            loanNepaliName: val.facilityName,
             loanAmount: val.loanAmountInFigure,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,

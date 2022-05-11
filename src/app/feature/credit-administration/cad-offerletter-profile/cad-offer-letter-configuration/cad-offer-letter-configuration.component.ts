@@ -261,7 +261,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.userConfigForm.get('clientType').patchValue(this.customerType);
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
-            console.log('Loan holder:', this.loanHolder.nepData);
             if (!ObjectUtil.isEmpty(this.loanHolder.nepData)) {
                 this.nepData = (JSON.parse(this.loanHolder.nepData));
             }

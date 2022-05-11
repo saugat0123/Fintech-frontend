@@ -13,11 +13,7 @@
                             <td>
                                 <b>कर्जा प्रकार:
                                     <ng-container>
-                                        <!--It is for the all types of existing loans-->
-                                        धितो कर्जा/आवास कर्जा/सवारी साधन कर्जा/व्यक्तिगत कर्जा/शैक्षिक कर्जा (Australia)
-                                        शैक्षिक कर्जा (Other countries) /व्यक्तिगत अधिविकर्ष
-                                        कर्जा/नविल सहयात्री कर्जा/व्यक्तिगत अधिविकर्ष बिनाधितो/व्यक्तिगत अधिविकर्ष कर्जा
-                                        थप/नविकरण/शेयर कर्जा
+                                        {{finalFacility ? finalFacility : '_________________'}}
                                     </ng-container>
                                     <br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"

@@ -21,6 +21,10 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   shareLoanFreeTextArray: Array<any> = new Array<any>();
   personalLoanFreeTextArray: Array<any> = new Array<any>();
   tempInformation;
+  finalFacility;
+  facilityNames: Array<String> = [];
+  allFacilityNames;
+
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -39,6 +43,7 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     console.log('Initial Data:', this.initialData);
     this.buildForm();
     this.patchData();
+    this.getFacilityName();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -315,6 +320,7 @@ export class Section2LoanTypeRetailComponent implements OnInit {
       baseRate: [undefined],
       interestPremium: [undefined],
       interestRate: [undefined],
+      facilityName: [undefined]
     });
   }
   patchData(): void {
@@ -330,14 +336,14 @@ export class Section2LoanTypeRetailComponent implements OnInit {
 
   patchShareDemandFreeText() {
     if (!ObjectUtil.isEmpty(this.tempInformation) &&
-    !ObjectUtil.isEmpty(this.tempInformation.section2)) {
+        !ObjectUtil.isEmpty(this.tempInformation.section2)) {
       if (!ObjectUtil.isEmpty(this.initialData) &&
-      !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
-      !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+          !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
         this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
           this.form.get(['shareLoanDemandFormArray', i, 'freeText']).patchValue(
               !ObjectUtil.isEmpty(this.tempInformation.section2.loanDemandFreeText[i]) &&
-                  !ObjectUtil.isEmpty(this.tempInformation.section2.loanDemandFreeText[i].freeText) ?
+              !ObjectUtil.isEmpty(this.tempInformation.section2.loanDemandFreeText[i].freeText) ?
                   this.tempInformation.section2.loanDemandFreeText[i].freeText : '');
         });
       }
@@ -347,7 +353,7 @@ export class Section2LoanTypeRetailComponent implements OnInit {
         this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
           this.form.get(['personalLoanFormArray', i, 'freeDate']).patchValue(
               !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i]) &&
-                  !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i].freeDate) ?
+              !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i].freeDate) ?
                   this.tempInformation.section2.personalLoanFreeText[i].freeDate : '');
         });
       }
@@ -939,6 +945,32 @@ export class Section2LoanTypeRetailComponent implements OnInit {
         this.personalLoanFreeTextArray.push(tempFreeText);
       }
       return this.personalLoanFreeTextArray;
+    }
+  }
+
+  getFacilityName() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.existingLoanForm) &&
+        !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray)) {
+      if (this.initialData.existingLoanForm.existingLoanFormArray.length === 1) {
+        const existingData = this.initialData.existingLoanForm.existingLoanFormArray[0];
+        this.finalFacility = existingData.facilityName;
+      } else if (this.initialData.existingLoanForm.existingLoanFormArray.length === 2) {
+        for (let val = 0; val < this.initialData.existingLoanForm.existingLoanFormArray.length; val++) {
+          const existingData = this.initialData.existingLoanForm.existingLoanFormArray[val];
+          this.facilityNames.push(existingData.facilityName);
+        }
+        this.allFacilityNames = this.facilityNames.join(' र ');
+        this.finalFacility = this.allFacilityNames;
+      } else {
+          for (let val = 0; val < this.initialData.existingLoanForm.existingLoanFormArray.length - 1; val++) {
+            const existingData =  this.initialData.existingLoanForm.existingLoanFormArray[val];
+            this.facilityNames.push(existingData.facilityName);
+        }
+        this.allFacilityNames = this.facilityNames.join(', ');
+        const existingData1 = this.initialData.existingLoanForm.existingLoanFormArray[this.initialData.existingLoanForm.existingLoanFormArray.length - 1];
+        this.finalFacility = this.allFacilityNames + ' र ' + existingData1.facilityName;
+      }
     }
   }
 }

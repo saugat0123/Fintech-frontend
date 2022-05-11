@@ -115,25 +115,31 @@ export class NegativeLienIndividualComponent implements OnInit {
     }
     this.checkCondition();
     this.fillForm();
-    if (this.securityDetails.primarySecurity.length > 0) {
-      this.securityDetails.primarySecurity.forEach((i) => {
-        if (
-            i.securityType === 'LAND' ||
-            i.securityType === 'LAND_AND_BUILDING'
-        ) {
-          this.securityTypeCondition = true;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.securityDetails) &&
+        !ObjectUtil.isEmpty(this.securityDetails.primarySecurity)) {
+      if (this.securityDetails.primarySecurity.length > 0) {
+        this.securityDetails.primarySecurity.forEach((i) => {
+          if (
+              i.securityType === 'LAND' ||
+              i.securityType === 'LAND_AND_BUILDING'
+          ) {
+            this.securityTypeCondition = true;
+          }
+        });
+      }
     }
-    if (this.securityDetails.secondarySecurity.length > 0) {
-      this.securityDetails.secondarySecurity.forEach((i) => {
-        if (
-            i.securityType === 'LAND' ||
-            i.securityType === 'LAND_AND_BUILDING'
-        ) {
-          this.securityTypeSecondaryCondition = true;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.securityDetails) &&
+        !ObjectUtil.isEmpty(this.securityDetails.secondarySecurity)) {
+      if (this.securityDetails.secondarySecurity.length > 0) {
+        this.securityDetails.secondarySecurity.forEach((i) => {
+          if (
+              i.securityType === 'LAND' ||
+              i.securityType === 'LAND_AND_BUILDING'
+          ) {
+            this.securityTypeSecondaryCondition = true;
+          }
+        });
+      }
     }
     console.log('this.cadData', this.cadData);
   }
@@ -190,10 +196,15 @@ export class NegativeLienIndividualComponent implements OnInit {
   fillForm() {
     let nameOfFatherOrHusband = '';
     if (!ObjectUtil.isEmpty(this.individualData)) {
-      if (this.individualData.relationMedium.en === '0') {
-        nameOfFatherOrHusband = this.individualData.husbandName.ct;
-      } else {
-        nameOfFatherOrHusband = this.individualData.fatherName.ct;
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) &&
+      !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.relationMedium.en === '0') {
+          nameOfFatherOrHusband = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+              !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+        } else {
+          nameOfFatherOrHusband = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+        }
       }
     }
     let totalLoan = 0;
@@ -244,9 +255,10 @@ export class NegativeLienIndividualComponent implements OnInit {
         this.setSignatureData(this.selectiveArr);
         // this.setIssuedDate();
       }
+      console.log('This. individual data', this.individualData);
       this.negativeLienForm.patchValue({
-        nameOfGrandfather: this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '',
-        fatherOrHusbandName: nameOfFatherOrHusband ? nameOfFatherOrHusband : '',
+        nameOfGrandfather: this.getGrandFatherName(),
+        fatherOrHusbandName: this.getFatherName(),
         sonOrDaughterName: this.individualData.name.ct ? this.individualData.name.ct : '',
         districtName: this.individualData.permanentDistrict ? this.individualData.permanentDistrict.ct : '',
         municipalityVdcName: this.individualData.permanentMunicipality ? this.individualData.permanentMunicipality.ct : '',
@@ -278,6 +290,54 @@ export class NegativeLienIndividualComponent implements OnInit {
         subham: this.supportedInfo ? this.supportedInfo.subham : '',
       });
     }
+  }
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.individualData) && !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
+      if (this.individualData.gender.en === 'MALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.grandFatherName)) {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.fatherInLawName) &&
+          !ObjectUtil.isEmpty(this.individualData.fatherInLawName.ct) ? this.individualData.fatherInLawName.ct : '';
+        }
+        if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+          grandFatherName = !ObjectUtil.isEmpty(this.individualData.grandFatherName) &&
+          !ObjectUtil.isEmpty(this.individualData.grandFatherName.ct) ? this.individualData.grandFatherName.ct : '';
+        }
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.gender) &&
+        !ObjectUtil.isEmpty(this.individualData.gender.en)) {
+      if (this.individualData.gender.en === 'MALE') {
+        fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+        !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE') {
+        if (!ObjectUtil.isEmpty(this.individualData.relationMedium) && !ObjectUtil.isEmpty(this.individualData.relationMedium.en)) {
+          if (this.individualData.relationMedium.en === '0') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.husbandName) &&
+                !ObjectUtil.isEmpty(this.individualData.husbandName.ct) ? this.individualData.husbandName.ct : '';
+          }
+          if (this.individualData.relationMedium.en === '1') {
+            fatherName = !ObjectUtil.isEmpty(this.individualData.fatherName) &&
+            !ObjectUtil.isEmpty(this.individualData.fatherName.ct) ? this.individualData.fatherName.ct : '';
+          }
+        }
+      }
+    }
+    return fatherName;
   }
 
   submit() {
@@ -372,90 +432,98 @@ export class NegativeLienIndividualComponent implements OnInit {
     });
   }
   checkCondition() {
-    this.initialInfo.securities.primarySecurity.forEach(val => {
-      if (!ObjectUtil.isEmpty(val.securityType)) {
-        if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
-          this.isPrimaryLandAndBuilding = true;
-          this.primaryCollateral.push(val);
-          if (val.mortgageType === 'New') {
-            this.isPrimaryMortgageNew = true;
-          }
-          if (val.mortgageType === 'Remortgage') {
-            this.isPrimaryRemortgage = true;
-          }
-          if (val.mortgageType === 'Enhancement') {
-            this.isPrimaryEnhancement = true;
-          }
-          if (val.mortgageType === 'Existing') {
-            this.isPrimaryExisting = true;
-          }
-          if (val.collateralShare === 'YES') {
-            this.primaryShare.push(val);
-            this.isPrimaryShared = true;
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+    !ObjectUtil.isEmpty(this.initialInfo.securities) &&
+    !ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+      this.initialInfo.securities.primarySecurity.forEach(val => {
+        if (!ObjectUtil.isEmpty(val.securityType)) {
+          if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
+            this.isPrimaryLandAndBuilding = true;
+            this.primaryCollateral.push(val);
+            if (val.mortgageType === 'New') {
+              this.isPrimaryMortgageNew = true;
+            }
+            if (val.mortgageType === 'Remortgage') {
+              this.isPrimaryRemortgage = true;
+            }
             if (val.mortgageType === 'Enhancement') {
-              this.isPrimaryEnhancementShared = true;
+              this.isPrimaryEnhancement = true;
+            }
+            if (val.mortgageType === 'Existing') {
+              this.isPrimaryExisting = true;
+            }
+            if (val.collateralShare === 'YES') {
+              this.primaryShare.push(val);
+              this.isPrimaryShared = true;
+              if (val.mortgageType === 'Enhancement') {
+                this.isPrimaryEnhancementShared = true;
+              }
             }
           }
-        }
-        if (val.securityType === 'AUTO LOAN') {
-          this.isPrimaryAutoLoan = true;
-        }
-        if (val.securityType === 'TD') {
-          this.isPrimaryEducationLoan = true;
-          this.primaryEdu.push(val);
-        }
-        if (val.securityType === 'PERSONAL GUARANTEE') {
-          this.isPrimaryGuarantee = true;
-        }
-        if (val.securityType === 'SHARE SECURITY') {
-          this.primarySharedSecurity.push(val);
-          this.isPrimarySharedSecurity = true;
-        }
-        this.isPrimary = true;
-      }
-    });
-    this.initialInfo.securities.secondarySecurity.forEach(val => {
-      if (!ObjectUtil.isEmpty(val.securityType)) {
-        if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
-          this.isSecondaryLandAndBuilding = true;
-          this.secondaryCollateral.push(val);
-          if (val.mortgageType === 'New') {
-            this.isSecondaryMortgageNew = true;
+          if (val.securityType === 'AUTO LOAN') {
+            this.isPrimaryAutoLoan = true;
           }
-          if (val.mortgageType === 'Remortgage') {
-            this.isSecondaryRemortgage = true;
+          if (val.securityType === 'TD') {
+            this.isPrimaryEducationLoan = true;
+            this.primaryEdu.push(val);
           }
-          if (val.mortgageType === 'Enhancement') {
-            this.isSecondaryEnhancement = true;
+          if (val.securityType === 'PERSONAL GUARANTEE') {
+            this.isPrimaryGuarantee = true;
           }
-          if (val.mortgageType === 'Existing') {
-            this.isSecondaryExisting = true;
+          if (val.securityType === 'SHARE SECURITY') {
+            this.primarySharedSecurity.push(val);
+            this.isPrimarySharedSecurity = true;
           }
-          if (val.collateralShare === 'YES') {
-            this.secondaryShare.push(val);
-            this.isSecondaryShared = true;
+          this.isPrimary = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+        !ObjectUtil.isEmpty(this.initialInfo.securities) &&
+        !ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+      this.initialInfo.securities.secondarySecurity.forEach(val => {
+        if (!ObjectUtil.isEmpty(val.securityType)) {
+          if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
+            this.isSecondaryLandAndBuilding = true;
+            this.secondaryCollateral.push(val);
+            if (val.mortgageType === 'New') {
+              this.isSecondaryMortgageNew = true;
+            }
+            if (val.mortgageType === 'Remortgage') {
+              this.isSecondaryRemortgage = true;
+            }
             if (val.mortgageType === 'Enhancement') {
-              this.isSecondaryEnhancementShared = true;
+              this.isSecondaryEnhancement = true;
+            }
+            if (val.mortgageType === 'Existing') {
+              this.isSecondaryExisting = true;
+            }
+            if (val.collateralShare === 'YES') {
+              this.secondaryShare.push(val);
+              this.isSecondaryShared = true;
+              if (val.mortgageType === 'Enhancement') {
+                this.isSecondaryEnhancementShared = true;
+              }
             }
           }
+          if (val.securityType === 'AUTO LOAN') {
+            this.isSecondaryAutoLoan = true;
+          }
+          if (val.securityType === 'TD') {
+            this.isSecondaryEducationLoan = true;
+            this.secondaryEdu.push(val);
+          }
+          if (val.securityType === 'PERSONAL GUARANTEE') {
+            this.isSecondaryGuarantee = true;
+          }
+          if (val.securityType === 'SHARE SECURITY') {
+            this.secondarySharedSecurity.push(val);
+            this.isSecondarySharedSecurity = true;
+          }
+          this.isSecondary = true;
         }
-        if (val.securityType === 'AUTO LOAN') {
-          this.isSecondaryAutoLoan = true;
-        }
-        if (val.securityType === 'TD') {
-          this.isSecondaryEducationLoan = true;
-          this.secondaryEdu.push(val);
-        }
-        if (val.securityType === 'PERSONAL GUARANTEE') {
-          this.isSecondaryGuarantee = true;
-        }
-        if (val.securityType === 'SHARE SECURITY') {
-          this.secondarySharedSecurity.push(val);
-          this.isSecondarySharedSecurity = true;
-        }
-        this.isSecondary = true;
-      }
-    });
+      });
+    }
     this.loanName.forEach(val => {
       if (val === 'HOME LOAN COMBINED') {
         if (!ObjectUtil.isEmpty(this.initialInfo) && !ObjectUtil.isEmpty(this.initialInfo.homeLoanCombinedForm)
