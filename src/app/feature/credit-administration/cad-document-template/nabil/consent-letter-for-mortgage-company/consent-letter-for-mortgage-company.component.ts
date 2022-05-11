@@ -42,6 +42,9 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
   borrowerFreeText1: Array<any> = new Array<any>();
   freeTextVal: Array<any> = new Array<any>();
   borrowerDetailsVal: Array<any> = new Array<any>();
+  primarySecurityData: any[] = [];
+  secondarySecurityData: any[] = [];
+  secondaryVisible = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -68,6 +71,12 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+        this.primarySecurityData = this.initialInfo.securities.primarySecurity;
+      }
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+        this.secondarySecurityData = this.initialInfo.securities.secondarySecurity;
+      }
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
@@ -82,6 +91,7 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
     }
     this.setTotalAmount();
     this.setIssuedDate();
+    // this.checkBorrowerData();
     this.fillForm();
   }
   buildForm() {
@@ -162,11 +172,21 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
   removeAtIndex(i: number) {
     (this.form.get('nameFreeText') as FormArray).removeAt(i);
   }
-
+  removePrimary(i: number) {
+    this.primarySecurityData.splice(i, 1);
+  }
+  removeSecondary(i: number) {
+    this.secondarySecurityData.splice(i, 1);
+  }
+  removeBorrowerNameIndex(ii: number) {
+    (this.form.get('borrowerNameArray') as FormArray).removeAt(ii);
+  }
+  removeSecurityAtIndex(ii: number) {
+    (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
+  }
   removeBorrowerAtIndex(ii: number) {
     (this.form.get('borrowerDetails') as FormArray).removeAt(ii);
   }
-
   borrowerFree1() {
     return this.formBuilder.group({
       freeSanctionDate1: [undefined],

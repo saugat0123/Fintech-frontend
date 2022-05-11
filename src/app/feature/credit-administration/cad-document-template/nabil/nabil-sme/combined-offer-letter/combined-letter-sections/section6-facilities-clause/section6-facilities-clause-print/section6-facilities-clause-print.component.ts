@@ -21,13 +21,16 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
   isCustomerAcceptance = false;
   isIrrevocableLetter = false;
   isAutoLoan = false;
-  isTermLoan = false;
-  isExcept = false;
   isBankGuarantee = false;
   autoLoanOrTermLoan = false;
   isTermLoanForVehicle;
   isTermOrAuto = false;
   isOneOffFacility = false;
+  isOtherLoan: boolean;
+  isNotOneOffForExceptForLetter: boolean;
+  isNotOneOffForExceptForTime: boolean;
+  isNotOneOffForExceptForImportBill: boolean;
+  isNotOneOffForExceptForImportLoan: boolean;
   constructor() { }
 
   ngOnInit() {
@@ -100,24 +103,44 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
     }
   }
   isApplicable() {
-    const temp = this.tempData;
-    if ((!ObjectUtil.isEmpty(temp.letterOfCreditForm) && temp.letterOfCreditForm.loanOption !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.timeLetterCreditForm) && temp.timeLetterCreditForm !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.importBillsDiscountForm) && temp.importBillsDiscountForm !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.importLoanTrust) && temp.importLoanTrust !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.revolvingShortTermLoan) && temp.revolvingShortTermLoan !== 'ONE_OFF_BASIS'
-        || !ObjectUtil.isEmpty(temp.demandLoanForm) && temp.demandLoanForm
-        || !ObjectUtil.isEmpty(temp.preExportForm) && temp.preExportForm
-        || !ObjectUtil.isEmpty(temp.documentaryBillPurchase) && temp.documentaryBillPurchase
-        || !ObjectUtil.isEmpty(temp.overdraftLoanForm) && temp.overdraftLoanForm
-        || !ObjectUtil.isEmpty(temp.equityMortgaged) && temp.equityMortgaged
-        || !ObjectUtil.isEmpty(temp.overdraftFixedForm) && temp.overdraftFixedForm
-        || !ObjectUtil.isEmpty(temp.overDraftFacilityForm) && temp.overDraftFacilityForm
-        || !ObjectUtil.isEmpty(temp.bridgeGapLoan) && temp.bridgeGapLoan
-        || !ObjectUtil.isEmpty(temp.mortgageEquityTermForm) && temp.mortgageEquityTermForm
-        || !ObjectUtil.isEmpty(temp.bankGuarantee) && temp.bankGuarantee
-        || !ObjectUtil.isEmpty(temp.billPurchaseForm) && temp.billPurchaseForm)) {
-      this.isExcept = true;
+    if (!ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+      this.tempData.letterOfCreditForm.letterOfCreditFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isNotOneOffForExceptForLetter = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
+      this.tempData.timeLetterCreditForm.timeLetterCreditFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isNotOneOffForExceptForTime = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
+      this.tempData.importBillsDiscountForm.importBillsDiscountFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isNotOneOffForExceptForImportBill = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
+      this.tempData.importLoanTrust.importLoanTrustFormArray.forEach(val => {
+        if (val.loanOption !== 'ONE_OFF_BASIS') {
+          this.isNotOneOffForExceptForImportLoan = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.demandLoanForm) && this.tempData.demandLoanForm
+        || !ObjectUtil.isEmpty(this.tempData.preExportForm) && this.tempData.preExportForm
+        || !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase) && this.tempData.documentaryBillPurchase
+        || !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm) && this.tempData.overdraftLoanForm
+        || !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm) && this.tempData.overdraftFixedForm
+        || !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) && this.tempData.overDraftFacilityForm
+        || !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan) && this.tempData.bridgeGapLoan
+        || !ObjectUtil.isEmpty(this.tempData.bankGuarantee) && this.tempData.bankGuarantee
+        || !ObjectUtil.isEmpty(this.tempData.billPurchaseForm) && this.tempData.billPurchaseForm) {
+      this.isOtherLoan = true;
     }
   }
 }
