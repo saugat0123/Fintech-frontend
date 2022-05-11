@@ -344,11 +344,30 @@
     </div>
 
     <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
-        <nb-card-header>
-            <h4>Risk factors</h4>
-        </nb-card-header>
+        
         <nb-card-body>
-            <div class="row p-2">
+            <div class="form-group">
+                <label for="financialDetail">1. Financial Detail of</label><br>
+                <nb-radio-group formControlName="financialDetailCheckBtn"
+                                class="ml-1 d-inline-flex text-center"
+                id="financialDetail"
+                name="financialDetail">
+                    <nb-radio value="old" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'old'">old firms/ companies </nb-radio>
+                    <nb-radio value="new" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'new'">newly established firms/companies.</nb-radio>
+                </nb-radio-group>
+            </div>
+            <div class="form-group" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'new'">
+                <label for="projectedFinancials">2. Projected Financials </label><br>
+                <nb-radio-group formControlName="projectedFinancialsCheckBtn"
+                                class="d-contents form-control"
+                                id="projectedFinancials"
+                                name="projectedFinancials">
+                    <nb-radio  [value]="data" *ngFor="let data of projectedFinancialData">{{data}}
+                        </nb-radio>
+
+                </nb-radio-group>
+            </div>
+            <div class="row p-2" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'old'">
                 <div class="col-md-12 border-bottom border-dark mb-4">
                     <div class="form-group">
                         <label class="title"><strong>{{crgQuestionsList?.description}}</strong></label>
@@ -356,7 +375,7 @@
                                         formControlName="crgProfileOfAuditors"
                                         name="crgProfileOfAuditors"
                                         [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid }">
-                            <nb-radio *ngFor="let field of crgQuestionsList?.answers"
+                            <nb-radio  *ngFor="let field of crgQuestionsList?.answers"
                                       [value]="field?.description">{{field?.description}}
                             </nb-radio>
                         </nb-radio-group>
@@ -381,11 +400,6 @@
                    (input)="setTotalWorkingCapitalLimit(totalWorkingCapitalLimit?.value)"
                    type="number" class="form-control mb-2" />
         </div>
-    </div>
-    <div class="text-right m-4">
-        <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
-            Availability of Historical Data
-        </nb-checkbox>
     </div>
     <hr>
     <div class="row my-2">
