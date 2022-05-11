@@ -28,7 +28,7 @@ export class CustomerGroupSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.groupAssociateCustomers = this.groupDto.groupDtoList;
-    this.totalCollateral = this.calculateTotalRequiredCollateral();
+    // this.totalCollateral = this.calculateTotalRequiredCollateral();
   }
 
   /* removeCurrentCustomerLoan() {
@@ -41,20 +41,20 @@ export class CustomerGroupSummaryComponent implements OnInit {
     this.routerUtilsService.loadCustomerProfile(associateId, customerId, loanType);
   }
 
-  calculateTotalRequiredCollateral(): number {
-    let amount = 0;
-    this.groupDto.groupDtoList.forEach(d => {
-      let temp = false;
-      if (d.fundedData.length > 0) {
-        const fundedTotal = d.fundedData[0].security.totalSecurityAmount;
-        amount += fundedTotal;
-        temp = true;
-      }
-      if (d.nonFundedData.length > 0 && !temp) {
-        const nonFundedTotal = d.nonFundedData[0].security.totalSecurityAmount;
-        amount += nonFundedTotal;
-      }
-    });
-    return amount;
-  }
+  // calculateTotalRequiredCollateral(): number {
+  //   let amount = 0;
+  //   this.groupDto.groupDtoList.forEach(d => {
+  //     let temp = false;
+  //     if (d.fundedData.length > 0) {
+  //       const fundedTotal = d.fundedData[0].security.totalSecurityAmount;
+  //       amount += fundedTotal;
+  //       temp = true;
+  //     }
+  //     if (d.nonFundedData.length > 0 && !temp) {
+  //       const nonFundedTotal = d.nonFundedData[0].security.totalSecurityAmount;
+  //       amount += nonFundedTotal;
+  //     }
+  //   });
+  //   return amount;
+  // }
 }

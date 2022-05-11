@@ -21,6 +21,7 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import { VideoKycComponent } from './video-kyc/video-kyc.component';
 import { NewtWorthComponent } from './newt-worth/newt-worth.component';
 import {MemoDetailsComponent} from '../component/dashboard/memo-details/memo-details.component';
+import {GuarantorAdderComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-adder.component';
 
 
 @NgModule({
@@ -48,9 +49,11 @@ import {MemoDetailsComponent} from '../component/dashboard/memo-details/memo-det
         CommonAddressComponent,
         CustomerWisePendingComponent,
         ErrorPageComponent,
+          GuarantorAdderComponent
 
       ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
+    // tslint:disable-next-line:max-line-length
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, GuarantorAdderComponent,],
       providers: [SafePipe]
     }
 )

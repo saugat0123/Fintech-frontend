@@ -33,9 +33,9 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.loanHolder);
-    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
-      this.securityId = this.loanHolder.security.id;
-    }
+    // if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+    //   this.securityId = this.loanHolder.security.id;
+    // }
     // Setting Comments data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);

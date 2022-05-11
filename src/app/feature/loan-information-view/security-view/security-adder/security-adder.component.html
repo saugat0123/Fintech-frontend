@@ -1,57 +1,10 @@
-<nb-card>
-    <nb-card-header class="text-center">
-        <div class="row mt-3">
-            <div class="col-md-12 input-group-prepend">
-                <nb-select placeholder="Select Share Security" fullWidth #selectedShareSecurity
-                           [formControl]="shareSecurity">
-                    <nb-option *ngFor="let shareSecurity of customerShareData" [value]="shareSecurity">
-                        {{shareSecurity.companyName}} / {{shareSecurity.shareType}} / {{shareSecurity.totalShareUnit}}
-                        unit
-                    </nb-option>
-                </nb-select>
-                <button [disabled]="!shareSecurity.valid" nbButton size="small"
-                        (click)="addSecurityDetail(selectedShareSecurity.selected)"><i
-                        class="fa fa-plus"></i></button>
-            </div>
-        </div>
-        <p><strong class="mt-2 text-danger">{{msg}}</strong></p>
+<nb-card  [nbSpinner]="spinner">
+    <nb-card-header class="text-center" >
     </nb-card-header>
     <nb-card-body>
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <p><strong>Share Security Details</strong></p>
-                <table
-                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>S.N</th>
-                        <th>Name of Company</th>
-                        <th>Share Type</th>
-                        <th>Share Unit</th>
-                        <th>Rate</th>
-                        <th>Total Value</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let shareSecurity of approvedShareSecurity; let i= index">
-                        <td>{{i + 1}}</td>
-                        <td>{{shareSecurity?.companyName}}</td>
-                        <td>{{shareSecurity?.shareType}}</td>
-                        <td>{{shareSecurity?.totalShareUnit}}</td>
-                        <td>{{shareSecurity?.amountPerUnit}}</td>
-                        <td>{{shareSecurity?.totalShareUnit * shareSecurity.amountPerUnit}}</td>
-                        <td>
-                            <button (click)="removeShareSecurity(shareSecurity)"
-                                    class="btn btn-sm btn-flat btn-danger">
-                                <em class="fa fa-trash bg-transparent"></em>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--                <p *ngIf="selectedSecurityList.length === 0" class="text-center">No Guarantor tagged yet!</p>-->
-            </div>
+        <div *ngIf="customerInfo?.securities?.length > 0">
+            <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities" [loanDataHolder]="loanHolder"
+                                       [proposedLimit]="proposedLimit"></app-security-tagger>
         </div>
     </nb-card-body>
 </nb-card>

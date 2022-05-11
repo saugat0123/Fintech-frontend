@@ -1,0 +1,37 @@
+<nb-card>
+    <div class="box-header with-border">
+        <h2 class="box-title title">Assignment Of Receivable</h2>
+    </div>
+    <form [formGroup]="assignmentForm">
+        <div *ngFor="let assignment of assignmentForm.get('assignmentOfReceivables')['controls']; let i = index"
+             class="font-weight-bold"
+             formArrayName="assignmentOfReceivables">
+            <div [formGroupName]="i.toString()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="title" for="description">Amount</label>
+                            <input [ngClass]="{'is-invalid': (submitted) && (assignment.get('amount').errors)}"
+                                   class="form-control rounded" formControlName="amount"
+                                   placeholder="Amount"
+                                   id="description"
+                                   type="number" required/>
+                            <div *ngIf="(submitted) && (assignment.get('amount').invalid)" class="invalid-feedback">
+                                <div *ngIf="assignment.get('amount').errors.required">
+                                    Amount is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Other Detail</label>
+                            <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </form>
+</nb-card>
