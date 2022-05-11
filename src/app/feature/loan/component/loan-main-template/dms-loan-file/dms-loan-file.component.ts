@@ -326,7 +326,6 @@ export class DmsLoanFileComponent implements OnInit {
       this.loanDataHolder.companyInfo.companyName = this.loanForm.get('companyName').value;
       this.loanDataHolder.companyInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
       this.loanDataHolder.companyInfo.panNumber = this.loanForm.get('companyPAN').value;
-      this.loanDataHolder.companyInfo.establishmentDate = this.loanForm.get('companyEstablishmentDate').value;
       this.loanDataHolder.companyInfo.businessType = this.loanForm.get('businessType').value;
       this.loanDataHolder.companyInfo.version = this.loanForm.get('companyInfoVersion').value;
     }

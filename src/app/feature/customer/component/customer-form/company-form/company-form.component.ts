@@ -397,7 +397,7 @@ export class CompanyFormComponent implements OnInit {
 
             registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-                this.companyInfo.legalStatus.registeredOffice, Validators.required],
+                this.companyInfo.legalStatus.registeredOffice],
 
             registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -406,7 +406,7 @@ export class CompanyFormComponent implements OnInit {
             registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationDate)) ? undefined :
-                new Date(this.companyInfo.legalStatus.registrationDate), [Validators.required, DateValidator.isValidBefore]],
+                new Date(this.companyInfo.legalStatus.registrationDate)],
 
             panRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Inland Revenue Department' :
@@ -722,7 +722,6 @@ export class CompanyFormComponent implements OnInit {
             grandFatherName: [undefined],
             dateOfBirth: [undefined],
             addressLine1: [undefined, Validators.required],
-            addressLine2: [undefined],
             type: [null, Validators.required]
         });
     }
@@ -790,7 +789,6 @@ export class CompanyFormComponent implements OnInit {
                 fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
                 grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
-                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
@@ -1054,7 +1052,6 @@ export class CompanyFormComponent implements OnInit {
             proprietors.fatherName = this.getProprietor()[proprietorsIndex].fatherName;
             proprietors.grandFatherName = this.getProprietor()[proprietorsIndex].grandFatherName;
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
-            proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
             let province = new Province();
             province = this.getProprietor()[proprietorsIndex].province;

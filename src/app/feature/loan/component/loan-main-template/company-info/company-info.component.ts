@@ -469,7 +469,6 @@ export class CompanyInfoComponent implements OnInit {
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
-        this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
 
