@@ -1086,7 +1086,7 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
           }
           this.newData = {
-            loanNepaliName: val.facilityNameCT,
+            loanNepaliName: val.facilityName,
             loanAmount: val.loanAmountInFigure,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
