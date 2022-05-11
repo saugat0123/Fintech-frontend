@@ -44,7 +44,7 @@
                     </ol>
                 </div>
 
-                <div *ngIf="isExcept">
+                <div *ngIf="isNotOneOffForExceptForImportLoan || isNotOneOffForExceptForImportBill || isNotOneOffForExceptForTime || isNotOneOffForExceptForLetter || isOtherLoan">
                     <strong><u>नबिकरणीय प्रकृतिका कर्जा</u></strong><br>
                     <!--Applicable in all facility except term loan, auto loan & one of facility-->
                     <ol class="conditions-list">
