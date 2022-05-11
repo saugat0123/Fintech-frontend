@@ -346,18 +346,22 @@
     <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
         
         <nb-card-body>
-            <div class="form-group">
-                <label for="financialDetail">1. Financial Detail of</label><br>
-                <nb-radio-group formControlName="financialDetailCheckBtn"
-                                class="ml-1 d-inline-flex text-center"
-                id="financialDetail"
-                name="financialDetail">
-                    <nb-radio value="old" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'old'">old firms/ companies </nb-radio>
-                    <nb-radio value="new" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'new'">newly established firms/companies.</nb-radio>
-                </nb-radio-group>
+            <div class="col-md-12  mb-4">
+                <div class="form-group">
+                    <label class="title" for="financialDetail"><strong>Financial Detail of</strong></label><br>
+                    <nb-radio-group formControlName="financialDetailCheckBtn"
+                                    class="ml-1 d-inline-flex text-center"
+                                    id="financialDetail"
+                                    name="financialDetail">
+                        <nb-radio value="old" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'old'">Old firms/ companies </nb-radio>
+                        <nb-radio value="new" [checked]="financialForm.get('financialDetailCheckBtn')?.value === 'new'">Newly established firms/companies.</nb-radio>
+                    </nb-radio-group>
+                </div>
             </div>
+
+            <div class="col-md-12  mb-4">
             <div class="form-group" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'new'">
-                <label for="projectedFinancials">2. Projected Financials </label><br>
+                <label class="title" for="projectedFinancials"><strong>Projected Financials </strong></label><br>
                 <nb-radio-group formControlName="projectedFinancialsCheckBtn"
                                 class="d-contents form-control"
                                 id="projectedFinancials"
@@ -366,6 +370,7 @@
                         </nb-radio>
 
                 </nb-radio-group>
+            </div>
             </div>
             <div class="row p-2" *ngIf="financialForm.get('financialDetailCheckBtn')?.value === 'old'">
                 <div class="col-md-12 border-bottom border-dark mb-4">
