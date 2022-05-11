@@ -121,7 +121,7 @@
                           बुहारी
                       </span>
                   </ng-template>
-                  <input class="form-field disable-print form-control-sm nepaliFont"
+                  <input class="form-field disable-print form-control-sm"
                          name="nameofFather"
                          formControlName="nameofFatherJoint"
                          placeholder="बुबाको नाम"
@@ -138,7 +138,7 @@
                         श्रीमती
                       </span>
                   </ng-template>
-                  <input class="form-field disable-print form-control-sm nepaliFont"
+                  <input class="form-field disable-print form-control-sm"
                          name="district"
                          formControlName="districtJoint"
                          placeholder="जिल्ला"
@@ -146,7 +146,7 @@
                   <span class="print-only font-weight-bold">{{loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'districtJoint']).value ?
                       loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'districtJoint']).value : "_____________________"}}</span>
 
-                  जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                  जिल्ला <input class="form-field disable-print form-control-sm"
                                 name="vdc"
                                 formControlName="vdcJoint"
                                 placeholder="गा वि स"
@@ -162,7 +162,7 @@
                   <span class="print-only font-weight-bold">{{loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'wardNoJoint']).value ?
                       loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'wardNoJoint']).value : "___________________"}}</span>
                   बस्ने बर्ष <input
-                      class="form-field disable-print form-control-sm nepaliFont"
+                      class="form-field disable-print form-control-sm"
                       name="age"
                       formControlName="ageJoint"
                       placeholder="उमेर"
@@ -191,7 +191,7 @@
                       loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'nameofPersonJoint']).value : "__________________"}}</span>
                    —१
               </ng-container>
-          </span>, समेत जम्मा <input class="form-field disable-print form-control-sm nepaliFont"
+          </span>, समेत जम्मा <input class="form-field disable-print form-control-sm"
                               name="totalPeople"
                               formControlName="totalPeople"
                               placeholder=""
@@ -263,12 +263,12 @@
                         {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}
                 </span>
                 </td>
-                <td><input class="form-field form-control-sm d-print-none nepaliFont"
+                <td><input class="form-field form-control-sm d-print-none"
                            name="expiryDate"
                            formControlName="expiryDate"
                            placeholder=""
                            type="text"/>
-                    <span class="print-only nepaliFont">{{expiryDate ? expiryDate : '================='}}</span>
+                    <span class="print-only">{{expiryDate ? expiryDate : '================='}}</span>
                 </td>
             </tr>
             </tbody>
@@ -280,9 +280,9 @@
                         <td>{{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}%</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry !== ''">{{newTempData[j]?.dateOfExpiry ? newTempData[j]?.dateOfExpiry : '___________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry === ''">
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="expiryDate"
-                                   formControlName="expiryDate"
+                            <input class="form-field form-control-sm d-print-none"
+                                   name="dateOfExpiry"
+                                   formControlName="dateOfExpiry"
                                    placeholder=""
                                    type="text"/>
                                 <span class="print-only font-weight-bold">{{loanDeedIndividual?.get(['loanDeedIndividuals' , 0, 'combinedFreeText', j, 'dateOfExpiry']).value ?
@@ -297,7 +297,7 @@
           <p>
             कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.
             <input
-              class="form-field form-control-sm d-print-none disable-print nepaliFont"
+              class="form-field form-control-sm d-print-none disable-print"
               formControlName="totalLoanAmount"
               placeholder=""
               type="text"
@@ -305,7 +305,7 @@
             <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value}}</strong></span>
             /- (अक्षरेपी
             <input
-              class="form-field form-control-sm d-print-none disable-print nepaliFont"
+              class="form-field form-control-sm d-print-none disable-print"
               formControlName="totalLoanAmountWord"
               placeholder=""
               type="text"
@@ -326,8 +326,8 @@
            </p>
          </div>
          <div class="free-txt mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'FIXED_DEPOSIT'">
-           <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>
-           <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
+           <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 form-control d-print-none"></textarea>
+           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
          </div>
        </ng-container>
           <div *ngIf="primarySecurityTypeCheck">
@@ -441,8 +441,8 @@
                   </p>
               </div>
 <!--              <div class="free-txt mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'FIXED_DEPOSIT'">-->
-<!--                  <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>-->
-<!--                  <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>-->
+<!--                  <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 form-control d-print-none"></textarea>-->
+<!--                  <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>-->
 <!--              </div>-->
           </ng-container>
           <div class="mt-4"
@@ -481,36 +481,36 @@
         <div class="mt-lg-5">
           <p class="text-center">
             ईति सम्वत् <input
-              class="form-field form-control-sm d-print-none nepaliFont"
+              class="form-field form-control-sm d-print-none"
               formControlName="year"
               placeholder=""
               type="text"
             />
-            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value : '======================'}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value : '______________________'}}</strong></span>
             साल &nbsp;&nbsp;
             <input
-              class="form-field form-control-sm d-print-none nepaliFont"
+              class="form-field form-control-sm d-print-none"
               formControlName="month"
               placeholder=""
               type="text"
             />
-            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value : '======================'}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value : '______________________'}}</strong></span>
             महिना &nbsp;&nbsp;
             <input
-              class="form-field form-control-sm d-print-none nepaliFont"
+              class="form-field form-control-sm d-print-none"
               formControlName="day"
               placeholder=""
               type="text"
             />
-            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value : '======================'}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value : '______________________'}}</strong></span>
             गते रोज &nbsp;&nbsp;
             <input
-              class="form-field form-control-sm d-print-none nepaliFont"
+              class="form-field form-control-sm d-print-none"
               formControlName="time"
               placeholder=""
               type="text"
             />
-            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value : '======================'}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value : '______________________'}}</strong></span>
             शुभम् ।
           </p>
         </div>

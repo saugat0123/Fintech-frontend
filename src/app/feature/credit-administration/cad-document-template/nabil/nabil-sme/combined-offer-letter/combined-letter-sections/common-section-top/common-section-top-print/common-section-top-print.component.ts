@@ -35,9 +35,23 @@ export class CommonSectionTopPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      this.addressOfBorrower = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.addressOfBorrower =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredMunicipality) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.registeredMunicipality.ct)) ?
+                this.loanHolderInfo.registeredMunicipality.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+                '-' + this.loanHolderInfo.permanentWard.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredDistrict) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.registeredDistrict.ct)) ?
+                ', ' + this.loanHolderInfo.registeredDistrict.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.registeredProvince) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.registeredProvince.ct)) ?
+                ' ,' + this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ' : '');
+      }
+      /*this.addressOfBorrower = this.loanHolderInfo.registeredMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct +
-          ', ' + this.loanHolderInfo.registeredProvince.ct;
+          ', ' + this.loanHolderInfo.registeredProvince.ct;*/
     }
     // date of Approval
     const previousSanctionType  = this.tempData.smeGlobalForm.dateOfApprovalType ? this.tempData.smeGlobalForm.dateOfApprovalType : '';
