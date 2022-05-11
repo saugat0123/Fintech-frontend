@@ -74,7 +74,6 @@ import { UptoDisbursementModalityComponent } from './sme-loan-summary/upto-ten-m
 import { UptoRepaymentModalityComponent } from './sme-loan-summary/upto-ten-million/upto-repayment-modality/upto-repayment-modality.component';
 import { NtaStatementAndInspectionComponent } from './sme-loan-summary/upto-ten-million/nta-statement-and-inspection/nta-statement-and-inspection.component';
 import { WaiverDeviationsAndDeferralComponent } from './sme-loan-summary/upto-ten-million/waiver-deviations-and-deferral/waiver-deviations-and-deferral.component';
-import { UptoCurrentStatusAndPresentProposalComponent } from './sme-loan-summary/upto-ten-million/upto-current-status-and-present-proposal/upto-current-status-and-present-proposal.component';
 import { SanaByabasayiSaralKarjaComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-byabasayi-saral-karja.component';
 import { SanaCurrentStatusAndPresentProposalComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-current-status-and-present-proposal/sana-current-status-and-present-proposal.component';
 import { SanaSecurityArrangementComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-security-arrangement/sana-security-arrangement.component';
@@ -177,7 +176,6 @@ const ENTRY_COMPONENTS = [];
     UptoRepaymentModalityComponent,
     NtaStatementAndInspectionComponent,
     WaiverDeviationsAndDeferralComponent,
-    UptoCurrentStatusAndPresentProposalComponent,
     SanaByabasayiSaralKarjaComponent,
     SanaCurrentStatusAndPresentProposalComponent,
     SanaSecurityArrangementComponent,

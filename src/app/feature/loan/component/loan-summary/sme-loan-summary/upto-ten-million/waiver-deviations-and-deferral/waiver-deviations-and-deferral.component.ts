@@ -18,6 +18,7 @@ export class WaiverDeviationsAndDeferralComponent implements OnInit {
       this.tempData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.tempData.data)) {
         this.proposalData = JSON.parse(this.tempData.data);
+        console.log('proposalData', this.proposalData);
       }
     }
   }
