@@ -32,6 +32,8 @@ export class OfferLetterCorporateComponent implements OnInit {
     customerOfferLetter: CustomerOfferLetter;
     initialInfoPrint;
     existingOfferLetter = false;
+    isHP = false;
+    isLandAndBuilding = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
     nepDataPersonal = new NepDataPersonal();
@@ -60,11 +62,13 @@ export class OfferLetterCorporateComponent implements OnInit {
         (this.nepaliData.collateralDetails).forEach(value => {
             if (value.securityDetails === 'HP') {
                 this.primaryCollaterals.push(value);
+                this.isHP = true;
             }
         });
         (this.nepaliData.collateralDetails).forEach(value => {
             if (value.securityDetails === 'Land_And_Building') {
                 this.secondaryCollaterals.push(value);
+                this.isLandAndBuilding = true;
             }
         });
         this.buildForm();
@@ -111,9 +115,9 @@ export class OfferLetterCorporateComponent implements OnInit {
             financeBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
             financeMunicipality: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
             employeeFinanceBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
-            employeeFinanceDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
+            employeeFinanceDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchDistrict) ? this.nepaliData.branchDistrict : ''],
             employeeFinanceBranch2: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
-            employeeFinanceDistrict2: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
+            employeeFinanceDistrict2: [!ObjectUtil.isEmpty(this.nepaliData.branchDistrict) ? this.nepaliData.branchDistrict : ''],
             financeWardNum: [!ObjectUtil.isEmpty(this.nepaliData.branchWardNo) ? this.nepaliData.branchWardNo : ''],
             financeDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchDistrict) ? this.nepaliData.branchDistrict : ''],
             financeTelephoneNum: [!ObjectUtil.isEmpty(this.nepaliData.branchTelNo) ? this.nepaliData.branchTelNo : ''],
@@ -143,7 +147,9 @@ export class OfferLetterCorporateComponent implements OnInit {
             bottomDate: !ObjectUtil.isEmpty(this.initialInfoPrint) ?
                 !ObjectUtil.isEmpty(this.initialInfoPrint.bottomDate) ? this.initialInfoPrint.bottomDate : '' : '',
             bottomPatraNum: !ObjectUtil.isEmpty(this.initialInfoPrint) ?
-                !ObjectUtil.isEmpty(this.initialInfoPrint.bottomPatraNum) ?  this.initialInfoPrint.bottomPatraNum : '' : ''
+                !ObjectUtil.isEmpty(this.initialInfoPrint.bottomPatraNum) ?  this.initialInfoPrint.bottomPatraNum : '' : '',
+            isLandAndBuilding: this.isLandAndBuilding,
+            isHP: this.isHP
         });
 
     }
@@ -446,6 +452,8 @@ export class OfferLetterCorporateComponent implements OnInit {
             bottomDate: [undefined],
             bottomPatraNum: [undefined],
             freeText: [undefined],
+            isLandAndBuilding: [false],
+            isHP: [false]
         });
     }
 

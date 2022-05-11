@@ -222,6 +222,7 @@
         </table>
         <div class="row">
           <div style="margin-left: 80px">
+            <ng-container *ngIf="printDocForm?.isHP">
             <p>क. <strong>Primary Collateral:  धितो राखिने सवारी साधनको बिबरण</strong></p>
             <table class="table table-bordered">
               <tbody>
@@ -278,7 +279,9 @@
             </table>
             उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
             नाममा धनि दर्ता कायम गराउनु पर्ने छ ।<br><br>
-            <p>ख. <strong>Additional Collateral:  धितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
+            </ng-container>
+            <ng-container *ngIf="printDocForm?.isLandAndBuilding">
+            <p>{{printDocForm?.isHP ? 'ख' : 'क'}}. <strong>Additional Collateral:  धितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
             <table class="table table-bordered">
               <tbody>
               <tr>
@@ -373,6 +376,7 @@
               मा दृ.ब पारित गरि यस
               फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
             </table>
+            </ng-container>
           </div>
         </div>
       </div>

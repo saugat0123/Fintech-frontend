@@ -32,6 +32,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   customerOfferLetter: CustomerOfferLetter;
   initialInfoPrint;
   existingOfferLetter = false;
+  isHP = false;
+  isLandAndBuilding = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
   nepDataPersonal = new NepDataPersonal();
@@ -59,11 +61,13 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     (this.nepaliData.collateralDetails).forEach(value => {
       if (value.securityDetails === 'HP') {
         this.primaryCollaterals.push(value);
+        this.isHP = true;
       }
     });
     (this.nepaliData.collateralDetails).forEach(value => {
       if (value.securityDetails === 'Land_And_Building') {
         this.secondaryCollaterals.push(value);
+        this.isLandAndBuilding = true;
       }
     });
     this.buildForm();
@@ -116,6 +120,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
             this.nepaliData.citizenshipIssueDistrict : '',
         signatoryParentName: !ObjectUtil.isEmpty(this.nepaliData.fatherName) ? this.nepaliData.fatherName : '',
         signatoryGrandParentName: !ObjectUtil.isEmpty(this.nepaliData.grandFatherName) ? this.nepaliData.grandFatherName : '',
+        isLandAndBuilding: this.isLandAndBuilding,
+        isHP: this.isHP
       });
     }
   }
@@ -334,6 +340,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       loanLimitTime: [undefined],
       serviceCharge: [undefined],
       vehicleType: [undefined],
+      isLandAndBuilding: [false],
+      isHP: [false]
     });
   }
 
