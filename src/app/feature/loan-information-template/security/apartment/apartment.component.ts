@@ -12,6 +12,7 @@ import {RoleService} from '../../../admin/component/role-permission/role.service
 import {ToastService} from '../../../../@core/utils';
 import {CustomerType} from '../../../customer/model/customerType';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-apartment',
@@ -34,6 +35,9 @@ export class ApartmentComponent implements OnInit {
   submitted = false;
   apartmentForm: FormGroup;
 
+  @Input() security: Security;
+  @Input() isEdit = false;
+
   constructor(private formBuilder: FormBuilder,
               private nbDialogService: NbDialogService,
               private valuatorService: ValuatorService,
@@ -47,6 +51,15 @@ export class ApartmentComponent implements OnInit {
     this.branchList();
     this.getRoleList();
     // this.getLoanConfig();
+    if (this.isEdit) {
+      this.setApartmentDetail();
+    } else {
+      this.addBuilding();
+    }
+  }
+
+  setApartmentDetail() {
+
   }
 
   private buildForm(): FormGroup {
