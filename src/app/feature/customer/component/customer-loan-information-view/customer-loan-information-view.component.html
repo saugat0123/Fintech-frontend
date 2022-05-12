@@ -248,11 +248,6 @@
               </span></a>
             </nb-card-header>
             <nb-card-body >
-<!--              <app-security-view-->
-<!--                   *ngIf="customerInfo?.securities.length > 0"-->
-<!--                  [security]="customerInfo?.securities"-->
-<!--                  [shareSecurityData]="customerInfo?.shareSecurity">-->
-<!--              </app-security-view>-->
               <h6 *ngIf=" customerInfo?.securities.length === 0" class="text-danger">Note: This customer has no current security.</h6>
             </nb-card-body>
           </nb-card>
