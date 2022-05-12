@@ -1097,8 +1097,9 @@ export class CompanyFormComponent implements OnInit {
 
     checkRegistrationNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+            const companyName = res.detail.companyName;
             if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+                this.toastService.show(new Alert(AlertType.WARNING, 'This customer'+' '+ companyName +' '+'already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
             console.error(error);
@@ -1204,7 +1205,8 @@ export class CompanyFormComponent implements OnInit {
     checkPanNumberNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
             if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+                const companyName = res.detail.companyName;
+                this.toastService.show(new Alert(AlertType.WARNING, 'This customer'+' '+ companyName +' '+'already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
             console.error(error);

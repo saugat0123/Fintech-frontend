@@ -257,16 +257,16 @@ export class NetTradingAssetsComponent implements OnInit {
             Number(ntaFormGroup.get(['valueOfStock', quarter]).value) +
             Number(ntaFormGroup.get(['valueOfDebtors', quarter]).value) +
             Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value) -
-            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value) -
-            Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value)
+            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value)
         );
         ntaFormGroup.get(['drawingPowerAmount', quarter]).patchValue(
             Number(ntaFormGroup.get(['netTradingAssetsAfter', quarter]).value) *
             Number(ntaFormGroup.get(['drawingPower', quarter]).value) / 100);
 
         ntaFormGroup.get(['surplusDeficit', quarter]).patchValue(
-            Number(ntaFormGroup.get(['drawingPowerAmount', quarter]).value) -
-            Number(ntaFormGroup.get(['loanFromUs', quarter]).value));
+            Number(Number(ntaFormGroup.get(['drawingPowerAmount', quarter]).value) -
+            Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value) -
+            Number(ntaFormGroup.get(['loanFromUs', quarter]).value)).toFixed(2));
     }
 
     onChangeFiscalYear(selectedFiscalYearObj) {
