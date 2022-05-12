@@ -91,12 +91,22 @@ export class FixAssetCollateralComponent implements OnInit {
         // if (this.readMode) {
         //     this.getApprovedCollateralBySecurityName(this.security);
         // }
+        this.getAllSiteVisitBySecurityId();
     }
 
     getCustomerTypeAndId() {
         this.activatedRoute.queryParams.subscribe(params => {
             this.customerType = params.customerType;
             this.customerId = params.customerInfoId;
+        });
+    }
+
+    getAllSiteVisitBySecurityId() {
+        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityData.id).subscribe((response: any) => {
+            const siteVisits = response.detail;
+            const siteVisitArray = [];
+            siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
+            this.collateralSiteVisits = siteVisitArray;
         });
     }
 

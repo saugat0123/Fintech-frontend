@@ -4,14 +4,15 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-md-4" *ngIf="readMode;else defaultTemp">
-                <span><strong>Select Last Site Visit Date</strong></span>
-                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastApprovedSiteVisitDetail()">
-                    <option [ngValue]="null" hidden>Select Date</option>
-                    <option *ngFor="let siteVisit of approvedCollateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
-                </select>
-            </div>
-            <ng-template #defaultTemp>
+<!--            uncomment if need to implement approval site visit-->
+<!--            <div class="col-md-4" *ngIf="readMode;else defaultTemp">-->
+<!--                <span><strong>Select Last Site Visit Date</strong></span>-->
+<!--                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastApprovedSiteVisitDetail()">-->
+<!--                    <option [ngValue]="null" hidden>Select Date</option>-->
+<!--                    <option *ngFor="let siteVisit of approvedCollateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <ng-template #defaultTemp>-->
             <div class="col-md-4">
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
@@ -19,7 +20,7 @@
                     <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
-            </ng-template>
+<!--            </ng-template>-->
 <!--            uncomment if need to implement delete feature for site visit-->
 <!--            <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">-->
 <!--                <button *ngIf="!readMode" nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>-->
