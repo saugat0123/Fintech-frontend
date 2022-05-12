@@ -46,7 +46,6 @@ import {PreviousSecurityComponent} from './previous-security/previous-security.c
 import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {CrgMicroComponent} from './crg-micro/crg-micro.component';
-import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 import {ReviewDateComponent} from './review-date/review-date.component';
@@ -68,7 +67,7 @@ import {AssignmentOfReceivableComponent} from './security/assignment-of-receivab
 import {LeaseAssignmentComponent} from './security/lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './security/other-security/other-security.component';
 import {LandComponent} from './security/land/land.component';
-import { ViewSecurityTableComponent } from './security/view-security-table/view-security-table.component';
+import {ViewSecurityTableComponent} from './security/view-security-table/view-security-table.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -101,7 +100,6 @@ const COMPONENTS = [
     NtaMegaComponent,
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
-    SecurityTableComponent,
     CreateDocumentComponent,
     ReviewDateComponent,
     MultiBankingComponent,
