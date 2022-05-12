@@ -48,11 +48,11 @@ export class FixedDepositComponent implements OnInit {
     );
   }
 
-  private buildForm(): FormGroup {
-    return this.fixedDepositForm = this.formBuilder.group({
-      fixedDepositDetails: this.formBuilder.array([this.fixedDepositFormGroup()])
-    });
-  }
+    private buildForm(): FormGroup {
+        return this.fixedDepositForm = this.formBuilder.group({
+            fixedDepositDetails: this.formBuilder.array([])
+        });
+    }
 
   public removeFixedDeposit(index: number): void {
     (this.fixedDepositForm.get('fixedDepositDetails') as FormArray).removeAt(index);
