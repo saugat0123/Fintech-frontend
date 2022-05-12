@@ -160,6 +160,10 @@
         {
           "name": "Taxes Payable",
           "amount": []
+        },
+        {
+          "name": "Current Portion of Long Term Debts",
+          "amount": []
         }
       ],
       "longTermLoan": [],
@@ -251,7 +255,7 @@
       "debtEquityRatioOverall": [],
       "debtEquityRatioLongTerm": [],
       "debtEquityRatioWorkingCapital": [],
-      "debtEquityRatioGeneral": [],
+      "debtTotalAssetsRatio": [],
       "leverageRatio": [],
       "operatingCycle": [],
       "inventoryTurnoverRatio": [],
