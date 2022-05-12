@@ -160,26 +160,27 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    getLastApprovedSiteVisitDetail() {
-        this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
-            .subscribe((response: any) => {
-                const siteVisitData = response.detail;
-                if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
-                    this.collateralSiteVisit = siteVisitData;
-                    // uncomment if need to implement delete feature for site visit
-                    // this.isSiteVisitPresent = true;
-                    this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
-                    this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
-                    this.getDistrictsById(this.collateralData.province.id, null);
-                    this.getMunicipalitiesById(this.collateralData.district.id, null);
-                    this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
-                    this.setStaffDetail(this.collateralData);
-                }
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
-            });
-    }
+    // uncomment only if need to implement approval site visit for approved file
+    // getLastApprovedSiteVisitDetail() {
+    //     this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
+    //         .subscribe((response: any) => {
+    //             const siteVisitData = response.detail;
+    //             if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
+    //                 this.collateralSiteVisit = siteVisitData;
+    //                 // uncomment if need to implement delete feature for site visit
+    //                 // this.isSiteVisitPresent = true;
+    //                 this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+    //                 this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+    //                 this.getDistrictsById(this.collateralData.province.id, null);
+    //                 this.getMunicipalitiesById(this.collateralData.district.id, null);
+    //                 this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+    //                 this.setStaffDetail(this.collateralData);
+    //             }
+    //         }, error => {
+    //             console.error(error);
+    //             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
+    //         });
+    // }
 
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
