@@ -383,42 +383,29 @@
 
                         <div class="col-md-3 ">
                             <label for="province">Province</label>
-                            <ng-select (change)="getDistrict(landAndBuilding?.get('province')?.value)"
-                                       formControlName="province"
-                                       id="province"
-                            [compareWith]="compareFn">
-                                <ng-option *ngFor="let provinceVal of provinces"
-                                           [value]="provinceVal">
-                                    {{provinceVal.name}}
-                                </ng-option>
-                            </ng-select>
+                            <ng-select [items]="provinces"
+                                    bindLabel="name"
+                                    formControlName="province"
+                                    class="form-selection"
+                                    id="province"
+                                    (ngModelChange)="getDistrict(landAndBuilding?.get('province')?.value)"></ng-select>
                         </div>
                         <div class="col-md-3 ">
                             <label for="district">District</label>
-                            <ng-select (change)="getMunicipality(landAndBuilding?.get('district').value)"
-                                       formControlName="district"
-                                       id="district"
-                                       [compareWith]="compareFn">
-                                <ng-option *ngFor="let districtVal of districtList"
-                                           [value]="districtVal">
-                                    {{districtVal.name}}
-                                </ng-option>
-                            </ng-select>
-
+                            <ng-select [items]="provinces"
+                                    bindLabel="name"
+                                    formControlName="district"
+                                    class="form-selection"
+                                    id="district"
+                                    (ngModelChange)="getMunicipality(landAndBuilding?.get('district').value)"></ng-select>
                         </div>
                         <div class="col-md-3 ">
                             <label for="municipality">Municipalities or VDC</label>
-                            <ng-select
+                            <ng-select [items]="provinces"
+                                    bindLabel="name"
                                     formControlName="municipalityVdc"
-                                    id="municipality"
-                                    name="municipality"
-                                    [compareWith]="compareFn">
-                                <ng-option *ngFor="let municipalityVal of municipalityList"
-                                           [value]="municipalityVal">
-                                    {{municipalityVal.name}}
-                                </ng-option>
-                            </ng-select>
-
+                                    class="form-selection"
+                                    id="municipality"></ng-select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="addressLineOne"><strong>Address Line One</strong></label>
