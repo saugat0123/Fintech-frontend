@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +26,7 @@ import {Security} from '../../../../loan/model/security';
     templateUrl: './fix-asset-collateral.component.html',
     styleUrls: ['./fix-asset-collateral.component.scss']
 })
-export class FixAssetCollateralComponent implements OnInit {
+export class FixAssetCollateralComponent implements OnInit, OnChanges {
 
     fixedAssetsForm: FormGroup;
     @Input() securityId: number;
@@ -67,6 +67,15 @@ export class FixAssetCollateralComponent implements OnInit {
                 private modelService: NgbModal,
                 private nbDialogService: NbDialogService,
                 private activatedRoute: ActivatedRoute) {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const security: any = changes.securityData;
+        if (!ObjectUtil.isEmpty(security.previousValue)) {
+            if (security.currentValue.id !== security.previousValue.id) {
+                this.ngOnInit();
+            }
+        }
     }
 
     get form() {
