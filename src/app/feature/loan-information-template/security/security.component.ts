@@ -519,7 +519,6 @@ export class SecurityComponent implements OnInit {
     }
 
     constructSecurityArray(formValues: any, securityType: any): Array<Security> {
-        console.log('form values', formValues);
         const securities: Array<Security> = new Array<Security>();
         formValues.forEach(value => {
             const security: Security = new Security();

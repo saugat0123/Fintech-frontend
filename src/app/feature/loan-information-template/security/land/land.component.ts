@@ -57,8 +57,6 @@ export class LandComponent implements OnInit {
     this.branchList();
     this.getRoleList();
     this.reArrangeEnumType();
-    console.log('edit::', this.isEdit);
-    console.log('security val::', this.security);
     if (this.isEdit) {
       this.setLandDetail();
     } else {
