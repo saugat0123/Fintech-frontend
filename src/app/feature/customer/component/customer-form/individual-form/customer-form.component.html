@@ -770,10 +770,9 @@
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label><strong>Introduction</strong></label>
-                                   <ckeditor id="introduction" formControlName="introduction" name="introduction" type="text"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></ckeditor>
+                                   <app-ck-editor #eckEditor [editedData]="customer.introduction ? customer.introduction : ''" [required]="false"
+                                                  [defaultValue]="'Write Introduction here'" [label]="'Introduction'"
+                                                  (ckValue)="setValue($event)"></app-ck-editor>
                                    <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
                                         class="text-danger">
                                        <div *ngIf="basicInfoControls.introduction.errors.required">

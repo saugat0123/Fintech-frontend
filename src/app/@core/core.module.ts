@@ -17,12 +17,15 @@ import {LoanStatusPipe} from './pipe/loan-status-pipe';
 import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
 import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
 import {NgxNumToWordsModule} from 'ngx-num-to-words';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
 import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
+import { CkEditorComponent } from './ck-editor/ck-editor.component';
+import {CKEditorModule} from 'ng2-ckeditor';
+import {NbCardModule} from '@nebular/theme';
 
 
 const DATA_SERVICES = [];
@@ -48,29 +51,33 @@ const UTILITY_MODULES = [
     imports: [
         CommonModule,
         FormsModule,
-        ...UTILITY_MODULES
+        ...UTILITY_MODULES,
+        CKEditorModule,
+        ReactiveFormsModule,
+        NbCardModule
     ],
-  exports: [
-    // NbAuthModule,
-    CurrencyFormatterPipe,
-    PositiveDecimalNumberValidatorDirective,
-    NaturalNumberValidatorDirective,
-    SafePipe,
-    NepaliWordPipe,
-    ReplacePipe,
-    RoundvaluePipe,
-    BooleanConvertPipe,
-    DecimalNumberDirective,
-    NepaliToEngNumberPipe,
-    LoanStatusPipe,
-    EngToNepaliNumberPipe,
-    NepaliCurrencyWordPipe,
-    ...UTILITY_MODULES,
-    LoginPopUp,
-    NepaliNumberPipe,
-    AmountWordPipe,
-      NepaliCurrencyFormatterPipe
-  ],
+    exports: [
+        // NbAuthModule,
+        CurrencyFormatterPipe,
+        PositiveDecimalNumberValidatorDirective,
+        NaturalNumberValidatorDirective,
+        SafePipe,
+        NepaliWordPipe,
+        ReplacePipe,
+        RoundvaluePipe,
+        BooleanConvertPipe,
+        DecimalNumberDirective,
+        NepaliToEngNumberPipe,
+        LoanStatusPipe,
+        EngToNepaliNumberPipe,
+        NepaliCurrencyWordPipe,
+        ...UTILITY_MODULES,
+        LoginPopUp,
+        NepaliNumberPipe,
+        AmountWordPipe,
+        NepaliCurrencyFormatterPipe,
+        CkEditorComponent
+    ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
         PositiveDecimalNumberValidatorDirective,
@@ -88,7 +95,8 @@ const UTILITY_MODULES = [
         LoginPopUp,
         NepaliNumberPipe,
         AmountWordPipe,
-        NepaliCurrencyFormatterPipe
+        NepaliCurrencyFormatterPipe,
+        CkEditorComponent
 
     ], entryComponents: [LoginPopUp]
 })

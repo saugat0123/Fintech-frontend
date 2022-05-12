@@ -1,0 +1,15 @@
+<nb-card>
+    <nb-card-body>
+        <div class="col-md-12  mb-4">
+            <form [formGroup]="form">
+                <label for="editor"><strong>{{label}}</strong></label>
+                <ckeditor   formControlName="value" id="editor" type="text"
+                           [config]="ckeConfig"
+                           [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
+                <div class="neb-error-feedback pt-1">
+                    <span *ngIf="submitted && form.invalid">*{{label}} required</span>
+                </div>
+            </form>
+        </div>
+    </nb-card-body>
+</nb-card>
