@@ -340,7 +340,7 @@ export class ProposalComponent implements OnInit {
             moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
             prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
-                || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? 0 :
+                || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? '' :
                 this.proposalData.prepaymentCharge],
             // for prepaymentCharge Amount--
             // for commitmentFee Amount--
@@ -383,7 +383,7 @@ export class ProposalComponent implements OnInit {
     setValidatorForPrepaymentField() {
         if ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
             this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
-            this.proposalForm.get('prepaymentCharge').setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
+            this.proposalForm.get('prepaymentCharge').setValidators([Validators.required]);
         } else {
             this.proposalForm.get('prepaymentCharge').clearValidators();
         }
