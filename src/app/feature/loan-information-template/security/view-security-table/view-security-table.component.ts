@@ -12,10 +12,12 @@ export class ViewSecurityTableComponent implements OnInit {
   securities: Array<Security> = new Array<Security>();
   regex = /_/g;
   @Output() security: EventEmitter<Object> = new EventEmitter<Object>();
+  @Output() securityForSiteVisit: EventEmitter<Object> = new EventEmitter<Object>();
   securityData = {
     security: null,
     securityType: null,
-    isEdit: null
+    isEdit: null,
+    isSiteVisit: null
   };
 
   constructor() { }
@@ -31,6 +33,14 @@ export class ViewSecurityTableComponent implements OnInit {
     this.securityData.securityType = security.securityType;
     this.securityData.isEdit = true;
     this.security.emit(this.securityData);
+  }
+
+  public onSiteVisitClick(security: Security): void {
+    this.securityData.security = security;
+    this.securityData.securityType = security.securityType;
+    this.securityData.isEdit = true;
+    this.securityData.isSiteVisit = true;
+    this.securityForSiteVisit.emit(this.securityData);
   }
 
 }

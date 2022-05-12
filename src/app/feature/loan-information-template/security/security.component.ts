@@ -57,6 +57,7 @@ export class SecurityComponent implements OnInit {
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
     isEdit = false;
+    isSiteVisit = false;
 
 
     @ViewChild('landSecurity', {static: false})
@@ -573,6 +574,13 @@ export class SecurityComponent implements OnInit {
     public onEdit(event: any): void {
         this.securityValue = event.security;
         this.isEdit = event.isEdit;
+        this.change(event.securityType);
+    }
+
+    public onSiteVisit(event: any): void {
+        this.securityValue = event.security;
+        this.isEdit = event.isEdit;
+        this.isSiteVisit = event.isSiteVisit;
         this.change(event.securityType);
     }
 }

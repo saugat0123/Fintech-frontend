@@ -1,11 +1,6 @@
 <nb-card [ngResizable]="true" [nbSpinner]="spinner">
     <nb-card-header>
-        <strong>Collateral Site Visit for {{security}}</strong>
-        <button (click)="nbDialogRef.close()" aria-label="Close"
-                class="close cursor d-inline-flex justify-content-end" nbButton
-                size="tiny"
-                status="primary">
-            <span aria-hidden="true">X</span></button>
+        <strong>SITE VISIT FOR {{securityType.toString().replace(regex, ' ')}}</strong>
     </nb-card-header>
     <nb-card-body>
         <div class="row">
@@ -25,10 +20,11 @@
                 </select>
             </div>
             </ng-template>
-            <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
-                <button *ngIf="!readMode" nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
-                <button *ngIf="!readMode" nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>
-            </div>
+<!--            uncomment if need to implement delete feature for site visit-->
+<!--            <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">-->
+<!--                <button *ngIf="!readMode" nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>-->
+<!--                <button *ngIf="!readMode" nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>-->
+<!--            </div>-->
         </div>
         <div class="row">
             <div class="col-md-12">

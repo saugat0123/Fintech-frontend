@@ -3,8 +3,6 @@ import {SiteVisitDocument} from './site-visit-document';
 
 export class CollateralSiteVisit extends BaseEntity {
     siteVisitDate: Date;
-    securityName: string;
     siteVisitJsonData: string;
     siteVisitDocuments: Array<SiteVisitDocument>;
-    uuid: string;
 }
