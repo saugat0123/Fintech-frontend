@@ -66,13 +66,11 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         }
         this.questionService.getAllQuestions(0).subscribe((res: any) => {
             const questionsList = res.detail;
-            console.log(res.detail, 'GID');
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;
             });
             this.buildFormAndCheckEdit();
             this.route.queryParamMap.subscribe(q => {
-                console.log(q.get('id'));
                 this.customerInfoId = q.get('id');
                 if (!ObjectUtil.isEmpty(this.customerInfoId)) {
                     this.loanFormService.detail(this.customerInfoId).subscribe(rs => {
@@ -92,7 +90,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
 
     getGroupList() {
         this.crgGroupService.getAll().subscribe((res: any) => {
-            console.log(res,'GROUP');
             this.riskGroupArray = res.detail;
             this.riskGroupArray.forEach((value: CrgGroup) => {
                 this.groupTotalPoint[value.label]['jh'] = 0;
@@ -132,7 +129,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
     }
 
     onChangeOption(field, point, parameter, grpId) {
-        console.log(field,point,parameter, grpId);
         this.calculateGroupTotalPoint(grpId,point);
         this.totalPointMapper.set(field, point);
         this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
@@ -145,7 +141,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
             total = total + Number(data);
         });
         this.totalPoints = total;
-        console.log(this.totalPoints, 'POINTS');
         this.calculateThreshold(total);
         this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
         if (this.totalPoints >= 90) {
@@ -165,7 +160,6 @@ export class InstitutionalCrgGammaComponent implements OnInit {
 
     //things to do
     calculateThreshold(point: number) {
-        console.log(point);
         if (point >= 90) {
             this.patchThresholePoint('CCBL 1');
         } else if (point >= 80) {
