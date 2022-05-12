@@ -1085,14 +1085,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
+                        <tr *ngFor="let data of cadDocumentData; let i = index">
                             <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
+                            <td class="text-left pl-1">{{data?.document?.name}}</td>
                             <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                <i (click)="previewOfferLetterDocument(data?.documentPath, data?.document?.name)"
                                    class="fas fa-eye"></i></td>
                             <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                <i (click)="downloadCustomerDocument(data?.documentPath, data?.document?.name)"
                                    aria-hidden="true" class="fa fa-download"
                                    style="cursor: pointer"></i>
                             </td>
@@ -1100,6 +1100,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
 
 
