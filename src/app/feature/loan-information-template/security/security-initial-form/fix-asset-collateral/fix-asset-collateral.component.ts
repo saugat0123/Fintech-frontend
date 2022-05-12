@@ -308,11 +308,11 @@ export class FixAssetCollateralComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
-        if (ObjectUtil.isEmpty(this.securityId)) {
-            this.spinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
-            return;
-        }
+        // if (ObjectUtil.isEmpty(this.securityId)) {
+        //     this.spinner = false;
+        //     this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
+        //     return;
+        // }
         const formData: FormData = new FormData();
         // for update site visit
         if (!ObjectUtil.isEmpty(this.collateralSiteVisit.id)) {
@@ -347,7 +347,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.spinner = false;
             return;
         }
-        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
+        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityData.id, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.spinner = false;
             this.fixedAssetsForm.reset();
