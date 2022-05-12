@@ -39,6 +39,13 @@ export class InstitutionalCrgGammaComponent implements OnInit {
     customerInfoId: any;
     customerFinancialData: any;
     fiscalYears: Array<any> = new Array<any>();
+    thresholePoint : any;
+    groupLabelTotalPoint = {
+        'Financials based on audited': undefined,
+        'Sector': undefined,
+        'The Management': undefined,
+    };
+    groupTotalPoint = {};
 
     constructor(
         private crgGroupService: CrgGroupService,
@@ -59,6 +66,7 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         }
         this.questionService.getAllQuestions(0).subscribe((res: any) => {
             const questionsList = res.detail;
+            console.log(res.detail, 'GID');
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;
             });
@@ -84,8 +92,10 @@ export class InstitutionalCrgGammaComponent implements OnInit {
 
     getGroupList() {
         this.crgGroupService.getAll().subscribe((res: any) => {
+            console.log(res,'GROUP');
             this.riskGroupArray = res.detail;
             this.riskGroupArray.forEach((value: CrgGroup) => {
+                this.groupTotalPoint[value.label]['jh'] = 0;
                 this.groupLabelMap.set(value.id, value.label);
                 this.groupWeightageMap.set(value.id, value.weightage);
             });
@@ -95,7 +105,8 @@ export class InstitutionalCrgGammaComponent implements OnInit {
     buildFormAndCheckEdit() {
         const crgFormGroupObject = {
             totalPoint: 0,
-            grade: null
+            grade: null,
+            thresholePoint: null
         };
         this.totalPointMapper = new Map<string, number>();
         if (!ObjectUtil.isEmpty(this.formData)) {
@@ -120,8 +131,9 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         }
     }
 
-    onChangeOption(field, point, parameter) {
-        console.log(parameter);
+    onChangeOption(field, point, parameter, grpId) {
+        console.log(field,point,parameter, grpId);
+        this.calculateGroupTotalPoint(grpId,point);
         this.totalPointMapper.set(field, point);
         this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
         this.calculateTotalViaMap();
@@ -133,6 +145,8 @@ export class InstitutionalCrgGammaComponent implements OnInit {
             total = total + Number(data);
         });
         this.totalPoints = total;
+        console.log(this.totalPoints, 'POINTS');
+        this.calculateThreshold(total);
         this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
         if (this.totalPoints >= 90) {
             this.grading = 'Excellent';
@@ -148,6 +162,43 @@ export class InstitutionalCrgGammaComponent implements OnInit {
         this.creditRiskGrading.get('grade').patchValue(this.grading);
     }
 
+
+    //things to do
+    calculateThreshold(point: number) {
+        console.log(point);
+        if (point >= 90) {
+            this.patchThresholePoint('CCBL 1');
+        } else if (point >= 80) {
+            this.thresholePoint = 'CCBL 2';
+            this.patchThresholePoint('CCBL 2');
+        } else if (point >= 70) {
+            this.thresholePoint = 'CCBL 3';
+            this.patchThresholePoint('CCBL 3');
+        } else if (point >= 60) {
+            this.thresholePoint = 'CCBL 4';
+            this.patchThresholePoint('CCBL 4');
+        } else if (point >= 45) {
+            this.thresholePoint = 'CCBL 5';
+            this.patchThresholePoint('CCBL 5');
+        } else if (point >= 35) {
+            this.thresholePoint = 'CCBL 6';
+            this.patchThresholePoint('CCBL 6');
+        } else if (point >= 25) {
+            this.thresholePoint = 'CCBL 7';
+            this.patchThresholePoint('CCBL 7');
+        }
+    }
+
+
+    patchThresholePoint(value: any)
+    {
+        this.creditRiskGrading.get('thresholePoint').patchValue(value);
+    }
+
+    calculateGroupTotalPoint(groupId, point){
+        this.groupTotalPoint[this.groupLabelMap.get(groupId)] += Number(point);
+
+    }
 
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.formData)) {
