@@ -239,7 +239,7 @@ export class NetTradingAssetsComponent implements OnInit {
             return !ObjectUtil.isEmpty(e);
         });
         ntaFormGroup.get([header, 'average'])
-            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(2))
+            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(8))
         );
     }
 

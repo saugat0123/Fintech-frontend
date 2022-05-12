@@ -4,18 +4,54 @@
             <div class="row">
                 <div class="col-md-12 form-group">
                     <label for="previousComments"><b>Internal, Comments and Status</b></label>
-                    <textarea rows="4" class="form-control" formControlName="previousComments"
-                              id="previousComments" placeholder="Internal, Comments and Status"></textarea>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
+                            <td><textarea rows="4" class="form-control" formControlName="previousComments"
+                                          id="previousComments" placeholder="Internal, Comments and Status"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th  class="sb-bg-dark text-white">For Detail View</th>
+                            <td><ckeditor id="previousCommentsDetailView" formControlName="previousCommentsDetailView" name="previousCommentsDetailView" type="text"
+                                          [config]="ckeConfig"></ckeditor>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="col-md-12 form-group">
                     <label for="auditorComments"><b>External, Comments and Status</b></label>
-                    <textarea rows="4" class="form-control" formControlName="auditorComments"
-                              id="auditorComments" placeholder="External, Comments and Status"></textarea>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
+                            <td><textarea rows="4" class="form-control" formControlName="auditorComments"
+                                          id="auditorComments" placeholder="External, Comments and Status"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th  class="sb-bg-dark text-white">For Detail View</th>
+                            <td><ckeditor id="auditorCommentsDetailView" formControlName="auditorCommentsDetailView" name="auditorCommentsDetailView" type="text"
+                                          [config]="ckeConfig"></ckeditor>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="col-md-12 form-group">
                     <label for="nrbComments"><b>NRB, Comments and Status</b></label>
-                    <textarea rows="4" class="form-control" formControlName="nrbComments"
-                              id="nrbComments" placeholder="NRB, Comments and Status"></textarea>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
+                            <td><textarea rows="4" class="form-control" formControlName="nrbComments"
+                                          id="nrbComments" placeholder="NRB, Comments and Status"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th  class="sb-bg-dark text-white">For Detail View</th>
+                            <td><ckeditor id="nrbCommentsDetailView" formControlName="nrbCommentsDetailView" name="nrbCommentsDetailView" type="text"
+                                          [config]="ckeConfig"></ckeditor>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </form>
