@@ -113,6 +113,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     url: string
   }[] = [];
   registeredOfferLetters: Array<string> = [];
+  cadDocumentData: any
 
   // Credit risk variables ---
   creditGradeStatusBadge;
@@ -237,6 +238,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.checkDocumentStatus();
+    this.getCadDocumentByLoanId();
   }
 
   ngOnDestroy(): void {
@@ -769,4 +771,15 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
       this.hidePreviewButton = false;
     }
   }
+
+  getCadDocumentByLoanId() {
+    this.activatedRoute.queryParams.subscribe((res) => {
+      this.loanConfigId = res.loanConfigId;
+      this.customerId = res.customerId;
+      this.loanFormService.getCadDocumentByLoanId(this.customerId).subscribe(response=> {
+        this.cadDocumentData = response;
+      })
+    });
+  }
+
 }

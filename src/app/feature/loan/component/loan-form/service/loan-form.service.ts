@@ -209,4 +209,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, id, {headers: req.header});
     }
+
+    public getCadDocumentByLoanId(id: number) {
+        const api = `${this.getApi()}/cadDocument/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
