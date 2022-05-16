@@ -25,6 +25,7 @@ import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {CkEditorComponent} from '../../../../../@core/ck-editor/ck-editor.component';
 
 @Component({
     selector: 'app-customer-form',
@@ -110,6 +111,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     ckeConfig = Editor.CK_CONFIG;
     private relation = ['Grand Father', 'Father'];
     bankingRelationChecked = false;
+
+    @ViewChild('eckEditor', {static: false}) ckEditor: CkEditorComponent;
 
     ngOnInit() {
         this.getProvince();
@@ -249,6 +252,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.ckEditor.onSubmit();
+        if (this.ckEditor.form.invalid)
+            return true;
         this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
@@ -686,5 +692,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 break;
 
         }
+    }
+
+    setValue($event: any) {
+        this.basicInfo.get('introduction').patchValue($event);
+        console.log(this.basicInfo.value);
     }
 }
