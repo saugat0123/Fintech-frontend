@@ -273,7 +273,7 @@
                                         type="text">
                                     <span *ngIf="!fromLoan">{{financialData?.dnIrIssuedNum || 'N/A'}}</span>
                                     <br>
-                                    Date: <input *ngIf="fromLoan" class=" table-input disable-print" name="dnIrIssuedDate" formControlName="dnIrIssuedDate"
+                                    Date: <input *ngIf="fromLoan" class=" table-center disable-print" name="dnIrIssuedDate" formControlName="dnIrIssuedDate"
                                         [nbDatepicker]="q4" type="text">
                                     <nb-datepicker #q4></nb-datepicker>
                                     <span *ngIf="!fromLoan">{{financialData?.dnIrIssuedDate || 'N/A'}}</span>
