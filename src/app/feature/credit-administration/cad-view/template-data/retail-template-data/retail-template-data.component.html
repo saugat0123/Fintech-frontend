@@ -5,6 +5,10 @@
               (click)="nbDialogRef.close()">x</span>
     </nb-card-header>
     <nb-card-body>
+        <!-- Guarantor Tagging -->
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+
         <app-retail-global-content #retailGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                                 [isEdit]="isEdit" (globalBaseRateRetail)="getBaseRate($event)"></app-retail-global-content>
         <app-existing-loan-template-data #existingLoanContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
