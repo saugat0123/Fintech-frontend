@@ -347,7 +347,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     public saveSecurity(data: Security) {
-        console.log('security data to be saved', data);
         this.spinner.show();
         if (ObjectUtil.isEmpty(this.security)) {
             this.security = new Security();
@@ -356,7 +355,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.security = data;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
                 .subscribe((response: any) => {
-                    console.log('get security response', response.detail.securities);
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     this.setSecurity(response.detail.securities);
 

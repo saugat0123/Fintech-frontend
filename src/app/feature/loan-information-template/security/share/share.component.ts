@@ -43,6 +43,11 @@ export class ShareComponent implements OnInit {
     this.getNepseList();
     this.getLastNepsePriceInfo();
     this.getActiveShare();
+    if (!ObjectUtil.isEmpty(this.security)) {
+      this.setShareSecurityData();
+    } else {
+      this.addShareSecurity();
+    }
   }
 
   get shareField() {
@@ -51,7 +56,7 @@ export class ShareComponent implements OnInit {
 
   get totalConsideredValue() {
     let total = 0;
-    this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+    this.shareField.controls.forEach(c => total += Number(c.get('considerValue').value));
     return total.toFixed(2);
   }
 
@@ -84,12 +89,35 @@ export class ShareComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.shareSecurityForm = this.formBuilder.group({
-      shareSecurityDetails: this.formBuilder.array([this.shareSecurityFormGroup()]),
+      shareSecurityDetails: this.formBuilder.array([]),
       securityOffered: [undefined],
       loanShareRate: [undefined],
       sharePriceDate: [undefined],
       avgDaysForPrice: [undefined],
     });
+  }
+
+  private setShareSecurityData(): void {
+    const formControl = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+    const data = JSON.parse(this.security.data);
+    formControl.push(
+        this.formBuilder.group({
+          companyName: [data.companyName],
+          companyCode: [data.companyCode],
+          shareType: [data.shareType],
+          totalShareUnit: [data.totalShareUnit],
+          amountPerUnit: [data.amountPerUnit],
+          total: [data.total],
+          considerValue: [data.considerValue],
+          priceEarningRatio: [data.priceEarningRatio],
+          priceBookValue: [data.priceBookValue],
+          dividendYeild: [data.dividendYeild],
+          dividendPayoutRatio: [data.dividendPayoutRatio],
+          ratioAsPerAuitedFinancial: [data.ratioAsPerAuitedFinancial],
+          shareRate: [data.shareRate],
+          drawingPower: [data.drawingPower],
+        })
+    );
   }
 
   private calculateConsideredAmount(totalShareUnit: number, amountPerUnit: number, shareType) {
@@ -116,7 +144,7 @@ export class ShareComponent implements OnInit {
     if (key === 'share') {
       const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
           * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
-      this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
+      this.shareSecurityForm.get(['shareSecurityDetails', i, 'considerValue']).patchValue(reliasableValue);
     }
   }
 
@@ -130,7 +158,7 @@ export class ShareComponent implements OnInit {
         companyCode: matchedNepse[0].companyCode,
         amountPerUnit: matchedNepse[0].amountPerUnit,
         total: this.calculateTotalShareAmount(companyName, totalShareUnit),
-        consideredValue: this.calculateConsideredAmount(
+        considerValue: this.calculateConsideredAmount(
             this.shareField.at(index).get('totalShareUnit').value,
             this.shareField.at(index).get('amountPerUnit').value,
             matchedNepse[0].shareType
@@ -155,7 +183,7 @@ export class ShareComponent implements OnInit {
       totalShareUnit: [undefined, Validators.required],
       amountPerUnit: [undefined],
       total: [undefined],
-      consideredValue: [undefined],
+      considerValue: [undefined],
       priceEarningRatio: [undefined],
       priceBookValue: [undefined],
       dividendYeild: [undefined],
