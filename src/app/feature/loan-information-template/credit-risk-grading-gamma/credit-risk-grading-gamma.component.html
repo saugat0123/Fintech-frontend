@@ -135,7 +135,8 @@
                             </ng-container>
                         </td>
                     </ng-container>
-                    <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>
+<!--                    <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>-->
+                    <td>{{creditRiskGrading.get(crgQuestion?.description) ? creditRiskGrading.get(crgQuestion?.description).value : ''}}</td>
                 </tr>
             </ng-container>
 
