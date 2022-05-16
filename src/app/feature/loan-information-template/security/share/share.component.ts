@@ -6,6 +6,11 @@ import {ShareType} from '../../../loan/model/ShareType';
 import {Nepse} from '../../../admin/modal/nepse';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {Security} from '../../../loan/model/security';
+import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-info.service';
+import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
+import {NbToastrService} from '@nebular/theme';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-share',
@@ -15,6 +20,7 @@ import {Security} from '../../../loan/model/security';
 export class ShareComponent implements OnInit {
   shareSecurityForm: FormGroup;
   activeNepseMaster: NepseMaster = new NepseMaster();
+  nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
   nepseList: Array<Nepse> = new Array<Nepse>();
   search: any = {
     status: 'ACTIVE',
@@ -27,11 +33,16 @@ export class ShareComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private shareService: NepseService) { }
+              private shareService: NepseService,
+              private nepsePriceInfoService: NepsePriceInfoService,
+              private toastService: NbToastrService,
+              private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.buildForm();
     this.getNepseList();
+    this.getLastNepsePriceInfo();
+    this.getActiveShare();
   }
 
   get shareField() {
@@ -42,6 +53,27 @@ export class ShareComponent implements OnInit {
     let total = 0;
     this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
     return total.toFixed(2);
+  }
+
+
+  private getLastNepsePriceInfo(): void {
+    this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response: any) => {
+      this.nepsePriceInfo = response.detail;
+      this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
+      this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Unable to load data!!!'));
+    });
+  }
+
+  private getActiveShare(): void {
+    this.shareService.getActiveShare().subscribe((response: any) => {
+      this.activeNepseMaster = response.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Unable to load data!!!'));
+    });
   }
 
   private getNepseList(): void {

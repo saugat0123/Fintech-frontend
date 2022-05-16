@@ -774,7 +774,7 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
                 this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
                 this.loanDocument.crgGamma = this.loanHolder.crgGamma;
-                // this.loanDocument.security = this.loanHolder.security;
+                this.loanDocument.securities = this.loanHolder.securities;
                 this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
                 this.loanDocument.insurance = this.loanHolder.insurance;
                 this.loanDataReady = true;
