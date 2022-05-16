@@ -229,9 +229,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
             this.crgGamma = this.customerInfo.crgGamma;
         }
-        // if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-        //     this.security = this.customerInfo.security;
-        // }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
         }
