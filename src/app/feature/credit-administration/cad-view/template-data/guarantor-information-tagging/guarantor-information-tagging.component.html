@@ -1,0 +1,78 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header class="text-left">
+        <h5>Guarantor Information</h5>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="guarantorTaggingForm">
+            <div class="row mb-4">
+                <div class="col-md-12 mb-2">
+                    <div class="row mt-3">
+                    <nb-select
+                            fullWidth
+                            style="width: 95%"
+                            formControlName="guarantorTag"
+                            placeholder="Select Guarantor"
+                    (selectedChange)="setGuarantorId($event)">
+                        <nb-option *ngFor="let guarantors of guarantorsList"
+                                   [value]="guarantors?.id">{{guarantors?.name}}</nb-option>
+                    </nb-select>
+                    <button nbButton (click)="addGuarantor()" [disabled]="!buttonFlag">
+                        <em class="fa fa-plus"></em></button>
+                    </div>
+                    <div *ngIf="flagValue">
+                        <span class="font-italic" style="color: red">
+                            Selected Guarantor has already been added to the list!
+                        </span>
+                    </div>
+                    <div class="row mt-3 p-2">
+                        <label class="text-center"><strong> Tagged Guarantor Details </strong></label>
+                        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Name</th>
+                                <th>Citizenship Number</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let guaList of taggedList;let i=index">
+                                <tr class="cursor" >
+                                    <td>
+                                        {{i+1}}.
+                                    </td>
+                                    <td>
+                                        {{guaList?.name || 'N/A'}}
+                                    </td>
+                                    <td>
+                                        {{guaList?.citizenNumber || 'N/A'}}
+                                    </td>
+                                    <td>
+                                        {{getAddress(guaList) || 'N/A'}}
+                                    </td>
+                                    <td>
+                                        {{guaList?.contactNumber || 'N/A'}}
+                                    </td>
+                                    <td>
+                                        <button nbButton size="tiny" (click)="removeAtIndex(i)"
+                                                style="position: static" class="d-print-none">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="saveGuarantorTagged()">
+                                Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

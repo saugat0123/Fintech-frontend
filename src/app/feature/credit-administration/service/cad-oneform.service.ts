@@ -143,4 +143,10 @@ export class CadOneformService extends BaseService<any> {
         return this.http.post(req.url, proposal, {headers: req.header});
     }
 
+    public saveTaggedGuarantors(obj: any): Observable<any> {
+        const api = `${this.getApi()}/tagged-guarantors`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
 }
