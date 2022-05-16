@@ -163,10 +163,10 @@ export class ProposalComponent implements OnInit {
             this.setCheckedData(this.checkedDataEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
             this.interestLimit = this.formDataForEdit['interestRate'];
-            /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
+            /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);
             this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.dateOfExpiry)
                 ? new Date(this.formDataForEdit.dateOfExpiry) : undefined);
-            this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);
+            this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);*/
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
             if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
                 this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -222,7 +222,7 @@ export class ProposalComponent implements OnInit {
             .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(8)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
             .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(8)));
-        this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
+        // this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
         this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
             this.proposalForm.get('principalAmount')
@@ -315,11 +315,11 @@ export class ProposalComponent implements OnInit {
             collateralRequirement: [undefined, Validators.required],
             swapCharge: [undefined],
             subsidizedLoan: [undefined],
-            limitExpiryMethod: [undefined, Validators.required],
+            /*limitExpiryMethod: [undefined, Validators.required],
             duration: [undefined, Validators.required],
             condition: [undefined, Validators.required],
             frequency: [undefined, Validators.required],
-            dateOfExpiry: [undefined, Validators.required],
+            dateOfExpiry: [undefined, Validators.required],*/
             remark: [undefined],
             cashMargin: [undefined],
             commissionPercentage: [undefined],
@@ -740,7 +740,7 @@ export class ProposalComponent implements OnInit {
     }
   }
 
-  checkLimitExpiryBuildValidation(limitExpiry) {
+ /* checkLimitExpiryBuildValidation(limitExpiry) {
     if (limitExpiry === 'ABSOLUTE') {
       this.absoluteSelected = true;
       this.customSelected = false;
@@ -769,7 +769,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
 
     }
-  }
+  }*/
 
   checkInstallmentAmount() {
     if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
