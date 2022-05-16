@@ -112,4 +112,5 @@ export class LoanDataHolder extends BaseEntity {
     creditRisk: number;
     paperProductChecklist: string;
     cadStageChecked: boolean;
+    financialAccountInformation: string;
 }

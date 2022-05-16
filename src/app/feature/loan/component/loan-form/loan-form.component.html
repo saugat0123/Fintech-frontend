@@ -234,7 +234,7 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial/Account Information'">
-                        <app-financial-account-information></app-financial-account-information>
+                        <app-financial-account-information #financialAccountDetail [financialFormValue]="getFinancialAccountInfo()"></app-financial-account-information>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
