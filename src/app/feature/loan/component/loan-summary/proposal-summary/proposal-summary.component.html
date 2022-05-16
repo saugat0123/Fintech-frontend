@@ -74,7 +74,10 @@
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1">
+                    {{ loan?.loanType === 'FULL_SETTLEMENT_LOAN' || loan?.loanType === 'CLOSURE_LOAN' ?
+                    '-' : 'Rs. ' + (loan?.proposal?.proposedLimit | currencyFormatter) }}
+                </td>
 
                 <td class="text-right pr-1">
                     <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 && loan.loanType !== LoanType.NEW_LOAN ">
@@ -183,7 +186,10 @@
                     <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1">Rs. {{loanDto?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1"> {{
+                    loanDto?.loanType === 'FULL_SETTLEMENT_LOAN' || loanDto?.loanType === 'CLOSURE_LOAN'
+                        ? ' - ' : 'Rs. ' + (loanDto?.proposal?.proposedLimit | currencyFormatter)
+                    }}</td>
 
                 <td class="text-right pr-1">
                     <span *ngIf="(loanDto?.loanConfig?.isFundable) && ((loanDto?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
