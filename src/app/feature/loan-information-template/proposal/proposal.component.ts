@@ -91,6 +91,9 @@ export class ProposalComponent implements OnInit {
       this.formDataForEdit = JSON.parse(this.formValue.data);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
+      if (ObjectUtil.isEmpty(this.formDataForEdit['settlementAmount'])) {
+        this.proposalForm.get('settlementAmount').patchValue(this.formValue.existingLimit);
+      }
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
@@ -252,7 +255,7 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT' || this.loanType === 'CLOSURE_LOAN') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
       this.proposalForm.get('outStandingLimit');

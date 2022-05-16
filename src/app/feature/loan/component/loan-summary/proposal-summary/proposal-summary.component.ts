@@ -47,6 +47,7 @@ export class ProposalSummaryComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
+    PROPOSED_FILTER_KEY = 'proposedLimit';
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -68,12 +69,26 @@ export class ProposalSummaryComponent implements OnInit {
     public getTotal(key: string): number {
         const tempList = this.customerAllLoanList
             .filter(l => JSON.parse(l.proposal.data)[key]);
-        let total = tempList
-            .map(l => JSON.parse(l.proposal.data)[key])
-            .reduce((a, b) => a + b, 0);
+        let total = 0;
+        if (key === 'proposedLimit') {
+            total = tempList
+                .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+                .map(l => JSON.parse(l.proposal.data)[key])
+                .reduce((a, b) => a + b, 0);
+        } else {
+            total = tempList
+                .map(l => JSON.parse(l.proposal.data)[key])
+                .reduce((a, b) => a + b, 0);
+        }
         if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
             this.customerLoanDtoList.forEach(cdl => {
-               total += JSON.parse(cdl.proposal.data)[key];
+                if (key === this.PROPOSED_FILTER_KEY) {
+                    if (cdl.loanType.toString() === 'FULL_SETTLEMENT_LOAN' || cdl.loanType.toString() === 'CLOSURE_LOAN') {
+                        return this.isNumber(total);
+                    }
+                }
+               total += !ObjectUtil.isEmpty(JSON.parse(cdl.proposal.data)[key]) ?
+                   JSON.parse(cdl.proposal.data)[key] : 0;
             });
         }
         return this.isNumber(total);
@@ -85,27 +100,53 @@ export class ProposalSummaryComponent implements OnInit {
         if (funded) {
             const tempList = this.customerFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
-            numb = tempList
-                .map(l => JSON.parse(l.proposal.data)[key])
-                .reduce((a, b) => a + b, 0);
+            if (key === this.PROPOSED_FILTER_KEY) {
+                numb = tempList
+                    .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+                    .map(l => JSON.parse(l.proposal.data)[key])
+                    .reduce((a, b) => a + b, 0);
+            } else {
+                numb = tempList
+                    .map(l => JSON.parse(l.proposal.data)[key])
+                    .reduce((a, b) => a + b, 0);
+            }
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
                 const tempCustomerLoanDtoList = this.customerLoanDtoList
                     .filter(l => l.isFundable);
                 tempCustomerLoanDtoList.forEach(cdl => {
-                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                    if (key === this.PROPOSED_FILTER_KEY) {
+                        if (cdl.loanType.toString() === 'FULL_SETTLEMENT_LOAN' || cdl.loanType.toString() === 'CLOSURE_LOAN') {
+                            return this.isNumber(numb);
+                        }
+                    }
+                    numb += !ObjectUtil.isEmpty(JSON.parse(cdl.proposal.data)[key]) ?
+                        JSON.parse(cdl.proposal.data)[key] : 0;
                 });
             }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
-            numb = tempList
-                .map(l => JSON.parse(l.proposal.data)[key])
-                .reduce((a, b) => a + b, 0);
+            if (key === this.PROPOSED_FILTER_KEY) {
+                numb = tempList
+                    .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+                    .map(l => JSON.parse(l.proposal.data)[key])
+                    .reduce((a, b) => a + b, 0);
+            } else {
+                numb = tempList
+                    .map(l => JSON.parse(l.proposal.data)[key])
+                    .reduce((a, b) => a + b, 0);
+            }
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
                 const tempCustomerLoanDtoList = this.customerLoanDtoList
                     .filter(l => !l.isFundable);
                 tempCustomerLoanDtoList.forEach(cdl => {
-                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                    if (key === this.PROPOSED_FILTER_KEY) {
+                        if (cdl.loanType.toString() === 'FULL_SETTLEMENT_LOAN' || cdl.loanType.toString() === 'CLOSURE_LOAN') {
+                            return this.isNumber(numb);
+                        }
+                    }
+                    numb += !ObjectUtil.isEmpty(JSON.parse(cdl.proposal.data)[key]) ?
+                        JSON.parse(cdl.proposal.data)[key] : 0;
                 });
             }
         }
