@@ -990,8 +990,8 @@
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-start align-items-center">
                                             <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
+                                                <b>Fixed Assets Summary</b>
                                             </nb-checkbox>&nbsp;
-                                            <h6><strong>Fixed Assets Summary</strong></h6>
                                         </div>
                                     </div>
                                     <table *ngIf="fixedAssetsChecked" class="table table-sm table-bordered table-hover sb-small text-center">
@@ -1029,12 +1029,12 @@
                                 <div class="col-md-12 form-group" *ngIf="isSbk">
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                            <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="fixedAssetsChecked">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="summaryEnvChecked">
+                                                <b>Summary of Environment & Social Risk Assessment</b>
                                             </nb-checkbox>&nbsp;
-                                            <h6><strong>Summary of Environment & Social Risk Assessment</strong></h6>
                                         </div>
                                     </div>
-                                    <table *ngIf="summaryEnvChecked" class="table table-sm table-bordered table-hover sb-small text-center">
+                                    <table *ngIf="summaryEnvChecked" [formGroup] = "proposalForm.get('summaryEnvironment')" class="table table-sm table-bordered table-hover sb-small text-center">
                                         <thead>
                                             <tr class="sb-bg-dark text-white">
                                                 <th>S.N</th>
@@ -1047,10 +1047,10 @@
                                                 <td>1</td>
                                                 <td class="text-left">Falls under Exclusion and critical sector list</td>
                                                 <td class="text-center">
-                                                    <nb-radio-group class="d-inline-flex">
-                                                        <nb-radio>Yes</nb-radio>
-                                                        <nb-radio>No</nb-radio>
-                                                        <nb-radio>NA</nb-radio>
+                                                    <nb-radio-group formControlName="criticalSector" name="criticalSector" class="d-inline-flex">
+                                                        <nb-radio name="criticalSector"  [value]="true">Yes</nb-radio>
+                                                        <nb-radio name="criticalSector" [value]="false">No</nb-radio>
+                                                        <nb-radio name="criticalSector" value='NA'>NA</nb-radio>
                                                     </nb-radio-group>
                                                 </td>
                                             </tr>
@@ -1058,10 +1058,10 @@
                                                 <td>2</td>
                                                 <td class="text-left">E & S Due Diligence process Applicable</td>
                                                 <td class="text-center">
-                                                    <nb-radio-group class="d-inline-flex">
-                                                        <nb-radio [value]="true">Yes</nb-radio>
-                                                        <nb-radio [value]="false">No</nb-radio>
-                                                        <nb-radio [value]="">NA</nb-radio>
+                                                    <nb-radio-group formControlName="processApplicable" name="processApplicable"  class="d-inline-flex">
+                                                        <nb-radio name="processApplicable" [value]="true">Yes</nb-radio>
+                                                        <nb-radio name="processApplicable" [value]="false">No</nb-radio>
+                                                        <nb-radio name="processApplicable" [value]="">NA</nb-radio>
                                                     </nb-radio-group>
                                                 </td>
                                             </tr>
@@ -1083,7 +1083,7 @@
                                                 <td>4</td>
                                                 <td class="text-left">Falls under Exclusion and critical sector list </td>
                                                 <td>
-                                                    <input class="cellInput text-center" type="text">
+                                                    <input class="cellInput text-center" formControlName="criticalSectorList" type="text">
                                                 </td>
                                             </tr>
                                         </tbody>

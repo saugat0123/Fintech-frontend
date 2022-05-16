@@ -30,6 +30,7 @@ import {NetWorthModule} from '../newt-worth/net-worth-module';
 import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
 import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
+import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import {SecurityAdderComponent} from './security-view/security-adder/security-ad
         NepaliCalendarModule,
         NepaliPatroModule,
         NetWorthModule,
+        FinancialAccountInformationModule,
     ],
     entryComponents: [
         AllDocumentViewComponent

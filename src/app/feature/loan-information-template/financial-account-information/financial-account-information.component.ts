@@ -10,18 +10,20 @@ import { LoanDataHolder } from '../../loan/model/loanData';
 })
 export class FinancialAccountInformationComponent implements OnInit {
   financialAccountForm: FormGroup;
-  financialAccountData = new LoanDataHolder();
-  @Input() financialFormValue = LoanDataHolder;
+  @Input() financialFormValue: LoanDataHolder;
+  @Input() fromLoan: boolean;
+  financialData;
 
   constructor(
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.financialFormValue)) {
-      this.financialAccountForm.patchValue(this.financialFormValue);
-    }
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.financialFormValue.financialAccountInformation)) {
+      this.financialData = JSON.parse(this.financialFormValue.financialAccountInformation);
+      this.financialAccountForm.patchValue(this.financialData);
+    }
   }
 
   buildForm() {
@@ -63,8 +65,8 @@ export class FinancialAccountInformationComponent implements OnInit {
     });
   }
 
-  // submitForm() {
-  //   this.financialAccountData.financialAccountInformation = JSON.stringify(this.financialAccountForm.value);
-  // }
+  submitForm() {
+    this.financialData = JSON.stringify(this.financialAccountForm.value);
+  }
 
 }

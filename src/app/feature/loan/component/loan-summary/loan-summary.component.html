@@ -507,7 +507,7 @@
                 </div>
             </div>
                 <hr class="print-line">
-                <p class="header"><strong   class="header">Applicant/Guarantor Profile</strong></p>
+                <p class="header" [hidden]="smallBusiness"><strong   class="header">Applicant/Guarantor Profile</strong></p>
             <div class ="row">
                 <div class="col-md-12">
                     <app-remit-profile  [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
@@ -878,11 +878,11 @@
                                 <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                                 </p>
                     </div>
-                    <div class="col-md-12" *ngIf="smallBusiness && (proposalAllData?.checkedData | jsonParse)?.borrowChecked">
+                    <div class="col-md-12" *ngIf="smallBusiness && checkedData?.borrowChecked">
                         <hr class="print-line">
                         <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
                     </div>
-                    <div class="col-md-12" *ngIf="smallBusiness && (proposalAllData?.checkedData | jsonParse)?.endUseChecked">
+                    <div class="col-md-12" *ngIf="smallBusiness && checkedData?.endUseChecked">
                         <hr class="print-line">
                         <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
                     </div>

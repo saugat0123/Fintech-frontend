@@ -232,7 +232,7 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('productPaperChecklistComponent', {static: false})
     productPaperChecklistComponent: ProductPaperChecklistComponent;
 
-    @ViewChild('financialAccountInformationComponent', {static: false})
+    @ViewChild('financialAccountDetail', {static: false})
     financialAccountDetail: FinancialAccountInformationComponent;
 
 
@@ -679,7 +679,8 @@ export class LoanFormComponent implements OnInit {
             this.allIds = obj.id;
         }
         if (name === 'Financial/Account Information' && action) {
-            this.loanDocument.financialAccountInformation = JSON.stringify(this.financialAccountDetail.financialAccountData);
+            this.financialAccountDetail.submitForm();
+            this.loanDocument.financialAccountInformation = this.financialAccountDetail.financialData;
         }
 
         if (name === 'Security' && action) {
