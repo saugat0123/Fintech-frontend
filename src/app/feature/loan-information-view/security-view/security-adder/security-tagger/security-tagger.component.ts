@@ -21,6 +21,7 @@ export class SecurityTaggerComponent implements OnInit {
     spinner = false;
     securityPresent = [];
     securityList: Array<Security> = new Array<Security>();
+    coverage = 0;
 
   constructor(private formBuilder: FormBuilder,
               private securityLoanReferenceService: SecurityLoanReferenceService) { }
@@ -53,6 +54,7 @@ export class SecurityTaggerComponent implements OnInit {
                         }
                     });
                 });
+                this.calculateCoverage(this.securityList);
             });
     }
 
@@ -134,11 +136,22 @@ export class SecurityTaggerComponent implements OnInit {
                 this.securityList.splice(idx, 1);
             }
             this.securityList.push(security.value);
-            console.log(this.securityList);
+            const securityList = this.securityList;
+            this.calculateCoverage(securityList);
     }
 
     public removeSecurity(idx): void {
         this.securityList.splice(idx, 1);
+        const security = this.securityList;
+        this.calculateCoverage(security);
+    }
+
+    public calculateCoverage(securityList: any) {
+        let coveragePercent = 0;
+        securityList.forEach((security: any) => {
+            coveragePercent += security.coverage;
+            this.coverage = coveragePercent;
+        });
     }
 
 }
