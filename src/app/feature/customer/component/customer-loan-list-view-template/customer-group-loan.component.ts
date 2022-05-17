@@ -33,6 +33,7 @@ import {LoanTag} from '../../../loan/model/loanTag';
   styleUrls: ['./customer-group-loan.component.scss']
 })
 export class CustomerGroupLoanComponent implements OnInit, OnChanges {
+  @Output() refreshCustomerInfo = new EventEmitter<boolean>();
 
   constructor(private router: Router,
               private customerService: CustomerService,
@@ -161,6 +162,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.spinner = true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
+      this.refreshCustomerInfo.emit(true);
       this.loanHistories = this.groupCombinedLoan(this.customerGroupLoanList);
       this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
       this.spinner = false;
