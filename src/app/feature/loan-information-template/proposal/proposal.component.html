@@ -45,10 +45,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">
+                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'CLOSURE_LOAN'">
                                     <div class="form-group">
-                                        <label class="title" for="settlementAmount"></label>
-                                        <strong>Settlement Amount</strong>
+                                        <label class="title" for="settlementAmount">
+                                            <strong>Settlement Amount</strong>
+                                        </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.settlementAmount.errors }"
                                                (keyup)="calculateLimitValues()"
@@ -80,6 +81,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
@@ -782,6 +784,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                </ng-container>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="remark">
@@ -792,6 +796,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
@@ -911,6 +916,7 @@
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
+                                </ng-container>
                             </div>
 
                         </form>
