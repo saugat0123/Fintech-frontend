@@ -676,20 +676,35 @@ export class ProposalComponent implements OnInit {
 
   calculateEmiEqiAmount(repaymentMode) {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
+    const moratoriumPeriod = this.proposalForm.get('moratoriumPeriod').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
     const n = this.proposalForm.get('tenureDurationInMonths').value;
-    if (proposedAmount && rate && n) {
-      const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-      switch (repaymentMode) {
-        case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
-          break;
-        case 'eqi':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
-          break;
-      }
+    if (!ObjectUtil.isEmpty(moratoriumPeriod)) {
+        if (!ObjectUtil.isEmpty(n) && !ObjectUtil.isEmpty(proposedAmount)) {
+            const emi = Number(proposedAmount / Number(n - moratoriumPeriod));
+            switch (repaymentMode) {
+                case 'emi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
+                    break;
+                case 'eqi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
+                    break;
+            }
+        }
     } else {
-      this.proposalForm.get('installmentAmount').patchValue(undefined);
+        if (proposedAmount && rate && n) {
+            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+            switch (repaymentMode) {
+                case 'emi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
+                    break;
+                case 'eqi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
+                    break;
+            }
+        } else {
+            this.proposalForm.get('installmentAmount').patchValue(undefined);
+        }
     }
   }
 
