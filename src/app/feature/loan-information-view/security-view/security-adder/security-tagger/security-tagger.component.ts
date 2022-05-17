@@ -30,15 +30,31 @@ export class SecurityTaggerComponent implements OnInit {
     if (this.securities.length > 0) {
       this.setSecurities(this.securities);
       this.toggleSecurity();
+      this.getAllSecurityByLoanHolderId();
     }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {
-          this.securityList = this.loanDataHolder.securities;
-      }
   }
 
   get securityControls(): FormArray {
     return this.securityForm.get('securityDetails') as FormArray;
   }
+
+    private getAllSecurityByLoanHolderId(): void {
+        this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.id).subscribe(
+            (response: any) => {
+                this.securityList = [];
+                const data = response.detail;
+                (this.securityForm.get('securityDetails').value).forEach((d, i) => {
+                    data.forEach((dd) => {
+                        if (d.id === dd.securityId) {
+                            d.usedAmount = dd.usedAmount;
+                            d.coverage = dd.coverage;
+                            d.freeLimit = this.toggleArray[i].freeLimit;
+                            this.securityList.push(d);
+                        }
+                    });
+                });
+            });
+    }
 
   private buildForm(): FormGroup {
     return this.securityForm = this.formBuilder.group({
