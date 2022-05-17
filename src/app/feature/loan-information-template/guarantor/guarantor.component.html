@@ -40,8 +40,8 @@
                                     <div class = "form-group">
                                         <label for="name"><strong>Type</strong></label>
                                         <select
-                                                class="form-control" formControlName="type"
-                                                name="type">
+                                                class="form-control" formControlName="guarantorType"
+                                                name="guarantorType">
                                             <option [value]="null">Select type</option>
                                             <option *ngFor="let designations of designation"
                                                     [ngValue]="designations.id">{{designations.name}}</option>
@@ -1184,7 +1184,7 @@
                                     </thead>
                                     <tbody>
                                     <ng-container formArrayName="background">
-                                        <tr *ngFor="let background of guarantorDetails.get('promoterData').get('background')['controls']; let j = index;">
+                                        <tr *ngFor="let background of guarantorDetails.get('promoterData').get('background')['controls']; let j = index;" [formGroupName]="j">
                                             <td>{{j + 1}}</td>
                                             <td><input type="text" formControlName="previousAssociations"></td>
                                             <td><input type="text" formControlName="natureOfBusiness"></td>
@@ -1202,6 +1202,38 @@
                                 <div class="text-right">
                                     <button (click)="addBackground(i)" class="btn btn-sm btn-flat btn-primary">
                                         Add Background
+                                    </button>
+                                </div>
+                                <table  class="table table-sm table-bordered table-hover sb-small text-center">
+                                    <thead>
+                                    <tr class="sb-bg-dark text-white">
+                                        <th>S.N</th>
+                                        <th>Undivided Adult Family Members</th>
+                                        <th>Relation</th>
+                                        <th>Age</th>
+                                        <th>Profession</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container formArrayName="familyDetails">
+                                        <tr *ngFor="let familyDetails of guarantorDetails.get('promoterData').get('familyDetails')['controls']; let j = index;" [formGroupName]="j">
+                                            <td>{{j + 1}}</td>
+                                            <td><input type="text" formControlName="name"></td>
+                                            <td><input type="text" formControlName="relation"></td>
+                                            <td><input type="text" formControlName="age"></td>
+                                            <td>
+                                                <input type="text" formControlName="profession">
+                                            </td>
+                                            <td><a href="javascript:void(0)" (click)="removeFamily(i,j)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i></a></td>
+                                        </tr>
+
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <button (click)="addFamily(i)" class="btn btn-sm btn-flat btn-primary">
+                                        Add Family
                                     </button>
                                 </div>
 
