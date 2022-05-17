@@ -718,7 +718,7 @@
                             <td>3</td>
                             <td class="text-left">Level of Risk </td>
                             <td>
-                                {{proposalAllData?.summaryEnvironment?.criticalSector || 'NA'}}
+                                {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
 
                             </td>
@@ -1097,6 +1097,8 @@
                         </table>
                     </div>
                 </div>
+                <app-product-paper-checklist *ngIf="paperChecklist || smallBusiness" [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan" [allIds]="allIds" [paper]="paperChecklist"></app-product-paper-checklist>
+                <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 <!--                <div *ngIf="minOneInsuranceDoc" class="row ">-->
 <!--                    <div class="col-md-12">-->
 <!--                        <p class="header"><strong>Insurance Documents</strong></p>-->
@@ -1247,96 +1249,96 @@
                 </div>
             </div>
             <br>
-<!--            <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>-->
-                <app-product-paper-checklist *ngIf="paperChecklist" [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan" [allIds]="allIds" [paper]="paperChecklist"></app-product-paper-checklist>
-            <div *ngIf="loanDataHolder?.customerOfferLetter"
-                 class="row justify-content-between pt-5 disable-print"
-                 id="offerLetterDiv">
-                <div class="col-md-12">
-                    <p class="header"><strong   class="header">Offer Letter Authority Section</strong></p>
-                </div>
-                <div class="col-md-12">
-                    <table
-                            class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>S.N</th>
-                            <th>From User</th>
-                            <th>From Position</th>
-                            <th>To User</th>
-                            <th>To Position</th>
-                            <th>Status</th>
-                            <th class="cmt-width">Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{previousList?.fromUser?.name}}</td>
-                            <td class="text-left pl-1">{{previousList?.fromRole?.roleName}}</td>
-                            <td class="text-left pl-1">{{previousList?.toUser?.name}}</td>
-                            <td class="text-left pl-1">{{previousList?.toRole?.roleName}}</td>
-                            <td class="text-left pl-1">{{previousList?.docAction}}</td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment)"></span>
-                                </div>
-                                <a (click)="open(previousList?.comment)"
-                                   *ngIf="previousList?.comment?.length > 50"
-                                   class="text-left pl-1 read-margin">read more ....</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
-                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
-                                    :
-                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
-                                </div>
-                                <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
-                                   *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
-                                   class="text-left pl-1 read-margin">read more ....</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
-            <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
-                <div class="col-md-12">
-                    <p><strong>Offer Letter Documents</strong></p>
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>S.N</th>
-                            <th>Document</th>
-                            <th>Preview</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{offerLetterDocument?.name}}</td>
-                            <td><i
-                                    (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
-                                    aria-hidden="true" class="fa fa-eye"
-                                    style="cursor: pointer"></i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+<!--                <div *ngIf="loanDataHolder?.customerOfferLetter"-->
+<!--                 class="row justify-content-between pt-5 disable-print"-->
+<!--                 id="offerLetterDiv">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p class="header"><strong   class="header">Offer Letter Authority Section</strong></p>-->
+<!--                </div>-->
+<!--                <div class="col-md-12">-->
+<!--                    <table-->
+<!--                            class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">-->
+<!--                        <thead>-->
+<!--                        <tr class="text-white sb-bg-dark">-->
+<!--                            <th>S.N</th>-->
+<!--                            <th>From User</th>-->
+<!--                            <th>From Position</th>-->
+<!--                            <th>To User</th>-->
+<!--                            <th>To Position</th>-->
+<!--                            <th>Status</th>-->
+<!--                            <th class="cmt-width">Remarks</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">-->
+<!--                            <td>{{i + 1}}</td>-->
+<!--                            <td class="text-left pl-1">{{previousList?.fromUser?.name}}</td>-->
+<!--                            <td class="text-left pl-1">{{previousList?.fromRole?.roleName}}</td>-->
+<!--                            <td class="text-left pl-1">{{previousList?.toUser?.name}}</td>-->
+<!--                            <td class="text-left pl-1">{{previousList?.toRole?.roleName}}</td>-->
+<!--                            <td class="text-left pl-1">{{previousList?.docAction}}</td>-->
+<!--                            <td class="text-left">-->
+<!--                                <div class="pl-1">-->
+<!--                                    <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?-->
+<!--                                    previousList?.comment?.substring(0, 49) :-->
+<!--                                    previousList?.comment)"></span>-->
+<!--                                </div>-->
+<!--                                <a (click)="open(previousList?.comment)"-->
+<!--                                   *ngIf="previousList?.comment?.length > 50"-->
+<!--                                   class="text-left pl-1 read-margin">read more ....</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>-->
+<!--                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>-->
+<!--                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}</td>-->
+<!--                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>-->
+<!--                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>-->
+<!--                            <td class="text-left pl-1">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>-->
+<!--                            <td class="text-left">-->
+<!--                                <div class="pl-1">-->
+<!--                                    {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?-->
+<!--                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)-->
+<!--                                    :-->
+<!--                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}-->
+<!--                                </div>-->
+<!--                                <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"-->
+<!--                                   *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"-->
+<!--                                   class="text-left pl-1 read-margin">read more ....</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p><strong>Offer Letter Documents</strong></p>-->
+<!--                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">-->
+<!--                        <thead>-->
+<!--                        <tr class="text-white sb-bg-dark">-->
+<!--                            <th>S.N</th>-->
+<!--                            <th>Document</th>-->
+<!--                            <th>Preview</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">-->
+<!--                            <td>{{i + 1}}</td>-->
+<!--                            <td class="text-left pl-1">{{offerLetterDocument?.name}}</td>-->
+<!--                            <td><i-->
+<!--                                    (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"-->
+<!--                                    aria-hidden="true" class="fa fa-eye"-->
+<!--                                    style="cursor: pointer"></i>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
             </div>
         </nb-card-body>
     </nb-card>

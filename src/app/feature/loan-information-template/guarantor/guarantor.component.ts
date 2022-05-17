@@ -19,6 +19,7 @@ import {Gender} from '../../../@core/model/enum/gender';
 import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {DesignationList} from '../../loan/model/designationList';
 
 @Component({
   selector: 'app-guarantor',
@@ -60,6 +61,9 @@ export class GuarantorComponent implements OnInit {
   question = ['Yes', 'No'];
   designationList = [];
   spinner = false;
+  designation;
+  designationLists: DesignationList = new DesignationList();
+
 
   constructor(
       private formBuilder: FormBuilder,
@@ -71,6 +75,7 @@ export class GuarantorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.designation = this.designationLists.designation;
     this.buildForm();
     this.getProvince();
     this.getAllDistrict();
@@ -253,7 +258,37 @@ export class GuarantorComponent implements OnInit {
       registrationDate: [undefined],
       registrationWith: [undefined],
       groupName: [undefined],
+      type: [undefined],
+      promoterData: this.formBuilder.group({
+        background: this.formBuilder.array([]),
+        familyDetails: this.formBuilder.array([])
+      })
     });
+  }
+
+  addBackground(i: number) {
+    (this.form.get(['guarantorDetails', i , 'background']) as FormArray).push(this.formBuilder.group({
+      previousAssociations: [undefined],
+      natureOfBusiness: [undefined],
+      capacity: [undefined],
+      tenure: [undefined],
+    }));
+  }
+
+  removeBackground(i: number, j: number) {
+    (this.form.get(['guarantorDetails', i, 'background']) as FormArray).removeAt(j);
+  }
+  addFamily(i: number) {
+    (this.form.get(['guarantorDetails', i , 'familyDetails']) as FormArray).push(this.formBuilder.group({
+      previousAssociations: [undefined],
+      natureOfBusiness: [undefined],
+      capacity: [undefined],
+      tenure: [undefined],
+    }));
+  }
+
+  removeFamily(i: number, j: number) {
+    (this.form.get(['guarantorDetails', i, 'familyDetails']) as FormArray).removeAt(j);
   }
 
   removeGuarantorDetails(index: number) {
