@@ -69,9 +69,9 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('remarks').invalid}"
+                                    <textarea rows="3" [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('remarks').invalid}"
                                            formControlName="remarks" placeholder="Remarks"
-                                           type="text" class="form-control">
+                                              type="text" class="form-control"></textarea>
                                     <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                 </div>
                             </div>
@@ -197,9 +197,9 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('remarks').invalid}"
+                                    <textarea rows="3" [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('remarks').invalid}"
                                            formControlName="remarks" placeholder="Remarks"
-                                           type="text" class="form-control">
+                                              type="text" class="form-control"></textarea>
                                     <span *ngIf="expensesOfBorrower.get('remarks').invalid"
                                           class="invalid-feedback">Remarks is required</span>
                                 </div>
