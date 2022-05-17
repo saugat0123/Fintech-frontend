@@ -694,7 +694,6 @@ export class ProposalComponent implements OnInit {
     } else {
         if (proposedAmount && rate && n) {
             const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-            console.log(emi, 'emi');
             switch (repaymentMode) {
                 case 'emi':
                     this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
