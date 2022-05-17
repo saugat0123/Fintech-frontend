@@ -383,7 +383,7 @@
         </div>
       </nb-card-header>
       <nb-card-body>
-        <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+        <app-customer-group-loan #groupLoan (messageToEmit)="getTotalLoanAmount($event)"
                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
                                  [customerLoans]="customerLoans"
                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
