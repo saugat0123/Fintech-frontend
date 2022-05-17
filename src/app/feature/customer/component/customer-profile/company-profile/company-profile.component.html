@@ -387,6 +387,7 @@
                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
                                  [customerLoans]="customerLoans"
                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                 (refreshCustomerInfo)="refreshCustomerInfo()"
         ></app-customer-group-loan>
       </nb-card-body>
       <nb-card-footer>
