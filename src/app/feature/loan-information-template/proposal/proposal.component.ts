@@ -98,7 +98,8 @@ export class ProposalComponent implements OnInit {
       if (this.proposalForm.get('subsidyLoanType').value === 'Others') {
         this.othersSubsidyLoan = true;
       }
-      if (ObjectUtil.isEmpty(this.formDataForEdit['settlementAmount'])) {
+      if (ObjectUtil.isEmpty(this.formDataForEdit['settlementAmount']) && this.loanType === 'FULL_SETTLEMENT_LOAN'
+          || this.loanType === 'CLOSURE_LOAN') {
         this.proposalForm.get('settlementAmount').patchValue(this.formValue.existingLimit);
       }
       this.setCheckedData(this.checkedDataEdit);
