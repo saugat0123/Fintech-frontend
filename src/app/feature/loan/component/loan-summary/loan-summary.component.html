@@ -507,7 +507,7 @@
                 </div>
             </div>
                 <hr class="print-line">
-                <p class="header" [hidden]="smallBusiness"><strong   class="header">Applicant/Guarantor Profile</strong></p>
+                <p class="header" [hidden]="!individual"><strong   class="header">Applicant/Guarantor Profile</strong></p>
             <div class ="row">
                 <div class="col-md-12">
                     <app-remit-profile  [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
@@ -523,6 +523,11 @@
                     <app-company-info-summary [approveSheet]="notApprove"
                                               [companyInfo]="loanDataHolder?.companyInfo"
                                               [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                </div>
+                <div class="col-md-12">
+                    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [individual] = "individual"
+                                        [loanDataHolder]="loanDataHolder"
+                                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
                 </div>
             </div>
             <ng-container>
@@ -619,22 +624,20 @@
             </ng-container>
         </div>
         <div *ngIf="!individual">
-        <ng-container *ngIf="smallBusiness">
             <div class = "col-md-12">
                 <hr class="print-line">
                 <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                 </p>
             </div>
-            <div class="col-md-12" *ngIf="smallBusiness && checkedData?.borrowChecked">
+            <div class="col-md-12" *ngIf="!individual && checkedData?.borrowChecked">
                 <hr class="print-line">
                 <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
             </div>
-            <div class="col-md-12" *ngIf="smallBusiness && checkedData?.endUseChecked">
+            <div class="col-md-12" *ngIf="!individual && checkedData?.endUseChecked">
                 <hr class="print-line">
                 <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
             </div>
-        </ng-container>
-            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && !smallBusiness" [individual] = "individual"
+            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && individual" [individual] = "individual"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
           <ng-container *ngIf="smallBusiness">
@@ -984,7 +987,7 @@
                     </tr>
                 </table>
             </div>
-                <div class="row" *ngIf="!smallBusiness">
+                <div class="row" *ngIf="individual">
                     <div class = "col-md-12">
                         <hr class="print-line">
                                 <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>

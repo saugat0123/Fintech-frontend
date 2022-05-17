@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Occupation} from '../../admin/modal/occupation';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {Guarantor} from '../../loan/model/guarantor';
 
 @Component({
   selector: 'app-guarantor-view',
@@ -8,43 +9,48 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
   styleUrls: ['./guarantor-view.component.scss']
 })
 export class GuarantorViewComponent implements OnInit {
-  @Input() guarantorData;
+  @Input() guarantorData: Array<Guarantor>;
   @Input() individual;
+  @Input() loanDataHolder: LoanDataHolder;
   Occupation = Occupation;
   newGuarantor = [];
+  promoter = [];
+  promoterBackground = [];
   cgid;
   constructor() { }
 
   ngOnInit() {
+    this.newGuarantor = this.constructGuarantor(this.guarantorData);
+    this.filterPromoter();
+  }
+  filterPromoter() {
+    this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
+      if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
+        return d;
+      }
+    });
+    this.promoter = this.constructGuarantor(this.promoterBackground);
+  }
+
+  constructGuarantor(array) {
     let innerGuarantor = [];
-    this.guarantorData.forEach((g, i) => {
+    const newGuarantor = [];
+    array.forEach((g, i) => {
       innerGuarantor.push(g);
       if ((i + 1) % 2 === 0) {
         if (innerGuarantor.length > 0) {
-          this.newGuarantor.push(innerGuarantor);
+          newGuarantor.push(innerGuarantor);
         }
         innerGuarantor = [];
       }
-      if (i === this.guarantorData.length - 1) {
+      if (i === array.length - 1) {
         if (innerGuarantor.length > 0) {
-          this.newGuarantor.push(innerGuarantor);
+          newGuarantor.push(innerGuarantor);
         }
         innerGuarantor = [];
       }
     });
-    // this.guarantorData.forEach((g, i) => {
-    //
-    //   if(this.cgid !== g.id) {
-    //     innerGuarantor.push(g);
-    //   }
-    //   if (!ObjectUtil.isEmpty(this.guarantorData[i + 1])) {
-    //     this.cgid = this.guarantorData[i + 1].id;
-    //     innerGuarantor.push(this.guarantorData[i + 1]);
-    //   }
-    //   if(innerGuarantor.length > 0) {
-    //     this.newGuarantor.push(innerGuarantor);
-    //   }
-    // });
+    return newGuarantor;
   }
   calculateAge(dob) {
     const difference = Math.abs(Date.now() - new Date(dob).getTime());
