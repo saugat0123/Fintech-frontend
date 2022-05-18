@@ -7,9 +7,7 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import {Security} from '../../../model/security';
-import {SecuritiesType} from '../../../../constants/securities-type';
 
 
 @Component({
@@ -178,22 +176,25 @@ export class SecuritySummaryComponent implements OnInit {
             this.totalConsideredValue += share.consideredValue;
         });
     }
+
     private managedArray(array) {
         let newArray = [];
         const returnArray = [];
         array.forEach((g, i) => {
-            newArray.push(g);
-            if ((i + 1) % 2 === 0) {
-                if (newArray.length > 0) {
-                    returnArray.push(newArray);
+            if (!ObjectUtil.isEmpty(g)) {
+                newArray.push(g);
+                if ((i + 1) % 2 === 0) {
+                    if (newArray.length > 0) {
+                        returnArray.push(newArray);
+                    }
+                    newArray = [];
                 }
-                newArray = [];
-            }
-            if (i === array.length - 1) {
-                if (newArray.length > 0) {
-                    returnArray.push(newArray);
+                if (i === array.length - 1) {
+                    if (newArray.length > 0) {
+                        returnArray.push(newArray);
+                    }
+                    newArray = [];
                 }
-                newArray = [];
             }
         });
         return returnArray;
@@ -201,114 +202,130 @@ export class SecuritySummaryComponent implements OnInit {
 
     setSelectedSecurities() {
         if (this.apartmentSelected) {
-            const apartment = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.APARTMENT_SECURITY) {
-                    return JSON.parse(d.data);
+            const apartment = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'APARTMENT_SECURITY') {
+                    apartment.push(JSON.parse(d.data));
                 }
             });
             this.apartmentArray = this.managedArray(apartment);
         }
         if (this.landSelected) {
-            const land = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.LAND_SECURITY) {
-                    return JSON.parse(d.data);
+            const land = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LAND_SECURITY') {
+                    land.push(JSON.parse(d.data));
                 }
             });
             this.landArray = this.managedArray(land);
         }
         if (this.landBuilding) {
-            const landBuilding = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.LAND_BUILDING_SECURITY) {
-                    return JSON.parse(d.data);
+            const landBuilding = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
+                    landBuilding.push(JSON.parse(d.data));
                 }
             });
+            console.log('this is land building', landBuilding);
             this.landBuildingArray = this.managedArray(landBuilding);
 
         }
         if (this.assignments) {
-            const lease = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.LEASE_ASSIGNMENT) {
-                    return JSON.parse(d.data);
+            const lease = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
+                    lease.push(JSON.parse(d.data));
                 }
             });
             this.leaseArray = lease;
         }
         if (this.assignment) {
-            const assignment = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.ASSIGNMENT_OF_RECEIVABLES) {
-                    return JSON.parse(d.data);
+            const assignment = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
+                    assignment.push(JSON.parse(d.data));
                 }
             });
             this.assignmentArray = assignment;
         }
         if (this.corporate) {
-            const corporate = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.CORPORATE_GUARANTEE) {
-                    return JSON.parse(d.data);
+            const corporate = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
+                    corporate.push(JSON.parse(d.data));
                 }
             });
             this.corporateArray = corporate;
         }
         if (this.depositSelected) {
-            const fd = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.FIXED_DEPOSIT_RECEIPT) {
-                    return JSON.parse(d.data);
+            const fd = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
+                    fd.push(JSON.parse(d.data));
                 }
             });
             this.fdArray = fd;
         }
         if (this.hypothecation) {
-            const hypo = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.HYPOTHECATION_OF_STOCK) {
-                    return JSON.parse(d.data);
+            const hypo = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
+                    hypo.push(JSON.parse(d.data));
                 }
             });
             this.hypoArray = hypo;
         }
         if (this.insurancePolicySelected) {
-            const insurance = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.INSURANCE_POLICY_SECURITY) {
-                    return JSON.parse(d.data);
+            const insurance = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'INSURANCE_POLICY_SECURITY') {
+                    insurance.push( JSON.parse(d.data));
                 }
             });
             this.insuranceArray = insurance;
         }
         if (this.securityOther) {
-            const other = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.OTHER_SECURITY) {
-                    return JSON.parse(d.data);
+            const other = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'OTHER_SECURITY') {
+                     other.push(JSON.parse(d.data));
                 }
             });
             this.otherArray = other;
         }
         if (this.personal) {
-            const personal = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.PERSONAL_GUARANTEE) {
-                    return JSON.parse(d.data);
+            const personal = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'PERSONAL_GUARANTEE') {
+                    personal.push( JSON.parse(d.data));
                 }
             });
             this.personalArray = personal;
         }
         if (this.shareSelected) {
-            const share = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.SHARE_SECURITY) {
-                    return JSON.parse(d.data);
+            const share = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'SHARE_SECURITY') {
+                    share.push(JSON.parse(d.data));
                 }
             });
             this.shareArray = share;
         }
         if (this.plantSelected) {
-            const plant = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.PLANT_AND_MACHINERY_SECURITY) {
-                    return JSON.parse(d.data);
+            const plant = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
+                    plant.push(JSON.parse(d.data));
                 }
             });
             this.plantArray = plant;
         }
         if (this.vehicleSelected) {
-            const vehicle = this.securities.map((d) => {
-                if (d.securityType === SecuritiesType.VEHICLE_SECURITY) {
-                    return JSON.parse(d.data);
+            const vehicle = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'VEHICLE_SECURITY') {
+                    vehicle.push(JSON.parse(d.data));
+
                 }
             });
             this.vehicleArray =  this.managedArray(vehicle);
@@ -317,60 +334,60 @@ export class SecuritySummaryComponent implements OnInit {
     selectedSecurities() {
         if (!ObjectUtil.isEmpty(this.securities)) {
             this.securities.forEach((s, i) => {
-                switch (s.securityType) {
-                    case SecuritiesType.APARTMENT_SECURITY: {
+                switch (s.securityType.toString()) {
+                    case 'APARTMENT_SECURITY': {
                         this.apartmentSelected = true;
                     }
                         break;
-                    case SecuritiesType.LAND_SECURITY: {
+                    case 'LAND_SECURITY': {
                         this.landSelected = true;
                     }
                         break;
-                    case SecuritiesType.ASSIGNMENT_OF_RECEIVABLES: {
+                    case 'ASSIGNMENT_OF_RECEIVABLES': {
                         this.assignments = true;
                     }
                         break;
-                    case SecuritiesType.LAND_BUILDING_SECURITY: {
+                    case 'LAND_BUILDING_SECURITY': {
                         this.landBuilding = true;
                     }
                         break;
-                    case SecuritiesType.CORPORATE_GUARANTEE: {
+                    case 'CORPORATE_GUARANTEE': {
                         this.corporate = true;
                     }
                         break;
-                    case SecuritiesType.FIXED_DEPOSIT_RECEIPT: {
+                    case 'FIXED_DEPOSIT_RECEIPT': {
                         this.depositSelected = true;
                     }
                         break;
-                    case SecuritiesType.HYPOTHECATION_OF_STOCK: {
+                    case 'HYPOTHECATION_OF_STOCK': {
                         this.hypothecation = true;
                     }
                         break;
-                    case SecuritiesType.INSURANCE_POLICY_SECURITY: {
+                    case 'INSURANCE_POLICY_SECURITY': {
                         this.insurancePolicySelected = true;
                     }
                         break;
-                    case SecuritiesType.OTHER_SECURITY: {
+                    case 'OTHER_SECURITY': {
                         this.securityOther = true;
                     }
                         break;
-                    case SecuritiesType.PERSONAL_GUARANTEE: {
+                    case 'PERSONAL_GUARANTEE': {
                         this.personal = true;
                     }
                         break;
-                    case SecuritiesType.LEASE_ASSIGNMENT: {
+                    case 'LEASE_ASSIGNMENT': {
                         this.assignments = true;
                     }
                         break;
-                    case SecuritiesType.SHARE_SECURITY: {
+                    case 'SHARE_SECURITY': {
                         this.shareSelected = true;
                     }
                         break;
-                    case SecuritiesType.PLANT_AND_MACHINERY_SECURITY: {
+                    case 'PLANT_AND_MACHINERY_SECURITY': {
                         this.plantSelected = true;
                     }
                         break;
-                    case SecuritiesType.VEHICLE_SECURITY: {
+                    case 'VEHICLE_SECURITY': {
                         this.vehicleSelected = true;
                     }
                         break;
