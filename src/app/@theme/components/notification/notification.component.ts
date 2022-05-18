@@ -60,14 +60,14 @@ export class NotificationComponent implements OnInit {
 
   deleteNotification(id: number) {
     this.notificationService.deleteMessageById(id).subscribe(response=> {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Notification Deleted Successfully'))
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Cleared Message'))
       this.notificationService.fetchNotifications();
     })
   }
 
   deleteAllMessage() {
     this.notificationService.deleteAllMessage(this.userId).subscribe(response=> {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted All Messages'))
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Cleared All Messages'))
       this.notificationService.fetchNotifications();
 
     })
