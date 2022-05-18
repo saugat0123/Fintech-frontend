@@ -74,4 +74,10 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url,id ,{headers: req.header});
     }
+
+    public getCustomerInfoById(id: number): Observable<any> {
+        const api = `${this.getApi()}/customer-info/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url,{headers: req.header});
+    }
 }

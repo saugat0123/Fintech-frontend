@@ -515,7 +515,7 @@
     </nb-tabset>
 </div>
 <div class="d-flex justify-content-between" *ngIf="fromProfile">
-        <button (click)="open(content)" class="btn btn-danger">Delete</button>
+        <button [disabled]="customerInfo == null" (click)="open(content)" class="btn btn-danger">Delete</button>
         <button class="btn btn-success" (click)="onSubmit()" >save</button>
 </div>
 
