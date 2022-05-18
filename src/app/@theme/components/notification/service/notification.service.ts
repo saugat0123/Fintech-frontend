@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../../../../@core/BaseService';
 import {Message} from '../model/message';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Status} from '../../../../@core/Status';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +26,7 @@ export class NotificationService extends BaseService<Message> {
     protected getApi(): string {
         return NotificationService.API;
     }
+
 
     setNotificationCount(count: any) {
         this.notificationCountSource.next(count);
@@ -47,6 +49,18 @@ export class NotificationService extends BaseService<Message> {
         }, error => {
             console.error(error);
         });
+    }
+
+    public deleteMessageById(id: number): Observable<void> {
+        const api = `${this.getApi()}/mark-deleted/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.put<void>(req.url , id,{headers: req.header})
+    }
+
+    public deleteAllMessage(id: number): Observable<void> {
+        const api = `${this.getApi()}/mark-delete/all/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.put<void>(req.url ,id, {headers: req.header})
     }
 
 }

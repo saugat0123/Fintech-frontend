@@ -21,6 +21,7 @@ export class NotificationComponent implements OnInit {
   user: User = new User();
   customerId: number;
   loanConfigId: number;
+  userId: any
 
   notifications: Array<Message> = new Array<Message>();
 
@@ -35,6 +36,7 @@ export class NotificationComponent implements OnInit {
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
           this.user = response.detail;
+          this.userId = this.user.id;
         }
     );
     this.notificationService.notificationMessage.subscribe(value => this.notifications = value);
@@ -54,6 +56,21 @@ export class NotificationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error updating notification status'));
     });
+  }
+
+  deleteNotification(id: number) {
+    this.notificationService.deleteMessageById(id).subscribe(response=> {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Notification Deleted Successfully'))
+      this.notificationService.fetchNotifications();
+    })
+  }
+
+  deleteAllMessage() {
+    this.notificationService.deleteAllMessage(this.userId).subscribe(response=> {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted All Messages'))
+      this.notificationService.fetchNotifications();
+
+    })
   }
 
 }

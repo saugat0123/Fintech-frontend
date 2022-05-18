@@ -190,6 +190,7 @@ export class FinancialComponent implements OnInit {
 
     numberUtils = NumberUtils;
     customerInfoId: any
+    customerInfo: any
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
@@ -249,6 +250,7 @@ export class FinancialComponent implements OnInit {
             }
         }
         this.checkDisableAlpha();
+        this.getCustomerInfo();
     }
 
     buildForm() {
@@ -495,7 +497,6 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
@@ -724,9 +725,17 @@ export class FinancialComponent implements OnInit {
         this.customerInfoService.removeFinancial(this.customerInfoId).subscribe(response=> {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Financial Data Deleted Successfully'));
             this.modalService.dismissAll();
-            window.location.reload();
+            this.getCustomerInfo();
         })
     }
+
+    getCustomerInfo() {
+        this.customerInfoService.getCustomerInfoById(this.customerInfoId).subscribe(response=> {
+            this.customerInfo = response.financial;
+        })
+    }
+
+
 
 
 
