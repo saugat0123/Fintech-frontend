@@ -11,7 +11,7 @@
                                  name="freeDate"
                                  formControlName="freeDate"
                                  type="text"/>
-                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.freeDate ? this.supportedInfo?.freeDate : '====================================') : '===================================='}}</span>
+                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.freeDate ? this.supportedInfo?.freeDate : '____________________________') : '____________________________'}}</span>
                 </div>
             </div>
             <div class="col-md-12 mt-0">
@@ -19,7 +19,7 @@
                           name="nameOfBranch"
                           formControlName="nameOfBranch"
                           type="text"/>
-                    <span class="print-only font-weight-bold">{{individualData?.branch ? individualData?.branch?.ct : ''}}</span>
+                    <span class="print-only font-weight-bold">{{individualData?.branch ? individualData?.branch?.ct : '_______________________'}}</span>
                     शाखा ।
                 </p>
                 <p class="text-center">
@@ -35,7 +35,7 @@
                            formControlName="nameOfMalpot"
                            type="text"/>
                     <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.nameOfMalpot ?
-                        this.supportedInfo?.nameOfMalpot : '====================================') : '===================================='}}</span>
+                        this.supportedInfo?.nameOfMalpot : '____________________________') : '____________________________'}}</span>
                     मा दर्ता श्रेष्ता कायम भएको जग्गा र सोमा हाल भएको तथा भविष्यमा निर्माण
                     हुने घर/टहरा लगायत सम्पुर्ण लिग लगापात समेत त्यस बैंकको पक्षमा मिति
                     <input class="form-field form-control-sm d-print-none"
@@ -43,20 +43,20 @@
                            formControlName="dateOfMortgageProperty"
                            type="text"/>
                     <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.dateOfMortgageProperty ?
-                        this.supportedInfo?.dateOfMortgageProperty : '====================================') : '===================================='}}</span> मा
+                        this.supportedInfo?.dateOfMortgageProperty : '____________________________') : '____________________________'}}</span> मा
                     र.न. <input class="form-field form-control-sm d-print-none"
                                 name="mortgageNo"
                                 formControlName="mortgageNo"
                                 type="text"/>
                     <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.mortgageNo ?
-                        this.supportedInfo?.mortgageNo : '====================================') : '===================================='}}</span>
+                        this.supportedInfo?.mortgageNo : '____________________________') : '____________________________'}}</span>
                     अन्तर्गत सम्बन्धित मालपोत कार्यालयबाट रु.
                     <input class="form-field form-control-sm d-print-none"
                            name="totalMortgageAmount"
                            formControlName="totalMortgageAmount"
                            type="text"/>
                     <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.totalMortgageAmount ?
-                        this.supportedInfo?.totalMortgageAmount : '====================================') : '===================================='}}</span>/- को
+                        this.supportedInfo?.totalMortgageAmount : '____________________________') : '____________________________'}}</span>/- को
                     धितोबन्धकको लिखत पारित गरि दिएको ठिक साँचो हो :
                 </p>
                 <p class="text-center" style="margin-top: -5px;"><strong><u> ऋणी(हरु)को बिवरण: </u></strong></p>
@@ -108,7 +108,7 @@
                                            name="borrowerName"
                                            formControlName="borrowerName"
                                            type="text"/>
-                                    <span class="print-only">{{form.get(['nameFreeText', i3, 'borrowerName']) ? form.get(['nameFreeText', i3, 'borrowerName'])?.value : '===================================='}}</span>
+                                    <span class="print-only">{{form.get(['nameFreeText', i3, 'borrowerName']) ? form.get(['nameFreeText', i3, 'borrowerName'])?.value : '____________________________'}}</span>
                                 </td>
                                <td class="d-print-none">
                                    <ng-container *ngIf="form.get('nameFreeText')['length'] > 0">
@@ -135,7 +135,7 @@
                            formControlName="totalAmount"
                            type="text"/>
                     <span class="print-only font-weight-bold">
-                        {{form?.get('totalAmount') ? form?.get('totalAmount')?.value : '===================================='}}
+                        {{form?.get('totalAmount') ? form?.get('totalAmount')?.value : '____________________________'}}
                     </span>/-
                     सम्मको लागि देहायमा उल्लिखित घर/जग्गाहरु सुरक्षणको रुपमा यथावत राखि राख्न
                     म/हामीलाई मंजुरी भएकोले उल्लिखित साक्षीहरुको रोहवरमा यो मंजुरीनामाको लिखत लेखिदिएको छू/छौं । यसमा
@@ -171,14 +171,14 @@
                                            name="freeSanctionDate"
                                            formControlName="freeSanctionDate"
                                            type="text"/>
-                                    <span class="print-only">{{form?.get(['borrowerNameArray', i, 'freeSanctionDate']) ? form?.get(['borrowerNameArray', i, 'freeSanctionDate'])?.value : '===================================='}}</span>
+                                    <span class="print-only">{{form?.get(['borrowerNameArray', i, 'freeSanctionDate']) ? form?.get(['borrowerNameArray', i, 'freeSanctionDate'])?.value : '____________________________'}}</span>
                                 </td>
                                 <td>
                                     रु. <input class="form-field form-control-sm d-print-none"
                                                name="freeAmount"
                                                formControlName="freeAmount"
                                                type="text"/>
-                                    <span class="print-only">{{form?.get(['borrowerNameArray', i, 'freeAmount']) ? form?.get(['borrowerNameArray', i, 'freeAmount'])?.value : '===================================='}}</span>/-
+                                    <span class="print-only">{{form?.get(['borrowerNameArray', i, 'freeAmount']) ? form?.get(['borrowerNameArray', i, 'freeAmount'])?.value : '____________________________'}}</span>/-
                                 </td>
                                 <td class="d-print-none">
                                     <ng-container *ngIf="form.get('borrowerNameArray')['length'] > 0">
@@ -201,13 +201,13 @@
                                            name="freeSanctionDate1"
                                            formControlName="freeSanctionDate1"
                                            type="text"/>
-                                    <span class="print-only">{{form.get(['borrowerNameArray1', i2, 'freeSanctionDate1']) ? form.get(['borrowerNameArray1', i2, 'freeSanctionDate1'])?.value : '===================================='}}</span>
+                                    <span class="print-only">{{form.get(['borrowerNameArray1', i2, 'freeSanctionDate1']) ? form.get(['borrowerNameArray1', i2, 'freeSanctionDate1'])?.value : '____________________________'}}</span>
                                 </td>
                                 <td>रु. <input class="form-field form-control-sm d-print-none"
                                                name="freeAmount1"
                                                formControlName="freeAmount1"
                                                type="text"/>
-                                    <span class="print-only">{{form.get(['borrowerNameArray1', i2, 'freeAmount1']) ? form.get(['borrowerNameArray1', i2, 'freeAmount1'])?.value : '===================================='}}</span>/-
+                                    <span class="print-only">{{form.get(['borrowerNameArray1', i2, 'freeAmount1']) ? form.get(['borrowerNameArray1', i2, 'freeAmount1'])?.value : '____________________________'}}</span>/-
                                 </td>
                                 <td class="d-print-none">
                                     <ng-container *ngIf="form.get('borrowerNameArray1')['length'] > 0">
@@ -229,19 +229,19 @@
                                            name="borrowerName1"
                                            formControlName="borrowerName1"
                                            type="text"/>
-                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'borrowerName1']) ? form.get(['borrowerDetails', i3, 'borrowerName1'])?.value : '===================================='}}</span>
+                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'borrowerName1']) ? form.get(['borrowerDetails', i3, 'borrowerName1'])?.value : '____________________________'}}</span>
                                 </td>
                                 <td><input class="form-field form-control-sm d-print-none"
                                            name="freeSanctionDate2"
                                            formControlName="freeSanctionDate2"
                                            type="text"/>
-                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'freeSanctionDate2']) ? form.get(['borrowerDetails', i3, 'freeSanctionDate2'])?.value : '===================================='}}</span>
+                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'freeSanctionDate2']) ? form.get(['borrowerDetails', i3, 'freeSanctionDate2'])?.value : '____________________________'}}</span>
                                 </td>
                                 <td>रु. <input class="form-field form-control-sm d-print-none"
                                                name="freeAmount2"
                                                formControlName="freeAmount2"
                                                type="text"/>
-                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'freeAmount2']) ? form.get(['borrowerDetails', i3, 'freeAmount2'])?.value : '===================================='}}</span>/-
+                                    <span class="print-only">{{form.get(['borrowerDetails', i3, 'freeAmount2']) ? form.get(['borrowerDetails', i3, 'freeAmount2'])?.value : '____________________________'}}</span>/-
                                 </td>
                                <td class="d-print-none">
                                    <ng-container *ngIf="form.get('borrowerDetails')['length'] > 0">
@@ -375,37 +375,37 @@
                                               name="landOwnerName"
                                               formControlName="landOwnerName"
                                               type="text"/>
-                    <span class="print-only">{{form.get('landOwnerName') ? form.get('landOwnerName')?.value : '===================================='}}</span><br>
+                    <span class="print-only">{{form.get('landOwnerName') ? form.get('landOwnerName')?.value : '____________________________'}}</span><br>
                     बाबु/पतिको नाम: <input class="form-field form-control-sm d-print-none"
                                            name="fatherHusbandName"
                                            formControlName="fatherHusbandName"
                                            type="text"/>
-                    <span class="print-only">{{form.get('fatherHusbandName') ? form.get('fatherHusbandName')?.value : '===================================='}}</span><br>
+                    <span class="print-only">{{form.get('fatherHusbandName') ? form.get('fatherHusbandName')?.value : '____________________________'}}</span><br>
                     बाजे/ससुराको नाम: <input class="form-field form-control-sm d-print-none"
                                              name="grandFatherInLawName"
                                              formControlName="grandFatherInLawName"
                                              type="text"/>
-                    <span class="print-only">{{form.get('grandFatherInLawName') ? form.get('grandFatherInLawName')?.value : '===================================='}}</span><br>
+                    <span class="print-only">{{form.get('grandFatherInLawName') ? form.get('grandFatherInLawName')?.value : '____________________________'}}</span><br>
                     ठेगाना: <input class="form-field form-control-sm d-print-none"
                                    name="landOwnerAddress"
                                    formControlName="landOwnerAddress"
                                    type="text"/>
-                    <span class="print-only">{{form.get('landOwnerAddress') ? form.get('landOwnerAddress')?.value : '===================================='}}</span><br>
+                    <span class="print-only">{{form.get('landOwnerAddress') ? form.get('landOwnerAddress')?.value : '____________________________'}}</span><br>
                     ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
                                       name="citizenshipNo"
                                       formControlName="citizenshipNo"
                                       type="text"/>
-                    <span class="print-only">{{form.get('citizenshipNo') ? form.get('citizenshipNo')?.value : '===================================='}}</span>,
+                    <span class="print-only">{{form.get('citizenshipNo') ? form.get('citizenshipNo')?.value : '____________________________'}}</span>,
                     मिति <input class="form-field form-control-sm d-print-none"
                                 name="citizenIssueDate"
                                 formControlName="citizenIssueDate"
                                 type="text"/>
-                    <span class="print-only">{{form.get('citizenIssueDate') ? form.get('citizenIssueDate')?.value : '===================================='}}</span>,
+                    <span class="print-only">{{form.get('citizenIssueDate') ? form.get('citizenIssueDate')?.value : '____________________________'}}</span>,
                     जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm d-print-none"
                                                    name="citizenIssueDistrict"
                                                    formControlName="citizenIssueDistrict"
                                                    type="text"/>
-                    <span class="print-only">{{form.get('citizenIssueDistrict') ? form.get('citizenIssueDistrict')?.value : '===================================='}}</span>
+                    <span class="print-only">{{form.get('citizenIssueDistrict') ? form.get('citizenIssueDistrict')?.value : '____________________________'}}</span>
 
                 </div>
                 <div class="col-md-12">
@@ -416,64 +416,64 @@
                                    formControlName="witnessDistrict1"
                                    placeholder=""
                                    type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo?.witnessDistrict1 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo?.witnessDistrict1 : '____________________________') : '____________________________'}}</span>
                             जिल्ला <input class="form-field form-control-sm d-print-none"
                                           name="witnessMuni1"
                                           formControlName="witnessMuni1"
                                           placeholder=""
                                           type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo?.witnessMuni1 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo?.witnessMuni1 : '____________________________') : '____________________________'}}</span>
                             न.पा/गा.वि.स.
                             वडा नं. <input class="form-field form-control-sm d-print-none"
                                            name="witnessWard1"
                                            formControlName="witnessWard1"
                                            placeholder=""
                                            type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo?.witnessWard1 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo?.witnessWard1 : '____________________________') : '____________________________'}}</span>
                             बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
                                                name="witnessAge1"
                                                formControlName="witnessAge1"
                                                placeholder=""
                                                type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo?.witnessAge1 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo?.witnessAge1 : '____________________________') : '____________________________'}}</span>
                             को/की <input class="form-field form-control-sm d-print-none"
                                          name="witnessName1"
                                          formControlName="witnessName1"
                                          placeholder=""
                                          type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo?.witnessName1 : '====================================') : '===================================='}}</span><br>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo?.witnessName1 : '____________________________') : '____________________________'}}</span><br>
                         </li>
                         <li><input class="form-field form-control-sm d-print-none"
                                    name="witnessDistrict2"
                                    formControlName="witnessDistrict2"
                                    placeholder=""
                                    type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo?.witnessDistrict2 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo?.witnessDistrict2 : '____________________________') : '____________________________'}}</span>
                             जिल्ला <input class="form-field form-control-sm d-print-none"
                                           name="witnessMuni2"
                                           formControlName="witnessMuni2"
                                           placeholder=""
                                           type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo?.witnessMuni2 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo?.witnessMuni2 : '____________________________') : '____________________________'}}</span>
                             न.पा/गा.वि.स.
                             वडा नं. <input class="form-field form-control-sm d-print-none"
                                            name="witnessWard2"
                                            formControlName="witnessWard2"
                                            placeholder=""
                                            type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo?.witnessWard2 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo?.witnessWard2 : '____________________________') : '____________________________'}}</span>
                             बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
                                                name="witnessAge2"
                                                formControlName="witnessAge2"
                                                placeholder=""
                                                type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo?.witnessAge2 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo?.witnessAge2 : '____________________________') : '____________________________'}}</span>
                             को/की <input class="form-field form-control-sm d-print-none"
                                          name="witnessName2"
                                          formControlName="witnessName2"
                                          placeholder=""
                                          type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo?.witnessName2 : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo?.witnessName2 : '____________________________') : '____________________________'}}</span>
                         </li>
                         <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
                             लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none"
@@ -481,7 +481,7 @@
                                                       formControlName="karmachariName"
                                                       placeholder=""
                                                       type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo?.karmachariName : '====================================') : '===================================='}}</span>
+                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo?.karmachariName : '____________________________') : '____________________________'}}</span>
                         </li>
                     </ol>
                 </div>

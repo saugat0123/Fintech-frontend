@@ -951,7 +951,8 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   getFacilityName() {
     if (!ObjectUtil.isEmpty(this.initialData) &&
         !ObjectUtil.isEmpty(this.initialData.existingLoanForm) &&
-        !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray)) {
+        !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray) &&
+        this.initialData.existingLoanForm.existingLoanFormArray.length > 0) {
       if (this.initialData.existingLoanForm.existingLoanFormArray.length === 1) {
         const existingData = this.initialData.existingLoanForm.existingLoanFormArray[0];
         this.finalFacility = existingData.facilityName;

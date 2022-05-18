@@ -152,6 +152,7 @@ import { NabilShareLoanPodTemplateDataComponent } from './cad-view/template-data
 import { ShareLoanDemandTemplateDataComponent } from './cad-view/template-data/retail-template-data/share-loan-demand-template-data/share-loan-demand-template-data.component';
 import { RetailCombinedRequiredDocumentComponent } from './cad-view/template-data/retail-template-data/retail-combined-required-document/retail-combined-required-document.component';
 import { ExistingLoanTemplateDataComponent } from './cad-view/template-data/retail-template-data/existing-loan-template-data/existing-loan-template-data.component';
+import { GuarantorInformationTaggingComponent } from './cad-view/template-data/guarantor-information-tagging/guarantor-information-tagging.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -289,7 +290,8 @@ import { ExistingLoanTemplateDataComponent } from './cad-view/template-data/reta
         ShareLoanDemandTemplateDataComponent,
         RetailCombinedRequiredDocumentComponent,
         PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent,
-        ExistingLoanTemplateDataComponent],
+        ExistingLoanTemplateDataComponent,
+        GuarantorInformationTaggingComponent],
   imports: [
     ThemeModule,
     CommonModule,
