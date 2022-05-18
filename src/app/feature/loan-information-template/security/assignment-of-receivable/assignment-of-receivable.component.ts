@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-assignment-of-receivable',
@@ -11,13 +12,34 @@ export class AssignmentOfReceivableComponent implements OnInit {
   assignmentForm: FormGroup;
   submitted = false;
   ckeConfig;
+  @Input() security: Security;
+  @Input() isEdit = false;
+
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log('assignment receivable');
     this.configEditor();
     this.buildForm();
+    if (this.isEdit) {
+      this.setAssignment();
+    } else {
+      this.addAssignment();
+    }
+  }
+
+  private setAssignment() {
+    const formData = JSON.parse(this.security.data);
+    const assignementOfReceivableData = this.assignmentForm.get('assignmentOfReceivables') as FormArray;
+    assignementOfReceivableData.push(
+        this.formBuilder.group({
+          amount: [formData.amount],
+          considerValue: [formData.considerValue],
+          distressValue: [formData.distressValue],
+          fairMarketValue: [formData.fairMarketValue],
+          otherDetail: [formData.otherDetail]
+        })
+    );
   }
 
   configEditor() {
@@ -26,9 +48,8 @@ export class AssignmentOfReceivableComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.assignmentForm = this.formBuilder.group({
-      assignmentOfReceivables: this.formBuilder.array([this.assignmentDetailsFormGroup()])
+      assignmentOfReceivables: this.formBuilder.array([])
     });
-
   }
 
   public addAssignment(): void {

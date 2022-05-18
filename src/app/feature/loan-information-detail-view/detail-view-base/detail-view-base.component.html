@@ -1,130 +1,136 @@
 <div class="summary">
-<div *ngIf="proposalData?.data !==null ">
-    <app-proposal-view *ngIf="loanDataHolder?.proposal"
-                       [customerAllLoanList]="customerAllLoanList"
-                       [proposalData]="proposalData"
-                       [loanDataHolder]="loanDataHolder"></app-proposal-view>
-</div>
-<app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
-                   [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"
-                   [proposal]="proposalData"
-                   [collateralData]="loanDataHolder?.collateralSiteVisits"
-                   [docStatus]="loanDataHolder?.documentStatus"
-                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<app-security-schedule  [loanDataHolder]="loanDataHolder"></app-security-schedule>
+    <div *ngIf="proposalData?.data !==null ">
+        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                           [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="proposalData"
+                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
+    </div>
+    <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 
-<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
-                     [calendarType]="calendarType"
-                     [loanDataHolder]="loanDataHolder"
-                     [customerInfoData]="loanDataHolder?.loanHolder"
-                     [individual]="loanDataHolder?.customerInfo"
-                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+    <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
-<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
-                       [calendarType]="calendarType"
-                       [formValue]="loanDataHolder?.companyInfo"
-                       [loanId]="loanId"
-                       [loanDataHolder]="loanDataHolder"
-                       [customerInfo]="loanHolder"></app-company-info-view>
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [loanDataHolder]="loanDataHolder"
-                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-<div *ngIf="isIndividual">
-    <app-financial-view *ngIf="loanHolder?.financial && isIndividual"
-                        [customerType]="loanHolder?.customerType"
-                        [formData]="loanHolder?.financial"></app-financial-view>
-    <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-    <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
-    <ng-container *ngIf="checkedData?.waiverChecked">
-        <hr class="print-line">
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-            <tr class="text-white sb-bg-dark">
-                <th   class="header">Waiver</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-    <ng-container *ngIf="checkedData?.deviationChecked">
-        <hr class="print-line">
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th   class="header">Deviation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-</div>
-<div *ngIf="!isIndividual">
-    <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-    <ng-container *ngIf="checkedData?.waiverChecked">
-        <hr class="print-line">
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th   class="header">Waiver</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-    <ng-container *ngIf="checkedData?.deviationChecked">
-        <hr class="print-line">
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th   class="header">Deviation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-    <div *ngIf="financialKeys?.length > 0 && !isIndividual ">
-        <ng-container  *ngFor="let title of financialKeys">
-            <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
-            <hr>
-            <div class="row">
-                <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
-            </div>
+    <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
+                         [calendarType]="calendarType"
+                         [loanDataHolder]="loanDataHolder"
+                         [customerInfoData]="loanDataHolder?.loanHolder"
+                         [individual]="loanDataHolder?.customerInfo"
+                         [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+
+    <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+                           [calendarType]="calendarType"
+                           [formValue]="loanDataHolder?.companyInfo"
+                           [loanId]="loanId"
+                           [loanDataHolder]="loanDataHolder"
+                           [customerInfo]="loanHolder"></app-company-info-view>
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [loanDataHolder]="loanDataHolder"
+                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+    <div *ngIf="isIndividual">
+        <app-financial-view *ngIf="loanHolder?.financial && isIndividual"
+                            [customerType]="loanHolder?.customerType"
+                            [formData]="loanHolder?.financial"></app-financial-view>
+        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                       [loanDataHolder]="loanDataHolder"></app-cicl-view>
+        <app-dbr *ngIf="financial" [financialData]="financial" [proposalData]="proposalData"></app-dbr>
+        <ng-container *ngIf="checkedData?.waiverChecked">
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th class="header">Waiver</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+        <ng-container *ngIf="checkedData?.deviationChecked">
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th class="header">Deviation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
         </ng-container>
     </div>
-    <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</div>
-
-<div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
-    <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
-</div>
-
-<div *ngIf="productUtils.CBS_ENABLE">
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <p><strong>Group Details</strong>
-            </p>
+    <div *ngIf="!isIndividual">
+        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                       [loanDataHolder]="loanDataHolder"></app-cicl-view>
+        <ng-container *ngIf="checkedData?.waiverChecked">
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th class="header">Waiver</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+        <ng-container *ngIf="checkedData?.deviationChecked">
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th class="header">Deviation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+        <div *ngIf="financialKeys?.length > 0 && !isIndividual ">
+            <ng-container *ngFor="let title of financialKeys">
+                <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
+                <hr>
+                <div class="row">
+                    <app-financial-json-parser
+                            [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
+                </div>
+            </ng-container>
         </div>
-        <div class="col-md-12">
-            <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
-                           *ngIf="loanDataHolder"></app-cbs-table>
+        <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                              [fiscalYears]="fiscalYearArray"
+                              [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
+    </div>
+
+    <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
+        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+    </div>
+
+    <div *ngIf="productUtils.CBS_ENABLE">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <p><strong>Group Details</strong>
+                </p>
+            </div>
+            <div class="col-md-12">
+                <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                               *ngIf="loanDataHolder"></app-cbs-table>
+            </div>
         </div>
     </div>
-</div>
 
-<div *ngIf="!productUtils.CBS_ENABLE">
-    <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
-                                        [customerAllLoanList]="customerAllLoanList"
-                                        [proposalData]="proposalData"></app-proposal-justification-summary>
-</div>
+    <div *ngIf="!productUtils.CBS_ENABLE">
+        <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
+                                            [customerAllLoanList]="customerAllLoanList"
+                                            [proposalData]="proposalData"></app-proposal-justification-summary>
+    </div>
 
-<app-site-visit-view *ngIf="loanHolder?.siteVisit"
-                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-<!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
-                            [fromProfile]="false"
-                            [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
- -->
+    <app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                         [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+    <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
+                                [fromProfile]="false"
+                                [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
+     -->
     <div class="borrower_class">
         <div class="row">
             <div class="col-md-12">
@@ -136,66 +142,68 @@
             </div>
         </div>
     </div>
-<app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
-                              [data]="(bankingRelation)"></app-income-from-account-view>
-<div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
-    <div class="col-md-12">
-        <p><strong>Comments</strong>
-        </p>
+    <app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
+                                  [data]="(bankingRelation)"></app-income-from-account-view>
+    <div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
+        <div class="col-md-12">
+            <p><strong>Comments</strong>
+            </p>
+        </div>
+        <app-comments
+                [commentData]="loanDataHolder.loanHolder?.data"
+                [fromProfile]="true"
+                [view]="true">
+        </app-comments>
+        <!--    <app-comments-summary-->
+        <!--            [formData]="dataFromComments"></app-comments-summary>-->
+        <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                       [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
     </div>
-    <app-comments
-            [commentData]="loanDataHolder.loanHolder?.data"
-            [fromProfile]="true"
-            [view]="true">
-    </app-comments>
-<!--    <app-comments-summary-->
-<!--            [formData]="dataFromComments"></app-comments-summary>-->
-    <app-previous-security-summary *ngIf="previousSecuritySummary"
-                                   [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
-</div>
 
-<app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount" [individual]="isIndividual"
-                                 [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+    <app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount" [individual]="isIndividual"
+                                     [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
-<app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
-                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+    <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                               [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
 
-<div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+    <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
-    <app-report-summary
-            [approved]="true"
-            *ngIf="loanDataHolder?.reportingInfoLog"
-            [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-    </app-report-summary>
-</div>
-<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-    <span><strong>Loan Reporting Information</strong></span>
-    <app-report-summary
-            [approved]="false"
-            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-            [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-    <ng-template #noinfo>
-        <p>No any information tagged</p>
-    </ng-template>
-</div>
-<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
-    <span><strong>Customer Reporting Information</strong></span>
-    <app-report-summary
-            [approved]="false"
-            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-</div>
+        <app-report-summary
+                [approved]="true"
+                *ngIf="loanDataHolder?.reportingInfoLog"
+                [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+        </app-report-summary>
+    </div>
+    <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+        <span><strong>Loan Reporting Information</strong></span>
+        <app-report-summary
+                [approved]="false"
+                *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+        <ng-template #noinfo>
+            <p>No any information tagged</p>
+        </ng-template>
+    </div>
+    <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+        <span><strong>Customer Reporting Information</strong></span>
+        <app-report-summary
+                [approved]="false"
+                [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+    </div>
 
-<app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
-                    [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
-<!--<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                              [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>-->
-<!--<app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"
-                           [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>-->
-<!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
-<!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
-<!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
-<!--                                [fromProfile]="false"></app-credit-grading>-->
-<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+    <app-insurance-view
+            *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+            [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+    <!--<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                                  [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>-->
+    <!--<app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"
+                               [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>-->
+    <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
+    <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
+    <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
+    <!--                                [fromProfile]="false"></app-credit-grading>-->
+    <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                           [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
     <app-crg-gamma-detail-view
             *ngIf="loanDataHolder?.crgGamma"
             [formData]="loanDataHolder?.crgGamma">

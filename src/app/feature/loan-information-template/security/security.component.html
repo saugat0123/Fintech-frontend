@@ -1,7 +1,12 @@
 <div>
-    <app-view-security-table [customerInfo]="customerInfo"></app-view-security-table>
+    <app-view-security-table [customerInfo]="customerInfo"
+    (security)="onEdit($event)"
+    (securityForSiteVisit)="onSiteVisit($event)"></app-view-security-table>
 </div>
-<nb-card>
+<div *ngIf="isSiteVisit">
+    <app-fix-asset-collateral [securityData]="securityValue"></app-fix-asset-collateral>
+</div>
+<nb-card *ngIf="!isSiteVisit">
     <nb-card-body>
         <h2>Security</h2>
 <div class="row">
@@ -19,7 +24,7 @@
         <div class="col-md-12">
     <div class="form-group">
 
-        <div class="font-weight-bold">
+        <div class="font-weight-bold" *ngIf="!isEdit">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -37,28 +42,41 @@
             <hr>
         </div>
 
-        <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"></app-vehicle>
-        <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"></app-apartment>
-        <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"></app-land>
-        <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"></app-land-building>
-        <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"></app-plant-machinery>
+        <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
+                     [security]="securityValue" [isEdit]="isEdit"></app-vehicle>
+        <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"
+                       [security]="securityValue" [isEdit]="isEdit"></app-apartment>
+        <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"
+                  [security]="securityValue" [isEdit]="isEdit"></app-land>
+        <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
+                           [security]="securityValue" [isEdit]="isEdit"></app-land-building>
+        <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"
+                             [security]="securityValue" [isEdit]="isEdit"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
-                           [calendarType]="calendarType"></app-fixed-deposit>
-        <app-share #shareSecurityComponent *ngIf="shareSelected"></app-share>
-        <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStockSelected"></app-hypothecation-of-stock>
-        <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuaranteeSelected"></app-corporation-guarantee>
-        <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personalGuaranteeSelected"></app-personal-guarantee>
+                           [calendarType]="calendarType" [security]="securityValue"
+                           [isEdit]="isEdit"></app-fixed-deposit>
+        <app-share #shareSecurityComponent *ngIf="shareSelected"
+                   [security]="securityValue" [isEdit]="isEdit"></app-share>
+        <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStockSelected"
+                                    [security]="securityValue" [isEdit]="isEdit"></app-hypothecation-of-stock>
+        <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuaranteeSelected"
+                                   [security]="securityValue" [isEdit]="isEdit"></app-corporation-guarantee>
+        <app-personal-guarantee #personalGuaranteeSecurity *ngIf="personalGuaranteeSelected"
+                                [security]="securityValue" [isEdit]="isEdit"></app-personal-guarantee>
         <app-insurance-policy #insurancePolicySecurity *ngIf="insurancePolicySelected"
-                              [calendarType]="calendarType"></app-insurance-policy>
-        <app-assignment-of-receivable #assignmentOfReceivableSecurity
-                                      *ngIf="assignmentOfReceivableSelected"></app-assignment-of-receivable>
-        <app-lease-assignment #leaseAssignmentSecurity *ngIf="leaseAssignmentSelected"></app-lease-assignment>
-        <app-other-security #otherSecurity *ngIf="otherSecuritySelected"></app-other-security>
+                              [calendarType]="calendarType" [security]="securityValue"
+                              [isEdit]="isEdit"></app-insurance-policy>
+        <app-assignment-of-receivable #assignmentOfReceivableSecurity *ngIf="assignmentOfReceivableSelected"
+                                      [security]="securityValue" [isEdit]="isEdit"></app-assignment-of-receivable>
+        <app-lease-assignment #leaseAssignmentSecurity *ngIf="leaseAssignmentSelected"
+                              [security]="securityValue" [isEdit]="isEdit"></app-lease-assignment>
+        <app-other-security #otherSecurity *ngIf="otherSecuritySelected"
+                            [security]="securityValue" [isEdit]="isEdit"></app-other-security>
 
     </div>
 </div>
 </div>
-<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+<div *ngIf="fromProfile || !isSiteVisit" class="py-4 d-flex justify-content-end">
     <button (click)="onSubmit()" nbButton>save</button>
 </div>
 </nb-card-body>

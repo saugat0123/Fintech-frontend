@@ -13,6 +13,7 @@ import {RelationshipList} from '../../../loan/model/relationshipList';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-land',
@@ -39,6 +40,8 @@ export class LandComponent implements OnInit {
   newOwnerShipTransfer = [];
   ownershipTransferEnumPair = OwnershipTransfer.enumObject();
   ownershipTransfers = OwnershipTransfer;
+  @Input() security: Security;
+  @Input() isEdit = false;
 
 
   constructor(private loanConfigService: LoanConfigService,
@@ -50,10 +53,61 @@ export class LandComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.getLoanConfig();
+    // this.getLoanConfig();
     this.branchList();
     this.getRoleList();
     this.reArrangeEnumType();
+    if (this.isEdit) {
+      this.setLandDetail();
+    } else {
+      this.addMoreLand();
+    }
+  }
+
+  setLandDetail() {
+    const formData = JSON.parse(this.security.data);
+    const landForm = this.landForm.get('landDetails') as FormArray;
+    landForm.push(
+        this.formBuilder.group({
+          owner: [formData.owner],
+          location: [formData.location],
+          plotNumber: [formData.plotNumber],
+          areaFormat: [formData.areaFormat],
+          area: [formData.area],
+          fairMarketValue: [formData.fairMarketValue],
+          distressValue: [formData.distressValue],
+          considerValue: [formData.considerValue],
+          description: [formData.description],
+          landValuator: [formData.landValuator],
+          landValuatorDate: [formData.landValuatorDate],
+          landValuatorRepresentative: [formData.landValuatorRepresentative],
+          landStaffRepresentativeName: [formData.landStaffRepresentativeName],
+          landBranch: [formData.landBranch],
+          landConsideredValue: [formData.landConsideredValue],
+          typeOfProperty: [formData.typeOfProperty],
+          revaluationData: [formData.revaluationData],
+          landStaffRepresentativeDesignation: [formData.landStaffRepresentativeDesignation],
+          landStaffRepresentativeName2: [formData.landStaffRepresentativeName2],
+          landStaffRepresentativeDesignation2: [formData.landStaffRepresentativeDesignation2],
+          landSecurityLegalDocumentAddress: [formData.landSecurityLegalDocumentAddress],
+          ownershipTransferDate: [formData.ownershipTransferDate],
+          ownershipTransferThrough: [formData.ownershipTransferThrough],
+          otherOwnershipTransferValue: [formData.otherOwnershipTransferValue],
+          saleOwnershipTransfer: [formData.saleOwnershipTransfer],
+          familyTransferOwnershipTransfer: [formData.familyTransferOwnershipTransfer],
+          giftOwnershipTransfer: [formData.giftOwnershipTransfer],
+          saleRegistrationAmount: [formData.saleRegistrationAmount],
+          familyRegistrationAmount: [formData.familyRegistrationAmount],
+          giftRegistrationAmount: [formData.giftRegistrationAmount],
+          landCollateralOwnerRelationship: [formData.landCollateralOwnerRelationship],
+          roadAccessBluePrint: [formData.roadAccessBluePrint],
+          roadAccessDescribe: [formData.roadAccessDescribe],
+          ownerKycApplicableData: [formData.ownerKycApplicableData],
+          landOtherBranchChecked: [formData.landOtherBranchChecked],
+          kycCheckForLand: [formData.kycCheckForLand],
+          landRate: [formData.landRate],
+        })
+    );
   }
 
   private buildForm(): FormGroup {
@@ -65,7 +119,7 @@ export class LandComponent implements OnInit {
       description: [undefined],
       totalLandValueRemarks: [undefined],
       landCross: this.formBuilder.array([]),
-      landDetails: this.formBuilder.array([this.landDetailsFormGroup()]),
+      landDetails: this.formBuilder.array([]),
     });
   }
 
@@ -86,6 +140,7 @@ export class LandComponent implements OnInit {
       this.spinner = false;
     });
   }
+
   public branchList(): void {
     this.branchService.getAll().subscribe((res: any) => {
       this.branchLists = res.detail;
@@ -251,7 +306,7 @@ export class LandComponent implements OnInit {
       ownerKycApplicableData: [undefined],
       landOtherBranchChecked: [undefined],
       kycCheckForLand: [false],
-      landRate: [undefined],
+      landRate: [undefined]
     });
   }
 

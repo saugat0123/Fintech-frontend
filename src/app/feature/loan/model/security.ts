@@ -18,4 +18,5 @@ export class Security {
     usedAmount: number;
     freeLimit: number;
     templateName: string;
+    securityLoanReferenceId: number;
 }

@@ -85,12 +85,12 @@ export class ProposalComponent implements OnInit {
     purposeChecked = false;
     debtChecked = false;
     netChecked = false;
-  borrowChecked = false;
-  endUseChecked = false;
-  checkedHistorical = false;
-  checkedProjection = false;
-  fixedAssetsChecked = false;
-  summaryEnvChecked = false;
+    borrowChecked = false;
+    endUseChecked = false;
+    checkedHistorical = false;
+    checkedProjection = false;
+    fixedAssetsChecked = false;
+    summaryEnvChecked = false;
     subsidyLoanType = [
         {value: 'Literate Youth Self Employment Loan'},
         {value: 'Project Loan For Youth Returning From Foreign'},
@@ -129,14 +129,14 @@ export class ProposalComponent implements OnInit {
     isCombineLoan = false;
     combineLoanList: Array<LoanDataHolder> = [];
     guarantor = new FormControl(undefined, Validators.required);
-  isSbk = false;
-  isInsti = false;
+    isSbk = false;
+    isInsti = false;
 
-  dropdownPriorities = [
-    {id: 'HIGH', name: 'High'},
-    {id: 'MEDIUM', name: 'Medium'},
-    {id: 'LOW', name: 'Low'},
-  ];
+    dropdownPriorities = [
+        {id: 'HIGH', name: 'High'},
+        {id: 'MEDIUM', name: 'Medium'},
+        {id: 'LOW', name: 'Low'},
+    ];
     existingCombinedLoan = {
         id: undefined,
         version: undefined
@@ -423,17 +423,17 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
-      borrowingCase: [undefined],
-      endUseOfFund: [undefined],
-      justificationChangeHistorical: [undefined],
-      justificationChangeProjection: [undefined],
-      fixedAssetsSummary : this.formBuilder.array([]),
-      summaryEnvironment: this.formBuilder.group({
-        priority: [undefined],
-        criticalSectorList: [undefined],
-        criticalSector: [undefined],
-        processApplicable: [undefined],
-      })
+            borrowingCase: [undefined],
+            endUseOfFund: [undefined],
+            justificationChangeHistorical: [undefined],
+            justificationChangeProjection: [undefined],
+            fixedAssetsSummary: this.formBuilder.array([]),
+            summaryEnvironment: this.formBuilder.group({
+                priority: [undefined],
+                criticalSectorList: [undefined],
+                criticalSector: [undefined],
+                processApplicable: [undefined],
+            })
         });
     }
 
@@ -458,12 +458,12 @@ export class ProposalComponent implements OnInit {
 
     configEditor() {
         this.ckeConfig = Editor.CK_CONFIG;
-    if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
-      this.isSbk = true;
-    }
-    if (this.customerInfo.customerType === 'INSTITUTION') {
-      this.isInsti = true;
-    }
+        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.isSbk = true;
+        }
+        if (this.customerInfo.customerType === 'INSTITUTION') {
+            this.isInsti = true;
+        }
     }
 
     scrollToFirstInvalidControl() {
@@ -523,10 +523,10 @@ export class ProposalComponent implements OnInit {
                 purposeChecked: this.purposeChecked,
                 debtChecked: this.debtChecked,
                 netChecked: this.netChecked,
-      borrowChecked: this.borrowChecked,
-      endUseChecked: this.endUseChecked,
-      fixedAssetsChecked: this.fixedAssetsChecked,
-      summaryEnvChecked: this.summaryEnvChecked
+                borrowChecked: this.borrowChecked,
+                endUseChecked: this.endUseChecked,
+                fixedAssetsChecked: this.fixedAssetsChecked,
+                summaryEnvChecked: this.summaryEnvChecked
             };
             this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -664,30 +664,30 @@ export class ProposalComponent implements OnInit {
             case 'net': {
                 this.netChecked = event;
             }
-      break;
-      case 'borrow': {
-        this.borrowChecked = event;
-      }
-      break;
-      case 'endUse': {
-        this.endUseChecked = event;
-      }
-      break;
-      case 'changeHistorical': {
-        this.checkedHistorical = event;
-      }
-      break;
-      case 'changeProjection': {
-        this.checkedProjection = event;
-      }
-      break;
-      case 'fixedAssets': {
-        this.fixedAssetsChecked = event;
-      }
-      break;
-      case 'summaryEnv': {
-        this.summaryEnvChecked = event;
-      }
+                break;
+            case 'borrow': {
+                this.borrowChecked = event;
+            }
+                break;
+            case 'endUse': {
+                this.endUseChecked = event;
+            }
+                break;
+            case 'changeHistorical': {
+                this.checkedHistorical = event;
+            }
+                break;
+            case 'changeProjection': {
+                this.checkedProjection = event;
+            }
+                break;
+            case 'fixedAssets': {
+                this.fixedAssetsChecked = event;
+            }
+                break;
+            case 'summaryEnv': {
+                this.summaryEnvChecked = event;
+            }
                 break;
             case 'combineLoan':
                 if (event) {
@@ -720,12 +720,12 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(data['purposeChecked'], 'purpose');
             this.checkChecked(data['debtChecked'], 'debt');
             this.checkChecked(data['netChecked'], 'net');
-      this.checkChecked(data['borrowChecked'], 'borrow');
-      this.checkChecked(data['endUseChecked'], 'endUse');
-      this.checkChecked(data['checkedHisrotical'], 'changeHistorical');
-      this.checkChecked(data['checkedProjection'], 'changeProjection');
-      this.checkChecked(data['fixedAssetsChecked'], 'fixedAssets');
-      this.checkChecked(data['summaryEnvChecked'], 'summaryEnv');
+            this.checkChecked(data['borrowChecked'], 'borrow');
+            this.checkChecked(data['endUseChecked'], 'endUse');
+            this.checkChecked(data['checkedHisrotical'], 'changeHistorical');
+            this.checkChecked(data['checkedProjection'], 'changeProjection');
+            this.checkChecked(data['fixedAssetsChecked'], 'fixedAssets');
+            this.checkChecked(data['summaryEnvChecked'], 'summaryEnv');
         }
     }
 
@@ -1044,12 +1044,12 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(selectedData['purposeChecked'], 'purpose');
             this.checkChecked(selectedData['debtChecked'], 'debt');
             this.checkChecked(selectedData['netChecked'], 'net');
-      this.checkChecked(selectedData['borrowChecked'], 'borrow');
-      this.checkChecked(selectedData['endUseChecked'], 'endUse');
-      this.checkChecked(selectedData['checkedHistorical'], 'changeHistorical');
-      this.checkChecked(selectedData['checkedProjection'], 'changeProjection');
-      this.checkChecked(selectedData['fixedAssetsChecked'], 'fixedAssets');
-      this.checkChecked(selectedData['summaryEnvChecked'], 'summaryEnv');
+            this.checkChecked(selectedData['borrowChecked'], 'borrow');
+            this.checkChecked(selectedData['endUseChecked'], 'endUse');
+            this.checkChecked(selectedData['checkedHistorical'], 'changeHistorical');
+            this.checkChecked(selectedData['checkedProjection'], 'changeProjection');
+            this.checkChecked(selectedData['fixedAssetsChecked'], 'fixedAssets');
+            this.checkChecked(selectedData['summaryEnvChecked'], 'summaryEnv');
             this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
             this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
             this.proposalForm.get('repayment').patchValue(data.repayment);
@@ -1118,4 +1118,10 @@ export class ProposalComponent implements OnInit {
       }));
     });
   }
+
+    deleteEmitter(event) {
+        if (event === true) {
+            this.ngOnInit();
+        }
+    }
 }

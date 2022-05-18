@@ -45,9 +45,6 @@
                          [siteVisit]="data">
     </app-site-visit-view>
 
-    <app-security-view *ngIf="activity === 'SECURITY' && data"
-                       [security]="data" [shareSecurityData]="null"></app-security-view>
-
     <div *ngIf="activity === 'SHARE_SECURITY' && data"
     >
       <div class="row mt-4">

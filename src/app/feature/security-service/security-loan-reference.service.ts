@@ -30,4 +30,10 @@ export class SecurityLoanReferenceService extends BaseService<SecurityLoanRefere
     const req = ApiUtils.getRequest(url);
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public deleteSecurityLoanReferenceById(id: number): Observable<any> {
+    const url = `${this.getApi()}/delete/${id}`;
+    const req = ApiUtils.getRequest(url);
+    return this.http.delete(req.url, {headers: req.header});
+  }
 }

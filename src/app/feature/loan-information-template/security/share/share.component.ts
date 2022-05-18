@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepseMaster} from '../../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ShareType} from '../../../loan/model/ShareType';
 import {Nepse} from '../../../admin/modal/nepse';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
+import {Security} from '../../../loan/model/security';
+import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-info.service';
+import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
+import {NbToastrService} from '@nebular/theme';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-share',
@@ -14,6 +20,7 @@ import {NepseService} from '../../../admin/component/nepse/nepse.service';
 export class ShareComponent implements OnInit {
   shareSecurityForm: FormGroup;
   activeNepseMaster: NepseMaster = new NepseMaster();
+  nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
   nepseList: Array<Nepse> = new Array<Nepse>();
   search: any = {
     status: 'ACTIVE',
@@ -21,13 +28,26 @@ export class ShareComponent implements OnInit {
     companyName: undefined
   };
   submitted = false;
+  @Input() security: Security;
+  @Input() isEdit = false;
+
 
   constructor(private formBuilder: FormBuilder,
-              private shareService: NepseService) { }
+              private shareService: NepseService,
+              private nepsePriceInfoService: NepsePriceInfoService,
+              private toastService: NbToastrService,
+              private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.buildForm();
     this.getNepseList();
+    this.getLastNepsePriceInfo();
+    this.getActiveShare();
+    if (!ObjectUtil.isEmpty(this.security)) {
+      this.setShareSecurityData();
+    } else {
+      this.addShareSecurity();
+    }
   }
 
   get shareField() {
@@ -36,8 +56,29 @@ export class ShareComponent implements OnInit {
 
   get totalConsideredValue() {
     let total = 0;
-    this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+    this.shareField.controls.forEach(c => total += Number(c.get('considerValue').value));
     return total.toFixed(2);
+  }
+
+
+  private getLastNepsePriceInfo(): void {
+    this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response: any) => {
+      this.nepsePriceInfo = response.detail;
+      this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
+      this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Unable to load data!!!'));
+    });
+  }
+
+  private getActiveShare(): void {
+    this.shareService.getActiveShare().subscribe((response: any) => {
+      this.activeNepseMaster = response.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Unable to load data!!!'));
+    });
   }
 
   private getNepseList(): void {
@@ -48,12 +89,35 @@ export class ShareComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.shareSecurityForm = this.formBuilder.group({
-      shareSecurityDetails: this.formBuilder.array([this.shareSecurityFormGroup()]),
+      shareSecurityDetails: this.formBuilder.array([]),
       securityOffered: [undefined],
       loanShareRate: [undefined],
       sharePriceDate: [undefined],
       avgDaysForPrice: [undefined],
     });
+  }
+
+  private setShareSecurityData(): void {
+    const formControl = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+    const data = JSON.parse(this.security.data);
+    formControl.push(
+        this.formBuilder.group({
+          companyName: [data.companyName],
+          companyCode: [data.companyCode],
+          shareType: [data.shareType],
+          totalShareUnit: [data.totalShareUnit],
+          amountPerUnit: [data.amountPerUnit],
+          total: [data.total],
+          considerValue: [data.considerValue],
+          priceEarningRatio: [data.priceEarningRatio],
+          priceBookValue: [data.priceBookValue],
+          dividendYeild: [data.dividendYeild],
+          dividendPayoutRatio: [data.dividendPayoutRatio],
+          ratioAsPerAuitedFinancial: [data.ratioAsPerAuitedFinancial],
+          shareRate: [data.shareRate],
+          drawingPower: [data.drawingPower],
+        })
+    );
   }
 
   private calculateConsideredAmount(totalShareUnit: number, amountPerUnit: number, shareType) {
@@ -80,7 +144,7 @@ export class ShareComponent implements OnInit {
     if (key === 'share') {
       const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
           * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
-      this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
+      this.shareSecurityForm.get(['shareSecurityDetails', i, 'considerValue']).patchValue(reliasableValue);
     }
   }
 
@@ -94,7 +158,7 @@ export class ShareComponent implements OnInit {
         companyCode: matchedNepse[0].companyCode,
         amountPerUnit: matchedNepse[0].amountPerUnit,
         total: this.calculateTotalShareAmount(companyName, totalShareUnit),
-        consideredValue: this.calculateConsideredAmount(
+        considerValue: this.calculateConsideredAmount(
             this.shareField.at(index).get('totalShareUnit').value,
             this.shareField.at(index).get('amountPerUnit').value,
             matchedNepse[0].shareType
@@ -119,7 +183,7 @@ export class ShareComponent implements OnInit {
       totalShareUnit: [undefined, Validators.required],
       amountPerUnit: [undefined],
       total: [undefined],
-      consideredValue: [undefined],
+      considerValue: [undefined],
       priceEarningRatio: [undefined],
       priceBookValue: [undefined],
       dividendYeild: [undefined],
