@@ -1,15 +1,31 @@
-<nb-card size="small">
+<nb-card status="warning" size="small">
   <nb-card-header>
-    Notification
+    <h5 class="text-white">Notification</h5>
+    <div class="d-flex justify-content-end">
+      <a (click)="deleteAllMessage()" class="btn btn-danger ">Clear All</a>
+    </div>
   </nb-card-header>
   <nb-card-body>
-    <nb-list *ngIf="notifications">
-      <nb-list-item (click)="summaryClick(message)" *ngFor="let message of notifications"
-                    class="cursor">
-        {{message?.message}}<br/>
-        <span class="font-weight-bolder small float-right">{{message?.date | date:'medium'}}</span>
-      </nb-list-item>
-    </nb-list>
+    <table class="table table-hover text-center table-responsive" *ngIf="notifications">
+      <thead>
+        <tr class="">
+          <th>S.No</th>
+          <th>Message</th>
+          <th>Date</th>
+          <th>Clear</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let message of notifications; let i=index">
+        <td>{{ i + 1 }}</td>
+        <td class="cursor" nbTooltip="View" (click)="summaryClick(message)">{{message?.message}}</td>
+        <td>{{message?.date | date}}</td>
+        <td>
+          <a (click)="deleteNotification(message?.id)" class="cursor" role="button" nbButton size="small" status="danger" nbTooltip="Clear Notification"><i class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <nb-list *ngIf="notifications.length <= 0">
       <nb-list-item>No notifications</nb-list-item>
     </nb-list>
