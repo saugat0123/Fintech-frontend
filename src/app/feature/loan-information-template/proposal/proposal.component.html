@@ -788,6 +788,48 @@
                                                               [config]="ckeConfig"></ckeditor>
                                                 </div>
                                             </div>
+                                <ng-container *ngIf="isSbk">
+                                    <div class="col-md-12 form-group">
+
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
+                                                    [checked]="borrowChecked"><b>Borrowing Case</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="borrowChecked">
+                                            <ckeditor formControlName="borrowingCase"
+                                                        [config]="ckeConfig"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
+                                                    [checked]="endUseChecked"><b>End use of Fund</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="endUseChecked">
+                                            <ckeditor formControlName="endUseOfFund"
+                                                        [config]="ckeConfig"></ckeditor>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="isInsti">
+                                    <div class="col-md-12 form-group">
+                                        <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')"
+                                            [checked]="checkedHistorical">
+                                            <b>Justification for change (Historical)</b>
+                                        </nb-checkbox>
+                                        <div *ngIf="checkedHistorical">
+                                            <ckeditor [config]="ckeConfig" formControlName="justificationChangeHistorical"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')"
+                                                [checked]="checkedProjection">
+                                                <b>Justification for change (Projection)</b>
+                                            </nb-checkbox>
+                                        <div *ngIf="checkedProjection">
+                                            <ckeditor [config]="ckeConfig" formControlName="justificationChangeProjection"></ckeditor>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
@@ -820,11 +862,11 @@
                                                             <ng-container [formGroupName]="i">
                                                                 <td><input nbInput type="text" formControlName="assets"></td>
                                                                 <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
-                                                            </ng-container>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>Real Estate (Land and Building)</b></td>
-                                                            <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
+                                                </ng-container>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Real Estate (Land and Building)</b></td>
+                                                <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
 
                                                         </tr>
 
@@ -860,6 +902,109 @@
                                                     </table>
 
                                                 </div>
+                                </div>
+                                <div class="col-md-12 form-group" *ngIf="isInsti">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
+                                                <b>Fixed Assets Summary</b>
+                                            </nb-checkbox>&nbsp;
+                                        </div>
+                                    </div>
+                                    <table *ngIf="fixedAssetsChecked" class="table table-sm table-bordered table-hover sb-small text-center">
+                                        <thead>
+                                            <tr class="sb-bg-dark text-white">
+                                                <th>S.N</th>
+                                                <th>Particulars</th>
+                                                <th>Unit</th>
+                                                <th>Rate</th>
+                                                <th>Total</th>
+                                                <th>Remarks</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left">
+                                            <tr formArrayName = "fixedAssetsSummary" *ngFor="let controls of proposalForm.get('fixedAssetsSummary')['controls']; let i = index" style="text-align: center;">
+                                                <ng-container formGroupName = "{{i}}">
+                                                    <td>{{i + 1}}</td>
+                                                <td><input class="cellInput text-center" formControlName="particular" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="unit" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="rate" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="total" type="text"></td>
+                                                <td><input class="cellInput text-center" formControlName="remarks" type="text"></td>
+                                                <td style="display: flex; text-align: center;">
+                                                    <a href="javascript: void(0)" (click)="addFixedArray()"><i class="fa fa-plus" nbTooltip="Add Field"></i></a>
+                                                    <a *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)"
+                                                        (click)="removeValue('fixedAssetsSummary', i)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i>
+                                                    </a>
+                                                </td>
+                                                </ng-container>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 form-group" *ngIf="isSbk">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="summaryEnvChecked">
+                                                <b>Summary of Environment & Social Risk Assessment</b>
+                                            </nb-checkbox>&nbsp;
+                                        </div>
+                                    </div>
+                                    <table *ngIf="summaryEnvChecked" [formGroup] = "proposalForm.get('summaryEnvironment')" class="table table-sm table-bordered table-hover sb-small text-center">
+                                        <thead>
+                                            <tr class="sb-bg-dark text-white">
+                                                <th>S.N</th>
+                                                <th>Particulars</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left">
+                                            <tr>
+                                                <td>1</td>
+                                                <td class="text-left">Falls under Exclusion and critical sector list</td>
+                                                <td class="text-center">
+                                                    <nb-radio-group formControlName="criticalSector" name="criticalSector" class="d-inline-flex">
+                                                        <nb-radio name="criticalSector"  [value]="true">Yes</nb-radio>
+                                                        <nb-radio name="criticalSector" [value]="false">No</nb-radio>
+                                                        <nb-radio name="criticalSector" value='NA'>NA</nb-radio>
+                                                    </nb-radio-group>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td class="text-left">E & S Due Diligence process Applicable</td>
+                                                <td class="text-center">
+                                                    <nb-radio-group formControlName="processApplicable" name="processApplicable"  class="d-inline-flex">
+                                                        <nb-radio name="processApplicable" [value]="true">Yes</nb-radio>
+                                                        <nb-radio name="processApplicable" [value]="false">No</nb-radio>
+                                                        <nb-radio name="processApplicable" [value]="">NA</nb-radio>
+                                                    </nb-radio-group>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td class="text-left">Level of Risk </td>
+                                                <td>
+                                                    <ng-select [items]="dropdownPriorities"
+                                                        [multiple]="false"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        formControlName="priority"
+                                                        class="cellInput text-center"
+                                                    >
+                                                    </ng-select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td class="text-left">Falls under Exclusion and critical sector list </td>
+                                                <td>
+                                                    <input class="cellInput text-center" formControlName="criticalSectorList" type="text">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                             </div>
                                         </div>
                                     <div class="col-md-12 form-group">

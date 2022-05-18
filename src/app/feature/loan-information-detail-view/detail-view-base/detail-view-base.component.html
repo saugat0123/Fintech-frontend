@@ -22,7 +22,7 @@
                            [loanId]="loanId"
                            [loanDataHolder]="loanDataHolder"
                            [customerInfo]="loanHolder"></app-company-info-view>
-    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [loanDataHolder]="loanDataHolder"
                         [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
     <div *ngIf="isIndividual">
         <app-financial-view *ngIf="loanHolder?.financial && isIndividual"

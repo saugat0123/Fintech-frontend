@@ -39,4 +39,6 @@ export class Guarantor {
     guarantorLegalDocumentAddress: string;
     checkSameAddress: boolean;
     guarantorJson: string;
+    promoterData: string;
+    guarantorType: string;
 }

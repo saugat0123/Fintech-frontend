@@ -19,23 +19,25 @@ export class NewtWorthComponent implements OnInit {
   ngOnInit() {
     this.individualJsonData = JSON.parse(this.proposal.data);
     this.mergedChecked = JSON.parse(this.proposal.checkedData);
-    if (this.mergedChecked.netChecked) {
-      if (this.individualJsonData.deposit.length < 1) {
-        if (!ObjectUtil.isEmpty(this.individualJsonData.depositBank)) {
-          this.individualJsonData.deposit.push({
-            amount: this.individualJsonData.depositBank,
-            assets: this.individualJsonData.depositBankRemark
-          });
-        }
-        if (!ObjectUtil.isEmpty(this.individualJsonData.depositOther)) {
-          this.individualJsonData.deposit.push({
-            amount: this.individualJsonData.depositOther,
-            assets: this.individualJsonData.depositOtherRemark
-          });
+    if (!ObjectUtil.isEmpty(this.mergedChecked)) {
+      if (this.mergedChecked.netChecked) {
+        if (this.individualJsonData.deposit.length < 1) {
+          if (!ObjectUtil.isEmpty(this.individualJsonData.depositBank)) {
+            this.individualJsonData.deposit.push({
+              amount: this.individualJsonData.depositBank,
+              assets: this.individualJsonData.depositBankRemark
+            });
+          }
+          if (!ObjectUtil.isEmpty(this.individualJsonData.depositOther)) {
+            this.individualJsonData.deposit.push({
+              amount: this.individualJsonData.depositOther,
+              assets: this.individualJsonData.depositOtherRemark
+            });
+          }
         }
       }
-    }
 
+    }
   }
 
 }

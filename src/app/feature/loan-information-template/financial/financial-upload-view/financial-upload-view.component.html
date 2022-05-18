@@ -1,8 +1,14 @@
 <div [nbSpinner]="spinner">
 
 <form [formGroup]="form" class="align-content-center" *ngIf="!fromProfile">
-    <label><strong>Upload Financial Sheet - </strong></label>
-    <input type ="file" formControlName="upload" (change)="upload($event)">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Upload Financial Sheet</strong></label>
+                <input type ="file" (change)="upload($event)">
+            </div>
+        </div>
+    </div>
     <button nbButton (click)="submitData()" [disabled]="!uploadFile">Submit</button>
 </form>
     <br>
