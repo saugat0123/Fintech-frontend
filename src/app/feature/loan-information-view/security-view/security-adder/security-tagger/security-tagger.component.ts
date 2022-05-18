@@ -167,10 +167,14 @@ export class SecurityTaggerComponent implements OnInit {
 
     public calculateCoverage() {
         let coveragePercent = 0;
-        this.securityList.forEach((security: any) => {
-            coveragePercent += security.coverage;
-            this.coverage = coveragePercent;
-        });
+        if (this.securityList.length > 0) {
+            this.securityList.forEach((security: any) => {
+                coveragePercent += security.coverage;
+            });
+        } else {
+            coveragePercent = 0;
+        }
+        this.coverage = coveragePercent;
     }
 
 }
