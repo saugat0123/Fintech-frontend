@@ -881,7 +881,8 @@
                     <ng-container *ngIf="fromProfile">
                         <div class="col-md-12">
                             <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
-                                                [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"></app-security-adder>
+                                                [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"
+                            (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
                         </div>
                     </ng-container>
 <!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->

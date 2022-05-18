@@ -1013,4 +1013,10 @@ export class ProposalComponent implements OnInit {
     setLoanHolder(loan: LoanDataHolder) {
         this.loan = loan;
     }
+
+    deleteEmitter(event) {
+        if (event === true) {
+            this.ngOnInit();
+        }
+    }
 }

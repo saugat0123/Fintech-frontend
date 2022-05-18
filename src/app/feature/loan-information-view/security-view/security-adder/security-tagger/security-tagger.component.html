@@ -89,7 +89,7 @@
                     <td>{{security?.coverage || '0'}}</td>
                     <td>{{security?.securityType}}</td>
                     <td>
-                        <button (click)="removeSecurity(i)"
+                        <button (click)="removeSecurity(i, security?.securityLoanReferenceId)"
                                 class="btn btn-sm btn-flat btn-danger">
                             <em class="fa fa-trash bg-transparent"></em>
                         </button>
