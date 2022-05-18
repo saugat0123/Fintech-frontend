@@ -66,13 +66,6 @@ export class Section4SecurityCollateralComponent implements OnInit {
             this.section4Data = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.loanHolder)) {
-            if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors) &&
-                !ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
-                this.cadData.loanHolder.guarantors.guarantorList.forEach(val => {
-                    const tempGuarantor = JSON.parse(val.nepData);
-                    this.guarantorData.push(tempGuarantor);
-                });
-            }
             if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
                 this.loanHolderData = JSON.parse(this.cadData.loanHolder.nepData);
             }
@@ -81,6 +74,13 @@ export class Section4SecurityCollateralComponent implements OnInit {
             this.cadData.assignedLoan.forEach(val => {
                 this.loanName.push(val.loan.name);
             });
+            if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0]) &&
+                !ObjectUtil.isEmpty(this.cadData.assignedLoan[0].taggedGuarantors)) {
+                this.cadData.assignedLoan[0].taggedGuarantors.forEach(val => {
+                    const tempGuarantor = JSON.parse(val.nepData);
+                    this.guarantorData.push(tempGuarantor);
+                });
+            }
         }
         this.buildForm();
         this.checkCondition();
