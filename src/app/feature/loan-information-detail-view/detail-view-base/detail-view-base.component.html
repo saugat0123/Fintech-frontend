@@ -5,7 +5,6 @@
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </div>
-    <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>
 <app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
@@ -28,7 +27,7 @@
                        [loanId]="loanId"
                        [loanDataHolder]="loanDataHolder"
                        [customerInfo]="loanHolder"></app-company-info-view>
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [loanDataHolder]="loanDataHolder"
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 <div *ngIf="isIndividual">
     <app-financial-view *ngIf="loanHolder?.financial && isIndividual"

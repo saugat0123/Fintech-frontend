@@ -53,7 +53,6 @@ import {ReviewDateComponent} from './review-date/review-date.component';
 import {MultiBankingComponent} from './multi-banking/multi-banking.component';
 import {FinancialUploadViewComponent} from './financial/financial-upload-view/financial-upload-view.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
 import {LandBuildingComponent} from './security/land-building/land-building.component';
 import {VehicleComponent} from './security/vehicle/vehicle.component';
 import {ApartmentComponent} from './security/apartment/apartment.component';
@@ -105,7 +104,6 @@ const COMPONENTS = [
     CreateDocumentComponent,
     ReviewDateComponent,
     MultiBankingComponent,
-    SecurityTaggedViewComponent
 ];
 
 

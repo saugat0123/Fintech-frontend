@@ -56,5 +56,6 @@
       </tr>
     </table>
     <app-newt-worth *ngIf="loanDataHolder?.proposal?.data" [proposal]="loanDataHolder?.proposal"></app-newt-worth>
+    <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
   </div>
 </div>

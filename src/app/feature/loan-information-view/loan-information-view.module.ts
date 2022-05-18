@@ -30,6 +30,7 @@ import {NetWorthModule} from '../newt-worth/net-worth-module';
 import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
 import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
+import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
 import {SecurityTaggerComponent} from './security-view/security-adder/security-tagger/security-tagger.component';
 
@@ -91,6 +92,7 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         NepaliCalendarModule,
         NepaliPatroModule,
         NetWorthModule,
+        FinancialAccountInformationModule,
         SecurityTaggedModule,
     ],
     entryComponents: [

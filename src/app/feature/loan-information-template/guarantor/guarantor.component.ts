@@ -19,6 +19,7 @@ import {Gender} from '../../../@core/model/enum/gender';
 import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {DesignationList} from '../../loan/model/designationList';
 
 @Component({
   selector: 'app-guarantor',
@@ -60,6 +61,9 @@ export class GuarantorComponent implements OnInit {
   question = ['Yes', 'No'];
   designationList = [];
   spinner = false;
+  designation;
+  designationLists: DesignationList = new DesignationList();
+
 
   constructor(
       private formBuilder: FormBuilder,
@@ -71,6 +75,7 @@ export class GuarantorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.designation = this.designationLists.designation;
     this.buildForm();
     this.getProvince();
     this.getAllDistrict();
@@ -111,6 +116,15 @@ export class GuarantorComponent implements OnInit {
         this.setJsonData(this.jsonData, index);
         this.legalChange(v.consentOfLegalHeirs, index);
         this.checkSameAddress = v.checkSameAddress;
+        const promoterData = JSON.parse(v.promoterData);
+        if (!ObjectUtil.isEmpty(promoterData)) {
+          promoterData.background.forEach(d => {
+            this.addBackground(index, d);
+          });
+          promoterData.familyDetails.forEach(d => {
+            this.addFamily(index, d);
+          });
+        }
       });
     }
   }
@@ -253,7 +267,37 @@ export class GuarantorComponent implements OnInit {
       registrationDate: [undefined],
       registrationWith: [undefined],
       groupName: [undefined],
+      guarantorType: [ObjectUtil.isEmpty(data.guarantorType) ? undefined : data.guarantorType],
+      promoterData: this.formBuilder.group({
+        background: this.formBuilder.array([]),
+        familyDetails: this.formBuilder.array([])
+      })
     });
+  }
+
+  addBackground(i: number, data ?) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('background') as FormArray).push(this.formBuilder.group({
+      previousAssociations: [data ? data.previousAssociations : undefined],
+      natureOfBusiness: [data ? data.natureOfBusiness : undefined],
+      capacity: [data ? data.capacity : undefined],
+      tenure: [data ? new Date(data.tenure) : undefined],
+    }));
+  }
+
+  removeBackground(i: number, j: number) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('background') as FormArray).removeAt(j);
+  }
+  addFamily(i: number, data ?) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('familyDetails') as FormArray).push(this.formBuilder.group({
+      name: [data ? data.name : undefined],
+      relation: [data ? data.relation : undefined],
+      age: [data ? data.age : undefined],
+      profession: [data ? data.profession : undefined],
+    }));
+  }
+
+  removeFamily(i: number, j: number) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('familyDetails') as FormArray).removeAt(j);
   }
 
   removeGuarantorDetails(index: number) {
@@ -318,6 +362,7 @@ export class GuarantorComponent implements OnInit {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray['controls'].forEach(c => {
       const guarantor: Guarantor = c.value;
+      guarantor.promoterData = JSON.stringify(c.get('promoterData').value);
       if (!ObjectUtil.isEmpty(c.get('province').value)) {
         const province = new Province();
         province.id = c.get('province').value;

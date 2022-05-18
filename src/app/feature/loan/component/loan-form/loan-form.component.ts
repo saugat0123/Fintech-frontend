@@ -69,6 +69,7 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
+import { FinancialAccountInformationComponent } from '../../../loan-information-template/financial-account-information/financial-account-information.component';
 
 
 @Component({
@@ -227,8 +228,13 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
+
     @ViewChild('productPaperChecklistComponent', {static: false})
     productPaperChecklistComponent: ProductPaperChecklistComponent;
+
+    @ViewChild('financialAccountDetail', {static: false})
+    financialAccountDetail: FinancialAccountInformationComponent;
+
 
     loanTag: string;
     loanHolder = new CustomerInfoData();
@@ -241,7 +247,7 @@ export class LoanFormComponent implements OnInit {
     paperChecklist;
     allIds = [];
     checklistChecked = false;
-
+    financialInfo = false;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -672,6 +678,10 @@ export class LoanFormComponent implements OnInit {
             this.paperChecklist = obj.view;
             this.allIds = obj.id;
         }
+        if (name === 'Financial/Account Information' && action) {
+            this.financialAccountDetail.submitForm();
+            this.loanDocument.financialAccountInformation = this.financialAccountDetail.financialData;
+        }
 
         if (name === 'Security' && action) {
             this.securityAdderComponent.save();
@@ -742,6 +752,14 @@ export class LoanFormComponent implements OnInit {
             return undefined;
         } else {
             return this.loanDocument.proposal;
+        }
+    }
+
+    getFinancialAccountInfo() {
+        if (this.loanDocument.financialAccountInformation === undefined) {
+            return undefined;
+        } else {
+            return this.loanDocument.financialAccountInformation;
         }
     }
 
