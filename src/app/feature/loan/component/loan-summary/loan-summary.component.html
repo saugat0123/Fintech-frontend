@@ -354,7 +354,9 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
-
+                <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
+                    <app-security-summary [securities]="loanDataHolder?.securities"></app-security-summary>
+                </ng-container>
             <app-security-schedule   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 
