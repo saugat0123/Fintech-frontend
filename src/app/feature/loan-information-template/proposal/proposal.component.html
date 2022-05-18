@@ -662,27 +662,6 @@
                                         <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                        <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
-                                        <ckeditor formControlName="borrowerInformation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Background"
-                                                  required
-                                                  [config]="ckeConfig"
-                                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-12" style="padding-top: 70px;">
-                                    <div *ngIf="submitted">
-                                        <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                                            <sup>*</sup> {{client === clientName?.LAXMIBANK ? 'Justification of limit is required!' : 'Loan background Information is required.' }}
-                                        </span>
-                                    </div>
-                                </div>
                                 <div class="col-md-12" >
                                     <div class="form-group">
                                         <div class="d-flex align-items-center">
@@ -701,176 +680,114 @@
                                         <ckeditor *ngIf="purposeChecked" formControlName="purposeOfLoan"></ckeditor>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
-                                        <ckeditor
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
-                                                formControlName="disbursementCriteria" id="disbursementCriteria"
-                                                name="disbursementCriteria"
-                                                [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
-                                             class="text-danger">
-                                            <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="repayment"><strong>Repayment</strong></label>
-                                        <ckeditor
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.repayment.errors }"
-                                                formControlName="repayment" id="repayment"
-                                                name="repayment"
-                                                [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && formControls.repayment.invalid"
-                                             class="text-danger">
-                                            <span *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="remark">
-                                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
-                                        <ckeditor
-                                                formControlName="remark" id="remark"
-                                                [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-12 mt-3">
-                                    <div class="form-group">
-                                        <label class="title"><strong>Summary & Recommendation</strong></label>
-                                        <ckeditor formControlName="summeryRecommendation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Summary & Recommendation"
-                                                  [config]="ckeConfig">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <h6><strong>Additional Description</strong></h6>
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
-                                                 [checked]="waiverChecked">
-                                        <b>Waiver</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="waiverChecked">
-                                        <ckeditor formControlName="waiverConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
-                                                 [checked]="deviationChecked">
-                                        <b>Deviation</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="deviationChecked">
-                                        <ckeditor formControlName="deviationConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
-                                                 [checked]="solChecked"><b>Single Obligor Limit</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="solChecked">
-                                        <div *ngIf="client === clientName?.SHINE_RESUNGA">
-                                            <table
-                                                    class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
-                                                <thead class="font-weight-bold">
-                                                <tr>
-                                                    <th>S.N</th>
-                                                    <th>Client's Name</th>
-                                                    <th>Facility Type</th>
-                                                    <th>Loan Limit(NPR)</th>
-                                                    <th>O/S Limit (NPR)</th>
-                                                    <th>Proposed Limit(NPR)</th>
-                                                    <th>FMV/DV</th>
-                                                    <th>Exposure(%)</th>
-                                                    <th>Remarks</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure">
-                                                <tr [formGroupName]="index">
-                                                    <td>{{index + 1}}</td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="clientName"
-                                                               placeholder="Client's Name"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="facilityType"
-                                                               placeholder="Facility Type"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="loanLimit"
-                                                               placeholder="Loan Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="osLimit"
-                                                               placeholder="O/S Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="proposedLimit"
-                                                               placeholder="Proposed Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="fmvDv"
-                                                               placeholder="FMV/DV"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="exposure"
-                                                               placeholder="Exposure(%)"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="remarks"
-                                                               placeholder="Remarks"
-                                                               type="text"/></td>
-                                                    <td hidden><input class="form-control text-center"
-                                                               formControlName="files"
-                                                               type="text"/></td>
-                                                    <div>
-                                                        <button (click)="removeGroupExposureData(index)"
-                                                                *ngIf="index > 0"
-                                                                class="btn btn-success" nbButton size="small"
-                                                                status="primary">Delete </button>
-                                                    </div>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="text-right">
-                                                <input (click)="addGroupExposureData()" class="btn btn-sm btn-flat btn-primary"
-                                                       type="button" value="Add More"/>
+                                <ng-container *ngIf="!fromProfile">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                                    <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
+                                                    <ckeditor formControlName="borrowerInformation"
+                                                              [style]="{height:'250px !important;'}"
+                                                              placeholder="Background"
+                                                              required
+                                                              [config]="ckeConfig"
+                                                    >
+                                                    </ckeditor>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <ckeditor formControlName="solConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
+                                            <div class="clearfix"></div>
 
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
-                                                 [checked]="riskChecked"><b>Risk & Mitigation</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="riskChecked">
-                                        <ckeditor formControlName="riskConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+                                                    <ckeditor
+                                                            formControlName="disbursementCriteria" id="disbursementCriteria"
+                                                            name="disbursementCriteria"
+                                                            [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="title" for="repayment"><strong>Repayment</strong></label>
+                                                    <ckeditor
+                                                            formControlName="repayment" id="repayment"
+                                                            name="repayment"
+                                                            [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="title" for="remark">
+                                                        <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
+                                                    <ckeditor
+                                                            formControlName="remark" id="remark"
+                                                            [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
 
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'debt')"
-                                                 [checked]="debtChecked"><b>Debt Structure and Control</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="debtChecked">
-                                        <ckeditor formControlName="termsAndCondition"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
+
+                                            <div class="col-md-12 mt-3">
+                                                <div class="form-group">
+                                                    <label class="title"><strong>Summary & Recommendation</strong></label>
+                                                    <ckeditor formControlName="summeryRecommendation"
+                                                              [style]="{height:'250px !important;'}"
+                                                              placeholder="Summary & Recommendation"
+                                                              [config]="ckeConfig">
+                                                    </ckeditor>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 form-group">
+                                                <h6><strong>Additional Description</strong></h6>
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
+                                                             [checked]="waiverChecked">
+                                                    <b>Waiver</b>
+                                                </nb-checkbox>
+                                                <div *ngIf="waiverChecked">
+                                                    <ckeditor formControlName="waiverConclusionRecommendation"
+                                                              [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 form-group">
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
+                                                             [checked]="deviationChecked">
+                                                    <b>Deviation</b>
+                                                </nb-checkbox>
+                                                <div *ngIf="deviationChecked">
+                                                    <ckeditor formControlName="deviationConclusionRecommendation"
+                                                              [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 form-group">
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
+                                                             [checked]="solChecked"><b>Single Obligor Limit</b>
+                                                </nb-checkbox>
+                                                <div *ngIf="solChecked">
+                                                    <ckeditor formControlName="solConclusionRecommendation"
+                                                              [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
+                                                             [checked]="riskChecked"><b>Risk & Mitigation</b>
+                                                </nb-checkbox>
+                                                <div *ngIf="riskChecked">
+                                                    <ckeditor formControlName="riskConclusionRecommendation"
+                                                              [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'debt')"
+                                                             [checked]="debtChecked"><b>Debt Structure and Control</b>
+                                                </nb-checkbox>
+                                                <div *ngIf="debtChecked">
+                                                    <ckeditor formControlName="termsAndCondition"
+                                                              [config]="ckeConfig"></ckeditor>
+                                                </div>
+                                            </div>
                                 <ng-container *ngIf="isSbk">
                                     <div class="col-md-12 form-group">
 
@@ -895,7 +812,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="isInsti">
                                     <div class="col-md-12 form-group">
-                                        <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')" 
+                                        <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')"
                                             [checked]="checkedHistorical">
                                             <b>Justification for change (Historical)</b>
                                         </nb-checkbox>
@@ -904,7 +821,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                            <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')" 
+                                            <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')"
                                                 [checked]="checkedProjection">
                                                 <b>Justification for change (Projection)</b>
                                             </nb-checkbox>
@@ -913,78 +830,78 @@
                                         </div>
                                     </div>
                                 </ng-container>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
-                                                     [checked]="netChecked"><b>Net Worth</b>
-                                        </nb-checkbox>
-                                        <table *ngIf="netChecked"
-                                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                                            <thead>
-                                            <tr class="sb-bg-dark text-white">
-                                                <th>Assets</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-left">
-                                            <tr>
-                                                <td colspan="1"><b>Deposit</b></td>
-                                                <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>
-                                            </tr>
-                                            <tr *ngFor="let controls of proposalForm.get('deposit')['controls'];let i = index" formArrayName="deposit">
-                                                <ng-container [formGroupName]="i">
-                                                    <td><input nbInput type="text" formControlName="assets"></td>
-                                                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
-                                                </ng-container>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="1"><b>Shares & Securities</b></td>
-                                                <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
-                                            </tr>
-                                            <tr *ngFor="let controls of proposalForm.get('shares')['controls'];let i = index" formArrayName="shares">
-                                                <ng-container [formGroupName]="i">
-                                                    <td><input nbInput type="text" formControlName="assets"></td>
-                                                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
+                                                                 [checked]="netChecked"><b>Net Worth</b>
+                                                    </nb-checkbox>
+                                                    <table *ngIf="netChecked"
+                                                           class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                                        <thead>
+                                                        <tr class="sb-bg-dark text-white">
+                                                            <th>Assets</th>
+                                                            <th>Amount</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-left">
+                                                        <tr>
+                                                            <td colspan="1"><b>Deposit</b></td>
+                                                            <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>
+                                                        </tr>
+                                                        <tr *ngFor="let controls of commonLoanData?.get('deposit')['controls'];let i = index" formArrayName="deposit">
+                                                            <ng-container [formGroupName]="i">
+                                                                <td><input nbInput type="text" formControlName="assets"></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                            </ng-container>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="1"><b>Shares & Securities</b></td>
+                                                            <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
+                                                        </tr>
+                                                        <tr *ngFor="let controls of commonLoanData?.get('shares')['controls'];let i = index" formArrayName="shares">
+                                                            <ng-container [formGroupName]="i">
+                                                                <td><input nbInput type="text" formControlName="assets"></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
                                                 </ng-container>
                                             </tr>
                                             <tr>
                                                 <td><b>Real Estate (Land and Building)</b></td>
                                                 <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
 
-                                            </tr>
+                                                        </tr>
 
-                                            <tr *ngFor="let controls of proposalForm.get('realState')['controls'];let i = index" formArrayName="realState">
-                                                <ng-container [formGroupName]="i">
-                                                    <td><input nbInput type="text" formControlName="assets"></td>
-                                                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="proposalForm?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
-                                                </ng-container>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Vehicles</b></td>
-                                                <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
-                                            </tr>
-                                            <tr *ngFor="let controls of proposalForm.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
-                                                <ng-container [formGroupName]="i">
-                                                    <td><input nbInput type="text" formControlName="assets"></td>
-                                                    <td>
-                                                        <input nbInput type="number" (change)="calculate()" formControlName="amount">
-                                                        <a *ngIf="proposalForm?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
-                                                    </td>
-                                                </ng-container>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><b>Total:</b></td>
-                                                <td><input nbInput formControlName="total" (change)="calculate()" type="number"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b></td>
-                                                <td><input nbInput formControlName="totals"  type="number"></td>
-                                            </tr>
-                                            </tbody>
+                                                        <tr *ngFor="let controls of commonLoanData?.get('realState')['controls'];let i = index" formArrayName="realState">
+                                                            <ng-container [formGroupName]="i">
+                                                                <td><input nbInput type="text" formControlName="assets"></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="commonLoanData?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                            </ng-container>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Vehicles</b></td>
+                                                            <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
+                                                        </tr>
+                                                        <tr *ngFor="let controls of commonLoanData?.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
+                                                            <ng-container [formGroupName]="i">
+                                                                <td><input nbInput type="text" formControlName="assets"></td>
+                                                                <td>
+                                                                    <input nbInput type="number" (change)="calculate()" formControlName="amount">
+                                                                    <a *ngIf="commonLoanData?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                                                                </td>
+                                                            </ng-container>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><b>Total:</b></td>
+                                                            <td><input nbInput formControlName="total" (change)="calculate()" type="number"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b></td>
+                                                            <td><input nbInput formControlName="totals"  type="number"></td>
+                                                        </tr>
+                                                        </tbody>
 
-                                        </table>
+                                                    </table>
 
-                                    </div>
+                                                </div>
                                 </div>
                                 <div class="col-md-12 form-group" *ngIf="isInsti">
                                     <div class="row">
@@ -1017,7 +934,7 @@
                                                 <td><input class="cellInput text-center" formControlName="remarks" type="text"></td>
                                                 <td style="display: flex; text-align: center;">
                                                     <a href="javascript: void(0)" (click)="addFixedArray()"><i class="fa fa-plus" nbTooltip="Add Field"></i></a>
-                                                    <a *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)" 
+                                                    <a *ngIf="proposalForm?.get('fixedAssetsSummary')['length'] > 1" href="javascript: void(0)"
                                                         (click)="removeValue('fixedAssetsSummary', i)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i>
                                                     </a>
                                                 </td>
@@ -1088,19 +1005,37 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-md-12 form-group">
+                                        <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
+                                        </button>
+                                    </div>
+                                </ng-container>
                             </div>
-                            <div class="col-md-12 form-group">
-                                <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
-                                </button>
-                            </div>
-                            <ng-template #datax>
-                                <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
-                            </ng-template>
                         </form>
                     </div>
+                    <ng-container  *ngIf="fromProfile">
+                        <div class="col-md-12">
+                            <app-guarantor-adder  (emitter)="guarantors($event)"
+                                                  [taggedGuarantors]="loan?.taggedGuarantors"
+                                                  [guarantorData]="customerInfo?.guarantors">
+                            </app-guarantor-adder>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="fromProfile">
+                        <div class="col-md-12">
+                            <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
+                                                [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"></app-security-adder>
+                        </div>
+                    </ng-container>
+<!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->
+                    <button nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>
                 </nb-card-body>
             </nb-card>
         </div>
     </div>
 </div>
+<ng-template #datax>
+    <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
+</ng-template>

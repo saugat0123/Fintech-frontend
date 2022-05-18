@@ -5,7 +5,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Customer} from '../../../../admin/modal/customer';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {LoanType} from '../../../../loan/model/loanType';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -31,14 +31,28 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {Clients} from '../../../../../../environments/Clients';
+import {DocStatus} from '../../../../loan/model/docStatus';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {CompanyInfoService} from '../../../../admin/service/company-info.service';
+import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
+import {CommonService} from '../../../../../@core/service/common.service';
 
 
 @Component({
     selector: 'app-customer-profile',
     templateUrl: './customer-profile.component.html',
-    styleUrls: ['./customer-profile.component.scss']
+    styleUrls: ['./customer-profile.component.scss'],
+    animations: [
+        trigger('displayState', [
+            state('false', style({ overflow: 'hidden', height: '0px'})),
+            state('true', style({ overflow: 'hidden', height: '*'})),
+            transition('false => true', animate('200ms ease-in')),
+            transition('true => false', animate('200ms ease-out'))
+        ]),
+    ]
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('customerListGroupComponent', {static: false})
@@ -91,6 +105,35 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isJointInfo = false;
     microCustomer: boolean;
     customerType: CustomerType;
+    nonMicroLoanList = [];
+    microLoanList = [];
+    loanList = [];
+    loanTypeList = LoanType.value();
+    multipleSelectedLoanType = [];
+    selectedLoanType;
+    facilityType;
+    loanForm: FormGroup;
+    // Priority options--
+    dropdownPriorities = [
+        {id: 'HIGH', name: 'High'},
+        {id: 'MEDIUM', name: 'Medium'},
+        {id: 'LOW', name: 'Low'},
+
+    ];
+
+    dropdownApprovalLevel = [
+        {id: 'L1', name: 'L1'},
+        {id: 'L2', name: 'L2'},
+        {id: 'L3', name: 'L3'}
+    ];
+    docStatusMakerList = [];
+    loan = new LoanDataHolder();
+    customerLoans: LoanDataHolder [];
+    documentSpinner = false;
+    approvedLoanList;
+    pendingLoanList;
+
+
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -104,8 +147,14 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private commonLocation: AddressService,
                 private activatedRoute: ActivatedRoute,
                 private dialogService: NbDialogService,
-                private utilService: ProductUtilService) {
+                private utilService: ProductUtilService,
+                private companyInfoService: CompanyInfoService,
+                public service: CommonService,
+                private config: NgbModalConfig
 
+    ) {
+        config.backdrop = 'static';
+        config.keyboard = false;
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
         };
@@ -118,6 +167,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        this.buildLoanForm();
+        this.docStatusForMaker();
         this.associateId = this.route.snapshot.params.id;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -151,6 +202,20 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
+        this.getCustomerLoans();
+
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+            this.loanList = response.detail;
+            this.nonMicroLoanList = this.loanList;
+            this.spinner = false;
+        }, (err) => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
+            // this.activeModal.dismiss();
+        });
+        this.sliceLoan();
+        this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
+        this.getCustomerLoans();
     }
 
     ngAfterContentInit(): void {
@@ -162,11 +227,20 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         }
     }
 
+    docStatusForMaker() {
+        DocStatus.values().forEach((value) => {
+            if (value === DocStatus.value(DocStatus.DISCUSSION) ||
+                value === DocStatus.value(DocStatus.DOCUMENTATION) ||
+                value === DocStatus.value(DocStatus.VALUATION) ||
+                value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+                this.docStatusMakerList.push(value);
+            }
+        });
+    }
     getCustomerInfo() {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
-
             this.isEditableCustomerData();
             this.spinner = false;
         }, error => {
@@ -179,6 +253,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     public refreshCustomerInfo(): void {
         this.customerInfo = undefined;
         this.getCustomerInfo();
+        this.modalService.dismissAll();
+        this.selectedLoanType = null;
+        this.facilityType = null;
+        this.buildLoanForm();
     }
 
     getProvince() {
@@ -212,6 +290,25 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 this.refreshCustomerInfo();
             }
         });
+    }
+
+    // openLoanApplyTemplate() {
+    //     this.applyLoan = !this.applyLoan;
+    //     // this.routeToLoanForm();
+    // }
+
+    routeToLoanForm() {
+        this.router.navigate(['/home/loan/loanForm'], {
+            queryParams: {
+                loanId: this.facilityType,
+                customerInfoId: this.paramProp.customerInfoId,
+                customerType: this.paramProp.customerType,
+                customerProfileId: this.associateId,
+                loanCategory: this.customerType,
+                loanType: this.selectedLoanType
+            }
+        });
+
     }
 
     openCombineSelectLoanTemplate() {
@@ -283,7 +380,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
-            maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus)  ? undefined : this.customer.maritalStatus, Validators.required],
+            maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus) ? undefined : this.customer.maritalStatus, Validators.required],
             gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
             bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
@@ -367,6 +464,12 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveBasic() {
+        this.customer.withinLimitRemarks = this.basicForm.get('withinLimitRemarks').value;
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.customerCode = this.customerInfo.customerCode;
+        this.customer.gender = this.customerInfo.gender;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -438,11 +541,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     isEditableCustomerData() {
         if (this.maker) {
-        this.customerLoanService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
-            this.isEditable = res.detail;
-        }); }
+            this.customerLoanService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
+                this.isEditable = res.detail;
+            });
+        }
 
     }
+
     setWithin(event) {
         this.customer.withinLimitRemarks = event.target.value;
         this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
@@ -450,5 +555,106 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
         this.customer.customerCode = this.customerInfo.customerCode;
+    }
+
+    sliceLoan() {
+        this.loanTypeList.forEach((val) => {
+            if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+                || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+                || val.key === 'INTEREST_RATE_REVISION') {
+                return true;
+            }
+            this.multipleSelectedLoanType.push(val);
+
+        });
+    }
+    buildLoanForm() {
+        this.loanForm = this.formBuilder.group({
+            priority: [undefined, Validators.required],
+            approvingLevel: [undefined, Validators.required],
+            creditRisk: [undefined, Validators.required],
+            documentStatus: ['UNDER_REVIEW']
+        });
+
+    }
+
+    applyLoans(proposal) {
+        this.loan = new LoanDataHolder();
+        this.loan.priority = this.loanForm.get('priority').value;
+        this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
+        this.loan.creditRisk = this.loanForm.get('creditRisk').value;
+        this.loan.documentStatus = this.loanForm.get('documentStatus').value;
+        this.loan.loanType = this.selectedLoanType;
+        const loanConfig = new LoanConfig();
+        loanConfig.id = this.facilityType;
+        this.loan.loan = loanConfig;
+        this.loan.loanHolder = this.customerInfo;
+        // loan.loanType = LoanType.
+        if (!ObjectUtil.isEmpty(this.customer)) {
+                // @ts-ignore
+            this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
+
+        }
+        this.modalService.open(proposal, {
+            size: 'xl',
+            windowClass: 'modal-holder',
+            scrollable: true,
+        });
+    }
+
+    getCustomerInfos(id) {
+        this.customerService.detail(id).subscribe((res: any) => {
+            return  res.detail;
+        });
+    }
+
+    getCompanyInfo(id) {
+        this.companyInfoService.detail(id).subscribe((res: any) => {
+            return res.detail;
+        });
+    }
+
+    saveLoan(loan: LoanDataHolder, document: Array<CustomerDocuments>, i: number, ix: number) {
+        this.documentSpinner = true;
+        loan.customerDocument = document;
+        this.customerLoanService.save(loan).subscribe((res => {
+            this.pendingLoanList[i][ix] = res.detail;
+            this.documentSpinner = false;
+        }));
+    }
+
+    close() {
+        this.modalService.dismissAll();
+    }
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
+    }
+    getCustomerLoans() {
+        this.modalService.dismissAll();
+        this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
+            this.customerLoans = [];
+            this.customerLoans = res.detail;
+            const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
+            this.approvedLoanList = this.managedArray(approved);
+            const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
+            this.pendingLoanList = this.managedArray(array);
+        });
     }
 }

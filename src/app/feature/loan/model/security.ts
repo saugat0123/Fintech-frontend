@@ -1,5 +1,6 @@
 import {Guarantor} from './guarantor';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
+import {SecuritiesType} from '../../constants/securities-type';
 
 
 export class Security {
@@ -9,7 +10,12 @@ export class Security {
     valuatorId: number;
     share: ShareSecurity;
     guarantor: Array<Guarantor>;
-    totalSecurityAmount: number;
-    approvedData: string;
+    fairMarketValue: number;
+    distressValue: number;
+    considerValue: number;
+    securityType: SecuritiesType;
+    coverage: number;
+    usedAmount: number;
+    freeLimit: number;
     templateName: string;
 }

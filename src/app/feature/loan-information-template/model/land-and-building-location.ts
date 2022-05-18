@@ -13,6 +13,7 @@ export class LandAndBuildingLocationPointsMap {
 }
 
 export namespace LandAndBuildingLocation {
+
     export function values() {
         return Object.keys(LandAndBuildingLocation).filter(
             (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'

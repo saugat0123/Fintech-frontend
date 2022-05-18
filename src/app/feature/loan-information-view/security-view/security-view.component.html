@@ -3,13 +3,6 @@
     <p><strong class="header">Security Schedule</strong></p>
   </div>
   <div *ngIf="landSelected" class="row">
-    <!--<p class="text-center" *ngIf="securityData['initialForm']['landCrossChecked']">
-      <b>Cross Collateralized of Land Security</b></p>
-    <app-cross-collateralized-view *ngIf="securityData['initialForm']['landCrossChecked']"
-                                   [securityData]="securityData['initialForm']['landCross']"
-                                   [securityType]="'land'"
-                                   [initialForm]="securityData['initialForm']"></app-cross-collateralized-view>-->
-<!--    <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">-->
     <p class="sub-header"><strong class="sub-header">Land Security Details</strong></p>
     <ng-container *ngFor="let land of landArray; let i= index">
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -407,16 +400,7 @@
     </table>
   </div>
   <div class="row" *ngIf= "landBuilding">
-   <!-- <div class="col-md-12">
-      <p class="text-center" *ngIf="securityData['initialForm']['lbCrossChecked']">
-        <b>Cross Collateralized of Land & Building Security</b></p>
-      <app-cross-collateralized-view *ngIf="securityData['initialForm']['lbCrossChecked']"
-                                     [securityType]="'landBuilding'"
-                                     [securityData]="securityData['initialForm']['lbCross']"
-                                     [initialForm]="securityData['initialForm']"></app-cross-collateralized-view>
-    </div>-->
     <p class="sub-header"><strong class="sub-header">Land And Building Security</strong></p>
-<!--    <ng-container *ngFor="let landBuilding of  securityData['initialForm']['landBuilding']; let i= index">-->
     <ng-container *ngFor="let landB of landBuildingArray">
       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tbody>

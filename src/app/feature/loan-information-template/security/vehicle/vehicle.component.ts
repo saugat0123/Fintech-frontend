@@ -1,0 +1,166 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ValuatorService} from '../../../admin/component/valuator/valuator.service';
+import {SecurityValuator} from '../../../loan/model/securityValuator';
+import {BranchService} from '../../../admin/component/branch/branch.service';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
+import {RoleService} from '../../../admin/component/role-permission/role.service';
+import {NumberUtils} from '../../../../@core/utils/number-utils';
+
+@Component({
+  selector: 'app-vehicle',
+  templateUrl: './vehicle.component.html',
+  styleUrls: ['./vehicle.component.scss']
+})
+export class VehicleComponent implements OnInit {
+  vehicleForm: FormGroup;
+  submitted = false;
+  @Input() calendarType: CalendarType;
+  isEdit = false;
+  landOtherBranchChecked = false;
+  vehicleOtherBranchChecked = false;
+  securityValuator: SecurityValuator = new SecurityValuator();
+  branchLists;
+  designationList = [];
+  spinner = false;
+
+  constructor(private valuatorService: ValuatorService,
+              private branchService: BranchService,
+              private toastService: ToastService,
+              private roleService: RoleService,
+              private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.buildForm();
+    this.branchList();
+    this.getRoleList();
+  }
+
+  get vehicleDetails() {
+    return this.vehicleForm.get('vehicleDetails') as FormArray;
+  }
+
+  private buildForm(): FormGroup {
+    return this.vehicleForm = this.formBuilder.group({
+      vehicleLoanExposure: [undefined],
+      vehicleDetails: this.formBuilder.array([this.vehicleDetailsFormGroup()])
+    });
+  }
+
+  public getRoleList(): void {
+    this.spinner = true;
+    this.roleService.getAll().subscribe(res => {
+      this.designationList = res.detail;
+      this.spinner = false;
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
+      this.spinner = false;
+    });
+  }
+
+  public branchList(): void {
+    this.branchService.getAll().subscribe((res: any) => {
+      this.branchLists = res.detail;
+    });
+  }
+
+  public removeVehicleDetails(index: number): void {
+    (this.vehicleForm.get('vehicleDetails') as FormArray).removeAt(index);
+  }
+
+  public vehicleRemainingAmount(index: number): void {
+    const v = this.vehicleDetails.at(index);
+    v.get('remainingAmount').setValue(v.get('quotationAmount').value - v.get('downPayment').value);
+  }
+
+  public calcRealiasable(i, key): void {
+    if (key === 'vehicle') {
+      const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value)
+          * (Number(this.vehicleForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
+      this.vehicleForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
+    }
+  }
+
+  public setFreeLimitAmount(index, formArrayName: string, considerValue: number, ) {
+    if (this.isEdit === false) {
+      this.vehicleForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
+    }
+  }
+
+  public valuator(branchId, type: string, index: number): void {
+    if ((this.vehicleOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
+      return;
+    }
+    const valuatorSearch = {
+      'branchIds': LocalStorageUtil.getStorage().branch
+    };
+    if (!ObjectUtil.isEmpty(branchId)) {
+      valuatorSearch.branchIds = JSON.stringify(branchId);
+    }
+    if (type === 'vehicle') {
+      this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
+        this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
+      });
+    }
+  }
+
+  get totalVehicleExposure() {
+    let totalRemaining = 0;
+    let totalValuation = 0;
+    let exposures = 0;
+    this.vehicleDetails.controls.forEach((c: AbstractControl) => {
+      totalRemaining += c.get('remainingAmount').value;
+      totalValuation += c.get('quotationAmount').value;
+    });
+    exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
+    this.vehicleForm.get('vehicleLoanExposure').setValue(exposures);
+    return exposures;
+  }
+
+  public addVehicleSecurity() {
+    (this.vehicleForm.get('vehicleDetails') as FormArray).push(this.vehicleDetailsFormGroup());
+  }
+
+  public vehicleDetailsFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      model: [undefined, Validators.required],
+      registrationNumber: [undefined],
+      registrationDate: [undefined],
+      engineNo: [undefined],
+      chasisNo: [undefined],
+      quotationAmount: [undefined, Validators.required],
+      downPayment: [undefined],
+      remainingAmount: [undefined],
+      loanExposure: [undefined],
+      showroomCommission: [undefined],
+      vehicalValuator: [undefined],
+      vehicalValuatorDate: [undefined],
+      vehicalValuatorRepresentative: [undefined],
+      vehicalStaffRepresentativeName: [undefined],
+      vehicalBranch: [undefined],
+      vehicalStaffRepresentativeDesignation: [undefined],
+      vehicaleStaffRepresentativeDesignation2: [undefined],
+      vehicaleStaffRepresentativeName2: [undefined],
+      showroomAddress: undefined,
+      showroomName: undefined,
+      ownershipTransferDate: undefined,
+      vehicleQuotationDate: undefined,
+      vehicleRemarks: [undefined],
+      vehicleOtherBranchChecked: [undefined],
+      isNew: [undefined],
+      vehicleRealiasableAmount: [undefined],
+      vehicleRate: [undefined],
+      manufactureYear: [undefined],
+      discountPrice: [undefined],
+      considerValue: [undefined],
+      fairMarketValue: [undefined],
+      distressValue: [undefined],
+      freeLimit: [undefined]
+    });
+  }
+
+}

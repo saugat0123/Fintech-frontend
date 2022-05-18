@@ -31,6 +31,8 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
 import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
 import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
+import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
+import {SecurityTaggerComponent} from './security-view/security-adder/security-tagger/security-tagger.component';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import {FinancialAccountInformationModule} from '../loan-information-template/fi
         SecurityScheduleComponent,
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
-        CrossCollateralizedViewComponent
+        CrossCollateralizedViewComponent,
+        SecurityTaggerComponent,
     ],
     exports: [
         InsuranceViewComponent,
@@ -77,7 +80,7 @@ import {FinancialAccountInformationModule} from '../loan-information-template/fi
         SecurityScheduleComponent,
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
-        CrossCollateralizedViewComponent
+        CrossCollateralizedViewComponent,
     ],
     imports: [
         CommonModule,
@@ -90,6 +93,7 @@ import {FinancialAccountInformationModule} from '../loan-information-template/fi
         NepaliPatroModule,
         NetWorthModule,
         FinancialAccountInformationModule,
+        SecurityTaggedModule,
     ],
     entryComponents: [
         AllDocumentViewComponent

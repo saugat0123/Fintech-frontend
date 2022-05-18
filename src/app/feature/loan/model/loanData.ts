@@ -37,6 +37,8 @@ import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
 import {CustomerLoanDto} from './customerLoanDto';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
+import {Auto} from './Auto';
+import {LandBuilding} from './LandBuilding';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -56,7 +58,7 @@ export class LoanDataHolder extends BaseEntity {
     siteVisit: SiteVisit;
     financial: Financial;
     crgMicro: CrgMicro;
-    security: Security;
+    securities: Array<Security>;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
     priority: Priority;
@@ -112,5 +114,8 @@ export class LoanDataHolder extends BaseEntity {
     creditRisk: number;
     paperProductChecklist: string;
     cadStageChecked: boolean;
+    autos: Array<Auto> = [];
+    landBuildings: Array<LandBuilding> = [];
+    selectedArray: string;
     financialAccountInformation: string;
 }

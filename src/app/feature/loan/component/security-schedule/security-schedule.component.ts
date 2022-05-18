@@ -28,25 +28,25 @@ export class SecurityScheduleComponent implements OnInit {
                 this.files = JSON.parse(JSON.parse(this.proposal.data).files);
             }
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-                let total = 0;
-                console.log('this is combine loan', this.loanDataHolder.combinedLoan);
-                this.loanDataHolder.combinedLoan.loans.forEach((d) => {
-                    total += d.proposal.proposedLimit;
-                });
-                this.loanToSecurity = (total / this.loanDataHolder.security.totalSecurityAmount);
-            } else {
-              this.loanToSecurity = (this.loanDataHolder.proposal.proposedLimit / this.loanDataHolder.security.totalSecurityAmount);
-
-            }
-            this.fixedAssets = this.loanDataHolder.security.totalSecurityAmount - Number((JSON.parse(this.proposal.data).proposedLimit));
-            if (this.fixedAssets < 0) {
-                this.fixedAssets = Math.abs(this.fixedAssets);
-            } else {
-                this.fixedAssets = 0;
-            }
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+        //         let total = 0;
+        //         console.log('this is combine loan', this.loanDataHolder.combinedLoan);
+        //         this.loanDataHolder.combinedLoan.loans.forEach((d) => {
+        //             total += d.proposal.proposedLimit;
+        //         });
+        //         this.loanToSecurity = (total / this.loanDataHolder.security.totalSecurityAmount);
+        //     } else {
+        //       this.loanToSecurity = (this.loanDataHolder.proposal.proposedLimit / this.loanDataHolder.security.totalSecurityAmount);
+        //
+        //     }
+        //     this.fixedAssets = this.loanDataHolder.security.totalSecurityAmount - Number((JSON.parse(this.proposal.data).proposedLimit));
+        //     if (this.fixedAssets < 0) {
+        //         this.fixedAssets = Math.abs(this.fixedAssets);
+        //     } else {
+        //         this.fixedAssets = 0;
+        //     }
+        // }
     }
 }
 

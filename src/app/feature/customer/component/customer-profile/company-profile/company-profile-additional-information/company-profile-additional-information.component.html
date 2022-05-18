@@ -117,7 +117,7 @@
     <hr/>
 </div>
 
-<nb-card style="overflow-y: scroll; max-height: 150px">
+<ng-container class="bg-light" style="overflow-y: scroll; max-height: 200px">
     <h5>Contact Person Details</h5>
     <ng-container *ngFor="let contactPerson of companyContactPersons">
         <div class="row">
@@ -148,7 +148,7 @@
     <div class="row justify-content-center" *ngIf="companyContactPersons.length === 0">
         <span class="text-danger">No contact found</span>
     </div>
-</nb-card>
+</ng-container>
 
 <div>
     <h5>Company Location Detail</h5>

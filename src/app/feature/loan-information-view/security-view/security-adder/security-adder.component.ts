@@ -1,56 +1,39 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
+import {SecurityTaggerComponent} from './security-tagger/security-tagger.component';
 
 @Component({
     selector: 'app-security-adder',
     templateUrl: './security-adder.component.html',
     styleUrls: ['./security-adder.component.scss']
 })
-export class SecurityAdderComponent implements OnInit {
+export class SecurityAdderComponent implements OnInit, OnChanges {
+    @Input() customerInfo: CustomerInfoData;
+    @Input() loanHolder: LoanDataHolder;
+    @Input() proposedAmount: number;
+    @ViewChild('securityTaggerComponent', {static: false}) securityTagger: SecurityTaggerComponent;
+    @Output() tagSecurityEmitter = new EventEmitter();
+    proposedLimit: number;
+    spinner = false;
 
-    @Input() security;
-    @Input() shareSecurityData;
-    @Input() taggedShareSecurities;
-    customerShareData: any;
-    selectedShareSecurityList: any;
-    securityList: any;
-    msg = '';
-    approvedShareSecurity: any;
-    @Output() saveShareSecurity = new EventEmitter();
-
-
-    shareSecurity = new FormControl(undefined, Validators.required);
-
-    constructor() {
+    constructor(private fb: FormBuilder,
+                private securityLoanReferenceService: SecurityLoanReferenceService,
+                private change: ChangeDetectorRef) {
     }
 
     ngOnInit() {
-        this.customerShareData = this.shareSecurityData.customerShareData;
-        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
     }
 
-    removeShareSecurity(data) {
-        const removeIndex = this.findShareSecurityIndex(data);
-        this.approvedShareSecurity.splice(removeIndex, 1);
-    }
-
-    findShareSecurityIndex(data) {
-        return this.approvedShareSecurity.indexOf(this.approvedShareSecurity.filter(
-            d => d.totalShareUnit.toString() === data.totalShareUnit.toString() && d.companyName === data.companyName)[0]);
-    }
-
-    addSecurityDetail(data) {
-        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.companyName === data.companyName
-            && d.totalShareUnit === data.totalShareUnit);
-        if (presentShareSecurity.length <= 0) {
-            this.approvedShareSecurity.push(data);
-            this.msg = '';
-        } else {
-            this.msg = 'selected share security is already added !';
-        }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.proposedLimit = changes.proposedAmount.currentValue;
+        this.change.detectChanges();
     }
 
     save() {
-        this.saveShareSecurity.emit(this.approvedShareSecurity);
+        this.loanHolder.securities = this.securityTagger.securityList;
+        this.tagSecurityEmitter.emit(this.loanHolder);
     }
 }

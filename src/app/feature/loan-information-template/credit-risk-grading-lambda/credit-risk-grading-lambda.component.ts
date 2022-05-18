@@ -107,7 +107,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.security)) {
       const parsedSecurityData = JSON.parse(this.security.data);
-      this.calculateSecurityCoverage();
+      // this.calculateSecurityCoverage();
       this.calculateNetWorth();
       this.setValueForCriteria('locationOfProperty', parsedSecurityData.facCategory,
           this.locationOfPropertyMap.get(parsedSecurityData.facCategory));
@@ -225,21 +225,21 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     }
   }
 
-  calculateSecurityCoverage() {
-    const conditionValue = (Number(this.security.totalSecurityAmount) / this.totalLoanLimitApprovedPending) * 100;
-    const automatedValue = conditionValue.toFixed(2);
-    if (conditionValue > 200) {
-      this.setValueForCriteria('securityCoverage', 'Above 200%', 21, automatedValue);
-    } else if (conditionValue > 150 && conditionValue <= 200) {
-      this.setValueForCriteria('securityCoverage', '151% to 200%', 16.80, automatedValue);
-    } else if (conditionValue > 124 && conditionValue <= 150) {
-      this.setValueForCriteria('securityCoverage', '125% to 150%', 15.75, automatedValue);
-    } else if (conditionValue >= 100 && conditionValue <= 124) {
-      this.setValueForCriteria('securityCoverage', '100%', 13.65, automatedValue);
-    } else {
-      this.setValueForCriteria('securityCoverage', 'Below 100%', 0, automatedValue);
-    }
-  }
+  // calculateSecurityCoverage() {
+  //   const conditionValue = (Number(this.security.totalSecurityAmount) / this.totalLoanLimitApprovedPending) * 100;
+  //   const automatedValue = conditionValue.toFixed(2);
+  //   if (conditionValue > 200) {
+  //     this.setValueForCriteria('securityCoverage', 'Above 200%', 21, automatedValue);
+  //   } else if (conditionValue > 150 && conditionValue <= 200) {
+  //     this.setValueForCriteria('securityCoverage', '151% to 200%', 16.80, automatedValue);
+  //   } else if (conditionValue > 124 && conditionValue <= 150) {
+  //     this.setValueForCriteria('securityCoverage', '125% to 150%', 15.75, automatedValue);
+  //   } else if (conditionValue >= 100 && conditionValue <= 124) {
+  //     this.setValueForCriteria('securityCoverage', '100%', 13.65, automatedValue);
+  //   } else {
+  //     this.setValueForCriteria('securityCoverage', 'Below 100%', 0, automatedValue);
+  //   }
+  // }
 
   calculatePeriodOfEarningOrEmployment(periodValueInYears) {
     if (periodValueInYears >= 5) {

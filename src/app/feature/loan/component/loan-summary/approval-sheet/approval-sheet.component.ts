@@ -288,10 +288,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
 
         // Setting Security data--
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityData = JSON.parse(this.loanDataHolder.security.data);
-            this.securitySummary = true;
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        //     this.securityData = JSON.parse(this.loanDataHolder.security.data);
+        //     this.securitySummary = true;
+        // }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
             this.loanDataHolder.insurance.forEach(value => {

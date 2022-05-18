@@ -1,63 +1,72 @@
-<nb-card accent="primary" [nbSpinner]="spinner"
-         nbSpinnerSize="giant"
-         nbSpinnerStatus="primary">
-  <nb-card-header>
-    Customer Document
-  </nb-card-header>
+<!--<nb-card accent="primary" [nbSpinner]="spinner"-->
+<!--         nbSpinnerSize="giant"-->
+<!--         nbSpinnerStatus="primary">-->
+<!--  <nb-card-header>-->
+<!--    Customer Document-->
+<!--  </nb-card-header>-->
 
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-12">
-        <nb-accordion>
-          <nb-accordion-item item [expanded]="true">
-            <nb-accordion-item-header>
-              General Document
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <div class="col-md-6">
-                <div *ngIf="generalDocumentReq.length > 0">
-                  <div class="col-md-12">
-                    <div class="box-header with-border">
+<!--  <nb-card-body>-->
+<!--    <div class="row">-->
+<!--      <div class="col-md-12">-->
+<!--        <nb-accordion>-->
+<!--          <nb-accordion-item item [expanded]="true">-->
+<!--            <nb-accordion-item-header>-->
+<!--              General Document-->
+<!--            </nb-accordion-item-header>-->
+<!--            <nb-accordion-item-body>-->
+<!--              <div class="col-md-6">-->
+<!--              </div>-->
+<!--            </nb-accordion-item-body>-->
+<!--          </nb-accordion-item>-->
 
-                      <em><span
-                          style="color:red;">(Select file smaller than 5MB)</span></em>
-                    </div>
-                    <div *ngIf="errorMessage">
-                      <span class="color" style="color:red"> {{errorMessage}}</span>
-                    </div>
-                    <div class="box-body">
-                      <table
-                          class="table  table-bordered table-hover table-sm sb-small text-center">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                          <th> S.N</th>
-                          <th>Document</th>
-                          <th>Type</th>
-                          <th *ngIf="currentRoleTypeMaker">Upload</th>
-                          <th>Preview</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let gDoc of generalDocumentReq; let i=index">
-                          <td>
-                            {{i + 1}}
-                          </td>
-                          <td>{{gDoc.name}}</td>
-                          <td>{{ gDoc?.document?.displayName || 'Default' | titlecase }}</td>
 
-                          <td align="center" *ngIf="currentRoleTypeMaker">
-                            <input (change)="uploadDoc($event)" class="hide-type"
-                                   id="uploadDocument{{i}}"
-                                   type="file">
-                            <a (click)="openModel(uploadModel,gDoc.name,gDoc.id,i)"
-                               title="upload {{gDoc.name}}">
-                              <i class="fa fa-upload"></i>
-                            </a>
+<!--        </nb-accordion>-->
+<!--      </div>-->
+<ng-container class = "col-md-12" [nbSpinner]="spinner">
+  <p class="float-left"><strong>Customer Document</strong></p>
+  <div *ngIf="generalDocumentReq.length > 0">
+    <div class="col-md-12">
+      <div class="box-header with-border">
 
-                          </td>
-                          <td align="center">
+        <em><span
+                style="color:red;">(Select file smaller than 5MB)</span></em>
+      </div>
+      <div *ngIf="errorMessage">
+        <span class="color" style="color:red"> {{errorMessage}}</span>
+      </div>
+      <div class="box-body">
+        <table
+                class="table  table-bordered table-hover table-sm sb-small text-center">
+          <thead>
+          <tr class="text-white sb-bg-dark">
+            <th> S.N</th>
+            <th>Document</th>
+            <th>Type</th>
+            <th *ngIf="currentRoleTypeMaker">Upload</th>
+            <th>Preview</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let gDoc of generalDocumentReq; let i=index">
+            <td>
+              {{i + 1}}
+            </td>
+            <td>{{gDoc.name}}</td>
+            <td>{{ gDoc?.document?.displayName || 'Default' | titlecase }}</td>
+
+            <td align="center" *ngIf="currentRoleTypeMaker">
+              <input (change)="uploadDoc($event)" class="hide-type"
+                     id="uploadDocument{{i}}"
+                     type="file">
+              <a (click)="openModel(uploadModel,gDoc.name,gDoc.id,i)"
+                 title="upload {{gDoc.name}}">
+                <i class="fa fa-upload"></i>
+              </a>
+
+            </td>
+            <td align="center">
                           <span>
                             <i *ngIf="gDoc.checked" class="fas fa-eye"
                                (click)="previewGeneralDoc(gDoc.docPath,gDoc.name)"></i>
@@ -65,33 +74,27 @@
                                class="fas fa-times-circle"></i>
 
                           </span>
-                          </td>
-                          <td align="center">
+            </td>
+            <td align="center">
                 <span *ngIf="gDoc.checked" style="color:limegreen">
                   <i class="fas fa-check-circle"></i></span>
-                            <span *ngIf="!gDoc.checked || gDoc.checked === null"
-                                  style="color:red"><i class="fas fa-times-circle"></i></span>
-                          </td>
-                          <td class="cursor">
+              <span *ngIf="!gDoc.checked || gDoc.checked === null"
+                    style="color:red"><i class="fas fa-times-circle"></i></span>
+            </td>
+            <td class="cursor">
                             <span *ngIf="gDoc.checked"
                             ><i (click)="openModel(confirmation,gDoc.name,gDoc.id,i)"
                                 class="fas fa-trash"></i></span>
-                          </td>
-                        </tr>
-                        </tbody>
-                      </table>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
-
-
-        </nb-accordion>
       </div>
+    </div>
+  </div>
 
+</ng-container>
       <!--      <div class="col-md-12" *ngFor="let loanData of listOfLoanOfCustomer">-->
       <!--        <nb-accordion>-->
       <!--          <nb-accordion-item #loanEdit>-->
@@ -107,9 +110,9 @@
       <!--        </nb-accordion>-->
 
       <!--      </div>-->
-    </div>
-  </nb-card-body>
-</nb-card>
+<!--    </div>-->
+<!--  </nb-card-body>-->
+<!--</nb-card>-->
 <ng-template #uploadModel accent="primary" class="m-0"
 >
   <div class="modal-content">

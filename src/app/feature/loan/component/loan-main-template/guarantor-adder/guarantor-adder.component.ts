@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Guarantor} from '../../../model/guarantor';
 import {FormControl, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -14,6 +14,7 @@ export class GuarantorAdderComponent implements OnInit {
 
   @Input() guarantorData;
   @Input() taggedGuarantors;
+  @Output() emitter = new EventEmitter();
   guarantorList: Array<Guarantor> = [];
   selectedGuarantorList: Array<Guarantor> = [];
   msg = '';
@@ -39,11 +40,13 @@ export class GuarantorAdderComponent implements OnInit {
     } else {
       this.msg = 'selected guarantor is already added !';
     }
+    this.emitter.emit(this.selectedGuarantorList);
   }
 
   removeGuarantor(data) {
     const removeIndex = this.findGuarantorIndex(data);
     this.selectedGuarantorList.splice(removeIndex, 1);
+    this.emitter.emit(this.selectedGuarantorList);
   }
 
   findGuarantorIndex(data) {

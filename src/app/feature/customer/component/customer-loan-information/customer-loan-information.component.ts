@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {TemplateName} from '../../model/templateName';
 import {CustomerInfoService} from '../../service/customer-info.service';
@@ -46,13 +46,19 @@ import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
+import {DocStatus} from '../../../loan/model/docStatus';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Editor} from '../../../../@core/utils/constants/editor';
+import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 
 @Component({
     selector: 'app-customer-loan-information',
     templateUrl: './customer-loan-information.component.html',
     styleUrls: ['./customer-loan-information.component.scss']
 })
-export class CustomerLoanInformationComponent implements OnInit {
+export class CustomerLoanInformationComponent implements OnInit, OnChanges {
+
 
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
@@ -131,6 +137,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
 
+    @ViewChild('securityComponent', {static: false})
+    public securityComponent: SecurityComponent;
+
     private siteVisit: SiteVisit;
     private financial: Financial;
     /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
@@ -168,6 +177,20 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     nbDialogRef: NbDialogRef<any>;
     customer: Customer;
+    commonLoanData: FormGroup;
+    ckeConfig;
+    solChecked = false;
+    waiverChecked = false;
+    deviationChecked = false;
+    riskChecked = false;
+    commitmentChecked = false;
+    swapDoubleChargeChecked = false;
+    prepaymentChargeChecked = false;
+    purposeChecked = false;
+    debtChecked = false;
+    netChecked = false;
+    swapChargeChecked = false;
+    subsidizedLoanChecked = false;
 
     constructor(
         private toastService: ToastService,
@@ -175,10 +198,14 @@ export class CustomerLoanInformationComponent implements OnInit {
         private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
+        private nbService: NgbModal,
+        private formBuilder: FormBuilder
+
     ) {
     }
 
     ngOnInit() {
+        this.ckeConfig = Editor.CK_CONFIG;
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         this.customerService.detail(this.customerInfo.associateId).subscribe((res) => {
             this.customer = res.detail;
@@ -198,9 +225,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
             this.crgGamma = this.customerInfo.crgGamma;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-            this.security = this.customerInfo.security;
-        }
+        // if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+        //     this.security = this.customerInfo.security;
+        // }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
         }
@@ -267,6 +294,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
             this.multiBankingResponse = this.customerInfo.multiBanking;
         }
+        this.buildProposalCommonForm();
     }
 
     get otherMicroDetailsVisibility() {
@@ -315,28 +343,32 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     public saveSecurity(data: Security) {
+        console.log('data', data);
         this.spinner.show();
         if (ObjectUtil.isEmpty(this.security)) {
             this.security = new Security();
         }
         if (!ObjectUtil.isEmpty(data)) {
-            this.security.data = data.data;
-            this.security.totalSecurityAmount = data.totalSecurityAmount;
+            this.security = data;
+            console.log('security data', this.security);
+            // this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
-                if (!ObjectUtil.isEmpty(data.share)) {
-                    this.saveShare(data);
-                } else {
-                    this.triggerCustomerRefresh.emit(true);
-                    this.nbDialogRef.close();
-                }
-                this.spinner.hide();
-            }, error => {
-                this.spinner.hide();
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
-            });
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+                    this.securityComponent.securityInitialState();
+                    // this.securityComponent.plantSelected = false;
+                    // if (!ObjectUtil.isEmpty(data.share)) {
+                    //     this.saveShare(data);
+                    // } else {
+                    //     this.triggerCustomerRefresh.emit(true);
+                    //     this.nbDialogRef.close();
+                    // }
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
+                });
         }
     }
 
@@ -448,41 +480,23 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
-        if (!ObjectUtil.isEmpty(data.cibRemark) && JSON.parse(data.cibRemark).checked) {
+        if (!ObjectUtil.isEmpty(data.cibRemark)) {
             if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const jointInfo = JSON.parse(this.customer.jointInfo);
                 jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
                 this.customer.jointInfo = JSON.stringify(jointInfo);
             }
-            if (this.customer.customerType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
                 bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
                 this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
             }
-            if (this.customerInfo.customerType === 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
-                this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
-            }
+            this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
         }
         this.customer.clientType = this.customerInfo.clientType;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
-        if (JSON.parse(data.cibRemark).checked) {
-            this.customerService.save(this.customer).subscribe(res => {
-                this.ciclResponse = data;
-                this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
-                    .subscribe(() => {
-                        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
-                        // this.itemCicl.close();
-                        this.nbDialogRef.close();
-                        this.triggerCustomerRefresh.emit(true);
-                        this.spinner.hide();
-                    }, error => {
-                        this.spinner.hide();
-                        console.error(error);
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
-                    });
-            });
-        } else {
+        this.customerService.save(this.customer).subscribe(res => {
             this.ciclResponse = data;
             this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
                 .subscribe(() => {
@@ -496,7 +510,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                     console.error(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
                 });
-        }
+        });
     }
 
     saveIncomeFromAccount(data: IncomeFromAccount) {
@@ -746,5 +760,210 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     update(data) {
         this.customerInfo = data;
+    }
+
+    buildProposalCommonForm() {
+        this.commonLoanData = this.formBuilder.group({
+            borrowerInformation: [undefined],
+            disbursementCriteria: [undefined],
+            repayment: [undefined],
+            remark: [undefined],
+            summeryRecommendation: [undefined],
+            waiverConclusionRecommendation: [undefined],
+            deviationConclusionRecommendation: [undefined],
+            solConclusionRecommendation: [undefined],
+            riskConclusionRecommendation: [undefined],
+            termsAndCondition: [undefined],
+            mergedCheck: [undefined],
+            shares: this.formBuilder.array([]),
+            realState: this.formBuilder.array([]),
+            vehicle: this.formBuilder.array([]),
+            deposit: this.formBuilder.array([]),
+            depositBank: [undefined],
+            depositOther: [undefined],
+            depositBankRemark: [undefined],
+            depositOtherRemark: [undefined],
+            total: [undefined],
+            totals: [undefined],
+        });
+        if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+            console.log('this is the data', this.customerInfo);
+            const commonData = JSON.parse(this.customerInfo.commonLoanData);
+            this.commonLoanData.patchValue(commonData);
+            this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+            if (!ObjectUtil.isEmpty(commonData.vehicle)) {
+                this.setFormData(commonData.vehicle, 'vehicle');
+            } else {
+                this.addKeyValue('vehicle');
+            }
+            if (!ObjectUtil.isEmpty(commonData.realState)) {
+                this.setFormData(commonData.realState, 'realState');
+            } else {
+                this.addKeyValue('realState');
+            }
+            if (!ObjectUtil.isEmpty(commonData.shares)) {
+                this.setFormData(commonData.shares, 'shares');
+            } else {
+                this.addKeyValue('shares');
+            }
+            if (!ObjectUtil.isEmpty(commonData.deposit)) {
+                this.setFormData(commonData.deposit, 'deposit');
+            } else {
+                this.addKeyValue('deposit');
+            }
+        }
+    }
+
+    openCadSetup(data) {
+        this.nbService.open(data, {size: 'xl', backdrop: true});
+    }
+    checkChecked(event, type) {
+        switch (type) {
+            case 'sol':
+                if (event) {
+                    this.solChecked = true;
+                } else {
+                    this.solChecked = false;
+                    this.commonLoanData.get('solConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'waiver':
+                if (event) {
+                    this.waiverChecked = true;
+                } else {
+                    this.waiverChecked = false;
+                    this.commonLoanData.get('waiverConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'risk':
+                if (event) {
+                    this.riskChecked = true;
+                } else {
+                    this.riskChecked = false;
+                    this.commonLoanData.get('riskConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'deviation':
+                if (event) {
+                    this.deviationChecked = true;
+                } else {
+                    this.deviationChecked = false;
+                    this.commonLoanData.get('deviationConclusionRecommendation').setValue(null);
+                }
+                break;
+            case 'commitment': {
+                this.commitmentChecked = event;
+            }
+                break;
+            case 'swapDoubleCharge': {
+                this.swapDoubleChargeChecked = event;
+            }
+                break;
+            case 'prepayment': {
+                this.prepaymentChargeChecked = event;
+            }
+                break;
+            case 'purpose': {
+                this.purposeChecked = event;
+            }
+                break;
+            case 'debt': {
+                this.debtChecked = event;
+            }
+                break;
+            case 'net': {
+                this.netChecked = event;
+            }
+                break;
+        }
+    }
+
+    saveCommonLoanData() {
+        this.spinner.show();
+        const mergeChecked = {
+            solChecked: this.solChecked,
+            waiverChecked: this.waiverChecked,
+            riskChecked: this.riskChecked,
+            swapChargeChecked: this.swapChargeChecked,
+            subsidizedLoanChecked: this.subsidizedLoanChecked,
+            deviationChecked: this.deviationChecked,
+            commitmentChecked: this.commitmentChecked,
+            swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+            prepaymentChargeChecked: this.prepaymentChargeChecked,
+            purposeChecked: this.purposeChecked,
+            debtChecked: this.debtChecked,
+            netChecked: this.netChecked,
+        };
+        this.commonLoanData.patchValue({
+            mergedCheck: JSON.stringify(mergeChecked)
+        });
+        this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
+        this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
+            this.customerInfo = res.detail;
+            this.nbDialogRef.close();
+            this.spinner.hide();
+            this.triggerCustomerRefresh.emit(true);
+        }, error => {
+            this.spinner.hide();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
+    }
+    setCheckedData(data) {
+        console.log('this is merged ', data);
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['solChecked'], 'sol');
+            this.checkChecked(data['waiverChecked'], 'waiver');
+            this.checkChecked(data['riskChecked'], 'risk');
+            this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+            this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
+            this.checkChecked(data['deviationChecked'], 'deviation');
+            this.checkChecked(data['commitmentChecked'], 'commitment');
+            this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
+            this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
+            this.checkChecked(data['purposeChecked'], 'purpose');
+            this.checkChecked(data['debtChecked'], 'debt');
+            this.checkChecked(data['netChecked'], 'net');
+        }
+    }
+    removeValue(formControl: string, index: number) {
+        (<FormArray>this.commonLoanData.get(formControl)).removeAt(index);
+    }
+    addKeyValue(formControl: string) {
+        (this.commonLoanData.get(formControl) as FormArray).push(
+            this.formBuilder.group({
+                assets: undefined,
+                amount: 0,
+            })
+        );
+    }
+    calculate() {
+        let total = this.commonLoanData.get('depositBank').value + this.commonLoanData.get('depositOther').value;
+        total += this.getArrayTotal('shares');
+        total += this.getArrayTotal('vehicle');
+        total += this.getArrayTotal('realState');
+        total += this.getArrayTotal('deposit');
+        this.commonLoanData.get('total').patchValue(total);
+    }
+    getArrayTotal(formControl): number {
+        let total = 0;
+        (this.commonLoanData.get(formControl).value).forEach((d, i) => {
+            total += d.amount;
+        });
+        return total;
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.buildProposalCommonForm();
+    }
+    setFormData(data, formControl) {
+        const form = this.commonLoanData.get(formControl) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                form.push(this.formBuilder.group({
+                    assets: [l.assets],
+                    amount: [l.amount]
+                }));
+            });
+        }
     }
 }

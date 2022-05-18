@@ -75,3 +75,21 @@ textarea, select , ng-select {
 .white-color{
   color: white;
 }
+.vr {
+  border-left: 0.5px solid black;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 10px;
+  bottom: 10px;
+}
+.modal-holder{
+  animation-name: example;
+  animation-duration: 0.3s;
+  width: 1200px;
+}
+@keyframes example {
+  0%   {transform: scale(0.5)}
+  100% {transform: scale(1)}
+}

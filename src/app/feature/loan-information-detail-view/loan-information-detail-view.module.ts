@@ -13,15 +13,12 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
-import {SecurityApprovedViewComponent} from '../loan-information-view/security-approved-view/security-approved-view.component';
 import {DbrModule} from '../dbr/dbr.module';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent, SecurityApprovedViewComponent],
-    exports: [
-        SecurityApprovedViewComponent
-    ],
+    declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent],
+    exports: [],
     imports: [
         CommonModule,
         LoanInformationViewModule,

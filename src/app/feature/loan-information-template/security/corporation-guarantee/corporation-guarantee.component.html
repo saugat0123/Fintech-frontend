@@ -1,0 +1,84 @@
+<nb-card class="p-3">
+    <div class="box-header with-border">
+        <h2 class="box-title title">Corporate Guarantee</h2>
+    </div>
+  <form [formGroup]="corporateForm">
+      <div *ngFor="let corporate of corporateForm.get('corporateGuarantee')['controls']; let i = index"
+           class="font-weight-bold"
+           formArrayName="corporateGuarantee">
+          <div [formGroupName]="i.toString()">
+              <div class="row">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title">Name of Guarantor</label>
+                          <input [ngClass]="{'is-invalid': (submitted) && (corporate.get('name').errors)}"
+                                 class="form-control rounded" formControlName="name"
+                                 placeholder="Name of Guarantor"
+                                 type="text" required/>
+                          <div *ngIf="(submitted) && (corporate.get('name').invalid)" class="invalid-feedback">
+                              <div *ngIf="corporate.get('name').errors.required">
+                                  Guarantor name is required
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title">Address</label>
+                          <input class="form-control rounded" formControlName="address"
+                                 placeholder="Address"
+                                 type="text"/>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title">Key person </label>
+                          <input class="form-control rounded" formControlName="keyPerson"
+                                 placeholder="Key person "
+                                 type="text"/>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title">Email address </label>
+                          <input class="form-control rounded" formControlName="email"
+                                 placeholder="Email address"
+                                 type="text"/>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title" for="description">Phone number</label>
+                          <input class="form-control rounded" formControlName="phoneNumber"
+                                 placeholder="Phone number"
+                                 id="description"
+                                 type="number"/>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>Other Detail</label>
+                          <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
+
+                      </div>
+                  </div>
+
+                  <div *ngIf="corporateForm.get('corporateGuarantee') ['length'] > 1" class="col-md-1">
+                      <input (click)="removeCorporate(i)"
+                             class="align-self-end btn btn-sm btn-danger btn-primary"
+                             type="button" value="Delete"/>
+                  </div>
+
+              </div>
+
+          </div>
+          <hr>
+      </div>
+  </form>
+    <div class="text-right">
+        <input (click)="addCorporateGuarantee()" class="btn btn-sm btn-flat btn-primary" type="button"
+               value="Add More Corporate Guarantee"/>
+    </div>
+</nb-card>

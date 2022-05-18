@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Occupation} from '../../admin/modal/occupation';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {Guarantor} from '../../loan/model/guarantor';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-guarantor-view',
@@ -24,11 +25,13 @@ export class GuarantorViewComponent implements OnInit {
     this.filterPromoter();
   }
   filterPromoter() {
-    this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
-      if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
-        return d;
-      }
-    });
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
+      this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
+        if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
+          return d;
+        }
+      });
+    }
     this.promoter = this.constructGuarantor(this.promoterBackground);
   }
 
