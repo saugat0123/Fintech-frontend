@@ -6,6 +6,7 @@ import {FormUtils} from '../../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {InsuranceList} from '../../../loan/model/insuranceList';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-insurance-policy',
@@ -13,25 +14,54 @@ import {InsuranceList} from '../../../loan/model/insuranceList';
   styleUrls: ['./insurance-policy.component.scss']
 })
 export class InsurancePolicyComponent implements OnInit {
-  insurancePolicyForm: FormGroup;
-  submitted = false;
-  ckeConfig;
-  insuranceCompanyList = InsuranceList.insuranceCompanyList;
-  @Input() calendarType: CalendarType;
+    insurancePolicyForm: FormGroup;
+    submitted = false;
+    ckeConfig;
+    insuranceCompanyList = InsuranceList.insuranceCompanyList;
+    @Input() calendarType: CalendarType;
+    @Input() security: Security;
+    @Input() isEdit = false;
 
-  constructor(private formBuilder: FormBuilder,
+
+    constructor(private formBuilder: FormBuilder,
               private toastService: ToastService) { }
 
     ngOnInit() {
         this.configEditor();
         this.buildForm();
+        if (this.isEdit) {
+            this.setInsurancePolicy();
+        } else {
+            this.addInsurancePolicy();
+        }
     }
 
-  private buildForm(): FormGroup {
-    return this.insurancePolicyForm = this.formBuilder.group({
-      insurancePolicy: this.formBuilder.array([this.insurancePolicyFormGroup()])
-    });
-  }
+    private setInsurancePolicy() {
+        const formData = JSON.parse(this.security.data);
+        const insurancePolicyData = this.insurancePolicyForm.get('insurancePolicy') as FormArray;
+        insurancePolicyData.push(
+            this.formBuilder.group({
+                insuredAmount: [formData.insuredAmount],
+                insuranceCompanyName: [formData.insuranceCompanyName],
+                policyStartDate: [formData.policyStartDate],
+                maturityDate: [formData.maturityDate],
+                considerValue: [formData.considerValue],
+                fairMarketValue: [formData.fairMarketValue],
+                distressValue: [formData.distressValue],
+                insurancePolicyType: [formData.insurancePolicyType],
+                surrenderValue: [formData.surrenderValue],
+                earlySurrenderDate: [formData.earlySurrenderDate],
+                consideredValue: [formData.considerValue],
+                cashBackAmount: [formData.cashBackAmount],
+            })
+        );
+    }
+
+    private buildForm(): FormGroup {
+        return this.insurancePolicyForm = this.formBuilder.group({
+            insurancePolicy: this.formBuilder.array([this.insurancePolicyFormGroup()])
+        });
+    }
 
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
@@ -63,7 +93,7 @@ export class InsurancePolicyComponent implements OnInit {
                 surrenderValue: [undefined],
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
-                cashBackAmount: [undefined],
+                cashBackAmount: [undefined]
             }
         );
     }

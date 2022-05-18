@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
@@ -19,22 +19,21 @@ import {CreateDocumentComponent} from '../create-document/create-document.compon
 import {SiteVisitDocument} from './site-visit-document';
 import {ActivatedRoute} from '@angular/router';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {Security} from '../../../../loan/model/security';
 
 @Component({
     selector: 'app-fix-asset-collateral',
     templateUrl: './fix-asset-collateral.component.html',
     styleUrls: ['./fix-asset-collateral.component.scss']
 })
-export class FixAssetCollateralComponent implements OnInit {
+export class FixAssetCollateralComponent implements OnInit, OnChanges {
 
     fixedAssetsForm: FormGroup;
     @Input() securityId: number;
-    @Input() security: string;
+    @Input() securityType: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
     @Input() readMode;
-    @Input() uuid;
-    @Input() index;
-    @Input() formControl;
+    @Input() securityData: Security;
     customerType: string;
     customerId: number;
     submitted = false;
@@ -56,10 +55,10 @@ export class FixAssetCollateralComponent implements OnInit {
     isSiteVisitPresent: boolean;
     security_id_for_delete: string;
     data;
+    regex = /_/g;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
-                public nbDialogRef: NbDialogRef<FixAssetCollateralComponent>,
                 private activeModal: NgbActiveModal,
                 private toastService: ToastService,
                 private roleService: RoleService,
@@ -68,6 +67,15 @@ export class FixAssetCollateralComponent implements OnInit {
                 private modelService: NgbModal,
                 private nbDialogService: NbDialogService,
                 private activatedRoute: ActivatedRoute) {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const security: any = changes.securityData;
+        if (!ObjectUtil.isEmpty(security.previousValue)) {
+            if (security.currentValue.id !== security.previousValue.id) {
+                this.ngOnInit();
+            }
+        }
     }
 
     get form() {
@@ -80,17 +88,19 @@ export class FixAssetCollateralComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.securityType = this.securityData.securityType;
         this.addressService.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
             });
         this.getRoleList();
-        this.getCollateralBySecurityName(this.security);
+       // this.getCollateralBySecurityName(this.security);
         this.addStaffs();
         this.getCustomerTypeAndId();
-        if (this.readMode) {
-            this.getApprovedCollateralBySecurityName(this.security);
-        }
+        // if (this.readMode) {
+        //     this.getApprovedCollateralBySecurityName(this.security);
+        // }
+        this.getAllSiteVisitBySecurityId();
     }
 
     getCustomerTypeAndId() {
@@ -100,43 +110,53 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    getCollateralBySecurityName(securityName) {
-        if (this.securityId === undefined) {
-            return;
-        }
-        this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
-            .subscribe((response: any) => {
+    getAllSiteVisitBySecurityId() {
+        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityData.id).subscribe((response: any) => {
             const siteVisits = response.detail;
             const siteVisitArray = [];
             siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
             this.collateralSiteVisits = siteVisitArray;
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
         });
     }
 
-    getApprovedCollateralBySecurityName(securityName) {
-        if (this.securityId === undefined) {
-            return;
-        }
-        this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
-            .subscribe((response: any) => {
-                const siteVisits = response.detail;
-                const siteVisitArray = [];
-                siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === true));
-                this.approvedCollateralSiteVisits = siteVisitArray;
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
-            });
-    }
+    // getCollateralBySecurityName(securityName) {
+    //     if (this.securityId === undefined) {
+    //         return;
+    //     }
+    //     this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
+    //         .subscribe((response: any) => {
+    //         const siteVisits = response.detail;
+    //         const siteVisitArray = [];
+    //         siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
+    //         this.collateralSiteVisits = siteVisitArray;
+    //     }, error => {
+    //         console.error(error);
+    //         this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+    //     });
+    // }
+
+    // getApprovedCollateralBySecurityName(securityName) {
+    //     if (this.securityId === undefined) {
+    //         return;
+    //     }
+    //     this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
+    //         .subscribe((response: any) => {
+    //             const siteVisits = response.detail;
+    //             const siteVisitArray = [];
+    //             siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === true));
+    //             this.approvedCollateralSiteVisits = siteVisitArray;
+    //         }, error => {
+    //             console.error(error);
+    //             this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
+    //         });
+    // }
 
     getLastSiteVisitDetail() {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
-            this.isSiteVisitPresent = true;
+                // uncomment if need to implement delete feature for site visit
+            // this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
@@ -149,25 +169,27 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    getLastApprovedSiteVisitDetail() {
-        this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
-            .subscribe((response: any) => {
-                const siteVisitData = response.detail;
-                if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
-                    this.collateralSiteVisit = siteVisitData;
-                    this.isSiteVisitPresent = true;
-                    this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
-                    this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
-                    this.getDistrictsById(this.collateralData.province.id, null);
-                    this.getMunicipalitiesById(this.collateralData.district.id, null);
-                    this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
-                    this.setStaffDetail(this.collateralData);
-                }
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
-            });
-    }
+    // uncomment only if need to implement approval site visit for approved file
+    // getLastApprovedSiteVisitDetail() {
+    //     this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
+    //         .subscribe((response: any) => {
+    //             const siteVisitData = response.detail;
+    //             if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
+    //                 this.collateralSiteVisit = siteVisitData;
+    //                 // uncomment if need to implement delete feature for site visit
+    //                 // this.isSiteVisitPresent = true;
+    //                 this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+    //                 this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+    //                 this.getDistrictsById(this.collateralData.province.id, null);
+    //                 this.getMunicipalitiesById(this.collateralData.district.id, null);
+    //                 this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+    //                 this.setStaffDetail(this.collateralData);
+    //             }
+    //         }, error => {
+    //             console.error(error);
+    //             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
+    //         });
+    // }
 
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
@@ -223,7 +245,6 @@ export class FixAssetCollateralComponent implements OnInit {
 
     buildForm() {
         this.fixedAssetsForm = this.formBuilder.group({
-            securityName: [undefined],
             date: [undefined, Validators.required],
             personContacted: [undefined, Validators.pattern(Pattern.ALPHABET_ONLY)],
             phoneNoOfContact: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
@@ -276,9 +297,6 @@ export class FixAssetCollateralComponent implements OnInit {
             commentAboutFAC: [undefined],
             fixedAssetsLongitude: [undefined],
             fixedAssetsLatitude: [undefined],
-            uuid: [this.uuid],
-            index: [this.index],
-            formControl: [this.formControl]
         });
     }
 
@@ -310,12 +328,11 @@ export class FixAssetCollateralComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
-        if (ObjectUtil.isEmpty(this.securityId)) {
-            this.spinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
-            return;
-        }
-        this.fixedAssetsForm.get('securityName').patchValue(this.security);
+        // if (ObjectUtil.isEmpty(this.securityId)) {
+        //     this.spinner = false;
+        //     this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
+        //     return;
+        // }
         const formData: FormData = new FormData();
         // for update site visit
         if (!ObjectUtil.isEmpty(this.collateralSiteVisit.id)) {
@@ -343,19 +360,17 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('customerId', this.customerId.toString());
         formData.append('customerType', this.customerType);
         formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
-        formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
-        formData.append('uuid', this.uuid);
         if (this.fixedAssetsForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             this.spinner = false;
             return;
         }
-        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
+        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityData.id, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.spinner = false;
-            this.nbDialogRef.close();
+            this.fixedAssetsForm.reset();
         }, error => {
             this.spinner = false;
             console.error(error);
@@ -398,29 +413,28 @@ export class FixAssetCollateralComponent implements OnInit {
         this.modelService.open(model);
     }
 
-    public deleteSiteVisit(deleteId, model): void {
-        if (deleteId === 'single') {
-            this.collateralSiteVisitService.deleteSiteVisit(this.collateralSiteVisit.id, this.collateralSiteVisit.siteVisitDate)
-                .subscribe((response: any) => {
-                    this.modelService.dismissAll(model);
-                    this.nbDialogRef.close(FixAssetCollateralComponent);
-                    this.toastService.show(new Alert(AlertType.SUCCESS, response.detail));
-            }, error => {
-                    this.modelService.dismissAll(model);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
-                console.error(error);
-            });
-        } else {
-            this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, this.collateralSiteVisit.securityName)
-                .subscribe((res: any) => {
-                    this.modelService.dismissAll(model);
-                    this.nbDialogRef.close(FixAssetCollateralComponent);
-                    this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
-                }, error => {
-                    this.modelService.dismissAll(model);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
-                    console.error(error);
-                });
-        }
-    }
+    // uncomment if need to delete site visit implementation
+    // public deleteSiteVisit(deleteId, model): void {
+    //     if (deleteId === 'single') {
+    //         this.collateralSiteVisitService.deleteSiteVisit(this.collateralSiteVisit.id, this.collateralSiteVisit.siteVisitDate)
+    //             .subscribe((response: any) => {
+    //                 this.modelService.dismissAll(model);
+    //                 this.toastService.show(new Alert(AlertType.SUCCESS, response.detail));
+    //         }, error => {
+    //                 this.modelService.dismissAll(model);
+    //                 this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+    //             console.error(error);
+    //         });
+    //     } else {
+    //         this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, this.collateralSiteVisit.securityName)
+    //             .subscribe((res: any) => {
+    //                 this.modelService.dismissAll(model);
+    //                 this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+    //             }, error => {
+    //                 this.modelService.dismissAll(model);
+    //                 this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+    //                 console.error(error);
+    //             });
+    //     }
+    // }
 }

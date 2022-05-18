@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-other-security',
@@ -10,12 +11,33 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 export class OtherSecurityComponent implements OnInit {
   otherSecurityForm: FormGroup;
   ckeConfig;
+  @Input() security: Security;
+  @Input() isEdit = false;
+
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
     this.configEditor();
+    if (this.isEdit) {
+      this.setOtherSecurity();
+    } else {
+      this.addOtherSecurity();
+    }
+  }
+
+  setOtherSecurity() {
+    const formData = JSON.parse(this.security.data);
+    const otherSecurityData = this.otherSecurityForm.get('otherSecurity') as FormArray;
+    otherSecurityData.push(
+        this.formBuilder.group({
+          otherDetail: [formData.otherDetail],
+          considerValue: [formData.considerValue],
+          distressValue: [formData.distressValue],
+          fairMarketValue: [formData.fairMarketValue]
+        })
+    );
   }
 
   configEditor() {
@@ -24,7 +46,7 @@ export class OtherSecurityComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.otherSecurityForm = this.formBuilder.group({
-      otherSecurity: this.formBuilder.array([this.otherSecurityDetailsFormGroup()]),
+      otherSecurity: this.formBuilder.array([]),
     });
   }
 

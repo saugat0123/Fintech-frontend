@@ -4,7 +4,7 @@
     <nb-card-body>
         <div *ngIf="customerInfo?.securities?.length > 0">
             <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities" [loanDataHolder]="loanHolder"
-                                       [proposedLimit]="proposedLimit"></app-security-tagger>
+                                       [proposedLimit]="proposedLimit" (deleteEmitter)="catchEmit($event)"></app-security-tagger>
         </div>
     </nb-card-body>
 </nb-card>

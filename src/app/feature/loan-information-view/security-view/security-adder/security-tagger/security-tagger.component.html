@@ -78,23 +78,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let security of securityList; let i=index;">
-                <td>{{i + 1}}</td>
-                <td>{{security?.fairMarketValue || '0'}}</td>
-                <td>{{security?.distressValue || '0'}}</td>
-                <td>{{security?.considerValue || '0'}}</td>
-                <td>{{security?.usedAmount || '0'}}</td>
-                <td>{{security?.freeLimit || '0'}}</td>
-                <td>{{security?.coverage || '0'}}</td>
-                <td>{{security?.securityType}}</td>
-                <td>
-                    <button (click)="removeSecurity(i)"
-                            class="btn btn-sm btn-flat btn-danger">
-                        <em class="fa fa-trash bg-transparent"></em>
-                    </button>
-                </td>
-            </tr>
+            <ng-container *ngFor="let security of securityList; let i=index;">
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{security?.fairMarketValue || '0'}}</td>
+                    <td>{{security?.distressValue || '0'}}</td>
+                    <td>{{security?.considerValue || '0'}}</td>
+                    <td>{{security?.usedAmount || '0'}}</td>
+                    <td>{{security?.freeLimit || '0'}}</td>
+                    <td>{{security?.coverage || '0'}}</td>
+                    <td>{{security?.securityType}}</td>
+                    <td>
+                        <button (click)="removeSecurity(i, security?.securityLoanReferenceId)"
+                                class="btn btn-sm btn-flat btn-danger">
+                            <em class="fa fa-trash bg-transparent"></em>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
             </tbody>
         </table>
+        <div class="text-right">
+            <strong>Coverage:</strong> {{coverage}} %
+        </div>
     </nb-card-body>
 </nb-card>

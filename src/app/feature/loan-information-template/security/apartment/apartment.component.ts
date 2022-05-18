@@ -12,6 +12,7 @@ import {RoleService} from '../../../admin/component/role-permission/role.service
 import {ToastService} from '../../../../@core/utils';
 import {CustomerType} from '../../../customer/model/customerType';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-apartment',
@@ -34,6 +35,9 @@ export class ApartmentComponent implements OnInit {
   submitted = false;
   apartmentForm: FormGroup;
 
+  @Input() security: Security;
+  @Input() isEdit = false;
+
   constructor(private formBuilder: FormBuilder,
               private nbDialogService: NbDialogService,
               private valuatorService: ValuatorService,
@@ -46,7 +50,57 @@ export class ApartmentComponent implements OnInit {
     this.buildForm();
     this.branchList();
     this.getRoleList();
-    this.getLoanConfig();
+    // this.getLoanConfig();
+    if (this.isEdit) {
+      this.setBuilding();
+    } else {
+      this.addBuilding();
+    }
+  }
+
+  setBuilding() {
+    const formData = JSON.parse(this.security.data);
+    const buildingForm = this.apartmentForm.get('buildingDetails') as FormArray;
+    buildingForm.push(
+        this.formBuilder.group({
+          model: [formData.model],
+          buildingName: [formData.buildingName],
+          buildingDescription: [formData.buildingDescription],
+          buildArea: [formData.buildArea],
+          buildRate: [formData.buildRate],
+          totalCost: [formData.totalCost],
+          floorName: [formData.floorName],
+          valuationArea: [formData.valuationArea],
+          ratePerSquareFeet: [formData.ratePerSquareFeet],
+          estimatedCost: [formData.estimatedCost],
+          waterSupply: [formData.waterSupply],
+          waterSupplyPercent: [formData.waterSupplyPercent],
+          sanitationPercent: [formData.sanitationPercent],
+          electrificationPercent: [formData.electrificationPercent],
+          sanitation: [formData.sanitation],
+          electrification: [formData.electrification],
+          buildingTotalCost: [formData.buildingTotalCost],
+          fairMarketValue: [formData.fairMarketValue],
+          considerValue: [formData.considerValue],
+          distressValue: [formData.distressValue],
+          buildingDistressValue: [formData.buildingDistressValue],
+          buildingDetailsDescription: [formData.buildingDetailsDescription],
+          ApartmentValuator: [formData.ApartmentValuator],
+          ApartmentValuatorDate: [formData.ApartmentValuatorDate],
+          ApartmentValuatorRepresentative: [formData.ApartmentValuatorRepresentative],
+          ApartmentStaffRepresentativeName: [formData.ApartmentStaffRepresentativeName],
+          apartmentBranch: [formData.apartmentBranch],
+          revaluationData: [formData.revaluationData],
+          apartmentStaffRepresentativeDesignation: [formData.apartmentStaffRepresentativeDesignation],
+          apartmentStaffRepresentativeDesignation2: [formData.apartmentStaffRepresentativeDesignation2],
+          apartmentStaffRepresentativeName2: [formData.apartmentStaffRepresentativeName2],
+          apartmentOtherBranchChecked: [formData.apartmentOtherBranchChecked],
+          proposedOwner: [formData.proposedOwner],
+          apartmentRate: [formData.apartmentRate],
+          buildingReliasableValue: [formData.buildingReliasableValue]
+        })
+    );
+
   }
 
   private buildForm(): FormGroup {
@@ -57,7 +111,7 @@ export class ApartmentComponent implements OnInit {
       apartmentRmValueTotal: [undefined],
       apartmentFmvOfFacTotal: [undefined],
       buildingDetailsDescription: [undefined],
-      buildingDetails: this.formBuilder.array([this.buildingDetailsFormGroup()]),
+      buildingDetails: this.formBuilder.array([]),
       buildingUnderConstructions: this.formBuilder.array([]),
       apartmentCross: this.formBuilder.array([]),
     });
@@ -149,7 +203,7 @@ export class ApartmentComponent implements OnInit {
       apartmentOtherBranchChecked: [undefined],
       proposedOwner: [undefined],
       apartmentRate: [undefined],
-      buildingReliasableValue: [undefined],
+      buildingReliasableValue: [undefined]
     });
   }
 

@@ -17,6 +17,7 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-land-building',
@@ -46,7 +47,8 @@ export class LandBuildingComponent implements OnInit {
   provinces: Province[];
   districtList: District [];
   municipalityList: MunicipalityVdc [];
-  isEdit = false;
+  @Input() security: Security;
+  @Input() isEdit = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -58,11 +60,16 @@ export class LandBuildingComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.getLoanConfig();
+    // this.getLoanConfig();
     this.branchList();
     this.getRoleList();
     this.reArrangeEnumType();
     this.getProvince();
+    if (this.isEdit) {
+      this.setLandBuildingDetail();
+    } else {
+      this.addLandBuilding();
+    }
   }
 
   private buildForm(): FormGroup {
@@ -72,7 +79,7 @@ export class LandBuildingComponent implements OnInit {
       lbExposureTotal: [undefined],
       lbRmValueTotal: [undefined],
       lbFmvOfFacTotal: [undefined],
-      landBuilding: this.formBuilder.array([this.LandBuildingDetailsFormGroup()]),
+      landBuilding: this.formBuilder.array([]),
       lbCross: this.formBuilder.array([this.crossCollateralizedFormGroup()]),
     });
   }
@@ -353,6 +360,90 @@ export class LandBuildingComponent implements OnInit {
     if (this.isEdit === false) {
       this.landBuildingForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
     }
+  }
+
+  public setLandBuildingDetail(): void {
+    const formData = JSON.parse(this.security.data);
+    const landBuildingForm = this.landBuildingForm.get('landBuilding') as FormArray;
+    landBuildingForm.push(
+        this.formBuilder.group({
+          owner: [formData.owner],
+          location: [formData.location],
+          plotNumber: [formData.plotNumber],
+          areaFormat: [formData.areaFormat],
+          area: [formData.area],
+          fairMarketValue: [formData.fairMarketValue],
+          distressValue: [formData.distressValue],
+          description: [formData.description],
+          houseNumber: [formData.houseNumber],
+          totalBuildingArea: [formData.totalBuildingArea],
+          costPerSquare: [formData.costPerSquare],
+          totalCost: [formData.totalCost],
+          buildingValuator: [formData.buildingValuator],
+          buildingValuatorDate: [formData.buildingValuatorDate],
+          buildingValuatorRepresentative: [formData.buildingValuatorRepresentative],
+          buildingStaffRepresentativeName: [formData.buildingStaffRepresentativeName],
+          buildingBranch: [formData.buildingBranch],
+          landConsideredValue: [formData.landConsideredValue],
+          typeOfProperty: [formData.typeOfProperty],
+          ownershipTransferDate: [formData.ownershipTransferDate],
+          ownershipTransferThrough: [formData.ownershipTransferThrough],
+          otherOwnershipTransferValue: [formData.otherOwnershipTransferValue],
+          saleOwnershipTransfer: [formData.saleOwnershipTransfer],
+          familyTransferOwnershipTransfer: [formData.familyTransferOwnershipTransfer],
+          giftOwnershipTransfer: [formData.giftOwnershipTransfer],
+          saleRegistrationAmount: [formData.saleRegistrationAmount],
+          familyRegistrationAmount: [formData.familyRegistrationAmount],
+          giftRegistrationAmount: [formData.giftRegistrationAmount],
+          ownerConstruction: [formData.ownerConstruction],
+          locationConstruction: [formData.locationConstruction],
+          plotNumberConstruction: [formData.plotNumberConstruction],
+          areaFormatConstruction: [formData.areaFormatConstruction],
+          areaConstruction: [formData.areaConstruction],
+          marketValueConstruction: [formData.marketValueConstruction],
+          distressValueConstruction: [formData.distressValueConstruction],
+          descriptionConstruction: [formData.descriptionConstruction],
+          totalBuildingAreaConstruction: [formData.totalBuildingAreaConstruction],
+          costPerSquareConstruction: [formData.totalBuildingAreaConstruction],
+          totalCostConstruction: [formData.totalCostConstruction],
+          landConsideredValueConstruction: [formData.landConsideredValueConstruction],
+          underConstructionChecked: [formData.underConstructionChecked],
+          revaluationData: [formData.revaluationData],
+          landBuildingStaffRepresentativeDesignation: [formData.landBuildingStaffRepresentativeDesignation],
+          landBuildingStaffRepresentativeDesignation2: [formData.landBuildingStaffRepresentativeDesignation2],
+          landBuildingStaffRepresentativeName2: [formData.landBuildingStaffRepresentativeName2],
+          landAndBuildingSecurityLegalDocumentAddress: [formData.landAndBuildingSecurityLegalDocumentAddress],
+          landBuildingCollateralOwnerRelationship: [formData.landBuildingCollateralOwnerRelationship],
+          roadAccessBluePrint: [formData.roadAccessBluePrint],
+          roadAccessDescribe: [formData.roadAccessDescribe],
+          ownerKycApplicableData: [formData.ownerKycApplicableData],
+          progessCost: [formData.progessCost],
+          landBuildingOtherBranchChecked: [formData.landBuildingOtherBranchChecked],
+          kycCheckForLandAndBuilding: [formData.kycCheckForLandAndBuilding],
+          landBuildingRate: [formData.landBuildingRate],
+          landbuildingUnderRate: [formData.landbuildingUnderRate],
+          totalLandRealisableValue: [formData.totalLandRealisableValue],
+          apartmentDistressValue: [formData.apartmentDistressValue],
+          apartmentRate: [formData.apartmentRate],
+          totalApartmentRealisableValue: [formData.totalApartmentRealisableValue],
+          governmentRate: [formData.governmentRate],
+          dv: [formData.dv],
+          considerValue: [formData.considerValue],
+          sheetNo: [formData.sheetNo],
+          province: [formData.province],
+          district: [formData.district],
+          municipalityVdc: [formData.municipalityVdc],
+          geoLocation: [formData.geoLocation],
+          addressLine1: [formData.addressLine1],
+          addressLine2: [formData.addressLine2],
+          registerOffice: [formData.registerOffice],
+          freeLimit: [formData.freeLimit]
+        })
+    );
+  }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }
