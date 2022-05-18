@@ -40,8 +40,7 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('loanDataHolder', this.loanDataHolder);
-    this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
+    // this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
         this.loanDataHolder.taggedGuarantors.forEach(value => {

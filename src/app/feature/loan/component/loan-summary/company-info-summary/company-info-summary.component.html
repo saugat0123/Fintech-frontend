@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-      <p  class="sub-header"><strong   class="header">Institution Details</strong></p>
+      <p  class="sub-header"><strong   class="header">Business Profile</strong></p>
       <table
           class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
         <tr>
@@ -245,7 +245,37 @@
       <th colspan="3" class="text-left pl-1">Total</th>
       <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
     </tr>
+
     </tbody>
   </table>
   </div>
+
+<div class="col-md-12">
+  <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
+    <tr class="text-white sb-bg-dark">
+      <th>Business Process </th>
+    </tr>
+    <tr>
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Major Suppliers</th>
+    </tr>
+    <tr>
+      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Major Buyers</th>
+    </tr>
+    <tr>
+      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Risk & Mitigation</th>
+    </tr>
+    <tr>
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
+    </tr>
+  </table>
+</div>
 </div>

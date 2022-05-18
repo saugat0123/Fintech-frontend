@@ -44,9 +44,9 @@ export class CompanyInfoViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-      this.srdbAffiliatedId = true;
-    }
+    // if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+    //   this.srdbAffiliatedId = true;
+    // }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
