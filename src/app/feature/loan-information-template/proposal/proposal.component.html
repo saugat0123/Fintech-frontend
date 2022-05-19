@@ -993,13 +993,14 @@
                                     </table>
                                             </div>
                                         </div>
-                                    <div class="col-md-12 form-group">
-                                        <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
-                                        </button>
-                                    </div>
                                 </ng-container>
                             </div>
                         </form>
+                        <div class="col-md-12 form-group">
+                            <button nbButton (click)=" fromProfile ? toggleCad() :openCadSetup(datax)"><b>Setup Security Schedule</b>
+                            </button>
+                            <app-cad-file-setup  *ngIf="showCad" [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
+                        </div>
                     </div>
                     <ng-container  *ngIf="fromProfile">
                         <div class="col-md-12">
