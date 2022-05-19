@@ -64,7 +64,7 @@ export class VehicleComponent implements OnInit {
                 loanExposure: [formData.loanExposure],
                 showroomCommission: [formData.showroomCommission],
                 vehicalValuator: [formData.vehicalValuator],
-                vehicalValuatorDate: [formData.vehicalValuator],
+                vehicalValuatorDate: [formData.vehicalValuatorDate],
                 vehicalValuatorRepresentative: [formData.vehicalValuatorRepresentative],
                 vehicalStaffRepresentativeName: [formData.vehicalStaffRepresentativeName],
                 vehicalBranch: [formData.vehicalBranch],
