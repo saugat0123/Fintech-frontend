@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Security} from '../../../../loan/model/security';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
@@ -41,23 +41,25 @@ export class SecurityTaggerComponent implements OnInit {
   }
 
     private getAllSecurityByLoanHolderId(): void {
-        this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.id).subscribe(
-            (response: any) => {
-                this.securityList = [];
-                const data = response.detail;
-                data.forEach((dd) => {
-                    (this.securityForm.get('securityDetails').value).forEach((d, i) => {
-                        if (d.id === dd.securityId) {
-                            d.securityLoanReferenceId = dd.id;
-                            d.usedAmount = dd.usedAmount;
-                            d.coverage = dd.coverage;
-                            d.freeLimit = this.toggleArray[i].freeLimit;
-                            this.securityList.push(d);
-                        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
+            this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.id).subscribe(
+                (response: any) => {
+                    this.securityList = [];
+                    const data = response.detail;
+                    data.forEach((dd) => {
+                        (this.securityForm.get('securityDetails').value).forEach((d, i) => {
+                            if (d.id === dd.securityId) {
+                                d.securityLoanReferenceId = dd.id;
+                                d.usedAmount = dd.usedAmount;
+                                d.coverage = dd.coverage;
+                                d.freeLimit = this.toggleArray[i].freeLimit;
+                                this.securityList.push(d);
+                            }
+                        });
                     });
+                    this.calculateCoverage();
                 });
-                this.calculateCoverage();
-            });
+        }
     }
 
   private buildForm(): FormGroup {

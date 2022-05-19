@@ -354,7 +354,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 .subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     this.setSecurity(response.detail.securities);
-
+                    this.triggerCustomerRefresh.emit();
                     this.securityComponent.securityInitialState();
                     this.spinner.hide();
                 }, error => {

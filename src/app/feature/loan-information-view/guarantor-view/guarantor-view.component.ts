@@ -25,12 +25,14 @@ export class GuarantorViewComponent implements OnInit {
     this.filterPromoter();
   }
   filterPromoter() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
-      this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
-        if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
-          return d;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
+        this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
+          if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
+            return d;
+          }
+        });
+      }
     }
     this.promoter = this.constructGuarantor(this.promoterBackground);
   }

@@ -226,9 +226,7 @@ export class SecuritySummaryComponent implements OnInit {
                     landBuilding.push(JSON.parse(d.data));
                 }
             });
-            console.log('this is land building', landBuilding);
             this.landBuildingArray = this.managedArray(landBuilding);
-
         }
         if (this.assignments) {
             const lease = [];

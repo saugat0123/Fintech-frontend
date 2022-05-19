@@ -42,11 +42,11 @@
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
-                                <tr> <td class="text-right pl-1">{{(vehicleDetails?.registrationDate | date) || 'N/A'}} ({{vehicleDetails?.registrationDate | engNepDate: false}})</td></tr>
+                                <tr> <td class="text-right pl-1">{{ vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'N/A'}}</td></tr>
                                 <tr> <td class="text-right pr-1">{{vehicleDetails?.engineNumber || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">{{vehicleDetails?.chassisNumber || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pl-1">{{(vehicleDetails?.vehicalValuatorDate | date) || 'N/A'}} ({{vehicleDetails?.vehicalValuatorDate | engNepDate: false}})</td></tr>
+                                <tr>  <td class="text-right pl-1">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
                                 <tr> <td class="text-right pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
                                 <tr><td class="text-right pl-1">{{vehicleDetails?.vehicleRemarks || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
@@ -152,8 +152,7 @@
                         <td class=" pr-1">Rs. {{(landDetails?.landRate | currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pl-1">{{(landDetails?.landValuatorDate | date) || 'N/A'}}
-                            ({{landDetails?.landValuatorDate | engNepDate: false}})
+                        <td class=" pl-1">{{ landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'N/A'}}
                         </td>
                     </tr>
                     <tr>
@@ -202,11 +201,11 @@
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
                                 <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
-                                <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{ kyc?.issuedDate ? (kyc?.issuedDate | date) : 'NA'}} </td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
                                 <ng-container *ngIf="client === clientName.LAXMIBANK">
-                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{land[0]?.ownershipTransferDate | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{kyc?.issuedDate ?  (kyc?.issuedDate | date) : 'NA'}}</td>
                                     <td class="text-left pl-1">{{ownerShipTransfer[land[0]?.ownershipTransferThrough]}}</td>
                                     <td  *ngIf="land[0].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[0]?.saleOwnershipTransfer}}</td>
                                     <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[0]?.familyTransferOwnershipTransfer}}</td>
@@ -244,7 +243,7 @@
                                 <th colspan="1">Change in Fmv</th>
                             </tr>
                             <tr>
-                                <td class="text-left pl-1">{{land[0]?.revaluationData?.reValuationDate | date}} ({{land[0]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{land[0]?.revaluationData?.reValuationDate ? (land[0]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                                 <td colspan="1" class="text-left pl-1">{{land[0]?.revaluationData?.newValuator?.name}}</td>
                                 <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                                 <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
@@ -293,11 +292,11 @@
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
                                 <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
-                                <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{kyc?.issuedDate ? (kyc?.issuedDate | date) : 'NA'}}</td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
                                 <ng-container *ngIf="client === clientName.LAXMIBANK">
-                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{land[1]?.ownershipTransferDate | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{kyc?.issuedDate? (kyc?.issuedDate | date) : 'NA'}}</td>
                                     <td class="text-left pl-1">{{ownerShipTransfer[land[1]?.ownershipTransferThrough]}}</td>
                                     <td  *ngIf="land[1].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[1]?.saleOwnershipTransfer}}</td>
                                     <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[1]?.familyTransferOwnershipTransfer}}</td>
@@ -327,7 +326,7 @@
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate | date}} ({{land[1]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate ?  (land[1]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                             <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
@@ -361,7 +360,7 @@
                                 <th colspan="1">Change in Fmv</th>
                             </tr>
                             <tr>
-                                <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate | date}} ({{land[1]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate  ? (land[1]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                                 <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
                                 <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                                 <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
@@ -464,7 +463,7 @@
                                     <tr> <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pr-1">Rs. {{(landBuilding?.marketValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td  class="text-right pr-1">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">{{(landBuilding?.buildingValuatorDate | date) || 'N/A'}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td></tr>
+                                    <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalLandRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalApartmentRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
@@ -558,7 +557,7 @@
                                     <tr>  <td class="text-right pl-1"> Rs {{(buildingDetails?.buildingFairMarketValue | currencyFormatter) || 'N/A'}})</td></tr>
                                     <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">{{(buildingDetails?.ApartmentValuatorDate | date) || 'N/A'}} ({{(buildingDetails?.ApartmentValuatorDate |engNepDate: false) || 'N/A'}})</td></tr>
+                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuatorDate ? (buildingDetails?.ApartmentValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td></tr>
                                     <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingReliasableValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     </tbody>
@@ -686,7 +685,7 @@
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{depositDetails?.expiryDate | date}} ({{depositDetails?.expiryDate | engNepDate: false}})</td>
+                        <td class="text-left pl-1">{{depositDetails?.expiryDate ? (depositDetails?.expiryDate | date) : 'NA'}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
                         <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
@@ -720,31 +719,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let singleShareData of shareSecurity['shareSecurityDetails']; let i = index">
+                    <tr *ngFor="let singleShareData of shareSecurity; let i = index">
                         <td>{{i + 1}}</td>
                         <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
                         <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
                         <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower }}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
-                    <tr>
-                        <th></th>
-                        <th class="sb-bg-secondary text-white">Price As per Date</th>
-                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.sharePriceDate | date}} ({{shareSecurity?.sharePriceDate |engNepDate: false}})</td>
-                        <th class="sb-bg-secondary text-white">Average Day's for Share Price</th>
-                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
-                    </tr> <tr>
-                        <th class="text-left pl-1" colspan="5">Total</th>
-                        <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
-                        <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
-                    </tr>
-                    <tr>
-                        <th class="sb-bg-secondary text-white">Description</th>
-                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <th></th>-->
+<!--                        <th class="sb-bg-secondary text-white">Price As per Date</th>-->
+<!--                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.sharePriceDate ? (shareSecurity?.sharePriceDate | date) : 'NA'}}</td>-->
+<!--                        <th class="sb-bg-secondary text-white">Average Day's for Share Price</th>-->
+<!--                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>-->
+<!--                    </tr> <tr>-->
+<!--                        <th class="text-left pl-1" colspan="5">Total</th>-->
+<!--                        <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>-->
+<!--                        <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th class="sb-bg-secondary text-white">Description</th>-->
+<!--                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -754,7 +753,7 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Hypothecation Of Stock</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-                       *ngFor="let hypothecationOfStock of hypothecation; let i= index">
+                       *ngFor="let hypothecationOfStock of hypoArray; let i= index">
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th colspan="3">Owner</th>
@@ -790,7 +789,7 @@
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
                                 <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
-                                <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{kyc?.issuedDate? (kyc?.issuedDate | date) : 'NA'}}</td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
                                 <td class="text-left pl-1">{{kyc?.remark}}</td>
@@ -936,11 +935,11 @@
                         <td class="align-middle">{{i + 1}}</td>
                         <td class="text-left pl-1">{{insurancePolicy?.insuredAmount}}</td>
                         <td class="text-left pl-1">{{insurancePolicy?.insuranceCompanyName}}</td>
-                        <td class="text-right pr-1">{{insurancePolicy?.policyStartDate | date}} ({{insurancePolicy?.policyStartDate | engNepDate: false}})</td>
-                        <td class="text-left pl-1">{{insurancePolicy?.maturityDate | date}} ({{insurancePolicy?.maturityDate | engNepDate: false}})</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.policyStartDate ? (insurancePolicy?.policyStartDate | date) : 'NA'}}</td>
+                        <td class="text-left pl-1">{{insurancePolicy?.maturityDate ? (insurancePolicy?.maturityDate | date) : 'NA'}} ({{insurancePolicy?.maturityDate | engNepDate: false}})</td>
                         <td class="text-right pr-1">{{insurancePolicy?.insurancePolicyType}}</td>
                         <td class="text-right pr-1">{{insurancePolicy?.surrenderValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">{{insurancePolicy?.earlySurrenderDate | date}} ({{insurancePolicy?.earlySurrenderDate | engNepDate: false}})</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.earlySurrenderDate ? (insurancePolicy?.earlySurrenderDate | date) : 'NA'}}</td>
                         <td class="text-right pr-1">{{insurancePolicy?.consideredValue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{insurancePolicy?.cashBackAmount | currencyFormatter}}</td>
                     </tr>
