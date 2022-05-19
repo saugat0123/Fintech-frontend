@@ -573,6 +573,7 @@ export class SecurityComponent implements OnInit {
     public onEdit(event: any): void {
         this.securityValue = event.security;
         this.isEdit = event.isEdit;
+        this.isSiteVisit = event.isSiteVisit;
         this.change(event.securityType);
     }
 
