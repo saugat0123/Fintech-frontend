@@ -126,7 +126,6 @@ export class ProposalComponent implements OnInit {
         'Debt Consolidation',
         'To Finance Tertiary Education',
         'To Finance Post-Secondary Education'];
-    isCombineLoan = false;
     combineLoanList: Array<LoanDataHolder> = [];
     guarantor = new FormControl(undefined, Validators.required);
     isSbk = false;
@@ -226,7 +225,7 @@ export class ProposalComponent implements OnInit {
                 });
             }
         } else {
-      this.addFixedArray();
+            this.addFixedArray();
             this.setActiveBaseRate();
             this.addGroupExposureData();
         }
@@ -241,7 +240,6 @@ export class ProposalComponent implements OnInit {
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
-        } else {
             if(!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 const commonData = JSON.parse(this.customerInfo.commonLoanData);
                 this.setFormData(commonData.vehicle, 'vehicle');
@@ -689,20 +687,6 @@ export class ProposalComponent implements OnInit {
                 this.summaryEnvChecked = event;
             }
                 break;
-            case 'combineLoan':
-                if (event) {
-                    this.isCombineLoan = event;
-                    const actualLoanId = this.allId.customerId ? this.allId.customerId : 0;
-                    this.loanFormService.getLoanHolderCombineList(this.customerInfo.id, actualLoanId).subscribe((res: any) => {
-                        this.combineLoanList = res.detail;
-                    }, error => {
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Error while fetching loan'));
-                    });
-                } else {
-                    this.isCombineLoan = event;
-                    this.commonFieldPatch('');
-                }
-                break;
         }
     }
 
@@ -1033,59 +1017,6 @@ export class ProposalComponent implements OnInit {
     }
 
 
-    commonFieldPatch(selected) {
-        if (this.isCombineLoan) {
-            const data = JSON.parse(selected.data);
-            const selectedData = JSON.parse(selected.checkedData);
-            this.checkChecked(selectedData['solChecked'], 'sol');
-            this.checkChecked(selectedData['waiverChecked'], 'waiver');
-            this.checkChecked(selectedData['riskChecked'], 'risk');
-            this.checkChecked(selectedData['deviationChecked'], 'deviation');
-            this.checkChecked(selectedData['purposeChecked'], 'purpose');
-            this.checkChecked(selectedData['debtChecked'], 'debt');
-            this.checkChecked(selectedData['netChecked'], 'net');
-            this.checkChecked(selectedData['borrowChecked'], 'borrow');
-            this.checkChecked(selectedData['endUseChecked'], 'endUse');
-            this.checkChecked(selectedData['checkedHistorical'], 'changeHistorical');
-            this.checkChecked(selectedData['checkedProjection'], 'changeProjection');
-            this.checkChecked(selectedData['fixedAssetsChecked'], 'fixedAssets');
-            this.checkChecked(selectedData['summaryEnvChecked'], 'summaryEnv');
-            this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
-            this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
-            this.proposalForm.get('repayment').patchValue(data.repayment);
-            this.proposalForm.get('remark').patchValue(data.remark);
-            this.proposalForm.get('summeryRecommendation').patchValue(data.summeryRecommendation);
-            this.proposalForm.get('waiverConclusionRecommendation').patchValue(data.waiverConclusionRecommendation);
-            this.proposalForm.get('deviationConclusionRecommendation').patchValue(data.deviationConclusionRecommendation);
-            this.proposalForm.get('solConclusionRecommendation').patchValue(data.solConclusionRecommendation);
-            this.proposalForm.get('riskConclusionRecommendation').patchValue(data.riskConclusionRecommendation);
-            this.proposalForm.get('termsAndCondition').patchValue(data.termsAndCondition);
-            this.proposalForm.get('total').patchValue(data.total);
-            this.proposalForm.get('totals').patchValue(data.totals);
-            this.proposalForm.get('files').patchValue(data.files);
-            this.files = JSON.parse(data.files);
-            this.setFormData(data.vehicle, 'vehicle');
-            this.setFormData(data.realState, 'realState');
-            this.setFormData(data.shares, 'shares');
-            this.setFormData(data.deposit, 'deposit');
-        } else {
-            const formControl = ['borrowerInformation', 'disbursementCriteria', 'repayment', 'remark', 'summeryRecommendation',
-                'waiverConclusionRecommendation', 'deviationConclusionRecommendation', 'solConclusionRecommendation',
-                'riskConclusionRecommendation', 'termsAndCondition', 'total', 'totals'];
-            this.solChecked = this.waiverChecked = this.deviationChecked = this.riskChecked =
-                this.debtChecked = this.netChecked = false;
-            formControl.forEach((fc) => {
-                this.proposalForm.get(fc).patchValue(selected);
-            });
-            this.files = [];
-            this.proposalForm.get('files').patchValue(null);
-            const formArray = ['vehicle', 'realState', 'shares', 'deposit'];
-            formArray.forEach((fa) => {
-                const proposalFormArray = this.proposalForm.get(fa) as FormArray;
-                proposalFormArray.clear();
-            });
-        }
-    }
 
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;

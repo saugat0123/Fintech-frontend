@@ -565,20 +565,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <nb-checkbox (change)="checkChecked($event?.target?.checked, 'combineLoan')"
-                                                 [checked]="isCombineLoan"><b>Inherit Field Data</b>
-                                    </nb-checkbox>
-                                    <span *ngIf="isCombineLoan">
-                                         <nb-select placeholder="Select Loan To Inherit From" fullWidth #selectedLoan [formControl]="guarantor">
-                                             <nb-option *ngFor="let loan of combineLoanList" [value]="loan.proposal" >
-                                                 {{loan?.loan?.name}}
-                                             </nb-option>
-                                         </nb-select>
-                                        <button [disabled]="!guarantor.valid" nbButton size="small" (click)="commonFieldPatch(selectedLoan.selected)"> <i
-                                                class="fa fa-plus"></i></button>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
