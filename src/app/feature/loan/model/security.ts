@@ -1,6 +1,7 @@
 import {Guarantor} from './guarantor';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {SecuritiesType} from '../../constants/securities-type';
+import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 
 export class Security {
@@ -19,4 +20,5 @@ export class Security {
     freeLimit: number;
     templateName: string;
     securityLoanReferenceId: number;
+    collateralSiteVisits: Array<CollateralSiteVisit>;
 }
