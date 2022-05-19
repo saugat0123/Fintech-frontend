@@ -25,6 +25,9 @@ import {
 import {
   Section19ToSection22Component
 } from './retail-combined-offer-letter-sections/section19-to-section22/section19-to-section22.component';
+import {
+  Section16AndSection17Component
+} from './retail-combined-offer-letter-sections/section16-and-section17/section16-and-section17.component';
 
 @Component({
   selector: 'app-retail-combined-offer-letter',
@@ -39,6 +42,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
   @ViewChild('section8', {static: false}) section8: Section8LoanDisbursementRelatedClauseComponent;
   @ViewChild('section18', {static: false}) section18: Section18RequiredSecurityDocumentsComponent;
   @ViewChild('section22', {static: false}) section22: Section19ToSection22Component;
+  @ViewChild('section16', {static: false}) section16: Section16AndSection17Component;
   @Input() preview = false;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
@@ -134,7 +138,17 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
       sakshiAge2: this.section22.form.get('sakshiAge2').value ? this.section22.form.get('sakshiAge2').value : '',
       sakshiName2: this.section22.form.get('sakshiName2').value ? this.section22.form.get('sakshiName2').value : '',
       nameOfBankStaff: this.section22.form.get('nameOfBankStaff').value ? this.section22.form.get('nameOfBankStaff').value : '',
+      additionalClauseChecked: this.section22.form.get('additionalClauseChecked').value ?
+          this.section22.form.get('additionalClauseChecked').value : '',
+
     };
+    const section16FreeText = {
+      loanCommitmentCheck: this.section16.form.get('loanCommitmentCheck').value ?
+          this.section16.form.get('loanCommitmentCheck').value : '',
+      crossDefaultCheck: this.section16.form.get('crossDefaultCheck').value ?
+          this.section16.form.get('crossDefaultCheck').value : '',
+    };
+
 
     const freeTextVal = {
       section1: section1FreeText,
@@ -142,7 +156,8 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
       section7: section7FreeText,
       section8: section8FreeText,
       section18: section18FreeText,
-      section22: section22FreeText
+      section22: section22FreeText,
+      section16: section16FreeText,
     };
     return JSON.stringify(freeTextVal);
   }

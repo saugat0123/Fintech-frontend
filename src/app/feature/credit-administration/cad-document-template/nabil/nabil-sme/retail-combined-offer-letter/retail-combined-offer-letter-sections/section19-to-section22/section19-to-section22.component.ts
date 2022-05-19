@@ -58,7 +58,8 @@ export class Section19ToSection22Component implements OnInit {
       freeText2: [undefined],
       freeText3: [undefined],
       freeText4: [undefined],
-      freeText5: [undefined]
+      freeText5: [undefined],
+      additionalClauseChecked: [false],
     });
   }
   fillForm() {
@@ -98,7 +99,12 @@ export class Section19ToSection22Component implements OnInit {
         freeText3: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText3) ? this.freeInformation.section22.freeText3 : '',
         freeText4: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText4) ? this.freeInformation.section22.freeText4 : '',
         freeText5: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText5) ? this.freeInformation.section22.freeText5 : '',
+        additionalClauseChecked: !ObjectUtil.isEmpty(this.freeInformation.section22.additionalClauseChecked) ?
+            this.freeInformation.section22.additionalClauseChecked : '',
       });
     }
+  }
+  showAdditionalClauseCheck(data) {
+    console.log('Show Additional Clause for Corporate agreement based Loan?', data);
   }
 }
