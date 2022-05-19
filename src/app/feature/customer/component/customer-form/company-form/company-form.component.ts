@@ -342,10 +342,10 @@ export class CompanyFormComponent implements OnInit {
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
                     this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
                     Validators.maxLength(9), Validators.minLength(9)]],
-            companyEstablishmentDate:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-                    new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
+            // companyEstablishmentDate:
+            //     [(ObjectUtil.isEmpty(this.companyInfo)
+            //         || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
+            //         new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
             businessType:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
@@ -362,10 +362,10 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
                     new Date(this.companyJsonData.relationshipSinceWithCustomer), DateValidator.isValidBefore],
-            issuePlace:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
-                    this.companyInfo.issuePlace, [Validators.required]],
+            // issuePlace:
+            //     [(ObjectUtil.isEmpty(this.companyInfo)
+            //         || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
+            //         this.companyInfo.issuePlace, [Validators.required]],
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
@@ -447,6 +447,15 @@ export class CompanyFormComponent implements OnInit {
             udhyogBibag: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
                 this.companyInfo.legalStatus.udhyogBibhag],
+            commercialDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.commercialDate)) ? undefined :
+                new Date(this.companyInfo.legalStatus.commercialDate)],
+            requiredCommercialDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.requiredCommercialDate)) ? undefined :
+                new Date(this.companyInfo.legalStatus.requiredCommercialDate)],
+
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -524,13 +533,13 @@ export class CompanyFormComponent implements OnInit {
             rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
                 this.companyJsonData.rawMaterialAvailability],
 
-            // Sister concert
-            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern],
+            // // Sister concert
+            // sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+            //     this.companyJsonData.sisterConcern],
 
             // company background
-            companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.companyBackground, Validators.required],
+            // companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+            //     this.companyJsonData.companyBackground, Validators.required],
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
@@ -972,11 +981,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.vatNo = this.companyInfoFormGroup.get('vatNo').value;
-        this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
-        this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
@@ -1000,6 +1007,8 @@ export class CompanyFormComponent implements OnInit {
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
         this.legalStatus.registrationDistrict = this.companyInfoFormGroup.get('registrationDistrict').value;
         this.legalStatus.udhyogBibhag = this.companyInfoFormGroup.get('udhyogBibag').value;
+        this.legalStatus.commercialDate = this.companyInfoFormGroup.get('commercialDate').value;
+        this.legalStatus.requiredCommercialDate = this.companyInfoFormGroup.get('requiredCommercialDate').value;
         this.legalStatus.regIssuedPlace = this.companyInfoFormGroup.get('regIssuedPlace').value;
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
@@ -1287,7 +1296,7 @@ export class CompanyFormComponent implements OnInit {
 
     microCustomerTypeValidation(microCustomerType) {
         this.microCustomerType = microCustomerType;
-        const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
+        const microDirectExcludeFields = ['strength', 'weakness', 'opportunity', 'threats'];
         if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
 
         } else {

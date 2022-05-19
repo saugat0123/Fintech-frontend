@@ -39,4 +39,5 @@ export class Guarantor {
     guarantorLegalDocumentAddress: string;
     checkSameAddress: boolean;
     guarantorJson: string;
+    successionPlanning: string;
 }
