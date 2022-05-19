@@ -102,6 +102,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanActionList = [];
   loan = [];
+  singleLoan: LoanDataHolder;
   loanTag = LoanTag;
   isLoaded = false;
   canReInitiateLoan = false;
@@ -662,4 +663,27 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   //     this.displaySecurity = false;
   //   }
   // }
+
+  public onEdit(proposal, id: number): void {
+    this.customerLoanService.getSingleLoanByLoanHolderId(id).subscribe((response: any) => {
+      this.singleLoan = response.detail;
+      this.modalService.open(proposal, {
+        size: 'xl',
+        windowClass: 'modal-holder',
+        scrollable: true,
+      });
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Error while loading loan data!!'));
+    });
+  }
+
+  public close(): void {
+    this.modalService.dismissAll();
+  }
+
+  public refreshCustomerInfo(): void {
+    this.customerInfo = undefined;
+    this.modalService.dismissAll();
+  }
 }

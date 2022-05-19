@@ -4,6 +4,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 import {SecurityTaggerComponent} from './security-tagger/security-tagger.component';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-security-adder',
@@ -16,8 +17,10 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     @Input() proposedAmount: number;
     @ViewChild('securityTaggerComponent', {static: false}) securityTagger: SecurityTaggerComponent;
     @Output() tagSecurityEmitter = new EventEmitter();
+    @Output() deleteEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
     proposedLimit: number;
     spinner = false;
+    deleteTaggedSecurity = false;
 
     constructor(private fb: FormBuilder,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
@@ -33,7 +36,13 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     save() {
-        this.loanHolder.securities = this.securityTagger.securityList;
+        if (!ObjectUtil.isEmpty(this.securityTagger)) {
+            this.loanHolder.securities = this.securityTagger.securityList;
+        }
         this.tagSecurityEmitter.emit(this.loanHolder);
+    }
+
+    public catchEmit(event): void {
+        this.deleteEmitter.emit(true);
     }
 }

@@ -51,6 +51,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -192,6 +193,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     swapChargeChecked = false;
     subsidizedLoanChecked = false;
 
+    private _securities = new BehaviorSubject<Security[]>([]);
+    readonly securities$ = this._securities.asObservable();
+
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
@@ -225,9 +229,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
             this.crgGamma = this.customerInfo.crgGamma;
         }
-        // if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-        //     this.security = this.customerInfo.security;
-        // }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
         }
@@ -343,26 +344,18 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     public saveSecurity(data: Security) {
-        console.log('data', data);
         this.spinner.show();
         if (ObjectUtil.isEmpty(this.security)) {
             this.security = new Security();
         }
         if (!ObjectUtil.isEmpty(data)) {
             this.security = data;
-            console.log('security data', this.security);
-            // this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
-                .subscribe(() => {
+                .subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+                    this.setSecurity(response.detail.securities);
+
                     this.securityComponent.securityInitialState();
-                    // this.securityComponent.plantSelected = false;
-                    // if (!ObjectUtil.isEmpty(data.share)) {
-                    //     this.saveShare(data);
-                    // } else {
-                    //     this.triggerCustomerRefresh.emit(true);
-                    //     this.nbDialogRef.close();
-                    // }
                     this.spinner.hide();
                 }, error => {
                     this.spinner.hide();
@@ -371,6 +364,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 });
         }
     }
+
+    setSecurity(security: Array<Security>) {
+        this._securities.next(security);
+    }
+
 
     saveShare(data) {
         this.shareSecurity = data.share;
@@ -423,22 +421,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
         });
     }
-
-    /*saveCrgAlpha(data: string) {
-      if (ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
-        this.creditRiskGradingAlpha = new CreditRiskGradingAlpha();
-      }
-      this.creditRiskGradingAlpha.data = data;
-      this.customerInfoService.saveLoanInfo(this.creditRiskGradingAlpha, this.customerInfoId, TemplateName.CRG_ALPHA)
-      .subscribe(() => {
-        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Alpha)!'));
-        this.itemCrgAlpha.close();
-        this.triggerCustomerRefresh.emit(true);
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
-      });
-    }*/
 
     saveCrg(data: string) {
         this.spinner.show();

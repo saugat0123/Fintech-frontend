@@ -262,7 +262,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
-        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
             this.smallBusiness = true;
         }
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
@@ -344,26 +344,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
             this.financialSummary = true;
         }
-
-        // Setting Security data--
-        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-        //     this.securityId = this.loanDataHolder.security.id;
-        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-        //         this.securityData = JSON.parse(this.loanDataHolder.security.data);
-        //         this.securitySummary = true;
-        //     }
-            // if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-            //     this.approvedSecurity = true;
-            //     this.approvedSecurityAsProposed = false;
-            //     this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-            // }
-            // if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
-            //     !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-            //     this.approvedSecurityAsProposed = false;
-            //     this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-            //     this.approvedSecurity = true;
-            // }
-        // }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
             this.loanDataHolder.insurance.forEach(value => {
@@ -495,24 +475,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.shareSecuritySummary = true;
             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
         }
-        // if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
-        //         this.shareSecuritySummary = true;
-        //         this.approvedSecurityAsProposed = false;
-        //         this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-        //     }
-        // }
-        // if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-        //     if (ObjectUtil.isEmpty(ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
-        //         !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData))) {
-        //         const selectedArray = this.securityData['selectedArray'];
-        //         if (selectedArray.indexOf('ShareSecurity') !== -1) {
-        //             this.shareSecuritySummary = true;
-        //             this.approvedSecurityAsProposed = false;
-        //             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-        //         }
-        //     }
-        // }
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;
 

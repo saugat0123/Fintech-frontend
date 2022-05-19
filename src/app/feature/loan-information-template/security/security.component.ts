@@ -56,6 +56,8 @@ export class SecurityComponent implements OnInit {
     @Input() isMicroCustomer: boolean;
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
+    isEdit = false;
+    isSiteVisit = false;
 
 
     @ViewChild('landSecurity', {static: false})
@@ -517,10 +519,13 @@ export class SecurityComponent implements OnInit {
     }
 
     constructSecurityArray(formValues: any, securityType: any): Array<Security> {
-        console.log('form values', formValues);
         const securities: Array<Security> = new Array<Security>();
         formValues.forEach(value => {
             const security: Security = new Security();
+            if (this.isEdit) {
+                security.id = this.securityValue.id;
+                security.version = this.securityValue.version;
+            }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;
             security.distressValue = value.distressValue;
@@ -563,5 +568,18 @@ export class SecurityComponent implements OnInit {
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
         }
+    }
+
+    public onEdit(event: any): void {
+        this.securityValue = event.security;
+        this.isEdit = event.isEdit;
+        this.change(event.securityType);
+    }
+
+    public onSiteVisit(event: any): void {
+        this.securityValue = event.security;
+        this.isEdit = event.isEdit;
+        this.isSiteVisit = event.isSiteVisit;
+        this.change(event.securityType);
     }
 }

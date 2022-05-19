@@ -111,3 +111,178 @@
       </ng-container>
   </div>
 </div>
+
+<div *ngIf="promoter?.length > 0 && loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'" class="row">
+  <div class="col-md-12 text-center">
+    <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/ Proprietor Details'}}</strong></p>
+    <ng-container *ngFor="let guarantor of promoter; let i= index">
+      <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+        <tr>
+          <td>
+            <table
+                    class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+
+              <tbody>
+              <tr class="text-left">
+                <td class="sb-bg-dark text-white">Name</td>
+              </tr>
+              <tr class="text-left">
+                <td class="sb-bg-dark text-white">Gender</td>
+              </tr>
+              <tr class="text-left">
+                <td class="sb-bg-dark text-white">Relationship With Borrower</td>
+              </tr>
+              <tr>
+                <td class="text-left sb-bg-dark text-white">Father's Name</td>
+              </tr>
+              <tr>
+                <td class="text-left sb-bg-dark text-white">Grand Father Name</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Citizenship Number</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Phone Number</td>
+              </tr>
+
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Occupation</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Net Worth</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Age</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Email</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Permanent Address</td>
+              </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Temporary Address</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </td>
+          <td *ngFor="let subGuarantor of guarantor; let ii = index;">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+              <tbody>
+              <tr class="text-left">
+                <td class=" ">{{subGuarantor?.name || 'N/A'}}</td>
+              </tr>
+              <tr class="text-left">
+                <td class=" ">{{subGuarantor?.gender || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class="text-left  ">{{subGuarantor?.relationship || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class="text-left  ">{{subGuarantor?.fatherName || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class="text-left  ">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.contactNumber || 'N/A'}}</td>
+              </tr>
+
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.profession || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.netWorth || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.email || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="promoterBackground?.length > 0 && loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'" class="row">
+  <div class="col-md-12 text-center">
+    <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
+    <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+    <thead class="sb-bg-dark text-white">
+<tr>
+  <th>S.N</th>
+  <th>Name</th>
+  <th>Previous/Other Associations</th>
+  <th>Nature Of Business/Work</th>
+  <th>Capacity</th>
+  <th>Tenure</th>
+  <th>Type</th>
+</tr>
+    </thead>
+        <tbody>
+        <tr *ngFor="let promoter of (guarantor?.promoterData | jsonParse)?.background; let j = index;" >
+          <td>{{j + 1}}</td>
+          <td>{{guarantor?.name}}</td>
+          <td>{{promoter?.previousAssociations}}</td>
+          <td>{{promoter?.natureOfBusiness}}</td>
+          <td>{{promoter?.capacity}}</td>
+          <td>{{(promoter?.tenure | date)}}</td>
+          <td>{{guarantor?.guarantorType}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  <div class="col-md-12 text-center">
+    <p class="float-left sub-header" ><strong  class="sub-header">{{'Undivided Family Members'}}</strong></p>
+    <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+    <thead class="sb-bg-dark text-white">
+<tr>
+  <th>S.N</th>
+  <th>Name</th>
+  <th>Relation</th>
+  <th>Age</th>
+  <th>Profession</th>
+  <th>Promoter/Proprietor/Partner Background</th>
+  <th>Type</th>
+</tr>
+    </thead>
+        <tbody>
+        <tr *ngFor="let promoter of (guarantor?.promoterData | jsonParse)?.familyDetails; let j = index;" >
+          <td>{{j + 1}}</td>
+          <td>{{promoter?.name}}</td>
+          <td>{{promoter?.relation}}</td>
+          <td>{{promoter?.age}}</td>
+          <td>{{promoter?.profession}}</td>
+          <td>{{guarantor?.name}}</td>
+          <td>{{guarantor?.guarantorType}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+</div>
+

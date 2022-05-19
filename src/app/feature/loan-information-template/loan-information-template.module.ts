@@ -46,14 +46,12 @@ import {PreviousSecurityComponent} from './previous-security/previous-security.c
 import {FixAssetCollateralComponent} from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {CrgMicroComponent} from './crg-micro/crg-micro.component';
-import {SecurityTableComponent} from './security/security-initial-form/security-table/security-table.component';
 import {CreateDocumentComponent} from './security/security-initial-form/create-document/create-document.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 import {ReviewDateComponent} from './review-date/review-date.component';
 import {MultiBankingComponent} from './multi-banking/multi-banking.component';
 import {FinancialUploadViewComponent} from './financial/financial-upload-view/financial-upload-view.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {SecurityTaggedViewComponent} from './security-view/security-tagged-view/security-tagged-view.component';
 import {LandBuildingComponent} from './security/land-building/land-building.component';
 import {VehicleComponent} from './security/vehicle/vehicle.component';
 import {ApartmentComponent} from './security/apartment/apartment.component';
@@ -68,7 +66,8 @@ import {AssignmentOfReceivableComponent} from './security/assignment-of-receivab
 import {LeaseAssignmentComponent} from './security/lease-assignment/lease-assignment.component';
 import {OtherSecurityComponent} from './security/other-security/other-security.component';
 import {LandComponent} from './security/land/land.component';
-import { ViewSecurityTableComponent } from './security/view-security-table/view-security-table.component';
+import {ViewSecurityTableComponent} from './security/view-security-table/view-security-table.component';
+import {SecurityTaggedModule} from './security/security-tagged-component/security-tagged.module';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -101,11 +100,9 @@ const COMPONENTS = [
     NtaMegaComponent,
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
-    SecurityTableComponent,
     CreateDocumentComponent,
     ReviewDateComponent,
     MultiBankingComponent,
-    SecurityTaggedViewComponent
 ];
 
 
@@ -150,6 +147,7 @@ const COMPONENTS = [
         CreditAdministrationModule,
         CoreModule,
         LoanInformationViewModule,
+        SecurityTaggedModule,
     ],
     providers: [
         NgbActiveModal

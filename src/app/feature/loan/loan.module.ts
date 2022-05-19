@@ -87,6 +87,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
 import {FeatureModule} from '../feature.module';
+import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -210,7 +211,9 @@ const modules = {
         NepaliPatroModule,
         TransferLoanModule,
         ProductPaperModule,
-        FeatureModule
+        FeatureModule,
+        FinancialAccountInformationModule
+
     ],
 
     providers: [

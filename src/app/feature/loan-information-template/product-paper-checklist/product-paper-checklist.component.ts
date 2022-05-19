@@ -68,13 +68,15 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
     ngAfterViewInit(): void {
         this.changeDetectorRef.detectChanges();
-        if (this.allIds.length > 0) {
+        if (!ObjectUtil.isEmpty(this.allIds)) {
+            if (this.allIds.length > 0) {
                 this.allIds.forEach((id, i) => {
                     const elem = this.el.nativeElement.querySelector(`#${id}`);
                     if (elem) {
-                         elem.addEventListener('change', this.change.bind(this, id));
-                       }
+                        elem.addEventListener('change', this.change.bind(this, id));
+                    }
                 });
+            }
         }
     }
 }

@@ -1040,11 +1040,34 @@
 <!--                               </div>-->
 <!--                           </div>-->
 <!--                       </div>-->
+                      <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
+                       <hr>
+                       <div>
+                           <h5>
+                               6. {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Institutional Details'}}
+                            </h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="companyBackground"><strong></strong></label>
+                                   <ckeditor id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && form.companyBackground.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="form.companyBackground.errors.required">
+                                        {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Company Background'}} is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                        <hr>
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label for="businessManagementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
+                                   <label for="businessManagementRisk"><strong>{{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Risk & Mitigants' : 'Business/Management Risk & Mitigation'}}</strong></label>
                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessManagementRisk.errors }"
                                              formControlName="businessManagementRisk" id="businessManagementRisk"
                                              name="businessManagementRisk" [config]="ckeConfig"

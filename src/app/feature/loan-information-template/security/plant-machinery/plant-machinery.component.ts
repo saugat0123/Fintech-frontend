@@ -10,6 +10,7 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {ToastService} from '../../../../@core/utils';
+import {Security} from '../../../loan/model/security';
 
 @Component({
   selector: 'app-plant-machinery',
@@ -31,23 +32,59 @@ export class PlantMachineryComponent implements OnInit {
   designationList = [];
   spinner = false;
 
+  @Input() security: Security;
+  @Input() isEdit = false;
+
+
   constructor(private valuatorService: ValuatorService,
               private branchService: BranchService,
               private roleService: RoleService,
               private toastService: ToastService,
               private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
-    this.buildForm();
-    this.branchList();
-    this.getRoleList();
-  }
+    ngOnInit() {
+        this.buildForm();
+        this.branchList();
+        this.getRoleList();
+        if (this.isEdit) {
+            this.setPlantAndMachinery();
+        } else {
+            this.addPlantandMachinery();
+        }
+    }
 
-  private buildForm(): FormGroup {
-    return this.plantMachineryForm = this.formBuilder.group({
-      securityDetails: this.formBuilder.array([this.plantDetailsFormGroup()])
-    });
-  }
+    setPlantAndMachinery() {
+        const formData = JSON.parse(this.security.data);
+        const plantAndMachineryForm = this.plantMachineryForm.get('plantDetails') as FormArray;
+        plantAndMachineryForm.push(
+            this.formBuilder.group({
+                model: [formData.model],
+                quotation: [formData.quotation],
+                supplier: [formData.supplier],
+                plantMachineryValuator: [formData.plantMachineryValuator],
+                plantMachineryValuatorDate: [formData.plantMachineryValuatorDate],
+                plantMachineryValuatorRepresentative: [formData.plantMachineryValuatorRepresentative],
+                plantMachineryStaffRepresentativeName: [formData.plantMachineryStaffRepresentativeName],
+                plantBranch: [formData.plantBranch],
+                fairMarketValue: [formData.fairMarketValue],
+                considerValue: [formData.considerValue],
+                distressValue: [formData.distressValue],
+                plantMachineryStaffRepresentativeDesignation: [formData.plantMachineryStaffRepresentativeDesignation],
+                plantMachineryStaffRepresentativeDesignation2: [formData.plantMachineryStaffRepresentativeDesignation2],
+                plantMachineryStaffRepresentativeName2: [formData.plantMachineryStaffRepresentativeName2],
+                plantOtherBranchChecked: [formData.plantOtherBranchChecked],
+                realisableRate: [formData.realisableRate],
+                realisableValue: [formData.realisableValue],
+            })
+        );
+
+    }
+
+    private buildForm(): FormGroup {
+        return this.plantMachineryForm = this.formBuilder.group({
+            plantDetails: this.formBuilder.array([])
+        });
+    }
 
   public branchList(): void {
     this.branchService.getAll().subscribe((res: any) => {
@@ -162,7 +199,7 @@ export class PlantMachineryComponent implements OnInit {
       plantMachineryStaffRepresentativeName2: [undefined],
       plantOtherBranchChecked: [undefined],
       realisableRate: [undefined],
-      realisableValue: [undefined],
+      realisableValue: [undefined]
     });
   }
 

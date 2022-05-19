@@ -117,4 +117,5 @@ export class LoanDataHolder extends BaseEntity {
     autos: Array<Auto> = [];
     landBuildings: Array<LandBuilding> = [];
     selectedArray: string;
+    financialAccountInformation: string;
 }
