@@ -71,6 +71,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
 import {ChartModule} from '../chart/chart.module';
 import { JsonParsePipe } from './pipes/json-parse.pipe';
 import { RolesSwitchComponent } from './components/roles-switch/roles-switch.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -171,7 +172,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, NgxPaginationModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent],
     entryComponents: [...ENTRY_COMPONENTS],

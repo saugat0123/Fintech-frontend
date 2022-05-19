@@ -29,6 +29,7 @@ import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         AppRoutingModule,
         DragDropModule,
         NgxPrintModule,
+        NgxPaginationModule,
         NbDatepickerModule.forRoot(),
         CKEditorModule,
         TranslateModule.forRoot({
