@@ -8,7 +8,7 @@ import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Financial} from '../../loan/model/financial';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
@@ -27,6 +27,9 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
 
 @Component({
     selector: 'app-financial',
@@ -186,12 +189,16 @@ export class FinancialComponent implements OnInit {
     ];
 
     numberUtils = NumberUtils;
+    customerInfoId: any
+    customerInfo: any
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
                 private overlay: NgxSpinnerService,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private customerInfoService: CustomerInfoService,
+                private toastService: ToastService,) {
     }
 
     get form() {
@@ -200,6 +207,7 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(queryParams => {
+            this.customerInfoId = queryParams.id
             if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
                 this.isBusinessLoan = false;
             }
@@ -242,6 +250,7 @@ export class FinancialComponent implements OnInit {
             }
         }
         this.checkDisableAlpha();
+        this.getCustomerInfo();
     }
 
     buildForm() {
@@ -488,7 +497,6 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
@@ -709,4 +717,26 @@ export class FinancialComponent implements OnInit {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }
     }
+    open(content: any) {
+        this.modalService.open(content);
+    }
+
+    removeFinancial() {
+        this.customerInfoService.removeFinancial(this.customerInfoId).subscribe(response=> {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Financial Data Deleted Successfully'));
+            this.modalService.dismissAll();
+            this.getCustomerInfo();
+        })
+    }
+
+    getCustomerInfo() {
+        this.customerInfoService.getCustomerInfoById(this.customerInfoId).subscribe(response=> {
+            this.customerInfo = response.financial;
+        })
+    }
+
+
+
+
+
 }
