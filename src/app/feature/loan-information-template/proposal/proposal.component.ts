@@ -153,6 +153,7 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
+            this.clearProposedLimitValidation();
             if (ObjectUtil.isEmpty(this.formDataForEdit)) {
               this.interestLimit = response.detail.interestRate;
             }
@@ -290,6 +291,11 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
+    if (this.loanType === LoanType.getEnum(LoanType.FULL_SETTLEMENT_LOAN) || this.loanType === LoanType.getEnum(LoanType.CLOSURE_LOAN)) {
+      const fullSettlementAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+      this.formControls.existingLimit.setValue(NumberUtils.isNumber(fullSettlementAmount));
+      console.log('This is the test data :: ', fullSettlementAmount);
+    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.proposalData = this.formValue;
     }
@@ -577,6 +583,15 @@ export class ProposalComponent implements OnInit {
             const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
             this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
             return;
+          case  'FULL_SETTLEMENT_LOAN':
+            const fullSettlementAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(fullSettlementAmount));
+            return;
+          case  'CLOSURE_LOAN':
+            const closedAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(closedAmount));
+            this.clearProposedLimitValidation();
+            return;
           default:
             return;
         }
@@ -628,6 +643,14 @@ export class ProposalComponent implements OnInit {
             remarks: [undefined],
           })
       );
+    }
+  }
+
+  clearProposedLimitValidation() {
+    if (this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'CLOSURE_LOAN') {
+      console.log('Im inside the validation ');
+      this.proposalForm.get('proposedLimit').clearValidators();
+      this.proposalForm.get('proposedLimit').updateValueAndValidity();
     }
   }
 
