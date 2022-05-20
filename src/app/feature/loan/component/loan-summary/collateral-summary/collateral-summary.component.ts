@@ -116,7 +116,8 @@ export class CollateralSummaryComponent implements OnInit {
               this.fundedApprovedLoans =  this.approvedLoans.filter((l)=> l.loan.isFundable);
 
               this.allFundedList = response.detail.filter((l) => l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED] );
-              this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED] );
+              this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]
+                  && l.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && l.loanType.toString() !== 'CLOSURE_LOAN');
               this.allNonFundedList = response.detail.filter((l) => !l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED])
               this.nonFundedList  = this.allNonFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
               this.facSelectedLoans = this.nonFundedList.filter((l) => l.proposal.cashMarginOrFac === 'FAC');
@@ -341,12 +342,14 @@ export class CollateralSummaryComponent implements OnInit {
                 this.customerLoanDtoList = this.loanData.customerLoanDtoList;
                 this.fundedListFromDto = this.customerLoanDtoList.filter((l) => l.loan.isFundable);
                 this.fundedApprovedLoansFromDto = this.fundedListFromDto.filter((l) => l.documentStatus === 'APPROVED');
-                this.fundedList = this.fundedListFromDto.filter((l) => l.documentStatus !== 'APPROVED')
+                this.fundedList = this.fundedListFromDto.filter((l) => l.documentStatus !== 'APPROVED'
+                    && l.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && l.loanType.toString() !== 'CLOSURE_LOAN');
                 this.nonFundedListFromDto = this.customerLoanDtoList.filter((l) => !l.loan.isFundable);
                 this.nonFundedApprovedLoansFromDto = this.nonFundedListFromDto.filter((l) => l.documentStatus === 'APPROVED');
                 this.approvedLoans = this.customerLoanDtoList.filter((l) => l.documentStatus === 'APPROVED');
                 this.allFundedList = this.customerLoanDtoList.filter((l) => l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED]);
-                this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
+                this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]
+                    && l.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && l.loanType.toString() !== 'CLOSURE_LOAN');
                 this.allNonFundedList = this.customerLoanDtoList.filter((l) => !l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED])
                 this.nonFundedList = this.allNonFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
                 this.facSelectedLoans = this.nonFundedList.filter((l) => l.proposal.cashMarginOrFac === 'FAC');

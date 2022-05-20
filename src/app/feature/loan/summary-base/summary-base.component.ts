@@ -150,7 +150,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.roleTypeCommittee = false;
             }
 
-            if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+            if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN
+                || this.loanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
                 this.actionsList.approved = false;
             } else {
                 this.actionsList.closed = false;
