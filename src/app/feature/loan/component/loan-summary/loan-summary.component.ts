@@ -582,6 +582,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     }).finally( () => {
                         this.loaded = true;
                     });
+                } else {
+                    this.loaded = true;
                 }
             }, error => {
                 console.error(error);
