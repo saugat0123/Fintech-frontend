@@ -32,8 +32,10 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   filterLoan() {
-    this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
-    this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
+    this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable
+        && l.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && l.loanType.toString() !== 'CLOSURE_LOAN');
+    this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable
+        && l.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && l.loanType.toString() !== 'CLOSURE_LOAN');
     this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
     (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
   }
