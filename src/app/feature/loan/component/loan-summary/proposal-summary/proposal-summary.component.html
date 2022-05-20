@@ -138,22 +138,22 @@
                     </ng-container>
                 </td>
                 <td>
-                <span >Loan Administration loan</span>
                 <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
+                    <span >Loan Administration: </span>
                     <div *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
                     <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
                 </ng-container>
             <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
-                <span >Commitment Fee</span>
+                <span >Commitment Fee :</span>
                 <span>{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
             </ng-container>
             <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
-                <span >Prepayment Fee</span>
+                <span >Prepayment Fee: </span>
                 <span>{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
             </ng-container>
             <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
-                <span >Swap Fee</span>
+                <span >Swap Fee: </span>
                 <span>{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
 
             </ng-container>
