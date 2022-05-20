@@ -80,6 +80,7 @@
                 </td>
 
                 <td class="text-right pr-1">
+                    <ng-container *ngIf="loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'CLOSURE_LOAN'; else existingFirstNoData">
                     <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 && loan.loanType !== LoanType.NEW_LOAN ">
                         IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}} %
                     </span>
@@ -106,8 +107,13 @@
                     && ((loan?.proposal?.data | jsonParse)?.existCashMargin === null)
                     && ((loan?.proposal?.data | jsonParse)?.existingServiceCharge === null)
                     && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
+                    </ng-container>
+                    <ng-template #existingFirstNoData>
+                        -
+                    </ng-template>
                 </td>
                 <td>
+                    <ng-container *ngIf="loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'CLOSURE_LOAN'; else proposedFirstNoData">
                     <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
                     || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                         IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %,
@@ -125,9 +131,14 @@
                             CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %
                     </span>
+                    </ng-container>
+                    <ng-template #proposedFirstNoData>
+                        -
+                    </ng-template>
                 </td>
 
                 <td class="text-right pr-1" >
+                    <ng-container *ngIf="loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'CLOSURE_LOAN'; else serviceFirstNoData">
                     <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
                     && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loan?.proposal?.data | jsonParse)?.serviceCharge !== ''">
@@ -136,6 +147,11 @@
                         SC: {{(loan?.proposal?.data | jsonParse)?.serviceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
                     </span>
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge === '' || (loan?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>
+                        <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+                    </ng-container>
+                    <ng-template #serviceFirstNoData>
+                        -
+                    </ng-template>
                 </td>
 
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>-->
@@ -145,10 +161,15 @@
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>-->
                 <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>-->
                 <td width="150px" class="text-left pl-1">
+                    <ng-container *ngIf="loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'CLOSURE_LOAN'; else doeFirstNoData">
                     <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
                     <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}}
                         ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>
                     <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
+                    </ng-container>
+                    <ng-template #doeFirstNoData>
+                        -
+                    </ng-template>
                 </td>
             </tr>
             <tr *ngFor="let loanDto of customerLoanDtoList; let ii = index"
@@ -192,6 +213,7 @@
                     }}</td>
 
                 <td class="text-right pr-1">
+                    <ng-container *ngIf="loanDto?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDto?.loanType !== 'CLOSURE_LOAN'; else existingSecondNoData">
                     <span *ngIf="(loanDto?.loanConfig?.isFundable) && ((loanDto?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
                         IR: {{(loanDto?.proposal?.data | jsonParse)?.existInterestRate}} %
                     </span>
@@ -217,9 +239,14 @@
                     && ((loanDto?.proposal?.data | jsonParse)?.existCashMargin === null)
                     && ((loanDto?.proposal?.data | jsonParse)?.existingServiceCharge === null)
                     && ((loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
+                    </ng-container>
+                    <ng-template #existingSecondNoData>
+                        -
+                    </ng-template>
                 </td>
 
                 <td>
+                    <ng-container *ngIf="loanDto?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDto?.loanType !== 'CLOSURE_LOAN'; else proposedSecondNoData">
                     <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving'))
                     || dtoArray[ii]?.isFixedDeposit || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                         IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %,
@@ -237,9 +264,14 @@
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
                             CM: {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                         COM:{{(loanDto?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
+                    </ng-container>
+                    <ng-template #proposedSecondNoData>
+                        -
+                    </ng-template>
                 </td>
 
                 <td class="text-right pr-1">
+                    <ng-container *ngIf="loanDto?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDto?.loanType !== 'CLOSURE_LOAN'; else serviceSecondNoData">
                     <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
                     && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.serviceCharge !== ''">
@@ -248,6 +280,10 @@
                         SC: {{(loanDto?.proposal?.data | jsonParse)?.serviceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
                     </span>
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceCharge === '' || (loanDto?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>
+                    </ng-container>
+                    <ng-template #serviceSecondNoData>
+                        -
+                    </ng-template>
                 </td>
 
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>-->
@@ -257,10 +293,15 @@
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>-->
                 <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>-->
                 <td width="150px" class="text-left pl-1">
+                    <ng-container *ngIf="loanDto?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDto?.loanType !== 'CLOSURE_LOAN'; else doeSecondNoData">
                     <span *ngIf="!loanDto.proposal.limitExpiryMethod">-</span>
                     <span *ngIf="loanDto.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loanDto.proposal?.dateOfExpiry | date}}
                         ({{loanDto.proposal?.dateOfExpiry | engNepDate: false}})</span>
                     <span *ngIf="loanDto.proposal.limitExpiryMethod === 'CUSTOM'">{{loanDto.proposal?.duration}} {{loanDto.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
+                    </ng-container>
+                    <ng-template #doeSecondNoData>
+                        -
+                    </ng-template>
                 </td>
             </tr>
             <tr class="sb-bg-secondary text-white">
