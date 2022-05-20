@@ -45,14 +45,12 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
     districts: Array<District> = new Array<District>();
     municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     collateralSiteVisits: Array<CollateralSiteVisit>;
-    approvedCollateralSiteVisits: Array<CollateralSiteVisit>;
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
     fileType = '.jpg';
     modelHeader: string;
     modelBody: string;
-    isSiteVisitPresent: boolean;
     security_id_for_delete: string;
     data;
     regex = /_/g;
@@ -94,13 +92,15 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
                 this.provinceList = response.detail;
             });
         this.getRoleList();
-       // this.getCollateralBySecurityName(this.security);
         this.addStaffs();
         this.getCustomerTypeAndId();
-        // if (this.readMode) {
-        //     this.getApprovedCollateralBySecurityName(this.security);
-        // }
-        this.getAllSiteVisitBySecurityId();
+        this.getAllSiteVisits();
+    }
+
+    private getAllSiteVisits(): void {
+        if (!ObjectUtil.isEmpty(this.securityData.collateralSiteVisits)) {
+            this.collateralSiteVisits = this.securityData.collateralSiteVisits;
+        }
     }
 
     getCustomerTypeAndId() {
@@ -110,53 +110,10 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
         });
     }
 
-    getAllSiteVisitBySecurityId() {
-        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityData.id).subscribe((response: any) => {
-            const siteVisits = response.detail;
-            const siteVisitArray = [];
-            siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
-            this.collateralSiteVisits = siteVisitArray;
-        });
-    }
-
-    // getCollateralBySecurityName(securityName) {
-    //     if (this.securityId === undefined) {
-    //         return;
-    //     }
-    //     this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
-    //         .subscribe((response: any) => {
-    //         const siteVisits = response.detail;
-    //         const siteVisitArray = [];
-    //         siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
-    //         this.collateralSiteVisits = siteVisitArray;
-    //     }, error => {
-    //         console.error(error);
-    //         this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
-    //     });
-    // }
-
-    // getApprovedCollateralBySecurityName(securityName) {
-    //     if (this.securityId === undefined) {
-    //         return;
-    //     }
-    //     this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
-    //         .subscribe((response: any) => {
-    //             const siteVisits = response.detail;
-    //             const siteVisitArray = [];
-    //             siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === true));
-    //             this.approvedCollateralSiteVisits = siteVisitArray;
-    //         }, error => {
-    //             console.error(error);
-    //             this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
-    //         });
-    // }
-
     getLastSiteVisitDetail() {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
-                // uncomment if need to implement delete feature for site visit
-            // this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
@@ -168,28 +125,6 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
         });
     }
-
-    // uncomment only if need to implement approval site visit for approved file
-    // getLastApprovedSiteVisitDetail() {
-    //     this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
-    //         .subscribe((response: any) => {
-    //             const siteVisitData = response.detail;
-    //             if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
-    //                 this.collateralSiteVisit = siteVisitData;
-    //                 // uncomment if need to implement delete feature for site visit
-    //                 // this.isSiteVisitPresent = true;
-    //                 this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
-    //                 this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
-    //                 this.getDistrictsById(this.collateralData.province.id, null);
-    //                 this.getMunicipalitiesById(this.collateralData.district.id, null);
-    //                 this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
-    //                 this.setStaffDetail(this.collateralData);
-    //             }
-    //         }, error => {
-    //             console.error(error);
-    //             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
-    //         });
-    // }
 
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
@@ -328,11 +263,6 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
-        // if (ObjectUtil.isEmpty(this.securityId)) {
-        //     this.spinner = false;
-        //     this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
-        //     return;
-        // }
         const formData: FormData = new FormData();
         // for update site visit
         if (!ObjectUtil.isEmpty(this.collateralSiteVisit.id)) {
