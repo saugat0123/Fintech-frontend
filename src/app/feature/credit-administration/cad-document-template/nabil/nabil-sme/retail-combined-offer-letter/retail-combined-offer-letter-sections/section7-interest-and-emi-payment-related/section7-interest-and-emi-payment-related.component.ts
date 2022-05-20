@@ -12,6 +12,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     form: FormGroup;
     section7Data;
     loanName: Array<any> = new Array<any>();
+    loanNepaliName: Array<any> = new Array<any>();
     isLoanSelected: boolean;
     isRegularBasis: boolean;
     isCaseBasis: boolean;
@@ -28,6 +29,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
             this.cadData.assignedLoan.forEach(val => {
                 this.loanName.push(val.loan.name);
+                this.loanNepaliName.push(val.loan.nepaliName);
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {

@@ -12,6 +12,7 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   form: FormGroup;
   tempData;
   loanName: Array<any> = new Array<any>();
+  loanNepaliName: Array<any> = new Array<any>();
   assignedData;
   isOthers: boolean;
   isMortgageLoan: boolean;
@@ -42,6 +43,7 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan.forEach(value => {
         this.loanName.push(value.loan.name);
+        this.loanNepaliName.push(value.loan.nepaliName);
       });
       this.loanName.forEach(value => {
         if (value === 'AUTO LOAN COMBINED') {
@@ -84,5 +86,7 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
       totalLimitInFigure: this.tempData.retailGlobalForm.totalLimitInFigureCT ? this.tempData.retailGlobalForm.totalLimitInFigureCT : '',
       totalLimitInWords: this.tempData.retailGlobalForm.totalLimitInWordsCT ? this.tempData.retailGlobalForm.totalLimitInWordsCT : '',
     });
+
+
   }
 }
