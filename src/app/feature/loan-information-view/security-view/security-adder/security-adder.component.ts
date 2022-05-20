@@ -39,6 +39,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.securityTagger)) {
             this.loanHolder.securities = this.securityTagger.securityList;
         }
+        console.log('tagged security', this.securityTagger.securityList);
         this.tagSecurityEmitter.emit(this.loanHolder);
     }
 

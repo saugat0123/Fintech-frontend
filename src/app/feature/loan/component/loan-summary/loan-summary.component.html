@@ -349,7 +349,7 @@
             <hr class="print-line">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
-                        *ngIf="proposalSummary"
+                        *ngIf="proposalSummary && loaded"
                         [customerAllLoanList]="customerAllLoanList"
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
