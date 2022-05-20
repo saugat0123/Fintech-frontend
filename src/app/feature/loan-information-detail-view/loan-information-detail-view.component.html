@@ -219,6 +219,7 @@
                     *ngIf="loanDataHolder && customerAllLoanList"
                     [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+                <app-collateral-site-visit *ngIf="loanDataHolder?.securities" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong class="header">Authority Section</strong></p>
