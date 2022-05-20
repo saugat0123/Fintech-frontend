@@ -20,7 +20,7 @@ export class CollateralSiteVisitComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   url;
   securityData;
-  siteVisitDocuments: Array<SiteVisitDocument>;
+  siteVisitDocuments = [];
   separator = '/';
   fileType = '.jpg';
   isPrintable = 'YES';
