@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
@@ -58,7 +58,7 @@ export class ProposalSummaryComponent implements OnInit {
                 private loanConfigService: LoanConfigService) {
     }
 
-    toggleArray: {
+    loanDatas: {
         loanNatureSelected: any, fundableNonFundableSelcted: any, isFundable: any, isTerminating: any,
         isVehicle: any, isShare: any, isGeneral: any, showInstallmentAmount: any, showRepaymentMode: any, showPrincipalAmount: any, isFixedDeposit: any, isRevolving: any
     }[] = [];
@@ -85,29 +85,15 @@ export class ProposalSummaryComponent implements OnInit {
                 this.isRemit = true;
             }
         }
-        this.setToggled();
+        if (this.customerAllLoanList.length > 0) {
+            this.setToggled();
+        }
     }
 
     public setToggled() {
         if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
-            this.toggleArray = [];
-            const fToggle = {
-                loanNatureSelected: this.loanNatureSelected,
-                fundableNonFundableSelcted: this.fundableNonFundableSelcted,
-                isFundable: this.isFundable,
-                isTerminating: this.isTerminating,
-                isVehicle: this.isVehicle,
-                isShare: this.isShare,
-                isGeneral: this.isGeneral,
-                showInstallmentAmount: this.showInstallmentAmount,
-                showRepaymentMode: this.showRepaymentMode,
-                showPrincipalAmount: this.showPrincipalAmount,
-                isFixedDeposit: this.isFixedDeposit,
-                isRevolving: this.isRevolving
-            };
-            this.toggleArray.push(fToggle);
-            console.log('this is toggle array cl', this.customerAllLoanList);
-            this.customerAllLoanList.forEach((d) => {
+            this.loanDatas = [];
+            this.customerAllLoanList.forEach((d, i) => {
                 const loan = d.loan;
                 const toggle = {
                     loanNatureSelected: false,
@@ -149,8 +135,7 @@ export class ProposalSummaryComponent implements OnInit {
                     toggle.loanNatureSelected = false;
                     toggle.fundableNonFundableSelcted = false;
                 }
-                this.toggleArray.push(toggle);
-                console.log('this is toggle array', this.toggleArray);
+                this.loanDatas.push(toggle);
             });
         }
     }
