@@ -19,7 +19,7 @@ import {CustomerLoanDto} from '../../../model/customerLoanDto';
     templateUrl: './proposal-summary.component.html',
     styleUrls: ['./proposal-summary.component.scss']
 })
-export class ProposalSummaryComponent implements OnInit, OnChanges {
+export class ProposalSummaryComponent implements OnInit {
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
     @Input() loanDataHolder: LoanDataHolder;
@@ -85,6 +85,7 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
                 this.isRemit = true;
             }
         }
+        this.setToggled();
     }
 
     public setToggled() {
@@ -105,6 +106,7 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
                 isRevolving: this.isRevolving
             };
             this.toggleArray.push(fToggle);
+            console.log('this is toggle array cl', this.customerAllLoanList);
             this.customerAllLoanList.forEach((d) => {
                 const loan = d.loan;
                 const toggle = {
@@ -282,10 +284,5 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
         const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
         return interestRate;
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log('this is customer all list', this.customerAllLoanList);
-        this.setToggled();
     }
 }

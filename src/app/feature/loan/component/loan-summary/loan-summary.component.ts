@@ -219,6 +219,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     citizen;
     hidePreviewButton = false;
     zipDocName;
+    loaded = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -549,7 +550,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             isStaged: 'true'
         };
         this.customerLoanService.getAllWithSearch(search)
-            .subscribe((res: any) => {
+            .toPromise().then((res: any) => {
                 this.customerAllLoanList = res.detail;
                 // push current loan if not fetched from staged spec response
                 if (ObjectUtil.isEmpty(this.requestedLoanType)) {
@@ -580,6 +581,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         console.error(err);
                     });
                 }
+                this.loaded = true;
             }, error => {
                 console.error(error);
             });
