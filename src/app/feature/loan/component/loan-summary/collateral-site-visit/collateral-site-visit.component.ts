@@ -6,6 +6,10 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {Security} from '../../../model/security';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {
+    CollateralSiteVisit
+} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 @Component({
   selector: 'app-collateral-site-visit',
@@ -13,44 +17,39 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
   styleUrls: ['./collateral-site-visit.component.scss']
 })
 export class CollateralSiteVisitComponent implements OnInit {
-
-  constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
-  }
   @Input() loanDataHolder: LoanDataHolder;
   url;
   securityData;
-  collateralSiteVisits = [];
-    vehicleSelected = false;
-    landSelected = false;
-    hypothecation = false;
-    corporate = false;
-    personal = false;
-    apartmentSelected = false;
-    plantSelected = false;
-    depositSelected = false;
-    totalAmount = 0;
-    shareSelected = false;
-    insurancePolicySelected = false;
-    shareTotalValue = 0;
-    totalConsideredValue = 0;
-    loanSharePercent: NepseMaster = new NepseMaster();
-    landBuilding = false;
-    isSecurityPresent = false;
-    isCollateralSiteVisitPresent = false;
-    assignments: any;
-    assignment = false;
-    securityOther = false;
-    siteVisitDocuments: Array<SiteVisitDocument>;
-    separator = '/';
-    fileType = '.jpg';
-    isPrintable = 'YES';
-    siteVisitJson = [];
-    random;
-    security: Security;
-    ownerShipTransfer = OwnershipTransfer;
+  siteVisitDocuments: Array<SiteVisitDocument>;
+  separator = '/';
+  fileType = '.jpg';
+  isPrintable = 'YES';
+  siteVisitJson = [];
+  random;
+  security: Security;
+  isCollateralSiteVisitPresent = false;
+
+  constructor() {
+  }
+
   ngOnInit() {
       this.url = ApiConfig.URL;
       this.random = Math.floor(Math.random() * 100) + 1;
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {
+          this.loanDataHolder.securities.forEach((security: Security) => {
+              if (!ObjectUtil.isEmpty(security.collateralSiteVisits)) {
+                  this.isCollateralSiteVisitPresent = true;
+                  security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
+                      this.siteVisitJson.push(JSON.parse(collateralSiteVisit.siteVisitJsonData));
+                      if (!ObjectUtil.isEmpty(collateralSiteVisit.siteVisitDocuments)) {
+                          collateralSiteVisit.siteVisitDocuments.forEach((siteVisitDocument: SiteVisitDocument) => {
+                              this.siteVisitDocuments.push(siteVisitDocument);
+                          });
+                      }
+                  });
+              }
+          });
+      }
   }
     viewDocument(url: string, name: string) {
         const viewDocName = name.concat(this.fileType);
