@@ -2,7 +2,11 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form">
-            <div>
+            <nb-checkbox class="d-print-none" #showAdditionalClause (checkedChange)="showAdditionalClauseCheck(showAdditionalClause.checked)"
+                         formControlName="additionalClauseChecked">
+                Additional Clause for Corporate agreement based Loan
+            </nb-checkbox>
+            <div *ngIf="showAdditionalClause.checked">
                 <!-- SECTION 19
                 Additional Clause for Corporate agreement based Loan:
                 ( Optional as per need basis on all loan types)-->
