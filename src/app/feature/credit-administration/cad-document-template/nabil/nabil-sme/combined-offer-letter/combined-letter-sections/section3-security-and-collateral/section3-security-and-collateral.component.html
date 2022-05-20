@@ -101,7 +101,7 @@
 
                                 <div class="pb-4" *ngIf="securityTypeCondition">
                                     <app-master-securities-view
-                                            [securityDetails]="this.tempData.securities.primarySecurity[i]"></app-master-securities-view>
+                                            [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
                                 </div>
                             </ng-container>
                             </li>
@@ -454,7 +454,7 @@
                                 </div>
                                 <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
                                     <app-master-secondary-securities-view
-                                            [securityDetails]="tempData?.securities.secondarySecurity[i]"></app-master-secondary-securities-view>
+                                            [securityDetails]="tempSecondaryLandBuilding && tempSecondaryLandBuilding[i] ? tempSecondaryLandBuilding[i] : []"></app-master-secondary-securities-view>
                                 </div>
                             </ng-container>
                             </li>
