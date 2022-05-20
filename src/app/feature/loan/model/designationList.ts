@@ -47,6 +47,10 @@ export class DesignationList {
     {
       id: 'Other',
       name: 'Other',
+    },
+    {
+      id: 'Promoter',
+      name: 'Promoter'
     }
   ];
 }
