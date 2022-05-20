@@ -241,7 +241,8 @@ export class ProposalComponent implements OnInit {
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
-            if(!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+        } else {
+            if(!ObjectUtil.isEmpty(this.customerInfo.commonLoanData) && ObjectUtil.isEmpty(this.loan.id)) {
                 const commonData = JSON.parse(this.customerInfo.commonLoanData);
                 this.setFormData(commonData.vehicle, 'vehicle');
                 this.setFormData(commonData.deposit, 'deposit');
