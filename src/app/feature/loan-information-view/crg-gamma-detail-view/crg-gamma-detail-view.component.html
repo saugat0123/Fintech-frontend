@@ -1,31 +1,44 @@
-<p class="mt-4 text-center"><strong>Credit Risk Grading</strong></p>
-<table class="table table-condensed table-bordered table-sm
+<section class="enable-print">
+<div id="print-gammaDetail">
+    <div class="modal-header text-center">
+        <p class="mt-4 text-center"><strong>Credit Risk Grading</strong></p>
+        <a (click)="onClose()" aria-label="Close" class="close cursor disable-print"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </div>
+    <table class="table table-condensed table-bordered table-sm
         table-responsive-md text-center table-sm sb-small">
-    <thead>
-    <tr>
-        <th colspan="5">Credit Risk Grading (Gamma)</th>
-    </tr>
-    <tr class="sb-bg-dark text-white">
-        <th class="sn">S.N</th>
-        <th>Question</th>
-        <th>Answer</th>
-        <th>Score</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let crgGammaData of crgGammaList; let i = index">
-        <td class="text-center">{{ i+1 }}</td>
-        <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.question }}</td>
-        <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.answer }}</td>
-        <td class="text-right font-weight-bold pr-1">{{ crgGammaData?.score }}</td>
-    </tr>
-    <tr>
-        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Total Score :</strong></td>
-        <td colspan="1" class="sb-bg-secondary text-white text-right pr-1"><strong>{{ crgGammaData?.totalPoint }}</strong></td>
-    </tr>
-    <tr>
-        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Grade :</strong></td>
-        <td colspan="1" class="sb-bg-secondary text-white text-left pl-1"><strong>{{ crgGammaData?.grade }}</strong></td>
-    </tr>
-    </tbody>
-</table>
+        <thead>
+        <tr>
+            <th colspan="5">Credit Risk Grading (Gamma)</th>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+            <th class="sn">S.N</th>
+            <th>Question</th>
+            <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let crgGammaData of crgGammaList; let i = index">
+            <td class="text-center">{{ i+1 }}</td>
+            <td class="text-left font-weight-bold pl-1"><span>{{ crgGammaData?.question }}</span></td>
+            <td class="text-right font-weight-bold pr-1"><span>{{ crgGammaData?.score }}</span></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="sb-bg-secondary text-white text-left pl-1"><strong>Total Score :</strong></td>
+            <td colspan="1" class="sb-bg-secondary text-white text-right pr-1"><strong><span>{{ crgGammaData?.totalPoint }}</span></strong></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="sb-bg-secondary text-white text-left pl-1"><strong>Grade :</strong></td>
+            <td colspan="1" class="sb-bg-secondary text-white text-left pl-1"><strong><span>{{ crgGammaData?.grade }}</span></strong></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="float-right mr-2">
+        <button [useExistingCss]="true" class="btn-sm btn-warning float-right disable-print" ngxPrint
+                printSectionId="print-gammaDetail" styleSheetFile="assets/css/printStyles.scss">
+            PRINT
+        </button>
+    </div>
+</div>
+</section>
