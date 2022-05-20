@@ -130,6 +130,7 @@ export class ProposalComponent implements OnInit {
     guarantor = new FormControl(undefined, Validators.required);
     isSbk = false;
     isInsti = false;
+    showCad = false;
 
     dropdownPriorities = [
         {id: 'HIGH', name: 'High'},
@@ -1054,5 +1055,9 @@ export class ProposalComponent implements OnInit {
         if (event === true) {
             this.ngOnInit();
         }
+    }
+
+    toggleCad() {
+        this.showCad = !this.showCad;
     }
 }
