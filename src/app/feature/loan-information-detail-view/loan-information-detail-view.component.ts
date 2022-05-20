@@ -19,6 +19,7 @@ import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {CrgGammaDetailViewComponent} from '../loan-information-view/crg-gamma-detail-view/crg-gamma-detail-view.component';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -223,5 +224,10 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    onOpen() {
+        const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg'});
+        crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
     }
 }

@@ -26,6 +26,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-checklist.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -76,10 +77,12 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
         NepaliCalendarModule,
         NepaliPatroModule,
         SecurityTaggedModule,
+        NgxPrintModule,
 
     ],
     entryComponents: [
         AllDocumentViewComponent,
+        CrgGammaDetailViewComponent
     ]
 })
 export class LoanInformationViewModule {
