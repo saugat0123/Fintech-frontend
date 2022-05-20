@@ -141,7 +141,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.creditRiskData = this.formData;
         }
         this.creditRiskDataValue = JSON.stringify(this.creditRiskGrading.value);
-        this.crgDataEmitter.emit(this.creditRiskDataValue.data);
+        this.crgDataEmitter.emit(this.creditRiskDataValue);
         console.log(this.creditRiskDataValue, 'udu');
     }
 }
