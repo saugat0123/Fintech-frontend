@@ -425,7 +425,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     setRelatives(currentData) {
         if (currentData.length > 0) {
         const relativesData = (this.basicForm.get('customerRelatives') as FormArray);
-        currentData.customerRelatives.forEach((singleRelatives, index) => {
+        currentData.forEach((singleRelatives, index) => {
             const customerRelative = singleRelatives.customerRelation;
             // Increase index number with increase in static relatives---
             relativesData.push(this.formBuilder.group({

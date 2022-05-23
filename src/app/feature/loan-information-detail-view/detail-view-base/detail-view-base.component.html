@@ -8,6 +8,8 @@
 
     <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
+    <app-security-detail-view [securities]="loanDataHolder?.securities"></app-security-detail-view>
+
     <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                          [calendarType]="calendarType"
                          [loanDataHolder]="loanDataHolder"

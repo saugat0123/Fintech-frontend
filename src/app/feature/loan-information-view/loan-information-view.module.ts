@@ -32,6 +32,7 @@ import {SecurityAdderComponent} from './security-view/security-adder/security-ad
 import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
 import {SecurityTaggerComponent} from './security-view/security-adder/security-tagger/security-tagger.component';
+import { SecurityDetailViewComponent } from './security-detail-view/security-detail-view.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         CreditChecklistViewComponent,
         CrossCollateralizedViewComponent,
         SecurityTaggerComponent,
+        SecurityDetailViewComponent,
     ],
     exports: [
         InsuranceViewComponent,
@@ -78,6 +80,7 @@ import {SecurityTaggerComponent} from './security-view/security-adder/security-t
         FinancialJsonParserComponent,
         CreditChecklistViewComponent,
         CrossCollateralizedViewComponent,
+        SecurityDetailViewComponent,
     ],
     imports: [
         CommonModule,
