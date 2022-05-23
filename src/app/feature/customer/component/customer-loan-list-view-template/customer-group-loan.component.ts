@@ -687,7 +687,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
   public refreshCustomerInfo(): void {
-    this.customerInfo = undefined;
+    this.ngOnInit();
     this.modalService.dismissAll();
   }
 }
