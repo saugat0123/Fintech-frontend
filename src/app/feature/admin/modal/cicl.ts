@@ -2,6 +2,9 @@ export class Cicl {
   nameOfBorrower: string;
   nameOfFI: string;
   facility: string;
+  borrower: string;
+  guarantor: string;
+  shareholder: string;
   outstandingAmount: number;
   overdueAmount: number;
   overdueStatus: string;
@@ -11,7 +14,7 @@ export class Cicl {
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
-  ciclRelation: string;
+  // ciclRelation: string;
   blacklistChecked: boolean;
   blacklistHistory: [];
 }

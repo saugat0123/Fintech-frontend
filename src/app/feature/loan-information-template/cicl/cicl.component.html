@@ -51,7 +51,7 @@
                   <span *ngIf="(cicl.get('nameOfBorrower').errors.required)">Borrower Name is required</span>
                 </div>
               </div>
-              <div class="col-md-4">
+              <!--<div class="col-md-4">
                 <label><strong>Cicl Relation</strong></label>
                 <select
                         class="form-control form-control-sm-error rounded"
@@ -59,12 +59,38 @@
                         id="ciclRelation"
                         name="ciclRelation"
                         [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
-                  <option [ngValue]="null">--Select Cicl relation--</option>
+                  <option [ngValue]="null">&#45;&#45;Select Cicl relation&#45;&#45;</option>
                   <option *ngFor="let relationship of ciclRelation" [ngValue]="relationship.key">{{relationship.value}}</option>
                 </select>
+              </div>-->
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="borrower"><b>As a Borrower</b></label>
+                <input class="form-control" formControlName="borrower" id="borrower"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('borrower').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('borrower').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('borrower').errors.required)">Borrower is required</span>
+                </div>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="guarantor"><b>As a Guarantor</b></label>
+                <input class="form-control" formControlName="guarantor"
+                       id="guarantor"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('guarantor').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('guarantor').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('guarantor').errors.required)">Guarantor is required</span>
+                </div>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="shareholder"><b>As a shareholder/Director</b></label>
+                <input class="form-control" formControlName="shareholder" id="shareholder"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('shareholder').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('shareholder').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('shareholder').errors.required)">Shareholder is required</span>
+                </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-md-4 form-group">
                 <label for="fiName"><b>Name of FI</b></label>

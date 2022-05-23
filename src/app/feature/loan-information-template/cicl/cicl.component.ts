@@ -33,7 +33,7 @@ export class CiclComponent implements OnInit {
 
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
-  ciclRelation = CiclRelationListEnum.pair();
+  // ciclRelation = CiclRelationListEnum.pair();
   ciclHistory = false;
   chargeChecked = false;
 
@@ -101,6 +101,9 @@ export class CiclComponent implements OnInit {
     controls.push(
         this.formBuilder.group({
           nameOfBorrower: [undefined, Validators.required],
+          borrower: [undefined, Validators.required],
+          guarantor: [undefined, Validators.required],
+          shareholder: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -109,7 +112,7 @@ export class CiclComponent implements OnInit {
           overdueStatus: [undefined],
           loanamount: [undefined, Validators.required],
           // overdue: [undefined],
-          ciclRelation: [undefined],
+          // ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
         }));
@@ -124,6 +127,9 @@ export class CiclComponent implements OnInit {
     controls.push(
         this.formBuilder.group({
           nameOfBorrower: [undefined, Validators.required],
+          borrower: [undefined, Validators.required],
+          guarantor: [undefined, Validators.required],
+          shareholder: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -132,7 +138,7 @@ export class CiclComponent implements OnInit {
           loanamount: [undefined, Validators.required],
           // overdue: [undefined],
           overdueStatus: [undefined],
-          ciclRelation: [undefined],
+          // ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
         }));
@@ -148,6 +154,9 @@ export class CiclComponent implements OnInit {
       controls.push(
           this.formBuilder.group({
             nameOfBorrower: [cicl.nameOfBorrower, Validators.required],
+            borrower: [cicl.borrower, Validators.required],
+            guarantor: [cicl.guarantor, Validators.required],
+            shareholder: [cicl.shareholder, Validators.required],
             fiName: [cicl.nameOfFI, Validators.required],
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
@@ -156,7 +165,7 @@ export class CiclComponent implements OnInit {
             loanamount: [cicl.loanamount, Validators.required],
               overdueStatus: [cicl.overdueStatus, Validators.required],
             // overdue: [cicl.overdue],
-            ciclRelation: [cicl.ciclRelation],
+            // ciclRelation: [cicl.ciclRelation],
             blacklistChecked: [cicl.blacklistChecked],
             blacklistHistory: this.formBuilder.array([]),
           }));
@@ -204,6 +213,9 @@ export class CiclComponent implements OnInit {
       const controls = (arrayControl as FormGroup).controls;
       const cicl: Cicl = new Cicl();
       cicl.nameOfBorrower = controls.nameOfBorrower.value;
+      cicl.borrower = controls.borrower.value;
+      cicl.guarantor = controls.guarantor.value;
+      cicl.shareholder = controls.shareholder.value;
       cicl.nameOfFI = controls.fiName.value;
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
@@ -212,7 +224,7 @@ export class CiclComponent implements OnInit {
       cicl.loanamount = controls.loanamount.value;
       cicl.overdueStatus = controls.overdueStatus.value;
       // cicl.overdue = controls.overdue.value;
-      cicl.ciclRelation = controls.ciclRelation.value;
+      // cicl.ciclRelation = controls.ciclRelation.value;
       cicl.blacklistChecked = controls.blacklistChecked.value;
       cicl.blacklistHistory = controls.blacklistHistory.value,
       this.ciclList.push(cicl);
