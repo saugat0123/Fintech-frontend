@@ -73,6 +73,10 @@ export class FixAssetCollateralComponent implements OnInit {
         return (this.fixedAssetsForm.get('staffs') as FormArray).controls;
     }
 
+    get valuationDetailsForm() {
+        return (this.fixedAssetsForm.get('valuationDetails') as FormArray).controls;
+    }
+
     ngOnInit() {
         this.buildForm();
         this.addressService.getProvince().subscribe(
@@ -82,6 +86,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.getRoleList();
         this.getCollateralBySecurityName(this.security);
         this.addStaffs();
+        this.addValuationDetails();
         this.getCustomerTypeAndId();
     }
 
@@ -109,6 +114,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
+                console.log('collateral::;', this.collateralSiteVisit);
             this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
@@ -116,7 +122,8 @@ export class FixAssetCollateralComponent implements OnInit {
             this.getMunicipalitiesById(this.collateralData.district.id, null);
             this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
             this.setStaffDetail(this.collateralData);
-        }, error => {
+            this.setValuationDetails(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+            }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
         });
@@ -131,7 +138,6 @@ export class FixAssetCollateralComponent implements OnInit {
             }
         );
     }
-
 
     getMunicipalitiesById(districtId: number, event) {
         const district = new District();
@@ -159,7 +165,10 @@ export class FixAssetCollateralComponent implements OnInit {
 
     setStaffDetail(data) {
         const formControls = this.fixedAssetsForm.get('staffs') as FormArray;
-        data.staffs.splice(0, 1);
+        if (formControls.length >= 1) {
+            formControls.clear();
+        }
+        //data.staffs.splice(0, 1);
         data.staffs.forEach((detail) => {
             formControls.push(
                 this.formBuilder.group({
@@ -167,6 +176,26 @@ export class FixAssetCollateralComponent implements OnInit {
                     staffRepresentativeName: [detail.staffRepresentativeName],
                     staffRepresentativeNameDesignation2: [detail.staffRepresentativeNameDesignation2],
                     staffRepresentativeName2: [detail.staffRepresentativeName2],
+                })
+            );
+        });
+    }
+
+    setValuationDetails(data) {
+        const formControls = this.fixedAssetsForm.get('valuationDetails') as FormArray;
+        if (formControls.length >= 1) {
+            formControls.clear();
+        }
+        // data.valuationDetails.splice(0, 1);
+        data.valuationDetails.forEach((detail) => {
+            formControls.push(
+                this.formBuilder.group({
+                    particulars: [detail.particulars],
+                    plotNo: [detail.plotNo],
+                    area: [detail.area],
+                    mv: [detail.mv],
+                    fmv: [detail.fmv],
+                    dv: [detail.dv],
                 })
             );
         });
@@ -224,10 +253,14 @@ export class FixAssetCollateralComponent implements OnInit {
             schoolOrCollege: [undefined],
             hospitalOrNursingHome: [undefined],
             staffs: this.formBuilder.array([]),
+            valuationDetails: this.formBuilder.array([]),
             commentAboutFAC: [undefined],
             fixedAssetsLongitude: [undefined],
             fixedAssetsLatitude: [undefined],
-            uuid: [this.uuid]
+            uuid: [this.uuid],
+            totalMv: [undefined],
+            totalFmv: [undefined],
+            totalDv : [undefined]
         });
     }
 
@@ -240,6 +273,17 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
+    valuationDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            particulars: [undefined],
+            plotNo: [undefined],
+            area: [undefined],
+            mv: [undefined],
+            fmv: [undefined],
+            dv: [undefined]
+        });
+    }
+
     addStaffs() {
         const controls = (<FormArray>(this.fixedAssetsForm.get('staffs')));
         if (FormUtils.checkEmptyProperties(controls)) {
@@ -249,8 +293,21 @@ export class FixAssetCollateralComponent implements OnInit {
         controls.push(this.staffsFormGroup());
     }
 
+    addValuationDetails() {
+        const controls = (<FormArray>(this.fixedAssetsForm.get('valuationDetails')));
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please fill all valuation details data!!!'));
+            return;
+        }
+        controls.push(this.valuationDetailsFormGroup());
+    }
+
     deleteStaff(i) {
         (<FormArray>(this.fixedAssetsForm.get('staffs'))).removeAt(i);
+    }
+
+    deleteValuationDetails(i) {
+        (<FormArray>(this.fixedAssetsForm.get('valuationDetails'))).removeAt(i);
     }
 
     onSubmit() {
@@ -370,5 +427,36 @@ export class FixAssetCollateralComponent implements OnInit {
                     console.error(error);
                 });
         }
+    }
+
+    onChangeValueMv(valueMv: string, totalMv: string, i: number) {
+        let sumMv = 0;
+        this.fixedAssetsForm.get('valuationDetails').value.forEach(data => {
+            console.log(data);
+            if (!isNaN(parseFloat(data.mv))) {
+                sumMv += parseFloat(data.mv);
+            }
+        });
+        this.fixedAssetsForm.get('totalMv').patchValue(sumMv.toFixed(2));
+    }
+
+    onChangeValueFmv(valueFmv: string, totalFmv: string, i: number) {
+        let sumFmv = 0;
+        this.fixedAssetsForm.get('valuationDetails').value.forEach(data => {
+            if (!isNaN(parseFloat(data.fmv))) {
+                sumFmv += parseFloat(data.fmv);
+            }
+        });
+        this.fixedAssetsForm.get('totalFmv').patchValue(sumFmv.toFixed(2));
+    }
+
+    onChangeValueDv(valueDv: string, totalDv: string, i: number) {
+        let sumDv = 0;
+        this.fixedAssetsForm.get('valuationDetails').value.forEach(data => {
+            if (!isNaN(parseFloat(data.dv))) {
+                sumDv += parseFloat(data.dv);
+            }
+        });
+        this.fixedAssetsForm.get('totalDv').patchValue(sumDv.toFixed(2));
     }
 }
