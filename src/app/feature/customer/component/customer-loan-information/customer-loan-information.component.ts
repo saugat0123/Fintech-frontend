@@ -682,6 +682,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             repayment: [undefined],
             remark: [undefined],
             summeryRecommendation: [undefined],
+            approvingAuthority: [undefined],
+            specialCovenant: [undefined],
             waiverConclusionRecommendation: [undefined],
             deviationConclusionRecommendation: [undefined],
             solConclusionRecommendation: [undefined],
