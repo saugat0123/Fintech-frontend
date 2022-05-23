@@ -99,7 +99,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="landConsideredValue">Considered Value</label>
+                                <label for="landConsideredValue">Market Value</label>
                                 <input (change)="updateLandSecurityTotal()"
                                        [ngClass]="{ 'is-invalid': (landSelected) && (land.get('landConsideredValue').errors ||
                                     land.get('landConsideredValue').invalid) }"
@@ -458,7 +458,7 @@
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-                            <th>Total Considered Value</th>
+                            <th>Total Market Value</th>
                             <th>Total Fair Market Value</th>
                             <th>Total Distress Value</th>
                             <th>Remarks</th>
@@ -1066,7 +1066,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="landConsideredValue">Land Considered Value</label>
+                                    <label for="landConsideredValue">Land Market Value</label>
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
                                            class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
@@ -1169,7 +1169,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="consideredValues">Considered Value</label>
+                                    <label class="title" for="consideredValues">Market Value</label>
                                     <input
                                             class="form-control rounded"
                                             formControlName="considerValue"
@@ -1646,7 +1646,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="landConsideredValueConstruction">Considered Value</label>
+                                        <label for="landConsideredValueConstruction">Market Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
                                                placeholder="Considered Value" type="number">
@@ -2590,7 +2590,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="consideredValue">Considered Value</label>
+                                    <label for="consideredValue">Market Value</label>
                                     <input class="form-control" formControlName="consideredValue"
                                            id="consideredValue" name="total" placeholder="Considered Value" readonly>
                                 </div>
@@ -3084,7 +3084,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title">Considered Value</label>
+                                <label class="title">Market Value</label>
                                 <input class="form-control rounded" formControlName="consideredValue"
                                        placeholder="Considered Value"
                                        type="number"/>

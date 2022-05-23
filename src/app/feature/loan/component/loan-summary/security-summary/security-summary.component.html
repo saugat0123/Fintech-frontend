@@ -100,7 +100,7 @@
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
-                        <th>Considered Value</th>
+                        <th>Market Value</th>
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
@@ -176,10 +176,10 @@
                       <tr class="sb-bg-secondary text-white">
                           <th>ReValuation Date(AD/BS)</th>
                           <th colspan="1">Valuator name</th>
-                          <th colspan="1">ReValuation Considered Value</th>
+                          <th colspan="1">ReValuation Market Value</th>
                           <th colspan="1">ReValuation DV</th>
                           <th colspan="1">ReValuation Fmv</th>
-                          <th colspan="1">Change in Considered Value</th>
+                          <th colspan="1">Change in Market Value</th>
                           <th colspan="1">Change in DV</th>
                           <th colspan="1">Change in Fmv</th>
                       </tr>
@@ -247,8 +247,8 @@
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
-                        <th>Valautor Name</th>
-                        <th>Considered Value</th>
+                        <th>Valuator Name</th>
+                        <th>Market Value</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
@@ -329,10 +329,10 @@
                         <tr class="sb-bg-secondary text-white">
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation Market Value</th>
                             <th colspan="1">ReValuation DV</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="2">Change in Considered Value</th>
+                            <th colspan="2">Change in Market Value</th>
                             <th colspan="1">Change in DV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
@@ -360,7 +360,7 @@
                         <th>Total cost</th>
                         <th>FMV</th>
                         <th>Distress Value</th>
-                        <th>Considered Value</th>
+                        <th>Market Value</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <td class="text-left pl-1">{{landBuilding?.ownerConstruction}}</td>
@@ -443,10 +443,10 @@
                         <tr class="sb-bg-secondary text-white">
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation Market Value</th>
                             <th colspan="1">ReValuation DV</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">Change in Considered Value</th>
+                            <th colspan="1">Change in Market Value</th>
                             <th colspan="1">Change in DV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
@@ -610,7 +610,7 @@
                         <th>Share Unit</th>
                         <th> Rate</th>
                         <th>Total Value</th>
-                        <th>Considered Value</th>
+                        <th>Market Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -875,7 +875,7 @@
                         <th>Insurance Policy Type</th>
                         <th>Surrender Value</th>
                         <th>Early Surrender Date(AD/BS)</th>
-                        <th>Considered Value</th>
+                        <th>Market Value</th>
                         <th>Cash Back Amount</th>
                     </tr>
                     <tr *ngFor="let insurancePolicy of formData['initialForm']['insurancePolicy']; let i= index">
