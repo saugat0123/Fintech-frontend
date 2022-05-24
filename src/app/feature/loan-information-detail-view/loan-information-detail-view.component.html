@@ -348,6 +348,18 @@
                         <app-retail-security></app-retail-security>
                     </li>
                     <li>
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                        <p class="float-left col-md-12">-->
+<!--                            <strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
+                        <app-financial-view *ngIf="loanHolder?.financial"
+                                            [customerType]="loanHolder?.customerType"
+                                            [formData]="loanHolder?.financial"></app-financial-view>
+                    </li>
+                    <li>
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [fromProfile]="false" [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
                     </li>
