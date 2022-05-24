@@ -138,7 +138,8 @@
             <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">INCOME FROM ACCOUNT</p>
+                  <p class="custom-font">INCOME FROM ACCOUNT<br><em class="sb-small">Profitability to Bank</em></p>
+
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.incomeFromAccount" style="color:green"
@@ -155,7 +156,7 @@
         </div>
         <ng-template #inccomeFromAccountComponentTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
-            <nb-card-header>INCOME FROM ACCOUNT
+            <nb-card-header>INCOME FROM ACCOUNT<br><em class="sb-small">Profitability to Bank</em>
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
