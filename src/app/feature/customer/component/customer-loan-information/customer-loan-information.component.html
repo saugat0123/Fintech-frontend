@@ -382,6 +382,7 @@
           <nb-card-body>
             <app-security #securityComponent
                 (securityDataEmitter)="saveSecurity($event)"
+                          (refreshEmitter)="onRefresh()"
                 [calendarType]="calendarType"
                 [fromProfile]="true"
                 [isMicroCustomer]="false"

@@ -56,6 +56,7 @@ export class SecurityComponent implements OnInit {
     @Input() isMicroCustomer: boolean;
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
+    @Output() refreshEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
     isEdit = false;
     isSiteVisit = false;
 
@@ -582,5 +583,11 @@ export class SecurityComponent implements OnInit {
         this.isEdit = event.isEdit;
         this.isSiteVisit = event.isSiteVisit;
         this.change(event.securityType);
+    }
+
+    public onEmitRefresh(event): void {
+        if (event) {
+            this.refreshEmitter.emit(true);
+        }
     }
 }

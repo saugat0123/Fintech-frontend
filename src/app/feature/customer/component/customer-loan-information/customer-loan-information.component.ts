@@ -357,6 +357,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                     this.triggerCustomerRefresh.emit();
                     this.securityComponent.securityInitialState();
                     this.spinner.hide();
+                    this.nbDialogRef.close();
                 }, error => {
                     this.spinner.hide();
                     console.error(error);
@@ -947,5 +948,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 }));
             });
         }
+    }
+
+    onRefresh() {
+        this.triggerCustomerRefresh.emit();
+        this.nbDialogRef.close();
+        this.ngOnInit();
     }
 }

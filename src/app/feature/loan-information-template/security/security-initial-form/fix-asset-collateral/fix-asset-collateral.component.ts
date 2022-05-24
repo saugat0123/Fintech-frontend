@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,7 @@ import {SiteVisitDocument} from './site-visit-document';
 import {ActivatedRoute} from '@angular/router';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {Security} from '../../../../loan/model/security';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-fix-asset-collateral',
@@ -27,13 +28,13 @@ import {Security} from '../../../../loan/model/security';
     styleUrls: ['./fix-asset-collateral.component.scss']
 })
 export class FixAssetCollateralComponent implements OnInit, OnChanges {
-
     fixedAssetsForm: FormGroup;
     @Input() securityId: number;
     @Input() securityType: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
     @Input() readMode;
     @Input() securityData: Security;
+    @Output() emitter: EventEmitter<boolean> = new EventEmitter<boolean>();
     customerType: string;
     customerId: number;
     submitted = false;
@@ -64,7 +65,8 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
                 private collateralSiteVisitService: CollateralSiteVisitService,
                 private modelService: NgbModal,
                 private nbDialogService: NbDialogService,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private ngxSpinner: NgxSpinnerService) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -260,6 +262,7 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
     onSubmit() {
         this.submitted = true;
         this.spinner = true;
+        this.ngxSpinner.show();
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
@@ -293,16 +296,20 @@ export class FixAssetCollateralComponent implements OnInit, OnChanges {
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
         if (this.fixedAssetsForm.invalid) {
             this.spinner = false;
+            this.ngxSpinner.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             this.spinner = false;
             return;
         }
-        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityData.id, formData).subscribe(() => {
+        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityData.id, formData).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
-            this.spinner = false;
             this.fixedAssetsForm.reset();
+            this.emitter.emit(true);
+            this.spinner = false;
+            this.ngxSpinner.hide();
         }, error => {
             this.spinner = false;
+            this.ngxSpinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Site Visit'));
         });
