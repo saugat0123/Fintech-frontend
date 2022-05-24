@@ -3,7 +3,8 @@
         <span><strong>Terms And Condition / Special Covenant</strong></span>
     </div>
   <hr>
-  <div class="py-2">
+  <div class="py-2" *ngIf="loanDataHolder?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)
+            && loanDataHolder?.loanType !== loanType?.getEnum(loanType.CLOSURE_LOAN); else termsCondition">
     <ol>
       <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
         <div class="row sb-medium">
@@ -18,4 +19,21 @@
       </li>
     </ol>
   </div>
+
+    <ng-template #termsCondition>
+        <div class="py-2">
+            <div *ngFor="let data of customerAllLoanList;" class="row sb-medium">
+                <div *ngIf="data?.proposal?.id === loanDataHolder?.proposal?.id" class="col-md-12">
+                      <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}
+                          ({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
+                    <!--            <div>-->
+                    <div class="row col-md-12">
+                        <span [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
+                    </div>
+                    <!--            </div>-->
+                </div>
+            </div>
+            <hr>
+        </div>
+    </ng-template>
 </div>
