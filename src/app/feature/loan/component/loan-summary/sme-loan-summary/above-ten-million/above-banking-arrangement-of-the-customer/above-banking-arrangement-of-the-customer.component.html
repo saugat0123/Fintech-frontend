@@ -158,7 +158,7 @@
             </tr>
           </ng-container>
           </tbody>
-          <tbody>
+          <tbody *ngIf="commentVisible">
 
           <tr class="text-center sb-bg-dark text-white">
             <th colspan="10">Comments:</th>
@@ -166,7 +166,13 @@
           <tr>
             <td [innerHTML]="cicl?.remarks | safeHtml" colspan="10"></td>
           </tr>
-          <ng-template #setEmpty>
+          <tr class="text-center sb-bg-dark text-white">
+              <th colspan="10">With CCBL Remarks or Any Other Remarks</th>
+          </tr>
+          <tr>
+              <td [innerHTML]="cicl?.remarks | safeHtml" colspan="10"></td>
+          </tr>
+                    <ng-template #setEmpty>
             <span class="text-right pr-1">-</span>
           </ng-template>
           </tbody>
