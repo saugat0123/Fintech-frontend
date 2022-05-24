@@ -166,12 +166,12 @@
           <tr>
             <td [innerHTML]="cicl?.remarks | safeHtml" colspan="10"></td>
           </tr>
+          <tr class="text-center sb-bg-dark text-white">
+              <th colspan="10">With CCBL Remarks or Any Other Remarks</th>
+          </tr>
           <tr>
-                        <th colspan="10" class="text-center sb-bg-dark text-white">With CCBL Remarks or Any Other Remarks</th>
-                    </tr>
-                    <tr>
-                        <td colspan="10" [innerHTML]="cicl?.remarks | safeHtml"></td>
-                    </tr>
+              <td [innerHTML]="cicl?.remarks | safeHtml" colspan="10"></td>
+          </tr>
                     <ng-template #setEmpty>
             <span class="text-right pr-1">-</span>
           </ng-template>
