@@ -15,45 +15,31 @@
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <ng-select #incomeSourceSelect [items]="typeOfSourceOfIncomeArray"
-                                               formControlName="incomeSource"
-                                               [appendTo]="'body'"
-                                               (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
+                                    <ng-select formControlName="incomeSource"
+                                               [appendTo]="'body'">
+                                        <ng-option>Salary Income</ng-option>
+                                        <ng-option>Rental/Lease income from property</ng-option>
+                                        <ng-option>Vehicle Income</ng-option>
+                                        <ng-option>Commission Income</ng-option>
+                                        <ng-option>Self-professional practices</ng-option>
+                                        <ng-option>Self-Medical practices</ng-option>
+                                        <ng-option>Freelance Consultancy</ng-option>
+                                        <ng-option>Business Income</ng-option>
+                                        <ng-option>Foreign Employment</ng-option>
+                                        <ng-option>Agriculture Income</ng-option>
+                                        <ng-option>Share Trading/ Dividend Income</ng-option>
+                                        <ng-option>Pension Income</ng-option>
                                         <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
                                               class="text-danger small">Income source is required</span>
                                     </ng-select>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Type</strong></label><strong
-                                        class="text-danger">*</strong>
-                                    <ng-select #organizationSelect
-                                               [appendTo]="'body'"
-                                               (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
-                                               formControlName="organization">
-                                    </ng-select>
-                                    <span *ngIf="incomeOfBorrower.get('organization').invalid"
-                                          class="text-danger small">Type is required</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('ageOfIncomeGenerated').invalid}"
-                                           class="form-control" formControlName="ageOfIncomeGenerated"
-                                           placeholder="Age of Income Generated(In Months)" type="number" appDecimalNumber>
-                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age of Income Generated(In Months) is required</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
@@ -65,13 +51,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('remarks').invalid}"
-                                           formControlName="remarks" placeholder="Remarks"
-                                           type="text" class="form-control">
+                                    <textarea rows="4" id="remarks" class="form-control" formControlName="remarks"
+                                              placeholder="Remarks"></textarea>
                                     <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                 </div>
                             </div>
