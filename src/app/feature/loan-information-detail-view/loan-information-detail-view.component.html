@@ -350,10 +350,12 @@
                         </div>
                         <app-retail-security></app-retail-security>
                     </li>
+                    <li>
+                        <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                                   [fromProfile]="false" [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+                    </li>
                 </ol>
             </div>
-            <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"
-                                       [fromProfile]="false" [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
 <!--            <app-detail-view-base *ngIf="loanHolder"-->
 <!--                                  [calendarType]="calendarType"-->
 <!--                                  [loanDataHolder]="loanDataHolder"-->
