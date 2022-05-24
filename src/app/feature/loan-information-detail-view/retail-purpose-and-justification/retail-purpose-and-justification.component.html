@@ -1,5 +1,4 @@
 <div class="text-justify p-3">
-    <p><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span></p>
     <p><span [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span></p>
 </div>
 <p class="font-weight-bold mt-3" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">(If incase the Borrower is first home buyer)</p>
