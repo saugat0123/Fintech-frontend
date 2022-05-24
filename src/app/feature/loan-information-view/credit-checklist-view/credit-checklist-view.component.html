@@ -1,4 +1,4 @@
-<p *ngIf="!fromProfile" class="text-center"><b>Credit CheckList</b></p>
+<p *ngIf="!fromProfile"><b>Credit CheckList</b></p>
     <div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -11,12 +11,7 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
-                <table *ngIf="!fromProfile" class="table table-bordered text-center table-responsive-md table-sm sb-small">
-                    <tr>
-                        <th class="sb-bg-dark text-white">Credit CheckList</th>
-                    </tr>
-                </table>
-                <label>Credit Checklist-General</label>
+                <label><strong>Credit Checklist-General</strong></label>
                         <!--          <form [formGroup]="formGroupCheckList">-->
                         <div class="form-group col-md-5" style="display: flex">
                             <label>Date of Checklist: </label>
@@ -393,8 +388,8 @@
                             </table>
                         </div>
 
-                <label>Regulatory Compliance Checklist</label><br/>
-                <label>NRB Directive No. 6.8 Ka</label>
+                <label><strong>Regulatory Compliance Checklist</strong></label><br/>
+                <label><strong>NRB Directive No. 6.8 Ka</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr *ngIf="fromProfile" class="text-white sb-bg-dark">
@@ -495,7 +490,7 @@
                                 </table>
 
 
-                <label>NRB Directive No. 6.8 Kha</label>
+                <label><strong>NRB Directive No. 6.8 Kha</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr  *ngIf="fromProfile">
@@ -603,7 +598,7 @@
                                     </tbody>
                                 </table>
                 <div>
-                    <label>NRB Directive No. 6.8 (Ga)</label>
+                    <label><strong>NRB Directive No. 6.8 (Ga)</strong></label>
                     <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                         <thead>
                         <tr  *ngIf="fromProfile">
@@ -648,7 +643,7 @@
                 </div>
 
                 <div>
-                    <label>NRB Directive No. 6.8 (Cha)</label>
+                    <label><strong>NRB Directive No. 6.8 (Cha)</strong></label>
                     <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                         <thead>
                         <tr  *ngIf="fromProfile">
