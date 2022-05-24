@@ -124,10 +124,9 @@
                     <tr *ngFor="let cic of ciclData; let ci = index">
                         <td>{{ci + 1}}</td>
                         <td>{{cic?.nameOfBorrower}}</td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'borrower'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'guarantor'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'shareholder'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td>{{cic?.overdueAmount}}</td>
+                        <td class="text-right pr-1">Rs. {{cic?.borrower ? cic?.borrower : '-'}}</td>
+                        <td class="text-right pr-1">Rs. {{cic?.guarantor ? cic?.guarantor : '-'}}</td>
+                        <td class="text-right pr-1">Rs. {{cic?.shareholder ? cic?.shareholder : '-'}}</td><td>{{cic?.overdueAmount}}</td>
                         <td>{{cic?.loanamount}}</td>
                         <td>{{cic?.outstandingAmount}}</td>
                         <td>{{cic?.overdueStatus}}</td>
@@ -136,21 +135,23 @@
                     </tbody>
                     <tbody *ngFor="let cicData of ciclData">
                     <ng-container *ngIf="cicData?.blacklistChecked">
-                        <tr>
+                        <tr class="sb-bg-secondary">
                             <br>
                             <td colspan="10" class="text-center text-justify">
                                 <span><b>Blacklist Detail of {{cicData?.nameOfBorrower}}</b></span>
                             </td>
                         </tr>
                         <tr class="sb-bg-dark text-white">
-                            <th class="sn" colspan="2">SN</th>
-                            <th colspan="4">Blacklist Number</th>
-                            <th colspan="4">Blacklist Date</th>
+                            <th class="sn" colspan="1">SN</th>
+                            <th colspan="3">Blacklist Number</th>
+                            <th colspan="3">Blacklist Date</th>
+                            <th colspan="3">Blacklist Release Date</th>
                         </tr>
                         <tr *ngFor="let bl of cicData?.blacklistHistory; let bi=index">
-                            <td colspan="2">{{bi +1}}</td>
-                            <td colspan="4">{{bl?.blacklistNumber}}</td>
-                            <td colspan="4">{{bl?.blacklistDate ? (bl?.blacklistDate | date) : 'NA'}}</td>
+                            <td colspan="1">{{bi +1}}</td>
+                            <td colspan="3">{{bl?.blacklistNumber}}</td>
+                            <td colspan="3">{{bl?.blacklistDate ? (bl?.blacklistDate | date) : 'NA'}}</td>
+                            <td colspan="3">{{bl?.blacklistReleaseDate ? (bl?.blacklistReleaseDate | date) : 'NA'}}</td>
                         </tr>
                     </ng-container>
                     </tbody>
