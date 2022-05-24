@@ -847,9 +847,7 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-net-worth #netWorth (dataEmiter)="saveNetWorth($event)"
-                             [customerName]="customerInfo?.name"
-                             [data]="customerInfo?.netWorth"></app-net-worth>
+              <app-net-worth [isJointCustomer]="customerInfo?.isJointCustomer"  [customerInfoId]="customerInfoId" [customerName]="customerInfo?.name" [data]="customerInfo?.netWorth" #netWorth (dataEmiter)="saveNetWorth($event)"></app-net-worth>
               <div>
                 <button (click)="netWorthComponent.submit()"
                         class="btn float-right d-flex justify-content-end" nbButton type="submit">
