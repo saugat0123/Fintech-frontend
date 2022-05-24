@@ -264,8 +264,9 @@
                     </li>
                     <li>
                         <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
-                        <app-retail-purpose-and-justification [loanDataHolder]="loanDataHolder"
-                                                              [proposalData]="proposalData"></app-retail-purpose-and-justification>
+                        <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
                     </li>
                     <li>
                         <div class="row">
@@ -277,9 +278,6 @@
                             </div>
                         </div>
                         <app-retail-source-of-repayment></app-retail-source-of-repayment>
-                    </li>
-                    <li>
-                        <p><strong>Present Stock and Receivables, Payable Position: NA</strong></p>
                     </li>
                     <li>
                         <p><strong>Current limits and outstanding of the Client: NA</strong></p>
@@ -332,8 +330,10 @@
 <!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
-                        <p><strong>Waiver/Deviation: ...................</strong></p>
-                        <p>Justification: ..........................</p>
+                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
+                        <tr>
+                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation ? (proposalData?.waiverConclusionRecommendation | safeHtml) : 'NA'"></td>
+                        </tr>
                     </li>
                     <li>
                         <p><strong>Recommendation: </strong></p>
@@ -349,6 +349,18 @@
                             </div>
                         </div>
                         <app-retail-security></app-retail-security>
+                    </li>
+                    <li>
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                        <p class="float-left col-md-12">-->
+<!--                            <strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
+                        <app-financial-view *ngIf="loanHolder?.financial"
+                                            [customerType]="loanHolder?.customerType"
+                                            [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
                     <li>
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"

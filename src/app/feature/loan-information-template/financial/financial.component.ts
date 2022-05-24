@@ -218,6 +218,7 @@ export class FinancialComponent implements OnInit {
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
+            this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
@@ -241,6 +242,7 @@ export class FinancialComponent implements OnInit {
             if (!this.isBusinessLoan) {
                 this.addIncomeOfBorrower();
                 this.addExpensesOfBorrower();
+                this.addObligationAtOtherBank();
             }
         }
         this.checkDisableAlpha();
@@ -255,6 +257,7 @@ export class FinancialComponent implements OnInit {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
+            obligationAtOtherBank: this.formBuilder.array([]),
             typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
@@ -306,7 +309,6 @@ export class FinancialComponent implements OnInit {
                     organization: [singleData.organization],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
-                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
                 })
             );
         });
@@ -320,6 +322,19 @@ export class FinancialComponent implements OnInit {
                     particulars: [singleData.particulars],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks]
+                })
+            );
+        });
+    }
+
+    setObligationAtOtherBank(currentData) {
+        const controls = this.financialForm.get('obligationAtOtherBank') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    obliParticulars: [singleData.obliParticulars],
+                    obliAmount: [singleData.obliAmount],
+                    obliRemarks: [singleData.obliRemarks]
                 })
             );
         });
@@ -494,16 +509,16 @@ export class FinancialComponent implements OnInit {
     //
     //
     // Header Part--
+
     addIncomeOfBorrower() {
         console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
                 incomeSource: [undefined, Validators.required],
-                organization: [undefined, Validators.required],
+                organization: [undefined],
                 amount: [undefined, Validators.required],
                 remarks: [undefined, Validators.required],
-                ageOfIncomeGenerated: [undefined, Validators.required],
             })
         );
     }
@@ -519,6 +534,17 @@ export class FinancialComponent implements OnInit {
         );
     }
 
+    addObligationAtOtherBank() {
+        const control = this.financialForm.controls.obligationAtOtherBank as FormArray;
+        control.push(
+            this.formBuilder.group({
+                obliParticulars: [undefined, Validators.required],
+                obliAmount: [undefined, Validators.required],
+                obliRemarks: [undefined, Validators.required]
+            })
+        );
+    }
+
     removeIncomeIndex(incomeIndex) {
         (this.financialForm.get('incomeOfBorrower') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialForm('incomeOfBorrower', 'totalIncome');
@@ -527,6 +553,11 @@ export class FinancialComponent implements OnInit {
     removeExpensesIndex(incomeIndex) {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialForm('expensesOfBorrower', 'totalExpense');
+    }
+
+    removeExpensesIndexObligation(Index) {
+        (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(Index);
+        this.totalAdditionInitialForm('obligationAtOtherBank', 'totalExpenseObligation');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
@@ -545,73 +576,6 @@ export class FinancialComponent implements OnInit {
                 this.activeTab = tabContent['tabTitle'];
             }
         });
-    }
-
-    optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent, clearField: boolean) {
-        if (clearField) {
-            organizationSelect.clearModel();
-        }
-        switch ($event) {
-            case TypeOfSourceOfIncome.SALARY:
-                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.salaryArray);
-                break;
-            case TypeOfSourceOfIncome.RENTAL:
-                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.rentalArray);
-                break;
-            case TypeOfSourceOfIncome.BUSINESS:
-                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.businessArray);
-                break;
-            case TypeOfSourceOfIncome.REMITTANCE:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.REMITTANCE]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.REMITTANCE,
-                    label: TypeOfSourceOfIncome.REMITTANCE
-                });
-                break;
-            case TypeOfSourceOfIncome.COMMISSION:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.COMMISSION]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.COMMISSION,
-                    label: TypeOfSourceOfIncome.COMMISSION
-                });
-                break;
-            case TypeOfSourceOfIncome.TRANSPORTATION:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.TRANSPORTATION]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.TRANSPORTATION,
-                    label: TypeOfSourceOfIncome.TRANSPORTATION
-                });
-                break;
-            case TypeOfSourceOfIncome.FREELANCING:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.FREELANCING]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.FREELANCING,
-                    label: TypeOfSourceOfIncome.FREELANCING
-                });
-                break;
-            case TypeOfSourceOfIncome.AGRICULTURE:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.AGRICULTURE]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.AGRICULTURE,
-                    label: TypeOfSourceOfIncome.AGRICULTURE
-                });
-                break;
-            case TypeOfSourceOfIncome.INTEREST_INCOME:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.INTEREST_INCOME]);
-                organizationSelect.select({
-                    value: TypeOfSourceOfIncome.INTEREST_INCOME,
-                    label: TypeOfSourceOfIncome.INTEREST_INCOME
-                });
-                break;
-            case TypeOfSourceOfIncome.DIVIDEND:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.DIVIDEND]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.DIVIDEND, label: TypeOfSourceOfIncome.DIVIDEND});
-                break;
-            case TypeOfSourceOfIncome.OTHERS:
-                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.OTHERS]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.OTHERS, label: TypeOfSourceOfIncome.OTHERS});
-                break;
-        }
     }
 
     calculateAndSetHighestScore() {
