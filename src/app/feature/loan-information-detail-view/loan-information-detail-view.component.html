@@ -244,7 +244,7 @@
                             (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
                             ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
                             to meet his/her personal obligation.</p>
-                        <div *ngIf="customerAllLoanList?.length > 0">
+                        <div *ngIf="customerAllLoanList?.length > 1">
                             <ol type="a">
                                 <li *ngFor="let cal of customerAllLoanList">
                                     {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
@@ -283,6 +283,10 @@
                     </li>
                     <li>
                         <p><strong>Current limits and outstanding of the Client: NA</strong></p>
+                        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                                           [customerAllLoanList]="customerAllLoanList"
+                                           [proposalData]="loanDataHolder?.proposal"
+                                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
                     </li>
                     <li>
                         <p><strong>Name of the companies under the group: NA</strong></p>
@@ -349,12 +353,12 @@
                 </ol>
             </div>
 
-            <app-detail-view-base *ngIf="loanHolder"
-                                  [calendarType]="calendarType"
-                                  [loanDataHolder]="loanDataHolder"
-                                  [loanHolder]="loanHolder"
-                                  [loanId]="id"
-                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
+<!--            <app-detail-view-base *ngIf="loanHolder"-->
+<!--                                  [calendarType]="calendarType"-->
+<!--                                  [loanDataHolder]="loanDataHolder"-->
+<!--                                  [loanHolder]="loanHolder"-->
+<!--                                  [loanId]="id"-->
+<!--                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>-->
 
             <ng-template #allDocumentView>
                 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
