@@ -83,4 +83,5 @@ export class CustomerInfoData {
     landBuildings: Array<LandBuilding>;
     selectedArray: string;
     netWorth: string;
+    isJointCustomer: any;
 }
