@@ -74,7 +74,7 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
         this.initialInfo.securities.primarySecurity.forEach(val => {
           if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
-            this.secondarySecurityTypeCheck = true;
+            this.primarySecurityTypeCheck = true;
             if (val.collateralShare === 'YES') {
               this.primarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
             }
@@ -124,13 +124,6 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
       citizenshipNo: [undefined],
       citizenIssueDate: [undefined],
       citizenIssueDistrict: [undefined],
-      /*landOwnerName1: [undefined],
-      fatherHusbandName1: [undefined],
-      grandFatherInLawName1: [undefined],
-      landOwnerAddress1: [undefined],
-      citizenshipNo1: [undefined],
-      citizenIssueDate1: [undefined],
-      citizenIssueDistrict1: [undefined],*/
       borrowerNameArray: this.formBuilder.array([]),
       borrowerNameArray1: this.formBuilder.array([]),
       nameFreeText: this.formBuilder.array([]),
@@ -194,6 +187,12 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
   }
   removeBorrowerNameIndex(ii: number) {
     (this.form.get('borrowerNameArray') as FormArray).removeAt(ii);
+  }
+  removePrimaryPropertyDetail(i: number, pI: number) {
+    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI, 1);
+  }
+  removeSecondaryPropertyDetail(i: number, pI1: number) {
+    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI1, 1);
   }
   removeSecurityAtIndex(ii: number) {
     (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
@@ -526,9 +525,5 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
       this.dialogRef.close();
       this.spinner = false;
     });
-  }
-  transformNumber(val) {
-    const numberTrans = this.engToNepNumberPipe.transform(this.form.get(val).value, true);
-    this.form.get(val).patchValue(numberTrans);
   }
 }
