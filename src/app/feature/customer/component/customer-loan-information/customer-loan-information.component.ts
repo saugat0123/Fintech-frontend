@@ -49,6 +49,7 @@ import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
+import {NetWorthComponent} from '../net-worth/net-worth.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -127,6 +128,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public riskAnalysisComponent: RiskAnalysisComponent;
     @ViewChild('swotAnalysisComponent', {static: false})
     public swotAnalysisComponent: SwotAnalysisComponent;
+    @ViewChild('netWorth', {static: false})
+    public netWorthComponent: NetWorthComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -276,6 +279,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             const mapData = JSON.parse(this.companyInfo.companyJsonData);
             this.reviewDate = mapData.reviewDate;
         }
+
+
     }
 
     public saveSiteVisit(data: string) {
@@ -447,6 +452,17 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.spinner.hide();
 
             });
+    }
+
+    saveNetWorth(data: any) {
+        this.spinner.show();
+        this.customerInfoService.saveLoanInfo(JSON.stringify(data), this.customerInfoId,
+            TemplateName.NET_WORTH).subscribe(rs => {
+            this.spinner.hide();
+            this.nbDialogRef.close();
+        }, err=>{
+                this.spinner.hide();
+        });
     }
 
     saveCICL(data: CiclArray) {
@@ -679,6 +695,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             repayment: [undefined],
             remark: [undefined],
             summeryRecommendation: [undefined],
+            approvingAuthority: [undefined],
+            specialCovenant: [undefined],
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],

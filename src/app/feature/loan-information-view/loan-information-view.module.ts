@@ -15,7 +15,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { SecurityViewComponent } from './security-view/security-view.component';
 import { CompanyInfoViewComponent } from './company-info-view/company-info-view.component';
-import { CiclViewComponent } from './cicl-view/cicl-view.component';
 import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
 import { ProposalViewComponent } from './proposal-view/proposal-view.component';
 import { IncomeFromAccountViewComponent } from './income-from-account-view/income-from-account-view.component';
@@ -39,7 +38,6 @@ import {NgxPrintModule} from 'ngx-print';
     CustomerInfoSearchFormComponent,
     SecurityViewComponent,
     CompanyInfoViewComponent,
-    CiclViewComponent,
     AllDocumentViewComponent,
     ProposalViewComponent,
     IncomeFromAccountViewComponent,
@@ -57,7 +55,6 @@ import {NgxPrintModule} from 'ngx-print';
         IndividualViewComponent,
         SecurityViewComponent,
         CompanyInfoViewComponent,
-        CiclViewComponent,
         AllDocumentViewComponent,
         ProposalViewComponent,
         IncomeFromAccountViewComponent,
