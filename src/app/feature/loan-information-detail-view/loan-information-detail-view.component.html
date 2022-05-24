@@ -245,8 +245,9 @@
                             ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
                             to meet his/her personal obligation.</p>
                         <div *ngIf="customerAllLoanList?.length > 0">
-                            <ol type="a" *ngFor="let cal of customerAllLoanList">
-                                <li>{{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
+                            <ol type="a">
+                                <li *ngFor="let cal of customerAllLoanList">
+                                    {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
                                     {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ? (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure)</b></li>
                             </ol>
                         </div>
