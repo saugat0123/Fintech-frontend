@@ -20,10 +20,12 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   proposalData;
   ciclData;
   customerCate = CustomerCategory;
+  commentVisible = false;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('this.cicl', this.cicl);
     if (!ObjectUtil.isEmpty(this.multiBanking)) {
       this.multiBankingData = JSON.parse(this.multiBanking.data);
       this.checkedData = JSON.parse(this.multiBanking.checkedData);
@@ -31,6 +33,9 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cicl)) {
       this.ciclData = JSON.parse(this.cicl.data);
       console.log('ciclData', this.ciclData);
+      if (!ObjectUtil.isEmpty(this.cicl.remarks)) {
+        this.commentVisible = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.proposal)) {
       this.proposalData = JSON.parse(this.proposal.data);
