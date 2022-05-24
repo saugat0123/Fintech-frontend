@@ -37,7 +37,7 @@ export class ProposalComponent implements OnInit {
     @Input() loanIds;
     @Input() loanType;
     @Input() customerInfo: CustomerInfoData;
-    @Input() fromProfile;
+    @Input() fromProfile: boolean;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
@@ -138,6 +138,7 @@ export class ProposalComponent implements OnInit {
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
     customerType: any;
+    defaultCompliance = '<p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\"><strong>Repayment:</strong></span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\"><strong>Mode of Disbursemet:</strong></span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">The loan shall be disbursed as under:</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Execution of all the security documents including mortgaged of proposed collateral.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">Letter of undertaking to the seller shall be issued at the request of buyer.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">Completion of security documentations</span></span></p>';
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -230,6 +231,7 @@ export class ProposalComponent implements OnInit {
                 .patchValue(Number(value));
             this.proposedLimit = this.proposalForm.get('proposedLimit').value;
         });
+        // this.proposalForm.get('summeryRecommendation').patchValue(this.defaultCompliance);
     }
 
     getLoanData() {
@@ -452,7 +454,7 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
-
+        console.log('fromProfile', this.fromProfile);
       if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
                 this.proposalData = this.formValue;
@@ -461,7 +463,6 @@ export class ProposalComponent implements OnInit {
 
             const mergeChecked = {
                 solChecked: this.solChecked,
-                waiverChecked: this.waiverChecked,
                 riskChecked: this.riskChecked,
                 swapChargeChecked: this.swapChargeChecked,
                 subsidizedLoanChecked: this.subsidizedLoanChecked,
@@ -490,6 +491,7 @@ export class ProposalComponent implements OnInit {
             }
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
+          console.log('proposalData', this.proposalData);
             this.spinner.show();
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
@@ -644,7 +646,6 @@ export class ProposalComponent implements OnInit {
   setCheckedData(data) {
     if (!ObjectUtil.isEmpty(data)) {
       this.checkChecked(data['solChecked'], 'sol');
-      this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');

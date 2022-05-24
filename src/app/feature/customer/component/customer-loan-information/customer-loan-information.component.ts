@@ -748,7 +748,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveCommonLoanData() {
         this.spinner.show();
         const mergeChecked = {
-            waiverChecked: this.waiverChecked,
             swapChargeChecked: this.swapChargeChecked,
             subsidizedLoanChecked: this.subsidizedLoanChecked,
             commitmentChecked: this.commitmentChecked,
@@ -761,6 +760,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             mergedCheck: JSON.stringify(mergeChecked)
         });
         this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
+        console.log('commonLoanData', this.customerInfo.commonLoanData);
         this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
             this.customerInfo = res.detail;
@@ -773,9 +773,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
-        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
             this.checkChecked(data['commitmentChecked'], 'commitment');
