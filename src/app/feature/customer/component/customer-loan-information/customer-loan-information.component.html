@@ -812,18 +812,12 @@
           <div class="col-md-12">
             <div class="form-group">
               <strong>SOL of the BANK</strong>
-            <p>  <input formControlName="sol"
-                        type="text"
-                        [style]="{height:'250px !important;'}"
-                        placeholder="SOL OF BANK"
-                        required
-                        nbInput>
-              for sector <input formControlName="sector"
-                                 type="text"
-                                 [style]="{height:'250px !important;'}"
-                                 placeholder="SOL OF BANK"
-                                 required
-                                 nbInput>
+            <p class="mt-1">
+              <textarea class="form-control rounded"
+                        formControlName="solText"
+                        id="solText"
+                        rows="3">
+              </textarea>
               <br>
               <mark>i.e sample - NPR 7000 million for general sector.</mark>
 
@@ -911,51 +905,10 @@
             <h6><strong>Additional Description</strong></h6>
             <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                          [checked]="waiverChecked">
-              <b>Waiver</b>
+              <b>WAIVERS, DEVIATIONS AND DEFERRAL</b>
             </nb-checkbox>
             <div *ngIf="waiverChecked">
               <ckeditor formControlName="waiverConclusionRecommendation"
-                        [config]="ckeConfig"></ckeditor>
-            </div>
-          </div>
-
-          <div class="col-md-12 form-group">
-            <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
-                         [checked]="deviationChecked">
-              <b>Deviation</b>
-            </nb-checkbox>
-            <div *ngIf="deviationChecked">
-              <ckeditor formControlName="deviationConclusionRecommendation"
-                        [config]="ckeConfig"></ckeditor>
-            </div>
-          </div>
-
-          <div class="col-md-12 form-group">
-            <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
-                         [checked]="solChecked"><b>Single Obligor Limit</b>
-            </nb-checkbox>
-            <div *ngIf="solChecked">
-              <ckeditor formControlName="solConclusionRecommendation"
-                        [config]="ckeConfig"></ckeditor>
-            </div>
-          </div>
-          <div class="col-md-12 form-group">
-
-            <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
-                         [checked]="riskChecked"><b>Risk & Mitigation</b>
-            </nb-checkbox>
-            <div *ngIf="riskChecked">
-              <ckeditor formControlName="riskConclusionRecommendation"
-                        [config]="ckeConfig"></ckeditor>
-            </div>
-          </div>
-          <div class="col-md-12 form-group">
-
-            <nb-checkbox (change)="checkChecked($event.target.checked,'debt')"
-                         [checked]="debtChecked"><b>Debt Structure and Control</b>
-            </nb-checkbox>
-            <div *ngIf="debtChecked">
-              <ckeditor formControlName="termsAndCondition"
                         [config]="ckeConfig"></ckeditor>
             </div>
           </div>
