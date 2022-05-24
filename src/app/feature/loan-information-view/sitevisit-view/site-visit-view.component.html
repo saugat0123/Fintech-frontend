@@ -291,6 +291,36 @@
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+    <tr>
+        <th colspan="3">Valuation Details</th>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th>Particulars</th>
+        <th>Plot No.</th>
+        <th>Area (sq meter etc.)</th>
+        <th>MV</th>
+        <th>FMV</th>
+        <th>DV</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['particulars']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['plotNo']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['area']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['mv']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['fmv']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['dv']}}</td>
+    </tr>
+    <tr>
+        <th>Total:</th>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalPlotNo']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalArea']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalMv']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalFmv']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalDv']}}</td>
+    </tr>
+</table>
+<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>

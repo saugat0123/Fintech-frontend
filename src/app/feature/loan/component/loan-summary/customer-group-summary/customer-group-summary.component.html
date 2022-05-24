@@ -5,7 +5,7 @@
         {{groupDto?.groupLimit}} &nbsp;|&nbsp; </strong>
         <em class="ml-2 text-danger sb-small">Group Code:</em>
         <strong> {{groupDto?.groupCode}} |</strong>
-        <em class="ml-2 text-danger sb-small">Total FMV/Considered Value:</em>
+        <em class="ml-2 text-danger sb-small">Total FMV/Market Value:</em>
         <strong>Rs. {{this.totalCollateral | currencyFormatter}}</strong>)</p>
       <table
           class="table sb-small table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
@@ -25,7 +25,7 @@
          </td>
          <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
          <td colspan="1" class="pl">
-           <b>Total FMV/Considered Value: {{(group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
+           <b>Total FMV/Market Value: {{(group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
                    group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0) | currencyFormatter}}</b>
          </td>
        </tr>
