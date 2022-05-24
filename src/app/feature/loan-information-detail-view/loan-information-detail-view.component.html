@@ -313,8 +313,14 @@
                         <app-retail-compliance></app-retail-compliance>
                     </li>
                     <li>
-                        <p><strong>Report from CICL</strong></p>
-                        <app-retail-report-cicl></app-retail-report-cicl>
+                        <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
+                        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                                       [proposal]="loanDataHolder?.proposal"
+                                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+<!--                        <p><strong>Report from CICL</strong></p>-->
+<!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
                         <p><strong>Waiver/Deviation: ...................</strong></p>

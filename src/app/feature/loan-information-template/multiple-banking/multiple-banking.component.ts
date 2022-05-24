@@ -25,7 +25,6 @@ export class MultipleBankingComponent implements OnInit {
     multiBanking: MultipleBanking = new MultipleBanking();
     bankName = ['CCBL', 'Other Banks'];
     financialArrange = ['None', 'Sole', 'Multiple Banking', 'Consortium'];
-    loanList = [];
     multiBankingChecked = true;
     consortiumChecked = true;
     swapChecked = true;
@@ -39,13 +38,8 @@ export class MultipleBankingComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('customerCategory', this.customerCategory);
-        console.log('Condition', this.customerCate[this.customerCategory] === this.customerCate.SME_ABOVE_TEN_MILLION);
         this.router.queryParams.subscribe((res: any) => {
            this.customerType = res.customerType;
-        });
-        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((res: any) => {
-            this.loanList = res.detail;
         });
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
