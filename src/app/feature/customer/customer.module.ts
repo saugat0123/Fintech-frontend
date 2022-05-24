@@ -44,6 +44,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { RiskAnalysisComponent } from './component/customer-form/company-form/risk-analysis/risk-analysis.component';
 import { GroupExposureWithCcblComponent } from './component/customer-profile/company-profile/group-exposure-with-ccbl/group-exposure-with-ccbl.component';
 import { ReviewDateComponent } from './component/customer-profile/company-profile/review-date/review-date.component';
+import { NetWorthComponent } from './component/net-worth/net-worth.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -70,7 +71,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent,
-        MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, RiskAnalysisComponent, GroupExposureWithCcblComponent, ReviewDateComponent],
+        MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, RiskAnalysisComponent, GroupExposureWithCcblComponent, ReviewDateComponent, NetWorthComponent],
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,
