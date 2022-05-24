@@ -24,4 +24,5 @@ export class TemplateName {
   static PREVIOUS_SECURITY = 'previousSecurity';
   static MULTI_BANKING = 'multiBanking';
   static SWOT_ANALYSIS = 'swot';
+  static NET_WORTH = 'Net Worth';
 }
