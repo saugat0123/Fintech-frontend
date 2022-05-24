@@ -304,11 +304,8 @@
                         <p><strong>Transaction Record of the client: New Relationship. Yet to be tested </strong></p>
                     </li>
                     <li>
-                        <p><strong>Profitability of the Client:</strong></p>
-                        <app-retail-profitability-of-clien></app-retail-profitability-of-clien>
-                    </li>
-                    <li>
-                        <p><strong>Profitability: NA</strong></p>
+                        <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [formData]="loanHolder?.incomeFromAccount">
+                        </app-income-from-account-summery>
                     </li>
                     <li>
                         <p><strong>Risks:</strong></p>
