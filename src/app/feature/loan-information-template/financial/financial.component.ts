@@ -218,6 +218,7 @@ export class FinancialComponent implements OnInit {
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
+            this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
@@ -241,6 +242,7 @@ export class FinancialComponent implements OnInit {
             if (!this.isBusinessLoan) {
                 this.addIncomeOfBorrower();
                 this.addExpensesOfBorrower();
+                this.addObligationAtOtherBank();
             }
         }
         this.checkDisableAlpha();
@@ -255,6 +257,7 @@ export class FinancialComponent implements OnInit {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
+            obligationAtOtherBank: this.formBuilder.array([]),
             typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
@@ -319,6 +322,19 @@ export class FinancialComponent implements OnInit {
                     particulars: [singleData.particulars],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks]
+                })
+            );
+        });
+    }
+
+    setObligationAtOtherBank(currentData) {
+        const controls = this.financialForm.get('obligationAtOtherBank') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    obliParticulars: [singleData.obliParticulars],
+                    obliAmount: [singleData.obliAmount],
+                    obliRemarks: [singleData.obliRemarks]
                 })
             );
         });
@@ -493,6 +509,7 @@ export class FinancialComponent implements OnInit {
     //
     //
     // Header Part--
+
     addIncomeOfBorrower() {
         console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
@@ -517,6 +534,17 @@ export class FinancialComponent implements OnInit {
         );
     }
 
+    addObligationAtOtherBank() {
+        const control = this.financialForm.controls.obligationAtOtherBank as FormArray;
+        control.push(
+            this.formBuilder.group({
+                obliParticulars: [undefined, Validators.required],
+                obliAmount: [undefined, Validators.required],
+                obliRemarks: [undefined, Validators.required]
+            })
+        );
+    }
+
     removeIncomeIndex(incomeIndex) {
         (this.financialForm.get('incomeOfBorrower') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialForm('incomeOfBorrower', 'totalIncome');
@@ -525,6 +553,11 @@ export class FinancialComponent implements OnInit {
     removeExpensesIndex(incomeIndex) {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialForm('expensesOfBorrower', 'totalExpense');
+    }
+
+    removeExpensesIndexObligation(Index) {
+        (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(Index);
+        this.totalAdditionInitialForm('obligationAtOtherBank', 'totalExpenseObligation');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
