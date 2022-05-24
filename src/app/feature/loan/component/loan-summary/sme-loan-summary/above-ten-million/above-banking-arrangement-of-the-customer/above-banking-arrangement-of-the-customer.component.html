@@ -126,11 +126,7 @@
                         <td>{{cic?.nameOfBorrower}}</td>
                         <td class="text-right pr-1">Rs. {{cic?.borrower ? cic?.borrower : '-'}}</td>
                         <td class="text-right pr-1">Rs. {{cic?.guarantor ? cic?.guarantor : '-'}}</td>
-                        <td class="text-right pr-1">Rs. {{cic?.shareholder ? cic?.shareholder : '-'}}</td>
-<!--                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'borrower'; else setEmpty" class="text-right pr-1">Rs. {{cic?.borrower ? cic?.borrower : '-'}}</span></td>-->
-<!--                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'guarantor'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>-->
-<!--                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'shareholder'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>-->
-                        <td>{{cic?.overdueAmount}}</td>
+                        <td class="text-right pr-1">Rs. {{cic?.shareholder ? cic?.shareholder : '-'}}</td><td>{{cic?.overdueAmount}}</td>
                         <td>{{cic?.loanamount}}</td>
                         <td>{{cic?.outstandingAmount}}</td>
                         <td>{{cic?.overdueStatus}}</td>
