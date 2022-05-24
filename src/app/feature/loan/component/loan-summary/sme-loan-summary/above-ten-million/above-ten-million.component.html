@@ -42,6 +42,10 @@
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>
+    <li>
+        <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData">
+        </app-income-from-account-summery>
+    </li>
 
     <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
         <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
@@ -73,11 +77,6 @@
     <li>
         <p class="text-uppercase"><strong>SWOT Analysis</strong></p>
         <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
-    </li>
-    <li>
-        <p class="text-uppercase"><strong>Pricing and Estimated Income From the Account</strong></p>
-        <app-above-pricing-and-estimated-income-from-the-account>
-        </app-above-pricing-and-estimated-income-from-the-account>
     </li>
     <li>
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
