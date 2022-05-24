@@ -335,6 +335,10 @@
                         </div>
                         <app-retail-security></app-retail-security>
                     </li>
+                    <li>
+                        <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                                                   [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
+                    </li>
                 </ol>
             </div>
 
