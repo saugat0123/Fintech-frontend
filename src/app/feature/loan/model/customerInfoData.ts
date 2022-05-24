@@ -82,4 +82,5 @@ export class CustomerInfoData {
     autos: Array<Auto>;
     landBuildings: Array<LandBuilding>;
     selectedArray: string;
+    netWorth: string;
 }

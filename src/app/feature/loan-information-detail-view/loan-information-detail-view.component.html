@@ -280,9 +280,6 @@
                         <app-retail-source-of-repayment></app-retail-source-of-repayment>
                     </li>
                     <li>
-                        <p><strong>Present Stock and Receivables, Payable Position: NA</strong></p>
-                    </li>
-                    <li>
                         <p><strong>Current limits and outstanding of the Client: NA</strong></p>
                         <app-proposal-view *ngIf="loanDataHolder?.proposal"
                                            [customerAllLoanList]="customerAllLoanList"
@@ -352,6 +349,18 @@
                             </div>
                         </div>
                         <app-retail-security></app-retail-security>
+                    </li>
+                    <li>
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                        <p class="float-left col-md-12">-->
+<!--                            <strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
+                        <app-financial-view *ngIf="loanHolder?.financial"
+                                            [customerType]="loanHolder?.customerType"
+                                            [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
                     <li>
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"

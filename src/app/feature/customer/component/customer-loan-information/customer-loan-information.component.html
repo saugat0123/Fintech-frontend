@@ -8,8 +8,8 @@
 
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemSiteVisit>
-            <a class="cursor info-label" (click)="openModel(itemSiteVisitTemplate)">
+          <nb-card #itemSiteVisit class="col-md-11 py-2">
+            <a (click)="openModel(itemSiteVisitTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -33,17 +33,17 @@
           <nb-card class="template-css">
             <nb-card-header>
               Site Visit
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-site-visit #siteVisitComponent
                               (siteVisitDataEmitter)="saveSiteVisit($event);"
-                              [formValue]="customerInfo?.siteVisit"
                               [customerInfo]="customerInfo"
+                              [formValue]="customerInfo?.siteVisit"
                               [fromProfile]="true"></app-site-visit>
             </nb-card-body>
           </nb-card>
@@ -51,8 +51,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #ciclComponent>
-            <a class="cursor info-label" (click)="openModel(ciclComponentTemplate)">
+          <nb-card #ciclComponent class="col-md-11 py-2">
+            <a (click)="openModel(ciclComponentTemplate)" class="cursor info-label">
               <div class="row">
                 <div class="col-md-8">
                   <p class="custom-font">CICL</p>
@@ -74,29 +74,31 @@
           <nb-card class="template-css">
             <nb-card-header>
               CICL
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-cicl #ciclComponent [ciclValue]="ciclResponse" [fromProfile]="true"
-                        (ciclDataEmitter)="saveCICL($event)"></app-cicl>
+              <app-cicl #ciclComponent (ciclDataEmitter)="saveCICL($event)"
+                        [ciclValue]="ciclResponse"
+                        [fromProfile]="true"></app-cicl>
 
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" >
+      <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemFinancial>
-            <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
+          <nb-card #itemFinancial class="col-md-11 py-2">
+            <a (click)="openModel(itemFinancialTemplate)" class="cursor info-label">
               <div class="row">
                 <div class="col-md-8">
                   <p class="custom-font">
                     <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-                    <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+                    <span
+                        *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -115,11 +117,11 @@
           <nb-card class="template-css">
             <nb-card-header>
                 <span
-                        *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-                          <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+                    *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
@@ -134,11 +136,13 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
-            <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
+          <nb-card #itemIncomeFromAccount class="col-md-11 py-2">
+            <a (click)="openModel(inccomeFromAccountComponentTemplate)" class="cursor info-label">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">INCOME FROM ACCOUNT</p>
+                  <p class="custom-font">INCOME FROM ACCOUNT<br><em class="sb-small">Profitability
+                    to Bank</em></p>
+
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.incomeFromAccount" style="color:green"
@@ -155,28 +159,29 @@
         </div>
         <ng-template #inccomeFromAccountComponentTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
-            <nb-card-header>INCOME FROM ACCOUNT
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+            <nb-card-header>INCOME FROM ACCOUNT<br><em class="sb-small">Profitability to Bank</em>
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
-                                       [customerInfo]="customerInfo"
-                                       [fromProfile]="true"
-                                       (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
+              <app-income-from-account
+                  (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)"
+                  [customerInfo]="customerInfo"
+                  [fromProfile]="true"
+                  [incomeFromAccountDataResponse]="incomeFromAccountDataResponse">
               </app-income-from-account>
 
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4"  *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+      <div *ngIf="customerInfo?.customerType === 'INSTITUTION'" class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemNetTradingAssets>
-            <a class="cursor info-label" (click)="openModel(itemNetTradingAssetsTemplate)">
+          <nb-card #itemNetTradingAssets class="col-md-11 py-2">
+            <a (click)="openModel(itemNetTradingAssetsTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -201,14 +206,14 @@
           <nb-card class="template-css">
             <nb-card-header>
               NET TRADING ASSETS (NTA)
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-net-trading-assets (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+              <app-net-trading-assets (netTradingAssetsEventEmitter)="saveNetTradingAssets($event)"
                                       [fromProfile]=true
                                       [netTradingAssetsData]="netTradingAssets">
 
@@ -220,8 +225,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemSecurity>
-            <a class="cursor info-label" (click)="openModel(itemSecurityTemplate)">
+          <nb-card #itemSecurity class="col-md-11 py-2">
+            <a (click)="openModel(itemSecurityTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -230,10 +235,12 @@
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-            <span *ngIf="customerInfo?.security !== null" style="color:green" title="Status : Saved">
+            <span *ngIf="customerInfo?.security !== null" style="color:green"
+                  title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
-                  <span *ngIf="customerInfo?.security == null" style="color:red" title="Status :Not Saved">
+                  <span *ngIf="customerInfo?.security == null" style="color:red"
+                        title="Status :Not Saved">
                 <em class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
@@ -245,31 +252,31 @@
           <nb-card class="template-css">
             <nb-card-header>
               SECURITY
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-security
-                      (securityDataEmitter)="saveSecurity($event)"
-                      (submittedCheck)="submittedCheck1($event)"
-                      [submittedCheckFromParent] = "submittedCheck"
-                      [calendarType]="calendarType"
-                      [fromProfile]="true"
-                      [securityValue]="customerInfo?.security"
-                      [customerType]="customerInfo?.customerType"
-                      [shareSecurity]="customerInfo?.shareSecurity"
-                      [customerInfo]="customerInfo"></app-security>
+                  (securityDataEmitter)="saveSecurity($event)"
+                  (submittedCheck)="submittedCheck1($event)"
+                  [calendarType]="calendarType"
+                  [customerInfo]="customerInfo"
+                  [customerType]="customerInfo?.customerType"
+                  [fromProfile]="true"
+                  [securityValue]="customerInfo?.security"
+                  [shareSecurity]="customerInfo?.shareSecurity"
+                  [submittedCheckFromParent]="submittedCheck"></app-security>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemGuarantor>
-            <a class="cursor info-label" (click)="openModel(itemGuarantorTemplate)">
+          <nb-card #itemGuarantor class="col-md-11 py-2">
+            <a (click)="openModel(itemGuarantorTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -295,9 +302,9 @@
           <nb-card class="template-css">
             <nb-card-header>
               GUARANTOR
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
@@ -305,16 +312,17 @@
               <app-guarantor #guarantorComponent
                              (guarantorDataEmitter)="saveGuarantor($event)"
                              [calendarType]="calendarType"
+                             [customerInfo]="customerInfo"
                              [fromProfile]="true"
-                             [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
+                             [guarantorDetailValue]="customerInfo?.guarantors"></app-guarantor>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemInsurance>
-            <a class="cursor info-label" (click)="openModel(itemInsuranceTemplate)">
+          <nb-card #itemInsurance class="col-md-11 py-2">
+            <a (click)="openModel(itemInsuranceTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -338,25 +346,26 @@
           <nb-card class="template-css">
             <nb-card-header>
               INSURANCE
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-insurance
-                      (insuranceDataEmitter)="saveInsurance($event)"
-                      [insuranceDataFromModel]="customerInfo?.insurance"
-                      [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>
+                  (insuranceDataEmitter)="saveInsurance($event)"
+                  [customerInfo]="customerInfo"
+                  [fromProfile]="true"
+                  [insuranceDataFromModel]="customerInfo?.insurance"></app-insurance>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemloanChecklist>
-            <a class="cursor info-label" (click)="openModel(itemloanChecklistTemplate)">
+          <nb-card #itemloanChecklist class="col-md-11 py-2">
+            <a (click)="openModel(itemloanChecklistTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -380,19 +389,19 @@
           <nb-card class="template-css">
             <nb-card-header>
               CREDIT CHECKLIST
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-credit-checklist-general
-                      (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
-                      [formData]="customerInfo?.creditChecklist"
-                      [fromProfile]="true"
-                      [calendarType]="calendarType"
-                      [customerType]="customerInfo?.customerType"
+                  (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
+                  [calendarType]="calendarType"
+                  [customerType]="customerInfo?.customerType"
+                  [formData]="customerInfo?.creditChecklist"
+                  [fromProfile]="true"
               ></app-credit-checklist-general>
             </nb-card-body>
           </nb-card>
@@ -400,8 +409,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemReportingInfoLevel>
-            <a class="cursor info-label" (click)="openModel(itemReportingInfoLevelTemplate)">
+          <nb-card #itemReportingInfoLevel class="col-md-11 py-2">
+            <a (click)="openModel(itemReportingInfoLevelTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -427,19 +436,22 @@
           <nb-card class="template-css">
             <nb-card-header>
               MIS/NRB REPORTING
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-reporting-info-tagging #reportingInfoTagging
                                           (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
-                                          [type]="'c'"
-                                          [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>
+                                          [reportingInfoLevels]="customerInfo?.reportingInfoLevels"
+                                          [type]="'c'"></app-reporting-info-tagging>
               <div>
-                <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>
+                <button (click)="reportingInfoTaggingComponent.onSubmit()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">
+                  Save
+                </button>
               </div>
             </nb-card-body>
           </nb-card>
@@ -447,8 +459,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemCommentsFromAccount>
-            <a class="cursor info-label" (click)="openModel(itemCommentsFromAccountTemplate)">
+          <nb-card #itemCommentsFromAccount class="col-md-11 py-2">
+            <a (click)="openModel(itemCommentsFromAccountTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -474,22 +486,25 @@
           <nb-card class="template-css">
             <nb-card-header>
               NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-comments
-                      #commentsInfoTagging
-                      [commentsDataResponse]="commentsDataResponse"
-                      [commentData]="customerInfo?.data"
-                      [fromProfile]="true"
-                      (commentsDataEmitter)="saveDataFromComments($event)">
+                  #commentsInfoTagging
+                  (commentsDataEmitter)="saveDataFromComments($event)"
+                  [commentData]="customerInfo?.data"
+                  [commentsDataResponse]="commentsDataResponse"
+                  [fromProfile]="true">
               </app-comments>
               <div>
-                <button class="btn float-right d-flex justify-content-end" (click)="commentsComponent.submitForm()" type="submit" nbButton>Save</button>
+                <button (click)="commentsComponent.submitForm()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">
+                  Save
+                </button>
               </div>
             </nb-card-body>
           </nb-card>
@@ -497,8 +512,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #dataFromPreviousSecurity>
-            <a class="cursor info-label" (click)="openModel(dataFromPreviousSecurityTemplate)">
+          <nb-card #dataFromPreviousSecurity class="col-md-11 py-2">
+            <a (click)="openModel(dataFromPreviousSecurityTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -510,7 +525,7 @@
      <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">
                        <em class="fas fa-check-circle px-2"></em>
                      </span>
-                     <span style="color:red" title="Status :Not Saved">
+                  <span style="color:red" title="Status :Not Saved">
                        <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>
                      </span>
                 </div>
@@ -522,32 +537,35 @@
           <nb-card class="template-css">
             <nb-card-header>
               PREVIOUS SECURITY
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-previous-security
-                      #previousSecurityInfoTagging
-                      [securityDataResponse]="securityDataResponse"
-                      [securityData]="customerInfo?.data"
-                      [commentData]="customerInfo?.data"
-                      [fromProfile]="true"
-                      (securityDataEmitter)="saveDataFromSecurity($event)">
+                  #previousSecurityInfoTagging
+                  (securityDataEmitter)="saveDataFromSecurity($event)"
+                  [commentData]="customerInfo?.data"
+                  [fromProfile]="true"
+                  [securityDataResponse]="securityDataResponse"
+                  [securityData]="customerInfo?.data">
               </app-previous-security>
               <div>
-                <button class="btn float-right d-flex justify-content-end" (click)="previousSecurityComponent.submitForm()" type="submit" nbButton>Save</button>
+                <button (click)="previousSecurityComponent.submitForm()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">
+                  Save
+                </button>
               </div>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4"  >
+      <div class="col-md-4">
         <div class="row">
           <nb-card class="col-md-11 py-2">
-            <a class="cursor info-label" (click)="openModel(commonLoanDatas)">
+            <a (click)="openModel(commonLoanDatas)" class="cursor info-label">
               <div class="row">
                 <div class="col-md-8">
                   <p class="custom-font">COMMON LOAN DATA</p>
@@ -570,8 +588,8 @@
 
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #dataFromMultiBanking>
-            <a class="cursor info-label" (click)="openModel(dataFromMultiBankingTemplate)">
+          <nb-card #dataFromMultiBanking class="col-md-11 py-2">
+            <a (click)="openModel(dataFromMultiBankingTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -596,28 +614,28 @@
           <nb-card class="template-css">
             <nb-card-header>
               BANKING ARRANGEMENT
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-multiple-banking
-                      #multipleBankingComponent
-                      [fromProfile]="true"
-                      [multiBankingData]="customerInfo?.multiBanking"
-                      [customerCategory]="customerInfo?.customerCategory"
-                      (multiBankingDataEmitter)="saveMultiBanking($event)">
+                  #multipleBankingComponent
+                  (multiBankingDataEmitter)="saveMultiBanking($event)"
+                  [customerCategory]="customerInfo?.customerCategory"
+                  [fromProfile]="true"
+                  [multiBankingData]="customerInfo?.multiBanking">
               </app-multiple-banking>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo.customerType === customerType.INSTITUTION">
+      <div *ngIf="customerInfo.customerType === customerType.INSTITUTION" class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemCreditRiskGrading>
-            <a class="cursor info-label" (click)="openModel(itemCreditRiskGradingTemplate)">
+          <nb-card #itemCreditRiskGrading class="col-md-11 py-2">
+            <a (click)="openModel(itemCreditRiskGradingTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -640,74 +658,79 @@
         <ng-template #itemCreditRiskGradingTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-                INSTITUTIONAL CRG
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              INSTITUTIONAL CRG
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-institutional-crg-gamma #institutionalCrgGamma
+                                           (crgDataEmitter)="saveCrgGamma($event)"
                                            [fromProfile]="true"
-                                           [loanConfigId]="1"
 
-                                           (crgDataEmitter)="saveCrgGamma($event)"></app-institutional-crg-gamma>
+                                           [loanConfigId]="1"></app-institutional-crg-gamma>
               <div>
-                <button class="btn float-right d-flex justify-content-end" (click)="institutionalCrgGamma.onSubmit()" type="submit" nbButton>Save</button>
+                <button (click)="institutionalCrgGamma.onSubmit()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">
+                  Save
+                </button>
               </div>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #dataFromRiskAnalysis>
-          <a class="cursor info-label" (click)="openModel(dataRiskAnalysisTemplate)">
-            <div class="row cursor">
-              <div class="col-md-8">
-                <p class="custom-font">
-                  RISK ANALYSIS
-                </p>
-              </div>
-              <div class="col-md-4 d-flex justify-content-end">
-                  <span *ngIf="customerInfo?.riskAnalysis" style="color:green" title="Status : Saved">
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #dataFromRiskAnalysis class="col-md-11 py-2">
+            <a (click)="openModel(dataRiskAnalysisTemplate)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    RISK ANALYSIS
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <span *ngIf="customerInfo?.riskAnalysis" style="color:green"
+                        title="Status : Saved">
                      <em class="fas fa-check-circle px-2"></em>
                   </span>
-                <span style="color:red" title="Status :Not Saved">
-                       <em *ngIf="!customerInfo?.riskAnalysis" class="fas fa-times-circle px-2"></em>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.riskAnalysis"
+                           class="fas fa-times-circle px-2"></em>
                      </span>
+                </div>
               </div>
-            </div>
-          </a>
-        </nb-card>
-      </div>
-      <ng-template #dataRiskAnalysisTemplate let-data let-ref="dialogRef">
-        <nb-card class="template-css">
-          <nb-card-header>
-            RISK ANALYSIS
-            <a aria-label="Close" class="close cursor"
-               data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #dataRiskAnalysisTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              RISK ANALYSIS
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
-          </nb-card-header>
-          <nb-card-body>
-            <app-risk-analysis
-                    #riskAnalysisComponent
-                    [fromProfile]="true"
-                    [riskData]="customerInfo?.riskAnalysis"
-                    [customerInfo]="customerInfo"
-                    (riskAnalysisDataEmitter)="saveRiskAnalysis($event)">
-            </app-risk-analysis>
-          </nb-card-body>
-        </nb-card>
-      </ng-template>
-    </div>
+            </nb-card-header>
+            <nb-card-body>
+              <app-risk-analysis
+                  #riskAnalysisComponent
+                  (riskAnalysisDataEmitter)="saveRiskAnalysis($event)"
+                  [customerInfo]="customerInfo"
+                  [fromProfile]="true"
+                  [riskData]="customerInfo?.riskAnalysis">
+              </app-risk-analysis>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
       <div class="col-md-4">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemReviewDates>
-            <a class="cursor info-label" (click)="openModel(itemReviewDatesTemplate)">
+          <nb-card #itemReviewDates class="col-md-11 py-2">
+            <a (click)="openModel(itemReviewDatesTemplate)" class="cursor info-label">
               <div class="row cursor">
 
                 <div class="col-md-8">
@@ -731,66 +754,114 @@
           <nb-card class="template-css">
             <nb-card-header>
               REVIEW DATES
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-review-date [formValue]="companyInfo" [companyInfo]="reviewDate"
-                               (reviewDataEmitter)="saveReviewDate($event)"></app-review-date>
+              <app-review-date (reviewDataEmitter)="saveReviewDate($event)"
+                               [companyInfo]="reviewDate"
+                               [formValue]="companyInfo"></app-review-date>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #dataFromSwot>
-          <a class="cursor info-label" (click)="openModel(dataSwotTemplate)">
-            <div class="row cursor">
-              <div class="col-md-8">
-                <p class="custom-font">
-                  SWOT ANALYSIS
-                </p>
-              </div>
-              <div class="col-md-4 d-flex justify-content-end">
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #dataFromSwot class="col-md-11 py-2">
+            <a (click)="openModel(dataSwotTemplate)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    SWOT ANALYSIS
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
                   <span style="color:green" title="Status : Saved">
                      <em *ngIf="customerInfo?.swotAnalysis" class="fas fa-check-circle px-2"></em>
                   </span>
-                <span style="color:red" title="Status :Not Saved">
-                       <em *ngIf="!customerInfo?.swotAnalysis" class="fas fa-times-circle px-2"></em>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.swotAnalysis"
+                           class="fas fa-times-circle px-2"></em>
                      </span>
+                </div>
               </div>
-            </div>
-          </a>
-        </nb-card>
-      </div>
-      <ng-template #dataSwotTemplate let-data let-ref="dialogRef">
-        <nb-card class="template-css">
-          <nb-card-header>
-            SWOT ANALYSIS
-            <a aria-label="Close" class="close cursor"
-               data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #dataSwotTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              SWOT ANALYSIS
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
-          </nb-card-header>
-          <nb-card-body>
-            <app-swot-analysis
-                    #swotAnalysisComponent
-                    [fromProfile]="true"
-                    [swotData]="customerInfo?.swotAnalysis"
-                    [companyInfo]="companyInfo"
-                    (swotAnalysisDataEmitter)="saveSwotAnalysis($event)">
-            </app-swot-analysis>
-          </nb-card-body>
-        </nb-card>
-      </ng-template>
-    </div>
+            </nb-card-header>
+            <nb-card-body>
+              <app-swot-analysis
+                  #swotAnalysisComponent
+                  (swotAnalysisDataEmitter)="saveSwotAnalysis($event)"
+                  [companyInfo]="companyInfo"
+                  [fromProfile]="true"
+                  [swotData]="customerInfo?.swotAnalysis">
+              </app-swot-analysis>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div *ngIf="customerInfo.customerType === customerType.INDIVIDUAL" class="col-md-4">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a (click)="openModel(netWorthTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    Net Worth
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+            <span *ngIf="customerInfo?.netWorth" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.netWorth" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #netWorthTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              NET WORTH
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-net-worth #netWorth (dataEmiter)="saveNetWorth($event)"
+                             [customerName]="customerInfo?.name"
+                             [data]="customerInfo?.netWorth"></app-net-worth>
+              <div>
+                <button (click)="netWorthComponent.submit()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">
+                  Save
+                </button>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
     </div>
     <nb-accordion>
-
 
 
     </nb-accordion>
@@ -800,40 +871,48 @@
   <nb-card class="template-css">
     <nb-card-header>
       COMMON LOAN DATA
-      <a aria-label="Close" class="close cursor"
-         data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+      <a (click)="ref.close()" aria-label="Close"
+         class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
     </nb-card-header>
     <nb-card-body>
-      <form [formGroup] = "commonLoanData" >
+      <form [formGroup]="commonLoanData">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" *ngIf="customerInfo?.customerType== customerType.INSTITUTION">
             <div class="form-group">
               <strong>SOL of the BANK</strong>
-            <p class="mt-1">
+              <p class="mt-1">
               <textarea class="form-control rounded"
                         formControlName="solText"
                         id="solText"
                         rows="3">
               </textarea>
-              <br>
-              <mark>i.e sample - NPR 7000 million for general sector.</mark>
+              </p>
+            </div>
+          </div>
 
-            </p>
+          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType== customerType.INSTITUTION">
+            <div class="form-group">
+              <label class="title"><strong>Approving Authority</strong></label>
+              <textarea class="form-control rounded"
+                        formControlName="approvingAuthority"
+                        id="approvingAuthority"
+                        placeholder="Approving Authority"
+                        rows="1">
+              </textarea>
             </div>
           </div>
           <div class="clearfix"></div>
-
           <div class="col-md-12">
             <div class="form-group" style="max-height: 300px !important;height: 250px;">
               <strong>Loan background</strong>
-              <ckeditor formControlName="borrowerInformation"
+              <ckeditor [config]="ckeConfig"
                         [style]="{height:'250px !important;'}"
+                        formControlName="borrowerInformation"
                         placeholder="Background"
                         required
-                        [config]="ckeConfig"
               >
               </ckeditor>
             </div>
@@ -844,18 +923,18 @@
             <div class="form-group">
               <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
               <ckeditor
-                      formControlName="disbursementCriteria" id="disbursementCriteria"
-                      name="disbursementCriteria"
-                      [config]="ckeConfig"></ckeditor>
+                  [config]="ckeConfig" formControlName="disbursementCriteria"
+                  id="disbursementCriteria"
+                  name="disbursementCriteria"></ckeditor>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
               <label class="title" for="repayment"><strong>Repayment</strong></label>
               <ckeditor
-                      formControlName="repayment" id="repayment"
-                      name="repayment"
-                      [config]="ckeConfig"></ckeditor>
+                  [config]="ckeConfig" formControlName="repayment"
+                  id="repayment"
+                  name="repayment"></ckeditor>
             </div>
           </div>
           <div class="col-md-12">
@@ -863,8 +942,8 @@
               <label class="title" for="remark">
                 <strong>Remarks</strong></label>
               <ckeditor
-                      formControlName="remark" id="remark"
-                      [config]="ckeConfig"></ckeditor>
+                  [config]="ckeConfig" formControlName="remark"
+                  id="remark"></ckeditor>
             </div>
           </div>
 
@@ -872,31 +951,22 @@
           <div class="col-md-12 mt-3">
             <div class="form-group">
               <label class="title"><strong>Summary & Recommendation</strong></label>
-              <ckeditor formControlName="summeryRecommendation"
+              <ckeditor [config]="ckeConfig"
                         [style]="{height:'250px !important;'}"
-                        placeholder="Summary & Recommendation"
-                        [config]="ckeConfig">
+                        formControlName="summeryRecommendation"
+                        placeholder="Summary & Recommendation">
               </ckeditor>
             </div>
           </div>
 
-          <div class="col-md-12 mt-3">
-            <div class="form-group">
-              <label class="title"><strong>Approving Authority</strong></label>
-              <ckeditor formControlName="approvingAuthority"
-                        [style]="{height:'250px !important;'}"
-                        placeholder="Approving Authority"
-                        [config]="ckeConfig">
-              </ckeditor>
-            </div>
-          </div>
+
           <div class="col-md-12 mt-3">
             <div class="form-group">
               <label class="title"><strong>Special Covenants/Conditions, If Any</strong></label>
-              <ckeditor formControlName="specialCovenant"
+              <ckeditor [config]="ckeConfig"
                         [style]="{height:'250px !important;'}"
-                        placeholder="Special Covenants/Conditions, If Any"
-                        [config]="ckeConfig">
+                        formControlName="specialCovenant"
+                        placeholder="Special Covenants/Conditions, If Any">
               </ckeditor>
             </div>
           </div>
@@ -911,8 +981,8 @@
         </div>
       </form>
       <div>
-        <button class="btn float-right d-flex justify-content-end"
-                (click)="saveCommonLoanData()" type="submit" nbButton>Save
+        <button (click)="saveCommonLoanData()"
+                class="btn float-right d-flex justify-content-end" nbButton type="submit">Save
         </button>
       </div>
     </nb-card-body>
