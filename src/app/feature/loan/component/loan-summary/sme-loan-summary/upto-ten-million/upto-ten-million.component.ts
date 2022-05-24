@@ -16,9 +16,13 @@ export class UptoTenMillionComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   // loanDataHolder: LoanDataHolder;
   customerCategory = CustomerCategory.SME_UPTO_TEN_MILLION;
+  data;
+  approveAuth;
   constructor() { }
 
   ngOnInit() {
+    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+    this.approveAuth = this.data.approvingAuthority;
   }
 
 }
