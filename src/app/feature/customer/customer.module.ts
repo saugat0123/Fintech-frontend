@@ -44,6 +44,8 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { RiskAnalysisComponent } from './component/customer-form/company-form/risk-analysis/risk-analysis.component';
 import { GroupExposureWithCcblComponent } from './component/customer-profile/company-profile/group-exposure-with-ccbl/group-exposure-with-ccbl.component';
 import { ReviewDateComponent } from './component/customer-profile/company-profile/review-date/review-date.component';
+import {CrgCcblModule} from '../loan-information-template/crg-ccbl/crg-ccbl.module';
+import {FinancialCcblModule} from '../loan-information-template/financial-ccbl/financial-ccbl.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -96,7 +98,9 @@ const COMPONENTS = [
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        CrgCcblModule,
+        FinancialCcblModule
 
 
     ],

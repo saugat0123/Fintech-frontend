@@ -59,10 +59,13 @@
                 <!-- Key financial -->
                 <p>
                     <strong>KEY FINANCIAL FIGURES</strong><br>
-                    <app-financial-summary *ngIf="loanDataHolder?.financial"
-                                           [formData]="loanDataHolder?.financial"
-                                           [loanType]="loanDataHolder?.loanCategory"> </app-financial-summary>
                 </p>
+                <br>
+                <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
+
+                <!--                    <app-financial-summary *ngIf="loanDataHolder?.financial"-->
+                <!--                                           [formData]="loanDataHolder?.financial"-->
+                <!--                                           [loanType]="loanDataHolder?.loanCategory"> </app-financial-summary>-->
             </li>
 
             <li *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">

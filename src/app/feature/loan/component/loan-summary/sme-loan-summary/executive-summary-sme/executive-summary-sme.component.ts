@@ -16,6 +16,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   securityData: Object;
   shareSecurityData: ShareSecurity = new ShareSecurity();
   jsonData;
+  financialCCBL;
 
   constructor() { }
 
@@ -28,6 +29,9 @@ export class ExecutiveSummarySmeComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
       this.jsonData = this.loanDataHolder.companyInfo.companyJsonData;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
+      this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
     }
   }
 

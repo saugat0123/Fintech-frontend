@@ -20,6 +20,7 @@ export class AboveTenMillionComponent implements OnInit {
   tempData;
   guarantorData;
   customerCategory = CustomerCategory.SME_ABOVE_TEN_MILLION;
+  financialCCBL;
   constructor() {}
 
   ngOnInit() {
@@ -27,6 +28,9 @@ export class AboveTenMillionComponent implements OnInit {
       this.tempData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.tempData.data)) {
         this.proposalData = JSON.parse(this.tempData.data);
+      }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
+        this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) &&
       !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
