@@ -188,6 +188,7 @@ export class ProposalComponent implements OnInit {
                     };
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
+                    this.customerType = this.allId.loanCategory;
                 });
         }
         this.getLoanData();
@@ -245,7 +246,9 @@ export class ProposalComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
-        this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
+        if (this.fromProfile) {
+            this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
+        }
     }
 
 
