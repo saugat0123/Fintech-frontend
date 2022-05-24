@@ -319,7 +319,8 @@
                     </li>
                     <li>
                         <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
-                        <app-above-banking-arrangement-of-the-customer [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
+                                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                                        [proposal]="loanDataHolder?.proposal"
                                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
