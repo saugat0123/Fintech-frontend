@@ -333,9 +333,9 @@
 <!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
-                        <p><strong>WAIVERs, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
+                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
                         <tr>
-                            <td>{{proposalData?.waiverConclusionRecommendation}}</td>
+                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation ? (proposalData?.waiverConclusionRecommendation | safeHtml) : 'NA'"></td>
                         </tr>
                     </li>
                     <li>

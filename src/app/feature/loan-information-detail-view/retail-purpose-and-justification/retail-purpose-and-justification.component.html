@@ -1,6 +1,4 @@
-<div class="text-justify p-3">
-    <p><span [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span></p>
-</div>
+<p [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></p>
 <p class="font-weight-bold mt-3" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">(If incase the Borrower is first home buyer)</p>
 <p *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Mr/Mrs. <span [innerHTML]="loanDataHolder?.loanHolder?.name || 'N/A' | safeHtml"></span> is first home buyer. As per the NRB circular we can finance upto 70%. But we are financing only
     <span [innerHTML]="proposalAllData?.financingPerOfFmv || 'N/A' | safeHtml"></span>% of FMV.</p>
