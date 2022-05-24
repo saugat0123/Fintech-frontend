@@ -238,14 +238,19 @@
                         </div>
                     </li>
                     <li>
-                        <p><strong>Capital Structure:</strong> NA</p>
-                    </li>
-                    <li>
-                        <p><strong>Proprietor/Promoters/Shareholding Pattern:</strong> NA</p>
-                    </li>
-                    <li>
                         <p><strong>Request of the Client: </strong></p>
-                        <p>............................................................................</p>
+                        <p>The client has requested us for {{customerAllLoanList?.length > 1 ? 'following loan' :
+                            loanDataHolder?.loan?.name + ' of NPR ' + loanDataHolder?.proposal?.proposedLimit + '@'+
+                            (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
+                            ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
+                            to meet his/her personal obligation.</p>
+                        <div *ngIf="customerAllLoanList?.length > 1">
+                            <ol type="a">
+                                <li *ngFor="let cal of customerAllLoanList">
+                                    {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
+                                    {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ? (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure)</b></li>
+                            </ol>
+                        </div>
                     </li>
                     <li>
                         <p><strong>Business activity/customer background: </strong></p>
@@ -278,6 +283,10 @@
                     </li>
                     <li>
                         <p><strong>Current limits and outstanding of the Client: NA</strong></p>
+                        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                                           [customerAllLoanList]="customerAllLoanList"
+                                           [proposalData]="loanDataHolder?.proposal"
+                                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
                     </li>
                     <li>
                         <p><strong>Name of the companies under the group: NA</strong></p>
@@ -313,8 +322,14 @@
                         <app-retail-compliance></app-retail-compliance>
                     </li>
                     <li>
-                        <p><strong>Report from CICL</strong></p>
-                        <app-retail-report-cicl></app-retail-report-cicl>
+                        <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
+                        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
+                                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                                       [proposal]="loanDataHolder?.proposal"
+                                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+<!--                        <p><strong>Report from CICL</strong></p>-->
+<!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
                         <p><strong>Waiver/Deviation: ...................</strong></p>
@@ -335,8 +350,18 @@
                         </div>
                         <app-retail-security></app-retail-security>
                     </li>
+                    <li>
+                        <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                                   [fromProfile]="false" [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+                    </li>
                 </ol>
             </div>
+<!--            <app-detail-view-base *ngIf="loanHolder"-->
+<!--                                  [calendarType]="calendarType"-->
+<!--                                  [loanDataHolder]="loanDataHolder"-->
+<!--                                  [loanHolder]="loanHolder"-->
+<!--                                  [loanId]="id"-->
+<!--                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>-->
 
             <ng-template #allDocumentView>
                 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"

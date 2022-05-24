@@ -1,20 +1,5 @@
-//$color-bank: #aa2e20;
-//$color-bank-dark: #bb392bd1;
-
-// tinau mission
-//$color-bank: #3A7F56;
-//$color-bank-dark: #282872;
-
-//shine rasunga
-//$color-bank:#B82268;
-//$color-bank-dark:#085DA1;
-//Jyoti bikas bank
-//$color-bank: #0265AC;
-//$color-bank-dark: #D3A22C;
-
-//sb solution
-$color-bank: #f9ff1b;
-$color-bank-dark: #007bff;
+$color-bank: #F57023;
+$color-bank-dark: #00A650;
 
 .bank-hr {
   height: 1px;
@@ -99,7 +84,7 @@ $color-bank-dark: #007bff;
 }
 
 .sb-bg-dark {
-  background-color: #0E63AE !important;
+  background-color: $color-bank-dark !important;
 }
 .f-18{
   font-size: 18px;
@@ -127,7 +112,7 @@ input[type=number] {
 }
 
 .sb-bg-secondary {
-  background-color: #6EB1DF !important;
+  background-color: $color-bank !important;
 }
 /* shake keyframes */
 @keyframes shake {

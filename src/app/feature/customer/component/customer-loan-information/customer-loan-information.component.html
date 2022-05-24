@@ -568,7 +568,7 @@
         </div>
       </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
+      <div class="col-md-4">
         <div class="row">
           <nb-card class="col-md-11 py-2" #dataFromMultiBanking>
             <a class="cursor info-label" (click)="openModel(dataFromMultiBankingTemplate)">
@@ -918,6 +918,27 @@
               <ckeditor formControlName="summeryRecommendation"
                         [style]="{height:'250px !important;'}"
                         placeholder="Summary & Recommendation"
+                        [config]="ckeConfig">
+              </ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Approving Authority</strong></label>
+              <ckeditor formControlName="approvingAuthority"
+                        [style]="{height:'250px !important;'}"
+                        placeholder="Approving Authority"
+                        [config]="ckeConfig">
+              </ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Special Covenants/Conditions, If Any</strong></label>
+              <ckeditor formControlName="specialCovenant"
+                        [style]="{height:'250px !important;'}"
+                        placeholder="Special Covenants/Conditions, If Any"
                         [config]="ckeConfig">
               </ckeditor>
             </div>
