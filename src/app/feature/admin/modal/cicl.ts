@@ -17,6 +17,7 @@ export class Cicl {
   // ciclRelation: string;
   blacklistChecked: boolean;
   blacklistHistory: [];
+  withCcbl: string;
 }
 
 export class CiclArray {

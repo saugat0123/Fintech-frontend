@@ -36,7 +36,7 @@
       <hr>
       <div>
         <nb-checkbox #ciclChk (checkedChange)="ciclHistoryFound(ciclChk.checked)"
-        [checked]="ciclHistory"><strong>CICL History Found</strong></nb-checkbox>
+        [checked]="ciclHistory"><strong>CICL History Found</strong><mark><em>If not found, please fill Remark</em></mark></nb-checkbox>
       </div>
       <div *ngIf="ciclHistory">
         <div formArrayName="ciclArray" *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;">
@@ -244,6 +244,12 @@
         <br/>
 
 
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="withCcbl"><b>With CCBL</b></label>
+          <ckeditor id="withCcbl" formControlName="withCcbl" [config]="ckeConfig"></ckeditor>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12 form-group">
