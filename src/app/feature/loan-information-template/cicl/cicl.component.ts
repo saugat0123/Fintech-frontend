@@ -115,7 +115,6 @@ export class CiclComponent implements OnInit {
           // ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
-            withCcbl: [undefined],
         }));
   }
 
@@ -142,7 +141,6 @@ export class CiclComponent implements OnInit {
           // ciclRelation: [undefined],
           blacklistChecked: [false],
           blacklistHistory: this.formBuilder.array([]),
-            withCcbl: [undefined],
         }));
   }
 
@@ -170,7 +168,6 @@ export class CiclComponent implements OnInit {
             // ciclRelation: [cicl.ciclRelation],
             blacklistChecked: [cicl.blacklistChecked],
             blacklistHistory: this.formBuilder.array([]),
-              withCcbl: [cicl.withCcbl],
           }));
     });
   }
@@ -230,7 +227,6 @@ export class CiclComponent implements OnInit {
       // cicl.ciclRelation = controls.ciclRelation.value;
       cicl.blacklistChecked = controls.blacklistChecked.value;
       cicl.blacklistHistory = controls.blacklistHistory.value,
-          cicl.withCcbl = controls.withCcbl.value,
       this.ciclList.push(cicl);
 
     }
