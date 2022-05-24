@@ -194,6 +194,20 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
             if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                 this.customerAllLoanList.push(this.loanDataHolder);
             }
+            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED' ||
+                this.loanDataHolder.documentStatus.toString() === 'CLOSED' ||
+                this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                this.customerAllLoanList = this.customerAllLoanList.filter(
+                    (c: any) => c.id === this.loanDataHolder.id
+                );
+            } else {
+                this.customerAllLoanList = this.customerAllLoanList.filter(
+                    (c: any) =>
+                        c.currentStage.docAction !== 'CLOSED' &&
+                        c.currentStage.docAction !== 'REJECT' &&
+                        c.currentStage.docAction !== 'APPROVED'
+                );
+            }
             // push loans from combined loan if not in the existing array
             const combinedLoans = this.customerAllLoanList
             .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
@@ -210,6 +224,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                     console.error(err);
                 });
             }
+            console.log('customerAllLoanList', this.customerAllLoanList);
         }, error => {
             console.error(error);
         });
