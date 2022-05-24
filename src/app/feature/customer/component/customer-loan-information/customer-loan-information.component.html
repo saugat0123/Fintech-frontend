@@ -568,7 +568,7 @@
             <a (click)="openModel(commonLoanDatas)" class="cursor info-label">
               <div class="row">
                 <div class="col-md-8">
-                  <p class="custom-font">Common Loan Data</p>
+                  <p class="custom-font">COMMON LOAN DATA</p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
@@ -972,14 +972,10 @@
           </div>
 
           <div class="col-md-12 form-group">
-            <h6><strong>Additional Description</strong></h6>
-            <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
-                         [checked]="waiverChecked">
-              <b>WAIVERS, DEVIATIONS AND DEFERRAL</b>
-            </nb-checkbox>
-            <div *ngIf="waiverChecked">
-              <ckeditor [config]="ckeConfig"
-                        formControlName="waiverConclusionRecommendation"></ckeditor>
+            <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
+            <div>
+              <ckeditor formControlName="waiverConclusionRecommendation"
+                        [config]="ckeConfig"></ckeditor>
             </div>
           </div>
         </div>
