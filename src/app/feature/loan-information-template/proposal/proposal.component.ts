@@ -296,11 +296,6 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
-    if (this.loanType === LoanType.getEnum(LoanType.FULL_SETTLEMENT_LOAN) || this.loanType === LoanType.getEnum(LoanType.CLOSURE_LOAN)) {
-      const fullSettlementAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
-      this.formControls.existingLimit.setValue(NumberUtils.isNumber(fullSettlementAmount));
-      console.log('This is the test data :: ', fullSettlementAmount);
-    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.proposalData = this.formValue;
     }
@@ -661,7 +656,6 @@ export class ProposalComponent implements OnInit {
 
   clearProposedLimitValidation() {
     if (this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'CLOSURE_LOAN') {
-      console.log('Im inside the validation ');
       this.proposalForm.get('proposedLimit').clearValidators();
       this.proposalForm.get('proposedLimit').updateValueAndValidity();
     }

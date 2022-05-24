@@ -788,7 +788,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                </ng-container>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -800,7 +799,9 @@
                                     </div>
                                 </div>
 
-                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
+                                </ng-container>
+
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
@@ -812,7 +813,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 mt-3">
+                                <div class="col-md-12 mt-3" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                     <div class="form-group">
                                         <label class="title"><strong>Summary & Recommendation</strong></label>
                                         <ckeditor formControlName="summeryRecommendation"
@@ -833,6 +834,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
