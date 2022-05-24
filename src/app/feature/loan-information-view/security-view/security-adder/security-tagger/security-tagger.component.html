@@ -9,6 +9,7 @@
                     <thead>
                         <tr class="text-white sb-bg-dark">
                             <th>S.N</th>
+                            <th>Plot Number</th>
                             <th>Fair Market Value</th>
                             <th>Distress Value</th>
                             <th>Consider Value</th>
@@ -24,6 +25,7 @@
                             <tr>
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
+                                    <td>{{getPlotNumber(security.get('data')?.value) || '0'}}</td>
                                     <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
                                     <td>{{security.get('distressValue')?.value || '0'}}</td>
                                     <td>{{security.get('considerValue')?.value || '0'}}</td>
@@ -67,6 +69,7 @@
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
+                <th>Plot Number</th>
                 <th>Fair Market Value</th>
                 <th>Distress Value</th>
                 <th>Consider Value</th>
@@ -81,6 +84,7 @@
             <ng-container *ngFor="let security of securityList; let i=index;">
                 <tr>
                     <td>{{i + 1}}</td>
+                    <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>

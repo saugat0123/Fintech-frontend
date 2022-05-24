@@ -179,4 +179,8 @@ export class SecurityTaggerComponent implements OnInit {
         this.coverage = coveragePercent;
     }
 
+    getPlotNumber(data: any): any {
+      return JSON.parse(data).plotNumber ? JSON.parse(data).plotNumber : 0 ;
+    }
+
 }
