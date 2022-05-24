@@ -135,11 +135,10 @@
                                            placeholder="Bank Name"
                                            type="text"/></td>
                                 <td>
-                                    <nb-select formControlName="facilityName">
-                                        <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
-                                            {{ll?.name}}
-                                        </nb-option>
-                                    </nb-select>
+                                    <input class="form-control text-center"
+                                           formControlName="facilityName"
+                                           placeholder="Facilities"
+                                           type="text"/>
                                 </td>
                                 <td><input class="form-control text-center"
                                            formControlName="limit"
@@ -220,11 +219,10 @@
                                            placeholder="Bank Name"
                                            type="text"/></td>
                                 <td>
-                                    <nb-select formControlName="facilityName">
-                                        <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
-                                            {{ll?.name}}
-                                        </nb-option>
-                                    </nb-select>
+                                    <input class="form-control text-center"
+                                           formControlName="facilityName"
+                                           placeholder="Facilities"
+                                           type="text"/>
                                 </td>
                                 <td><input class="form-control text-center"
                                            formControlName="limit"
@@ -337,11 +335,10 @@
                         <tr [formGroupName]="iv">
                             <td>{{iv + 1}}</td>
                             <td>
-                                <nb-select formControlName="facilityName">
-                                    <nb-option *ngFor="let ll of loanList" [value]="ll?.name">
-                                        {{ll?.name}}
-                                    </nb-option>
-                                </nb-select>
+                                <input class="form-control text-center"
+                                       formControlName="facilityName"
+                                       placeholder="Facilities"
+                                       type="text"/>
                             </td>
                             <td><input class="form-control text-center"
                                        formControlName="avgUtil"
