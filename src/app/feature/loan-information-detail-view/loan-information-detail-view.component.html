@@ -264,8 +264,9 @@
                     </li>
                     <li>
                         <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
-                        <app-retail-purpose-and-justification [loanDataHolder]="loanDataHolder"
-                                                              [proposalData]="proposalData"></app-retail-purpose-and-justification>
+                        <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
                     </li>
                     <li>
                         <div class="row">
@@ -329,8 +330,10 @@
 <!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
-                        <p><strong>Waiver/Deviation: ...................</strong></p>
-                        <p>Justification: ..........................</p>
+                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
+                        <tr>
+                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation ? (proposalData?.waiverConclusionRecommendation | safeHtml) : 'NA'"></td>
+                        </tr>
                     </li>
                     <li>
                         <p><strong>Recommendation: </strong></p>
