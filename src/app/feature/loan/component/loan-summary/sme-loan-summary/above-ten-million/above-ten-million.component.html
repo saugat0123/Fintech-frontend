@@ -61,15 +61,21 @@
         <p class="text-uppercase"><strong>Inspection</strong></p>
         <app-above-inspection></app-above-inspection>
     </li>
-    <li *ngIf="loanDataHolder?.loanHolder?.financial">
-        <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
-        <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"
-                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
+    <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
+
+        <div class="col-md-12">
+            <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
+            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
+        </div>
+<!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
+<!--                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>-->
     </li>
-<!--    <li>-->
-<!--        <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>-->
-<!--        <app-above-assessment-of-facilities-requirement></app-above-assessment-of-facilities-requirement>-->
-<!--    </li>-->
+    <li *ngIf="financialCCBL?.data?.assesment">
+        <div class="col-md-12">
+        <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
+        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment | safeHtml" ></table>
+        </div>
+    </li>
     <li>
         <p class="text-uppercase"><strong>Risk Analysis</strong></p>
         <app-above-risk-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
