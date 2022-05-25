@@ -308,8 +308,8 @@
                         </app-income-from-account-summery>
                     </li>
                     <li>
-                        <p><strong>Risks:</strong></p>
-                        <app-retail-risks></app-retail-risks>
+                        <p><strong>Risks Analysis</strong></p>
+                        <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis" [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
                     <li>
                         <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank
