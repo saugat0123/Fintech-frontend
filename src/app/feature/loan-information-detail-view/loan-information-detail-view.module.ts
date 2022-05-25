@@ -16,17 +16,20 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { RetailFinancialPerformanceComponent } from './retail-financial-performance/retail-financial-performance.component';
 import { RetailPurposeAndJustificationComponent } from './retail-purpose-and-justification/retail-purpose-and-justification.component';
 import { RetailSourceOfRepaymentComponent } from './retail-source-of-repayment/retail-source-of-repayment.component';
-import { RetailRisksComponent } from './retail-risks/retail-risks.component';
+import { RetailProfitabilityOfClienComponent } from './retail-profitability-of-clien/retail-profitability-of-clien.component';
 import { RetailComplianceComponent } from './retail-compliance/retail-compliance.component';
 import { RetailReportCiclComponent } from './retail-report-cicl/retail-report-cicl.component';
 import { RetailRecommendationComponent } from './retail-recommendation/retail-recommendation.component';
 import { RetailSecurityComponent } from './retail-security/retail-security.component';
+import {
+    AboveRiskAnalysisComponent
+} from '../loan/component/loan-summary/sme-loan-summary/above-ten-million/above-risk-analysis/above-risk-analysis.component';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailRisksComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailProfitabilityOfClienComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
     exports: [
-        CreditChecklistViewComponent
+        CreditChecklistViewComponent, AboveRiskAnalysisComponent
     ],
     imports: [
         CommonModule,
