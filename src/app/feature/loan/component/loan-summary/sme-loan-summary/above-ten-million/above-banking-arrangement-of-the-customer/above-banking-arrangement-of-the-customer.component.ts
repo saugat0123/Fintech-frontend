@@ -4,6 +4,7 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {Proposal} from '../../../../../../admin/modal/proposal';
 import {Cicl, CiclArray} from '../../../../../../admin/modal/cicl';
 import {CustomerCategory} from '../../../../../../customer/model/customerCategory';
+import {CustomerType} from '../../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-above-banking-arrangement-of-the-customer',
@@ -15,6 +16,7 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   @Input() proposal: Proposal;
   @Input() cicl: CiclArray;
   @Input() customerCategory;
+  @Input() customerType: CustomerType;
   multiBankingData;
   checkedData;
   proposalData;
