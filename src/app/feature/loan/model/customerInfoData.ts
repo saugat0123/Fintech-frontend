@@ -84,4 +84,6 @@ export class CustomerInfoData {
     selectedArray: string;
     netWorth: string;
     isJointCustomer: any;
+    crgCcbl: string;
+    financialCcbl: string;
 }
