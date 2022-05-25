@@ -220,8 +220,8 @@
       <span [innerHTML]="proposalData?.accountStrategy | safeHtml"></span>
     </div>
   </li>
-  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
-    <p><strong>Average Utilization of facilities by the customer during the last 12 months with
+  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
+    <p><strong>Average Utilization and Transaction Record of facilities by the customer during the last 12 months with
       CCBL</strong></p>
     <div class="container">
       <div class="row">
