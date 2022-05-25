@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <div class="row col-md-12">
+        <div class="row">
          <div class="col-md-4">
              <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
                  <thead>
@@ -22,7 +22,7 @@
              </table>
          </div>
          <div class="col-md-4">
-             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
+             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                  <thead>
                  <tr class="text-white sb-bg-dark">
                      <th>Monthly Expenditure</th>
@@ -64,7 +64,7 @@
                 </table>
             </div>
         </div>
-        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total net uncommitted monthly income (UMI)</strong></td>
@@ -81,13 +81,13 @@
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total EMI and interest expenses to Gross income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>{{financialData?.initialForm?.totalEMIInterest.toFixed(2)}}</strong>
+                    <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>{{financialData?.initialForm?.emiNetMonthly.toFixed(2)}}</strong>
+                    <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>
                 </td>
             </tr>
             </thead>
