@@ -112,19 +112,6 @@
                           placeholder="Political Risk Factors"></textarea>
             </td>
         </tr>
-        <tr>
-            <td style="vertical-align: middle;font-weight: bold; text-align: center">Other Risks</td>
-            <td>
-                <textarea rows="4" class="form-control mt-1 mb-1"
-                          formControlName="otherRisk"
-                          placeholder="Other Risks"></textarea>
-            </td>
-            <td>
-                <textarea rows="4" class="form-control mt-1 mb-1"
-                          formControlName="otherFactor"
-                          placeholder="Other Risk Factors"></textarea>
-            </td>
-        </tr>
         <ng-container *ngFor="let riskAnalysis of riskAnalysisForm?.get('riskAnalysisFreeText')['controls']; let i = index;"
                       formArrayName="riskAnalysisFreeText">
             <ng-container [formGroupName]="i">
