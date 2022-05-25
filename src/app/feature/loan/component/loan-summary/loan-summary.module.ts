@@ -221,6 +221,10 @@ const ENTRY_COMPONENTS = [];
         SmeLoanSummaryComponent,
         AboveSwotAnalysisComponent,
         AboveBankingArrangementOfTheCustomerComponent,
+        AboveRiskAnalysisComponent,
+        AboveRiskAnalysisComponent,
+        AboveRiskAnalysisComponent,
+        AboveRiskAnalysisComponent,
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
