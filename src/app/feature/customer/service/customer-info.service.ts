@@ -87,5 +87,10 @@ export class CustomerInfoService extends BaseService<Object> {
         return this.http.post(req.url, object, {headers: req.header});
     }
 
+    public saveCcbl(formData: FormData) {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/crgCcbl`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
 
 }
