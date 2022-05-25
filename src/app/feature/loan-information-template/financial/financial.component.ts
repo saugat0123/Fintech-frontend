@@ -14,7 +14,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
@@ -48,10 +49,6 @@ export class FinancialComponent implements OnInit {
     financialData: Financial = new Financial();
     currentFormData: Object;
     submitted = false;
-    totalIncome = 0;
-    totalObligationValue = 0;
-    totalExpenses = 0;
-
 
     // Risk factors---
 
@@ -224,7 +221,6 @@ export class FinancialComponent implements OnInit {
             this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
-            this.financialForm.get('totalExpenseObligation').setValue(initialFormData.totalExpenseObligation);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
             this.financialForm.get('historicalDataPresent').setValue(initialFormData.historicalDataPresent);
             this.financialForm.get('totalWorkingCapitalLimit').setValue(initialFormData.totalWorkingCapitalLimit);
@@ -255,39 +251,6 @@ export class FinancialComponent implements OnInit {
             this.crgQuestionsList = s.detail[0];
             console.log(this.crgQuestionsList, 'LISSSTT');
         });
-
-      this.patchTotalIncome();
-    }
-
-    patchTotalIncome() {
-        const data = JSON.parse(this.formData.data).initialForm;
-        data.incomeOfBorrower.forEach((v: any) => {
-            this.totalIncome = Number(this.totalIncome) + Number(v.amount);
-        });
-
-        if (this.totalIncome !== 0) {
-            this.financialForm.get('totalIncome').patchValue(this.totalIncome);
-        }
-
-        if (!ObjectUtil.isEmpty(data.obligationAtOtherBank)) {
-        data.obligationAtOtherBank.forEach((v: any) => {
-            this.totalObligationValue = Number(this.totalObligationValue) + Number(v.obliAmount);
-        }); }
-
-        if (this.totalObligationValue !== 0) {
-            this.financialForm.get('totalExpenseObligation').patchValue(this.totalObligationValue);
-            this.financialForm.get('existingObligationOtherBank').patchValue(this.totalObligationValue);
-        }
-
-        if (!ObjectUtil.isEmpty(data.expensesOfBorrower)) {
-            data.expensesOfBorrower.forEach((v: any) => {
-                this.totalExpenses = Number(this.totalExpenses) + Number(v.amount);
-            });
-        }
-
-        if (this.totalExpenses !== 0) {
-            this.financialForm.get('totalExpense').patchValue(this.totalExpenses);
-        }
     }
 
     buildForm() {
@@ -298,7 +261,6 @@ export class FinancialComponent implements OnInit {
             typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
-            totalExpenseObligation: [0],
             currentTotal: [0],
             netSaving: [0],
             historicalDataPresent: [true],
@@ -322,7 +284,7 @@ export class FinancialComponent implements OnInit {
             obligationGrossIncomeRatio: [undefined],
             crgProfileOfAuditors: [undefined],
             financialDetailCheckBtn: ['old'],
-            projectedFinancialsCheckBtn: [undefined]
+            projectedFinancialsCheckBtn:[undefined]
             // riskFactorForm: this.buildRiskFactorForm(),
         });
     }
@@ -377,8 +339,6 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-
-
 
     //
     //
@@ -595,9 +555,9 @@ export class FinancialComponent implements OnInit {
         this.totalAdditionInitialForm('expensesOfBorrower', 'totalExpense');
     }
 
-    removeExpensesIndexObligation(incomeIndex) {
-        (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(incomeIndex);
-        this.totalAdditionInitialFormObligation('obligationAtOtherBank', 'totalExpenseObligation');
+    removeExpensesIndexObligation(Index) {
+        (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(Index);
+        this.totalAdditionInitialForm('obligationAtOtherBank', 'totalExpenseObligation');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
@@ -608,14 +568,6 @@ export class FinancialComponent implements OnInit {
         this.financialForm.get(resultControllerName).setValue(total);
         this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
             - Number(this.financialForm.get('totalExpense').value));
-    }
-
-    totalAdditionInitialFormObligation(formArrayName, resultControllerName) {
-        let total = 0;
-        (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
-            total = Number(group.get('obliAmount').value) + Number(total);
-        });
-        this.financialForm.get(resultControllerName).setValue(total);
     }
 
     changeActiveTab(tabs: QueryList<any>) {
@@ -666,9 +618,6 @@ export class FinancialComponent implements OnInit {
         }
         this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
-        this.financialForm.patchValue({
-            totalNetMonthlyIncome: (Number(this.financialForm.get('totalIncome').value) - Number(this.financialForm.get('totalExpense').value))
-        });
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
             this.currentFormData['auditorList'] = this.auditorList;
@@ -681,14 +630,16 @@ export class FinancialComponent implements OnInit {
     totalEmiMonthlyGross() {
         const totalNetMonthly = Number(this.financialForm.get('totalIncome').value) -
             Number(this.financialForm.get('totalExpense').value);
-        const totalTMO = Number(this.financialForm.get('emiWithProposal').value) +
-            Number(this.financialForm.get('existingObligationOtherBank').value);
-        const totalEmiNetMonthly = ( totalNetMonthly / totalTMO);
-        this.financialForm.get('totalEMIInterest').patchValue(totalEmiNetMonthly);
+        const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(8);
+        this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
 
-        const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / totalTMO)
-            .toFixed(8);
-        this.financialForm.get('emiNetMonthly').patchValue(totalEMIInterest);
+        // const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
+        //     Number(this.financialForm.get('totalExpense').value)).toFixed(8);
+        // this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
+
+        const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
+            Number(this.financialForm.get('totalIncome').value)).toFixed(8);
+        this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
     }
 
     methodListeners() {
@@ -722,22 +673,9 @@ export class FinancialComponent implements OnInit {
 
     checkDisableAlpha() {
         if (!this.isBusinessLoan && !this.disableCrgAlphaParams) {
-            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
+            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], true);
         } else {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }
-    }
-
-    setObligation(obligationIndex) {
-        let total = 0;
-        this.totalObligationValue = 0;
-       (this.financialForm.get('obligationAtOtherBank') as FormArray).controls.forEach((c: any) => {
-           this.totalObligationValue = Number(this.totalObligationValue) + Number(c.get('obliAmount').value);
-       });
-        total = this.totalIncome - this.totalObligationValue - this.totalExpenses;
-        this.financialForm.patchValue({
-            totalExpenseObligation: this.totalObligationValue,
-            existingObligationOtherBank: this.totalObligationValue,
-        });
     }
 }
