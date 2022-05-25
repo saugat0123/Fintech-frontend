@@ -222,9 +222,6 @@ const ENTRY_COMPONENTS = [];
         AboveSwotAnalysisComponent,
         AboveBankingArrangementOfTheCustomerComponent,
         AboveRiskAnalysisComponent,
-        AboveRiskAnalysisComponent,
-        AboveRiskAnalysisComponent,
-        AboveRiskAnalysisComponent,
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
