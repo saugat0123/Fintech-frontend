@@ -1,14 +1,15 @@
-<div class="col-md-12" *ngIf="fromProfile" >
-    <nb-card>
+<div class="col-md-12" *ngIf="fromProfile">
+    <ng-container>
         <nb-card-header>
             Financial-CCBL
         </nb-card-header>
-        <nb-card-body>
+        <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="file"><b>Sign Sheet Upload</b></label>
                     <br>
-                    <input type="file" accept="application/pdf" id="file" placeholder="Upload" nbButton (input)="upload($event)">
+                    <input type="file" accept="application/pdf" id="file" placeholder="Upload" nbButton
+                           (input)="upload($event)">
                     <span *ngIf="data?.file" class="col-md-3 img-hover flex-wrap"
                           nbTooltip="Financial CCBL">
                   <a (click)="commonService.openDocument(data?.file)" class="cursor"><em
@@ -17,31 +18,31 @@
                 </span>
                 </div>
             </div>
-<div class="col-md-12">
-    <form [formGroup]="formGroup">
-        <div class = "col-md-12">
-            <div class = "form-group">
-                <label><strong>Key Financial Figure</strong></label>
-                <ckeditor [config]="ckEditor" formControlName="financialFigure"> </ckeditor>
+            <div class="col-md-12">
+                <form [formGroup]="formGroup">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Key Financial Figure</strong></label>
+                            <ckeditor [config]="ckEditor" formControlName="financialFigure"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Financial Highlights</strong></label>
+                            <ckeditor [config]="ckEditor" formControlName="financialHighlight"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>ASSESSMENT OF FACILITIES REQUIREMENT </strong></label>
+                            <ckeditor [config]="ckEditor" formControlName="assesment"></ckeditor>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <button class="float-right" nbButton (click)="save()">Save</button>
         </div>
-        <div class = "col-md-12">
-            <div class = "form-group">
-                <label><strong>Financial Highlights</strong></label>
-                <ckeditor [config]="ckEditor" formControlName="financialHighlight"> </ckeditor>
-            </div>
-        </div>
-        <div class = "col-md-12">
-            <div class = "form-group">
-                <label><strong>ASSESSMENT OF FACILITIES REQUIREMENT  </strong></label>
-                <ckeditor [config]="ckEditor" formControlName="assesment"> </ckeditor>
-            </div>
-        </div>
-    </form>
-</div>
-            <button class="float-right" nbButton (click)="save()" >Save</button>
-        </nb-card-body>
-    </nb-card>
+    </ng-container>
 </div>
 <ng-container *ngIf="!fromProfile">
     <nb-card-header>

@@ -50,7 +50,6 @@ export class FinancialCcblComponent implements OnInit {
             assesment: [data ? data.assesment : undefined]
         });
     }
-
     upload(event) {
         this.file = event.target.files[0];
     }
@@ -78,10 +77,10 @@ export class FinancialCcblComponent implements OnInit {
                 this.spinner.hide();
             }
         } else {
-            const data = {
-                file: this.data.file ? this.data.file : '',
-                data: this.formGroup.value
-            };
+                const data = {
+                    file: this.data ? this.data.file : '',
+                    data: this.formGroup.value
+                };
             this.eventEmitter.emit(JSON.stringify(data));
         }
     }

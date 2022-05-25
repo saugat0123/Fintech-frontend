@@ -61,7 +61,11 @@
                     <strong>KEY FINANCIAL FIGURES</strong><br>
                 </p>
                 <br>
-                <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
+                    </div>
+                </div>
                 <br>
 
                 <!--                    <app-financial-summary *ngIf="loanDataHolder?.financial"-->

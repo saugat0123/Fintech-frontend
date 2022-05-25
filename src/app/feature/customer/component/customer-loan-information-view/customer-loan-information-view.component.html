@@ -180,25 +180,30 @@
 
       <div class="col-md-4" *ngIf="customerInfo?.financialCcbl">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #itemCrg>
-            <a class="cursor info-label" (click)="openModel(financialCCBL)">
-              <div class="row">
+          <nb-card class="col-md-11 py-2" #financialCCbls>
+            <a class="cursor info-label" (click)="openModel(financialCcbl)">
+              <div class="row cursor">
                 <div class="col-md-8">
-                  <p class="custom-font">Financial CCBL</p>
+                  <p class="custom-font">
+                    Financial - CCBL
+                  </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-              <span style="color: green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
+                  <span style="color:green" title="Status : Saved">
+                     <em *ngIf="customerInfo?.financialCcbl" class="fas fa-check-circle px-2"></em>
+                  </span>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.financialCcbl" class="fas fa-times-circle px-2"></em>
+                     </span>
                 </div>
               </div>
             </a>
           </nb-card>
         </div>
-        <ng-template #financialCCBL let-data let-ref="dialogRef">
+        <ng-template #financialCcbl let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              Financial CCBL
+              Financial-CCBL
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -206,11 +211,12 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-financial-ccbl [customerInfo]="customerInfo"></app-financial-ccbl>
+              <app-financial-ccbl [customerInfo]="customerInfo"  [fromProfile]="false" ></app-financial-ccbl>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
+
 
       <div class="col-md-4" *ngIf="customerInfo?.crgCcbl">
         <div class="row">

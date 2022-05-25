@@ -19,7 +19,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     nbDialogRef: NbDialogRef<any>;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
-  private modalService: NbDialogService,) {
+  private modalService: NbDialogService) {
   }
 
   ngOnInit() {
