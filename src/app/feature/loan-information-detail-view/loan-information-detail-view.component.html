@@ -313,6 +313,10 @@
                             policies.</p>
                         <app-retail-compliance></app-retail-compliance>
                     </li>
+                    <li *ngIf="loanDataHolder.loan.loanTag === 'SHARE_SECURITY'">
+                        <p><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against Share)</strong>
+                            <span [innerHTML]="proposalData?.debtStructure | safeHtml"></span>
+                    </li>
                     <li>
                         <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
                         <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
