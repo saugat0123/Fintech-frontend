@@ -601,7 +601,7 @@ export class FinancialComponent implements OnInit {
 
     removeExpensesIndexObligation(incomeIndex) {
         (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(incomeIndex);
-        this.totalAdditionInitialForm('obligationAtOtherBank', 'totalExpenseObligation');
+        this.totalAdditionInitialFormObligation('obligationAtOtherBank', 'totalExpenseObligation');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
@@ -612,6 +612,16 @@ export class FinancialComponent implements OnInit {
         this.financialForm.get(resultControllerName).setValue(total);
         this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
             - Number(this.financialForm.get('totalExpense').value));
+    }
+
+    totalAdditionInitialFormObligation(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
+            total = Number(group.get('obliAmount').value) + Number(total);
+        });
+        this.financialForm.get(resultControllerName).setValue(total);
+        this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
+            - Number(this.financialForm.get('totalExpenseObligation').value));
     }
 
     changeActiveTab(tabs: QueryList<any>) {
@@ -674,15 +684,11 @@ export class FinancialComponent implements OnInit {
     totalEmiMonthlyGross() {
         const totalNetMonthly = Number(this.financialForm.get('totalIncome').value) -
             Number(this.financialForm.get('totalExpense').value);
-        const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(8);
+        const totalEmiNetMonthly = ( totalNetMonthly /(Number(this.financialForm.get('emiWithProposal').value) + Number(this.financialForm.get('existingObligationOtherBank').value)) ).toFixed(8);
         this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
 
-        // const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
-        //     Number(this.financialForm.get('totalExpense').value)).toFixed(8);
-        // this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
-
-        const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
-            Number(this.financialForm.get('totalIncome').value)).toFixed(8);
+        const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / Number(this.financialForm.get('emiWithProposal').value))
+            .toFixed(8);
         this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
     }
 
@@ -717,7 +723,7 @@ export class FinancialComponent implements OnInit {
 
     checkDisableAlpha() {
         if (!this.isBusinessLoan && !this.disableCrgAlphaParams) {
-            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], true);
+            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         } else {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }

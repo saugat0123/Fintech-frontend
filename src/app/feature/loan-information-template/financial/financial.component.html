@@ -231,7 +231,7 @@
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
+                        <label for="totalNetMonthlyIncome"><strong>Total net uncommitted monthly income (UMI)</strong></label>
                         <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
                                placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(8)">
@@ -242,7 +242,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
+                        <label for="emiWithProposal"><strong>EMI CCBL of present proposal</strong></label><strong
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
@@ -255,7 +255,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="totalEMIInterest"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <label for="totalEMIInterest"><strong>EMI/TMO</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
