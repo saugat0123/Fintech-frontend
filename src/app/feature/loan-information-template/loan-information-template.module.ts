@@ -47,6 +47,7 @@ import {CreateDocumentComponent} from './security/security-initial-form/create-d
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
+import { FinancialCcblComponent } from './financial-ccbl/financial-ccbl.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
