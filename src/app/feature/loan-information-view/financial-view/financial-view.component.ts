@@ -27,9 +27,7 @@ export class FinancialViewComponent implements OnInit {
   ngOnInit() {
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
-      console.log('finiancialData', this.financialData.initialForm.incomeOfBorrower);
       this.incomeSource = JSON.stringify(this.financialData.initialForm.incomeOfBorrower);
-      console.log('income source', this.incomeSource);
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION ) {
         this.isBusinessLoan = true;
       }

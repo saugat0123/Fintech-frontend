@@ -14,8 +14,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
-import {NgSelectComponent} from '@ng-select/ng-select';
+import {TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {environment} from '../../../../environments/environment';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
@@ -261,13 +260,10 @@ export class FinancialComponent implements OnInit {
     }
 
     patchTotalIncome() {
-        console.log(JSON.parse(this.formData.data).initialForm, 'FORMDATA');
         const data = JSON.parse(this.formData.data).initialForm;
         data.incomeOfBorrower.forEach((v: any) => {
             this.totalIncome = Number(this.totalIncome) + Number(v.amount);
-            console.log(this.totalIncome, 'income');
         });
-        console.log(this.totalIncome, 'income');
 
         if (this.totalIncome !== 0) {
             this.financialForm.get('totalIncome').patchValue(this.totalIncome);
@@ -620,8 +616,6 @@ export class FinancialComponent implements OnInit {
             total = Number(group.get('obliAmount').value) + Number(total);
         });
         this.financialForm.get(resultControllerName).setValue(total);
-        this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
-            - Number(this.financialForm.get('totalExpenseObligation').value));
     }
 
     changeActiveTab(tabs: QueryList<any>) {
@@ -672,6 +666,9 @@ export class FinancialComponent implements OnInit {
         }
         this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
+        this.financialForm.patchValue({
+            totalNetMonthlyIncome: (Number(this.financialForm.get('totalIncome').value) - Number(this.financialForm.get('totalExpense').value))
+        });
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
             this.currentFormData['auditorList'] = this.auditorList;
@@ -687,7 +684,6 @@ export class FinancialComponent implements OnInit {
         const totalTMO = Number(this.financialForm.get('emiWithProposal').value) +
             Number(this.financialForm.get('existingObligationOtherBank').value);
         const totalEmiNetMonthly = ( totalNetMonthly / totalTMO);
-        console.log('TMO',totalTMO);
         this.financialForm.get('totalEMIInterest').patchValue(totalEmiNetMonthly);
 
         const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / totalTMO)

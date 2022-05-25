@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <div class="row col-md-12">
-         <div class="col-md-6">
+         <div class="col-md-4">
              <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
                  <thead>
                  <tr class="text-white sb-bg-dark">
@@ -21,7 +21,7 @@
                  </tbody>
              </table>
          </div>
-         <div class="col-md-6">
+         <div class="col-md-4">
              <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
                  <thead>
                  <tr class="text-white sb-bg-dark">
@@ -42,13 +42,34 @@
                  </tr>
              </table>
          </div>
+            <div class="col-md-4">
+                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Monthly Expenditure</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of financialData['initialForm']['obligationAtOtherBank'];">
+                        <td  class="text-left pl-1">{{data.obliParticulars}}</td>
+                        <td class="text-right pr-1">Rs. {{data.obliAmount | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><strong>Total Expense</strong></td>
+                        <td class="text-right pr-1">
+                            <strong>Rs. {{financialData['initialForm']['totalExpenseObligation'] | currencyFormatter}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total net uncommitted monthly income (UMI)</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
+                    <strong>Rs. {{financialData?.initialForm?.totalNetMonthlyIncome | currencyFormatter}}</strong>
                 </td>
             </tr>
             <tr>
@@ -60,13 +81,13 @@
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total EMI and interest expenses to Gross income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
+                    <strong>{{financialData?.initialForm?.totalEMIInterest.toFixed(2)}}</strong>
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>
+                    <strong>{{financialData?.initialForm?.emiNetMonthly.toFixed(2)}}</strong>
                 </td>
             </tr>
             </thead>
