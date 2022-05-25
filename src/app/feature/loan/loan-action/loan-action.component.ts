@@ -47,6 +47,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     hasDeferredDocs: boolean;
     @Input() customerType;
     @Input() branchId;
+    @Input() customerLoanHolder: LoanDataHolder;
     @Input() isDetailedView: boolean;
     public isMaker = false;
     public committeeRole = false;
@@ -125,7 +126,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 };
                 break;
             case 'forward':
-                if (this.loanFlags && this.loanFlags.length > 0) {
+                if (this.loanFlags && this.loanFlags.length > 0 && this.customerLoanHolder.loanType.toString() !== LoanType.getEnum(LoanType.FULL_SETTLEMENT_LOAN)
+                    && this.customerLoanHolder.loanType.toString() !== LoanType.getEnum(LoanType.CLOSURE_LOAN)) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
                     this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
 

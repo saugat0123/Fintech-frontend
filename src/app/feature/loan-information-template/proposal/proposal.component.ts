@@ -98,6 +98,10 @@ export class ProposalComponent implements OnInit {
       if (this.proposalForm.get('subsidyLoanType').value === 'Others') {
         this.othersSubsidyLoan = true;
       }
+      if (ObjectUtil.isEmpty(this.formDataForEdit['settlementAmount']) && this.loanType === 'FULL_SETTLEMENT_LOAN'
+          || this.loanType === 'CLOSURE_LOAN') {
+        this.proposalForm.get('settlementAmount').patchValue(this.formValue.existingLimit);
+      }
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
@@ -151,6 +155,7 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
+            this.clearProposedLimitValidation();
             if (ObjectUtil.isEmpty(this.formDataForEdit)) {
               this.interestLimit = response.detail.interestRate;
             }
@@ -262,7 +267,7 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT' || this.loanType === 'CLOSURE_LOAN') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
       this.proposalForm.get('outStandingLimit');
@@ -586,6 +591,15 @@ export class ProposalComponent implements OnInit {
             const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
             this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
             return;
+          case  'FULL_SETTLEMENT_LOAN':
+            const fullSettlementAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(fullSettlementAmount));
+            return;
+          case  'CLOSURE_LOAN':
+            const closedAmount = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(closedAmount));
+            this.clearProposedLimitValidation();
+            return;
           default:
             return;
         }
@@ -637,6 +651,13 @@ export class ProposalComponent implements OnInit {
             remarks: [undefined],
           })
       );
+    }
+  }
+
+  clearProposedLimitValidation() {
+    if (this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'CLOSURE_LOAN') {
+      this.proposalForm.get('proposedLimit').clearValidators();
+      this.proposalForm.get('proposedLimit').updateValueAndValidity();
     }
   }
 
