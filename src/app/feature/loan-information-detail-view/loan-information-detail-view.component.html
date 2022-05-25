@@ -309,7 +309,7 @@
                     </li>
                     <li>
                         <p><strong>Risks Analysis</strong></p>
-                        <app-above-risk-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
+                        <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis" [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
                     <li>
                         <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank
