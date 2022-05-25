@@ -69,7 +69,7 @@ export class CommonSectionTopRetailComponent implements OnInit {
               ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
           ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
               !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
-              ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+              ', ' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
     }
     this.form.patchValue({
       referenceNumber: this.refNum ? this.refNum : '',

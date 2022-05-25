@@ -1,7 +1,6 @@
-<div class="container text-justify col-md-12 mt-10">
+<div class="container text-justify col-md-12 viewFull mt-10">
     <div class="row">
-        <form [formGroup]="form">
-            <div>
+        <form [formGroup]="form" class="col-md-12">
                 स्वीकृती पत्र नं.
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="referenceNumber"
@@ -11,8 +10,9 @@
                 <span class="print-only">{{this.refNum ? this.refNum : '______________________'}}</span>
                 <br>
                 <br>
-                <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
-                <br>
+                <div class="text-center">
+                    <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
+                </div>
                 <br>
                 मितिः <input class="form-field form-control-sm d-print-none"
                              formControlName="sanctionLetterDate"
@@ -24,15 +24,15 @@
                             formControlName="nameOfBorrower"
                             name="nameOfBorrower"
                             type="text"/>
-                <span class="print-only">{{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '______________________'}}</span>|
+                <span class="print-only">{{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '______________________'}}</span>
+                ज्यु,
                 <br>
                 ठेगानाः <input class="form-field form-control-sm d-print-none"
                                formControlName="addressOfBorrower"
                                name="addressOfBorrower"
                                type="text"/>
-                <span class="print-only">{{this.address ? this.address : '______________________'}}</span>
+                <span class="print-only">{{this.address ? this.address : '______________________'}}</span>, नेपाल
                 <br>
-            </div>
         </form>
     </div>
 </div>
