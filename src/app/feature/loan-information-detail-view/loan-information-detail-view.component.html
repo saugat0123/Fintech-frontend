@@ -301,9 +301,6 @@
                         <p><strong>Regularity of payments: NA</strong></p>
                     </li>
                     <li>
-                        <p><strong>Transaction Record of the client: New Relationship. Yet to be tested </strong></p>
-                    </li>
-                    <li>
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [formData]="loanHolder?.incomeFromAccount">
                         </app-income-from-account-summery>
                     </li>
@@ -326,7 +323,8 @@
                                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                                        [proposal]="loanDataHolder?.proposal"
                                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
-                                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+                                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
+                                                                       [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
 <!--                        <p><strong>Report from CICL</strong></p>-->
 <!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>

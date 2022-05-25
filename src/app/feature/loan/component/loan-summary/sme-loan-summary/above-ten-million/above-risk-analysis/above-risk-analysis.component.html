@@ -1,60 +1,55 @@
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
     <tr class="sb-bg-dark text-white">
-        <th>Risk Types	Perceived risks	Mitigating factors</th>
+        <th>Risk Types</th>
         <th>Perceived risks</th>
         <th>Mitigating factors</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Industry Risks</td>
+    <tr *ngIf="industryVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Industry Risks</td>
         <td>{{riskData ? riskData?.industryRisk : ''}}</td>
         <td>{{riskData ? riskData?.industryFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Business Risks</td>
+    <tr *ngIf="businessVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Business Risks</td>
         <td>{{riskData ? riskData?.businessRisk : ''}}</td>
         <td>{{riskData ? riskData?.businessFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Financial Risks</td>
+    <tr *ngIf="financialVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Financial Risks</td>
         <td>{{riskData ? riskData?.financialRisk : ''}}</td>
         <td>{{riskData ? riskData?.financialFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Management Risks</td>
+    <tr *ngIf="managementVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Management Risks</td>
         <td>{{riskData ? riskData?.managementRisk : ''}}</td>
         <td>{{riskData ? riskData?.managementFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Succession Risks</td>
+    <tr *ngIf="successionVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Succession Risks</td>
         <td>{{riskData ? riskData?.successionRisk : ''}}</td>
         <td>{{riskData ? riskData?.successionFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Environmental/Climate Change/Safety issues</td>
+    <tr *ngIf="environmentVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Environmental/Climate Change/Safety issues</td>
         <td>{{riskData ? riskData?.environmentalIssues : ''}}</td>
         <td>{{riskData ? riskData?.environmentalIssuesFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Adverse features with other group concerns</td>
+    <tr *ngIf="adverseVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Adverse features with other group concerns</td>
         <td>{{riskData ? riskData?.adverseFeatures : ''}}</td>
         <td>{{riskData ? riskData?.adverseFeaturesFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Political Risk</td>
+    <tr *ngIf="politicalVisible">
+        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">Political Risk</td>
         <td>{{riskData ? riskData?.politicalRisk : ''}}</td>
         <td>{{riskData ? riskData?.politicalFactor : ''}}</td>
     </tr>
-    <tr>
-        <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">Other Risks</td>
-        <td>{{riskData ? riskData?.otherRisk : ''}}</td>
-        <td>{{riskData ? riskData?.otherFactor : ''}}</td>
-    </tr>
     <ng-container *ngIf="riskDataFree">
         <tr *ngFor="let data of riskData?.riskAnalysisFreeText;">
-            <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: center">{{data ? data?.riskTypeName: ''}}</td>
+            <td style="width:30%; vertical-align: middle;font-weight: bold; text-align: left" class="sb-bg-secondary text-white">{{data ? data?.riskTypeName: ''}}</td>
             <td>{{data ? data?.perceiveRisk : ''}}</td>
             <td>{{data ? data?.mitigatingRisk : ''}}</td>
         </tr>
