@@ -23,6 +23,7 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
+import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 
 @Component({
   selector: 'app-proposal',
@@ -43,6 +44,7 @@ export class ProposalComponent implements OnInit {
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
+    // @Output() crgGammaData = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
@@ -138,7 +140,7 @@ export class ProposalComponent implements OnInit {
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
     customerType: any;
-    defaultCompliance = '<p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\"><strong>Repayment:</strong></span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\"><strong>Mode of Disbursemet:</strong></span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">The loan shall be disbursed as under:</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Execution of all the security documents including mortgaged of proposed collateral.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">Letter of undertaking to the seller shall be issued at the request of buyer.</span></span></p><p><span style=\\"font-size:12pt\\"><span style=\\"font-family:&quot;Times New Roman&quot;,serif\\">Completion of security documentations</span></span></p>';
+    defaultCompliance = '<p><strong>Repayment:</strong></p>\n\n<p>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</p>\n\n<p>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</p>\n\n<p><strong>Mode of Disbursemet:</strong></p>\n\n<p>The loan shall be disbursed as under:</p>\n\n<ul>\n\t<li>We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</li>\n\t<li>Execution of all the security documents including mortgaged of proposed collateral.</li>\n</ul>\n\n<p>Letter of undertaking to the seller shall be issued at the request of buyer.</p>\n\n<p>Completion of security documentations</p>\n\n<p>test</p>\n';
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -175,6 +177,7 @@ export class ProposalComponent implements OnInit {
                 this.setGroupExposureData(this.groupExposureData);
             }
         } else {
+            this.proposalForm.get('compliance').patchValue(this.defaultCompliance);
             this.setActiveBaseRate();
             this.addGroupExposureData();
         }
@@ -231,7 +234,6 @@ export class ProposalComponent implements OnInit {
                 .patchValue(Number(value));
             this.proposedLimit = this.proposalForm.get('proposedLimit').value;
         });
-        // this.proposalForm.get('summeryRecommendation').patchValue(this.defaultCompliance);
     }
 
     getLoanData() {
@@ -381,6 +383,7 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
+            compliance: [undefined],
 
     });
     }
@@ -425,13 +428,12 @@ export class ProposalComponent implements OnInit {
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
 
-    setIndividualCrgGamma(crgGamma: any): void {
+    setIndividualCrgGamma(crgGamma: CreditRiskGradingGamma): void {
         this.loan.crgGamma = crgGamma;
-        console.log(this.loan, 'CRGDATA');
     }
 
     onSubmit() {
-        if (this.customerType === 'INDIVIDUAL') {
+        if (this.customerType === 'INDIVIDUAL' && this.fromProfile) {
             this.crgGammaComponent.onSubmit();
         }
         // Proposal Form Data--
@@ -454,7 +456,6 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
-        console.log('fromProfile', this.fromProfile);
       if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
                 this.proposalData = this.formValue;
@@ -491,7 +492,6 @@ export class ProposalComponent implements OnInit {
             }
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
-          console.log('proposalData', this.proposalData);
             this.spinner.show();
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));

@@ -720,6 +720,5 @@ export class LoanFormComponent implements OnInit {
   }
   updateSecurityList(event) {
     this.loanDocument = event;
-    console.log(this.loanDocument);
   }
 }

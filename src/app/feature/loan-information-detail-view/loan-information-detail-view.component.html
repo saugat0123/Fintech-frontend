@@ -82,123 +82,123 @@
                 </div>
             </div>
             <hr>
-            <section class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">TO</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.toUser?.name}}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">THROUGH</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">FROM</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.fromUser?.name}}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">SUBJECT</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.docAction}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">CLIENT NAME</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.name}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">GROUP(Name,Code)</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small" *ngFor="let item of individualData?.accountDetails; let i = index">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">ACCOUNT NUMBER {{i + 1}}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span class="font-weight-bold">{{item?.accountNo}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 sb-small">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">CUSTOMER ID</p>
-                            </div>
-                            <div class="col-md-2">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idNumber}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 sb-small">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p class="font-weight-bold sb-small">DATE</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="sb-small">: <span
-                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idRegDate | date}}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 sb-small">
-                        <div class="row justify-content-end">
-                            <div class="col-md-4">
-                                <p class="font-weight-bold sb-small text-right">REF. NO. CCBL</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="sb-small">: <span class="font-weight-bold">{{loanDataHolder.refNo}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<!--            <section class="container-fluid">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">TO</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.toUser?.name}}</span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">THROUGH</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: ...................</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">FROM</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.fromUser?.name}}</span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">SUBJECT</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.docAction}}</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">CLIENT NAME</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.name}}</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">GROUP(Name,Code)</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}, {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small" *ngFor="let item of individualData?.accountDetails; let i = index">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">ACCOUNT NUMBER {{i + 1}}</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span class="font-weight-bold">{{item?.accountNo}}</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="font-weight-bold sb-small">CUSTOMER ID</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idNumber}}</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6 sb-small">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-4">-->
+<!--                                <p class="font-weight-bold sb-small">DATE</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <p class="sb-small">: <span-->
+<!--                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idRegDate | date}}</span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6 sb-small">-->
+<!--                        <div class="row justify-content-end">-->
+<!--                            <div class="col-md-4">-->
+<!--                                <p class="font-weight-bold sb-small text-right">REF. NO. CCBL</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <p class="sb-small">: <span class="font-weight-bold">{{loanDataHolder.refNo}}</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
 
             <!-- DO NOT REMOVE -->
 
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
                 </div>
@@ -222,7 +222,7 @@
                     </span>
 
                 </div>
-            </div> -->
+            </div>
             <hr>
             <div class="container-fluid">
                 <ol class="heading-list">
