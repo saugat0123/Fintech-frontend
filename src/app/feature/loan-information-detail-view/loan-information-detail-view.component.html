@@ -364,6 +364,12 @@
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist" [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [fromProfile]="false" [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
                     </li>
+                    <li>
+                        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
+                    </li>
+                    <div>
+                        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+                    </div>
                 </ol>
             </div>
 <!--            <app-detail-view-base *ngIf="loanHolder"-->
