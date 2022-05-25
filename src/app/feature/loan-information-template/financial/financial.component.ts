@@ -684,12 +684,15 @@ export class FinancialComponent implements OnInit {
     totalEmiMonthlyGross() {
         const totalNetMonthly = Number(this.financialForm.get('totalIncome').value) -
             Number(this.financialForm.get('totalExpense').value);
-        const totalEmiNetMonthly = ( totalNetMonthly /(Number(this.financialForm.get('emiWithProposal').value) + Number(this.financialForm.get('existingObligationOtherBank').value)) ).toFixed(8);
-        this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
+        const totalTMO = Number(this.financialForm.get('emiWithProposal').value) +
+            Number(this.financialForm.get('existingObligationOtherBank').value);
+        const totalEmiNetMonthly = ( totalNetMonthly / totalTMO);
+        console.log('TMO',totalTMO);
+        this.financialForm.get('totalEMIInterest').patchValue(totalEmiNetMonthly);
 
-        const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / Number(this.financialForm.get('emiWithProposal').value))
+        const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / totalTMO)
             .toFixed(8);
-        this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
+        this.financialForm.get('emiNetMonthly').patchValue(totalEMIInterest);
     }
 
     methodListeners() {
