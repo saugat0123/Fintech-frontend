@@ -681,6 +681,17 @@
                                         </span>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12" *ngIf="customerType === 'INDIVIDUAL'">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Compliance</strong></label>
+                                        <ckeditor formControlName="compliance"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Compliance"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
                                 <ng-container *ngIf="!fromProfile">
 
                                     <div class="col-md-12">
@@ -832,16 +843,6 @@
                                             <ckeditor formControlName="summeryRecommendation"
                                                       [style]="{height:'250px !important;'}"
                                                       placeholder="Summary & Recommendation"
-                                                      [config]="ckeConfig">
-                                            </ckeditor>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title"><strong>Compliance</strong></label>
-                                            <ckeditor formControlName="compliance"
-                                                      [style]="{height:'250px !important;'}"
-                                                      placeholder="Compliance"
                                                       [config]="ckeConfig">
                                             </ckeditor>
                                         </div>

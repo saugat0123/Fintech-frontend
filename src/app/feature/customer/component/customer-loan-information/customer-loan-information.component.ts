@@ -176,7 +176,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     loanTag: string;
     reviewDate;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
-    defaultCompliance = '<p><strong>Repayment:</strong></p>\n\n<p>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</p>\n\n<p>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</p>\n\n<p><strong>Mode of Disbursemet:</strong></p>\n\n<p>The loan shall be disbursed as under:</p>\n\n<ul>\n\t<li>We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</li>\n\t<li>Execution of all the security documents including mortgaged of proposed collateral.</li>\n</ul>\n\n<p>Letter of undertaking to the seller shall be issued at the request of buyer.</p>\n\n<p>Completion of security documentations</p>\n\n<p>test</p>\n';
 
     constructor(
         private toastService: ToastService,
@@ -700,14 +699,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
-            compliance: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
-        } else {
-            this.commonLoanData.get('compliance').patchValue(this.defaultCompliance);
         }
     }
 

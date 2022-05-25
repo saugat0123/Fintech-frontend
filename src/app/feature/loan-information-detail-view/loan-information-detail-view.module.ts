@@ -18,14 +18,13 @@ import { RetailPurposeAndJustificationComponent } from './retail-purpose-and-jus
 import { RetailSourceOfRepaymentComponent } from './retail-source-of-repayment/retail-source-of-repayment.component';
 import { RetailProfitabilityOfClienComponent } from './retail-profitability-of-clien/retail-profitability-of-clien.component';
 import { RetailRisksComponent } from './retail-risks/retail-risks.component';
-import { RetailComplianceComponent } from './retail-compliance/retail-compliance.component';
 import { RetailReportCiclComponent } from './retail-report-cicl/retail-report-cicl.component';
 import { RetailRecommendationComponent } from './retail-recommendation/retail-recommendation.component';
 import { RetailSecurityComponent } from './retail-security/retail-security.component';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailProfitabilityOfClienComponent, RetailRisksComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailProfitabilityOfClienComponent, RetailRisksComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
     exports: [
         CreditChecklistViewComponent
     ],

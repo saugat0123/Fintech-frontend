@@ -312,9 +312,10 @@
                         <app-retail-risks></app-retail-risks>
                     </li>
                     <li>
-                        <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank
-                            policies.</p>
-                        <app-retail-compliance></app-retail-compliance>
+                        <p><strong>Compliance:</strong></p>
+                        <tr>
+                            <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
+                        </tr>
                     </li>
                     <li>
                         <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
