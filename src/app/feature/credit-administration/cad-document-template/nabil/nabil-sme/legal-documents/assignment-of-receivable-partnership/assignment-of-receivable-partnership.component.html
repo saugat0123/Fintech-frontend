@@ -98,14 +98,14 @@
                                         [value]="partner?.indianOwnerAdharCardNoCT" placeholder="" type="text" />
                                     <span
                                         class="print-only font-weight-bold">{{ partner?.indianOwnerAdharCardNoCT ? partner?.indianOwnerAdharCardNoCT : '_________________'}}</span>
-                                    <ng-container *ngIf="partner.indianOwnerPassportNo">
+                                    <ng-container *ngIf="partner?.indianOwnerPassportNo">
                                         राहदानी नम्बर:
                                         <input class="form-field form-control-sm  disable-print" name="foreignAddress"
                                             [value]="partner?.indianOwnerPassportNoCT" placeholder="" type="text" />
                                         <span
                                             class="print-only font-weight-bold">{{ partner?.indianOwnerPassportNoCT ? partner?.indianOwnerPassportNoCT : '_________________'}}</span>
                                     </ng-container>
-                                    <ng-container *ngIf="partner.otherOwnerPassportNo">
+                                    <ng-container *ngIf="partner?.otherOwnerPassportNo">
                                         राहदानी नम्बर:
                                         <input class="form-field form-control-sm  disable-print" name="foreignAddress"
                                             [value]="partner?.otherOwnerPassportNoCT" placeholder="" type="text" />
@@ -116,7 +116,7 @@
 
                                 <ng-container *ngIf="partner?.indianOwnerDetailOption === 'Passport'">
                                     राहदानी नम्बर:
-                                    <ng-container *ngIf="partner.indianOwnerPassportNo">
+                                    <ng-container *ngIf="partner?.indianOwnerPassportNo">
                                         <input class="form-field form-control-sm  disable-print" name="foreignAddress"
                                             [value]="partner?.indianOwnerPassportNoCT" placeholder="" type="text" />
                                         <span
@@ -137,7 +137,7 @@
                                     <span
                                         class="print-only font-weight-bold">{{ partner?.indianEmbassyNoCT ? partner?.indianEmbassyNoCT : '_________________'}}</span>
                                         
-                                </ng-container><ng-container *ngIf="partner.indianOwnerPassportNo">
+                                </ng-container><ng-container *ngIf="partner?.indianOwnerPassportNo">
                                     राहदानी नम्बर:
                                     <input class="form-field form-control-sm  disable-print" name="foreignAddress"
                                         [value]="partner?.indianOwnerPassportNoCT" placeholder="" type="text" />
@@ -176,9 +176,9 @@
                                     name="citizenNoOfPartner" [value]="partner?.ownerCitizenshipNoCT" placeholder=" "
                                     type="text" />
                                 <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : '______________________'}}</span>
-                                (मिति <input class="form-field form-control-sm d-print-none" name="issueDateOfPartner"
-                                    [value]="this.issueDate[i].issueDate" placeholder=" " type="text" />
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
+                                मिति <input class="form-field form-control-sm d-print-none" name="issueDateOfPartner"
+                                    [value]="this.issueDate[i]?.issueDate" placeholder=" " type="text" />
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.issueDate : '______________________'}}</span>
                                 जिल्ला प्रशासन कार्यालय
                                 <input class="form-field form-control-sm d-print-none" name="issueDistrictOfPartner"
                                     [value]="partner?.ownerCitizenshipIssuedDistrictCT" placeholder=" " type="text" />
@@ -196,16 +196,16 @@
                                 <span class="print-only">{{partner ? partner?.indianOwnerPassportNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="authorizedDateOfIssue"
-                                                 [value]="this.issueDate[i].issueDate"
+                                                 [value]="this.issueDate[i]?.issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.issueDate : '______________________'}}</span>
                                 म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                         name="authorizedDateOfValid"
-                                                        [value]="this.issueDate[i].validDate"
+                                                        [value]="this.issueDate[i]?.validDate"
                                                         placeholder=" "
                                                         type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : '______________________'}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.validDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="indianOwnerPassportIssuedFromCT"
                                        [value]="partner?.indianOwnerPassportIssuedFromCT"
@@ -222,16 +222,16 @@
                                 <span class="print-only">{{partner ? partner?.otherOwnerPassportNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="authorizedDateOfIssue"
-                                                 [value]="this.issueDate[i].issueDate"
+                                                 [value]="this.issueDate[i]?.issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.issueDate : '______________________'}}</span>
                                 म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                         name="authorizedDateOfValid"
-                                                        [value]="this.issueDate[i].validDate"
+                                                        [value]="this.issueDate[i]?.validDate"
                                                         placeholder=" "
                                                         type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : '______________________'}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.validDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="otherOwnerPassportIssuedFromCT"
                                        [value]="partner?.otherOwnerPassportIssuedFromCT"
@@ -249,10 +249,10 @@
                                 <span class="print-only">{{partner ? partner?.indianOwnerAdharCardNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="authorizedDateOfIssue"
-                                                 [value]="this.issueDate[i].issueDate"
+                                                 [value]="this.issueDate[i]?.issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.issueDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedIdentity"
                                        [value]="partner?.indianOwnerAdharCardIssuedFromCT"
@@ -270,10 +270,10 @@
                                 <span class="print-only">{{partner ? partner?.indianEmbassyNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="authorizedDateOfIssue"
-                                                 [value]="this.issueDate[i].issueDate"
+                                                 [value]="this.issueDate[i]?.issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i]?.issueDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="indianEmbassyIssuedFromCT"
                                        [value]="partner?.indianEmbassyIssuedFromCT"
@@ -358,52 +358,52 @@
                             <li><input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict1"
                                     formControlName="witnessDistrict1" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo?.witnessDistrict1 : '=====================================') : '====================================='}}</span>
                                 जिल्ला <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessMuni1"
                                     formControlName="witnessMuni1" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo?.witnessMuni1 : '=====================================') : '====================================='}}</span>
                                 न.पा/गा.वि.स.
                                 वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessWard1"
                                     formControlName="witnessWard1" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard1 ? this.supportedInfo.witnessWard1 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo?.witnessWard1 : '=====================================') : '====================================='}}</span>
                                 बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge1"
                                     formControlName="witnessAge1" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge1 ? this.supportedInfo.witnessAge1 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo?.witnessAge1 : '=====================================') : '====================================='}}</span>
                                 को/की <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName1"
                                     formControlName="witnessName1" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName1 ? this.supportedInfo.witnessName1 : '=====================================') : '====================================='}}</span><br>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo?.witnessName1 : '=====================================') : '====================================='}}</span><br>
                             </li>
                             <li><input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict2"
                                     formControlName="witnessDistrict2" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo?.witnessDistrict2 : '=====================================') : '====================================='}}</span>
                                 जिल्ला<input class="form-field form-control-sm d-print-none nepaliFont" name="witnessMuni2"
                                     formControlName="witnessMuni2" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo?.witnessMuni2 : '=====================================') : '====================================='}}</span>
                                 न.पा/गा.वि.स.
                                 वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessWard2"
                                     formControlName="witnessWard2" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard2 ? this.supportedInfo.witnessWard2 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo?.witnessWard2 : '=====================================') : '====================================='}}</span>
                                 बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge2"
                                     formControlName="witnessAge2" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge2 ? this.supportedInfo.witnessAge2 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo?.witnessAge2 : '=====================================') : '====================================='}}</span>
                                 को/की <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName2"
                                     formControlName="witnessName2" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName2 ? this.supportedInfo.witnessName2 : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo?.witnessName2 : '=====================================') : '====================================='}}</span>
                             </li>
                             <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
                                 लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none nepaliFont"
                                     name="karmachariName" formControlName="karmachariName" placeholder="" type="text" />
                                 <span
-                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.karmachariName ? this.supportedInfo.karmachariName : '=====================================') : '====================================='}}</span>
+                                    class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo?.karmachariName : '=====================================') : '====================================='}}</span>
                             </li>
                         </ol>
                     </div>
