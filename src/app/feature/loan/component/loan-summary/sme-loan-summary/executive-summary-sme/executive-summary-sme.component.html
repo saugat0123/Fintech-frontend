@@ -7,14 +7,7 @@
                     of NRP <b>{{totalProposed}}</b> to M/s <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
             </li>
             <li>
-                <p><strong>APPROVING AUTHORITY:</strong>
-                    <app-role-heirarchy-chain
-                            [refId]="loanDataHolder?.id" [loanDataHolder]="loanDataHolder"
-                            [branchId]="loanDataHolder?.branch?.id"
-                            [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                            [loanFlags]="loanDataHolder?.loanHolder?.loanFlags">
-                    </app-role-heirarchy-chain>
-                </p>
+                <p><strong>APPROVING AUTHORITY:</strong>  {{this.approveAuth}}</p>
             </li>
             <li>
                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>

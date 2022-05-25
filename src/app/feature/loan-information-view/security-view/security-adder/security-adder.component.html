@@ -65,7 +65,7 @@
                             <th>Model</th>
                             <th>Chassis Number</th>
                             <th>Engine Number</th>
-                            <th>Considered Value</th>
+                            <th>Market Value</th>
                             <th>Manufactured Year</th>
                             <th>Free Limit</th>
                             <th>Amount to Use</th>
@@ -125,7 +125,7 @@
                         <thead>
                         <tr class="text-white sb-bg-dark">
                             <th>S.N</th>
-                            <th>Considered Value</th>
+                            <th>Market Value</th>
                             <th>Fair Market Value</th>
                             <th>Government Rate</th>
                             <th>Geo Location</th>
@@ -191,7 +191,7 @@
                     <th>S.N</th>
                     <th>Model</th>
                     <th>Engine Number</th>
-                    <th>Considered Value</th>
+                    <th>Market Value</th>
                     <th>Used Amount</th>
                     <th>Free Limit</th>
                     <th>Coverage(%)</th>
@@ -206,7 +206,7 @@
                     <td>Rs. {{(autoSecurity?.considerValue)}}</td>
                     <td>{{autoSecurity?.usedAmount}}</td>
                     <td>{{autoSecurity?.freeLimit}}</td>
-                    <td>{{(((autoSecurity?.usedAmount) / (proposedAmount)) * 100).toFixed(2)}} % </td>
+                    <td>{{(((autoSecurity?.usedAmount) / (proposedAmount)) * 100).toFixed(8)}} % </td>
                     <td>
                         <button (click)="removeAutoSecurity(i)"
                                 class="btn btn-sm btn-flat btn-danger">
@@ -224,7 +224,7 @@
                 <thead>
                 <tr class="text-white sb-bg-dark">
                     <th>S.N</th>
-                    <th>Considered Value</th>
+                    <th>Market Value</th>
                     <th>Fair Market Value</th>
                     <th>Government Rate</th>
                     <th>Geo Location</th>
@@ -243,7 +243,7 @@
                     <td>{{landBuilding?.geoLocation}}</td>
                     <td>{{landBuilding?.usedAmount}}</td>
                     <td>{{landBuilding?.freeLimit}}</td>
-                    <td>{{(((landBuilding?.usedAmount) / (proposedAmount)) * 100)?.toFixed(2) }}</td>
+                    <td>{{(((landBuilding?.usedAmount) / (proposedAmount)) * 100)?.toFixed(8) }}</td>
                     <td>
                         <button (click)="removeLandBuilding(i)"
                                 class="btn btn-sm btn-flat btn-danger">

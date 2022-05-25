@@ -82,6 +82,8 @@ export class CustomerInfoData {
     autos: Array<Auto>;
     landBuildings: Array<LandBuilding>;
     selectedArray: string;
+    netWorth: string;
+    isJointCustomer: any;
     crgCcbl: string;
     financialCcbl: string;
 }

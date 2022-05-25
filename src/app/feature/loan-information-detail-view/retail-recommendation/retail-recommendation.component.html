@@ -13,10 +13,9 @@
         <td>
             <p>Pricing:</p>
             <p>Interest: <span class="font-weight-bold">{{proposalData?.interestRate ? proposalData?.interestRate :
-                    '......................'}}</span> % p.a, (BR + 0.59%)</p>
+                    'NA'}}</span> % p.a, (BR + 0.59%)</p>
             <p>Loan Administrative Fee: ............. % of the approved limit</p>
-            <p>CIC charge: <span class="font-weight-bold">{{loanDataHolder?.loanHolder?.cicl?.cibCharge | currency: 'NPR
-                    '}}</span></p>
+            <p>CIC charge: <span class="font-weight-bold">{{loanDataHolder?.loanHolder?.cicl?.cibCharge | currency: 'NPR'}}</span></p>
             <p>Prepayment Charge: As per NRB</p>
             <p>Swap Charge: As per NRB </p>
         </td>

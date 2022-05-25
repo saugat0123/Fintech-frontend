@@ -89,7 +89,6 @@ export class JointFormComponent implements OnInit {
   ngOnInit() {
     this.getProvince(0);
     this.getAllDistrict();
-    this.getClientType();
     this.getSubSector();
     this.formMaker();
     if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -98,16 +97,13 @@ export class JointFormComponent implements OnInit {
         this.setJointDetail(this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
-        this.customer.clientType = this.clientTypeInput;
         this.customer.subsectorDetail = this.subSectorInput;
-        this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
         this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
         this.basicJointInfo.get('introduction').patchValue(this.individualJsonData.introduction);
         this.basicJointInfo.get('incomeRisk').patchValue(this.individualJsonData.incomeRisk);
         this.basicJointInfo.get('securityRisk').patchValue(this.individualJsonData.securityRisk);
         this.basicJointInfo.get('successionRisk').patchValue(this.individualJsonData.successionRisk);
         this.basicJointInfo.get('bankingRelationship').patchValue(this.individualJsonData.bankingRelationship);
-        this.basicJointInfo.get('netWorth').patchValue(this.formValue.netWorth);
         this.getProvince(0);
       }
       this.getJointValue();
@@ -162,7 +158,6 @@ export class JointFormComponent implements OnInit {
             securityRisk: [jointDetail.securityRisk],
             successionRisk: [jointDetail.successionRisk],
             bankingRelationship: [jointDetail.bankingRelationship],
-            netWorth: [jointDetail.netWorth],
             customerRelation1: [jointDetail.customerRelation1],
             customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
@@ -303,12 +298,10 @@ export class JointFormComponent implements OnInit {
               this.customer.version = this.version;
           }
           this.customer.isJointCustomer = true;
-          this.customer.clientType = this.basicJointInfo.get('clientType').value;
           this.customer.subsectorDetail = this.basicJointInfo.get('subsectorDetail').value;
           this.customer.subsectorDetail = this.basicJointInfo.get('subsectorDetail').value;
           this.customer.introduction = this.basicJointInfo.get('introduction').value;
           this.customer.bankingRelationship = JSON.stringify(this.basicJointInfo.get('bankingRelationship').value);
-          this.customer.netWorth = this.basicJointInfo.get('netWorth').value;
           // to avoid backend validation error
           const customerName1 = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('customerName').value;
           const customerName2 = this.basicJointInfo.get('jointCustomerInfo')['controls'][1].get('customerName').value;
@@ -367,14 +360,12 @@ export class JointFormComponent implements OnInit {
 
   formMaker() {
     this.basicJointInfo = this.formBuilder.group({
-      clientType: [undefined],
       subsectorDetail: [undefined],
       introduction: [undefined, Validators.required],
       incomeRisk: [undefined, Validators.required],
       securityRisk: [undefined, Validators.required],
       successionRisk: [undefined, Validators.required],
       bankingRelationship: [undefined, Validators.required],
-      netWorth: [undefined, Validators.required],
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
@@ -520,15 +511,6 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryWardNumber'])
         .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'wardNumber']).value);
   }
-
-    getClientType() {
-        this.customerService.clientType().subscribe((res: any) => {
-                this.clientType = res.detail;
-            }
-            , error => {
-                console.error(error);
-            });
-    }
 
     getSubSector() {
         this.customerService.subSector().subscribe((res: any) => {

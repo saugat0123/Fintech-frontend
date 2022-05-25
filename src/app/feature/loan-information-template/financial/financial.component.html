@@ -1,5 +1,5 @@
 <form [formGroup]="financialForm" class="form-horizontal mb-2">
-    <div *ngIf="!isBusinessLoan">
+    <div>
         <nb-card>
             <nb-card-header>
                 <h3><strong>Income of Borrower</strong></h3>
@@ -15,45 +15,31 @@
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <ng-select #incomeSourceSelect [items]="typeOfSourceOfIncomeArray"
-                                               formControlName="incomeSource"
-                                               [appendTo]="'body'"
-                                               (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
+                                    <ng-select formControlName="incomeSource"
+                                               [appendTo]="'body'">
+                                        <ng-option value="Salary Income">Salary Income</ng-option>
+                                        <ng-option value="Rental/Lease income from property">Rental/Lease income from property</ng-option>
+                                        <ng-option value="Vehicle Income">Vehicle Income</ng-option>
+                                        <ng-option value="Commission Income">Commission Income</ng-option>
+                                        <ng-option value="Self-professional practices">Self-professional practices</ng-option>
+                                        <ng-option value="Self-Medical practices">Self-Medical practices</ng-option>
+                                        <ng-option value="Freelance Consultancy">Freelance Consultancy</ng-option>
+                                        <ng-option value="Business Income">Business Income</ng-option>
+                                        <ng-option value="Foreign Employment">Foreign Employment</ng-option>
+                                        <ng-option value="Agriculture Income">Agriculture Income</ng-option>
+                                        <ng-option value="Share Trading/ Dividend Income">Share Trading/ Dividend Income</ng-option>
+                                        <ng-option value="Pension Income">Pension Income</ng-option>
                                         <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
                                               class="text-danger small">Income source is required</span>
                                     </ng-select>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Type</strong></label><strong
-                                        class="text-danger">*</strong>
-                                    <ng-select #organizationSelect
-                                               [appendTo]="'body'"
-                                               (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
-                                               formControlName="organization">
-                                    </ng-select>
-                                    <span *ngIf="incomeOfBorrower.get('organization').invalid"
-                                          class="text-danger small">Type is required</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('ageOfIncomeGenerated').invalid}"
-                                           class="form-control" formControlName="ageOfIncomeGenerated"
-                                           placeholder="Age of Income Generated(In Months)" type="number" appDecimalNumber>
-                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age of Income Generated(In Months) is required</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
@@ -65,13 +51,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('remarks').invalid}"
-                                           formControlName="remarks" placeholder="Remarks"
-                                           type="text" class="form-control">
+                                    <textarea rows="4" id="remarks" class="form-control" formControlName="remarks"
+                                              placeholder="Remarks"></textarea>
                                     <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                 </div>
                             </div>
@@ -96,64 +81,6 @@
                                type="button" value="Add More"/>
                     </div>
                 </div>
-              <div class="row" *ngIf="!isBusinessLoan && !disableCrgAlphaParams">
-                  <div class="col-md-12">
-                      <nb-card>
-                          <nb-card-body>
-                              <div class="row">
-                                  <div class="col-md-8">
-                                      <label for="majorSourceIncomeType">
-                                          <strong>Please select how the major source of income(s) are
-                                              divided between</strong></label><strong
-                                          class="text-danger">*</strong>
-                                      <select id="majorSourceIncomeType" class="form-control"
-                                              formControlName="majorSourceIncomeType"
-                                              [ngClass]="{'is-invalid': submitted && financialForm.get('majorSourceIncomeType').invalid}">
-                                          <option value="null" hidden selected>--Select Options--</option>
-                                          <option *ngFor="let m of majorSourceIncomeType"
-                                                  [value]="m?.value">{{m?.value}}</option>
-                                      </select>
-                                      <div *ngIf="(submitted) && financialForm.get('majorSourceIncomeType').invalid"
-                                           class="invalid-feedback">
-                                             Major Source of Income is required
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4" >
-                                      <label for="periodOfEarning"><strong>Period of earning/employment (in years)</strong></label><strong
-                                          class="text-danger">*</strong>
-                                      <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
-                                             [ngClass]="{'is-invalid': submitted && financialForm.get('periodOfEarning').invalid}"
-                                             placeholder="Period of earning/employment (in years)">
-
-                                      <div *ngIf="(submitted) && form.periodOfEarning.invalid"
-                                           class="invalid-feedback">
-                                          <div>
-                                              Period of earning/employment is required
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row mt-3">
-                                  <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income</strong></label>
-                                      <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
-                                             placeholder="Alternate/Secondary source of income">
-                                  </div>
-                                  <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
-                                      <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
-                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSourceAmount').invalid}"
-                                             placeholder="Amount" appDecimalNumber/>
-                                      <div *ngIf="(submitted) && form.alternateIncomeSourceAmount.invalid"
-                                           class="invalid-feedback">
-                                          Alternate/Secondary source of income is required
-                                      </div>
-                                  </div>
-                              </div>
-                          </nb-card-body>
-                      </nb-card>
-                  </div>
-              </div>
             </nb-card-body>
         </nb-card>
 
@@ -229,28 +156,90 @@
         </nb-card>
 
         <nb-card>
+            <nb-card-header>
+                <h3><strong>Obligation at other bank</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let data of financialForm.get('obligationAtOtherBank')['controls']; let Index = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="obligationAtOtherBank">
+                    <div [formGroupName]="Index">
+
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Particulars</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && data.get('obliParticulars').invalid}"
+                                           formControlName="obliParticulars" placeholder="Particulars"
+                                           type="text" class="form-control">
+                                    <span *ngIf="data.get('obliParticulars').invalid"
+                                          class="invalid-feedback">Particulars is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount (Monthly)</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input (input)="totalAdditionInitialForm('obligationAtOtherBank', 'totalExpenseObligation')"
+                                           [ngClass]="{'is-invalid': submitted && data.get('obliAmount').invalid}"
+                                           formControlName="obliAmount" placeholder="Amount (Monthly)"
+                                           type="number" class="form-control" appDecimalNumber>
+                                    <span *ngIf="data.get('obliAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Remarks</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && data.get('obliRemarks').invalid}"
+                                           formControlName="obliRemarks" placeholder="Remarks"
+                                           type="text" class="form-control">
+                                    <span *ngIf="data.get('obliRemarks').invalid"
+                                          class="invalid-feedback">Remarks is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeExpensesIndexObligation(Index)"
+                                        *ngIf="financialForm.get('obligationAtOtherBank')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong> Total Monthly Obligation at other bank :
+                            Rs.{{financialForm.get('totalExpenseObligation').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addObligationAtOtherBank()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
                         <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
                         <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(8)">
 
                         <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
                              class="invalid-feedback">Invalid Net Monthly Income
                         </div>
                     </div>
-<!--                    <div class="col-md-4">-->
-<!--                        <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>-->
-<!--                        <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"-->
-<!--                               [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"-->
-<!--                               placeholder="Amount" readonly [value]="totalEmiMonthlyGross()">-->
 
-<!--                        <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"-->
-<!--                             class="invalid-feedback">Invalid Gross Monthly Obligation-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="col-md-4">
                         <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
                             class="text-danger">*</strong>
@@ -296,7 +285,7 @@
                         <label for="grossTotalIncome"><strong>Gross Total Income</strong></label>
                         <input class="form-control" id="grossTotalIncome"
                                [readOnly]="true"
-                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(2)">
+                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(8)">
                     </div>
                     <div class="col-md-4">
                         <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
@@ -324,7 +313,7 @@
                                type="number"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalBankObligation').invalid}"
                                [readOnly]="true"
-                               [value]="(numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)).toFixed(2)">
+                               [value]="(numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)).toFixed(8)">
                         <div *ngIf="(submitted) && form.totalBankObligation.invalid"
                              class="invalid-feedback">Invalid Total Bank Obligation value
                         </div>
@@ -343,131 +332,8 @@
         </nb-card>
     </div>
 
-    <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
-        <nb-card-header>
-            <h4>Risk factors</h4>
-        </nb-card-header>
-        <nb-card-body>
-            <div class="row p-2">
-                <div class="col-md-12 border-bottom border-dark mb-4">
-                    <div class="form-group">
-                        <label class="title"><strong>{{crgQuestionsList?.description}}</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="crgProfileOfAuditors"
-                                        name="crgProfileOfAuditors"
-                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid }">
-                            <nb-radio *ngFor="let field of crgQuestionsList?.answers"
-                                      [value]="field?.description">{{field?.description}}
-                            </nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="(submitted) && financialForm?.get('crgProfileOfAuditors')?.invalid"
-                             class="invalid-feedback">
-                          Profile of Auditors is required
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </nb-card-body>
-    </nb-card>
 </form>
 
-<div *ngIf="isBusinessLoan">
-    <div class="row my-2" *ngIf="!disableCrgAlphaParams">
-        <div class="col-md-12 form-group">
-            <label><b>Total Working Capital Limit*</b></label>
-            <input #totalWorkingCapitalLimit nbInput
-                   [value]="financialForm.get('totalWorkingCapitalLimit').value"
-                   (input)="setTotalWorkingCapitalLimit(totalWorkingCapitalLimit?.value)"
-                   type="number" class="form-control mb-2" />
-        </div>
-    </div>
-    <div class="text-right m-4">
-        <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
-            Availability of Historical Data
-        </nb-checkbox>
-    </div>
-    <hr>
-    <div class="row my-2">
-        <div class="col-md-12 text-right">
-            <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
-        </div>
-    </div>
-
-    <hr>
-
-    <div *ngIf="auditorList.length > 0" class="row mb-4">
-        <div class="col-md-12">
-            <nb-card class="mark">
-                <nb-card-body>
-                    <h3 class="mb-2">Financial Auditor Detail Information</h3>
-                    <table aria-describedby="auditor list table" class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">S.N</th>
-                            <th scope="col">Audited</th>
-                            <th scope="col">Audit Firm</th>
-                            <th scope="col">Membership No.</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let auditor of auditorList; let i = index">
-                            <td><strong>{{i + 1}}</strong></td>
-                            <td>{{auditor['audited']}}</td>
-                            <td>{{auditor['auditFirm']}}</td>
-                            <td>{{auditor['membershipNo']}}</td>
-                            <td>{{auditor['class']}}</td>
-                            <td class="text-center">
-                                <button (click)="openFiscalYearModal(i)"
-                                        class="btn btn-sm btn-flat btn-info" value="Edit">
-                                    <em class="fa fa-edit" style="color:white;"></em>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </nb-card-body>
-            </nb-card>
-        </div>
-    </div>
-
-    <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
-
-        <nb-tab class="px-0" tabTitle="Income Statement">
-            <app-income-statement #incomeStatement
-                                  (removeFiscalYear)="removeFiscalYear($event)"
-                                  *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear"
-                                  [formData]="currentFormData">
-            </app-income-statement>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Balance Sheet">
-            <app-balance-sheet #balanceSheet
-                               (removeFiscalYear)="removeFiscalYear($event)"
-                               *ngIf="activeTab === 'Balance Sheet'"
-                               [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-balance-sheet>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Cash Flow Statement">
-            <app-cash-flow-statement #cashFlowStatement
-                                     (removeFiscalYear)="removeFiscalYear($event)"
-                                     *ngIf="activeTab === 'Cash Flow Statement'"
-                                     [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-cash-flow-statement>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Key Indicators">
-            <app-key-indicators #keyIndicators
-                                (removeFiscalYear)="removeFiscalYear($event)"
-                                *ngIf="activeTab === 'Key Indicators'"
-                                [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-key-indicators>
-        </nb-tab>
-    </nb-tabset>
-</div>
 
 <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
     <button (click)="onSubmit()" nbButton type="button">save</button>

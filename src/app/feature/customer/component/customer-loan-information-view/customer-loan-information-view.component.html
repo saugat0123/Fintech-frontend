@@ -21,22 +21,6 @@
             </a>
           </nb-card>
         </div>
-        <ng-template #ciclComponentTemplate let-data let-ref="dialogRef">
-          <nb-card class="template-css">
-            <nb-card-header>
-              CICL
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-            </nb-card-header>
-            <nb-card-body>
-              <app-cicl-view
-                      [ciclValue]="customerInfo?.cicl"></app-cicl-view>
-            </nb-card-body>
-          </nb-card>
-        </ng-template>
       </div>
       <div class="col-md-4" *ngIf="customerInfo?.insurance?.length>0">
         <div class="row">

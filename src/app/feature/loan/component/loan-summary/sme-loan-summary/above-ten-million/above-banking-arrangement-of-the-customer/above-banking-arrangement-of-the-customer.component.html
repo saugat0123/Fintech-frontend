@@ -1,269 +1,268 @@
-<ol type="a" style="padding-left: 0">
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
-        <p><strong>Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
-            If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks, and details of
-            credit facilities
-            <strong>as of {{multiBankingData?.consortiumDate ? (multiBankingData?.consortiumDate | date) : 'N/A'}}</strong>
-        </p>
-        <div class="container" *ngIf="checkedData?.consortiumChecked">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tr class="sb-bg-dark text-white text-center">
-                            <th class="sn">SN</th>
-                            <th>Banks</th>
-                            <th>Funded (WCL)</th>
-                            <th>Non-Funded</th>
-                            <th>Term Loans</th>
-                            <th>Total</th>
-                            <th>Percent (%)</th>
-                        </tr>
-                        <tr *ngFor="let con of multiBankingData?.consortium; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{con?.coBankName}}</td>
-                            <td class="text-right pr-1">Rs. {{con?.funded}}</td>
-                            <td class="text-right pr-1">Rs. {{con?.nonFunded}}</td>
-                            <td class="text-right pr-1">Rs. {{con?.termLoan}}</td>
-                            <td class="text-right pr-1">Rs. {{con?.total}}</td>
-                            <td class="text-right pr-1">{{con?.bankPercent}} %</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><b>Total</b></td>
-                            <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalFunded}}</b></td>
-                            <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalNonFunded}}</b></td>
-                            <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTermLoan}}</b></td>
-                            <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTotal}}</b></td>
-                            <td class="text-right pr-1"><b>{{multiBankingData?.totalPercent}}</b> %</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+<ol style="padding-left: 0" type="a">
+  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <p><strong>Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
+      If consortium arrangement, name of lead bank and other banks; if multiple banking, name of
+      banks, and details of
+      credit facilities
+      <strong>as of {{multiBankingData?.consortiumDate ? (multiBankingData?.consortiumDate | date)
+          : 'N/A'}}</strong>
+    </p>
+    <div *ngIf="checkedData?.consortiumChecked" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <tr class="sb-bg-dark text-white text-center">
+              <th class="sn">SN</th>
+              <th>Banks</th>
+              <th>Funded (WCL)</th>
+              <th>Non-Funded</th>
+              <th>Term Loans</th>
+              <th>Total</th>
+              <th>Percent (%)</th>
+            </tr>
+            <tr *ngFor="let con of multiBankingData?.consortium; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{con?.coBankName}}</td>
+              <td class="text-right pr-1">Rs. {{con?.funded}}</td>
+              <td class="text-right pr-1">Rs. {{con?.nonFunded}}</td>
+              <td class="text-right pr-1">Rs. {{con?.termLoan}}</td>
+              <td class="text-right pr-1">Rs. {{con?.total}}</td>
+              <td class="text-right pr-1">{{con?.bankPercent}} %</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><b>Total</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalFunded}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalNonFunded}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTermLoan}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTotal}}</b></td>
+              <td class="text-right pr-1"><b>{{multiBankingData?.totalPercent}}</b> %</td>
+            </tr>
+          </table>
         </div>
-    </li>
-    <li>
-        <p><strong>Multiple Banking Declaration </strong> (date of
-            declaration: {{multiBankingData?.multiBankingDate ? (multiBankingData?.multiBankingDate | date) : 'N/A'}}) </p>
-        <div class="container" *ngIf="checkedData?.multiBankingChecked">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tr class="sb-bg-dark text-white text-center">
-                            <th>SN</th>
-                            <th>Name of Banks/ FIs</th>
-                            <th>Facilities</th>
-                            <th>Limit</th>
-                            <th>Outstanding</th>
-                            <th>Overdue</th>
-                        </tr>
-                        <tr *ngFor="let mul of multiBankingData?.multiBanking; let ii = index">
-                            <td>{{ii + 1}}</td>
-                            <td>{{mul?.bankName}}</td>
-                            <td>{{mul?.facilityName}}</td>
-                            <td class="text-right pr-1">Rs. {{mul?.limit}}</td>
-                            <td class="text-right pr-1">Rs. {{mul?.outstanding}}</td>
-                            <td class="text-right pr-1">Rs. {{mul?.overDue}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
-        <p><strong>Report from the existing BFIs in case of swap
-        </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date) : 'N/A'}}) </p>
-        <div class="container" *ngIf="checkedData?.swapChecked">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tr class="sb-bg-dark text-white text-center">
-                            <th>Name of Banks/ FIs</th>
-                            <th>Facilities</th>
-                            <th>Limit</th>
-                            <th>Outstanding</th>
-                            <th>Classification</th>
-                            <th>Account conduct</th>
-                        </tr>
-                        <tr *ngFor="let swa of multiBankingData?.bfiSwap; let iii = index">
-                            <td>{{swa?.bankName}}</td>
-                            <td>{{swa?.facilityName}}</td>
-                            <td class="text-right pr-1">Rs. {{swa?.limit}}</td>
-                            <td class="text-right pr-1">Rs. {{swa?.outstanding}}</td>
-                            <td>{{swa?.classification}}</td>
-                            <td>{{swa?.account}}</td>
-                        </tr>
-                        <tr>
-                            <th colspan="6" class="text-center sb-bg-dark text-white">Comments</th>
-                        </tr>
-                        <tr>
-                            <td colspan="6" [innerHTML]="multiBankingData?.comments | safeHtml"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li>
-        <p><strong>Report from CIC </strong>(date of report: {{cicl?.cibDate ? (cicl?.cibDate | date) : 'N/A' }}) </p>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>SN</th>
-                        <th>Financial liability of:</th>
-                        <th>As a Borrower</th>
-                        <th>As a Guarantor</th>
-                        <th>As a shareholder/ Director</th>
-                        <th>Overdue Amount</th>
-                        <th>Loan Limit</th>
-                        <th>Outstanding Amount</th>
-                        <th>Overdue Status</th>
-                        <th>Blacklisting History</th>
-                    </tr>
-                    <tbody>
-                    <tr *ngFor="let cic of ciclData; let ci = index">
-                        <td>{{ci + 1}}</td>
-                        <td>{{cic?.nameOfBorrower}}</td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'borrower'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'guarantor'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td><span *ngIf="cic?.ciclRelation?.toLowerCase() === 'shareholder'; else setEmpty" class="text-right pr-1">Rs. {{cic?.loanamount}}</span></td>
-                        <td>{{cic?.overdueAmount}}</td>
-                        <td>{{cic?.loanamount}}</td>
-                        <td>{{cic?.outstandingAmount}}</td>
-                        <td>{{cic?.overdueStatus}}</td>
-                        <td>{{cic?.blacklistChecked ? 'Yes' : 'No'}}</td>
-                    </tr>
-                    </tbody>
-                    <tbody *ngFor="let cicData of ciclData">
-                    <ng-container *ngIf="cicData?.blacklistChecked">
-                        <tr>
-                            <br>
-                            <td colspan="10" class="text-center text-justify">
-                                <span><b>Blacklist Detail of {{cicData?.nameOfBorrower}}</b></span>
-                            </td>
-                        </tr>
-                        <tr class="sb-bg-dark text-white">
-                            <th class="sn" colspan="2">SN</th>
-                            <th colspan="4">Blacklist Number</th>
-                            <th colspan="4">Blacklist Date</th>
-                        </tr>
-                        <tr *ngFor="let bl of cicData?.blacklistHistory; let bi=index">
-                            <td colspan="2">{{bi +1}}</td>
-                            <td colspan="4">{{bl?.blacklistNumber}}</td>
-                            <td colspan="4">{{bl?.blacklistDate ? (bl?.blacklistDate | date) : 'NA'}}</td>
-                        </tr>
-                    </ng-container>
-                    </tbody>
-                    <tbody>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p><strong>Multiple Banking Declaration </strong> (date of
+      declaration: {{multiBankingData?.multiBankingDate
+          ? (multiBankingData?.multiBankingDate | date) : 'N/A'}}) </p>
+    <div *ngIf="checkedData?.multiBankingChecked" class="row">
+      <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+          <tr class="sb-bg-dark text-white text-center">
+            <th>SN</th>
+            <th>Name of Banks/ FIs</th>
+            <th>Facilities</th>
+            <th>Limit</th>
+            <th>Outstanding</th>
+            <th>Overdue</th>
+          </tr>
+          <tr *ngFor="let mul of multiBankingData?.multiBanking; let ii = index">
+            <td>{{ii + 1}}</td>
+            <td>{{mul?.bankName}}</td>
+            <td>{{mul?.facilityName}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.limit}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.outstanding}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.overDue}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </li>
+  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <p><strong>Report from the existing BFIs in case of swap
+    </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date)
+        : 'N/A'}}) </p>
+    <div *ngIf="checkedData?.swapChecked" class="row">
+      <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+          <tr class="sb-bg-dark text-white text-center">
+            <th>Name of Banks/ FIs</th>
+            <th>Facilities</th>
+            <th>Limit</th>
+            <th>Outstanding</th>
+            <th>Classification</th>
+            <th>Account conduct</th>
+          </tr>
+          <tr *ngFor="let swa of multiBankingData?.bfiSwap; let iii = index">
+            <td>{{swa?.bankName}}</td>
+            <td>{{swa?.facilityName}}</td>
+            <td class="text-right pr-1">Rs. {{swa?.limit}}</td>
+            <td class="text-right pr-1">Rs. {{swa?.outstanding}}</td>
+            <td>{{swa?.classification}}</td>
+            <td>{{swa?.account}}</td>
+          </tr>
+          <tr>
+            <th class="text-center sb-bg-dark text-white" colspan="6">Comments</th>
+          </tr>
+          <tr>
+            <td [innerHTML]="multiBankingData?.comments | safeHtml" colspan="6"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p><strong>Report from CIC </strong>(date of report: {{cicl?.cibDate ? (cicl?.cibDate | date)
+        : 'N/A' }}) </p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+          <tr class="sb-bg-dark text-white">
+            <th>SN</th>
+            <th>Financial liability of:</th>
+            <th>As a Borrower</th>
+            <th>As a Guarantor</th>
+            <th>As a shareholder/ Director</th>
+            <th>Overdue Amount</th>
+            <th>Loan Limit</th>
+            <th>Outstanding Amount</th>
+            <th>Overdue Status</th>
+            <th>Blacklisting History</th>
+          </tr>
+          <tbody>
+          <tr *ngFor="let cic of ciclData; let ci = index">
+            <td>{{ci + 1}}</td>
+            <td>{{cic?.nameOfBorrower}}</td>
+            <td class="text-right pr-1">Rs. {{cic?.borrower ? cic?.borrower : '-'}}</td>
+            <td class="text-right pr-1">Rs. {{cic?.guarantor ? cic?.guarantor : '-'}}</td>
+            <td class="text-right pr-1">Rs. {{cic?.shareholder ? cic?.shareholder : '-'}}</td>
+            <td>{{cic?.overdueAmount}}</td>
+            <td>{{cic?.loanamount}}</td>
+            <td>{{cic?.outstandingAmount}}</td>
+            <td>{{cic?.overdueStatus}}</td>
+            <td>{{cic?.blacklistChecked ? 'Yes' : 'No'}}</td>
+          </tr>
+          </tbody>
+          <tbody *ngFor="let cicData of ciclData">
+          <ng-container *ngIf="cicData?.blacklistChecked">
+            <tr class="sb-bg-secondary">
+              <br>
+              <td class="text-center text-justify" colspan="10">
+                <span><b>Blacklist Detail of {{cicData?.nameOfBorrower}}</b></span>
+              </td>
+            </tr>
+            <tr class="sb-bg-dark text-white">
+              <th class="sn" colspan="1">SN</th>
+              <th colspan="3">Blacklist Number</th>
+              <th colspan="3">Blacklist Date</th>
+              <th colspan="3">Blacklist Release Date</th>
+            </tr>
+            <tr *ngFor="let bl of cicData?.blacklistHistory; let bi=index">
+              <td colspan="1">{{bi + 1}}</td>
+              <td colspan="3">{{bl?.blacklistNumber}}</td>
+              <td colspan="3">{{bl?.blacklistDate ? (bl?.blacklistDate | date) : 'NA'}}</td>
+              <td colspan="3">{{bl?.blacklistReleaseDate ? (bl?.blacklistReleaseDate | date)
+                  : 'NA'}}</td>
+            </tr>
+          </ng-container>
+          </tbody>
 
-                    <tr class="text-center sb-bg-dark text-white">
-                        <th colspan="10">Comments:</th>
-                    </tr>
-                    <tr>
-                        <td colspan="10" [innerHTML]="cicl?.remarks | safeHtml"></td>
-                    </tr>
-                    <ng-template #setEmpty>
-                        <span class="text-right pr-1">-</span>
-                    </ng-template>
-                    </tbody>
-                </table>
-            </div>
+        </table>
+        <div *ngIf="commentVisible">
+          <div><u>With CCBL Remarks or Any Other Remarks</u></div>
+          <div>  <span [innerHTML]="cicl?.remarks | safeHtml" colspan="10"></span></div>
         </div>
-    </li>
-    <li>
-        <p><strong>Past performance with the Bank: </strong></p>
-        <div class="container">
-            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tbody>
-                        <tr class="text-center sb-bg-dark text-white">
-                            <th>Delays / defaults made during the past 12 months by the borrower / group:</th>
-                        </tr>
-                        <tr>
-                            <td [innerHTML]="multiBankingData?.delayRemark | safeHtml"></td>
-                        </tr>
-                        </tbody>
-                        <tbody>
-                        <tr class="text-center sb-bg-dark text-white">
-                            <th>Past Dues/Over-dues status (if any)</th>
-                        </tr>
-                        <tr>
-                            <td [innerHTML]="multiBankingData?.pastDue | safeHtml"></td>
-                        </tr>
-                        </tbody>
-                        <tbody>
-                        <tr class="text-center sb-bg-dark text-white">
-                            <th>NRB /Audit observations (if any)</th>
-                        </tr>
-                        <tr>
-                            <td [innerHTML]="multiBankingData?.auditObservation | safeHtml"></td>
-                        </tr>
-                        </tbody>
-                        <tbody>
-                        <tr class="text-center sb-bg-dark text-white">
-                            <th>Comments</th>
-                        </tr>
-                        <tr>
-                            <td [innerHTML]="multiBankingData?.comments | safeHtml"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <ng-template #sana>
-                <span [innerHTML]="multiBankingData?.pastPerformance | safeHtml"></span>
-            </ng-template>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p><strong>Past performance with the Bank: </strong></p>
+    <div class="container">
+      <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana"
+           class="row">
+        <div class="col-md-12">
+          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <tbody>
+            <tr class="text-center sb-bg-dark text-white">
+              <th>Delays / defaults made during the past 12 months by the borrower / group:</th>
+            </tr>
+            <tr>
+              <td [innerHTML]="multiBankingData?.delayRemark | safeHtml"></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr class="text-center sb-bg-dark text-white">
+              <th>Past Dues/Over-dues status (if any)</th>
+            </tr>
+            <tr>
+              <td [innerHTML]="multiBankingData?.pastDue | safeHtml"></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr class="text-center sb-bg-dark text-white">
+              <th>NRB /Audit observations (if any)</th>
+            </tr>
+            <tr>
+              <td [innerHTML]="multiBankingData?.auditObservation | safeHtml"></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr class="text-center sb-bg-dark text-white">
+              <th>Comments</th>
+            </tr>
+            <tr>
+              <td [innerHTML]="multiBankingData?.comments | safeHtml"></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-    </li>
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
-        <p><strong>Account strategy:</strong></p>
-        <div class="container">
-            <span [innerHTML]="proposalData?.accountStrategy | safeHtml"></span>
+      </div>
+      <ng-template #sana>
+        <span [innerHTML]="multiBankingData?.pastPerformance | safeHtml"></span>
+      </ng-template>
+    </div>
+  </li>
+  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <p><strong>Account strategy:</strong></p>
+    <div class="container">
+      <span [innerHTML]="proposalData?.accountStrategy | safeHtml"></span>
+    </div>
+  </li>
+  <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <p><strong>Average Utilization of facilities by the customer during the last 12 months with
+      CCBL</strong></p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <tbody class="sb-bg-dark text-white text-center">
+            <tr>
+              <th class="sn" rowspan="2">S.N</th>
+              <th rowspan="2">Facilities</th>
+              <th rowspan="2">Avg. utilization(%)</th>
+              <th class="border-top-0 border-bottom-0" rowspan="2" style="color: white"></th>
+              <th colspan="7">Transaction Records</th>
+            </tr>
+            <tr>
+              <th>Debit</th>
+              <th>No.</th>
+              <th>Amount</th>
+              <th>Credit</th>
+              <th>No.</th>
+              <th>Amount</th>
+            </tr>
+            </tbody>
+            <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
+            <tr>
+              <td>{{iv + 1}}</td>
+              <td>{{avg?.facilityName}}</td>
+              <td>{{avg?.avgUtil}}</td>
+              <td></td>
+              <td>{{avg?.debit}}</td>
+              <td>{{avg?.debitNo}}</td>
+              <td class="text-right pr-1">Rs. {{avg?.debitAmount}}</td>
+              <td>{{avg?.credit}}</td>
+              <td>{{avg?.creditNo}}</td>
+              <td class="text-right pr-1">Rs. {{avg?.creditAmount}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-    </li>
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
-        <p><strong>Average Utilization of facilities by the customer during the last 12 months with CCBL</strong></p>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                        <tbody class="sb-bg-dark text-white text-center">
-                        <tr>
-                            <th rowspan="2" class="sn">S.N</th>
-                            <th rowspan="2">Facilities</th>
-                            <th rowspan="2">Avg. utilization(%)</th>
-                            <th rowspan="2" class="border-top-0 border-bottom-0" style="color: white"></th>
-                            <th colspan="7">Transaction Records</th>
-                        </tr>
-                        <tr>
-                            <th>Debit</th>
-                            <th>No.</th>
-                            <th>Amount</th>
-                            <th>Credit</th>
-                            <th>No.</th>
-                            <th>Amount</th>
-                        </tr>
-                        </tbody>
-                        <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
-                        <tr>
-                            <td>{{iv + 1}}</td>
-                            <td>{{avg?.facilityName}}</td>
-                            <td>{{avg?.avgUtil}}</td>
-                            <td></td>
-                            <td>{{avg?.debit}}</td>
-                            <td>{{avg?.debitNo}}</td>
-                            <td class="text-right pr-1">Rs. {{avg?.debitAmount}}</td>
-                            <td>{{avg?.credit}}</td>
-                            <td>{{avg?.creditNo}}</td>
-                            <td class="text-right pr-1">Rs. {{avg?.creditAmount}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </li>
+      </div>
+    </div>
+  </li>
 </ol>
 
 

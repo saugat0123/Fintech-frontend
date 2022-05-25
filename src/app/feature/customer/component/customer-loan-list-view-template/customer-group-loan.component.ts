@@ -33,7 +33,6 @@ import {LoanTag} from '../../../loan/model/loanTag';
   styleUrls: ['./customer-group-loan.component.scss']
 })
 export class CustomerGroupLoanComponent implements OnInit, OnChanges {
-
   constructor(private router: Router,
               private customerService: CustomerService,
               private customerLoanService: LoanFormService,

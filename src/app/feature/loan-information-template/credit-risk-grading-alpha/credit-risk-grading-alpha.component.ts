@@ -390,7 +390,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       }
     });
     const securityCoverageFAC = (totalFMV / Number(this.totalWorkingCapitalLimit)) * 100;
-    const automatedValue = securityCoverageFAC.toFixed(2);
+    const automatedValue = securityCoverageFAC.toFixed(8);
     if (securityCoverageFAC >= 100) {
       this.setValueForCriteria('securityCoverageFAC', '100% FMV and above', 40.00, automatedValue);
     } else if (securityCoverageFAC <= 99.99 && securityCoverageFAC >= 95) {
@@ -407,7 +407,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
                 singleCategory => singleCategory['name'] === 'Short Term Loan'
             )[0]['amount'][currentFiscalYearIndex].value
         ));
-    const automatedValue = salesToWclLimit.toFixed(2);
+    const automatedValue = salesToWclLimit.toFixed(8);
     if (salesToWclLimit > 3) {
       this.setValueForCriteria('salesToWclLimit', 'Above 3 times', 4.50, automatedValue);
     } else if (salesToWclLimit > 2 && salesToWclLimit <= 3) {
@@ -431,7 +431,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
           Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) * 100;*/
 
       const salesGrowth = Number(financialData.keyIndicatorsData.sales[currentFiscalYearIndex].value);
-      const automatedValue = salesGrowth.toFixed(2);
+      const automatedValue = salesGrowth.toFixed(8);
       if (salesGrowth > 15) {
         this.setValueForCriteria('salesGrowth', 'Sales growth above 15%', 3, automatedValue);
       } else if (salesGrowth > 10 && salesGrowth <= 15) {
@@ -457,7 +457,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
           Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex - 1].value);
     }*/
 
-    /*const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
+    /*const automatedValue = `${profitability.toFixed(8)}, ${netCashFlow.toFixed(8)}`;
     if (profitability >= 5 && netCashFlow > 0) {
       this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
     } else if ((profitability >= 2 && profitability < 5) && netCashFlow > 0) {
@@ -471,7 +471,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     }*/
 
     const profitability = Number(financialData.keyIndicatorsData.netProfitMargin[currentFiscalYearIndex].value);
-    const automatedValue = `${profitability.toFixed(2)}`;
+    const automatedValue = `${profitability.toFixed(8)}`;
 
     if (profitability >= 5) {
       this.setValueForCriteria('profitability', 'Minimum net profit margin of 5% and higher', 3, automatedValue);
@@ -489,7 +489,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   calculateCurrentRatio(financialData, currentFiscalYearIndex) {
     const currentRatio = Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) /
         Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value);
-    const automatedValue = currentRatio.toFixed(2);
+    const automatedValue = currentRatio.toFixed(8);
     if (currentRatio >= 2.50) {
       this.setValueForCriteria('currentRatio', 'Current ratio minimum 2.5 times', 3, automatedValue);
     } else if (currentRatio >= 2.25 && currentRatio < 2.50) {
@@ -518,9 +518,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     const workingCapitalCycle = Number(financialData.keyIndicatorsData.netOperatingCycle[currentFiscalYearIndex].value);
 
     /*const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
-    const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;*/
+    const automatedValue = `${workingCapitalCycle.toFixed(8)}, ${receivableCollectionPeriod.toFixed(8)}`;*/
 
-    const automatedValue = `${workingCapitalCycle.toFixed(2)}`;
+    const automatedValue = `${workingCapitalCycle.toFixed(8)}`;
 
     /*if (workingCapitalCycle < 120 && receivableCollectionPeriod < 60) {
       this.setValueForCriteria('workingCapitalCycle',
@@ -553,7 +553,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   calculateDERatio(financialData, currentFiscalYearIndex) {
     const deRatio = Number(financialData.keyIndicatorsData.debtEquityRatioOverall[currentFiscalYearIndex].value);
-    const automatedValue = deRatio.toFixed(2);
+    const automatedValue = deRatio.toFixed(8);
     if (!this.historicalDataPresent) {
       this.setValueForCriteria('deRatio',
           'Overall DE ratio above 80% / mismatch in DE / Fully projection based / no historical data ', 0, automatedValue);
@@ -575,7 +575,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     const iscr = Number(financialData.keyIndicatorsData.interestCoverageRatio[currentFiscalYearIndex].value);
     const dscr = Number(financialData.keyIndicatorsData.debtServiceCoverageRatio[currentFiscalYearIndex].value);
 
-    const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
+    const automatedValue = `${iscr.toFixed(8)}, ${dscr.toFixed(8)}`;
 
     const setThreeScore = () => {
       return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 2.5 times', 3, automatedValue);
@@ -630,7 +630,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     total = total + this.calculateManagementRiskTotal();
     total = total + this.calculateSecurityRiskTotal();
     total = total + this.calculateTotalForFinancialRisk();
-    this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(8));
     if (total >= 80) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Excellent');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Low risk');
@@ -663,7 +663,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.relationshipRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('relationshipTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('relationshipTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -672,7 +672,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.businessAndIndustryArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('businessAndIndustryTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('businessAndIndustryTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -681,7 +681,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.managementRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('managementTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('managementTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -690,7 +690,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.securityRiskArray.forEach(singleCriteria => {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
-    this.creditRiskGradingForm.get('securityTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('securityTotal').patchValue(total.toFixed(8));
     return total;
   }
 
@@ -702,7 +702,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!this.historicalDataPresent) {
       total = 15;
     }
-    this.creditRiskGradingForm.get('financialTotal').patchValue(total.toFixed(2));
+    this.creditRiskGradingForm.get('financialTotal').patchValue(total.toFixed(8));
     return total;
   }
 

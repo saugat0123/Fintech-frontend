@@ -1,4 +1,2 @@
 <p>The Bank’s core capital stood at {{nrpValue ? nrpValue : 'NPR .......... billion'}} as on
-    {{asOnDate ? (asOnDate | date) : '.............'}} ; accordingly the SOL of the Bank is NPR
-    {{commonData?.sol? commonData?.sol : '............. million'}}  for {{commonData?.sector ? commonData?.sector: ' .......... sector'}} , and the proposed exposure on the group (total limits) falls within
-    the SOL of the Bank</p>
+    {{asOnDate ? (asOnDate | date) : '.............'}} ; {{this.commonData.solText ? this.commonData.solText : '______________'}}</p>

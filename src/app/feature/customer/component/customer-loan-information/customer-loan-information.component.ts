@@ -49,6 +49,7 @@ import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
+import {NetWorthComponent} from '../net-worth/net-worth.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -127,6 +128,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public riskAnalysisComponent: RiskAnalysisComponent;
     @ViewChild('swotAnalysisComponent', {static: false})
     public swotAnalysisComponent: SwotAnalysisComponent;
+    @ViewChild('netWorth', {static: false})
+    public netWorthComponent: NetWorthComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -161,21 +164,18 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
       customer: Customer;
     commonLoanData: FormGroup;
     ckeConfig;
-    solChecked = false;
     waiverChecked = false;
-    deviationChecked = false;
-    riskChecked = false;
     commitmentChecked = false;
     swapDoubleChargeChecked = false;
     prepaymentChargeChecked = false;
     purposeChecked = false;
-    debtChecked = false;
     netChecked = false;
     swapChargeChecked = false;
     subsidizedLoanChecked = false;
     loanDocument: LoanDataHolder;
     loanTag: string;
     reviewDate;
+    groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
 
     constructor(
         private toastService: ToastService,
@@ -279,6 +279,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             const mapData = JSON.parse(this.companyInfo.companyJsonData);
             this.reviewDate = mapData.reviewDate;
         }
+
+
     }
 
     public saveSiteVisit(data: string) {
@@ -450,6 +452,17 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.spinner.hide();
 
             });
+    }
+
+    saveNetWorth(data: any) {
+        this.spinner.show();
+        this.customerInfoService.saveLoanInfo(JSON.stringify(data), this.customerInfoId,
+            TemplateName.NET_WORTH).subscribe(rs => {
+            this.spinner.hide();
+            this.nbDialogRef.close();
+        }, err=>{
+                this.spinner.hide();
+        });
     }
 
     saveCICL(data: CiclArray) {
@@ -682,14 +695,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             repayment: [undefined],
             remark: [undefined],
             summeryRecommendation: [undefined],
+            approvingAuthority: [undefined],
+            specialCovenant: [undefined],
             waiverConclusionRecommendation: [undefined],
-            deviationConclusionRecommendation: [undefined],
-            solConclusionRecommendation: [undefined],
-            riskConclusionRecommendation: [undefined],
-            termsAndCondition: [undefined],
             mergedCheck: [undefined],
-            sol: [undefined],
-            sector: [undefined],
+            solText: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
@@ -704,36 +714,12 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     checkChecked(event, type) {
         switch (type) {
-            case 'sol':
-                if (event) {
-                    this.solChecked = true;
-                } else {
-                    this.solChecked = false;
-                    this.commonLoanData.get('solConclusionRecommendation').setValue(null);
-                }
-                break;
             case 'waiver':
                 if (event) {
                     this.waiverChecked = true;
                 } else {
                     this.waiverChecked = false;
-                    this.commonLoanData.get('waiverConclusionRecommendation').setValue(null);
-                }
-                break;
-            case 'risk':
-                if (event) {
-                    this.riskChecked = true;
-                } else {
-                    this.riskChecked = false;
-                    this.commonLoanData.get('riskConclusionRecommendation').setValue(null);
-                }
-                break;
-            case 'deviation':
-                if (event) {
-                    this.deviationChecked = true;
-                } else {
-                    this.deviationChecked = false;
-                    this.commonLoanData.get('deviationConclusionRecommendation').setValue(null);
+                    this.commonLoanData.get('waiverConclusionRecommendation').patchValue(this.groupTable);
                 }
                 break;
             case 'commitment': {
@@ -752,10 +738,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.purposeChecked = event;
             }
                 break;
-            case 'debt': {
-                this.debtChecked = event;
-            }
-                break;
             case 'net': {
                 this.netChecked = event;
             }
@@ -766,17 +748,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveCommonLoanData() {
         this.spinner.show();
         const mergeChecked = {
-            solChecked: this.solChecked,
             waiverChecked: this.waiverChecked,
-            riskChecked: this.riskChecked,
             swapChargeChecked: this.swapChargeChecked,
             subsidizedLoanChecked: this.subsidizedLoanChecked,
-            deviationChecked: this.deviationChecked,
             commitmentChecked: this.commitmentChecked,
             swapDoubleChargeChecked: this.swapDoubleChargeChecked,
             prepaymentChargeChecked: this.prepaymentChargeChecked,
             purposeChecked: this.purposeChecked,
-            debtChecked: this.debtChecked,
             netChecked: this.netChecked,
         };
         this.commonLoanData.patchValue({
@@ -797,17 +775,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     setCheckedData(data) {
         console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
-            this.checkChecked(data['riskChecked'], 'risk');
             this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
-            this.checkChecked(data['deviationChecked'], 'deviation');
             this.checkChecked(data['commitmentChecked'], 'commitment');
             this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
             this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
             this.checkChecked(data['purposeChecked'], 'purpose');
-            this.checkChecked(data['debtChecked'], 'debt');
             this.checkChecked(data['netChecked'], 'net');
         }
     }
