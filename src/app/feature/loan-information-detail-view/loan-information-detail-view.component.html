@@ -311,7 +311,7 @@
                         <p><strong>Risks Analysis</strong></p>
                         <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis" [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
-                    <li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
                         <p><strong>Compliance:</strong></p>
                         <tr>
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
