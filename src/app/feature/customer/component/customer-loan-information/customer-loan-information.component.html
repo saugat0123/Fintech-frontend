@@ -985,24 +985,6 @@
             </div>
           </div>
           <div class="clearfix"></div>
-          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
-              <ckeditor
-                  [config]="ckeConfig" formControlName="disbursementCriteria"
-                  id="disbursementCriteria"
-                  name="disbursementCriteria"></ckeditor>
-            </div>
-          </div>
-          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="repayment"><strong>Repayment</strong></label>
-              <ckeditor
-                  [config]="ckeConfig" formControlName="repayment"
-                  id="repayment"
-                  name="repayment"></ckeditor>
-            </div>
-          </div>
 
           <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
             <div class="form-group">
