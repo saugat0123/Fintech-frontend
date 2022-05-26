@@ -51,14 +51,20 @@ export class GroupExposureWithCcblComponent implements OnInit {
       if (ObjectUtil.isEmpty(this.mGroupInfo.outstandingOverdue)) {
         this.form.get('outstandingOverdue').patchValue(CcblTable.outstandingOverdueTable());
       }
+      const totalAmount = JSON.parse(this.mGroupInfo.totalAmount);
+      this.form.patchValue(totalAmount);
       this.setGroupPosition(JSON.parse(this.mGroupInfo.groupPosition));
-      this.form.patchValue(this.mGroupInfo);
-
-      // if (ObjectUtil.isEmpty(this.mGroupInfo.groupPosition)){
-      //   this.form.get('groupPosition').patchValue(CcblTable.groupPosition());
-      // }
+      this.setCompanyName(JSON.parse(this.mGroupInfo.companyGroup));
+      this.form.get('groupName').patchValue(this.mGroupInfo.groupName);
+      this.form.get('groupCode').patchValue(this.mGroupInfo.groupCode);
+      this.form.get('groupExposureDateType').patchValue(this.mGroupInfo.groupExposureDateType);
+      this.form.get('groupExposureDate').patchValue(this.mGroupInfo.groupExposureDate ?
+          new Date(this.mGroupInfo.groupExposureDate) : undefined);
+      this.form.get('detailInformation').patchValue(this.mGroupInfo.detailInformation);
+      this.form.get('outstandingOverdue').patchValue(this.mGroupInfo.outstandingOverdue);
     } else {
       this.addGroupPosition();
+      this.addCompany();
     }
 
   }
@@ -67,7 +73,6 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.form.patchValue({
       detailInformation: CcblTable.default_table(),
       outstandingOverdue: CcblTable.outstandingOverdueTable(),
-      // groupPosition: CcblTable.groupPosition()
     });
   }
 
@@ -79,7 +84,6 @@ export class GroupExposureWithCcblComponent implements OnInit {
       groupName: [undefined],
       groupCode: [undefined],
       outstandingOverdue: [undefined],
-      // groupPosition: [undefined],
       groupLimit: this.formBuilder.array([]),
       totalExFunded: [0],
       totalExNonFunded: [0],
@@ -88,6 +92,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
       totalProNonFunded: [0],
       totalProTotal: [0],
       totalChanges: [0],
+      companyGroup: this.formBuilder.array([])
     });
   }
 
@@ -124,9 +129,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
       totalProTotal: this.form.get('totalProTotal').value,
       totalChanges: this.form.get('totalChanges').value,
     };
-    console.log('totalAmount', totalAmount);
-    console.log('stringify totalAmount', JSON.stringify(totalAmount));
     const groupLimit = this.form.get('groupLimit') as FormArray;
+    const companyGroup = this.form.get('companyGroup') as FormArray;
     mGroup.customerInfoId = this.customerInfo.id;
     mGroup.groupExposureDateType = this.formControls.groupExposureDateType.value;
     mGroup.detailInformation = this.formControls.detailInformation.value;
@@ -135,6 +139,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.groupCode = this.formControls.groupCode.value;
     mGroup.outstandingOverdue = this.formControls.outstandingOverdue.value;
     mGroup.groupPosition = JSON.stringify(groupLimit.value);
+    mGroup.companyGroup = JSON.stringify(companyGroup.value);
+    // mGroup.companyGroup = companyGroup.value;
     mGroup.totalAmount = JSON.stringify(totalAmount);
     return mGroup;
   }
@@ -181,8 +187,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.form.get('totalChanges').patchValue(changeAmount.toFixed(2));
   }
 
-  removeData(i: number) {
-    (this.form.get('groupLimit') as FormArray).removeAt(i);
+  removeData(i: number, formArrayName) {
+    (this.form.get(formArrayName) as FormArray).removeAt(i);
   }
 
   calculateTotal(index: number) {
@@ -214,6 +220,27 @@ export class GroupExposureWithCcblComponent implements OnInit {
               proNonFunded: [d.proNonFunded],
               proTotal: [d.proTotal],
               changeAmount: [d.changeAmount],
+            })
+        );
+      });
+    }
+  }
+
+  addCompany() {
+    (this.form.get('companyGroup') as FormArray).push(
+        this.formBuilder.group({
+          name: [undefined]
+        })
+    );
+  }
+
+  setCompanyName(data) {
+    const cName = this.form.get('companyGroup') as FormArray;
+    if (!ObjectUtil.isEmpty(data)) {
+      data.forEach(d => {
+        cName.push(
+            this.formBuilder.group({
+              name: [d.name]
             })
         );
       });

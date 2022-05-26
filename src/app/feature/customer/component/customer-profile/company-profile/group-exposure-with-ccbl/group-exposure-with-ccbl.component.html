@@ -86,7 +86,7 @@
                     <td><input class="form-control text-center"
                                formControlName="concernName"
                                placeholder="Group Concerns/Borrowers"
-                               type="number"/></td>
+                               type="text"/></td>
                     <td><input (change)="calculateTotal(i)"
                                class="form-control text-center"
                                formControlName="exFunded"
@@ -123,7 +123,7 @@
                                placeholder="Changes"
                                type="number"/></td>
                     <td *ngIf="form.get('groupLimit')['length'] > 1">
-                        <input (click)="removeData(i)"
+                        <input (click)="removeData(i, 'groupLimit')"
                                class="align-self-end btn btn-sm btn-danger btn-primary"
                                type="button" value="Delete"/>
                     </td>
@@ -179,6 +179,37 @@
 <!--            <ckeditor id="groupPosition" formControlName="groupPosition"-->
 <!--                      [config]="ckeConfig"></ckeditor>-->
         </div>
+    </div>
+    <hr>
+    <div class="col-md-12">
+<!--        <div class="col-md-4 row">-->
+            <label><strong>Name of the companies under the group</strong></label>
+        <div class="row">
+            <div *ngFor="let cn of form?.get('companyGroup')['controls']; let ii = index"
+                 formArrayName="companyGroup" class="col-md-4">
+                <label for="name"><strong>CompanyName {{ii + 1}}</strong></label>
+                <div [formGroupName]="ii" class="form-group">
+                    <input formControlName="name"
+                           class="form-control"
+                           id="name"
+                           placeholder="Enter Account Number"/>
+                    <div class="mt-2">
+                        <button (click)="removeData(ii, 'companyGroup')"
+                                *ngIf="form?.get('companyGroup')['length'] > 1"
+                                nbButton size="small"
+                                status="danger">
+                            <nb-icon icon="trash-outline"></nb-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button (click)="addCompany()"
+                nbButton status="primary" size="small" class="pl-2"
+                value="Add Account No.">Add
+        </button>
+
+<!--        </div>-->
     </div>
 
     <div class="col-md-12">
