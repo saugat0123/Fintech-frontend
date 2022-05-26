@@ -470,9 +470,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.customer.jointInfo = JSON.stringify(jointInfo);
             }
             if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
-                const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
-                bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
-                this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
+                if (!ObjectUtil.isEmpty(JSON.parse(data.cibRemark).bankingRelationship)) {
+                    this.customer.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+                }
             }
             this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
         }
@@ -893,7 +893,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
-        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
             this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
