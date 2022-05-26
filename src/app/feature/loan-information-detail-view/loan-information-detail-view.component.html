@@ -292,12 +292,7 @@
                         <p><strong>Business activity/customer background: </strong></p>
                         <p> Mr. ...........................................................................</p>
                     </li>
-                    <li>
-                        <p><strong>Financial Performance</strong></p>
-                        <app-retail-financial-performance [loanDataHolder]="loanDataHolder"
-                            [financialData]="financialData">
-                        </app-retail-financial-performance>
-                    </li>
+
                     <li>
                         <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
                         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"

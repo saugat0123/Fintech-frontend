@@ -13,7 +13,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
-import {RetailFinancialPerformanceComponent} from './retail-financial-performance/retail-financial-performance.component';
 import {RetailPurposeAndJustificationComponent} from './retail-purpose-and-justification/retail-purpose-and-justification.component';
 import {RetailSourceOfRepaymentComponent} from './retail-source-of-repayment/retail-source-of-repayment.component';
 import {RetailReportCiclComponent} from './retail-report-cicl/retail-report-cicl.component';
@@ -23,7 +22,7 @@ import {AboveRiskAnalysisComponent} from '../loan/component/loan-summary/sme-loa
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
   exports: [
     CreditChecklistViewComponent, AboveRiskAnalysisComponent
   ],
