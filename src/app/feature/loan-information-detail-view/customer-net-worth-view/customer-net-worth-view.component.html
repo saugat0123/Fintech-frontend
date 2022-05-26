@@ -5,61 +5,76 @@
         <strong *ngIf="customerInfo.isJointCustomer">
             {{customerName[i]}}
         </strong>
-        <table class="table-hover table table-bordered table-striped table-sm text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table-hover table table-bordered table-striped table-sm text-center">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Assets</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >Cash Deposit in other bank</td>
+                        <td>{{data?.cashDepositInOtherBank}}</td>
+                    </tr>
+                    <tr>
+                        <td >Real estate Properties</td>
+                        <td>{{data?.realEstateProperties}}</td>
+                    </tr>
+                    <tr>
+                        <td >Investment in shares</td>
+                        <td>{{data?.investmentInShares}}</td>
+                    </tr>
+                    <tr>
+                        <td >Vehicle</td>
+                        <td>{{data?.vehicle}}</td>
+                    </tr>
+                    <tr>
+                        <td >Jewelleries</td>
+                        <td>{{data?.jewelleries}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Assets</th>
+                        <th>{{data?.totalAssets}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>Total Net Worth : {{data?.totalNetWorth}}</strong>
+            </div>
+            <div class="col-md-6">
+                <table class="table-hover table table-bordered table-striped table-sm text-center">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Liabilities</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Loan from CCBL</td>
+                        <td>{{data?.loanFromCCBL}}</td>
+                    </tr>
+                    <tr>
+                        <td >Credit Cards Limit if any</td>
+                        <td>{{data?.creditCardsLimit}}</td>
+                    </tr>
+                    <tr>
+                        <td >Other Liabilities</td>
+                        <td>{{data?.otherLiabilities}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Liabilities</th>
+                        <th>{{data?.totalLiabilities}}</th>
+                    </tr>
+                    </tbody>
+                </table>
 
-            <thead>
-            <tr class="sb-bg-dark">
-                <th width="30%">Assets</th>
-                <th width="20%">Amount</th>
-                <th width="30%">Liabilities</th>
-                <th width="20%">Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td >Cash Deposit in other bank</td>
-                <td>{{data?.cashDepositInOtherBank}}</td>
-                <th >Loan from CCBL</th>
-                <td></td>
-            </tr>
-            <tr>
-                <td >Real estate Properties</td>
-                <td>{{data?.realEstateProperties}}</td>
-                <td >Credit Cards Limit if any</td>
-                <td>{{data?.creditCardsLimit}}</td>
-            </tr>
-            <tr>
-                <td >Investment in shares</td>
-                <td>{{data?.investmentInShares}}</td>
-                <td >Other Liabilities</td>
-                <td>{{data?.otherLiabilities}}</td>
-            </tr>
-            <tr>
-                <td >Vehicle</td>
-                <td>{{data?.vehicle}}</td>
-                <td ></td>
-                <td></td>
-            </tr>
+            </div>
 
-            <tr>
-                <td >Jewelleries</td>
-                <td>{{data?.jewelleries}}</td>
-                <td ></td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td >Total Assets</td>
-                <td>{{data?.totalAssets}}</td>
-                <td >Total Liabilities</td>
-                <td>{{data?.totalLiabilities}}</td>
-            </tr>
-            <tr style="border: none; background-color: white !important;" class="text-dark">
-                <td><strong>Net Worth</strong></td>
-                <td>{{data?.totalNetWorth}}</td>
-            </tr>
-            </tbody>
-        </table>
+        </div>
+        <hr>
     </div>
 
 </ng-container>
