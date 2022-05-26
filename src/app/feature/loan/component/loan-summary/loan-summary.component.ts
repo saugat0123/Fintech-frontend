@@ -130,23 +130,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     // credit risk alpha variables --
     creditGradeAlphaStatusBadge;
-    creditRiskGradeAlpha;
-    creditRiskAlphaScore = 0;
-    creditRiskAlphaPremium;
-    creditRiskRatingAlpha;
-    creditRiskRatingAlphaCurrentYear;
-    // noComplianceLoanAlpha = false;
-    creditRiskAlphaSummary = false;
-    /*alphaFiscalYearArray = [];
-    creditRiskGradeAlphaArray = [];
-    creditRiskAlphaScoreArray = [];
-    selectedAlphaCrgIndex = 0;*/
-
-    creditRiskLambdaSummary = false;
-    creditRiskLambdaScore = 0;
-    creditRiskGradeLambda;
-    creditRiskRatingLambda;
-    creditRiskLambdaPremium;
     creditGradeLambdaStatusBadge;
 
     customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
@@ -334,14 +317,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting CRG- Alpha data --
         if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
-            this.creditRiskAlphaSummary = true;
             const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
-            this.creditRiskGradeAlpha = crgParsedData.creditRiskGrade;
-            this.creditRiskRatingAlpha = crgParsedData.creditRiskRating;
-            this.creditRiskRatingAlphaCurrentYear = crgParsedData.currentFiscalYear;
-            this.creditRiskAlphaPremium = crgParsedData.premium;
-            this.creditRiskAlphaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
-                0 : crgParsedData.totalScore;
             if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
                 this.creditGradeAlphaStatusBadge = 'badge badge-success';
             } else if (this.creditRiskGrade === 'Reject') {
@@ -351,16 +327,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         }
 
-        // Setting CRG- Lambda data --
+        // Setting CRG- Lambda data --creditRiskLambdaScore
         if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingLambda)) {
             const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data);
-            this.creditRiskLambdaPremium = crgParsedData.premium;
-            this.creditRiskLambdaSummary = true;
-            this.creditRiskRatingLambda = crgParsedData.creditRiskRating;
-            this.creditRiskGradeLambda = crgParsedData.creditRiskGrade;
-            this.creditRiskLambdaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
-                0 : crgParsedData.totalScore;
-            if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
+           if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
                 this.creditGradeLambdaStatusBadge = 'badge badge-success';
             } else if (this.creditRiskGrade === 'Reject') {
                 this.creditGradeLambdaStatusBadge = 'badge badge-danger';
