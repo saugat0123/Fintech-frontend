@@ -27,7 +27,7 @@
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.owner ? (security.get('data')?.value | jsonParse)?.owner
-                                        :  loanDataHolder?.companyInfo?.companyName || loanDataHolder.customerInfo?.customerName}}</td>
+                                        :  loanDataHolder?.customerInfo?.customerName || loanDataHolder?.companyInfo?.companyName}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.plotNumber ? (security.get('data')?.value | jsonParse)?.plotNumber : '0'}}</td>
                                     <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
                                     <td>{{security.get('distressValue')?.value || '0'}}</td>
