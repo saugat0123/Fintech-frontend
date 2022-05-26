@@ -1,0 +1,17 @@
+
+<ng-container>
+    <div>
+        <app-customer-kyc-view
+                [customer]="customer">
+        </app-customer-kyc-view>
+    </div>
+    <br>
+    <hr>
+    <div class="pt-1">
+        <app-customer-net-worth-view
+                [customerInfo]="loanHolder"
+                [customer]="customer"
+        >
+        </app-customer-net-worth-view>
+    </div>
+</ng-container>

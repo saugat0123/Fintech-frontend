@@ -1,0 +1,65 @@
+<ng-container>
+    <strong>Net Worth Detail of &nbsp;</strong>
+    <strong *ngIf="!customerInfo.isJointCustomer">{{customerInfo.name}}</strong>
+    <div *ngFor="let data of netWorth; let i=index">
+        <strong *ngIf="customerInfo.isJointCustomer">
+            {{customerName[i]}}
+        </strong>
+        <table class="table-hover table table-bordered table-striped table-sm text-center">
+
+            <thead>
+            <tr class="sb-bg-dark">
+                <th width="30%">Assets</th>
+                <th width="20%">Amount</th>
+                <th width="30%">Liabilities</th>
+                <th width="20%">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td >Cash Deposit in other bank</td>
+                <td>{{data?.cashDepositInOtherBank}}</td>
+                <th >Loan from CCBL</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td >Real estate Properties</td>
+                <td>{{data?.realEstateProperties}}</td>
+                <td >Credit Cards Limit if any</td>
+                <td>{{data?.creditCardsLimit}}</td>
+            </tr>
+            <tr>
+                <td >Investment in shares</td>
+                <td>{{data?.investmentInShares}}</td>
+                <td >Other Liabilities</td>
+                <td>{{data?.otherLiabilities}}</td>
+            </tr>
+            <tr>
+                <td >Vehicle</td>
+                <td>{{data?.vehicle}}</td>
+                <td ></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td >Jewelleries</td>
+                <td>{{data?.jewelleries}}</td>
+                <td ></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td >Total Assets</td>
+                <td>{{data?.totalAssets}}</td>
+                <td >Total Liabilities</td>
+                <td>{{data?.totalLiabilities}}</td>
+            </tr>
+            <tr style="border: none; background-color: white !important;" class="text-dark">
+                <td><strong>Net Worth</strong></td>
+                <td>{{data?.totalNetWorth}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</ng-container>
