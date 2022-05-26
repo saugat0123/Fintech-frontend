@@ -322,8 +322,9 @@ export class FinancialComponent implements OnInit {
             obligationGrossIncomeRatio: [undefined],
             crgProfileOfAuditors: [undefined],
             financialDetailCheckBtn: ['old'],
-            projectedFinancialsCheckBtn: [undefined]
+            projectedFinancialsCheckBtn: [undefined],
             // riskFactorForm: this.buildRiskFactorForm(),
+            emiCCBL: [undefined]
         });
     }
 
@@ -685,6 +686,7 @@ export class FinancialComponent implements OnInit {
             Number(this.financialForm.get('existingObligationOtherBank').value);
         const totalEmiNetMonthly = ( totalNetMonthly / totalTMO);
         this.financialForm.get('totalEMIInterest').patchValue(totalEmiNetMonthly.toFixed(2));
+        this.financialForm.get('emiCCBL').patchValue(totalTMO.toFixed(2));
 
         const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / totalTMO)
             .toFixed(2);
@@ -729,12 +731,10 @@ export class FinancialComponent implements OnInit {
     }
 
     setObligation(obligationIndex) {
-        let total = 0;
         this.totalObligationValue = 0;
        (this.financialForm.get('obligationAtOtherBank') as FormArray).controls.forEach((c: any) => {
            this.totalObligationValue = Number(this.totalObligationValue) + Number(c.get('obliAmount').value);
        });
-        total = this.totalIncome - this.totalObligationValue - this.totalExpenses;
         this.financialForm.patchValue({
             totalExpenseObligation: this.totalObligationValue,
             existingObligationOtherBank: this.totalObligationValue,
