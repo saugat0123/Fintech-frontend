@@ -46,7 +46,6 @@ import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
-import {DocStatus} from '../../../loan/model/docStatus';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
@@ -59,8 +58,6 @@ import {BehaviorSubject} from 'rxjs';
     styleUrls: ['./customer-loan-information.component.scss']
 })
 export class CustomerLoanInformationComponent implements OnInit, OnChanges {
-
-
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;

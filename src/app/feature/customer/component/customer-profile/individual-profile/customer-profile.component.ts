@@ -178,7 +178,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 };
                 this.paramProp = paramsValue;
                 this.customerType = this.paramProp.customerType;
-                console.log(this.customerType);
                 this.customerInfoId = this.paramProp.customerInfoId;
                 this.getCustomerInfo();
             });
