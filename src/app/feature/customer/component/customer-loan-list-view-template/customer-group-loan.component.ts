@@ -26,6 +26,7 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanTag} from '../../../loan/model/loanTag';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
+import {LoanConfig} from '../../../admin/modal/loan-config';
 
 
 @Component({
@@ -127,6 +128,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     comment: null,
     documentStatus: null
   }];
+  isLoanBeginEdit = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -315,7 +317,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           collateralRequirement: loan.proposal.collateralRequirement,
           requiredCollateral: loan.proposal.collateralRequirement,
           currentStage: loan.currentStage,
-          parentId: loan.parentId
+          parentId: loan.parentId,
+          loan: loan.loan
         });
       } else if (   // check if combined loan is not included already
           !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -361,10 +364,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               collateralRequirement: l.proposal.collateralRequirement,
               requiredCollateral: l.proposal.collateralRequirement,
               currentStage: l.currentStage,
-              parentId: l.parentId
+              parentId: l.parentId,
+              loan: l.loan
             };
             return singleCombinedLoanDto;
-          })
+          }),
+          loan: loan.loan
         };
         loanHistories.push(dto);
       }
@@ -667,6 +672,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   public onEdit(proposal, id: number): void {
     this.customerLoanService.getSingleLoanByLoanHolderId(id).subscribe((response: any) => {
       this.singleLoan = response.detail;
+      this.isLoanBeginEdit = true;
       this.modalService.open(proposal, {
         size: 'xl',
         windowClass: 'modal-holder',
@@ -683,7 +689,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
   public refreshCustomerInfo(): void {
-    this.customerInfo = undefined;
+    this.ngOnInit();
     this.modalService.dismissAll();
   }
 }

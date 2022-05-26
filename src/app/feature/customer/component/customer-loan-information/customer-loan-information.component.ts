@@ -46,7 +46,6 @@ import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
-import {DocStatus} from '../../../loan/model/docStatus';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
@@ -59,8 +58,6 @@ import {BehaviorSubject} from 'rxjs';
     styleUrls: ['./customer-loan-information.component.scss']
 })
 export class CustomerLoanInformationComponent implements OnInit, OnChanges {
-
-
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
@@ -354,9 +351,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 .subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     this.setSecurity(response.detail.securities);
-
+                    this.triggerCustomerRefresh.emit();
                     this.securityComponent.securityInitialState();
                     this.spinner.hide();
+                    this.nbDialogRef.close();
                 }, error => {
                     this.spinner.hide();
                     console.error(error);
@@ -469,9 +467,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.customer.jointInfo = JSON.stringify(jointInfo);
             }
             if (this.customer.clientType !== 'INDIVIDUAL' && ObjectUtil.isEmpty(this.customer.jointInfo)) {
-                const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
-                bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
-                this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
+                if (!ObjectUtil.isEmpty(JSON.parse(data.cibRemark).bankingRelationship)) {
+                    this.customer.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+                }
             }
             this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
         }
@@ -892,7 +890,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
-        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
             this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
@@ -947,5 +944,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 }));
             });
         }
+    }
+
+    onRefresh() {
+        this.triggerCustomerRefresh.emit();
+        this.nbDialogRef.close();
+        this.ngOnInit();
     }
 }

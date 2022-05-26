@@ -1,10 +1,10 @@
-<div>
+<div class="col-md-12">
     <app-view-security-table [customerInfo]="customerInfo"
     (security)="onEdit($event)"
     (securityForSiteVisit)="onSiteVisit($event)"></app-view-security-table>
 </div>
 <div *ngIf="isSiteVisit">
-    <app-fix-asset-collateral [securityData]="securityValue"></app-fix-asset-collateral>
+    <app-fix-asset-collateral (emitter)="onEmitRefresh($event)" [securityData]="securityValue"></app-fix-asset-collateral>
 </div>
 <nb-card *ngIf="!isSiteVisit">
     <nb-card-body>

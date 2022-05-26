@@ -49,13 +49,14 @@ export class ViewSecurityTableComponent implements OnInit {
         this.securityData.security = security;
         this.securityData.securityType = security.securityType;
         this.securityData.isEdit = true;
+        this.securityData.isSiteVisit = false;
         this.security.emit(this.securityData);
     }
 
     public onSiteVisitClick(security: Security): void {
         this.securityData.security = security;
         this.securityData.securityType = security.securityType;
-        this.securityData.isEdit = true;
+        this.securityData.isEdit = false;
         this.securityData.isSiteVisit = true;
         this.securityForSiteVisit.emit(this.securityData);
     }

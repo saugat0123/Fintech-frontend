@@ -1,5 +1,5 @@
 <nb-card [nbSpinner]="spinner" style="height: 500px !important;" accent="primary">
-    <nb-card-header>
+    <nb-card-header *ngIf="!fromProfile">
         Setup Required Cad Legal Document
         <a (click)="closeModal()" aria-label="Close" class="close cursor"
            data-dismiss="modal">

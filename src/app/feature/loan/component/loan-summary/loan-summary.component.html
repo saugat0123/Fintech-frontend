@@ -349,7 +349,7 @@
             <hr class="print-line">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
-                        *ngIf="proposalSummary"
+                        *ngIf="proposalSummary && loaded"
                         [customerAllLoanList]="customerAllLoanList"
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
@@ -490,7 +490,7 @@
 <div class="row  mt-1">
     <div class="col-md-12">
         <div *ngIf="individual">
-            <app-guarantor-view   [individual] = "individual"*ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+            <app-guarantor-view   [individual] = "individual" *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <div *ngIf="minOneGuarantorDoc" class="row">
                 <div class="col-md-12">
@@ -1056,36 +1056,6 @@
                         </table>
                     </div>
                 </div>
-                <app-product-paper-checklist *ngIf="paperChecklist || smallBusiness" [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan" [allIds]="allIds" [paper]="paperChecklist"></app-product-paper-checklist>
-                <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
-<!--                <div *ngIf="minOneInsuranceDoc" class="row ">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p class="header"><strong>Insurance Documents</strong></p>-->
-<!--                        <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
-<!--                            <thead>-->
-<!--                            <tr class="text-white sb-bg-dark">-->
-<!--                                <th>S.N</th>-->
-<!--                                <th>Policy Number</th>-->
-<!--                                <th>Company</th>-->
-<!--                                <th>Document</th>-->
-<!--                                <th>Checked</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">-->
-<!--                            <tr *ngIf="singleDoc.policyDocumentPath">-->
-<!--                                <td>{{i + 1}}</td>-->
-<!--                                <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>-->
-<!--                                <td class="text-left pl-1">{{singleDoc?.company}}</td>-->
-<!--                                <td class="text-left pl-1">Insurance Policy</td>-->
-<!--                                <td>-->
-<!--                                    <i class="fa fa-check" *ngIf="singleDoc?.policyDocumentPath"></i>-->
-<!--                                    <i class="fa fa-times" *ngIf="!singleDoc?.policyDocumentPath"></i>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
                 <hr class="print-line">
                 <div class="row mt-3">

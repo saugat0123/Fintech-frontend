@@ -219,6 +219,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     citizen;
     hidePreviewButton = false;
     zipDocName;
+    loaded = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -549,8 +550,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             isStaged: 'true'
         };
         this.customerLoanService.getAllWithSearch(search)
-            .subscribe((res: any) => {
-                this.customerAllLoanList = res.detail;
+            .toPromise().then(async (res: any) => {
+                this.customerAllLoanList = await res.detail;
                 // push current loan if not fetched from staged spec response
                 if (ObjectUtil.isEmpty(this.requestedLoanType)) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
@@ -569,7 +570,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
                 if (combinedLoans.length > 0) {
                     const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+                    this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
                         (response.detail as CombinedLoan).loans.forEach((cl) => {
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {
@@ -578,7 +579,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         });
                     }, err => {
                         console.error(err);
+                    }).finally( () => {
+                        this.loaded = true;
                     });
+                } else {
+                    this.loaded = true;
                 }
             }, error => {
                 console.error(error);

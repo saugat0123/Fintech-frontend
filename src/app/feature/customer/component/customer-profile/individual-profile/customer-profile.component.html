@@ -521,7 +521,7 @@
               </span></a>
                 </nb-card-header>
                 <nb-card-body>
-                    <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo"
+                    <app-proposal  [loan]="loan" [loanList]="customerLoans" [fromProfile]="true" [customerInfo]="customerInfo"
                                    [loanType]="selectedLoanType" (emitter)="refreshCustomerInfo()"></app-proposal>
                 </nb-card-body>
             </nb-card>

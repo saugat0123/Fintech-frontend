@@ -7,6 +7,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {InsuranceList} from '../../../loan/model/insuranceList';
 import {Security} from '../../../loan/model/security';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-insurance-policy',
@@ -59,7 +60,7 @@ export class InsurancePolicyComponent implements OnInit {
 
     private buildForm(): FormGroup {
         return this.insurancePolicyForm = this.formBuilder.group({
-            insurancePolicy: this.formBuilder.array([this.insurancePolicyFormGroup()])
+            insurancePolicy: this.formBuilder.array([])
         });
     }
 
@@ -73,7 +74,7 @@ export class InsurancePolicyComponent implements OnInit {
 
   public addInsurancePolicy(): void {
     const controls = this.insurancePolicyForm.get('insurancePolicy') as FormArray;
-    if (FormUtils.checkEmptyProperties(controls)) {
+    if (controls.invalid) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All fields To Add More'));
       return;
     }

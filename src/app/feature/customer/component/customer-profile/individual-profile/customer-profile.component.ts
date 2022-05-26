@@ -178,7 +178,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 };
                 this.paramProp = paramsValue;
                 this.customerType = this.paramProp.customerType;
-                console.log(this.customerType);
                 this.customerInfoId = this.paramProp.customerInfoId;
                 this.getCustomerInfo();
             });
@@ -257,6 +256,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.selectedLoanType = null;
         this.facilityType = null;
         this.buildLoanForm();
+        this.ngOnInit();
     }
 
     getProvince() {
@@ -369,6 +369,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     customerBasicFormBuilder() {
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
         this.basicForm = this.formBuilder.group({
             id: [this.customer.id === undefined ? undefined : this.customer.id],
             profilePic: [this.customer.profilePic === undefined ? undefined : this.customer.profilePic],
@@ -383,7 +384,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus) ? undefined : this.customer.maritalStatus, Validators.required],
             gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
-            bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
+            bankingRelationship: [ObjectUtil.isEmpty(this.customerInfo.bankingRelationship) ?
+                undefined : this.customerInfo.bankingRelationship, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -404,6 +406,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
             withinLimitRemarks: [this.customer.withinLimitRemarks === undefined ? undefined : this.customer.withinLimitRemarks]
         });
+        }
     }
 
     createRelativesArray() {
@@ -420,6 +423,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     setRelatives(currentData) {
+        if (currentData.length > 0) {
         const relativesData = (this.basicForm.get('customerRelatives') as FormArray);
         currentData.forEach((singleRelatives, index) => {
             const customerRelative = singleRelatives.customerRelation;
@@ -433,6 +437,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                     undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
             }));
         });
+    }
     }
 
     getDistricts(province: Province) {

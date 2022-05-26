@@ -31,7 +31,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.proposedLimit = changes.proposedAmount.currentValue;
+        if (!ObjectUtil.isEmpty(changes.proposedAmount)) {
+            this.proposedLimit = changes.proposedAmount.currentValue;
+        }
         this.change.detectChanges();
     }
 

@@ -44,7 +44,7 @@
                                             class="fa fa-cog"></em></a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
-                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && loan[i]?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) &&loan[i]?.loan?.isRemit "  (click)="addVideoKyc(model)">
+                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && model?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && model?.loan?.isRemit "  (click)="addVideoKyc(model)">
                                         <em class="fa fa-camera"></em>
                                     </a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
@@ -70,13 +70,16 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
                                         class="text-right pr-1">
                                         Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{model?.currentStage?.toUser?.name}}</td>
+                                    <td (click)="onClick(single?.loanId, single?.id,single?.currentStage)">{{single?.currentStage?.toUser?.name}}</td>
                                     <td>
 
                                         <a nbTooltip="change loan" (click)="changeLoan(single.id,single?.loanId)" *ngIf=" single?.parentId === null && single?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
                                                 class="fa fa-cog"></em></a>&nbsp;
                                         <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)" *ngIf="single?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                                 class="fa fa-trash"></em></a>&nbsp;
+                                        <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && single?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && single?.loan?.isRemit "  (click)="addVideoKyc(single)">
+                                            <em class="fa fa-camera"></em>
+                                        </a>&nbsp;
                                         <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)"  *ngIf="single?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                                 class="fa fa-trash"></em></a>&nbsp;
                                         <a nbTooltip="Edit loan" class="text-info" *ngIf="single?.currentStage?.toRole?.roleType.toString()==='MAKER' || (currentUserRoleType === 'ADMIN')"
@@ -375,6 +378,8 @@
         </nb-card-header>
         <nb-card-body>
             <app-proposal  [loan]="singleLoan" [fromProfile]="true" [customerInfo]="customerInfo"
+                           [isLoanBeingEdit]="isLoanBeginEdit"
+                           [loanList]="loan"
                            [formValue]="singleLoan?.proposal" [loanType]="singleLoan?.loanType" (emitter)="refreshCustomerInfo()"></app-proposal>
         </nb-card-body>
     </nb-card>
