@@ -112,6 +112,64 @@
             <!--                    <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>-->
             <!--                </div>-->
             <!--            </div>-->
+            <div class="row">
+                <div class="col-md-6 sb-small">
+                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
+                </div>
+            </div>
+
+            <div class="row sb-small">
+                <div class="col-md-12">
+                    <b>Purpose: {{loanDataHolder?.loan?.name}}</b>
+                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                </div>
+            </div>
+            <div class="row sb-small mb-1">
+                <div class="col-md-12">
+                    <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
+                    <span class="float-right"><b>
+                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
+                    </span>
+
+                </div>
+            </div>
+            <hr>
+            <!-- CRG - Gamma-->
+            <div *ngIf="crgGammaSummary" class="col-md-12">
+                <nb-card class="sb-medium">
+                    <nb-card-header class="text-center">
+                        <h6>Credit Risk Gauge (Gamma)</h6>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
+                                                 [obtainedValue]="crgGammaScore"
+                                                 gaugeIdentifier="crg-gamma"></app-gauge-chart>
+                            </div>
+                            <div class="col-md-6 gauge-label-padding">
+                                <div class="vertical-line">
+                                    <div class="text-left pl-2">
+                                        <h5>Gamma</h5><br>
+                                        Credit Risk Grade:
+                                        <span [class]="crgGammaGradeStatusBadge">
+                                                {{crgGammaGrade | titlecase}}</span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Score:
+                                        <span><strong> {{ crgGammaScore }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
             <hr class="print-line">
             <div class="row">
                 <div class="col-md-12">
@@ -147,17 +205,6 @@
                     <b>ACCOUNT NUMBER:</b> <br>
                     <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode || 'NA'}}</b> <br>
                     <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-12 sb-small">
-                    <div class="clearfix">
-                        <div class="float-right"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
-                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
-                        </div>
-
-                    </div>
                 </div>
             </div>
 
@@ -203,37 +250,6 @@
             <!--          </nb-card>-->
             <!--        </div>-->
 
-            <!-- CRG - Gamma-->
-            <!-- <div *ngIf="crgGammaSummary" class="col-md-12">
-                    <nb-card class="sb-medium">
-                        <nb-card-header class="text-center">
-                            <h6>Credit Risk Gauge (Gamma)</h6>
-                        </nb-card-header>
-                        <nb-card-body>
-                            <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
-                                        [obtainedValue]="crgGammaScore" gaugeIdentifier="crg-gamma"></app-gauge-chart>
-                                </div>
-                                <div class="col-md-6 gauge-label-padding">
-                                    <div class="vertical-line">
-                                        <div class="text-left pl-2">
-                                            <h5>Gamma</h5><br>
-                                            Credit Risk Grade:
-                                            <span [class]="crgGammaGradeStatusBadge">
-                                                {{crgGammaGrade | titlecase}}</span>
-                                        </div>
-                                        <br>
-                                        <div class="text-left pl-2">
-                                            Credit Risk Score:
-                                            <span><strong> {{ crgGammaScore }}</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </nb-card-body>
-                    </nb-card>
-                </div> -->
 
             <!--CRG - Alpha-->
             <!-- <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
@@ -376,81 +392,57 @@
             <!-- </div> -->
 
 
-            <!-- <div class="row sb-small">
-                <div class="col-md-12">
-                    <b>Purpose: {{loanDataHolder.loan.name}}</b>
-                    <span class="float-right"><b>Loan Authority Under</b>-
-                        {{loanDataHolder?.currentStage?.toUser?.name}}
-                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                </div>
-            </div>
-            <div class="row sb-small mb-1">
-                <div class="col-md-12">
-                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}} ({{nepaliDate}})</span>
-                    <span class="float-right"><b>
-                            <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                            <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by:
-                        </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
-                        ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
+            <!--  <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
+                 <p><strong>Credit Risk Grading</strong></p>
+                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                     <thead>
+                         <tr class="text-white sb-bg-dark">
+                             <th>Credit Risk Grading (Flavour)</th>
+                             <th>Credit Risk Grade</th>
+                             <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
+                             <th>Credit Risk Score</th>
+                             <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
+                             <td class="text-left pl-1">Lambda</td>
+                             <td><span [class]="creditGradeLambdaStatusBadge">
+                                     {{creditRiskGradeLambda | titlecase}}</span>
+                             </td>
+                             <td><span [class]="creditGradeLambdaStatusBadge">
+                                     {{ creditRiskRatingLambda | titlecase }}</span>
+                             </td>
+                             <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
+                             <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                         </tr>
+                         <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
+                             <td class="text-left pl-1">Alpha</td>
+                             <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+                             </td>
+                             <td><span [class]="creditGradeAlphaStatusBadge">
+                                     {{ creditRiskRatingAlpha | titlecase }}</span>
+                             </td>
+                             <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
+                             <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
+                         </tr>
+                         <tr *ngIf="crgGammaSummary">
+                             <td class="text-left pl-1">Gamma</td>
+                             <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
+                             <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
+                         </tr>
+                     </tbody>
+                 </table>
+             </div>
 
-                    </span>
+             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
+                 <div class="col-md-12">
+                     <app-company-info-summary [approveSheet]="notApprove" [companyInfo]="loanDataHolder?.companyInfo"
+                         [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                 </div>
+             </div>
 
-                </div>
-            </div>
-
-            <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
-                <p><strong>Credit Risk Grading</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>Credit Risk Grading (Flavour)</th>
-                            <th>Credit Risk Grade</th>
-                            <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
-                            <th>Credit Risk Score</th>
-                            <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
-                            <td class="text-left pl-1">Lambda</td>
-                            <td><span [class]="creditGradeLambdaStatusBadge">
-                                    {{creditRiskGradeLambda | titlecase}}</span>
-                            </td>
-                            <td><span [class]="creditGradeLambdaStatusBadge">
-                                    {{ creditRiskRatingLambda | titlecase }}</span>
-                            </td>
-                            <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
-                            <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
-                        </tr>
-                        <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
-                            <td class="text-left pl-1">Alpha</td>
-                            <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
-                            </td>
-                            <td><span [class]="creditGradeAlphaStatusBadge">
-                                    {{ creditRiskRatingAlpha | titlecase }}</span>
-                            </td>
-                            <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
-                            <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
-                        </tr>
-                        <tr *ngIf="crgGammaSummary">
-                            <td class="text-left pl-1">Gamma</td>
-                            <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                            <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
-                <div class="col-md-12">
-                    <app-company-info-summary [approveSheet]="notApprove" [companyInfo]="loanDataHolder?.companyInfo"
-                        [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-                </div>
-            </div>
-
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo"> -->
+             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo"> -->
             <!-- 1.	Date of Association
                 2.	Capital Structure
                 3.	Proprietor/Promoters/Shareholding Pattern:
