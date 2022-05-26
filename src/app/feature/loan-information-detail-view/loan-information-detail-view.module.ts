@@ -22,10 +22,15 @@ import { RetailComplianceComponent } from './retail-compliance/retail-compliance
 import { RetailReportCiclComponent } from './retail-report-cicl/retail-report-cicl.component';
 import { RetailRecommendationComponent } from './retail-recommendation/retail-recommendation.component';
 import { RetailSecurityComponent } from './retail-security/retail-security.component';
+import {FeatureModule} from '../feature.module';
+import {CustomerModule} from '../customer/customer.module';
+import { CustomerBusinessActivityOrBackgroundsComponent } from './customer-business-activity-or-backgrounds/customer-business-activity-or-backgrounds.component';
+import { CustomerKycViewComponent } from './customer-kyc-view/customer-kyc-view.component';
+import { CustomerNetWorthViewComponent } from './customer-net-worth-view/customer-net-worth-view.component';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailProfitabilityOfClienComponent, RetailRisksComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailProfitabilityOfClienComponent, RetailRisksComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent, CustomerBusinessActivityOrBackgroundsComponent, CustomerKycViewComponent, CustomerNetWorthViewComponent],
     exports: [
         CreditChecklistViewComponent
     ],

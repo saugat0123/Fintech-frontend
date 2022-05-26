@@ -254,7 +254,12 @@
                     </li>
                     <li>
                         <p><strong>Business activity/customer background: </strong></p>
-                        <p> Mr. ...........................................................................</p>
+                        <app-customer-business-activity-or-backgrounds
+                                *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
+                                [customer]="loanDataHolder.customerInfo"
+                                [loanHolder]="loanDataHolder.loanHolder"
+                        >
+                        </app-customer-business-activity-or-backgrounds>
                     </li>
                     <li>
                         <p><strong>Financial Performance</strong></p>

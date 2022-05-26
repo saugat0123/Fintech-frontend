@@ -28,43 +28,43 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
 
 
 @NgModule({
-      imports: [
-        FeatureRoutingModule,
-        ThemeModule,
-        NbAccordionModule,
-        NgxChartsModule,
-        NbSelectModule,
-        NbDatepickerModule.forRoot(),
-        NgSelectModule,
-        DragDropModule,
-        NepaliCalendarModule
-      ],
-      declarations: [
-        FeatureComponent,
-        DashboardComponent,
-        PendingLoanComponent,
-        PendingsLoanComponent,
-        CadDataComponent,
-        DataVisualizationComponent,
-        ApprovalRoleHierarchyComponent,
-        MouseScrollDisableDirective,
-        CommonAddressComponent,
-        CustomerWisePendingComponent,
-        ErrorPageComponent,
-          CreditRiskGradingAlphaComponent,
-          CreditRiskGradingGammaComponent,
-          MultipleBankingComponent,
-          InstitutionalCrgGammaComponent,
-          GuarantorAdderComponent,
-          GuarantorDetailComponent
+        imports: [
+            FeatureRoutingModule,
+            ThemeModule,
+            NbAccordionModule,
+            NgxChartsModule,
+            NbSelectModule,
+            NbDatepickerModule.forRoot(),
+            NgSelectModule,
+            DragDropModule,
+            NepaliCalendarModule
+        ],
+        declarations: [
+            FeatureComponent,
+            DashboardComponent,
+            PendingLoanComponent,
+            PendingsLoanComponent,
+            CadDataComponent,
+            DataVisualizationComponent,
+            ApprovalRoleHierarchyComponent,
+            MouseScrollDisableDirective,
+            CommonAddressComponent,
+            CustomerWisePendingComponent,
+            ErrorPageComponent,
+            CreditRiskGradingAlphaComponent,
+            CreditRiskGradingGammaComponent,
+            MultipleBankingComponent,
+            InstitutionalCrgGammaComponent,
+            GuarantorAdderComponent,
+            GuarantorDetailComponent
 
 
-      ],
-      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-          CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent, MultipleBankingComponent,
+        ],
+        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+            CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent, MultipleBankingComponent,
           InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent
-      ],
-      providers: [SafePipe]
+        ],
+        providers: [SafePipe]
     }
 )
 export class FeatureModule {
