@@ -7,11 +7,12 @@ export class MGroup extends BaseEntity {
      groupName: string;
      groupExposureDateType: string;
      groupExposureDate: Date;
-      outstandingOverdue: string;
-      groupPosition: string;
+     outstandingOverdue: string;
+     groupPosition: string;
+     totalAmount: string;
 
      public MGroup(groupCode, detailInformation, groupName, groupExposureDateType, groupExposureDate,
-                   outstandingOverdue, groupPosition) {
+                   outstandingOverdue, groupPosition, totalAmount) {
           this.groupCode = groupCode;
           this.detailInformation = detailInformation;
           this.groupName = groupName;
@@ -19,5 +20,6 @@ export class MGroup extends BaseEntity {
           this.groupExposureDate = groupExposureDate;
           this.outstandingOverdue = outstandingOverdue;
           this.groupPosition = groupPosition;
+          this.totalAmount = totalAmount;
      }
 }
