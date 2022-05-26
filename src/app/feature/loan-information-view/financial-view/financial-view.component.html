@@ -31,7 +31,7 @@
                  </thead>
                  <tbody>
                  <tr *ngFor="let expensesOfBorrower of financialData['initialForm']['expensesOfBorrower'];">
-                     <td  class="text-left pl-1">{{expensesOfBorrower.particulars}}</td>
+                     <td  class="text-left pl-1">{{expensesOfBorrower.particulars}} ({{expensesOfBorrower.remarks}})</td>
                      <td class="text-right pr-1">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
                  </tr>
                  <tr>
@@ -46,13 +46,13 @@
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
-                        <th>Monthly Expenditure</th>
+                        <th>Expenditure at other Bank</th>
                         <th>Amount</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let data of financialData['initialForm']['obligationAtOtherBank'];">
-                        <td  class="text-left pl-1">{{data.obliParticulars}}</td>
+                        <td  class="text-left pl-1">{{data.obliParticulars}} ({{data.obliRemarks}})</td>
                         <td class="text-right pr-1">Rs. {{data.obliAmount | currencyFormatter}}</td>
                     </tr>
                     <tr>
@@ -75,7 +75,7 @@
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total EMI of CCBL including present proposal</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
+                    <strong>Rs. {{financialData?.initialForm?.emiCCBL | currencyFormatter}}</strong>
                 </td>
             </tr>
             <tr>
