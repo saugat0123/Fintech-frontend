@@ -142,9 +142,9 @@
 
                 </div>
             </div>
-            <hr>
             <!-- CRG - Gamma-->
             <div *ngIf="crgGammaSummary" class="col-md-12">
+                <hr>
                 <nb-card class="sb-medium">
                     <nb-card-header class="text-center">
                         <h6>Credit Risk Gauge (Gamma)</h6>
@@ -175,8 +175,8 @@
                     </nb-card-body>
                 </nb-card>
             </div>
-            <hr>
-            <div>
+            <div *ngIf="crgGammaSummary">
+                <hr>
                 <p><strong>Credit Risk Grading</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
