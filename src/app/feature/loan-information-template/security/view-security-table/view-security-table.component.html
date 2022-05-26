@@ -44,7 +44,7 @@
                     <td colspan="9">
                         <ng-container *ngIf="toggleArray[i]?.toggled">
                             <app-security-tagged-component
-                                    [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                    [tagged]="toggleArray[i]?.security" [security]="security?.data"></app-security-tagged-component>
                         </ng-container>
                     </td>
                 </tr>

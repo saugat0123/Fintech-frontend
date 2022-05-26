@@ -11,6 +11,7 @@ export class SecurityTaggedComponentComponent implements OnInit {
   constructor() { }
 
   @Input() tagged: Array<SecurityLoanReference>;
+  @Input() security;
   ngOnInit() {
   }
 
