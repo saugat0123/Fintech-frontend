@@ -198,9 +198,14 @@
 
             <!-- DO NOT REMOVE -->
 
-            <div class="row">
-                <div class="col-md-6 sb-small">
-                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
+            <div class="row ">
+                <div class="col-md-12 sb-small">
+                    <div class="clearfix">
+                        <div class="float-right"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
+                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -287,12 +292,7 @@
                         <p><strong>Business activity/customer background: </strong></p>
                         <p> Mr. ...........................................................................</p>
                     </li>
-                    <li>
-                        <p><strong>Financial Performance</strong></p>
-                        <app-retail-financial-performance [loanDataHolder]="loanDataHolder"
-                            [financialData]="financialData">
-                        </app-retail-financial-performance>
-                    </li>
+
                     <li>
                         <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
                         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
@@ -302,13 +302,15 @@
                     <li>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Source of Repayment</strong></p>
+                                <p><strong>Source of Repayment :</strong></p>
                             </div>
-                            <div class="col-md-6">
+                            <!--<div class="col-md-6">
                                 <p class="text-right"><strong>PAN No. : {{incomeSource?.panNumber}}</strong></p>
-                            </div>
+                            </div>-->
                         </div>
-                        <app-retail-source-of-repayment></app-retail-source-of-repayment>
+                        <app-retail-source-of-repayment
+                                *ngIf="loanHolder?.financial"
+                                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
                     </li>
                     <li>
                         <p><strong>Current limits and outstanding of the Client: <em class="text-danger sb-small">Bold row indicates current loan proposal</em> </strong></p>
