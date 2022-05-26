@@ -681,6 +681,20 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div *ngIf="isShare" class="col-md-12">
+                                    <div class="form-group"><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against Share)</strong>
+                                        <ckeditor
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.debtStructure.errors }"
+                                                formControlName="debtStructure"
+                                                name="debtStructure"
+                                                [config]="ckeConfig"></ckeditor>
+                                        <div *ngIf="(submitted) && formControls.debtStructure.invalid"
+                                             class="text-danger">
+                                            <span *ngIf="formControls.debtStructure.errors.required">Debt Structure Criteria is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-md-12" *ngIf="customerType === 'INDIVIDUAL'">
                                     <div class="form-group">
