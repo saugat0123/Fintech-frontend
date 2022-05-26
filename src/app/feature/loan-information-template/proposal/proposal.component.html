@@ -695,6 +695,17 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-md-12" *ngIf="customerType === 'INDIVIDUAL'">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Compliance</strong></label>
+                                        <ckeditor formControlName="compliance"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Compliance"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
                                 <ng-container *ngIf="!fromProfile">
 
                                     <div class="col-md-12">
@@ -862,7 +873,7 @@
                             </div>
                         </form>
                     </div>
-                    <ng-container *ngIf="customerType === 'INDIVIDUAL'">
+                    <ng-container *ngIf="customerType === 'INDIVIDUAL' && fromProfile">
                         <div class="col-md-12">
                             <nb-accordion>
                                 <nb-accordion-item>
@@ -870,7 +881,7 @@
                                         Credit Risk Score
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        <app-credit-risk-grading-gamma  #crgGamma
+                                        <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile"
                                                                         [formData]="loan?.crgGamma"
                                                                        [fromProfile]="true"
                                                                        [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"

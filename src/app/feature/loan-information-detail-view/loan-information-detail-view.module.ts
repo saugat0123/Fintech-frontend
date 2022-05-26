@@ -16,7 +16,6 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {RetailFinancialPerformanceComponent} from './retail-financial-performance/retail-financial-performance.component';
 import {RetailPurposeAndJustificationComponent} from './retail-purpose-and-justification/retail-purpose-and-justification.component';
 import {RetailSourceOfRepaymentComponent} from './retail-source-of-repayment/retail-source-of-repayment.component';
-import {RetailComplianceComponent} from './retail-compliance/retail-compliance.component';
 import {RetailReportCiclComponent} from './retail-report-cicl/retail-report-cicl.component';
 import {RetailRecommendationComponent} from './retail-recommendation/retail-recommendation.component';
 import {RetailSecurityComponent} from './retail-security/retail-security.component';
@@ -24,7 +23,7 @@ import {AboveRiskAnalysisComponent} from '../loan/component/loan-summary/sme-loa
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailComplianceComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailFinancialPerformanceComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
   exports: [
     CreditChecklistViewComponent, AboveRiskAnalysisComponent
   ],

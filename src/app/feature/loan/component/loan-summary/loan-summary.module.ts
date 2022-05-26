@@ -84,6 +84,7 @@ import { SanaRepaymentModalityComponent } from './sme-loan-summary/sana-byabasay
 import { SanaMisNrbReportingComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-mis-nrb-reporting/sana-mis-nrb-reporting.component';
 import {SecurityTaggedModule} from '../../../loan-information-template/security/security-tagged-component/security-tagged.module';
 import {SecurityTaggedViewModule} from '../../../loan-information-template/security/security-tagged-view/security-tagged-view.module';
+import { AuthoritySectionComponent } from './authority-section/authority-section.component';
 
 
 const COMPONENTS = [
@@ -183,6 +184,7 @@ const ENTRY_COMPONENTS = [];
     SanaDisbursementModalityComponent,
     SanaRepaymentModalityComponent,
     SanaMisNrbReportingComponent,
+    AuthoritySectionComponent,
   ],
     imports: [
         CommonModule,
@@ -222,6 +224,7 @@ const ENTRY_COMPONENTS = [];
         AboveSwotAnalysisComponent,
         AboveBankingArrangementOfTheCustomerComponent,
         AboveRiskAnalysisComponent,
+        AuthoritySectionComponent
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
