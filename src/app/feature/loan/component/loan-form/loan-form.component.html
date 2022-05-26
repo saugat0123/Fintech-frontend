@@ -86,7 +86,10 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
             <app-proposal [formValue]="loadProposal()"
-                          [loanType]="loanType" [customerInfo]="loanHolder" #proposalInfo></app-proposal>
+                          [loan]="loanDocument"
+                          [loanType]="loanType"
+                          [customerInfo]="loanHolder"
+                          #proposalInfo></app-proposal>
           </ng-template>
 
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">

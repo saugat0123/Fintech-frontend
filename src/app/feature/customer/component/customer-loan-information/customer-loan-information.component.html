@@ -980,14 +980,14 @@
           </div>
           <div class="clearfix"></div>
           <div class="col-md-12">
-            <div class="form-group" style="max-height: 300px !important;height: 250px;">
-              <strong>Loan background</strong>
+            <div class="form-group">
+              <label class="title" for="borrowerInformation"><strong>Loan background</strong></label>
+              <strong></strong>
               <ckeditor [config]="ckeConfig"
                         [style]="{height:'250px !important;'}"
                         formControlName="borrowerInformation"
                         placeholder="Background"
-                        required
-              >
+                        id="borrowerInformation" required>
               </ckeditor>
             </div>
           </div>

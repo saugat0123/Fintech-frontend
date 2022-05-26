@@ -636,7 +636,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     saveMultiBanking(data: MultipleBanking) {
     this.spinner.show();
-        console.log('before', this.multiBankingResponse);
         if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
             this.multiBankingResponse = new MultipleBanking();
         }
@@ -748,7 +747,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveCommonLoanData() {
         this.spinner.show();
         const mergeChecked = {
-            waiverChecked: this.waiverChecked,
             swapChargeChecked: this.swapChargeChecked,
             subsidizedLoanChecked: this.subsidizedLoanChecked,
             commitmentChecked: this.commitmentChecked,
@@ -773,9 +771,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
-        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
             this.checkChecked(data['commitmentChecked'], 'commitment');

@@ -317,14 +317,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
             this.crgGammaSummary = true;
             const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
-            this.crgGammaGrade = crgParsedData.grade;
+            if (!ObjectUtil.isEmpty(crgParsedData)) {
+                this.crgGammaGrade = crgParsedData.grade;
+            }
             this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-            if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
-                this.crgGammaGradeStatusBadge = 'badge badge-success';
-            } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
-                this.crgGammaGradeStatusBadge = 'badge badge-danger';
-            } else {
-                this.crgGammaGradeStatusBadge = 'badge badge-warning';
+            if (!ObjectUtil.isEmpty(this.crgGammaGrade)) {
+                if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-success';
+                } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-danger';
+                } else {
+                    this.crgGammaGradeStatusBadge = 'badge badge-warning';
+                }
             }
         }
 
