@@ -410,19 +410,13 @@
                     <!--Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}-->
                 </th>
                 <th colspan="2"></th>
-                <th style="border-bottom: hidden"></th>
-            </tr>
-            <tr>
-                <td colspan="7">
-                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
-                </td>
-                <td class="text-left">
+                <th class="text-left">
                     <ng-container *ngFor="let guarantor of guarantorsList">
                         Personal Guarantee of {{loanDataHolder?.loanHolder?.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}}
                         <span class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
                         (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
-                            '..............'}}</span> of the borrower) of <span class="font-weight-bold">{{guarantor ?
-                            (guarantor?.guaranteeAmount | currency:'NPR ':'symbol') : '..............'}}</span> Million.
+                        '..............'}}</span> of the borrower) of <span class="font-weight-bold">{{guarantor ?
+                        (guarantor?.guaranteeAmount | currency:'NPR ':'symbol') : '..............'}}</span> Million.
                         <br>
                         Consent of Mr./Mrs./Ms <span class="font-weight-bold">{{guarantor?.name}}</span> <br>
                     </ng-container>
@@ -433,6 +427,16 @@
 
                     &nbsp;&nbsp;&nbsp;&nbsp;a. Land & Building :- .............% at FMV<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br> -->
+                </th>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                 </td>
             </tr>
         </table>
