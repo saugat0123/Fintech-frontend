@@ -251,6 +251,7 @@
                                     </div>
 
                                 </div>
+                                </ng-container>
                                 <div class="col-md-4"
                                      *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
@@ -305,6 +306,7 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
