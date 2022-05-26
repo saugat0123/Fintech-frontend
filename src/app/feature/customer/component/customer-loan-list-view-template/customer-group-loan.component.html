@@ -378,6 +378,8 @@
         </nb-card-header>
         <nb-card-body>
             <app-proposal  [loan]="singleLoan" [fromProfile]="true" [customerInfo]="customerInfo"
+                           [isLoanBeingEdit]="isLoanBeginEdit"
+                           [loanList]="loan"
                            [formValue]="singleLoan?.proposal" [loanType]="singleLoan?.loanType" (emitter)="refreshCustomerInfo()"></app-proposal>
         </nb-card-body>
     </nb-card>

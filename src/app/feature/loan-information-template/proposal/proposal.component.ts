@@ -42,6 +42,8 @@ export class ProposalComponent implements OnInit {
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @Output() emitter = new EventEmitter();
+    @Input() loanList = [];
+    @Input() isLoanBeingEdit = false;
     proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
@@ -161,6 +163,7 @@ export class ProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.loanList);
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
@@ -241,7 +244,7 @@ export class ProposalComponent implements OnInit {
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 });
-            if(!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 const commonData = JSON.parse(this.customerInfo.commonLoanData);
                 this.setFormData(commonData.vehicle, 'vehicle');
                 this.setFormData(commonData.deposit, 'deposit');
@@ -543,6 +546,10 @@ export class ProposalComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
                 this.combinedLoansIds.push(this.loan.id);
+                if (this.isLoanBeingEdit === false) {
+                    this.loanList.push(this.loan);
+                }
+                this.spinner.hide();
                 if (this.combinedLoansIds.length > 1) {
                     const combinedLoans: LoanDataHolder[] = this.combinedLoansIds.map((id) => {
                         const loan = new LoanDataHolder();
@@ -554,20 +561,23 @@ export class ProposalComponent implements OnInit {
                         loans: combinedLoans.length < 1 ? [] : combinedLoans,
                         version: this.existingCombinedLoan.version
                     };
-                    this.combinedLoanService.save(combinedLoan).subscribe(() => {
-                        const msg = `Successfully saved combined loan`;
-                        this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-                        this.emitter.emit(this.loan);
-                        this.spinner.hide();
-                    }, error => {
-                        console.error(error);
-                        this.spinner.hide();
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
-                    });
+                    if (this.loanList.length > 1) {
+                        this.combinedLoanService.save(combinedLoan).subscribe(() => {
+                            const msg = `Successfully saved combined loan`;
+                            this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+                            this.emitter.emit(this.loan);
+                            this.spinner.hide();
+                        }, error => {
+                            console.error(error);
+                            this.spinner.hide();
+                            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
+                        });
+                    }
                 } else {
                     this.spinner.hide();
                     this.emitter.emit(this.loan);
                 }
+                this.emitter.emit(this.loan);
             }, error => {
                 this.spinner.hide();
                 console.error(error);

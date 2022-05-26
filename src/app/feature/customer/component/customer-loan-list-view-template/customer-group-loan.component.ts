@@ -128,6 +128,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     comment: null,
     documentStatus: null
   }];
+  isLoanBeginEdit = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -671,6 +672,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   public onEdit(proposal, id: number): void {
     this.customerLoanService.getSingleLoanByLoanHolderId(id).subscribe((response: any) => {
       this.singleLoan = response.detail;
+      this.isLoanBeginEdit = true;
       this.modalService.open(proposal, {
         size: 'xl',
         windowClass: 'modal-holder',
