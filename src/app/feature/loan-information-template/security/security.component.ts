@@ -261,13 +261,21 @@ export class SecurityComponent implements OnInit {
             this.initialSecurity.clearValidationAtInitialStage();
         }
         if (this.initialSecurity.securityForm.invalid) {
+            const invalid = [];
+            const controls = (this.initialSecurity.securityForm.get('landBuilding') as FormArray)['controls'];
+            controls.forEach((c, i) => {
+                if (c.invalid) {
+                    invalid.push(c);
+                }
+            });
+            console.log('this is invalid', invalid);
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             this.overlay.hide();
             this.submitted = false;
             return;
         }
         if (this.initialSecurity.shareSecurityForm.invalid) {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check Share validation'));
             this.overlay.hide();
             this.submitted = false;
             return;

@@ -23,6 +23,7 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
+import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
   selector: 'app-proposal',
@@ -42,6 +43,7 @@ export class ProposalComponent implements OnInit {
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
@@ -138,6 +140,7 @@ export class ProposalComponent implements OnInit {
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
     customerType: any;
+    showCad;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -376,7 +379,6 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
-
     });
     }
 
@@ -426,6 +428,7 @@ export class ProposalComponent implements OnInit {
     }
 
     onSubmit() {
+        this.cadFileSetupComponent.save();
         if (this.customerType === 'INDIVIDUAL') {
             this.crgGammaComponent.onSubmit();
         }

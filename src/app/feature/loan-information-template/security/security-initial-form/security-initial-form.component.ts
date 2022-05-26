@@ -245,7 +245,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
-        this.addSecurityToSelectedArray();
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
             this.addShareSecurity();
@@ -1040,6 +1039,11 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
+            });
+            const landBuildingDetails = this.securityForm.get('landBuilding') as FormArray;
+            landBuildingDetails.controls.forEach(f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
             });
         }
         this.clearLandBuildingValidators();
@@ -1837,6 +1841,19 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.shareField.at(index).get('amountPerUnit').value,
                     matchedNepse[0].shareType
                 )
+            });
+        }
+        if (this.selectedSecurity === 'Land And Building Security') {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
             });
         }
     }

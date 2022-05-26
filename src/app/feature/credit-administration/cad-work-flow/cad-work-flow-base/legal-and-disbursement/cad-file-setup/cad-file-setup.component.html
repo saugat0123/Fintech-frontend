@@ -3,7 +3,7 @@
         Setup Required Cad Legal Document
         <a (click)="closeModal()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
-            <span aria-hidden="true">×</span></a>
+            <span aria-hidden="true" *ngIf="!proposal">×</span></a>
     </nb-card-header>
     <nb-card-body>
 
@@ -22,7 +22,7 @@
     <nb-card-footer>
 
             <div class="col-md-12">
-                <button class="float-right" nbButton (click)="save()" >save</button>
+                <button class="float-right" *ngIf="!proposal" nbButton (click)="save()" >save</button>
             </div>
 
     </nb-card-footer>
