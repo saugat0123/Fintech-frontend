@@ -307,13 +307,15 @@
                     <li>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Source of Repayment</strong></p>
+                                <p><strong>Source of Repayment :</strong></p>
                             </div>
-                            <div class="col-md-6">
+                            <!--<div class="col-md-6">
                                 <p class="text-right"><strong>PAN No. : {{incomeSource?.panNumber}}</strong></p>
-                            </div>
+                            </div>-->
                         </div>
-                        <app-retail-source-of-repayment></app-retail-source-of-repayment>
+                        <app-retail-source-of-repayment
+                                *ngIf="loanHolder?.financial"
+                                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
                     </li>
                     <li>
                         <p><strong>Current limits and outstanding of the Client: <em class="text-danger sb-small">Bold row indicates current loan proposal</em> </strong></p>
