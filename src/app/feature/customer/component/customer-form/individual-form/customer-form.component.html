@@ -725,7 +725,15 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div *ngIf="i>1" class="ml-3">
+                                       <div class="col-md-2">
+                                           <div class="form-group">
+                                               <label for="relativeNetWorth{{i}}"><strong>Net Worth</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="relativeNetWorth" placeholder="Net Worth"
+                                                      id="relativeNetWorth{{i}}" type="number">
+                                           </div>
+                                       </div>
+                                       <div *ngIf="i>1" class="ml-3 pt-4">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
                                                    size="small" status="danger">remove
