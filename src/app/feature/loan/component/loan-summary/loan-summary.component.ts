@@ -128,9 +128,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     crgGammaScore = 0;
     crgGammaSummary = false;
 
-    // credit risk alpha variables --
-    creditGradeAlphaStatusBadge;
-    creditGradeLambdaStatusBadge;
 
     customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
     incomeFromAccountSummary = false;
@@ -312,30 +309,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 } else {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
                 }
-            }
-        }
-
-        // Setting CRG- Alpha data --
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
-            if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
-                this.creditGradeAlphaStatusBadge = 'badge badge-success';
-            } else if (this.creditRiskGrade === 'Reject') {
-                this.creditGradeAlphaStatusBadge = 'badge badge-danger';
-            } else {
-                this.creditGradeAlphaStatusBadge = 'badge badge-warning';
-            }
-        }
-
-        // Setting CRG- Lambda data --creditRiskLambdaScore
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingLambda)) {
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data);
-           if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
-                this.creditGradeLambdaStatusBadge = 'badge badge-success';
-            } else if (this.creditRiskGrade === 'Reject') {
-                this.creditGradeLambdaStatusBadge = 'badge badge-danger';
-            } else {
-                this.creditGradeLambdaStatusBadge = 'badge badge-warning';
             }
         }
 
