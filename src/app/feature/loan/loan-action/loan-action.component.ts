@@ -17,6 +17,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 import {LoanDataHolder} from '../model/loanData';
+import {LoanType} from '../model/loanType';
 
 @Component({
     selector: 'app-loan-action',
@@ -109,7 +110,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 };
                 break;
             case 'forward':
-                if (this.loanFlags && this.loanFlags.length > 0) {
+                if (this.loanFlags && this.loanFlags.length > 0 && this.customerLoanHolder.loanType.toString() !== LoanType.getEnum(LoanType.FULL_SETTLEMENT_LOAN)
+                    && this.customerLoanHolder.loanType.toString() !== LoanType.getEnum(LoanType.CLOSURE_LOAN)) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
                     this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
 

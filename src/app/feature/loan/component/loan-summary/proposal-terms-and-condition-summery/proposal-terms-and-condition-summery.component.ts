@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
+import {LoanType} from '../../../model/loanType';
 
 @Component({
   selector: 'app-proposal-terms-and-condition-summery',
@@ -9,6 +10,7 @@ import {LoanDataHolder} from '../../../model/loanData';
 export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   @Input() customerAllLoanList: Array<LoanDataHolder>;
   @Input() loanDataHolder: LoanDataHolder;
+  loanType = LoanType;
   constructor() { }
 
   ngOnInit() {
