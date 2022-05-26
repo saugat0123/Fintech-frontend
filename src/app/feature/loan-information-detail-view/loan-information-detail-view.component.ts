@@ -76,21 +76,17 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
-            console.log('Loan Data: ', this.loanDataHolder)
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.incomeSource = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
             }
-            console.log('Loan Data: ', this.loanDataHolder)
             if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
                 this.financialData = JSON.parse(this.loanDataHolder.financial.data);
             }
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.individualData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
-                console.log(this.individualData);
             }
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
-                console.log(this.proposalData);
             }
             this.loaded = true;
             this.id = this.loanDataHolder.id;
@@ -139,7 +135,6 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     loadSummary() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
-                console.log('Params Value: ', paramsValue)
                 this.allId = {
                     loanConfigId: null,
                     customerId: null,
@@ -224,7 +219,6 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                     console.error(err);
                 });
             }
-            console.log('customerAllLoanList', this.customerAllLoanList);
         }, error => {
             console.error(error);
         });

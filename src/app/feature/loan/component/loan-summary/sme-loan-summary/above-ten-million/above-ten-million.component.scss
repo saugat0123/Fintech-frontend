@@ -19,3 +19,13 @@
   border: 1px solid black;
   height: 190px;
 }
+.ck-table {
+    display: block !important;
+    overflow-x: auto !important;
+    table-layout: inherit !important;
+    width: 100% !important;
+    font-size: 60%;
+    font-weight: 500;
+
+}
+

@@ -681,6 +681,31 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div *ngIf="isShare" class="col-md-12">
+                                    <div class="form-group"><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against Share)</strong>
+                                        <ckeditor
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.debtStructure.errors }"
+                                                formControlName="debtStructure"
+                                                name="debtStructure"
+                                                [config]="ckeConfig"></ckeditor>
+                                        <div *ngIf="(submitted) && formControls.debtStructure.invalid"
+                                             class="text-danger">
+                                            <span *ngIf="formControls.debtStructure.errors.required">Debt Structure Criteria is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12" *ngIf="customerType === 'INDIVIDUAL'">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Compliance</strong></label>
+                                        <ckeditor formControlName="compliance"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Compliance"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
                                 <ng-container *ngIf="!fromProfile">
 
                                     <div class="col-md-12">
@@ -815,27 +840,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title"><strong>Terms And Condition</strong></label>
-                                            <ckeditor formControlName="termsAndCondition"
-                                                      [style]="{height:'250px !important;'}"
-                                                      placeholder="Terms & Condition"
-                                                      [config]="ckeConfig">
-                                            </ckeditor>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-group">
-                                            <label class="title"><strong>Summary & Recommendation</strong></label>
-                                            <ckeditor formControlName="summeryRecommendation"
-                                                      [style]="{height:'250px !important;'}"
-                                                      placeholder="Summary & Recommendation"
-                                                      [config]="ckeConfig">
-                                            </ckeditor>
-                                        </div>
-                                    </div>
+
+
 
                                     <div class="col-md-12 form-group">
                                         <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
@@ -848,7 +855,7 @@
                             </div>
                         </form>
                     </div>
-                    <ng-container *ngIf="customerType === 'INDIVIDUAL'">
+                    <ng-container *ngIf="customerType === 'INDIVIDUAL' && fromProfile">
                         <div class="col-md-12">
                             <nb-accordion>
                                 <nb-accordion-item>
@@ -856,7 +863,7 @@
                                         Credit Risk Score
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        <app-credit-risk-grading-gamma  #crgGamma
+                                        <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile"
                                                                         [formData]="loan?.crgGamma"
                                                                        [fromProfile]="true"
                                                                        [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"

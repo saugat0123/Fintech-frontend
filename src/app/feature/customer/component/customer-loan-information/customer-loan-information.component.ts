@@ -42,7 +42,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {InstitutionalCrgGammaComponent} from '../../../loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
@@ -636,7 +636,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     saveMultiBanking(data: MultipleBanking) {
     this.spinner.show();
-        console.log('before', this.multiBankingResponse);
         if (!ObjectUtil.isEmpty(this.multiBankingResponse)) {
             this.multiBankingResponse = new MultipleBanking();
         }
@@ -748,7 +747,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveCommonLoanData() {
         this.spinner.show();
         const mergeChecked = {
-            waiverChecked: this.waiverChecked,
             swapChargeChecked: this.swapChargeChecked,
             subsidizedLoanChecked: this.subsidizedLoanChecked,
             commitmentChecked: this.commitmentChecked,
@@ -773,9 +771,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
     setCheckedData(data) {
-        console.log('this is merged ', data);
         if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
             this.checkChecked(data['commitmentChecked'], 'commitment');
@@ -807,6 +803,28 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save review dates'));
                     this.spinner.hide();
                 });
+        }
+    }
+
+    saveCrgCCbl(data: any, isCCbl: boolean) {
+        if (isCCbl) {
+            this.customerInfo.crgCcbl = data;
+        } else {
+            this.customerInfo.financialCcbl = data;
+        }
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved CRG CCBL'));
+                this.triggerCustomerRefresh.emit(true);
+                this.nbDialogRef.close();
+                this.spinner.hide();
+            }, (error) => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG CCBL'));
+                this.spinner.hide();
+            });
+        } else {
+            this.spinner.hide();
         }
     }
 
