@@ -44,6 +44,7 @@ export class ProposalViewComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   prepaymentCharge;
   customerLoanDtoList: CustomerLoanDto[];
+  PROPOSED_FILTER_KEY = 'proposedLimit';
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -63,9 +64,17 @@ export class ProposalViewComponent implements OnInit {
   public getTotal(key: string): number {
     const tempList = this.customerAllLoanList
         .filter(l => JSON.parse(l.proposal.data)[key]);
-    const total = tempList
-        .map(l => JSON.parse(l.proposal.data)[key])
-        .reduce((a, b) => a + b, 0);
+    let total;
+    if (key === this.PROPOSED_FILTER_KEY) {
+      total = tempList
+          .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+          .map(l => JSON.parse(l.proposal.data)[key])
+          .reduce((a, b) => a + b, 0);
+    } else {
+      total = tempList
+          .map(l => JSON.parse(l.proposal.data)[key])
+          .reduce((a, b) => a + b, 0);
+    }
     return this.isNumber(total);
   }
 
@@ -75,15 +84,29 @@ export class ProposalViewComponent implements OnInit {
     if (funded) {
       const tempList = this.customerFundedLoanList
           .filter(l => JSON.parse(l.proposal.data)[key]);
-      numb = tempList
-          .map(l => JSON.parse(l.proposal.data)[key])
-          .reduce((a, b) => a + b, 0);
+      if (key === this.PROPOSED_FILTER_KEY) {
+        numb = tempList
+            .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+            .map(l => JSON.parse(l.proposal.data)[key])
+            .reduce((a, b) => a + b, 0);
+      } else {
+        numb = tempList
+            .map(l => JSON.parse(l.proposal.data)[key])
+            .reduce((a, b) => a + b, 0);
+      }
     } else {
       const tempList = this.customerNonFundedLoanList
           .filter(l => JSON.parse(l.proposal.data)[key]);
-      numb = tempList
-          .map(l => JSON.parse(l.proposal.data)[key])
-          .reduce((a, b) => a + b, 0);
+      if (key === this.PROPOSED_FILTER_KEY) {
+        numb = tempList
+            .filter(data => data.loanType.toString() !== 'FULL_SETTLEMENT_LOAN' && data.loanType.toString() !== 'CLOSURE_LOAN')
+            .map(l => JSON.parse(l.proposal.data)[key])
+            .reduce((a, b) => a + b, 0);
+      } else {
+        numb = tempList
+            .map(l => JSON.parse(l.proposal.data)[key])
+            .reduce((a, b) => a + b, 0);
+      }
     }
 
     return this.isNumber(numb);
