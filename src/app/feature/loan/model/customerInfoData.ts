@@ -5,7 +5,6 @@ import {GuarantorDetail} from './guarantor-detail';
 import {Insurance} from '../../admin/modal/insurance';
 import {CustomerGeneralDocument} from '../../customer/model/customerGeneralDocument';
 import {CustomerGroup} from '../../admin/modal/customer-group';
-import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 import {Branch} from '../../admin/modal/branch';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
@@ -41,7 +40,6 @@ export class CustomerInfoData {
     branch: Branch;
     siteVisit: SiteVisit;
     financial: Financial;
-    creditRiskGradingAlpha: CreditRiskGradingAlpha;
     creditRiskGrading: CreditRiskGrading;
     crgGamma: CreditRiskGradingGamma;
     version: number;
