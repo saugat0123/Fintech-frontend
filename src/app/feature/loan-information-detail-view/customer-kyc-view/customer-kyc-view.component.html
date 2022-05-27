@@ -1,0 +1,108 @@
+<ng-container *ngIf="!isJointCustomer">
+    <div>
+        <strong>Personal Background:</strong>
+        <table class="table-hover table table-bordered table-sm">
+            <tbody>
+            <tr><td [innerHTML]="customer?.introduction | safeHtml"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pt-1">
+        <strong>Family details of Mr/s. {{customer?.customerName}}</strong>
+        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark">
+                <th>Relation</th>
+                <th>Name</th>
+                <th>Citizenship Number</th>
+                <th>Citizenship Issued Date</th>
+                <th>Citizenship Issued Place</th>
+            </tr>
+            </thead>
+
+
+
+            <tbody>
+            <tr *ngFor="let data of customer.customerRelatives; let i=index">
+                <td>{{data?.customerRelation}}</td>
+                <td>{{data?.customerRelativeName}}</td>
+                <td>{{data?.citizenshipNumber}}</td>
+                <td>{{data?.citizenshipIssuedDate | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="isJointCustomer">
+    <div>
+        <strong>Personal Background :</strong>
+        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+            <tbody>
+            <tr><td [innerHTML]="customer?.introduction | safeHtml"></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pt-1" *ngFor="let data of jointRelatives; let i=index">
+        <strong>Family details of Mr/s. {{data?.customerName}}</strong>
+        <table class="text-center table table-bordered table-hover table-striped table-sm">
+            <thead>
+            <tr class="sb-bg-dark">
+                <th>Relation</th>
+                <th>Name</th>
+                <th>Citizenship Number</th>
+                <th>Citizenship Issued Date</th>
+                <th>Citizenship Issued Place</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{data?.customerRelation1}}</td>
+                <td>{{data?.customerRelativeName1}}</td>
+                <td>{{data?.citizenshipNumber1}}</td>
+                <td>{{data?.citizenshipIssuedDate1 | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace1}}</td>
+
+
+            </tr>
+            <tr>
+
+                <td>{{data?.customerRelation2}}</td>
+                <td>{{data?.customerRelativeName2}}</td>
+                <td>{{data?.citizenshipNumber2}}</td>
+                <td>{{data?.citizenshipIssuedDate2 | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace2}}</td>
+            </tr>
+            <tr>
+
+                <td>{{data?.customerRelation3}}</td>
+                <td>{{data?.customerRelativeName3}}</td>
+                <td>{{data?.citizenshipNumber3}}</td>
+                <td>{{data?.citizenshipIssuedDate3 | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace3}}</td>
+            </tr>
+            <tr>
+
+                <td>{{data?.customerRelation4}}</td>
+                <td>{{data?.customerRelativeName4}}</td>
+                <td>{{data?.citizenshipNumber4}}</td>
+                <td>{{data?.citizenshipIssuedDate4 | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace4}}</td>
+            </tr>
+            <tr>
+                <td>{{data?.customerRelation5}}</td>
+                <td>{{data?.customerRelativeName5}}</td>
+                <td>{{data?.citizenshipNumber5}}</td>
+                <td>{{data?.citizenshipIssuedDate5 | date}}</td>
+                <td>{{data?.citizenshipIssuedPlace5}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+
+

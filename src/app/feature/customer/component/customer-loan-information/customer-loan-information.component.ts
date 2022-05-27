@@ -133,7 +133,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     private siteVisit: SiteVisit;
     private financial: Financial;
-    /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
     private creditRiskGrading: CreditRiskGrading;
     private crgGamma: CreditRiskGradingGamma;
     private security: Security;
@@ -699,6 +698,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
+            regularityOfPayments: [undefined]
+
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);

@@ -1,0 +1,79 @@
+<ng-container>
+    <strong>Net Worth Detail of &nbsp;</strong>
+    <strong *ngIf="!customerInfo.isJointCustomer">{{customerInfo.name}}</strong>
+    <div *ngFor="let data of netWorth; let i=index">
+        <strong *ngIf="customerInfo.isJointCustomer">
+            {{customerName[i]}}
+        </strong>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Assets</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >Cash Deposit in other bank</td>
+                        <td>{{data?.cashDepositInOtherBank}}</td>
+                    </tr>
+                    <tr>
+                        <td >Real estate Properties</td>
+                        <td>{{data?.realEstateProperties}}</td>
+                    </tr>
+                    <tr>
+                        <td >Investment in shares</td>
+                        <td>{{data?.investmentInShares}}</td>
+                    </tr>
+                    <tr>
+                        <td >Vehicle</td>
+                        <td>{{data?.vehicle}}</td>
+                    </tr>
+                    <tr>
+                        <td >Jewelleries</td>
+                        <td>{{data?.jewelleries}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Assets</th>
+                        <th>{{data?.totalAssets}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>Total Net Worth : {{data?.totalNetWorth}}</strong>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Liabilities</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Loan from CCBL</td>
+                        <td>{{data?.loanFromCCBL}}</td>
+                    </tr>
+                    <tr>
+                        <td >Credit Cards Limit if any</td>
+                        <td>{{data?.creditCardsLimit}}</td>
+                    </tr>
+                    <tr>
+                        <td >Other Liabilities</td>
+                        <td>{{data?.otherLiabilities}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Liabilities</th>
+                        <th>{{data?.totalLiabilities}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</ng-container>

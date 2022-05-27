@@ -18,7 +18,6 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {CreditRiskGradingAlphaComponent} from './loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CreditRiskGradingGammaComponent} from './loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {MultipleBankingComponent} from './loan-information-template/multiple-banking/multiple-banking.component';
 import {InstitutionalCrgGammaComponent} from './loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
@@ -28,43 +27,42 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
 
 
 @NgModule({
-      imports: [
-        FeatureRoutingModule,
-        ThemeModule,
-        NbAccordionModule,
-        NgxChartsModule,
-        NbSelectModule,
-        NbDatepickerModule.forRoot(),
-        NgSelectModule,
-        DragDropModule,
-        NepaliCalendarModule
-      ],
-      declarations: [
-        FeatureComponent,
-        DashboardComponent,
-        PendingLoanComponent,
-        PendingsLoanComponent,
-        CadDataComponent,
-        DataVisualizationComponent,
-        ApprovalRoleHierarchyComponent,
-        MouseScrollDisableDirective,
-        CommonAddressComponent,
-        CustomerWisePendingComponent,
-        ErrorPageComponent,
-          CreditRiskGradingAlphaComponent,
-          CreditRiskGradingGammaComponent,
-          MultipleBankingComponent,
-          InstitutionalCrgGammaComponent,
-          GuarantorAdderComponent,
-          GuarantorDetailComponent
+        imports: [
+            FeatureRoutingModule,
+            ThemeModule,
+            NbAccordionModule,
+            NgxChartsModule,
+            NbSelectModule,
+            NbDatepickerModule.forRoot(),
+            NgSelectModule,
+            DragDropModule,
+            NepaliCalendarModule
+        ],
+        declarations: [
+            FeatureComponent,
+            DashboardComponent,
+            PendingLoanComponent,
+            PendingsLoanComponent,
+            CadDataComponent,
+            DataVisualizationComponent,
+            ApprovalRoleHierarchyComponent,
+            MouseScrollDisableDirective,
+            CommonAddressComponent,
+            CustomerWisePendingComponent,
+            ErrorPageComponent,
+            CreditRiskGradingGammaComponent,
+            MultipleBankingComponent,
+            InstitutionalCrgGammaComponent,
+            GuarantorAdderComponent,
+            GuarantorDetailComponent
 
 
-      ],
-      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-          CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent, MultipleBankingComponent,
+        ],
+        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+             CreditRiskGradingGammaComponent, MultipleBankingComponent,
           InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent
-      ],
-      providers: [SafePipe]
+        ],
+        providers: [SafePipe]
     }
 )
 export class FeatureModule {

@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-9 d-flex justify-content-start">
                 <div>
-                    <button nbButton outline (click)="onOpen()" class="btn btn-danger btn-flat btn-sm" type="button">Credit Risk Gamma
+                    <button nbButton outline (click)="onOpen()" class="btn btn-danger btn-flat btn-sm" type="button">Credit Risk Report
                     </button>
                 </div>
             </div>
@@ -232,7 +232,7 @@
             <div *ngIf="crgGammaSummary" class="col-md-12">
                 <nb-card class="sb-medium">
                     <nb-card-header class="text-center">
-                        <h6>Credit Risk Gauge (Gamma)</h6>
+                        <h6>Credit Risk Gauge</h6>
                     </nb-card-header>
                     <nb-card-body>
                         <div class="row">
@@ -275,22 +275,28 @@
                     </li>
                     <li>
                         <p><strong>Request of the Client: </strong></p>
-                        <p>The client has requested us for {{customerAllLoanList?.length > 1 ? 'following loan' :
+                        <p class="sb-small">The client has requested us for {{customerAllLoanList?.length > 1 ? 'following loan' :
                             loanDataHolder?.loan?.name + ' of NPR ' + loanDataHolder?.proposal?.proposedLimit + '@'+
                             (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
                             ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
                             to meet his/her personal obligation.</p>
                         <div *ngIf="customerAllLoanList?.length > 1">
                             <ol type="a">
-                                <li *ngFor="let cal of customerAllLoanList">
-                                    {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
-                                    {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ? (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure)</b></li>
+                                <li class="sb-small p-0 m-0" *ngFor="let cal of customerAllLoanList">
+                                    {{cal?.loanType | replace: '_' : ' '}} of {{cal?.loan?.name}}<b> of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
+                                    @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
+                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure</b></li>
                             </ol>
                         </div>
                     </li>
                     <li>
-                        <p><strong>Business activity/customer background: </strong></p>
-                        <p> Mr. ...........................................................................</p>
+                        <p><strong>Personal/Business background: </strong></p>
+                        <app-customer-business-activity-or-backgrounds
+                                *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
+                                [customer]="loanDataHolder.customerInfo"
+                                [loanHolder]="loanDataHolder.loanHolder"
+                        >
+                        </app-customer-business-activity-or-backgrounds>
                     </li>
 
                     <li>
@@ -328,10 +334,11 @@
                         <strong>GROUP EXPOSURE</strong>
                         as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
                         ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
-                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
+                                             [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
                     </li>
-                    <li>
-                        <p><strong>Regularity of payments: NA</strong></p>
+                    <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
+                        <p><strong>Regularity of payments: {{commonLoanData?.regularityOfPayments}}</strong></p>
                     </li>
                     <li>
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [formData]="loanHolder?.incomeFromAccount">
@@ -359,8 +366,6 @@
                                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                                                        [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
-<!--                        <p><strong>Report from CICL</strong></p>-->
-<!--                        <app-retail-report-cicl></app-retail-report-cicl>-->
                     </li>
                     <li>
                         <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
