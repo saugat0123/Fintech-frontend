@@ -84,6 +84,17 @@
     </div>
 
     <div class="col-md-12">
+        <div class="col-md-6">
+            <p><strong>Security (to be obtained)</strong></p>
+        </div>
+        <div class="col-md-6 text-right">
+            <p>Amount in NPR Million</p>
+        </div>
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
+                             [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
+    </div>
+
+    <div class="col-md-12">
         <table class="table table-responsive-md table-bordered table-condensed mt-n3">
             <tr>
                 <td></td>
