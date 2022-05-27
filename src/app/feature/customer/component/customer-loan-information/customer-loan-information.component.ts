@@ -16,7 +16,6 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 import {Insurance} from '../../../admin/modal/insurance';
-import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
@@ -47,7 +46,6 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
 import {MultipleBankingComponent} from '../../../loan-information-template/multiple-banking/multiple-banking.component';
-import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
 import {NetWorthComponent} from '../net-worth/net-worth.component';
 
@@ -59,7 +57,6 @@ import {NetWorthComponent} from '../net-worth/net-worth.component';
 export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
-    @Input() public companyInfo: CompanyInfo;
 
     @ViewChild('siteVisitComponent', {static: false})
     public siteVisitComponent: SiteVisitComponent;
@@ -186,7 +183,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         private route: ActivatedRoute,
         private loanConfigService: LoanConfigService,
         private formBuilder: FormBuilder,
-        private companyInfoService: CompanyInfoService
 
     ) {
     }
@@ -787,7 +783,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveReviewDate(data: string) {
         this.spinner.show();
         if (!ObjectUtil.isEmpty(data)) {
-            this.customerInfo.customerJsonData = data;
+            const existingDetails = JSON.parse(this.customerInfo.data);
+            existingDetails['reviewDate'] = data;
+            this.customerInfo.data = JSON.stringify(existingDetails);
             this.customerInfoService.save(this.customerInfo).subscribe((res) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved review dates'));
                     this.triggerCustomerRefresh.emit(true);

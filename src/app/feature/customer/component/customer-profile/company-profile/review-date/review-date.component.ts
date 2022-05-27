@@ -2,8 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
-
 
 @Component({
   selector: 'app-review-date',
@@ -11,8 +9,8 @@ import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
   styleUrls: ['./review-date.component.scss']
 })
 export class ReviewDateComponent implements OnInit {
-  @Input() formValue: CustomerInfoData;
-  @Input() customerInfo: any;
+  @Input() formValue;
+  @Input() customerInfo;
   form: FormGroup;
   submitted = false;
   spinner = false;
@@ -29,8 +27,8 @@ export class ReviewDateComponent implements OnInit {
   }
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.formValue.customerJsonData)) {
-      this.form.patchValue(JSON.parse(this.formValue.customerJsonData));
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.form.patchValue(JSON.parse(this.customerInfo));
     }
   }
   buildForm() {
