@@ -1,6 +1,8 @@
 <div class="row">
-    <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
+    <div class="col-md-12">
         <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
+    </div>
+    <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
         <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
             <tr class="sb-bg-dark text-white">
@@ -15,23 +17,65 @@
         </table>
     </div>
 
-    <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_UPTO_TEN_MILLION
-     || customerCategory === customerCategoryType.SANA_BYABASAYI || customerCategory === 'executing'">
-        <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
-        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>Group Limits</th>
+    <div class="col-md-12" *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION
+     || customerCategory === 'executing' || customerType === 'INDIVIDUAL'">
+        <span class="float-left"><strong>Group Limit</strong></span>
+        <table class="table table-responsive-md table-bordered text-center table-sm">
+            <thead class="sb-bg-dark text-white">
+            <tr class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                <th rowspan="2" class="sn">SN</th>
+                <th rowspan="2">Group concerns/Borrowers</th>
+                <th colspan="3">Existing</th>
+                <th colspan="3">Proposed</th>
+                <th rowspan="2">Change</th>
+            </tr>
+            <tr class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                <th>FB limit</th>
+                <th>NFB limit</th>
+                <th>Total</th>
+                <th>FB limit</th>
+                <th>NFB limit</th>
+                <th>Total</th>
             </tr>
             </thead>
             <tbody>
+            <tr *ngFor="let data of groupPosition; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="text-left pl-1">{{data?.concernName}}</td>
+                <td>Rs. {{data?.exFunded | currencyFormatter}}</td>
+                <td>Rs. {{data?.exNonFunded | currencyFormatter}}</td>
+                <td>Rs. {{data?.exTotal | currencyFormatter}}</td>
+                <td>Rs. {{data?.proFunded | currencyFormatter}}</td>
+                <td>Rs. {{data?.proNonFunded | currencyFormatter}}</td>
+                <td>Rs. {{data?.proTotal | currencyFormatter}}</td>
+                <td>Rs. {{data?.changeAmount | currencyFormatter}}</td>
+            </tr>
             <tr>
-                <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.groupPosition) || 'NA' " > </td>
+                <td colspan="2">Total</td>
+                <td>Rs. {{totalAmount?.totalExFunded | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalExNonFunded | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalExTotal | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalProFunded | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalProNonFunded | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalProTotal | currencyFormatter}}</td>
+                <td>Rs. {{totalAmount?.totalChanges | currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>
+        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th [colSpan]="companyGroup?.length">Name of companies under the group</th>
+            </tr>
+            </thead>
+            <tr>
+                <td *ngFor="let cg of companyGroup">
+                    {{cg?.name}}
+                </td>
+            </tr>
+        </table>
         <br>
-        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+        <table *ngIf="customerType === 'INSTITUTION'" class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th>Outstanding Overdue</th>
