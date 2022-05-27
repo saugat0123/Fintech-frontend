@@ -333,7 +333,8 @@
                         <strong>GROUP EXPOSURE</strong>
                         as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
                         ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
-                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
+                                             [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
                     </li>
                     <li>
                         <p><strong>Regularity of payments: NA</strong></p>
