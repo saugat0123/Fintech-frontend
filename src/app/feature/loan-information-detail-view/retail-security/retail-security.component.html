@@ -222,12 +222,12 @@
                 <td>Hypothecation Over Stocks</td>
                 <td>
                     <table class="table table-responsive-md sb-small">
-                        <tr class="sb- text-white">
+                        <tr class="sb-bg-dark text-white">
                             <th class="sn">Security</th>
-                            <th colspan="3">Owner</th>
-                            <th colspan="2">Stock Location</th>
-                            <th colspan="2">Value</th>
-                            <th colspan="2">Collateral Owner Relationship</th>
+                            <th >Owner</th>
+                            <th >Stock Location</th>
+                            <th >Value</th>
+                            <th >Collateral Owner Relationship</th>
                         </tr>
                         <tr   *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
                             <td rowspan="4">Hypothecation Over Stocks {{i + 1}}</td>
