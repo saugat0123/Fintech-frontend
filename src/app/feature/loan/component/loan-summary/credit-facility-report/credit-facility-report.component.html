@@ -41,7 +41,6 @@
             <tr>
                 <td>Name: Mr./Mrs./Ms <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></td>
                 <td rowspan="7">Name: to be Created</td>
-                <td colspan="2">Basel Risk: Claims on RRP ( ...... %)</td>
             </tr>
             <tr>
                 <td>Permanent Address: <span class="font-weight-bold">
@@ -50,18 +49,10 @@
                         {{loanDataHolder?.customerInfo?.municipalities?.name}}
                         , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
                 <td rowspan="3">
-                    <app-report-summary [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-                    <ng-template #noinfo>
-                        <p>No any information tagged</p>
-                    </ng-template>
-                    <app-report-summary [approved]="false"
-                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-                    <ng-template #noinfo>
-                        <p>No any information tagged</p>
-                    </ng-template>
+                    <app-retial-report-summary-info>
+
+                    </app-retial-report-summary-info>
+
                     <!-- <span class="font-weight-bold"
                         *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container
                             *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container>
