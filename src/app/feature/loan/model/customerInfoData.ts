@@ -84,4 +84,5 @@ export class CustomerInfoData {
     isJointCustomer: any;
     crgCcbl: string;
     financialCcbl: string;
+    customerJsonData: string;
 }

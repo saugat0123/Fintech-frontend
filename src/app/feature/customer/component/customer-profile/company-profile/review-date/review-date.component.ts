@@ -1,10 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
 
 
 @Component({
@@ -13,8 +11,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./review-date.component.scss']
 })
 export class ReviewDateComponent implements OnInit {
-  @Input() formValue;
-  @Input() companyInfo;
+  @Input() formValue: CustomerInfoData;
+  @Input() customerInfo: any;
   form: FormGroup;
   submitted = false;
   spinner = false;
@@ -31,8 +29,8 @@ export class ReviewDateComponent implements OnInit {
   }
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.companyInfo)) {
-      this.form.patchValue(JSON.parse(this.companyInfo));
+    if (!ObjectUtil.isEmpty(this.formValue.customerJsonData)) {
+      this.form.patchValue(JSON.parse(this.formValue.customerJsonData));
     }
   }
   buildForm() {
@@ -46,8 +44,8 @@ export class ReviewDateComponent implements OnInit {
   onSubmit() {
     this.overlay.show();
     this.submitted = true;
-    if (!ObjectUtil.isEmpty(this.companyInfo)) {
-      this.submitData = this.companyInfo;
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.submitData = this.customerInfo;
     }
     this.submitData = JSON.stringify(this.form.value);
     this.overlay.hide();
