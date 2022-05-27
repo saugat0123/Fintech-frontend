@@ -91,7 +91,7 @@
             <span> <strong>Registration number :</strong> {{companyInfo?.registrationNumber}}</span>
           </div>
           <div class="row">
-            <span> <strong>Establishment Date :</strong> {{companyInfo?.establishmentDate | date}}</span>
+            <span> <strong>Registration Date :</strong> {{companyInfo?.legalStatus?.registrationDate | date}} </span>
           </div>
 
           <div class="row">
@@ -104,7 +104,7 @@
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
-            <span> <strong>Issue Place :</strong> {{companyInfo?.issuePlace}}</span></div>
+            <span> <strong>Issue Place :</strong> {{companyInfo?.legalStatus?.regIssuedPlace}} </span></div>
           <div class="row">
             <span> <strong>Email :</strong> {{companyInfo?.email}}</span></div>
           <div class="row">
