@@ -1,7 +1,7 @@
 <div class="row mt-3">
     <div class="col-md-12">
 
-        <table class="table-bordered table sb-small">
+        <table class="table-bordered table sb-small table-responsive-md table-sm">
             <tr class="sb-bg-dark text-white">
                 <th>Security Type</th>
                 <th>Particulars</th>
@@ -10,17 +10,31 @@
                   <tr *ngIf="landSelected">
                       <td>Land Security</td>
                       <td>
-                          <ng-container *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
-                              <p><strong><u>Land - {{i+1}}</u></strong></p>
-                              <p>Registered mortgage over</p>
-                              <p><b>Owner</b>: {{landDetails?.owner || 'NA'}}</p>
-                              <p><b>Location</b>: {{landDetails?.location || 'NA'}}</p>
-                              <p><b>Plot No.</b> : {{landDetails?.plotNumber || 'NA'}}</p>
-                              <p><b>Valuation Date and Valuator Name </b>: {{landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'NA'}}, {{landDetails?.landValuator?.name || 'NA'}}.</p>
-                          </ng-container>
-                          <table class="table table-bordered">
+                          <p>Registered mortgage over</p>
+                          <br>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
                               <thead>
-                              <tr>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Security</th>
+                                  <th>Owner</th>
+                                  <th>Location</th>
+                                  <th>Plot No.</th>
+                                  <th>Valuation Date and Valuator Name</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                                  <td>Land - {{i+1}}</td>
+                                  <td>{{landDetails?.owner || 'NA'}}</td>
+                                  <td>{{landDetails?.location || 'NA'}}</td>
+                                  <td>{{landDetails?.plotNumber || 'NA'}}</td>
+                                  <td>{{landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'NA'}}, {{landDetails?.landValuator?.name || 'NA'}}</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
                                   <th>Particulars</th>
                                   <th>MV</th>
                                   <th>FMV</th>
@@ -43,27 +57,145 @@
                       </td>
                       <td class="font-weight-bold">{{getTotal('landDetails', 'marketValue')}}</td>
                   </tr>
+                  <tr *ngIf="landBuilding">
+                      <td>Land & Building Security</td>
+                      <td>
+                          <p>Registered mortgage over</p>
+                          <br>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Security</th>
+                                  <th>Owner</th>
+                                  <th>Location</th>
+                                  <th>Plot No.</th>
+                                  <th>Valuation Date and Valuator Name</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let landBuilding of formData['initialForm']['landBuilding']; let i= index">
+                                  <td>Land Building - {{i+1}}</td>
+                                  <td>{{landBuilding?.owner || 'NA'}}</td>
+                                  <td>{{landBuilding?.location || 'NA'}}</td>
+                                  <td>{{landBuilding?.plotNumber || 'NA'}}</td>
+                                  <td>{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'NA'}}, {{landBuilding?.buildingValuatorDate?.name || 'NA'}}</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Particulars</th>
+                                  <th>MV</th>
+                                  <th>FMV</th>
+                                  <th>DV</th>
+                              </tr>
+                              </thead>
+                              <tr *ngFor="let landBuilding of formData['initialForm']['landBuilding']; let i= index">
+                                  <td>Land & Building {{i+1}}</td>
+                                  <td>{{landBuilding?.considerValue || 'NA'}}</td>
+                                  <td>{{landBuilding?.marketValue || 'NA'}}</td>
+                                  <td>{{landBuilding?.distressValue || 'NA'}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="font-weight-bold">Total</td>
+                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'landConsideredValue')}}</td>
+                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'marketValue')}}</td>
+                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'distressValue')}}</td>
+                              </tr>
+                          </table>
+                      </td>
+                      <td class="font-weight-bold">{{getTotal('landBuilding', 'marketValue')}}</td>
+                  </tr>
+                  <tr *ngIf="apartmentSelected">
+                      <td>Apartment  Security</td>
+                      <td>
+                          <p>Registered mortgage over</p>
+                          <br>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Security</th>
+                                  <th>Apartment Name</th>
+                                  <th>Apartment Description</th>
+                                  <th>Build Area.</th>
+                                  <th>Valuation Date and Valuator Name</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                                  <td>Apartment - {{i+1}}</td>
+                                  <td>{{buildingDetails?.buildingName || 'NA'}}</td>
+                                  <td>{{buildingDetails?.buildingDescription || 'NA'}}</td>
+                                  <td>{{buildingDetails?.buildArea || 'NA'}}</td>
+                                  <td>{{buildingDetails?.ApartmentValuatorDate ? (buildingDetails?.ApartmentValuatorDate | date) : 'NA'}}, {{buildingDetails?.ApartmentValuator?.name || 'NA'}}</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Particulars</th>
+                                  <th>MV</th>
+                                  <th>FMV</th>
+                                  <th>DV</th>
+                              </tr>
+                              </thead>
+                              <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                                  <td>Apartment {{i+1}}</td>
+                                  <td>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</td>
+                                  <td>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
+                                  <td>{{buildingDetails?.distressValue || 'NA'}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="font-weight-bold">Total</td>
+                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingDistressValue')}}</td>
+                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingFairMarketValue')}}</td>
+                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'distressValue')}}</td>
+                              </tr>
+                          </table>
+                      </td>
+                      <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingFairMarketValue')}}</td>
+                  </tr>
                   <tr *ngIf="vehicleSelected">
                       <td>Vehicle Security</td>
                       <td>
-                          <ng-container
-                                  *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
-                              <p><strong><u>Vehicle - {{i + 1}}</u></strong></p>
-                              <p><b>Model: </b> {{vehicleDetails?.model || 'NA'}}</p>
-                              <p><b>Chassis Number:</b> {{vehicleDetails?.chassisNumber || 'NA'}} </p>
-                              <p><b>Showroom Commission: </b> Rs. {{vehicleDetails?.showroomCommission ? (vehicleDetails?.showroomCommission | currencyFormatter) : 'NA'}}</p>
-                              <p><b>Valuation Amount:</b>  Rs. {{vehicleDetails?.downPayment ? (vehicleDetails?.downPayment | currencyFormatter) : 'NA'}}</p>
-                              <p><b>Down Payment: </b>Rs. {{vehicleDetails?.downPayment ? (vehicleDetails?.downPayment | currencyFormatter) : 'NA'}}</p>
-                              <p><b>Remaining Amount:</b> Rs. {{vehicleDetails?.remainingAmount ? (vehicleDetails?.remainingAmount | currencyFormatter) : 'NA'}}</p>
-                              <p><b>Registration Number:</b> {{vehicleDetails?.registrationNumber || 'NA'}}</p>
-                              <p><b>Registration Date(AD/BS):</b> {{vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'NA'}}</p>
-                              <p><b>Engine Number:</b>  {{vehicleDetails?.engineNumber || 'NA'}}</p>
-                              <p><b>Valuation Date and Valautor Name:</b> {{vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'NA'}} , {{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</p>
-                            
-                          </ng-container>
-                          <table class="table table-bordered">
+
+                          <p>Registered mortgage over</p>
+                          <br>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
                               <thead>
-                              <tr>
+                              <tr class="sb-bg-dark text-white">
+                                  <th>Security</th>
+                                  <th>Model</th>
+                                  <th>Chassis Number</th>
+                                  <th>Showroom Commission</th>
+                                  <th>Valuation Amount</th>
+                                  <th>Down Payment</th>
+                                  <th>Registration Number</th>
+                                  <th>Registration Date(AD/BS)</th>
+                                  <th>Engine Number</th>
+                                  <th>Valuation Date and Valuator Name</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                                  <td>Vehicle - {{i+1}}</td>
+                                  <td>{{vehicleDetails?.model || 'NA'}}</td>
+                                  <td>{{vehicleDetails?.chassisNumber || 'NA'}}</td>
+                                  <td>{{vehicleDetails?.showroomCommission ? (vehicleDetails?.showroomCommission | currencyFormatter) : 'NA'}}</td>
+                                  <td>{{vehicleDetails?.valuationAmount ? (vehicleDetails?.valuationAmount | currencyFormatter) : 'NA'}}</td>
+                                  <td>{{vehicleDetails?.downPayment ? (vehicleDetails?.downPayment | currencyFormatter) : 'NA'}}</td>
+                                  <td>{{vehicleDetails?.registrationNumber || 'NA'}}</td>
+                                  <td>{{vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'NA'}}</td>
+                                  <td>{{vehicleDetails?.engineNumber || 'NA'}}</td>
+                                  <td>{{vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'NA'}}, {{vehicleDetails?.vehicalValuator?.name || 'NA'}}</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                          <table class="table-bordered table sb-small table-responsive-md table-sm">
+                              <thead>
+                              <tr class="sb-bg-dark text-white">
                                   <th>Particulars</th>
                                   <th>MV</th>
                                   <th>FMV</th>
@@ -86,27 +218,41 @@
                       </td>
                       <td class="font-weight-bold">{{getTotal('vehicleDetails', 'marketValue')}}</td>
                   </tr>
+            <tr *ngIf="hypothecation">
+                <td>Hypothecation Over Stocks</td>
+                <td>
+                    <table class="table table-responsive-md sb-small">
+                        <tr class="sb- text-white">
+                            <th class="sn">Security</th>
+                            <th colspan="3">Owner</th>
+                            <th colspan="2">Stock Location</th>
+                            <th colspan="2">Value</th>
+                            <th colspan="2">Collateral Owner Relationship</th>
+                        </tr>
+                        <tr   *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
+                            <td rowspan="4">Hypothecation Over Stocks {{i + 1}}</td>
+                            <td class="text-left pl-1" >{{hypothecationOfStock?.owner}}</td>
+                            <td class="text-left pl-1" >{{hypothecationOfStock?.stock}}</td>
+                            <td class="text-right pr-1" >Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
+                            <td class="text-right pr-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
                   <tr>
                       <td></td>
                       <td class="font-weight-bold">Total</td>
                       <td></td>
                   </tr>
                   <tr>
-                      <td>2.</td>
+                      <td>Documentation Required.</td>
                       <td colspan="2" class="documentation">
                           <p>Documentation Required:</p>
                           <ul style="list-style-type: lower-alpha;">
                               <ng-container *ngFor="let data of files; let index = index">
                                   <li class="text-left" colspan="2">{{data?.name}}</li>
                               </ng-container>
-<!--                              <li>Offer Letter</li>-->
-<!--                              <li>Mortgage Deed</li>-->
-<!--                              <li>Loan Deed covering ............... Mio</li>-->
-<!--                              <li>Promissory note covering …………. Mio   </li>-->
-<!--                              <li>Letter of continuity </li>-->
-<!--                              <li>Personal Guarantee of …………………(Spouse of the borrower) of NPR …….. Mio</li>-->
-<!--                              <li>Consent of Ms. ……………… (Daughter of the borrower)</li>-->
-<!--                              <li>Consent for Blacklist from the borrower & guarantors as per NRB Directives</li>-->
                           </ul>
                       </td>
                   </tr>
