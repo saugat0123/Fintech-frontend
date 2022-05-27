@@ -5,60 +5,93 @@
         formArrayName="customerForm">
        <h5>{{jointInfo[i]?.customerName ? jointInfo[i]?.customerName : customerName }}</h5>
       <div [formGroupName]="i">
-          <table class="table table-bordered table-hover table-sm sb-small text-center  text-white">
-              <thead>
-              <tr class="sb-bg-dark">
-                  <th width="30%">Assets</th>
-                  <th width="20%">Amount</th>
-                  <th width="30%">Liabilities</th>
-                  <th width="20%">Amount</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                  <th class="sb-bg-secondary">Cash Deposit in other bank</th>
-                  <td><input #value (keyup)="calculateTotalAssets(i)" formControlName="cashDepositInOtherBank" type="text" class="form-control"></td>
-                  <th class="sb-bg-secondary">Loan from CCBL</th>
-                  <td><input  (keyup)="calculateTotalLiabilities(i)" formControlName="loanFromCCBL" type="text" class="form-control"></td>
-              </tr>
-              <tr>
-                  <th class="sb-bg-secondary">Real estate Properties</th>
-                  <td><input (keyup)="calculateTotalAssets(i)" formControlName="realEstateProperties" type="text" class="form-control"></td>
-                  <th class="sb-bg-secondary">Credit Cards Limit if any</th>
-                  <td><input (keyup)="calculateTotalLiabilities(i)" formControlName="creditCardsLimit" type="text" class="form-control"></td>
-              </tr>
-              <tr>
-                  <th class="sb-bg-secondary">Investment in shares</th>
-                  <td><input (keyup)="calculateTotalAssets(i)" formControlName="investmentInShares" type="text" class="form-control"></td>
-                  <th class="sb-bg-secondary">Other Liabilities</th>
-                  <td><input (keyup)="calculateTotalLiabilities(i)" formControlName="otherLiabilities" type="text" class="form-control"></td>
-              </tr>
-              <tr>
-                  <th class="sb-bg-secondary">Vehicle</th>
-                  <td><input (keyup)="calculateTotalAssets(i)" formControlName="vehicle" type="text" class="form-control"></td>
-                  <td class="sb-bg-secondary"></td>
-                  <td><input   type="text" class="form-control"></td>
-              </tr>
+          <div class="row">
+              <div class="col-md-6">
+                  <table class="table table-sm table-hover text-white text-center text-black-50 table-bordered table-striped">
+                      <thead>
+                      <tr class="sb-bg-dark text-white">
 
-              <tr>
-                  <th class="sb-bg-secondary">Jewelleries</th>
-                  <td><input (keyup)="calculateTotalAssets(i)" formControlName="jewelleries" type="text" class="form-control"></td>
-                  <td class="sb-bg-secondary"></td>
-                  <td><input type="text" class="form-control"></td>
-              </tr>
+                          <th width="60%">Assets</th>
+                          <th width="40%">Amount</th>
 
-              <tr>
-                  <th class="sb-bg-secondary">Total Assets</th>
-                  <td><input readonly formControlName="totalAssets" type="text" class="form-control"></td>
-                  <th class="sb-bg-secondary">Total Liabilities</th>
-                  <td><input readonly formControlName="totalLiabilities" type="text" class="form-control"></td>
-              </tr>
-              <tr style="border: none; background-color: white !important;" class="text-dark">
-                  <td><strong>Net Worth</strong></td>
-                  <td><input readonly type="text" formControlName="totalNetWorth" class="form-control"></td>
-              </tr>
-              </tbody>
-          </table>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      <tr>
+
+                          <th class="sb-bg-secondary">Cash Deposit in other bank</th>
+                          <td><input  #value (keyup)="calculateTotalAssets(i)" formControlName="cashDepositInOtherBank" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Real estate Properties</th>
+                          <td><input (keyup)="calculateTotalAssets(i)" formControlName="realEstateProperties" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Investment in shares</th>
+                          <td><input (keyup)="calculateTotalAssets(i)" formControlName="investmentInShares" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Vehicle</th>
+                          <td><input (keyup)="calculateTotalAssets(i)" formControlName="vehicle" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Jewelleries</th>
+                          <td><input (keyup)="calculateTotalAssets(i)" formControlName="jewelleries" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Total Assets</th>
+                          <td><input readonly formControlName="totalAssets" type="text" class="form-control"></td>
+                      </tr>
+                      <br>
+                      <tr style="border: none; background-color: white !important;" class="text-dark">
+                          <td><strong>Net Worth</strong></td>
+                          <td><input readonly type="text" formControlName="totalNetWorth" class="form-control"></td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="col-md-6">
+                  <table class="table table-sm table-hover text-center text-black-50 table-bordered table-striped">
+                      <thead>
+                      <tr class="sb-bg-dark text-white">
+
+                          <th width="60%">Liabilities</th>
+                          <th width="40%">Amount</th>
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <th class="sb-bg-secondary">Loan from CCBL</th>
+                          <td><input  (keyup)="calculateTotalLiabilities(i)" formControlName="loanFromCCBL" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Credit Cards Limit if any</th>
+                          <td><input (keyup)="calculateTotalLiabilities(i)" formControlName="creditCardsLimit" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Other Liabilities</th>
+                          <td><input (keyup)="calculateTotalLiabilities(i)" formControlName="otherLiabilities" type="text" class="form-control"></td>
+
+                      </tr>
+                      <tr>
+                          <th class="sb-bg-secondary">Total Liabilities</th>
+                          <td><input readonly formControlName="totalLiabilities" type="text" class="form-control"></td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+          </div>
+          <hr>
       </div>
    </div>
 
