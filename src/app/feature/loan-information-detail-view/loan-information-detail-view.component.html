@@ -283,8 +283,9 @@
                         <div *ngIf="customerAllLoanList?.length > 1">
                             <ol type="a">
                                 <li *ngFor="let cal of customerAllLoanList">
-                                    {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
-                                    {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ? (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure)</b></li>
+                                    {{cal?.loanType | replace: '_' : ' '}} of {{cal?.loan?.name}}<b> of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
+                                    @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
+                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure</b></li>
                             </ol>
                         </div>
                     </li>
