@@ -123,48 +123,6 @@
                                        </div>
                                    </div>
                                </div>
-<!--                               <div class="col-md-4">-->
-<!--                                   <div class="form-group">-->
-<!--                                       <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>-->
-<!--                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="establishmentPicker"-->
-<!--                                              [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"-->
-<!--                                              class="form-control rounded"-->
-<!--                                              formControlName="companyEstablishmentDate"-->
-<!--                                              id="companyEstablishmentDate" placeholder="Enter Establishment Date"-->
-<!--                                              type="text"/>-->
-<!--                                       <input formControlName="companyEstablishmentDate" *ngIf="calendarType === 'BS'" hidden>-->
-<!--                                       <app-calendar [ePreDate]="companyInfoFormGroup.get('companyEstablishmentDate').value" *ngIf="calendarType === 'BS'"-->
-<!--                                                     (messageToEmit)="companyInfoFormGroup.get('companyEstablishmentDate').patchValue($event?.eDate)"></app-calendar>-->
-
-<!--                                       <nb-datepicker #establishmentPicker></nb-datepicker>-->
-<!--                                       <div *ngIf="submitted && form.companyEstablishmentDate.errors"-->
-<!--                                            class="small text-danger">-->
-<!--                                           <div *ngIf="form.companyEstablishmentDate.errors.required ||-->
-<!--                                    form.companyEstablishmentDate.errors.beforeToday">-->
-<!--                                               Establishment date is Required-->
-<!--                                           </div>-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                               <div class="col-md-4">-->
-<!--                                   <div class="form-group">-->
-<!--                                       <label for="issuePlace"><strong>Issue Place</strong></label>-->
-<!--                                       <select formControlName="issuePlace" id="issuePlace"-->
-<!--                                               [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}" class="form-control">-->
-<!--                                           <option [value]="null">Select Issued Place</option>-->
-<!--                                           <option  *ngFor="let district of allDistrict" [value]="district?.name">-->
-<!--                                               {{district?.name}}</option>-->
-<!--                                       </select>-->
-
-
-<!--                                       <div *ngIf="submitted && form.issuePlace?.errors "-->
-<!--                                            class="text-danger small">-->
-<!--                                           <div *ngIf="form.issuePlace?.errors.required">-->
-<!--                                               Issued Place is required.-->
-<!--                                           </div>-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
 <!--                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">-->
 <!--                                   <div class="form-group rounded">-->
 <!--                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>-->
@@ -393,7 +351,6 @@
                                                {{district?.name}}
                                            </ng-option>
                                        </ng-select>
-
                                    </div>
                                </div>
                                <div class="col-md-4">
@@ -1040,29 +997,28 @@
 <!--                               </div>-->
 <!--                           </div>-->
 <!--                       </div>-->
-                      <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
                            <h5>
                                6. {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Institutional Details'}}
                             </h5>
                        </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                               <div class="form-group">
-                                   <label for="companyBackground"><strong></strong></label>
-                                   <ckeditor id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && form.companyBackground.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="form.companyBackground.errors.required">
-                                        {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Company Background'}} is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+<!--                       <div class="row">-->
+<!--                           <div class="col-md-12">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="companyBackground"><strong></strong></label>-->
+<!--                                   <ckeditor id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"-->
+<!--                                             [config]="ckeConfig"-->
+<!--                                             [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>-->
+<!--                                   <div *ngIf="(submitted) && form.companyBackground.invalid"-->
+<!--                                        class="text-danger">-->
+<!--                                       <div *ngIf="form.companyBackground.errors.required">-->
+<!--                                        {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Company Background'}} is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
                        <hr>
                        <div class="row">
                            <div class="col-md-12">
@@ -1099,27 +1055,6 @@
                                </div>
                            </div>
                        </div>
-                       <!--sister concern starts-->
-<!--                       <ng-container *ngIf="microCustomerType != 'DIRECT'">-->
-<!--                           <div>-->
-<!--                               <h5>6.1. Sister Concern</h5>-->
-<!--                           </div>-->
-<!--                           <div class="row">-->
-<!--                               <div class="col-md-6">-->
-<!--                                   <div class="form-group">-->
-<!--                                       <label for="sisterConcern"><strong></strong></label>-->
-<!--                                       <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"-->
-<!--                                              class="form-control" placeholder="Sister Concern"/>-->
-<!--                                       &lt;!&ndash;                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"&ndash;&gt;-->
-<!--                                       &lt;!&ndash;                                        class="invalid-feedback">&ndash;&gt;-->
-<!--                                       &lt;!&ndash;                                       <div *ngIf="form.sisterConcern.errors.required">&ndash;&gt;-->
-<!--                                       &lt;!&ndash;                                           Sister Concern is required&ndash;&gt;-->
-<!--                                       &lt;!&ndash;                                       </div>&ndash;&gt;-->
-<!--                                       &lt;!&ndash;                                   </div>&ndash;&gt;-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </ng-container>-->
                        <hr>
                        <div class="box-header with-border">
                            <h5 class="box-title title">5. Management Team</h5>

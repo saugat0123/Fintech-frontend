@@ -1177,12 +1177,6 @@
                                                   formControlName="successionPlanning" id="successionPlanning"
                                                   name="successionPlanning"
                                                   [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && guarantorDetails.successionPlanning.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.successionPlanning.errors.required">
-                                                Succession Risk & Mitigation is required
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

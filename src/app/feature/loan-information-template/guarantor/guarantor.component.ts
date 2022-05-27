@@ -231,9 +231,7 @@ export class GuarantorComponent implements OnInit {
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
-      successionPlanning: [
-        ObjectUtil.setUndefinedIfNull(data.successionPlanning), Validators.required
-      ],
+      successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],

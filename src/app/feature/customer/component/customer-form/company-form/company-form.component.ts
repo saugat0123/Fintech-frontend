@@ -342,10 +342,6 @@ export class CompanyFormComponent implements OnInit {
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
                     this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
                     Validators.maxLength(9), Validators.minLength(9)]],
-            // companyEstablishmentDate:
-            //     [(ObjectUtil.isEmpty(this.companyInfo)
-            //         || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-            //         new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
             businessType:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
@@ -362,10 +358,6 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
                     new Date(this.companyJsonData.relationshipSinceWithCustomer), DateValidator.isValidBefore],
-            // issuePlace:
-            //     [(ObjectUtil.isEmpty(this.companyInfo)
-            //         || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
-            //         this.companyInfo.issuePlace, [Validators.required]],
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
