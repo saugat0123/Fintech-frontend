@@ -60,53 +60,13 @@
     </div>
 
     <div class="col-md-12">
-        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
-        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+        <p><strong>Security (to be obtained)</strong></p>
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
+                             [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
     </div>
 
     <div class="col-md-12">
-        <table class="table table-responsive-md table-bordered table-condensed mt-n3">
-            <tr>
-                <td></td>
-                <td> Documentation Required:<br>
-                    <ol class="guarantorsList">
-                        <li>Offer Letter</li>
-                        <li>Mortgage Deed</li>
-                        <li>Loan Deed covering <span class="font-weight-bold">{{proposedLimit | currency:"NPR "}}</span>
-                            Million</li>
-                        <li>Promissory Note covering <span class="font-weight-bold">{{proposedLimit |
-                                currency:"NPR "}}</span> Million
-                        </li>
-                        <li>Letter of Continuity</li>
-                        <li *ngFor="let guarantor of guarantorsList">Personal Guarantee of
-                            {{loanDataHolder.loanHolder.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}} <span
-                                class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
-                            (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
-                                '...............'}}</span> of the borrower) of
-                            <span class="font-weight-bold">{{guarantor ? (guarantor?.guaranteeAmount |
-                                currency:'NPR ':'symbol') : '...............'}}</span>
-                            Million
-                            <!-- {{guarantor?.netWorth | currency:"NPR "}} -->
-                        </li>
-                        <li *ngFor="let guarantor of guarantorsList">Consent of Mr./Mrs./Ms <span
-                                class="font-weight-bold">{{guarantor?.name}}</span>
-                            (<span class="font-weight-bold">{{guarantor?.relationship}}</span> of the borrower)**</li>
-                        <li>Consent for Blacklist from the borrower & guarantors as per NRB Directives</li>
-                    </ol>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><br>Special Instructions: <strong>Base rate: <span class="font-weight-bold">{{proposalData ?
-                            proposalData?.baseRate : '.................'}}</span> % as of
-                        ....................
-                    </strong>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>NB: All figures are in Nepalese Currency and denominated in millions.</td>
-            </tr>
-        </table>
+        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
+        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
     </div>
 </div>
