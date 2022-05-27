@@ -32,7 +32,7 @@
                   [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
                   class="form-control rounded"
                   name="loanId" required>
-            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option [ngValue]="undefined" hidden> Select Loan Type</option>
             <option *ngFor="let allList of nonMicroLoanList"
                     [ngValue]="allList.id">{{allList.name}}</option>
           </select>
@@ -45,7 +45,7 @@
                   [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
                   class="form-control rounded"
                   name="loanId" required>
-            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option [ngValue]="undefined" hidden> Select Loan Type</option>
             <option *ngFor="let allList of microLoanList"
                     [ngValue]="allList.id">{{allList.name}}</option>
           </select>
