@@ -32,8 +32,7 @@ const COMPONENTS = [
   exports: [
     ReportSummaryComponent,
     ReportingInfoTaggingComponent,
-    ReportingInfoTaggingFormComponent,
-    RetialReportSummaryInfoComponent
+    ReportingInfoTaggingFormComponent
   ],
   entryComponents: [
     ReportInfoFormComponent
