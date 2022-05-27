@@ -100,6 +100,7 @@ export class NetWorthComponent implements OnInit {
     getJointCustomerData() {
         const id = this.activatedRoute.snapshot.params.id;
         if (!ObjectUtil.isEmpty(id)) {
+            this.overlay.show()
             this.customerService.detail(Number(id)).subscribe(rs => {
                 console.log(JSON.parse(rs.detail.jointInfo), 'JOINT');
                 if (!ObjectUtil.isEmpty(rs.detail.jointInfo) && this.isJointCustomer) {
@@ -134,12 +135,16 @@ export class NetWorthComponent implements OnInit {
                         this.addForm();
                     }
                 }
+                this.overlay.hide();
+            }, error => {
+                this.overlay.hide()
             });
         }
     }
 
     patchJointCustomerValue(){
         if(this.isJointCustomer){
+            this.overlay.show()
             const  data = JSON.parse(this.data);
             if(!ObjectUtil.isEmpty(data)){
                 const form = this.form.get('customerForm') as FormArray;
@@ -157,6 +162,7 @@ export class NetWorthComponent implements OnInit {
                         totalLiabilities: d.totalLiabilities ? d.totalLiabilities : undefined,
                         totalNetWorth: d.totalNetWorth ? d.totalNetWorth : undefined,
                     }));
+                    this.overlay.hide();
                 });
             }
         }
