@@ -166,7 +166,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     incomeDataOnly;
     mGroupInfo: MGroup;
-    loanList: LoanDataHolder[] = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -434,7 +433,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         console.error(err);
                     });
                 }
-                this.loanList = this.customerAllLoanList;
                 this.customerLoanList.emit(this.customerAllLoanList);
             }, error => {
                 console.error(error);
