@@ -97,7 +97,7 @@
                                formControlName="exNonFunded"
                                placeholder="Non-Funded Limit"
                                type="number"/></td>
-                    <td><input (change)="calculateTotal(i)"
+                    <td><input [readOnly]="true"
                                class="form-control text-center"
                                formControlName="exTotal"
                                placeholder="Total"
@@ -112,12 +112,12 @@
                                formControlName="proNonFunded"
                                placeholder="Non-Funded Limit"
                                type="number"/></td>
-                    <td><input (change)="calculateTotal(i)"
+                    <td><input [readOnly]="true"
                                class="form-control text-center"
                                formControlName="proTotal"
                                placeholder="Total"
                                type="number"/></td>
-                    <td><input (change)="calculateTotal(i)"
+                    <td><input [readOnly]="true"
                                class="form-control text-center"
                                formControlName="changeAmount"
                                placeholder="Changes"
