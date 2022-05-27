@@ -187,7 +187,7 @@
       </ng-container>
       <tr>
         <th colspan="3" class="text-left pl-1">Total</th>
-        <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
+        <th class="text-right pr-1">{{companyJsonData?.totalSharePercent | number : '1.2-2'}}%</th>
       </tr>
       </tbody>
     </table>
