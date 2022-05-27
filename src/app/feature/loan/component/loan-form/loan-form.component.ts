@@ -42,7 +42,6 @@ import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
@@ -53,7 +52,6 @@ import {CreditRiskGradingGammaComponent} from '../../../loan-information-templat
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
@@ -146,12 +144,6 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('creditGrading', {static: false})
   creditGrading: CreditGradingComponent;
-
-  @ViewChild('creditRiskGradingAlpha', {static: false})
-  creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
-
-  @ViewChild('creditRiskGradingLambda', {static: false})
-  creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
   @ViewChild('crgGamma', {static: false})
   crgGamma: CreditRiskGradingGammaComponent;
@@ -624,7 +616,6 @@ export class LoanFormComponent implements OnInit {
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
         });
       }
-      this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
       this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
       this.loanDocument.crgGamma = this.loanHolder.crgGamma;
       this.loanDocument.security = this.loanHolder.security;
