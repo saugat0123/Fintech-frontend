@@ -933,8 +933,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
-                // f.get('valuationAmount').clearValidators();
-                // f.get('valuationAmount').updateValueAndValidity();
+                f.get('valuationAmount').clearValidators();
+                f.get('valuationAmount').updateValueAndValidity();
                 f.get('quotationAmount').clearValidators();
                 f.get('quotationAmount').updateValueAndValidity();
             });
@@ -1170,6 +1170,19 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
+            });
+        }
+        if (this.selectedSecurity === 'Land and Building Security') {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
             });
         }
     }
