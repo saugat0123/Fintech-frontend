@@ -20,6 +20,8 @@ export class AboveTenMillionComponent implements OnInit {
   tempData;
   guarantorData;
   customerCategory = CustomerCategory.SME_ABOVE_TEN_MILLION;
+  incomeFromAccountSummary = false;
+  incomeFromAccountData: any;
   financialCCBL;
   constructor() {}
 
@@ -37,6 +39,11 @@ export class AboveTenMillionComponent implements OnInit {
           !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
         this.guarantorData = this.loanDataHolder.loanHolder.guarantors.guarantorList;
       }
+    }
+    // Setting IncomeFromAccount data--
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
+      this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
+      this.incomeFromAccountSummary = true;
     }
   }
 }

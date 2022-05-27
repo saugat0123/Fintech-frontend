@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FinancialCcblComponent} from './financial-ccbl.component';
-import {NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {CoreModule} from '../../../@core/core.module';
@@ -11,12 +11,13 @@ import {CoreModule} from '../../../@core/core.module';
 @NgModule({
   declarations: [FinancialCcblComponent],
   exports: [FinancialCcblComponent],
-  imports: [
-    CommonModule,
-    NbCardModule,
-    ReactiveFormsModule,
-    CKEditorModule,
-    CoreModule
-  ]
+    imports: [
+        CommonModule,
+        NbCardModule,
+        ReactiveFormsModule,
+        CKEditorModule,
+        CoreModule,
+        NbButtonModule
+    ]
 })
 export class FinancialCcblModule { }

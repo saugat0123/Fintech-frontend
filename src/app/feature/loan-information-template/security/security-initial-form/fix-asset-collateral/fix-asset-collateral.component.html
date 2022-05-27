@@ -456,7 +456,95 @@
                                     </tr>
                                 </table>
                             </div>
+                            <div class="col-md-12">
+                                <div class="text-right">
+                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addValuationDetails()">Add Valuation Details
+                                    </button>
+                                </div>
+                                <table class="table table-bordered table-sm sb-small text-center">
+                                <thead>
+                                <tr>
+                                    <th colspan="6">Valuation Details</th>
+                                </tr>
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Particulars</th>
+                                    <th>Plot No.</th>
+                                    <th>Area (sq meter etc.)</th>
+                                    <th>MV</th>
+                                    <th>FMV</th>
+                                    <th>DV</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                 <tr *ngFor="let valuationDetail of fixedAssetsForm.get('valuationDetails')['controls']; let i = index;" formArrayName="valuationDetails">
 
+                                     <ng-container [formGroupName]="i">
+
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="particulars"
+                                                                      id="particulars"
+                                                                      name="particulars"
+                                                                      placeholder="Particulars" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="plotNo"
+                                                                      id="plotNo"
+                                                                      name="plotNo"
+                                                                      placeholder="Plot No." type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="area"
+                                                                      id="area"
+                                                                      name="area"
+                                                                      placeholder="Area" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      (keyup)="onChangeValueMv('mv','totalMv', i)"
+                                                                      [defaultValue]="0"
+                                                                      formControlName="mv"
+                                                                      id="mv"
+                                                                      name="mv"
+                                                                      placeholder="MV" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      (keyup)="onChangeValueFmv('fmv','totalFmv', i)"
+                                                                      [defaultValue]="0"
+                                                                      formControlName="fmv"
+                                                                      id="fmv"
+                                                                      name="fmv"
+                                                                      placeholder="FMV" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      (keyup)="onChangeValueDv('dv','totalDv', i)"
+                                                                      [defaultValue]="0"
+                                                                      formControlName="dv"
+                                                                      id="dv"
+                                                                      name="dv"
+                                                                      placeholder="DV" type="text"></td>
+                                    <td *ngIf="valuationDetailsForm.length>1">
+                                        <div class="col-md-1 pt-4">
+                                            <input class="align-self-end btn btn-sm btn-danger btn-primary"
+                                               (click)="deleteValuationDetails(i)" type="button" value="Delete"/>
+                                        </div>
+                                    </td>
+                                     </ng-container>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1 sb-bg-secondary text-white" colspan="3">Total: </td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="totalMv"
+                                                                      id="totalMv"
+                                                                      name="totalMv"
+                                                                      placeholder="Total MV" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="totalFmv"
+                                                                      id="totalFmv"
+                                                                      name="totalFmv"
+                                                                      placeholder="Total FMV" type="text"></td>
+                                    <td class="text-left pl-1"><input class="form-control"
+                                                                      formControlName="totalDv"
+                                                                      id="totalDv"
+                                                                      name="totalDv"
+                                                                      placeholder="Total DV" type="text"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
                             <div class="col-md-12">
                                 <div *ngFor="let staff of staffsForm; let i = index;" formArrayName="staffs">
                                     <div [formGroupName]="i" class="row">

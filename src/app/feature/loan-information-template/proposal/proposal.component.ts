@@ -23,6 +23,7 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
+import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
@@ -38,13 +39,14 @@ export class ProposalComponent implements OnInit {
     @Input() loanIds;
     @Input() loanType;
     @Input() customerInfo: CustomerInfoData;
-    @Input() fromProfile;
+    @Input() fromProfile: boolean;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
+    // @Output() crgGammaData = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
@@ -90,6 +92,7 @@ export class ProposalComponent implements OnInit {
     purposeChecked = false;
     debtChecked = false;
     netChecked = false;
+    debtValue = `<p>a. After completion and execution of all legal/security documents.</p><p>b. Demand Loan (Loan Against Share) shall be implemented/ disbursed on the account of client upon completion of all security documents.</p><p>c. Financing against the pledge of public and promoter shares shall be governed by NRB Directives.</p><p>d. In case of pledge of public shares, the drawdown on ordinary shares shall be restricted to maximum 70% of 180 days average of shares or last transaction price of all listed companies whichever is lower or as per NRB directives.</p><p>e. In case of pledge of promoter shares, the drawdown shall be calculated on monthly as guided by NRB and shall be restricted to 50% of weighted average Market price of Public shares of last 180 days or last transaction price of Promoter shares, whichever is lower.</p><p>f. The facility against Promoter Shares shall be available for maximum 1- year period and the client has to settle entire facility with in or at the expiry of the facility. But if the promoter shares holding is below 0.5% the loan can be renewed upon satisfactory account performance in compliance of NRB directives by levying necessary charges and fees.</p><p>g. Demand Loan can be availed on single deal or on multiple deals, however the original maturity date shall not exceed the tenure of 1 year from the date of initial deal booking.</p><p>h. Client shall be allowed to re-use approved limit till maturity date upon the pledge of additional shares acceptable to CCBL even after partial/full settlement of respective Demand Loan deal.</p><p>i. We shall obtain approval from NRB for the pledge of promoter shares having more than 2% of shareholding in any company prior to the disbursement of credit limit.</p><p>j. Replacement of shares shall be allowed within approved limit.</p><p>k. Partial security release shall be allowed on the following condition:</p><p>&nbsp;&nbsp;i) Cash deposit equivalent to share drawdown amount: In case of Cash deposit, equivalent deposit to share drawdown limit shall be lien over in operative account of client instead of settlement of limit. OR limit shall be settled equivalent to drawdown limit provided against pledge of particular shares. However, client shall reuse vacant limit with in its maturity.</p><p>&nbsp;&nbsp;ii) Broker Cheque: In case of share release request received from the client against Stock Broker Cheque; the borrower shall provide us Cheque encashable maximum within 7 working days of release of shares along with written letter from Licensed Stock Broker requesting release of desired shares of different listed companies pledged with us for the margin lending facility availed by the client. After realization of the Cheque; amount shall be lien over account of client instead of settlement of limit OR limit shall be settled equivalent to drawdown limit provided against pledge of particular shares. However, client shall reuse vacant limit with in its maturity.</p><p>l. Margin call of the loan shall be done as per product paper guidelines of the bank or as per NRB directives. In case of shortfall, margin call shall be done within 7 days of deficit occurrence date. The deficit amount to be deposited by the client within 35 days of Margin Call. However, if the deficit is less than or equal to 15% of the value of pledged shares, Margin Call may not be required.</p><p>m. No enhancement in the sanctioned limit shall be allowed by re-valuation of shares.</p><p><strong>n. Approving Authority for full or partial release of pledged shares complying above criteria shall be provided to Manager &ndash; Retail Credit. &ndash;Separate memo has been raised</strong></p><p>o. As per the client, tentative list of share to be purchased/ pledged is listed below:</p><table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\"><tbody><tr><td>SN</td><td>Company Name</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p><strong>In case of promoter share</strong></p><p>In the event of expiry, if the borrower could not settle the loan within stipulated time, borrower with reason shall be blacklisted within 7 days of providing 35 days notice. The provision for blacklisting shall also be mentioned in Loan deed.</p><p><strong>Disbursement:</strong></p><ul><li>Disbursement is subjected to the clause of pledge over marketable securities of public/ promoter shares of various companies and after execution of all security documents.</li><li>Disbursement of demand loan shall be done on single deal, on multiple deals, or as per request of the client. However, loan shall be expired within a year of first disbursement.</li><li>Demand Loan will be disbursed against public as well as promoters share.</li><li>Processing fee charge of 0.75% of implemented limit shall be levied to the customer.</li><li>Replacement of shares shall be allowed within limit.</li><li><p>Partial security release shall be allowed on the following condition:</p><p>I. Cash deposit equivalent to share drawdown amount</p><p>II. Broker ChequeI</p><p>III. Replacement of Shares</p></li></ul><p><strong>Repayment:</strong></p><p>a. The client shall serve interest on Overdraft/Demand Loan (Loan Against Shares) on a quarterly basis, i.e. at Chaitra end, Ashad end, Ashoj end and Poush end.</p><p>b. Principal amount will be renewed/ reviewed upon satisfactory performance of the account during review period as per the guidelines of NRB.</p>`;
     yesNo = [
         {value: 'Yes'},
         {value: 'No'}];
@@ -140,7 +143,7 @@ export class ProposalComponent implements OnInit {
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
     customerType: any;
-    showCad;
+    defaultCompliance = '<p><strong>Repayment:</strong></p>\n\n<p>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</p>\n\n<p>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</p>\n\n<p><strong>Mode of Disbursemet:</strong></p>\n\n<p>The loan shall be disbursed as under:</p>\n\n<ul>\n\t<li>We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</li>\n\t<li>Execution of all the security documents including mortgaged of proposed collateral.</li>\n</ul>\n\n<p>Letter of undertaking to the seller shall be issued at the request of buyer.</p>\n\n<p>Completion of security documentations</p>\n';
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -166,10 +169,10 @@ export class ProposalComponent implements OnInit {
             this.setCheckedData(this.checkedDataEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
             this.interestLimit = this.formDataForEdit['interestRate'];
-            /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
+            /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);
             this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.dateOfExpiry)
                 ? new Date(this.formDataForEdit.dateOfExpiry) : undefined);
-            this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);
+            this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);*/
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
             if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
                 this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -177,6 +180,7 @@ export class ProposalComponent implements OnInit {
                 this.setGroupExposureData(this.groupExposureData);
             }
         } else {
+            this.proposalForm.get('compliance').patchValue(this.defaultCompliance);
             this.setActiveBaseRate();
             this.addGroupExposureData();
         }
@@ -191,6 +195,7 @@ export class ProposalComponent implements OnInit {
                     };
                     this.allId = paramsValue;
                     this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
+                    this.customerType = this.allId.loanCategory;
                 });
         }
         this.getLoanData();
@@ -222,10 +227,10 @@ export class ProposalComponent implements OnInit {
         });
 
         this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(8)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
-        this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(8)));
+        // this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
         this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
             this.proposalForm.get('principalAmount')
@@ -248,7 +253,9 @@ export class ProposalComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
-        this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
+        if (this.fromProfile) {
+            this.customerType = this.activatedRoute.snapshot.queryParamMap.get('customerType');
+        }
     }
 
 
@@ -318,11 +325,11 @@ export class ProposalComponent implements OnInit {
             collateralRequirement: [undefined, Validators.required],
             swapCharge: [undefined],
             subsidizedLoan: [undefined],
-            limitExpiryMethod: [undefined, Validators.required],
+            /*limitExpiryMethod: [undefined, Validators.required],
             duration: [undefined, Validators.required],
             condition: [undefined, Validators.required],
             frequency: [undefined, Validators.required],
-            dateOfExpiry: [undefined, Validators.required],
+            dateOfExpiry: [undefined, Validators.required],*/
             remark: [undefined],
             cashMargin: [undefined],
             commissionPercentage: [undefined],
@@ -343,7 +350,7 @@ export class ProposalComponent implements OnInit {
             moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
             prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
-                || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? 0 :
+                || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? '' :
                 this.proposalData.prepaymentCharge],
             // for prepaymentCharge Amount--
             // for commitmentFee Amount--
@@ -353,6 +360,7 @@ export class ProposalComponent implements OnInit {
             riskConclusionRecommendation: [undefined],
             summeryRecommendation: undefined,
             purposeOfLoan: undefined,
+            debtStructure: [this.debtValue],
             termsAndCondition: undefined,
             prepaymentSwapCommitment: [undefined],
             existCashMargin: [undefined],
@@ -379,13 +387,15 @@ export class ProposalComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
+            compliance: [undefined],
+
     });
     }
 
     setValidatorForPrepaymentField() {
         if ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
             this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
-            this.proposalForm.get('prepaymentCharge').setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
+            this.proposalForm.get('prepaymentCharge').setValidators([Validators.required]);
         } else {
             this.proposalForm.get('prepaymentCharge').clearValidators();
         }
@@ -422,14 +432,13 @@ export class ProposalComponent implements OnInit {
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
 
-    setIndividualCrgGamma(crgGamma: any): void {
+    setIndividualCrgGamma(crgGamma: CreditRiskGradingGamma): void {
         this.loan.crgGamma = crgGamma;
-        console.log(this.loan, 'CRGDATA');
     }
 
     onSubmit() {
         this.cadFileSetupComponent.save();
-        if (this.customerType === 'INDIVIDUAL') {
+        if (this.customerType === 'INDIVIDUAL' && this.fromProfile) {
             this.crgGammaComponent.onSubmit();
         }
         // Proposal Form Data--
@@ -452,7 +461,6 @@ export class ProposalComponent implements OnInit {
         this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
         this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
         this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
-
       if (!this.fromProfile) {
             if (!ObjectUtil.isEmpty(this.formValue)) {
                 this.proposalData = this.formValue;
@@ -461,7 +469,6 @@ export class ProposalComponent implements OnInit {
 
             const mergeChecked = {
                 solChecked: this.solChecked,
-                waiverChecked: this.waiverChecked,
                 riskChecked: this.riskChecked,
                 swapChargeChecked: this.swapChargeChecked,
                 subsidizedLoanChecked: this.subsidizedLoanChecked,
@@ -644,7 +651,6 @@ export class ProposalComponent implements OnInit {
   setCheckedData(data) {
     if (!ObjectUtil.isEmpty(data)) {
       this.checkChecked(data['solChecked'], 'sol');
-      this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
@@ -679,20 +685,35 @@ export class ProposalComponent implements OnInit {
 
   calculateEmiEqiAmount(repaymentMode) {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
+    const moratoriumPeriod = this.proposalForm.get('moratoriumPeriod').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
     const n = this.proposalForm.get('tenureDurationInMonths').value;
-    if (proposedAmount && rate && n) {
-      const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-      switch (repaymentMode) {
-        case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
-          break;
-        case 'eqi':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
-          break;
-      }
+    if (!ObjectUtil.isEmpty(moratoriumPeriod)) {
+        if (!ObjectUtil.isEmpty(n) && !ObjectUtil.isEmpty(proposedAmount)) {
+            const emi = Number(proposedAmount / Number(n - moratoriumPeriod));
+            switch (repaymentMode) {
+                case 'emi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
+                    break;
+                case 'eqi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
+                    break;
+            }
+        }
     } else {
-      this.proposalForm.get('installmentAmount').patchValue(undefined);
+        if (proposedAmount && rate && n) {
+            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+            switch (repaymentMode) {
+                case 'emi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
+                    break;
+                case 'eqi':
+                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
+                    break;
+            }
+        } else {
+            this.proposalForm.get('installmentAmount').patchValue(undefined);
+        }
     }
   }
 
@@ -730,9 +751,9 @@ export class ProposalComponent implements OnInit {
           interestAmount = 0;
       }
       if (key === 'INTEREST') {
-        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
+        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(8)));
       }if (key === 'PRINCIPAL') {
-        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
+        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(8)));
       }
     }
   }
@@ -743,7 +764,7 @@ export class ProposalComponent implements OnInit {
     }
   }
 
-  checkLimitExpiryBuildValidation(limitExpiry) {
+ /* checkLimitExpiryBuildValidation(limitExpiry) {
     if (limitExpiry === 'ABSOLUTE') {
       this.absoluteSelected = true;
       this.customSelected = false;
@@ -772,7 +793,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
 
     }
-  }
+  }*/
 
   checkInstallmentAmount() {
     if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
@@ -845,8 +866,8 @@ export class ProposalComponent implements OnInit {
         const interestRate = Number(this.proposalForm.get('interestRate').value);
         const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value) / 12;
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
-        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
-        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
+        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(8));
+        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(8));
     }
 
   calculateInterestRate() {
@@ -855,7 +876,7 @@ export class ProposalComponent implements OnInit {
     const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
 
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(8));
   }
 
   onChange() {

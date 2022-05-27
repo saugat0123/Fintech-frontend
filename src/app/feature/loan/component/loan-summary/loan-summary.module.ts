@@ -43,7 +43,6 @@ import { BankingRelationshipComponent } from './sme-loan-summary/banking-relatio
 import { OtherChargesComponent } from './sme-loan-summary/other-charges/other-charges.component';
 import { CovenantsComponent } from './sme-loan-summary/covenants/covenants.component';
 import { NrbStatutoryRemarksStatusComponent } from './sme-loan-summary/nrb-statutory-remarks-status/nrb-statutory-remarks-status.component';
-import { CreditCardRequirementComponent } from './sme-loan-summary/credit-card-requirement/credit-card-requirement.component';
 import { AboveRequestOfTheCustomerComponent } from './sme-loan-summary/above-ten-million/above-request-of-the-customer/above-request-of-the-customer.component';
 import { AbovePurposeJustificationForProposalComponent } from './sme-loan-summary/above-ten-million/above-purpose-justification-for-proposal/above-purpose-justification-for-proposal.component';
 import { AboveBusinessRelatedInformationComponent } from './sme-loan-summary/above-ten-million/above-business-related-information/above-business-related-information.component';
@@ -85,6 +84,7 @@ import { SanaRepaymentModalityComponent } from './sme-loan-summary/sana-byabasay
 import { SanaMisNrbReportingComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-mis-nrb-reporting/sana-mis-nrb-reporting.component';
 import {SecurityTaggedModule} from '../../../loan-information-template/security/security-tagged-component/security-tagged.module';
 import {SecurityTaggedViewModule} from '../../../loan-information-template/security/security-tagged-view/security-tagged-view.module';
+import { AuthoritySectionComponent } from './authority-section/authority-section.component';
 
 
 const COMPONENTS = [
@@ -165,7 +165,6 @@ const ENTRY_COMPONENTS = [];
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
     GroupCreditFacilityReportComponent,
-    CreditCardRequirementComponent,
     UptoTenMillionComponent,
     UptoDetailsOfTheCustomerComponent,
     SecurityArrangementComponent,
@@ -185,6 +184,7 @@ const ENTRY_COMPONENTS = [];
     SanaDisbursementModalityComponent,
     SanaRepaymentModalityComponent,
     SanaMisNrbReportingComponent,
+    AuthoritySectionComponent,
   ],
     imports: [
         CommonModule,
@@ -221,8 +221,10 @@ const ENTRY_COMPONENTS = [];
         SignatureSectionComponent,
         CreditFacilityReportComponent,
         SmeLoanSummaryComponent,
-        CreditCardRequirementComponent,
         AboveSwotAnalysisComponent,
+        AboveBankingArrangementOfTheCustomerComponent,
+        AboveRiskAnalysisComponent,
+        AuthoritySectionComponent
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })

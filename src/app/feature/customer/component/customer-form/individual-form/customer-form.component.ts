@@ -25,6 +25,7 @@ import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {CkEditorComponent} from '../../../../../@core/ck-editor/ck-editor.component';
 
 @Component({
     selector: 'app-customer-form',
@@ -98,7 +99,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     };
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
-    clientType: any;
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
@@ -110,41 +110,21 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
     private relation = ['Grand Father', 'Father'];
-    incomeRiskChecked = false;
-    securityRiskChecked = false;
-    successionRiskChecked = false;
     bankingRelationChecked = false;
+
+    @ViewChild('eckEditor', {static: false}) ckEditor: CkEditorComponent;
 
     ngOnInit() {
         this.getProvince();
         this.getAllDistrict();
-        this.getClientType();
         this.getSubSector();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
-                this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
-            }
-            if (!ObjectUtil.isEmpty(this.individualJsonData.checkedData)) {
-                this.incomeRiskChecked = this.individualJsonData.checkedData.incomeRiskChecked;
-                this.bankingRelationChecked = this.individualJsonData.checkedData.bankingRelationChecked;
-                this.successionRiskChecked = this.individualJsonData.checkedData.successionRiskChecked;
-                this.securityRiskChecked = this.individualJsonData.checkedData.securityRiskChecked;
-            } else {
-                if (!ObjectUtil.isEmpty(this.individualJsonData.incomeRisk)) {
-                    this.incomeRiskChecked = true;
-                } else if (!ObjectUtil.isEmpty(this.individualJsonData.securityRisk)) {
-                    this.securityRiskChecked = true;
-                } else if (!ObjectUtil.isEmpty(this.individualJsonData.successionRisk)) {
-                    this.successionRiskChecked = true;
-                }
-            }
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             if (this.customer.sameAddress !== undefined) {
                 this.sameAddress = this.customer.sameAddress;
             }
-            this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
                 this.customer.bankingRelationship = this.bankingRelationshipInput;
@@ -185,8 +165,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
-                version: [0],
                 relativeNetWorth: [undefined],
+                version: [0],
             })
         );
     }
@@ -273,6 +253,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.ckEditor.onSubmit();
+        if (this.ckEditor.form.invalid)
+            return true;
         this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
@@ -317,7 +300,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
                     this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-                    this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
@@ -341,7 +323,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
                     this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
-                    this.customer.netWorth = this.basicInfo.get('netWorth').value;
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
@@ -428,19 +409,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 [Validators.max(999999999), Validators.min(100000000)]],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction],
-            securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.securityRisk],
-            incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.incomeRisk],
-            successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : []],
-            netWorth: [this.customer.netWorth === undefined ?
-                undefined : this.customer.netWorth,
-                this.crgLambdaDisabled ? undefined : [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
-            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
                 this.customer.temporaryProvince],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
@@ -466,16 +437,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     setIndividualJsonData() {
-        const checkedData = {
-            incomeRiskChecked: this.incomeRiskChecked,
-            securityRiskChecked: this.securityRiskChecked,
-            successionRiskChecked: this.successionRiskChecked,
-            bankingRelationChecked: this.bankingRelationChecked,
-        };
         const individualJsonData = new IndividualJsonData();
-        individualJsonData.incomeRisk = this.basicInfoControls.incomeRisk.value;
-        individualJsonData.securityRisk = this.basicInfoControls.securityRisk.value;
-        individualJsonData.successionRisk = this.basicInfoControls.successionRisk.value;
         individualJsonData.permanentAddressLine1 = this.basicInfoControls.permanentAddressLine1.value;
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
@@ -483,7 +445,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
-        individualJsonData.checkedData = checkedData;
         return JSON.stringify(individualJsonData);
     }
 
@@ -496,8 +457,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
-                version: [undefined],
                 relativeNetWorth: [undefined],
+                version: [undefined],
             }));
         });
     }
@@ -518,7 +479,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
                     age: [singleRelatives.age],
-                    relativeNetWorth: [singleRelatives.relativeNetWorth],
+                    relativeNetWorth: [singleRelatives.relativeNetWorth]
                 }));
             });
 
@@ -625,15 +586,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.basicInfo.get('otherIncome').updateValueAndValidity();
     }
 
-    getClientType() {
-        this.customerService.clientType().subscribe((res: any) => {
-                this.clientType = res.detail;
-            }
-            , error => {
-                console.error(error);
-            });
-    }
-
     getSubSector() {
         this.customerService.subSector().subscribe((res: any) => {
                 const response = res.detail;
@@ -715,25 +667,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         });
     }
 
-    onCustomerTypeChange(check: boolean) {
-        if (check || this.crgLambdaDisabled) {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
-                'netWorth'], false);
-        } else {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
-                'netWorth'], false);
-        }
-        const clientTypeControl = this.basicInfo.get('clientType');
-        if (check) {
-            clientTypeControl.patchValue('MICRO');
-            clientTypeControl.disable();
-        } else {
-            // this.clientType = this.clientType.filter(v => v !== 'MICRO');
-            clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
-            clientTypeControl.enable();
-        }
-    }
-
     addAccountNumber() {
         (this.basicInfo.get('accountDetails') as FormArray).push(
             this.formBuilder.group({
@@ -756,25 +689,16 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onChecked(event, type) {
         switch (type) {
-            case 'income' : {
-                this.incomeRiskChecked = event;
-            }
-                break;
-            case 'security' : {
-                this.securityRiskChecked = event;
-            }
-                break;
-
-            case 'succession' : {
-                this.successionRiskChecked = event;
-            }
-                break;
-
             case 'banking' : {
                 this.bankingRelationChecked = event;
             }
                 break;
 
         }
+    }
+
+    setValue($event: any) {
+        this.basicInfo.get('introduction').patchValue($event);
+        console.log(this.basicInfo.value);
     }
 }

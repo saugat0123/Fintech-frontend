@@ -24,6 +24,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
+    creditRiskDataValue;
     points: any;
 
     crgQuestionsList: Array<CrgQuestion> = [];
@@ -99,7 +100,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         });
 
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
-
         if (this.formDataForEdit !== undefined) {
             this.totalPoints = this.formDataForEdit.totalPoint;
             this.grading = this.formDataForEdit.grade;
@@ -140,6 +140,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.creditRiskData = this.formData;
         }
         this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
-        this.crgDataEmitter.emit(this.creditRiskData.data);
+        this.crgDataEmitter.emit(this.creditRiskData);
     }
 }

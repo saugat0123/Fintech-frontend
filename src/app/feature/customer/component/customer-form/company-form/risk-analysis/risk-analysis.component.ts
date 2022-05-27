@@ -44,7 +44,6 @@ export class RiskAnalysisComponent implements OnInit {
             environmentalIssues: [undefined],
             adverseFeatures: [undefined],
             politicalRisk: [undefined],
-            otherRisk: [undefined],
             // Mitigating factors
             industryFactor: [undefined],
             businessFactor: [undefined],
@@ -54,7 +53,6 @@ export class RiskAnalysisComponent implements OnInit {
             environmentalIssuesFactor: [undefined],
             adverseFeaturesFactor: [undefined],
             politicalFactor: [undefined],
-            otherFactor: [undefined],
             riskAnalysisFreeText: this.formBuilder.array([])
         });
     }

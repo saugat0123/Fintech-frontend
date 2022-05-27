@@ -19,18 +19,6 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="clientType"><strong>Customer Client Type</strong></label>
-                            <select
-                                    class="custom-select" formControlName="clientType"
-                                    id="clientType">
-                                <option [ngValue]="null">Select Client Type</option>
-                                <option *ngFor="let data of clientType | keyvalue " [ngValue]="data.key"
-                                        [selected]="data.key === clientTypeInput" >{{data.value}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="subSector"><strong>SubSector</strong></label>
                             <select
                                     class="custom-select" formControlName="subsectorDetail"
@@ -984,18 +972,6 @@
                             </div>
                         </nb-card-body>
                     </nb-card>
-                </div>
-                <div *ngIf="!crgLambdaDisabled" class="col-4">
-                    <label><strong>Net worth</strong></label>
-                    <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
-                           class="form-control" placeholder="Net Worth Amount"
-                           [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('netWorth').errors }" appDecimalNumber/>
-                    <div *ngIf="(submitted) && basicJointInfo.get('netWorth').invalid"
-                         class="invalid-feedback">
-                        <div *ngIf="basicJointInfo.get('netWorth').errors">
-                            Valid Worth Amount is required
-                        </div>
-                    </div>
                 </div>
             </form>
             </nb-tab>

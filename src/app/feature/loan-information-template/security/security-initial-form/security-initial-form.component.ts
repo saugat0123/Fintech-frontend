@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -37,6 +37,7 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerType} from 'src/app/feature/customer/model/customerType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {CadFileSetupComponent} from '../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
+    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent
 
     securityId = SecurityIds;
     selectedArray = [];
@@ -161,6 +163,7 @@ export class SecurityInitialFormComponent implements OnInit {
     provinces: Province[];
     districtList: District [];
     municipalityList: MunicipalityVdc [];
+    files = [];
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -198,6 +201,9 @@ export class SecurityInitialFormComponent implements OnInit {
             console.error(error);
         });
         if (this.formData !== undefined) {
+            if (!ObjectUtil.isEmpty(this.formData['files'])) {
+                this.files = JSON.parse(this.formData['files']);
+            }
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -340,7 +346,7 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-
+            files: [undefined]
         });
         this.buildShareSecurityForm();
     }
@@ -372,7 +378,9 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingFields.length > 0 ? JSON.parse(item.valuatingField).includes('LAND') : item.valuatingField.includes('LAND') && !item.valuatingField.includes('LAND_BUILDING'));
+                    this.securityValuator.landValuator[index] = res.detail.filter(item =>
+                        item.valuatingFields.length > 0 ? JSON.parse(item.valuatingField).includes('LAND') :
+                            item.valuatingField.includes('LAND') && !item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
             case 'apartment':
@@ -392,7 +400,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
             case  'building':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.buildingValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND_BUILDING'));
+                    this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
+                        item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
         }
@@ -598,21 +607,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     buildingName: [singleData.buildingName],
                     buildingDescription: [singleData.buildingDescription],
                     buildArea: [singleData.buildArea],
-                    buildRate: [singleData.buildRate],
                     totalCost: [singleData.totalCost],
                     floorName: [singleData.floorName],
-                    valuationArea: [singleData.valuationArea],
-                    ratePerSquareFeet: [singleData.ratePerSquareFeet],
-                    estimatedCost: [singleData.estimatedCost],
-                    waterSupply: [singleData.waterSupply],
-                    sanitation: [singleData.sanitation],
-                    electrification: [singleData.electrification],
-                    buildingTotalCost: [singleData.buildingTotalCost],
                     buildingFairMarketValue: [singleData.buildingFairMarketValue],
                     buildingDistressValue: [singleData.buildingDistressValue],
-                    electrificationPercent: [singleData.electrificationPercent],
-                    waterSupplyPercent: [singleData.waterSupplyPercent],
-                    sanitationPercent: [singleData.sanitationPercent],
                     ApartmentValuator: [singleData.ApartmentValuator],
                     ApartmentValuatorDate: [ObjectUtil.isEmpty(singleData.ApartmentValuatorDate) ?
                         undefined : new Date(singleData.ApartmentValuatorDate)],
@@ -624,8 +622,15 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
+                    apartmentDeveloperNames: this.formBuilder.array([]),
                 })
             );
+            if (!ObjectUtil.isEmpty(Data)) {
+                singleData.apartmentDeveloperNames.forEach(val => {
+                    this.addApartmentDeveloper(index);
+                });
+            }
+            this.setApartmentDeveloperNames(singleData, index);
         });
     }
 
@@ -734,42 +739,20 @@ export class SecurityInitialFormComponent implements OnInit {
                         buildingName: [singleData.buildingDetailsBeforeCompletion.buildingName],
                         buildingDescription: [singleData.buildingDetailsBeforeCompletion.buildingDescription],
                         buildArea: [singleData.buildingDetailsBeforeCompletion.buildArea],
-                        buildRate: [singleData.buildingDetailsBeforeCompletion.buildRate],
                         totalCost: [singleData.buildingDetailsBeforeCompletion.totalCost],
                         floorName: [singleData.buildingDetailsBeforeCompletion.floorName],
-                        valuationArea: [singleData.buildingDetailsBeforeCompletion.valuationArea],
-                        ratePerSquareFeet: [singleData.buildingDetailsBeforeCompletion.ratePerSquareFeet],
-                        estimatedCost: [singleData.buildingDetailsBeforeCompletion.estimatedCost],
-                        waterSupply: [singleData.buildingDetailsBeforeCompletion.waterSupply],
-                        sanitation: [singleData.buildingDetailsBeforeCompletion.sanitation],
-                        electrification: [singleData.buildingDetailsBeforeCompletion.electrification],
-                        buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost],
                         buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue],
                         buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue],
-                        electrificationPercent: [singleData.buildingDetailsBeforeCompletion.electrificationPercent],
-                        waterSupplyPercent: [singleData.buildingDetailsBeforeCompletion.waterSupplyPercent],
-                        sanitationPercent: [singleData.buildingDetailsBeforeCompletion.sanitationPercent],
 
                     }),
                     buildingDetailsAfterCompletion: this.formBuilder.group({
                         buildingName: [singleData.buildingDetailsAfterCompletion.buildingName],
                         buildingDescription: [singleData.buildingDetailsAfterCompletion.buildingDescription],
                         buildArea: [singleData.buildingDetailsAfterCompletion.buildArea],
-                        buildRate: [singleData.buildingDetailsAfterCompletion.buildRate],
                         totalCost: [singleData.buildingDetailsAfterCompletion.totalCost],
                         floorName: [singleData.buildingDetailsAfterCompletion.floorName],
-                        valuationArea: [singleData.buildingDetailsAfterCompletion.valuationArea],
-                        ratePerSquareFeet: [singleData.buildingDetailsAfterCompletion.ratePerSquareFeet],
-                        estimatedCost: [singleData.buildingDetailsAfterCompletion.estimatedCost],
-                        waterSupply: [singleData.buildingDetailsAfterCompletion.waterSupply],
-                        sanitation: [singleData.buildingDetailsAfterCompletion.sanitation],
-                        electrification: [singleData.buildingDetailsAfterCompletion.electrification],
-                        buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost],
                         buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue],
                         buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue],
-                        waterSupplyPercent: [singleData.buildingDetailsAfterCompletion.waterSupplyPercent],
-                        sanitationPercent: [singleData.buildingDetailsAfterCompletion.sanitationPercent],
-                        electrificationPercent: [singleData.buildingDetailsAfterCompletion.electrificationPercent],
 
 
                     })
@@ -787,19 +770,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     buildingName: [undefined],
                     buildingDescription: [undefined],
                     buildArea: [undefined],
-                    buildRate: [undefined],
                     totalCost: [undefined],
                     floorName: [undefined],
-                    valuationArea: [undefined],
-                    ratePerSquareFeet: [undefined],
-                    estimatedCost: [undefined],
-                    waterSupply: [undefined],
-                    waterSupplyPercent: [undefined],
-                    sanitationPercent: [undefined],
-                    electrificationPercent: [undefined],
-                    sanitation: [undefined],
-                    electrification: [undefined],
-                    buildingTotalCost: [undefined],
                     buildingFairMarketValue: [undefined],
                     buildingDistressValue: [undefined]
                 }),
@@ -807,19 +779,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     buildingName: [undefined],
                     buildingDescription: [undefined],
                     buildArea: [undefined],
-                    buildRate: [undefined],
                     totalCost: [undefined],
                     floorName: [undefined],
-                    valuationArea: [undefined],
-                    ratePerSquareFeet: [undefined],
-                    estimatedCost: [undefined],
-                    waterSupplyPercent: [undefined],
-                    sanitationPercent: [undefined],
-                    electrificationPercent: [undefined],
-                    waterSupply: [undefined],
-                    sanitation: [undefined],
-                    electrification: [undefined],
-                    buildingTotalCost: [undefined],
                     buildingFairMarketValue: [undefined],
                     buildingDistressValue: [undefined]
 
@@ -924,7 +885,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'Land and Building Security' :
-                    this.setLandBuildingValidation();
                     this.landBuilding = true;
                     break;
                 case 'PlantSecurity' :
@@ -985,13 +945,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('buildingFairMarketValue').clearValidators();
                 f.get('buildingFairMarketValue').updateValueAndValidity();
             });
-            const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-            landBuildingFormControls.controls.forEach(f => {
-                f.get('owner').clearValidators();
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').clearValidators();
-                f.get('landConsideredValue').updateValueAndValidity();
-            });
             const plantDetailsFormControls = this.securityForm.get('plantDetails') as FormArray;
             plantDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
@@ -1046,7 +999,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('owner').updateValueAndValidity();
             });
         }
-        this.clearLandBuildingValidators();
     }
     clearValidationState() {
         if (this.selectedSecurity === 'LandSecurity') {
@@ -1098,23 +1050,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('buildArea').updateValueAndValidity();
                 f.get('buildingFairMarketValue').clearValidators();
                 f.get('buildingFairMarketValue').updateValueAndValidity();
-            });
-        }
-        if (this.selectedSecurity === 'Land and Building Security') {
-            const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
-                f.get('owner').setValidators(Validators.required);
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').setValidators(Validators.required);
-                f.get('landConsideredValue').updateValueAndValidity();
-            });
-        } else {
-            const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
-                f.get('owner').clearValidators();
-                f.get('owner').updateValueAndValidity();
-                f.get('landConsideredValue').clearValidators();
-                f.get('landConsideredValue').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'PlantSecurity') {
@@ -1237,12 +1172,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('totalShareUnit').updateValueAndValidity();
             });
         }
-        if(this.selectedSecurity !== 'Land and Building Security') {
-            this.clearLandBuildingValidators();
-        }
     }
-
-
 
     hypothecationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -1348,19 +1278,8 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingName: [''],
             buildingDescription: [''],
             buildArea: ['', Validators.required],
-            buildRate: [''],
             totalCost: [''],
             floorName: [''],
-            valuationArea: [''],
-            ratePerSquareFeet: [''],
-            estimatedCost: [''],
-            waterSupply: [''],
-            waterSupplyPercent: [''],
-            sanitationPercent: [''],
-            electrificationPercent: [''],
-            sanitation: [''],
-            electrification: [''],
-            buildingTotalCost: [''],
             buildingFairMarketValue: ['', Validators.required],
             buildingDistressValue: [''],
             buildingDetailsDescription: [''],
@@ -1374,63 +1293,18 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
-        });
-    }
-    clearLandBuildingValidators() {
-        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-        landBuildingFormControls.controls.forEach(f => {
-            f.get('owner').clearValidators();
-            f.get('owner').updateValueAndValidity();
-            f.get('landConsideredValue').clearValidators();
-            f.get('landConsideredValue').updateValueAndValidity();
-            f.get('plotNumber').clearValidators();
-            f.get('plotNumber').updateValueAndValidity();
-            f.get('marketValue').clearValidators();
-            f.get('marketValue').updateValueAndValidity();
-            f.get('distressValue').clearValidators();
-            f.get('distressValue').updateValueAndValidity();
-            f.get('governmentRate').clearValidators();
-            f.get('governmentRate').updateValueAndValidity();
-            f.get('considerValue').clearValidators();
-            f.get('considerValue').updateValueAndValidity();
-            f.get('sheetNo').clearValidators();
-            f.get('sheetNo').updateValueAndValidity();
-            f.get('geoLocation').clearValidators();
-            f.get('geoLocation').updateValueAndValidity();
-        });
-    }
-    setLandBuildingValidation() {
-        const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
-        landBuildingFormControls.controls.forEach(f => {
-            f.get('owner').setValidators(Validators.required);
-            f.get('owner').updateValueAndValidity();
-            f.get('landConsideredValue').setValidators(Validators.required);
-            f.get('landConsideredValue').updateValueAndValidity();
-            f.get('plotNumber').setValidators(Validators.required);
-            f.get('plotNumber').updateValueAndValidity();
-            f.get('marketValue').setValidators(Validators.required);
-            f.get('marketValue').updateValueAndValidity();
-            f.get('distressValue').setValidators(Validators.required);
-            f.get('distressValue').updateValueAndValidity();
-            f.get('governmentRate').setValidators(Validators.required);
-            f.get('governmentRate').updateValueAndValidity();
-            f.get('considerValue').setValidators(Validators.required);
-            f.get('considerValue').updateValueAndValidity();
-            f.get('sheetNo').setValidators(Validators.required);
-            f.get('sheetNo').updateValueAndValidity();
-            f.get('geoLocation').setValidators(Validators.required);
-            f.get('geoLocation').updateValueAndValidity();
+            apartmentDeveloperNames: this.formBuilder.array([]),
         });
     }
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
-            owner: [undefined, Validators.required],
+            owner: [undefined],
             location: undefined,
-            plotNumber: [undefined, Validators.required],
+            plotNumber: [undefined],
             areaFormat: undefined,
             area: undefined,
-            marketValue: [undefined, Validators.required],
-            distressValue: [undefined, Validators.required],
+            marketValue: [undefined],
+            distressValue: [undefined],
             description: undefined,
             houseNumber: [undefined],
             totalBuildingArea: [undefined],
@@ -1480,14 +1354,14 @@ export class SecurityInitialFormComponent implements OnInit {
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
             kycCheckForLandAndBuilding: [false],
-            governmentRate: [undefined, Validators.required],
+            governmentRate: [undefined],
             dv: [undefined],
-            considerValue: [undefined, Validators.required],
-            sheetNo: [undefined, Validators.required],
+            considerValue: [undefined],
+            sheetNo: [undefined],
             province: [undefined],
             district: [undefined],
             municipalityVdc: [undefined],
-            geoLocation: [undefined, Validators.required],
+            geoLocation: [undefined],
             addressLine1: [undefined],
             addressLine2: [undefined],
             registerOffice: [undefined]
@@ -1537,7 +1411,29 @@ export class SecurityInitialFormComponent implements OnInit {
         );
     }
 
+    addApartmentDeveloper(i) {
+        const controls = this.securityForm.get(['buildingDetails', i, 'apartmentDeveloperNames']) as FormArray;
+        controls.push(this.apartmentDeveloperNameFormGroup());
+    }
+    apartmentDeveloperNameFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            apartmentDeveloperName: [undefined],
+        });
+    }
+    setApartmentDeveloperNames(singleData, i) {
+        const developerNames = this.securityForm.get(['buildingDetails', i, 'apartmentDeveloperNames']) as FormArray;
+        if (!ObjectUtil.isEmpty(singleData) &&
+            !ObjectUtil.isEmpty(singleData.apartmentDeveloperNames)) {
+            singleData.apartmentDeveloperNames.forEach((val, j) => {
+                this.securityForm.get(['buildingDetails', i, 'apartmentDeveloperNames', j, 'apartmentDeveloperName']).patchValue(
+                    val.apartmentDeveloperName);
+            });
+        }
+    }
 
+    removeApartmentDeveloperName(i, index) {
+        (this.securityForm.get(['buildingDetails', i, 'apartmentDeveloperNames']) as FormArray).removeAt(index);
+    }
     underConstruction(checkedStatus) {
         if (checkedStatus) {
             this.underConstructionChecked = true;
@@ -1888,7 +1784,7 @@ export class SecurityInitialFormComponent implements OnInit {
     get totalConsideredValue() {
         let total = 0;
         this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
-        return total.toFixed(2);
+        return total.toFixed(8);
     }
 
     get shareField() {
@@ -1957,6 +1853,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     submit() {
         this.submitted = true;
+        this.cadFileSetupComponent.save();
         this.pushSecurityNameInArray();
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
@@ -2011,208 +1908,44 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'building':
                 const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i, 'buildArea']).value)
-                    * Number(this.securityForm.get(['buildingDetails', i, 'buildRate']).value)).toFixed(2);
+                ).toFixed(8);
                 this.securityForm.get(['buildingDetails', i, 'totalCost']).patchValue(totalBuildRate);
                 break;
             case 'before':
                 const beforeTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                    'buildingDetailsBeforeCompletion', 'buildArea']).value)).toFixed(8);
                 this.securityForm.get(['buildingUnderConstructions', i,
                     'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(beforeTotalBuildRate);
                 break;
             case 'after':
                 const afterTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'buildArea']).value)
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                    'buildingDetailsAfterCompletion', 'buildArea']).value)).toFixed(8);
                 this.securityForm.get(['buildingUnderConstructions', i,
                     'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
                 break;
             case 'landBuilding':
-                const landBuildingTotalBuildRate = (Number(this.securityForm.get(['landBuilding', i, 'buildArea']).value)
-                    * Number(this.securityForm.get(['landBuilding', i, 'buildRate']).value)).toFixed(2);
+                const landBuildingTotalBuildRate = (Number(this.securityForm.get(['landBuilding', i, 'buildArea']).value)).toFixed(8);
                 this.securityForm.get(['landBuilding', i, 'totalCost']).patchValue(landBuildingTotalBuildRate);
                 break;
             case 'landBuildingBefore':
                 const landBuildingBeforeTotalBuildRate = (Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
-                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                    'buildingDetailsBeforeCompletion', 'buildArea']).value)).toFixed(8);
                 this.securityForm.get(['landBuildingUnderConstruction', i,
                     'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(landBuildingBeforeTotalBuildRate);
                 break;
             case 'landBuildingAfter':
                 const landBuildingAfterTotalBuildRate = (Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsAfterCompletion', 'buildArea']).value)
-                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                    'buildingDetailsAfterCompletion', 'buildArea']).value)).toFixed(8);
                 this.securityForm.get(['landBuildingUnderConstruction', i,
                     'buildingDetailsAfterCompletion', 'totalCost']).patchValue(landBuildingAfterTotalBuildRate);
                 break;
         }
     }
 
-    calculateEstimatedCost(i, type) {
-        switch (type) {
-            case 'building':
-                const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i, 'valuationArea']).value)
-                    * Number(this.securityForm.get(['buildingDetails', i, 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['buildingDetails', i, 'estimatedCost']).patchValue(estimatedCost);
-                break;
-            case 'before':
-                const beforeEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(beforeEstimatedCost);
-                break;
-            case 'after':
-                const afterEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
-                break;
-            case 'landBuilding':
-                const landBuildingEstimatedCost = (Number(this.securityForm.get(['landBuilding', i, 'valuationArea']).value)
-                    * Number(this.securityForm.get(['landBuilding', i, 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['landBuilding', i, 'estimatedCost']).patchValue(landBuildingEstimatedCost);
-                break;
-            case 'landBuildingBefore':
-                const landBuildingBeforeEstimatedCost = (Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
-                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['landBuildingUnderConstruction', i,
-                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(landBuildingBeforeEstimatedCost);
-                break;
-            case 'landBuildingAfter':
-                const landBuildingAfterEstimatedCost = (Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
-                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i,
-                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
-                this.securityForm.get(['landBuildingUnderConstruction', i,
-                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(landBuildingAfterEstimatedCost);
-                break;
-        }
-    }
 
-    calculateWaterSupply(i, type) {
-        switch (type) {
-            case 'building':
-                const waterSupply = (Number(this.securityForm.get(['buildingDetails', i, 'waterSupplyPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingDetails', i, 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingDetails', i, 'waterSupply']).patchValue(waterSupply);
-                break;
-            case 'before':
-                const beforeWaterSupply = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'waterSupplyPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsBeforeCompletion', 'waterSupply']).patchValue(beforeWaterSupply);
-                break;
-            case 'after':
-                const afterWaterSupply = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'waterSupplyPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsAfterCompletion', 'waterSupply']).patchValue(afterWaterSupply);
-                break;
-        }
-    }
 
-    calculateSanitation(i, type) {
-        switch (type) {
-            case 'building':
-                const sanitation = (Number(this.securityForm.get(['buildingDetails', i, 'sanitationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingDetails', i, 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingDetails', i, 'sanitation']).patchValue(sanitation);
-                break;
-            case 'before':
-                const beforeSanitation = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'sanitationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsBeforeCompletion', 'sanitation']).patchValue(beforeSanitation);
-                break;
-            case 'after':
-                const afterSanitation = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'sanitationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsAfterCompletion', 'sanitation']).patchValue(afterSanitation);
-                break;
-        }
-    }
 
-    calculateElectrification(i, type) {
-        switch (type) {
-            case 'building':
-                const electrification = (Number(this.securityForm.get(['buildingDetails', i, 'electrificationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingDetails', i, 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingDetails', i, 'electrification']).patchValue(electrification);
-                break;
-            case 'before':
-                const beforeElectrification = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'electrificationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsBeforeCompletion', 'electrification']).patchValue(beforeElectrification);
-                break;
-            case 'after':
-                const afterElectrification = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'electrificationPercent']).value) / 100
-                    * Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsAfterCompletion', 'electrification']).patchValue(afterElectrification);
-                break;
-        }
-    }
 
-    calculateTotalApartmentCost(i, type) {
-        switch (type) {
-            case 'building':
-                const totalApartmentCost = (Number(this.securityForm.get(['buildingDetails', i, 'estimatedCost']).value) +
-                    Number(this.securityForm.get(['buildingDetails', i, 'waterSupply']).value) +
-                    Number(this.securityForm.get(['buildingDetails', i, 'sanitation']).value) +
-                    Number(this.securityForm.get(['buildingDetails', i, 'electrification']).value)).toFixed(2);
-                this.securityForm.get(['buildingDetails', i, 'buildingTotalCost']).patchValue(totalApartmentCost);
-                break;
-            case 'before':
-                const beforeTotalApartmentCost = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'estimatedCost']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'waterSupply']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'sanitation']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsBeforeCompletion', 'electrification']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsBeforeCompletion', 'buildingTotalCost']).patchValue(beforeTotalApartmentCost);
-                break;
-            case 'after':
-                const afterTotalApartmentCost = (Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'estimatedCost']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'waterSupply']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'sanitation']).value) +
-                    Number(this.securityForm.get(['buildingUnderConstructions', i,
-                        'buildingDetailsAfterCompletion', 'electrification']).value)).toFixed(2);
-                this.securityForm.get(['buildingUnderConstructions', i,
-                    'buildingDetailsAfterCompletion', 'buildingTotalCost']).patchValue(afterTotalApartmentCost);
-        }
-    }
 
     resetOtherTransferParameter(formArray, index: number, resetAmountOnly: boolean) {
         this.securityForm.get([formArray, index, 'saleRegistrationAmount']).patchValue(undefined);
@@ -2353,7 +2086,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 index++;
             });
             // for (let i = 1; i <= index; i++) {
-                shareSecurityFormControl.removeAt(event.index);
+            shareSecurityFormControl.removeAt(event.index);
             //     index--;
             //     i--;
             // }
@@ -2526,5 +2259,8 @@ export class SecurityInitialFormComponent implements OnInit {
         firstPart = ('000' + firstPart.toString(36)).slice(-3);
         secondPart = ('000' + secondPart.toString(36)).slice(-3);
         return firstPart + secondPart;
+    }
+    setFiles(event) {
+        this.files = event;
     }
 }

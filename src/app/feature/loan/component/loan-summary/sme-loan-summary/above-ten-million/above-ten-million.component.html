@@ -42,6 +42,10 @@
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>
+    <li>
+        <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData">
+        </app-income-from-account-summery>
+    </li>
 
     <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
         <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
@@ -57,16 +61,20 @@
         <p class="text-uppercase"><strong>Inspection</strong></p>
         <app-above-inspection></app-above-inspection>
     </li>
-    <li *ngIf="financialCCBL?.data?.financialHighlight">
-        <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
-        <br>
-        <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
-<!--        <app-financial-view [formData]="loanDataHolder?.loanHolder?.financial"-->
+    <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
+
+        <div class="col-md-12">
+            <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
+            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
+        </div>
+<!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
 <!--                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>-->
     </li>
     <li *ngIf="financialCCBL?.data?.assesment">
+        <div class="col-md-12">
         <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
-        <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assesment | safeHtml" ></table>
+        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment | safeHtml" ></table>
+        </div>
     </li>
     <li>
         <p class="text-uppercase"><strong>Risk Analysis</strong></p>
@@ -75,11 +83,6 @@
     <li>
         <p class="text-uppercase"><strong>SWOT Analysis</strong></p>
         <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
-    </li>
-    <li>
-        <p class="text-uppercase"><strong>Pricing and Estimated Income From the Account</strong></p>
-        <app-above-pricing-and-estimated-income-from-the-account>
-        </app-above-pricing-and-estimated-income-from-the-account>
     </li>
     <li>
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
@@ -132,9 +135,5 @@
         <app-signature-section [loanDataHolder]="loanDataHolder"
                                [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>
-    <li>
-        <p><strong>CREDIT CARD REQUIREMENT</strong></p>
-        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-credit-card-requirement></app-credit-card-requirement>
-    </li>
+
 </ol>

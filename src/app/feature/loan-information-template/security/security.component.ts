@@ -268,7 +268,6 @@ export class SecurityComponent implements OnInit {
                     invalid.push(c);
                 }
             });
-            console.log('this is invalid', invalid);
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             this.overlay.hide();
             this.submitted = false;
@@ -291,6 +290,7 @@ export class SecurityComponent implements OnInit {
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
             underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
+            files: JSON.stringify(this.initialSecurity.files)
             // securityGuarantee: this.securityForm.get('securityGuarantee').value,
             // buildingLocation: this.securityForm.get('buildingLocation').value,
             // roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,

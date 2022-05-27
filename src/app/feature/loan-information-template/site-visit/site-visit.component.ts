@@ -967,7 +967,7 @@ export class SiteVisitComponent implements OnInit {
         + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'oneYearTotal']).value
         + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'moreThanOneYearTotal']).value;
     this.siteVisitFormGroup.get(['currentAssetsInspectionDetails', i, formControl, 'grandTotal'])
-        .patchValue(grandTotal.toFixed(2));
+        .patchValue(grandTotal.toFixed(8));
   }
 
   getRoleList() {

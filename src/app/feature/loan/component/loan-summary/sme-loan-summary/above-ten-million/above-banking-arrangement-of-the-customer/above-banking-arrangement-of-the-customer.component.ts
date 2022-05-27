@@ -4,6 +4,7 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {Proposal} from '../../../../../../admin/modal/proposal';
 import {Cicl, CiclArray} from '../../../../../../admin/modal/cicl';
 import {CustomerCategory} from '../../../../../../customer/model/customerCategory';
+import {CustomerType} from '../../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-above-banking-arrangement-of-the-customer',
@@ -15,15 +16,18 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   @Input() proposal: Proposal;
   @Input() cicl: CiclArray;
   @Input() customerCategory;
+  @Input() customerType: CustomerType;
   multiBankingData;
   checkedData;
   proposalData;
   ciclData;
   customerCate = CustomerCategory;
+  commentVisible = false;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('this.cicl', this.cicl);
     if (!ObjectUtil.isEmpty(this.multiBanking)) {
       this.multiBankingData = JSON.parse(this.multiBanking.data);
       this.checkedData = JSON.parse(this.multiBanking.checkedData);
@@ -31,6 +35,9 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cicl)) {
       this.ciclData = JSON.parse(this.cicl.data);
       console.log('ciclData', this.ciclData);
+      if (!ObjectUtil.isEmpty(this.cicl.remarks)) {
+        this.commentVisible = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.proposal)) {
       this.proposalData = JSON.parse(this.proposal.data);

@@ -15,7 +15,7 @@ export class RetailSecurityComponent implements OnInit {
 
     @Input() security: Security;
     @Input() loanDataHolder: LoanDataHolder;
-    formData: Object;
+    formData: any;
     landSelected;
     apartmentSelected;
     landBuilding;
@@ -33,11 +33,9 @@ export class RetailSecurityComponent implements OnInit {
     proposalAllData;
     files = [];
     ngOnInit() {
-        console.log('tisadasd', this.security);
         this.formData = JSON.parse(this.security.data);
-        this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
-        if (!ObjectUtil.isEmpty(this.proposalAllData.files)) {
-            this.files = JSON.parse(this.proposalAllData.files);
+        if (!ObjectUtil.isEmpty(this.formData.files)) {
+            this.files = JSON.parse(this.formData.files);
         }
         this.selectedSecurity();
     }

@@ -209,6 +209,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
 
   @Input() crgTotalRiskScore: any;
+  data;
+  approveAuth;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
@@ -241,6 +243,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loanDataHolder = this.loanData;
+    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+    this.approveAuth = this.data.approvingAuthority;
     // if (this.loanDataHolder.loanCategory === 'INSTITUTION' &&
     //     !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
     //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);

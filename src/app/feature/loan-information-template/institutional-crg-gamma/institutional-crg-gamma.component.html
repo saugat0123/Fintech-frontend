@@ -110,7 +110,7 @@
                             <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">
                                 <div *ngIf="answer?.status == 'ACTIVE'">
 
-                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"
+                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description, crgQuestion?.crgGroupId)"
                                            [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
                                            [value]="answer?.points"
                                            class="form-control-input"

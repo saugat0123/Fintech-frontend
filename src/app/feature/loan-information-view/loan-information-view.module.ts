@@ -15,7 +15,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { SecurityViewComponent } from './security-view/security-view.component';
 import { CompanyInfoViewComponent } from './company-info-view/company-info-view.component';
-import { CiclViewComponent } from './cicl-view/cicl-view.component';
 import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
 import { ProposalViewComponent } from './proposal-view/proposal-view.component';
 import { IncomeFromAccountViewComponent } from './income-from-account-view/income-from-account-view.component';
@@ -26,6 +25,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { HomeLoanChecklistComponent } from './home-loan-checklist/home-loan-checklist.component';
 import {SecurityAdderComponent} from './security-view/security-adder/security-adder.component';
 import {SecurityTaggedModule} from '../loan-information-template/security/security-tagged-component/security-tagged.module';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -38,7 +38,6 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
     CustomerInfoSearchFormComponent,
     SecurityViewComponent,
     CompanyInfoViewComponent,
-    CiclViewComponent,
     AllDocumentViewComponent,
     ProposalViewComponent,
     IncomeFromAccountViewComponent,
@@ -56,7 +55,6 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
         IndividualViewComponent,
         SecurityViewComponent,
         CompanyInfoViewComponent,
-        CiclViewComponent,
         AllDocumentViewComponent,
         ProposalViewComponent,
         IncomeFromAccountViewComponent,
@@ -76,10 +74,12 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
         NepaliCalendarModule,
         NepaliPatroModule,
         SecurityTaggedModule,
+        NgxPrintModule,
 
     ],
     entryComponents: [
         AllDocumentViewComponent,
+        CrgGammaDetailViewComponent
     ]
 })
 export class LoanInformationViewModule {

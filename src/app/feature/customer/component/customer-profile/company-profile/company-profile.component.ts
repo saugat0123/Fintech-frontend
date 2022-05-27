@@ -33,6 +33,7 @@ import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../../loan/model/docStatus';
+import {CustomerGroupLoanComponent} from '../../customer-loan-list-view-template/customer-group-loan.component';
 
 @Component({
     selector: 'app-company-profile',
@@ -90,7 +91,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     documentSpinner = false;
     pendingLoanList = [];
     approvedLoanList = [];
-
+    @ViewChild('groupLoan', {static: false}) groupLoan: CustomerGroupLoanComponent;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -233,6 +234,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
         modalRef.componentInstance.customerInfo = this.customerInfo;
         modalRef.componentInstance.singleOrCombine = 'Combine';
+        modalRef.result.then((result: any) =>{
+           this.groupLoan.getCustomerLoans();
+        });
 
     }
 

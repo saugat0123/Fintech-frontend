@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RetailComplianceComponent } from './retail-compliance.component';
+import { AuthoritySectionComponent } from './authority-section.component';
 
-describe('RetailComplianceComponent', () => {
-  let component: RetailComplianceComponent;
-  let fixture: ComponentFixture<RetailComplianceComponent>;
+describe('AuthoritySectionComponent', () => {
+  let component: AuthoritySectionComponent;
+  let fixture: ComponentFixture<AuthoritySectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RetailComplianceComponent ]
+      declarations: [ AuthoritySectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RetailComplianceComponent);
+    fixture = TestBed.createComponent(AuthoritySectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
