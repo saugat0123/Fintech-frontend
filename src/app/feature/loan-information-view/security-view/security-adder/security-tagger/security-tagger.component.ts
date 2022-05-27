@@ -133,6 +133,8 @@ export class SecurityTaggerComponent implements OnInit {
     }
 
     public tagSecurity(security: any, key, idx: number): void {
+      console.log('security', security);
+      console.log('loanDataHolder', this.loanDataHolder);
         if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
             const id = this.toggleArray[idx].security.map((d) => {
                 if (d.customerLoan.id === this.loanDataHolder.id) {

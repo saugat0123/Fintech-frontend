@@ -21,13 +21,13 @@
                <ng-container >
                    <td>{{i + 1}}</td>
                    <td>{{security ? (security | jsonParse)?.owner :
-                       data?.customerLoan?.customerInfo.customerName || data?.customerLoan?.companyInfo?.companyName}}</td>
+                       data?.customerLoan?.customerInfo?.customerName || data?.customerLoan?.companyInfo?.companyName}}</td>
                    <td>{{data?.customerLoan?.loanType.toString()}} / {{data?.customerLoan?.loan?.name}}</td>
-                   <td>{{data?.customerLoan?.proposal?.proposedLimit | nepaliCurrencyFormatter}}</td>
-                   <td>{{data?.customerLoan?.currentStage?.toUser?.name}}</td>
-                   <td>{{data?.coverage?.toFixed(2)}} %</td>
-                   <td>{{data?.usedAmount}}</td>
-                   <td>{{data?.customerLoan?.documentStatus.toString()}}</td>
+                   <td>{{data?.customerLoan?.proposal?.proposedLimit || 0}}</td>
+                   <td>{{data?.customerLoan?.currentStage?.toUser?.name || 'N/A'}}</td>
+                   <td>{{data?.coverage?.toFixed(2) || 0 }} %</td>
+                   <td>{{data?.usedAmount || 0}}</td>
+                   <td>{{data?.customerLoan?.documentStatus.toString() || 'N/A'}}</td>
                </ng-container>
            </tr>
            </tbody>

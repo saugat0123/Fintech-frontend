@@ -14,7 +14,7 @@
                             <th>Fair Market Value</th>
                             <th>Distress Value</th>
                             <th>Consider Value</th>
-                            <th width="25%">Amount to Use</th>
+                            <th width="35%">Amount to Use</th>
                             <th>Free Limit</th>
                             <th>Coverage(%)</th>
                             <th>Security Type</th>
@@ -27,7 +27,7 @@
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.owner ? (security.get('data')?.value | jsonParse)?.owner
-                                        :  loanDataHolder?.customerInfo?.customerName || loanDataHolder?.companyInfo?.companyName}}</td>
+                                        :  loanDataHolder?.loanHolder?.name}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.plotNumber ? (security.get('data')?.value | jsonParse)?.plotNumber : '0'}}</td>
                                     <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
                                     <td>{{security.get('distressValue')?.value || '0'}}</td>
@@ -88,8 +88,7 @@
             <ng-container *ngFor="let security of securityList; let i=index;">
                 <tr>
                     <td>{{i + 1}}</td>
-                    <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner :
-                        loanDataHolder?.customerInfo?.customerName || loanDataHolder?.companyInfo.companyName}}</td>
+                    <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : loanDataHolder?.loanHolder?.name}}</td>
                     <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
                     <td>{{security?.distressValue || '0'}}</td>
