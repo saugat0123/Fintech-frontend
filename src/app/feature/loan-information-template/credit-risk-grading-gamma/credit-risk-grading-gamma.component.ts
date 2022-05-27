@@ -37,6 +37,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     grading: string;
     formDataForEdit;
 
+
+
     constructor(
         private crgGroupService: CrgGroupService,
         private questionService: RiskGradingService,
@@ -122,15 +124,21 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.totalPoints = total;
             this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
             if (this.totalPoints >= 90) {
-                this.grading = 'Excellent';
+                this.grading = 'Virtually zero risk, Accept';
             } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
-                this.grading = 'Very Good';
+                this.grading = 'Lower risk, Accept';
             } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-                this.grading = 'Good';
-            } else if (this.totalPoints >= 50 && this.totalPoints < 65) {
-                this.grading = 'Acceptable';
-            } else if (this.totalPoints < 50) {
-                this.grading = 'Not Eligible for new loans';
+                this.grading = 'Low risk, Accept';
+            } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
+                this.grading = 'Moderate risk, Accept';
+            } else if (this.totalPoints >= 45) {
+                this.grading = 'Average risk, Accept';
+            }else if(this.totalPoints >= 35){
+                this.grading = 'High risk risk, To be approved from  one level CAD authority';
+            }else if(this.totalPoints >= 25){
+                this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
+            }else if(this.totalPoints < 25){
+                this.grading = 'Default risk, Decline';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
     }
