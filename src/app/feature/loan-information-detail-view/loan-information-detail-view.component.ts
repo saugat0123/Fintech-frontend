@@ -57,6 +57,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     financialData: any;
     proposalData: any;
     commonLoanData: any;
+    companyGroup;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -116,6 +117,9 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                 } else {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
                 }
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup)) {
+                this.companyGroup = JSON.parse(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup);
             }
             this.getAllLoans(this.loanHolder.id);
             if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
