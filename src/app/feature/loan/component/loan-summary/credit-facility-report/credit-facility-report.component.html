@@ -60,12 +60,7 @@
     </div>
 
     <div class="col-md-12">
-        <div class="col-md-6">
-            <p><strong>Security (to be obtained)</strong></p>
-        </div>
-        <div class="col-md-6 text-right">
-            <p>Amount in NPR Million</p>
-        </div>
+        <p><strong>Security (to be obtained)</strong></p>
         <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
     </div>
