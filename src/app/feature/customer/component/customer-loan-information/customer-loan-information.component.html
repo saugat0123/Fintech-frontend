@@ -762,8 +762,8 @@
             </nb-card-header>
             <nb-card-body>
               <app-review-date (reviewDataEmitter)="saveReviewDate($event)"
-                               [companyInfo]="reviewDate"
-                               [formValue]="companyInfo"></app-review-date>
+                               [customerInfo]="reviewDate"
+                               [formValue]="customerInfo" ></app-review-date>
             </nb-card-body>
           </nb-card>
         </ng-template>
@@ -994,6 +994,15 @@
                         formControlName="specialCovenant"
                         placeholder="Special Covenants/Conditions, If Any">
               </ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Regularity of payments:</strong></label>
+              <input class="form-control" formControlName="regularityOfPayments"
+                        placeholder="Regularity of payments" />
+
             </div>
           </div>
 

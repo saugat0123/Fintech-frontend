@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
@@ -7,8 +7,6 @@ import {LoanDataHolder} from '../loan/model/loanData';
 import {environment} from '../../../environments/environment';
 import {ReadmoreModelComponent} from '../loan/component/readmore-model/readmore-model.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanStage} from '../loan/model/loanStage';
-import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
@@ -58,6 +56,8 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     incomeSource: any;
     financialData: any;
     proposalData: any;
+    commonLoanData: any;
+    companyGroup;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -88,6 +88,9 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
             }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+               this.commonLoanData = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+            }
             this.loaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
@@ -114,6 +117,9 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                 } else {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
                 }
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup)) {
+                this.companyGroup = JSON.parse(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup);
             }
             this.getAllLoans(this.loanHolder.id);
             if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&

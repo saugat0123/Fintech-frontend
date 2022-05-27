@@ -18,7 +18,6 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {CreditRiskGradingAlphaComponent} from './loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CreditRiskGradingGammaComponent} from './loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {MultipleBankingComponent} from './loan-information-template/multiple-banking/multiple-banking.component';
 import {InstitutionalCrgGammaComponent} from './loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
@@ -51,7 +50,6 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
             CommonAddressComponent,
             CustomerWisePendingComponent,
             ErrorPageComponent,
-            CreditRiskGradingAlphaComponent,
             CreditRiskGradingGammaComponent,
             MultipleBankingComponent,
             InstitutionalCrgGammaComponent,
@@ -61,7 +59,7 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
 
         ],
         exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-            CreditRiskGradingAlphaComponent, CreditRiskGradingGammaComponent, MultipleBankingComponent,
+             CreditRiskGradingGammaComponent, MultipleBankingComponent,
           InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent
         ],
         providers: [SafePipe]

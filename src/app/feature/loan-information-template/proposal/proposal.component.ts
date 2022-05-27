@@ -24,6 +24,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CreditRiskGradingGammaComponent} from '../credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
+import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
   selector: 'app-proposal',
@@ -43,6 +44,7 @@ export class ProposalComponent implements OnInit {
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     // @Output() crgGammaData = new EventEmitter();
     proposedLimit: number;
@@ -171,6 +173,8 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.dateOfExpiry)
                 ? new Date(this.formDataForEdit.dateOfExpiry) : undefined);
             this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);*/
+            this.proposalForm.get('existingDateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.existingDateOfExpiry)
+                ? new Date(this.formDataForEdit.existingDateOfExpiry) : undefined);
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
             if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
                 this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -386,6 +390,7 @@ export class ProposalComponent implements OnInit {
             total: [undefined],
             totals: [undefined],
             compliance: [undefined],
+            existingDateOfExpiry: [undefined],
             // pricing table
             interestCardRate: [undefined],
             processCardRate: [undefined],
@@ -447,6 +452,7 @@ export class ProposalComponent implements OnInit {
     }
 
     onSubmit() {
+        this.cadFileSetupComponent.save();
         if (this.customerType === 'INDIVIDUAL' && this.fromProfile) {
             this.crgGammaComponent.onSubmit();
         }

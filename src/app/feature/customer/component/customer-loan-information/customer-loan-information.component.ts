@@ -133,7 +133,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     private siteVisit: SiteVisit;
     private financial: Financial;
-    /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
     private creditRiskGrading: CreditRiskGrading;
     private crgGamma: CreditRiskGradingGamma;
     private security: Security;
@@ -275,8 +274,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
                 });
         });
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            const mapData = JSON.parse(this.companyInfo.companyJsonData);
+
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            const mapData = JSON.parse(this.customerInfo.data);
             this.reviewDate = mapData.reviewDate;
         }
 
@@ -699,6 +699,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
+            regularityOfPayments: [undefined]
+
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
@@ -790,10 +792,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     saveReviewDate(data: string) {
         this.spinner.show();
         if (!ObjectUtil.isEmpty(data)) {
-            const existingDetails = JSON.parse(this.companyInfo.companyJsonData);
+            const existingDetails = JSON.parse(this.customerInfo.data);
             existingDetails['reviewDate'] = data;
-            this.companyInfo.companyJsonData = JSON.stringify(existingDetails);
-            this.companyInfoService.save(this.companyInfo).subscribe((res) => {
+            this.customerInfo.data = JSON.stringify(existingDetails);
+            this.customerInfoService.save(this.customerInfo).subscribe((res) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved review dates'));
                     this.triggerCustomerRefresh.emit(true);
                     this.nbDialogRef.close();

@@ -10,6 +10,7 @@ import {ReportInfoLevelFormComponent} from './component/report-info-level-form/r
 import {ReportSummaryComponent} from './component/report-summary/report-summary.component';
 import {ReportingInfoTaggingFormComponent} from './component/reporting-info-tagging-form/reporting-info-tagging-form.component';
 import {ReportingInfoTaggingComponent} from './component/reporting-info-tagging/reporting-info-tagging.component';
+import { RetialReportSummaryInfoComponent } from './component/retial-report-summary-info/retial-report-summary-info.component';
 
 const COMPONENTS = [
   ReportDashboardComponent,
@@ -22,7 +23,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, RetialReportSummaryInfoComponent],
   imports: [
     CommonModule,
     ReportingRoutingModule,
