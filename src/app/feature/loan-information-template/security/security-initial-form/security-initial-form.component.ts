@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -37,6 +37,7 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerType} from 'src/app/feature/customer/model/customerType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {CadFileSetupComponent} from '../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
+    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent
 
     securityId = SecurityIds;
     selectedArray = [];
@@ -161,6 +163,7 @@ export class SecurityInitialFormComponent implements OnInit {
     provinces: Province[];
     districtList: District [];
     municipalityList: MunicipalityVdc [];
+    files = [];
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -198,6 +201,9 @@ export class SecurityInitialFormComponent implements OnInit {
             console.error(error);
         });
         if (this.formData !== undefined) {
+            if (!ObjectUtil.isEmpty(this.formData['files'])) {
+                this.files = JSON.parse(this.formData['files']);
+            }
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -245,7 +251,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
-        this.addSecurityToSelectedArray();
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
             this.addShareSecurity();
@@ -341,7 +346,7 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-
+            files: [undefined]
         });
         this.buildShareSecurityForm();
     }
@@ -987,6 +992,11 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
+            });
+            const landBuildingDetails = this.securityForm.get('landBuilding') as FormArray;
+            landBuildingDetails.controls.forEach(f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
             });
         }
     }
@@ -1729,6 +1739,19 @@ export class SecurityInitialFormComponent implements OnInit {
                 )
             });
         }
+        if (this.selectedSecurity === 'Land And Building Security') {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
+            });
+        }
     }
 
     private calculateTotalShareAmount(companyName: string, totalShareUnit: number): number {
@@ -1830,6 +1853,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     submit() {
         this.submitted = true;
+        this.cadFileSetupComponent.save();
         this.pushSecurityNameInArray();
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
@@ -2235,5 +2259,8 @@ export class SecurityInitialFormComponent implements OnInit {
         firstPart = ('000' + firstPart.toString(36)).slice(-3);
         secondPart = ('000' + secondPart.toString(36)).slice(-3);
         return firstPart + secondPart;
+    }
+    setFiles(event) {
+        this.files = event;
     }
 }

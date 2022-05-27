@@ -3122,5 +3122,8 @@
                           placeholder="Remarks Common to all Security"></textarea>
             </div>
         </div>
+        <div class="row">
+            <app-cad-file-setup #cadFileSetupComponent [files]="files" [securityFiles]="true" (legalFile)="setFiles($event)"></app-cad-file-setup>
+        </div>
     </form>
 </div>
