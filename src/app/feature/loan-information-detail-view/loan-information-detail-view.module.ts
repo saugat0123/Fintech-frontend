@@ -15,14 +15,20 @@ import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
 import {RetailPurposeAndJustificationComponent} from './retail-purpose-and-justification/retail-purpose-and-justification.component';
 import {RetailSourceOfRepaymentComponent} from './retail-source-of-repayment/retail-source-of-repayment.component';
-import {RetailReportCiclComponent} from './retail-report-cicl/retail-report-cicl.component';
 import {RetailRecommendationComponent} from './retail-recommendation/retail-recommendation.component';
 import {RetailSecurityComponent} from './retail-security/retail-security.component';
 import {AboveRiskAnalysisComponent} from '../loan/component/loan-summary/sme-loan-summary/above-ten-million/above-risk-analysis/above-risk-analysis.component';
+import {CustomerKycViewComponent} from './customer-kyc-view/customer-kyc-view.component';
+import {CustomerBusinessActivityOrBackgroundsComponent} from './customer-business-activity-or-backgrounds/customer-business-activity-or-backgrounds.component';
+import {CustomerNetWorthViewComponent} from './customer-net-worth-view/customer-net-worth-view.component';
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailReportCiclComponent, RetailRecommendationComponent, RetailSecurityComponent],
+  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent,
+    DetailViewBaseComponent, RetailPurposeAndJustificationComponent,
+    RetailSourceOfRepaymentComponent, RetailRecommendationComponent, RetailSecurityComponent, CustomerKycViewComponent,
+      CustomerBusinessActivityOrBackgroundsComponent, CustomerNetWorthViewComponent
+  ],
   exports: [
     CreditChecklistViewComponent, AboveRiskAnalysisComponent
   ],
