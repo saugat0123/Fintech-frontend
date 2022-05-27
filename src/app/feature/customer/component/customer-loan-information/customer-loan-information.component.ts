@@ -133,7 +133,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     private siteVisit: SiteVisit;
     private financial: Financial;
-    /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
     private creditRiskGrading: CreditRiskGrading;
     private crgGamma: CreditRiskGradingGamma;
     private security: Security;

@@ -33,7 +33,6 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {IncomeFromAccountComponent} from './income-from-account/income-from-account.component';
 import {NetTradingAssetsComponent} from './net-trading-assets/net-trading-assets.component';
 import {CreditChecklistGeneralComponent} from './credit-checklist-general/credit-checklist-general.component';
-import {CreditRiskGradingLambdaComponent} from './credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upload.component';
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
@@ -71,7 +70,6 @@ const COMPONENTS = [
     TemplateDocumentComponent,
     NetTradingAssetsComponent,
     IncomeFromAccountComponent,
-    CreditRiskGradingLambdaComponent,
     CreditChecklistGeneralComponent,
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
