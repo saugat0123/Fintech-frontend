@@ -281,10 +281,11 @@
                             ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
                             to meet his/her personal obligation.</p>
                         <div *ngIf="customerAllLoanList?.length > 1">
-                            <ol type="a" >
+                            <ol type="a">
                                 <li class="sb-small p-0 m-0" *ngFor="let cal of customerAllLoanList">
-                                    {{cal?.loan?.name}}<b>(of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}} @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for
-                                    {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ? (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure)</b></li>
+                                    {{cal?.loanType | replace: '_' : ' '}} of {{cal?.loan?.name}}<b> of NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
+                                    @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
+                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths: 'NA'}} months tenure</b></li>
                             </ol>
                         </div>
                     </li>
@@ -333,7 +334,8 @@
                         <strong>GROUP EXPOSURE</strong>
                         as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
                         ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
-                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
+                                             [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
                         <p><strong>Regularity of payments: {{commonLoanData?.regularityOfPayments}}</strong></p>
