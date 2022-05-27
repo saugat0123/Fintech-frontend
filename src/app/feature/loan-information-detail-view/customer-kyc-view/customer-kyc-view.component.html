@@ -10,7 +10,7 @@
 
     <div class="pt-1">
         <strong>Family details of Mr/s. {{customer?.customerName}}</strong>
-        <table class="text-center table table-bordered table-hover table-striped table-sm">
+        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
             <thead>
             <tr class="sb-bg-dark">
                 <th>Relation</th>
@@ -40,7 +40,7 @@
 <ng-container *ngIf="isJointCustomer">
     <div>
         <strong>Personal Background :</strong>
-        <table class="table-hover table table-bordered table-sm">
+        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
             <tbody>
             <tr><td [innerHTML]="customer?.introduction | safeHtml"></td></tr>
             </tbody>
