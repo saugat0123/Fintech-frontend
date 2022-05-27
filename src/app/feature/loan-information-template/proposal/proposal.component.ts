@@ -386,6 +386,18 @@ export class ProposalComponent implements OnInit {
             total: [undefined],
             totals: [undefined],
             compliance: [undefined],
+            // pricing table
+            interestCardRate: [undefined],
+            processCardRate: [undefined],
+            processExistingRate: [undefined],
+            processProposedRate: [undefined],
+            commissionsCardRate: [undefined],
+            cashCardRate: [undefined],
+            prepaymentCardRate: [undefined],
+            prepaymentExistingRate: [undefined],
+            strCharge: [undefined],
+            AdminFee: [undefined],
+            other: [undefined],
 
     });
     }
