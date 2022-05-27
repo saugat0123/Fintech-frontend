@@ -42,6 +42,7 @@ export class SecurityTaggerComponent implements OnInit {
 
     private getAllSecurityByLoanHolderId(): void {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
+            this.spinner = true;
             this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.id).subscribe(
                 (response: any) => {
                     this.securityList = [];
@@ -58,6 +59,7 @@ export class SecurityTaggerComponent implements OnInit {
                         });
                     });
                     this.calculateCoverage();
+                    this.spinner = false;
                 });
         }
     }
@@ -133,8 +135,6 @@ export class SecurityTaggerComponent implements OnInit {
     }
 
     public tagSecurity(security: any, key, idx: number): void {
-      console.log('security', security);
-      console.log('loanDataHolder', this.loanDataHolder);
         if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
             const id = this.toggleArray[idx].security.map((d) => {
                 if (d.customerLoan.id === this.loanDataHolder.id) {
