@@ -25,18 +25,18 @@
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th rowspan="2">Loan Facility(Created Date)</th>
-                <th colspan="3">Existing</th>
+                <th colspan="4">Existing</th>
                 <th colspan="4">Proposed</th>
             </tr>
             <tr class="sb-bg-dark text-white">
                 <th>Limit</th>
-                <!--                <th>Limit Expiry/Tenure (AD/BS)</th>-->
+                <th>Date od Expiry</th>
                 <th>O/S</th>
                 <th>Pricing</th>
                 <!--                <th>Overdue Principal</th>-->
                 <!--                <th>Overdue Interest</th>-->
                 <th>Limit</th>
-                <th>Limit Expiry/Tenure (AD/BS)</th>
+                <th>Tenure</th>
                 <th>Change</th>
                 <th>Pricing</th>
             </tr>
@@ -64,6 +64,12 @@
                 <!--                        ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>-->
                 <!--                    <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>-->
                 <!--                </td>-->
+                <td class="text-left pl-1">
+                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry">
+                        {{(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loan?.proposal?.data | jsonParse)?.existingDateOfExpiry | date) : 'NA'}}
+                        ({{(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loan?.proposal?.data | jsonParse)?.existingDateOfExpiry | engNepDate : false) : 'NA'}})
+                    </span>
+                </td>
                 <td class="text-right pl-1">
                     <span *ngIf="(LoanType[loan?.loanType] !== LoanType?.NEW_LOAN) && (loan?.proposal?.data | jsonParse)?.outStandingLimit">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
@@ -98,11 +104,12 @@
                     && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
                 </td>
                 <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-                <td width="150px" class="text-left pl-1">
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | date}}
-                        ({{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
-                </td>
+<!--                <td width="150px" class="text-left pl-1">-->
+<!--                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | date}}-->
+<!--                        ({{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>-->
+<!--                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>-->
+<!--                </td>-->
+                <td class="text-left pl-1">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} months</td>
                 <td class="text-right pr-1">Rs. {{totalValue[i]}}</td>
                 <td class="pr-1 pl-1">
                     <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
@@ -139,7 +146,14 @@
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.existingLimit">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
-                    <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
+                    <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.existingLimit">-</span>
+                </td>
+                <td class="text-left pl-1">
+                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.existingDateOfExpiry">
+                        {{(loanDto?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loanDto?.proposal?.data | jsonParse)?.existingDateOfExpiry | date) : 'NA'}}
+                        ({{(loanDto?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loanDto?.proposal?.data | jsonParse)?.existingDateOfExpiry | engNepDate : false) : 'NA'}})
+                    </span>
+                </td>
                 <td class="text-right pr-1">
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.outStandingLimit">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
@@ -204,16 +218,18 @@
                 <!--                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceCharge === '' || (loanDto?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>-->
                 <!--                </td>-->
                 <td class="text-right pr-1">Rs. {{dtoTotalValue[ii]}}</td>
-                <td width="150px" class="text-left pl-1">
-                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | date}}
-                        ({{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>
-                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loanDto.proposal?.duration}} {{loanDto?.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
-                </td>
+<!--                <td width="150px" class="text-left pl-1">-->
+<!--                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | date}}-->
+<!--                        ({{(loanDto?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>-->
+<!--                    <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loanDto.proposal?.duration}} {{loanDto?.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>-->
+<!--                </td>-->
+                <td class="text-left pl-1">{{(loanDto?.proposal?.data | jsonParse)?.tenureDurationInMonths}} months</td>
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Funded</strong></td>
                 <td class="text-right pr-1">
                     Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
+                <td>-</td>
                 <td class="text-right pr-1">
                     <span>
                         Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
@@ -230,6 +246,7 @@
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
                 <td class="text-right pr-1">
                     Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
+                <td>-</td>
                 <td class="text-right pr-1">
                     <span>
                         Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
@@ -246,6 +263,7 @@
                 <td class="text-left pl-1"><strong>Total</strong></td>
 
                 <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
+                <td>-</td>
                 <td class="text-right pr-1">
                     <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
                 </td>

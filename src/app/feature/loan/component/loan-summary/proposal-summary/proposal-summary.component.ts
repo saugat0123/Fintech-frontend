@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
@@ -67,6 +67,7 @@ export class ProposalSummaryComponent implements OnInit {
         }
         this.calculateInterestRate();
         this.checkInstallmentAmount();
+        console.log('customerAllLoanList', this.customerAllLoanList);
         if (this.customerAllLoanList.length > 0) {
             this.getLoanConfig();
             this.calculateChangeAmount();
@@ -245,26 +246,29 @@ export class ProposalSummaryComponent implements OnInit {
        this.totalValue = [];
        this.dtoTotalValue = [];
         for (let i = 0; i < this.customerAllLoanList.length; i++) {
-        }
-        this.customerAllLoanList.forEach((l, i) => {
-            this.totalValue.push(JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
-                ? JSON.parse(l.proposal.data).existingLimit : 0));
-        });
-        if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
-            this.customerLoanDtoList.forEach(cld => {
-                this.dtoTotalValue.push(JSON.parse(cld.proposal.data).proposedLimit - (JSON.parse(cld.proposal.data).existingLimit
-                    ? JSON.parse(cld.proposal.data).existingLimit : 0));
+            console.log('i', i);
+            this.customerAllLoanList.forEach((l) => {
+                this.totalValue.push(JSON.parse(l.proposal.data).proposedLimit - (JSON.parse(l.proposal.data).existingLimit
+                    ? JSON.parse(l.proposal.data).existingLimit : 0));
             });
-        }
-        if (this.totalValue.length > 0) {
-            this.totalValue.forEach(tv => {
-                this.totalChanges += tv;
-            });
-            if (this.dtoTotalValue.length > 0) {
-                this.dtoTotalValue.forEach(dtv => {
-                    this.totalChanges += dtv;
+            if (!ObjectUtil.isEmpty(this.customerLoanDtoList) && this.customerLoanDtoList !== null) {
+                this.customerLoanDtoList.forEach(cld => {
+                    this.dtoTotalValue.push(JSON.parse(cld.proposal.data).proposedLimit - (JSON.parse(cld.proposal.data).existingLimit
+                        ? JSON.parse(cld.proposal.data).existingLimit : 0));
                 });
             }
+            if (this.totalValue.length > 0) {
+                this.totalValue.forEach(tv => {
+                    this.totalChanges += tv;
+                });
+                if (this.dtoTotalValue.length > 0) {
+                    this.dtoTotalValue.forEach(dtv => {
+                        this.totalChanges += dtv;
+                    });
+                }
+            }
         }
+        console.log('loan', this.totalValue);
+        console.log('Dto', this.dtoTotalValue);
     }
 }

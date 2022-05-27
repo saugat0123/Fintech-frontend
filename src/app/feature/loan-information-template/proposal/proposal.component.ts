@@ -171,6 +171,8 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.dateOfExpiry)
                 ? new Date(this.formDataForEdit.dateOfExpiry) : undefined);
             this.checkLimitExpiryBuildValidation(this.formDataForEdit.limitExpiryMethod);*/
+            this.proposalForm.get('existingDateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formDataForEdit.existingDateOfExpiry)
+                ? new Date(this.formDataForEdit.existingDateOfExpiry) : undefined);
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
             if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
                 this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -386,7 +388,7 @@ export class ProposalComponent implements OnInit {
             total: [undefined],
             totals: [undefined],
             compliance: [undefined],
-
+            existingDateOfExpiry: [undefined]
     });
     }
 
