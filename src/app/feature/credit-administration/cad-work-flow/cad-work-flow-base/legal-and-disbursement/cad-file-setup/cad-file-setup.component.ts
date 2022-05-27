@@ -22,7 +22,7 @@ export class CadFileSetupComponent implements OnInit {
     @Input()
     cadData: CustomerApprovedLoanCadDocumentation;
     @Input() files;
-    @Input() proposal;
+    @Input() securityFiles;
     @Output() legalFile = new EventEmitter<any>();
     responseDocList: Array<Document>;
     documentList = [];
@@ -63,7 +63,7 @@ export class CadFileSetupComponent implements OnInit {
                     dataDoc.document = d;
                     dataDoc.checked = false;
 
-                    if (!this.proposal) {
+                    if (!this.securityFiles) {
                         this.cadData.requiredDocument.forEach(e => {
                             if (d.id === e.id) {
                                 dataDoc.checked = true;
@@ -120,7 +120,7 @@ export class CadFileSetupComponent implements OnInit {
                 finalCadDocReq.push(temp);
             }
         });
-        if (!this.proposal) {
+        if (!this.securityFiles) {
             this.spinner = true;
             this.cadData.requiredDocument = finalCadDocReq;
             this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
