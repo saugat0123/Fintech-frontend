@@ -17,7 +17,7 @@ export class MGroupSummaryComponent implements OnInit {
   customerCategoryType = CustomerCategory;
   groupPosition;
   totalAmount;
-  companyGroup;
+
   constructor() { }
 
   ngOnInit() {
@@ -26,9 +26,6 @@ export class MGroupSummaryComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
       this.totalAmount = JSON.parse(this.mGroup.totalAmount);
-    }
-    if (!ObjectUtil.isEmpty(this.mGroup.companyGroup)) {
-      this.companyGroup = JSON.parse(this.mGroup.companyGroup);
     }
   }
 
