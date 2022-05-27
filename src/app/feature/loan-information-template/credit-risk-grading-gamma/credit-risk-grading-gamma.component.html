@@ -6,47 +6,66 @@
                 <em><mark><strong>click me to view CREDIT RISK GRADE SHEET</strong></mark></em>
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-                <table aria-describedby="Grade details table"
-                       class="table table-bordered text-center">
-                    <tr>
-                        <th scope="col">Number</th>
-                        <th scope="col">Grading</th>
-                        <th scope="col">Short</th>
-                        <th scope="col">Remarks</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Excellent</td>
-                        <td>E</td>
-                        <td>
-                            90 and above
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Very Good</td>
-                        <td>VG</td>
-                        <td>75-89</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Good</td>
-                        <td>G</td>
-                        <td>65-74</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Acceptable</td>
-                        <td>S</td>
-                        <td>50-64</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Not Eligible for new loans</td>
-                        <td>BL</td>
-                        <td><50</td>
-                    </tr>
-                </table>
+              <div>
+                  <table class="table table-hover table-bordered text-center">
+                      <thead>
+                      <tr class="sb-bg-dark">
+                          <th>S.N</th>
+                          <th>Range of score</th>
+                          <th>Perceived Risk</th>
+                          <th>Decision</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>i</td>
+                          <td>>=90</td>
+                          <td>Virtually zero risk</td>
+                          <td rowspan="5">Accept</td>
+                      </tr>
+                      <tr>
+                          <td>ii</td>
+                          <td>>=75</td>
+                          <td>Lower risk</td>
+                      </tr>
+                      <tr>
+                          <td>iii</td>
+                          <td>>=65</td>
+                          <td>Low risk</td>
+                      </tr>
+                      <tr>
+                          <td>iv</td>
+                          <td>>=55</td>
+                          <td>Moderate risk</td>
+                      </tr>
+                      <tr>
+                          <td>v</td>
+                          <td>>=45</td>
+                          <td>Average risk</td>
+
+                      </tr>
+                      <tr>
+                          <td>vi</td>
+                          <td>>=35</td>
+                          <td>High risk</td>
+                          <td>To be approved from  one level CAD authority</td>
+                      </tr>
+                      <tr>
+                          <td>vii</td>
+                          <td>>=25</td>
+                          <td>Pre-default risk</td>
+                          <td>Minimum approving authority to be  CCO</td>
+                      </tr>
+                      <tr>
+                          <td>viii</td>
+                          <td><25</td>
+                          <td>Default risk</td>
+                          <td>Decline</td>
+                      </tr>
+
+                      </tbody>
+                  </table>
+              </div>
             </nb-accordion-item-body>
         </nb-accordion-item>
     </nb-accordion>

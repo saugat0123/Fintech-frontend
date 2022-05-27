@@ -275,10 +275,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 });
         });
 
-        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+       /* if (!ObjectUtil.isEmpty(this.customerInfo)) {
             const mapData = JSON.parse(this.customerInfo.data);
             this.reviewDate = mapData.reviewDate;
-        }
+        }*/
 
 
     }
