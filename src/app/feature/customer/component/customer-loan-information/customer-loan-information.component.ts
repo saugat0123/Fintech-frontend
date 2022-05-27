@@ -699,6 +699,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
+            regularityOfPayments: [undefined]
+
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);

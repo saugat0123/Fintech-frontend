@@ -330,8 +330,8 @@
                         ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}
                         <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
                     </li>
-                    <li>
-                        <p><strong>Regularity of payments: NA</strong></p>
+                    <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
+                        <p><strong>Regularity of payments: {{commonLoanData?.regularityOfPayments}}</strong></p>
                     </li>
                     <li>
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [formData]="loanHolder?.incomeFromAccount">
