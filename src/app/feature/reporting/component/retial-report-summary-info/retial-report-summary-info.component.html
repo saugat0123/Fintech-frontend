@@ -1,1 +1,23 @@
-<p>retial-report-summary-info works!</p>
+<ng-container>
+    <div *ngFor="let data of reportingInfoLevel; let i=index">
+        <table style="font-size: x-small" class="table-striped table text-center text-sm-center table-bordered table-hover table-sm">
+            <thead>
+            <tr class="sb-bg-dark">
+                <th colspan="2">{{data?.name}}</th>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td>Description</td>
+                <td>Code</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let report of reportingInfoLevel[i]?.reportingInfoLevels">
+                <td>{{report?.description}}</td>
+                <td>{{report?.code}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</ng-container>

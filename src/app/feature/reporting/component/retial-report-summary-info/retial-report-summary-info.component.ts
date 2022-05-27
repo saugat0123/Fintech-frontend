@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ReportingInfoService} from '../../service/reporting-info.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-retial-report-summary-info',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetialReportSummaryInfoComponent implements OnInit {
 
-  constructor() { }
+  reportingInfoLevel: Array<any> = new Array<any>();
+  constructor(private reportingInfoService: ReportingInfoService) {
 
-  ngOnInit() {
   }
 
+  ngOnInit() {
+this.getReportingInfo();
+  }
+
+
+
+
+
+  getReportingInfo(): void {
+    this.reportingInfoService.getAllWithSearch({}).toPromise().then((response: any) => {
+      console.log(response, 'RESPONSE');
+      if(!ObjectUtil.isEmpty(response.detail)){
+        response.detail.forEach(d => {
+          this.reportingInfoLevel.push(d);
+        });
+      }
+    })
+  }
 }
