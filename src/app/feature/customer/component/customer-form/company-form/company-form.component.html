@@ -1000,7 +1000,7 @@
                        <hr>
                        <div>
                            <h5>
-                               6. {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Institutional Details'}}
+                               5. {{companyInfoFormGroup.get('clientType').value === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ? 'Business Profile' : 'Institutional Details'}}
                             </h5>
                        </div>
 <!--                       <div class="row">-->
@@ -1057,7 +1057,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title title">5. Management Team</h5>
+                           <h5 class="box-title title">6. Management Team</h5>
                        </div>
                        <div *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index" class="border-bottom border-dark m-4"
                             formArrayName="managementTeams">
@@ -1156,7 +1156,7 @@
 
                        <!--Information of Proprietor/Shareholder/Partner-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">6. Information of Proprietor/Shareholder/Partner
+                           <h5 class="box-title">7. Information of Proprietor/Shareholder/Partner
                                with holder %</h5>
                        </div>
                        <div *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index" class="border-bottom border-dark m-4"
@@ -1491,7 +1491,7 @@
                        <!--10. SWOT Analysis-->
                   <ng-container *ngIf="microCustomerType != 'DIRECT'">
                       <div class="box-header with-border">
-                          <h5 class="box-title">8. SWOT Analysis</h5>
+                          <h5 class="box-title">9. SWOT Analysis</h5>
                       </div>
                       <div class="row">
                           <div class="col-md-6">
@@ -1557,7 +1557,7 @@
                        <hr>
                        <!--Business Objective-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">9. Business Objective</h5>
+                           <h5 class="box-title">10. Business Objective</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1580,7 +1580,7 @@
                        <!--Raw materials-->
                     <ng-container *ngIf="microCustomerType != 'DIRECT'">
                         <div class="box-header with-border">
-                            <h5 class="box-title">10. Raw Materials</h5>
+                            <h5 class="box-title">11. Raw Materials</h5>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -1634,7 +1634,7 @@
                        <div class="row">
                            <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
                                <div class="form-group">
-                                   <h5 class="box-title">11. Group’s
+                                   <h5 class="box-title">12. Group’s
                                        background</h5>
                                    <ckeditor
                                        rows="4"
@@ -1651,7 +1651,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">12.Legal review
+                                   <h5 class="box-title">13.Legal review
                                        Remarks</h5>
                                    <input
                                        [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
@@ -1808,7 +1808,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">13. Business & Industry</h5>
+                           <h5 class="box-title">14. Business & Industry</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">
