@@ -1163,10 +1163,36 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-md-12">
                                     <label><b>Background</b></label>
                                     <textarea rows="3" class="form-control" formControlName="background" placeholder="Background Details"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="successionPlanning"><strong>Succession Risk & Mitigation</strong></label>
+                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.successionPlanning.errors }"
+                                                  formControlName="successionPlanning" id="successionPlanning"
+                                                  name="successionPlanning"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="groupBackground"><strong>Group's Background and associated companies</strong></label>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.groupBackground.errors }"
+                                              formControlName="groupBackground" id="groupBackground"
+                                              name="groupBackground" [config]="ckeConfig"
+                                              type="text"></ckeditor>
+                                    <div *ngIf="submitted && guarantorDetails.groupBackground?.errors "
+                                         class="invalid-feedback">
+                                        <div *ngIf="guarantorDetails.groupBackground?.errors.required">
+                                            Group's Background and associated companies is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row" [formGroup]="guarantorDetails.get('promoterData')">

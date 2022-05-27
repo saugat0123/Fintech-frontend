@@ -20,6 +20,7 @@ import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {DesignationList} from '../../loan/model/designationList';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-guarantor',
@@ -64,6 +65,7 @@ export class GuarantorComponent implements OnInit {
   designation;
   designationLists: DesignationList = new DesignationList();
 
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -229,6 +231,7 @@ export class GuarantorComponent implements OnInit {
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
+      successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
@@ -454,6 +457,7 @@ export class GuarantorComponent implements OnInit {
             this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
             // tslint:disable-next-line:max-line-length
             this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
+            this.form.get(['guarantorDetails', i, 'successionPlanning']).patchValue(this.form.get(['guarantorDetails', i, 'successionPlanning']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
                 .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
