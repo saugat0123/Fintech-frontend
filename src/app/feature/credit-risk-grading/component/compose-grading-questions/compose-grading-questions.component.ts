@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../model/CrgGroup';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
+import {logoHackernews} from 'ionicons/icons';
 
 @Component({
     selector: 'app-compose-grading-questions',
@@ -34,6 +35,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     private modalRef: NgbModalRef;
     sme = 'SME';
+     showCheckBoxForHomeLoan = false;
 
     constructor(private crgGroupService: CrgGroupService,
                 private questionService: RiskGradingService,
@@ -50,10 +52,12 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         this.getGroupList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
+        this.showCheckBox();
     }
 
     getSchemeList() {
         this.loanConfigService.getAll().subscribe((response: any) => {
+            console.log(response, 'response');
             this.schemeList = response.detail.filter((r: any) => r.loanCategory === 'INDIVIDUAL');
         });
     }
@@ -110,7 +114,6 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     }
 
     onChangeLoanCategory(event?) {
-        console.log('event:', event);
         if (event === 'SME') {
             this.loanConfigId = 0;
         } else {
@@ -124,6 +127,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         this.totalObtainablePoints = 0;
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
             this.questionList = response.detail;
+            console.log(response, 'response');
             this.questionList.forEach(qsn => {
                 this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
             });
@@ -278,6 +282,14 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                     this.questionList = new Array<CrgQuestion>();
                 }
             );
+        }
+    }
+
+    showCheckBox(value?: any) {
+        if(value === 'HOME_LOAN'){
+            this.showCheckBoxForHomeLoan = true;
+        } else {
+            this.showCheckBoxForHomeLoan = false;
         }
     }
 }
