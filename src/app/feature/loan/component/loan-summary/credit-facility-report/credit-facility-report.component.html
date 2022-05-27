@@ -27,11 +27,7 @@
                 <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(16,17)}}</td>
             </tr>
         </table>
-        <!-- </div>
-</div>
-<div class="row">
-    <div class="col-md-12">-->
-        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small mt-3">
+        <table class="table table-bordered mt-3">
             <tr>
                 <td style="width: 30%">Customer & Address:</td>
                 <td style="width: 20%">Obligor Group & Location</td>
@@ -49,10 +45,13 @@
                         {{loanDataHolder?.customerInfo?.municipalities?.name}}
                         , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
                 <td rowspan="3">
-                    <app-retial-report-summary-info>
-
-                    </app-retial-report-summary-info>
-
+                    <app-report-summary [approved]="false"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                    <strong>MIS Reporting Info</strong>
+                    <app-report-summary [approved]="false"
+                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     <!-- <span class="font-weight-bold"
                         *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container
                             *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container>
@@ -69,368 +68,22 @@
                 <td>Contact Number: <span
                         class="font-weight-bold">{{loanDataHolder?.customerInfo?.contactNumber}}</span></td>
             </tr>
-            <tr>
-                <td rowspan="3">Contact Person: Mr./Mrs./Ms. ...........................</td>
-                <td>Risk Type: <span class="font-weight-bold"></span> </td>
-            </tr>
-            <tr>
-                <td> SIS Sector/Sub-Sector Code: .........................</td>
-            </tr>
-            <tr>
-                <td>SIS Collateral Code: ..........................</td>
-            </tr>
+
         </table>
-        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small mt-3">
-            <tr class="sb-bg-dark text-white">
-                <th rowspan="2" colspan="1">Facilities</th>
-                <th colspan="2">Existing</th>
-                <th colspan="2">Proposed Limit</th>
-                <th colspan="1" rowspan="2">Pricing</th>
-                <th colspan="1" rowspan="2">Tenure</th>
-                <th colspan="1" rowspan="2">Security</th>
-            </tr>
-            <tr class="sb-bg-dark text-white">
-                <td colspan="1">Funded</td>
-                <td colspan="1">Non Funded</td>
-                <td colspan="1">Funded</td>
-                <td colspan="1">Non Funded</td>
-            </tr>
-            <!--*ngFor="let data of customerAllLoanList; let i=index"-->
-            <tr>
-                <td colspan="1" class="text-left pl-1">
-                    <span class="font-weight-bold">{{loanName}}</span>
-                </td>
-                <th colspan="1" class="text-center pr-1">
-                    <div
-                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
-                        {{proposedLimit | currency:'NPR '}}
-                    </div>
-                    <ng-template #dash>
-                        -
-                    </ng-template>
-                </th>
-                <th colspan="1" class="text-center pr-1">
-                    <div
-                        *ngIf="loanDataHolder?.loanType?.toString() !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
-                        {{proposedLimit | currency:'NPR '}}
-                    </div>
-                    <ng-template #dash>
-                        -
-                    </ng-template>
-                </th>
-                <th colspan="1" class="text-center pr-1">
-                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
-                    (proposedLimit | currency:"NPR ") : '-' }}
-                </th>
-                <th colspan="1" class="text-center pr-1">
-                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder?.loan?.isFundable) &&
-                    loanDataHolder?.loanType?.toString() === 'NEW_LOAN' ?
-                    (proposedLimit | currency:"NPR ") : '-'}}
-                </th>
-                <td colspan="1" class="text-left pr-1">
-                    <span class="font-weight-bold">{{loanDataHolder?.loan?.interestRate}}</span> % p.a ( <span
-                        class="font-weight-bold">{{proposalData?.baseRate}}</span> % +
-                    <span class="font-weight-bold">{{proposalData ? proposalData?.premiumRateOnBaseRate :
-                        '..............' }}</span> %)<br><br>
+    </div>
 
-                    Loan Processing Fee: <span class="font-weight-bold">{{incomeFromAccount.loanProcessingDuringReview |
-                        currency : 'NPR '}}</span> % of the limit<br><br>
+    <div class="col-md-12">
+        <app-proposal-summary *ngIf="loanDataHolder?.proposal"
+                              [proposalData]="loanDataHolder?.proposal"
+                              [customerAllLoanList]="customerLoanList"></app-proposal-summary>
+    </div>
 
-                    CICL charge: <span class="font-weight-bold">{{loanDataHolder.loanHolder.cicl ?
-                        (loanDataHolder?.loanHolder?.cicl?.cibCharge | currency:'NPR ') :
-                        '.....................'}}</span>
-                    On actual basis<br><br>
+    <div class="col-md-12">
+        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
+        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+    </div>
 
-                    Prepayment charge: As Per NRB<br><br>
-                    Loan Swap Charge: As per NRB<br><br>
-                </td>
-                <td colspan="1" class="text-left pl-1">
-                    <span class="font-weight-bold">{{proposalDuration ? proposalDuration : '..................'}}</span>
-                    years from the date of disbursement
-                </td>
-                <td colspan="1" class="text-left pl-1">
-
-                    <div class="land-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityLandDetails">
-                            Registered mortgage over <br>
-                            Owner: <span class="font-weight-bold">{{item?.owner}}</span><br>
-                            Location: <span class="font-weight-bold">{{item?.location}}</span>
-                            <br>
-                            Ward No.: <span class="font-weight-bold"></span>
-                            <br>
-                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
-                                class="font-weight-bold">{{item?.area}}</span> sq.m <br>
-                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.landValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator?.name}}</span>
-                            Pvt.Ltd.
-                        </span>
-                        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small mt-2">
-                            <tr>
-                                <td>Particulars</td>
-                                <td>MV</td>
-                                <td>FMV</td>
-                                <td>DV</td>
-                            </tr>
-                            <tr *ngFor="let item of securityLandDetails">
-                                <td>Land</td>
-                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.distressValue | currency: 'NPR ' : 'symbol'}}</th>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <th>{{totalLandMv | currency: 'NPR '}}</th>
-                                <th>{{totalLandMv | currency: 'NPR '}}</th>
-                                <th>{{totalLandDv | currency: 'NPR '}}</th>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="land-building-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityDetails.initialForm.landBuilding">
-                            Registered mortgage over <br>
-                            Owner: <span class="font-weight-bold">{{item?.owner}}</span><br>
-                            Location: <span class="font-weight-bold">{{item?.location}}</span>
-                            <br>
-                            Ward No.: <span class="font-weight-bold"></span>
-                            <br>
-                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
-                                class="font-weight-bold">{{item?.area}}</span> sq.m <br>
-                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.buildingValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator?.name}}</span>
-                            Pvt.Ltd.
-                        </span>
-                        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small mt-2">
-                            <tr>
-                                <td>Particulars</td>
-                                <td>MV</td>
-                                <td>FMV</td>
-                                <td>DV</td>
-                            </tr>
-                            <tr *ngFor="let item of securityDetails.initialForm.landBuilding">
-                                <td>Land and Building</td>
-                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.distressValue | currency: 'NPR ' : 'symbol'}}</th>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <th>{{totalLandAndBuildingMv| currency: 'NPR '}}</th>
-                                <th>{{totalLandAndBuildingMv | currency: 'NPR '}}</th>
-                                <th>{{totalLandAndBuildingDv | currency: 'NPR '}}</th>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="building-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityDetails?.initialForm?.buildingDetails">
-                            Registered mortgage over <br>
-                            Building Name: <span class="font-weight-bold">{{item?.buildingName}}</span><br>
-                            <!-- Location: <span class="font-weight-bold">{{item?.location}}</span>
-                            <br>
-                            Ward No.: <span class="font-weight-bold"></span>
-                            <br>
-                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
-                                class="font-weight-bold">{{item?.area}}</span> sq.m <br> -->
-                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.ApartmentValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator?.name}}</span>
-                            Pvt.Ltd.
-                        </span>
-                        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small mt-2">
-                            <tr>
-                                <td>Particulars</td>
-                                <td>MV</td>
-                                <td>FMV</td>
-                                <td>DV</td>
-                            </tr>
-                            <tr *ngFor="let item of securityDetails?.initialForm?.buildingDetails">
-                                <td>Building</td>
-                                <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
-                                <th>{{item?.buildingDistressValue | currency: 'NPR ' : 'symbol'}}</th>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <th>{{totalBuildingMv| currency: 'NPR '}}</th>
-                                <th>{{totalBuildingMv | currency: 'NPR '}}</th>
-                                <th>{{totalBuildingDv | currency: 'NPR '}}</th>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="building-security" *ngIf="securityDetails">
-                        <span *ngFor="let item of securityDetails?.initialForm?.vehicleDetails">
-                            Registration of Vehicle in bank's name <br>
-                            PI price after discount: <br>
-                            Buyer Name: <br>
-                            Seller Name: <br>
-                            Status: <br>
-                            Vehicle Type: <span class="font-weight-bold">{{item?.model}}</span><br>
-                            Registration Number: <span class="font-weight-bold">{{item?.registrationNumber}}</span><br>
-                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.vehicalValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator?.name}}</span>
-                            Pvt.Ltd.
-                        </span>
-                    </div>
-
-                </td>
-            </tr>
-            <tr *ngFor="let dto of customerLoanDtoList; let ii = index">
-                <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
-                <td colspan="1" class="text-right pr-1">
-                    <span *ngIf="dto?.loanConfig?.isFundable">
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
-                            Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
-                        </span>
-                    </span>
-                    <span
-                        *ngIf="(!dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
-                </td>
-                <td colspan="1" class="text-right pr-1">
-                    <span *ngIf="!dto?.loanConfig?.isFundable">
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
-                            Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
-                        </span>
-                    </span>
-                    <span
-                        *ngIf="(dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
-                </td>
-                <td colspan="1" class="text-right pr-1">
-                    <span *ngIf="dto?.loanConfig?.isFundable">
-                        Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
-                    </span>
-                    <span *ngIf="(!dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
-                </td>
-                <td colspan="1" class="text-right pr-1">
-                    <span *ngIf="!dto?.loanConfig?.isFundable">
-                        Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
-                    </span>
-                    <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
-                </td>
-                <td colspan="1" class="text-right pr-1">
-                    <span
-                        *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving'))
-                                || dtoArray[ii]?.isFixedDeposit || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
-                        IR : {{(dto?.proposal?.data | jsonParse)?.interestRate}} %,
-                    </span>
-                    <span
-                        *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
-                                    && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
-                        BR : {{ (dto?.proposal?.data | jsonParse)?.baseRate}} %,
-                        PR : {{ (dto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
-                    </span>
-                    <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted">
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
-                            CM: Rs. {{ ((dto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
-                            ,</span>
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
-                            CM: {{ ((dto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
-                        COM:{{(dto?.proposal?.data | jsonParse)?.commissionPercentage}} %
-                    </span>
-                    <span *ngIf="loanDataHolder?.loanHolder?.cicl">
-                        CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
-                    </span>
-                    <span *ngIf="(dto?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'FLAT'">
-                            LSC: Rs. {{((dto?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}}
-                            ,</span>
-                        <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
-                            LSC: {{(dto?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
-                    </span>
-                </td>
-                <td colspan="1" class="text-left pl-1">
-                    <span *ngIf="(dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
-                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
-                        {{dtoArray[ii]?.tenureInMonth}} years from the date of disbursement
-                    </span>
-                    <span *ngIf="!((dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
-                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral)"
-                        class="text-right pr-1">-</span>
-                </td>
-                <td colspan="1" class="text-left pl-1">
-                    <span>
-                        Registered mortgage over <br>
-                        Owner: <br>
-                        Location: Ward No.: <br>
-                        Plot No.: ......., Area: ...... sq.m <br>
-                        Valuation Date and Valuator: ........;.......Pvt.Ltd.
-                    </span>
-                    <table class="text-center">
-                        <tr>
-                            <td>Particulars</td>
-                            <td>MV</td>
-                            <td>FMV</td>
-                            <td>DV</td>
-                        </tr>
-                        <tr *ngFor="let item of securityLandDetails">
-                            <td>Land</td>
-                            <td class="font-weight-bold">{{item ? (item?.marketValue | currency: 'NPR ') :
-                                '.................'}}</td>
-                            <td class="font-weight-bold">{{item ? (item?.marketValue | currency: 'NPR ') :
-                                '................'}}</td>
-                            <td class="font-weight-bold">{{item ? (item?.distressValue | currency: 'NPR ') :
-                                '................'}}</td>
-                        </tr>
-                        <tr>
-                            <td>Building</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <th class="text-left pl-1">Total</th>
-                <th class="text-right pr-1">-
-                    <!--Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}-->
-                </th>
-                <th class="text-right pr-1">-
-                    <!--Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}-->
-                </th>
-                <th class="text-right pr-1">-
-                    <!--Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}-->
-                </th>
-                <th class="text-right pr-1">-
-                    <!--Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}-->
-                </th>
-                <th colspan="2"></th>
-                <th class="text-left">
-                    <ng-container *ngFor="let guarantor of guarantorsList">
-                        Personal Guarantee of {{loanDataHolder?.loanHolder?.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}}
-                        <span class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
-                        (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
-                        '..............'}}</span> of the borrower) of <span class="font-weight-bold">{{guarantor ?
-                        (guarantor?.guaranteeAmount | currency:'NPR ':'symbol') : '..............'}}</span> Million.
-                        <br>
-                        Consent of Mr./Mrs./Ms <span class="font-weight-bold">{{guarantor?.name}}</span> <br>
-                    </ng-container>
-                    <!-- <b>Total</b> <br>
-                    Tangible: ............. Million<br>
-                    Intangible: ............ Million<br>
-                    Security Coverage: Ratio for funded Facility of ............ Million.<br><br>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;a. Land & Building :- .............% at FMV<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br> -->
-                </th>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
-                </td>
-            </tr>
-        </table>
+    <div class="col-md-12">
         <table class="table table-responsive-md table-bordered table-condensed mt-n3">
             <tr>
                 <td></td>
