@@ -452,7 +452,7 @@ export class ProposalComponent implements OnInit {
     }
 
     onSubmit() {
-        this.cadFileSetupComponent.save();
+        // this.cadFileSetupComponent.save();
         if (this.customerType === 'INDIVIDUAL' && this.fromProfile) {
             this.crgGammaComponent.onSubmit();
         }

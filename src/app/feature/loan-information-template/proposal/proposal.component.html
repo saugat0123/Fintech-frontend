@@ -297,23 +297,6 @@
                                     </div>
                                 </div>
                                 <!--                end of Moratorium Period amount div-->
-                                <div class="col-md-4"
-                                     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
-                                    <div class="form-group>">
-                                        <label class="title"> <strong>Prepayment Charge</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
-                                                class="form-control" formControlName="prepaymentCharge"
-                                                id="prepaymentCharge" name="prepaymentCharge"
-                                                placeholder="Prepayment Charge" type="text">
-                                        <div *ngIf="(submitted) && formControls.prepaymentCharge.errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="formControls.prepaymentCharge.errors.required">
-                                                Prepayment Charge is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="collateralRequirement"><strong>Collateral requirement
@@ -437,25 +420,6 @@
                                         </div>
                                     </div>
                                 </div>-->
-
-                                <div class="col-md-4 form-group">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
-                                                 [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
-                                    </nb-checkbox>
-                                    <div *ngIf="swapChargeChecked">
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'swapChVar')"
-                                                     [checked]="swapChargeVar">Add Variable &nbsp;
-                                        </nb-checkbox>
-
-                                            <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
-                                                    class="form-control" formControlName="swapCharge"
-                                                    id="swapCharge"
-                                                    name="swapCharge" placeholder="Swap Charge"
-                                                    [type]="swapChargeVar ? 'text' : 'number'"/>
-                                    </div>
-                                </div>
-
-
                                 <!--                end of Moratorium Period amount div-->
 
 
@@ -525,10 +489,13 @@
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestCardRate"
                                                               id="interestCardRate">
                                                 </td>
-                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="existInterestRate"
-                                                               id="existInterestRate"></td>
+                                                <td><input rows="1" class="form-control mt-1 mb-1" name="existInterestRate" formControlName="existInterestRate"
+                                                               id="existInterestRate" [(ngModel)]="existInterestLimit"
+                                                           type="number" appDecimalNumber></td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="interestRate">
+                                                    <input rows="1" id="interestRate" class="form-control mt-1 mb-1" type="number"
+                                                           [(ngModel)]="interestLimit" formControlName="interestRate" type="number"
+                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -550,7 +517,8 @@
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionsCardRate"
                                                               id="commissionsCardRate">
                                                 </td>
-                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="existCommissionPercentage"
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="existCommissionPercentage"
                                                               id="existCommissionPercentage"></td>
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="commissionPercentage"
@@ -602,7 +570,7 @@
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
                                                     <td colspan="3">
                                                         <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
-                                                                  id="serviceCharge">
+                                                                  id="serviceCharge" appDecimalNumber>
                                                     </td>
                                             </tr>
                                             <tr>
