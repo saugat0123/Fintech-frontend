@@ -18,10 +18,17 @@ import {RetailSourceOfRepaymentComponent} from './retail-source-of-repayment/ret
 import {RetailRecommendationComponent} from './retail-recommendation/retail-recommendation.component';
 import {RetailSecurityComponent} from './retail-security/retail-security.component';
 import {AboveRiskAnalysisComponent} from '../loan/component/loan-summary/sme-loan-summary/above-ten-million/above-risk-analysis/above-risk-analysis.component';
+import {CustomerKycViewComponent} from './customer-kyc-view/customer-kyc-view.component';
+import {CustomerBusinessActivityOrBackgroundsComponent} from './customer-business-activity-or-backgrounds/customer-business-activity-or-backgrounds.component';
+import {CustomerNetWorthViewComponent} from './customer-net-worth-view/customer-net-worth-view.component';
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, RetailPurposeAndJustificationComponent, RetailSourceOfRepaymentComponent, RetailRecommendationComponent, RetailSecurityComponent],
+  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent,
+    DetailViewBaseComponent, RetailPurposeAndJustificationComponent,
+    RetailSourceOfRepaymentComponent, RetailRecommendationComponent, RetailSecurityComponent, CustomerKycViewComponent,
+      CustomerBusinessActivityOrBackgroundsComponent, CustomerNetWorthViewComponent
+  ],
   exports: [
     CreditChecklistViewComponent, AboveRiskAnalysisComponent
   ],

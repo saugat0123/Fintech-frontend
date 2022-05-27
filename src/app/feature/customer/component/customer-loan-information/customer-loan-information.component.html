@@ -847,7 +847,10 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-net-worth [isJointCustomer]="customerInfo?.isJointCustomer"  [customerInfoId]="customerInfoId" [customerName]="customerInfo?.name" [data]="customerInfo?.netWorth" #netWorth (dataEmiter)="saveNetWorth($event)"></app-net-worth>
+              <app-net-worth #netWorth
+                             (dataEmiter)="saveNetWorth($event)" [customerInfoId]="customerInfoId"
+                             [customerName]="customerInfo?.name" [data]="customerInfo?.netWorth"
+                             [isJointCustomer]="customerInfo?.isJointCustomer"></app-net-worth>
               <div>
                 <button (click)="netWorthComponent.submit()"
                         class="btn float-right d-flex justify-content-end" nbButton type="submit">
@@ -858,82 +861,85 @@
           </nb-card>
         </ng-template>
       </div>
-     <div class="col-md-4" *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
-       <div class="row">
-         <nb-card class="col-md-11 py-2" #crgCcbls>
-           <a class="cursor info-label" (click)="openModel(crgCcbl)">
-             <div class="row cursor">
-               <div class="col-md-8">
-                 <p class="custom-font">
-                   CRG-CCBL
-                 </p>
-               </div>
-               <div class="col-md-4 d-flex justify-content-end">
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #crgCcbls class="col-md-11 py-2">
+            <a (click)="openModel(crgCcbl)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    CRG-CCBL
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
                   <span style="color:green" title="Status : Saved">
                      <em *ngIf="customerInfo?.crgCcbl" class="fas fa-check-circle px-2"></em>
                   </span>
-                 <span style="color:red" title="Status :Not Saved">
+                  <span style="color:red" title="Status :Not Saved">
                        <em *ngIf="!customerInfo?.crgCcbl" class="fas fa-times-circle px-2"></em>
                      </span>
-               </div>
-             </div>
-           </a>
-         </nb-card>
-       </div>
-       <ng-template #crgCcbl let-data let-ref="dialogRef">
-         <nb-card class="template-css">
-           <nb-card-header>
-             CRG-CCBL
-             <a aria-label="Close" class="close cursor"
-                data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #crgCcbl let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              CRG-CCBL
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
-           </nb-card-header>
-           <nb-card-body>
-             <app-crg-ccbl [customerInfo]="customerInfo" [fromProfile]="true" (eventEmitter)="saveCrgCCbl($event,  true)"></app-crg-ccbl>
-           </nb-card-body>
-         </nb-card>
-       </ng-template>
-     </div>
-     <div class="col-md-4" *ngIf="customerInfo?.customerType === customerType?.INSTITUTION">
-       <div class="row">
-         <nb-card class="col-md-11 py-2" #financialCCbls>
-           <a class="cursor info-label" (click)="openModel(financialCcbl)">
-             <div class="row cursor">
-               <div class="col-md-8">
-                 <p class="custom-font">
-                  Financial - CCBL
-                 </p>
-               </div>
-               <div class="col-md-4 d-flex justify-content-end">
+            </nb-card-header>
+            <nb-card-body>
+              <app-crg-ccbl (eventEmitter)="saveCrgCCbl($event,  true)" [customerInfo]="customerInfo"
+                            [fromProfile]="true"></app-crg-ccbl>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #financialCCbls class="col-md-11 py-2">
+            <a (click)="openModel(financialCcbl)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    Financial - CCBL
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
                   <span style="color:green" title="Status : Saved">
                      <em *ngIf="customerInfo?.financialCcbl" class="fas fa-check-circle px-2"></em>
                   </span>
-                 <span style="color:red" title="Status :Not Saved">
-                       <em *ngIf="!customerInfo?.financialCcbl" class="fas fa-times-circle px-2"></em>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.financialCcbl"
+                           class="fas fa-times-circle px-2"></em>
                      </span>
-               </div>
-             </div>
-           </a>
-         </nb-card>
-       </div>
-       <ng-template #financialCcbl let-data let-ref="dialogRef">
-         <nb-card class="template-css">
-           <nb-card-header>
-             Financial-CCBL
-             <a aria-label="Close" class="close cursor"
-                data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #financialCcbl let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              Financial-CCBL
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
-           </nb-card-header>
-           <nb-card-body>
-          <app-financial-ccbl [customerInfo]="customerInfo"  [fromProfile]="true" (eventEmitter)="saveCrgCCbl($event, false)"></app-financial-ccbl>
-           </nb-card-body>
-         </nb-card>
-       </ng-template>
-     </div>
+            </nb-card-header>
+            <nb-card-body>
+              <app-financial-ccbl (eventEmitter)="saveCrgCCbl($event, false)" [customerInfo]="customerInfo"
+                                  [fromProfile]="true"></app-financial-ccbl>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
     </div>
     <nb-accordion>
 
@@ -954,7 +960,7 @@
     <nb-card-body>
       <form [formGroup]="commonLoanData">
         <div class="row">
-          <div class="col-md-12" *ngIf="customerInfo?.customerType== customerType.INSTITUTION">
+          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12">
             <div class="form-group">
               <strong>SOL of the BANK</strong>
               <p class="mt-1">
@@ -967,7 +973,7 @@
             </div>
           </div>
 
-          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType== customerType.INSTITUTION">
+          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
             <div class="form-group">
               <label class="title"><strong>Approving Authority</strong></label>
               <textarea class="form-control rounded"
@@ -979,62 +985,8 @@
             </div>
           </div>
           <div class="clearfix"></div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="borrowerInformation"><strong>Loan background</strong></label>
-              <strong></strong>
-              <ckeditor [config]="ckeConfig"
-                        [style]="{height:'250px !important;'}"
-                        formControlName="borrowerInformation"
-                        placeholder="Background"
-                        id="borrowerInformation" required>
-              </ckeditor>
-            </div>
-          </div>
-          <div class="clearfix"></div>
 
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
-              <ckeditor
-                  [config]="ckeConfig" formControlName="disbursementCriteria"
-                  id="disbursementCriteria"
-                  name="disbursementCriteria"></ckeditor>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="repayment"><strong>Repayment</strong></label>
-              <ckeditor
-                  [config]="ckeConfig" formControlName="repayment"
-                  id="repayment"
-                  name="repayment"></ckeditor>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="title" for="remark">
-                <strong>Remarks</strong></label>
-              <ckeditor
-                  [config]="ckeConfig" formControlName="remark"
-                  id="remark"></ckeditor>
-            </div>
-          </div>
-
-
-          <div class="col-md-12 mt-3">
-            <div class="form-group">
-              <label class="title"><strong>Summary & Recommendation</strong></label>
-              <ckeditor [config]="ckeConfig"
-                        [style]="{height:'250px !important;'}"
-                        formControlName="summeryRecommendation"
-                        placeholder="Summary & Recommendation">
-              </ckeditor>
-            </div>
-          </div>
-
-
-          <div class="col-md-12 mt-3">
+          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
             <div class="form-group">
               <label class="title"><strong>Special Covenants/Conditions, If Any</strong></label>
               <ckeditor [config]="ckeConfig"
@@ -1057,8 +1009,8 @@
           <div class="col-md-12 form-group">
             <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
             <div>
-              <ckeditor formControlName="waiverConclusionRecommendation"
-                        [config]="ckeConfig"></ckeditor>
+              <ckeditor [config]="ckeConfig"
+                        formControlName="waiverConclusionRecommendation"></ckeditor>
             </div>
           </div>
         </div>

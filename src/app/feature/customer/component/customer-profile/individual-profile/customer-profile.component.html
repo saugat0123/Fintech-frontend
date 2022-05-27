@@ -514,27 +514,7 @@
 
 
             </nb-card-body>
-            <nb-card-footer>
-                <div class="row">
-                    <div class="col" *ngIf=" !isRemarkEdited ">
-                        <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                                class="fa fa-edit"></em></a>
-                        <label><b>Within Limit Remarks (if any):</b></label>
-                        {{customer.withinLimitRemarks}}
-                    </div>
-                    <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-                        <form [formGroup]="basicForm">
-                            <label><b>Within Limit Remarks (if any):</b></label>
-                            <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
-                                      formControlName="withinLimitRemarks"
-                                      (change)="setWithin($event)"></textarea>
-                        </form>
-                        <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
-                            Remark
-                        </button>
-                    </div>
-                </div>
-            </nb-card-footer>
+
         </nb-card>
     </nb-card-body>
 </nb-card>

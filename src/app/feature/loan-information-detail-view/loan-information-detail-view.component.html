@@ -289,8 +289,13 @@
                         </div>
                     </li>
                     <li>
-                        <p><strong>Business activity/customer background: </strong></p>
-                        <p> Mr. ...........................................................................</p>
+                        <p><strong>Personal/Business background: </strong></p>
+                        <app-customer-business-activity-or-backgrounds
+                                *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
+                                [customer]="loanDataHolder.customerInfo"
+                                [loanHolder]="loanDataHolder.loanHolder"
+                        >
+                        </app-customer-business-activity-or-backgrounds>
                     </li>
 
                     <li>
@@ -347,7 +352,7 @@
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
                         </tr>
                     </li>
-                    <li *ngIf="loanDataHolder.loan.loanTag === 'SHARE_SECURITY'">
+                    <li *ngIf="loanDataHolder?.loan?.loanTag === 'SHARE_SECURITY'">
                         <p><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against Share)</strong>
                             <span [innerHTML]="proposalData?.debtStructure | safeHtml"></span>
                     </li>
