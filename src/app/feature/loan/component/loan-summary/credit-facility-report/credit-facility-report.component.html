@@ -56,9 +56,9 @@
                     <ng-template #noinfo>
                         <p>No any information tagged</p>
                     </ng-template>
-                    <app-report-summary [approved]="false"
-                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+                    <app-retial-report-summary-info>
+
+                    </app-retial-report-summary-info>
                     <ng-template #noinfo>
                         <p>No any information tagged</p>
                     </ng-template>
