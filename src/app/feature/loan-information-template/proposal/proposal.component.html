@@ -543,6 +543,20 @@
 
                                     </div>
                                 </div>
+                                <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
+                                    <div class="form-group">
+                                        <label class="title" for="existingDateOfExpiry"><strong>Existing Date of Expiry</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.existingDateOfExpiry.errors }"
+                                               class="form-control" formControlName="existingDateOfExpiry" id="existingDateOfExpiry"
+                                               name="existingDateOfExpiry" placeholder="Existing Date of Expiry" type="date">
+                                        <div *ngIf="(submitted) && formControls.existingDateOfExpiry.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.existingDateOfExpiry.errors">
+                                                Date of Expiry is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!--<div class="col-md-4">
                                     <div class="form-group">
