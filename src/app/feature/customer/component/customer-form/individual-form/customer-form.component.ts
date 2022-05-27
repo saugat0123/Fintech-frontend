@@ -254,8 +254,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.ckEditor.onSubmit();
-        if (this.ckEditor.form.invalid)
-            return true;
+        if (this.ckEditor.form.invalid) {
+            return;
+        }
         this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
