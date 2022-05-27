@@ -43,14 +43,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <div class="form-group">
             <label for="detailInformation"><b>DETAIL INFORMATION</b></label>
             <ckeditor id="detailInformation" formControlName="detailInformation"
                       [config]="ckeConfig"></ckeditor>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <div class="form-group">
             <label for="outstandingOverdue"><b>Outstanding Overdue and R/E collateral</b></label>
             <ckeditor id="outstandingOverdue" formControlName="outstandingOverdue"
@@ -176,13 +176,10 @@
                 <input (click)="addGroupPosition()" class="btn btn-sm btn-flat btn-primary"
                        type="button" value="Add More"/>
             </div>
-<!--            <ckeditor id="groupPosition" formControlName="groupPosition"-->
-<!--                      [config]="ckeConfig"></ckeditor>-->
         </div>
     </div>
     <hr>
     <div class="col-md-12">
-<!--        <div class="col-md-4 row">-->
             <label><b>NAME OF THE COMPANIES UNDER THE GROUP</b></label>
         <div class="row">
             <div *ngFor="let cn of form?.get('companyGroup')['controls']; let ii = index"
@@ -208,8 +205,6 @@
                 nbButton status="primary" size="small" class="pl-2"
                 value="Add Account No.">Add
         </button>
-
-<!--        </div>-->
     </div>
 
     <div class="col-md-12">
