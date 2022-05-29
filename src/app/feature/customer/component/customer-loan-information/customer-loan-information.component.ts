@@ -247,12 +247,24 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
             this.multiBankingResponse = this.customerInfo.multiBanking;
         }
+
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            const mapData = JSON.parse(this.customerInfo.data);
+            if (!ObjectUtil.isEmpty(mapData)) {
+                this.reviewDate = mapData.reviewDate;
+            }
+        }
+
         if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
             this.commentsData = this.customerInfo.data;
             const jsonSec = JSON.parse(this.commentsData);
-            const secParseJson = JSON.parse(jsonSec.data);
-            if (!ObjectUtil.isEmpty(secParseJson.previousComments) || !ObjectUtil.isEmpty(secParseJson.previousComments)) {
-                this.checkedPreviousComments = true;
+            if (!ObjectUtil.isEmpty(jsonSec)) {
+                if (!ObjectUtil.isEmpty(jsonSec.data)) {
+                    const secParseJson = JSON.parse(jsonSec.data);
+                    if (!ObjectUtil.isEmpty(secParseJson.previousComments) || !ObjectUtil.isEmpty(secParseJson.previousComments)) {
+                        this.checkedPreviousComments = true;
+                    }
+                }
             }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
@@ -274,12 +286,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
                 });
         });
-
-       /* if (!ObjectUtil.isEmpty(this.customerInfo)) {
-            const mapData = JSON.parse(this.customerInfo.data);
-            this.reviewDate = mapData.reviewDate;
-        }*/
-
 
     }
 
@@ -793,8 +799,18 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.spinner.show();
         if (!ObjectUtil.isEmpty(data)) {
             const existingDetails = JSON.parse(this.customerInfo.data);
-            existingDetails['reviewDate'] = data;
-            this.customerInfo.data = JSON.stringify(existingDetails);
+            if (ObjectUtil.isEmpty(existingDetails)) {
+                const testData = {
+                    reviewDate: data
+                };
+                this.customerInfo.data = JSON.stringify(testData);
+                /*existingDetails = '';
+                existingDetails['reviewDate'] = data;*/
+            } else {
+                existingDetails['reviewDate'] = data;
+                this.customerInfo.data = JSON.stringify(existingDetails);
+
+            }
             this.customerInfoService.save(this.customerInfo).subscribe((res) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved review dates'));
                     this.triggerCustomerRefresh.emit(true);
