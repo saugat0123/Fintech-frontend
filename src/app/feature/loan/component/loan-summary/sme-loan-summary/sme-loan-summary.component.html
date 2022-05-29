@@ -131,12 +131,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
-                <div class="col-md-6">
-                    <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
-                            (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
-                </div>
-            </div>
 
             <hr class="print-line disable-print">
             <ng-container>
@@ -173,12 +167,13 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
-                <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
+<!--            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">-->
+                <app-executive-summary-sme [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [isDetailedView]="isDetailedView"
                                            [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
-            </ng-container>
+<!--            </ng-container>-->
+            <div class="breakPagePrint disable-print"></div>
             <ng-container *ngIf="isSaneView">
                 <div class="row">
                     <div class="col-md-12">
@@ -325,19 +320,21 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="isUpToTenMillion">
-                <app-upto-ten-million [loanDataHolder]="loanDataHolder"
+<!--            <ng-container *ngIf="isUpToTenMillion">-->
+                <app-upto-ten-million *ngIf="isUpToTenMillion"
+                                      [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
                                       [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
-            </ng-container>
-            <ng-container *ngIf="isAboveTenMillion">
-                <app-above-ten-million [loanDataHolder]="loanDataHolder"
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="isAboveTenMillion">-->
+                <app-above-ten-million *ngIf="isAboveTenMillion"
+                                       [loanDataHolder]="loanDataHolder"
                                        [customerAllLoanList]="customerAllLoanList"
                                        [isDetailedView]="isDetailedView"
                                        [fiscalYear]="fiscalYearArray"></app-above-ten-million>
-            </ng-container>
+<!--            </ng-container>-->
         </nb-card-body>
     </nb-card>
 </section>

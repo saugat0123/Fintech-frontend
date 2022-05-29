@@ -186,4 +186,8 @@
   td {
     font-weight: bold !important;
   }
+
+  .breakPagePrint {
+    page-break-after: always !important;
+  }
 }

@@ -244,7 +244,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loanDataHolder = this.loanData;
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
-    this.approveAuth = this.data.approvingAuthority;
+    if (!ObjectUtil.isEmpty(this.data)) {
+      this.approveAuth = this.data.approvingAuthority;
+    }
     // if (this.loanDataHolder.loanCategory === 'INSTITUTION' &&
     //     !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
     //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -258,6 +260,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+    this.detailViewCheck();
 
   }
 
@@ -470,7 +473,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       isStaged: 'true',
     };
     this.customerLoanService.getAllWithSearch(search).toPromise().then((res: any) => {
-        this.loaded = true;
+        // this.loaded = true;
+          console.log('I am here');
         this.customerAllLoanList = res.detail;
         // push current loan if not fetched from staged spec response
         if (ObjectUtil.isEmpty(this.requestedLoanType)) {
@@ -835,20 +839,27 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   detailViewCheck() {
-    if (this.isDetailedView) {
-      this.isDetailedView = false;
-      this.isSaneView = false;
-      this.isAboveTenMillion = false;
-      this.isUpToTenMillion = false;
+    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
+      this.isSaneView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
+      this.isUpToTenMillion = true;
     } else {
-      this.isDetailedView = true;
-      if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-        this.isSaneView = true;
-      } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-        this.isUpToTenMillion = true;
-      } else {
-        this.isAboveTenMillion = true;
-      }
+      this.isAboveTenMillion = true;
     }
+    // if (this.isDetailedView) {
+    //   this.isDetailedView = false;
+    //   this.isSaneView = false;
+    //   this.isAboveTenMillion = false;
+    //   this.isUpToTenMillion = false;
+    // } else {
+    //   this.isDetailedView = true;
+    //   if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
+    //     this.isSaneView = true;
+    //   } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
+    //     this.isUpToTenMillion = true;
+    //   } else {
+    //     this.isAboveTenMillion = true;
+    //   }
+    // }
   }
 }
