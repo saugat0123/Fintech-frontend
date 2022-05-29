@@ -141,6 +141,7 @@ export class ProposalComponent implements OnInit {
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
     customerType: any;
+    collateral = ['With Collateral', 'Without Collateral'];
     defaultCompliance = '<p><strong>Repayment:</strong></p>\n\n<p>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;&hellip; equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown. The client shall serve interest on the loan outstanding during the first month, calculated on a daily debit outstanding from the date of disbursement.</p>\n\n<p>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The above mentioned loan when repaid in part or full shall not be reinstated by the extent of the amount repaid/settled.</p>\n\n<p><strong>Mode of Disbursemet:</strong></p>\n\n<p>The loan shall be disbursed as under:</p>\n\n<ul>\n\t<li>We shall disburse loan amount of NPR &hellip;&hellip;&hellip;.. Mio or &hellip;&hellip;&hellip;.% of FMV of the real estate collateral whichever is lower by crediting the current account of Mr. &hellip;&hellip;&hellip;&hellip;&hellip;.. maintained at &hellip;&hellip;&hellip;&hellip;&hellip;. Branch or issued Managers Cheque in the name of Seller or as per request of the applicant upon completion of security documents</li>\n\t<li>Execution of all the security documents including mortgaged of proposed collateral.</li>\n</ul>\n\n<p>Letter of undertaking to the seller shall be issued at the request of buyer.</p>\n\n<p>Completion of security documentations</p>\n';
 
     constructor(private formBuilder: FormBuilder,
@@ -401,6 +402,7 @@ export class ProposalComponent implements OnInit {
             strCharge: [undefined],
             AdminFee: [undefined],
             other: [undefined],
+            collateral: [undefined],
 
     });
     }
@@ -641,6 +643,7 @@ export class ProposalComponent implements OnInit {
                   this.proposalForm.get('yesNo3').patchValue(null);
                   this.proposalForm.get('yesNo4').patchValue(null);
                   this.proposalForm.get('yesNo5').patchValue(null);
+                  this.proposalForm.get('collateral').patchValue(null);
                 }
                 break;
         }
