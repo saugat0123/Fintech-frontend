@@ -205,7 +205,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.currentStage = ObjectUtil.isEmpty(this.loanDataHolder.currentStage) ? '' : this.loanDataHolder.currentStage;
         this.securityLandDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? [] :
             JSON.parse(this.loanDataHolder.security.data).initialForm.landDetails;
-        console.log('loan data holder: ', this.loanDataHolder);
         this.proposalDuration = ObjectUtil.isEmpty(this.loanDataHolder.proposal.duration) ? '....................' :
             this.loanDataHolder.proposal.duration;
         this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' :
