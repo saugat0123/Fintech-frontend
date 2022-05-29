@@ -1,10 +1,8 @@
-import { MGroup } from './../../../../customer/model/mGroup';
-import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerLoanDto} from '../../../model/customerLoanDto';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
-import {SecurityInitialFormComponent} from '../../../../loan-information-template/security/security-initial-form/security-initial-form.component';
 
 @Component({
     selector: 'app-credit-facility-report',
@@ -41,6 +39,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     totalBuildingDv = 0;
     totalLandAndBuildingMv = 0;
     totalLandAndBuildingDv = 0;
+
     constructor() {
     }
 
@@ -193,6 +192,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             });
         }
     }
+
     patchValues() {
         this.nrbSectorCodes = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) ? [] : this.loanDataHolder.loanHolder.reportingInfoLevels;
         this.securityDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? '' : JSON.parse(this.loanDataHolder.security.data);
@@ -209,18 +209,19 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.loanDataHolder.proposal.duration;
         this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' :
             JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
-            this.calculateLandSecurityTotal();
-            this.calculateBuildingSecurityTotal();
-            this.calculateLandAndBuildingSecurityTotal();
+        this.calculateLandSecurityTotal();
+        this.calculateBuildingSecurityTotal();
+        this.calculateLandAndBuildingSecurityTotal();
     }
-    //Total Market Value Calculation for Land Security
+
+    // Total Market Value Calculation for Land Security
     calculateLandSecurityTotal() {
-        let marketValues = []
-        let distressValues = [];
+        const marketValues = [];
+        const distressValues = [];
         if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
-            for (let x of this.securityDetails.initialForm.landDetails) {
-                marketValues.push(Number(x.marketValue))
-                distressValues.push(Number(x.distressValue))
+            for (const x of this.securityDetails.initialForm.landDetails) {
+                marketValues.push(Number(x.marketValue));
+                distressValues.push(Number(x.distressValue));
             }
             for (let i = 0; i < marketValues.length; i++) {
                 this.totalLandMv += marketValues[i];
@@ -228,32 +229,36 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             }
         }
     }
-    //Total Market Value Calculation for Aparment/Building Security
+
+    // Total Market Value Calculation for Aparment/Building Security
     calculateBuildingSecurityTotal() {
-        let marketValues = []
-        let distressValues = []
+        const marketValues = [];
+        const distressValues = [];
         if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
-            for (let x of this.securityDetails.initialForm.buildingDetails) {
-                marketValues.push(Number(x.buildingFairMarketValue))
-                distressValues.push(Number(x.buildingDistressValue))
+            for (const x of this.securityDetails.initialForm.buildingDetails) {
+                marketValues.push(Number(x.buildingFairMarketValue));
+                distressValues.push(Number(x.buildingDistressValue));
             }
             for (let i = 0; i < marketValues.length; i++) {
                 this.totalBuildingMv += marketValues[i];
                 this.totalBuildingDv += distressValues[i];
-            }}
+            }
+        }
     }
-    //Total Market Value Calculation for Land and Building Security
+
+    // Total Market Value Calculation for Land and Building Security
     calculateLandAndBuildingSecurityTotal() {
-        let marketValues = []
-        let distressValues = []
+        const marketValues = [];
+        const distressValues = [];
         if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
-            for (let x of this.securityDetails.initialForm.landBuilding) {
-                marketValues.push(Number(x.marketValue))
-                distressValues.push(Number(x.distressValue))
+            for (const x of this.securityDetails.initialForm.landBuilding) {
+                marketValues.push(Number(x.marketValue));
+                distressValues.push(Number(x.distressValue));
             }
             for (let i = 0; i < marketValues.length; i++) {
                 this.totalLandAndBuildingMv += marketValues[i];
                 this.totalLandAndBuildingDv += distressValues[i];
-            }}
+            }
+        }
     }
 }
