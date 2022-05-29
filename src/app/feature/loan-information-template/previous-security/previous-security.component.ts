@@ -19,7 +19,7 @@ export class PreviousSecurityComponent implements OnInit {
     ckeConfig;
     submitted = false;
     previousSecurityFormGroup: FormGroup;
-    securityDataObject = new Comments();
+    securityDataObject: PreviousSecurity = new Comments();
     checked = false;
 
     constructor(private formBuilder: FormBuilder,
