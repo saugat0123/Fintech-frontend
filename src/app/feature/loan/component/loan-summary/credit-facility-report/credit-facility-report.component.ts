@@ -41,6 +41,8 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     totalBuildingDv = 0;
     totalLandAndBuildingMv = 0;
     totalLandAndBuildingDv = 0;
+    nextReview;
+
     constructor() {
     }
 
@@ -213,6 +215,11 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.calculateLandSecurityTotal();
             this.calculateBuildingSecurityTotal();
             this.calculateLandAndBuildingSecurityTotal();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            const nextReviewDate = JSON.parse(this.loanDataHolder.loanHolder.data);
+            this.nextReview = nextReviewDate.reviewDate;
+        }
+
     }
     //Total Market Value Calculation for Land Security
     calculateLandSecurityTotal() {
