@@ -711,7 +711,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
-            this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+            // this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
         }
     }
 
@@ -754,18 +754,18 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     saveCommonLoanData() {
         this.spinner.show();
-        const mergeChecked = {
-            swapChargeChecked: this.swapChargeChecked,
-            subsidizedLoanChecked: this.subsidizedLoanChecked,
-            commitmentChecked: this.commitmentChecked,
-            swapDoubleChargeChecked: this.swapDoubleChargeChecked,
-            prepaymentChargeChecked: this.prepaymentChargeChecked,
-            purposeChecked: this.purposeChecked,
-            netChecked: this.netChecked,
-        };
-        this.commonLoanData.patchValue({
-            mergedCheck: JSON.stringify(mergeChecked)
-        });
+        // const mergeChecked = {
+        //     swapChargeChecked: this.swapChargeChecked,
+        //     subsidizedLoanChecked: this.subsidizedLoanChecked,
+        //     commitmentChecked: this.commitmentChecked,
+        //     swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+        //     prepaymentChargeChecked: this.prepaymentChargeChecked,
+        //     purposeChecked: this.purposeChecked,
+        //     netChecked: this.netChecked,
+        // };
+        // this.commonLoanData.patchValue({
+        //     mergedCheck: JSON.stringify(mergeChecked)
+        // });
         this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
         this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));

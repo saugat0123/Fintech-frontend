@@ -12,11 +12,14 @@ export class RetailPurposeAndJustificationComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() proposalData: Proposal;
   proposalAllData;
+  checkedData;
   constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.proposalData)) {
       this.proposalAllData = JSON.parse(this.proposalData.data);
+      this.checkedData = JSON.parse(this.proposalData.checkedData);
+      console.log('checkedData', this.checkedData);
     }
   }
 }

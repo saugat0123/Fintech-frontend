@@ -118,8 +118,10 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
                 }
             }
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup)) {
-                this.companyGroup = JSON.parse(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup);
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo)) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup)) {
+                    this.companyGroup = JSON.parse(this.loanDataHolder.loanHolder.mgroupInfo.companyGroup);
+                }
             }
             this.getAllLoans(this.loanHolder.id);
             if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&

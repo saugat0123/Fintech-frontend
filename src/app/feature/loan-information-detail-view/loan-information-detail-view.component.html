@@ -247,7 +247,6 @@
                             <div class="col-md-6 gauge-label-padding">
                                 <div class="vertical-line">
                                     <div class="text-left pl-2">
-                                        <h5>Gamma</h5><br>
                                         Credit Risk Grade:
                                         <span [class]="crgGammaGradeStatusBadge">
                                                 {{crgGammaGrade | titlecase}}</span>
@@ -272,7 +271,7 @@
                             </div>
                             <div class="col-md-6 text-right">
                                 <p><strong>Late Date of Inspection: </strong>................</p>
-                                <p><strong>Group: </strong>NA</p>
+                                <p><strong>Group (Name/Code): </strong>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}/ {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>
                             </div>
                         </div>
                     </li>
@@ -408,7 +407,7 @@
                                 <p>Amount in NPR Million</p>
                             </div>
                         </div>
-                        <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
+                        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
                     <li>

@@ -1,62 +1,64 @@
 <p [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></p>
-<p class="font-weight-bold mt-3" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">(If incase the Borrower is first home buyer)</p>
-<p *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Mr/Mrs. <span [innerHTML]="loanDataHolder?.loanHolder?.name || 'N/A' | safeHtml"></span> is first home buyer. As per the NRB circular we can finance upto 70%. But we are financing only
-    <span [innerHTML]="proposalAllData?.financingPerOfFmv || 'N/A' | safeHtml"></span>% of FMV.</p>
-<p *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Note: As per Unified NRB Directive 3/076, clause number 10, drawdown has been allowed up to 70% is allowed in case of fulfillment of below mentioned criteria;</p>
-<table class="table table-bordered sb-small" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">
-    <tr class="sb-bg-dark text-white">
-        <th>S.N</th>
-        <th>Particulars</th>
-        <th>Yes/No</th>
-    </tr>
-    <tr>
-        <td>1.</td>
-        <td>Area of the House / Apartment to be purchased or constructed shall not be exceeded by 3,000 square feet. Also house /Apartment to be purchased or constructed shall be occupied solely by the borrower?</td>
-        <td><span [innerHTML]="proposalAllData?.yesNo1 || 'N/A' | safeHtml"></span>
-            <!--<nb-radio-group name="question1">
-                <nb-radio>Yes</nb-radio>
-                <nb-radio>No</nb-radio>
-            </nb-radio-group>-->
-        </td>
-    </tr>
-    <tr>
-        <td>2.</td>
-        <td>Has the borrower availed any loan to buy or construct a house or apartment before form any Bank or Financial Institutions (BFI’s)?</td>
-        <td><span [innerHTML]="proposalAllData?.yesNo2 || 'N/A' | safeHtml"></span>
-            <!--<nb-radio-group name="question2">
-                <nb-radio>Yes</nb-radio>
-                <nb-radio>No</nb-radio>
-            </nb-radio-group>-->
-        </td>
-    </tr>
-    <tr>
-        <td>3.</td>
-        <td>Rented income considered for repayment purpose?</td>
-        <td><span [innerHTML]="proposalAllData?.yesNo3 || 'N/A' | safeHtml"></span>
-            <!--<nb-radio-group name="question3">
-                <nb-radio>Yes</nb-radio>
-                <nb-radio>No</nb-radio>
-            </nb-radio-group>-->
-        </td>
-    </tr>
-    <tr>
-        <td>4.</td>
-        <td>Monthly installments shall remain same even after increase in interest rate in future and repayment modality will be structured accordingly. This debt covenant shall be included in Offer Letter.</td>
-        <td><span [innerHTML]="proposalAllData?.yesNo4 || 'N/A' | safeHtml"></span>
-            <!--<nb-radio-group name="question4">
-                <nb-radio>Yes</nb-radio>
-                <nb-radio>No</nb-radio>
-            </nb-radio-group>-->
-        </td>
-    </tr>
-    <tr>
-        <td>5.</td>
-        <td>Checklist regarding above clauses (1-3) has been duly filled by borrower</td>
-        <td><span [innerHTML]="proposalAllData?.yesNo5 || 'N/A' | safeHtml"></span>
-            <!--<nb-radio-group name="question5">
-                <nb-radio>Yes</nb-radio>
-                <nb-radio>No</nb-radio>
-            </nb-radio-group>-->
-        </td>
-    </tr>
-</table>
+<span *ngIf="checkedData?.firstTimeHomeBuyerChecked">
+    <p class="p-0 m-0" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Mr/Mrs. <span [innerHTML]="loanDataHolder?.loanHolder?.name || 'N/A' | safeHtml"></span> is first home buyer. As per the NRB circular we can finance upto 70%. But we are financing only
+        <span [innerHTML]="proposalAllData?.financingPerOfFmv || 'N/A' | safeHtml"></span>% of FMV.</p>
+    <p class="p-0 m-0" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">Note: As per Unified NRB Directive 3/076, clause number 10, drawdown has been allowed up to 70% is allowed in case of fulfillment of below mentioned criteria</p>
+    <table class="table table-bordered sb-small" *ngIf="loanDataHolder?.loan?.loanTag === 'HOME_LOAN'">
+        <tr class="sb-bg-dark text-white">
+            <th>S.N</th>
+            <th>Particulars</th>
+            <th>Yes/No</th>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td>Area of the House / Apartment to be purchased or constructed shall not be exceeded by 3,000 square feet. Also house /Apartment to be purchased or constructed shall be occupied solely by the borrower?</td>
+            <td><span [innerHTML]="proposalAllData?.yesNo1 || 'N/A' | safeHtml"></span>
+                <!--<nb-radio-group name="question1">
+                    <nb-radio>Yes</nb-radio>
+                    <nb-radio>No</nb-radio>
+                </nb-radio-group>-->
+            </td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Has the borrower availed any loan to buy or construct a house or apartment before form any Bank or Financial Institutions (BFI’s)?</td>
+            <td><span [innerHTML]="proposalAllData?.yesNo2 || 'N/A' | safeHtml"></span>
+                <!--<nb-radio-group name="question2">
+                    <nb-radio>Yes</nb-radio>
+                    <nb-radio>No</nb-radio>
+                </nb-radio-group>-->
+            </td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Rented income considered for repayment purpose?</td>
+            <td><span [innerHTML]="proposalAllData?.yesNo3 || 'N/A' | safeHtml"></span>
+                <!--<nb-radio-group name="question3">
+                    <nb-radio>Yes</nb-radio>
+                    <nb-radio>No</nb-radio>
+                </nb-radio-group>-->
+            </td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Monthly installments shall remain same even after increase in interest rate in future and repayment modality will be structured accordingly. This debt covenant shall be included in Offer Letter.</td>
+            <td><span [innerHTML]="proposalAllData?.yesNo4 || 'N/A' | safeHtml"></span>
+                <!--<nb-radio-group name="question4">
+                    <nb-radio>Yes</nb-radio>
+                    <nb-radio>No</nb-radio>
+                </nb-radio-group>-->
+            </td>
+        </tr>
+        <tr>
+            <td>5.</td>
+            <td>Checklist regarding above clauses (1-3) has been duly filled by borrower</td>
+            <td><span [innerHTML]="proposalAllData?.yesNo5 || 'N/A' | safeHtml"></span>
+                <!--<nb-radio-group name="question5">
+                    <nb-radio>Yes</nb-radio>
+                    <nb-radio>No</nb-radio>
+                </nb-radio-group>-->
+            </td>
+        </tr>
+    </table>
+</span>
+
