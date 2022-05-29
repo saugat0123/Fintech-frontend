@@ -585,9 +585,16 @@
                                     </table>
                                 </div>
                                 <div class="col-md-12" *ngIf="isHomeLoan">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
-                                                 [checked]="firstTimeHomeBuyerChecked"><b>First time home buyer</b>
+                                    <nb-checkbox class="title" (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
+                                                 [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First Time Home Buyer</strong>
                                     </nb-checkbox>
+                                    <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
+                                        <nb-radio-group class="d-flex" formControlName="collateral" id="collateral">
+                                            <nb-radio *ngFor="let col of collateral"
+                                                      [value]="col">
+                                                {{col}}</nb-radio>
+                                        </nb-radio-group>
+                                    </div>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
                                         <p><i>Note: As per Unified NRB Directive 3/076, clause number 10, drawdown
                                             has been allowed up to 70% is allowed in case of fulfillment of below

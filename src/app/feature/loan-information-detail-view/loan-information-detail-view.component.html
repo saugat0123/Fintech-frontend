@@ -267,7 +267,7 @@
                     <li>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Date of Association: </strong>New Client</p>
+                                <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate:false}})</p>
                             </div>
                             <div class="col-md-6 text-right">
                                 <p><strong>Late Date of Inspection: </strong>................</p>
@@ -311,7 +311,7 @@
                                                               [loanDataHolder]="loanDataHolder"
                                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
                     </li>
-                    <li>
+                    <li *ngIf="loanHolder?.financial">
                         <div class="row">
                             <div class="col-md-6">
                                 <p><strong>Source of Repayment :</strong></p>
@@ -357,12 +357,12 @@
                     <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
                         <p><strong>Regularity of payments: {{commonLoanData?.regularityOfPayments}}</strong></p>
                     </li>
-                    <li>
+                    <li *ngIf="loanHolder?.incomeFromAccount">
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                                          [formData]="loanHolder?.incomeFromAccount">
                         </app-income-from-account-summery>
                     </li>
-                    <li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.riskAnalysis">
                         <p><strong>Risks Analysis</strong></p>
                         <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis"
                                                  [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
@@ -378,7 +378,7 @@
                             Share)</strong>
                             <span [innerHTML]="proposalData?.debtStructure | safeHtml"></span>
                     </li>
-                    <li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl">
                         <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
                         <app-above-banking-arrangement-of-the-customer
                                 *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
@@ -398,7 +398,7 @@
                         <p><strong>Recommendation: </strong></p>
                         <app-retail-recommendation [loanDataHolder]="loanDataHolder"></app-retail-recommendation>
                     </li>
-                    <li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.security">
                         <div class="row">
                             <div class="col-md-6">
                                 <p><strong>Security (to be obtained)</strong></p>
@@ -410,19 +410,13 @@
                         <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
-                    <li>
-                        <!--                        <div class="row">-->
-                        <!--                            <div class="col-md-6">-->
-                        <!--                        <p class="float-left col-md-12">-->
-                        <!--                            <strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
+                    <li *ngIf="loanHolder?.financial">
                         <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
                         <app-financial-view *ngIf="loanHolder?.financial"
                                             [customerType]="loanHolder?.customerType"
                                             [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
-                    <li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [fromProfile]="false"
@@ -436,13 +430,6 @@
                     </div>
                 </ol>
             </div>
-            <!--            <app-detail-view-base *ngIf="loanHolder"-->
-            <!--                                  [calendarType]="calendarType"-->
-            <!--                                  [loanDataHolder]="loanDataHolder"-->
-            <!--                                  [loanHolder]="loanHolder"-->
-            <!--                                  [loanId]="id"-->
-            <!--                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>-->
-
             <ng-template #allDocumentView>
                 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                                        [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
