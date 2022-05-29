@@ -26,49 +26,30 @@
                 <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(15,16)}}</td>
                 <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(16,17)}}</td>
             </tr>
-        </table>
-        <table class="table table-bordered mt-3">
             <tr>
-                <td style="width: 30%">Customer & Address:</td>
-                <td style="width: 20%">Obligor Group & Location</td>
-                <td style="width: 30%;" colspan="2">Risk Grade: <span
-                        class="font-weight-bold">{{riskGrade?.totalPoint}}</span></td>
+                <td colspan="2" rowspan="2"><strong>Customer & Address</strong>
+                    <br>{{loanDataHolder?.loanHolder.name}}
+                    <br><strong>Permanent Address</strong>
+                    <br><strong>Temporary Address</strong>
+                    <br><strong>Pan Number</strong>
+                    <br><strong>Mobile Number</strong>
+                    <br>{{loanDataHolder?.customerInfo?.landLineNumber}}
+                </td>
+                <td><strong> Obligor Group & Location</strong></td>
+                <td colspan="15"><strong>Risk Grade: </strong><span>{{riskGrade?.totalPoint}}</span>
+                </td>
             </tr>
             <tr>
-                <td>Name: Mr./Mrs./Ms <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></td>
-                <td rowspan="7">Name: to be Created</td>
-            </tr>
-            <tr>
-                <td>Permanent Address: <span class="font-weight-bold">
-                        {{loanDataHolder?.customerInfo?.province?.name}}
-                        , {{loanDataHolder?.customerInfo?.district?.name}},
-                        {{loanDataHolder?.customerInfo?.municipalities?.name}}
-                        , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
-                <td rowspan="3">
-                    <app-report-summary [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                <td> </td>
+                <td colspan="15"> <app-report-summary [approved]="false"
+                                                      *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                                                      [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
                     <strong>MIS Reporting Info</strong>
                     <app-report-summary [approved]="false"
-                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-                    <!-- <span class="font-weight-bold"
-                        *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container
-                            *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container>
-                    </span> (Others) -->
+                                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+                </td>
             </tr>
-            <tr>
-                <td>Current Address: <span class="font-weight-bold">
-                        {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
-                        , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
-                        {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
-                        , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</span></td>
-            </tr>
-            <tr>
-                <td>Contact Number: <span
-                        class="font-weight-bold">{{loanDataHolder?.customerInfo?.contactNumber}}</span></td>
-            </tr>
-
         </table>
     </div>
 
@@ -79,53 +60,13 @@
     </div>
 
     <div class="col-md-12">
-        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
-        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+        <p><strong>Security (to be obtained)</strong></p>
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
+                             [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
     </div>
 
     <div class="col-md-12">
-        <table class="table table-responsive-md table-bordered table-condensed mt-n3">
-            <tr>
-                <td></td>
-                <td> Documentation Required:<br>
-                    <ol class="guarantorsList">
-                        <li>Offer Letter</li>
-                        <li>Mortgage Deed</li>
-                        <li>Loan Deed covering <span class="font-weight-bold">{{proposedLimit | currency:"NPR "}}</span>
-                            Million</li>
-                        <li>Promissory Note covering <span class="font-weight-bold">{{proposedLimit |
-                                currency:"NPR "}}</span> Million
-                        </li>
-                        <li>Letter of Continuity</li>
-                        <li *ngFor="let guarantor of guarantorsList">Personal Guarantee of
-                            {{loanDataHolder.loanHolder.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}} <span
-                                class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
-                            (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
-                                '...............'}}</span> of the borrower) of
-                            <span class="font-weight-bold">{{guarantor ? (guarantor?.guaranteeAmount |
-                                currency:'NPR ':'symbol') : '...............'}}</span>
-                            Million
-                            <!-- {{guarantor?.netWorth | currency:"NPR "}} -->
-                        </li>
-                        <li *ngFor="let guarantor of guarantorsList">Consent of Mr./Mrs./Ms <span
-                                class="font-weight-bold">{{guarantor?.name}}</span>
-                            (<span class="font-weight-bold">{{guarantor?.relationship}}</span> of the borrower)**</li>
-                        <li>Consent for Blacklist from the borrower & guarantors as per NRB Directives</li>
-                    </ol>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><br>Special Instructions: <strong>Base rate: <span class="font-weight-bold">{{proposalData ?
-                            proposalData?.baseRate : '.................'}}</span> % as of
-                        ....................
-                    </strong>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>NB: All figures are in Nepalese Currency and denominated in millions.</td>
-            </tr>
-        </table>
+        <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
+        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
     </div>
 </div>

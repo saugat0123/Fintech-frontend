@@ -297,7 +297,7 @@ export class UIComponent implements OnInit, DoCheck {
                     other.loanTagList.indexOf(value);
                 }
             });
-            other.loanTagList.splice(index, 1);
+
     }
 
     ngOnInit() {
