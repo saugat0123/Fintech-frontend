@@ -431,6 +431,9 @@
                     <li>
                         <app-authority-section [loanDataHolder]="loanDataHolder"></app-authority-section>
                     </li>
+                    <li *ngIf="loanDataHolder?.insurance">
+                        <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                    </li>
                     <div>
                         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                     </div>
