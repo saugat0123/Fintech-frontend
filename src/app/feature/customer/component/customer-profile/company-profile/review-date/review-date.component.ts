@@ -28,7 +28,7 @@ export class ReviewDateComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
-      this.form.patchValue(JSON.parse(this.customerInfo));
+      this.form.patchValue(this.customerInfo);
     }
   }
   buildForm() {
@@ -45,7 +45,7 @@ export class ReviewDateComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.submitData = this.customerInfo;
     }
-    this.submitData = JSON.stringify(this.form.value);
+    this.submitData = this.form.value;
     this.overlay.hide();
     this.reviewDataEmitter.emit(this.submitData);
   }

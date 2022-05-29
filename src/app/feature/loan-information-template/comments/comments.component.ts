@@ -22,6 +22,7 @@ export class CommentsComponent implements OnInit {
   auditor;
   ckeConfig = Editor.CK_CONFIG;
   default_table: any;
+  tempReviewDate;
   constructor(private formBuilder: FormBuilder,
               private overlay: NgxSpinnerService) { }
 
@@ -62,6 +63,9 @@ export class CommentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.commentData)) {
       const commentsForEdit = JSON.parse(this.commentData);
       this.setFormData(commentsForEdit.data);
+      if (!ObjectUtil.isEmpty(commentsForEdit.reviewDate)) {
+        this.tempReviewDate = commentsForEdit.reviewDate;
+      }
       if (ObjectUtil.isEmpty(commentsForEdit.data)) {
         this.commentsAccordionFormGroup.get('previousCommentsDetailView').patchValue(this.default_table);
         this.commentsAccordionFormGroup.get('auditorCommentsDetailView').patchValue(this.default_table);
@@ -95,6 +99,7 @@ export class CommentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
       this.commentsDataObject = this.commentsDataResponse;
     }
+    this.commentsDataObject.reviewDate = this.tempReviewDate;
     this.commentsDataObject.data = JSON.stringify(this.commentsAccordionFormGroup.value);
     this.commentsDataEmitter.emit(this.commentsDataObject);
   }
