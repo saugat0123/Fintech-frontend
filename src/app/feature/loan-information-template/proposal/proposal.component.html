@@ -584,6 +584,93 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="col-md-12" *ngIf="isHomeLoan">
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
+                                                 [checked]="firstTimeHomeBuyerChecked"><b>First time home buyer</b>
+                                    </nb-checkbox>
+                                    <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
+                                        <p><i>Note: As per Unified NRB Directive 3/076, clause number 10, drawdown
+                                            has been allowed up to 70% is allowed in case of fulfillment of below
+                                            mentioned criteria;</i></p>
+                                        <table class="table table-bordered table-responsive table-hover"
+                                               style="overflow-x: hidden">
+                                            <thead class="font-weight-bold">
+                                            <tr>
+                                                <td>S.N</td>
+                                                <td>Particulars</td>
+                                                <td>YES</td>
+                                                <th>NO</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1.</td>
+                                                <td>
+                                                    Area of the House / Apartment to be purchased or constructed
+                                                    shall not be exceeded by 3,000 square feet. Also house
+                                                    /Apartment to be purchased or constructed shall be occupied
+                                                    solely by the borrower?
+                                                </td>
+                                                <td *ngFor="let ans of yesNo">
+                                                    <input [value]="ans?.value"
+                                                           formControlName="yesNo1"
+                                                           type="radio">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2.</td>
+                                                <td>
+                                                    Has the borrower availed any loan to buy or construct a house or
+                                                    apartment before form any Bank or Financial Institutions
+                                                    (BFI’s)?
+                                                </td>
+                                                <td *ngFor="let ans of yesNo">
+                                                    <input [value]="ans?.value"
+                                                           formControlName="yesNo2"
+                                                           type="radio">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3.</td>
+                                                <td>
+                                                    Rented income considered for repayment purpose?
+                                                </td>
+                                                <td *ngFor="let ans of yesNo">
+                                                    <input [value]="ans?.value"
+                                                           formControlName="yesNo3"
+                                                           type="radio">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4.</td>
+                                                <td>
+                                                    Monthly installments shall remain same even after increase in
+                                                    interest rate in future and repayment modality will be
+                                                    structured accordingly. This debt covenant shall be included in
+                                                    Offer Letter
+                                                </td>
+                                                <td *ngFor="let ans of yesNo">
+                                                    <input [value]="ans?.value"
+                                                           formControlName="yesNo4"
+                                                           type="radio">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.</td>
+                                                <td>
+                                                    Checklist regarding above clauses (1-3) has been duly filled by
+                                                    borrower
+                                                </td>
+                                                <td *ngFor="let ans of yesNo">
+                                                    <input [value]="ans?.value"
+                                                           formControlName="yesNo5"
+                                                           type="radio">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <ng-container *ngIf="!fromProfile">
 
                                     <div class="col-md-12">
@@ -633,95 +720,6 @@
                                                     [config]="ckeConfig"></ckeditor>
                                         </div>
                                     </div>
-                                    <div class="col-md-12" *ngIf="isHomeLoan">
-                                        <div class="form-group">
-                                            <p><i>Note: As per Unified NRB Directive 3/076, clause number 10, drawdown
-                                                has been allowed up to 70% is allowed in case of fulfillment of below
-                                                mentioned criteria;</i></p>
-                                            <table class="table table-bordered table-responsive table-hover"
-                                                   style="overflow-x: hidden">
-                                                <thead class="font-weight-bold">
-                                                <tr>
-                                                    <td>S.N</td>
-                                                    <td>Particulars</td>
-                                                    <td>YES</td>
-                                                    <th>NO</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>
-                                                        Area of the House / Apartment to be purchased or constructed
-                                                        shall not be exceeded by 3,000 square feet. Also house
-                                                        /Apartment to be purchased or constructed shall be occupied
-                                                        solely by the borrower?
-                                                    </td>
-                                                    <td *ngFor="let ans of yesNo">
-                                                        <input [value]="ans?.value"
-                                                               formControlName="yesNo1"
-                                                               type="radio">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>
-                                                        Has the borrower availed any loan to buy or construct a house or
-                                                        apartment before form any Bank or Financial Institutions
-                                                        (BFI’s)?
-                                                    </td>
-                                                    <td *ngFor="let ans of yesNo">
-                                                        <input [value]="ans?.value"
-                                                               formControlName="yesNo2"
-                                                               type="radio">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3.</td>
-                                                    <td>
-                                                        Rented income considered for repayment purpose?
-                                                    </td>
-                                                    <td *ngFor="let ans of yesNo">
-                                                        <input [value]="ans?.value"
-                                                               formControlName="yesNo3"
-                                                               type="radio">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4.</td>
-                                                    <td>
-                                                        Monthly installments shall remain same even after increase in
-                                                        interest rate in future and repayment modality will be
-                                                        structured accordingly. This debt covenant shall be included in
-                                                        Offer Letter
-                                                    </td>
-                                                    <td *ngFor="let ans of yesNo">
-                                                        <input [value]="ans?.value"
-                                                               formControlName="yesNo4"
-                                                               type="radio">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5.</td>
-                                                    <td>
-                                                        Checklist regarding above clauses (1-3) has been duly filled by
-                                                        borrower
-                                                    </td>
-                                                    <td *ngFor="let ans of yesNo">
-                                                        <input [value]="ans?.value"
-                                                               formControlName="yesNo5"
-                                                               type="radio">
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-
-
-
                                     <div class="col-md-12 form-group">
                                         <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
                                         <div>

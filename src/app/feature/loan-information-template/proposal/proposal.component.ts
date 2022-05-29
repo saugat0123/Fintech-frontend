@@ -57,7 +57,6 @@ export class ProposalComponent implements OnInit {
     allId: Params;
     loanId: number;
     solChecked = false;
-    waiverChecked = false;
     deviationChecked = false;
     riskChecked = false;
     checkedDataEdit;
@@ -88,7 +87,6 @@ export class ProposalComponent implements OnInit {
     legalDocs;
     commitmentChecked = false;
     swapDoubleChargeChecked = false;
-    prepaymentChargeChecked = false;
     purposeChecked = false;
     debtChecked = false;
     netChecked = false;
@@ -295,7 +293,7 @@ export class ProposalComponent implements OnInit {
         }
         this.setCollateralRequirement(this.collateralRequirement);
         // this.checkLoanConfig();
-        this.setValidatorForPrepaymentField();
+        // this.setValidatorForPrepaymentField();
         if (ObjectUtil.isEmpty(this.formDataForEdit)) {
             // this.existInterestLimit = this.loan.existInterestRate;
 
@@ -487,10 +485,8 @@ export class ProposalComponent implements OnInit {
                 riskChecked: this.riskChecked,
                 swapChargeChecked: this.swapChargeChecked,
                 subsidizedLoanChecked: this.subsidizedLoanChecked,
-                deviationChecked: this.deviationChecked,
                 commitmentChecked: this.commitmentChecked,
                 swapDoubleChargeChecked: this.swapDoubleChargeChecked,
-                prepaymentChargeChecked: this.prepaymentChargeChecked,
                 purposeChecked: this.purposeChecked,
                 debtChecked: this.debtChecked,
                 netChecked: this.netChecked,
@@ -510,6 +506,19 @@ export class ProposalComponent implements OnInit {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
             }
+            const mergeChecked = {
+                solChecked: this.solChecked,
+                riskChecked: this.riskChecked,
+                swapChargeChecked: this.swapChargeChecked,
+                subsidizedLoanChecked: this.subsidizedLoanChecked,
+                commitmentChecked: this.commitmentChecked,
+                swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+                purposeChecked: this.purposeChecked,
+                debtChecked: this.debtChecked,
+                netChecked: this.netChecked,
+                firstTimeHomeBuyerChecked: this.firstTimeHomeBuyerChecked
+            };
+            this.proposalData.checkedData = JSON.stringify(mergeChecked);
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
             this.spinner.show();
@@ -570,14 +579,6 @@ export class ProposalComponent implements OnInit {
                     this.proposalForm.get('solConclusionRecommendation').setValue(null);
                 }
                 break;
-            case 'waiver':
-                if (event) {
-                    this.waiverChecked = true;
-                } else {
-                    this.waiverChecked = false;
-                    this.proposalForm.get('waiverConclusionRecommendation').setValue(null);
-                }
-                break;
             case 'risk':
                 if (event) {
                     this.riskChecked = true;
@@ -608,25 +609,6 @@ export class ProposalComponent implements OnInit {
                     this.swapChargeVar = true;
                 } else {
                     this.swapChargeVar = false;
-                    // this.proposalForm.get('subsidizedLoan').setValue(null);
-                    // this.proposalForm.get('subsidyLoanType').setValue(null);
-                }
-                break;
-            case 'subsidizedLoan':
-                if (event) {
-                    this.subsidizedLoanChecked = true;
-                } else {
-                    this.subsidizedLoanChecked = false;
-                    this.proposalForm.get('subsidizedLoan').setValue(null);
-                    this.proposalForm.get('subsidyLoanType').setValue(null);
-                }
-                break;
-            case 'deviation':
-                if (event) {
-                    this.deviationChecked = true;
-                } else {
-                    this.deviationChecked = false;
-                    this.proposalForm.get('deviationConclusionRecommendation').setValue(null);
                 }
                 break;
             case 'commitment': {
@@ -635,10 +617,6 @@ export class ProposalComponent implements OnInit {
                 break;
             case 'swapDoubleCharge': {
                 this.swapDoubleChargeChecked = event;
-            }
-                break;
-            case 'prepayment': {
-                this.prepaymentChargeChecked = event;
             }
                 break;
             case 'purpose': {
@@ -658,6 +636,11 @@ export class ProposalComponent implements OnInit {
                   this.firstTimeHomeBuyerChecked = true;
                 } else {
                   this.firstTimeHomeBuyerChecked = false;
+                  this.proposalForm.get('yesNo1').patchValue(null);
+                  this.proposalForm.get('yesNo2').patchValue(null);
+                  this.proposalForm.get('yesNo3').patchValue(null);
+                  this.proposalForm.get('yesNo4').patchValue(null);
+                  this.proposalForm.get('yesNo5').patchValue(null);
                 }
                 break;
         }
