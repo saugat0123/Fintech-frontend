@@ -26,6 +26,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     nrbSectorCodes = [];
     securityDetails;
     riskGrade;
+    panNumber: any;
     guarantorDetails;
     proposedLimit: any;
     guarantorsList;
@@ -210,9 +211,11 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.loanDataHolder.proposal.duration;
         this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' :
             JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
-            this.calculateLandSecurityTotal();
-            this.calculateBuildingSecurityTotal();
-            this.calculateLandAndBuildingSecurityTotal();
+        this.calculateLandSecurityTotal();
+        this.calculateBuildingSecurityTotal();
+        this.calculateLandAndBuildingSecurityTotal();
+        this.panNumber =ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.incomeSource) ? '' :
+            JSON.parse(this.loanDataHolder.customerInfo.incomeSource).panNumber;
     }
     //Total Market Value Calculation for Land Security
     calculateLandSecurityTotal() {

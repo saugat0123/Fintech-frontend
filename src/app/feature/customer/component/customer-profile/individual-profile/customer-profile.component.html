@@ -101,8 +101,7 @@
                         <span> <strong>Email :</strong> {{customer.email }}</span></div>
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
-                    <div class="row">
-                        <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
+
                 </div>
                 <div *ngIf="isJointInfo" class="col-md-3 sb small" style="overflow-y:auto; height: 200px; ">
                     <div *ngFor="let jointCustomer of jointInfo">
