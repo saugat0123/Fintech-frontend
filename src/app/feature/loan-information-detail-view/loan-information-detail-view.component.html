@@ -408,7 +408,7 @@
                                 <p>Amount in NPR Million</p>
                             </div>
                         </div>
-                        <app-retail-security *ngIf="loanDataHolder?.loanHolder" [loanDataHolder]="loanDataHolder"
+                        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
                     <li>
