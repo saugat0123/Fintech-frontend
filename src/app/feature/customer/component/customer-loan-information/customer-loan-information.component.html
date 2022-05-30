@@ -997,6 +997,14 @@
             </div>
           </div>
 
+          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType== customerType.INDIVIDUAL">
+            <div class="form-group">
+              <label class="title"><strong>Special Instructions</strong></label>
+              <input class="form-control" formControlName="specialInstruction"
+                     placeholder="eg: as of Poush End 2077" />
+            </div>
+          </div>
+
           <div class="col-md-12 mt-3">
             <div class="form-group">
               <label class="title"><strong>Regularity of payments:</strong></label>

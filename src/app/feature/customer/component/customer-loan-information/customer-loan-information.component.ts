@@ -466,7 +466,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             TemplateName.NET_WORTH).subscribe(rs => {
             this.spinner.hide();
             this.nbDialogRef.close();
-        }, err=>{
+            this.triggerCustomerRefresh.emit(true);
+        }, err => {
                 this.spinner.hide();
         });
     }
@@ -705,7 +706,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
-            regularityOfPayments: [undefined]
+            regularityOfPayments: [undefined],
+            specialInstruction: [undefined]
 
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {

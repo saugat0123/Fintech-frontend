@@ -72,4 +72,10 @@
         <app-authority-section [loanDataHolder]="loanDataHolder"> </app-authority-section>
         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
     </div>
+    <hr>
+    <div class="col-md-12">
+        <br>
+        <p class="p-0 m-0">Special Instructions : <strong>Average Base Rate:- {{(loanDataHolder?.proposal?.data | jsonParse)?.baseRate}}% {{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialInstruction}}</strong></p>
+        <p class="p-0 m-0">NB: All figures are in Nepalese Currency</p>
+    </div>
 </div>
