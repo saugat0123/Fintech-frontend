@@ -18,6 +18,7 @@ export class AboveTenMillionComponent implements OnInit {
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;
+  loanHolder;
   guarantorData;
   customerCategory = CustomerCategory.SME_ABOVE_TEN_MILLION;
   incomeFromAccountSummary = false;
