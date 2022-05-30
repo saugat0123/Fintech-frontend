@@ -23,7 +23,7 @@ export class CadFileSetupComponent implements OnInit {
     cadData: CustomerApprovedLoanCadDocumentation;
     @Input() files;
     @Input() proposal;
-    @Output() legalFile = new EventEmitter<any>()
+    @Output() legalFile = new EventEmitter<any>();
     @Input() fromProfile;
     responseDocList: Array<Document>;
     documentList = [];
@@ -139,9 +139,6 @@ export class CadFileSetupComponent implements OnInit {
             );
         } else {
             this.legalFile.emit(finalCadDocReq);
-            if (!this.fromProfile) {
-                this.dialogRef.dismissAll();
-            }
         }
     }
 
