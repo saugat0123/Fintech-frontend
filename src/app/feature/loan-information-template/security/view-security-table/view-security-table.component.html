@@ -6,6 +6,8 @@
             <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
                 <th>Security Type</th>
+                <th>Owner Name</th>
+                <th>Plot Number</th>
                 <th>Fair Market Value</th>
                 <th>Distress Value</th>
                 <th>Consider Value</th>
@@ -17,6 +19,8 @@
                 <tr>
                     <td>{{i + 1}}</td>
                     <td>{{security?.securityType.toString().replace(regex, ' ')}}</td>
+                    <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}</td>
+                    <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
@@ -40,7 +44,7 @@
                     <td colspan="9">
                         <ng-container *ngIf="toggleArray[i]?.toggled">
                             <app-security-tagged-component
-                                    [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
+                                    [tagged]="toggleArray[i]?.security" [security]="security?.data"></app-security-tagged-component>
                         </ng-container>
                     </td>
                 </tr>

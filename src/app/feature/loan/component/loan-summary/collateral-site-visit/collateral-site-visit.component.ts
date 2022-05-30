@@ -1,11 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
-import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
-import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {Security} from '../../../model/security';
-import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {
     CollateralSiteVisit

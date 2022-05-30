@@ -178,7 +178,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 };
                 this.paramProp = paramsValue;
                 this.customerType = this.paramProp.customerType;
-                console.log(this.customerType);
                 this.customerInfoId = this.paramProp.customerInfoId;
                 this.getCustomerInfo();
             });
@@ -251,13 +250,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     public refreshCustomerInfo(): void {
+        this.customerInfo = undefined;
+        this.getCustomerInfo();
+        this.modalService.dismissAll();
+        this.selectedLoanType = null;
+        this.facilityType = null;
+        this.buildLoanForm();
         this.ngOnInit();
-        // this.customerInfo = undefined;
-        // this.getCustomerInfo();
-        // this.modalService.dismissAll();
-        // this.selectedLoanType = null;
-        // this.facilityType = null;
-        // this.buildLoanForm();
     }
 
     getProvince() {

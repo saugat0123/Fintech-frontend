@@ -42,6 +42,7 @@ export class SecurityTaggerComponent implements OnInit {
 
     private getAllSecurityByLoanHolderId(): void {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
+            this.spinner = true;
             this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.id).subscribe(
                 (response: any) => {
                     this.securityList = [];
@@ -58,6 +59,7 @@ export class SecurityTaggerComponent implements OnInit {
                         });
                     });
                     this.calculateCoverage();
+                    this.spinner = false;
                 });
         }
     }

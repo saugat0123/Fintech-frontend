@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="p-5 row">
-        <div class="col-md-2">
+        <div class="col-md-2 px-0">
           <div class="profile-img">
             <label class="container" for="file-input">
               <img *ngIf="customerInfo?.profilePic !==null " class="image"
@@ -91,7 +91,7 @@
             <span> <strong>Registration number :</strong> {{companyInfo?.registrationNumber}}</span>
           </div>
           <div class="row">
-            <span> <strong>Establishment Date :</strong> {{companyInfo?.establishmentDate | date}}</span>
+            <span> <strong>Registration Date :</strong> {{companyInfo?.legalStatus?.registrationDate | date}} </span>
           </div>
 
           <div class="row">
@@ -104,7 +104,7 @@
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
-            <span> <strong>Issue Place :</strong> {{companyInfo?.issuePlace}}</span></div>
+            <span> <strong>Issue Place :</strong> {{companyInfo?.legalStatus?.regIssuedPlace}} </span></div>
           <div class="row">
             <span> <strong>Email :</strong> {{companyInfo?.email}}</span></div>
           <div class="row">
@@ -473,7 +473,9 @@
               </span></a>
         </nb-card-header>
         <nb-card-body>
-          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
+          <app-proposal  [loan]="loan" [fromProfile]="true"
+                         [loanList]="customerLoans"
+                         [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
         </nb-card-body>
       </nb-card>
     </ng-template>

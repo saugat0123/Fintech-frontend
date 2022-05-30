@@ -70,7 +70,7 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
                                         class="text-right pr-1">
                                         Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{model?.currentStage?.toUser?.name}}</td>
+                                    <td (click)="onClick(single?.loanId, single?.id,single?.currentStage)">{{single?.currentStage?.toUser?.name}}</td>
                                     <td>
 
                                         <a nbTooltip="change loan" (click)="changeLoan(single.id,single?.loanId)" *ngIf=" single?.parentId === null && single?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
@@ -378,6 +378,8 @@
         </nb-card-header>
         <nb-card-body>
             <app-proposal  [loan]="singleLoan" [fromProfile]="true" [customerInfo]="customerInfo"
+                           [isLoanBeingEdit]="isLoanBeginEdit"
+                           [loanList]="loan"
                            [formValue]="singleLoan?.proposal" [loanType]="singleLoan?.loanType" (emitter)="refreshCustomerInfo()"></app-proposal>
         </nb-card-body>
     </nb-card>

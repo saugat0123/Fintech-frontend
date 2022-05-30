@@ -18,4 +18,6 @@ export class LegalStatus {
     vatRegistrationDate: Date;
     registrationDistrict: string;
     udhyogBibhag: string;
+    commercialDate: Date;
+    requiredCommercialDate: Date;
 }

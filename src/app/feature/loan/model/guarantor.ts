@@ -41,4 +41,5 @@ export class Guarantor {
     guarantorJson: string;
     promoterData: string;
     guarantorType: string;
+    successionPlanning: string;
 }
