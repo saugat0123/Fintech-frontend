@@ -466,7 +466,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             TemplateName.NET_WORTH).subscribe(rs => {
             this.spinner.hide();
             this.nbDialogRef.close();
-        }, err=>{
+            this.triggerCustomerRefresh.emit(true);
+        }, err => {
                 this.spinner.hide();
         });
     }
