@@ -37,16 +37,12 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
-import {
-    CollateralSiteVisitService
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
-import {
-    SiteVisitDocument
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -550,11 +546,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             loanHolderId: customerInfoId.toString(),
             isStaged: 'true'
         };
-        this.customerLoanService.getAllWithSearch(search)
+        this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
             .toPromise().then(async (res: any) => {
                 this.customerAllLoanList = await res.detail;
                 // push current loan if not fetched from staged spec response
-                if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+                if (ObjectUtil.isEmpty(this.requestedLoanType) && this.customerAllLoanList.length > 0) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
@@ -584,6 +580,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         this.loaded = true;
                     });
                 } else {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
                     this.loaded = true;
                 }
             }, error => {
