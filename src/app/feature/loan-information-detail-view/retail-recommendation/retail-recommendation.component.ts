@@ -1,6 +1,7 @@
 import { LoanDataHolder } from './../../loan/model/loanData';
 import { Component, Input, OnInit } from '@angular/core';
 import { ObjectUtil } from '../../../@core/utils/ObjectUtil';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-retail-recommendation',
@@ -8,14 +9,14 @@ import { ObjectUtil } from '../../../@core/utils/ObjectUtil';
   styleUrls: ['./retail-recommendation.component.scss']
 })
 export class RetailRecommendationComponent implements OnInit {
-  @Input() loanDataHolder: LoanDataHolder
+  @Input() loanDataHolder: CustomerInfoData;
+  @Input() customerAllLoanList: LoanDataHolder[];
   proposalData;
+  loanData;
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
-      this.proposalData = this.loanDataHolder.proposal.data;
-    }
+    this.loanData = this.loanDataHolder;
   }
 
 }
