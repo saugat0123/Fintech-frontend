@@ -84,16 +84,15 @@
         <p class="text-uppercase"><strong>SWOT Analysis</strong></p>
         <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.security">
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
+        <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
+                             [loanDataHolder]="loanDataHolder"></app-retail-security>
         <div>
-            <app-insurance-summary  [insurance]="loanDataHolder?.insurance">
-
-            </app-insurance-summary>
+            <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
         <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
-
     </li>
     <li>
         <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise)</strong></p>
