@@ -220,6 +220,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocName;
     loaded = false;
+    newSecurity = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,

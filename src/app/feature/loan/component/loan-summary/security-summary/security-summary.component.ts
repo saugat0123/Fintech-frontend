@@ -8,6 +8,7 @@ import {CollateralSiteVisitService} from '../../../../loan-information-template/
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {Security} from '../../../model/security';
+import {LoanDataHolder} from '../../../model/loanData';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() collateralData;
     @Input() proposal;
     @Input() securities: Array<Security>;
+    @Input() customerAllLoanList: LoanDataHolder [];
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -79,6 +81,7 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.combineAllSecurity();
         this.selectedSecurities();
         this.setSelectedSecurities();
         // if (!ObjectUtil.isEmpty(this.securityId)) {
@@ -162,6 +165,13 @@ export class SecuritySummaryComponent implements OnInit {
         // }
     }
 
+    combineAllSecurity() {
+        this.customerAllLoanList.forEach((ld) => {
+            ld.securities.forEach((s) => {
+                this.securities.push(s);
+            });
+        });
+    }
     calculateTotal() {
         const depositList = this.formData['initialForm']['fixedDepositDetails'];
         depositList.forEach(deposit => {
