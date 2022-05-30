@@ -678,7 +678,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <ng-container *ngIf="!fromProfile">
+                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
 
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -727,14 +727,14 @@
                                                     [config]="ckeConfig"></ckeditor>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 form-group">
-                                        <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
-                                        <div>
-                                            <ckeditor formControlName="waiverConclusionRecommendation"
-                                                      [config]="ckeConfig"></ckeditor>
-                                        </div>
-                                    </div>
                                 </ng-container>
+                                <div class="col-md-12 form-group" *ngIf="!fromProfile">
+                                    <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
+                                    <div>
+                                        <ckeditor formControlName="waiverConclusionRecommendation"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
