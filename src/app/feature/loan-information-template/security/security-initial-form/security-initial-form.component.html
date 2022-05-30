@@ -99,13 +99,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="landConsideredValue">Market Value</label>
+                                <label for="landConsideredValue">Market Rate</label>
                                 <input (change)="updateLandSecurityTotal()"
                                        [ngClass]="{ 'is-invalid': (landSelected) && (land.get('landConsideredValue').errors ||
                                     land.get('landConsideredValue').invalid) }"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="Considered Value">
+                                       id="landConsideredValue" name="total" placeholder="Market Rate">
                                 <div *ngIf="(landSelected) && (land.get('landConsideredValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="land.get('landConsideredValue').errors.required">
@@ -1123,11 +1123,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="area">Total cost
+                                    <label class="title" for="area">Building Cost
                                     </label>
                                     <input class="form-control rounded"
                                            formControlName="totalCost"
-                                           name="totalCost" placeholder="Total cost"
+                                           name="totalCost" placeholder="Building Cost"
                                            type="number"/>
                                 </div>
                             </div>
@@ -1169,13 +1169,13 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="consideredValues">Market Value</label>
+                                    <label class="title" for="consideredValues">Market Rate</label>
                                     <input
                                             class="form-control rounded"
                                             formControlName="considerValue"
                                             [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('considerValue').errors)}"
                                             id="consideredValues"
-                                            placeholder="Consider Value"
+                                            placeholder="Market Rate"
                                             name="considerValue"
                                             type="number" appDecimalNumber/>
                                 </div>
@@ -1205,61 +1205,6 @@
                                             name="sheetNo"
                                             type="text"/>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="registeredOffice">Registered Office</label>
-                                    <input
-                                            class="form-control rounded"
-                                            formControlName="registerOffice"
-                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('registerOffice').errors)}"
-                                            id="registeredOffice"
-                                            placeholder="Registered Office"
-                                            name="registerOffice"
-                                            type="text" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 ">
-                                <label for="province">Province</label>
-                                <ng-select (change)="getDistrict(landAndBuilding?.get('province')?.value)"
-                                           formControlName="province"
-                                           bindLabel="name"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('province').errors)}"
-                                           id="province">
-                                    <ng-option *ngFor="let provinceVal of provinces"
-                                               [value]="provinceVal">
-                                        {{provinceVal.name}}
-                                    </ng-option>
-                                </ng-select>
-                            </div>
-                            <div class="col-md-3 ">
-                                <label for="district">District</label>
-                                <ng-select (change)="getMunicipality(landAndBuilding?.get('district').value)"
-                                           formControlName="district"
-                                           bindLabel="name"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('district')?.errors)}"
-                                           id="district">
-                                    <ng-option *ngFor="let districtVal of districtList"
-                                               [value]="districtVal">
-                                        {{districtVal.name}}
-                                    </ng-option>
-                                </ng-select>
-
-                            </div>
-                            <div class="col-md-3 ">
-                                <label for="municipality">Municipalities or VDC</label>
-                                <ng-select
-                                        formControlName="municipalityVdc"
-                                        id="municipality"
-                                        bindLabel="name"
-                                        [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('municipalityVdc')?.errors)}"
-                                        name="municipality">
-                                    <ng-option *ngFor="let municipalityVal of municipalityList"
-                                               [value]="municipalityVal">
-                                        {{municipalityVal.name}}
-                                    </ng-option>
-                                </ng-select>
-
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="addressLineOne"><strong>Address Line One</strong></label>
@@ -1646,10 +1591,10 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="landConsideredValueConstruction">Market Value</label>
+                                        <label for="landConsideredValueConstruction">Market Rate</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="Considered Value" type="number">
+                                               placeholder="Market Rate" type="number">
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -2590,9 +2535,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="consideredValue">Market Value</label>
+                                    <label for="consideredValue">Market Rate</label>
                                     <input class="form-control" formControlName="consideredValue"
-                                           id="consideredValue" name="total" placeholder="Considered Value" readonly>
+                                           id="consideredValue" name="total" placeholder="Market Rate" readonly>
                                 </div>
                             </div>
                         </div>
@@ -3084,9 +3029,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title">Market Value</label>
+                                <label class="title">Market Rate</label>
                                 <input class="form-control rounded" formControlName="consideredValue"
-                                       placeholder="Considered Value"
+                                       placeholder="Market Rate"
                                        type="number"/>
                             </div>
                         </div>
