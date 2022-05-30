@@ -48,13 +48,15 @@
     <li *ngIf="loanDataHolder?.security">
         <!-- security arrangement -->
         <p><strong>SECURITY ARRANGEMENT</strong></p>
+        <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
+                             [loanDataHolder]="loanDataHolder"></app-retail-security>
 
-        <app-security-summary *ngIf="loanDataHolder?.security"
-                              [shareSecurity]="(loanDataHolder?.loanHolder?.shareSecurity?.data | jsonParse)"
-                              [formData]="(loanDataHolder?.loanHolder?.security?.data | jsonParse)"
-                              [securityId]="loanDataHolder?.security?.id"
-                              [collateralData]="loanDataHolder?.collateralSiteVisits"
-                              [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
+<!--        <app-security-summary *ngIf="loanDataHolder?.security"-->
+<!--                              [shareSecurity]="(loanDataHolder?.loanHolder?.shareSecurity?.data | jsonParse)"-->
+<!--                              [formData]="(loanDataHolder?.loanHolder?.security?.data | jsonParse)"-->
+<!--                              [securityId]="loanDataHolder?.security?.id"-->
+<!--                              [collateralData]="loanDataHolder?.collateralSiteVisits"-->
+<!--                              [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>-->
 
     </li>
     <li *ngIf="loanDataHolder?.loanHolder?.financial">
