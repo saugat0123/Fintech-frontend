@@ -933,8 +933,6 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
-                f.get('valuationAmount').clearValidators();
-                f.get('valuationAmount').updateValueAndValidity();
                 f.get('quotationAmount').clearValidators();
                 f.get('quotationAmount').updateValueAndValidity();
             });
