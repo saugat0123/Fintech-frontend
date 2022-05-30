@@ -411,11 +411,18 @@
                         <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.siteVisit">
+                        <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit">
+                        </app-site-visit-view>
+                    </li>
                     <li *ngIf="loanHolder?.financial">
                         <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
                         <app-financial-view *ngIf="loanHolder?.financial"
                                             [customerType]="loanHolder?.customerType"
                                             [formData]="loanHolder?.financial"></app-financial-view>
+                    </li>
+                    <li *ngIf="loanDataHolder?.insurance">
+                        <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
