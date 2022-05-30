@@ -416,6 +416,9 @@
                                             [customerType]="loanHolder?.customerType"
                                             [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
+                    <li *ngIf="loanDataHolder?.insurance">
+                        <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                    </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"
@@ -424,9 +427,6 @@
                     </li>
                     <li>
                         <app-authority-section [loanDataHolder]="loanDataHolder"></app-authority-section>
-                    </li>
-                    <li *ngIf="loanDataHolder?.insurance">
-                        <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
                     <div>
                         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
