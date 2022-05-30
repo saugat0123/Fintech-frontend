@@ -396,7 +396,8 @@
                     </li>
                     <li>
                         <p><strong>Recommendation: </strong></p>
-                        <app-retail-recommendation [loanDataHolder]="loanDataHolder"></app-retail-recommendation>
+                        <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList" [loanDataHolder]="loanHolder"
+                                                   [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.security">
                         <div class="row">
