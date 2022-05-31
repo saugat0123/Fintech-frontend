@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../credit-risk-grading/model/CrgGroup';
@@ -16,11 +16,12 @@ import {Status} from '../../../@core/Status';
     templateUrl: './credit-risk-grading-gamma.component.html',
     styleUrls: ['./credit-risk-grading-gamma.component.scss']
 })
-export class CreditRiskGradingGammaComponent implements OnInit {
+export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     @Input() formData: CreditRiskGradingGamma;
     @Input() fromProfile: boolean;
     @Input() loanConfigId: number;
     @Output() crgDataEmitter = new EventEmitter();
+    @Input() creditHistory: number;
     totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
@@ -60,17 +61,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         } else {
             customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
         }*/
-
-        this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
-            const questionsList = res.detail;
-            this.crgQuestionsList = questionsList.filter(q => {
-                return q.status === Status.ACTIVE;
-            });
-            this.buildFormAndCheckEdit();
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
-        });
     }
 
     getGroupList() {
@@ -149,5 +139,18 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         }
         this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
         this.crgDataEmitter.emit(this.creditRiskData);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.questionService.getAllQuestionsByFid(this.loanConfigId, this.creditHistory).subscribe((res: any) => {
+            const questionsList = res.detail;
+            this.crgQuestionsList = questionsList.filter(q => {
+                return q.status === Status.ACTIVE;
+            });
+            this.buildFormAndCheckEdit();
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
+        });
     }
 }
