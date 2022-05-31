@@ -4,6 +4,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanType} from '../../../../loan/model/loanType';
 
 @Component({
   selector: 'app-security-tagger',
@@ -23,11 +24,21 @@ export class SecurityTaggerComponent implements OnInit {
   securityList: Array<Security> = new Array<Security>();
   coverage = 0;
   @Output() deleteEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  isRelease = false;
+  existingSecurity = [];
   constructor(private formBuilder: FormBuilder,
               private securityLoanReferenceService: SecurityLoanReferenceService) { }
 
   ngOnInit() {
+      if (LoanType[this.loanDataHolder.loanType] === LoanType.RELEASE_AND_REPLACEMENT) {
+          this.isRelease = true;
+          this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.parentId).subscribe((res) => {
+              this.existingSecurity = (res.detail).filter(f => f.status === 'INACTIVE').map((d) => {
+                  return {data: JSON.parse(d.data), usedAmount: d.usedAmount, coverage: d.coverage, securityType: d.securityType};
+              });
+              console.log('this is approved security', res.detail);
+          });
+      }
     this.buildForm();
     if (this.securities.length > 0) {
       this.setSecurities(this.securities);

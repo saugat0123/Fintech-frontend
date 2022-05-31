@@ -96,7 +96,7 @@
                     <td>{{security?.usedAmount || '0'}}</td>
                     <td>{{security?.freeLimit || '0'}}</td>
                     <td>{{security?.coverage || '0'}}</td>
-                    <td>{{security?.securityType}}</td>
+                    <td>{{security?.securityType ? (security?.securityType.toString() | replace :'_' : ' ') : 'NA'}}</td>
                     <td>
                         <button (click)="removeSecurity(i, security?.securityLoanReferenceId)"
                                 class="btn btn-sm btn-flat btn-danger">
@@ -107,6 +107,46 @@
             </ng-container>
             </tbody>
         </table>
+        <table *ngIf="isRelease && existingSecurity?.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+            <thead>
+            <tr class="text-white sb-bg-dark"><td colspan="10"><p class="text-center text-white">Existing Security</p></td></tr>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Owner Name</th>
+                <th>Plot Number</th>
+                <th>Fair Market Value</th>
+                <th>Distress Value</th>
+                <th>Consider Value</th>
+                <th>Used Amount</th>
+                <th>Coverage(%)</th>
+                <th>Security Type</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let security of existingSecurity; let i=index;">
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{security?.data?.owner ? security?.data?.owner : loanDataHolder?.loanHolder?.name}}</td>
+                    <td>{{security?.data?.plotNumber ? security?.data?.plotNumber : 'NA'}}</td>
+                    <td>Rs. {{security?.data?.fairMarketValue ? (security?.data?.fairMarketValue | currencyFormatter) :  '0'}}</td>
+                    <td>Rs. {{security?.data?.distressValue? (security?.data?.distressValue | currencyFormatter) : '0'}}</td>
+                    <td>Rs. {{security?.data?.considerValue ? (security?.data?.considerValue | currencyFormatter) : '0'}}</td>
+                    <td>Rs. {{security?.usedAmount ? (security?.usedAmount | currencyFormatter) : '0'}}</td>
+                    <td>{{security?.coverage || '0'}} %</td>
+                    <td>{{security?.securityType ? (security?.securityType | replace :'_' : ' ') : 'NA'}}</td>
+                    <td>
+                        <button disabled
+                                class="btn btn-sm btn-flat btn-danger">
+                            <em class="fa fa-trash bg-transparent"></em>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+
         <div class="text-right">
             <strong>Coverage:</strong> {{coverage}} %
         </div>
