@@ -258,7 +258,7 @@
                     Add Borrower Detail
                 </button>
                 <div *ngIf="primarySecurityTypeCheck">
-                    <ng-container *ngIf="initialInfo.securities?.primarySecurity.length > 0">
+                    <ng-container *ngIf="initialInfo?.securities?.primarySecurity?.length > 0">
                         <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
                         <table class="table-bordered" style="width: 100%;">
                             <tbody class="text-center">
@@ -270,7 +270,7 @@
                                 <th>क्षेत्रफल</th>
                             </tr>
                             </tbody>
-                            <tbody  *ngFor="let security of initialInfo.securities?.primarySecurity; let i = index">
+                            <tbody  *ngFor="let security of initialInfo?.securities?.primarySecurity; let i = index">
                             <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
                                 <tr>
                                     <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
@@ -293,7 +293,7 @@
                     </ng-container>
                 </div>
                 <div *ngIf="secondarySecurityTypeCheck">
-                    <ng-container *ngIf="initialInfo.securities?.secondarySecurity.length > 0">
+                    <ng-container *ngIf="initialInfo?.securities?.secondarySecurity?.length > 0">
                         <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
                         <table class="table-bordered" style="width: 100%;">
                             <tbody class="text-center">
@@ -305,7 +305,7 @@
                                 <th>क्षेत्रफल</th>
                             </tr>
                             </tbody>
-                            <tbody  *ngFor="let security of initialInfo.securities?.secondarySecurity; let i = index">
+                            <tbody  *ngFor="let security of initialInfo?.securities?.secondarySecurity; let i = index">
                             <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
                                 <tr>
                                     <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
