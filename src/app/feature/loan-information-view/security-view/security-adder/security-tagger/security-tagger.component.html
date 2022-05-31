@@ -23,7 +23,7 @@
                     </thead>
                     <tbody formArrayName="securityDetails">
                         <ng-container *ngFor="let security of securityControls.controls; let i=index;">
-                            <tr>
+                            <tr *ngIf="security?.get('status').value === 'ACTIVE'">
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.owner ? (security.get('data')?.value | jsonParse)?.owner
@@ -55,7 +55,7 @@
                                     </td>
                                 </ng-container>
                             </tr>
-                            <tr>
+                            <tr *ngIf="security?.get('status').value === 'ACTIVE'">
                                 <td colspan="9">
                                     <ng-container *ngIf="toggleArray[i].toggled">
                                         <app-security-tagged-component [security]="security?.get('data')?.value"
