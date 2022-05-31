@@ -17,6 +17,8 @@
                     </div>
                 </div>
 
+                <ng-container *ngIf="data?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)
+                            && data?.loanType !== loanType?.getEnum(loanType?.CLOSURE_LOAN)">
                 <div>
                     <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
                     <div class="sb-small">
@@ -30,6 +32,7 @@
                         <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
+                </ng-container>
                 <hr>
             </li>
         </ol>

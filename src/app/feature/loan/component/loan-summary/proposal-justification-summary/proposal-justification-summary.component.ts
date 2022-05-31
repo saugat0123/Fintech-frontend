@@ -3,6 +3,7 @@ import {Proposal} from '../../../../admin/modal/proposal';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Clients} from '../../../../../../environments/Clients';
 import {environment} from '../../../../../../environments/environment';
+import {LoanType} from '../../../model/loanType';
 
 @Component({
   selector: 'app-proposal-justification-summary',
@@ -14,6 +15,7 @@ export class ProposalJustificationSummaryComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   client = environment.client;
   clientName = Clients ;
+  loanType = LoanType;
   constructor() { }
 
   ngOnInit() {
