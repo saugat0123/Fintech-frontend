@@ -3,6 +3,8 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {Security} from '../../../loan/model/security';
 import {CustomerLoanInformationComponent} from '../../../customer/component/customer-loan-information/customer-loan-information.component';
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Status} from '../../../../@core/Status';
 
 @Component({
     selector: 'app-view-security-table',
@@ -15,13 +17,14 @@ export class ViewSecurityTableComponent implements OnInit {
     regex = /_/g;
     @Output() security: EventEmitter<Object> = new EventEmitter<Object>();
     @Output() securityForSiteVisit: EventEmitter<Object> = new EventEmitter<Object>();
-    toggleArray: { toggled: boolean, security: any, securityPresent: boolean }[] = [];
+    toggleArray: { toggled: boolean, security: any, securityPresent: boolean, approved: boolean }[] = [];
     spinner = false;
     securityData = {
         security: null,
         securityType: null,
         isEdit: null,
-        isSiteVisit: null
+        isSiteVisit: null,
+        status: Status.ACTIVE,
     };
 
     constructor(private customerLoanInformation: CustomerLoanInformationComponent,
@@ -32,7 +35,7 @@ export class ViewSecurityTableComponent implements OnInit {
         if (this.customerInfo.securities.length > 0) {
             this.securities = this.customerInfo.securities;
             this.securities.forEach((d, i) => {
-                this.toggleArray.push({ toggled: false, security: null, securityPresent: false });
+                this.toggleArray.push({ toggled: false, security: null, securityPresent: false, approved: false});
                 this.getSecurityDetails(d.id, i);
             });
         }
@@ -45,7 +48,11 @@ export class ViewSecurityTableComponent implements OnInit {
         );
     }
 
-    public onEdit(security: Security): void {
+    public onEdit(security: Security, status?: any): void {
+        if (!ObjectUtil.isEmpty(status)) {
+            this.securityData.status = Status.INACTIVE;
+            security.status = Status.INACTIVE;
+        }
         this.securityData.security = security;
         this.securityData.securityType = security.securityType;
         this.securityData.isEdit = true;
@@ -66,10 +73,23 @@ export class ViewSecurityTableComponent implements OnInit {
         this.securityLoanReferenceService.getAllSecurityLoanReferences(Number(id)).subscribe(res => {
             this.spinner = false;
             this.toggleArray[i].security = res.detail;
+            this.checkContainedApprovedLoan(res.detail, i);
             this.toggleArray[i].securityPresent = this.toggleArray[i].security.length > 0;
         }, (err) => {
             this.spinner = false;
         });
+    }
+
+    public checkContainedApprovedLoan(detail: any, idx: number): void {
+        let counter = 0;
+        detail.forEach(f => {
+            if (f.customerLoan.documentStatus === 'APPROVED') {
+                counter++;
+            }
+        });
+        if (counter === detail.length) {
+            this.toggleArray[idx].approved = true;
+        }
     }
 
 }
