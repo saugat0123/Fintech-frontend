@@ -69,7 +69,7 @@ export class ConsentLetterForMortgageProprietorshipComponent implements OnInit {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      this.initialInfo = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
       if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
         this.initialInfo.securities.primarySecurity.forEach(val => {
           if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
@@ -197,11 +197,19 @@ export class ConsentLetterForMortgageProprietorshipComponent implements OnInit {
   removeSecurityAtIndex(ii: number) {
     (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
   }
-  removePrimaryPropertyDetail(i: number, pI: number) {
-    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI, 1);
+  removePrimaryPropertyDetail(i: number, pI: number, data) {
+    if (data.length === 1) {
+      this.initialInfo.securities.primarySecurity.splice(i, 1);
+    } else {
+      this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI, 1);
+    }
   }
-  removeSecondaryPropertyDetail(i: number, pI1: number) {
-    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI1, 1);
+  removeSecondaryPropertyDetail(i: number, pI1: number, data) {
+    if (data.length === 1) {
+      this.initialInfo.securities.secondarySecurity.splice(i, 1);
+    } else {
+      this.initialInfo.securities.secondarySecurity[i].propertyDetails.splice(pI1, 1);
+    }
   }
   removeBorrowerAtIndex(ii: number) {
     (this.form.get('borrowerDetails') as FormArray).removeAt(ii);

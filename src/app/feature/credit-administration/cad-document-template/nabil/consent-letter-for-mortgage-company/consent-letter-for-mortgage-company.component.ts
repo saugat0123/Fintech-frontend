@@ -70,26 +70,28 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-      if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
-        this.initialInfo.securities.primarySecurity.forEach(val => {
-          if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
-            this.primarySecurityTypeCheck = true;
-            if (val.collateralShare === 'YES') {
-              this.primarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+      this.initialInfo = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities)) {
+        if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+          this.initialInfo.securities.primarySecurity.forEach(val => {
+            if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
+              this.primarySecurityTypeCheck = true;
+              if (val.collateralShare === 'YES') {
+                this.primarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+              }
             }
-          }
-        });
-      }
-      if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
-        this.initialInfo.securities.secondarySecurity.forEach(val => {
-          if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
-            this.secondarySecurityTypeCheck = true;
-            if (val.collateralShare === 'YES') {
-              this.secondarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+          });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+          this.initialInfo.securities.secondarySecurity.forEach(val => {
+            if (val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING') {
+              this.secondarySecurityTypeCheck = true;
+              if (val.collateralShare === 'YES') {
+                this.secondarySecurityData.push(val ? val.nameOfBorrowingClientCT : '');
+              }
             }
-          }
-        });
+          });
+        }
       }
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
@@ -188,11 +190,19 @@ export class ConsentLetterForMortgageCompanyComponent implements OnInit {
   removeBorrowerNameIndex(ii: number) {
     (this.form.get('borrowerNameArray') as FormArray).removeAt(ii);
   }
-  removePrimaryPropertyDetail(i: number, pI: number) {
-    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI, 1);
+  removePrimaryPropertyDetail(i: number, pI: number, data) {
+    if (data.length === 1) {
+      this.initialInfo.securities.primarySecurity.splice(i, 1);
+    } else {
+      this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI, 1);
+    }
   }
-  removeSecondaryPropertyDetail(i: number, pI1: number) {
-    this.initialInfo.securities.primarySecurity[i].propertyDetails.splice(pI1, 1);
+  removeSecondaryPropertyDetail(i: number, pI1: number, data) {
+    if (data.length === 1) {
+      this.initialInfo.securities.secondarySecurity.splice(i, 1);
+    } else {
+      this.initialInfo.securities.secondarySecurity[i].propertyDetails.splice(pI1, 1);
+    }
   }
   removeSecurityAtIndex(ii: number) {
     (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
