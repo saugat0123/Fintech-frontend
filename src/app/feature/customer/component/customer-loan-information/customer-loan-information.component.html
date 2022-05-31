@@ -632,7 +632,8 @@
           </nb-card>
         </ng-template>
       </div>
-      <div *ngIf="customerInfo.customerType === customerType.INSTITUTION" class="col-md-4">
+      <!-- hide INSTITUTIONAL CRG -->
+      <div hidden class="col-md-4">
         <div class="row">
           <nb-card #itemCreditRiskGrading class="col-md-11 py-2">
             <a (click)="openModel(itemCreditRiskGradingTemplate)" class="cursor info-label">
@@ -655,7 +656,7 @@
             </a>
           </nb-card>
         </div>
-        <ng-template #itemCreditRiskGradingTemplate let-data let-ref="dialogRef">
+        <ng-template #itemCreditRiskGradingTemplate let-data let-ref="dialogRef" hidden>
           <nb-card class="template-css">
             <nb-card-header>
               INSTITUTIONAL CRG
