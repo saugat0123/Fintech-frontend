@@ -80,6 +80,10 @@
       <!--    <em class="col-md-1 fa fa-eye"></em>-->
     </button>
   </ng-container>
+  <button *ngIf="customerType == 'INSTITUTION'" [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
+    UPLOADED DOCUMENT
+    <!--                <i class="col-md-1 fa fa-file"></i>-->
+  </button>
   <button (click)="onUploadDocument()"
     *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
     [ngStyle]="{ 'filter' : (actionsList.approved=== false)? 'grayscale(100%)': 'grayscale(0%)'}"
@@ -87,6 +91,9 @@
     Documents
     <!--    <i class="col-md-1 fa fa-file-upload"></i>-->
   </button>
-
+  <ng-template #allDocumentView>
+    <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                           [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+  </ng-template>
 
 </div>
