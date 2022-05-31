@@ -33,7 +33,7 @@ export class ViewSecurityTableComponent implements OnInit {
 
     ngOnInit() {
         if (this.customerInfo.securities.length > 0) {
-            this.securities = this.customerInfo.securities;
+            this.securities = this.customerInfo.securities.filter((d) => d.status.toString() === 'ACTIVE');
             this.securities.forEach((d, i) => {
                 this.toggleArray.push({ toggled: false, security: null, securityPresent: false, approved: false});
                 this.getSecurityDetails(d.id, i);
@@ -87,7 +87,7 @@ export class ViewSecurityTableComponent implements OnInit {
                 counter++;
             }
         });
-        if (counter === detail.length) {
+        if (counter === detail.length && counter > 1) {
             this.toggleArray[idx].approved = true;
         }
     }
