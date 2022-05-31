@@ -526,6 +526,7 @@ export class SecurityComponent implements OnInit {
             if (this.isEdit) {
                 security.id = this.securityValue.id;
                 security.version = this.securityValue.version;
+                security.status = this.securityValue.status;
             }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;
