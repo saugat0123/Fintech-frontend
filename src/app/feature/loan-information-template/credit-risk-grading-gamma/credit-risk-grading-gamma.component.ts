@@ -49,10 +49,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.getGroupList();
-        if (!this.fromProfile) {
-            this.totalPointsColspan = 2;
-        }
         /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
         let customerTypeParam = '';
         if (customerType) {
@@ -141,6 +137,10 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.getGroupList();
+        if (!this.fromProfile) {
+            this.totalPointsColspan = 2;
+        }
         this.questionService.getAllQuestionsByFid(this.loanConfigId, this.creditHistory).subscribe((res: any) => {
             const questionsList = res.detail;
             this.crgQuestionsList = questionsList.filter(q => {

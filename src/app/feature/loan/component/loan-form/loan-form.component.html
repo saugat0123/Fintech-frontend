@@ -103,6 +103,7 @@
             <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
                                            [fromProfile]="true"
                                            [loanConfigId]="id"
+                                           [creditHistory]="(loanDocument?.proposal?.data | jsonParse)?.creditHistory"
                                            [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
           </ng-template>
 
@@ -140,9 +141,6 @@
               </app-guarantor-adder>
             </div>
           </ng-template>
-
-
-
 
           <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
             <app-reporting-info-tagging #reportingInfoTagging

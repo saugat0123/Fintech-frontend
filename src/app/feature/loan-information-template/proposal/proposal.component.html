@@ -731,10 +731,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory">
-                                <nb-radio value="0">With Credit History</nb-radio>
-                                <nb-radio value="1">WithOut Credit History</nb-radio>
-                            </nb-radio-group>
+                            <div *ngIf="fromProfile">
+                                <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory">
+                                    <nb-radio value="0">With Credit History</nb-radio>
+                                    <nb-radio value="1">WithOut Credit History</nb-radio>
+                                </nb-radio-group>
+                            </div>
 
                         </form>
                     </div>
