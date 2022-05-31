@@ -258,70 +258,74 @@
                     Add Borrower Detail
                 </button>
                 <div *ngIf="primarySecurityTypeCheck">
-                    <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
-                    <table class="table-bordered" style="width: 100%;">
-                        <tbody class="text-center">
-                        <tr>
-                            <th>जिल्ला</th>
-                            <th>नगर/गा.वि.स.</th>
-                            <th>वडा न.</th>
-                            <th>कित्ता नं.</th>
-                            <th>क्षेत्रफल</th>
-                        </tr>
-                        </tbody>
-                        <tbody  *ngFor="let security of initialInfo.securities?.primarySecurity; let i = index">
-                        <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
+                    <ng-container *ngIf="initialInfo.securities?.primarySecurity.length > 0">
+                        <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
+                        <table class="table-bordered" style="width: 100%;">
+                            <tbody class="text-center">
                             <tr>
-                                <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
-                                <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
+                                <th>जिल्ला</th>
+                                <th>नगर/गा.वि.स.</th>
+                                <th>वडा न.</th>
+                                <th>कित्ता नं.</th>
+                                <th>क्षेत्रफल</th>
                             </tr>
-                            <tr *ngFor="let details of security?.propertyDetails; let pI = index;">
-                                <td>{{details?.securityOwnersWardNoCT}}</td>
-                                <td>{{details?.securityOwnersKittaNoCT}}</td>
-                                <td>{{details?.securityOwnersLandAreaCT}}</td>
-                                <td width="5%">
-                                    <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removePrimaryPropertyDetail(i, pI)"
-                                            style="position: static">
-                                        <em class="fa fa-trash" style="color: white;"></em>
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-container>
-                        </tbody>
-                    </table>
+                            </tbody>
+                            <tbody  *ngFor="let security of initialInfo.securities?.primarySecurity; let i = index">
+                            <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
+                                <tr>
+                                    <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
+                                    <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
+                                </tr>
+                                <tr *ngFor="let details of security?.propertyDetails; let pI = index;">
+                                    <td>{{details?.securityOwnersWardNoCT}}</td>
+                                    <td>{{details?.securityOwnersKittaNoCT}}</td>
+                                    <td>{{details?.securityOwnersLandAreaCT}}</td>
+                                    <td width="5%">
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removePrimaryPropertyDetail(i, pI, security?.propertyDetails)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </ng-container>
                 </div>
                 <div *ngIf="secondarySecurityTypeCheck">
-                    <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
-                    <table class="table-bordered" style="width: 100%;">
-                        <tbody class="text-center">
-                        <tr>
-                            <th>जिल्ला</th>
-                            <th>नगर/गा.वि.स.</th>
-                            <th>वडा न.</th>
-                            <th>कित्ता नं.</th>
-                            <th>क्षेत्रफल</th>
-                        </tr>
-                        </tbody>
-                        <tbody  *ngFor="let security of initialInfo?.securities?.secondarySecurity; let i = index">
-                        <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
+                    <ng-container *ngIf="initialInfo.securities?.secondarySecurity.length > 0">
+                        <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
+                        <table class="table-bordered" style="width: 100%;">
+                            <tbody class="text-center">
                             <tr>
-                                <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
-                                <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
+                                <th>जिल्ला</th>
+                                <th>नगर/गा.वि.स.</th>
+                                <th>वडा न.</th>
+                                <th>कित्ता नं.</th>
+                                <th>क्षेत्रफल</th>
                             </tr>
-                            <tr *ngFor="let details of security?.propertyDetails; let pI1 = index;">
-                                <td>{{details?.securityOwnersWardNoCT}}</td>
-                                <td>{{details?.securityOwnersKittaNoCT}}</td>
-                                <td>{{details?.securityOwnersLandAreaCT}}</td>
-                                <td width="5%">
-                                    <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecondaryPropertyDetail(i, pI1)"
-                                            style="position: static">
-                                        <em class="fa fa-trash" style="color: white;"></em>
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-container>
-                        </tbody>
-                    </table>
+                            </tbody>
+                            <tbody  *ngFor="let security of initialInfo?.securities?.secondarySecurity; let i = index">
+                            <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
+                                <tr>
+                                    <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
+                                    <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
+                                </tr>
+                                <tr *ngFor="let details of security?.propertyDetails; let pI1 = index;">
+                                    <td>{{details?.securityOwnersWardNoCT}}</td>
+                                    <td>{{details?.securityOwnersKittaNoCT}}</td>
+                                    <td>{{details?.securityOwnersLandAreaCT}}</td>
+                                    <td width="5%">
+                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecondaryPropertyDetail(i, pI1, security?.propertyDetails)"
+                                                style="position: static">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </ng-container>
                 </div>
                 <div *ngIf="SecurityTypeCheck">
                     <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
