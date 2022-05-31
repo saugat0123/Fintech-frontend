@@ -15,6 +15,12 @@
                 [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
         ></app-loan-action>
 
+        <button *ngIf="loanDataHolder"
+                [useExistingCss]="true" class="btn-sm btn-warning float-right"
+                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+            PRINT<i class="col-md-1 fa fa-print"></i>
+        </button>
+
     </nb-card-header>
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">

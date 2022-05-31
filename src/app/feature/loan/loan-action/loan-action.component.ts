@@ -17,7 +17,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 import {LoanDataHolder} from '../model/loanData';
-import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
     selector: 'app-loan-action',
@@ -46,8 +45,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-    loanDataHolder: LoanDataHolder = new LoanDataHolder();
-    siteVisitDocuments: Array<SiteVisitDocument>;
 
 
     constructor(
