@@ -1036,7 +1036,8 @@
                 </table>
             </div>
         </div>
-        <div *ngIf="isCollateralSiteVisitPresent" class="col-md-12">
+        <div *ngIf="isCollateralSiteVisitPresent && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
+            && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
             <ng-container>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">

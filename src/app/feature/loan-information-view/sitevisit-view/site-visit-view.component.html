@@ -1,6 +1,8 @@
 <p><b>{{summaryType === summaryTypeName?.GAMMA ? '11. Site Visit Details' : 'Site Visit Details'}}</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
-<table *ngIf="formData['currentResidentFormChecked'] === true"
+<p *ngIf="formData['currentResidentFormChecked'] === true && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
+        && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)" class="font-weight-bold small">Current Resident Details</p>
+<table *ngIf="formData['currentResidentFormChecked'] === true && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
+        && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
     <tr class="text-white sb-bg-dark">
         <th>Owner Name</th>
@@ -39,7 +41,8 @@
     </tr>
 
 </table>
-<table *ngIf="formData['currentResidentFormChecked'] === true"
+<table *ngIf="formData['currentResidentFormChecked'] === true && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN) &&
+    loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
     <tr class="text-white sb-bg-dark">
         <th colspan="4">Finding & Comment</th>

@@ -3,6 +3,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {SummaryType} from '../../loan/component/SummaryType';
+import {LoanType} from '../../loan/model/loanType';
 
 @Component({
   selector: 'app-site-visit-view',
@@ -11,6 +12,7 @@ import {SummaryType} from '../../loan/component/SummaryType';
 })
 export class SiteVisitViewComponent implements OnInit {
   @Input() siteVisit: any;
+  @Input() loanType: any;
   currentResidentSummary = false;
   businessSiteVisitSummary = false;
   fixedAssetCollateralSummary = false;
@@ -19,6 +21,7 @@ export class SiteVisitViewComponent implements OnInit {
   clientName = Clients;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  loanTypeEnum = LoanType;
 
   constructor() { }
 

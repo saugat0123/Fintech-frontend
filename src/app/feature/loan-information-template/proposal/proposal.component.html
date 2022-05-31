@@ -706,6 +706,7 @@
                                     </div>
 
                                 </div>
+                                </ng-container>
 
 
                                 <!--                end of Moratorium Period amount div-->
@@ -732,6 +733,8 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== loanEnumType?.getEnum(loanEnumType?.FULL_SETTLEMENT_LOAN)
+                                    && loanType !== loanEnumType?.getEnum(loanEnumType?.CLOSURE_LOAN)">
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
                                         <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Loan background' }}</strong>
@@ -810,7 +813,6 @@
                                     </div>
                                 </div>
 
-                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12 mt-3">
                                     <div class="form-group">
                                         <label class="title"><strong>Summary & Recommendation</strong></label>
@@ -822,6 +824,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
