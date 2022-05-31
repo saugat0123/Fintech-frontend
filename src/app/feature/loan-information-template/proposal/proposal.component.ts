@@ -643,7 +643,6 @@ export class ProposalComponent implements OnInit {
                   this.proposalForm.get('yesNo3').patchValue(null);
                   this.proposalForm.get('yesNo4').patchValue(null);
                   this.proposalForm.get('yesNo5').patchValue(null);
-                  this.proposalForm.get('creditHistory').patchValue(0);
                 }
                 break;
         }

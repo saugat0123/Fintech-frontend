@@ -589,10 +589,6 @@
                                                  [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First Time Home Buyer</strong>
                                     </nb-checkbox>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
-                                        <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory">
-                                            <nb-radio value="0">With Credit History</nb-radio>
-                                            <nb-radio value="1">WithOut Credit History</nb-radio>
-                                        </nb-radio-group>
                                     </div>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
                                         <p><i>Note: As per Unified NRB Directive 3/076, clause number 10, drawdown
@@ -735,6 +731,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory">
+                                <nb-radio value="0">With Credit History</nb-radio>
+                                <nb-radio value="1">WithOut Credit History</nb-radio>
+                            </nb-radio-group>
+
                         </form>
                     </div>
                     <ng-container *ngIf="customerType === 'INDIVIDUAL' && fromProfile">
