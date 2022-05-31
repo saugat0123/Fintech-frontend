@@ -158,6 +158,7 @@ export class ProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('loan', this.loan);
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();

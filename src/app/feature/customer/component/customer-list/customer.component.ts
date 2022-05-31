@@ -476,12 +476,12 @@ export class CustomerComponent implements OnInit {
         this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
             .subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
+                CustomerComponent.loadData(this);
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                 this.modalService.dismissAll();
             });
         this.modalService.dismissAll();
-        CustomerComponent.loadData(this);
         this.transferSpinner = false;
     }
 
