@@ -274,7 +274,8 @@ export class GuarantorComponent implements OnInit {
       promoterData: this.formBuilder.group({
         background: this.formBuilder.array([]),
         familyDetails: this.formBuilder.array([])
-      })
+      }),
+      groupBackground: [ObjectUtil.isEmpty(data.groupBackground) ? undefined : data.groupBackground]
     });
   }
 
