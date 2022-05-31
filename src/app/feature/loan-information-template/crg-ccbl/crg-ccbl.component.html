@@ -20,7 +20,24 @@
             <div class="col-md-12">
                 <label for="score"><b>Obtained Score</b></label>
                 <br>
-                <input [(ngModel)]="obtainedScore"  name="obtainedScore" id="score" nbInput>
+                <input [(ngModel)]="obtainedScore" (change)="calculateCCBL()" name="obtainedScore" id="score" nbInput>
+            </div>
+            <div class="col-md-4">
+                <br>
+                <table class="table table-responsive-md sb-small table-sm table-bordered">
+                    <tr>
+                        <th style="width: 75%" class="sb-bg-dark">Credit Scoring</th>
+                        <td style="width: 25%">{{obtainedScore}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 75%" class="sb-bg-dark">CCBL Rating</th>
+                        <td style="width: 25%">{{thresholdPoint}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 75%" class="sb-bg-dark">Outcome</th>
+                        <td style="width: 25%">{{thresholdOutcome}}</td>
+                    </tr>
+                </table>
             </div>
             <button class="float-right" nbButton (click)="save()">Save</button>
         </nb-card-body>
