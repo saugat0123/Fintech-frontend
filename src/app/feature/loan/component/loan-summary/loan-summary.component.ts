@@ -50,6 +50,7 @@ import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DocStatus} from '../../model/docStatus';
+import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -167,14 +168,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
-
-    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
-
-    sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     commentsSummary = false;
     dataFromComments;
     previousSecuritySummary = false;
@@ -182,8 +178,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     isJointInfo = false;
     jointInfo = [];
     newJointInfo = [];
-    collateralSiteVisitDetail = [];
-    isCollateralSiteVisit = false;
     age: number;
     isOpen: false;
     private dialogRef: NbDialogRef<any>;
@@ -204,9 +198,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     multiBankingSummary = false;
     multiBankingData;
     requestedLoanType;
-    initialSecurity = false;
-    approvedSecurity = false;
-    approvedSecurityAsProposed = false;
     checkedData;
     proposalAllData;
     financial;
@@ -216,7 +207,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocName;
     loaded = false;
-    newSecurity = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
