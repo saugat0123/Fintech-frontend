@@ -1,29 +1,17 @@
-<div class="py-2">
-    <div class="py-2">
-        <ol>
-            <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
-                <div class="row sb-medium">
-                    <p>
-                        <strong style="font-size: 16px;"><span><u>{{data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}} (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit}}, Tenure: {{data.proposal.tenureDurationInMonths}} months
-                            </em></mark>)</u></span></strong>
-                    </p>
-                </div>
-                <div *ngIf="isDetailedView">
-                    <div class="sb-small">
-                        <span [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
-                    </div>
-                </div>
-<!--                <div>-->
-<!--                    <div class="row sb-small">-->
-<!--                        <p><strong class="heading">Justification of limit :</strong></p>-->
-<!--                    </div>-->
-<!--                    <div class="sb-small">-->
-<!--                        <span-->
-<!--                            [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <hr>
-            </li>
-        </ol>
+<ol>
+  <li *ngFor="let data of customerAllLoanList;let i = index" class="col-sm-12">
+    <div class="row sb-medium">
+        <span><u>{{data?.loanType | replace:'_' :' ' + ' OF '
+        + data.loan.name}} (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit}}, Tenure: {{data.proposal.tenureDurationInMonths}}
+          months
+                            </em></mark>)</u></span>
     </div>
-</div>
+    <div *ngIf="isDetailedView">
+      <div class="sb-small">
+          <span
+              [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
+      </div>
+    </div>
+  </li>
+</ol>
+
