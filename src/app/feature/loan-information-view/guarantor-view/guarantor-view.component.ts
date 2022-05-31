@@ -13,6 +13,7 @@ export class GuarantorViewComponent implements OnInit {
   @Input() guarantorData: Array<Guarantor>;
   @Input() individual;
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() customerAllLoanList: LoanDataHolder [];
   Occupation = Occupation;
   newGuarantor = [];
   promoter = [];
@@ -21,19 +22,29 @@ export class GuarantorViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.guarantorData = [];
+      this.customerAllLoanList.forEach((d) => {
+        if (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'HSOV_PENDING' || d.documentStatus.toString() === 'DUAL_APPROVAL_PENDING') {
+          d.taggedGuarantors.forEach((g) => {
+            if (!this.guarantorData.includes(g)) {
+              this.guarantorData.push(g);
+            }
+          });
+        }
+      });
+    }
     this.newGuarantor = this.constructGuarantor(this.guarantorData);
     this.filterPromoter();
   }
   filterPromoter() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList)) {
-        this.promoterBackground = this.loanDataHolder.loanHolder.guarantors.guarantorList.map(d => {
+      if (!ObjectUtil.isEmpty(this.customerAllLoanList[0].loanHolder.guarantors.guarantorList)) {
+        this.promoterBackground = this.customerAllLoanList[0].loanHolder.guarantors.guarantorList.map(d => {
           if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
             return d;
           }
         });
       }
-    }
     this.promoter = this.constructGuarantor(this.promoterBackground);
   }
 

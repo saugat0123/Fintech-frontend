@@ -42,4 +42,5 @@ export class Guarantor {
     promoterData: string;
     guarantorType: string;
     successionPlanning: string;
+    groupBackground;
 }

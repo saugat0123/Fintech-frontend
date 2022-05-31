@@ -86,6 +86,7 @@ export class SecurityTaggerComponent implements OnInit {
             coverage: [singleData.coverage],
             freeLimit: [singleData.considerValue],
             usedAmount: [singleData.usedAmount],
+              status: [singleData.status]
           })
       );
     });
