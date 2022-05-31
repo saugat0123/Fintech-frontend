@@ -1,8 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-// import {CreditAdministrationService} from '../../../service/credit-administration.service';
-// import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
-// import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-// import {LoanType} from '../../../../loan/model/loanType';
 import {Router} from '@angular/router';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
@@ -22,14 +18,6 @@ import {FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
-// import {RouterUtilsService} from '../../../utils/router-utils.service';
-// import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-// import {User} from '../../../../admin/modal/user';
-// import {RoleType} from '../../../../admin/modal/roleType';
-// import {UserService} from '../../../../../@core/service/user.service';
-// import {Stage} from '../../../../loan/model/stage';
-// import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-// import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
 
 @Component({
   selector: 'app-loan-pull',

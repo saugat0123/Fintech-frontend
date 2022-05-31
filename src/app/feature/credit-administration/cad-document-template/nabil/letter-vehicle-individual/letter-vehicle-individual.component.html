@@ -1,118 +1,161 @@
-<div class="container nep text-justify" xmlns="http://www.w3.org/1999/html">
-    <form [formGroup]="letterVehicleIndividual"  class="nep" id="letterOfSetOffPrint">
+<div class="container col-lg-12 text-justify">
+    <form [formGroup]="letterVehicleIndividual" id="letterOfSetOffPrint">
         <div class="row">
-            <div class="col-md-12 viewFull" style="overflow-y: auto; height: 100vh;">
-                <div class="nep">
-                    <div>
-                        <p class="text-right"> मितिः
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="date"
-                                   placeholder=""
-                                   type="text"/>
-
-                        <p>
+            <div class="col-md-12 viewFull">
+                <div>
+                    <div class="col-md-12 d-flex justify-content-between">
+                        <div class="right-content font-weight-bold">
                             श्री नबिल बैंक लिमिटेड
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="nameOfBranchLocated"
-                                   placeholder=""
-                                   type="text"/>
-
-                            शाखा <br>
-                            <br>नेपाल । <br>
-                            <br><b>विषयः सवारी साधनको नामसारी गर्ने अख्तियारी र मन्जुरी दिएको बारेमा । </b><br>
+                        </div>
+                        <div class="left-content">
+                            मिति: <input class="form-field form-control-sm d-print-none "
+                                         name="date"
+                                         formControlName="date"
+                                         type="text"/>
+                             <span class="print-only">{{this.letterVehicleIndividual?.get('date') ? this.letterVehicleIndividual?.get('date')?.value : '___________________________'}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-0">
+                        <input class="form-field form-control-sm disable-print"
+                               formControlName="nameOfBranchLocated"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only">{{this.letterVehicleIndividual?.get('nameOfBranchLocated') ? this.letterVehicleIndividual?.get('nameOfBranchLocated')?.value : '___________________________'}}</span>
+                        शाखा<br>नेपाल ।
+                        <p>
+                            <b><u> विषयः सवारी साधनको नामसारी गर्ने अख्तियारी र मन्जुरी दिएको बारेमा । </u></b>
+                        </p>
                         <p>
                             महोदय,<br>
-                            <br><input class="form-field form-control-sm nepaliFont disable-print "
+                            <ng-container *ngIf="individualData?.gender.en === 'MALE' ||
+                            (individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '1')">
+                            <input class="form-field form-control-sm disable-print "
                                        formControlName="nameOfGrandFather"
                                        placeholder=""
                                        type="text"/>
-
-                            को नाति/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont disable-print"
-                                                         formControlName="name"
-                                                         placeholder=""
-                                                         type="text"/>
-
-                            को छोरा/छोरी/श्रीमती<input class="form-field form-control-sm nepaliFont disable-print"
+                                <span class="print-only">{{this.letterVehicleIndividual?.get('nameOfGrandFather') ? this.letterVehicleIndividual?.get('nameOfGrandFather')?.value : '___________________________'}}</span>को
+                            <ng-container *ngIf="individualData?.gender.en === 'MALE'"> नाती </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'FEMALE'"> नातिनी </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'OTHERS'"> नाती/नातिनी </ng-container>
+                            </ng-container>
+                            <ng-container
+                                    *ngIf="individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '0'">
+                                <input class="form-field form-control-sm d-print-none"
+                                       formControlName="nameOfGrandFather"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{this.letterVehicleIndividual?.get('nameOfGrandFather') ? this.letterVehicleIndividual?.get('nameOfGrandFather')?.value : '___________________________'}}</span>को
+                                बुहारी
+                            </ng-container> <ng-container *ngIf="individualData?.gender.en === 'MALE' ||
+                            (individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '1')">
+                            <input class="form-field form-control-sm d-print-none"
+                                   formControlName="fatherName"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('fatherName') ? this.letterVehicleIndividual?.get('fatherName')?.value : '___________________________'}}</span>को
+                            <ng-container *ngIf="individualData?.gender.en === 'MALE'"> छोरा </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'FEMALE'"> छोरी </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'OTHERS'"> छोरा/छोरी/श्रीमती </ng-container>
+                        </ng-container>
+                            <ng-container
+                                    *ngIf="individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '0'">
+                                <input class="form-field form-control-sm d-print-none"
+                                       formControlName="fatherName"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{this.letterVehicleIndividual?.get('fatherName') ? this.letterVehicleIndividual?.get('fatherName')?.value : '___________________________'}}</span>को श्रीमती
+                            </ng-container>
+                            <input class="form-field form-control-sm disable-print"
                                                        formControlName="district"
                                                        placeholder=""
                                                        type="text"/>
-
-                            जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('district') ? this.letterVehicleIndividual?.get('district')?.value : '___________________________'}}</span>
+                            जिल्ला <input class="form-field form-control-sm disable-print"
                                           formControlName="vdcMuncipality"
                                           placeholder=""
                                           type="text"/>
-
-                            गा.वि.स./नगर वडा
-                            नं<input class="form-field form-control-sm nepaliFont disable-print"
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('vdcMuncipality') ? this.letterVehicleIndividual?.get('vdcMuncipality')?.value : '___________________________'}}</span>
+                            <ng-container *ngIf="individualData?.municipalityOrVdc.en === 'Municipality'"> न.पा. </ng-container>
+                            <ng-container *ngIf="individualData?.municipalityOrVdc.en === 'VDC'"> गा.वि.स.
+                            </ng-container>
+                            <ng-container *ngIf="individualData?.municipalityOrVdc.en === 'Rural'"> गाँउपालिका
+                            </ng-container> वडा
+                            नं <input class="form-field form-control-sm disable-print"
                                      formControlName="wardNo"
                                      placeholder=""
                                      type="text"/>
-
-                            बस्ने श्री <input class="form-field form-control-sm nepaliFont disable-print"
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('wardNo') ? this.letterVehicleIndividual?.get('wardNo')?.value : '___________________________'}}</span>
+                            बस्ने <ng-container *ngIf="individualData?.gender.en === 'MALE'"> श्री </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '0'"> श्रीमती </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'FEMALE' && individualData?.relationMedium.en === '1'"> सुश्री </ng-container>
+                            <ng-container *ngIf="individualData?.gender.en === 'OTHERS'"> श्री/श्रीमती/सुश्री </ng-container>
+                            <input class="form-field form-control-sm disable-print"
                                               formControlName="nameOfBorrower"
                                               placeholder=""
                                               type="text"/>
-
-                            ले त्यस बैंकबाट मिति<input class="form-field form-control-sm nepaliFont disable-print"
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('nameOfBorrower') ? this.letterVehicleIndividual?.get('nameOfBorrower')?.value : '___________________________'}}</span>
+                            ले त्यस बैंकबाट मिति <input class="form-field form-control-sm disable-print"
                                                        formControlName="sanctionLetterIssuedDate"
                                                        placeholder=""
                                                        type="text"/>
-
-                            मा जारी ऋण स्विकृती पत्रानुसार सवारी साधन ऋणकर्जा लिई तपसिलमा उल्लिखित सवारी साधन खरिद गरी उपयोग गरेकोमा पछि भविष्यमा
-                            त्यस बैंकले सो ऋणकर्जा असुली प्रक्रिया अन्तर्गत जमानतकर्ता लगायत अन्य कुनै पनि तेस्रो पक्षको नाममा उक्त सवारी साधन नामसारी गरी दिनु पर्ने अवस्थामा सम्बन्धित यातायात व्यवस्था कार्यालयमा मेरो र हाम्रो तर्फबाट पुरा गर्नुपर्ने कुनै पनि प्रक्रिया
-                            पुरा गर्नको लागि सम्पुर्ण अख्तियारी तपाईं श्री नबिल बैंक वा नबिल बैंकले तोकेको जुनसुकै कर्मचारीरव्यक्तिलाई प्रदान गरी यो मन्जुरीनामा लेखी दिएको छु र छौं  । यस अख्तियारनामाको प्रयोग गरी उक्त सवारी साधन नामसारी भई गएको खण्डमा
-                            पछि कुनै किसिमको उजुर बाजुर गर्ने छैन । यदी उजुर गरेकोमा यहि कागजलाई आधार मानी उक्त दावी खारेज गरी दिएको खण्डमा मलाई र हामीलाई पुर्ण मन्जुरी हुनेछ ।
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('sanctionLetterIssuedDate') ? this.letterVehicleIndividual?.get('sanctionLetterIssuedDate')?.value : '___________________________'}}</span>
+                            मा जारी ऋण स्विकृती पत्रानुसार सवारी साधन ऋणकर्जा लिई तपसिलमा उल्लिखित सवारी साधन खरिद गरी
+                            उपयोग गरेकोमा पछि भविष्यमा
+                            त्यस बैंकले सो ऋणकर्जा असुली प्रक्रिया अन्तर्गत जमानतकर्ता लगायत अन्य कुनै पनि तेस्रो पक्षको
+                            नाममा उक्त सवारी साधन नामसारी गरी दिनु पर्ने अवस्थामा सम्बन्धित यातायात व्यवस्था कार्यालयमा
+                            मेरो र हाम्रो तर्फबाट पुरा गर्नुपर्ने कुनै पनि प्रक्रिया
+                            पुरा गर्नको लागि सम्पुर्ण अख्तियारी तपाईं श्री नबिल बैंक वा नबिल बैंकले तोकेको जुनसुकै
+                            कर्मचारीरव्यक्तिलाई प्रदान गरी यो मन्जुरीनामा लेखी दिएको छु र छौं । यस अख्तियारनामाको प्रयोग
+                            गरी उक्त सवारी साधन नामसारी भई गएको खण्डमा
+                            पछि कुनै किसिमको उजुर बाजुर गर्ने छैन । यदी उजुर गरेकोमा यहि कागजलाई आधार मानी उक्त दावी
+                            खारेज गरी दिएको खण्डमा मलाई र हामीलाई पुर्ण मन्जुरी हुनेछ ।
                             <br></p>
                         <p class="text-right"><br>भवदीय,<br>
                             <br>(................................)
                         </p>
 
                         <p>
-                            <b>सवारी साधनको विवरणः</b><br>
+                            <b>सवारी साधनको विवरणः</b>
                             <br>
-                            १. सवारी साधनको किसिमः<input class="form-field form-control-sm nepaliFont disable-print"
+                            १. सवारी साधनको किसिमः <input class="form-field form-control-sm disable-print"
                                                          formControlName="modelTypeOfVehicle"
                                                          placeholder=""
                                                          type="text"/>
-
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('modelTypeOfVehicle') ? this.letterVehicleIndividual?.get('modelTypeOfVehicle')?.value : '___________________________'}}</span>
                             <br>
-                            २. रजिष्टे्रशन नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
-                                                        formControlName="vehicleRegistrationNumber"
-                                                        placeholder=""
-                                                        type="text"/>
-
+                            २. रजिष्टे्रशन नम्बरः <input class="form-field form-control-sm disable-print"
+                                                         formControlName="vehicleRegistrationNumber"
+                                                         placeholder=""
+                                                         type="text"/>
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('vehicleRegistrationNumber') ? this.letterVehicleIndividual?.get('vehicleRegistrationNumber')?.value : '___________________________'}}</span>
                             <br>
-                            ३. इन्जीन नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
+                            ३. इन्जीन नम्बरः <input class="form-field form-control-sm disable-print"
                                                     formControlName="engineNumber"
                                                     placeholder=""
                                                     type="text"/>
-
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('engineNumber') ? this.letterVehicleIndividual?.get('engineNumber')?.value : '___________________________'}}</span>
                             <br>
-                            ४. च्यासीस नम्बरः <input class="form-field form-control-sm nepaliFont disable-print"
+                            ४. च्यासीस नम्बरः <input class="form-field form-control-sm disable-print"
                                                      formControlName="chasisNumber"
                                                      placeholder=""
                                                      type="text"/>
-
+                            <span class="print-only">{{this.letterVehicleIndividual?.get('chasisNumber') ? this.letterVehicleIndividual?.get('chasisNumber')?.value : '___________________________'}}</span>
                             <br>
                             <br>
-                            <b>बोधार्थस् <br>
-                                श्री सम्बन्धित यातायात व्यवस्था कार्यालय</b> स् मेरो र हाम्रो उपर्युक्त अख्तियारनामा अनुसार गरी दिनुहनु अनुरोध गर्दछु र छौं ।
+                            <b>बोधार्थ: <br>
+                                श्री सम्बन्धित यातायात व्यवस्था कार्यालय</b> : मेरो र हाम्रो उपर्युक्त अख्तियारनामा अनुसार गरी दिनुहनु अनुरोध गर्दछु र छौं ।
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
     <div class="row" style="float: right">
         <div class="col-md-12 text-right disable-print">
-            <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                     ngxPrint printSectionId="{{offerLetterConst.LETTER_VEHICLE_INDIVIDUAL}}Print">Print
+            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                    ngxPrint printSectionId="letterOfSetOffPrint">Print
             </button>
             <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
         </div>
     </div>
-
 </div>
-
-<app-letter-vehicle-individual-print  *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden></app-letter-vehicle-individual-print>

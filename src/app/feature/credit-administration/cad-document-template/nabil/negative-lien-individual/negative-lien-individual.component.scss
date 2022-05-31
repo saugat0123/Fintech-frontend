@@ -1,0 +1,77 @@
+*{
+  line-height: 1.9em;
+  font-size: 19px;
+  color: black;
+  text-align: justify;
+}
+.para {
+  text-align: center !important;
+}
+
+.form-field {
+  background: yellow;
+  margin: 0px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+  }
+  .container-name div {
+    display: inline-block;
+    width: 500px;
+    min-height: 50px;
+    background-color: #eee;
+    height: auto;
+  }
+}
+
+.form-control-sm {
+  height: 40px;
+}
+
+table tbody tr td {
+  padding-left: 10px;
+}
+
+.sav {
+  color: rgb(65,104,207) ;
+  background-color: rgb(235,247,255);
+}
+
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 19px;
+    line-height: 1.6em;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  span {
+    line-height: 1.2em;
+  }
+
+  p {
+    margin: 0%;
+  }
+
+}
+

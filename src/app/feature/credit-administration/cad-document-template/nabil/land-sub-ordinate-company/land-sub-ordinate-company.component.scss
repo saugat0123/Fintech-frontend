@@ -1,0 +1,106 @@
+* {
+  line-height: 1.9em;
+  font-size: 19px;
+  overflow-y: visible !important;
+}
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+  .container-name div {
+    display: inline-block;
+    width: 500px;
+    min-height: 50px;
+    background-color: #eee;
+    height: auto;
+  }
+}
+
+ol.conditions-list {
+  list-style: devanagari;
+  text-align: justify !important;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+  }
+}
+
+@media print {
+  * {
+    margin: 0 !important;
+    overflow-y: visible !important;
+  }
+  .dastakhat-margin {
+    margin-top: 3rem !important;
+    .dastakhat {
+      font-size: 16px !important;
+      line-height: 1.9em !important;
+      margin-left: 5.5rem !important;
+    }
+  }
+  .sakshi {
+    margin-top: 1rem !important;
+  }
+  .page-break {
+    page-break-before: always !important;
+  }
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 19px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+  // .page-break {
+  //   page-break-after: always;
+  // }
+  .margin-top-print {
+    margin-top: 14rem;
+  }
+  .heading {
+    h1,
+    h2 {
+      line-height: auto !important;
+    }
+    h1 strong {
+      font-size: 1.6rem !important;
+    }
+    h2 strong {
+      font-size: 1.6rem !important;
+    }
+  }
+  td {
+    text-align: justify;
+  }
+  .bank {
+    margin-left: 2.5rem !important;
+  }
+}
+
+input::placeholder {
+  font-size: 19px;
+}
+
+td:first-child {
+  vertical-align: top;
+}

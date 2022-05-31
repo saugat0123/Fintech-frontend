@@ -1,0 +1,19 @@
+* {
+  text-align: justify;
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+}
+.fontCss {
+  font-size: 27px !important;
+}
+p {
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+  text-align: justify;
+}
+@media print {
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
+}

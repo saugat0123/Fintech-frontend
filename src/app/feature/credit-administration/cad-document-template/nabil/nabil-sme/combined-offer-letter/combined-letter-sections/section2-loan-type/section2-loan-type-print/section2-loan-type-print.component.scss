@@ -1,0 +1,23 @@
+* {
+  line-height: 1.9;
+  font-size: 19px;
+  text-align: justify;
+}
+.all {
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+  p {
+    font-size: 19px !important;
+    line-height: 1.9em !important;
+  }
+}
+.table-bordered-all {
+  border: 1px solid black !important;
+  margin-top: -17px;
+}
+@media print {
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
+}

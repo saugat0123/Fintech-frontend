@@ -1,0 +1,30 @@
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+        <form [formGroup]="form">
+            <nb-checkbox class="d-print-none" #showCollateral (checkedChange)="showCollateralCheck(showCollateral.checked)"
+                         formControlName="loanCommitmentCheck">
+            Show Cross Collateral Clause
+            </nb-checkbox>
+            <div *ngIf="showCollateral.checked">
+                <!--CROSS COLLATERAL CLAUSE ( Optional as per need basis on all loan types)-->
+                यस स्वीकृति पत्र बमोजिम स्वीकृत विभिन्न ऋणकर्जा तथा बैंकिङ सुविधाहरुको सुरक्षणको रुपमा रहेकोे तथा तपाईको अधिनमा र/वा स्वामित्वमा
+                रहेको/रहने सम्पत्तिहरु समेत समुह भित्र पर्ने अन्य व्यक्ति वा फर्म/संस्थाको नाममा स्वीकृत सम्पूर्ण ऋणकर्जा तथा बैंकिङ सुविधाहरुको लागि
+                समेत सुरक्षण वापत हुन रहन तपाईंको मञ्जुरी रहेको र सम्बन्धित ऋण स्वीकृति पत्रहरु बमोजिम तपाईंको वा तपाईंको समुह भित्र पर्ने अन्य
+                व्यक्ति वा फर्म/संस्थाको नाममा स्वीकृत सम्पूर्ण ऋणकर्जा तथा बैंकिङ सुविधाहरु चुक्ताभुक्तान गर्न वा शर्तबन्देजहरुको पालना गर्न असक्षम (Default)
+                रहेको अवस्थामा सम्बन्धित ऋणकर्जा सुविधाका स्वीकृति पत्रहरुमा उल्लिखित सुरक्षणहरुका साथसाथै यस ऋणकर्जा सुविधाको स्वीकृति पत्रमा उल्लिखित
+                धितो सुरक्षणबाट समेत बैंकको लेना रकम असुल गर्न समेत बैंकको अधिकार सुरक्षित रहनेछ ।
+            </div>
+            <nb-checkbox class="d-print-none" #showDefault (checkedChange)="showDefaultCheck(showDefault.checked)"
+                         formControlName="crossDefaultCheck">
+            Show Cross Default Clause
+            </nb-checkbox>
+            <div *ngIf="showDefault.checked">
+                <!--(Cross Default Clause:- ( Optional as per need basis on all loan types)-->
+                एकै समुह भित्र पर्ने विभिन्न व्यक्ति वा संस्थाको नाममा प्राप्त गरिएको ऋणकर्जा सुविधाहरु मध्ये समुह भित्रका अन्य कुनै पनि व्यक्ति वा संस्थाको
+                नामको कुनै पनि ऋणकर्जा वा बैंकिङ सुविधा अन्तरगतको दायित्व भुक्तानी/वहन गर्न असक्षम भएमा असक्षम भएको नामको ऋणकर्जा सुविधा
+                नियमित वा सामान्यिकरण नभएसम्म समुह भित्रको स्वीकृत सम्पूर्ण ऋणकर्जा सुविधा पूर्ण वा आंशिक रुपमा रोक्न/रद्ध गर्न/निलम्बन गर्न र घटाउने
+                बैंकको अधिकार सुरक्षित रहनेछ ।
+            </div>
+        </form>
+    </div>
+</div>

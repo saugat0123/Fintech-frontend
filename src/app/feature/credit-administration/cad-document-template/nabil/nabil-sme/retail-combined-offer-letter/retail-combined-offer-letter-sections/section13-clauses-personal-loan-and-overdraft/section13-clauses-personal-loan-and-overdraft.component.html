@@ -1,0 +1,57 @@
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+        <form [formGroup]="form">
+            <div *ngIf="isPersonalLoan || isPersonalWoCollateral">
+                <!--Clause of For Personal Loan and Personal overdraft without collateral only-->
+                <ol style="list-style: devanagari">
+                    <li>
+                        यो ऋण कर्जा सुविधा तथा ऋणकर्जासंग सम्वन्धित शर्त बन्देजनामाहरु तपाई
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfCompany"
+                               formControlName="nameOfCompany"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{companyName?.nameOfCompanyCT ? companyName?.nameOfCompanyCT : '______________________'}}</span>
+                        मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका लागि मात्र कायम रहनेछ ।
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfCompany"
+                               formControlName="nameOfCompany"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{companyName?.nameOfCompanyCT ? companyName?.nameOfCompanyCT :  '______________________'}}</span>
+                        संग तपाईको आवद्धता टुटे पश्चात पनि ऋण कर्जा सुविधा उपभोग गर्न चाहेमा ऋण
+                        कर्जा सुविधा संग सम्बन्धित शर्त तथा बन्देजनामाहरु पुनरावलोकन गर्ने वा नगर्ने सम्पूर्ण
+                        अधिकार बैंकसंग सुरक्षित रहनेछ ।
+                    </li>
+                    <li>
+                        कथंकदाचित
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfCompany"
+                               formControlName="nameOfCompany"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{companyName?.nameOfCompanyCT ? companyName?.nameOfCompanyCT :  '______________________'}}</span>
+                        संग तपाईको आवद्धता टुटे पश्चात बैंकको ऋण कर्जा सुविधासंग संबन्धित नयाँ शर्त तथा बन्देजनामाहरु
+                        निर्धारण गर्नेछ र सोही अनुरुपको ऋणीको सामथ्र्यता बैंकलाई स्वीकार्य नभएमा तपाईले पन्ध्र दिन भित्र
+                        ऋण कर्जा सुविधा राफसाफ गर्नुपर्नेछ । यदि यसो नगरेमा त्यसलाई बैंकले ऋण कर्जाको दायित्व भुक्तनी
+                        गर्न असक्षम (Default) भएको रुपमा लिनेछ र धितोमा रहेको सम्पत्ती विघटन
+                        (Liquidation) गरी बैंकको लेना रकम असुल उपर गरिनेछ ।
+                    </li>
+                    <li>
+                        व्यक्तिगत कर्जाका शर्तबन्देजहरु परिवर्तन गर्न नबिल बैंक लिमिटेडको एकल र पूर्ण अधिकार रहनेछ
+                        तर बैंकले व्यक्तिगत कर्जाका शर्तबन्देजहरुको परिवर्तन बारे पूर्व एवं यथोचित सूचना दिनेछ ।
+                    </li>
+                    <li>
+                        ऋणकर्जा खाता विवरणहरु र कर्जा सम्झौता प्रतिहरु मुख्य आवेदक वा लिखित स्वीकृति/मञ्जुरीमा
+                        उसको आधिकारीक प्रतिनिधिहरुलाई मात्र उपलब्ध गराईनेछ ।
+                    </li>
+                    <li>
+                        तपाईंले तपाईंको परिवर्तित पेशा/रोजगारी/ओहदा र परिवर्तित ठेगाना र बैंकलाई समय समयमा
+                        आवश्यक अन्य सूचनाहरु ऋणकर्जा अवधि भरि उपलब्ध गराउनुपर्नेछ ।
+                    </li>
+                </ol>
+                <br>
+            </div>
+        </form>
+    </div>
+</div>

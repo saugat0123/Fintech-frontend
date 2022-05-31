@@ -22,6 +22,8 @@ import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-num
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
 import {LocalStorageUtil} from "../../../../../@core/utils/local-storage-util";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-sme',
@@ -46,6 +48,7 @@ export class SmeComponent implements OnInit {
   tempData;
   afterSave = false;
   selectedAutoLoan;
+  loanHolderInfo;
   selectedInterest;
   loanLimit;
   finalName;
@@ -63,7 +66,9 @@ export class SmeComponent implements OnInit {
                private currencyFormatPipe: CurrencyFormatterPipe,
                private nepToEngNumberPipe: NepaliToEngNumberPipe,
                private nepPercentWordPipe: NepaliPercentWordPipe,
-               private ref: NbDialogRef<SmeComponent>) { }
+               private ref: NbDialogRef<SmeComponent>,
+               private datePipe: DatePipe,
+               private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -84,7 +89,7 @@ export class SmeComponent implements OnInit {
       selectedInterest: [undefined],
       loanLimitChecked: [undefined],
       referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
       dateofApplication: [undefined],
@@ -140,7 +145,6 @@ export class SmeComponent implements OnInit {
       let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
       this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
     }
-    console.log('Guarantor Name:', this.finalName);
   }
 
   checkOfferLetterData() {
@@ -174,9 +178,21 @@ export class SmeComponent implements OnInit {
   fillForm() {
     console.log('Filling form works:');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.smeLoanHolderInfo.permanentMunicipality.ct + '-' +
-        this.smeLoanHolderInfo.permanentWard.ct + ', ' +
-        this.smeLoanHolderInfo.permanentDistrict.ct + ' ,' + this.smeLoanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    let customerAddress;
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+              this.loanHolderInfo.permanentMunicipality.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+              '-' + this.loanHolderInfo.permanentWard.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+              ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+              ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+    }
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -186,6 +202,34 @@ export class SmeComponent implements OnInit {
     let autoReferenceNumber;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoReferenceNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    let apprDate;
+    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ?
+        this.initialInfoPrint.dateOfApprovalType.en : '';
+    if (dateOfApprovalType === 'AD') {
+      const tempApprDate = this.initialInfoPrint.dateOfApproval ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en), true) :
+          '';
+      apprDate = tempApprDate ? tempApprDate : '';
+    } else {
+      const tempApprNepali = this.initialInfoPrint.dateOfApprovalNepali ?
+          this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
+      apprDate = tempApprNepali ? tempApprNepali : '';
+    }
+
+    // For Date of application
+    let applicationDate;
+    const dateOfApplicationType = this.initialInfoPrint.dateofApplicationType ?
+        this.initialInfoPrint.dateofApplicationType.en : '';
+    if (dateOfApplicationType === 'AD') {
+      const tempAppDate = this.initialInfoPrint.dateofApplication ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateofApplication.en), true) :
+          '';
+      applicationDate = tempAppDate ? tempAppDate : '';
+    } else {
+      const tempAppNep = this.initialInfoPrint.dateofApplicationNepali ?
+          this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
+      applicationDate = tempAppNep ? tempAppNep : '';
     }
     this.loanForm.patchValue({
       customerName: this.smeLoanHolderInfo.name.ct ? this.smeLoanHolderInfo.name.ct : '',
@@ -204,11 +248,13 @@ export class SmeComponent implements OnInit {
       emiAmountInWords: this.tempData.emiAmountInWords.ct ? this.tempData.emiAmountInWords.ct : '',
       numberOfEmi: this.tempData.numberOfEmi.ct ? this.tempData.numberOfEmi.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
-      branchName: this.smeLoanHolderInfo.branch.ct ? this.smeLoanHolderInfo.branch.ct : '',
+      branchName: this.smeLoanHolderInfo.branch ? this.smeLoanHolderInfo.branch.ct : '',
       vendorName: this.tempData.vendorName.ct ? this.tempData.vendorName.ct : '',
       relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
       branchManager: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
       // staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+      dateOfApproval: apprDate ? apprDate : '',
+      dateofApplication: applicationDate ? applicationDate : '',
     });
   }
 

@@ -1,10 +1,11 @@
+<nb-card [nbSpinner]="spinner">
 <div class="container text-justify">
   <form [formGroup]="personalGuaranteeCompany" id="print-section">
-    <div class="row" *ngFor="let guaranteeCompany of personalGuaranteeCompany.get('guaranteeCompanies')['controls']; let i = index"
+    <div class="row" *ngFor="let guaranteeCompany of individualGuarantorNepDataArray; let i = index"
         formArrayName="guaranteeCompanies">
         <div class="col-md-12" [formGroupName]="i">
             <div class="form-group align">
-                <h4 class="text-center">व्यक्तिगत जमानतको लिखत</h4>
+                <h4 class="text-center font-weight-bold">व्यक्तिगत जमानतको लिखत</h4>
                 <div class="row">
                     <div class="col-md-12">
                         <p class="lh-30">
@@ -30,7 +31,12 @@
                                 formControlName="actYearInFigure" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "actYearInFigure"]).value}}</strong>
                             </span>
-                            बमोजिम नेपाल सरकार
+                            बमोजिम
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                       formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "authorizedBodyName"]).value}}</strong>
+                            </span>,
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="headDepartment"
                                 formControlName="headDepartment" placeholder="" type="text"/>
@@ -54,6 +60,25 @@
                                 formControlName="location" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "location"]).value}}</strong>
                             </span>
+                            जिल्ला,
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="municipalityName"
+                                       formControlName="municipalityName" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "municipalityName"]).value}}</strong>
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'"> न.पा.</span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'"> गा.वि.स.</span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">गाँउपालिका</span>, वडा नं
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="wardNumber"
+                                       formControlName="wardNumber" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "wardNumber"]).value}}</strong>
+                            </span>,
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="streetAddress"
+                                       formControlName="streetAddress" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "streetAddress"]).value}}</strong>
+                            </span>
                             मा कार्यालय रहेको श्री
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="loaneeName"
@@ -73,19 +98,18 @@
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "letterIssuedDate"]).value}}</strong>
                             </span>
                             को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
-                            <span>
+                            रु. <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                 formControlName="loanAmount" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "loanAmount"]).value}}</strong>
-                            </span>
-                            (अक्षरेपी
+                            </span>/- (अक्षरेपी
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmountInWord"
                                 formControlName="loanAmountInWord" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "loanAmountInWord"]).value}}</strong>
-                            </span> )
+                            </span> मात्र)
                             तथा भविष्यमा उल्लिखित ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट माथवर/हैसियतवाल व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुदा उल्लिखित ऋणीले मलाई/हामीलाई
-                            जमानत वसी दिनुहोस भनी अनुरोध गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनीु बैंकबाट समेत निज ऋणीले  प्राप्त गरेको/गर्ने उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम 
+                            जमानत वसी दिनुहोस भनी अनुरोध गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनी बैंकबाट समेत निज ऋणीले  प्राप्त गरेको/गर्ने उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
                             व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन तपाईहरुको मंजुरी छ,छैन भनी सोधनी हुंदा सोमा मेरो/हाम्रो चित्त बुझेकोले देहायका तपसिल खण्ड क मा उल्लिखित शर्त वन्देजहरुको अधिनमा रही तपाईं धनी बैंकको पक्षमा आफ्नो 
                             राजीखुसिले यो व्यक्तिगत जमानतको लिखत गरिदिंए/दियौं । निज ऋणीले तपाईं धनी बैंकबाट यसअघि प्राप्त गरेको उपयोग गरेको तथा यस उप्रान्त प्राप्त गर्ने उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु वापत तपाईं धनी बैंकलाई समय 
                             सयममा किस्ता किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले म/हामी जमानत दिने उपर दावी लिएमा सो दावी लिएको मितिले ७ (सात) 
@@ -104,17 +128,17 @@
                             <br>
                             <ol class="conditions">
                                 <li>
-                                    यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.
-                                    <span>
+                                    यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम
+                                    रु.<span>
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmount"
                                         formControlName="approvedLoanAmount" placeholder="" type="text"/>
                                         <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "approvedLoanAmount"]).value}}</strong>
-                                    </span>
+                                    </span>/-
                                     (अक्षरेपी <span>
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmountInWord"
                                         formControlName="approvedLoanAmountInWord" placeholder="" type="text"/>
                                         <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "approvedLoanAmountInWord"]).value}}</strong>
-                                    </span> ) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।
+                                    </span> मात्र) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।
                                 </li>
                                 <li>
                                     ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैकिंग सुविधाहरु वापत धनी बैंकलाई समय समयमा तिर्नु बुझाउनु पर्ने सांवा व्याज फि कमीसन आदी रकम तिर्ने बुझाउने सम्बन्धमा जमानतदिनेको दायित्व 
@@ -177,15 +201,35 @@
                                     ऋणीले प्राप्त गरेको/गर्ने ऋणकर्जाको रकम, सोमा लाग्ने ब्याज, हर्जना ब्याज तथा सो तिर्नु बुभाउनु पर्ने समय तालिका तथा कर्जाका शर्तहरु समेत मैले/हामीले उल्लिखित ऋणस्वीकृती पत्र मार्फत जानकारी लिएको छु/छौं । साथै ऋणस्वीकृती पत्र तथा भुक्तानी तालिकाको
                                      प्रतिलिपि समेत बुझिलिएँ/बुझिलियौं । साथै ब्याज दर लगायत अन्य दरहरुमा बैंकले समय समयमा परिवर्तन गर्नसक्ने र त्यस्तो परिवर्तनको जानकारी बैंकले पत्रपत्रिकामा प्रकाशन गरेमा सोहि मार्फत र/वा बैंकको आधिकारिक वेव साईट (Website) बाट समेत जानकारी प्राप्त गर्नेछु/गर्नेछौं ।
                                 </li>
+                                <span class="d-print-none">
+                                <li>
+                                    <textarea rows="5" style="width:100%;margin-left:20px" class="form-control nepaliFont" name="freeText" formControlName="freeText">
+                                    </textarea>
+                                </li>
+                                </span>
+                                <span class="print-only">
+                                    <li *ngIf="this.cadInitialInfo !== undefined &&
+                                    this.cadInitialInfo[i]?.freeText !== null && this.cadInitialInfo[i]?.freeText !== ''"
+                                        style="margin-top: -0.7em">
+                                        <span class="nepaliFont">
+                                            {{this.cadInitialInfo ? this.cadInitialInfo[i]?.freeText : ''}}
+                                        </span>
+                                    </li>
+                                </span>
+                                <!--<li *ngIf="this.cadFreeText !== null && this.cadFreeText[i].freeText !== null">
+                                    <span class="print-only">
+                                       {{this.cadFreeText[i].freeText}}
+                                    </span>
+                                </li>-->
                             </ol>
                         </div>
                     </div>
-                    <div class="row free-text w-100">
+                    <!--<div class="row free-text w-100">
                         <div class="col-md-12">
                             <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control nepaliFont" name="freeText" formControlName="freeText">
                             </textarea>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row mt-5">
                     <div class="col-sm-12">
@@ -221,72 +265,212 @@
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "grandFatherOrFatherInLaw"]).value}}</strong>
                                         </span>
                                     </p>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Nepali') ||
+                                    ((guaranteeCompany?.guarantorNationality === 'Indian' ||  guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOption.en === 'Local')">
                                     <p class="lh-30">
                                         स्थायी ठेगाना : 
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentDistrict"
                                                 formControlName="permanentDistrict" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentDistrict"]).value}}</strong>
-                                        </span>
-                                        , जिल्ला : 
+                                        </span>, जिल्ला :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentMunicipalities"
                                                 formControlName="permanentMunicipalities" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentMunicipalities"]).value}}</strong>
-                                        </span>
-                                        , गा.वि.स./नगर  वडा नं. : 
+                                        </span>, गा.वि.स./नगर  वडा नं. :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentWard"
                                                 formControlName="permanentWard" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentWard"]).value}}</strong>
                                         </span>
                                     </p>
+                                    </ng-container>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOption.en === 'Foreign'">
+                                    <p class="lh-30">
+                                        स्थायी ठेगाना :
+                                        <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorForeignAddress"
+                                                   formControlName="guarantorForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "guarantorForeignAddress"]).value}}</strong>
+                                        </span>
+                                    </p>
+                                    </ng-container>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Nepali') ||
+                                    ((guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOptionTemp.en === 'Local')">
                                     <p class="lh-30">
                                         हालको ठेगाना : 
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryDistrict"
                                                 formControlName="temporaryDistrict" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryDistrict"]).value}}</strong>
-                                        </span>
-                                        , जिल्ला : 
+                                        </span>, जिल्ला :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryMunicipalities"
                                                 formControlName="temporaryMunicipalities" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryMunicipalities"]).value}}</strong>
-                                        </span>
-                                        , गा.वि.स./नगर  वडा नं. : 
+                                        </span>, गा.वि.स./नगर  वडा नं. :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryWard"
                                                 formControlName="temporaryWard" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryWard"]).value}}</strong>
                                         </span>
                                     </p>
+                                    </ng-container>
+                                    <ng-container  *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOptionTemp.en === 'Foreign'">
+                                        <p class="lh-30">
+                                            हालको ठेगाना :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorTempForeignAddress"
+                                                   formControlName="guarantorTempForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "guarantorTempForeignAddress"]).value}}</strong>
+                                        </span>
+                                        </p>
+                                    </ng-container>
                                     <p class="lh-30">
-                                        ना.प्र.नं. : 
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Nepali'">ना.प्र.नं. : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Embassy Certificate'">दूतावास नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Adhar Card'">आधार कार्ड नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport'">राहदानी नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Other'">राहदानी नं : </ng-container>
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="citizenshipNo"
                                                 formControlName="citizenshipNo" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "citizenshipNo"]).value}}</strong>
-                                        </span>
-                                        , जारी गर्ने कार्यालय : 
+                                        </span>, जारी गर्ने कार्यालय :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedBy"
                                                 formControlName="issuedBy" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "issuedBy"]).value}}</strong>
-                                        </span>
-                                        , जारी मिति : 
+                                        </span>, जारी मिति :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedDate"
                                                 formControlName="issuedDate" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "issuedDate"]).value}}</strong>
                                         </span>
+                                        <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport') || guaranteeCompany?.guarantorNationality === 'Other'">,
+                                            म्याद सकिने मिति :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
+                                                   formControlName="passportExpiryDate" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "passportExpiryDate"]).value || '_____________________'}}</strong>
+                                        </span>
+                                        </ng-container>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="pageBreak" hidden></div>
+                <div class="row" style="margin-top: 3em">
+                    <div class="col-md-12">
+                        <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                        <ol class="conditions">
+                            <li>
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiDistrict1"
+                                       formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict1 ? this.cadInitialInfo[i]?.sakshiDistrict1 : '===================================='}}
+                                </span>
+                                 जिल्ला
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiMunicipality1"
+                                       formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality1 ? this.cadInitialInfo[i]?.sakshiMunicipality1 : '===================================='}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiWard1"
+                                       formControlName="sakshiWard1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard1 ? this.cadInitialInfo[i]?.sakshiWard1 : '===================================='}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiAge1"
+                                       formControlName="sakshiAge1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge1 ? this.cadInitialInfo[i]?.sakshiAge1 : '===================================='}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiName1"
+                                       formControlName="sakshiName1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName1 ? this.cadInitialInfo[i]?.sakshiName1 : '===================================='}}
+                                </span>
+                            </li>
+                            <li>
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiDistrict2"
+                                       formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict2 ? this.cadInitialInfo[i]?.sakshiDistrict2 : '===================================='}}
+                                </span>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiMunicipality2"
+                                       formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality2 ? this.cadInitialInfo[i]?.sakshiMunicipality2 : '===================================='}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiWard2"
+                                       formControlName="sakshiWard2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard2 ? this.cadInitialInfo[i]?.sakshiWard2 : '===================================='}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiAge2"
+                                       formControlName="sakshiAge2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge2 ? this.cadInitialInfo[i]?.sakshiAge2 : '===================================='}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="sakshiName2"
+                                       formControlName="sakshiName2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName2 ? this.cadInitialInfo[i]?.sakshiName2 : '===================================='}}
+                                </span>
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="nameOfBankStaff"
+                                       formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.nameOfBankStaff ? this.cadInitialInfo[i]?.nameOfBankStaff : '===================================='}}
+                                </span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                 <div class="row mt-3">
+                    <div class="col-md-12 text-center">
+                        <p class="m-0">
+                            ईति सम्वत्
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="year"
+                                   formControlName="year" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.year ? this.cadInitialInfo[i]?.year : '===================================='}}
+                                </span>
+                            साल
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="month"
+                                   formControlName="month" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.month ? this.cadInitialInfo[i]?.month : '===================================='}}
+                                </span>
+                            महिना
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="date"
+                                   formControlName="date" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.date ? this.cadInitialInfo[i]?.date : '===================================='}}
+                                </span>
+                            गते रोज
+                            <input class="form-field form-control-sm d-print-none nepaliFont" name="day"
+                                   formControlName="day" placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.day ? this.cadInitialInfo[i]?.day : '===================================='}}
+                                </span>
+                            शुभम् ।
+                        </p>
+                    </div>
+                </div>
+                <div *ngIf="i < personalGuaranteeCompany.get('guaranteeCompanies')['length'] - 1" class="pageBreak"></div>
             </div>
         </div>
         <hr class="d-print-none mt-2 mb-2 w-100" />
@@ -303,7 +487,7 @@
         [useExistingCss]="true"
         styleSheetFile="assets/css/printStyles.scss"
         printSectionId="personalGuaranteeCompanyPrint"
-        class="d-print-none"
+        class="d-print-none float-right"
         printSectionId="print-section"
         nbButton
         size="small"
@@ -314,6 +498,13 @@
         Print &nbsp;&nbsp;
         <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
       </button>
+        <button nbButton size="small"
+                class="d-print-none sav"
+                status="success"
+                (click)="submit()"
+                style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+            <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
     </div>
   </div>
 </div>
+</nb-card>

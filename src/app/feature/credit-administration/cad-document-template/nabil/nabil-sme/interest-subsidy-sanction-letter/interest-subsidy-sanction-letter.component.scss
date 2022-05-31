@@ -1,0 +1,82 @@
+input{
+  font-size: 16px !important;
+}
+.longInput{
+  width: 250px;
+}
+.customFont {
+  font-size: 22px;
+}
+.shortInput{
+  width: 50px;
+}
+.lheight{
+  line-height: 1.9em;
+}
+.nepaliFontauto {
+  font-size: 29px !important;
+  font-family: Preeti;
+}
+.nepaliList {
+  list-style-type: devanagari !important;
+}
+table{
+  text-align: justify !important;
+  line-height: 1.9;
+}
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+
+nb-card{
+  max-height: 100vh !important;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
+input[type="text"] {
+  font-size:16px;
+}
+.disclist > li{
+  list-style-type: disc;
+}
+.hello{
+  width: 95%;
+  float: right;
+}
+ol.conditions-list {
+  list-style: devanagari;
+  padding-left: 30px;
+  line-height: 40px !important;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+.conditions-list li{
+  line-height: 1.9em;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}
+p {
+  line-height: 1.9em;
+}

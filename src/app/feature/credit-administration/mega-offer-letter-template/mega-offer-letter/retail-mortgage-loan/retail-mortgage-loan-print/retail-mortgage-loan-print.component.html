@@ -1,44 +1,46 @@
 <div class="row" id="{{offerLetterConst.MORTAGE_LOAN}}Print" xmlns="http://www.w3.org/1999/html">
-    <div>
-        <div class="text-center">
-            <h2 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h2>
-        </div>
+    <div class="text-center col-md-12">
+        <h4 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h4>
     </div>
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
         <span class="font-weight-bold">
                      {{autoRefNum ? autoRefNum : '_______________________'}}
                 </span>
         <p>
             मितिः
-            <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                  class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-            <ng-template #dateofApprovalPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{approvalDate ? approvalDate : ''}}</span>
         </p>
     </div>
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
+        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE'; else nameDetails">
         श्री
+       </span>
+        <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                सुश्री
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                श्रीमती
+            </span>
+        </ng-template>
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
-                </span>
+                </span>ज्यु,
     </div>
 
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
          <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
              {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
          </span>
     </div>
-    <p style="text-align: center;text-decoration: underline;"><strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
+    <div class="col-md-12">
+        <p style="text-align: center;text-decoration: underline;"><strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
+    </div>
     <br>
-    <div class="mb-1">
+    <div class="mb-1 col-md-12">
         <p> महोदय, <br>
             तपाईंले मिति
-            <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
-                  class="font-weight-bold">{{letter?.dateofApplication.en.nDate}}</span>
-            <ng-template #dateofApplicationPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApplication.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{applicationDate ? applicationDate : ''}}</span>
             मा धितो कर्जाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
             बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
         </p>
@@ -57,7 +59,7 @@
                                 <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
                          {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
                     </span>
-                                गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                            प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -81,7 +83,6 @@
                         <td>
                             कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन
                             (Distress Situation Value) को
-                            <strong>धितो कर्जाः </strong>
                             <span [ngClass]="{'font-weight-bold' : letter?.drawingPower.ct !== null && letter?.drawingPower.ct !== ''}">
                          {{letter?.drawingPower.ct === null || letter?.drawingPower.ct === '' ? '___________' : letter?.drawingPower.ct}}
                     </span>
@@ -91,7 +92,7 @@
                     </tr>
                     <tr>
                         <td><strong> ब्याज दरः </strong></td>
-                        <td>प्रकाशित आधार दर (Base Rate)
+                        <td>प्रकाशित त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                             <span [ngClass]="{'font-weight-bold' : letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
                          {{letter?.baseRate.ct === null || letter?.baseRate.ct === '' ? '___________' : letter?.baseRate.ct}}
                     </span>
@@ -100,7 +101,7 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                          {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
                     </span>
-                            %) हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            %) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
                             <span [ngClass]="{'font-weight-bold' : letter?.interestRate.ct !== null && letter?.interestRate.ct !== ''}">
                          {{letter?.interestRate.ct === null || letter?.interestRate.ct === '' ? '___________' : letter?.interestRate.ct}}
                     </span>
@@ -147,19 +148,19 @@
                                 </li>
                                 <li>कर्जा सूचना केन्द्र लिमिटेडबाट सुचना
                                     प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना, घर/जग्गाको
-                                    मुल्याड्ढन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा
-                                    लिञदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्टे«शन तथा अन्य आवश्यक सूचना प्राप्त
+                                    मूल्यांकन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा ट्रेश नक्सा
+                                    लिंदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त
                                     गर्न र आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने
                                     शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
                                     उक्त रकम तपाईको खातामा खर्च जनाई कटृा
                                     गरी भुक्तानी गरिनेछ ।
                                 </li>
-                                <li>तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
+                                <li>तपाई ऋणी तथा तपाई सँग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
                                     बापत
                                     प्रति सूचना
                                     रु २,०००/ शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
                                 </li>
-                                <li>बिमा बापतको शुल्क वा धितो मूल्याह्कन/पूर्नमुल्याह्कन शुल्क बापतको बास्तबिक रकम
+                                <li>बिमा बापतको शुल्क वा धितो मूल्यांकन/पुर्नमूल्यांकन शुल्क बापतको बास्तबिक रकम
                                     तपाईं
                                     ऋणी
                                     स्वयंले नै तिर्नु बुझाउनु पर्नेछ । सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत
@@ -249,23 +250,23 @@
                     </div>
                 </td>
             </tr>
-            <tr *ngFor="let data of guarantorData; let i = index;">
-                <td>{{i + 2 | nepaliWord}}.</td>
+            <tr>
+                <td>ख. </td>
                 <td>
                     श्री
                     <span class=" font-weight-bold">
-                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                    {{this.finalName}}
                 </span>
                     ले रु
                     <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>
                     /-(अक्षरेपि
                     रु.
                     <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
-                    मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                    मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 </td>
             </tr>
         </table>
@@ -274,32 +275,33 @@
                 <td>२.</td>
                 <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट (website)
                     तथा
-                    राष्ट्रियस्तरको पत्रिकामा आधार (Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित
+                    राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर(Quarterly Average Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित
                     हुने
                     पछिल्लो
-                    आधार दर (Base Rate) मा माथि उल्लेख भए बमँजिमकँ ब्याज दर प्रिमियम (Interest Rate :Premium)
+                    त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा माथि उल्लेख भए बमोजिमका ब्याज दर प्रिमियम (Interest Rate Premium)
                     थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                 </td>
             </tr>
             <tr>
                 <td>३.</td>
-                <td>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज
+                <td>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज
                     दर बैंकको आधिकारिक
                     वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन
-                    गरीने आधार दर (Base Rate) मा
+                    गरीने त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा
                     जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु अर्थात श्रावण, कार्तिक,
                     माघ र बैशाखको पहिलो दिनबाट ब्याज
-                    दर समायोजन तथा संसोधन गरीनेछ । बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम
+                    दर समायोजन तथा संसोधन गरीनेछ । बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट सम
                     मासिक किस्ता
                     (EMI- Equated Monthly Installment )मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत
                     मासिक किस्ता रकम तथा
                     किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता
                     भुक्तानी मितिमा यदी कुनै साँवा/ब्याज
-                    बाञकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाञकी बक्यौता कर्जा
+                    बाँकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाँकी बक्यौता कर्जा
                     साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
-                    माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन गएबाट
+                    माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको
+                    वृद्धि हुन गएबाट
                     सो अनुसार बैंकले शुरुमा प्रदान
-                    गरेकोरगर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात
+                    गरेको/गर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात
                     त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी
                     बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति सुनिश्चित गर्नु ऋणीको कर्तव्य तथा
                     जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ ।
@@ -323,7 +325,7 @@
                 <td>
                     बैंकबाट जुन उद्देश्यको लागि कर्जा लिएको हो, सो उद्देश्यमा कर्जा प्रयोग नगरेमा (Missuse of loan) र/वा
                     धितो सम्पत्तिमा हानी
-                    नोक्सानी पु¥याउने कार्य गरेमा (Damage/destruction of security collateral) र/वा ऋणीले ऋणकर्जा
+                    नोक्सानी पुर्याउने कार्य गरेमा (Damage/destruction of security collateral) र/वा ऋणीले ऋणकर्जा
                     स्वीकृति
                     पत्रमा
                     उल्लिखित कुनै पनि शर्तबन्देजहरु उल्लंघन गरेमा ( Non – compliance of terms & conditions
@@ -357,7 +359,7 @@
                     ८.
                 </td>
                 <td>
-                    धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण
+                    धितोबन्धक तमसुक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण
                     कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको,
                     <span class="font-weight-bold">
                     {{branchName}}
@@ -386,14 +388,14 @@
                     खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ ।<br>
                     ग. साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा सो
                     मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ । सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र
-                    बाञकी
+                    बाँकी
                     साँवामा
                     समायोजन गरिनेछ । अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ ।
                 </td>
             </tr>
             <tr>
                 <td>१०.</td>
-                <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा
+                <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साँचो छन र अन्यथा भएमा
                     तपाईं जिम्मेवार हुनुहुनेछ ।
                 </td>
             </tr>
@@ -420,7 +422,7 @@
                     नहुने कुरामा तपाईंको मञ्जुरी रहनेछ । बीमालेख नवीकरण गराउने लगायतका बीमा सम्बन्धी कुनै पनि
                     कार्य गर्न बैंक बाध्य नहुने र यसबाट तपाईं वा
                     अन्य कसैलाई कुनै क्षति हुन गएमा सोको लागि बैंक जिम्मेवार हुने छैन भन्ने कुरामा तपाईंको
-                    मञ्जुरी रहेको छ(जहाञ लागू हुन्छ) ।
+                    मञ्जुरी रहेको छ(जहाँ लागू हुन्छ) ।
                 </td>
             </tr>
             <tr>
@@ -433,7 +435,7 @@
                     गरेमा त्यसलाई बैंकले ऋणकर्जाको
                     दायित्व भुक्तानी गर्न असक्षम (Default) भएको रुपमा लिनेछ । यसरी ऋणकर्जाको दायित्व भुक्तानी
                     गर्न असक्षम भएको अवस्थामा
-                    बैंकको लेना असुलीका लागि विना कुनै पूर्र्व सूचना तपाईंको तस्बिर सहितको ऋण चुक्ता गर्न
+                    बैंकको लेना असुलीका लागि विना कुनै पुर्ब सूचना तपाईंको तस्बिर सहितको ऋण चुक्ता गर्न
                     सार्वजनिक सूचना प्रकाशन गर्ने एवं नेपाल राष्ट्र
                     बैंकको निर्देशन बमोजिम तपाईंको नाम कालो सूचीमा समावेश गर्ने लगायतका कानूनी कार्य गर्ने
                     बैंकको अधिकार सुरक्षित रहनेछ ।
@@ -455,41 +457,12 @@
                     यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब हुन गएमा विलम्ब भएको
                     अवधिका लागि बक्यौता व्याज रकममा
                     जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत व्याजदर
-                    (आधार दर ब्याज दर प्रिमियम
+                    (त्रैमासिक औसत आधार दर ब्याज दर प्रिमियम
                     मा २ प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ ।
                     बैंकले निर्धारण गरेको ब्याजदर प्रिमियम
-                    ( Interest Rate Premium) र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट (Website) वा समय
+                    ( Interest Rate Premium) र त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) बैंकको आधिकारिक वेब साईट (Website) वा समय
                     समयमा
                     बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
-                    ग. <u>थप/अतिरिक्त शुल्कः</u>
-                    स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
-                    बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
-                    आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
-                    (Additional Risk Premium) समेत लाग्नेछ ।
-                    <table class="table table-bordered hello">
-                        <tr>
-                            <td> विवरण</td>
-                            <td> थप जोखिम दर <b>(Additional Risk Premium)</b></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
-                                देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
-                            </td>
-                            <td>
-                                वार्षिक २.०० %
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
-                                देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
-                            </td>
-                            <td>
-                                वार्षिक ३.०० %
-                            </td>
-                        </tr>
-                    </table>
                 </td>
             </tr>
             <tr>
@@ -512,19 +485,19 @@
             <tr>
                 <td>१६.</td>
                 <td>माथि उल्लिखित धितो सुरक्षणमा रहेको/रहने घर/जग्गा तपाईंले बैंकको पक्षमा धितोबन्धक पारित गर्दा
-                    लाग्ने सरकारी राजश्व,
+                    लाग्ने सरकारी राजस्व,
                     शुल्क, दैदस्तुर आदी रकम ऋणीले नै तिर्नु व्यहोर्नु पर्नेछ र बैंकको पक्षमा पारित
                     गरिदिएका/गरिदिने सम्पतिहरु/घर/जग्गामा
                     लाग्ने सम्पत्ति कर, जग्गाको तिरो, बिजुली, पानी आदी आवश्यक सम्पूर्ण कर, दस्तुर, शुल्कहरु
                     सम्बन्धित सम्पत्ति धनी
-                    स्वयम्ले वा ऋणीले तिर्नु बुझाउनु पर्नेछ र सो रसिदको प्रतिलिपि नियमित रुपमा बैंकमा पेश गर्नु
+                    स्वयंले वा ऋणीले तिर्नु बुझाउनु पर्नेछ र सो रसिदको प्रतिलिपि नियमित रुपमा बैंकमा पेश गर्नु
                     पर्नेछ । पछि कुनै
-                    कारणले थप राजश्व बुझाउनु पर्ने भएमा सो समेत ऋणी स्वयंले बुझाउनु पर्नेछ ।
+                    कारणले थप राजस्व बुझाउनु पर्ने भएमा सो समेत ऋणी स्वयंले बुझाउनु पर्नेछ ।
                 </td>
             </tr>
             <tr>
                 <td>१७.</td>
-                <td> बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई (Bancassurance Unit) ललितपुरमा
+                <td> बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई (Bancassurance Unit) {{nepaliBranchName}}
                     सम्पर्क गर्न सक्नुहुनेछ ।
                 </td>
             </tr>
@@ -567,15 +540,15 @@
             <tr>
                 <td>२२.</td>
                 <td>बैंकबाट प्राप्त गर्नुहुने अन्य सेवा सुविधा सम्बन्धी शुल्क दस्तुर तथा शर्तहरु यस बैंकको
-                    आधिकारीक धभदकष्तभ मा प्रकाशित शुल्क सम्बन्धी विवरणमा उल्लेख भए अनुसार हुनेछ ।
+                    आधिकारीक (website) मा प्रकाशित शुल्क सम्बन्धी विवरणमा उल्लेख भए अनुसार हुनेछ ।
                 </td>
             </tr>
 
             <tr>
                 <td>२३.</td>
-                <td>बमाथि उल्लिखित हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी शुल्क (Late Payment Fee) र
+                <td>माथि उल्लिखित हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी शुल्क (Late Payment Fee) र
                     अन्य सेवा सुविधा बापत तिर्नु बुझाउनु
-                    पर्ने शुल्क तथा व्याजदरहरु बैंकले आफ्नो आधिकारीक धभदकष्तभ मा सूचना प्रकाशित गरि समय समयमा
+                    पर्ने शुल्क तथा व्याजदरहरु बैंकले आफ्नो आधिकारीक (website) मा सूचना प्रकाशित गरि समय समयमा
                     परिवर्तन गर्न सक्नेछ र यसरी प्रकाशित गरि शुल्क,
                     दस्तुर तथा हर्जाना व्याज दरहरु परीबर्तन गरेमा माथि उल्लिखित शुल्क, दस्तुर तथा हर्जाना
                     व्याजदरहरु समेत परिवर्तन भएको मानिनेछ । र सो परिवर्तित शुल्क,
@@ -638,13 +611,11 @@
                          {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                      </span>
                         को धितोबन्धक तमसुक ।<br>
-                        ह्. मूल्याङकन प्रतिवेदन प्राप्त ।<br>
-                        च. बहुबैंकिङ घोषणा पत्र प्राप्त ।<br>
-                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।
-                    </p>
-                    <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
-                        {{ 8 | nepaliWord}}.
-                        बैंकर्स शर्त सहितको रु.
+                        ङ. मूल्याङकन प्रतिवेदन ।<br>
+                        च. बहुबैकिङ्ग घोषणा पत्र ।
+                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
+                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र । <br/>
+                        ज. बैंकर्स शर्त सहितको रु.
                         <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmount.ct !== null && letter?.insuranceAmount.ct !== ''}">
                         {{letter?.insuranceAmount.ct === null || letter?.insuranceAmount.ct === '' ? '___________' : letter?.insuranceAmount.ct}}
                     </span>
@@ -666,11 +637,11 @@
                             <span class="font-weight-bold">
                             {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
-                            मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                            मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                         </p>
                     </div>
                     <ng-template #guarantorLand >
-                        <p style="margin-top: -1em"> ज.
+                        <p style="margin-top: -1em"> छ.
                             श्री
                             <span class="font-weight-bold">
                             {{this.finalName}}
@@ -684,12 +655,19 @@
                             <span class="font-weight-bold">
                             {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
-                            मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                            मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                         </p>
                     </ng-template>
-                    <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-top: -1.5em">
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity === 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
                         <p>
-                            ञ.<span class="nepaliFont"
+                            ञ. <span class="nepaliFont"
+                                    style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
+                                    </span>
+                        </p>
+                    </div>
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity !== 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
+                        <p>
+                            ज. <span class="nepaliFont"
                                     style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
                                     </span>
                         </p>
@@ -760,7 +738,7 @@
                 <td> म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा
                     रद्ध
                     गर्न त्यस बैंकको
-                    अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाञकी रकम, उपार्जित
+                    अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाँकि रकम, उपार्जित
                     ब्याज र शुल्कहरु
                     समेत भुक्तानी गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
                 </td>
@@ -779,16 +757,15 @@
                 </td>
             </tr>
             <tr>
-                <td *ngIf="!loanLimit">६.</td>
-                <td *ngIf="loanLimit">५.</td>
+                <td>{{!loanLimit ? '६.' : '५.'}}</td>
                 <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा
                     माथिल्लो
                     स्तरका कर्मचारीहरु,
-                    चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग
+                    चुक्ता पुँजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सँग
                     मेरो/हाम्रो, कम्पनीको
                     हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको
                     पारिवारिक सम्बन्ध नभएको
-                    र निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                    र निजहरु सँग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
                 </td>
             </tr>
         </table>
@@ -830,3 +807,5 @@
     </div>
 </div>
 
+<button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+         ngxPrint printSectionId="{{offerLetterConst.MORTAGE_LOAN}}Print" #printButton>Print</button>

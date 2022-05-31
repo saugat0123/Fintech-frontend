@@ -1,77 +1,148 @@
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
-table { page-break-inside:auto }
-tr    { page-break-inside:avoid;
-        page-break-after:auto;}
-thead { display:table-header-group }
-tfoot { display:table-footer-group }
-@media print{
-  div.divFooter{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-
-  tr, td {
-    break-after: auto;
-    break-inside: avoid;
-    line-height: 1.9;
-  }
-}
-input{
-  font-size: 16px !important;
-}
-.nepaliList {
-  list-style-type: devanagari !important;
-}
-table{
-  text-align: justify !important;
-  line-height: 1.9;
-}
-.nep {
+.nepaliFont{
   font-size: 16px;
-  line-height: 1.9;
-  text-align: justify;
-  text-justify: inter-word;
-  margin: 10px 50px;
 }
 
-.form-field {
-  background: yellow;
-  margin: 0px 5px 5px 5px;
-  border: 0;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-  &:focus {
-    outline: none;
+// to left align
+.pull-left {
+  text-align: left !important;
+}
+// to right align
+.pull-right {
+  text-align: right !important;
+}
+
+// to float left
+.float-left {
+  float: left !important;
+}
+
+// to float right
+.float-right {
+  float: right !important;
+}
+
+// to set line height for specific elements
+.lh-40 {
+  line-height: 40px !important;
+}
+
+// to resize unicode font
+.unicodeResize {
+  font-size: 16px;
+}
+
+// to set width 100 %
+.w-100 {
+  width: 100% !important;
+}
+
+// to set nepali number in the list
+ol.conditions-list {
+  list-style: devanagari;
+  padding-left: 30px;
+  line-height: 40px !important;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+
+// to set margin 0
+.m-0 {
+  margin: 0 !important;
+}
+
+// to set signature section line
+input.bottom-line {
+  border-bottom: 1px dotted !important;
+  margin-bottom: 20px !important;
+}
+
+// to set same lineHeight for all elements
+* {
+  line-height: 40px !important;
+}
+
+
+// to set same font size for all td and th elements
+.table-sm th, .table-sm td {
+  font-size: 15px !important;
+}
+
+// to set small tag elements font size
+small#subContactPerson {
+  font-size: 15px;
+}
+
+@media print {
+  .pull-left {
+    text-align: left !important;
+    float: left !important;
   }
-}
 
-nb-card{
-  max-height: 100vh !important;
-}
+  .pull-right {
+    text-align: left !important;
+    float: right !important;
+  }
 
-li {
-  list-style-type: none;
-  line-height: 1.9;
-}
+  .float-left {
+    float: left !important;
+  }
 
-.disclist > li{
-  list-style-type: disc;
-}
-.hello{
-  width: 95%;
-  float: right;
-}
-.hello >tr{
-  border: 1px solid black !important;
-}
-.hello > tr > td{
-  border: 1px solid black !important;
-}
+  .float-right {
+    float: right !important;
+  }
 
-.page-break {
-  page-break-after: always;
+  .lh-25 {
+    line-height: 40px !important;
+  }
+
+  .unicodeResize {
+    font-size: 16px;
+  }
+
+  .w-100 {
+    width: 100% !important;
+  }
+
+  ol.conditions-list {
+    list-style: devanagari;
+    padding-left: 20px;
+    line-height: 40px !important;
+    padding-bottom: 5px;
+    text-align: justify !important;
+  }
+
+  .m-0 {
+    margin: 0 !important;
+  }
+
+  input.bottom-line {
+    border-bottom: 1px dotted !important;
+    margin-bottom: 20px !important;
+  }
+
+  table {
+    page-break-inside: auto;
+    color: black !important;
+  }
+  tr {
+    page-break-inside: auto;
+    page-break-after: auto;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  .table-sm th, .table-sm td {
+    font-size: 15px !important;
+  }
+
+  * {
+    line-height: 40px !important;
+  }
+  .uniFont{
+    font-size: 19px;
+  }
 }

@@ -1,3 +1,6 @@
+*{
+  line-height: 1.9em !important;
+}
 .nep {
   font-size: 16px;
   line-height: 1.9;
@@ -6,6 +9,21 @@
   margin: 10px 50px;
 }
 
+  table {
+    td{
+      text-align: justify;
+    }
+  }
+
+ol.conditions {
+  padding: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
+  padding-left: 10px;
+}
 .form-field {
   background: yellow;
   margin: 0px 5px 5px 5px;
@@ -18,6 +36,7 @@
 }
 p {
   line-height: 1.9;
+  text-align: justify;
 }
 
 .ml-0 {
@@ -49,5 +68,11 @@ p {
   }
   .print-only {
     display: inline-block !important;
+  }
+}
+
+td{
+  p{
+    margin-left: -25px;
   }
 }

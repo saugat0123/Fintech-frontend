@@ -26,7 +26,7 @@ import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
-import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
+// import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
@@ -38,8 +38,8 @@ import {MGroup} from '../../../model/mGroup';
     styleUrls: ['./customer-profile.component.scss']
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
-    @ViewChild('customerListGroupComponent', {static: false})
-    public customerListGroupComponent: CustomerListGroupComponent;
+    // @ViewChild('customerListGroupComponent', {static: false})
+    // public customerListGroupComponent: CustomerListGroupComponent;
 
     @ViewChild('mGroupAccordion', {static: false})
     public mGroupAccordion: NbAccordionItemComponent;

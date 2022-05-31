@@ -22,12 +22,19 @@
       </tr>
       <tr class=" text-center cursor" nbTooltip="click to view detail Loan "
           *ngFor="let data of customerLoanList;let j=index">
-        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{j + 1}}</td>
+        <!--<td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{j + 1}}</td>
         <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.loan?.name}}</td>
         <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.loanType | replace:'_':' '}}</td>
         <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.currentStage?.lastModifiedAt | date:'medium'}}</td>
         <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.currentStage?.toUser?.name }}</td>
         <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-right px-2">
+          Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>-->
+        <td class="text-left">{{j + 1}}</td>
+        <td class="text-left">{{data?.loan?.name}}</td>
+        <td class="text-left">{{data?.loanType | replace:'_':' '}}</td>
+        <td class="text-left">{{data?.currentStage?.lastModifiedAt | date:'medium'}}</td>
+        <td class="text-left">{{data?.currentStage?.toUser?.name }}</td>
+        <td class="text-right px-2">
           Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
       </tr>
         <tr class="bg-light">

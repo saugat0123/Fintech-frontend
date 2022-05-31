@@ -1,9 +1,15 @@
 <nb-card [nbSpinner]="spinner" class="px-3">
     <nb-card-header class="px-2 cursor">
-        <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()">x</a>
+        <h3>Edit Personal Loan Data</h3>
+        <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()" style="margin-top:-2em">x</a>
     </nb-card-header>
     <div>
         <form [formGroup]="form">
+            <div class="row pt-3 pl-2">
+                <div class="col-md-12 pt-3 pl-2">
+                    <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
+                </div>
+            </div>
             <div class="row mt-5 px-5">
                 <table class="table table-borderless text-center sb-small table-sm">
                     <tr>
@@ -16,9 +22,9 @@
                         <td>Date Of Approval</td>
                         <td>
                             <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                                <nb-radio-group name="dateOfApproval">
-                                    <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                    <nb-radio (click)="setDateTypeAD()" [checked]="dateTypeAD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                                <nb-radio-group name="dateOfApproval" formControlName="dateOfApprovalType">
+                                    <nb-radio (click)="setDateTypeBS()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                                    <nb-radio (click)="setDateTypeAD()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
                                 </nb-radio-group>
                             </div>
                         </td>
@@ -27,7 +33,7 @@
                         <td>
                         </td>
                         <td>
-                            <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApproval" [responseType]="2"
+                            <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApprovalNepali" [responseType]="2"
                                           [displayNepali]="true">
                             </nepali-patro>
                             <input [nbDatepicker]="doa"
@@ -59,9 +65,9 @@
                         <td>Date Of Application</td>
                         <td>
                             <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                                <nb-radio-group name="dateofApplication">
-                                    <nb-radio (click)="setDateTypeBS1()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                    <nb-radio (click)="setDateTypeAD1()" [checked]="dateTypeAD1" style="margin-left: 60px;margin-top: -35px;">
+                                <nb-radio-group name="dateofApplication" formControlName="dateofApplicationType">
+                                    <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                                    <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                                         AD
                                     </nb-radio>
                                 </nb-radio-group>
@@ -72,7 +78,7 @@
                         <td>
                         </td>
                         <td>
-                            <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplication" [responseType]="2"
+                            <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplicationNepali" [responseType]="2"
                                           [displayNepali]="true">
                             </nepali-patro>
                             <input [nbDatepicker]="doap"
@@ -143,20 +149,34 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Loan Admin Fee</td>
+                        <td>Loan Admin Fee in Figures</td>
                         <td>
-                            <input type="text" class="form-control"
+                            <input type="number" class="form-control"
                                    formControlName="loanAdminFee"
-                                   (input)="translateNumber('loanAdminFee', 'loanAdminFeeTransVal')"/>
+                                   (input)="getNumAmountWord('loanAdminFee', 'loanAdminFeeinWords')"/>
                         </td>
-                        <td class="abc">{{translatedData ? translatedData?.loanAdminFee : initialInformation?.loanAdminFee?.ct}}</td>
+                        <td class="abc">{{translatedData?.loanAdminFee}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeTransVal.errors }"
                                    formControlName="loanAdminFeeTransVal"/>
                             <div *ngIf="submitted && Form.loanAdminFeeTransVal.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="Form.loanAdminFeeTransVal.errors.required">Loan admin fee is required</div>
+                                <div *ngIf="Form.loanAdminFeeTransVal.errors.required">Loan admin fee in Figures is required</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Loan Admin Fee in Words</td>
+                        <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                        <td class="abc">{{translatedData?.loanAdminFeeinWords}}</td>
+                        <td>
+                            <input type="text" class="form-control"
+                                   [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
+                                   formControlName="loanAdminFeeinWordsTransVal"/>
+                            <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="Form.loanAdminFeeinWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
                             </div>
                         </td>
                     </tr>

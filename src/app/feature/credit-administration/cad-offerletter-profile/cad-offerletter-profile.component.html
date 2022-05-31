@@ -31,60 +31,65 @@
                 <div class="mt-3">
                   <h4>{{customerInfoData?.name}}</h4>
                   <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
-                    Customer</p>
+                    Customer ({{customerInfoData.customerSubType | titlecase}})</p>
                   <!--todo change to address -->
-                  <p class="text-muted font-size-sm">
+                  <p *ngIf="customerInfoData?.customerType === customerType.INDIVIDUAL" class="text-muted font-size-sm">
                     {{ nepData?.permanentProvince.en.name}} ,
                     {{ nepData?.permanentDistrict.en.name}} ,
                     {{ nepData?.permanentMunicipality.en.name}}</p>
+
+                  <p *ngIf="customerInfoData?.customerType === customerType.INSTITUTION" class="text-muted font-size-sm">
+                    {{ nepData?.registeredProvince.en.name}} ,
+                    {{ nepData?.registeredDistrict.en.name}} ,
+                    {{ nepData?.registeredMunicipality.en.name}}</p>
                 </div>
               </div>
             </div>
           </div>
-          <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
-            <nb-card-header>
-              <strong>View Offer Letter</strong>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-12">
-                  <nb-select
-                      #offerLetterType
-                      fullWidth
-                      placeholder="Select Offer Letter"
-                      status="info">
-                    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-                      {{i.key | replace:'_':' ' }}
-                    </nb-option>
-                  </nb-select>
-                </div>
-                <div class="col-md-12 mt-3">
-                  <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
-                          class="float-right" nbButton
-                          size="small"
-                          [disabled]="roleType === 'MAKER' ||
-                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">
-                    View
-                  </button>
-                </div>
-              </div>
+<!--          <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">-->
+<!--            <nb-card-header>-->
+<!--              <strong>View Offer Letter</strong>-->
+<!--            </nb-card-header>-->
+<!--            <nb-card-body>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <nb-select-->
+<!--                      #offerLetterType-->
+<!--                      fullWidth-->
+<!--                      placeholder="Select Offer Letter"-->
+<!--                      status="info">-->
+<!--                    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">-->
+<!--                      {{i.key | replace:'_':' ' }}-->
+<!--                    </nb-option>-->
+<!--                  </nb-select>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 mt-3">-->
+<!--                  <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"-->
+<!--                          class="float-right" nbButton-->
+<!--                          size="small"-->
+<!--                          [disabled]="roleType === 'MAKER' ||-->
+<!--                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||-->
+<!--                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||-->
+<!--                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">-->
+<!--                    View-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </div>-->
 
-            </nb-card-body>
-          </nb-card>
+<!--            </nb-card-body>-->
+<!--          </nb-card>-->
 
           <nb-card>
             <nb-card-header>
-                            <span *ngIf="roleType !== 'MAKER' &&
-                              !(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
-                                  class="float-right"><button
-                                (click)="openCustomOfferLetterDocumentModal(null)"
-                                nbButton outline
-                                size="tiny"><a
-                                class="fa fa-plus"></a></button></span>
+<!--                            <span *ngIf="roleType !== 'MAKER' &&-->
+<!--                              !(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||-->
+<!--                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||-->
+<!--                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"-->
+<!--                                  class="float-right"><button-->
+<!--                                (click)="openCustomOfferLetterDocumentModal(null)"-->
+<!--                                nbButton outline-->
+<!--                                size="tiny"><a-->
+<!--                                class="fa fa-plus"></a></button></span>-->
               Offer Letter Documents
             </nb-card-header>
             <nb-card-body>
@@ -142,14 +147,19 @@
                        title="upload {{cusOfferLetter?.docName}}">
                       <i class="fa fa-upload cursor"></i>
                     </a>
-                    <span *ngIf="roleType !== 'MAKER'">
-                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1"
-                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter?.id)"></a>
-                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1"
-                                           (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
-                                            </span>
+<!--                      @TODO: sync from pending dashboard -->
+<!--                    <span *ngIf="roleType !== 'MAKER'">-->
+<!--                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"-->
+<!--                                           class="fa fa-edit cursor ml-1"-->
+<!--                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter?.id)"></a>-->
+<!--                    <a-->
+<!--                            class="fa fa-edit cursor ml-1"-->
+<!--                            (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>-->
+                                        <a
+                                           class="fa fa-eye cursor ml-1"
+                                           nbTooltip="Preview"
+                                           (click)="openPreviewModal(printDocModal,cusOfferLetter?.docName,cusOfferLetter?.id,i)"></a>
+<!--                                            </span>-->
                   </td>
                 </tr>
                 </tbody>
@@ -240,54 +250,51 @@
                     <ng-container
                         *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
                       <tr>
-                        <td><a target="_blank" [routerLink]="['/home/loan/summary']"
-                               [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}"
-                        >{{i + 1}}</a>
+                        <td>
+                          {{i + 1}}
                         </td>
                         <td>
-                          <a target="_blank" [routerLink]="['/home/loan/summary']"
-                             [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}"
-                             nbTooltip="click to view Loan Summary ">
-
-                            {{model?.loan?.name}}</a>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                             [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id, catalogue: true}"
+                             nbTooltip="click to view Loan Summary ">-->
+                            {{model?.loan?.name}}
+                          <!--</a>-->
                         </td>
-
-                        <td><a target="_blank" [routerLink]="['/home/loan/summary']"
-                               [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                          {{model?.loanType | replace:'_':' '}}</a></td>
                         <td>
-                          <a target="_blank" [routerLink]="['/home/loan/summary']"
-                             [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                            {{model?.createdAt | date}}</a>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                               [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                               catalogue: true}">-->
+                          {{model?.loanType | replace:'_':' '}}
+                          <!--</a>-->
+                        </td>
+                        <td>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                             [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                             catalogue: true}">-->
+                            {{model?.createdAt | date}}
+                          <!--</a>-->
                         </td>
                           <td>
-                              <a target="_blank" [routerLink]="['/home/loan/summary']"
-                                 [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                                  {{model?.currentStage?.lastModifiedAt | date}}</a>
+                              <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                                 [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                                 catalogue: true}">-->
+                            {{model?.currentStage?.lastModifiedAt | date}}
+                            <!--</a>-->
                           </td>
                         <td>
                           <a class="px-2 cursor"
                              (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                              nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
-                          </a></td>
-                          <td class="text-right"><a target="_blank"
-                                                    [routerLink]="['/home/loan/summary']"
-                                                    [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-
-                              Rs. {{model?.proposal?.proposedLimit | number}}</a></td>
+                          </a>
+                        </td>
+                          <td class="text-right">
+                            <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                            [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                            catalogue: true}">-->
+                            Rs. {{model?.proposal?.proposedLimit | number}}
+                            <!--</a>-->
+                          </td>
                       </tr>
 
                       <ng-container *ngIf="toggleArray[i].toggled">
@@ -431,4 +438,110 @@
       </div>
     </nb-card-body>
   </nb-card>
+</ng-template>
+
+
+<ng-template #printDocModal>
+    <nb-card accent="primary">
+        <nb-card-header>
+          <a (click)="nbDialogServiceClose()" aria-label="Close" class="close cursor"
+             data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body [ngSwitch]="documentName" *ngIf="cadOfferLetterApprovedDoc">
+          <app-personal-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_LOAN)"
+                                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                   [letter]="initialInfoPrint"
+                                   [loanLimit]="this.loanLimit"
+                                   [preview]="true"
+                                   [offerData]="offerLetterData"></app-personal-loan-print>
+          <app-retail-professional-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.EDUCATIONAL)"
+                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                              [letter]="initialInfoPrint"
+                                              [preview]="true"
+                                              [offerData]="offerLetterData"></app-retail-professional-loan-print>
+          <app-sme-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.AUTO_LOAN)"
+                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                         [letter]="initialInfoPrint"
+                         [loanLimit]="this.loanLimit"
+                         [preview]="true"
+                         [offerData]="offerLetterData"></app-sme-print>
+          <app-personal-overdraft-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_OVERDRAFT)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [security]="this.selectedSecurity"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-personal-overdraft-print>
+          <app-personal-loan-and-personal-overdraft-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-personal-loan-and-personal-overdraft-print>
+          <app-home-loan-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.HOME_LOAN)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-home-loan-print>
+          <app-retail-mortgage-loan-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.MORTAGE_LOAN)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [security]="this.selectedSecurity"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-retail-mortgage-loan-print>
+          <app-personal-overdraft-without-collateral-print
+              *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL)"
+              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+              [letter]="initialInfoPrint"
+              [security]="this.selectedSecurity"
+              [renewal]="this.renewal"
+              [offerData] = offerLetterData
+              [loanLimit]="this.loanLimit"
+              [preview]="true">
+          </app-personal-overdraft-without-collateral-print>
+          <app-kisan-karja-subsidy-print  *ngSwitchCase="offerLetterConst.value(offerLetterConst.KISAN_KARJA_SUBSIDY)"
+                                         [letter]="initialInfoPrint"
+                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                          [offerData]=offerLetterData
+                                          [preview]="true">
+          </app-kisan-karja-subsidy-print>
+          <app-interest-subsidy-sanction-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [renewal]="this.renewal"
+                  [offerData]=offerLetterData
+                  [preview]="true">
+          </app-interest-subsidy-sanction-letter-print>
+          <app-ddsl-without-subsidy-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.DDSL_WITHOUT_SUBSIDY)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [preview]="true">
+          </app-ddsl-without-subsidy-print>
+          <!-- For Combined Offer letter view -->
+          <ng-container *ngIf="this.cadOfferLetterApprovedDoc?.loanHolder?.customerType === 'INSTITUTION'">
+            <app-combined-offer-letter-print
+                    *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                    [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                    [preview]="true">
+            </app-combined-offer-letter-print>
+          </ng-container>
+          <ng-container *ngIf="this.cadOfferLetterApprovedDoc?.loanHolder?.customerType === 'INDIVIDUAL'">
+            <app-retail-combined-offer-letter
+                    *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                    [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                    [preview]="true">
+            </app-retail-combined-offer-letter>
+          </ng-container>
+        </nb-card-body>
+    </nb-card>
 </ng-template>

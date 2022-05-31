@@ -20,6 +20,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Attributes} from '../../../../../@core/model/attributes';
 import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
 import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-personal-overdraft-template-data-edit',
@@ -55,6 +57,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   dateTypeAD1 = false;
   dateTypeBS2 = false;
   dateTypeAD2 = false;
+  dateTypeBS3 = false;
+  dateTypeAD3 = false;
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
@@ -64,6 +68,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   securityDetails: SecurityDetails[];
   securities: Securities[];
+  finalDateOfApplication;
 
   constructor(private formBuilder: FormBuilder,
               private dialogService: NbDialogService,
@@ -75,17 +80,43 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              private addressService: AddressService, ) { }
+              private addressService: AddressService,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
     this.getAllDistrict();
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
+      if (this.initialInformation.dateOfExpiryType.en === 'AD') {
+        this.dateTypeAD2 = true;
+      } else {
+       this.dateTypeBS2 = true;
+      }
+      const dateOfApprovalType1 = this.initialInformation.dateOfApprovalType ? this.initialInformation.dateOfApprovalType.en : '';
+      if (dateOfApprovalType1 === 'AD') {
+        this.dateTypeAD = true;
+      } else {
+        this.dateTypeBS = true;
+      }
+      const dateOfApplicationType1 = this.initialInformation.dateofApplicationType ? this.initialInformation.dateofApplicationType.en : '';
+      if (dateOfApplicationType1 === 'AD') {
+        this.dateTypeAD1 = true;
+      } else {
+        this.dateTypeBS1 = true;
+      }
+      const mortgageDeedDateType1 = this.initialInformation.mortgageDeedDateType ? this.initialInformation.mortgageDeedDateType.en : '';
+      if (mortgageDeedDateType1 === 'AD') {
+        this.dateTypeAD3 = true;
+      } else {
+        this.dateTypeBS3 = true;
+      }
       this.fieldFlag = true;
-      this.dateTypeAD = true;
-      this.dateTypeAD1 = true;
-      this.dateTypeAD2 = true;
+      // this.dateTypeAD = true;
+      // this.dateTypeAD1 = true;
+      this.loanLimit = this.initialInformation.loanLimitChecked.en;
+      this.renewal = this.initialInformation.renewalChecked.en;
       this.securityDetails = this.initialInformation.securityDetails;
       if (!ObjectUtil.isEmpty(this.initialInformation.securityDetails)) {
         this.securityDetails.forEach((security) => {
@@ -112,21 +143,26 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       renewalChecked: [undefined],
       // referenceNumber: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
+      drawingPower: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
       loanadminFee: [undefined],
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
+      dateOfExpiryType: [undefined],
       dateofExpiry: [undefined],
-      // nameofGuarantors: [undefined],
-      /*guaranteedamountinFigure: [undefined],
-      guaranteedamountinWords: [undefined],*/
+      dateofExpiryNepali: [undefined],
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
+      mortgageDeedDate: [undefined],
+      mortgageDeedDateNepali: [undefined],
+      mortgageDeedDateType: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -134,8 +170,11 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       renewalCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
+      drawingPowerTransVal: [undefined],
       baseRateTransVal: [undefined, Validators.required],
       premiumRateTransVal: [undefined, Validators.required],
       yearlyInterestRateTransVal: [undefined],
@@ -143,13 +182,19 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
-      // nameofGuarantorsTransVal: [undefined],
-      /*guaranteedamountinFigureTransVal: [undefined],
-      guaranteedamountinWordsTransVal: [undefined],*/
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       insuranceAmountinFigureTransVal: [undefined, Validators.required],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
-      securities: this.formBuilder.array([])
+      securities: this.formBuilder.array([]),
+      dateOfApprovalType: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
+      dateofApplicationType: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
+      mortgageDeedDateTransVal: [undefined],
+      mortgageDeedDateNepaliTransVal: [undefined],
+      mortgageDeedDateTypeTransVal: [undefined],
     });
   }
 
@@ -185,40 +230,31 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
           this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString()) {
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           this.tdValues['securityDetails'] = securityDetails;
-          this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.tdValues['securityDetails'] = securityDetails;
-      this.translatedData = {};
-      this.deleteCTAndTransContorls(this.tdValues);
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully update Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
     });
@@ -227,21 +263,6 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   private clearConditionalValidation(): void {
     this.form.get('insuranceAmountinFigureTransVal').clearValidators();
     this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
-  }
-
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-    });
   }
   get Form() {
     return this.form.controls;
@@ -272,33 +293,36 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(data): void {
-    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
-    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    if (this.dateTypeAD) {
+      this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    } else {
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
+    }
+    if (this.dateTypeAD1) {
+      this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    } else {
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
+    }
+    if (this.dateTypeAD3) {
+      this.form.get('mortgageDeedDateTransVal').patchValue(this.translatedData.mortgageDeedDate);
+    } else {
+      this.form.get('mortgageDeedDateNepaliTransVal').patchValue(this.translatedData.mortgageDeedDateNepali);
+    }
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
+    this.form.get('drawingPowerTransVal').patchValue(this.translatedData.drawingPower);
     this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
-    // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
-    this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
-    // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmfentFee);
-    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
-    // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
-    // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
-    // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
+    if (this.dateTypeAD2) {
+      this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    } else {
+      this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
+    }
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
-    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-
-    // this.form.get('renewalCheckedTransval').patchValue(this.renewal);
-    // this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
-    this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
-    this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
-    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -344,20 +368,24 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   setDateTypeBS() {
     this.dateTypeBS = true;
     this.dateTypeAD = false;
+    this.clearForm('dateOfApproval');
   }
 
   setDateTypeAD() {
     this.dateTypeBS = false;
     this.dateTypeAD = true;
+    this.clearForm('dateOfApproval');
   }
   setDateTypeBS1() {
     this.dateTypeBS1 = true;
     this.dateTypeAD1 = false;
+    this.clearForm('dateofApplication');
   }
 
   setDateTypeAD1() {
     this.dateTypeBS1 = false;
     this.dateTypeAD1 = true;
+    this.clearForm('dateofApplication');
   }
   setDateTypeBS2() {
     this.dateTypeBS2 = true;
@@ -369,11 +397,21 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.dateTypeAD2 = true;
   }
 
+  setDateTypeBS3() {
+    this.dateTypeBS3 = true;
+    this.dateTypeAD3 = false;
+  }
+
+  setDateTypeAD3() {
+    this.dateTypeBS3 = false;
+    this.dateTypeAD3 = true;
+  }
+
   public calInterestRate(): void {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('yearlyInterestRate').patchValue(sum);
+    this.form.get('yearlyInterestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
@@ -494,16 +532,41 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     // set en value
     this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
     // this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
-    this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
-    this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
+    // this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    // Set Date of Approval
+    this.form.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
+    if (this.initialInformation.dateOfApprovalType.en === 'AD') {
+      this.form.get('dateOfApproval').patchValue(new Date(this.initialInformation.dateOfApproval.en));
+    } else {
+      this.form.get('dateOfApprovalNepali').patchValue(this.initialInformation.dateOfApprovalNepali.en);
+    }
+    // Set Date of Application
+    this.form.get('dateofApplicationType').patchValue(this.initialInformation.dateofApplicationType.en);
+    if (this.initialInformation.dateofApplicationType.en === 'AD') {
+      this.form.get('dateofApplication').patchValue(new Date(this.initialInformation.dateofApplication.en));
+    } else {
+      this.form.get('dateofApplicationNepali').patchValue(this.initialInformation.dateofApplicationNepali.en);
+    }
+    this.form.get('mortgageDeedDateType').patchValue(this.initialInformation.mortgageDeedDateType.en);
+    if (this.initialInformation.mortgageDeedDateType.en === 'AD') {
+      this.form.get('mortgageDeedDate').patchValue(new Date(this.initialInformation.mortgageDeedDate.en));
+    } else {
+      this.form.get('mortgageDeedDateNepali').patchValue(this.initialInformation.mortgageDeedDateNepali.en);
+    }
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
+    this.form.get('drawingPower').patchValue(this.initialInformation.drawingPower.en);
     this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
     this.form.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
     this.form.get('yearlyInterestRate').patchValue(this.initialInformation.yearlyInterestRate.en);
     this.form.get('loanadminFee').patchValue(this.initialInformation.loanadminFee.en);
     this.form.get('loanadminFeeWords').patchValue(this.initialInformation.loanadminFeeWords.en);
     this.form.get('loanCommitmentFee').patchValue(this.initialInformation.loanCommitmentFee.en);
-    this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+    this.form.get('dateOfExpiryType').patchValue(this.initialInformation.dateOfExpiryType.en);
+    if (this.initialInformation.dateOfExpiryType.en === 'AD') {
+      this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+    } else {
+      this.form.get('dateofExpiryNepali').patchValue(this.initialInformation.dateofExpiryNepali.en);
+    }
     this.form.get('relationshipofficerName').patchValue(this.initialInformation.relationshipofficerName.en);
     this.form.get('nameofBranchManager').patchValue(this.initialInformation.nameofBranchManager.en);
     this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
@@ -511,6 +574,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     // set ct value
     // this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
     this.form.get('purposeOfLoanTransVal').patchValue(this.initialInformation.purposeOfLoan.ct);
+    this.form.get('drawingPowerTransVal').patchValue(this.initialInformation.drawingPower.ct);
     this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
     this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);
     this.form.get('yearlyInterestRateTransVal').patchValue(this.initialInformation.yearlyInterestRate.ct);

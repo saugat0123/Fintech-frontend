@@ -3,13 +3,13 @@ import {ProposalComponent} from '../../../loan-information-template/proposal/pro
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {CustomerLoanDocumentComponent} from '../../../loan-information-template/customer-loan-document/customer-loan-document.component';
-import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+// import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
+// import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 @Component({
   selector: 'app-customer-loan-edit',
@@ -34,14 +34,14 @@ export class CustomerLoanEditComponent implements OnInit {
   @ViewChild('proposal', {static: false})
   proposal: ProposalComponent;
 
-  @ViewChild('microProposal', {static: false})
-  microProposal: MicroProposalComponent;
+  /*@ViewChild('microProposal', {static: false})
+  microProposal: MicroProposalComponent;*/
 
   @ViewChild('customerLoanDoc', {static: false})
   customerLoanDoc: CustomerLoanDocumentComponent;
 
-  @ViewChild('reportingInfoTagging', {static: false})
-  reportingInfoTagging: ReportingInfoTaggingComponent;
+  /*@ViewChild('reportingInfoTagging', {static: false})
+  reportingInfoTagging: ReportingInfoTaggingComponent;*/
 
   @ViewChild('priorityFormNav', {static: false})
   priorityFormNav: ElementRef;
@@ -107,8 +107,8 @@ export class CustomerLoanEditComponent implements OnInit {
     this.proposal.onSubmit();
     this.loanDataHolder.proposal = this.proposal.proposalData;
     this.loanDataHolder.customerDocument = this.customerLoanDoc.customerDocumentArray;
-    this.reportingInfoTagging.onSubmit();
-    this.loanDataHolder.reportingInfoLevels = this.reportingInfoTagging.finalReportingInfoLevels;
+    // this.reportingInfoTagging.onSubmit();
+    // this.loanDataHolder.reportingInfoLevels = this.reportingInfoTagging.finalReportingInfoLevels;
     this.loanFormService.save(this.loanDataHolder).subscribe((response: any) => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Loan Info'));

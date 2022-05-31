@@ -1,0 +1,277 @@
+<nb-card>
+    <nb-card-header class="text-left">
+        <h5>Loan Information</h5>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="globalForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="Select Loan Type"
+                                   (selectedChange)="checkSelectedOptions($event)"
+                                   formControlName="loanType" shape="semi-round">
+                            <nb-option *ngFor="let loanType of loanTypes" [value]="loanType?.value">{{loanType?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-md-12 mt-2">
+                            <nb-checkbox #loanCommitment (checkedChange)="loanCommitmentCheck(loanCommitment.checked)"
+                                         formControlName="loanCommitmentCheck">
+                                Loan Commitment Fee Required?
+                            </nb-checkbox>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <nb-checkbox #loanAboveCrore (checkedChange)="loanAboveCroreChecked(loanAboveCrore.checked)"
+                                         formControlName="loanAboveCrore">
+                                Loan Above 1 Crore?
+                            </nb-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Nepali Translation</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Correct Translation</span>
+                </div>
+            </div>
+            <div *ngIf="loanCommitment.checked" class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Commitment Fee in Percent (%)</label>
+                        <input (change)="numberTranslate('loanCommitmentFeeInPercent')"
+                                nbInput fullWidth status="success" type="number" formControlName="loanCommitmentFeeInPercent" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="loanCommitmentFeeInPercentTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="loanCommitmentFeeInPercentCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="sanctionLetterDateType"
+                                        name="sanctionLetterDateType" id="sanctionLetterDateType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Sanction Letter Date</label>
+                        <nepali-patro *ngIf="globalForm.get('sanctionLetterDateType').value === 'BS'"
+                                      (ngModelChange)="dateConvert('sanctionLetterDateNepali', 'BS')"
+                                      formControlName="sanctionLetterDateNepali" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('sanctionLetterDateType').value === 'AD'"
+                               (ngModelChange)="dateConvert('sanctionLetterDate', 'AD')"
+                               nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate"
+                               formControlName="sanctionLetterDate" shape="semi-round">
+                        <nb-datepicker #sanctionLetterDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('sanctionLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="sanctionLetterDateTrans" shape="semi-round" readonly>
+                    </div>
+                    <div *ngIf="globalForm.get('sanctionLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="sanctionLetterDateNepaliTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('sanctionLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="sanctionLetterDateCT" type="text" shape="semi-round">
+                    </div>
+                    <div *ngIf="globalForm.get('sanctionLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="sanctionLetterDateNepaliCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="requestLetterDateType"
+                                        name="requestLetterDateType" id="requestLetterDateType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Request Letter Date</label>
+                        <nepali-patro *ngIf="globalForm.get('requestLetterDateType').value === 'BS'"
+                                      (ngModelChange)="dateConvert('requestLetterDateNepali', 'BS')"
+                                      formControlName="requestLetterDateNepali" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('requestLetterDateType').value === 'AD'"
+                               (ngModelChange)="dateConvert('requestLetterDate', 'AD')"
+                               nbInput fullWidth status="success" [nbDatepicker]="requestLetterDate"
+                               formControlName="requestLetterDate" shape="semi-round">
+                        <nb-datepicker #requestLetterDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('requestLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="requestLetterDateTrans" shape="semi-round" readonly>
+                    </div>
+                    <div *ngIf="globalForm.get('requestLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="requestLetterDateNepaliTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('requestLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="requestLetterDateCT" type="text" shape="semi-round">
+                    </div>
+                    <div *ngIf="globalForm.get('requestLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="requestLetterDateNepaliCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.globalForm.get('loanType').value === 'Plain Renewal' ||
+            this.globalForm.get('loanType').value === 'Renewal with Enhancement or Additional Loan' ||
+            this.globalForm.get('loanType').value === 'Additional Loan'" class="row">
+                <div class="col-md-4">
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="previousSanctionLetterDateType"
+                                        name="previousSanctionLetterDateType" id="previousSanctionLetterDateType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Previous Sanction Letter Date</label>
+                        <nepali-patro *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'BS'"
+                                      (ngModelChange)="dateConvert('previousSanctionLetterDateNepali', 'BS')"
+                                      formControlName="previousSanctionLetterDateNepali" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'AD'"
+                               (ngModelChange)="dateConvert('previousSanctionLetterDate', 'AD')"
+                               nbInput fullWidth status="success" [nbDatepicker]="requestLetterDate"
+                               formControlName="previousSanctionLetterDate" shape="semi-round">
+                        <nb-datepicker #requestLetterDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="previousSanctionLetterDateTrans" shape="semi-round" readonly>
+                    </div>
+                    <div *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="previousSanctionLetterDateNepaliTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'AD'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="previousSanctionLetterDateCT" type="text" shape="semi-round">
+                    </div>
+                    <div *ngIf="globalForm.get('previousSanctionLetterDateType').value === 'BS'" class="form-group m-top4">
+                        <input nbInput fullWidth status="success" formControlName="previousSanctionLetterDateNepaliCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Base Rate</label>
+                        <input (change)="numberTranslate('baseRate')" nbInput fullWidth status="success" type="number" formControlName="baseRate" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="baseRateTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="baseRateCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total Limit In Figure</label>
+                        <input (change)="numberTranslate('totalLimitInFigure');convertWords('totalLimitInFigure', 'totalLimitInWords')"
+                                nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigure" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInFigureTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInFigureCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total Limit In Words</label>
+                        <input nbInput readonly fullWidth status="success" formControlName="totalLimitInWords" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWordsTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWordsCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name Of Branch Manager</label>
+                        <input (change)="wordsTranslate('nameOfBranchManager')"
+                                nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManager" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManagerTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManagerCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name of Relationship Manager</label>
+                        <input (change)="wordsTranslate('nameOfRelationshipManager')"
+                                nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManager" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManagerTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManagerCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -20,6 +20,9 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
+import {HomeLoanType} from '../../../cad-view/cad-constant/home-loan-type';
 
 @Component({
   selector: 'app-home-loan',
@@ -54,6 +57,8 @@ export class HomeLoanComponent implements OnInit {
   loanLimit;
   afterSave = false;
   landbuilding;
+  homeLoanType = HomeLoanType;
+  nepaliBranchName;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -65,21 +70,24 @@ export class HomeLoanComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe,
               private ref: NbDialogRef<HomeLoanComponent>) { }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
     this.buildPersonal();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.nepaliBranchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      console.log('this.tempData', this.tempData);
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    if (this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKEOVER') {
+    if (this.tempData.loanType === this.homeLoanType.PURCHASE || this.tempData.loanType === this.homeLoanType.TAKE_OVER) {
       this.landbuilding = this.tempData.loan.landBuildingType;
     }
     console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
@@ -90,8 +98,12 @@ export class HomeLoanComponent implements OnInit {
   }
 
   buildPersonal() {
+    let refNumberAuto;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      refNumberAuto = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
     this.form = this.formBuilder.group({
-      referenceNumber: [undefined],
+      referenceNumber: [refNumberAuto ? refNumberAuto : undefined],
       loanLimitChecked: [undefined],
       dateofApproval: [undefined],
       customerName: [undefined],
@@ -106,7 +118,7 @@ export class HomeLoanComponent implements OnInit {
       loanadminFeeWords: [undefined],
       dateofExpiry: [undefined],
       ownerName: [undefined],
-      additionalDetail: [undefined],
+      additionalDetails: [undefined],
       ownersAddress: [undefined],
       propertyPlotNumber: [undefined],
       beneficiaryName: [undefined],
@@ -142,6 +154,9 @@ export class HomeLoanComponent implements OnInit {
       guarantorAmountinWord: [undefined],
       dateofSignature: [undefined],
       municipalityVDC: [undefined],
+      nameOfBank: [undefined],
+      moratoriumPeriodInMonth: [undefined],
+      purposeOfLoan: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -170,7 +185,6 @@ export class HomeLoanComponent implements OnInit {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        console.log('If condition works:');
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
       } else {
@@ -184,9 +198,9 @@ export class HomeLoanComponent implements OnInit {
           this.form.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
         }
         this.initialInfoPrint = initialInfo;
+        this.loanLimit = this.tempData.loan.loanLimitChecked;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
-        this.loanLimit = this.tempData.loanLimitChecked;
         this.fillForm();
       }
     } else {
@@ -204,6 +218,7 @@ export class HomeLoanComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.pointInformation= this.form.get('additionalDetails').value;
         }
       });
     } else {
@@ -241,16 +256,27 @@ export class HomeLoanComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let dateOfApprovalTemp;
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApproval)) {
+      dateOfApprovalTemp = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApproval), true);
+    } else {
+      dateOfApprovalTemp = this.initialInfoPrint.loan.dateOfApprovalCT;
+    }
+    let tempDateOfApplication;
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApplication)) {
+      tempDateOfApplication = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApplication), true);
+    } else {
+      tempDateOfApplication = this.initialInfoPrint.loan.dateOfApplicationCT;
+    }
+    this.selectedSecurity = this.tempData.loan.landBuildingType ? this.tempData.loan.landBuildingType : '';
     this.form.patchValue({
-      referenceNumber: this.tempData.loan.referenceNumberCT ? this.tempData.loan.referenceNumberCT : '',
-      dateofApproval: this.tempData.loan.dateOfApprovalCT ? this.tempData.loan.dateOfApprovalCT : '',
+      dateofApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
-      dateofApplication: this.tempData.loan.dateOfApplicationCT ? this.tempData.loan.dateOfApplicationCT : '',
-      additionalGuarantorDetails: this.tempData.loan.freeTextRequiredCT ? this.tempData.loan.freeTextRequiredCT : '',
+      dateofApplication: tempDateOfApplication ? tempDateOfApplication : '',
       ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
       ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
       propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
-      propertyArea: this.tempData.loan.areasCT ? this.tempData.loan.areasCT : '',
+      propertyArea: (this.tempData.loan.areaCT) ? (this.tempData.loan.areaCT) : ((this.tempData.loan.areasCT) ? (this.tempData.loan.areasCT) : ('')),
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
@@ -272,8 +298,9 @@ export class HomeLoanComponent implements OnInit {
       seatNumber: this.tempData.loan.seatNumberCT ? this.tempData.loan.seatNumberCT : '',
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
-
-
+      nameOfBank: this.tempData.loan.nameOfBankCT ? this.tempData.loan.nameOfBankCT : '',
+      moratoriumPeriodInMonth: this.tempData.loan.moratoriumPeriodInMonthCT ? this.tempData.loan.moratoriumPeriodInMonthCT : '',
+      purposeOfLoan: this.tempData.loan.purposeOfLoanCT ? this.tempData.loan.purposeOfLoanCT : '',
     });
   }
   calcYearlyRate() {
@@ -312,7 +339,6 @@ export class HomeLoanComponent implements OnInit {
       let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
       this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
     }
-    console.log('Guarantor Name:', this.finalName);
   }
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
@@ -328,5 +354,17 @@ export class HomeLoanComponent implements OnInit {
   }
   close() {
     this.ref.close();
+  }
+  dateConversion(controlVal) {
+    let dateTemp;
+    if (!ObjectUtil.isEmpty(controlVal.en)) {
+      if (!ObjectUtil.isEmpty(controlVal.en.nDate)) {
+        dateTemp = controlVal.en.nDate;
+      } else {
+        const date = this.datePipe.transform(controlVal.en);
+        dateTemp = this.engNepDatePipe.transform(date, true);
+      }
+    }
+    return dateTemp;
   }
 }

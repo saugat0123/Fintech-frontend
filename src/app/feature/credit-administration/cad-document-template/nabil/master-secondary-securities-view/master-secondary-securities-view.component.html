@@ -1,0 +1,50 @@
+<div class="row mt-3">
+    <div class="col-sm-12">
+        <table class="table table-bordered sb-small text-center">
+            <tbody>
+            <tr>
+                <th rowspan="2">
+                    घर/जग्गा
+                    धनीको नाम थर
+                </th>
+                <th colspan="3">
+                    घर/जग्गाको अवस्थिति
+                </th>
+                <th rowspan="2">
+                    सिट नं.
+                </th>
+                <th rowspan="2">
+                    कित्ता नं.
+                </th>
+                <th rowspan="2">
+                    क्षेत्रफल
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    जिल्ला
+                </th>
+                <th>
+                    नगर/गा.वि.स.
+                </th>
+                <th>
+                    वडा नं.
+                </th>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersNameCT}}</td>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersDistrictCT}}</td>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersMunicipalityCT}}</td>
+            </tr>
+            <tr *ngFor="let secondaryData of securityDetails?.propertyDetails">
+                <td>{{secondaryData?.securityOwnersWardNoCT}}</td>
+                <td>{{secondaryData?.securityOwnersSheetNoCT}}</td>
+                <td>{{secondaryData?.securityOwnersKittaNoCT}}</td>
+                <td>{{secondaryData?.securityOwnersLandAreaCT}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

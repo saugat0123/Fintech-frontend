@@ -1,0 +1,259 @@
+<div>
+    <form [formGroup]="nabilShareLoanPODForm">
+        <div *ngFor="let formDetails of nabilShareLoanPODForm.get('nabilShareLoanPODFormArray')['controls']; let i = index" formArrayName="nabilShareLoanPODFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row">
+                    <div class="col-md-12 pb-2">
+                        <h5> NABIL SHARE LOAN POD {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <nb-checkbox #renewalCheck (checkedChange)="renewalCheckFunc(renewalCheck.checked, i)"
+                                     formControlName="isRenewal">
+                            Renewal ?
+                        </nb-checkbox>
+                    </div>
+                    <div class="col-md-4 mt-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="setInterestRateType($event)"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="FLOATING_INTEREST"> Floating Interest Rate </nb-option>
+                            <nb-option value="FIXED_INTEREST"> Fixed Interest Rate </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="loanAmountInFigure">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmountInFigure" fullWidth id="loanAmountInFigure"
+                               (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords', i, 'nabilShareLoanPODFormArray')"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInFigureTrans" fullWidth id="loanAmountInFigureTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInFigureCT" fullWidth id="loanAmountInFigureCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountInWords">Loan Amount In Words</label>
+                        <input class="form-control" formControlName="loanAmountInWords" fullWidth id="loanAmountInWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInWordsTrans" fullWidth id="loanAmountInWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInWordsCT" fullWidth id="loanAmountInWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="purposeOfLoan"> Purpose of Loan</label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth id="purposeOfLoanTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanCT" fullWidth id="purposeOfLoanCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="this.nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                        <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
+                               nbInput
+                               (input)="calInterestRate(i)"
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                        <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number"
+                               [ngClass]="{'readOnly': this.nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="loanAdminFeeInFigure">Loan Admin Fee</label>
+                        <input class="form-control" formControlName="loanAdminFeeInFigure" fullWidth id="loanAdminFeeInFigure"
+                               (input)="getNumAmountWord('loanAdminFeeInFigure', 'loanAdminFeeInWords', i, 'nabilShareLoanPODFormArray')"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInFigureTrans" fullWidth id="loanAdminFeeInFigureTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInFigureCT" fullWidth id="loanAdminFeeInFigureCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAdminFeeInWords">Loan Admin Fee In Words</label>
+                        <input class="form-control" formControlName="loanAdminFeeInWords" fullWidth id="loanAdminFeeInWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInWordsTrans" fullWidth id="loanAdminFeeInWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInWordsCT" fullWidth id="loanAdminFeeInWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="{{'loanExpiryDateType' + i}}"> Loan Expiry Date</label><br>
+                        <nb-radio-group class="d-inline-flex"
+                                        formControlName="loanExpiryDateType" id="{{'loanExpiryDateType' + i}}"
+                                        name="{{'loanExpiryDateType' + i}}" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="loanExpiryDateNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === dateType[0]?.value" [nbDatepicker]="previousDate"
+                               formControlName="loanExpiryDate"
+                               fullWidth
+                               id="loanExpiryDate"
+                               nbInput
+                               shape="semi-round"
+                               placeholder="Select Date" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4">
+                        <div *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="loanExpiryDateNepaliTrans" fullWidth id="loanExpiryDateNepaliTrans"
+                                   readonly
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="loanExpiryDateTrans" fullWidth id="loanExpiryDateTrans"
+                                   readonly
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="loanExpiryDateNepaliCT" fullWidth id="loanExpiryDateNepaliCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div *ngIf="nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="loanExpiryDateCT" fullWidth id="loanExpiryDateCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                            Translate Nabil Share Loan Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <hr/>
+        </div>
+    </form>
+</div>

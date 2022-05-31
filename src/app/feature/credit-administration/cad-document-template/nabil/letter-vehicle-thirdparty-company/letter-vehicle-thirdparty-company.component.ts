@@ -15,6 +15,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {CustomerSubType} from '../../../../customer/model/customerSubType';
 import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-letter-vehicle-thirdparty-company',
@@ -22,7 +23,7 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['./letter-vehicle-thirdparty-company.component.scss']
 })
 export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
-  letterVehicleThirdpartyCompany: FormGroup;
+  letterVehicleThirdPartyCompany: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -40,6 +41,11 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  nameOfAuthorizedBody = 'नेपाल सरकार';
+  offerDocumentDetails: any;
+  supportedInfo;
+  loanHolderNepData: any;
+  spinner = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -48,24 +54,39 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
       private routerUtilsService: RouterUtilsService,
       public datePipe: DatePipe,
+      private englishNepaliDatePipe: EngNepDatePipe,
   ) { }
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(individualCadFile => {
-        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.letterVehicleThirdpartyCompany.patchValue(initialInfo);
-        }
-      });
+    // if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+    //   this.cadData.cadFileList.forEach(individualCadFile => {
+    //     if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+    //       const initialInfo = JSON.parse(individualCadFile.initialInformation);
+    //       this.initialInfoPrint = initialInfo;
+    //       this.letterVehicleThirdPartyCompany.patchValue(initialInfo);
+    //     }
+    //   });
+    // }
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.clientType = this.cadData.loanHolder['customerSubType'];
+
+      this.loanHolderNepData = this.cadData.loanHolder.nepData ?
+          JSON.parse(this.cadData.loanHolder.nepData) :
+          this.cadData.loanHolder.nepData;
+    }
+    this.patchFreeText();
+    this.fillForm();
   }
   buildForm() {
-    this.letterVehicleThirdpartyCompany = this.formBuilder.group({
+    this.letterVehicleThirdPartyCompany = this.formBuilder.group({
       date: [undefined],
       nameOfBranchLocated: [undefined],
+      actName: [undefined],
       actYearInFigure: [undefined],
       nameOfDepartment: [undefined],
       dateOfRegistration: [undefined],
@@ -78,49 +99,142 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
       chasisNumber: [undefined],
     });
   }
-  fillform() {
-    this.letterVehicleThirdpartyCompany.patchValue(
+  fillForm() {
+    this.letterVehicleThirdPartyCompany.patchValue(
         {
-          date: this.individualData.date.ct ?
-              this.individualData.date.ct : '',
-          nameOfBranchLocated: this.individualData.nameOfBranchLocated.ct ?
-              this.individualData.nameOfBranchLocated.ct : '',
-          actYearInFigure: this.individualData.actYearInFigure.ct ?
-              this.individualData.actYearInFigure.ct : '',
-          nameOfDepartment: this.individualData.nameOfDepartment.ct ?
-              this.individualData.nameOfDepartment.ct : '',
-          dateOfRegistration: this.individualData.dateOfRegistration.ct ?
-              this.individualData.dateOfRegistration.ct : '',
-          registrationNo: this.individualData.registrationNo.ct ?
-              this.individualData.registrationNo.ct : '',
-          nameOfBorrower: this.individualData.nameOfBorrower.ct ?
-              this.individualData.nameOfBorrower.ct : '',
-          sanctionLetterIssuedDate: this.individualData.sanctionLetterIssuedDate.ct ?
-              this.individualData.sanctionLetterIssuedDate.ct : '',
-          modelTypeOfVehicle: this.individualData.modelTypeOfVehicle.ct ?
-              this.individualData.modelTypeOfVehicle.ct : '',
-          vehicleRegistrationNumber: this.individualData.vehicleRegistrationNumber.ct ?
-              this.individualData.vehicleRegistrationNumber.ct : '',
-          engineNumber: this.individualData.engineNumber.ct ?
-              this.individualData.engineNumber.ct : '',
-          chasisNumber: this.individualData.chasisNumber.ct ?
-              this.individualData.chasisNumber.ct : '',
+          date: this.supportedInfo ? this.supportedInfo.date : '',
+          nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
+          actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : '',
+          actYearInFigure: this.setActYear(),
+          nameOfDepartment: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ? this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
+          dateOfRegistration: this.setRegistrationDate(),
+          registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
+          nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
+          sanctionLetterIssuedDate: this.setIssuedDate(),
+          modelTypeOfVehicle: this.supportedInfo ? this.supportedInfo.modelTypeOfVehicle : '',
+          vehicleRegistrationNumber: this.supportedInfo ? this.supportedInfo.vehicleRegistrationNumber : '',
+          engineNumber: this.supportedInfo ? this.supportedInfo.engineNumber : '',
+          chasisNumber: this.supportedInfo ? this.supportedInfo.chasisNumber : '',
         }
     );
   }
+
+  setActYear() {
+    let yearOfAct = '';
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
+      if (this.individualData.radioActYearDate.np === 'BS') {
+        yearOfAct = this.individualData.actYear ? this.individualData.actYear.en : '';
+      } else {
+        yearOfAct = this.individualData.actYear ? this.individualData.actYear.en : '';
+      }
+    }
+    return yearOfAct ? yearOfAct : '';
+  }
+
+  setRegistrationDate() {
+    let regDate = '';
+    if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
+      if (this.individualData.registrationDateOption.en === 'AD') {
+        regDate = this.englishNepaliDatePipe.transform(this.individualData.registrationDate ?
+            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
+      } else {
+        regDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
+      }
+    }
+    return regDate ? regDate : '';
+  }
+
+  setIssuedDate() {
+    let issuedDate = '';
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+      const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+      if (dateOfApproval === 'AD') {
+        issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      } else {
+        const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
+        issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+      const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+      if (sanctionLetterDate === 'AD') {
+        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
+        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
+      } else {
+        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
+        issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType) && this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+      }
+    }
+    return issuedDate ? issuedDate : '';
+  }
+  setFreeText() {
+    const free1 = {
+      date: this.letterVehicleThirdPartyCompany.get('date') ? this.letterVehicleThirdPartyCompany.get('date').value : '',
+      modelTypeOfVehicle: this.letterVehicleThirdPartyCompany.get('modelTypeOfVehicle') ? this.letterVehicleThirdPartyCompany.get('modelTypeOfVehicle').value : '',
+      vehicleRegistrationNumber: this.letterVehicleThirdPartyCompany.get('vehicleRegistrationNumber') ? this.letterVehicleThirdPartyCompany.get('vehicleRegistrationNumber').value : '',
+      engineNumber: this.letterVehicleThirdPartyCompany.get('engineNumber') ? this.letterVehicleThirdPartyCompany.get('engineNumber').value : '',
+      chasisNumber: this.letterVehicleThirdPartyCompany.get('chasisNumber') ? this.letterVehicleThirdPartyCompany.get('chasisNumber').value : '',
+    };
+    return JSON.stringify(free1);
+  }
+
+  patchFreeText() {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          this.supportedInfo = JSON.parse(singleCadFile.supportedInformation);
+        }
+      });
+    }
+  }
   submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.letterVehicleThirdpartyCompany.value);
+          singleCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.letterVehicleThirdpartyCompany.value);
+        this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -129,7 +243,8 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.letterVehicleThirdpartyCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.letterVehicleThirdPartyCompany.value);
+      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -139,11 +254,13 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
+      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
+      this.spinner = false;
     });
   }
 }

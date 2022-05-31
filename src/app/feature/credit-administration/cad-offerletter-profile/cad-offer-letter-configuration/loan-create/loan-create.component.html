@@ -1,5 +1,9 @@
 <form [formGroup]="form" [nbSpinner]="spinner">
-   <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
+<!--  <div *ngIf="customerType == 'INSTITUTION'">-->
+  <div>
+    <nb-checkbox [checked]="isCombinedLoan" (change)="combinedLoan($event)">Check if combined loan</nb-checkbox>
+    <br>
+  </div>
   <div *ngFor="let loan of form.get('loanDetails')['controls']; let i = index"
        formArrayName="loanDetails">
     <table class="table table-borderless small table-4" [formGroupName]="i">
@@ -88,6 +92,26 @@
     </table>
     <hr>
   </div>
+  <div *ngIf="isCombinedLoan">
+    <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
+  </div>
   <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">Save & Next
   </button>
+  <button class="float-right" nbButton (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em">
+    Close
+  </button>
+  <ng-template #confirm>
+    <div class="modal-header" style="padding-left: 90%">
+      <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+    </div>
+    <div class="modal-body" style="text-align:center; font-size: 18px">
+      Are you sure you want to close ?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="decline(confirm)">No</button>
+      <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
+    </div>
+  </ng-template>
 </form>

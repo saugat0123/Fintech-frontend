@@ -22,15 +22,16 @@
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
-                        <div class="card-body cursor" nbTooltip="click to view Customer Detail"
-                             (click)="routerUtilsService.routeToCustomer(customerInfoData?.id,customerInfoData?.customerType,customerInfoData?.associateId)">
+                        <div class="card-body">
+                             <!--nbTooltip="click to view Customer Detail"
+                             (click)="routerUtilsService.routeToCustomer(customerInfoData?.id,customerInfoData?.customerType,customerInfoData?.associateId)">-->
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img alt="Admin" class="rounded-circle"
                                      src="https://bootdey.com/img/Content/avatar/avatar7.png" width="150">
                                 <div class="mt-3">
                                     <h4>{{customerInfoData?.name}}</h4>
                                     <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
-                                        Customer</p>
+                                        Customer ({{customerInfoData.customerSubType | titlecase}})</p>
                                     <!--todo change to address -->
                                     <p class="text-muted font-size-sm">
                                         {{customerInfoData?.branch?.province?.name}} ,
@@ -117,7 +118,7 @@
                                     {{customerInfoData?.customerCode}}
                                 </div>
                             </div>
-                            <hr>
+                            <!--<hr>
                             <div class="row mb-n3 mt-n2">
                                 <div class="col-sm-3">
                                     <strong class="mb-0"> Subsector Code</strong>
@@ -125,7 +126,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     {{customerInfoData?.subSectorDetailCode}}
                                 </div>
-                            </div>
+                            </div>-->
 
                             <hr>
                             <div class="row mb-n3 mt-n2">
@@ -172,40 +173,41 @@
                                         <ng-container
                                                 *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
                                             <tr>
-                                                <td><a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                <td><!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}">-->
+                                                    {{i + 1}}<!--</a>-->
+                                                </td>
+                                                <td>
+                                                    <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
                                                        [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
                                                                                      catalogue: true}"
-                                                >{{i + 1}}</a>
-                                                </td>
-                                                <td>
-                                                    <a target="_blank" [routerLink]="['/home/loan/summary']"
-                                                       [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}"
-                                                       nbTooltip="click to view Loan Summary ">
-
-                                                        {{model?.loan?.name}}</a>
+                                                       nbTooltip="click to view Loan Summary ">-->
+                                                        {{model?.loan?.name}}<!--</a>-->
                                                 </td>
 
-                                                <td><a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                <td><!--<a target="_blank" [routerLink]="['/home/loan/summary']"
                                                        [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
-                                                                                     catalogue: true}">
-                                                    {{model?.loanType | replace:'_':' '}}</a></td>
-                                                <td>
-                                                    <a target="_blank" [routerLink]="['/home/loan/summary']"
-                                                       [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                                                        {{model?.createdAt | date}}</a>
+                                                                                     catalogue: true}">-->
+                                                    {{model?.loanType | replace:'_':' '}}
+                                                    <!--</a>-->
                                                 </td>
                                                 <td>
-                                                    <a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                    <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
                                                        [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
-                                                                                     catalogue: true}">
-                                                        {{model?.currentStage?.lastModifiedAt | date}}</a>
+                                                                                     catalogue: true}">-->
+                                                        {{model?.createdAt | date}}<!--</a>-->
+                                                </td>
+                                                <td>
+                                                    <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}">-->
+                                                        {{model?.currentStage?.lastModifiedAt | date}}<!--</a>-->
                                                 </td>
                                                 <td>
                                                     <a class="px-2 cursor"
@@ -214,13 +216,13 @@
                                                         <em class="fa fa-eye"></em>
                                                     </a></td>
 
-                                                <td class="text-right"><a target="_blank"
+                                                <td class="text-right"><!--<a target="_blank"
                                                                           [routerLink]="['/home/loan/summary']"
                                                                           [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
-                                                                                     catalogue: true}">
-
-                                                    Rs. {{model?.proposal?.proposedLimit | number}}</a></td>
+                                                                                     catalogue: true}">-->
+                                                    Rs. {{model?.proposal?.proposedLimit | number}}<!--</a>-->
+                                                </td>
                                             </tr>
 
 

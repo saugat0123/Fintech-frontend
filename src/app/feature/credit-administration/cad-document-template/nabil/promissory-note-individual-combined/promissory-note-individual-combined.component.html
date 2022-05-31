@@ -1,0 +1,556 @@
+<div class="nep text-justify" [nbSpinner]="spinner">
+    <form [formGroup]="form" id="print-section" *ngIf="form">
+        <div class="row" *ngFor="let promissory of form.get('promissoryNoteFormArray')['controls']; let i = index"
+             formArrayName="promissoryNoteFormArray">
+            <div class="col-md-12" [formGroupName]="i">
+                <div class="text-justify">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="nep">
+                                <div><br>
+                                    <p class="text-center" style="font-size:16pt;"><b>प्रतिज्ञा पत्र (PROMISSORY
+                                        NOTE)</b></p>
+                                    <p class="text-right"> मिति: <input class="form-field disable-print form-control-sm"
+                                                                        name="date"
+                                                                        formControlName="date"
+                                                                        placeholder="मिति"
+                                                                        type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'date']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'date']).value : "_______________________"}}</span>
+                                    <div class="col-md-12 border">
+                                        <table class="table table-borderless mt-3" style="width: 100%">
+                                            <td>
+                                                रु. <input
+                                                    (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                                    class="form-field disable-print form-control-sm"
+                                                    name="loanamountinFigure"
+                                                    formControlName="loanamountinFigure"
+                                                    placeholder=" रकम "
+                                                    type="text"/>
+                                                <span class="print-only font-weight-bold">
+                                                    {{form.get(['promissoryNoteFormArray', i, 'loanamountinFigure']).value ?
+                                                    form.get(['promissoryNoteFormArray', i, 'loanamountinFigure']).value : "_____________________"}}</span>/-
+                                                (अक्षरेपी रु. <input class="form-field disable-print form-control-sm"
+                                                                     name="loanamountinWords"
+                                                                     formControlName="loanamountinWords"
+                                                                     placeholder=" ऋण रकम"
+                                                                     type="text"/>
+                                                <span class="print-only font-weight-bold">
+                                                    {{form.get(['promissoryNoteFormArray', i, 'loanamountinWords']).value ?
+                                                    form.get(['promissoryNoteFormArray', i, 'loanamountinWords']).value : "_____________________"}}</span>
+                                                मात्र)
+                                            </td>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <p>लिखितम्
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofGrandFather"
+                                               formControlName="nameofGrandFather"
+                                               placeholder="हजुरबुबाको नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofGrandFather']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofGrandFather']).value : "___________________"}}</span>
+
+                                        को
+                                        <span *ngIf="individualData?.gender?.en === 'MALE' else individualGrandFather">
+                                    नाती
+                                </span>
+                                        <ng-template #individualGrandFather>
+                                    <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '1'">
+                                        नातिनी
+                                    </span>
+                                            <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '0'">
+                                        बुहारी
+                                    </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofFather"
+                                               formControlName="nameofFather"
+                                               placeholder="बुबाको नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofFather']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofFather']).value : "_____________________"}}</span>
+
+                                        को
+                                        <span *ngIf="individualData?.gender?.en === 'MALE' else fatherRelation"> छोरा </span>
+                                        <ng-template #fatherRelation>
+                                    <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '1'">
+                                      छोरी
+                                    </span>
+                                            <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '0'">
+                                      श्रीमती
+                                    </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="district"
+                                               formControlName="district"
+                                               placeholder="जिल्ला"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'district']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'district']).value : "_____________________"}}</span>
+
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
+                                                      name="vdc"
+                                                      formControlName="vdc"
+                                                      placeholder="गाविस"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'vdc']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'vdc']).value : "_____________________"}}</span>
+
+                                        <span *ngIf="individualData?.municipalityOrVdc?.en === vdcOption[0].value; else municipalityType">
+                                    न.पा.
+                                </span>
+                                        <ng-template #municipalityType>
+                                            <span> गा.वि.स. </span>
+                                        </ng-template>
+                                        वडा नं <input class="form-field disable-print form-control-sm"
+                                                      name="wardNo"
+                                                      formControlName="wardNo"
+                                                      placeholder="वार्ड नं"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'wardNo']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'wardNo']).value : "_________________"}}</span>
+                                        बस्ने बर्ष
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="age"
+                                               formControlName="age"
+                                               placeholder="उमेर"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'age']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'age']).value : "_____________________"}}</span>
+
+                                        को
+                                        <span *ngIf="individualData?.gender?.en === 'MALE' else nameCondition">
+                                    श्री
+                                </span>
+                                        <ng-template #nameCondition>
+                                    <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '1'">
+                                        सुश्री
+                                    </span>
+                                            <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '0'">
+                                       श्रीमती
+                                    </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofPerson "
+                                               formControlName="nameofPerson"
+                                               placeholder="व्यक्तिको नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofPerson']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofPerson']).value : "_______________"}}</span>
+
+                                        (ना.प्र.नं. <input class="form-field disable-print form-control-sm"
+                                                           name="citizenshipNo"
+                                                           formControlName="citizenshipNo"
+                                                           placeholder=""
+                                                           type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'citizenshipNo']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'citizenshipNo']).value : "________________"}}</span>
+                                        मिति <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="dateofIssue"
+                                                formControlName="dateofIssue"
+                                                placeholder="जारी मिति"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'dateofIssue']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'dateofIssue']).value : "____________________"}}</span>
+
+                                        जिल्ला प्रशासन कार्यालय <input class="form-field disable-print form-control-sm"
+                                                                       name="nameofIssuedDistrict"
+                                                                       formControlName="nameofIssuedDistrict"
+                                                                       placeholder="जारी जिल्लाको नाम"
+                                                                       type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofIssuedDistrict']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofIssuedDistrict']).value : "______________"}}</span>
+                                        )—१
+                                        <span *ngFor="let data of form.get(['promissoryNoteFormArray', i , 'jointDetailsArr'])['controls']; let j = index"
+                                              formArrayName="jointDetailsArr">
+                                    <ng-container [formGroupName]="j" *ngIf="clientType === 'JOINT'">
+                                        र <input class="form-field disable-print form-control-sm"
+                                                 name="nameofGrandFather"
+                                                 formControlName="nameofGrandFatherJoint"
+                                                 placeholder="हजुरबुबाको नाम"
+                                                 type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofGrandFatherJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofGrandFatherJoint']).value : "__________________"}}</span>
+                                        को
+                                        <span *ngIf="selectiveArr[j]?.gender?.en === 'MALE' else individualGrandFatherJoint">
+                                            नाती
+                                        </span>
+                                        <ng-template #individualGrandFatherJoint>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j]?.relationMedium?.en === '1'">
+                                                नातिनी
+                                            </span>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j].relationMedium?.en === '0'">
+                                                बुहारी
+                                            </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofFather"
+                                               formControlName="nameofFatherJoint"
+                                               placeholder="बुबाको नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofFatherJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofFatherJoint']).value : "_____________________"}}</span>
+                                        को
+                                        <span *ngIf="selectiveArr[j]?.gender?.en === 'MALE' else fatherRelationJoint"> छोरा </span>
+                                        <ng-template #fatherRelationJoint>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j]?.relationMedium?.en === '1'">
+                                              छोरी
+                                            </span>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j]?.relationMedium?.en === '0'">
+                                              श्रीमती
+                                            </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="district"
+                                               formControlName="districtJoint"
+                                               placeholder="जिल्ला"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'districtJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'districtJoint']).value : "_____________________"}}</span>
+
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
+                                                      name="vdc"
+                                                      formControlName="vdcJoint"
+                                                      placeholder="गा वि स"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'vdcJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'vdcJoint']).value : "_____________________"}}</span>
+                                        न.पा/गा.वि.स.
+                                        वडा नं.<input class="form-field disable-print form-control-sm"
+                                                      name="wardNo"
+                                                      formControlName="wardNoJoint"
+                                                      placeholder="वार्ड नं"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'wardNoJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'wardNoJoint']).value : "___________________"}}</span>
+                                        बस्ने बर्ष <input
+                                            class="form-field disable-print form-control-sm"
+                                            name="age"
+                                            formControlName="ageJoint"
+                                            placeholder="उमेर"
+                                            type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'ageJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'ageJoint']).value : "_____________________"}}</span>
+
+                                        को
+                                        <span *ngIf="selectiveArr[j]?.gender?.en === 'MALE' else personDetails">
+                                            श्री
+                                        </span>
+                                        <ng-template #personDetails>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j]?.relationMedium?.en === '1'">
+                                                सुश्री
+                                            </span>
+                                            <span *ngIf="selectiveArr[j]?.relationMedium && selectiveArr[j]?.relationMedium?.en === '0'">
+                                                श्रीमती
+                                            </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofPerson"
+                                               formControlName="nameofPersonJoint"
+                                               placeholder="व्यक्तिको नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofPersonJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofPersonJoint']).value : "__________________"}}</span>
+
+                                        (ना.प्र.नं.<input class="form-field disable-print form-control-sm"
+                                                          name="citizenshipNo"
+                                                          formControlName="citizenshipNoJoint"
+                                                          placeholder=""
+                                                          type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'citizenshipNoJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'citizenshipNoJoint']).value : "_________________"}}</span>
+                                        । मिति <input
+                                            class="form-field disable-print form-control-sm"
+                                            name="dateofIssue"
+                                            formControlName="dateofIssueJoint"
+                                            placeholder="जारी मिति"
+                                            type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'dateofIssueJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'dateofIssueJoint']).value : "___________________________"}}</span>
+
+                                        जिल्ला प्रशासन कार्यालय <input class="form-field disable-print form-control-sm"
+                                                                       name="nameofIssuedDistrict"
+                                                                       formControlName="nameofIssuedDistrictJoint"
+                                                                       placeholder="जिल्ला"
+                                                                       type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofIssuedDistrictJoint']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'jointDetailsArr', j, 'nameofIssuedDistrictJoint']).value : "____________________"}}</span>
+                                        )—१
+                                    </ng-container>
+                                </span>
+                                        समेत जम्मा <input class="form-field disable-print form-control-sm"
+                                                          name="totalPeople"
+                                                          formControlName="totalPeople"
+                                                          placeholder=""
+                                                          type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'totalPeople']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'totalPeople']).value : "_____________________"}}</span>
+                                        जना आगे,
+                                        तपाई श्री नविल बैंक लिमिटेडको भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन
+                                        दिएको
+                                        वा अह्राएको ब्यक्ति/संस्थालाई रु. <input
+                                                (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                                class="form-field disable-print form-control-sm"
+                                                name="loanamountinFigure"
+                                                formControlName="loanamountinFigure"
+                                                placeholder="ऋण रकम"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'loanamountinFigure']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'loanamountinFigure']).value : "_____________________"}}</span>/-
+                                        (अक्षरेपी रु.
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="loanamountinWords"
+                                               formControlName="loanamountinWords"
+                                               placeholder="रकम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'loanamountinWords']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'loanamountinWords']).value : "_____________________"}}</span>
+                                        मात्र)
+                                        र भुक्तानी हुने दिन सम्मको बार्षिक <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="interest"
+                                                formControlName="interest"
+                                                placeholder="ब्याज"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'interest']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'interest']).value : "________________________"}}</span>
+
+                                        प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट
+                                        तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक
+                                        लिमिटेड, शाखा
+                                        कार्यालय
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofBranchLocated"
+                                               formControlName="nameofBranchLocated"
+                                               placeholder="शाखा"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofBranchLocated']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofBranchLocated']).value : "_____________________"}}</span>
+
+                                        लाई
+                                        <span *ngIf="cadData?.loanHolder['customerSubType'] === (customerSubType.JOINT | uppercase)">दियौं</span>
+                                        <span *ngIf="cadData?.loanHolder['customerSubType'] !== (customerSubType.JOINT | uppercase)">दिएँ</span>
+                                        ।
+                                    </p>
+
+                                    <p class="text-center"><b>प्रतिज्ञा गर्ने व्यक्तिको</b><br>
+                                       </p>
+                                    <div class="row">
+                                        <div class="col-md-4 mt-4">
+                                                <span class="mt-2 mb-2">
+                                        लेखात्मक सहीः _______________________
+                                    </span>
+<!--                                                लेखात्मक सहीः <input-->
+<!--                                                    class="form-field disable-print form-control-sm pt-3"-->
+<!--                                                    name="signature"-->
+<!--                                                    formControlName="signature"-->
+<!--                                                    placeholder=""-->
+<!--                                                    type="text"/>-->
+<!--                                                <span class="print-only font-weight-bold">-->
+<!--                                                    {{form.get(['promissoryNoteFormArray', i, 'signature']).value ?-->
+<!--                                                    form.get(['promissoryNoteFormArray', i, 'signature']).value : "_______________________"}}</span>-->
+                                            <div>
+                                                नाम: <input class="form-field disable-print form-control-sm pt-3"
+                                                            name="signature"
+                                                            formControlName="nameofPerson"
+                                                            placeholder=""
+                                                            type="text"/>
+                                                <span class="print-only font-weight-bold">
+                                                    {{form.get(['promissoryNoteFormArray', i, 'nameofPerson']).value ?
+                                                    form.get(['promissoryNoteFormArray', i, 'nameofPerson']).value : "_____________________"}}</span>
+                                            </div>
+                                            <table class="table table-hover table-bordered" style="width: 50%">
+                                                <tr>
+                                                    <th colspan="2" style="text-align: center">औठाछाप</th>
+                                                </tr>
+
+                                                <tr style="line-height: 120px !important;">
+                                                    <td><p style="text-align: center">दायाँ</p><br></td>
+                                                    <td><p style="text-align: center">बायाँ</p></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div *ngFor="let data of form.get(['promissoryNoteFormArray', i , 'signatureData'])['controls']; let l = index;"
+                                             formArrayName="signatureData" class="col-md-4 mt-4">
+                                            <ng-container [formGroupName]="l">
+                                    <span class="mt-2 mb-2">
+                                        लेखात्मक सहीः _______________________
+                                    </span>
+                                                <div>
+                                                    नाम: <input class="form-field disable-print form-control-sm pt-3"
+                                                                name="signature"
+                                                                formControlName="loanHolderNameJoint"
+                                                                placeholder=""
+                                                                type="text"/>
+                                                    <span class="print-only font-weight-bold">
+                                                        {{form.get(['promissoryNoteFormArray', i, 'signatureData', l, 'loanHolderNameJoint']).value ?
+                                                        form.get(['promissoryNoteFormArray', i, 'signatureData', l, 'loanHolderNameJoint']).value : "_____________________"}}</span>
+                                                </div>
+                                                <table class="table table-hover table-bordered" style="width: 50%">
+                                                    <tr>
+                                                        <th colspan="2" style="text-align: center">औठाछाप</th>
+                                                    </tr>
+
+                                                    <tr style="line-height: 120px !important;">
+                                                        <td><p style="text-align: center">दायाँ</p><br></td>
+                                                        <td><p style="text-align: center">बायाँ</p></td>
+                                                    </tr>
+                                                </table>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <p class="text-center"><b>साक्षी</b><br>
+                                    <p>१. <input class="form-field disable-print form-control-sm"
+                                                 name="sakshiDistrict"
+                                                 formControlName="sakshiDistrict"
+                                                 placeholder="जिल्ला"
+                                                 type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiDistrict']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiDistrict']).value : "_______________________"}}</span>
+
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
+                                                      name="sakshiVdc"
+                                                      formControlName="sakshiVdc"
+                                                      placeholder="गाविस"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiVdc']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiVdc']).value : "_______________________"}}</span>
+                                        न.पा.गा.वि.स. वडा नं
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="sakshiWardNo"
+                                               formControlName="sakshiWardNo"
+                                               placeholder="वार्ड नं"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiWardNo']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiWardNo']).value : "_______________________"}}</span>
+                                        बस्ने बर्ष <input class="form-field disable-print form-control-sm"
+                                                          name="sakshiAge"
+                                                          formControlName="sakshiAge"
+                                                          placeholder="उमेर"
+                                                          type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiAge']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiAge']).value : "_______________________"}}</span>
+                                        को/की <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="nameofWitness"
+                                                formControlName="nameofWitness"
+                                                placeholder="साक्षी को नाम"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofWitness']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofWitness']).value : "_______________________"}}</span>
+                                    </p>
+                                    <p>२. <input class="form-field disable-print form-control-sm"
+                                                 name="sakshiDistrict"
+                                                 formControlName="sakshiDistrict1"
+                                                 placeholder="जिल्ला"
+                                                 type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiDistrict1']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiDistrict1']).value : "_______________________"}}</span>
+
+                                        जिल्ला <input class="form-field disable-print form-control-sm"
+                                                      name="sakshiVdc"
+                                                      formControlName="sakshiVdc1"
+                                                      placeholder="गाविस"
+                                                      type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiVdc1']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiVdc1']).value : "_______________________"}}</span>
+                                        न.पा.गा.वि.स. वडा नं
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="sakshiWardNo1"
+                                               formControlName="sakshiWardNo1"
+                                               placeholder="वार्ड नं"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiWardNo1']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiWardNo1']).value : "_______________________"}}</span>
+                                        बस्ने बर्ष <input class="form-field disable-print form-control-sm"
+                                                          name="sakshiAge"
+                                                          formControlName="sakshiAge1"
+                                                          placeholder="उमेर"
+                                                          type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'sakshiAge1']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'sakshiAge1']).value : "_______________________"}}</span>
+                                        को/की <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="nameofWitness"
+                                                formControlName="nameofWitness1"
+                                                placeholder="साक्षी को नाम"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofWitness1']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofWitness1']).value : "_______________________"}}</span>
+                                    </p>
+                                    <p>३. कारणीले मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                                        कर्मचारी
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofStaff"
+                                               formControlName="nameofStaff"
+                                               placeholder="नाम"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{form.get(['promissoryNoteFormArray', i, 'nameofStaff']).value ?
+                                            form.get(['promissoryNoteFormArray', i, 'nameofStaff']).value : "_______________________"}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="i < form.get('promissoryNoteFormArray')['length'] - 1"
+                     class="pageBreak"></div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-5 ml-0">
+        <div class="col-md-12 text-right">
+            <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
+                    nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
+                <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
+            </button>
+            <button nbButton size="small"
+                    class="d-print-none sav"
+                    status="success"
+                    (click)="submit()"
+                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+        </div>
+    </div>
+</div>
+

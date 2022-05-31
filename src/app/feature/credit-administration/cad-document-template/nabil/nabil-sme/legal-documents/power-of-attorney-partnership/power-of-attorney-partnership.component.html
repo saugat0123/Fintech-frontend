@@ -1,0 +1,504 @@
+<div class="container nep text-justify">
+    <form [formGroup]="form" class="nep" id="print-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 viewFull align">
+                    <div class="col-md-12 text-center">
+                        <strong> वारेसनामा </strong><br>
+                        <strong><u>(Power of Attorney)</u></strong>
+                    </div>
+                    <div class="col-md-12 mt-5 d-flex justify-content-between" style="margin-left: -11px">
+                        <div class="right-content"></div>
+                        <div class="left-content">
+                            मिति: <input
+                                class="form-field disable-print form-control-sm nepaliFont"
+                                name="date"
+                                formControlName="date"
+                                placeholder="मिति"
+                                type="text"/>
+                            <span class=" print-only font-weight-bold nepaliFont">{{form.get('date').value ? form.get('date').value : "====================================="}}</span><br>
+                        </div>
+                    </div>
+                    <p class="mt-2">
+                        प्रचलित कानून बमोजिम दर्ता भई
+                        <input class="form-field form-control-sm d-print-none"
+                               name="districtOfFirm"
+                               formControlName="districtOfFirm"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only">{{this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '___________________________'}}</span>
+                        जिल्ला, <input class="form-field form-control-sm d-print-none"
+                                       name="municipalityOfFirm"
+                                       formControlName="municipalityOfFirm"
+                                       placeholder=" "
+                                       type="text"/>
+                        <span class="print-only">{{this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '___________________________'}}</span>
+                        <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
+                        <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
+                        <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
+                        वडा नं <input class="form-field form-control-sm d-print-none"
+                                      name="wardNoOfFirm"
+                                      formControlName="wardNoOfFirm"
+                                      placeholder=" "
+                                      type="text"/>
+                        <span class="print-only">{{this.individualData.permanentWard ? this.individualData.permanentWard.ct : '___________________________'}}</span>,
+                        <input class="form-field form-control-sm d-print-none"
+                               name="addressOfFirm"
+                               formControlName="addressOfFirm"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only">{{this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '___________________________'}}</span>
+                        मा कार्यालय रहेको
+                        श्री <input class="form-field form-control-sm d-print-none"
+                                    name="firmName"
+                                    formControlName="firmName"
+                                    placeholder=" "
+                                    type="text"/>
+                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
+                        (साझेदारी फर्म) को <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                  name="freeText1"
+                                                  formControlName="freeText1"
+                                                  placeholder=" "
+                                                  type="text"/>
+                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.freeText1 ? this.supportedInfo.freeText1 : '=====================================') : '====================================='}}</span>
+                        जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त साझेदार
+                        <ng-container *ngFor="let partner of companyInfo; let i = index">
+                            <ng-container *ngIf="!isForeignAddress">
+<!--                                *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">-->
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="districtOfPartner"
+                                       [value]="partner?.ownerPermanentDistrictCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentDistrictCT : '___________________________'}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none"
+                                              name="vdcNameOfPartner"
+                                              [value]="partner?.ownerPermanentMunicipalityCT"
+                                              placeholder=" "
+                                              type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : '___________________________'}}</span>
+                                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
+                                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.
+                                </ng-container>
+                                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'">गाँउपालिका
+                                </ng-container>
+                                वडा नं <input class="form-field form-control-sm d-print-none"
+                                              name="wardNoOfPartner"
+                                              [value]="partner?.ownerPermanentWardNoCT"
+                                              placeholder=" "
+                                              type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : '___________________________'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
+                             && partner?.foreignAddressOption === 'Foreign'">
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="otherAddress"
+                                       [value]="partner?.ownerOtherAddressCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : '___________________________'}}</span>
+                            </ng-container>
+                            बस्ने
+                            <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
+                            <ng-container
+                                    *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerMaritalStatus === 'Married'">
+                                श्रीमती
+                            </ng-container>
+                            <ng-container
+                                    *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerMaritalStatus === 'Unmarried'">
+                                सुश्री
+                            </ng-container>
+                            <input class="form-field form-control-sm d-print-none"
+                                   name="nameOfPartner"
+                                   [value]="partner?.ownerNameCT"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only">{{partner ? partner?.ownerNameCT : '___________________________'}}</span>
+                            <ng-container *ngIf="partner?.ownerNationality === 'Nepali'">
+                                (ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
+                                                   name="authorizedCitizenship"
+                                                   [value]="partner?.ownerCitizenshipNoCT"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
+                                मिति <input class="form-field form-control-sm d-print-none"
+                                            name="authorizedDateOfIssue"
+                                            [value]="this.issueDate[i].issueDate"
+                                            placeholder=" "
+                                            type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                जिल्ला प्रशासन कार्यालय
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedIdentity"
+                                       [value]="partner?.ownerCitizenshipIssuedDistrictCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipIssuedDistrictCT : ''}}</span>),
+                            </ng-container>
+                            <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
+                                 partner?.indianOwnerDetailOption === 'Passport'">
+                                (राहदानी नं. <input class="form-field form-control-sm d-print-none"
+                                                    name="indianOwnerPassportNoCT"
+                                                    [value]="partner?.indianOwnerPassportNoCT"
+                                                    placeholder=" "
+                                                    type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianOwnerPassportNoCT : ''}}</span>
+                                जारी मिति <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedDateOfIssue"
+                                                 [value]="this.issueDate[i].issueDate"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
+                                                        name="authorizedDateOfValid"
+                                                        [value]="this.issueDate[i].validDate"
+                                                        placeholder=" "
+                                                        type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="indianOwnerPassportIssuedFromCT"
+                                       [value]="partner?.indianOwnerPassportIssuedFromCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianOwnerPassportIssuedFromCT : ''}}</span>),
+                            </ng-container>
+                            <ng-container *ngIf="partner?.ownerNationality === 'Other'">
+                                (राहदानी नं. <input class="form-field form-control-sm d-print-none"
+                                                    name="otherOwnerPassportNoCT"
+                                                    [value]="partner?.otherOwnerPassportNoCT"
+                                                    placeholder=" "
+                                                    type="text"/>
+                                <span class="print-only">{{partner ? partner?.otherOwnerPassportNoCT : ''}}</span>
+                                जारी मिति <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedDateOfIssue"
+                                                 [value]="this.issueDate[i].issueDate"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
+                                                        name="authorizedDateOfValid"
+                                                        [value]="this.issueDate[i].validDate"
+                                                        placeholder=" "
+                                                        type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="otherOwnerPassportIssuedFromCT"
+                                       [value]="partner?.otherOwnerPassportIssuedFromCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.otherOwnerPassportIssuedFromCT : ''}}</span>),
+                            </ng-container>
+                            <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
+                                 partner?.indianOwnerDetailOption === 'Adhar Card'">
+                                (आधार कार्ड नं. <input class="form-field form-control-sm d-print-none"
+                                                    name="indianOwnerPassportNoCT"
+                                                    [value]="partner?.indianOwnerAdharCardNoCT"
+                                                    placeholder=" "
+                                                    type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardNoCT : ''}}</span>
+                                जारी मिति <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedDateOfIssue"
+                                                 [value]="this.issueDate[i].issueDate"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedIdentity"
+                                       [value]="partner?.indianOwnerAdharCardIssuedFromCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardIssuedFromCT : ''}}</span>),
+                            </ng-container>
+                            <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
+                                 partner?.indianOwnerDetailOption === 'Embassy Certificate'">
+                                (दूतावास नं. <input class="form-field form-control-sm d-print-none"
+                                                    name="indianEmbassyNoCT"
+                                                    [value]="partner?.indianEmbassyNoCT"
+                                                    placeholder=" "
+                                                    type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianEmbassyNoCT : ''}}</span>
+                                जारी मिति <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedDateOfIssue"
+                                                 [value]="this.issueDate[i].issueDate"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="indianEmbassyIssuedFromCT"
+                                       [value]="partner?.indianEmbassyIssuedFromCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.indianEmbassyIssuedFromCT : ''}}</span>),
+                            </ng-container>
+                        </ng-container>
+                        आगे म/हामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfBranchLocated"
+                               formControlName="nameOfBranchLocated"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : '___________________________'}}</span>
+                        शाखा मार्फत मेरो/हाम्रो नाममा जारी भएको मिति
+                        <input class="form-field form-control-sm d-print-none"
+                               name="sanctionLetterIssuedDate"
+                               formControlName="sanctionLetterIssuedDate"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '___________________________'}}</span>
+                        को ऋण स्वीकृती पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
+                        रु.<input class="form-field form-control-sm outside disable-print col-2"
+                                  (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                                  name="loanAmountInFigure"
+                                  formControlName="loanAmountInFigure"
+                                  placeholder="ऋण रकम"
+                                  type="text"/>
+                        <span class="print-only"> {{form?.get('loanAmountInFigure')?.value ?  form?.get('loanAmountInFigure')?.value : '___________________________'}}</span>/-
+                        (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
+                                         name="loanAmountInWords"
+                                         formControlName="loanAmountInWords"
+                                         placeholder="रकम"
+                                         type="text"/>
+                        <span class="print-only">{{form?.get('loanAmountInWords')?.value ?  form?.get('loanAmountInWords')?.value : '___________________________'}}</span>मात्र)
+                        स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको (Account
+                        Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय उपकरण आदि हामी ऋणीको हकमा बुझीलिन
+                        नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ) लाई यसै
+                        लिखतबाट मेरो/हाम्रो वारेस नियुक्त गरेका छौं र वारेसका हैसियतले नबिल बैंक लिमिटेडले देहायको कुनै
+                        वा सबै कार्य गर्न सक्नेछ :
+                    </p>
+                    <div>
+                        <ol class="conditions-list">
+                            <li>
+                                म/हामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म,
+                                कम्पनी, सरकारी, गैहसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरो/हाम्रो तर्फबाट रकम असुल
+                                गर्न वा प्राप्त गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न,
+                                पृष्ठांकन गर्न, प्राप्त रकम वापत मेरो/हाम्रो तर्फबाट प्राप्ति रसिद (acknowledgement
+                                receipt) जारी गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा प्राप्त गरेको रकम मेरो/हाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा रकम प्राप्त गर्ने सिलसिलामा कुनैपनि सरकारी, गैहसरकारी कार्यालयमा
+                                प्रतिनिधित्व गर्न, निवेदन दिन, निवेदन प्रमाणित गर्न, कुनैपनि लिखत गरीदिन र रकम प्राप्त
+                                गर्ने सिलसिलामा आईपर्ने सबै कार्य गर्न,
+                            </li>
+                            <li>
+                                माथि उल्लेख भए अनुसार बैंकले मेरो/हाम्रो नाममा स्वीकृत गरेको कर्जा सुविधाको सांवा,
+                                ब्याज, थप ब्याज वा सोही कर्जा सुविधाको कारणबाट बैंकमा परेको थप दायित्व समेत सम्पूर्ण रकम
+                                कलम चुक्ता भुक्तान नभएसम्म यो वारेसनामा वैध रही अरद्धनीय (irrevocable) हुनेछ र यो
+                                वारेसनामा प्रस्तुत गरेपछि मेरो/हाम्रो थप स्वीकृति वा सहमति विना नै म/हामीलाई भुक्तानी
+                                दिनुपर्ने रकम वारेस नबिल बैंक लिमिटेड (वा यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधि) लाई
+                                भुक्तानी दिन यसै लिखतबाट सम्बन्धित सबैलाई जानकारी गराएका छौं,
+                            </li>
+                            <li>
+                                यो वारेसनामा दिएको कारणले मात्र मेरो/हाम्रो बैंकप्रतिको दायित्वमा कुनै परिवर्तन हुने छैन
+                                र मैले/हामीले बैंकको पक्षमा गरीदिएको कर्जा सुविधा सम्बन्धी लिखतहरुबाट प्राप्त म/हामीबाट
+                                बैंकको लेना असुल गर्ने अधिकारमा कुनै असर पर्ने छैन ।
+                            </li>
+                        </ol>
+                        <p>
+                            यो वारेसनामा अनुसार मेरो/हाम्रो वारेस नबिल बैंक लिमिटेडले गरेको कुनैपनि काम कारवाही म/हामी
+                            आफैंले गरे सरह मानिनेछ र यो वारेसनामा अनुसार कुनैपनि काम कारवाही गर्दा वारेस नबिल बैंक
+                            लिमिटेडले कुनै लागत वा खर्च व्यहोर्न परेमा त्यस्तो लागत वा खर्च नबिल बैंक लिमिटेडलाई
+                            म/हामीले सोधभर्ना दिई बैंकलाई सबै किसिमको दायित्वबाट उन्मुक्ति (indemnify) गर्ने प्रतिवद्धता
+                            सहित नबिल बैंक लिमिटेडकै शाखा
+                            <input class="form-field form-control-sm d-print-none"
+                                   name="nameOfBranchLocated"
+                                   formControlName="nameOfBranchLocated"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : '___________________________'}}</span>
+                            कार्यालयमा बसी देहायका साक्षीको रोहवरमा यो वारेसनामामा सहीछाप गरीदियौं ।
+                        </p>
+                    </div>
+
+<!--                    <p><u>वारेसनामा लेखीदिनेको</u></p>-->
+<!--                    <div>-->
+<!--                        <table class="table-borderless">-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td width="40%">ऋणी/फर्म/कम्पनी/संस्थाको नाम</td>-->
+<!--                                <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                             name="firmName"-->
+<!--                                             formControlName="firmName"-->
+<!--                                             placeholder=" "-->
+<!--                                             type="text"/>-->
+<!--                                    <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td width="40%">ठेगाना</td>-->
+<!--                                <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                             name="firmName"-->
+<!--                                             formControlName="addressOfBorrower"-->
+<!--                                             placeholder=" "-->
+<!--                                             type="text"/>-->
+<!--                                    <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <ng-container *ngIf="isAuth">-->
+<!--                                    <span *ngFor="let details of authorizedNameArray; let i = index">-->
+<!--                                        <td>आधिकारिक प्रतिनिधिको नाम</td>-->
+<!--                                        <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                                     placeholder=" "-->
+<!--                                                     type="text"-->
+<!--                                                     [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>-->
+<!--                                            <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>-->
+<!--                                        </td>-->
+<!--                                    </span>-->
+<!--                                </ng-container>-->
+<!--                                <ng-container class="m-0" *ngIf="isAuth1">-->
+<!--                                    <td>आधिकारिक प्रतिनिधिको नाम</td>-->
+<!--                                    <td>:-->
+<!--                                        <input class="form-field form-control-sm d-print-none nepaliFont" name="authorizedBodyName"-->
+<!--                                               formControlName="authorizedBodyName" placeholder="" type="text"/>-->
+<!--                                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+
+                    <div class="row" style="margin-top: 2em">
+                        <div class="col-md-12">
+                            <p class="m-0">
+                                <u>
+                                    वारेसनामा लेखीदिनेको
+                                </u>
+                            </p>
+                            <div class="mt-2">
+                                <p class="m-0">
+                                    ऋणी/फर्म/कम्पनी/संस्थाको नाम :
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="firmName"
+                                           formControlName="firmName"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
+                                </p>
+                                <p class="m-0">
+                                    ठेगाना :
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="firmName"
+                                           formControlName="addressOfBorrower"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>
+                                </p>
+                                <ng-container class="m-0" *ngIf="isAuth">
+<!--                                    <span *ngFor="let details of authorizedNameArray; let i = index">-->
+                                    आधिकारिक प्रतिनिधिको नाम :
+                                        <input class="form-field form-control-sm d-print-none"
+                                               placeholder=" "
+                                               type="text"
+                                               [value]="authorizedNameArray ? authorizedNameArray[0] : ''"/>
+                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[0] : '_____________________'}}</span>
+                                    <br>
+<!--                                    </span>-->
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <p class="text-center"><strong><u>साक्षी</u></strong></p>
+                        <ol class="conditions-list">
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
+                                       name="witnessDistrict1"
+                                       formControlName="witnessDistrict1"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '=====================================') : '====================================='}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none nepaliFont"
+                                              name="witnessMuni1"
+                                              formControlName="witnessMuni1"
+                                              placeholder=""
+                                              type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '=====================================') : '====================================='}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                               name="witnessWard1"
+                                               formControlName="witnessWard1"
+                                               placeholder=""
+                                               type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard1 ? this.supportedInfo.witnessWard1 : '=====================================') : '====================================='}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                   name="witnessAge1"
+                                                   formControlName="witnessAge1"
+                                                   placeholder=""
+                                                   type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge1 ? this.supportedInfo.witnessAge1 : '=====================================') : '====================================='}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
+                                             name="witnessName1"
+                                             formControlName="witnessName1"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName1 ? this.supportedInfo.witnessName1 : '=====================================') : '====================================='}}</span><br>
+                            </li>
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
+                                       name="witnessDistrict2"
+                                       formControlName="witnessDistrict2"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '=====================================') : '====================================='}}</span>
+                                जिल्ला<input class="form-field form-control-sm d-print-none nepaliFont"
+                                             name="witnessMuni2"
+                                             formControlName="witnessMuni2"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '=====================================') : '====================================='}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                               name="witnessWard2"
+                                               formControlName="witnessWard2"
+                                               placeholder=""
+                                               type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard2 ? this.supportedInfo.witnessWard2 : '=====================================') : '====================================='}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                   name="witnessAge2"
+                                                   formControlName="witnessAge2"
+                                                   placeholder=""
+                                                   type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge2 ? this.supportedInfo.witnessAge2 : '=====================================') : '====================================='}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
+                                             name="witnessName2"
+                                             formControlName="witnessName2"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName2 ? this.supportedInfo.witnessName2 : '=====================================') : '====================================='}}</span>
+                            </li>
+                            <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                          name="karmachariName"
+                                                          formControlName="karmachariName"
+                                                          placeholder=""
+                                                          type="text"/>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.karmachariName ? this.supportedInfo.karmachariName : '=====================================') : '====================================='}}</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="row mt-5 ml-0">
+                        <div class="col-md-12 text-right">
+                            <button [useExistingCss]="true"
+                                    styleSheetFile="assets/css/printStyles.scss"
+                                    printSectionId="powerOfAttorneyPrint"
+                                    class="d-print-none float-right" printSectionId="print-section"
+                                    nbButton size="small" status="info" outline ngxPrint>
+                                Print &nbsp;&nbsp;
+                                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                            </button>
+                            <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

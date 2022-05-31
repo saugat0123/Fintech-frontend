@@ -1,0 +1,454 @@
+<div class="container nep text-justify" id="{{crossGuaranteeConst.CROSS_GUARANTEE_COMPANY}}Print"
+     [nbSpinner]="spinner">
+    <form [formGroup]="form" id="crossGuaranteeCompany">
+        <div class="row"
+             *ngFor="let guarantorProprietorship of individualGuarantorNepDataArray; let i = index"
+             formArrayName="crossGuaranteeCompany">
+            <div class="col-md-12" [formGroupName]="i">
+                <div class="text-justify">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="nep">
+                                <div>
+                                    <p class="text-right">
+                                        मिति:
+                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                               name="date" formControlName="date"
+                                               placeholder="मिति" type="text"/>
+                                        <span class=" print-only font-weight-bold font-size-normal1 nepaliFont">
+                                    {{form?.get(['crossGuaranteeCompany', i, 'date'])?.value ? form?.get(['crossGuaranteeCompany', i, 'date'])?.value : "================================="}}
+                                </span>
+                                    </p>
+                                    <div>
+                                        <p>
+                                            श्री नबिल बैंक लिमिटेड
+                                        </p>
+                                        <p>
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="branchName" formControlName="branchName"
+                                                   placeholder="साखा" type="text"/>
+                                            <span class=" print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'branchName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'branchName'])?.value : "___________________________"}}
+                                    </span>
+                                        </p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p>
+                                            विषय : पारस्परिक/संस्थागत जमानत पत्र (Cross/Corporate Guarantee) ।
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            महोदय,
+                                        </p>
+                                        <p>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            त्यस बैंकको
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="branchName" formControlName="branchName"
+                                                   placeholder="साखा" type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'branchName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'branchName'])?.value : "_______________________________"}}
+                                    </span>
+                                            शाखाको मिति
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="issuedDate" formControlName="issuedDate"
+                                                   placeholder="मिति" type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'issuedDate'])?.value ? form?.get(['crossGuaranteeCompany', i, 'issuedDate'])?.value : "____________________"}}
+                                    </span>
+                                            को ऋण स्वीकृति पत्रानुसार हाम्रो
+                                            देहायमा उल्लेखित संस्थालाई विभिन्न ऋणकर्जा तथा बैंकिङ्ग सुविधा उपलव्ध गराउने
+                                            सम्बन्धमा बैंकले तोकेका विभिन्न शर्तबन्देज मध्ये हामी
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="sisterConcerned" formControlName="sisterConcerned"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'sisterConcerned'])?.value ? form?.get(['crossGuaranteeCompany', i, 'sisterConcerned'])?.value : "___________________________________"}}
+                                    </span>
+
+                                            <!-- Required Condition -->
+                                            <span *ngIf="this.customerType === 'PRIVATE_PUBLIC'">
+                                         प्रा.लि./लि.ले
+                                    </span>
+                                            <span *ngIf="this.customerType === 'PARTNERSHIP'">
+                                        साझेदारी फर्मले
+                                    </span>
+                                            <span *ngIf="this.customerType === 'PROPRIETORSHIP'">
+                                       प्रोपाईटरसिप फर्मले
+                                   </span>
+                                            पारस्परिक/संस्थागत जमानत पत्र (Cross/Corporate Guarantee) दिनुपर्ने
+                                            भएकोले यो जमानत
+                                            पत्र जमानत पत्र लेखीदिएका छौं ।
+                                        </p>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p class="text-center">
+                                            <u>
+                                                जमानत दिइएको संस्था/ब्यक्तिको नाम, ठेगाना
+                                            </u>
+                                        </p>
+                                        <p class="m-0">
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="actName" formControlName="actName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'actName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'actName'])?.value : "___________________________________"}}
+                                    </span>
+                                            ऐन
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="actYear" formControlName="actYear"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'actYear'])?.value ? form?.get(['crossGuaranteeCompany', i, 'actYear'])?.value : "_______________"}}
+                                    </span>
+                                            बमोजिम
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedBody" formControlName="authorizedBody"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedBody'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedBody'])?.value : "___________________________________"}}
+                                    </span>,
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="registeredWith" formControlName="registeredWith"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'registeredWith'])?.value ? form?.get(['crossGuaranteeCompany', i, 'registeredWith'])?.value : "___________________________________"}}
+                                    </span>
+                                            मा मिति
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="dateOfRegistration" formControlName="dateOfRegistration"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'dateOfRegistration'])?.value ? form?.get(['crossGuaranteeCompany', i, 'dateOfRegistration'])?.value : "_________________________"}}
+                                    </span>
+                                            मा दर्ता नं.
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="registrationNumber" formControlName="registrationNumber"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'registrationNumber'])?.value ? form?.get(['crossGuaranteeCompany', i, 'registrationNumber'])?.value : "____________________________"}}
+                                    </span>
+                                            अन्तर्गत दर्ता भई
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="district" formControlName="district"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'district'])?.value ? form?.get(['crossGuaranteeCompany', i, 'district'])?.value : "___________________________________"}}
+                                    </span>
+                                            जिल्ला,
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="municipalityVdc" formControlName="municipalityVdc"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'municipalityVdc'])?.value ? form?.get(['crossGuaranteeCompany', i, 'municipalityVdc'])?.value : "___________________________________"}}
+                                    </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                    न.पा.,
+                                                                                </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                    गा.वि.स.,
+                                                                                </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                    गाँउपालिका,
+                                                                                </span>
+                                            वडा नं.
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="wardNumber" formControlName="wardNumber"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'wardNumber'])?.value ? form?.get(['crossGuaranteeCompany', i, 'wardNumber'])?.value : "__________________"}}
+                                    </span>
+                                            मा ठेगाना भएको श्री
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="borrowerName" formControlName="borrowerName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'borrowerName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'borrowerName'])?.value : "___________________________________"}}
+                                    </span> ।
+                                        </p>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p class="m-0">
+                                            म
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="grandfatherName" formControlName="grandfatherName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'grandfatherName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'grandfatherName'])?.value : "___________________________________"}}
+                                    </span>
+                                            को
+                                            <!-- condition -->
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
+                                        नाती
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
+                                       नातिनी
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
+                                       बुहारी
+                                    </span>
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="fatherName" formControlName="fatherName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'fatherName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'fatherName'])?.value : "___________________________________"}}
+                                    </span>
+                                            को
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
+                                        छोरा
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
+                                       छोरी
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
+                                       श्रीमती
+                                    </span>
+                                            (जमानतकर्ता
+                                            <span *ngIf="this.customerType === 'PRIVATE_PUBLIC'">
+                                        कम्पनी/निगम)</span><span *ngIf="this.customerType === 'PARTNERSHIP'">
+                                       साझेदारी फर्म)</span><span *ngIf="this.customerType === 'PROPRIETORSHIP'">
+                                       प्रोप्राईटरसिप फर्म)</span> को अख्तियारप्राप्त
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                   name="sanchaalakFreeText" formControlName="sanchaalakFreeText"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1 nepaliFont">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'sanchaalakFreeText'])?.value ? form?.get(['crossGuaranteeCompany', i, 'sanchaalakFreeText'])?.value : "================================="}}
+                                    </span>,
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedPersonDistrict"
+                                                   formControlName="authorizedPersonDistrict"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedPersonDistrict'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedPersonDistrict'])?.value : "___________________________________"}}
+                                    </span>
+                                            जिल्ला,
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedPersonMunicipality"
+                                                   formControlName="authorizedPersonMunicipality"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedPersonMunicipality'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedPersonMunicipality'])?.value : "___________________________________"}}
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '0'">
+                                       न.पा.,
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '1'">
+                                      गा.वि.स.,
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '2'">
+                                      गाँउपालिका,
+                                    </span>
+                                            वडा नं.
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedPersonWard" formControlName="authorizedPersonWard"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedPersonWard'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedPersonWard'])?.value : "___________________________________"}}
+                                    </span>
+                                            बस्ने वर्ष
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedPersonAge" formControlName="authorizedPersonAge"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedPersonAge'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedPersonAge'])?.value : "___________________________________"}}
+                                    </span>
+                                            को
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
+                                       श्री
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
+                                      श्रीमती
+                                    </span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
+                                      सुश्री
+                                    </span>
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="authorizedPersonName" formControlName="authorizedPersonName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'authorizedPersonName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'authorizedPersonName'])?.value : "___________________________________"}}
+                                    </span>
+                                            ले श्री
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="crossGuaranteeProviderName"
+                                                   formControlName="crossGuaranteeProviderName"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'crossGuaranteeProviderName'])?.value ? form?.get(['crossGuaranteeCompany', i, 'crossGuaranteeProviderName'])?.value : "___________________________________"}}
+                                    </span>
+                                            (जमानतकर्ता) को हकमा एवं तर्फबाट यो
+                                            अपरिवर्तनीय (irrevocable) जमानी गर्दछु कि हाम्रो माथि उल्लेखित भगिनी
+                                            संस्थालाई त्यस
+                                            बैंकले उपलव्ध गराएको वा भविष्यमा उपलव्ध गराउने कुनैपनि किसिमको कर्जा,
+                                            बैंकिङ्ग
+                                            सुविधा वा उल्लेखित हाम्रो भगिनी संस्थाले त्यस बैंकसंग गरेको कारोवारको
+                                            कारणबाट बैंकले व्यहोर्नु
+                                            परेको आर्थिक दायित्व समेत वापत रु.
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="loanAmountInFigure" formControlName="loanAmountInFigure"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'loanAmountInFigure'])?.value ? form?.get(['crossGuaranteeCompany', i, 'loanAmountInFigure'])?.value : "___________________________________"}}
+                                    </span>/-
+                                            (अक्षेरेपी रु.
+                                            <input class="form-field disable-print form-control-sm"
+                                                   name="loanAmountInWords" formControlName="loanAmountInWords"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold font-size-normal1">
+                                        {{form?.get(['crossGuaranteeCompany', i, 'loanAmountInWords'])?.value ? form?.get(['crossGuaranteeCompany', i, 'loanAmountInWords'])?.value : "___________________________________"}}
+                                    </span>)
+                                            सम्म हामीले जमानी गर्यौं । जमानी वापतको रकम बैंकले लिखित मागदावी गरेको ७
+                                            (सात) दिनभित्र
+                                            माग बमोजिम रकम बैंकमा जम्मा गरीदिनेछौं र यसरी बैंकले एकपटक लिखित मागदावी
+                                            गरीसकेपछि पुनः
+                                            थप पत्राचार वा ताकेता गर्नु पर्ने छैन र साथै हामीले जमानी दिएको होईन भनी
+                                            कुनै प्रतिरोध,
+                                            खण्डन गर्ने छैनौं, गरे यसै पत्रबाट बदर गराई लिनुहोला । जमानत दिईएको
+                                            संस्था/ब्यक्तिले
+                                            बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको कारणबाट नेपाल राष्ट्र बैंकको
+                                            निर्देशिका
+                                            बमोजिम जमानत दिने संस्थालाई कर्जा सुचना केन्द्र लि. को कालो सूचीमा सूचिकृत
+                                            गरेमा
+                                            समेत
+                                            जमानत दिने संस्थाको मञ्जुरी हुनेछ । यो जमानत हामी तथा हामीले जमानत दिएको
+                                            ब्यक्ति,
+                                            संस्थाबाट बैंकले लिन बाँकी कुनैपनि लेना बाँकी रहेसम्म लागु रहेनेछ भनी हाम्रो
+                                            मञ्जुरीका साथ यो पारस्परिक/संस्थागत जमानत पत्र (Cross/Corporate Guarantee)
+                                            बैंकमा गरेका छौं ।
+                                        </p>
+                                    </div>
+
+                                    <div class="row" style="justify-content: right">
+                                        <div class="col-md-6 halfSize">
+                                            <p>
+                                                अख्तियार प्राप्त व्यक्तिको
+                                            </p>
+                                            <div class="col-md-8 quarterSize" style="margin-top: 7em">
+                                                <p>
+                                                    ................................
+                                                    <span style="float: right">
+                                            ................................
+                                        </span>
+                                                </p>
+                                                <p>
+                                                    लेखात्मक सही
+                                                    <span style="float: right">
+                                        संस्थाको छाप
+                                        </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 2em">
+                                        <div class="col-md-12">
+                                            <ol class="conditions-list">
+                                                <li>
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict"
+                                                           formControlName="witnessDistrict" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessDistrict ? this.cadInitialInfo[i]?.witnessDistrict : '===================================='}}
+                                </span>
+                                                    जिल्ला
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessMunicipality"
+                                                           formControlName="witnessMunicipality" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessMunicipality ? this.cadInitialInfo[i]?.witnessMunicipality : '===================================='}}
+                                </span>
+                                                    न.पा/गा.वि.स. वडा नं.
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="WitnessWardNumber"
+                                                           formControlName="WitnessWardNumber" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.WitnessWardNumber ? this.cadInitialInfo[i]?.WitnessWardNumber : '===================================='}}
+                                </span>
+                                                    बस्ने बर्ष
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge"
+                                                           formControlName="witnessAge" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessAge ? this.cadInitialInfo[i]?.witnessAge : '===================================='}}
+                                </span>
+                                                    को/की
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName"
+                                                           formControlName="witnessName" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessName ? this.cadInitialInfo[i]?.witnessName : '===================================='}}
+                                </span>
+                                                </li>
+                                                <li>
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessDistrict2"
+                                                           formControlName="witnessDistrict2" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessDistrict2 ? this.cadInitialInfo[i]?.witnessDistrict2 : '===================================='}}
+                                </span>
+                                                    जिल्ला
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                           name="witnessMunicipality2"
+                                                           formControlName="witnessMunicipality2" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessMunicipality2 ? this.cadInitialInfo[i]?.witnessMunicipality2 : '===================================='}}
+                                </span>
+                                                    न.पा/गा.वि.स. वडा नं.
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="WitnessWardNumber2"
+                                                           formControlName="WitnessWardNumber2" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.WitnessWardNumber2 ? this.cadInitialInfo[i]?.WitnessWardNumber2 : '===================================='}}
+                                </span>
+                                                    बस्ने बर्ष
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessAge2"
+                                                           formControlName="witnessAge2" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessAge2 ? this.cadInitialInfo[i]?.witnessAge2 : '===================================='}}
+                                </span>
+                                                    को/की
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="witnessName2"
+                                                           formControlName="witnessName2" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.witnessName2 ? this.cadInitialInfo[i]?.witnessName2 : '===================================='}}
+                                </span>
+                                                </li>
+                                                <li>
+                                                    कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                                                    कर्मचारी
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="bankStaff"
+                                                           formControlName="bankStaff" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.bankStaff ? this.cadInitialInfo[i]?.bankStaff : '===================================='}}
+                                </span>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="i < form.get('crossGuaranteeCompany')['length'] - 1" class="pageBreak"></div>
+                <hr class="disable-print"/>
+            </div>
+        </div>
+        <div *ngIf="form.get('crossGuaranteeCompany')['length'] === 0" class="row">
+            <div class="col-md-12">
+                <p>Could not find any guarantors details.</p>
+            </div>
+        </div>
+        <div class="row mt-5 ml-0">
+            <div class="col-md-12 text-right disable-print" style="font-size: 16px">
+                <button nbButton
+                        size="medium"
+                        status="info"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        class="mb-4 float-right disable-print"
+                        outline
+                        [useExistingCss]="true" ngxPrint
+                        printSectionId="{{crossGuaranteeConst.CROSS_GUARANTEE_COMPANY}}Print">
+                    Print<em
+                        class="fa fa-print fa-2xs" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton outline status="success" class="disable-print"
+                        (click)="submit()">Save <em class="fa fa-save"
+                                                    style="color: rgb(47, 3, 168)"></em></button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -22,6 +22,9 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import { key } from 'ionicons/icons';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -62,6 +65,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   submitted = false;
   municipalityListForSecurities = [];
+  close = false;
   constructor(
       private formBuilder: FormBuilder,
       private dialogService: NbDialogService,
@@ -75,7 +79,11 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
-  ) {
+      private modalService: NgbModal,
+      protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
+      ) {
   }
 
   get Form() {
@@ -125,8 +133,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateOfApplicationType: [undefined],
+      dateOfApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -148,6 +160,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureFixedDeposit: [undefined],
       tenureDepositReceiptNumber: [undefined],
       guarantorName: [undefined],
+      dateofExpiry: [undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       // guaranteedAmountFigure: [undefined],
       // guaranteedAmountWords: [undefined],
       nameOfBranch: [undefined],
@@ -179,8 +194,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateOfApplicationTypeTransVal: [undefined],
+      dateOfApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
@@ -228,6 +247,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       municipalityOrVdcTransVal: [undefined],
       accountNumberTransVal: [undefined],
       bankNameTransVal: [undefined],
+      dateofExpiryTransVal: [undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -368,7 +390,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
+      this.close = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -424,7 +447,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     }
     this.setTemplatedCTData(this.translatedData);
     this.spinner = false;
-    this.btnDisable = false;
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -515,7 +537,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('interestRate').patchValue(sum);
+    this.form.get('interestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('interestRate', 'interestRateTransVal');
@@ -557,6 +579,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
+    this.form.get('dateOfExpiryTypeTransVal').patchValue(this.translatedData.dateOfExpiryType);
+    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
     // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     // this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
@@ -588,6 +613,23 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('tenureFixedDepositTransVal').updateValueAndValidity();
     this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
     this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRef.close();
   }
 }
 

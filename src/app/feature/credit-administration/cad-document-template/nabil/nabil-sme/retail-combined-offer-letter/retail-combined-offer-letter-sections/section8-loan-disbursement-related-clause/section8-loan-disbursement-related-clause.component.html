@@ -1,0 +1,524 @@
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+        <form [formGroup]="form">
+            <div>
+                <b>ऋण प्रवाह सम्बन्धी शर्तहरुः</b>
+                <!--Housing Loan-->
+                <div *ngIf="purchaseArray.length > 0" class="mt-4">
+                    <ng-container *ngFor="let val of purchaseArray; let i1 = index"
+                                  formArrayName="homeLoanPurchaseFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <!--(For Purchase case/First Home Loan Buyer-->
+                            <p class="m-0">
+                                धितोबन्धक तमसुक, तंहाको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण
+                                कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक
+                                लिमिटेडको, पुल्चोक शाखामा रहेको चल्ती खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmountInFigure"
+                                       formControlName="loanAmountInFigure"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '_________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmountInWords"
+                                       formControlName="loanAmountInWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="nameOfBeneficiary"
+                                       formControlName="nameOfBeneficiary"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '_________________'}}</span>
+                                लाई A/C Payee Cheque /MC/Draft
+                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                            </p>
+                            <p class="m-0 mt-4" *ngIf="val?.NcellStaffCheck">
+                                <!--This clause should be on requirement basis such as NCELL purchase Case-->
+                                उक्त रकम श्री
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="nameOfBeneficiary"
+                                       formControlName="nameOfBeneficiary"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '_________________'}}</span>
+                                लाई A/C Payee Cheque /MC/Draft मार्फत् वा खातामा स्थानान्तरण गरी
+                                भुक्तानी गरिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="constructionArray.length > 0" class="mt-4">
+                    <ng-container *ngFor="let val of constructionArray; let i1 = index"
+                                  formArrayName="homeLoanConstructionFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <ng-container>
+                                <!--For construction case-->
+                                धितोबन्धक तमसुक, तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/
+                                सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="branchName"
+                                       formControlName="branchName"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '_________________'}}</span>
+                                शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ ।
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td>क.</td>
+                                        <td>
+                                            रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext1"
+                                                   formControlName="freetext1"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.firstPhaseConstructionCostCT || '______________________'}}</span>
+                                            /– बराबरको निर्माण कार्य सम्पन्न भएकोले पहिलो किस्ता रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext2"
+                                                   formControlName="freetext2"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.firstInstallmentAmountInFigureCT || '______________________'}}</span>
+                                            /– (अक्षरेपि रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext3"
+                                                   formControlName="freetext3"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.firstInstallmentAmountInWordsCT || '______________________'}}</span>
+                                            मात्र) तपाईंको खातामा भुक्तानी गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <ng-container *ngIf="val?.middlePhaseConstruction.length > 0">
+                                    <tr *ngFor="let middleConstruction of val?.middlePhaseConstruction; let i = index" formArrayName="middlePhaseConstruction">
+                                        <ng-container [formGroupName]="i">
+                                            <td>
+                                                {{(i+2) | nepaliWord}}.
+                                            </td>
+                                        <td>
+                                            रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext10"
+                                                   formControlName="freetext10"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{middleConstruction?.nPhaseConstructionCostCT || '______________________'}}</span>
+                                            /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि
+                                            {{(i+2) | nepaliWordNumbering}}
+                                            किस्ता रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext4"
+                                                   formControlName="freetext4"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{middleConstruction?.nPhaseInstallmentAmountInFigureCT ||  '______________________'}}</span>
+                                            /– (अक्षरेपि रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext5"
+                                                   formControlName="freetext5"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{middleConstruction?.nPhaseInstallmentAmountInWordsCT || '______________________'}}</span>
+                                            मात्र) तपाईंको खातामा भुक्तानी गरिनेछ ।
+                                        </td>
+                                        </ng-container>
+                                    </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td>
+                                            {{val?.middlePhaseConstruction.length + 2 | nepaliWord}}.
+                                        </td>
+                                        <td>
+                                            रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext6"
+                                                   formControlName="freetext6"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.finalPhaseConstructionCostCT || '______________________'}}</span>
+                                            /– बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि
+                                            अन्तिम किस्ता रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext8"
+                                                   formControlName="freetext8"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.finalInstallmentAmountInFigureCT || '______________________'}}</span>
+                                            /– (अक्षरेपि रु.
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="freetext9"
+                                                   formControlName="freetext9"
+                                                   placeholder=" "
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{ val?.finalInstallmentAmountInWordsCT || '______________________'}}</span>
+                                            मात्र) तपाईंको खातामा भुक्तानी गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="takeOverArray.length > 0" class="mt-4">
+                    <ng-container *ngFor="let val of takeOverArray; let i1 = index"
+                                  formArrayName="homeLoanTakeOverFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--Housing Takeover Case
+                                For all loans-->
+                                धितोबन्धक तमसुक बाहेक,
+                                तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु
+                                बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको, पुल्चोक शाखामा
+                                रहेको चल्ती खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmt"
+                                       formControlName="loanAmt"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtWords"
+                                       formControlName="loanAmtWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="nameOfBank"
+                                       formControlName="nameOfBank"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.nameOfBankCT || '______________________'}}</span>
+                                बैंकलाई
+                                A/C Payee Cheque/MC/Draft
+                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="initialData?.educationLoanForm?.educationLoanCombinedFormArray.length > 0" class-="mt-4">
+                    <p class="m-0">
+                        <!--Education Loan-->
+                        आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यक्ता
+                        र निवेदन बमोजिम शैक्षिक कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
+                        <input class="form-field form-control-sm d-print-none"
+                               name="branchName"
+                               formControlName="branchName"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{branchName ? branchName : '__________________'}}</span>
+                        शाखामा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
+                    </p>
+                </div>
+                <div *ngIf="this.initialData?.autoLoanCombinedForm?.autoLoanCombinedFormArray.length > 0" class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.autoLoanCombinedForm?.autoLoanCombinedFormArray; let i1 = index"
+                            formArrayName="autoLoanFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--Auto Loan Case-->
+                                आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
+                                आवश्यकत्ता र निवेदन बमोजिम सवारी साधन कर्जा तपाईंले यस नबिल बैंक
+                                लिमिटेडको,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="branchName"
+                                       formControlName="branchName"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '__________________'}}</span>
+                                शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह गरिनेछ र तपाईंले निर्देश गरे
+                                बमोजिम आधिकारीक विक्रेता
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="nameOfBeneficiary3"
+                                       formControlName="nameOfBeneficiary3"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '______________________'}}</span>
+                                अथवा यसको प्रतिनिधिलाई रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanFig"
+                                       formControlName="loanFig"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanWords"
+                                       formControlName="loanWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="this.initialData?.personalOverdraftCombinedForm?.personalOverdraftCombinedFormArray.length > 0"
+                     class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.personalOverdraftCombinedForm?.personalOverdraftCombinedFormArray; let i1 = index"
+                            formArrayName="personalOverdraftFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--POD New /Renewal/Enhancement-->
+                                आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकता
+                                र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="branchName1"
+                                       formControlName="branchName1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
+                                शाखामा खोल्नु भएको चल्ती खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInFig"
+                                       formControlName="loanAmtInFig"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInWords"
+                                       formControlName="loanAmtInWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                मात्र) को अधिविकर्ष सिमा राखिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="this.initialData?.personalOverDraftWithoutCollateralCombinedForm?.personalOverDraftWithoutCollateralCombinedFormArray.length > 0"
+                     class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.personalOverDraftWithoutCollateralCombinedForm?.personalOverDraftWithoutCollateralCombinedFormArray; let i1 = index"
+                            formArrayName="personalOverdraftWithoutCollateralFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--POD Without Collateral-->
+                                आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकता र
+                                निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="branchName2"
+                                       formControlName="branchName2"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
+                                शाखामा खोल्नु भएको खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtFig"
+                                       formControlName="loanAmtFig"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtWords1"
+                                       formControlName="loanAmtWords1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                मात्र) को अधिविकर्ष सिमा राखिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="this.initialData?.personalLoanCombinedForm?.personalLoanCombinedFormArray.length > 0"
+                     class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.personalLoanCombinedForm?.personalLoanCombinedFormArray; let i1 = index"
+                            formArrayName="personalLoanFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--Personal Loan
+                                For personal Loan with EMI payment)-->
+                                कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा
+                                गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडमा रहेको खाता नं.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="amtNum"
+                                       formControlName="amtNum"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{tempInformation?.section8?.personalLoanFreeText[i1]?.amtNum ? tempInformation?.section8?.personalLoanFreeText[i1]?.amtNum : '____________________'}}</span>
+                                मा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtFig1"
+                                       formControlName="loanAmtFig1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '____________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInWords1"
+                                       formControlName="loanAmtInWords1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '____________________'}}</span>
+                                मात्र) व्यक्तिगत कर्जा प्रवाह गरिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="this.initialData?.mortgageCombineForm?.mortgageCombineLoanFormArray.length > 0"
+                     class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.mortgageCombineForm?.mortgageCombineLoanFormArray; let i1 = index"
+                            formArrayName="mortgageLoanFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--Mortgage Loan-->
+                                धितोबन्धक तमसुक, तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण
+                                कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको, पुल्चोक
+                                शाखामा रहेको चल्ती खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtFigure1"
+                                       formControlName="loanAmtFigure1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountCT || '____________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtWords3"
+                                       formControlName="loanAmtWords3"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountWordsCT || '____________________'}}</span>
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="nameOfBeneficiary4"
+                                       formControlName="nameOfBeneficiary4"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.beneficiaryNameCT || '______________________'}}</span>
+                                लाई A/C Payee Cheque/MC/Draft मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div *ngIf="initialData?.nabilShareLoanPODForm?.nabilShareLoanPODFormArray.length > 0 ||
+                    initialData?.shareLoanDemandCombinedForm?.shareLoanDemandCombinedFormArray.length > 0">
+                    <table class="table-borderless table">
+                        <!--For Share Loan POD) -->
+                        <ng-container *ngIf="initialData?.nabilShareLoanPODForm?.nabilShareLoanPODFormArray.length > 0">
+                            <tr *ngFor="let val of initialData?.nabilShareLoanPODForm?.nabilShareLoanPODFormArray; let i2 = index"
+                                formArrayName="nabilShareLoanFormArray">
+                                <ng-container [formGroupName]="i2">
+                                    <td>
+                                        {{i2 + 1 | nepaliNumber}}.
+                                    </td>
+                                    <td>
+                                        आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
+                                        आवश्यकता
+                                        र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="branchName3"
+                                               formControlName="branchName3"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
+                                        शाखामा खोल्नु भएको चल्ती खातामा रु.
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="loanAmtFig4"
+                                               formControlName="loanAmtFig4"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                        /- (अक्षरेपी रु.
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="loanAmtWords4"
+                                               formControlName="loanAmtWords4"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                        मात्र) को अधिविकर्ष सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि
+                                        समयमा
+                                        सो सिमा भन्दा बढी हुनु हुनेछैन ।
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+
+                        <!--For Share Loan Demand)-->
+                        <ng-container
+                                *ngIf="initialData?.shareLoanDemandCombinedForm?.shareLoanDemandCombinedFormArray.length > 0">
+                            <tr *ngFor="let val of initialData?.shareLoanDemandCombinedForm?.shareLoanDemandCombinedFormArray; let i2 = index"
+                                formArrayName="shareLoanDemandFormArray">
+                                <ng-container [formGroupName]="i2">
+                                    <td>
+                                        {{(initialData?.nabilShareLoanPODForm?.nabilShareLoanPODFormArray.length) +
+                                    (i2 + 1) | nepaliNumber}}.
+                                    </td>
+                                    <td>
+                                        आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
+                                        आवश्यकता
+                                        र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="bName"
+                                               formControlName="bName"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
+                                        शाखामा खोल्नु भएको चल्ती खातामा रु.
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="loanAmtDemand"
+                                               formControlName="loanAmtDemand"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                        /- (अक्षरेपी रु.
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="loanAmtFigDemand"
+                                               formControlName="loanAmtFigDemand"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                        मात्र) को डिमाण्ड कर्जा
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="freetext11"
+                                               formControlName="freetext11"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 ? tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 : '______________________'}}</span>
+                                        को सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा सो सिमा
+                                        भन्दा
+                                        बढी हुनु हुनेछैन ।
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <!--For all share loans-->
+                                माथि बुदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम
+                                उपयोग गरेमा वा उपयोग हुन गएमा त्यस्तो बढी रकम ऋणीले बैंकलाई तत्कालै तिर्नु बुझाउनु
+                                पर्नेछ ।
+                                नबुझाएमा त्यस्तो बढी रकममा बैंकको नियमानुसार अधिकतम ब्याजदरले ब्याज लाग्नेछ ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{(initialData?.nabilShareLoanPODForm?.nabilShareLoanPODFormArray.length) +
+                            (initialData?.shareLoanDemandCombinedForm?.shareLoanDemandCombinedFormArray.length) + 1 | nepaliNumber}}.
+                            </td>
+                            <td>
+                                <!--For all share loans-->
+                                तपाईंको व्यवसायको नगद आर्जन गर्नसक्ने क्षमता र धितोेबन्धकमा रहेका सम्पत्तिहरुको
+                                प्रतिभुतिकरणको
+                                भरोसाको आधारमा माथि उल्लिखित ऋणकर्जा सुविधाहरुको प्राथमिक प्रस्ताव गरिएको हो ।
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

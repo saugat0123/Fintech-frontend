@@ -1,0 +1,279 @@
+<script src="../section7-interest-and-emi-payment-related/section7-interest-and-emi-payment-related.component.spec.ts"></script>
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+        <form [formGroup]="form">
+            <nb-checkbox class="d-print-none" #showAdditionalClause (checkedChange)="showAdditionalClauseCheck(showAdditionalClause.checked)"
+                         formControlName="additionalClauseChecked">
+                Additional Clause for Corporate agreement based Loan
+            </nb-checkbox>
+            <div *ngIf="showAdditionalClause.checked">
+                <!-- SECTION 19
+                Additional Clause for Corporate agreement based Loan:
+                ( Optional as per need basis on all loan types)-->
+               <b>
+                   द्रष्टब्य : माथि उल्लिखित ब्यक्तिगत कर्जाको ब्याजदर यस नबिल बैंक लिमिटेड र
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText1"
+                          formControlName="freeText1"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">
+                       {{freeInformation?.section22?.freeText1 || '______________________'}}</span>
+                   का
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText2"
+                          formControlName="freeText2"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText2 || '______________________'}}</span>
+                   को सुबिधाको लागि मिति
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText3"
+                          formControlName="freeText3"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText3 || '______________________'}}</span>
+                   मा सम्पन्न सम्झौता ज्ञापनपत्र बमोजिम तोकिएको छ । उक्त ब्याजदर तपाई
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText4"
+                          formControlName="freeText4"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText4 || '______________________'}}</span>
+                   मा आवद्ध रहेको अवधिसम्म मात्र लागु हुनेछ । उक्त सम्झौताको शर्त बन्देजनामाहरु भविष्यमा कुनै परीवर्तन
+                   भएमा सो अनुसार तपाईले लिनु भएको यस ऋण कर्जामा समेत सोहि बमोजिमको व्यवस्था लागु हुनेछ ।
+                   <br>
+                   साथै, नबिल बैंक लिमिटेड र
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText5"
+                          formControlName="freeText5"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">{{freeInformation?.section22?.freeText5 || '______________________'}}</span>
+                   बिच भएको उपरोक्त सम्झौतामा हुने संशोधन, परिमार्जन, नविकरण वा खारेजीले यस
+                   ऋण कर्जाको सिमा, सुरक्षण, ब्याजदर लगायत शर्त बन्देजनामाहरु संशोधन हुन सक्नेछन् ।
+                   यसरी हुने संशोधनमा ऋणीको पूर्ण मञ्जुरी हुनेछ ।
+               </b>
+            </div>
+            <br>
+            <div>
+                <!-- SECTION 20 For All types of loans-->
+                यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न
+                रहेको प्रतिलिपीमा तपाईंको मञ्जुरी सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव
+                स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको मितिले ६० (साठ्ठी)
+                दिनभित्र यस ऋण स्वीकृति पत्रमा ऋणीले बैंकलाई उपलब्ध गराउनु पर्ने भनी तोकिएको विवरण,
+                सूचना, कागजात तथा सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु भए
+                पश्चातमात्र कर्जा सुविधा प्रवाह हुन सक्नेछ । अन्यथा, स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।
+            </div>
+            <br>
+            <br>
+
+            <!-- SECTION 21 For All types of loans-->
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="right-content">
+                    <p>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="nameOfARO_RO_RM_ARM"
+                               name="nameOfARO_RO_RM_ARM"
+                               style="width: 200px"
+                               type="text"/>
+                        <span class="print-only">
+                            {{initialInfo?.retailGlobalForm?.nameOfRelationshipManagerCT || '________________________'}}
+                        </span>
+                        <br>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="position"
+                               type="text"/>
+                        <span class="print-only">
+                            {{freeInformation?.section22?.position || this.position}}
+                        </span>
+                        <br>
+                        नबिल बैंक लि. <br>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="branchName"
+                               name="branchName"
+                               style="width: 200px"
+                               type="text"/>
+                        <span class="print-only">
+                            {{loanHolderInfo?.branch?.ct || '________________________'}}
+                        </span>
+                        शाखा
+                    </p>
+                </div>
+
+                <div class="left-content">
+                    <p>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="nameOfBranchManager"
+                               name="nameOfBranchManager"
+                               style="width: 200px"
+                               type="text"/>
+                        <span class="print-only">
+                            {{initialInfo?.retailGlobalForm?.nameOfBranchManagerCT || '________________________'}}
+                        </span>
+                        <br>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="position1"
+                               type="text"/>
+                        <span class="print-only">
+                            {{freeInformation?.section22?.position1 || this.position1}}
+                        </span>
+                        <br>
+                        नबिल बैंक लि. <br>
+                        <input class="form-field form-control-sm d-print-none"
+                               formControlName="branchName"
+                               name="branchName"
+                               style="width: 200px"
+                               type="text"/>
+                        <span class="print-only">
+                            {{loanHolderInfo?.branch?.ct || '________________________'}}
+                        </span>
+                        शाखा
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div>
+                <!-- SECTION 22 For All types of loans-->
+                <ol style="list-style: devanagari">
+                    <li>
+                        यदि म/हामीले माग गर्नासाथ र बैंकले दिएको समयमा भुक्तानी नगरेको अवस्थामा नेपाल राष्ट्र बैंक,
+                        कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई कालोसूची व्यवस्था र सोको
+                        प्रभाव सम्बन्धि पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको
+                        उक्त निर्णय विरुद्ध म/हामीले कहिं कतै उजुर वाजुर गर्ने छैन । यदि बैंकको निर्णय बिरुद्ध उजुर
+                        वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र परिणाम म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं ।
+                        यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व मेरो/हाम्रो हकवालाहरुलाई
+                        उत्तरदायी हुन शिक्षित गरि बहन गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
+                    </li>
+                    <li>
+                       म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।
+
+                    </li>
+                    <li>
+                       म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा रद्ध
+                        गर्न त्यस बैंकको अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाँकी रकम,
+                        उपार्जित ब्याज र शुल्कहरु समेत भुक्तानी गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
+
+                    </li>
+                    <li>
+                        म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको
+                        घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
+
+                    </li>
+                    <li>
+                        म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि
+                        <span *ngIf="initialInfo?.retailGlobalForm?.loanAboveCrore === false">
+                            <!--For Loan having Below -->
+                            नभएको
+                        </span>
+                        <span *ngIf="initialInfo?.retailGlobalForm?.loanAboveCrore === true">
+                            <!--For Loan having above 10M -->
+                            भएको
+                        </span>
+                        बिनाशर्त उद्घोष गर्दछु ।
+                    </li>
+                    <li>
+                        यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा
+                        माथिल्लो स्तरका कर्मचारीहरु, चुक्ता पुँजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु
+                        र बहालवाला लेखापरिक्षक सँग मेरो/हाम्रो, कम्पनीको हकमा संस्थापक शेयरधनीहरु र संचालकहरुको
+                        समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको  एकाघरको पारिवारिक सम्बन्ध नभएको र निजहरु सँग
+                        मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                    </li>
+                </ol>
+
+                <div class="d-flex justify-content-between">
+                    <div class="left-content mt-4">
+
+                    </div>
+                    <div class="right-content mt-4">
+
+                        .....................................
+                        <br>
+                        आधिकारिक हस्ताक्षर (ग्राहक)
+                        <br>
+                        मितिः
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 3em">
+                    <div class="col-md-12">
+                        <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                        <ol style="list-style: devanagari;">
+                            <li>
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict1"
+                                       formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{freeInformation?.section22?.sakshiDistrict1 || '___________________________'}}
+                                </span>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality1"
+                                       formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiMunicipality1 || '___________________________'}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
+                                       formControlName="sakshiWard1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiWard1 || '___________________________'}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
+                                       formControlName="sakshiAge1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{freeInformation?.section22?.sakshiAge1 || '___________________________'}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName1"
+                                       formControlName="sakshiName1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiName1 || '___________________________'}}
+                                </span>
+                            </li>
+                            <li>
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict2"
+                                       formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiDistrict2 || '___________________________'}}
+                                </span>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality2"
+                                       formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiMunicipality2 || '___________________________'}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
+                                       formControlName="sakshiWard2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiWard2 || '___________________________'}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
+                                       formControlName="sakshiAge2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiAge2 || '___________________________'}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName2"
+                                       formControlName="sakshiName2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.sakshiName2 || '___________________________'}}
+                                </span>
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका
+                                कर्मचारी
+                                <input class="form-field form-control-sm d-print-none" name="nameOfBankStaff"
+                                       formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                     {{freeInformation?.section22?.nameOfBankStaff || '___________________________'}}
+                                </span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

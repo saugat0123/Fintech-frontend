@@ -1,0 +1,60 @@
+.nep {
+  font-size: 19px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+
+ol.conditions {
+  padding-left: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 1.9 !important;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 19px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
+}
+
+ol li {
+  padding-left: 1em;
+}
+
+p {
+  line-height: 1.9;
+}

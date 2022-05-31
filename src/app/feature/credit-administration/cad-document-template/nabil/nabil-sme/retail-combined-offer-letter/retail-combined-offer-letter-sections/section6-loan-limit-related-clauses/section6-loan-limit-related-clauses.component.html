@@ -1,0 +1,49 @@
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+    <form [formGroup]="form">
+        <div>
+            <b>कर्जा उपयोग सीमाः तथा सो सम्बन्धी शर्तहरुः</b>
+            <br>
+            <ul>
+                <li>
+                    माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग सिमा कुनै पनि समयमा रु.
+                    <input class="form-field form-control-sm d-print-none"
+                           name="totalLimitInFigure"
+                           formControlName="totalLimitInFigure"
+                           placeholder=" "
+                           type="text"/>
+                    <span class="print-only font-weight-bold">{{tempData?.retailGlobalForm?.totalLimitInFigureCT ? tempData?.retailGlobalForm?.totalLimitInFigureCT : '______________________'}}</span>
+                    /- (अक्षरेपी रु.
+                    <input class="form-field form-control-sm d-print-none"
+                           name="totalLimitInWords"
+                           formControlName="totalLimitInWords"
+                           placeholder=" "
+                           type="text"/>
+                    <span class="print-only font-weight-bold">{{tempData?.retailGlobalForm?.totalLimitInWordsCT ? tempData?.retailGlobalForm?.totalLimitInWordsCT : '______________________'}}</span>
+                    मात्र) भन्दा बढी हुनु हुनेछैन । <!--Total Limit-->
+                </li>
+                <li *ngIf="isMortgageLoan || isHomeLoan || isAutoLoan || isPersonalLoan || isOthers">
+                   {{loanNepaliName}} सिमा यदि आंशिक वा पूर्ण भुक्तानी भएपश्चात भुक्तानी भएको रकम पूनःकर्जा स्वरुप उपयोग गर्न
+                    सकिनेछैन ।
+                    <!--For Mortgage loan/Housing loan/Vehicle Loan/Personal Loan/Education loan – Other Countries-->
+                </li>
+                <li *ngIf="isShareLoan">
+                    डिमाण्ड कर्जाको सिमा यदि आंशिक वा पूर्ण भुक्तानी भएपश्चात भुक्तानी भएको रकम पूनः कर्जा 
+                    स्वरुप उपयोग गर्न सकिनेछैन ।
+                    <!--Share loan – Demand loan-->
+                </li>
+                <li *ngIf != isOthers>
+                    कर्जा सिमा यदि आंशिक भुक्तानी भए पश्चात भुक्तानी भएको रकम ऋण स्वीकृति पत्रको मितीले 
+                    एक बर्ष भित्र पूनः कर्जा स्वरुप विद्यार्थीको जिवन निर्वाह र/वा शैक्षिक खर्चको लागि उपयोग गर्न सकिनेछ ।
+                    <!--For Education loan Australia only-->
+                </li>
+                <li *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral || isNabilShareLoan">
+                    माथि उल्लेखित ब्यक्तिगत अधिविकर्ष सुविधा कर्जा सिमा आंशिक वा पूर्ण जति भुक्तानी भएको हो सोहि
+                    बराबर रकम मात्र पूनः कर्जा स्वरुप उपयोग गर्न सकिनेछ ।
+                    <!--For Personal Overdraft/Nabil Sahayatri/Personal Overdraft without collateral/Share loan – Personal Overdraft-->
+                </li>
+            </ul>
+        </div>
+    </form>
+    </div>
+</div>

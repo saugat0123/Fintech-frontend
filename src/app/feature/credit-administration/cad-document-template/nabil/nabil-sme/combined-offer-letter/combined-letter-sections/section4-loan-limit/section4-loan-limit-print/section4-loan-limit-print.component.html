@@ -1,0 +1,63 @@
+<form>
+    <div class="col-md-12 row text-justify">
+        <div class="row mt-2">
+            <p class="m-0"><strong>कर्जा उपयोग सीमाः</strong></p>
+        </div>
+        <div class="row mt-3">
+            <ol class="conditions-list orderd-list">
+                <li *ngIf="isComplementaryLoan">
+                    <!---Required incase of there is any Complementary Facility/Limit -->
+                    माथि उल्लिखित पूरक ऋणकर्जा सुविधाहरु मुख्य ऋणकर्जा सुविधाको सीमा भन्दा बढी उपयोग गर्न
+                    पाईने छैन । कुनै पनि समयमा पूरक र मुख्य ऋणकर्जा सुविधाहरुको कूल उपयोग मुख्य ऋणकर्जा
+                    सुविधा सीमा भन्दा बढी हुनु हुने छैन ।
+                </li>
+                <ng-container *ngIf="(tempData?.smeGlobalForm?.totalFundedLimitInFigure !== null && tempData?.smeGlobalForm?.totalFundedLimitInFigure > 0) && (tempData?.smeGlobalForm?.totalNonFundedLimitInFigure !== null && tempData?.smeGlobalForm?.totalNonFundedLimitInFigure > 0 ) ">
+                    <li>
+                        <!--Total Funded Limit-->
+                        माथि उल्लिखित कोषमा आधारित सम्पूर्ण ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalFundedLimitInFigureCT ? this.letterData.smeGlobalForm.totalFundedLimitInFigureCT : ''}}</strong></span>/- (अक्षरेपी रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalFundedLimitInWordsCT ? this.letterData.smeGlobalForm.totalFundedLimitInWordsCT : ''}}</strong></span>
+                        मात्र) भन्दा बढी हुनु हुनेछैन ।
+                    </li>
+
+                    <li>
+                        <!--Required incase of Total Non-Funded Limit is proposed in approved CFR-->
+                        माथि उल्लिखित गैर–कोषमा आधारित सम्पूर्ण सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalNonFundedLimitInFigureCT ? this.letterData.smeGlobalForm.totalNonFundedLimitInFigureCT : ''}}</strong></span>/- (अक्षरेपी रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalNonFundedLimitInWordsCT ? this.letterData.smeGlobalForm.totalNonFundedLimitInWordsCT : ''}}</strong></span>
+                        मात्र) भन्दा बढी हुनु हुनेछैन ।
+                    </li>
+
+                    <li>
+                        <!--Total Limit-->
+                        माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalLimitInFigureCT ? this.letterData.smeGlobalForm.totalLimitInFigureCT : ''}}</strong></span>/- (अक्षरेपी रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalLimitInWordsCT ? this.letterData.smeGlobalForm.totalLimitInWordsCT : ''}}</strong></span>
+                        मात्र) भन्दा बढी हुनु हुनेछैन ।
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="(tempData?.smeGlobalForm?.totalFundedLimitInFigure == null || tempData?.smeGlobalForm?.totalFundedLimitInFigure === 0) || (tempData?.smeGlobalForm?.totalNonFundedLimitInFigure == null || tempData?.smeGlobalForm?.totalNonFundedLimitInFigure === 0 ) ">
+                <li>
+                        <!--Total Limit-->
+                        माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalLimitInFigureCT ? this.letterData.smeGlobalForm.totalLimitInFigureCT : ''}}</strong></span>/- (अक्षरेपी रु.
+                        <span><strong>{{this.letterData.smeGlobalForm.totalLimitInWordsCT ? this.letterData.smeGlobalForm.totalLimitInWordsCT : ''}}</strong></span>
+                        मात्र) भन्दा बढी हुनु हुनेछैन ।
+                    </li>
+                </ng-container>
+                <li>
+                    माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग
+                    गरेमा वा उपयोग हुन गएमा त्यस्तो बढी रकम ऋणीले बैंकलाई तत्कालै तिर्नु बुझाउनु पर्नेछ ।
+                    नबुझाएमा त्यस्तो वढी रकममा बैंकको नियमानुसार अधिकतम ब्याजदरले ब्याज लाग्नेछ ।
+                </li>
+
+                <li>
+                    तपाईंको व्यवसायको नगद आर्जन गर्नसक्ने क्षमता र धितोबन्धकमा रहेका सम्पत्तिहरुको
+                    प्रतिभुतिकरणको भरोसाको आधारमा माथि उल्लिखित ऋणकर्जा सुविधाहरुको प्राथमिक प्रस्ताव गरिएको
+                    हो ।
+                </li>
+
+            </ol>
+        </div>
+    </div>
+</form>

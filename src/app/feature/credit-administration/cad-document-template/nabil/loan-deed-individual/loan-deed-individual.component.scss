@@ -1,8 +1,17 @@
 .nep {
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 1.7;
   text-align: justify;
   text-justify: inter-word;
+}
+ol.conditions {
+  padding: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
+  padding-left: 10px;
 }
 .form-field {
   background: yellow;
@@ -38,6 +47,11 @@ p {
 
   }
 }
+
+.text-justify {
+  text-align: justify !important;
+}
+
 
 @media print {
   .print-only {

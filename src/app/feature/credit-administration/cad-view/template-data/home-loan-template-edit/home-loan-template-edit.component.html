@@ -1,6 +1,8 @@
 <nb-card [nbSpinner]="spinner" class="px-3">
     <nb-card-header>
-        <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()"><b>x</b></a>
+        <h3 *ngIf="isConstructionLoan">Edit Home Loan (Construction) Data </h3>
+        <h3 *ngIf="isPurchaseLoan || isTakeOverLoan">Edit Home Loan (Land/Building) Data </h3>
+        <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()" style="margin-top:-2em"><b>x</b></a>
     </nb-card-header>
     <nb-card-body>
         <div [formGroup]="homeLoanForm">
@@ -15,12 +17,18 @@
             <app-construction-loan-edit #constructionLoan (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan"></app-construction-loan-edit>
         </div>
         <div *ngIf="isPurchaseLoan || isTakeOverLoan">
-            <app-home-land-and-building-loan-edit #landAndBuilding (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan"></app-home-land-and-building-loan-edit>
+            <app-home-land-and-building-loan-edit #landAndBuilding (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan" [isTakeOver]="isTakeOverLoan" [isPurchase]="isPurchaseLoan"></app-home-land-and-building-loan-edit>
         </div>
     </nb-card-body>
     <nb-card-footer>
+        <button [disabled]="isPreviewBtnDisabled"
+                class="float-right" nbButton
+                (click)="openModel()"
+                status="primary" size="medium">
+            Preview
+        </button>
         <div class="row d-flex justify-content-end">
-            <button nbButton status="primary" size="tiny" (click)="onSubmit()" [disabled]="!btnDisable">Update</button>
+            <button nbButton status="primary" size="medium" (click)="onSubmit()" [disabled]="!btnDisable">Update</button>
         </div>
     </nb-card-footer>
 </nb-card>

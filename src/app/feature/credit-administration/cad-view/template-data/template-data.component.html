@@ -1,13 +1,3 @@
-<nb-select
-        fullWidth
-        placeholder="Select Offer Letter"
-        [(ngModel)]="offerLetterSelect"
-        status="info">
-    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-        {{i.key | replace:'_':' ' }}
-    </nb-option>
-</nb-select>
-
 <nb-card>
 <!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_PURCHASE_LOAN" [nbSpinner]="spinner">-->
 <!--        <app-retail-education-template-data></app-retail-education-template-data>-->
@@ -15,34 +5,55 @@
 <!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.COMMERCIAL_AUTO" [nbSpinner]="spinner">-->
 <!--        <app-hire-purchase-template-data></app-hire-purchase-template-data>-->
 <!--    </nb-card-body>-->
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.EDUCATIONAL" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isEducationLoan" [nbSpinner]="spinner">
         <app-educational-loan-template-data [customerApprovedDoc]="cadData" ></app-educational-loan-template-data>
     </nb-card-body>
 <!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_TAKEOVER_CASE" [nbSpinner]="spinner">-->
 <!--        <app-retail-loan-against-insurance-template-data></app-retail-loan-against-insurance-template-data>-->
 <!--    </nb-card-body>-->
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.MORTAGE_LOAN" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isMortgageLoan" [nbSpinner]="spinner">
         <app-retail-mortgage-loan-template-data [customerApprovedDoc]="cadData"></app-retail-mortgage-loan-template-data>
     </nb-card-body>
 <!--    <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">-->
 <!--        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>-->
 <!--    </nb-card-body>-->
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isPersonalOverdraft" [nbSpinner]="spinner">
         <app-personal-overdraft-template-data [customerApprovedDoc]="cadData"></app-personal-overdraft-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT">
+    <nb-card-body *ngIf="isPersonalAndPersonalOverdraft">
         <app-personal-loan-and-personal-overdraft-template-data [cadData]="cadData" [customerApprovedDoc]="cadData"></app-personal-loan-and-personal-overdraft-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isAutoLoan" [nbSpinner]="spinner">
         <app-sme-template-data [customerApprovedDoc]="cadData"></app-sme-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isPersonalLoan" [nbSpinner]="spinner">
         <app-personal-loan-template-data [customerApprovedDoc]="cadData"></app-personal-loan-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOME_LOAN" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="isHomeLoan" [nbSpinner]="spinner">
         <app-home-loan-template-data [customerApprovedDoc]="cadData"></app-home-loan-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN_COMMERCIAL" [nbSpinner]="spinner">
-        <app-auto-loan-commercial-template-data [customerApprovedDoc]="cadData"></app-auto-loan-commercial-template-data>
+    <nb-card-body *ngIf="isPersonalWithoutCollateral" [nbSpinner]="spinner">
+        <app-perosnal-overdraft-without-collateral-template-data [customerApprovedDoc]="cadData"></app-perosnal-overdraft-without-collateral-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isKisanKarja" [nbSpinner]="spinner">
+        <app-kisan-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-kisan-karja-subsidy-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isUdyamsilKarja" [nbSpinner]="spinner">
+        <app-udhyamsil-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-udhyamsil-karja-subsidy-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isInterestSubsidy" [nbSpinner]="spinner">
+        <app-interest-subsidy-sanction-letter-template-data [customerApprovedDoc]="cadData" [isEdit]="false"></app-interest-subsidy-sanction-letter-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isDdslWithoutSubsidy" [nbSpinner]="spinner">
+        <app-ddsl-without-subsidy-template-data [customerApprovedDoc]="cadData"></app-ddsl-without-subsidy-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isCombinedOfferLetter" [nbSpinner]="spinner">
+        <app-sme-master-template [customerApprovedDoc]="cadData"></app-sme-master-template>
+    </nb-card-body>
+    <nb-card-body *ngIf="retailCombined" [nbSpinner]="spinner">
+        <app-retail-template-data [customerApprovedDoc]="cadData"></app-retail-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="isClassA" [nbSpinner]="spinner">
+        <app-class-a-sanction-letter-template-data [customerApprovedDoc]="cadData"></app-class-a-sanction-letter-template-data>
     </nb-card-body>
 </nb-card>

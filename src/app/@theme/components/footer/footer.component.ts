@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-footer',
     styleUrls: ['./footer.component.scss'],
     template: `
         <span class="created-by">
-            Powered by <b><a href="https://www.sbsolutionsnepal.com/" target="_blank">SB Solutions Pvt. Ltd.</a></b> 2021
+            Powered by <b><a href="https://www.sbsolutionsnepal.com/" target="_blank">SB Solutions Pvt. Ltd.</a></b> {{this.date}}
         </span>
         <div class="socials">
             <a href="#" target="_blank" class="ion ion-social-github"></a>
@@ -15,5 +15,9 @@ import {Component} from '@angular/core';
         </div>
     `,
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
+    date;
+    ngOnInit() {
+        this.date = (new Date()).getFullYear();
+    }
 }

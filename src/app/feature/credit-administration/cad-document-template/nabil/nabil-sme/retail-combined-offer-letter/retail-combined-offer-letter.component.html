@@ -1,0 +1,37 @@
+<div class="text-justify">
+    <nb-card [nbSpinner]="spinner">
+        <nb-card-header *ngIf="!preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body id="combined-print-section">
+            <app-common-section-top-retail [cadData]= "customerApprovedDoc"></app-common-section-top-retail>
+            <app-section1-customer-offer-letter-type #section1 [cadData]= "customerApprovedDoc"></app-section1-customer-offer-letter-type>
+            <app-section2-loan-type-retail #section2 [cadData]="customerApprovedDoc"></app-section2-loan-type-retail>
+            <app-section3-fees [cadData]= "customerApprovedDoc"></app-section3-fees>
+            <app-section4-security-collateral [cadData]= "customerApprovedDoc"></app-section4-security-collateral>
+            <app-section5-interest-rated-related-clauses [cadData]= "customerApprovedDoc"></app-section5-interest-rated-related-clauses>
+            <app-section6-loan-limit-related-clauses [cadData]="customerApprovedDoc"></app-section6-loan-limit-related-clauses>
+            <app-section7-interest-and-emi-payment-related #section7 [cadData]= "customerApprovedDoc"></app-section7-interest-and-emi-payment-related>
+            <app-section8-loan-disbursement-related-clause #section8 [cadData]="customerApprovedDoc"></app-section8-loan-disbursement-related-clause>
+            <app-section9-insurance-related-clauses [cadData]="customerApprovedDoc"></app-section9-insurance-related-clauses>
+            <app-section10-extra-charges-related-clauses></app-section10-extra-charges-related-clauses>
+            <app-section11-extra-clauses-for-auto-loan [cadData]="customerApprovedDoc"></app-section11-extra-clauses-for-auto-loan>
+            <app-section12-clauses-for-loan-review [cadData]= "customerApprovedDoc"></app-section12-clauses-for-loan-review>
+            <app-section13-clauses-personal-loan-and-overdraft [cadData]="customerApprovedDoc"></app-section13-clauses-personal-loan-and-overdraft>
+            <app-section14-other-terms [cadData]="customerApprovedDoc"></app-section14-other-terms>
+            <app-section16-and-section17 #section16 [cadData]="customerApprovedDoc"></app-section16-and-section17>
+            <app-section18-required-security-documents #section18 [cadData]= "customerApprovedDoc"></app-section18-required-security-documents>
+            <app-section19-to-section22 #section22 [cadData]="customerApprovedDoc"></app-section19-to-section22>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="col-md-12 text-right disable-print">
+                <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                        ngxPrint printSectionId="combined-print-section">Print
+                </button>
+                            <button *ngIf="!preview" nbButton status="success" (click)="onSubmit()">Save</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</div>

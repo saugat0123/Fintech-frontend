@@ -10,6 +10,9 @@ import {CadOneformService} from '../../../service/cad-oneform.service';
 import { Attributes } from '../../../../../@core/model/attributes';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { CadOfferLetterConfigurationComponent } from '../cad-offer-letter-configuration.component';
 
 @Component({
   selector: 'app-loan-create',
@@ -30,6 +33,7 @@ export class LoanCreateComponent implements OnInit {
   attributes: Attributes = new Attributes();
   translatedLoanDataDetails = [];
   isTranslatedLoanDetails = false;
+  isCombinedLoan = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -39,6 +43,9 @@ export class LoanCreateComponent implements OnInit {
       private cadOneFormService: CadOneformService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private dialogService: NbDialogService,
+      private modalService: NgbModal,
+      protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
   ) {
   }
 
@@ -60,7 +67,8 @@ export class LoanCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      loanDetails: this.formBuilder.array([])
+      loanDetails: this.formBuilder.array([]),
+      isCombinedLoan: this.isCombinedLoan
     });
     this.addEmptyLoan();
   }
@@ -150,6 +158,7 @@ export class LoanCreateComponent implements OnInit {
   }
   save() {
     this.spinner = true;
+    this.form.get('isCombinedLoan').patchValue(this.isCombinedLoan);
     this.cadOneFormService.saveLoan(this.form.value).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
@@ -166,5 +175,26 @@ export class LoanCreateComponent implements OnInit {
         this.currencyFormatterPipe.transform(this.form.get(['loanDetails', index, 'proposedAmount']).value));
     this.form.get(['loanDetails', index, 'proposedAmountTrans']).patchValue(proposedAmount);
     this.form.get(['loanDetails', index, 'proposedAmountCT']).patchValue(proposedAmount);
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template) {
+    this.modalService.dismissAll();
+  }
+
+  decline(template) {
+    this.modalService.dismissAll();
+  }
+
+  accept() {
+    this.modalService.dismissAll();
+    this.dialogRef.close();
+  }
+
+  combinedLoan(event) {
+    this.isCombinedLoan = event.target.checked === true;
   }
 }

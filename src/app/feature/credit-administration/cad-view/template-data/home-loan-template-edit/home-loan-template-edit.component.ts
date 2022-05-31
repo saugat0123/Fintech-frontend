@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {OfferDocument} from '../../../model/OfferDocument';
-import {NbDialogRef} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {HomeLoanType} from '../../cad-constant/home-loan-type';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
@@ -11,6 +11,7 @@ import {HomeLandAndBuildingLoanEditComponent} from './home-land-and-building-loa
 import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {HomeLoanComponent} from '../../../cad-document-template/mega/home-loan/home-loan.component';
 
 @Component({
   selector: 'app-home-loan-template-edit',
@@ -33,6 +34,7 @@ export class HomeLoanTemplateEditComponent implements OnInit {
   spinner = false;
   btnDisable = false;
   existingOfferLetter = false;
+  isPreviewBtnDisabled = true;
   @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanEditComponent;
   @ViewChild('landAndBuilding', {static: false}) landAndBuilding: HomeLandAndBuildingLoanEditComponent;
 
@@ -41,6 +43,7 @@ export class HomeLoanTemplateEditComponent implements OnInit {
       public nbDialogRef: NbDialogRef<HomeLoanTemplateEditComponent>,
       private toastService: ToastService,
       private administrationService: CreditAdministrationService,
+      private dialogService: NbDialogService,
   ) { }
 
   get form() {
@@ -76,6 +79,18 @@ export class HomeLoanTemplateEditComponent implements OnInit {
   public emitValue(event) {
     this.btnDisable = event;
   }
+  openModel() {
+    this.dialogService.open(HomeLoanComponent, {
+      closeOnBackdropClick: false,
+      closeOnEsc: false,
+      hasBackdrop: false,
+      context: {
+        cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+        preview: true,
+      },
+      dialogClass: 'model-full',
+    });
+  }
 
   onSubmit() {
     this.spinner = true;
@@ -92,6 +107,10 @@ export class HomeLoanTemplateEditComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    const securityDetails = [{
+      securities: homeLoan.get('securities').value,
+    }];
+    homeLoan.value['securityDetails'] = securityDetails;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
     this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
       if (offerLetterPath.docName.toString() ===
@@ -103,11 +122,13 @@ export class HomeLoanTemplateEditComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully update Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
+      this.isPreviewBtnDisabled = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
+      this.isPreviewBtnDisabled = true;
     });
   }
 

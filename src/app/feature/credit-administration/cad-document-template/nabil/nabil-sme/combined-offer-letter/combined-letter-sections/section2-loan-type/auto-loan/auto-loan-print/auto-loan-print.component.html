@@ -1,0 +1,252 @@
+<table class="table table-bordered-all">
+    <tr *ngFor="let autoLoan of autoLoanData; let i = index">
+            <td style="width:10%; border-top: 1px solid black; border-right:1px solid black">
+                <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
+            </td>
+            <td style="border-top:1px solid black">
+                <ng-container>
+                    <strong>सवारी साधन कर्जा (Auto Loan)
+                        <ng-container *ngIf="autoLoan.complementaryOther === true"> बुँदा नं.
+                            <span class="nepaliFont fontCss">
+                                {{autoLoanFreeText[i]?.SNOfParentLimitAutoLoan === null || autoLoanFreeText[i]?.SNOfParentLimitAutoLoan === '' ? '==========================' : autoLoanFreeText[i]?.SNOfParentLimitAutoLoan}}
+                            </span>
+                            <ng-container *ngIf="autoLoan.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा
+                            </ng-container>
+                            <ng-container *ngIf="autoLoan.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको
+                                पूरक सुविधा
+                            </ng-container>
+                        </ng-container>
+                    </strong><br>
+
+                    <strong> सीमाः
+                        <ng-container *ngIf="autoLoan.complementaryOther === true">(</ng-container>
+                        रु.
+                        <span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>/-
+                        <ng-container *ngIf="autoLoan.complementaryOther === true">) </ng-container>
+                        (अक्षरेपी रु.
+                        <span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
+                        मात्र)</strong><br>
+                </ng-container>
+                <ng-container>
+                    <strong>सुरक्षणः </strong>सवारी साधन कर्जाबाट खरिद
+                    <ng-container *ngIf="autoLoan.vehiclePurchased === true"> गरिएको</ng-container>
+                    <ng-container *ngIf="autoLoan.vehiclePurchased === false"> गरिने</ng-container>
+                    सवारी साधन बैंकको नाममा दर्ता
+                    <ng-container *ngIf="autoLoan.vehicleRegistered === false"> गरिदिनुपर्नेछ</ng-container>
+                    <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिइएको यथावत कायम रहनेछ
+                    </ng-container>
+                    ।
+                </ng-container><br>
+                <ng-container *ngIf="tempData.autoLoanMasterForm.autoLoanFormArray[i].vehiclePurchasedCT === false && tempData.autoLoanMasterForm.autoLoanFormArray[i].vehicleRegisteredCT === false">
+                    <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                    सवारी साधनको मूल्यको
+                    <span [ngClass]="{'outside' : autoLoan?.drawingPowerCT !== null && autoLoan?.drawingPowerCT !== ''}">
+                        {{autoLoan?.drawingPowerCT === null || autoLoan?.drawingPowerCT === '' ? '___________' : autoLoan?.drawingPowerCT}}</span>
+                    प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बराबर कर्जा उपयोग गर्न सकिनेछ ।<br>
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'NEW_EMI_TERM_LOAN'">
+                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                    <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
+                        {{autoLoan?.baseRateCT === null || autoLoan?.baseRateCT === '' ? '___________' : autoLoan?.baseRateCT}}</span>
+                    +
+                    <span [ngClass]="{'outside' : autoLoan?.premiumRateCT !== null && autoLoan?.premiumRateCT !== ''}">
+                        {{autoLoan?.premiumRateCT === null || autoLoan?.premiumRateCT === '' ? '___________' : autoLoan?.premiumRateCT}}</span>
+                    प्रतिशत ब्याज दर प्रिमियम (interest rate
+                    premium)<br>
+
+                    <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                    <span [ngClass]="{'outside' : autoLoan?.interestRateCT !== null && autoLoan?.interestRateCT !== ''}">
+                        {{autoLoan?.interestRateCT === null || autoLoan?.interestRateCT === '' ? '___________' : autoLoan?.interestRateCT}}</span>%
+                        का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
+                        </span><br>
+
+                    <span>
+                            <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
+                            रु.
+                    <span [ngClass]="{'outside' : autoLoan?.emiInfigureCT !== null && autoLoan?.emiInfigureCT !== ''}">
+                        {{autoLoan?.emiInfigureCT === null || autoLoan?.emiInfigureCT === '' ? '___________' : autoLoan?.emiInfigureCT}}</span>/- (अक्षरेपि रु.
+                    <span [ngClass]="{'outside' : autoLoan?.emiInWordsCT !== null && autoLoan?.emiInWordsCT !== ''}">
+                        {{autoLoan?.emiInWordsCT === null || autoLoan?.emiInWordsCT === '' ? '___________' : autoLoan?.emiInWordsCT}}</span>
+         मात्र) का दरले
+                    <span [ngClass]="{'outside' : autoLoan?.numberOfInstallmentCT !== null && autoLoan?.numberOfInstallmentCT !== ''}">
+                        {{autoLoan?.numberOfInstallmentCT === null || autoLoan?.numberOfInstallmentCT === '' ? '___________' : autoLoan?.numberOfInstallmentCT}}</span>
+                                सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                        </span><br>
+                    <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
+                        autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1">
+        <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
+        <span class="nepaliFont fontCss">
+            <strong>
+          {{autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === null || autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === '' ? '=======================' : autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1}}
+            </strong>
+        </span>
+                    <br></span>
+                    <span *ngIf="autoLoan.emiPaymentType === 'EVERY_20TH'">
+        कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
+    </span>
+                    <strong>सेवा शुल्कः </strong>
+                    <span [ngClass]="{'outside' : autoLoan?.purposeOfLoanCT !== null && autoLoan?.purposeOfLoanCT !== ''}">
+                        {{autoLoan?.purposeOfLoanCT === null || autoLoan?.purposeOfLoanCT === '' ? '___________' : autoLoan?.purposeOfLoanCT}}</span>
+                    कर्जाको
+                    <span [ngClass]="{'outside' : autoLoan?.serviceChargeCT !== null && autoLoan?.serviceChargeCT !== ''}">
+                        {{autoLoan?.serviceChargeCT === null || autoLoan?.serviceChargeCT === '' ? '___________' : autoLoan?.serviceChargeCT}}</span>%
+                    सेवा शुल्क लाग्नेछ ।<br>
+                    <strong>कर्जा अवधि:</strong>
+                    <span [ngClass]="{'outside' : autoLoan?.tenureOfLoanCT !== null && autoLoan?.tenureOfLoanCT !== ''}">
+                        {{autoLoan?.tenureOfLoanCT === null || autoLoan?.tenureOfLoanCT === '' ? '___________' : autoLoan?.tenureOfLoanCT}}</span>
+                    बर्ष सम्मको लागि मात्र ।<br>
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'OTHER_CREDIT_LIMITS'">
+                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                    <span [ngClass]="{'outside' : autoLoan?.baseRateCT  !== null && autoLoan?.baseRateCT  !== ''}">
+                        {{autoLoan?.baseRateCT === null || autoLoan?.baseRateCT === '' ? '___________' : autoLoan?.baseRateCT }}</span>
+                    +
+                    <span [ngClass]="{'outside' : autoLoan?.premiumRateCT !== null && autoLoan?.premiumRateCT !== ''}">
+                        {{autoLoan?.premiumRateCT === null || autoLoan?.premiumRateCT === '' ? '___________' : autoLoan?.premiumRateCT}}</span>
+                    प्रतिशत ब्याज दर प्रिमियम(interest rate premium)<br>
+                    हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
+                    बार्षिक
+                    <span [ngClass]="{'outside' : autoLoan?.interestRateCT !== null && autoLoan?.interestRateCT !== ''}">
+                        {{autoLoan?.interestRateCT === null || autoLoan?.interestRateCT === '' ? '___________' : autoLoan?.interestRateCT}}</span>%
+                    का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।<br>
+                    <strong>साँवा र ब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यस अघि निर्धारीत सम
+                    मासिक किस्ता (Equated Monthly Installment) तालिका बमोजिम मासिक रु.
+                    <span [ngClass]="{'outside' : autoLoan?.emiInfigureCT !== null && autoLoan?.emiInfigureCT !== ''}">
+                        {{autoLoan?.emiInfigureCT === null || autoLoan?.emiInfigureCT === '' ? '___________' : autoLoan?.emiInfigureCT}}</span>
+                    /- (अक्षरेपि रु.
+                    <span [ngClass]="{'outside' : autoLoan?.emiInWordsCT !== null && autoLoan?.emiInWordsCT !== ''}">
+                        {{autoLoan?.emiInWordsCT === null || autoLoan?.emiInWordsCT === '' ? '___________' : autoLoan?.emiInWordsCT}}</span>
+                    मात्र)का दरले बाँकी किस्ताहरुमा तल उल्लिखित
+                    कर्जा अवधि समाप्ति
+                    मिति
+                    भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
+                    <strong>कर्जा अवधि समाप्ति मितिः</strong>
+                    {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
+                    <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
+                        {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'NEW_INSTALLMENT_BASIS'">
+                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                    <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
+                        {{autoLoan?.baseRateCT === null || autoLoan?.baseRateCT === '' ? '___________' : autoLoan?.baseRateCT}}</span>
+                    +
+                    <span [ngClass]="{'outside' : autoLoan?.premiumRateCT !== null && autoLoan?.premiumRateCT !== ''}">
+                        {{autoLoan?.premiumRateCT === null || autoLoan?.premiumRateCT === '' ? '___________' : autoLoan?.premiumRateCT}}</span>
+                    प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+                    <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                    <span [ngClass]="{'outside' : autoLoan?.interestRateCT !== null && autoLoan?.interestRateCT !== ''}">
+                        {{autoLoan?.interestRateCT === null || autoLoan?.interestRateCT === '' ? '___________' : autoLoan?.interestRateCT}}</span>% का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                    <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
+
+                    <span [ngClass]="{'outside' : autoLoan?.tenureOfLoanCT !== null && autoLoan?.tenureOfLoanCT !== ''}">
+                        {{autoLoan?.tenureOfLoanCT === null || autoLoan?.tenureOfLoanCT === '' ? '___________' : autoLoan?.tenureOfLoanCT}}</span>
+         वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.
+        <span [ngClass]="{'outside' : autoLoan?.paymentAmountFigureCT !== null && autoLoan?.paymentAmountFigureCT !== ''}">
+                        {{autoLoan?.paymentAmountFigureCT === null || autoLoan?.paymentAmountFigureCT === '' ? '___________' : autoLoan?.paymentAmountFigureCT}}</span>
+                        /- (अक्षरेपी
+                    <span [ngClass]="{'outside' : autoLoan?.paymentAmountWordsCT !== null && autoLoan?.paymentAmountWordsCT !== ''}">
+                        {{autoLoan?.paymentAmountWordsCT === null || autoLoan?.paymentAmountWordsCT === '' ? '___________' : autoLoan?.paymentAmountWordsCT}}</span>
+         मात्र)का दरले
+                    <span [ngClass]="{'outside' : autoLoan?.numberOfPaymentsCT !== null && autoLoan?.numberOfPaymentsCT !== ''}">
+                        {{autoLoan?.numberOfPaymentsCT === null || autoLoan?.numberOfPaymentsCT === '' ? '___________' : autoLoan?.numberOfPaymentsCT}}</span>
+
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'YEARLY'"> बार्षिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'MONTHLY'"> मासिक </ng-container>
+                        <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
+                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'YEARLY'"> एक बर्ष </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'SEMI_YEARLY'"> छ महिना </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'QUARTERLY'"> तिन महिना </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'MONTHLY'"> एक महिना </ng-container>
+                        <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
+                            पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
+                    <strong>सेवा शुल्कः </strong>
+                    <span [ngClass]="{'outside' : autoLoan?.purposeOfLoanCT !== null && autoLoan?.purposeOfLoanCT !== ''}">
+                        {{autoLoan?.purposeOfLoanCT === null || autoLoan?.purposeOfLoanCT === '' ? '___________' : autoLoan?.purposeOfLoanCT}}</span>
+                    कर्जाको
+                    <span [ngClass]="{'outside' : autoLoan?.serviceChargeCT !== null && autoLoan?.serviceChargeCT !== ''}">
+                        {{autoLoan?.serviceChargeCT === null || autoLoan?.serviceChargeCT === '' ? '___________' : autoLoan?.serviceChargeCT}}</span>%
+                    सेवा शुल्क लाग्नेछ ।<br>
+                    <strong>कर्जा अवधि: </strong>
+                    <span [ngClass]="{'outside' : autoLoan?.tenureOfLoanCT !== null && autoLoan?.tenureOfLoanCT !== ''}">
+                        {{autoLoan?.tenureOfLoanCT === null || autoLoan?.tenureOfLoanCT === '' ? '___________' : autoLoan?.tenureOfLoanCT}}</span>
+                    बर्ष सम्मको लागि मात्र ।
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
+                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                    <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
+                        {{autoLoan?.baseRateCT === null || autoLoan?.baseRateCT === '' ? '___________' : autoLoan?.baseRateCT}}</span>
+                    +
+                    <span [ngClass]="{'outside' : autoLoan?.premiumRateCT !== null && autoLoan?.premiumRateCT !== ''}">
+                        {{autoLoan?.premiumRateCT === null || autoLoan?.premiumRateCT === '' ? '___________' : autoLoan?.premiumRateCT}}</span>
+                    प्रतिशत
+                    ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                    <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                    <span [ngClass]="{'outside' : autoLoan?.interestRateCT !== null && autoLoan?.interestRateCT !== ''}">
+                        {{autoLoan?.interestRateCT === null || autoLoan?.interestRateCT === '' ? '___________' : autoLoan?.interestRateCT}}</span>% का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                    <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
+                        तालिकाबमोजिम बाँकी किस्ताहरु रु.
+                    <span [ngClass]="{'outside' : autoLoan?.paymentAmountFigureCT !== null && autoLoan?.paymentAmountFigureCT !== ''}">
+                        {{autoLoan?.paymentAmountFigureCT === null || autoLoan?.paymentAmountFigureCT === '' ? '___________' : autoLoan?.paymentAmountFigureCT}}</span>/—
+                   (अक्षरेपी रु. <span [ngClass]="{'outside' : autoLoan?.paymentAmountWordsCT !== null && autoLoan?.paymentAmountWordsCT !== ''}">
+                        {{autoLoan?.paymentAmountWordsCT === null || autoLoan?.paymentAmountWordsCT === '' ? '___________' : autoLoan?.paymentAmountWordsCT}}</span> मात्र)
+         का दरले
+
+                    <span [ngClass]="{'outside' : autoLoan?.numberOfPaymentsCT !== null && autoLoan?.numberOfPaymentsCT !== ''}">
+                        {{autoLoan?.numberOfPaymentsCT === null || autoLoan?.numberOfPaymentsCT === '' ? '___________' : autoLoan?.numberOfPaymentsCT}}</span>
+
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'YEARLY'"> बार्षिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                    <ng-container *ngIf="autoLoan.paymentTerms === 'MONTHLY'"> मासिक </ng-container>
+                        <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch autoLoan from Form)-->
+                            किस्ताहरुमा तल उल्लिखित कर्जा अवधि
+                            समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
+                    <strong>कर्जा अवधि समाप्ति मितिः </strong>
+                    {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
+                    <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
+                        {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
+                    ।
+                </ng-container>
+                <ng-container *ngIf="!autoLoan.vehiclePurchased">
+                    <span style="font-size: 19px; line-height: 1.9em"
+                    *ngIf="autoLoanFreeText[i]?.disbursementClause === null || autoLoanFreeText[i]?.disbursementClause === ''">
+        <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
+        दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
+        साधनको कर बिजक/भ्याट बिलको
+                    <span [ngClass]="{'outside' : autoLoan?.drawingPowerCT !== null && autoLoan?.drawingPowerCT !== ''}">
+                        {{autoLoan?.drawingPowerCT === null || autoLoan?.drawingPowerCT === '' ? '___________' : autoLoan?.drawingPowerCT}}</span>
+        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
+        कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ र तपाईंको लिखित निर्देशन
+        बमोजिम सोहि खातामा खर्च जनाई आधिकारिक विक्रेता
+        <span [ngClass]="{'outside' : autoLoan?.nameOfDealerCT !== null && autoLoan?.nameOfDealerCT !== ''}">
+                        {{autoLoan?.nameOfDealerCT === null || autoLoan?.nameOfDealerCT === '' ? '___________' : autoLoan?.nameOfDealerCT}}</span>
+         वा उसको
+        प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।<br>
+        </span>
+                    <span *ngIf="autoLoanFreeText[i]?.disbursementClause === true">
+                        <strong style="font-size: 19px; line-height: 1.9em">कर्जा प्रवाह तरिकाः </strong>
+                            <span style="line-height: 1.9em" class="nepaliFont fontCss">
+                                {{autoLoanFreeText[i]?.freeText14 === null || autoLoanFreeText[i]?.freeText14 === '' ? '==============================' : autoLoanFreeText[i]?.freeText14}}
+                            </span>
+                       </span>
+                </ng-container>
+            </td>
+    </tr>
+</table>

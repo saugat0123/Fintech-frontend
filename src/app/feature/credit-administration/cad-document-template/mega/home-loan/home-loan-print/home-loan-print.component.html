@@ -3,18 +3,27 @@
     <div class="viewFull" style="height: auto">
         <h6 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
         <p class="text-left"> </p>
-        <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.referenceNumberCT!== null && letter?.loan.referenceNumberCT!== ''}">
-            {{letter?.loan.referenceNumberCT === null || letter?.loan.referenceNumberCT === '' ? '___________' : letter?.loan.referenceNumberCT}}</span>
+        <span [ngClass]="{'font-weight-bold' : autoRefNumber!== null && autoRefNumber!== ''}">
+            {{autoRefNumber === null || autoRefNumber === '' ? '___________' : autoRefNumber}}</span>
         <p class="text-left"> मिति:
-            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.dateOfApprovalCT!== null && letter?.loan.dateOfApprovalCT!== ''}">
-            {{letter?.loan.dateOfApprovalCT === null || letter?.loan.dateOfApprovalCT === '' ? '___________' : letter?.loan.dateOfApprovalCT}}</span>
+            <span [ngClass]="{'font-weight-bold' : dateOfApproval!== null && dateOfApproval!== ''}">
+            {{dateOfApproval === null || dateOfApproval === '' ? '___________' : dateOfApproval}}</span>
         </p>
-        <div class="mb-2"> श्री
-            <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.name.ct!== null && loanHolderInfo?.name.ct!== ''}">
-            {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
-
+        <div class="mb-2">
+            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+            <ng-template #nameDetails>
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                    सुश्री
+                </span>
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                   श्रीमती
+                </span>
+            </ng-template>
+            <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct!== null && loanHolderInfo?.name.ct!== ''}">
+            {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span> ज्यु,
+            <br/>
             <div class="mb-1"> ठेगाना:
-                <span [ngClass]="{'nepaliFont num font-weight-bold': customerAddress!== null && customerAddress!== ''}">
+                <span [ngClass]="{'font-weight-bold': customerAddress!== null && customerAddress!== ''}">
             {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</span>
 
             </div>
@@ -25,8 +34,8 @@
             <div class="mb-1">
                 <p> महोदय, <br>
                     तपाईंले मिति
-                    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.dateOfApplicationCT!== null && letter?.loan.dateOfApplicationCT!== ''}">
-            {{letter?.loan.dateOfApplicationCT === null || letter?.loan.dateOfApplicationCT === '' ? '___________' : letter?.loan.dateOfApplicationCT}}</span>
+                    <span [ngClass]="{'font-weight-bold' : dateOfApplication!== null && dateOfApplication!== ''}">
+            {{dateOfApplication === null || dateOfApplication === '' ? '___________' : dateOfApplication}}</span>
                    मा आवास कर्जा सुविधाको लागि यस बैंकमा दिनु
                     भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका
                     ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको
@@ -36,17 +45,20 @@
 
             <div class="row form-group">
 
-                <p>१.</p>
-                <table class="table table-bordered">
+                <table class="table table-hover table-bordered hello" style="margin: auto 20px auto 20px;">
 
                     <tr>
-                        <td colspan="2" style="text-align: center"><strong> स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण </strong></td>
+                        <td colspan="3" style="text-align: center"><strong> स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण </strong></td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
+                        <td rowspan="6">१.
+                        </td>
+                        <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः {{landbuilding}} {{tempData?.loanType === homeLoanType?.PURCHASE ? 'PURCHASE' : ''}}</strong></td>
                         <td>
                             <strong>आवास कर्जाः</strong>
-                           भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                            {{tempData?.loanType === homeLoanType.CONSTRUCTION ? ' भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
+                            (tempData?.loanType === homeLoanType.PURCHASE && tempData?.loan?.purposeOfLoanCT) ? tempData?.loan?.purposeOfLoanCT + ' प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
+                            tempData?.loan?.nameOfBankCT ? tempData?.loan?.nameOfBankCT + ' को कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ' : ''}}
 
                         </td>
                     </tr>
@@ -71,7 +83,7 @@
                         </td>
                         <td>कर्जाहरुको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिएको घर/जग्गाको निकृष्ट स्थितिको मूल्याञकन
                             ( Distress Situation Value) को
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
             {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}</span>
 
                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
@@ -84,26 +96,33 @@
                             ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
                         </strong>
                         </td>
-                        <td>कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
-                            निर्माण लागतको
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
-            {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}</span>
-                            प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
-                            उपयोग गर्न सकिनेछ ।
+                        <td>
+                            <!--कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
+                            निर्माण लागतको-->
+                            कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको निर्माण
+                            लागतको १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्यांकन
+                            (Distress Situation Value) को
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
+                                {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}
+                            </span>
+                            प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर
+                            कर्जा उपयोग गर्न सकिनेछ ।
+                            <!--प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
+                            उपयोग गर्न सकिनेछ ।-->
                         </td>
                     </tr>
 
 
                     <tr>
                         <td><strong> ब्याज दरः </strong></td>
-                        <td>प्रकाशित आधार दर (Base Rate)
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.baseRateCT!== null && letter?.loan.baseRateCT!== ''}">
+                        <td> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.baseRateCT!== null && letter?.loan.baseRateCT!== ''}">
             {{letter?.loan.baseRateCT === null || letter?.loan.baseRateCT === '' ? '___________' : letter?.loan.baseRateCT}}</span> +
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.premiumRateCT !== null && letter?.loan.premiumRateCT !== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.premiumRateCT !== null && letter?.loan.premiumRateCT !== ''}">
             {{letter?.loan.premiumRateCT  === null || letter?.loan.premiumRateCT  === '' ? '___________' : letter?.loan.premiumRateCT }}</span>
                             प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.interestRateCT!== null && letter?.loan.interestRateCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.interestRateCT!== null && letter?.loan.interestRateCT!== ''}">
             {{letter?.loan.interestRateCT === null || letter?.loan.interestRateCT === '' ? '___________' : letter?.loan.interestRateCT}}</span>
                            % का दरले मासिक तिर्नु बुझाउनु पर्नेछ।
                         </td>
@@ -112,15 +131,15 @@
                         <td><strong>ऋण प्रशासनिक शुल्क </strong> </td>
                         <td><ul class="disclist">
                             <li> ऋण प्रशासनिक शुल्क बापत रु
-                                <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.loanAdminFeeInFigureCT!== null && letter?.loan.loanAdminFeeInFigureCT!== ''}">
+                                <span [ngClass]="{'font-weight-bold' : letter?.loan.loanAdminFeeInFigureCT!== null && letter?.loan.loanAdminFeeInFigureCT!== ''}">
             {{letter?.loan.loanAdminFeeInFigureCT === null || letter?.loan.loanAdminFeeInFigureCT === '' ? '___________' : letter?.loan.loanAdminFeeInFigureCT}}</span>
                               (अक्षरेपी रु
-                                <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.loanAdminFeeInWordCT!== null && letter?.loan.loanAdminFeeInWordCT!== ''}">
+                                <span [ngClass]="{'font-weight-bold' : letter?.loan.loanAdminFeeInWordCT!== null && letter?.loan.loanAdminFeeInWordCT!== ''}">
             {{letter?.loan.loanAdminFeeInWordCT === null || letter?.loan.loanAdminFeeInWordCT === '' ? '___________' : letter?.loan.loanAdminFeeInWordCT}}</span>
                                 मात्र ।)तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ।
                             <li>कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना,
-                                घर/जग्गाको मुल्याड्ढन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिँदा लाग्ने शुल्क,
-                                सुरक्षित कारोबार रजिष्टेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र आधिकारिक निकायमा
+                                घर/जग्गाको मूल्यांकन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिँदा लाग्ने शुल्क,
+                                सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र आधिकारिक निकायमा
                                 रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ।
                                 उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी भुक्तानी गरिनेछ।</li>
                             <li>तपाई ऋणी तथा तपाई सँग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत प्रति सूचना रु २,००० शुल्क लाग्नेछ।
@@ -135,34 +154,45 @@
                         <td><strong> चुक्ता भुक्तानीः </strong></td>
                         <td>
                             साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.emiInFigureCT!== null && letter?.loan.emiInFigureCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.emiInFigureCT!== null && letter?.loan.emiInFigureCT!== ''}">
             {{letter?.loan.emiInFigureCT === null || letter?.loan.emiInFigureCT === '' ? '___________' : letter?.loan.emiInFigureCT}}</span>
                              (अक्षरेपि रु.
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.emiInWordCT!== null && letter?.loan.emiInWordCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.emiInWordCT!== null && letter?.loan.emiInWordCT!== ''}">
             {{letter?.loan.emiInWordCT === null || letter?.loan.emiInWordCT === '' ? '___________' : letter?.loan.emiInWordCT}}</span>
                             मात्र) का दरले
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.loanPeriodInMonthsCT!== null && letter?.loan.loanPeriodInMonthsCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.loanPeriodInMonthsCT!== null && letter?.loan.loanPeriodInMonthsCT!== ''}">
             {{letter?.loan.loanPeriodInMonthsCT === null || letter?.loan.loanPeriodInMonthsCT === '' ? '___________' : letter?.loan.loanPeriodInMonthsCT}}</span>
 
-                            सम मासिक किस्ता ९भ्त्रगबतभम (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
+                            सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
+                            <ng-container *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
                             <strong><u>द्रष्टब्यः </u></strong>
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.loanPeriodInMonthsCT!== null && letter?.loan.loanPeriodInMonthsCT!== ''}">
-            {{letter?.loan.loanPeriodInMonthsCT === null || letter?.loan.loanPeriodInMonthsCT === '' ? '___________' : letter?.loan.loanPeriodInMonthsCT}}</span>
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.moratoriumPeriodInMonthCT!== null && letter?.loan.moratoriumPeriodInMonthCT!== ''}">
+            {{letter?.loan.moratoriumPeriodInMonthCT === null || letter?.loan.moratoriumPeriodInMonthCT === '' ? '___________' : letter?.loan.moratoriumPeriodInMonthCT}}</span>
 
-                            महिनाको ऋण भुक्तानी स्थगन अवधि (Moratorium Period) पछिको महिना देखि अञग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
+                            महिनाको ऋण भुक्तानी स्थगन अवधि (Moratorium Period) पछिको महिना देखि अंग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
                             किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले मासिक रुपमा ब्याज भुक्तानी गर्नुपर्नेछ।
+                            </ng-container>
                         </td>
                     </tr>
                     <tr>
+                        <td *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
+
+                        </td>
+                        <td *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
+
+                        </td>
                         <td><strong> ऋण प्रतिबद्धता शुल्क </strong></td>
                         <td>
                             स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
-                            <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.loanCommitmentFeeCT!== null && letter?.loan.loanCommitmentFeeCT!== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.loan.loanCommitmentFeeCT!== null && letter?.loan.loanCommitmentFeeCT!== ''}">
             {{letter?.loan.loanCommitmentFeeCT === null || letter?.loan.loanCommitmentFeeCT === '' ? '___________' : letter?.loan.loanCommitmentFeeCT}}</span>
                            प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                         </td>
                     </tr>
                     <tr>
+                        <td>
+
+                        </td>
                         <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः  </strong></td>
                         <td>
 
@@ -205,68 +235,61 @@
                 </table>
             </div>
 
-            <table class="table table-borderless" style="margin-left:20px;width:100%">
+            <table class="table table-borderless">
                 <tr>
-                    <th colspan="2"><strong>सुरक्षण विवरणः </strong></th>
+                    <td>
+                        <strong style="margin-left: 20px">सुरक्षण विवरणः </strong>
+                    </td>
+                </tr>
+                <tr style="margin-left: 55px;">
+                    <td>
+                        <section style="margin-left: 60px;">
+                        <p><strong>क. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घरजग्गा धितोबन्धक पारित गरि दिनु पर्नेछ। </p>
+                            <p>
+                                <app-securities-view [securityDetails]="offerDocumentDetails?.loan?.securityDetails"></app-securities-view>
+                            </p>
+                        </section>
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        <p><strong>क. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घरजग्गा धितोबन्धक पारित गरि दिनु पर्नेछ। </p>
-                        <p> <strong>Collateral details </strong></p>
-                        <p> धनी      <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.nameOfLandOwnerCT!== null && letter?.loan.nameOfLandOwnerCT!== ''}">
-            {{letter?.loan.nameOfLandOwnerCT === null || letter?.loan.nameOfLandOwnerCT === '' ? '___________' : letter?.loan.nameOfLandOwnerCT}}</span>
-                            </p>
-                        <p> स्थान     <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.landLocationCT!== null && letter?.loan.landLocationCT!== ''}">
-            {{letter?.loan.landLocationCT === null || letter?.loan.landLocationCT === '' ? '___________' : letter?.loan.landLocationCT}}</span>
-                            </p>
-                        <p> कित्ता नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.kittaNumberCT!== null && letter?.loan.kittaNumberCT!== ''}">
-            {{letter?.loan.kittaNumberCT === null || letter?.loan.kittaNumberCT === '' ? '___________' : letter?.loan.kittaNumberCT}}</span>
-                            </p>
-                        <p> क्षेत्रफल    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.areasCT!== null && letter?.loan.areasCT!== ''}">
-            {{letter?.loan.areasCT === null || letter?.loan.areasCT === '' ? '___________' : letter?.loan.areasCT}}</span>
-                      </p>
-                        <p> सिट नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.seatNumberCT!== null && letter?.loan.seatNumberCT!== ''}">
-            {{letter?.loan.seatNumberCT === null || letter?.loan.seatNumberCT === '' ? '___________' : letter?.loan.seatNumberCT}}</span>
-                            </p>
-                    </td></tr>
-                <tr>
-                    <td>
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 2 | nepaliWord}}.  <span class=" font-weight-bold">
-                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                        <section style="margin-left: 60px;">
+                        <p>
+                            <strong>ख.</strong><span class=" font-weight-bold">
+                    {{this.finalName}}
                 </span>
                             ले बैंकको पक्षमा
                             रु    <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>
 
                             (अक्षरेपी रु    <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
                             मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ।
                         </p>
+                        </section>
                     </td>
                 </tr>
-
             </table>
 
             <table class="table table-borderless">
                 <tr>
                     <td>२.</td>
                     <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
-                        (Website) तथा राष्ट्रियस्तरको पत्रिकामा आधार दर (Base Rate) प्रकाशित गरिनेछ। यसरी हरेक
-                        त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो आधार दर (Base Rate) मा माथि उल्लेख भए
+                        (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) प्रकाशित गरिनेछ। यसरी हरेक
+                        त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा माथि उल्लेख भए
                         बमोजिमको ब्याज दर प्रिमियम (Interest Rate : Premium) थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ।
                     </td>
                 </tr>
 
                 <tr>
                     <td>३.</td>
-                    <td>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको
+                    <td>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको
                         आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन
-                        गरीने आधार दर (Base Rate) मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
+                        गरीने त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
                         अर्थात श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दर समायोजन तथा संसोधन गरीनेछ। <br>
-                        बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI - Equated Monthly Installment)
+                        बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI - Equated Monthly Installment)
                         मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन।
                         परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज बाँकी  रहन गएमा उक्त रकम समेत
                         अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाँकी  बक्यौता कर्जा साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ। <br>
@@ -317,88 +340,95 @@
 
                 <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                     <td>९. </td>
-                    <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
-                        <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
+                    <td> धितोबन्धक तमसुक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                        <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span>
                       शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ। <br>
                         <p>
                             क.
                             रु.    <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfConstruction | currencyFormatter) | engToNepaliNumber)}}
                             बराबरको निर्माण कार्य सम्पन्न भएकोले पहिलो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.firstInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                            (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}}
-                    </span>)
+                        {{tempData?.loan?.firstInstallmentAmount | nepaliCurrencyWord}}
+                    </span>मात्र)
                             तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
                         </p>
                         <p>
                             ख.
                             रु.   <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfConstructionInSecondPhase | currencyFormatter) | engToNepaliNumber)}}
 
                             बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि दोस्रो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.secondInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                             (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}}
-                    </span>))
+                        {{tempData?.loan?.secondInstallmentAmount | nepaliCurrencyWord}}
+                    </span>मात्र)
                             तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
                         </p>
                         <p>
                             ग.
                             रु.   <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfFinalProjectCompletion | currencyFormatter) | engToNepaliNumber)}}
 
                             बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि तेस्रो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.thirdInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                             (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}})
-                              </span>   तपाईंको खातामा भुक्तानी गरिनेछ।
+                        {{tempData?.loan?.thirdInstallmentAmount | nepaliCurrencyWord}})
+                              </span> मात्र)  तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
-
                         </p>
+                        <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
+                             style="margin-top: -0.5em">
+                            घ.
+                            <span class="nepaliFont" style="margin-top: -8px;font-size: 24px; margin-left: 0.2em">
+                                            {{offerData?.pointInformation}}
+                                        </span>
+                        </div>
                 </tr>
 
-                <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
+                <tr *ngIf="this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKE OVER'">
                     <td>९. </td>
                     <td>
-                        धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
-                        तपाईंको यस नबिल बैंक लिमिटेडको, <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
+                        धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.TAKE_OVER ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                        तपाईंको यस नबिल बैंक लिमिटेडको, <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span> शाखामा रहेको चल्ती
                         खातामा रु  <span class=" font-weight-bold">
                          {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                      </span>
                         ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
-                        <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
-            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई A/C Payee Cheque /MC/Draft
+                        <span *ngIf="tempData?.loanType === homeLoanType.PURCHASE" [ngClass]="{'font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
+                            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}
+                        </span>
+
+                        <span *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" [ngClass]="{'font-weight-bold' : letter?.loan.nameOfBankCT!== null && letter?.loan.nameOfBankCT!== ''}">
+                            {{letter?.loan.nameOfBankCT === null || letter?.loan.nameOfBankCT === '' ? '___________' : letter?.loan.nameOfBankCT}}
+                        </span>
+                        लाई A/C Payee Cheque /MC/Draft /Swift /IPS /RTGS
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-                        <div class="row col-md-12">
-                    <textarea
-                            class="form-control customFont nepaliFont"
-                            rows="5"
-                            style="width:inherit;margin-left:5%"
-                            name="additionalDetail"
-                            formControlName="additionalDetail">
-                    </textarea>
+                        <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
+                             style="margin-top: -0.5em">
+                            <span class="nepaliFont" style="margin-top: -8px;font-size: 24px; margin-left: 0.2em">
+                                            {{offerData?.pointInformation}}
+                                        </span>
                         </div>
-
-
                     </td>
-
+                </tr>
                 <tr>
                     <td>१०.</td>
-                    <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ।</td>
+                    <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साँचो छन र अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ।</td>
                 </tr>
                 <tr>
                     <td>११.</td>
@@ -438,40 +468,10 @@
                         <strong> ख. <u>व्याजको भाखा नाघेको अवस्थामाः </u></strong>
                         ब्याज रकम निर्धारीत समय आषाढ, आश्विन, पौष, चैत्र मसान्त भित्रमा वा ऋण स्विकृत पत्रमा उल्लेख भए अनुसार भुक्तानी गर्नु पर्नेछ।
                         यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब हुन गएमा विलम्ब भएको अवधिका लागि बक्यौता व्याज रकममा
-                        जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत व्याजदर (आधार दर ब्याज दर प्रिमियम)
+                        जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत व्याजदर (त्रैमासिक औसत आधार दर , ब्याज दर प्रिमियम)
                         मा २ प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ। बैंकले निर्धारण गरेको ब्याजदर प्रिमियम
-                        (Interest Rate Premium) र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट  (Website) वा समय समयमा
-                        बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
-                        <strong> ग. <u>थप/अतिरिक्त शुल्कः </u></strong>
-                        स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
-                        बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
-                        आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
-                        (Additional Risk Premium) समेत लाग्नेछ ।
-                        <table class="table table-hover table-bordered hello" style="width: 100%">
-                            <tr>
-                                <td> विवरण  </td>
-                                <td> थप जोखिम दर (Additional Risk Premium) </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
-                                    देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
-                                </td>
-                                <td>
-                                    वार्षिक २.०० %
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
-                                    देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
-                                </td>
-                                <td>
-                                    वार्षिक ३.०० %
-                                </td>
-                            </tr>
-
-                        </table>
+                        (Interest Rate Premium) र त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) बैंकको आधिकारिक वेब साईट
+                        (Website) वा समय समयमा बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
                     </td>
                 </tr>
                 <tr>
@@ -501,7 +501,7 @@
 
                 <tr>
                     <td>१७.</td>
-                    <td>बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई (Bancassurance Unit) ललितपुरमा सम्पर्क गर्न सक्नुहुनेछ।</td>
+                    <td>बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई (Bancassurance Unit) {{nepaliBranchNAme}} सम्पर्क गर्न सक्नुहुनेछ।</td>
                 </tr>
                 <tr>
                     <td>१८. </td>
@@ -605,36 +605,46 @@
                             ङ. मूल्याङकन प्रतिवेदन प्राप्त।
                         </p>
                         <p>
-                            च. बहुबैंकिङ घोषणा पत्र प्राप्त।
+                            च. बहुबैंकिङ्ग घोषणा पत्र प्राप्त।
                         </p>
-                        <p>
-                            छ. बैकर्स शर्त सहितको कम्तीमा रु.
-                            रु.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.insuranceAmountInFigureCT!== null && letter?.loan.insuranceAmountInFigureCT!== ''}">
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
+                            छ. बैकर्स शर्त सहितको कम्तीमा
+                            रु.    <span [ngClass]="{'font-weight-bold' : letter?.loan.insuranceAmountInFigureCT!== null && letter?.loan.insuranceAmountInFigureCT!== ''}">
             {{letter?.loan.insuranceAmountInFigureCT === null || letter?.loan.insuranceAmountInFigureCT === '' ? '___________' : letter?.loan.insuranceAmountInFigureCT}}</span>/-
-                            (अक्षेरेपी रु.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.insuranceAmountInWordCT!== null && letter?.loan.insuranceAmountInWordCT!== ''}">
+                            (अक्षेरेपी रु.    <span [ngClass]="{'font-weight-bold' : letter?.loan.insuranceAmountInWordCT!== null && letter?.loan.insuranceAmountInWordCT!== ''}">
             {{letter?.loan.insuranceAmountInWordCT === null || letter?.loan.insuranceAmountInWordCT === '' ? '___________' : letter?.loan.insuranceAmountInWordCT}}</span>
                              मात्र) को भवनको विमालेख।
                         </p>
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 2 | nepaliWord}}. ज.	श्री <span class=" font-weight-bold">ज. श्री
-                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                        <p>
+                            {{selectedSecurity === 'LAND & BUILDING' ?
+                            'ज' : 'छ'}}. श्री <span class=" font-weight-bold">
+                            {{this.finalName}}
                 </span>
                             को बैकको पक्षमा रु.
                             <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>/-
                             (अक्षेरेपी रु.     <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
                              मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
+                        </p>
+                        <p *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
+                            ज. बैकर्श शर्त सहितको कम्तीमा रु
+                            <span [ngClass]="{'font-weight-bold' : insuranceAmount !== null && insuranceAmount !== ''}">
+                                {{insuranceAmount === null || insuranceAmount === '' ? '___________' : insuranceAmount}}
+                            </span> /- बराबरको भवनको  विमालेख ।
+                        </p>
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION">
+                            झ. भवन निर्माण {{tempData?.loanType === homeLoanType?.CONSTRUCTION ? 'इजाजत पत्र' : 'सम्पन प्रमाणपत्र'}} ।
                         </p>
                     </td>
                 </tr>
             </table>
-
-            <p *ngIf="offerData?.supportedInformation">
-                ण. <span class="nepaliFont"
-                         style="font-size: 28px;">{{offerData?.supportedInformation}}</span>
+            <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
+                {{selectedSecurity === 'LAND & BUILDING' ?
+                'ञ' : tempData?.loanType === homeLoanType.CONSTRUCTION ? 'ञ' : 'ज'}}. <span class="nepaliFont"
+                         style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 
             <p> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
@@ -646,14 +656,12 @@
 
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="right-content">
-
                     .........................................
                     <p>
                         सम्पर्क अधिकृत
                     </p>
                 </div>
-                <div class="left-content">
-
+                <div class="left-content text-right">
                     .........................................
                     <p>
                         शाखा प्रबन्धक
@@ -661,28 +669,26 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
+            <div class="mt-3">
                 <div class="col-md d-flex justify-content-between">
                     <div class="left-content">
-                           <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.nameOfRelationshipOfficerCT!== null && letter?.loan.nameOfRelationshipOfficerCT!== ''}">
+                           <span [ngClass]="{'font-weight-bold' : letter?.loan.nameOfRelationshipOfficerCT!== null && letter?.loan.nameOfRelationshipOfficerCT!== ''}">
             {{letter?.loan.nameOfRelationshipOfficerCT === null || letter?.loan.nameOfRelationshipOfficerCT === '' ? '___________' : letter?.loan.nameOfRelationshipOfficerCT}}</span>
                       <br><br>
-
                         <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span>
 
                     </div>
-                    <div class="right-content">
-                           <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.nameOfBranchManagerCT!== null && letter?.loan.nameOfBranchManagerCT!== ''}">
+                    <div class="right-content text-right">
+                           <span [ngClass]="{'font-weight-bold' : letter?.loan.nameOfBranchManagerCT!== null && letter?.loan.nameOfBranchManagerCT!== ''}">
             {{letter?.loan.nameOfBranchManagerCT === null || letter?.loan.nameOfBranchManagerCT === '' ? '___________' : letter?.loan.nameOfBranchManagerCT}}</span>
                         <br><br>
-                        <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
+                        <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span>
-
                     </div>
                 </div>
             </div>
-            <br>
+            <p class="page-break"></p>
             <table class="table table-borderless">
             <tr>
                 <td>१. </td>
@@ -708,17 +714,18 @@
                 <td>४.</td>
                 <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं।</td>
             </tr><br>
-            <tr>
+            <tr *ngIf="!loanLimit">
                 <td>५.</td>
                 <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष गर्दछु।</td>
                 <!-- (This clause should be variable. It depends upon approved loan amount) -->
             </tr><br>
             <tr>
-                <td>६.</td>
+                <td *ngIf="!loanLimit">६.</td>
+                <td *ngIf="loanLimit">५.</td>
                 <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो स्तरका कर्मचारीहरु,
-                    चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग मेरो/हाम्रो,
+                    चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सँग मेरो/हाम्रो,
                     कम्पनीको हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको  एकाघरको पारिवारिक
-                    सम्बन्ध नभएको र निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं। </td>
+                    सम्बन्ध नभएको र निजहरु सँग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं। </td>
             </tr>
             </table><br><br>
             <div style="float: right">
@@ -727,11 +734,11 @@
                 <p>
                     आधिकारिक हस्ताक्षर (ग्राहक)
                 </p> <br>
-                <p class="text-left"> मिति: .........................................
+                <p class="text-left"> मिति: ..................................
 
                 </p>
             </div>
-            <div class="text-left" style="margin-top: 140px">
+            <div class="text-left" style="margin-top: 200px">
                 <p>
                     साक्षीः
                 </p>
@@ -746,3 +753,5 @@
             </div>
     </div>
 </div>
+<button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+         ngxPrint printSectionId="{{offerLetterConst.HOME_LOAN}}Print" #printButton>Print</button>

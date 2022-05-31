@@ -1,0 +1,1128 @@
+<div [nbSpinner]="spinner" [nbSpinnerMessage]="'Translating....'" nbSpinnerStatus="success">
+    <form [formGroup]="mortgageEquityTermForm">
+        <div *ngFor="let formDetails of mortgageEquityTermForm.get('mortgageEquityTermFormArray')['controls']; let i = index" formArrayName="mortgageEquityTermFormArray">
+        <ng-container [formGroupName]="i">
+        <div class="row mt-2">
+            <div class="col-md-12 pb-2">
+                <h5> EQUITY MORTGAGE TERM LOAN {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                        <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="mortgage type"
+                               formControlName="mortgageType" shape="semi-round">
+                        <nb-option *ngFor="let type of mortgageType" [value]="type?.value">{{type?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Term Loan For </strong></label>
+                <nb-select
+                        formControlName="termLoanFor"
+                        fullWidth
+                        placeholder="Term Loan For">
+                    <nb-option value="MORTGAGE_TERM_LOAN"> Mortgage Term Loan</nb-option>
+                    <nb-option value="EQUITY_MORTGAGE_TERM_LOAN"> Equity Mortgage Term Loan</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Term Loan Type </strong></label>
+                <nb-select
+                        (selectedChange)="setEquityMortgageLoan($event, i)"
+                        formControlName="termLoanType"
+                        fullWidth
+                        placeholder="Term Loan Type">
+                    <nb-option value="NEW_EMI_TERM_LOAN"> New Emi Term Loan</nb-option>
+                    <nb-option value="OTHER_CREDIT_LIMITS"> Other Credit Limits</nb-option>
+                    <nb-option value="NEW_INSTALLMENT_BASIS_TERM_LOAN"> New Installment Basis Term Loan</nb-option>
+                    <nb-option value="REVIEW_OF_OTHER_CREDIT_LIMITS"> Review Of Other Credit Limits</nb-option>
+                </nb-select>
+            </div>
+
+            <div class="col-md-12 mt-2 ml-2">
+                <nb-checkbox #complementaryOther formControlName="complementaryOther"
+                             (change)="checkComplimentary($event.target.checked, i)">
+                    <i> Is complimentary of other loan ? </i></nb-checkbox>
+            </div>
+            <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'complementaryOther']).value" class="col-md-4 mt-3">
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select formControlName="complimentaryLoanSelected" fullWidth
+                           id="complimentaryLoanSelected"
+                           placeholder="Select Complimentary Loan" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
+                </nb-select>
+            </div>
+        </div>
+
+        <!-- FOR INPUT FIELDS OF LOAN -->
+        <div class="row pt-4">
+            <div class="col-md-4">
+                <label class="font-weight-bold" for="purposeOfLoan"> Purpose Of Loan </label>
+                <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth id="purposeOfLoanTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="purposeOfLoanCT" fullWidth id="purposeOfLoanCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                <input class="form-control" formControlName="loanAmount"
+                       readonly
+                       fullWidth
+                       id="loanAmount"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                       readonly
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                       id="loanAmountWordsTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                       readonly
+                       id="loanAmountWordsCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label><strong>Drawing Power Basis </strong></label>
+                <nb-select
+                        formControlName="drawingPowerBasis"
+                        fullWidth
+                        placeholder="Drawing Power Basis">
+                    <nb-option value="DISTRESS_VALUE"> Distress Value</nb-option>
+                    <nb-option value="MARKET_VALUE"> Market Value</nb-option>
+                </nb-select>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="drawingPowerInPercentage">Drawing Power in (%)</label>
+                <input class="form-control" formControlName="drawingPowerInPercentage" fullWidth
+                       id="drawingPowerInPercentage"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerInPercentageTrans" fullWidth
+                       id="drawingPowerInPercentageTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerInPercentageCT" fullWidth
+                       id="drawingPowerInPercentageCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN'" class="row">
+            <div class="col-md-4">
+                <label><strong> EMI Payment Type </strong></label>
+                <nb-select (selectedChange)="setEMIPaymentType($event)"
+                        formControlName="emiPaymentType"
+                        fullWidth
+                        placeholder="EMI Payment Type ">
+                    <nb-option value="ON_SUBSEQUENT_MONTH">On Subsequent Month</nb-option>
+                    <nb-option value="ON_TWENTY_ENGLISH_CALENDER"> On Every 20th English Calender</nb-option>
+                </nb-select>
+            </div>
+        </div>
+
+        <!-- FOR BASE, INTEREST, PREMIUM RATE SECTION -->
+        <ng-container>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                    <input (input)="calInterestRate(i, 'mortgageEquityTermFormArray')" class="form-control" formControlName="baseRate" fullWidth
+                           id="baseRate"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                    <input (input)="calInterestRate(i, 'mortgageEquityTermFormArray')" class="form-control" formControlName="premiumRate" fullWidth
+                           id="premiumRate"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+        </ng-container>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                <input class="form-control" formControlName="interestRate" fullWidth
+                       id="interestRate"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- END OF INTEREST SECTION -->
+
+        <!-- BOTH CASES (NEW INSTALLMENT BASIS TERM LOAN )-->
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'"
+             class="row">
+            <div class="col-md-4">
+                <label><strong> Payment Terms </strong></label>
+                <nb-select (selectedChange)="setPaymentTerms($event)"
+                        formControlName="paymentTerms"
+                        fullWidth
+                        placeholder="Payment Terms ">
+                    <nb-option value="YEARLY">Yearly</nb-option>
+                    <nb-option value="SEMI-YEARLY"> Semi-Yearly</nb-option>
+                    <nb-option value="QUARTERLY"> Quarterly</nb-option>
+                    <nb-option value="MONTHLY"> Monthly</nb-option>
+                </nb-select>
+            </div>
+        </div>
+
+        <!-- FOR (BOTH CONDITION ) NEW INSTALLMENT BASIS TERM lOAN -->
+        <ng-container
+                *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'">
+            <div class="row pt-4">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" for="paymentAmountInFigure"> Payment Amount in figure </label>
+                    <input (input)="getNumAmountWord('paymentAmountInFigure', 'paymentAmountInWords', i, 'mortgageEquityTermFormArray')"
+                           class="form-control"
+                           formControlName="paymentAmountInFigure" fullWidth
+                           id="paymentAmountInFigure"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="paymentAmountInFigureTrans" fullWidth
+                           id="paymentAmountInFigureTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="paymentAmountInFigureCT" fullWidth
+                           id="paymentAmountInFigureCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="loanAmountWords"> Payment Amount In Words </label>
+                    <input class="form-control" formControlName="paymentAmountInWords" fullWidth
+                           id="paymentAmountInWords"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="paymentAmountInWordsTrans" fullWidth
+                           id="paymentAmountInWordsTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="paymentAmountInWordsCT" fullWidth
+                           id="paymentAmountInWordsCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <!-- FOR NEW INSTALLATION BASIS TERM LOAN (BOTH) -->
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="interestRate"> Total Number Of Payments </label>
+                    <input class="form-control" formControlName="totalNumberOfPayments" fullWidth
+                           id="totalNumberOfPayments"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="totalNumberOfPaymentsTrans" fullWidth
+                           id="totalNumberOfPaymentsTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="totalNumberOfPaymentsCT" fullWidth
+                           id="totalNumberOfPaymentsCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+        </ng-container>
+
+
+        <!-- For EMI term loan and New Installment Basis-->
+        <ng-container
+                *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+            <div class="row pt-4">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" for="emiInfigure">EMI in Figure </label>
+                    <input class="form-control" formControlName="emiInFigure"
+                           (input)="getNumAmountWord('emiInFigure', 'emiInWords', i, 'mortgageEquityTermFormArray')"
+                           fullWidth
+                           id="emiInFigure"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="emiInFigureTrans" fullWidth id="emiInFigureTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="emiInFigureCT" fullWidth id="emiInFigureCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="emiInWords">EMI In Words </label>
+                    <input class="form-control" formControlName="emiInWords" fullWidth id="emiInWords"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="emiInWordsTrans" fullWidth
+                           id="emiInWordsTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="emiInWordsCT" fullWidth
+                           id="emiInWordsCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- EMI TERM LOAN CONDITION -->
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN'" class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="interestRate"> Total Number Of Installments </label>
+                <input class="form-control" formControlName="totalNumberOfInstallment" fullWidth
+                       id="totalNumberOfInstallment"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="totalNumberOfInstallmentTrans" fullWidth
+                       id="totalNumberOfInstallmentTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="totalNumberOfInstallmentCT" fullWidth
+                       id="totalNumberOfInstallmentCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <!--        &lt;!&ndash; FOR NEW INSTALLATION BASIS TERM LOAN (BOTH) &ndash;&gt;-->
+        <!--        <div class="row">-->
+        <!--            <div class="col-md-4 form-group">-->
+        <!--                <label class="font-weight-bold" for="interestRate"> Total Number Of Payments </label>-->
+        <!--                <input class="form-control" formControlName="totalNumberOfPayments" fullWidth-->
+        <!--                       id="totalNumberOfPayments"-->
+        <!--                       nbInput-->
+        <!--                       shape="semi-round"-->
+        <!--                       status="success" type="number">-->
+        <!--            </div>-->
+        <!--            <div class="col-md-4 form-group fieldMargin">-->
+        <!--                <input class="form-control" formControlName="totalNumberOfPaymentsTrans" fullWidth-->
+        <!--                       id="totalNumberOfPaymentsTrans"-->
+        <!--                       nbInput-->
+        <!--                       readonly-->
+        <!--                       shape="semi-round"-->
+        <!--                       status="success" type="text">-->
+        <!--            </div>-->
+        <!--            <div class="col-md-4 form-group fieldMargin">-->
+        <!--                <input class="form-control" formControlName="totalNumberOfPaymentsCT" fullWidth-->
+        <!--                       id="totalNumberOfPaymentsCT"-->
+        <!--                       nbInput-->
+        <!--                       shape="semi-round"-->
+        <!--                       status="success" type="text">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!-- FOR NEW INSTALLATION BASIS TERM LOAN -->
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'"
+             class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="serviceCharge"> Service Charge In (%) </label>
+                <input class="form-control" formControlName="serviceCharge" fullWidth
+                       id="serviceCharge"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="serviceChargeTrans" fullWidth
+                       id="serviceChargeTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="serviceChargeCT" fullWidth
+                       id="serviceChargeCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- ENG OF EMI TERM LOAN CONDITION -->
+
+        <!-- For EMI TERM LOAN AND NEW INSTALLMENT BASIS TERM -->
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'"
+             class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="interestRate"> Tenure Of Loan </label>
+                <input class="form-control" formControlName="tenureOfLoan" fullWidth
+                       id="tenureOfLoan"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="tenureOfLoanTrans" fullWidth
+                       id="tenureOfLoanTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="tenureOfLoanCT" fullWidth
+                       id="tenureOfLoanCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE  (FOR EMI TERM LOAN AT THE TIME AND INSTALLMENT BASIS TERM LOAN AT A TIME )-->
+        <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'OTHER_CREDIT_LIMITS' || mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'"
+             class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Date Of Expiry </label><br>
+                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                name="{{'dateOfExpiryType' + i}}" status="success">
+                    <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                    <nepali-patro [displayNepali]="true" [responseType]="2"
+                                  formControlName="dateOfExpiryNepali">
+                    </nepali-patro>
+                </div>
+                <input *ngIf="mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
+                       fullWidth
+                       id="dateOfExpiry"
+                       nbInput
+                       placeholder="Select Date"
+                       shape="semi-round" status="success">
+                <nb-datepicker #nextReview></nb-datepicker>
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <!-- END SECTION OF THE FIELDS -->
+
+        <!-- For Translation -->
+        <div class="row pt-5 pb-2 pr-4">
+            <div class="col-md-12 text-right">
+                <button (click)="setTranslatedVal(i, 'mortgageEquityTermFormArray')" nbButton outline size="small" status="info">
+                    Translate Mortgage Term Loan Details
+                </button>
+            </div>
+        </div>
+        </ng-container>
+        </div>
+
+        <div *ngFor="let formDetails of mortgageEquityTermForm.get('mortgageTermFormArray')['controls']; let i = index" formArrayName="mortgageTermFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mt-2">
+                    <div class="col-md-12 pb-2">
+                        <h5> MORTGAGE TERM LOAN {{filteredListMortgage.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="mortgage type"
+                                       formControlName="mortgageType" shape="semi-round">
+                                <nb-option *ngFor="let type of mortgageType" [value]="type?.value">{{type?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Term Loan For </strong></label>
+                        <nb-select
+                                formControlName="termLoanFor"
+                                fullWidth
+                                placeholder="Term Loan For">
+                            <nb-option value="MORTGAGE_TERM_LOAN"> Mortgage Term Loan</nb-option>
+                            <nb-option value="EQUITY_MORTGAGE_TERM_LOAN"> Equity Mortgage Term Loan</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Term Loan Type </strong></label>
+                        <nb-select
+                                (selectedChange)="setEquityMortgageLoan($event, i)"
+                                formControlName="termLoanType"
+                                fullWidth
+                                placeholder="Term Loan Type">
+                            <nb-option value="NEW_EMI_TERM_LOAN"> New Emi Term Loan</nb-option>
+                            <nb-option value="OTHER_CREDIT_LIMITS"> Other Credit Limits</nb-option>
+                            <nb-option value="NEW_INSTALLMENT_BASIS_TERM_LOAN"> New Installment Basis Term Loan</nb-option>
+                            <nb-option value="REVIEW_OF_OTHER_CREDIT_LIMITS"> Review Of Other Credit Limits</nb-option>
+                        </nb-select>
+                    </div>
+
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox #complementaryOther formControlName="complementaryOther"
+                                     (change)="checkComplimentary1($event.target.checked, i)">
+                            <i> Is complimentary of other loan ? </i></nb-checkbox>
+                    </div>
+                    <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'complementaryOther']).value" class="col-md-4 mt-3">
+                        <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                        <nb-select formControlName="complimentaryLoanSelected" fullWidth
+                                   placeholder="Select Complimentary Loan" status="success">
+                            <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                                {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <!-- FOR INPUT FIELDS OF LOAN -->
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="purposeOfLoan"> Purpose Of Loan </label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmount"
+                               readonly
+                               fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label><strong>Drawing Power Basis </strong></label>
+                        <nb-select
+                                formControlName="drawingPowerBasis"
+                                fullWidth
+                                placeholder="Drawing Power Basis">
+                            <nb-option value="DISTRESS_VALUE"> Distress Value</nb-option>
+                            <nb-option value="MARKET_VALUE"> Market Value</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPowerInPercentage">Drawing Power in (%)</label>
+                        <input class="form-control" formControlName="drawingPowerInPercentage" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerInPercentageTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerInPercentageCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN'" class="row">
+                    <div class="col-md-4">
+                        <label><strong> EMI Payment Type </strong></label>
+                        <nb-select (selectedChange)="setEMIPaymentType($event)"
+                                   formControlName="emiPaymentType"
+                                   fullWidth
+                                   placeholder="EMI Payment Type ">
+                            <nb-option value="ON_SUBSEQUENT_MONTH">On Subsequent Month</nb-option>
+                            <nb-option value="ON_TWENTY_ENGLISH_CALENDER"> On Every 20th English Calender</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <!-- FOR BASE, INTEREST, PREMIUM RATE SECTION -->
+                <ng-container>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input (input)="calInterestRate(i, 'mortgageTermFormArray')" class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'mortgageTermFormArray')" class="form-control" formControlName="premiumRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                        <input class="form-control" formControlName="interestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF INTEREST SECTION -->
+
+                <!-- BOTH CASES (NEW INSTALLMENT BASIS TERM LOAN )-->
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'"
+                     class="row">
+                    <div class="col-md-4">
+                        <label><strong> Payment Terms </strong></label>
+                        <nb-select (selectedChange)="setPaymentTerms($event)"
+                                   formControlName="paymentTerms"
+                                   fullWidth
+                                   placeholder="Payment Terms ">
+                            <nb-option value="YEARLY">Yearly</nb-option>
+                            <nb-option value="SEMI-YEARLY"> Semi-Yearly</nb-option>
+                            <nb-option value="QUARTERLY"> Quarterly</nb-option>
+                            <nb-option value="MONTHLY"> Monthly</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <!-- FOR (BOTH CONDITION ) NEW INSTALLMENT BASIS TERM lOAN -->
+                <ng-container
+                        *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'">
+                    <div class="row pt-4">
+                        <div class="col-md-4">
+                            <label class="font-weight-bold" for="paymentAmountInFigure"> Payment Amount in figure </label>
+                            <input (input)="getNumAmountWord('paymentAmountInFigure', 'paymentAmountInWords', i, 'mortgageTermFormArray')"
+                                   class="form-control"
+                                   formControlName="paymentAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="paymentAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="paymentAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="loanAmountWords"> Payment Amount In Words </label>
+                            <input class="form-control" formControlName="paymentAmountInWords" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="paymentAmountInWordsTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="paymentAmountInWordsCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <!-- FOR NEW INSTALLATION BASIS TERM LOAN (BOTH) -->
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Total Number Of Payments </label>
+                            <input class="form-control" formControlName="totalNumberOfPayments" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="totalNumberOfPaymentsTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="totalNumberOfPaymentsCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </ng-container>
+
+
+                <!-- For EMI term loan and New Installment Basis-->
+                <ng-container
+                        *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+                    <div class="row pt-4">
+                        <div class="col-md-4">
+                            <label class="font-weight-bold" for="emiInfigure">EMI in Figure </label>
+                            <input class="form-control" formControlName="emiInFigure"
+                                   (input)="getNumAmountWord('emiInFigure', 'emiInWords', i, 'mortgageTermFormArray')"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="emiInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="emiInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="emiInWords">EMI In Words </label>
+                            <input class="form-control" formControlName="emiInWords" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="emiInWordsTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="emiInWordsCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </ng-container>
+
+                <!-- EMI TERM LOAN CONDITION -->
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Total Number Of Installments </label>
+                        <input class="form-control" formControlName="totalNumberOfInstallment" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalNumberOfInstallmentTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalNumberOfInstallmentCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- FOR NEW INSTALLATION BASIS TERM LOAN -->
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'"
+                     class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="serviceCharge"> Service Charge In (%) </label>
+                        <input class="form-control" formControlName="serviceCharge" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="serviceChargeTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="serviceChargeCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- ENG OF EMI TERM LOAN CONDITION -->
+
+                <!-- For EMI TERM LOAN AND NEW INSTALLMENT BASIS TERM -->
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_EMI_TERM_LOAN' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'"
+                     class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Tenure Of Loan </label>
+                        <input class="form-control" formControlName="tenureOfLoan" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="tenureOfLoanTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="tenureOfLoanCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE  (FOR EMI TERM LOAN AT THE TIME AND INSTALLMENT BASIS TERM LOAN AT A TIME )-->
+                <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'OTHER_CREDIT_LIMITS' || mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'termLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMITS'"
+                     class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Date Of Expiry </label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="{{'dateOfExpiryType' + i}}" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #nextReview></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <!-- END SECTION OF THE FIELDS -->
+
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="setTranslatedVal(i, 'mortgageTermFormArray')" nbButton outline size="small" status="info">
+                            Translate Mortgage Term Loan Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

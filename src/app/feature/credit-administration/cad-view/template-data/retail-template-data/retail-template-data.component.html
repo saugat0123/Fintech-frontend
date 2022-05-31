@@ -1,0 +1,126 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header *ngIf="isEdit">
+        <h3>Edit Retail Combined Loan Data</h3>
+        <span class="font-weight-bold cursor float-right" style="margin-top: -2em"
+              (click)="nbDialogRef.close()">x</span>
+    </nb-card-header>
+    <nb-card-body>
+        <!-- Guarantor Tagging -->
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+
+        <app-retail-global-content #retailGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                [isEdit]="isEdit" (globalBaseRateRetail)="getBaseRate($event)"></app-retail-global-content>
+        <app-existing-loan-template-data #existingLoanContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                         [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                [isEdit]="isEdit" [globalBaseRate]="globalBaseRate"></app-existing-loan-template-data>
+        <!-- Type of sme loan start here-->
+        <ng-container *ngIf="isPersonalLoan">
+            <app-personal-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                       #personalLoanCombined [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                        [globalBaseRate]="globalBaseRate">
+            </app-personal-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isPersonalOverdraftLoan">
+            <app-personal-overdraft-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #personalOverdraftCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                           [globalBaseRate]="globalBaseRate">
+            </app-personal-overdraft-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isEducationLoan">
+            <app-education-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #educationLoanCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
+            </app-education-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isMortgageLoan">
+            <app-mortgage-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                      #mortgageLoanCombined [loanName]="loanExtraDetails"
+                                                      [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                      [globalBaseRate]="globalBaseRate">
+            </app-mortgage-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isAutoLoan">
+            <app-auto-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                       #autoLoanCombined [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                       [globalBaseRate]="globalBaseRate">
+            </app-auto-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isHomeLoan">
+            <app-home-loan-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #homeLoanCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-home-loan-combined-template-data>
+        </ng-container>
+        <ng-container *ngIf="isNabilSahayatri">
+            <app-nabil-sahayatri-karja-combined [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #sahayatriCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-nabil-sahayatri-karja-combined>
+        </ng-container>
+
+        <ng-container *ngIf="isPersonalOverDraftWithoutCollateral">
+            <app-personal-overdraft-without-collateral-combined-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                  #personalOverDraftWithoutCollateralCombined [loanName]="loanExtraDetails"
+                                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                  [globalBaseRate]="globalBaseRate">
+            </app-personal-overdraft-without-collateral-combined-template-data>
+        </ng-container>
+
+        <ng-container *ngIf="isNabilShareLoan">
+            <app-nabil-share-loan-pod-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #nabilShareLoanCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-nabil-share-loan-pod-template-data>
+        </ng-container>
+
+        <ng-container *ngIf="isShareLoanDemand">
+            <app-share-loan-demand-template-data [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                                                              #shareLoanDemandCombined [loanName]="loanExtraDetails"
+                                                                              [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"
+                                                                              [globalBaseRate]="globalBaseRate">
+            </app-share-loan-demand-template-data>
+        </ng-container>
+        <!-- Type of sme loan end here-->
+        <app-retail-master-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity
+                           [isEdit]="isEdit"></app-retail-master-security>
+    </nb-card-body>
+    <nb-card-footer>
+        <!-- Required Document Section -->
+        <app-retail-combined-required-document #requiredLegalDocumentSectionComponent
+                                             [initialInformation]="initialInformation"></app-retail-combined-required-document>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="float-right" *ngIf="!isEdit" nbButton size="small" (click)="openCloseTemplate(confirm)"
+                        status="info" style="margin-right: 0.5em" [disabled]="!disableBtn">Close</button>
+                <button class="d-flex float-right" nbButton status="success" size="small"
+                        (click)="openCombinedOfferLetter()" [disabled]="!disableBtn">Preview</button>
+                <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()"
+                        [disabled]="disableBtn">Save</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+
+<ng-template #confirm>
+    <div class="modal-header" style="padding-left: 90%">
+        <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body" style="text-align:center; font-size: 18px">
+        Are you sure you want to close ?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="decline(confirm)">No</button>
+        <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
+    </div>
+</ng-template>

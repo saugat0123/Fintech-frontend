@@ -1,0 +1,38 @@
+<div class="container text-justify col-md-12 viewFull mt-10">
+    <div class="row">
+        <form [formGroup]="form" class="col-md-12">
+                स्वीकृती पत्र नं.
+                <input class="form-field form-control-sm d-print-none"
+                       formControlName="referenceNumber"
+                       name="referenceNumber"
+                       placeholder=" सन्दर्भ नम्बर "
+                       type="text"/>
+                <span class="print-only">{{this.refNum ? this.refNum : '______________________'}}</span>
+                <br>
+                <br>
+                <div class="text-center">
+                    <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong>
+                </div>
+                <br>
+                मितिः <input class="form-field form-control-sm d-print-none"
+                             formControlName="sanctionLetterDate"
+                             name="sanctionLetterDate"
+                             type="text"/>
+                <span class="print-only">{{this.sanctionLetterDate ? this.sanctionLetterDate : '______________________'}}</span>
+                <br>
+                श्री <input class="form-field form-control-sm d-print-none"
+                            formControlName="nameOfBorrower"
+                            name="nameOfBorrower"
+                            type="text"/>
+                <span class="print-only">{{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '______________________'}}</span>
+                ज्यु,
+                <br>
+                ठेगानाः <input class="form-field form-control-sm d-print-none"
+                               formControlName="addressOfBorrower"
+                               name="addressOfBorrower"
+                               type="text"/>
+                <span class="print-only">{{this.address ? this.address : '______________________'}}</span>, नेपाल
+                <br>
+        </form>
+    </div>
+</div>

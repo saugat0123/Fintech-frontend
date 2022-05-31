@@ -1,4 +1,4 @@
-<div class="text-justify">
+<div class="text-justify" [nbSpinner]="spinner">
     <form [formGroup]="guarantorindividualGroup" id="print-section">
         <div class="row" *ngFor="let guarantors of guarantorindividualGroup.get('individualGuarantors')['controls']; let i = index"
         formArrayName="individualGuarantors">
@@ -75,7 +75,18 @@
                                     name="ward"
                                     formControlName="ward" placeholder="वार्ड" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'ward']).value}}</strong></span>
-                                बस्ने श्री
+                                बस्ने
+                                <span *ngIf="loanHolderNepData?.gender?.en === 'MALE'; else relationOfCustomer">
+                                    श्री
+                                </span>
+                                <ng-template #relationOfCustomer>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '1'">
+                                        सुश्री
+                                    </span>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '0'">
+                                        श्रीमती
+                                    </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm d-print-none"
                                     name="borrowerName"
                                     formControlName="borrowerName" placeholder="ऋण लिनेको नाम" type="text"/>
@@ -83,17 +94,26 @@
                             </p>
                             <p>
                                 (जसलाई यस उप्रान्त <strong>"ऋणी"</strong> भनिएको छ) लाई
-                                <input class="form-field form-control-sm d-print-none"
-                                    name="loanPurpose"
-                                    formControlName="loanPurpose" placeholder="ऋण उद्देश्य" type="text"/>
+                                <ng-container *ngIf="offerLoanType === 'TAKE OVER'; else purposeOfLoanElement">
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="nameOfBank"
+                                           formControlName="nameOfBank" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'nameOfBank']).value}}</strong></span>
+                                    बैंककाे कर्जा चुक्ता
+                                </ng-container>
+                                <ng-template #purposeOfLoanElement>
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="loanPurpose"
+                                           formControlName="loanPurpose" placeholder="ऋण उद्देश्य" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'loanPurpose']).value}}</strong></span>
+                                </ng-template>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकबाट
                                 निज ऋणीको नाममा जारी भएको मिति
                                 <input class="form-field form-control-sm d-print-none"
                                     name="dateOfApproval"
                                     formControlName="dateOfApproval" placeholder="स्वीकृति जारी मिति" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'dateOfApproval']).value}}</strong></span>
-                                को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग
+                                को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैंकिङ्ग
                                 सुविधाहरु जम्मा रु.
                                 <input class="form-field form-control-sm d-print-none"
                                     name="loanAmount"
@@ -101,7 +121,7 @@
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.numberNepali}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.numberNepali}}</strong></span>
+                                    <span class="print-only"><strong>{{nepaliNumber.numberNepali}}</strong></span>/-
                                 (अक्षरेपी
                                 <input class="form-field form-control-sm d-print-none"
                                     name="loanAmountWords"
@@ -109,28 +129,28 @@
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.nepaliWords}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>
+                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>)
                                 तथा भविष्यमा उल्लिखित
                                 ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
                                 माथवर/हैसियतवाल
                                 व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुंदा उल्लिखित ऋणीले <strong>मलाई/हामीलाई</strong>
                                 जमानत वसी दिनुहोस भनी अनुरोध
-                                गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनीु बैंकबाट समेत निज ऋणीले प्राप्त गरेको/गर्ने
-                                उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
+                                गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनी बैंकबाट समेत निज ऋणीले प्राप्त गरेको/गर्ने
+                                उल्लिखित ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
                                 व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन <strong>तपाईं/हरुको</strong> मंजुरी छ,छैन भनी सोधनी
                                 हुंदा सोमा <strong>मेरो/हाम्रो</strong> चित्त बुझेकोले देहायका <strong>तपसिल खण्ड क</strong> मा उल्लिखित शर्त वन्देजहरुको
                                 अधिनमा रही तपाईं धनी बैंकको पक्षमा आफ्नो राजीखुसिले यो व्यक्तिगत जमानतको लिखत <strong>गरिदिंए/दियौं</strong>
                                 । निज ऋणीले तपाईं धनी बैंकबाट यसअघि प्राप्त गरेको उपयोग गरेको तथा यस उप्रान्त प्राप्त गर्ने
-                                उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु वापत तपाईं धनी बैंकलाई समय सयममा किस्ता
+                                उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत तपाईं धनी बैंकलाई समय सयममा किस्ता
                                 किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा
                                 सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले <strong>म/हामी</strong> जमानत दिने उपर दावी लिएमा सो
                                 दावी लिएको मितिले ७ (सात) दिनभित्र <strong>म/हामी</strong> स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम
                                 कलम चुक्ता भुक्तान <strong>गर्नेछु/छौं</strong> । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी
                                 बांकि राखेमा वा धिङन्याई गरेमा प्रचलित कानून तथा तपाई धनी बैंकको नियमानुसार <strong>म/हामी</strong> जमानत
-                                दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको्र चलअचल जायजेथाबाट तपाई धनी बैंकको लेना
+                                दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको चलअचल जायजेथाबाट तपाई धनी बैंकको लेना
                                 रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम <strong>मैले/हामीले</strong> तिर्नु बुझाउनु पर्ने
                                 होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <strong>छैन/छैनौं</strong>, गरे यसै लिखतले बदर गराई लिनु होला भनी
-                                <strong>मेरो/हाम्रो</strong> मनोमान राजिखुसिले वांया किनाराका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा
+                                <strong>मेरो/हाम्रो</strong> मनोमान राजिखुसिले देहायका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा
                                 सहिछाप गरी तपाईं धनी बैंकलाई <strong>बुझाएं/बुझायौं</strong> र यसको दोहरी समेत <strong>बुझीलिंए/बुझीलिंयौं</strong> ।
                             </p>
                             <p style="text-align: center;font-size: 18px">
@@ -143,7 +163,7 @@
                                     शर्तवन्देजहरुः
                                 </strong>
                             </p>
-                            <table class="table table-borderless" style="border-collapse: collapse">
+                            <table class="table table-borderless" style="border-collapse: collapse; line-height: 1.9">
                                 <tr>
                                     <td>
                                         १)
@@ -155,7 +175,7 @@
                                             formControlName="gurantedAmount"
                                             placeholder="ऋण रकम"
                                             type="text"/>
-                                            <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'gurantedAmount']).value}}</strong></span>
+                                            <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'gurantedAmount']).value}}</strong></span>/-
                                         (अक्षरेपी
                                         <input class="form-field form-control-sm d-print-none"
                                             name="guaranteAmountInWord"
@@ -172,7 +192,7 @@
                                         २)
                                     </td>
                                     <td>
-                                        ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैकिंग सुविधाहरु वापत धनी बैंकलाई समय समयमा
+                                        ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत धनी बैंकलाई समय समयमा
                                         तिर्नु बुझाउनु पर्ने सांवा व्याज फि कमीसन आदी रकम तिर्ने बुझाउने सम्बन्धमा
                                         जमानतदिनेको दायित्व मूख्य ऋणी (Principal Debtor) सरह प्राथमीक दायित्व (Primary Liability)
                                         को रुपमा रहनेछ र सो तिर्न बुझाउन बांकि रकम कलम धनी बैंकले सोझै
@@ -272,7 +292,7 @@
                                         ११)
                                     </td>
                                     <td>
-                                        धनी बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता
+                                        धनी बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता
                                         अनुसार समय समयमा उपयोग गर्न, तिर्न बुझाउन, पुनः उपयोग गर्न सक्नेछ र त्यसरी तिरे
                                         बुझाएको, पुनः उपयोग गरेको वा आंशिक चुक्ता भुक्तानी गरेको आधारमा जमानत दिने आफ्नो
                                         दायित्वबाट मुक्त हुने छैन । ऋणीले सो ऋणकर्जा सुविधा वापत धनी बैंकलाई चुक्ता भुक्तान
@@ -355,9 +375,9 @@
                         </div>
                         <div class="row w-100">
                             <div class="col-md-12">
-                                <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control nepaliFont d-print-none" name="freeText" formControlName="freeText">
+                                <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control d-print-none" name="freeText" formControlName="freeText">
                                 </textarea>
-                                <span class="print-only nepaliFont"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'freeText']).value}}</strong></span>
+                                <span class="print-only" style="padding-left: 4em">{{guarantorindividualGroup?.get(['individualGuarantors', i, 'freeText'])?.value ? guarantorindividualGroup?.get(['individualGuarantors', i, 'freeText'])?.value : ''}}</span>
                             </div>
                         </div>
                         <div>
@@ -365,6 +385,24 @@
                             <h3><p style="font-size:18px"><strong>जमानतदिने :</strong></p></h3>
                             <div class="col-md-12">
                                 <table class="table table-borderless">
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="width: 9em;float: left;border: 1px solid black;height: 9em;margin-left: 5em">
+                                                <p style="text-align: center;margin-top:80%">दा.</p>
+                                            </div>
+                                            <div class="d-print-none" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:60%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                            <div class="print-only" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:45%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                                हस्ताक्षर:
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             १.
@@ -424,7 +462,7 @@
                                                     name="guarantorPermanentMunicipality"
                                                     formControlName="guarantorPermanentMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentMunicipality']).value}}</strong></span>
-                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc?.en === vdcOption[0].value; else guarantorVdcMunicipality">
+                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc?.en === '0'; else guarantorVdcMunicipality">
                                                     नगरपालिका,
                                                 </span>
                                                 <ng-template #guarantorVdcMunicipality>
@@ -447,7 +485,7 @@
                                                     name="guarantorTemporaryMunicipality"
                                                     formControlName="guarantorTemporaryMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryMunicipality']).value}}</strong></span>
-                                                <span *ngIf="guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc && guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc.en === vdcOption[0].value; else tempVdcMunicipality">
+                                                <span *ngIf="guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc && guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc.en === '0'; else tempVdcMunicipality">
                                                     नगरपालिका,
                                                 </span>
                                                 <ng-template #tempVdcMunicipality>
@@ -461,80 +499,142 @@
                                             <p>
                                                 ना.प्र.नं.
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitizenNumber"
-                                                    formControlName="guarantorCitizenNumber" placeholder="ना प्र नं" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitizenNumber']).value}}</strong></span>
+                                                       name="guarantorCitizenNumber"
+                                                       formControlName="guarantorCitizenNumber" placeholder="ना प्र नं" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitizenNumber']).value}}</strong></span>
                                                 जारी गर्ने कार्यालय
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitzenIssuedPlace"
-                                                    formControlName="guarantorCitzenIssuedPlace" placeholder="जारी गर्ने कार्यालय" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedPlace']).value}}</strong></span>
+                                                       name="guarantorCitzenIssuedPlace"
+                                                       formControlName="guarantorCitzenIssuedPlace" placeholder="जारी गर्ने कार्यालय" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedPlace']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 जारी मिति:
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitzenIssuedDate"
-                                                    formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedDate']).value}}</strong></span>
+                                                       name="guarantorCitzenIssuedDate"
+                                                       formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedDate']).value}}</strong></span>
                                             </p>
                                         </td>
+                                    </tr>
                                 </table>
                             </div>
-                            <div class="text-left mt-2">
-                                <p class="font-weight-bold">
-                                    साक्षीः
-                                </p>
-                                <ul class="nepaliList">
-                                    <app-sakhshi-common></app-sakhshi-common>
-                                    <li>
-                                        कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                        ____________________________
-                                    </li>
-                                </ul>
+                            <div class="row" style="margin-top: 3em">
+                                <div class="col-md-12" style="padding-left: 3em">
+                                    <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                                    <ol class="conditions">
+                                        <li>
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiDistrict1"
+                                                   formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict1 ? this.cadInitialInfo[i]?.sakshiDistrict1 : '______________________________'}}
+                                </span>
+                                            जिल्ला
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiMunicipality1"
+                                                   formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality1 ? this.cadInitialInfo[i]?.sakshiMunicipality1 : '______________________________'}}
+                                </span>
+                                            न.पा/गा.वि.स. वडा नं.
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
+                                                   formControlName="sakshiWard1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard1 ? this.cadInitialInfo[i]?.sakshiWard1 : '______________________________'}}
+                                </span>
+                                            बस्ने बर्ष
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
+                                                   formControlName="sakshiAge1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge1 ? this.cadInitialInfo[i]?.sakshiAge1 : '______________________________'}}
+                                </span>
+                                            को/की
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiName1"
+                                                   formControlName="sakshiName1" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName1 ? this.cadInitialInfo[i]?.sakshiName1 : '______________________________'}}
+                                </span>
+                                        </li>
+                                        <li>
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiDistrict2"
+                                                   formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiDistrict2 ? this.cadInitialInfo[i]?.sakshiDistrict2 : '______________________________'}}
+                                </span>
+                                            जिल्ला
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="sakshiMunicipality2"
+                                                   formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiMunicipality2 ? this.cadInitialInfo[i]?.sakshiMunicipality2 : '______________________________'}}
+                                </span>
+                                            न.पा/गा.वि.स. वडा नं.
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
+                                                   formControlName="sakshiWard2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiWard2 ? this.cadInitialInfo[i]?.sakshiWard2 : '______________________________'}}
+                                </span>
+                                            बस्ने बर्ष
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
+                                                   formControlName="sakshiAge2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiAge2 ? this.cadInitialInfo[i]?.sakshiAge2 : '______________________________'}}
+                                </span>
+                                            को/की
+                                            <input class="form-field form-control-sm d-print-none" name="sakshiName2"
+                                                   formControlName="sakshiName2" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && cadInitialInfo[i]?.sakshiName2 ? this.cadInitialInfo[i]?.sakshiName2 : '______________________________'}}
+                                </span>
+                                        </li>
+                                        <li>
+                                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल
+                                            बैंक लिमिटेडका कर्मचारी
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="nameOfBankStaff"
+                                                   formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.nameOfBankStaff ? this.cadInitialInfo[i]?.nameOfBankStaff : '______________________________'}}
+                                </span>
+                                        </li>
+                                    </ol>
+                                </div>
                             </div>
+                            <br/>
                             <div>
                                 <p style="text-align:center">
                                     ईति सम्वत् &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="year"
-                                        formControlName="year" placeholder="साल" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value : '_________________'}}</strong></span>
+                                           name="year"
+                                           formControlName="year" placeholder="साल" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value : '_________________'}}</strong></span>
                                     साल &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="month"
-                                        formControlName="month" placeholder="महिना" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value : '___________'}}</strong></span>
+                                           name="month"
+                                           formControlName="month" placeholder="महिना" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value : '___________'}}</strong></span>
                                     महिना &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="day"
-                                        formControlName="day" placeholder="गते" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value : '________'}}</strong></span>
+                                           name="day"
+                                           formControlName="day" placeholder="गते" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value : '________'}}</strong></span>
                                     गते रोज &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
-                                        name="date"
-                                        formControlName="date" placeholder="दिन" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value : '_________'}}</strong></span>
+                                           name="date"
+                                           formControlName="date" placeholder="दिन" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value : '_________'}}</strong></span>
                                     शुभम् ।
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="pageBreak"></div>
+                <div *ngIf="i < guarantorindividualGroup.get('individualGuarantors')['length'] - 1"
+                     class="pageBreak"></div>
             </div>
-            <!-- <div class="row d-print-none">
-                <div class="col-sm-6 text-left">
-                    <button nbButton status="danger" size="small" (click)="removeIndividualGuarantors(i)">
-                        <em class="fa fa-trash" style="color: white;"></em>
-                    </button>
-                </div>
-            </div> -->
-            <hr class ="d-print-none mt-2 mb-2 w-100 "/>
+            <hr class="d-print-none mt-2 mb-2 w-100 "/>
         </div>
-        <!-- <div *ngIf="guarantorindividualGroup.get('individualGuarantors')['length'] > 0" class="row d-print-none">
-            <div class="col-md-12 text-right">
-                <button nbButton status="success" size="small" (click)="submit()">Save</button>
-            </div>
-        </div> -->
         <div *ngIf="guarantorindividualGroup.get('individualGuarantors')['length'] == 0" class="row">
             <div class="col-md-12">
                 <p>Could not find guarantors details.</p>
@@ -542,17 +642,17 @@
         </div>
     </form>
     <div class="row mt-5 ml-0">
-        <!-- <div class="col-md-6 text-left">
-            <button nbButton status="primary" (click)="refreshGuarantors()" outline title="Refresh Data" size="small">
-                <i class="fas fa-sync-alt"></i>
-            </button>
-        </div> -->
         <div class="col-md-12 text-right">
             <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
                 nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
                 <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
             </button>
+            <button nbButton size="small"
+                    class="d-print-none sav"
+                    status="success"
+                    (click)="submit()"
+                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
         </div>
     </div>
 </div>
-<!-- <app-personal-guarantee-individual-print *ngIf="initialInfoPrint" [letterData]="this.guarantorindividualGroup.get('individualGuarantors')" hidden></app-personal-guarantee-individual-print> -->

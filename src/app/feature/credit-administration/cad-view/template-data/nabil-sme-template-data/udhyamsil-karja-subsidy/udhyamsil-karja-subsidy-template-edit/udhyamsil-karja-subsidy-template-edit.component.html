@@ -1,0 +1,831 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        <h3>Edit Udhyamsil Loan Data </h3>
+        <div class="row d-flex justify-content-end px-2 cursor text-dark font-weight-bold">
+            <a (click)="close()" style="margin-top:-2em">x</a>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="udhyamsilKarja" [nbSpinner]="spinner">
+            <div class="row p-4">
+                <div class="col-md-4">
+                    <label><strong>Loan Options</strong></label>
+                    <ng-select (ngModelChange)="transferValue($event)"
+                               [multiple]="false"
+                               formControlName="loanOption">
+                        <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
+                                   [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="isLoanOptionSelected" class="col-md-4">
+                    <label><strong>Repayment Type</strong></label>
+                    <ng-select
+                            formControlName="repaymentType"
+                            fullWidth>
+                        <ng-option value="EMI_BASIS">EMI BASIS</ng-option>
+                        <ng-option value="OTHERS">OTHERS</ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="isLoanOptionSelected" class="col-md-12 mt-3">
+                    <nb-checkbox #interestSubsidy (checkedChange)="interestSubsidyCheck(interestSubsidy.checked)"
+                                 [checked]="isInterestSubsidy">
+                        <i>Is Interest Subsidy ?</i></nb-checkbox>
+                </div>
+            </div>
+            <div *ngIf="isLoanOptionSelected">
+                <div class="row pt-3 pl-4 pr-4">
+                    <div class="col-md-4">
+                        <div class="col-md-12 mb-2 text-center">
+                            <h5>LOAN DATA</h5>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfApprovalType">Date of Approval</label><br>
+                            <nb-radio-group (valueChange)="dateOfApproval($event)" class="d-inline-flex"
+                                            formControlName="dateOfApprovalType" id="dateOfApprovalType"
+                                            name="dateOfApprovalType" status="success">
+                                <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="BSApproval" style="margin-bottom: -50px;">
+                                <nepali-patro *ngIf="BSApproval" [displayNepali]="true" [responseType]="2"
+                                              formControlName="dateOfApprovalNepali">
+                                </nepali-patro>
+                            </div>
+                            <input *ngIf="ADApproval" [nbDatepicker]="approvalDate" formControlName="dateOfApproval"
+                                   fullWidth
+                                   id="dateOfApproval"
+                                   nbInput
+                                   placeholder="Select Date" status="success">
+                            <nb-datepicker #approvalDate></nb-datepicker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateOfApplicationType">Date of Application</label><br>
+                            <nb-radio-group (valueChange)="dateOfApplication($event)" class="d-inline-flex"
+                                            formControlName="dateOfApplicationType" id="dateOfApplicationType"
+                                            name="dateOfApplicationType" status="success">
+                                <nb-radio *ngFor="let dateTy of dateType"
+                                          [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                                <nepali-patro [displayNepali]="true"
+                                              [responseType]="2"
+                                              formControlName="dateOfApplicationNepali">
+                                </nepali-patro>
+                            </div>
+                            <input *ngIf="ADApplication" [nbDatepicker]="applicationDate"
+                                   formControlName="dateOfApplication" fullWidth
+                                   id="dateOfApplication"
+                                   nbInput
+                                   placeholder="Select Application Date" status="success">
+                            <nb-datepicker #applicationDate></nb-datepicker>
+                        </div>
+
+                        <div *ngIf="!isCustomerNew" class="form-group">
+                            <label for="previousSanctionType">Previous Sanction Letter Date</label><br>
+                            <nb-radio-group (valueChange)="previousSanctionDate($event)" class="d-inline-flex"
+                                            formControlName="previousSanctionType" id="previousSanctionType"
+                                            name="previousSanctionType" status="success">
+                                <nb-radio *ngFor="let previousType of dateType"
+                                          [value]="previousType.value">{{previousType.key}}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="BSPrevious" style="margin-bottom: -50px;">
+                                <nepali-patro *ngIf="BSPrevious" [displayNepali]="true"
+                                              [responseType]="2"
+                                              formControlName="previousSanctionDateNepali">
+                                </nepali-patro>
+                            </div>
+                            <input *ngIf="ADPrevious" [nbDatepicker]="previousDate" formControlName="previousSanctionDate"
+                                   fullWidth
+                                   id="previousSanctionDate"
+                                   nbInput
+                                   placeholder="Select Previous Date" status="success">
+                            <nb-datepicker #previousDate></nb-datepicker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="purposeOfLoan">Purpose of Loan</label>
+                            <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                                   nbInput status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigure">Loan Amount Figure</label>
+                            <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
+                                   class="form-control" formControlName="loanAmountFigure" fullWidth
+                                   id="loanAmountFigure"
+                                   nbInput status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigureWords">Loan Amount In Words</label>
+                            <input class="form-control" formControlName="loanAmountFigureWords" fullWidth
+                                   id="loanAmountFigureWords"
+                                   nbInput status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marginInPercentage">Margin In Percentage</label>
+                            <input class="form-control" formControlName="marginInPercentage" fullWidth
+                                   id="marginInPercentage"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="baseRate">Base Rate</label>
+                            <input (input)="calInterestRate()" class="form-control" formControlName="baseRate" fullWidth
+                                   id="baseRate" nbInput status="success" type="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="premiumRate">Premium Rate</label>
+                            <input (input)="calInterestRate()" class="form-control" formControlName="premiumRate" fullWidth
+                                   id="premiumRate" nbInput status="success" type="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interestRate">Interest Rate (%)</label>
+                            <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceCharge">Service Charge</label>
+                            <input class="form-control" formControlName="serviceCharge" fullWidth id="serviceCharge"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalTenureOfLoan">Total Tenure Of Loan (%)</label>
+                            <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div *ngIf="isInterestSubsidy" class="form-group">
+                            <label for="circularRate">Rate As Per NRB Circular</label>
+                            <input class="form-control" formControlName="circularRate" fullWidth id="circularRate"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
+                            <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
+                                   nbInput status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfBranchManager">Name Of Branch Manager</label>
+                            <input class="form-control" formControlName="nameOfBranchManager" fullWidth
+                                   id="nameOfBranchManager"
+                                   nbInput status="success" type="text">
+                        </div>
+                    </div>
+                    <!--FOR TRANSLATION FIELD-->
+                    <div class="col-md-4">
+                        <div class="col-md-12 mb-2 text-center">
+                            <h5>TRANSLATED DATA</h5>
+                        </div>
+
+                        <div *ngIf="BSApproval; else dateOfApprovalField" class="form-group">
+                            <label for="dateOfApprovalNepaliTrans">Date of Approval Translation </label>
+                            <input class="form-control dateTranslationCustom" formControlName="dateOfApprovalNepaliTrans"
+                                   fullWidth id="dateOfApprovalNepaliTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <ng-template #dateOfApprovalField>
+                            <div class="form-group">
+                                <label for="dateOfApprovalTrans">Date of Approval Translation </label>
+                                <input class="form-control dateTranslationCustom" formControlName="dateOfApprovalTrans"
+                                       fullWidth id="dateOfApprovalTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+                        </ng-template>
+
+                        <div class="form-group">
+                            <label for="dateOfApplicationTrans">Date of Application Translation </label>
+                            <ng-container *ngIf="BSApplication; else dateOfAppEnglish">
+                                <input class="form-control dateTranslationCustom"
+                                       formControlName="dateOfApplicationNepaliTrans" fullWidth
+                                       id="dateOfApplicationNepaliTrans"
+                                       nbInput readonly status="success" type="text">
+                            </ng-container>
+                            <ng-template #dateOfAppEnglish>
+                                <input class="form-control dateTranslationCustom" formControlName="dateOfApplicationTrans"
+                                       fullWidth id="dateOfApplicationTrans"
+                                       nbInput readonly status="success" type="text">
+                            </ng-template>
+                        </div>
+
+                        <div *ngIf="!isCustomerNew" class="form-group">
+                            <label for="previousSanctionDateTrans">Previous Sanction Letter Date Translation </label>
+                            <ng-container *ngIf="BSPrevious; else previousLetterEnglish">
+                                <input class="form-control dateTranslationCustom"
+                                       formControlName="previousSanctionDateNepaliTrans" fullWidth
+                                       id="previousSanctionDateNepaliTrans"
+                                       nbInput readonly status="success" type="text">
+                            </ng-container>
+                            <ng-template #previousLetterEnglish>
+                                <input class="form-control dateTranslationCustom"
+                                       formControlName="previousSanctionDateTrans" fullWidth id="previousSanctionDateTrans"
+                                       nbInput readonly status="success" type="text">
+                            </ng-template>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="purposeOfLoanTrans">Purpose of Loan Translation </label>
+                            <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth
+                                   id="purposeOfLoanTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigureTrans">Loan Amount Figure Translation </label>
+                            <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
+                                   class="form-control" formControlName="loanAmountFigureTrans" fullWidth
+                                   id="loanAmountFigureTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigureWordsTrans">Loan Amount In Words Translation </label>
+                            <input class="form-control" formControlName="loanAmountFigureWordsTrans" fullWidth
+                                   id="loanAmountFigureWordsTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marginInPercentageTrans">Margin In Percentage Translation </label>
+                            <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
+                                   id="marginInPercentageTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="baseRateTrans">Base Rate Translation </label>
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="premiumRateTrans">Premium Rate Translation </label>
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interestRateTrans">Interest Rate (%) Translation </label>
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceChargeTrans">Service Charge Translation </label>
+                            <input class="form-control" formControlName="serviceChargeTrans" fullWidth
+                                   id="serviceChargeTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
+                            <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
+                                   id="totalTenureOfLoanTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div *ngIf="isInterestSubsidy" class="form-group">
+                            <label for="circularRateTrans">Rate As Per NRB Circular Translation </label>
+                            <input class="form-control" formControlName="circularRateTrans" fullWidth id="circularRateTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfStaffTrans">Name of ARO/RO/RM/ARM Translation </label>
+                            <input class="form-control" formControlName="nameOfStaffTrans" fullWidth id="nameOfStaffTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfBranchManagerTrans">Name Of Branch Manager Translation </label>
+                            <input class="form-control" formControlName="nameOfBranchManagerTrans" fullWidth
+                                   id="nameOfBranchManagerTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+                    </div>
+                    <!-- END OF THE TRANSLATION FIELDS -->
+
+                    <!-- CORRECTION TRANSLATION OF MAIN FIELDS -->
+                    <div class="col-md-4">
+                        <div class="col-md-12 mb-2 text-center">
+                            <h5>CORRECTION TRANSLATION</h5>
+                        </div>
+                        <div *ngIf="BSApproval; else approvalDateCT" class="form-group">
+                            <label for="dateOfApprovalNepaliCT">Date of Approval CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.dateOfApprovalNepaliCT.errors }"
+                                   class="form-control dateTranslationCustom"
+                                   formControlName="dateOfApprovalNepaliCT" fullWidth
+                                   id="dateOfApprovalNepaliCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.dateOfApprovalNepaliCT.invalid" class="text-danger">
+                            Date of Approval is required
+                        </span>
+                        </div>
+
+                        <ng-template #approvalDateCT>
+                            <div class="form-group">
+                                <label for="dateOfApprovalCT">Date of Approval CT</label>
+                                <input [ngClass]="{ 'is-invalid':submitted && FormControls.dateOfApprovalCT.errors }"
+                                       class="form-control dateTranslationCustom"
+                                       formControlName="dateOfApprovalCT" fullWidth
+                                       id="dateOfApprovalCT" nbInput
+                                       status="success"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.dateOfApprovalCT.invalid" class="text-danger">
+                                Date of Approval is required
+                            </span>
+                            </div>
+                        </ng-template>
+
+                        <div class="form-group">
+                            <label for="dateOfApplicationCT">Date of Application CT</label>
+                            <ng-container *ngIf="BSApplication ; else appDateCT">
+                                <input [ngClass]="{ 'is-invalid':submitted && FormControls.dateOfApplicationNepaliCT.errors }"
+                                       class="form-control dateTranslationCustom"
+                                       formControlName="dateOfApplicationNepaliCT" fullWidth
+                                       id="dateOfApplicationNepaliCT" nbInput
+                                       status="success"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.dateOfApplicationNepaliCT.invalid"
+                                      class="text-danger">
+                                Date of Application is required
+                            </span>
+                            </ng-container>
+                            <ng-template #appDateCT>
+                                <input [ngClass]="{ 'is-invalid':submitted && FormControls.dateOfApplicationCT.errors }"
+                                       class="form-control dateTranslationCustom"
+                                       formControlName="dateOfApplicationCT" fullWidth
+                                       id="dateOfApplicationCT" nbInput
+                                       status="success"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.dateOfApplicationCT.invalid" class="text-danger">
+                               Date of Application is required
+                            </span>
+                            </ng-template>
+                        </div>
+
+                        <div *ngIf="!isCustomerNew" class="form-group">
+                            <label for="previousSanctionDateCT">Previous Sanction Letter Date CT</label>
+                            <ng-container *ngIf="BSPrevious; else previousDateCT">
+                                <input [ngClass]="{ 'is-invalid':submitted && FormControls.previousSanctionDateNepaliCT.errors }"
+                                       class="form-control dateTranslationCustom"
+                                       formControlName="previousSanctionDateNepaliCT"
+                                       fullWidth
+                                       id="previousSanctionDateNepaliCT" nbInput
+                                       status="success"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.previousSanctionDateNepaliCT.invalid"
+                                      class="text-danger">
+                                Previous Sanction Letter Date is required
+                            </span>
+                            </ng-container>
+                            <ng-template #previousDateCT>
+                                <input [ngClass]="{ 'is-invalid':submitted && FormControls.previousSanctionDateCT.errors }"
+                                       class="form-control dateTranslationCustom"
+                                       formControlName="previousSanctionDateCT" fullWidth
+                                       id="previousSanctionDateCT" nbInput
+                                       status="success"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.previousSanctionDateCT.invalid" class="text-danger">
+                                Previous Sanction Letter Date is required
+                            </span>
+                            </ng-template>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="purposeOfLoanCT">Purpose of Loan CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.purposeOfLoanCT.errors }"
+                                   class="form-control" formControlName="purposeOfLoanCT" fullWidth
+                                   id="purposeOfLoanCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.purposeOfLoanCT.invalid" class="text-danger">
+                            Purpose of Loan is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigureCT">Loan Amount Figure CT</label>
+                            <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
+                                   [ngClass]="{ 'is-invalid':submitted && FormControls.loanAmountFigureCT.errors }"
+                                   class="form-control" formControlName="loanAmountFigureCT"
+                                   fullWidth
+                                   id="loanAmountFigureCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.loanAmountFigureCT.invalid" class="text-danger">
+                            Loan Amount Figure is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loanAmountFigureWordsCT">Loan Amount In Words CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.loanAmountFigureWordsCT.errors }"
+                                   class="form-control" formControlName="loanAmountFigureWordsCT"
+                                   fullWidth
+                                   id="loanAmountFigureWordsCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.loanAmountFigureWordsCT.invalid" class="text-danger">
+                            Loan Amount In Words is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marginInPercentageCT">Margin In Percentage CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageCT.errors }"
+                                   class="form-control" formControlName="marginInPercentageCT"
+                                   fullWidth
+                                   id="marginInPercentageCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.marginInPercentageCT.invalid" class="text-danger">
+                            Margin In Percentage is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="baseRateCT">Base Rate CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.baseRateCT.errors }"
+                                   class="form-control" formControlName="baseRateCT" fullWidth
+                                   id="baseRateCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.baseRateCT.invalid" class="text-danger">
+                            Base Rate is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="premiumRateCT">Premium Rate CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.premiumRateCT.errors }"
+                                   class="form-control" formControlName="premiumRateCT" fullWidth
+                                   id="premiumRateCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.premiumRateCT.invalid" class="text-danger">
+                            Premium Rate is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interestRateCT">Interest Rate (%) CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.interestRateCT.errors }"
+                                   class="form-control" formControlName="interestRateCT" fullWidth
+                                   id="interestRateCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.interestRateCT.invalid" class="text-danger">
+                            Interest Rate is required
+                        </span>
+                        </div>
+
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceChargeCT">Service Charge CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeCT.errors }"
+                                   class="form-control" formControlName="serviceChargeCT" fullWidth
+                                   id="serviceChargeCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.serviceChargeCT.invalid" class="text-danger">
+                            Service Charge is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalTenureOfLoanCT">Total Tenure Of Loan (%) CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.totalTenureOfLoanCT.errors }"
+                                   class="form-control" formControlName="totalTenureOfLoanCT"
+                                   fullWidth
+                                   id="totalTenureOfLoanCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.totalTenureOfLoanCT.invalid" class="text-danger">
+                            Total Tenure Of Loan is required
+                        </span>
+                        </div>
+
+                        <div *ngIf="isInterestSubsidy" class="form-group">
+                            <label for="circularRateCT">Rate As Per NRB Circular CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.circularRateCT.errors }"
+                                   class="form-control" formControlName="circularRateCT" fullWidth
+                                   id="circularRateCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.circularRateCT.invalid" class="text-danger">
+                            Rate As Per NRB Circular is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfStaffCT">Name of ARO/RO/RM/ARM CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfStaffCT.errors }"
+                                   class="form-control" formControlName="nameOfStaffCT" fullWidth
+                                   id="nameOfStaffCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.nameOfStaffCT.invalid" class="text-danger">
+                            >Name of ARO is required
+                        </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nameOfBranchManagerCT">Name Of Branch Manager CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfBranchManagerCT.errors }"
+                                   class="form-control" formControlName="nameOfBranchManagerCT"
+                                   fullWidth
+                                   id="nameOfBranchManagerCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.nameOfBranchManagerCT.invalid" class="text-danger">
+                            Name Of Branch Manager is required
+                        </span>
+                        </div>
+                    </div>
+                    <!-- END OF CORRECTION TRANSLATION SECTION-->
+                </div>
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                            Translate Template Details
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 pr-4">
+                        <button (click)="addDefaultSecurity()" class="float-right" nbButton size="tiny" status="primary">Add
+                            Securities
+                        </button>
+                    </div>
+                </div>
+                <div *ngFor="let securityData of udhyamsilKarja.get('securities')['controls']; let i = index; "
+                     class="row p-4" formArrayName="securities">
+                    <ng-container [formGroupName]="i">
+                        <div class="col-md-12">
+                            <h5>{{i + 1}}. Security Details</h5>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <div class="form-group mt-4">
+                                <label for="securityOwnersName">Property Owner Name</label>
+                                <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersName', i, 'securityOwnersNameTrans')"
+                                       class="form-control" formControlName="securityOwnersName"
+                                       fullWidth
+                                       id="securityOwnersName"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
+                                <select (change)="getMunicipalityByDistrict(udhyamsilKarja.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
+                                        class="custom-select"
+                                        [compareWith]="compareFn"
+                                        formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
+                                        name="securityOwnersDistrict{{i}}">
+                                    <option [ngValue]="null" hidden>District</option>
+                                    <option *ngFor="let district of allDistrictList"
+                                            [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersMunicipality{{i}}">Municipality (नगर/गा.वि.स.)</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" formControlName="securityOwnersMunicipalityOrVdc"
+                                                (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securities')"
+                                                name="securityOwnersMunicipalityOrVdc">
+                                            <option hidden value="null">Municipality or VDC</option>
+                                            <option value="Municipality">Municipality</option>
+                                            <option value="VDC">VDC</option>
+                                            <option value="Rural">Rural</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-8" *ngIf="udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                    udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'">
+                                        <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                               class="form-control" formControlName="securityOwnersMunicipality"
+                                               fullWidth
+                                               id="securityOwnersMunicipality"
+                                               nbInput status="success" type="text">
+                                    </div>
+
+                                    <div *ngIf="udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value && udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
+                                         class="col-md-8">
+                                        <select (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                                class="custom-select"
+                                                formControlName="securityOwnersMunicipality"
+                                                [compareWith]="compareFn"
+                                                id="securityOwnersMunicipality{{i}}"
+                                                name="securityOwnersMunicipality{{i}}">
+                                            <option [ngValue]="null" hidden>Municipality</option>
+                                            <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                                    [ngValue]="municipalityVal">
+                                                {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="securityOwnersWardNo">Ward No</label>
+                                <input (input)="translateSecurityDetailsNumberFields('securities', 'securityOwnersWardNo', i, 'securityOwnersWardNoTrans')"
+                                       class="form-control" formControlName="securityOwnersWardNo"
+                                       fullWidth
+                                       id="securityOwnersWardNo"
+                                       nbInput status="success" type="number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersPlotNo">Plot Number</label>
+                                <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersPlotNo', i, 'securityOwnersPlotNoTrans')"
+                                       class="form-control" formControlName="securityOwnersPlotNo"
+                                       fullWidth
+                                       id="securityOwnersPlotNo"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersLandArea">Area and Units.</label>
+                                <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
+                                       class="form-control" formControlName="securityOwnersLandArea"
+                                       fullWidth
+                                       id="securityOwnersLandArea"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersSheetNo">Sheet Number</label>
+                                <input (input)="translateSecurityDetailsNumberFields('securities', 'securityOwnersSheetNo', i, 'securityOwnersSheetNoTrans')"
+                                       class="form-control" formControlName="securityOwnersSheetNo"
+                                       fullWidth
+                                       id="securityOwnersSheetNo"
+                                       nbInput status="success" type="text">
+                            </div>
+                        </div>
+                        <!-- TRANSLATION FIELD FOR SECURITY -->
+                        <div class="col-md-4 mt-3">
+                            <div class="form-group mt-4">
+                                <label for="securityOwnersNameTrans">Property Owner Name</label>
+                                <input class="form-control" formControlName="securityOwnersNameTrans" fullWidth
+                                       id="securityOwnersNameTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersDistrictTrans">District (जिल्ला)</label>
+                                <input class="form-control" formControlName="securityOwnersDistrictTrans" fullWidth
+                                       id="securityOwnersDistrictTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersMunicipalityTrans">Municipality (नगर/गा.वि.स.)</label>
+                                <input class="form-control" formControlName="securityOwnersMunicipalityTrans" fullWidth
+                                       id="securityOwnersMunicipalityTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="securityOwnersWardNoTrans">Ward No</label>
+                                <input class="form-control" formControlName="securityOwnersWardNoTrans" fullWidth
+                                       id="securityOwnersWardNoTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersPlotNoTrans">Plot Number</label>
+                                <input class="form-control" formControlName="securityOwnersPlotNoTrans" fullWidth
+                                       id="securityOwnersPlotNoTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersLandAreaTrans">Area and Units.</label>
+                                <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
+                                       id="securityOwnersLandAreaTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersSheetNoTrans">Sheet Number</label>
+                                <input class="form-control" formControlName="securityOwnersSheetNoTrans" fullWidth
+                                       id="securityOwnersSheetNoTrans"
+                                       nbInput readonly status="success" type="text">
+                            </div>
+                        </div>
+                        <!-- END OF TRANSLATION FIELD FOR SECURITY -->
+
+                        <!-- START OF CT FIELDS SECTION -->
+                        <div class="col-md-4 mt-3">
+                            <div class="form-group mt-4">
+                                <label for="securityOwnersNameCT">Property Owner Name</label>
+                                <input class="form-control" formControlName="securityOwnersNameCT" fullWidth
+                                       id="securityOwnersNameCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersDistrictCT">District (जिल्ला)</label>
+                                <input class="form-control" formControlName="securityOwnersDistrictCT" fullWidth
+                                       id="securityOwnersDistrictCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersMunicipalityCT">Municipality (नगर/गा.वि.स.)</label>
+                                <input class="form-control" formControlName="securityOwnersMunicipalityCT" fullWidth
+                                       id="securityOwnersMunicipalityCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="securityOwnersWardNoCT">Ward No</label>
+                                <input class="form-control" formControlName="securityOwnersWardNoCT" fullWidth
+                                       id="securityOwnersWardNoCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersPlotNoCT">Plot Number</label>
+                                <input class="form-control" formControlName="securityOwnersPlotNoCT" fullWidth
+                                       id="securityOwnersPlotNoCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersLandAreaCT">Area and Units.</label>
+                                <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
+                                       id="securityOwnersLandAreaCT"
+                                       nbInput status="success" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="securityOwnersSheetNoCT">Sheet Number</label>
+                                <input class="form-control" formControlName="securityOwnersSheetNoCT" fullWidth
+                                       id="securityOwnersSheetNoCT"
+                                       nbInput status="success" type="text">
+                            </div>
+                        </div>
+                        <!-- END OF CT FIELDS SECTION-->
+                        <div *ngIf="udhyamsilKarja.get('securities')['length'] > 1" class="col-md-12 text-right">
+                            <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+                    <hr *ngIf="udhyamsilKarja.get('securities')['length'] > 1">
+                </div>
+                <app-required-legal-document-section #requiredLegalDocument [initialInformation]="initialInformation"></app-required-legal-document-section>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-12 text-right pr-4">
+                <button (click)="openCloseTemplate(confirm)" [disabled]="!closeEnable" class="float-right" nbButton
+                        size="small"
+                        status="info" style="margin-right: 0.5em">
+                    Close
+                </button>
+                <button (click)="openModal()" [disabled]="!isPreview" class="float-right" nbButton size="small"
+                        status="primary">
+                    Preview
+                </button>
+                <button (click)="submit()" [disabled]="!saveEnable" nbButton size="small" status="success"
+                        type="submit">
+                    Save
+                </button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+<ng-template #confirm>
+    <div class="modal-header" style="padding-left: 90%">
+        <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body" style="text-align:center; font-size: 18px">
+        Are you sure you want to close ?
+    </div>
+    <div class="modal-footer">
+        <button (click)="dismiss(confirm)" class="btn btn-danger" type="button">No</button>
+        <button (click)="accept()" class="btn btn-primary" type="button">Yes</button>
+    </div>
+</ng-template>

@@ -1,0 +1,357 @@
+<div>
+    <form [formGroup]="personalLoanCombinedForm">
+        <div *ngFor="let formDetails of personalLoanCombinedForm.get('personalLoanCombinedFormArray')['controls']; let i = index" formArrayName="personalLoanCombinedFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row">
+                    <div class="col-md-12 pb-2">
+                        <h5> PERSONAL LOAN {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+                    </div>
+                    <div class="col-md-4 mt-4">
+                        <label><strong>PL Repayment Case</strong></label>
+                        <nb-select
+                                formControlName="repaymentCase"
+                                fullWidth
+                                placeholder="PL Repayment Case">
+                            <nb-option value="REGULAR_BASIS"> Regular Basis </nb-option>
+                            <nb-option value="ON_CASE_BASIS"> On Case Basis </nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4 mt-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="FLOATING_INTEREST"> Floating Interest Rate </nb-option>
+                            <nb-option value="FIXED_INTEREST"> Fixed Interest Rate </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="loanAmountInFigure">Loan Amount Figure</label>
+                        <input class="form-control" formControlName="loanAmountInFigure" fullWidth id="loanAmountInFigure"
+                               (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords', i, 'personalLoanCombinedFormArray')"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInFigureTrans" fullWidth id="loanAmountInFigureTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInFigureCT" fullWidth id="loanAmountInFigureCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountInWords">Loan Amount In Words</label>
+                        <input class="form-control" formControlName="loanAmountInWords" fullWidth id="loanAmountInWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInWordsTrans" fullWidth id="loanAmountInWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountInWordsCT" fullWidth id="loanAmountInWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="purposeOfLoan"> Purpose of Loan</label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth id="purposeOfLoanTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="purposeOfLoanCT" fullWidth id="purposeOfLoanCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row" *ngIf="this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                        <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
+                               nbInput
+                               (input)="calInterestRate(i)"
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                        <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number"
+                               [ngClass]="{'readOnly': this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="loanAdminFeeInFigure">Loan Admin Fee</label>
+                        <input class="form-control" formControlName="loanAdminFeeInFigure" fullWidth id="loanAdminFeeInFigure"
+                               (input)="getNumAmountWord('loanAdminFeeInFigure', 'loanAdminFeeInWords', i, 'personalLoanCombinedFormArray')"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInFigureTrans" fullWidth id="loanAdminFeeInFigureTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInFigureCT" fullWidth id="loanAdminFeeInFigureCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAdminFeeInWords">Loan Admin Fee In Words</label>
+                        <input class="form-control" formControlName="loanAdminFeeInWords" fullWidth id="loanAdminFeeInWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInWordsTrans" fullWidth id="loanAdminFeeInWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAdminFeeInWordsCT" fullWidth id="loanAdminFeeInWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="EMIAmountInFigure">EMI Amount In Figure</label>
+                        <input class="form-control" formControlName="EMIAmountInFigure" fullWidth id="EMIAmountInFigure"
+                               (input)="getNumAmountWord('EMIAmountInFigure', 'EMIAmountInWords', i, 'personalLoanCombinedFormArray')"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="EMIAmountInFigureTrans" fullWidth id="EMIAmountInFigureTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="EMIAmountInFigureCT" fullWidth id="EMIAmountInFigureCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="EMIAmountInWords">EMI AMount In Words</label>
+                        <input class="form-control" formControlName="EMIAmountInWords" fullWidth id="EMIAmountInWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="EMIAmountInWordsTrans" fullWidth id="EMIAmountInWordsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="EMIAmountInWordsCT" fullWidth id="EMIAmountInWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="numberOfInstallments">Total Number Of Installments</label>
+                        <input class="form-control" formControlName="numberOfInstallments" fullWidth id="numberOfInstallments"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="numberOfInstallmentsTrans" fullWidth id="numberOfInstallmentsTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="numberOfInstallmentsCT" fullWidth id="numberOfInstallmentsCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'repaymentCase']).value === 'ON_CASE_BASIS'">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="{{'paymentDateType' + i}}"> Payment Date</label><br>
+                        <nb-radio-group class="d-inline-flex"
+                                        formControlName="paymentDateType" id="{{'paymentDateType' + i}}"
+                                        name="{{'paymentDateType' + i}}" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="paymentDateNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === dateType[0]?.value" [nbDatepicker]="previousDate"
+                               formControlName="paymentDate"
+                               fullWidth
+                               id="paymentDate"
+                               nbInput
+                               shape="semi-round"
+                               placeholder="Select Date" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4">
+                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="paymentDateNepaliTrans" fullWidth id="paymentDateNepaliTrans"
+                                   readonly
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="paymentDateTrans" fullWidth id="paymentDateTrans"
+                                   readonly
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="paymentDateNepaliCT" fullWidth id="paymentDateNepaliCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                            <input class="form-control" formControlName="paymentDateCT" fullWidth id="paymentDateCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" for="nameOfCompany">Name Of Company Where Customer is Working</label>
+                        <input class="form-control" formControlName="nameOfCompany" fullWidth id="nameOfCompany"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfCompanyTrans" fullWidth id="nameOfCompanyTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfCompanyCT" fullWidth id="nameOfCompanyCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- For Translation -->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                            Translate Personal Loan Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <hr/>
+        </div>
+    </form>
+</div>

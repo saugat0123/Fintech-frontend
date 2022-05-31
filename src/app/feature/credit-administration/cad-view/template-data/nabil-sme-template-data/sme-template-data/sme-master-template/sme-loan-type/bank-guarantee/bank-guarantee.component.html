@@ -1,0 +1,401 @@
+<div>
+    <form [formGroup]="bankGuarantee">
+        <div *ngFor="let formDetails of bankGuarantee.get('bankGuaranteeArray')['controls']; let i = index" formArrayName="bankGuaranteeArray">
+        <ng-container [formGroupName]="i">
+        <div class="row">
+            <div class="col-md-12 pb-2">
+                <h5>BANK GUARANTEE {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
+            </div>
+            <div class="col-md-12 mt-2">
+                <nb-checkbox #complimentryOther formControlName="complementaryOther"
+                             (change)="checkComplimetryOtherLoan($event.target.checked, i)">
+                    <i> Is complimentary of other loan ? </i></nb-checkbox>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label><strong>Loan Options</strong></label>
+                <nb-select
+                        formControlName="loanOption"
+                        fullWidth
+                        placeholder="Loan Options">
+                    <nb-option *ngFor="let loan of loanOptions" [value]="loan?.key"> {{loan?.value}} </nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4 mt-3" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'complementaryOther']).value">
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select placeholder="Select Complimentary Loan"
+                           fullWidth
+                           formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4" style="margin-top: 20px">
+                <label class="ml-1 font-weight-bold">Security Type</label>
+                <nb-select [multiple]="false" fullWidth placeholder="Security Type"
+                           formControlName="securityType" shape="semi-round">
+                    <nb-option *ngFor="let type of securityType" [value]="type?.value">{{type?.value}}</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4" style="margin-top: 20px">
+                <label class="ml-1 font-weight-bold">Guarantee Type</label>
+                <nb-select [multiple]="false" fullWidth placeholder="Guarantee Type"
+                           formControlName="guaranteeType" shape="semi-round">
+                    <nb-option *ngFor="let type of guaranteeType" [value]="type?.value">{{type?.value}}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmount">Loan Amount in Figure</label>
+                <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmountAmountWords">Loan Amount Words</label>
+                <input class="form-control" formControlName="loanAmountAmountWords" fullWidth id="loanAmountAmountWords"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountAmountWordsTrans" fullWidth
+                       id="loanAmountAmountWordsTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountAmountWordsCT" fullWidth
+                       id="loanAmountAmountWordsCT"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!--IF COUNTER GUARANTEE OF OTHER BANK-->
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'securityType']).value === 'Counter Guarantee of other bank'">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                <input class="form-control" formControlName="nameOfHoldingBank" fullWidth id="nameOfHoldingBank"
+                       nbInput
+                       shape="semi-round"
+                       status="success"
+                       type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                       id="nameOfHoldingBankTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth id="nameOfHoldingBankCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!--IF GUARANTEE TYPE IS CASH MARGIN-->
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'guaranteeType']).value === 'Cash Margin'">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
+                <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
+                       id="marginInPercentageTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentageCT" fullWidth id="marginInPercentageCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- GUARANTEE TYPE IS APG/PFG/BID BOND-->
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'guaranteeType']).value === 'APG/PFG/Bid Bond'">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentageAPG">Margin in Percentage (%) for
+                    APG</label>
+                <input class="form-control" formControlName="commissionInPercentageAPG" fullWidth
+                       id="commissionInPercentageAPG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentageAPGTrans" fullWidth
+                       id="commissionInPercentageAPGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentageAPGCT" fullWidth
+                       id="commissionInPercentageAPGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="marginInPercentagePFG">Margin in Percentage (%) for
+                    PFG</label>
+                <input class="form-control" formControlName="marginInPercentagePFG" fullWidth
+                       id="marginInPercentagePFG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentagePFGTrans" fullWidth
+                       id="marginInPercentagePFGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentagePFGCT" fullWidth
+                       id="marginInPercentagePFGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <!--IF GUARANTEE TYPE IS APG/PFG/BID BOND and COMMISSION TYPE 2-->
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentageBidBond">Margin in Percentage (%) for Bid
+                    Bond</label>
+                <input class="form-control" formControlName="commissionInPercentageBidBond" fullWidth
+                       id="commissionInPercentageBidBond"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentageBidBondTrans" fullWidth
+                       id="commissionInPercentageBidBondTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentageBidBondCT" fullWidth
+                       id="commissionInPercentageBidBondCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-md-4">
+                <label><strong>Commission Type</strong></label>
+                <nb-select
+                        formControlName="commissionType"
+                        (selectedChange)="setCommissionType($event)"
+                        fullWidth
+                        placeholder="Commission Type">
+                    <nb-option value="COMMISSION_TYPE_1"> Commission Type 1</nb-option>
+                    <nb-option value="COMMISSION_TYPE_2"> Commission Type 2</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <!--IF COMMISSION TYPE 1-->
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'commissionType']).value === 'COMMISSION_TYPE_1'">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Service charge in Percentage</label>
+                    <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercent"
+                           shape="semi-round">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mt-4">
+                    <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentTrans"
+                           shape="semi-round" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mt-4">
+                    <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentCT"
+                           shape="semi-round">
+                </div>
+            </div>
+        </div>
+        <!--IF COMMISSION TYPE 2-->
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'commissionType']).value === 'COMMISSION_TYPE_2'">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentage2APG">Commission in Percentage (%) for
+                    APG</label>
+                <input class="form-control" formControlName="commissionInPercentage2APG" fullWidth
+                       id="commissionInPercentage2APG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2APGTrans" fullWidth
+                       id="commissionInPercentage2APGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2APGCT" fullWidth
+                       id="commissionInPercentage2APGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentage2PFG">Commission in Percentage (%) for
+                    PFG</label>
+                <input class="form-control" formControlName="commissionInPercentage2PFG" fullWidth
+                       id="commissionInPercentage2PFG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2PFGTrans" fullWidth
+                       id="commissionInPercentage2PFGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2PFGCT" fullWidth
+                       id="commissionInPercentage2PFGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentage2BidBond">Commission in Percentage (%) for Bid
+                    Bond</label>
+                <input class="form-control" formControlName="commissionInPercentage2BidBond" fullWidth
+                       id="commissionInPercentage2BidBond"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2BidBondTrans" fullWidth
+                       id="commissionInPercentage2BidBondTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2BidBondCT" fullWidth
+                       id="commissionInPercentage2BidBondCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!--IF COMMISSION TYPE 1 and 2-->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Minimum Service Charge in figure</label>
+                    <input nbInput fullWidth status="success" type="number" formControlName="minServiceChargeInFigure1"
+                           shape="semi-round">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mt-4">
+                    <input nbInput fullWidth status="success" type="text"
+                           formControlName="minServiceChargeInFigure1Trans" shape="semi-round" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mt-4">
+                    <input nbInput fullWidth status="success" type="text" formControlName="minServiceChargeInFigure1CT"
+                           shape="semi-round">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Date Of Expiry/ Review Date</label><br>
+                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                name="{{'dateOfExpiryType' + i}}" status="success">
+                    <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                    <nepali-patro [displayNepali]="true" [responseType]="2"
+                                  formControlName="dateOfExpiryNepali">
+                    </nepali-patro>
+                </div>
+                <input *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                       fullWidth
+                       id="dateOfExpiry"
+                       nbInput
+                       shape="semi-round"
+                       placeholder="Select Date" status="success">
+                <nb-datepicker #previousDate></nb-datepicker>
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- For Translation -->
+        <div class="row pt-5 pb-2 pr-4" style="margin-bottom: 20px">
+            <div class="col-md-12 text-right">
+                <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
+                    Translate Bank Guarantee Letter Details
+                </button>
+            </div>
+        </div>
+        </ng-container>
+        </div>
+    </form>
+</div>

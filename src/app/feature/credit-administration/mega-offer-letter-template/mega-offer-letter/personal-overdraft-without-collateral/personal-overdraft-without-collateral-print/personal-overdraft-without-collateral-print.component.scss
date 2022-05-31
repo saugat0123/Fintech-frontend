@@ -1,0 +1,144 @@
+.nepaliFont{
+  font-size: 16px;
+}
+table {
+  text-align: justify !important;
+  line-height: 1.9;
+}
+p{
+  line-height: 1.9;
+}
+.nepaliList {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 70px;
+}
+.hello{
+  width: 95%;
+  float: right;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}
+@media print {
+  .top-mar {
+    margin-top: 22em !important;
+  }
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .full-width{
+    width: 100%;
+  }
+  .pull-left {
+    text-align: left !important;
+    float: left !important;
+  }
+
+  .pull-right {
+    text-align: left !important;
+    float: right !important;
+  }
+
+  .float-left {
+    float: left !important;
+  }
+
+  .float-right {
+    float: right !important;
+  }
+
+  .lh-25 {
+    line-height: 40px !important;
+  }
+
+  .unicodeResize {
+    font-size: 16px;
+  }
+
+  .w-100 {
+    width: 100% !important;
+  }
+
+  ol.conditions-list {
+    list-style: devanagari;
+    padding-left: 20px;
+    line-height: 40px !important;
+    padding-bottom: 5px;
+    text-align: justify !important;
+  }
+  ol.conditions-list li {
+    padding-left: 1em;
+  }
+
+  .m-0 {
+    margin: 0 !important;
+  }
+
+  input.bottom-line {
+    border-bottom: 1px dotted !important;
+    margin-bottom: 20px !important;
+  }
+
+  table {
+    page-break-inside: auto;
+    color: black !important;
+  }
+  tr {
+    page-break-inside: auto;
+    page-break-after: auto;
+  }
+  p {
+    page-break-inside: auto;
+    page-break-after: auto;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  .table-sm th, .table-sm td {
+    font-size: 15px !important;
+  }
+
+  * {
+    line-height: 40px !important;
+  }
+}
+.disclist > li{
+  list-style-type: disc;
+}
+ol.conditions-list {
+  list-style: devanagari;
+  padding-left: 30px;
+  line-height: 1.9em !important;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+ol.conditions-list > li {
+  line-height: 2.2em !important;
+  padding-left: 1em;
+}
+.top-mar {
+  margin-top: 12em;
+}
+.m-0 {
+  margin: 0 !important;
+}

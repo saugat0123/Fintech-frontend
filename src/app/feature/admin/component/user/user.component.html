@@ -103,7 +103,7 @@
                             <th>Role</th>
                             <th>Branch</th>
                             <th>Status</th>
-                            <th>Signature</th>
+                            <!--<th>Signature</th>-->
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -147,10 +147,10 @@
                                     <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
                                 </td>
                             </ng-template>
-                            <td>
+                            <!--<td>
                                 <div class="zoom cursor"><img height="50px" *ngIf="allList.signatureImage !=null"
                                                               src="{{ RootUrl + '/' + allList?.signatureImage}}"/></div>
-                            </td>
+                            </td>-->
                             <td>
                                 <ng-container *ngIf="allList.role?.roleName !== 'admin'">
                                     <button nbButton status="info" size="tiny" class="m-1" (click)="history(allList)"
@@ -163,14 +163,14 @@
                                     </button>
                                     <button nbButton status="danger" size="tiny" class="m-1"
                                             (click)="dismiss(allList,dismissAll)"
-                                            title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
+                                            title="Dismiss Branch & role" *ngIf="allList.role !== null;">
                                         <i class="fa fa-ban"></i>
                                     </button>
-                                    <button nbButton status="danger" size="tiny" class="m-1" *ngIf="!allList?.primaryUserId"
+                                    <!--<button nbButton status="danger" size="tiny" class="m-1" *ngIf="!allList?.primaryUserId"
                                             (click)="addRole(allList)"
                                             title="add role">
                                         <i class="fa fa-plus-circle"></i>
-                                    </button>
+                                    </button>-->
                                 </ng-container>
                             </td>
                         </tr>

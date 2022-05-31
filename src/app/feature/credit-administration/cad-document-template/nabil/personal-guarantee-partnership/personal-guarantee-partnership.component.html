@@ -1,6 +1,6 @@
-<div class="container text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_PARTNERSHIP}}Print">
+<div class="container text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_PARTNERSHIP}}Print" [nbSpinner]="spinner">
     <form [formGroup]="form" id="print-section">
-        <div class="row" *ngFor="let guarantors of form.get('guarantorsPartnership')['controls']; let i = index"
+        <div class="row" *ngFor="let guarantors of individualGuarantorNepDataArray; let i = index"
              formArrayName="guarantorsPartnership">
             <div class="col-md-12" [formGroupName]="i">
                 <div class="form-group align">
@@ -10,63 +10,100 @@
                             <p class="lh-30">
                                 लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग तीनधारा दरवारर्मा स्थित नबिल
                                 सेन्टरमा मूख्य कार्यालय रहि
-                                <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="branchName"
                                        formControlName="branchName" placeholder="शाखा कार्यालय" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'branchName']).value || "==========================="}}</span>
+                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'branchName']).value || "_____________________"}}</span>
                                 मा
                                 शाखा कार्यालय रहेको नबिल बैंक लिमिटेड
                                 (जसलाई यस उप्रान्त <strong>“धनी बैंक”</strong> भनिएको छ ) को पक्षमा व्यक्तिगत जमानतको
                                 लिखत
                                 गरी दिने <strong> तपसिल खण्ड “ख”</strong> मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त
-                                <strong>“जमानतदिने”</strong> भनिएको छ आगे|
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="actDetails"
+                                <strong>“जमानतदिने”</strong> भनिएको छ आगे, <br>
+                                <input class="form-field form-control-sm d-print-none" name="actDetails"
                                        formControlName="actDetails" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "actDetails"]).value || "==========================="}}</span>
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "actDetails"]).value || "_____________________"}}</span>
                                 ऐन
-                                २०<input class="form-field form-control-sm d-print-none nepaliFont"
+                                <input class="form-field form-control-sm d-print-none"
                                          name="actYearInFigure"
                                          formControlName="actYearInFigure" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "actYearInFigure"]).value || "==========================="}}</span>
-                                बमोजिम नेपाल सरकार <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "actYearInFigure"]).value || "_____________________"}}</span>
+                                बमोजिम
+                                <span>
+                                <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                       formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                <strong class="print-only">{{form.get(["guarantorsPartnership", i, "authorizedBodyName"]).value}}</strong>
+                            </span>,
+                                <input class="form-field form-control-sm d-print-none"
                                                          name="headDepartment"
                                                          formControlName="headDepartment" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "headDepartment"]).value || "==========================="}}</span>
-                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "headDepartment"]).value || "_____________________"}}</span>
+                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
                                                              name="registrationDate"
                                                              formControlName="registrationDate" placeholder=""
                                                              type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "registrationDate"]).value || "==========================="}}</span>
-                                मा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "registrationDate"]).value || "_____________________"}}</span>
+                                मा नं. <input class="form-field form-control-sm d-print-none"
                                               name="registrationNo"
                                               formControlName="registrationNo" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "registrationNo"]).value || "==========================="}}</span>
-                                अन्तर्गत दर्ता भई <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                         name="location"
-                                                         formControlName="location" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "location"]).value || "==========================="}}</span>
-                                मा कार्यालय रहेको श्री <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "registrationNo"]).value || "_____________________"}}</span>
+                                अन्तर्गत दर्ता भई
+                                <span>
+                                    <input class="form-field form-control-sm d-print-none" name="registeredDistrict"
+                                           formControlName="registeredDistrict" placeholder="" type="text"/>
+                                    <span class="print-only">{{form.get(["guarantorsPartnership", i, "registeredDistrict"]).value || '_____________________'}}</span>
+                                    जिल्ला,
+                                </span>
+                                <input class="form-field form-control-sm d-print-none" name="municipalityOfFirm"
+                                       formControlName="municipalityOfFirm" placeholder="" type="text"/>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                    न.पा. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                    गा.वि.स. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                    गाँउपालिका ,
+                                </span>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "municipalityOfFirm"]).value || '_____________________'}}</span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'" class="print-only">
+                                    न.पा. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'" class="print-only">
+                                    गा.वि.स. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
+                                    गाँउपालिका ,
+                                </span>
+                                वडा नं
+                                <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
+                                       formControlName="wardNumOfFirm" placeholder="" type="text"/>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "wardNumOfFirm"]).value || '_____________________'}}</span>,
+                                <input class="form-field form-control-sm d-print-none" name="addressOfFirm"
+                                       formControlName="addressOfFirm" placeholder="" type="text"/>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "addressOfFirm"]).value || '_____________________'}}</span>
+                                मा कार्यालय रहेको श्री <input class="form-field form-control-sm d-print-none"
                                                               name="loaneeName"
                                                               formControlName="loaneeName" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loaneeName"]).value || "==========================="}}</span>
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "loaneeName"]).value || "_____________________"}}</span>
                                 (जसलाई यस उप्रान्त <strong>“ऋणी”</strong> भनिएको छ)
-                                लाई <input class="form-field form-control-sm d-print-none nepaliFont" name="loanPurpose"
+                                लाई <input class="form-field form-control-sm d-print-none" name="loanPurpose"
                                            formControlName="loanPurpose" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanPurpose"]).value || "==========================="}}</span>
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "loanPurpose"]).value || "_____________________"}}</span>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा
                                 तपाई धनी बैंकबाट निज ऋणीको नाममा जारी भएको
-                                मिति <input class="form-field form-control-sm d-print-none nepaliFont"
+                                मिति <input class="form-field form-control-sm d-print-none"
                                             name="letterIssuedDate"
                                             formControlName="letterIssuedDate" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "letterIssuedDate"]).value || "==========================="}}</span>
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "letterIssuedDate"]).value || "_____________________"}}</span>
                                 को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
-                                रु.<input class="form-field form-control-sm d-print-none nepaliFont" name="loanAmount"
+                                रु. <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                           formControlName="loanAmount" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanAmount"]).value || "==========================="}}</span>।
-                                (अक्षरेपी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                  <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "loanAmount"]).value || "_____________________"}}</span> /-
+                                (अक्षरेपी <input class="form-field form-control-sm d-print-none"
                                                  name="loanAmountInWord"
                                                  formControlName="loanAmountInWord" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanAmountInWord"]).value || "==========================="}}</span>)
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "loanAmountInWord"]).value || "_____________________"}}</span> मात्र)
                                 तथा भविष्यमा उल्लिखित ऋणसिमा समय समयमा
                                 नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट माथवर/हैसियतवाल
                                 व्यक्तिको
@@ -114,16 +151,16 @@
                                 <br>
                                 <ol class="conditions">
                                     <li>
-                                        यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.<input
-                                            class="form-field form-control-sm d-print-none nepaliFont"
+                                        यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु. <input
+                                            class="form-field form-control-sm d-print-none"
                                             name="approvedLoanAmount"
                                             formControlName="approvedLoanAmount" placeholder="" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "approvedLoanAmount"]).value || "==========================="}}</span>।
-                                        (अक्षरेपी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                         <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "approvedLoanAmount"]).value || "_____________________"}}</span> \-
+                                        (अक्षरेपी <input class="form-field form-control-sm d-print-none"
                                                          name="approvedLoanAmountInWord"
                                                          formControlName="approvedLoanAmountInWord" placeholder=""
                                                          type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "approvedLoanAmountInWord"]).value || "==========================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "approvedLoanAmountInWord"]).value || "_____________________"}}</span>
                                         मात्र) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।
                                     </li>
                                     <li>
@@ -243,14 +280,31 @@
                                         परिवर्तनको जानकारी बैंकले पत्रपत्रिकामा प्रकाशन गरेमा सोहि मार्फत र/वा बैंकको
                                         आधिकारिक वेव साईट (Website) बाट समेत जानकारी प्राप्त गर्नेछु/गर्नेछौं ।
                                     </li>
+                                    <span class="d-print-none">
+                                        <li>
+                                            <textarea rows="5" style="width:100%;margin-left:20px"
+                                                      class="form-control nepaliFont" name="freeText1"
+                                                      formControlName="freeText1">
+                                            </textarea>
+                                        </li>
+                                    </span>
+                                    <span class="print-only">
+                                        <li *ngIf="this.cadInitialInfo !== undefined &&
+                                           this.cadInitialInfo[i].freeText1 !== null  && this.cadInitialInfo[i].freeText1 !== ''"
+                                        style="margin-top: -0.7em">
+                                            <span class="nepaliFont">
+                                                {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText1 : ''}}
+                                            </span>
+                                        </li>
+                                    </span>
                                 </ol>
                             </div>
                         </div>
-                        <div class="free-text w-100">
+                        <!--<div class="free-text w-100">
                             <textarea rows="5" style="width:inherit;margin-left:20px"
-                                      class="form-control nepaliFont" name="freeText" formControlName="freeText">
+                                      class="form-control nepaliFont" name="freeText1" formControlName="freeText1">
                             </textarea>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="row mt-5">
                         <div class="col-sm-12">
@@ -266,150 +320,312 @@
                                         <p class="lh-30">
                                             नाम :
                                             <span>
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                <input class="form-field form-control-sm d-print-none"
                                                        name="guarantorName"
                                                        formControlName="guarantorName"
                                                        placeholder="ग्यारेन्टरको नाम"
                                                        type="text"/>
-                                                <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorName']).value || "==========================="}}</span><br>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorName']).value || "==========================="}}</span><br>
                                             </span>
                                         </p>
                                     <p class="lh-30">
                                         बाबु/श्रीमान :
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorFatherOrHusbandName"
                                                formControlName="guarantorFatherOrHusbandName"
                                                placeholder="बाबु वा श्रीमानको नाम" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorFatherOrHusbandName']).value || "==========================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorFatherOrHusbandName']).value || "==========================="}}</span>
                                     </span>
                                     </p>
                                     <p class="lh-30">
                                         बाजे/ससुरा:
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorGrandFatherName"
                                                formControlName="guarantorGrandFatherName"
                                                placeholder="बाजे वा ससुराको नाम" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorGrandFatherName']).value || "==========================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorGrandFatherName']).value || "==========================="}}</span>
                                     </p>
+                                        <ng-container *ngIf="(guarantors?.guarantorNationality === 'Nepali') ||
+                                            ((guarantors?.guarantorNationality === 'Indian' ||  guarantors?.guarantorNationality === 'Other') && guarantors?.guarantorForeignAddressOption.en === 'Local')">
+                                            <p class="lh-30">
+                                                स्थायी ठेगाना :
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorPermanentDistrict"
+                                                       formControlName="guarantorPermanentDistrict" placeholder="जिल्ला"
+                                                       type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentDistrict']).value || "==========================="}}</span>
+                                                </span>
+                                                    जिल्ला
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorPermanentMunicipality"
+                                                       formControlName="guarantorPermanentMunicipality"
+                                                       placeholder="गा.वि.स. वा नगर" type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentMunicipality']).value || "==========================="}}</span>
+                                                </span>
+                                                    गा.वि.स./नगर,
+                                                वडा नं.
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorPermanentWard"
+                                                       formControlName="guarantorPermanentWard" placeholder="वडा नं"
+                                                       type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentWard']).value || "==========================="}}</span>
+                                                </span>
+                                            </p>
+                                        </ng-container>
+                                        <ng-container *ngIf="(guarantors?.guarantorNationality === 'Indian' || guarantors?.guarantorNationality === 'Other') && guarantors?.guarantorForeignAddressOption.en === 'Foreign'">
+                                            <p class="lh-30">
+                                                स्थायी ठेगाना :
+                                                <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorForeignAddress"
+                                                   formControlName="guarantorForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{form.get(["guarantorsPartnership", i, "guarantorForeignAddress"]).value}}</strong>
+                                        </span>
+                                            </p>
+                                        </ng-container>
+                                        <ng-container *ngIf="(guarantors?.guarantorNationality === 'Nepali') ||
+                                        ((guarantors?.guarantorNationality === 'Indian' || guarantors?.guarantorNationality === 'Other') && guarantors?.guarantorForeignAddressOptionTemp.en === 'Local')">
+                                            <p class="lh-30">
+                                                हालको ठेगाना :
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorTemporaryDistrict"
+                                                       formControlName="guarantorTemporaryDistrict" placeholder="जिल्ला"
+                                                       type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryDistrict']).value || "==========================="}}</span>
+                                               </span>
+                                                जिल्ला
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorTemporaryMunicipality"
+                                                       formControlName="guarantorTemporaryMunicipality"
+                                                       placeholder="गा.वि.स. वा नगर" type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryMunicipality']).value || "==========================="}}</span>
+                                                </span>
+                                                    गा.वि.स./नगर,
+                                                वडा नं.
+                                                <span>
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="guarantorTemporaryWard"
+                                                       formControlName="guarantorTemporaryWard" placeholder="वडा नं"
+                                                       type="text"/>
+                                                <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryWard']).value || "==========================="}}</span>
+                                            </span>
+                                            </p>
+                                        </ng-container>
+                                        <ng-container  *ngIf="(guarantors?.guarantorNationality === 'Indian' || guarantors?.guarantorNationality === 'Other') && guarantors?.guarantorForeignAddressOptionTemp.en === 'Foreign'">
+                                            <p class="lh-30">
+                                                हालको ठेगाना :
+                                                <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorTempForeignAddress"
+                                                   formControlName="guarantorTempForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{form.get(["guarantorsPartnership", i, "guarantorTempForeignAddress"]).value}}</strong>
+                                        </span>
+                                            </p>
+                                        </ng-container>
                                     <p class="lh-30">
-                                        स्थायी ठेगाना :
+                                        <ng-container *ngIf="guarantors?.guarantorNationality === 'Nepali'">ना.प्र.नं. : </ng-container>
+                                        <ng-container *ngIf="guarantors?.guarantorNationality === 'Indian' && guarantors?.indianGuarantorDetailOption.en === 'Embassy Certificate'">दूतावास नं : </ng-container>
+                                        <ng-container *ngIf="guarantors?.guarantorNationality === 'Indian' && guarantors?.indianGuarantorDetailOption.en === 'Adhar Card'">आधार कार्ड नं : </ng-container>
+                                        <ng-container *ngIf="guarantors?.guarantorNationality === 'Indian' && guarantors?.indianGuarantorDetailOption.en === 'Passport'">राहदानी नं : </ng-container>
+                                        <ng-container *ngIf="guarantors?.guarantorNationality === 'Other'">राहदानी नं : </ng-container>
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorPermanentDistrict"
-                                               formControlName="guarantorPermanentDistrict" placeholder="जिल्ला"
-                                               type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentDistrict']).value || "==========================="}}</span>
-                                        </span>
-                                            जिल्ला
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorPermanentMunicipality"
-                                               formControlName="guarantorPermanentMunicipality"
-                                               placeholder="गा.वि.स. वा नगर" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentMunicipality']).value || "==========================="}}</span>
-                                        </span>
-                                            गा.वि.स./नगर,
-                                        वडा नं.
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorPermanentWard"
-                                               formControlName="guarantorPermanentWard" placeholder="वडा नं"
-                                               type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorPermanentWard']).value || "==========================="}}</span>
-                                        </span>
-                                    </p>
-                                    <p class="lh-30">
-                                        हालको ठेगाना :
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorTemporaryDistrict"
-                                               formControlName="guarantorTemporaryDistrict" placeholder="जिल्ला"
-                                               type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryDistrict']).value || "==========================="}}</span>
-                                       </span>
-                                        जिल्ला
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorTemporaryMunicipality"
-                                               formControlName="guarantorTemporaryMunicipality"
-                                               placeholder="गा.वि.स. वा नगर" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryMunicipality']).value || "==========================="}}</span>
-                                        </span>
-                                            गा.वि.स./नगर,
-                                        वडा नं.
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorTemporaryWard"
-                                               formControlName="guarantorTemporaryWard" placeholder="वडा नं"
-                                               type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorTemporaryWard']).value || "==========================="}}</span>
-                                    </span>
-                                    </p>
-                                    <p class="lh-30">
-                                        ना.प्र.नं.
-                                        <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorCitizenNumber"
                                                formControlName="guarantorCitizenNumber" placeholder="ना प्र नं"
                                                type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorCitizenNumber']).value || "============================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorCitizenNumber']).value || "============================="}}</span>
                                         </span>
                                             जारी गर्ने कार्यालय
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorCitzenIssuedPlace"
-                                               formControlName="guarantorCitzenIssuedPlace"
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="guarantorCitizenIssuedPlace"
+                                               formControlName="guarantorCitizenIssuedPlace"
                                                placeholder="जारी गर्ने कार्यालय" type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorCitzenIssuedPlace']).value || "==========================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorCitizenIssuedPlace']).value || "==========================="}}</span>
                                         </span>
                                             जारी मिति:
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                                               name="guarantorCitzenIssuedDate"
-                                               formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति"
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="guarantorCitizenIssuedDate"
+                                               formControlName="guarantorCitizenIssuedDate" placeholder="जारी मिति"
                                                type="text"/>
-                                        <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorCitzenIssuedDate']).value || "==========================="}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['guarantorsPartnership', i, 'guarantorCitizenIssuedDate']).value || "==========================="}}</span>
                                         </span>
+                                        <ng-container *ngIf="(guarantors?.guarantorNationality === 'Indian' && guarantors?.indianGuarantorDetailOption.en === 'Passport') || guarantors?.guarantorNationality === 'Other'">
+                                            , म्याद सकिने मिति :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
+                                                   formControlName="passportExpiryDate" placeholder="" type="text"/>
+                                            <strong class="print-only">{{form.get(["guarantorsPartnership", i, "passportExpiryDate"]).value || '_____________________'}}</strong>
+                                        </span>
+                                        </ng-container>
                                     </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br/>
+                    <p class="text-center mt-5">
+                        <b><u>साक्षी</u></b>
+                    </p>
                     <div>
-                        <p style="text-align:center">
-                            ईति सम्वत् &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="year"
-                                   formControlName="year" placeholder="साल" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'year']).value || "==========================="}}</span>
-                            साल &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="month"
-                                   formControlName="month" placeholder="महिना" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'month']).value || "==========================="}}</span>
-                            महिना &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="day"
-                                   formControlName="day" placeholder="गते" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'day']).value || "==========================="}}</span>
-                            गते रोज &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="date"
-                                   formControlName="date" placeholder="दिन" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'date']).value || "==========================="}}</span>
-                            शुभम् ।
+                        <p>१. <input class="form-field form-control-sm disable-print nepaliFont"
+                                     name="witnessDistrict"
+                                     formControlName="witnessDistrict"
+                                     placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessDistrict'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessDistrict'])?.value : '================================='}}
+                                                </span>
+                            जिल्ला <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessMunicipality"
+                                    formControlName="witnessMunicipality"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessMunicipality'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessMunicipality'])?.value : '================================='}}
+                                                </span>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm disable-print nepaliFont"
+                                   name="WitnessWardNumber"
+                                   formControlName="WitnessWardNumber"
+                                   placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'WitnessWardNumber'])?.value ? form?.get(["guarantorsPartnership", i, 'WitnessWardNumber'])?.value : '================================='}}
+                                                </span>
+                            बस्ने बर्ष <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessAge"
+                                    formControlName="witnessAge"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessAge'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessAge'])?.value : '================================='}}
+                                                </span>
+                            को/की <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessName"
+                                    formControlName="witnessName"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessName'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessName'])?.value : '================================='}}
+                                                </span>
+                        </p>
+                        <p>२. <input class="form-field form-control-sm disable-print nepaliFont"
+                                     name="witnessDistrict"
+                                     formControlName="witnessDistrict2"
+                                     placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessDistrict2'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessDistrict2'])?.value : '================================='}}
+                                                </span>
+                            जिल्ला <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessMunicipality"
+                                    formControlName="witnessMunicipality2"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessMunicipality2'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessMunicipality2'])?.value : '================================='}}
+                                                </span>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm disable-print nepaliFont"
+                                   name="WitnessWardNumber"
+                                   formControlName="WitnessWardNumber2"
+                                   placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'WitnessWardNumber2'])?.value ? form?.get(["guarantorsPartnership", i, 'WitnessWardNumber2'])?.value : '================================='}}
+                                                </span>
+                            बस्ने बर्ष <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessAge"
+                                    formControlName="witnessAge2"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessAge2'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessAge2'])?.value : '================================='}}
+                                                </span>
+                            को/की <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessName"
+                                    formControlName="witnessName2"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'witnessName2'])?.value ? form?.get(["guarantorsPartnership", i, 'witnessName2'])?.value : '================================='}}
+                                                </span>
+                        </p>
+                        <p>
+                            ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                            लिमिटेडका कर्मचारी <input
+                                class="form-field form-control-sm disable-print nepaliFont"
+                                name="Name of Bank Staff"
+                                formControlName="bankStaff"
+                                placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">
+                                                    {{form?.get(["guarantorsPartnership", i, 'bankStaff'])?.value ? form?.get(["guarantorsPartnership", i, 'bankStaff'])?.value : '================================='}}
+                                                </span>
                         </p>
                     </div>
+                    <br/>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-center">
+                            <p class="m-0">
+                                ईति सम्वत्
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="year"
+                                       formControlName="year" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.year ? this.cadInitialInfo[i]?.year : '===================================='}}
+                                </span>
+                                साल
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="month"
+                                       formControlName="month" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.month ? this.cadInitialInfo[i]?.month : '===================================='}}
+                                </span>
+                                महिना
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="date"
+                                       formControlName="date" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.date ? this.cadInitialInfo[i]?.date : '===================================='}}
+                                </span>
+                                गते रोज
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="day"
+                                       formControlName="day" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.day ? this.cadInitialInfo[i]?.day : '===================================='}}
+                                </span>
+                                शुभम् ।
+                            </p>
+                        </div>
+                    </div>
+                    <div *ngIf="i < form.get('guarantorsPartnership')['length'] - 1" class="pageBreak"></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-12 text-right disable-print">
-            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.PERSONAL_GUARANTEE_PARTNERSHIP}}Print">Print
-            </button>
-            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+        <div class="row mt-5 ml-0">
+            <div class="col-md-12 text-right">
+                <button
+                    [useExistingCss]="true"
+                    styleSheetFile="assets/css/printStyles.scss"
+                    printSectionId="personalGuaranteePartnershipPrint"
+                    class="d-print-none float-right"
+                    printSectionId="print-section"
+                    nbButton
+                    size="small"
+                    status="info"
+                    outline
+                    ngxPrint
+                >
+                    Print &nbsp;&nbsp;
+                    <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton size="small"
+                        class="d-print-none sav"
+                        status="success"
+                        (click)="submit()"
+                        style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                    <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            </div>
         </div>
     </form>
 </div>

@@ -10,7 +10,9 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {HomeLandAndBuildingComponent} from '../home-loan-type/home-land-and-building/home-land-and-building.component';
 import {HomeLoanComponent} from '../../../cad-document-template/mega/home-loan/home-loan.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-home-loan-template-data',
@@ -27,10 +29,11 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     isTakeOverLoan = false;
     submitted = false;
     spinner = false;
-    btnDisable = false;
+    btnDisable = true;
     loanLimit: false;
     existingOfferLetter = false;
     previewBtn = true;
+    closed = false;
 
     @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanComponent;
     @ViewChild('landAndBuilding', {static: false}) landAndBuilding: HomeLandAndBuildingComponent;
@@ -39,6 +42,8 @@ export class HomeLoanTemplateDataComponent implements OnInit {
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
                 private dialogService: NbDialogService,
+                protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+                private modalService: NgbModal,
     ) {
     }
 
@@ -72,11 +77,6 @@ export class HomeLoanTemplateDataComponent implements OnInit {
         this.isPurchaseLoan = value === HomeLoanType.PURCHASE.valueOf();
         this.isTakeOverLoan = value === HomeLoanType.TAKE_OVER.valueOf();
     }
-
-    public emitValue(event) {
-        this.btnDisable = event;
-    }
-
     openModel() {
         this.dialogService.open(HomeLoanComponent, {
             closeOnBackdropClick: false,
@@ -106,18 +106,25 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.spinner = false;
             return;
         }
-        homeLoan.get('loanLimitChecked').patchValue(this.loanLimit);
+        const securityDetails = [{
+            securities: homeLoan.get('securities').value,
+        }];
+        homeLoan.value['securityDetails'] = securityDetails;
         this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
         const offerDocument = new OfferDocument();
         offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
         offerDocument.initialInformation = JSON.stringify({loan: homeLoan.value, loanType: this.homeLoanForm.get('homeLoanType').value});
         this.customerApprovedDoc.offerDocumentList.push(offerDocument);
 
+        console.log('Customer Document', this.customerApprovedDoc.offerDocumentList);
+
         this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.customerApprovedDoc = res.detail;
             this.spinner = false;
             this.previewBtn = false;
+            this.btnDisable = false;
+            this.closed = true;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -125,6 +132,23 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.btnDisable = true;
             this.previewBtn = false;
         });
+    }
+
+    openCloseTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    dismiss(template){
+        this.modalService.dismissAll();
+    }
+
+    decline(template){
+        this.modalService.dismissAll();
+    }
+
+    accept(){
+        this.modalService.dismissAll();
+        this.dialogRefcad.close();
     }
 
 }

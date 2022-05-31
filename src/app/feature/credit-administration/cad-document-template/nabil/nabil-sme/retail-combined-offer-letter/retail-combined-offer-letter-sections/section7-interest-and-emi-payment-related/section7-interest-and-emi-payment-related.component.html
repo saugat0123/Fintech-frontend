@@ -1,0 +1,52 @@
+<div class="container text-justify col-md-12 viewFull">
+    <div class="row">
+        <form [formGroup]="form">
+            <div>
+                <b>साँवा, ब्याज वा किस्ता भुक्तानी सम्बन्धी शर्तहरुः</b>
+                <br>
+                <div>
+                    <ul>
+                        <li *ngIf="isLoanSelected || isRegularBasis">
+                            <!--For Mortgage loan/Housing Loan/Vehicle Loan/Education loan/Personal Loan on regular basis-->
+                            तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
+                            कट्टा गरिनेछ ।
+                        </li>
+                        <li *ngIf="isCaseBasis">
+                            <!--For Personal Loan on case basis only)-->
+                            तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक
+                            <input class="form-field form-control-sm d-print-none"
+                                   name="freeDate"
+                                   formControlName="freeDate"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only font-weight-bold">{{tempInformation?.section7 ? tempInformation?.section7 : '______________________'}}</span>
+                            मा तपाईंको खाताबाट कट्टा गरिनेछ ।
+                        </li>
+                        <li *ngIf="isPODSelected">
+                            <!--For POD loan/Nabil Sahayatri/Perrsonal overdraft without collateral and their Renewal and enhancement also)-->
+                            {{loanNepaliName}} वापतको ब्याज भुक्तानी
+                            नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
+                        </li>
+                        <li *ngIf="isEducationSelected">
+                            <!--For Share loan, Education Loan Class A for both Australia and other Countries only-->
+                            तपाईंको {{loanNepaliName}} वापतको व्याज भुक्तानी नेपाली पात्रोको बमोजिम प्रत्येक असार,
+                            आश्विन, पौष र चैत्र मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
+                        </li>
+                        <li>
+                            <!--To be included on all types of loans-->
+                            भुक्तानी मितिको दिन तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र सोही खातामा
+                            खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ ।
+                        </li>
+                        <li>
+                            <!--To be included on all types of loans-->
+                            साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा
+                            सो मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ ।
+                            सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाँकी साँवामा समायोजन गरिनेछ ।
+                            अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ ।
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

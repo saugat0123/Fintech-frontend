@@ -1,7 +1,8 @@
 <nb-card [nbSpinner]="spinner" >
     <nb-card-header>
+        <h3>Edit Education Loan Data </h3>
         <div class="row d-flex justify-content-end px-2 cursor text-dark font-weight-bold">
-            <a (click)="close()">x</a>
+            <a (click)="close()" style="margin-top:-2em">x</a>
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -73,10 +74,10 @@
                     <td>Date Of Approval</td>
                     <td>
                         <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                            <nb-radio-group name="dataOfApproval">
-                                <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span>
+                            <nb-radio-group name="dataOfApproval" formControlName="dateOfApprovalType">
+                                <nb-radio (click)="setDateTypeBS()" value="BS"><span style="margin-left:-60px">BS</span>
                                 </nb-radio>
-                                <nb-radio (click)="setDateTypeAD()" style="margin-left: 60px;margin-top: -35px;" [checked]="dateTypeAD">
+                                <nb-radio (click)="setDateTypeAD()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                                     AD
                                 </nb-radio>
                             </nb-radio-group>
@@ -87,7 +88,7 @@
                     <td>
                     </td>
                     <td>
-                        <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApproval" [responseType]="2"
+                        <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApprovalNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input [nbDatepicker]="doa"
@@ -122,10 +123,10 @@
                     <td>Date Of Application</td>
                     <td>
                         <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                            <nb-radio-group name="dataOfApplication">
-                                <nb-radio (click)="setDateTypeBS1()"><span style="margin-left:-60px">BS</span>
+                            <nb-radio-group name="dataOfApplication" formControlName="dateOfApplicationType">
+                                <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span>
                                 </nb-radio>
-                                <nb-radio (click)="setDateTypeAD1()" style="margin-left: 60px;margin-top: -35px;" [checked]="dateTypeAD1">
+                                <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                                     AD
                                 </nb-radio>
                             </nb-radio-group>
@@ -136,7 +137,7 @@
                     <td>
                     </td>
                     <td>
-                        <nepali-patro *ngIf="dateTypeBS1" formControlName="dateOfApplication" [responseType]="2"
+                        <nepali-patro *ngIf="dateTypeBS1" formControlName="dateOfApplicationNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input [nbDatepicker]="doap"
@@ -493,6 +494,39 @@
                         </div>
                     </td>
                 </tr>
+
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'" style="padding: 12px">
+                    <td>Fixed Deposit Expiry Date</td>
+                    <td>
+                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                            <nb-radio-group name="dateofExpiry" formControlName="dateOfExpiryType">
+                                <nb-radio (click)="setDateTypeBS2()" value="BS"><span style="margin-left:-60px">BS</span>
+                                </nb-radio>
+                                <nb-radio (click)="setDateTypeAD2()" value="AD" style="margin-left: 60px;margin-top: -35px;">
+                                    AD
+                                </nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>
+                    </td>
+                    <td>
+                        <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiryNepali" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input [nbDatepicker]="doe"
+                               *ngIf="dateTypeAD2"
+                               class="form-control form-control-sm-error rounded"
+                               formControlName="dateofExpiry"
+                               id="dateofExpiry"
+                               name="dateofExpiry"
+                               placeholder="Fixed Deposit Expiry Date"
+                               type="text">
+                        <nb-datepicker #doe></nb-datepicker>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="securities-sections" *ngIf="form.get('selectedSecurity').value && form.get('selectedSecurity').value !== 'FIXED_DEPOSIT'">
@@ -557,10 +591,17 @@
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                             <td colspan="2"></td>
                             <td>
-                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"
-                                                class="d-inline-flex">
-                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                                </nb-radio-group>
+<!--                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"-->
+<!--                                                class="d-inline-flex">-->
+<!--                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>-->
+<!--                                </nb-radio-group>-->
+                                <select class="form-control" name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc">
+                                    <option value="null" hidden>Municipality or VDC</option>
+                                    <option value="Municipality">Municipality</option>
+                                    <option value="VDC">VDC</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
+
                             </td>
                         </tr>
 
@@ -613,7 +654,7 @@
 
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                             <td colspan="2">Kitta No (कित्ता नं.)</td>
-                            <td><input type="number" class="form-control" formControlName="securityOwnersKittaNo"
+                            <td><input type="text" class="form-control" formControlName="securityOwnersKittaNo"
                                        (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
                             <td>
                                 <input type="text" readonly class="form-control" formControlName="securityOwnersKittaNoTransVal"/>

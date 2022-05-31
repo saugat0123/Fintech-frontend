@@ -41,7 +41,7 @@
                             {{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadSummary(model)">
                         {{model?.loanHolder?.branch?.province?.name}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.name}} ({{model?.loanHolder?.customerSubType}})</td>
                     <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}-<span *ngIf="model?.cadCurrentStage?.toUser?.name">{{model?.cadCurrentStage?.toRole?.roleName}}</span></td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date :'medium'}}</td>

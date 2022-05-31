@@ -1,0 +1,24 @@
+* {
+  text-align: justify;
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+}
+.fontCss {
+  font-size: 27px !important;
+}
+.outside {
+ font-weight: bold !important;
+}
+.table-bordered-all {
+  border: 1px solid black !important;
+  margin-top: -17px;
+}
+.inside {
+  font-weight: normal !important;
+}
+@media print {
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
+}

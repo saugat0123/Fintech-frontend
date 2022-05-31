@@ -1,0 +1,452 @@
+<div class="container col-lg-12 text-justify">
+    <form [formGroup]="negativeLienForm" [nbSpinner]="spinner" id="print-section">
+        <div class="row">
+            <div class="col-md-12 viewFull">
+                <p class="font-weight-bold" style="margin-left: 200px">
+                    विषयः धितो सुरक्षण
+                </p>
+                लिखितम धनीका नाम काठमाडौं जिल्ला काठमाडौं महानगरपालिका वीणा मार्ग तिनधारा दरवारमार्ग स्थित नविल सेन्टरमा मुख्य कार्यालय रहेको नविल बैंक लिमिटेड (जसलाई यसउप्रान्त <strong>धनी बैंक</strong> भनिएको छ) लिखत गरी दिने ऋणीको नाम
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="nameOfGrandfather"
+                       name="nameOfGrandfather"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('nameOfGrandfather').value ? negativeLienForm.get('nameOfGrandfather').value : '________________'}}</span>
+                को
+                <span *ngIf="individualData.gender.en === 'MALE' else individualGrandFather">
+                    नाती
+                </span>
+                <ng-template #individualGrandFather>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                        नातिनी
+                    </span>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                        बुहारी
+                    </span>
+                </ng-template>
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="fatherOrHusbandName"
+                       name="fatherOrHusbandName"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('fatherOrHusbandName').value ? negativeLienForm.get('fatherOrHusbandName').value : '________________'}}</span>
+                को
+                <span *ngIf="individualData.gender.en === 'MALE' else fatherRelation"> छोरा </span>
+                <ng-template #fatherRelation>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                        छोरी
+                    </span>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                        श्रीमती
+                    </span>
+                </ng-template>
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="sonOrDaughterName"
+                       name="sonOrDaughterName"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('sonOrDaughterName').value ? negativeLienForm.get('sonOrDaughterName').value : '________________'}}</span>
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="districtName"
+                       name="districtName"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('districtName').value ? negativeLienForm.get('districtName').value : '________________'}}</span>
+                जिल्ला
+                <span *ngIf="individualData.municipalityOrVdc.en === vdcOption[0].value"> न.पा. </span>
+                <span *ngIf="individualData.municipalityOrVdc.en === vdcOption[1].value"> गा.वि.स. </span>
+                <span *ngIf="individualData.municipalityOrVdc.en === vdcOption[2].value"> गाँउपालिका </span>
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="municipalityVdcName"
+                       name="municipalityVdcName"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('municipalityVdcName').value ? negativeLienForm.get('municipalityVdcName').value : '________________'}}</span>
+                वडा नं.
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="wardNumber"
+                       name="wardNumber"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('wardNumber').value ? negativeLienForm.get('wardNumber').value : '________________'}}</span>
+                बस्ने वर्ष
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="age"
+                       name="age"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('age').value ? negativeLienForm.get('age').value : '________________'}}</span>
+                को/की
+                <span *ngIf="individualData.gender.en === 'MALE' else nameCondition">
+                    श्री
+                </span>
+                <ng-template #nameCondition>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                        सुश्री
+                    </span>
+                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                        श्रीमती
+                    </span>
+                </ng-template>
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="nameOfBorrower"
+                       name="nameOfBorrower"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('nameOfBorrower').value ? negativeLienForm.get('nameOfBorrower').value : '________________'}}</span>
+                (ना.प्र.नं.
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="citizenshipNumber"
+                       name="citizenshipNumber"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('citizenshipNumber').value ? negativeLienForm.get('citizenshipNumber').value : '________________'}}</span>
+                मिति
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="dateOfIssue"
+                       name="dateOfIssue"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('dateOfIssue').value ? negativeLienForm.get('dateOfIssue').value : '________________'}}</span>
+                /जिल्ला प्रशासन कार्यालय
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="identityIssuedDistrict"
+                       name="identityIssuedDistrict"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('identityIssuedDistrict').value ? negativeLienForm.get('identityIssuedDistrict').value : '________________'}}</span>)
+                <span *ngFor="let data of negativeLienForm.get('jointDetailsArr')['controls']; let i = index" formArrayName="jointDetailsArr">
+                    <ng-container [formGroupName]="i" *ngIf="clientType === 'JOINT'" >
+                        (१,
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="nameofGrandFatherJoint"
+                       name="nameofGrandFatherJoint"
+                       type="text"/>
+                <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i, 'nameofGrandFatherJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'nameofGrandFatherJoint']).value : "__________________"}}</span>
+                                       <span *ngIf="selectiveArr[i].gender.en === 'MALE' else individualGrandFatherJoint">
+                                            नाती
+                                        </span>
+                                        <ng-template #individualGrandFatherJoint>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '1'">
+                                                नातिनी
+                                            </span>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '0'">
+                                                बुहारी
+                                            </span>
+                                        </ng-template>
+                                         <input class="disable-print form-field form-control-sm"
+                                                formControlName="nameofFatherJoint"
+                                                name="nameofFatherJoint"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'nameofFatherJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'nameofFatherJoint']).value : "_____________________"}}</span>
+                                        को
+                                        <span *ngIf="selectiveArr[i].gender.en === 'MALE' else fatherRelationJoint"> छोरा </span>
+                                        <ng-template #fatherRelationJoint>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '1'">
+                                              छोरी
+                                            </span>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '0'">
+                                              श्रीमती
+                                            </span>
+                                        </ng-template>
+                                         <input class="disable-print form-field form-control-sm"
+                                                formControlName="districtJoint"
+                                                name="districtJoint"
+                                                type="text"/> जिल्ला
+                                        न.पा. /गा.वि.स.
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="vdcJoint"
+                                               formControlName="vdcJoint"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'vdcJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'vdcJoint']).value : "_____________________"}}</span>
+                                        वडा नं.
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="wardNoJoint"
+                                               formControlName="wardNoJoint"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'wardNoJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'wardNoJoint']).value : "___________________"}}</span>
+                                        बस्ने बर्ष
+                                        <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="ageJoint"
+                                                formControlName="ageJoint"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'ageJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'ageJoint']).value : "_____________________"}}</span>
+                                            को/की
+                                          <span *ngIf="selectiveArr[i].gender.en === 'MALE' else personDetails">
+                                            श्री
+                                        </span>
+                                        <ng-template #personDetails>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '1'">
+                                                सुश्री
+                                            </span>
+                                            <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '0'">
+                                                श्रीमती
+                                            </span>
+                                        </ng-template>
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofPersonJoint"
+                                               formControlName="nameofPersonJoint"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'nameofPersonJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'nameofPersonJoint']).value : "__________________"}}</span>
+                                        (ना.प्र.नं.
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="citizenshipNoJoint"
+                                               formControlName="citizenshipNoJoint"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'citizenshipNoJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'citizenshipNoJoint']).value : "_________________"}}</span>
+                                        । मिति
+                                        <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="dateofIssueJoint"
+                                                formControlName="dateofIssueJoint"
+                                                placeholder="जारी मिति"
+                                                type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'dateofIssueJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'dateofIssueJoint']).value : "___________________________"}}</span>
+                                          /जिल्ला प्रशासन कार्यालय
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="nameofIssuedDistrictJoint"
+                                               formControlName="nameofIssuedDistrictJoint"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{negativeLienForm.get(['jointDetailsArr', i,'nameofIssuedDistrictJoint']).value ? negativeLienForm.get(['jointDetailsArr', i,'nameofIssuedDistrictJoint']).value : "____________________"}}</span>)
+                                           </ng-container>
+                                </span>(१,
+                समेत जम्मा
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="totalDebtor"
+                       name="totalDebtor"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('totalDebtor').value ? negativeLienForm.get('totalDebtor').value : '________________'}}</span>
+                जना (जसलाई यसउप्रान्त ऋणी (हरु भनिएको छ) लाई ऋणकर्जा सुबिधाहरु आवश्यक भई सोको लागि तपाई धनि बैंकसंग अनुरोध गरेकोमा तपाई धनि बैंकले ऋणीको नाममा जारी गरेको
+                मिति
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="sanctionLetterDate"
+                       name="sanctionLetterDate"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('sanctionLetterDate').value ? negativeLienForm.get('sanctionLetterDate').value : '________________'}}</span>
+                <strong> गतेको ऋणस्वीकृती पत्रानुसार स्वीकृत कुल ऋणकर्जा तथा बैंकिङ सुबिधारु
+                </strong> रु
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="loanAmountInFigure"
+                       name="loanAmountInFigure"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('loanAmountInFigure').value ? negativeLienForm.get('loanAmountInFigure').value : '________________'}}</span>
+                (अक्षरेपि रु
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="loanAmountInWord"
+                       name="loanAmountInWord"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('loanAmountInWord').value ? negativeLienForm.get('loanAmountInWord').value : '________________'}}</span> मात्र) तथा भविष्यमा थप ऋणकर्जा
+                सुबिधा प्राप्त गरेमा सो समेतको धितो सुरक्षण बापत मेरो/हाम्रोे नाममा मालपोत कार्यालय
+                <input class="disable-print form-field form-control-sm"
+                       formControlName="ministryOfLandManagement"
+                       name="ministryOfLandManagement"
+                       type="text"/>
+                <span class="print-only">{{negativeLienForm.get('ministryOfLandManagement').value ? negativeLienForm.get('ministryOfLandManagement').value : '____________________________'}}</span>
+                मा दर्ता कायम यसअघि अन्यत्र अरु कसैलाई कुनै पनि व्यहोराले हक हस्तान्तरण गरी वा भोग वा
+                दृष्टिबन्धक समेत केही गरी नदिएको मेरो/हाम्रोे एकलौटि हकभोगको अरु कसैलाई भाग वण्डा नलाग्ने तपसिलमा उल्लिखित जग्गा र सोमा हाल निर्माण भएको तथा भविष्यमा निर्माण हुने घर, भवन, टहरा, कल कारखाना, पर्खाल,
+                मेशिनरी औजार लगायतका लिग लगापात समेत सम्पूर्ण तपाई धनी बैंकको नाउंमा धितो सुरक्षण लेखि दिने प्रतिबद्धता यसै लिखतबाट व्यक्त गर्दछौं । उल्लिखित सम्पत्ति अन्य कसैलाई विक्री वितरण, दान दातव्य वा अन्य कुनै पनि
+                प्रकारले हकहस्तान्तरण र/वा धितोवन्धक समेत नदिने प्रतिज्ञा समेत गर्दछौं ।  उल्लिखित सम्पत्तिमा तिर्नु पर्ने सरकारी तिरो तथा अन्य दैदस्तुर समय समयमा हामी आफैले तिरी बुझाई तपाई धनी बैंकले खोजेको बखत सोको
+                सक्कलै रसिद भर्पाई पेश गर्नेछौं । म/हामी ऋणी तथा तपाई धनी बैंकका बिच हुने ऋणकर्जा सम्बन्धी सम्झौता पत्रमा तोकिएका शर्त तथा यसै लिखतमा उल्लेख गरे बमोजिम समय समयमा नतिरे नबुझाएमा वा तिर्न बुझाउन
+                आलटाल गरी बाँकी राखेमा वा किस्ता खिलाफि गरेमा वा म्यादभित्र चुक्ता भुक्तान नगरेमा वा ऋणकर्जा सम्बन्धी शर्त बन्देजहरु उल्लंघन गरेमा वा ऋणकर्जा नविकरण भएमा नविकरण हुँदाको अवस्थामा तपाई धनी बैंकले म/हामी
+                ऋणीको नाउँमा जारी गर्ने ऋण स्विकृति पत्रमा उल्लिखित शर्तबन्देजको अधिनमा रही तपाई धनी बैंकमा आफै उपस्थित भई सोधखोज गरी तपाई धनी बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण साँवा, ब्याज रकम चुक्ता भुक्तान नगरेमा
+                उल्लिखित श्रीसम्पत्तिहरु <strong>बैंक तथा बित्तिय संस्था सम्बन्धी ऐन, २०७३</strong> तथा तपाई धनी बैंकको नियमानुसार कब्जा गरी लिलाम बिक्री गरी र/वा अन्य जे जो गर्नु पर्ने गरी प्राप्त हुने रकमबाट तपाई धनी बैंकको लेना रकम असुल
+                उपर गरी लिनुहोला । कथंकदाचित उल्लिखित श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्री हुन नसकेमा वा लिलाम बिक्री गर्दा समेत तपाई धनी बैंकको लेना रकम असुल उपर नभै बांकी रहन आएमा यसरी बांकी रहन आउने
+                सम्पूर्ण रकम कलम हाम्रो अन्य चल अचल श्रीसम्पत्ति समेतबाट असुल उपर गरी लिनु होला । सो बमोजिम गरी लिएमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैन, गरे यसै लिखतले बदर गराई लिनु भनि <strong>धनी बैंकको कार्यालयमा</strong>
+                बसि यो लिखतमा हस्ताक्षर गरी तपाई धनी बैंकलाई दियौं र यस्को दोहरी समेत बुझिलियौं ।
+
+                <p class="font-weight-bold text-center" style="margin-top: 20px">
+                    सम्पत्तिको विवरण
+                </p>
+                <div class="pb-4" *ngIf="securityTypeCondition">
+                    <table class="table table-bordered table-sm sb-small text-center">
+                        <tbody>
+                        <tr>
+                            <th rowspan="2">
+                                घर/जग्गा
+                                धनीको नाम थर
+                            </th>
+                            <th colspan="3">
+                                घर/जग्गाको अवस्थिति
+                            </th>
+                            <th rowspan="2">
+                                सिट नं.
+                            </th>
+                            <th rowspan="2">
+                                कित्ता नं.
+                            </th>
+                            <th rowspan="2">
+                                क्षेत्रफल
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                जिल्ला
+                            </th>
+                            <th>
+                                नगर/गा.वि.स.
+                            </th>
+                            <th>
+                                वडा नं.
+                            </th>
+                        </tr>
+                        </tbody>
+                        <!--Content of this table can be multiple-->
+                        <tbody *ngFor="let primaryCol of primaryCollateral">
+                        <tr>
+                            <td [attr.rowspan]="primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersNameCT}}</td>
+                            <td [attr.rowspan]="primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersDistrictCT}}</td>
+                            <td [attr.rowspan]="primaryCol?.propertyDetails.length + 1">{{primaryCol?.securityOwnersMunicipalityCT}}</td>
+                        </tr>
+                        <tr *ngFor="let detail of primaryCol?.propertyDetails">
+                            <td>{{detail?.securityOwnersWardNoCT}}</td>
+                            <td>{{detail?.securityOwnersSheetNoCT}}</td>
+                            <td>{{detail?.securityOwnersKittaNoCT}}</td>
+                            <td>{{detail?.securityOwnersLandAreaCT}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
+                    <table class="table table-bordered table-sm sb-small text-center">
+                        <tbody>
+                        <tr>
+                            <th rowspan="2">
+                                घर/जग्गा
+                                धनीको नाम थर
+                            </th>
+                            <th colspan="3">
+                                घर/जग्गाको अवस्थिति
+                            </th>
+                            <th rowspan="2">
+                                सिट नं.
+                            </th>
+                            <th rowspan="2">
+                                कित्ता नं.
+                            </th>
+                            <th rowspan="2">
+                                क्षेत्रफल
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                जिल्ला
+                            </th>
+                            <th>
+                                नगर/गा.वि.स.
+                            </th>
+                            <th>
+                                वडा नं.
+                            </th>
+                        </tr>
+                        </tbody>
+                        <!--Content of this table can be multiple-->
+                        <tbody *ngFor="let secondaryCol of secondaryCollateral">
+                        <tr>
+                            <td [attr.rowspan]="secondaryCol?.propertyDetails.length + 1">{{secondaryCol?.securityOwnersNameCT}}</td>
+                            <td [attr.rowspan]="secondaryCol?.propertyDetails.length + 1">{{secondaryCol?.securityOwnersDistrictCT}}</td>
+                            <td [attr.rowspan]="secondaryCol?.propertyDetails.length + 1">{{secondaryCol?.securityOwnersMunicipalityCT}}</td>
+                        </tr>
+                        <tr *ngFor="let detail of secondaryCol?.propertyDetails">
+                            <td>{{detail?.securityOwnersWardNoCT}}</td>
+                            <td>{{detail?.securityOwnersSheetNoCT}}</td>
+                            <td>{{detail?.securityOwnersKittaNoCT}}</td>
+                            <td>{{detail?.securityOwnersLandAreaCT}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table table-borderless" style="width: 40%; margin-left: 150px">
+                        <tbody>
+                        <tr style="height: 130px; margin-left: 50px">
+                            <th width="50%" style="vertical-align: top">दायाँ</th>
+                            <th width="50%" style="vertical-align: top">बायाँ</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <p style="margin-left: 200px">
+                        ..................................<br>
+                        <span style="margin-left: 50px;"> सही </span>
+                    </p>
+                    <div class="col-md-12" style="margin-left: 30px; margin-top: 10px">
+                        <p class="text-left"> साक्षीहरु</p>
+                        <p>
+                            १.
+                            <input class="form-field form-control-sm disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessDistrict1').value ? negativeLienForm.get('witnessDistrict1').value  : '____________________________'}}</b></span>
+                            जिल्ला
+                            <input class="form-field form-control-sm disable-print" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessMunicipalityOrVdc1').value ? negativeLienForm.get('witnessMunicipalityOrVdc1').value  : '____________________________'}}</b></span>
+                            न.पा./गाउपालिका वडा नं.
+                            <input class="form-field form-control-sm disable-print" name="witnessWardNo1" formControlName="witnessWardNo1" placeholder="" type="text" size="5">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessWardNo1').value ? negativeLienForm.get('witnessWardNo1').value  : '____________________________'}}</b></span>
+                            बस्ने वर्ष
+                            <input class="form-field form-control-sm disable-print" name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" size="5">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessAge1').value ? negativeLienForm.get('witnessAge1').value  : '____________________________'}}</b></span>
+                            को
+                            <input class="form-field form-control-sm disable-print" name="witnessName1" formControlName="witnessName1" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessName1').value ? negativeLienForm.get('witnessName1').value  : '____________________________'}}</b></span>
+                        </p>
+                        <p>
+                            २.
+                            <input class="form-field form-control-sm disable-print" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessDistrict2').value ? negativeLienForm.get('witnessDistrict2').value  : '____________________________'}}</b></span>
+                            जिल्ला
+                            <input class="form-field form-control-sm disable-print" name="witnessMunicipalityOrVdc2" formControlName="witnessMunicipalityOrVdc2" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessMunicipalityOrVdc2').value ? negativeLienForm.get('witnessMunicipalityOrVdc2').value  : '____________________________'}}</b></span>
+                            न.पा./गाउपालिका वडा नं.
+                            <input class="form-field form-control-sm disable-print" name="witnessWardNo2" formControlName="witnessWardNo2" placeholder="" type="text" size="5">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessWardNo2').value ? negativeLienForm.get('witnessWardNo2').value  : '____________________________'}}</b></span>
+                            बस्ने वर्ष
+                            <input class="form-field form-control-sm disable-print" name="witnessAge2" formControlName="witnessAge2" placeholder="" type="text" size="5">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessAge2').value ? negativeLienForm.get('witnessAge2').value  : '____________________________'}}</b></span>
+                            को
+                            <input class="form-field form-control-sm disable-print" name="witnessName2" formControlName="witnessName2" placeholder="" type="text">
+                            <span class="print-only"><b>{{negativeLienForm.get('witnessName2').value ? negativeLienForm.get('witnessName2').value  : '____________________________'}}</b></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="font-weight-bold text-left para" style="margin-top: 10px;">
+                        इति सम्बत्
+                        <input class="disable-print form-field form-control-sm"
+                               formControlName="sambhad"
+                               name="sambhad"
+                               type="text"/>
+                        <span class="print-only">{{negativeLienForm.get('sambhad').value ? negativeLienForm.get('sambhad').value : '________________'}}</span>
+                        साल
+                        <input class="disable-print form-field form-control-sm"
+                               formControlName="year"
+                               name="year"
+                               type="text"/>
+                        <span class="print-only">{{negativeLienForm.get('year').value ? negativeLienForm.get('year').value : '________________'}}</span>
+                        महिना
+                        <input class="disable-print form-field form-control-sm"
+                               formControlName="month"
+                               name="month"
+                               type="text"/>
+                        <span class="print-only">{{negativeLienForm.get('month').value ? negativeLienForm.get('month').value : '________________'}}</span>
+                        गते
+                        <input class="disable-print form-field form-control-sm"
+                               formControlName="day"
+                               name="day"
+                               type="text"/>
+                        <span class="print-only">{{negativeLienForm.get('day').value ? negativeLienForm.get('day').value : '________________'}}</span>
+                        रोज शुभम्
+                        <input class="disable-print form-field form-control-sm"
+                               formControlName="subham"
+                               name="subham"
+                               type="text"/>
+                        <span class="print-only">{{negativeLienForm.get('subham').value ? negativeLienForm.get('subham').value : '________________'}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 ml-0" style="padding-bottom: 30px;">
+            <div class="col-md-12 text-right">
+                <button [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        class="d-print-none float-right" printSectionId="print-section"
+                        nbButton size="small" status="info" outline ngxPrint>
+                    Print &nbsp;&nbsp;
+                    <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                        style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                    <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            </div>
+        </div>
+    </form>
+</div>

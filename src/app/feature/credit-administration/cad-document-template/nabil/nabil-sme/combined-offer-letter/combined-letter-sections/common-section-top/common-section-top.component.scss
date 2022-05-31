@@ -1,0 +1,23 @@
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  font-size: 19px;
+  &:focus {
+    outline: none;
+  }
+}
+ol.conditions-list{
+  list-style: devanagari;
+  padding-left: 20px;
+  line-height: 3;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+.all {
+  line-height: 1.9 !important;
+  font-size: 19px !important;
+}
+

@@ -36,17 +36,17 @@
                       [loanIds]="loanDataHolder?.loan?.id"></app-proposal>
       </nb-tab>
        <!--todo put loan tag condition instead @mohamad-->
-      <nb-tab tabTitle="Micro Proposal">
+      <!--<nb-tab tabTitle="Micro Proposal">
         <app-micro-proposal #microProposal *ngIf="loanDataHolder?.loan && loanDataHolder?.loan?.loanTag === 'MICRO LOAN'"></app-micro-proposal>
-      </nb-tab>
+      </nb-tab>-->
       <nb-tab tabTitle="Customer Document">
         <app-customer-loan-document #customerLoanDoc *ngIf="loanDataHolder?.loan"
                                     [loanDataHolder]="loanDataHolder"></app-customer-loan-document>
       </nb-tab>
-      <nb-tab tabTitle="Reporting Info">
+     <!-- <nb-tab tabTitle="Reporting Info">
         <app-reporting-info-tagging #reportingInfoTagging *ngIf="loanDataHolder?.loan"
                                     [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-reporting-info-tagging>
-      </nb-tab>
+      </nb-tab>-->
     </nb-tabset>
   </nb-card-body>
   <nb-card-footer>

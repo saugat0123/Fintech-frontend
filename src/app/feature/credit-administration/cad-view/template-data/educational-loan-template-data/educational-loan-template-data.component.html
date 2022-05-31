@@ -75,10 +75,10 @@
           <td>Date Of Approval</td>
           <td>
             <div class="row" style="margin-left: 5px; margin-top: -8px;">
-              <nb-radio-group name="dataOfApproval">
-                <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span>
+              <nb-radio-group name="dataOfApproval" formControlName="dateOfApprovalType">
+                <nb-radio (click)="setDateTypeBS()" value="BS"><span style="margin-left:-60px">BS</span>
                 </nb-radio>
-                <nb-radio (click)="setDateTypeAD()" style="margin-left: 60px;margin-top: -35px;">
+                <nb-radio (click)="setDateTypeAD()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                   AD
                 </nb-radio>
               </nb-radio-group>
@@ -89,7 +89,7 @@
           <td>
           </td>
           <td>
-            <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApproval" [responseType]="2"
+            <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApprovalNepali" [responseType]="2"
                           [displayNepali]="true">
             </nepali-patro>
             <input [nbDatepicker]="doa"
@@ -123,10 +123,10 @@
           <td>Date Of Application</td>
           <td>
             <div class="row" style="margin-left: 5px; margin-top: -8px;">
-              <nb-radio-group name="dataOfApplication">
-                <nb-radio (click)="setDateTypeBS1()"><span style="margin-left:-60px">BS</span>
+              <nb-radio-group name="dataOfApplication" formControlName="dateOfApplicationType">
+                <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span>
                 </nb-radio>
-                <nb-radio (click)="setDateTypeAD1()" style="margin-left: 60px;margin-top: -35px;">
+                <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                   AD
                 </nb-radio>
               </nb-radio-group>
@@ -137,7 +137,7 @@
           <td>
           </td>
           <td>
-            <nepali-patro *ngIf="dateTypeBS1" formControlName="dateOfApplication" [responseType]="2"
+            <nepali-patro *ngIf="dateTypeBS1" formControlName="dateOfApplicationNepali" [responseType]="2"
                           [displayNepali]="true">
             </nepali-patro>
             <input [nbDatepicker]="doap"
@@ -595,6 +595,40 @@
           </td>
         </tr>
 
+        <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'" style="padding: 12px">
+          <td>Fixed Deposit Expiry Date</td>
+          <td>
+            <div class="row" style="margin-left: 5px; margin-top: -8px;">
+              <nb-radio-group name="dateofExpiry" formControlName="dateOfExpiryType">
+                <nb-radio (click)="setDateTypeBS2()" value="BS"><span style="margin-left:-60px">BS</span>
+                </nb-radio>
+                <nb-radio (click)="setDateTypeAD2()" value="AD" style="margin-left: 60px;margin-top: -35px;">
+                  AD
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiryNepali" [responseType]="2"
+                          [displayNepali]="true">
+            </nepali-patro>
+            <input [nbDatepicker]="doe"
+                   *ngIf="dateTypeAD2"
+                   class="form-control form-control-sm-error rounded"
+                   formControlName="dateofExpiry"
+                   id="dateofExpiry"
+                   name="dateofExpiry"
+                   placeholder="Fixed Deposit Expiry Date"
+                   type="text">
+            <nb-datepicker #doe></nb-datepicker>
+          </td>
+        </tr>
+
+
         <!--                <tr>-->
         <!--                    <td>Witness District</td>-->
         <!--                    <td><input type="text" class="form-control" formControlName="sakhshiDistrict"/></td>-->
@@ -825,10 +859,17 @@
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                             <td colspan="2"></td>
                             <td>
-                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"
-                                    class="d-inline-flex">
-                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                                </nb-radio-group>
+<!--                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"-->
+<!--                                    class="d-inline-flex">-->
+<!--                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>-->
+<!--                                </nb-radio-group>-->
+                              <select class="form-control" formControlName="securityOwnersMunicipalityOrVdc"
+                                      name="securityOwnersMunicipalityOrVdc">
+                                <option hidden value="null">Municipality or VDC</option>
+                                <option value="Municipality">Municipality</option>
+                                <option value="VDC">VDC</option>
+                                <option value="Rural">Rural</option>
+                              </select>
                             </td>
                         </tr>
 
@@ -926,19 +967,34 @@
   </form>
   <div class="row pt-4">
       <div class="col-md-12">
+        <button class="float-right" nbButton size="small" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!close">
+          Close
+        </button>
+        <ng-template #confirm>
+          <div class="modal-header" style="padding-left: 90%">
+            <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+              <span aria-hidden="true">&times;</span>
+            </a>
+          </div>
+          <div class="modal-body" style="text-align:center; font-size: 18px">
+            Are you sure you want to close ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="decline(confirm)">No</button>
+            <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
+          </div>
+        </ng-template>
         <button [disabled]="previewBtn"
         class="float-right" nbButton
         (click)="openModel()"
         status="primary" size="small">
         Preview
         </button>
-        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right"
-        >Save
-        <!-- [disabled]="btnDisable" -->
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">
+          Save
         </button>
       </div>
   </div>
-
 </div>
 
 

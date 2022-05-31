@@ -1,0 +1,225 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="existingLoanCombinedForm">
+            <div class="row">
+                <div class="col-md-4 mt-2">
+                    <nb-checkbox #isExisting (checkedChange)="isExistingLoanCheck(isExisting.checked)"
+                                 formControlName="isExistingLoan">
+                        Existing Loans ?
+                    </nb-checkbox>
+                </div>
+            </div>
+            <div *ngFor="let formDetails of existingLoanCombinedForm.get('existingLoanFormArray')['controls']; let i = index"
+                 formArrayName="existingLoanFormArray">
+                <ng-container [formGroupName]="i">
+                    <ng-container *ngIf="isExisting.checked" class="row">
+                        <div class="row mt-2">
+                            <div class="col-md-12 pb-2">
+                                <h5> FOR EXISTING LOANS{{existingLoanCombinedForm.get('existingLoanFormArray')['length'] > 1 ? ' - ' +( i + 1) : ''}} </h5>
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <label><strong>Interest Rate Type</strong></label>
+                                <nb-select
+                                        (selectedChange)="setInterestRateType($event)"
+                                        formControlName="interestRateType"
+                                        fullWidth
+                                        placeholder="Interest Rate Type">
+                                    <nb-option value="FLOATING_INTEREST"> Floating Interest Rate</nb-option>
+                                    <nb-option value="FIXED_INTEREST"> Fixed Interest Rate</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold">Facility Name</label>
+                                <select class="custom-select" formControlName="facilityName">
+                                    <option [value]="null" selected hidden>Select Loan Facility</option>
+                                    <option *ngFor="let loanFacility of loanFacilityList"
+                                            [value]="loanFacility.nepaliName">{{loanFacility.name}}||{{loanFacility.nepaliName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-md-4">
+                                <label class="font-weight-bold" for="loanAmountInFigure">Loan Amount Figure</label>
+                                <input class="form-control" formControlName="loanAmountInFigure" fullWidth
+                                       id="loanAmountInFigure"
+                                       (change)="numberTranslate('existingLoanFormArray', i,'loanAmountInFigure')"
+                                       (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords', i, 'existingLoanFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="loanAmountInFigureTrans" fullWidth
+                                       id="loanAmountInFigureTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="loanAmountInFigureCT" fullWidth
+                                       id="loanAmountInFigureCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="loanAmountInWords">Loan Amount In Words</label>
+                                <input class="form-control" formControlName="loanAmountInWords" fullWidth
+                                       id="loanAmountInWords"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="loanAmountInWordsTrans" fullWidth
+                                       id="loanAmountInWordsTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="loanAmountInWordsCT" fullWidth
+                                       id="loanAmountInWordsCT"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="purposeOfLoan"> Purpose of Loan</label>
+                                <input (change)="wordsTranslate('existingLoanFormArray', i, 'purposeOfLoan')"
+                                       class="form-control" formControlName="purposeOfLoan" fullWidth
+                                       id="purposeOfLoan"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth
+                                       id="purposeOfLoanTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="purposeOfLoanCT" fullWidth
+                                       id="purposeOfLoanCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="row"
+                             *ngIf="this.existingLoanCombinedForm.get(['existingLoanFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                                <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
+                                       nbInput
+                                       (change)="numberTranslate('existingLoanFormArray', i,'baseRate')"
+                                       (input)="calInterestRate(i)"
+                                       shape="semi-round"
+                                       status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                       id="baseRateTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="baseRateCT" fullWidth
+                                       id="baseRateCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="row"
+                             *ngIf="this.existingLoanCombinedForm.get(['existingLoanFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                                <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
+                                       nbInput
+                                       (change)="numberTranslate('existingLoanFormArray', i,'premiumRate')"
+                                       (input)="calInterestRate(i)"
+                                       shape="semi-round"
+                                       status="success" type="number">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                       id="premiumRateTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                       id="premiumRateCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                                <input (change)="numberTranslate('existingLoanFormArray', i,'interestRate')"
+                                       class="form-control" formControlName="interestRate" fullWidth
+                                       id="interestRate"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="number"
+                                       [ngClass]="{'readOnly': this.existingLoanCombinedForm.get(['existingLoanFormArray', i, 'interestRateType']).value === 'FLOATING_INTEREST'}">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                       id="interestRateTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="interestRateCT" fullWidth
+                                       id="interestRateCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="existingLoanCombinedForm.get('existingLoanFormArray')['length'] > 0" class="row pt-1 pb-2 pr-4">
+                            <div class="col-md-12 text-right">
+                                <button (click)="removeLandDetails(i)" nbButton outline size="small" status="danger" style="position: static">
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                            </div>
+                        </div>
+                        <hr *ngIf="existingLoanCombinedForm.get('existingLoanFormArray')['length'] > 1">
+                    </ng-container>
+                </ng-container>
+            </div>
+            <!-- For Add -->
+            <div *ngIf="isExisting.checked" class="row pt-5 pb-2 pr-4">
+                <div class="col-md-12 text-right">
+                    <button (click)="addLoanFormArr()" nbButton outline size="small" status="info">
+                        Add Existing Loan
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

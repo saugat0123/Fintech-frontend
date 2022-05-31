@@ -1,8 +1,0 @@
-@import 'src/app/@theme/styles/themes';
-
-@include nb-install-component() {
-  .custom-left-border {
-    border-left: 2px dotted #96a1b7;
-    padding-left: 30px;
-  }
-}

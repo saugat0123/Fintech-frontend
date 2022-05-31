@@ -17,6 +17,8 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-personal-loan',
@@ -45,6 +47,7 @@ export class PersonalLoanComponent implements OnInit {
   guarantorAmount = 0;
   guarantorAmountNepali;
   finalName;
+  loanLimit;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -58,7 +61,9 @@ export class PersonalLoanComponent implements OnInit {
               private nepPercentWordPipe: NepaliPercentWordPipe,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private ref: NbDialogRef<PersonalLoanComponent>,
-              private routerUtilsService: RouterUtilsService) {
+              private routerUtilsService: RouterUtilsService,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) {
   }
 
   ngOnInit(): void {
@@ -72,10 +77,13 @@ export class PersonalLoanComponent implements OnInit {
     }
     this.guarantorDetails();
     this.checkOfferLetterData();
+    console.log('Template loan holder Information', this.loanHolderInfo);
+
   }
 
   buildForm() {
     this.personalLoan = this.formBuilder.group({
+      loanLimitChecked: [undefined],
       refNumber: [undefined],
       dateOfApproval: [undefined],
       customerName: [undefined],
@@ -88,6 +96,7 @@ export class PersonalLoanComponent implements OnInit {
       premiumRate: [undefined],
       yearlyFloatingInterestRate: [undefined],
       loanAdminFee: [undefined],
+      loanAdminFeeinWords: [undefined],
       emiAmount: [undefined],
       emiAmountWords: [undefined],
       loanPeriodInMonth: [undefined],
@@ -125,6 +134,7 @@ export class PersonalLoanComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
+        this.loanLimit = initialInfo.loanLimitChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -138,9 +148,21 @@ export class PersonalLoanComponent implements OnInit {
 
   fillForm() {
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    let customerAddress;
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+              this.loanHolderInfo.permanentMunicipality.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+              '-' + this.loanHolderInfo.permanentWard.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+              ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+          ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+              !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+              ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+    }
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -156,6 +178,22 @@ export class PersonalLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
       guaranteedAmount = guarantorNep.gurantedAmount.en;
     }
+    let approvalDate;
+    const approvalDateType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+    if (approvalDateType === 'AD') {
+      const finalApprDate = this.initialInfoPrint.dateOfApproval ? this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en) : '';
+      approvalDate = this.engNepDatePipe.transform(finalApprDate, true);
+    } else {
+      approvalDate = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
+    }
+    let applicationDate;
+    const applicationDateType = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    if (applicationDateType === 'AD') {
+      const finalAppDate = this.initialInfoPrint.dateofApplication ? this.datePipe.transform(this.initialInfoPrint.dateofApplication.en) : '';
+      applicationDate = this.engNepDatePipe.transform(finalAppDate, true);
+    } else {
+      applicationDate = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
+    }
     this.personalLoan.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -163,13 +201,14 @@ export class PersonalLoanComponent implements OnInit {
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       guarantorName: this.finalName ? this.finalName : '',
       guaranteedAmountFigure: guaranteedAmount ?  this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guaranteedAmount)) : '',
-      branchName: this.loanHolderInfo.branch.en.nepaliName ? this.loanHolderInfo.branch.en.nepaliName : '',
+      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       refNumber: autoRefNumber ? autoRefNumber : '',
       purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       yearlyFloatingInterestRate: this.tempData.yearlyFloatingInterestRate.ct ? this.tempData.yearlyFloatingInterestRate.ct : '',
       loanAdminFee: this.tempData.loanAdminFee.ct ? this.tempData.loanAdminFee.ct : '',
+      loanAdminFeeinWords: this.tempData.loanAdminFeeinWords.ct ? this.tempData.loanAdminFeeinWords.ct : '',
       emiAmount: this.tempData.emiAmount.ct ? this.tempData.emiAmount.ct : '',
       emiAmountWords: this.tempData.emiAmountWords.ct ? this.tempData.emiAmountWords.ct : '',
       loanPeriodInMonth: this.tempData.loanPeriodInMonth.ct ? this.tempData.loanPeriodInMonth.ct : '',
@@ -182,6 +221,8 @@ export class PersonalLoanComponent implements OnInit {
       sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
       sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
       sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',*/
+      dateOfApproval: approvalDate ? approvalDate : '',
+      dateofApplication: applicationDate ? applicationDate : '',
     });
     // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
   }
@@ -218,6 +259,7 @@ export class PersonalLoanComponent implements OnInit {
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.personalLoan.get('loanLimitChecked').patchValue(this.loanLimit);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {

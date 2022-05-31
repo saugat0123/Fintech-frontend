@@ -66,8 +66,21 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.dateTypeAD = true;
-      this.dateTypeAD1 = true;
+      this.loanLimit = this.initialInformation.loanLimitChecked.en;
+      const approvalDateType = this.initialInformation.dateOfApprovalType ? this.initialInformation.dateOfApprovalType.en : '';
+      if (approvalDateType === 'AD') {
+        this.dateTypeAD = true;
+      } else {
+        this.dateTypeBS = true;
+      }
+      const applicationDateType = this.initialInformation.dateofApplicationType ? this.initialInformation.dateofApplicationType.en : '';
+      if (applicationDateType === 'AD') {
+        this.dateTypeAD1 = true;
+      } else {
+        this.dateTypeBS1 = true;
+      }
+      // this.dateTypeAD = true;
+      // this.dateTypeAD1 = true;
       this.dateTypeAD2 = true;
       this.setPersonalLoanTemplateData();
     }
@@ -76,8 +89,13 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       // refNumber: [undefined],
+      loanLimitChecked: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationNepali: [undefined],
+      dateofApplicationType: [undefined],
       purposeOfLoan: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
@@ -93,8 +111,13 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
 
       // Translated Value
       // refNumberTransVal: [undefined, Validators.required],
+      loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined, Validators.required],
       premiumRateTransVal: [undefined, Validators.required],
@@ -107,7 +130,8 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       relationshipOfficerTransVal: [undefined, Validators.required],
       managerNameTransVal: [undefined, Validators.required],
       loanPeriodInMonthTransVal: [undefined, Validators.required],
-
+      loanAdminFeeinWordsTransVal: [undefined],
+      loanAdminFeeinWords: [undefined],
     });
   }
 
@@ -118,6 +142,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
     this.spinner = true;
     this.btnDisable = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -134,26 +159,20 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString()) {
-          this.mappedData();
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1) {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.translatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.translatedData = {};
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
@@ -170,20 +189,6 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     });
   }
 
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-    });
-  }
   get Form() {
     return this.form.controls;
   }
@@ -213,15 +218,24 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
-    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
-    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.translatedData.dateOfApprovalType);
+    if (this.dateTypeAD) {
+      this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    } else {
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
+    }
+    this.form.get('dateofApplicationTypeTransVal').patchValue(this.translatedData.dateofApplicationType);
+    if (this.dateTypeAD) {
+      this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    } else {
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
+    }
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
-    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
     this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
     this.form.get('loanPeriodInMonthTransVal').patchValue(this.translatedData.loanPeriodInMonth);
+    this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -280,7 +294,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('yearlyFloatingInterestRate').patchValue(sum);
+    this.form.get('yearlyFloatingInterestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyFloatingInterestRate', 'yearlyFloatingInterestRateTransVal');
@@ -288,14 +302,31 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
 
   public setPersonalLoanTemplateData(): void {
     // set en value
-    this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    const approvalType = this.initialInformation.dateOfApprovalType ? this.initialInformation.dateOfApprovalType.en : '';
+    this.form.get('dateOfApprovalType').patchValue(approvalType);
+    if (approvalType === 'AD') {
+      const approvalDateEng = this.initialInformation.dateOfApproval ? this.initialInformation.dateOfApproval.en : '';
+      this.form.get('dateOfApproval').patchValue(new Date(approvalDateEng));
+    } else {
+      const approvalDate = this.initialInformation.dateOfApprovalNepali ? this.initialInformation.dateOfApprovalNepali.en : '';
+      this.form.get('dateOfApprovalNepali').patchValue(approvalDate);
+    }
     // this.form.get('refNumber').patchValue(this.initialInformation.refNumber.en);
-    this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
+    const applicationType = this.initialInformation.dateofApplicationType ? this.initialInformation.dateofApplicationType.en : '';
+    this.form.get('dateofApplicationType').patchValue(applicationType);
+    if (applicationType === 'AD') {
+      const applicationDateEng = this.initialInformation.dateofApplication ? this.initialInformation.dateofApplication.en : '';
+      this.form.get('dateofApplication').patchValue(new Date(applicationDateEng));
+    } else {
+      const applicationDate = this.initialInformation.dateofApplicationNepali ? this.initialInformation.dateofApplicationNepali.en : '';
+      this.form.get('dateofApplicationNepali').patchValue(applicationDate);
+    }
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
     this.form.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
     this.form.get('yearlyFloatingInterestRate').patchValue(this.initialInformation.yearlyFloatingInterestRate.en);
     this.form.get('loanAdminFee').patchValue(this.initialInformation.loanAdminFee.en);
+    this.form.get('loanAdminFeeinWords').patchValue(this.initialInformation.loanAdminFeeinWords.en);
     this.form.get('emiAmount').patchValue(this.initialInformation.emiAmount.en);
     this.form.get('emiAmountWords').patchValue(this.initialInformation.emiAmountWords.en);
     this.form.get('companyName').patchValue(this.initialInformation.companyName.en);
@@ -311,14 +342,18 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);
     this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.initialInformation.yearlyFloatingInterestRate.ct);
     this.form.get('loanAdminFeeTransVal').patchValue(this.initialInformation.loanAdminFee.ct);
+    this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.initialInformation.loanAdminFeeinWords.ct);
     this.form.get('emiAmountTransVal').patchValue(this.initialInformation.emiAmount.ct);
     this.form.get('emiAmountWordsTransVal').patchValue(this.initialInformation.emiAmountWords.ct);
     this.form.get('companyNameTransVal').patchValue(this.initialInformation.companyName.ct);
     this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
-    this.form.get('relationshipOfficer').patchValue(this.initialInformation.relationshipOfficer.ct);
-    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.managerName.ct);
+    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.relationshipOfficer.ct);
     this.form.get('managerNameTransVal').patchValue(this.initialInformation.managerName.ct);
     this.form.get('loanPeriodInMonthTransVal').patchValue(this.initialInformation.loanPeriodInMonth.ct);
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
   }
 
 }

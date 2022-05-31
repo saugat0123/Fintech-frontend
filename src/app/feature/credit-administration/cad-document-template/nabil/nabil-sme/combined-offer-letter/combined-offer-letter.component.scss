@@ -1,0 +1,33 @@
+.dev-list {
+  list-style-type: devanagari !important;
+}
+.dev-list li {
+  line-height: 1.9em !important;
+  padding-left: 1em !important;
+  text-align: justify;
+  font-weight: normal !important;
+}
+p {
+  line-height: 1.9em !important;
+}
+ol li {
+  font-weight:bold;
+}
+li > p {
+  font-weight:normal;
+}
+.dev-list-1 {
+  list-style-type: devanagari !important;
+  counter-reset: item;
+}
+dev-list-1 li {
+  line-height: 1.9em !important;
+  padding-left: 1em !important;
+  text-align: justify;
+  counter-increment: item;
+}
+dev-list-1 li:before {
+  font-weight: bold;
+  text-align: right;
+  content: counter(item) ".";
+}

@@ -16,7 +16,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {PersonalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 @Component({
   selector: 'app-personal-loan-template-data',
@@ -26,6 +27,9 @@ import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatte
 export class PersonalLoanTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   tdValues: any = {};
   form: FormGroup;
   fieldFlag = false;
@@ -49,6 +53,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
+  closed = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -62,6 +67,8 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private modalService: NgbModal,
+      protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
   ) { }
 
   ngOnInit() {
@@ -71,8 +78,13 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       // refNumber: [undefined],
+      loanLimitChecked: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationNepali: [undefined],
+      dateofApplicationType: [undefined],
       purposeOfLoan: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
@@ -92,8 +104,13 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
 
       // Translated Value
       // refNumberTransVal: [undefined, Validators.required],
+      loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined, Validators.required],
       premiumRateTransVal: [undefined, Validators.required],
@@ -110,7 +127,8 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiMunicipalityTransVal: [undefined,Validators.required],
       // sakshiWardNumTransVal: [undefined,Validators.required],
       // sakshiNameTransVal: [undefined,Validators.required],
-
+      loanAdminFeeinWords: [undefined],
+      loanAdminFeeinWordsTransVal: [undefined],
     });
   }
 
@@ -122,7 +140,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.spinner = false;
       return;
     }
-
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
     this.spinner = true;
     this.btnDisable = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -167,11 +185,12 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
+      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
     });
   }
 
@@ -219,20 +238,24 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
+    this.translatedData.emiAmountWords = this.form.get('emiAmountWords').value;
     // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
     // this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
     // this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
-    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
+    // this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     // this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
     this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
+    this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
     this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
     this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
@@ -300,7 +323,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('yearlyFloatingInterestRate').patchValue(sum);
+    this.form.get('yearlyFloatingInterestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyFloatingInterestRate', 'yearlyFloatingInterestRateTransVal');
@@ -308,6 +331,24 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
 
   loanChecked(data) {
     this.loanLimit = data;
+  }
+
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 
 }

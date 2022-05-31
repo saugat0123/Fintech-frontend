@@ -1,0 +1,3265 @@
+<div>
+    <form [formGroup]="overdraftFixedForm">
+        <div *ngFor="let val of overdraftFixedForm.get('odFdFormArray')['controls']; let i = index" formArrayName="odFdFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredList.length === 1"> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT </h6>
+                        <h6 *ngIf="filteredList.length > 1"> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'odFdFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                         (selectedChange)="changeInterestRateType($event, 'odFdFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+<!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               id="nameOfFacilityTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth id="nameOfFacilityCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               id="loanAmount"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               id="loanAmountWordsTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth id="loanAmountWordsCT"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   id="nameOfHoldingBank"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   id="nameOfHoldingBankTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   id="nameOfHoldingBankCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       id="nameOfFDHolder"
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'odFdFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       id="nameOfFDHolderTrans"
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       id="nameOfFDHolderCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'odFdFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'odFdFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   id="FdAmountInFigure"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   id="FdAmountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   id="FdAmountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['odFdFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       id="nameOfDepositors"
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'odFdFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       id="nameOfDepositorsTrans"
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       id="nameOfDepositorsCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'odFdFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'odFdFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth id="accountNumber"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   id="accountNumberTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth id="accountNumberCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth id="amountInFigure"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   id="amountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   id="amountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth id="drawingPower"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth id="drawingPowerTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth id="drawingPowerCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth id="totalInterestRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               id="totalInterestRateTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               id="totalInterestRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['odFdFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['odFdFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               id="additionalPremiumRate"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               id="additionalPremiumRateTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               id="additionalPremiumRateCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'odFdFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   id="premiumRate"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   id="premiumRateTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'odFdFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   id="interestRate"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   id="interestRateTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType" id="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               id="dateOfExpiry"
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'odFdFormArray')" nbButton outline size="small" status="info">
+                            Translate Overdraft Facility Against Fixed Deposit Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngFor="let val of overdraftFixedForm.get('overdraftLienOnDepositFormArray')['controls']; let i = index" formArrayName="overdraftLienOnDepositFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredListLien.length === 1"> OVERDRAFT FACILITY LIEN ON DEPOSIT ACCOUNT </h6>
+                        <h6 *ngIf="filteredListLien.length > 1"> OVERDRAFT FACILITY LIEN ON DEPOSIT ACCOUNT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'overdraftLienOnDepositFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="changeInterestRateType($event, 'overdraftLienOnDepositFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'overdraftLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'overdraftLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'overdraftLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'overdraftLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'overdraftLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'overdraftLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['overdraftLienOnDepositFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'overdraftLienOnDepositFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'overdraftLienOnDepositFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'overdraftLienOnDepositFormArray')" nbButton outline size="small" status="info">
+                            Translate Overdraft Facility Lien on Deposit Account Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngFor="let val of overdraftFixedForm.get('stlAgainstFixedDepositFormArray')['controls']; let i = index" formArrayName="stlAgainstFixedDepositFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredListStl.length === 1"> STL AGAINST FIXED DEPOSIT </h6>
+                        <h6 *ngIf="filteredListStl.length > 1"> STL AGAINST FIXED DEPOSIT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'stlAgainstFixedDepositFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="changeInterestRateType($event, 'stlAgainstFixedDepositFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'stlAgainstFixedDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'stlAgainstFixedDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'stlAgainstFixedDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'stlAgainstFixedDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'stlAgainstFixedDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'stlAgainstFixedDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['stlAgainstFixedDepositFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'stlAgainstFixedDepositFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'stlAgainstFixedDepositFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'stlAgainstFixedDepositFormArray')" nbButton outline size="small" status="info">
+                            Translate STL Against Fixed Deposit Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngFor="let val of overdraftFixedForm.get('stlLienOnDepositFormArray')['controls']; let i = index" formArrayName="stlLienOnDepositFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredListStlLien.length === 1"> STL LIEN ON DEPOSIT ACCOUNT </h6>
+                        <h6 *ngIf="filteredListStlLien.length > 1"> STL LIEN ON DEPOSIT ACCOUNT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'stlLienOnDepositFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="changeInterestRateType($event, 'stlLienOnDepositFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'stlLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'stlLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'stlLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'stlLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'stlLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'stlLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['stlLienOnDepositFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'stlLienOnDepositFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'stlLienOnDepositFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'stlLienOnDepositFormArray')" nbButton outline size="small" status="info">
+                            Translate STL Lien on Deposit Account Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngFor="let val of overdraftFixedForm.get('dlAgainstFixedDepositFormArray')['controls']; let i = index" formArrayName="dlAgainstFixedDepositFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredListDL.length === 1"> DL AGAINST FIXED DEPOSIT </h6>
+                        <h6 *ngIf="filteredListDL.length > 1"> DL AGAINST FIXED DEPOSIT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'dlAgainstFixedDepositFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="changeInterestRateType($event, 'dlAgainstFixedDepositFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'dlAgainstFixedDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'dlAgainstFixedDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'dlAgainstFixedDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'dlAgainstFixedDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'dlAgainstFixedDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'dlAgainstFixedDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['dlAgainstFixedDepositFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'dlAgainstFixedDepositFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'dlAgainstFixedDepositFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'dlAgainstFixedDepositFormArray')" nbButton outline size="small" status="info">
+                            Translate DL Against Fixed Deposit Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngFor="let val of overdraftFixedForm.get('dlAgainstLienOnDepositFormArray')['controls']; let i = index" formArrayName="dlAgainstLienOnDepositFormArray">
+            <ng-container [formGroupName]="i">
+                <div class="row mb-2">
+                    <div class="col-md-12 mt-4 mb-2">
+                        <h6 *ngIf="filteredListDlLien.length === 1"> DL LIEN ON DEPOSIT ACCOUNT </h6>
+                        <h6 *ngIf="filteredListDlLien.length > 1"> DL LIEN ON DEPOSIT ACCOUNT - {{i + 1}} </h6>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Sub-Loan Type</strong></label>
+                        <nb-select
+                                formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i, 'dlAgainstLienOnDepositFormArray')"
+                                fullWidth
+                                placeholder="Sub-Loan Type">
+                            <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                            <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
+                        <nb-select
+                                formControlName="letterOfSetOff"
+                                fullWidth
+                                placeholder="Letter Of Set-Off">
+                            <nb-option value="NEW">NEW</nb-option>
+                            <nb-option value="EXISTING">EXISTING</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label><strong>Interest Rate Type</strong></label>
+                        <nb-select
+                                (selectedChange)="changeInterestRateType($event, 'dlAgainstLienOnDepositFormArray')"
+                                formControlName="interestRateType"
+                                fullWidth
+                                placeholder="Interest Rate Type">
+                            <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                            <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                            <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                       formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                                <nb-option *ngFor="let option of yesNoOptions"
+                                           [value]="option?.value">{{option?.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
+                    <div class="col-md-12 mt-2 ml-2">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
+                            <i> Is additional premium rate applicable ? </i></nb-checkbox>
+                    </div>
+                </div>
+                <!-- END OF CONDITION SECTION -->
+
+                <!-- FIELDS BASED ON THE LOAN -->
+                <div class="row mt-4">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Name of Facility</label>
+                        <input class="form-control" formControlName="nameOfFacility" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
+                               readonly
+                               formControlName="loanAmount" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                        <input class="form-control" formControlName="loanAmountWords" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="loanAmountWordsCT" fullWidth
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
+                            formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                                <input class="form-control" formControlName="nameOfFDHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'dlAgainstLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index, 'dlAgainstLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i, 'dlAgainstLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
+                    <ng-container
+                            *ngFor="let data of overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'depositorDetails'])['controls']; let index = index;"
+                            formArrayName="depositorDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
+                            <div class="col-md-4 form-group">
+                                <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                                <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'dlAgainstLienOnDepositFormArray')"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                       nbInput
+                                       readonly
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div class="col-md-4 form-group fieldMargin">
+                                <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index, 'dlAgainstLienOnDepositFormArray')" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i, 'dlAgainstLienOnDepositFormArray')" class="float-right" nbButton size="tiny"
+                                    status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="changeAccountType($event)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div  *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                        <input class="form-control" formControlName="totalInterestRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="totalInterestRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm?.get(['dlAgainstLienOnDepositFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                        <input class="form-control" formControlName="additionalPremiumRate" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="number">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                            <input class="form-control" formControlName="baseRate" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="baseRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                            <input (input)="calInterestRate(i, 'dlAgainstLienOnDepositFormArray')" class="form-control" formControlName="premiumRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="premiumRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                            <input (input)="calInterestRate(i, 'dlAgainstLienOnDepositFormArray')" class="form-control" formControlName="interestRate"
+                                   fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateTrans" fullWidth
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="interestRateCT" fullWidth
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType"
+                                        name="dateOfExpiryType" status="success">
+                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfExpiryNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value"
+                               [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                               fullWidth
+                               nbInput
+                               placeholder="Select Date"
+                               shape="semi-round" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group dateTranslationCustom">
+                        <input class="form-control" formControlName="dateOfExpiryCT" fullWidth
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <!-- END OF LOAN FIELDS -->
+
+                <!--For Translation-->
+                <div class="row pt-5 pb-2 pr-4">
+                    <div class="col-md-12 text-right">
+                        <button (click)="translateAndSetVal(i, 'dlAgainstLienOnDepositFormArray')" nbButton outline size="small" status="info">
+                            Translate DL Lien on Deposit Account Details
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

@@ -5,7 +5,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import { NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {Attributes} from '../../../../../@core/model/attributes';
@@ -17,6 +17,7 @@ import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-let
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 
 @Component({
@@ -50,6 +51,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     dateTypeAD3 = false;
     previewBtn = true;
     submitted = false;
+    closed = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -62,6 +64,8 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         private toastService: ToastService,
         private engToNepaliNumberPipe: EngToNepaliNumberPipe,
         private currencyFormatterPipe: CurrencyFormatterPipe,
+        protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -71,9 +75,12 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
 
     buildPersonal() {
         this.form = this.formBuilder.group({
-            referenceNumber: [undefined],
             dateofApproval: [undefined],
+            dateofApprovalNepali: [undefined],
+            dateofApprovalType: [undefined],
             dateofApplication: [undefined],
+            dateofApplicationNepali: [undefined],
+            dateofApplicationType: [undefined],
             loanAmountPl: [undefined],
             loanAmountPlInWords: [undefined],
             loanAmountOd: [undefined],
@@ -93,14 +100,20 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
+            loanExpiryDateType: [undefined],
+            loanExpiryDateNepali: [undefined],
             accountNumber: [undefined],
             nameofCompanyCustomerWorking: [undefined],
             relationshipofficerName: [undefined],
             branchManager: [undefined],
+            loanPeriodInMonth: [undefined],
             // translated value
-            referenceNumberTransVal: [undefined, Validators.required],
             dateofApprovalTransVal: [undefined],
+            dateofApprovalNepaliTransVal: [undefined],
+            dateofApprovalTypeTransVal: [undefined],
             dateofApplicationTransVal: [undefined],
+            dateofApplicationNepaliTransVal: [undefined],
+            dateofApplicationTypeTransVal: [undefined],
             loanAmountPlTransVal: [undefined],
             loanAmountPlInWordsTransVal: [undefined],
             loanAmountOdTransVal: [undefined],
@@ -120,10 +133,13 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             emiInFigureTransVal: [undefined, Validators.required],
             emiInWordsTransVal: [undefined],
             loanExpiryDateTransVal: [undefined],
+            loanExpiryDateTypeTransVal: [undefined],
+            loanExpiryDateNepaliTransVal: [undefined],
             accountNumberTransVal: [undefined, Validators.required],
             nameofCompanyCustomerWorkingTransVal: [undefined, Validators.required],
             relationshipofficerNameTransVal: [undefined, Validators.required],
             branchManagerTransVal: [undefined, Validators.required],
+            loanPeriodInMonthTransVal: [undefined],
         });
     }
 
@@ -136,15 +152,14 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.btnDisable = false;
     }
     private setTemplatedCTData(): void {
-        // this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
         this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
+        this.form.get('dateofApprovalNepaliTransVal').patchValue(this.podtranslatedData.dateofApprovalNepali);
         this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+        this.form.get('dateofApplicationNepaliTransVal').patchValue(this.podtranslatedData.dateofApplicationNepali);
         this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
         this.form.get('purposeofLoanOdTransVal').patchValue(this.podtranslatedData.purposeofLoanOd);
-        this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWords);
-        this.form.get('loanAdminFeeinWordsOdTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWordsOd);
-        this.form.get('emiInWordsTransVal').patchValue(this.podtranslatedData.emiInWords);
         this.form.get('loanExpiryDateTransVal').patchValue(this.podtranslatedData.loanExpiryDate);
+        this.form.get('loanExpiryDateNepaliTransVal').patchValue(this.podtranslatedData.loanExpiryDateNepali);
         this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
         this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
         this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
@@ -169,7 +184,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         const baseRate = this.form.get('baseRate').value;
         const premiumRate = this.form.get('premiumRate').value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.form.get('yearlyInterestRate').patchValue(sum);
+        this.form.get('yearlyInterestRate').patchValue(sum.toFixed(2));
         this.translateNumber('baseRate', 'baseRateTransVal');
         this.translateNumber('premiumRate', 'premiumRateTransVal');
         this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
@@ -331,12 +346,30 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             this.spinner = false;
             this.previewBtn = false;
             this.btnDisable = true;
+            this.closed = true;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.btnDisable = true;
         });
+    }
+
+    openCloseTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    dismiss(template){
+        this.modalService.dismissAll();
+    }
+
+    decline(template){
+        this.modalService.dismissAll();
+    }
+
+    accept(){
+        this.modalService.dismissAll();
+        this.dialogRefcad.close();
     }
 }
 

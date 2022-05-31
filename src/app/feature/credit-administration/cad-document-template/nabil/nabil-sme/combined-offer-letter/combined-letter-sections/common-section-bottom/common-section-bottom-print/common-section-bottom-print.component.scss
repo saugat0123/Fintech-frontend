@@ -1,0 +1,24 @@
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  font-size: 19px;
+  &:focus {
+    outline: none;
+  }
+}
+ol.conditions-list{
+  list-style: devanagari;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  text-align: justify !important;
+}
+.commonSectionBottom, p, ol li {
+  font-size: 19px;
+  line-height: 1.9em;
+}
+ol li {
+  padding-left: 1em !important;
+}

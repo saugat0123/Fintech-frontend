@@ -50,6 +50,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
   jointNepData;
   spinner = false;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  tempData: any;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -88,6 +89,8 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       date: [undefined],
       loanamountinFigure: [undefined],
       loanamountinWords: [undefined],
+      loanamountinFigureOd: [undefined],
+      loanamountinWordsOd: [undefined],
       nameofGrandFather: [undefined],
       nameofFather: [undefined],
       district: [undefined],
@@ -105,6 +108,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       sakshiAge: [undefined],
       nameofWitness: [undefined],
       interest: [undefined],
+      interestOd: [undefined],
       sakshiDistrict1: [undefined],
       sakshiVdc1: [undefined],
       sakshiWardNo1: [undefined],
@@ -113,32 +117,61 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       nameofBranchLocated: [undefined],
       signature: [undefined],
       nameofStaff: [undefined],
+      loanHolderName: [undefined],
       jointDetailsArr: this.formBuilder.array([]),
+      signatureData: this.formBuilder.array([]),
     });
   }
   fillform() {
+    this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
     });
-    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    const finalAmount = this.tempData.loanAmountPl ? this.tempData.loanAmountPl.ct : this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    const loanAmountWord = this.tempData.loanAmountPlInWords ? this.tempData.loanAmountPlInWords.ct : this.nepaliCurrencyWordPipe.transform(totalLoan);
     let citizenshipIssuedDate;
-    if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate.en)) {
+      if (this.individualData.issuedDate.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate)) {
+          const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
+          citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+        }
+      } else {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDateNepali)) {
+          citizenshipIssuedDate = this.individualData.citizenshipIssueDateNepali.en.nDate;
+        }
+      }
+    }
+    /*if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
       citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
     } else {
       const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
       citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
-    }
+    }*/
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
-      if (this.individualData.dob.en.eDate === undefined) {
-        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType.en)) {
+      if (this.individualData.dobDateType.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.dob)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+        }
       } else {
-        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+        if (!ObjectUtil.isEmpty(this.individualData.dobNepali)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dobNepali.en.eDate).toString());
+        }
       }
-
+      /*if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
+        if (this.individualData.dob.en.eDate === undefined) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+        } else {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+        }
+      }*/
     }
     // if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
     //   const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
@@ -159,32 +192,77 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         }
       });
       this.setJointDetailsArr(this.selectiveArr);
+      this.setSignatureData(this.selectiveArr);
     }
     this.checkOfferLetterData();
     this.form.patchValue(
         {
-          nameofBranchLocated: this.individualData.branch.ct,
-          nameofGrandFather: this.individualData.grandFatherName ?
-              this.individualData.grandFatherName.ct :
-              this.individualData.fatherInLawName ?
-                  this.individualData.fatherInLawName.ct : '',
-          nameofFather: this.individualData.fatherName ?
-              this.individualData.fatherName.ct :
-              this.individualData.husbandName ? this.individualData.husbandName.ct : '',
-          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict ? this.individualData.citizenshipIssueDistrict.ct : '',
+          nameofBranchLocated: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.branch) &&
+              !ObjectUtil.isEmpty(this.individualData.branch.ct)) ? this.individualData.branch.ct : '',
+          nameofGrandFather: this.getGrandFatherName(),
+          nameofFather: this.getFatherName(),
+          nameofIssuedDistrict: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipIssueDistrict.ct)) ? this.individualData.citizenshipIssueDistrict.ct : '',
           dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo.ct,
-          nameofPerson: this.individualData.name.ct,
-          wardNo: this.individualData.permanentWard.ct,
-          vdc: this.individualData.permanentMunicipality.ct,
-          district: this.individualData.permanentDistrict.ct,
+          citizenshipNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo) &&
+              !ObjectUtil.isEmpty(this.individualData.citizenshipNo.ct)) ? this.individualData.citizenshipNo.ct : '',
+          nameofPerson: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.name) &&
+              !ObjectUtil.isEmpty(this.individualData.name.ct)) ? this.individualData.name.ct : '',
+          wardNo: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentWard.ct)) ? this.individualData.permanentWard.ct : '',
+          vdc: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentMunicipality.ct)) ? this.individualData.permanentMunicipality.ct : '',
+          district: (!ObjectUtil.isEmpty(this.individualData) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict) &&
+              !ObjectUtil.isEmpty(this.individualData.permanentDistrict.ct)) ? this.individualData.permanentDistrict.ct : '',
           loanamountinFigure: finalAmount,
           loanamountinWords: loanAmountWord,
           age: age ? age : '',
           totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+          interest: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
+          loanamountinFigureOd: this.tempData.loanAmountOd ? this.tempData.loanAmountOd.ct : '',
+          loanamountinWordsOd: this.tempData.loanAmountOdInWords ? this.tempData.loanAmountOdInWords.ct : '',
+          interestOd: this.tempData.yearlyInterestRateOd ? this.tempData.yearlyInterestRateOd.ct : '',
         }
     );
+  }
+
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        grandFatherName = this.individualData.fatherInLawName ? this.individualData.fatherInLawName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+    }
+    return fatherName;
   }
 
   ageCalculation(startDate) {
@@ -302,6 +380,22 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     });
   }
 
+  buildSetSignature() {
+    return this.formBuilder.group({
+      loanHolderNameJoint : [undefined],
+    });
+  }
+
+  setSignatureData(data) {
+    const formArray = (this.form.get('signatureData') as FormArray);
+    data.forEach(value => {
+      const nepData = value;
+      formArray.push(this.formBuilder.group({
+        loanHolderNameJoint : [nepData.name ? nepData.name.ct : ''],
+      }));
+    });
+  }
+
   checkOfferLetterData() {
     if (this.cadData.offerDocumentList.length > 0) {
       let documentName;
@@ -325,6 +419,60 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.yearlyFloatingInterestRate;
+        }
+      }
+      if (documentName === 'Home Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.loan.interestRateCT;
+        }
+      }
+      if (documentName === 'Mortage Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate.ct;
+        }
+      }
+      if (documentName === 'Auto Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate.ct;
+        }
+      }
+      if (documentName === 'Udyamsil Karja Subsidy') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
+      if (documentName === 'Personal overdraft without collateral') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+              educationalOfferData.yearlyInterestRate.ct : '';
+        }
+      }
+      if (documentName === 'Personal loan and personal overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+              educationalOfferData.yearlyInterestRate.ct : '';
+        }
+      }
+      if (documentName === 'DDSL Without Subsidy') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
+
+      if (documentName === 'Interest subsidy sanction letter') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
         }
       }
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()

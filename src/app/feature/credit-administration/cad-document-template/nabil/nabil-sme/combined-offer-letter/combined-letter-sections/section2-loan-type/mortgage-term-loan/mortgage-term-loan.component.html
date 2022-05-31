@@ -1,0 +1,359 @@
+<form [formGroup]="form" class="all">
+    <table class="table table-bordered-all">
+        <tr *ngFor="let val of mortgageData; let i = index" formArrayName="mortgageTermLoan">
+            <ng-container [formGroupName]="i">
+                <td style="width:10%; border: 1px solid black;">
+                    <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
+                </td>
+                <td style="border:1px solid black">
+
+                    <p>
+        <span>
+            <strong>सुरक्षणमा आधारीत स्वपुँजी आवधिक कर्जा (Mortgage Term Loan)
+               <ng-container *ngIf="val.complementaryOther === true">
+                   बुँदा नं.<input
+                       class="form-field form-control-sm "
+                       formControlName="SNOfParentLimitMortgageTerm"
+                       placeholder=""
+                       type="text"/>
+                   <ng-container
+                           *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+               <ng-container
+                       *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+               </ng-container></strong></span>
+                    </p>
+                    <p>
+                        <strong> सीमाः
+                            <!--<ng-container *ngIf="val.complementaryOther === true">(</ng-container>-->
+                            रु.
+                            <input class="form-field form-control-sm "
+                                   value="{{loanData[i] ? loanData[i].loanAmountNp : ''}}"
+                                   placeholder=""
+                                   type="text"/>/-
+                            <!--<ng-container *ngIf="val.complementaryOther === true">)</ng-container>-->
+                            (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                value="{{loanData[i] ? loanData[i].loanAmountWords : ''}}"
+                                                placeholder=""
+                                                type="text"/>
+                            मात्र)</strong><br>
+
+                        <span *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+            <strong>धितो सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                            उल्लिखित घर/जग्गा धितोबन्धक पारित गरी दिनु पर्नेछ ।
+                        </span>
+
+                        <span *ngIf="val.mortgageType === 'Existing'">
+            <strong>धितो सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                            उल्लिखित घर/जग्गा धितोबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
+                        </span>
+
+            <span *ngIf="initialData.smeGlobalForm.loanOption != 'Plain Renewal'">
+                <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                            कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
+                <ng-container
+                        *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+                    लेखिदिने
+                </ng-container>
+                <ng-container *ngIf="val.mortgageType === 'Existing'">
+                    लेखिदिएको
+                </ng-container>
+                            घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
+                <ng-container *ngIf="val.drawingPowerBasis === 'DISTRESS_VALUE'">
+                     न्यूनतम मूल्य (Distress Value)
+                </ng-container>
+                <ng-container *ngIf="val.drawingPowerBasis === 'MARKET_VALUE'">
+                    बजार मुल्य (Market Value)
+                </ng-container>
+                को <input class="form-field form-control-sm "
+                          formControlName="drawingPowerMortgageTerm"
+                          placeholder=""
+                          type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+            </span><br>
+                    </p>
+                    <p *ngIf="val.termLoanType === 'NEW_EMI_TERM_LOAN'">
+                        <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                        <input class="form-field form-control-sm "
+                               formControlName="newEMIBaseRateMortgageTerm"
+                               placeholder=""
+                               type="text"/>
+                        +
+                        <input class="form-field form-control-sm "
+                               formControlName="newEMIPremiumRateMortgageTerm"
+                               placeholder=""
+                               type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="newEMIInterestRateMortgageTerm"
+                                               placeholder=""
+                                               type="text"/>% का दरले
+                           मासिक तिर्नु बुझाउनु पर्नेछ ।
+                        </span><br>
+
+                        <span>
+                            <strong>साँवा र ब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
+                            रु.<input class="form-field form-control-sm "
+                                      formControlName="newEMIAmountMortgageTerm"
+                                      placeholder=""
+                                      type="text"/>/-
+                                (अक्षरेपि रु.<input class="form-field form-control-sm "
+                                                    formControlName="newEMIAmountInWordMortgageTerm"
+                                                    placeholder=""
+                                                    type="text"/> मात्र)
+                            का दरले <input class="form-field form-control-sm "
+                                           formControlName="newEMINoOfInstallmentMortgageTerm"
+                                           placeholder=""
+                                           type="text"/> सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                        </span><br>
+                        <span *ngIf="val.emiPaymentType === 'ON_SUBSEQUENT_MONTH'">
+            <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input
+                                class="form-field form-control-sm nepaliFont"
+                                formControlName="newEMIAutoPopulateMortgageTerm"
+                                type="text"/>।
+                            <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ)(auto Populate)..........--></span>
+
+                        <span *ngIf="val.emiPaymentType === 'ON_TWENTY_ENGLISH_CALENDER'">
+            कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
+            किस्ता भुक्तानी मिति हुनेछ ।
+        </span><br>
+                        <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
+                                                            formControlName="newEMILoanPurposeMortgageTerm"
+                                                            placeholder=""
+                                                            type="text"/>
+                        कर्जाको <input class="form-field form-control-sm "
+                                       formControlName="newEMIServiceChargeMortgageTerm"
+                                       placeholder=""
+                                       type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
+                        <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
+                                                            formControlName="newEMILoanTenureMortgageTerm"
+                                                            placeholder=""
+                                                            type="text"/> बर्ष सम्मको लागि मात्र ।
+                    </p>
+                    <p *ngIf="val.termLoanType === 'OTHER_CREDIT_LIMITS'">
+                        <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                        <input class="form-field form-control-sm "
+                               formControlName="annualEMIBaseRateMortgageTerm"
+                               placeholder=""
+                               type="text"/> +
+                        <input class="form-field form-control-sm "
+                               formControlName="annualEMIPremiumRateMortgageTerm"
+                               placeholder=""
+                               type="text"/> प्रतिशत ब्याज दर प्रिमियम(interest rate premium)<br>
+                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
+                        बार्षिक <input class="form-field form-control-sm "
+                                       formControlName="annualEMIInterestRateMortgageTerm"
+                                       placeholder=""
+                                       type="text"/>% का
+                        दरले
+                        मासिक तिर्नु बुझाउनु पर्नेछ ।<br>
+                        <strong>साँवा र ब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यस अघि निर्धारीत सम
+                        मासिक
+                        किस्ता (Equated
+                        Monthly Installment) तालिका बमोजिम मासिक रु.<input class="form-field form-control-sm "
+                                                                           formControlName="annualEMIAmountMortgageTerm"
+                                                                           placeholder=""
+                                                                           type="text"/>/-
+                        (अक्षरेपि रु.
+                        <input class="form-field form-control-sm "
+                               formControlName="annualEMIAmountInWordMortgageTerm"
+                               placeholder=""
+                               type="text"/> मात्र)का दरले बाँकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति
+                        मिति
+                        भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
+                        <strong>कर्जा अवधि समाप्ति मितिः</strong>
+                        {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                        <input class="form-field form-control-sm "
+                               formControlName="annualEMILoanExpiryDateMortgageTerm"
+                               placeholder=""
+                               type="text"/> ।
+                    </p>
+                    <p *ngIf="val.termLoanType === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'">
+                        <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                        <input class="form-field form-control-sm "
+                               formControlName="newInstallmentBaseRateMortgageTerm"
+                               placeholder=""
+                               type="text"/>
+                        +
+                        <input class="form-field form-control-sm "
+                               formControlName="newInstallmentPremiumRateMortgageTerm"
+                               placeholder=""
+                               type="text"/> प्रतिशत
+                        ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="newInstallmentInterestRateMortgageTerm"
+                                               placeholder=""
+                                               type="text"/>% का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="newInstallmentTotalInterestRateMortgageTerm"
+                                               placeholder=""
+                                               type="text"/>% का दरले
+                            निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                            घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                        <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
+                                स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
+                            <input class="form-field form-control-sm "
+                                   formControlName="newInstallmentLoanTenureMortgageTerm"
+                                   placeholder=""
+                                   type="text"/> वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना
+                                रु.<input class="form-field form-control-sm "
+                                          formControlName="newInstallmentPaymentAmountMortgageTerm"
+                                          placeholder=""
+                                          type="text"/>/—
+                            अक्षरेपी <input class="form-field form-control-sm "
+                                            formControlName="newInstallmentPaymentAmountInWordMortgageTerm"
+                                            placeholder=""
+                                            type="text"/> का दरले <input class="form-field form-control-sm "
+                                                                         formControlName="newInstallmentNoOfPaymentMortgageTerm"
+                                                                         placeholder=""
+                                                                         type="text"/>
+                            <ng-container *ngIf="val.paymentTerms === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'SEMI-YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="val.paymentTerms === 'MONTHLY'"> मासिक </ng-container>
+                            <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
+                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको मितिले
+            <ng-container *ngIf="val.paymentTerms === 'YEARLY'"> एक बर्ष </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'SEMI-YEARLY'"> छ महिना </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'QUARTERLY'"> तिन महिना </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'MONTHLY'"> एक महिना </ng-container>
+                            <!--/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
+                            पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
+                        <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
+                                                            formControlName="newInstallmentLoanPurposeMortgageTerm"
+                                                            placeholder=""
+                                                            type="text"/>
+                        कर्जाको<input class="form-field form-control-sm "
+                                      formControlName="newInstallmentServiceChargeMortgageTerm"
+                                      placeholder=""
+                                      type="text"/>% सेवा शुल्क
+                        लाग्नेछ ।<br>
+                        <strong>कर्जा अवधि: </strong><input class="form-field form-control-sm "
+                                                            formControlName="newInstallmentLoanTenureMortgageTerm"
+                                                            placeholder=""
+                                                            type="text"/> बर्ष सम्मको लागि मात्र ।
+                    </p>
+                    <p *ngIf="val.termLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMITS'">
+                        <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                        <input class="form-field form-control-sm "
+                               formControlName="annualInstallmentBaseRateMortgageTerm"
+                               placeholder=""
+                               type="text"/>
+                        +
+                        <input class="form-field form-control-sm "
+                               formControlName="annualInstallmentPremiumRateMortgageTerm"
+                               placeholder=""
+                               type="text"/> प्रतिशत
+                        ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="annualInstallmentInterestRateMortgageTerm"
+                                               placeholder=""
+                                               type="text"/>% का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="annualInstallmentTotalInterestRateMortgageTerm"
+                                               placeholder=""
+                                               type="text"/>% का दरले
+                            निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                            घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                        <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
+                        तालिकाबमोजिम बाँकी किस्ताहरु रु.<input class="form-field form-control-sm "
+                                                               formControlName="annualInstallmentPaymentAmountMortgageTerm"
+                                                               placeholder=""
+                                                               type="text"/>/—
+                                <input class="form-field form-control-sm "
+                                       formControlName="annualInstallmentPaymentAmountInWordMortgageTerm"
+                                       placeholder=""
+                                       type="text"/>का दरले
+                        <input class="form-field form-control-sm "
+                               formControlName="annualInstallmentNoOfPaymentMortgageTerm"
+                               placeholder=""
+                               type="text"/>
+            <ng-container *ngIf="val.paymentTerms === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'SEMI-YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="val.paymentTerms === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="val.paymentTerms === 'MONTHLY'"> मासिक </ng-container>
+                            <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
+                            किस्ताहरुमा तल उल्लिखित कर्जा अवधि
+                            समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
+                        <strong>कर्जा अवधि समाप्ति मितिः </strong>
+                        {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                        <input class="form-field form-control-sm "
+                               formControlName="annualInstallmentLoanExpiryDateMortgageTerm"
+                               placeholder=""
+                               type="text"/>।<br>
+                        <span *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+            <strong>कर्जा प्रवाह तरिकाः</strong>
+            सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितोबन्धक पारित गरीदिनुका
+            साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सो घर/जग्गाको बैकको
+            आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा उल्लिखित
+            <ng-container *ngIf="val.drawingPowerBasis === 'DISTRESS_VALUE'">
+                न्यूनतम मूल्य (Distress Value)
+            </ng-container>
+            <ng-container *ngIf="val.drawingPowerBasis === 'MARKET_VALUE'">
+                बजार मुल्य (Market Value)
+            </ng-container>
+            कोे <input class="form-field form-control-sm "
+                       formControlName="annualInstallmentDrawingPowerMortgageTerm"
+                       placeholder=""
+                       type="text"/>
+            प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो
+            रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
+        </span><br>
+                        <span *ngIf="val.mortgageType === 'Existing'">
+            <strong>कर्जा प्रवाह तरिकाः</strong>
+            ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहि छाप भई बैंकलाई प्राप्त भए
+            पश्चात धितोबन्धक रहेको घर/जग्गाको आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा
+            उल्लिखित
+            <ng-container *ngIf="val.drawingPowerBasis === 'DISTRESS_VALUE'">
+                न्यूनतम मूल्य (Distress Value)
+            </ng-container>
+            <ng-container *ngIf="val.drawingPowerBasis === 'MARKET_VALUE'">
+                बजार मुल्य (Market Value)
+            </ng-container>
+            को <input class="form-field form-control-sm "
+                      formControlName="annualInstallmentDrawingPowerMortgageTerm1"
+                      placeholder=""
+                      type="text"/>
+            प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह
+            गरिनेछ ।
+        </span><br>
+                    </p>
+                    <p>
+        <textarea
+                class="form-control nepaliFont"
+                rows="2"
+                style="width: 100%;display: block;margin-right: auto;margin-left: 0; color: black;"
+                name="freeTextThirteen"
+                placeholder=""
+                formControlName="freeTextThirteen">
+        </textarea>
+                    </p>
+                </td>
+            </ng-container>
+        </tr>
+    </table>
+</form>
+

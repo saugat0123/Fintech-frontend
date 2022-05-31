@@ -11,7 +11,7 @@ import {OfferDocument} from "../../../model/OfferDocument";
 import {Attributes} from "../../../../../@core/model/attributes";
 import {ToastService} from "../../../../../@core/utils";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {NbDialogService} from "@nebular/theme";
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 import {CreditAdministrationService} from "../../../service/credit-administration.service";
 import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
@@ -23,6 +23,9 @@ import {MunicipalityVdc} from "../../../../admin/modal/municipality_VDC";
 import {CadDocStatus} from "../../../model/CadDocStatus";
 import {AddressService} from "../../../../../@core/service/baseservice/address.service";
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 
 @Component({
@@ -62,6 +65,8 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   cadDocStatus = CadDocStatus.key();
   municipalityListForSecurities = [];
+  closed = false;
+  saved = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -75,6 +80,10 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private modalService: NgbModal,
+      protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) { }
 
   get Form() {
@@ -118,8 +127,12 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
+      dateOfApprovalType: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationType: [undefined],
+      dateofApplicationNepali: [undefined],
       loanPurpose: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -140,8 +153,12 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
-      dateofApprovalTransVal: [undefined],
+      dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],
       drawingPowerTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined],
@@ -242,14 +259,36 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.setTemplatedCTData(this.translatedValues);
     this.spinner = false;
     this.btnDisable = false;
+    this.saved = true;
   }
 
   private setTemplatedCTData(data): void {
-    this.form.get('dateofApprovalTransVal').patchValue(this.translatedValues.dateofApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedValues.dateofApplication);
+    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.form.get('dateOfApprovalType').value);
+    if (this.dateTypeAD) {
+      const approvalDate = this.form.get('dateOfApproval').value;
+      const convertApprovalDate = approvalDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(approvalDate), true) : '';
+      this.form.get('dateOfApprovalTransVal').patchValue(convertApprovalDate);
+    }
+    if (this.dateTypeBS) {
+      const approvalDateNepali = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
+          this.form.get('dateOfApprovalNepali').value : '';
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(approvalDateNepali.nDate);
+    }
+    // this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+    this.form.get('dateofApplicationTypeTransVal').patchValue(this.form.get('dateofApplicationType').value);
+    if (this.dateTypeAD) {
+      const applicationDate = this.form.get('dateofApplication').value;
+      const convertApplicationDate = applicationDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(applicationDate), true) : '';
+      this.form.get('dateofApplicationTransVal').patchValue(convertApplicationDate);
+    }
+    if (this.dateTypeBS) {
+      const applicationNepali = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
+          this.form.get('dateofApplicationNepali').value : '';
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(applicationNepali.nDate);
+    }
     this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
-    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.translatedValues.loanAdminFeeInWords);
-    this.form.get('emiInWordsTransVal').patchValue(this.translatedValues.emiInWords);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
     this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
     this.form.get('signatureDateTransVal').patchValue(this.translatedValues.signatureDate);
@@ -279,7 +318,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('interestRate').patchValue(sum);
+    this.form.get('interestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('interestRate', 'interestRateTransVal');
@@ -409,6 +448,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
             this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString()) {
           this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.translatedValues = {};
         }
       });
     } else {
@@ -425,6 +465,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
         this.tdValues[key] = this.attributes;
       });
       this.tdValues['securityDetails'] = securityDetails;
+      this.translatedValues = {};
       this.deleteCTAndTransControls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
@@ -435,14 +476,34 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
+      this.closed = true;
+      this.saved = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
+      this.saved = true;
     });
   }
   onClose() {
     this.modelService.dismissAll();
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 }

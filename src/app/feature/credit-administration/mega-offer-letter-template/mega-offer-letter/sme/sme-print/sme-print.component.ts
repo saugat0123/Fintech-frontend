@@ -6,6 +6,8 @@ import {NabilOfferLetterConst} from "../../../../nabil-offer-letter-const";
 import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-currency-word.pipe";
 import {EngToNepaliNumberPipe} from "../../../../../../@core/pipe/eng-to-nepali-number.pipe";
 import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-sme-print',
@@ -19,6 +21,7 @@ export class SmePrintComponent implements OnInit {
   @Input() autoLoanType;
   @Input() interest;
   @Input() loanLimit;
+  @Input() preview = false;
   loanHolderInfo;
   guarantorName;
   guarantorData;
@@ -35,13 +38,17 @@ export class SmePrintComponent implements OnInit {
   guarantorAmount: number = 0;
   autoRefNumber;
   autoReferenceNumber;
+  approvalDate;
+  applicationDate;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
-              public currencyFormatPipe: CurrencyFormatterPipe) { }
+              public currencyFormatPipe: CurrencyFormatterPipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
-    this.selectedInterest = this.interest;
+    this.selectedInterest = this.letter.selectedInterest ? this.letter.selectedInterest.en : '';
     this.loanLimitVal = this.loanLimit;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
@@ -53,9 +60,20 @@ export class SmePrintComponent implements OnInit {
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
-          ' ,' + this.loanHolderInfo.permanentProvince.ct;
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.customerAddress =  ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentMunicipality.ct)) ?
+                this.loanHolderInfo.permanentMunicipality.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentWard.ct)) ?
+                '-' + this.loanHolderInfo.permanentWard.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentDistrict.ct)) ?
+                ', ' + this.loanHolderInfo.permanentDistrict.ct : '') +
+            ((!ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince) &&
+                !ObjectUtil.isEmpty(this.loanHolderInfo.permanentProvince.ct)) ?
+                ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ' : '');
+      }
       if (!ObjectUtil.isEmpty(this.guarantorData)) {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
@@ -67,6 +85,32 @@ export class SmePrintComponent implements OnInit {
     this.guarantorDetails();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    const dateOfApprovalType = this.letter.dateOfApprovalType ?
+        this.letter.dateOfApprovalType.en : '';
+    if (dateOfApprovalType === 'AD') {
+      const tempApprDate = this.letter.dateOfApproval ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.letter.dateOfApproval.en), true) :
+          '';
+      this.approvalDate = tempApprDate ? tempApprDate : '';
+    } else {
+      const tempApprNepali = this.letter.dateOfApprovalNepali ?
+          this.letter.dateOfApprovalNepali.en.nDate : '';
+      this.approvalDate = tempApprNepali ? tempApprNepali : '';
+    }
+
+    // For Date of application
+    const dateOfApplicationType = this.letter.dateofApplicationType ?
+        this.letter.dateofApplicationType.en : '';
+    if (dateOfApplicationType === 'AD') {
+      const tempAppDate = this.letter.dateofApplication ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.letter.dateofApplication.en), true) :
+          '';
+      this.applicationDate = tempAppDate ? tempAppDate : '';
+    } else {
+      const tempAppNep = this.letter.dateofApplicationNepali ?
+          this.letter.dateofApplicationNepali.en.nDate : '';
+      this.applicationDate = tempAppNep ? tempAppNep : '';
     }
   }
 

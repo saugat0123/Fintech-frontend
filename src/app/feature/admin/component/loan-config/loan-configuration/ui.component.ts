@@ -22,6 +22,7 @@ import {CustomerType} from '../../../../customer/model/customerType';
 import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
+import {NabilOfferLetterConst} from '../../../../credit-administration/nabil-offer-letter-const';
 
 
 @Component({
@@ -61,7 +62,9 @@ export class UIComponent implements OnInit, DoCheck {
 
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     loanCategories = CustomerType.enumObject();
+    sanctionLetter = NabilOfferLetterConst.enumObject();
     selectedLoanCategory: string;
+    selectedOfferLetterConst: string;
     loanTagList = LoanTag.enumObject();
     selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);
     cadDocumentUploadList = [];
@@ -130,6 +133,7 @@ export class UIComponent implements OnInit, DoCheck {
                         });
                     });
                     other.selectedLoanCategory = other.loanConfig.loanCategory;
+                    other.selectedOfferLetterConst = other.loanConfig.offerLetterConst;
                 });
             }
         });
@@ -412,6 +416,7 @@ export class UIComponent implements OnInit, DoCheck {
 
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
+        this.loanConfig.offerLetterConst = this.selectedOfferLetterConst;
         this.loanConfig.loanTag = this.selectedLoanTag;
 
         this.service.save(this.loanConfig).subscribe(() => {

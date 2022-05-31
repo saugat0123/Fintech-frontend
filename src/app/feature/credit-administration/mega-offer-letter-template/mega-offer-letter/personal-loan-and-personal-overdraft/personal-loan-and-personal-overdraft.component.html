@@ -13,31 +13,31 @@
             <form [formGroup]="form">
                 <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
-                ऋणकर्जा संख्याः <input class="form-field form-control-sm col-3"
+                <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
-                <p *ngIf="initialInfoPrint.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
-                    मितिः <input class="form-field form-control-sm"
+                <p>
+                        मितिः <input class="form-field form-control-sm"
                                  formControlName="dateofApproval"
-                                 [value]="initialInfoPrint.dateofApproval.en === undefined ? '' : ((initialInfoPrint.dateofApproval.en | date) | engNepDate: true)"
                                  type="text"/>
                 </p>
-                <ng-template #dateofApprovalNepali>
-                    <p>
-                        मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateofApproval"
-                                     [value]="initialInfoPrint.dateofApproval.en.nDate === undefined ? '' : initialInfoPrint.dateofApproval.en.nDate"
-                                     type="text"/>
-                    </p>
-                </ng-template>
-                <div class="mb-2"> श्रीमान्/श्रीमती
+                <div class="mb-2">
+                    <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                    <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                    </ng-template>
                     <input class="form-field form-control-sm"
                            formControlName="customerName"
                            name="customerName"
                            placeholder="{{loanHolderInfo?.name}}"
-                           type="text"/>
+                           type="text"/>ज्यु,
                     <div class="mb-1"> ठेगाना:
                         <input class="form-field form-control-sm"
                                formControlName="customerAddress"
@@ -50,20 +50,9 @@
                     <div class="mb-1">
                         <p> महोदय, <br>
                             तपाईंले
-                            <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
                             मितिः <input class="form-field form-control-sm"
                                          formControlName="dateofApplication"
-                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"
                                          type="text"/>
-                        </span>
-                            <ng-template #dateofApplicationNepali>
-                            <span>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateofApplication"
-                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"
-                                             type="text"/>
-                            </span>
-                            </ng-template>
                             मा व्यक्तिगत कर्जा र व्यक्तिगत अधिविकर्ष सुविधाका
                             लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका
                             शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -75,7 +64,7 @@
                         <tr style="text-align:center">
                         </tr>
                         <tr>
-                            <td rowspan="6">
+                            <td rowspan="5">
                                 <strong>१.</strong>
                             </td>
                             <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
@@ -87,14 +76,14 @@
                                                                  name="purposeofLoan"
                                                                  placeholder="ऋण को उद्देश्य"
                                                                  style="width: 200px"
-                                                                 type="text"/></strong> गर्ने प्रयोजनको निमित्त मात्र
+                                                                 type="text"/></strong>प्रयोजनको निमित्त मात्र
                                 कर्जा प्रयोग गर्न सकिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td><strong> रकम </strong></td>
-                            <td>
-                                रु.<input (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords')"
+                            <td>रु.
+                                <input (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords')"
                                           class="form-field form-control-sm"
                                           formControlName="loanAmountPl"
                                           name="loanAmountPl"
@@ -109,7 +98,7 @@
                         </tr>
                         <tr>
                             <td><strong> ब्याज </strong></td>
-                            <td>प्रकाशित आधार दर (Base Rate)
+                            <td>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                 <input (change)="calcYearlyRate()"
                                        class="form-field form-control-sm"
                                        formControlName="baseRate"
@@ -132,13 +121,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>सेवा शुल्कः </strong></td>
-                            <td>कुल ऋणकर्जा रकमको <input class="form-field form-control-sm"
-                                                         formControlName="loanAdminFeeinFigure"
-                                                         name="loanAdminFeeinFigure"
-                                                         placeholder=" "
-                                                         type="text"/> प्रतिशतका दरले अग्रिम रुपमा तिर्नुबुझाउनु पर्नेछ ।
+                            <td><strong>ऋण प्रशासनिक शुल्क </strong></td>
+                            <td>
+                                ऋण प्रशासनिक शुल्क बापत रु <input (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords')"
+                                    class="form-field form-control-sm"
+                                    formControlName="loanAdminFeeinFigure"
+                                    name="loanAdminFeeinFigure"
+                                    placeholder=" "
+                                    type="text"/> । (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                        formControlName="loanAdminFeeinWords"
+                                                                        name="loanAdminFeeinWords"
+                                                                        placeholder=" "
+                                                                        type="text"/> मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ । तपाई ऋणी तथा तपाईसञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत प्रति सूचना रु २,०००/ शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ |
                             </td>
+                        </tr>
 
                         <tr>
                             <td><strong> चुक्ता भुक्तानीः </strong></td>
@@ -154,57 +150,17 @@
                                                     formControlName="emiInWords"
                                                     name="emiInWords"
                                                     placeholder=" "
-                                                    type="text"/> मात्र) का दरले ६० मासिक किस्ताहरुमा चुक्ता
+                                                    type="text"/> मात्र) का दरले
+                                <input class="form-field form-control-sm"
+                                       formControlName="loanPeriodInMonth"
+                                       name="loanPeriodInMonth"
+                                       placeholder=" "
+                                       type="text"/>
+                                मासिक किस्ताहरुमा चुक्ता
                                 भुक्तानी गर्नु पर्नेछ । तर ब्याजदरमा समय समयमा परिवर्तन भएमा सोही बमोजिम बैंकले
                                 निर्धारण गरेको भुक्तानी तालिका अनुसारका किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
-                                प्रतिशतका
-                                दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु
-                                बुझाउनु पर्ने छ ।
                             </td>
                         </tr>
-                        <tr>
-                            <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
-                            <td>
-                                स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका
-                                बमोजिम भुक्तानी
-                                हुने प्रकृतिका आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा अगावैे ऋणकर्जा अग्रिम
-                                भुक्तानी भएमा र/वा
-                                अन्य कुनै बैंक तथा वित्तीय संस्थाबाट ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान
-                                गरिएमा यसरी अग्रिम
-                                भुक्तानी गरिने ऋणकर्जा रकममा हालका लागि देहाय बमोजिम<strong> अग्रिम भुक्तानी शुल्क र/वा
-                                स्वाप (Swap) शुल्क</strong>
-                                लाग्नेछ तर उल्लिखित दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई
-                                थप/घट हुनसक्नेछन ।<br>
-                                <table>
-                                    <tr>
-                                        <td> अग्रिम भुक्तानी समय अवधि</td>
-                                        <td> अग्रिम भुक्तानी शुल्क दर</td>
-                                    </tr>
-                                    <tr>
-                                        <td> कर्जा प्रवाह भएको मितिले २ वर्ष भित्र</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.७५ %</td>
-                                    </tr>
-                                    <tr>
-                                        <td> २ वर्ष देखि ५ वर्ष भित्र</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.३७५ %</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> ५ वर्ष भन्दा पछि</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
-                                    </tr>
-                                </table>
-                                <p style="font-style: italic">
-                                    नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
-                                    जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
-                                    छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
-                                    वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
-                                    चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
-                                    । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
-                                    परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
-                                    कार्यान्वयन गरिनेछ ।
-                                </p>
-                            </td>
                         <tr>
                         <td rowspan="7">
                             <strong>२.</strong>
@@ -235,7 +191,7 @@
                         </tr>
                         <tr>
                             <td><strong>ब्याज दरः</strong></td>
-                            <td>प्रकाशित आधार दर (Base Rate)
+                            <td>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                 <input (change)="calcYearlyRate()" class="form-field form-control-sm"
                                        formControlName="baseRateOd"
                                        name="baseRateOd"
@@ -281,7 +237,7 @@
                                         रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
                                         उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी भुक्तानी गरिनेछ ।
                                     </li>
-                                    <li>तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
+                                    <li>तपाई ऋणी तथा तपाई सँग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
                                         बापत प्रति सूचना रु २,००० शुल्क
                                         लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
                                     </li>
@@ -347,21 +303,12 @@
                         </tr>
                         <tr>
                             <td><strong>कर्जा अवधि समाप्ती/पूनरावलोकन मितिः</strong></td>
-                            <td *ngIf="initialInfoPrint.loanExpiryDate.en.nDate === undefined; else loanExpiryDateNepali" class="text-left">
-                                मितिः
+                            <td>                                मितिः
                                 <input class="form-field form-control-sm"
                                        formControlName="loanExpiryDate"
-                                       [value]="initialInfoPrint.loanExpiryDate.en === undefined ? '' : ((initialInfoPrint.loanExpiryDate.en | date) | engNepDate: true)"
                                        type="text"/>
-                                मा हुनेछ ।</td>
-                            <ng-template #loanExpiryDateNepali>
-                                <td>
-                                    मितिः <input class="form-field form-control-sm"
-                                                 formControlName="loanExpiryDate"
-                                                 [value]="initialInfoPrint.loanExpiryDate.en.nDate === undefined ? '' : initialInfoPrint.loanExpiryDate.en.nDate"
-                                                 type="text"/>
-                                    मा हुनेछ ।</td>
-                            </ng-template>
+                                मा हुनेछ ।
+                            </td>
                         </tr>
                     </table>
                     <table class="table table-borderless col-md-12">
@@ -383,32 +330,32 @@
                                 रु. <input class="form-field form-control-sm longInput uniSize"
                                            formControlName="guaranteedAmountWords"
                                            [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
-                                           type="text"/> मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                                           type="text"/> मात्र) बराबरको को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
 
                             </td>
                         </tr>
                         <tr>
-                            <td>२.</td>
+                            <td>३.</td>
                             <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव
                                 साईट (Website)
-                                तथा राष्ट्रियस्तरको पत्रिकामा आधार दर (Base Rate ) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास
+                                तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate ) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास
                                 समाप्त भएपछि
-                                प्रकाशित हुने पछिल्लो आधार दर (Base Rate ) मा माथि उल्लेख भए बमोजिमको ब्याज दर
+                                प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर (Quarterly Average Base Rate ) मा माथि उल्लेख भए बमोजिमको ब्याज दर
                                 प्रिमियम (Interest Rate :Premium) थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                             </td>
                         </tr>
 
                         <tr>
-                            <td>३.</td>
-                            <td>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर
+                            <td>४.</td>
+                            <td>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर
                                 बैंकको आधिकारिक
                                 वेव साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन
                                 गरीने
-                                आधार दर (Base Rate) जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
+                                त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
                                 अर्थात श्रावण,
                                 कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दरसमायोजन तथा संसोधन गरीनेछ ।
-                                बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
-                                Monthly Installment )
+                                बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
+                                Monthly Installment )मा
                                 भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी
                                 तालिकामा परीवर्तन गरिने छैन ।
                                 परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज बाँकी रहन
@@ -417,9 +364,9 @@
                                 भुक्तान गर्नुपर्नेछ ।
                                 माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन
                                 गएबाट सो
-                                अनुसार बैंकले शुरुमा प्रदान गरेकोरगर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन ।
+                                अनुसार बैंकले शुरुमा प्रदान गरेको गर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन ।
                                 स्वीकृत कर्जा प्रवाह पश्चात त
-                                ्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता
+                                त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता
                                 तथा ब्याज दरको
                                 स्थिति सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ । ऋणीले
                                 यस ब्यबस्थाको पालना
@@ -428,7 +375,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>४.</td>
+                            <td>५.</td>
                             <td>ब्याज दरमा हुने संशोधन तथा पुनरावलोकन माथि उल्लेख भए बमोजिम हुनेछ ।
                                 साथै संशोधनको जानकारी बैंकको आधिकारिक वेव साईट (Website) वा पत्रपत्रिका मार्फत सार्वजनिक
                                 सुचना
@@ -438,10 +385,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>५.</td>
+                            <td>६.</td>
                             <td>बैंकबाट जुन उद्देश्यको लागि कर्जा लिएको हो, सो उद्देश्यमा कर्जा प्रयोग नगरेमा (Missuse
                                 of loan) र/वा
-                                धितो सम्पत्तिमा हानी नोक्सानी पु¥याउने कार्य गरेमा (Damage/destruction of security
+                                धितो सम्पत्तिमा हानी नोक्सानी पुर्योउने  कार्य गरेमा (Damage/destruction of security
                                 collateral) र/वा ऋणीले ऋणकर्जा
                                 स्वीकृति पत्रमा उल्लिखित कुनै पनि शर्तबन्देजहरु उल्लंघन गरेमा ( Non – compliance of
                                 terms & conditions
@@ -450,7 +397,7 @@
                         </tr>
 
                         <tr>
-                            <td>६.</td>
+                            <td>७.</td>
                             <td>ऋणी, जमानतकर्ता वा ऋणी फर्म, कम्पनी वा संस्था भए सोका प्रोप्राईटर, संचालक, साझेदार,
                                 नेपाल राष्ट्र बैंकले तोकिए
                                 बमोजिमको प्रतिशतभन्दा बढी शेयर लिने शेयरधनी वा अन्य कुनै प्रकारको स्वामित्व हुने
@@ -461,7 +408,7 @@
                         </tr>
 
                         <tr>
-                            <td>७.</td>
+                            <td>८.</td>
                             <td>क) तपाईंको माथि प्रकरण १ मा उल्लेख गरिएको व्यक्तिगत कर्जा वापतको साँवा/किस्ता भुक्तानी
                                 अंग्रेजी पात्रोको प्रत्येक २०
                                 तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ र प्रकरण २ मा उल्लेख गरिएको ब्यक्तिगत अधिविकर्ष
@@ -479,13 +426,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>८.</td>
+                            <td>९.</td>
                             <td>माथि प्रकरण १ मा उल्लेखित व्यक्तिगत कर्जा सिमा यदि आंशिक वा पूर्ण भुक्तानी भएपश्चात
                                 भुक्तानी भएको रकम बराबर पूनः कर्जा स्वरुप उपयोग गर्न सकिनेछैन ।
                             </td>
                         </tr>
                         <tr>
-                            <td>९.</td>
+                            <td>१०.</td>
                             <td>माथि प्रकरण २ मा उल्लेखित व्यक्तिगत अधिविकर्ष कर्जा सिमा आंशिक वा पूर्ण जति भुक्तानी
                                 भएको
                                 हो सोहि बराबर रकम मात्र पूनः कर्जा स्वरुप उपयोग गर्न सकिनेछ ।
@@ -493,7 +440,7 @@
                         </tr>
 
                         <tr>
-                            <td>१०.</td>
+                            <td>११.</td>
                             <td> आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकता
                                 र
                                 निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
@@ -502,22 +449,21 @@
                                        name="nameofBranch"
                                        placeholder=" शाखा को नाम "
                                        type="text"/> मा खोल्नु भएको चल्ती
-                                खातामा रु <input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
+                                खातामा रु <input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountInWords')"
                                                  class="form-field form-control-sm"
-                                                 formControlName="loanAmountinFigure"
-                                                 name="loanAmountinFigure"
+                                                 formControlName="loanAmountOd"
+                                                 name="loanAmountOd"
                                                  placeholder="ऋण रकम"
                                                  type="text"/>।
                                 (अक्षरेपि रु<input class="form-field form-control-sm"
-                                                   formControlName="loanAmountinWords"
-                                                   name="loanAmountinWords"
+                                                   formControlName="loanAmountOdInWords"
+                                                   name="loanAmountOdInWords"
                                                    placeholder=" ऋण रकम "
                                                    type="text"/>मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                         </tr>
 
-
                         <tr>
-                            <td>११.</td>
+                            <td>१२.</td>
                             <td>कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा
                                 गरिदिए पश्चात तपाईंको
                                 यस नबिल बैंक लिमिटेडमा रहेको खाता नं. <input
@@ -527,14 +473,14 @@
                                         placeholder=" ग्राहक खाता नम्बर "
                                         type="text"/>
                                 मा रु. <input class="form-field form-control-sm"
-                                              formControlName="loanAmountinFigure"
-                                              name="loanAmountinFigure"
+                                              formControlName="loanAmountPl"
+                                              name="loanAmountPl"
                                               placeholder=" ऋण रकम "
                                               type="text"/> व्यक्तिगत कर्जा प्रवाह गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>१२.</td>
+                            <td>१३.</td>
                             <td>यो ऋण कर्जा सुविधा तथा ऋणकर्जासंग सम्वन्धित शर्त बन्देजनामाहरु तपाई
                                 <input class="form-field form-control-sm"
                                        formControlName="nameofCompanyCustomerWorking"
@@ -552,7 +498,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>१३.</td>
+                            <td>१४.</td>
                             <td> कथंकदाचित <input class="form-field form-control-sm"
                                                   formControlName="nameofCompanyCustomerWorking"
                                                   name="nameofCompanyCustomerWorking"
@@ -568,15 +514,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>१४.</td>
-                            <td> कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा
+                            <td>१५.</td>
+                            <td> कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साँचो छन र अन्यथा भएमा
                                 तपाईं जिम्मेवार हुनुहुनेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>१५.</td>
+                            <td>१६.</td>
                             <td>यदि ऋणीले यस ऋणकर्जा स्वीकृति पत्रमा उल्लेखित कुनै पनि शर्तबन्देजहरु उल्लंघन गरेमा र/वा
-                                यदि ऋणीले स्वयंले पाट पल्टेको
+                                यदि ऋणीले स्वयंले टाट पल्टेको
                                 घोषणा गरेमा र/वा यदि सक्षम निकायबाट ऋणीलाई विघटन (Liquidation) गर्ने प्रकृया चालेमा र/वा
                                 यदि ऋणीले फौजदारी कसुरजन्य काम
                                 कारवाही गरेमा र/वा ऋणीले बैंक बिरुद्ध कुनै न्यायिक वा अर्ध न्यायिक निकायमा मुद्धा दायर
@@ -591,7 +537,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>१६.</td>
+                            <td>१७.</td>
                             <td>साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा देहाय
                                 बमोजिमका दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
                                 <strong>क. <u>साँवाको भाखा नाघेको अवस्थामाः</u></strong>
@@ -605,44 +551,15 @@
                                 भएको अवधिका लागि बक्यौता व्याज रकममा
                                 जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत
                                 व्याजदर
-                                (आधार दर ब्याज दर प्रिमियम मा २ प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले
+                                (त्रैमासिक औसत आधार दर(Quarterly Average Base Rate) ब्याज दर प्रिमियम मा २ प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले
                                 थप हर्जाना व्याज लाग्नेछ ।
-                                बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest Rate Premium) र आधार दर (Base Rate)
+                                बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest Rate Premium) र  त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                 बैंकको आधिकारिक वेब साईट (Website) समय समयमा
                                 बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
-                                <strong>ग. <u>थप/अतिरिक्त शुल्कः</u></strong>
-                                स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
-                                बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
-                                आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
-                                (Additional Risk Premium) समेत लाग्नेछ ।<br>
-                                <table class="table table-hover table-bordered hello">
-                                    <tr>
-                                        <td> विवरण</td>
-                                        <td> थप जोखिम दर (Additional Risk Premium)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
-                                            देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
-                                        </td>
-                                        <td>
-                                            वार्षिक २.०० %
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
-                                            देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
-                                        </td>
-                                        <td>
-                                            वार्षिक ३.०० %
-                                        </td>
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                         <tr>
-                            <td>१७.</td>
+                            <td>१८.</td>
                             <td>माथि उल्लिखित हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी शुल्क (Late Payment
                                 Fee) र अन्य सेवा सुविधा बापत
                                 तिर्नु बुझाउनु पर्ने शुल्क तथा व्याजदरहरु बैंकले आफ्नो आधिकारीक (Website) मा
@@ -655,7 +572,7 @@
 
                         </tr>
                         <tr>
-                            <td>१८.</td>
+                            <td>१९.</td>
                             <td>क. व्यवसायको अवस्थाहरुमा भौतिक र/वा प्रतिकूल परिवर्तन भएमा ऋणकर्जा चुक्ता/भुक्तानी गर्न
                                 उचित सूचना र कारणहरु खुलाई ऋण सुविधाहरु
                                 चुक्ता भुक्तानीका लागि बोलाउने बैंकको अधिकार सुरक्षित रहनेछ ।
@@ -668,33 +585,33 @@
 
                         </tr>
                         <tr>
-                            <td>१९.</td>
+                            <td>२०.</td>
                             <td>बैंकको नियम विनियम बमोजिम वा नेपाल राष्ट्र बैंकको निर्देशन/नियम अनुपालन गर्न समय समयमा
                                 ब्याजदरमा संशोधन गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
                             </td>
 
                         <tr>
-                            <td>२०.</td>
+                            <td>२१.</td>
                             <td>बैंक अभिलेखमा रहेको तपाईंको अन्तिम ठेगानामा बैंकका सूचना तपाईंलाई प्रदान गरिएमा सूचना
                                 प्रभावकारी रुपमा प्रदान गरिएको मानिनेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>२१.</td>
+                            <td>२२.</td>
                             <td>व्यक्तिगत कर्जाका शर्तबन्देजहरु परिवर्तन गर्न नबिल बैंक लिमिटेडको एकल र पूर्ण अधिकार
                                 रहनेछ तर बैंकले व्यक्तिगत कर्जाका शर्तबन्देजहरुको परिवर्तन बारे पूर्व एवं यथोचित सूचना
                                 दिनेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>२२.</td>
+                            <td>२३.</td>
                             <td>ऋणकर्जा खाता विवरणहरु र कर्जा सम्झौता प्रतिहरु मुख्य आवेदक वा लिखित स्वीकृति/मञ्जुरीमा
                                 उसको आधिकारीक प्रतिनिधिहरुलाई
                                 मात्र उपलब्ध गराईनेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>२३.</td>
+                            <td>२४.</td>
                             <td>तपाईंले तपाईंको परिवर्तित पेशा/रोजगारी/ओहदा र परिवर्तित ठेगाना र बैंकलाई समय समयमा
                                 आवश्यक अन्य सूचनाहरु
                                 ऋणकर्जा अवधि भरि उपलब्ध गराउनुपर्नेछ ।
@@ -702,7 +619,7 @@
                         </tr>
 
                         <tr>
-                            <td>२४.</td>
+                            <td>२५.</td>
                             <td>माथि उल्लेखित ऋणकर्जा सुविधाहरुको अवधि समाप्त हुनु भन्दा ४५ दिन अगावै आवश्यक कागजपत्रहरु
                                 सहित नविकरणका लागि
                                 निवेदन दिनुपर्नेछ । नविकरणका लागि निवेदन प्राप्त नभएमा वा निवेदनका साथ पूर्ण कागजपत्रहरु
@@ -715,8 +632,8 @@
                         </tr>
 
                         <tr>
-                            <td>२५.</td>
-                            <td>बबैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको
+                            <td>२६.</td>
+                            <td>बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको
                                 सम्पत्तिहरु/सुरक्षणहरु बैंकको लिखित
                                 सहमति बेगर अन्य पक्षहरुको हक वा हितमा कुनै पनि तवरले पूनः धितोबन्धक/दृष्टिबन्धक/बन्धक वा
                                 अन्य कुनै व्यहोराले तेश्रो
@@ -725,7 +642,7 @@
                         </tr>
 
                         <tr>
-                            <td>२६.</td>
+                            <td>२७.</td>
                             <td>बैंकको धितोबन्धक र/वा दृष्टिबन्धकमा रहेको सम्पत्तिहरु/सुरक्षणहरुको बिमालेखमा बैंकर्स
                                 शर्त (Banker's Clause) सहित
                                 अन्य आवश्यक जोखिमहरु सुरक्षित गरी बिमा गरी सुरक्षित राख्नुपर्नेछ र उक्त
@@ -735,7 +652,7 @@
                         </tr>
                         <tr>
 
-                            <td>२७.</td>
+                            <td>२८.</td>
                             <td>माथि उल्लेखित स्वीकृत ऋणकर्जा सुविधाको सिमाहरु अप्रतिबद्ध सिमाहरु हुन र तपाईंलाई पूर्व
                                 सूचना दिई वा नदिई सो ऋणकर्जा
                                 सुविधाहरुको उपयोग नगरिएका अंशहरु रोक्न/रद्ध गर्न/निलम्बन गर्न र घटाउन बैंकको अधिकार
@@ -743,13 +660,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>२८.</td>
+                            <td>२९.</td>
                             <td>स्वीकृत ऋणकर्जा सुविधाहरु यस ऋणस्वीकृित पत्र स्वीकार गरेको मितिले ६० दिन भित्र उपयोग
                                 गरिसक्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
-                            <td>२९.</td>
+                            <td>३०.</td>
                             <td>बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा विक्रि, परिवर्तन वा
                                 नामसारी गर्न पाईने छैन र
                                 बैंकको सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा पत्रको
@@ -758,7 +675,7 @@
                         </tr>
 
                         <tr>
-                            <td>३०.</td>
+                            <td>३१.</td>
                             <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
                                 गर्नु पर्नेछ।
                                 <p style="margin-left:100px">
@@ -788,15 +705,15 @@
                                                       placeholder="ग्राहकको खाता"
                                                       type="text"/> बाट खर्च कटाउने अख्तीयारी पत्र ।
                                     <br>
-                                    ह्. स्थाई लेखा नम्बरको प्रमाण पत्र ।
+                                    ङ. स्थाई लेखा नम्बरको प्रमाण पत्र ।
                                     <br>
-                                    छ. ग्राहक स्वःघोषणा फारम ।
+                                    च. ग्राहक स्वःघोषणा फारम ।
                                     <br>
-                                    ज. बहूबैंकिङ्ग घोषणा पत्र ।
+                                    छ. बहूबैंकिङ्ग घोषणा पत्र ।
                                     <br>
-                                    झ. ऋणीबाट (undertaking letter ) ।
+                                    ज. ऋणीबाट (undertaking letter ) ।
                                     <br>
-                                    ञ. श्री
+                                    झ. श्री
                                     <input class="form-field form-control-sm"
                                            formControlName="guarantorName"
                                            [value]="this.finalName"
@@ -812,13 +729,14 @@
                                            type="text"/> मात्र) बराबरको
                                     व्यक्तिगत जमानत पत्र ।
                                 <br>
-                                    ट.
-                                <div class="row col-md-12">
+
+                                <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -1.5em;">
+                                    ञ.
                                         <textarea
                                                 id="additionalGuarantorDetails"
                                                 class="form-control customFont nepaliFont"
                                                 rows="5"
-                                                style="width: inherit;margin-left:4%;"
+                                                style="width: inherit;margin-left:4px;margin-top: 9px"
                                                 name="additionalGuarantorDetails"
                                                 formControlName="additionalGuarantorDetails">
                                         </textarea>
@@ -933,12 +851,12 @@
                                 माथिल्लो
                                 स्तरका कर्मचारीहरु,
                                 चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक
-                                सञग
+                                सँग
                                 मेरो/हाम्रो, कम्पनीको हकमा
                                 संस्थापक शेयरधनीहरु र सञचालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको
                                 पारिवारिक
                                 सम्बन्ध नभएको र
-                                निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                                निजहरु सँग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
                             </td>
                         </tr>
                     </table>

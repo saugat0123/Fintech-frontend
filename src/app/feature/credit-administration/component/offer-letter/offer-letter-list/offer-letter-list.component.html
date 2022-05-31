@@ -37,7 +37,7 @@
                     <td (click)="loadProfile(model?.id,model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}} ({{model?.loanHolder?.customerSubType}})</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>

@@ -1,0 +1,635 @@
+<div>
+    <form [formGroup]="retailPrimarySecurityForm">
+        <!-- FOR LAND AND BUILDING SECTION  || FOR LAND-->
+        <div *ngFor="let securityData of retailPrimarySecurityForm.get('securityDetails')['controls']; let i = index;"
+             formArrayName="securityDetails">
+            <ng-container [formGroupName]="i">
+                <div class="row d-flex justify-content-between m-1">
+                    <h6> {{i + 1}}. <u>PRIMARY SECURITY</u></h6>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-2">
+                        <label><strong> Security Type </strong></label>
+                        <nb-select
+                                (selectedChange)="selectedSecurity($event, i)"
+                                formControlName="securityType"
+                                fullWidth
+                                placeholder="Security Type">
+                            <nb-option *ngFor="let security of securityType"
+                                       [value]="security.key"> {{security.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-12">
+                        <h6 *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
+                            {{this.retailPrimarySecurityForm.get(['securityDetails', i, 'securityType']).value === securityType[0]?.key ? 'LAND DETAILS' : 'LAND AND BUILDING DETAILS'}} </h6>
+                        <h6 *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[2].key">
+                            AUTO LOAN </h6>
+                        <h6 *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[3].key">
+                            TD </h6>
+                        <h6 *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[4].key">
+                            SHARE SECURITY </h6>
+                        <!--<h6 *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5].key">
+                            PERSONAL GUARANTEE</h6>-->
+                    </div>
+                </div>
+                <div *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key"
+                     class="row">
+                    <div class="col-md-4">
+                        <label><strong>Collateral Shared</strong></label>
+                        <nb-select
+                                (selectedChange)="setDefaultCTAndTransVal('collateralShare', false, 'securityDetails', i)"
+                                formControlName="collateralShare"
+                                fullWidth
+                                placeholder="Collateral Share">
+                            <nb-option *ngFor="let collateral of collateralShare"
+                                       [value]="collateral.value"> {{collateral.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                        <nb-select fullWidth placeholder="Mortgage Type"
+                                   (selectedChange)="setDefaultCTAndTransVal('mortgageType', false, 'securityDetails', i)"
+                                   formControlName="mortgageType" shape="semi-round">
+                            <nb-option *ngFor="let type of mortgageType"
+                                       [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key ||
+                 this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[2]?.key"
+                     class="row mb-4">
+                    <div class="col-md-12 m-2">
+                        <nb-checkbox #insuranceRequired
+                                     (checkedChange)="checkInsuranceRequired(insuranceRequired.checked, i)"
+                                     [checked]="formControls.securityDetails[i]?.insuranceRequired.value"
+                                     formControlName="insuranceRequired">
+                            <i> Insurance Required </i></nb-checkbox>
+                    </div>
+                </div>
+                <div *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
+                    <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'collateralShare'])?.value === 'YES'"
+                         class="row">
+                        <div class="form-group col-md-4">
+                            <label for="nameOfBorrowingClient">Name of other borrowing clients </label>
+                            <input (input)="onChangeTranslate('securityDetails', 'nameOfBorrowingClient', i, 'nameOfBorrowingClientTrans')"
+                                   class="form-control" formControlName="nameOfBorrowingClient"
+                                   fullWidth
+                                   id="nameOfBorrowingClient"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfBorrowingClientTrans" fullWidth
+                                   id="nameOfBorrowingClientTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfBorrowingClientCT" fullWidth
+                                   id="nameOfBorrowingClientCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersName">Collateral Owner Name</label>
+                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersName', i, 'securityOwnersNameTrans')"
+                                   class="form-control" formControlName="securityOwnersName"
+                                   fullWidth
+                                   id="securityOwnersName"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersNameTrans" fullWidth
+                                   id="securityOwnersNameTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersNameCT" fullWidth
+                                   id="securityOwnersNameCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
+                            <select (change)="getMunicipalityByDistrict(retailPrimarySecurityForm.get(['securityDetails', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultResponse('securityDetails', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
+                                    [compareWith]="compareFn"
+                                    class="custom-select"
+                                    formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
+                                    name="securityOwnersDistrict{{i}}">
+                                <option [ngValue]="null" hidden>District</option>
+                                <option *ngFor="let district of allDistrictList"
+                                        [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersDistrictTrans" fullWidth
+                                   id="securityOwnersDistrictTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersDistrictCT" fullWidth
+                                   id="securityOwnersDistrictCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersMunicipality{{i}}">Municipality (नगर/गा.वि.स.)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securityDetails')"
+                                            class="form-control"
+                                            formControlName="securityOwnersMunicipalityOrVdc"
+                                            name="securityOwnersMunicipalityOrVdc">
+                                        <option hidden value="null">Municipality or VDC</option>
+                                        <option value="Municipality">Municipality</option>
+                                        <option value="VDC">VDC</option>
+                                        <option value="Rural">Rural</option>
+                                    </select>
+                                </div>
+
+                                <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                    retailPrimarySecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'"
+                                     class="col-md-8">
+                                    <input (input)="onChangeTranslate('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                           class="form-control" formControlName="securityOwnersMunicipality"
+                                           fullWidth
+                                           id="securityOwnersVDC"
+                                           nbInput status="success" type="text">
+                                </div>
+
+                                <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value
+                                    && retailPrimarySecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
+                                     class="col-md-8">
+                                    <select (change)="setDefaultResponse('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                            class="custom-select"
+                                            [compareWith]="compareFn"
+                                            formControlName="securityOwnersMunicipality"
+                                            id="securityOwnersMunicipality{{i}}"
+                                            name="securityOwnersMunicipality{{i}}">
+                                        <option [ngValue]="null" hidden>Municipality</option>
+                                        <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                                [ngValue]="municipalityVal">
+                                            {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersMunicipalityTrans" fullWidth
+                                   id="securityOwnersMunicipalityTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersMunicipalityCT" fullWidth
+                                   id="securityOwnersMunicipalityCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div *ngFor="let details of retailPrimarySecurityForm.get(['securityDetails', i, 'propertyDetails'])['controls']; let index = index;" formArrayName="propertyDetails">
+                        <ng-container [formGroupName]="index">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersWardNo">Ward No</label>
+                                    <input (input)="translateSecurityFormArrayNumber('securityDetails', 'securityOwnersWardNo', i, 'securityOwnersWardNoTrans', index, 'propertyDetails')"
+                                           class="form-control" formControlName="securityOwnersWardNo"
+                                           fullWidth
+                                           id="securityOwnersWardNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="number">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersWardNoTrans" fullWidth
+                                           id="securityOwnersWardNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersWardNoCT" fullWidth
+                                           id="securityOwnersWardNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersKittaNo">Kitta Number</label>
+                                    <input (input)="onChangeFormArrayTranslate('securityDetails', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTrans', index, 'propertyDetails')"
+                                           class="form-control" formControlName="securityOwnersKittaNo"
+                                           fullWidth
+                                           id="securityOwnersKittaNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersKittaNoTrans" fullWidth
+                                           id="securityOwnersKittaNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersKittaNoCT" fullWidth
+                                           id="securityOwnersKittaNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersLandArea">Area With Unit</label>
+                                    <input (input)="onChangeFormArrayTranslate('securityDetails', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans', index, 'propertyDetails')"
+                                           class="form-control" formControlName="securityOwnersLandArea"
+                                           fullWidth
+                                           id="securityOwnersLandArea"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
+                                           id="securityOwnersLandAreaTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
+                                           id="securityOwnersLandAreaCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersSheetNo">Sheet Number</label>
+                                    <input (input)="translateSecurityFormArrayNumber('securityDetails', 'securityOwnersSheetNo', i, 'securityOwnersSheetNoTrans', index, 'propertyDetails')"
+                                           class="form-control" formControlName="securityOwnersSheetNo"
+                                           fullWidth
+                                           id="securityOwnersSheetNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersSheetNoTrans" fullWidth
+                                           id="securityOwnersSheetNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersSheetNoCT" fullWidth
+                                           id="securityOwnersSheetNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'propertyDetails'])['length'] > 1" class="col-md-12 text-left mb-3">
+                            <button (click)="removePropertyDetailsArr(i, index)" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash mr-2" style="color: white;"></em>
+                                Delete Property Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right mb-4">
+                            <button (click)="addPropertyDetails(i)" *ngIf="selectedValue" nbButton outline size="small"
+                                    status="info">
+                                <em class="fa fa-plus-circle mr-2" style="color: blue;"></em>
+                                Add More Property Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[3]?.key">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="fixedDepositHolderName"> Fixed Deposit Holder Name </label>
+                            <input (input)="onChangeTranslate('securityDetails', 'fixedDepositHolderName', i, 'fixedDepositHolderNameTrans')"
+                                   class="form-control" formControlName="fixedDepositHolderName"
+                                   fullWidth
+                                   id="fixedDepositHolderName"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="fixedDepositHolderNameTrans" fullWidth
+                                   id="fixedDepositHolderNameTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="fixedDepositHolderNameCT" fullWidth
+                                   id="fixedDepositHolderNameCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="FDAmountInFigure"> Fixed Deposit Amount In Figure </label>
+                            <input
+                                    (input)="translateSecurityNumber('securityDetails', 'FDAmountInFigure', i, 'FDAmountInFigureTrans');convertWords('securityDetails', i, 'FDAmountInFigure', 'FDAmountInWords')"
+                                    class="form-control" formControlName="FDAmountInFigure"
+                                    fullWidth
+                                    id="FDAmountInFigure"
+                                    nbInput
+                                    shape="semi-round" status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDAmountInFigureTrans" fullWidth
+                                   id="FDAmountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDAmountInFigureCT" fullWidth
+                                   id="FDAmountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="FDAmountInWords"> Fixed Deposit Amount In Words </label>
+                            <input
+                                   class="form-control" formControlName="FDAmountInWords"
+                                   fullWidth
+                                   id="FDAmountInWords"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDAmountInWordsTrans" fullWidth
+                                   id="FDAmountInWordsTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDAmountInWordsCT" fullWidth
+                                   id="FDAmountInWordsCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="tenureOfFixedDeposit"> Tenure Of Fixed Deposit </label>
+                            <input
+                                    (input)="translateSecurityNumber('securityDetails', 'tenureOfFixedDeposit', i, 'tenureOfFixedDepositTrans')"
+                                    class="form-control" formControlName="tenureOfFixedDeposit"
+                                    fullWidth
+                                    id="tenureOfFixedDeposit"
+                                    nbInput
+                                    shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="tenureOfFixedDepositTrans" fullWidth
+                                   id="tenureOfFixedDepositTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="tenureOfFixedDepositCT" fullWidth
+                                   id="tenureOfFixedDepositCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="FDReceiptNumber"> Fixed Deposit Receipt Number </label>
+                            <input
+                                    (input)="translateSecurityNumber('securityDetails', 'FDReceiptNumber', i, 'FDReceiptNumberTrans')"
+                                    class="form-control" formControlName="FDReceiptNumber"
+                                    fullWidth
+                                    id="FDReceiptNumber"
+                                    nbInput
+                                    shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDReceiptNumberTrans" fullWidth
+                                   id="FDReceiptNumberTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FDReceiptNumberCT" fullWidth
+                                   id="FDReceiptNumberCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="accountNumber"> Account Number </label>
+                            <input
+                                    (input)="translateSecurityNumber('securityDetails', 'accountNumber', i, 'accountNumberTrans')"
+                                    class="form-control" formControlName="accountNumber"
+                                    fullWidth
+                                    id="accountNumber"
+                                    nbInput
+                                    shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   id="accountNumberTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth
+                                   id="accountNumberCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="bankName"> Name Of Bank </label>
+                            <input (input)="onChangeTranslate('securityDetails', 'bankName', i, 'bankNameTrans')"
+                                   class="form-control" formControlName="bankName"
+                                   fullWidth
+                                   id="bankName"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="bankNameTrans" fullWidth
+                                   id="bankNameTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="bankNameCT" fullWidth
+                                   id="bankNameCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="expiryDate"> Fixed Deposit Expiry Date</label><br>
+                            <nb-radio-group class="d-inline-flex"
+                                            formControlName="FDExpiryDateType" id="expiryDate"
+                                            name="expiryDate" status="success">
+                                <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                                <nepali-patro [displayNepali]="true" [responseType]="2"
+                                              (ngModelChange)="dateConvert('securityDetails', i, 'FDExpiryDateNepali', 'BS')"
+                                              formControlName="FDExpiryDateNepali">
+                                </nepali-patro>
+                            </div>
+                            <input *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === dateType[0]?.value" [nbDatepicker]="previousDate"
+                                   formControlName="FDExpiryDate"
+                                   (ngModelChange)="dateConvert('securityDetails', i, 'FDExpiryDate', 'AD')"
+                                   fullWidth
+                                   id="FDExpiryDate"
+                                   nbInput
+                                   shape="semi-round"
+                                   placeholder="Select Date" status="success">
+                            <nb-datepicker #previousDate></nb-datepicker>
+                        </div>
+                        <div class="col-md-4">
+                            <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="FDExpiryDateNepaliTrans" fullWidth id="FDExpiryDateNepaliTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="FDExpiryDateTrans" fullWidth id="FDExpiryDateTrans"
+                                       readonly
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="FDExpiryDateNepaliCT" fullWidth id="FDExpiryDateNepaliCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                            <div *ngIf="retailPrimarySecurityForm.get(['securityDetails', i, 'FDExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
+                                <input class="form-control" formControlName="FDExpiryDateCT" fullWidth id="FDExpiryDateCT"
+                                       nbInput
+                                       shape="semi-round"
+                                       status="success" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="this.retailPrimarySecurityForm.get(['securityDetails', i,'securityType']).value === securityType[4]?.key">
+                    <div class="row">
+                        <ckeditor class='ckEditor' formControlName="shareSecurityTable" [(ngModel)]="shareTable[i]"
+                                  [config]="ckEditorConfig"></ckeditor>
+                    </div>
+                </div>
+
+                <div *ngIf="retailPrimarySecurityForm.get('securityDetails')['length'] > 1" class="col-md-12 text-right">
+                    <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
+                            style="position: static">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </button>
+                </div>
+
+                <hr *ngIf="retailPrimarySecurityForm.get('securityDetails')['length'] > 1">
+            </ng-container>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button (click)="addMoreSecurityDetails(retailPrimarySecurityForm.get('securityDetails')['length'])" *ngIf="selectedValue" nbButton outline size="small"
+                        status="success">
+                    Add More Primary Securities
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

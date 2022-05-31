@@ -1,0 +1,45 @@
+*{
+  font-size: 19px;
+  line-height: 1.9em;
+}
+.nepaliFont{
+  font-size: 20px;
+  font-family: Preeti;
+}
+.unicodeResize {
+  font-size: 19px;
+}
+table {
+  text-align: justify !important;
+}
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+.nepaliList {
+  list-style-type: devanagari;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+}
+.nep {
+  font-size: 19px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  @page :first {
+    margin: 288px 48px 76.8px 144px !important;
+  }
+  @page {
+    margin: 95px 48px 76.8px 144px !important;
+  }
+}
+.disclist > li{
+  list-style-type: disc;
+}

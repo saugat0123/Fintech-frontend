@@ -1,32 +1,28 @@
 
 export enum NabilOfferLetterConst {
-    // HOUSING_TAKEOVER_CASE,
-    AUTO_LOAN,
-    // HOUSING_CONSTRUCTION_CASE_1,
-    // COMMERCIAL_AUTO,
-    // HOUSING_PURCHASE_LOAN,
-    EDUCATIONAL,
-    PERSONAL_OVERDRAFT,
-    PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT,
-    PERSONAL_LOAN,
-    HOME_LOAN,
-    MORTAGE_LOAN,
-    AUTO_LOAN_COMMERCIAL
+    AUTO_LOAN ,
+    EDUCATIONAL ,
+    PERSONAL_LOAN ,
+    PERSONAL_OVERDRAFT ,
+    PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL ,
+    PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT ,
+    HOME_LOAN ,
+    MORTAGE_LOAN ,
+    SHARE_LOAN ,
+    NABIL_SAHAYATRI_KARJA ,
+    KISAN_KARJA_SUBSIDY ,
+    UDYAMSIL_KARJA_SUBSIDY ,
+    INTEREST_SUBSIDY_SANCTION_LETTER ,
+    DDSL_WITHOUT_SUBSIDY ,
+    CLASS_A ,
+    COMBINED_LETTER
 }
 
 export namespace NabilOfferLetterConst {
     export function value(offerLetterConst: NabilOfferLetterConst) {
         switch (offerLetterConst) {
-            // case NabilOfferLetterConst.HOUSING_TAKEOVER_CASE:
-            //     return 'Housing TakeOver Case';
             case NabilOfferLetterConst.AUTO_LOAN:
                 return 'Auto Loan';
-            // case NabilOfferLetterConst.HOUSING_CONSTRUCTION_CASE_1:
-            //     return 'Housing Construction Case-1';
-            // case NabilOfferLetterConst. COMMERCIAL_AUTO:
-            //     return 'Commercial Auto';
-            // case NabilOfferLetterConst. HOUSING_PURCHASE_LOAN:
-            //     return 'Housing Purchase Loan';
             case NabilOfferLetterConst.EDUCATIONAL:
                 return 'Educational Loan';
             case NabilOfferLetterConst.PERSONAL_OVERDRAFT:
@@ -37,10 +33,26 @@ export namespace NabilOfferLetterConst {
                 return 'Home Loan';
             case NabilOfferLetterConst.PERSONAL_LOAN:
                 return 'Personal Loan';
-            case NabilOfferLetterConst.AUTO_LOAN_COMMERCIAL:
-                return 'AUTO LOAN COMMERCIAL ';
             case NabilOfferLetterConst.MORTAGE_LOAN:
                 return 'Mortage Loan';
+            case NabilOfferLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL:
+                return 'Personal overdraft without collateral';
+            case NabilOfferLetterConst.KISAN_KARJA_SUBSIDY:
+                return 'Kisan Karja Subsidy';
+            case NabilOfferLetterConst.UDYAMSIL_KARJA_SUBSIDY:
+                return 'Udyamsil Karja Subsidy';
+            case NabilOfferLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER:
+                return 'Interest subsidy sanction letter';
+            case NabilOfferLetterConst.DDSL_WITHOUT_SUBSIDY:
+                return 'DDSL Without Subsidy';
+            case NabilOfferLetterConst.COMBINED_LETTER:
+                return 'Combined Offer Letter';
+            case NabilOfferLetterConst.SHARE_LOAN:
+                return 'Share Loan';
+            case NabilOfferLetterConst.CLASS_A:
+                return 'Class A Sanction letter';
+            case NabilOfferLetterConst.NABIL_SAHAYATRI_KARJA:
+                return 'Nabil Sahayatri Karja';
         }
     }
 

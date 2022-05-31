@@ -1,0 +1,53 @@
+<div id="{{offerLetterConst.COMBINED_LETTER}}">
+    <!-- todo NEEDED TO CALL EACH SECTION COMPONENT ALONG WITH COMMON COMPONENTS-->
+    <div class="col-md-12">
+        <app-common-section-top-print
+                [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-top-print>
+        <app-section1-introduction-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section1-introduction-print>
+        <app-section2-loan-type-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section2-loan-type-print>
+        <app-section3-security-and-collateral-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section3-security-and-collateral-print>
+        <app-section4-loan-limit-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section4-loan-limit-print>
+        <app-section5-interest-penal-charge-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section5-interest-penal-charge-print>
+        <app-section6-facilities-clause-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section6-facilities-clause-print>
+        <app-section7-security-clause-print
+                [customerApprovedDoc]="customerApprovedDoc"></app-section7-security-clause-print>
+        <app-section8-insurance-clause-print
+                [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section8-insurance-clause-print>
+        <app-section9-other-clause-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"></app-section9-other-clause-print>
+        <app-section10-security-documents-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
+                [freeText]="freeText"
+        ></app-section10-security-documents-print>
+        <app-common-section-bottom-print
+                [cadOfferLetterApprovedDoc]="customerApprovedDoc"
+                [letter]="letterData"
+                [freeText]="freeText">
+        </app-common-section-bottom-print>
+    </div>
+    <div class="col-md-12 mt-2">
+        <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+                 ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}" #printButton>Print</button>
+    </div>
+</div>

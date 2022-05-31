@@ -20,7 +20,7 @@ import {BorrowerPortfolio} from './borrwerportfolio';
 import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from './micro-borrower-financial';
 import {MarketingActivities} from './marketing-activities';
-import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
+// import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
@@ -73,11 +73,12 @@ export class CustomerInfoData {
     marketingActivities: MarketingActivities;
     isMicroCustomer: boolean;
     clientType: any;
-    reportingInfoLevels: Array<ReportingInfoLevel>;
+    // reportingInfoLevels: Array<ReportingInfoLevel>;
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
     subsectorDetail: string;
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
+    customerSubType: any;
 }

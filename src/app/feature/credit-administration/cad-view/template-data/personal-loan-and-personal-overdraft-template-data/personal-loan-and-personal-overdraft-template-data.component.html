@@ -1,4 +1,4 @@
-<div>
+<div [nbSpinner]="spinner">
     <form [formGroup]="form">
         <div class="col-md-12">
             <h5>
@@ -110,7 +110,7 @@
             <tr>
                 <td>Loan Admin Fee in Figure</td>
                 <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"
-                           (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords');translateNumber('loanAdminFeeinFigure', 'loanAdminFeeinFigureTransVal')"></td>
+                           (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords')"></td>
                 <td class="abc">{{podtranslatedData?.loanAdminFeeinFigure}}</td>
                 <td>
                     <input type="text" class="form-control"
@@ -136,9 +136,10 @@
                     </div>
                 </td>
             </tr>
+
             <tr>
                 <td>Emi In Figure</td>
-                <td><input type="text" class="form-control" formControlName="emiInFigure"
+                <td><input type="number" class="form-control" formControlName="emiInFigure"
                            (input)="getNumAmountWord('emiInFigure', 'emiInWords');translateNumber('emiInFigure', 'emiInFigureTransVal')"></td>
                 <td class="abc">{{podtranslatedData?.emiInFigure}}</td>
                 <td>
@@ -162,6 +163,23 @@
                     <div *ngIf="submitted && Form.emiInWordsTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.emiInWordsTransVal.errors.required">emi In Words is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Period in Month</td>
+                <td><input type="text" class="form-control"
+                           formControlName="loanPeriodInMonth"
+                           (input)="translateNumber1('loanPeriodInMonth', 'loanPeriodInMonthTransVal')">
+                </td>
+                <td class="abc">{{podtranslatedData?.loanPeriodInMonth}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanPeriodInMonthTransVal.errors }"
+                           formControlName="loanPeriodInMonthTransVal"/>
+                    <div *ngIf="submitted && Form.loanPeriodInMonthTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanPeriodInMonthTransVal.errors.required">Loan Period is required</div>
                     </div>
                 </td>
             </tr>
@@ -307,9 +325,9 @@
                 <td>Loan Expiry Date</td>
                 <td>
                     <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                        <nb-radio-group name="loanExpiryDate">
-                            <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                            <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        <nb-radio-group name="loanExpiryDate" formControlName="loanExpiryDateType">
+                            <nb-radio (click)="setDateTypeBS2()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD2()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
                         </nb-radio-group>
                     </div>
                 </td>
@@ -318,7 +336,7 @@
                 <td>
                 </td>
                 <td>
-                    <nepali-patro *ngIf="dateTypeBS2" formControlName="loanExpiryDate" [responseType]="2"
+                    <nepali-patro *ngIf="dateTypeBS2" formControlName="loanExpiryDateNepali" [responseType]="2"
                                   [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="doe"
@@ -347,28 +365,12 @@
                 <th>Correct Translation</th>
             </tr>
             <tr>
-                <td>Reference Number</td>
-                <td><input type="text" class="form-control" formControlName="referenceNumber"
-                           (input)="translateNumber1('referenceNumber', 'referenceNumberTransVal')">
-                </td>
-                <td class="abc">{{podtranslatedData?.referenceNumber}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
-                           formControlName="referenceNumberTransVal"/>
-                    <div *ngIf="submitted && Form.referenceNumberTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.referenceNumberTransVal.errors.required">reference number is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
                 <td>Date of Approval</td>
                 <td>
                     <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                        <nb-radio-group name="dateofApproval">
-                            <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span></nb-radio>
-                            <nb-radio (click)="setDateTypeAD()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        <nb-radio-group name="dateofApproval" formControlName="dateofApprovalType">
+                            <nb-radio (click)="setDateTypeBS()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
                         </nb-radio-group>
                     </div>
                 </td>
@@ -377,7 +379,7 @@
                 <td>
                 </td>
                 <td>
-                    <nepali-patro *ngIf="dateTypeBS" formControlName="dateofApproval" [responseType]="2"
+                    <nepali-patro *ngIf="dateTypeBS" formControlName="dateofApprovalNepali" [responseType]="2"
                                   [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="doa"
@@ -395,9 +397,9 @@
                 <td>Date of Application</td>
                 <td>
                     <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                        <nb-radio-group name="dateofApplication">
-                            <nb-radio (click)="setDateTypeBS1()"><span style="margin-left:-60px">BS</span></nb-radio>
-                            <nb-radio (click)="setDateTypeAD1()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        <nb-radio-group name="dateofApplication" formControlName="dateofApplicationType">
+                            <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
                         </nb-radio-group>
                     </div>
                 </td>
@@ -406,7 +408,7 @@
                 <td>
                 </td>
                 <td>
-                    <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplication" [responseType]="2"
+                    <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplicationNepali" [responseType]="2"
                                   [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="doap"
@@ -480,6 +482,23 @@
                 </td>
             </tr>
         </table>
+        <button class="float-right" nbButton size="medium" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!closed">
+            Close
+        </button>
+        <ng-template #confirm>
+            <div class="modal-header" style="padding-left: 90%">
+                <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body" style="text-align:center; font-size: 18px">
+                Are you sure you want to close ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="decline(confirm)">No</button>
+                <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
+            </div>
+        </ng-template>
         <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary">Preview
         </button>
         <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Save</button>

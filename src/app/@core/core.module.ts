@@ -22,6 +22,9 @@ import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
+import { EnglishDateTransformPipe } from './pipe/english-date-transform.pipe';
+import { WordNumberingPipe } from './pipe/word-numbering.pipe';
+import { NepaliWordNumberingPipe } from './pipe/nepali-word-numbering.pipe';
 
 
 const DATA_SERVICES = [];
@@ -48,26 +51,28 @@ const UTILITY_MODULES = [
         FormsModule,
         ...UTILITY_MODULES
     ],
-  exports: [
-    // NbAuthModule,
-    CurrencyFormatterPipe,
-    PositiveDecimalNumberValidatorDirective,
-    NaturalNumberValidatorDirective,
-    SafePipe,
-    NepaliWordPipe,
-    ReplacePipe,
-    RoundvaluePipe,
-    BooleanConvertPipe,
-    DecimalNumberDirective,
-    NepaliToEngNumberPipe,
-    LoanStatusPipe,
-    EngToNepaliNumberPipe,
-    NepaliCurrencyWordPipe,
-    ...UTILITY_MODULES,
-    LoginPopUp,
-    NepaliNumberPipe,
-    AmountWordPipe
-  ],
+    exports: [
+        // NbAuthModule,
+        CurrencyFormatterPipe,
+        PositiveDecimalNumberValidatorDirective,
+        NaturalNumberValidatorDirective,
+        SafePipe,
+        NepaliWordPipe,
+        ReplacePipe,
+        RoundvaluePipe,
+        BooleanConvertPipe,
+        DecimalNumberDirective,
+        NepaliToEngNumberPipe,
+        LoanStatusPipe,
+        EngToNepaliNumberPipe,
+        NepaliCurrencyWordPipe,
+        ...UTILITY_MODULES,
+        LoginPopUp,
+        NepaliNumberPipe,
+        AmountWordPipe,
+        WordNumberingPipe,
+        NepaliWordNumberingPipe
+    ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
         PositiveDecimalNumberValidatorDirective,
@@ -84,7 +89,10 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         LoginPopUp,
         NepaliNumberPipe,
-        AmountWordPipe
+        AmountWordPipe,
+        EnglishDateTransformPipe,
+        WordNumberingPipe,
+        NepaliWordNumberingPipe
 
     ], entryComponents: [LoginPopUp]
 })

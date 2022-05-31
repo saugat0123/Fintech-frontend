@@ -1,11 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
-import {DatePipe} from '@angular/common';
+import {DatePipe, TitleCasePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../../@core/utils';
+import {Securities} from "../../../../cad-document-template/nabil/securities-view/model/securities.model";
+import {District} from "../../../../../admin/modal/district";
+import {AddressService} from "../../../../../../@core/service/baseservice/address.service";
+import {SecurityDetails} from "../../../../cad-document-template/nabil/securities-view/model/securities-details.model";
 
 @Component({
   selector: 'app-construction-loan-edit',
@@ -25,13 +31,22 @@ export class ConstructionLoanEditComponent implements OnInit {
   BSApproval = false;
   BSApplication = false;
   translatedValue: any;
+  loanLimit = false;
+  securityDetails: SecurityDetails[];
+  securities: Securities[];
+  municipalityListForSecurities = [];
+  allDistrictList: Array<District> = new Array<District>();
+  oneForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private nepaliToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+              private titleCasePipe: TitleCasePipe,
+              private toastService: ToastService,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private addressService: AddressService ) { }
 
   get form() {
     return this.constructionLoanForm.controls;
@@ -39,19 +54,35 @@ export class ConstructionLoanEditComponent implements OnInit {
 
   ngOnInit() {
     console.log('formValue', this.formValue);
+    this.getAllDistrict();
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.setConstructionFormValue();
       this.setDateOfApplication();
       this.setDateOfApproval();
+      this.securityDetails = this.formValue.securityDetails;
+      if (!ObjectUtil.isEmpty(this.formValue.securityDetails)) {
+        this.securityDetails.forEach((security) => {
+          this.securities = security.securities;
+        });
+      } else {
+        this.addDefaultSecurity();
+      }
+      this.setSecurityData();
     }
+  }
+
+  public getAllDistrict(): void {
+    this.addressService.getAllDistrict().subscribe((response: any) => {
+      this.allDistrictList = response.detail;
+    });
   }
 
   private buildForm(): FormGroup {
     return this.constructionLoanForm = this.formBuilder.group({
-      referenceNumber: [undefined],
-      referenceNumberCT: [undefined, Validators.required],
-      referenceNumberTrans: [undefined],
+      loanLimitChecked: [false],
+      loanLimitCheckedTrans: [undefined],
+      loanLimitCheckedCT: [undefined],
       dateType: [undefined],
       dateTypeCT: [undefined],
       dateOfApproval: [undefined],
@@ -74,10 +105,10 @@ export class ConstructionLoanEditComponent implements OnInit {
       drawingPowerCT: [undefined, Validators.required],
       drawingPowerTrans: [undefined],
       loanAmountInFigure: [undefined],
-      loanAmountInFigureCT: [undefined, Validators.required],
+      loanAmountInFigureCT: [undefined],
       loanAmountInFigureTrans: [undefined],
       loanAmountInWord: [undefined],
-      loanAmountInWordCT: [undefined, Validators.required],
+      loanAmountInWordCT: [undefined],
       loanAmountInWordTrans: [undefined],
       baseRate: [undefined],
       baseRateCT: [undefined, Validators.required],
@@ -127,21 +158,6 @@ export class ConstructionLoanEditComponent implements OnInit {
       thirdInstallmentAmount: [undefined],
       thirdInstallmentAmountCT: [undefined, Validators.required],
       thirdInstallmentAmountTrans: [undefined],
-      nameOfLandOwner: [undefined],
-      nameOfLandOwnerCT: [undefined, Validators.required],
-      nameOfLandOwnerTrans: [undefined],
-      landLocation: [undefined],
-      landLocationCT: [undefined, Validators.required],
-      landLocationTrans: [undefined],
-      kittaNumber: [undefined],
-      kittaNumberCT: [undefined, Validators.required],
-      kittaNumberTrans: [undefined],
-      area: [undefined],
-      areaCT: [undefined, Validators.required],
-      areaTrans: [undefined],
-      seatNumber: [undefined],
-      seatNumberCT: [undefined, Validators.required],
-      seatNumberTrans: [undefined],
       insuranceAmountInFigure: [undefined],
       insuranceAmountInFigureCT: [undefined, Validators.required],
       insuranceAmountInFigureTrans: [undefined],
@@ -149,7 +165,7 @@ export class ConstructionLoanEditComponent implements OnInit {
       insuranceAmountInWordCT: [undefined, Validators.required],
       insuranceAmountInWordTrans: [undefined],
       freeTextRequired: [undefined],
-      freeTextRequiredCT: [undefined, Validators.required],
+      freeTextRequiredCT: [undefined],
       freeTextRequiredTrans: [undefined],
       nameOfRelationshipOfficer: [undefined],
       nameOfRelationshipOfficerCT: [undefined, Validators.required],
@@ -158,8 +174,9 @@ export class ConstructionLoanEditComponent implements OnInit {
       nameOfBranchManagerCT: [undefined, Validators.required],
       nameOfBranchManagerTrans: [undefined],
       approvalStaffName: [undefined],
-      approvalStaffNameCT: [undefined, Validators.required],
+      approvalStaffNameCT: [undefined],
       approvalStaffNameTrans: [undefined],
+      securities: this.formBuilder.array([]),
     });
   }
 
@@ -319,21 +336,6 @@ export class ConstructionLoanEditComponent implements OnInit {
       this.constructionLoanForm.get('thirdInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe
           .transform(thirdInstallmentAmount.toString()));
     }
-    const kittaNumber = this.constructionLoanForm.get('kittaNumber').value;
-    if (!ObjectUtil.isEmpty(kittaNumber)) {
-      this.constructionLoanForm.get('kittaNumberTrans').patchValue(this.engToNepaliNumberPipe.transform(kittaNumber.toString()));
-      this.constructionLoanForm.get('kittaNumberCT').patchValue(this.engToNepaliNumberPipe.transform(kittaNumber.toString()));
-    }
-    const area = this.constructionLoanForm.get('area').value;
-    if (!ObjectUtil.isEmpty(area)) {
-      this.constructionLoanForm.get('areaTrans').patchValue(this.engToNepaliNumberPipe.transform(area.toString()));
-      this.constructionLoanForm.get('areaCT').patchValue(this.engToNepaliNumberPipe.transform(area.toString()));
-    }
-    const seatNumber = this.constructionLoanForm.get('seatNumber').value;
-    if (!ObjectUtil.isEmpty(seatNumber)) {
-      this.constructionLoanForm.get('seatNumberTrans').patchValue(this.engToNepaliNumberPipe.transform(seatNumber.toString()));
-      this.constructionLoanForm.get('seatNumberCT').patchValue(this.engToNepaliNumberPipe.transform(seatNumber.toString()));
-    }
     const insuranceAmountInFigure = this.constructionLoanForm.get('insuranceAmountInFigure').value;
     if (!ObjectUtil.isEmpty(insuranceAmountInFigure)) {
       this.constructionLoanForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe
@@ -350,24 +352,15 @@ export class ConstructionLoanEditComponent implements OnInit {
 
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
-      referenceNumber: this.constructionLoanForm.get('referenceNumber').value,
       purposeOfLoan: this.constructionLoanForm.get('purposeOfLoan').value,
-      nameOfLandOwner: this.constructionLoanForm.get('nameOfLandOwner').value,
-      landLocation: this.constructionLoanForm.get('landLocation').value,
       freeTextRequired: this.constructionLoanForm.get('freeTextRequired').value,
       nameOfRelationshipOfficer: this.constructionLoanForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.constructionLoanForm.get('nameOfBranchManager').value,
       approvalStaffName: this.constructionLoanForm.get('approvalStaffName').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
-    this.constructionLoanForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
-    this.constructionLoanForm.get('referenceNumberCT').patchValue(this.translatedValue.referenceNumber);
     this.constructionLoanForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
     this.constructionLoanForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
-    this.constructionLoanForm.get('nameOfLandOwnerTrans').patchValue(this.translatedValue.nameOfLandOwner);
-    this.constructionLoanForm.get('nameOfLandOwnerCT').patchValue(this.translatedValue.nameOfLandOwner);
-    this.constructionLoanForm.get('landLocationTrans').patchValue(this.translatedValue.landLocation);
-    this.constructionLoanForm.get('landLocationCT').patchValue(this.translatedValue.landLocation);
     this.constructionLoanForm.get('freeTextRequiredTrans').patchValue(this.translatedValue.freeTextRequired);
     this.constructionLoanForm.get('freeTextRequiredCT').patchValue(this.translatedValue.freeTextRequired);
     this.constructionLoanForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
@@ -376,9 +369,19 @@ export class ConstructionLoanEditComponent implements OnInit {
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
     this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
+    this.constructionLoanForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
+    this.constructionLoanForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
 
     this.eventEmitter.emit(true);
     this.spinner = false;
+    const invalidControls = [];
+    const formControl = this.constructionLoanForm.controls;
+    for (const controlsName in formControl) {
+      if (formControl[controlsName].invalid) {
+        invalidControls.push(this.titleCasePipe.transform(controlsName).replace('ct', '').replace('trans', ''));
+      }
+    }
+    console.log('Invalid Controls', invalidControls);
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {
@@ -388,12 +391,160 @@ export class ConstructionLoanEditComponent implements OnInit {
 
   private setConstructionFormValue(): void {
     this.constructionLoanForm.patchValue(this.formValue);
+    if (this.formValue.dateType === 'AD') {
+      this.constructionLoanForm.get('dateOfApproval').patchValue(new Date(this.formValue.dateOfApproval));
+    }
+    if (this.formValue.applicationDateType === 'AD') {
+      this.constructionLoanForm.get('dateOfApplication').patchValue(new Date(this.formValue.dateOfApplication));
+    }
   }
   calInterestRate() {
     const baseRate = this.constructionLoanForm.get('baseRate').value;
     const premiumRate = this.constructionLoanForm.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.constructionLoanForm.get('interestRate').patchValue(sum);
+    this.constructionLoanForm.get('interestRate').patchValue(sum.toFixed(2));
+  }
+  loanChecked(data) {
+    this.loanLimit = data;
+    this.constructionLoanForm.get('loanLimitChecked').patchValue(this.loanLimit);
+  }
+
+  private initSecuritiesForm(): FormGroup {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  public addDefaultSecurity(): void {
+    (this.constructionLoanForm.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
+  }
+
+  public removeIndividualSecurities(i): void {
+    (this.constructionLoanForm.get('securities') as FormArray).removeAt(i);
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.constructionLoanForm.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.constructionLoanForm.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  public setDefaultNepaliResponse(arrName, source, index, target): void {
+    this.constructionLoanForm.get([String(arrName), index, String(target)])
+        .patchValue(this.constructionLoanForm.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')])
+        .patchValue(this.constructionLoanForm.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
+  public translateSecuritiDetailsNumberFields(arrName, source, index, target): void {
+    const translatedNepaliNum = this.engToNepaliNumberPipe
+        .transform(String(this.constructionLoanForm.get([String(arrName), index, String(source)]).value));
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.constructionLoanForm.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  public loanMunicipalityByDistrictIdForEdit(data,  index?): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+        }
+    );
+  }
+
+  public setSecurityData(): void {
+    const securitiesControl = this.constructionLoanForm.get('securities') as FormArray;
+    this.securities.forEach((data: Securities, index) => {
+      this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+      securitiesControl.push(
+          this.formBuilder.group({
+            securityOwnersName: [data.securityOwnersName],
+            securityOwnersNameTransVal: [data.securityOwnersNameCT],
+            securityOwnersNameCT: [data.securityOwnersNameCT],
+            securityOwnersDistrict: [data.securityOwnersDistrict],
+            securityOwnersDistrictTransVal: [data.securityOwnersDistrictCT],
+            securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
+            securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
+            securityOwnersMunicipality: [data.securityOwnersMunicipality],
+            securityOwnersMunicipalityTransVal: [data.securityOwnersMunicipalityCT],
+            securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
+            securityOwnersWardNo: [data.securityOwnersWardNo],
+            securityOwnersWardNoTransVal: [data.securityOwnersWardNoCT],
+            securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
+            securityOwnersSeatNo: [data.securityOwnersSeatNo],
+            securityOwnersSeatNoTransVal: [data.securityOwnersSeatNoCT],
+            securityOwnersSeatNoCT: [data.securityOwnersSeatNoCT],
+            securityOwnersKittaNo: [data.securityOwnersKittaNo],
+            securityOwnersKittaNoTransVal: [data.securityOwnersKittaNoCT],
+            securityOwnersKittaNoCT: [data.securityOwnersKittaNoCT],
+            securityOwnersLandArea: [data.securityOwnersLandArea],
+            securityOwnersLandAreaTransVal: [data.securityOwnersLandAreaCT],
+            securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
+          })
+      );
+    });
+  }
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }
