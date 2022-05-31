@@ -38,4 +38,10 @@ export class RiskGradingService {
         const getUrl = ApiUtils.getRequest(url);
         return this.http.delete(getUrl.url, {headers: getUrl.header});
     }
+
+    getAllQuestionsByFid(loanConfigId: number, creditHistory: number): Observable<any> {
+        const url = `${this.API(loanConfigId)}?fId=${creditHistory}`;
+        const getUrl = ApiUtils.getRequest(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
+    }
 }

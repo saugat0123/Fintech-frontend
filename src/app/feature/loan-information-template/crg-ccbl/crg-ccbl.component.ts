@@ -29,11 +29,15 @@ export class CrgCcblComponent implements OnInit {
     file;
     data;
     restUrl = ApiConfig.URL;
+    thresholdPoint: string;
+    thresholdOutcome: string;
 
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.customerInfo.crgCcbl)) {
             this.data = JSON.parse(this.customerInfo.crgCcbl);
             this.obtainedScore = this.data.data;
+            this.thresholdPoint = this.data.thresholdPoint;
+            this.thresholdOutcome = this.data.thresholdOutcome;
         }
     }
 
@@ -52,7 +56,9 @@ export class CrgCcblComponent implements OnInit {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved CRG CCBL'));
                     const data = {
                         file: res.detail,
-                        data: this.obtainedScore
+                        data: this.obtainedScore,
+                        thresholdPoint: this.thresholdPoint,
+                        thresholdOutcome: this.thresholdOutcome
                     };
                     this.eventEmitter.emit(JSON.stringify(data));
                     this.spinner.hide();
@@ -66,9 +72,38 @@ export class CrgCcblComponent implements OnInit {
         } else {
             const data = {
                 file: this.data.file ? this.data.file : '',
-                data: this.obtainedScore
+                data: this.obtainedScore,
+                thresholdPoint: this.thresholdPoint,
+                thresholdOutcome: this.thresholdOutcome
             };
             this.eventEmitter.emit(JSON.stringify(data));
+        }
+    }
+
+    calculateCCBL() {
+        if (this.obtainedScore >= 90) {
+            this.thresholdPoint = 'CCBL 1';
+        } else if (this.obtainedScore >= 80) {
+            this.thresholdPoint = 'CCBL 2';
+        } else if (this.obtainedScore >= 70) {
+            this.thresholdPoint = 'CCBL 3';
+        } else if (this.obtainedScore >= 60) {
+            this.thresholdPoint = 'CCBL 4';
+        } else if (this.obtainedScore >= 45) {
+            this.thresholdPoint = 'CCBL 5';
+        } else if (this.obtainedScore >= 35) {
+            this.thresholdPoint = 'CCBL 6';
+        } else if (this.obtainedScore >= 25) {
+            this.thresholdPoint = 'CCBL 7';
+        } else {
+            this.thresholdPoint = 'CCBL 8';
+        }
+        if (!ObjectUtil.isEmpty(this.thresholdPoint)) {
+            if (this.thresholdPoint === 'CCBL 8') {
+                this.thresholdOutcome = 'Decline for new relationship/Exit strategy for Existing relationship';
+            } else {
+                this.thresholdOutcome = 'Fit';
+            }
         }
     }
 }

@@ -207,6 +207,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   totalProposedLimit = 0;
   loaded = false;
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
+  ccblData: any;
 
   @Input() crgTotalRiskScore: any;
   data;
@@ -352,24 +353,25 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     // Setting credit risk GAMMA data---
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
-      this.crgGammaSummary = true;
-      const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
-      this.crgGammaGrade = crgParsedData.grade;
-      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint)
-        ? 0
-        : crgParsedData.totalPoint;
-      if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
-        this.crgGammaGradeStatusBadge = 'badge badge-success';
-      } else if (
-        this.crgGammaGrade === 'Bad & Loss' ||
-        this.crgGammaGrade === 'Doubtful'
-      ) {
-        this.crgGammaGradeStatusBadge = 'badge badge-danger';
-      } else {
-        this.crgGammaGradeStatusBadge = 'badge badge-warning';
-      }
-    }
+    // DO not Remove
+    // if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
+    //   this.crgGammaSummary = true;
+    //   const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
+    //   this.crgGammaGrade = crgParsedData.grade;
+    //   this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint)
+    //     ? 0
+    //     : crgParsedData.totalPoint;
+    //   if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-success';
+    //   } else if (
+    //     this.crgGammaGrade === 'Bad & Loss' ||
+    //     this.crgGammaGrade === 'Doubtful'
+    //   ) {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-danger';
+    //   } else {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-warning';
+    //   }
+    // }
 
 
     // Setting SiteVisit data--
@@ -464,6 +466,11 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
     // getting fiscal years
     this.getFiscalYears();
+
+    if (this.loanDataHolder.loanHolder.crgCcbl) {
+      this.ccblData = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
+      console.log('ccblData', this.ccblData);
+    }
   }
 
   getAllLoans(customerInfoId: number) {
