@@ -1,0 +1,7 @@
+<app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                           [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                           [fromProfile]="false"
+                           [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+<table [innerHTML]="paperChecklist | safeHtml"></table>
+<app-collateral-site-visit *ngIf="loanDataHolder?.securities"
+                           [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>

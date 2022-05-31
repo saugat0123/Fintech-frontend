@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
