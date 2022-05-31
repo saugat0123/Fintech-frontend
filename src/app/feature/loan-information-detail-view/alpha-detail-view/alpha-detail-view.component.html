@@ -22,7 +22,7 @@
 <!--End Company Details-->'
 
 <!-- Start Cicl Details-->
-<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-cicl-view *ngIf="loanHolder?.cicl"
                [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
 </div>
@@ -53,7 +53,7 @@
 <!-- End Justification of proposal-->
 
 <!-- Start Income From Account Details-->
-<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
@@ -119,21 +119,25 @@
 <!-- End Income From Account Details-->
 
 <!-- Start Security Details-->
+<ng-container *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
+                   [loanDataType]=loanDataHolder?.loanType
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+</ng-container>
 <!-- End Security Details-->
 
 <!-- Start SiteVisit Details-->
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                     [loanType]="loanDataHolder?.loanType"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
 <!-- End SiteVisit Details-->
 
 <!-- Start Insurance Details-->
-<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                     [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view></div>
 <!-- End Insurance Details-->
@@ -144,7 +148,7 @@
 <!--End Guarantor Details-->
 
 <!-- Start Financial Details-->
-<app-financial-view *ngIf="loanHolder?.financial"
+<app-financial-view *ngIf="loanHolder?.financial && loanDataHolder?.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
 <!-- End Financial Details-->
@@ -167,7 +171,7 @@
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
 
-<div *ngIf="!productUtils.CBS_ENABLE && loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="!productUtils.CBS_ENABLE && loanDataHolder?.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
     <app-collateral-summary
             *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
             [customerAllLoanList]="customerAllLoanList"
@@ -185,7 +189,7 @@
 </div>
 
 <!--Start Risk and Mitigation-->
-<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <div class="row">
     <div class="col-md-12">
         <p><strong>Risk & Mitigation</strong></p>
@@ -261,7 +265,8 @@
             [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
     </app-report-summary>
 </div>
-<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'&& loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'&& loanDataHolder.loanType !== loanType?.getEnum(loanType?.CLOSURE_LOAN)
+    && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
     <span><strong>Loan Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
@@ -271,7 +276,8 @@
         <p>No any information tagged</p>
     </ng-template>
 </div>
-<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA && loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA && loanDataHolder.loanType !== 'CLOSURE_LOAN'
+    && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
     <span><strong>Customer Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
@@ -282,7 +288,7 @@
 <!-- Start All Document Details-->
 <app-all-document-view *ngIf="loanDataHolder"
                        [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
-<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)">
 <span><strong>Obtainable Document</strong></span>
     <ol class="row" type="1">
         <li style="font-size: 12.60px"
@@ -297,7 +303,7 @@
 <!-- End All Document Details-->
 
 <!-- Start Credit Checklist Details-->
-<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist"
                            [formData]="loanHolder?.creditChecklist"
                            [fromProfile]="false"

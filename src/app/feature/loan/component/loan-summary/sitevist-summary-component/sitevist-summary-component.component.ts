@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanType} from '../../../model/loanType';
 
 @Component({
     selector: 'app-sitevist-summary-component',
@@ -9,11 +10,13 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class SitevistSummaryComponentComponent implements OnInit {
     @Input() formData: Object;
     @Input() loanType;
+    @Input() loanTypeView: any;
     currentResidentSummary = false;
     businessSiteVisitSummary = false;
     fixedAssetCollateralSummary = false;
     currentAssetsInspectionSummary = false;
     isBusinessLoanType = false;
+    loanTypeEnum = LoanType;
 
     constructor() {
     }

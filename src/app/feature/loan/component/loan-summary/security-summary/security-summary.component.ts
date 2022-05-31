@@ -9,6 +9,7 @@ import {CollateralSiteVisit} from '../../../../loan-information-template/securit
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {SummaryType} from '../../SummaryType';
 import {flatten} from '@angular/compiler';
+import {LoanType} from '../../../model/loanType';
 
 
 @Component({
@@ -64,6 +65,8 @@ export class SecuritySummaryComponent implements OnInit {
     isPrintable = 'YES';
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
+    @Input() loanType: any;
+    loanTypeEnum = LoanType;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }

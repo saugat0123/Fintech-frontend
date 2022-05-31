@@ -1,6 +1,8 @@
 <div *ngIf="!isBusinessLoanType">
-    <p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold">Current Resident Details</p>
-    <table *ngIf="formData['currentResidentFormChecked'] === true"
+    <p *ngIf="formData['currentResidentFormChecked'] === true && loanTypeView !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
+        && loanTypeView !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)" class="font-weight-bold">Current Resident Details</p>
+    <table *ngIf="formData['currentResidentFormChecked'] === true && loanTypeView !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
+            && loanTypeView !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Owner Name</th>
