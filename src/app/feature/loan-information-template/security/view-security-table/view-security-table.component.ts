@@ -87,7 +87,7 @@ export class ViewSecurityTableComponent implements OnInit {
                 counter++;
             }
         });
-        if (counter === detail.length && counter > 1) {
+        if (counter === detail.length && counter > 0) {
             this.toggleArray[idx].approved = true;
         }
     }

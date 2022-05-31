@@ -1008,7 +1008,7 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="fromProfile">
+                    <ng-container >
                         <div class="col-md-12">
                             <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
                                                 [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"

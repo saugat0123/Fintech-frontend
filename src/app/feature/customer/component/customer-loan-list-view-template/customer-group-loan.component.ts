@@ -44,6 +44,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private toastService: ToastService,
               private  activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
+              private ngxSpinnerService: NgxSpinnerService
               ) {
   }
   totalApprovedProposedAmount;
@@ -670,6 +671,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   // }
 
   public onEdit(proposal, id: number): void {
+    this.ngxSpinnerService.show();
     this.customerLoanService.getSingleLoanByLoanHolderId(id).subscribe((response: any) => {
       this.singleLoan = response.detail;
       this.isLoanBeginEdit = true;
@@ -678,7 +680,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         windowClass: 'modal-holder',
         scrollable: true,
       });
+      this.ngxSpinnerService.hide();
     }, error => {
+      this.ngxSpinnerService.hide();
       console.error(error);
       this.toastService.show(new Alert(AlertType.DANGER, 'Error while loading loan data!!'));
     });
