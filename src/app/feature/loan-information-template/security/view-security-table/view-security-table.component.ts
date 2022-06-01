@@ -5,6 +5,9 @@ import {CustomerLoanInformationComponent} from '../../../customer/component/cust
 import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Status} from '../../../../@core/Status';
+import {CustomerInfoService} from '../../../customer/service/customer-info.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-view-security-table',
@@ -17,6 +20,7 @@ export class ViewSecurityTableComponent implements OnInit {
     regex = /_/g;
     @Output() security: EventEmitter<Object> = new EventEmitter<Object>();
     @Output() securityForSiteVisit: EventEmitter<Object> = new EventEmitter<Object>();
+    @Output() emitter: EventEmitter<Object> = new EventEmitter<Object>();
     toggleArray: { toggled: boolean, security: any, securityPresent: boolean, approved: boolean }[] = [];
     spinner = false;
     securityData = {
@@ -28,7 +32,9 @@ export class ViewSecurityTableComponent implements OnInit {
     };
 
     constructor(private customerLoanInformation: CustomerLoanInformationComponent,
-                private securityLoanReferenceService: SecurityLoanReferenceService) {
+                private securityLoanReferenceService: SecurityLoanReferenceService,
+                private customerInformationService: CustomerInfoService,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -90,6 +96,21 @@ export class ViewSecurityTableComponent implements OnInit {
         if (counter === detail.length && counter > 0) {
             this.toggleArray[idx].approved = true;
         }
+    }
+
+    resetSecurity(parentId: number, id: number) {
+        this.customerInformationService.resetSecurity(parentId, id, this.customerInfo.id).subscribe({
+            next: (res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Reset To Default'));
+                this.emitter.emit(true);
+            },
+            error: (error: any) => {
+                this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
+            },
+            complete: () => {
+                this.ngOnInit();
+            }
+        });
     }
 
 }

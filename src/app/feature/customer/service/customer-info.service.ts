@@ -68,4 +68,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadExcel`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public resetSecurity(parentId: number, id: number, customerInfoId: number) {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/security/reset?parentId=${parentId}&id=${id}&customerInfoId=${customerInfoId}`);
+        return this.http.delete(req.url, {headers: req.header});
+    }
 }
