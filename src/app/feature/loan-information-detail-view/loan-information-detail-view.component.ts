@@ -18,6 +18,9 @@ import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {CrgGammaDetailViewComponent} from '../loan-information-view/crg-gamma-detail-view/crg-gamma-detail-view.component';
+import {
+    CollateralSiteVisitService
+} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -58,6 +61,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     proposalData: any;
     commonLoanData: any;
     companyGroup;
+    fixedAssetsData = [];
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -66,6 +70,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                 private fiscalYearService: FiscalYearService,
                 private toastService: ToastService,
                 private combinedLoanService: CombinedLoanService,
+                private collateralSiteVisitService: CollateralSiteVisitService,
     ) {
         this.client = environment.client;
         this.clientList = Clients;
@@ -133,6 +138,38 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
 
         });
         this.getFiscalYears();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            const securityData = JSON.parse(this.loanDataHolder.security.data);
+            if (securityData['selectedArray'] !== undefined) {
+                // land security
+                securityData['selectedArray'].filter(f => {
+                    if (f.indexOf('LandSecurity') !== -1) {
+                        securityData['initialForm']['landDetails'].forEach((ld, index) => {
+                            this.getFixedAssetsCollateral('Land Security ' + (index + 1),
+                                this.loanDataHolder.security.id, ld.uuid);
+                        });
+                    }
+                });
+                // apartment security
+                securityData['selectedArray'].filter(f => {
+                    if (f.indexOf('ApartmentSecurity') !== -1) {
+                        securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
+                            this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1),
+                                this.loanDataHolder.security.id, appart.uuid);
+                        });
+                    }
+                });
+                // land and building security
+                securityData['selectedArray'].filter(f => {
+                    if (f.indexOf('Land and Building Security') !== -1) {
+                        securityData['initialForm']['landBuilding'].forEach((ld, index) => {
+                            this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1),
+                                this.loanDataHolder.security.id, ld.uuid);
+                        });
+                    }
+                });
+            }
+        }
 
     }
 
@@ -246,5 +283,19 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     onOpen() {
         const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg'});
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
+    }
+
+    getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+        this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
+            .subscribe((response: any) => {
+                if (response.detail.length > 0) {
+                    response.detail.forEach(rd => {
+                        this.fixedAssetsData.push(rd);
+                    });
+                }
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+            });
     }
 }

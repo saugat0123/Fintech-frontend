@@ -246,9 +246,9 @@
                                 <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                             </li>
                             <!--Site-visit-->
-                            <li *ngIf="loanDataHolder?.loanHolder?.siteVisit">
-                                <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit">
-                                </app-site-visit-view>
+                            <li *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0">
+                                <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                                                     [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                             </li>
                             <li *ngIf="loanDataHolder?.loanHolder?.financial">
                                 <strong>KEY FINANCIAL FIGURES</strong> (audited for last 1 year, estimated for current

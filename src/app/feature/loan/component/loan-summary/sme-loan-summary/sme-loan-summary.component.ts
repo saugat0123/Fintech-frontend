@@ -895,7 +895,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
               this.fixedAssetsData.push(rd);
             });
           }
-          // this.collateralSiteVisits = response.detail;
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
