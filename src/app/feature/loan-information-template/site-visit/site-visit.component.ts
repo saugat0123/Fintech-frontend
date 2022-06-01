@@ -58,6 +58,7 @@ export class SiteVisitComponent implements OnInit {
   insuranceList = InsuranceList.insuranceCompanyList;
   spinner = false;
   breakException: any;
+  operatingStatusList = ['Regular', 'Partial', 'Closed'];
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -202,6 +203,7 @@ export class SiteVisitComponent implements OnInit {
   businessSiteVisitFormGroup(): FormGroup {
     return this.formBuilder.group({
       officeAddress: [undefined],
+      operatingStatus: [undefined],
       nameOfThePersonContacted: [undefined, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
       dateOfVisit: [undefined],
       objectiveOfVisit: [undefined, Validators.required],
@@ -854,6 +856,7 @@ export class SiteVisitComponent implements OnInit {
       controls.push(
           this.formBuilder.group({
             officeAddress: [data.officeAddress],
+            operatingStatus: [data.operatingStatus],
             nameOfThePersonContacted: [data.nameOfThePersonContacted, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
             dateOfVisit: [data.dateOfVisit],
             objectiveOfVisit: [data.objectiveOfVisit, Validators.required],

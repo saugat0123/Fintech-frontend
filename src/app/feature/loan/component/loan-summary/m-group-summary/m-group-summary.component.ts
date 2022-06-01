@@ -21,11 +21,13 @@ export class MGroupSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.mGroup.groupPosition)) {
-      this.groupPosition = JSON.parse(this.mGroup.groupPosition);
-    }
-    if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
-      this.totalAmount = JSON.parse(this.mGroup.totalAmount);
+    if (!ObjectUtil.isEmpty(this.mGroup)) {
+      if (!ObjectUtil.isEmpty(this.mGroup.groupPosition)) {
+        this.groupPosition = JSON.parse(this.mGroup.groupPosition);
+      }
+      if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
+        this.totalAmount = JSON.parse(this.mGroup.totalAmount);
+      }
     }
   }
 

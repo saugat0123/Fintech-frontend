@@ -238,6 +238,17 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
+                            <label class="title" for="operatingStatus">Operating Status</label>
+                            <select class="form-control"
+                                    formControlName="operatingStatus"
+                                    id="operatingStatus"
+                                    name="operatingStatus">
+                                <option [ngValue]="null" hidden>Select Operating Status</option>
+                                <option *ngFor="let olist of operatingStatusList"
+                                        [ngValue]="olist">{{olist}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
                             <label class="staffRepresentativeNameDesignation"
                                    for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
                             <select class="form-control"

@@ -1,889 +1,155 @@
-<p><b>Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
-<table *ngIf="formData['currentResidentFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Owner Name</th>
-        <th>Location</th>
-        <th>Ward</th>
-        <th>Address Line 1</th>
-        <th>Address Line 2</th>
-        <th>Nearby</th>
-    </tr>
-    <tr *ngFor="let data of formData['currentResidentDetails']; let i = index;">
-        <td class="text-left pl-1">{{i + 1}}.</td>
-        <td class="text-left pl-1">{{data?.ownerName}}</td>
-        <td class="text-left pl-1"> {{data?.address?.province?.name}},
-            {{data?.address?.district?.name}},
-            {{data?.address?.municipalityVdc?.name}}
-        </td>
-        <td class="text-right pr-1">{{data?.address?.ward}}</td>
-        <td class="text-left pl-1">{{data?.address?.address1}}</td>
-        <td class="text-left pl-1">{{data?.address?.address2}}</td>
-        <td class="text-left pl-1">{{data?.nearBy}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-        <th>Longitude</th>
-        <th>Latitude</th>
-    </tr>
-    <tr *ngFor="let data of formData['currentResidentDetails']; let i = index;">
-        <td class="text-left pl-1">{{i + 1}}.</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{data?.currentSiteVisitLongitude}}</td>
-        <td class="text-right pr-1">{{data?.currentSiteVisiLatitude}}</td>
-    </tr>
-
-</table>
-<table *ngIf="formData['currentResidentFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th width="4%">SN.</th>
-        <th colspan="4">Finding & Comment</th>
-    </tr>
-    <tr *ngFor="let data of formData['currentResidentDetails']; let i = index;">
-        <td class="text-left pl-1">{{i + 1}}.</td>
-        <td colspan="4" class="text-left pl-1">{{data?.findingComment}}</td>
-    </tr>
-</table>
-<!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
-<table *ngIf="formData['businessSiteVisitFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Person Contacted</th>
-        <th>Office Address</th>
-        <th>Ward</th>
-        <th>Address Line 1</th>
-        <th>Address Line 2</th>
-        <th>Date of Visit(AD/BS)</th>
-        <th>Objective of Visit</th>
-    </tr>
-    <tr *ngFor="let businessData of formData['businessSiteVisitDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td class="text-left pl-1">{{businessData?.nameOfThePersonContacted}}</td>
-        <td class="text-left pl-1">
-            {{businessData?.officeAddress?.province?.name}},
-            {{businessData?.officeAddress?.district?.name}},
-            {{businessData?.officeAddress?.municipalityVdc?.name}}
-        </td>
-        <td class="text-right pr-1"> {{businessData?.officeAddress?.ward}}</td>
-        <td class="text-left pl-1"> {{businessData?.officeAddress?.address1}}</td>
-        <td class="text-left pl-1"> {{businessData?.officeAddress?.address2}}</td>
-        <td class="text-left pl-1">{{businessData?.dateOfVisit | date}}
-            ({{businessData?.dateOfVisit | engNepDate: false}})
-        </td>
-        <td class="text-left pl-1">{{businessData?.objectiveOfVisit}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-        <th>Longitude</th>
-        <th>Latitude</th>
-    </tr>
-    <tr *ngFor="let businessData of formData['businessSiteVisitDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td class="text-left pl-1">{{businessData?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{businessData?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{businessData?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{businessData?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{businessData?.businessSiteVisitLongitude}}</td>
-        <td class="text-right pr-1">{{businessData?.businessSiteVisitLatitude}}</td>
-    </tr>
-</table>
-<table *ngIf="formData['businessSiteVisitFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Comment & Finding</th>
-    </tr>
-    <tr *ngFor="let businessData of formData['businessSiteVisitDetails']; let i = index;">
-        <td class="text-left pl-1" width="4%">{{i + 1}}.</td>
-        <td class="text-left pl-1">{{businessData?.findingsAndComments}}</td>
-    </tr>
-</table>
-<!-- ============================================================= Business Site Visit END ==============================================================-->
-<!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
-<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">
-    Fixed Asset Collateral & Facilities Details</p>
-<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Date of Inspection</th>
-        <th>Address</th>
-        <th>Ward</th>
-        <th>Address Line 1</th>
-        <th>Address Line 2</th>
-        <th>Person Contacted</th>
-        <th>Phone Number</th>
-        <th>Type Of Property</th>
-        <th>Shape Of Land</th>
-        <th>Does the location & shape of land appear consistent with Blue Print?</th>
-
-    </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | engNepDate: false}} </td>
-        <td class="text-left pl-1">
-            {{formData['fixedAssetCollateralDetails']['address']?.province?.name}},
-            {{formData['fixedAssetCollateralDetails']['address']?.district?.name}},
-            {{formData['fixedAssetCollateralDetails']['address']?.municipalityVdc?.name}}
-        </td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['address']?.ward}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['address']?.address1}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['address']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['personContacted']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['phoneNoOfContact']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['typeOfProperty']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['shapeOfLand']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
-
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>Road Approach</th>
-        <th>Road Width(in feet)</th>
-        <th>Road Access From in feet</th>
-        <th>Prominent Place</th>
-        <th>Approach Distance(in feet)</th>
-        <th>Water Supply</th>
-        <th>Electricity</th>
-        <th>Boundary wall</th>
-        <th>Boundary fencing</th>
-        <th>Drainage</th>
-        <th>Open Area</th>
-        <th>Telephone Line</th>
-
-    </tr>
-
-    <!--   Facilities     ==================-->
-
-    <tr>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['prominentPlace']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['approachDistance']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['electricity'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryWallConstruction'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryFencing']| booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
-    </tr>
-
-    <tr class="text-white sb-bg-dark">
-        <th colspan="12">Remarks</th>
-    </tr>
-    <tr>
-        <td colspan="12"
-            class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
-    </tr>
-</table>
-<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>Building</th>
-        <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            <th>Building Area</th>
-            <th>Construction Year</th>
-            <th>Building Type</th>
-            <th>Built Up Area</th>
-            <th>No. of Storey</th>
-            <th>Load Bearing Wall</th>
-            <th>Mortar Cement</th>
-            <th>Other Roofing</th>
-            <th>Furniture</th>
-        </ng-container>
-    </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
-        <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | engNepDate: false}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
-        </ng-container>
-    </tr>
-    <tr class="text-white sb-bg-dark"
-        *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-        <th>Frame Structure</th>
-        <th>RCC Roofing</th>
-        <th>Bathroom and Toilet</th>
-        <th>Naksa Pass Obtained</th>
-        <th>Building Completion Certificate Obtained</th>
-        <th>Construction as per Approved Naksa Pass</th>
-    </tr>
-    <tr *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['rccRoofing'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['bathroomAndToilet'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['naksaPassObtained'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>Any Road Setbacks</th>
-        <th>Any River/Canal Setbacks</th>
-        <th>Any High-Tension Setbacks</th>
-    </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
-    </tr>
-
-</table>
-<!--   Vicinity to the basic amenities     ==================-->
-<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr>
-        <th colspan="3">Vicinity to the Basic Amenities</th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>Major Market Place</th>
-        <th>School/College</th>
-        <th>Hospital/Nursing Home</th>
-    </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['majorMarketPlaces']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['schoolOrCollege']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['hospitalOrNursingHome']}}</td>
-    </tr>
-
-    <tr class="text-white sb-bg-dark">
-        <th colspan="3">Comment about FAC</th>
-    </tr>
-    <tr>
-        <td colspan="3"
-            class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
-
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th colspan="3">Location details</th>
-    </tr>
-    <tr>
-        <td>Longitude</td>
-        <td>latitude</td>
-    </tr>
-    <tr>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLongitude']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLatitude']}}</td>
-    </tr>
-</table>
-<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr>
-        <th colspan="3">Valuation Details</th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>Particulars</th>
-        <th>Plot No.</th>
-        <th>Area (sq meter etc.)</th>
-        <th>MV</th>
-        <th>FMV</th>
-        <th>DV</th>
-    </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['particulars']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['plotNo']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['area']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['mv']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['fmv']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['dv']}}</td>
-    </tr>
-    <tr>
-        <th>Total:</th>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalPlotNo']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalArea']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalMv']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalFmv']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['valuationDetails']['totalDv']}}</td>
-    </tr>
-</table>
-<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-    </tr>
-    <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
-
-    </tr>
-</table>
-<!-- ============================================================= Fixed Asset Collateral Form End ==============================================================-->
-
-<!-- ============================================================= Current Asset Inspection:Stock form Start ==============================================================-->
-<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <ng-container>
-        <tr *ngIf="isNotRentedLeased && !isRentedLeased">
-            <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
-        </tr>
-        <tr *ngIf="isRentedLeased && !isNotRentedLeased">
-            <td colspan="8"><b>Current Asset Inspection: Stock</b></td>
-        </tr>
-        <tr *ngIf="isRentedLeased && isNotRentedLeased">
-            <td colspan="8"><b>Current Asset Inspection: Stock</b></td>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>SN.</th>
-            <th>Date of Inspection(AD/BS)</th>
-            <th>Particulars Of Good Inspected</th>
-            <th>Stock Value Reported</th>
-            <th>Rents</th>
-            <ng-container *ngIf="isRentedLeased">
-                <th>Copy of rental/leased agreement obtained</th>
-                <th>Rents payment up to</th>
-                <th>Rent Receipt shown</th>
-            </ng-container>
-        </tr>
-        <tr *ngIf="isRentedLeased">
-            <ng-container *ngFor="let rentedLeasedData of rentedLeasedArray; let i = index;">
-                <td>{{i + 1}}.</td>
-                <td class="text-left pl-1">
-                    {{rentedLeasedData?.dateOfInspection | date}}
-                    ({{rentedLeasedData?.dateOfInspection | engNepDate: false}})
-                </td>
-                <td class="text-left pl-1">{{rentedLeasedData?.particularsOfGoodInspected}}</td>
-                <td class="text-right pr-1">Rs. {{rentedLeasedData?.stockValueReported | currencyFormatter}}</td>
-                <td class="text-left pl-1">{{rentedLeasedData?.rents}}</td>
-                <td class="text-left pl-1">{{rentedLeasedData?.rentLeased}}</td>
-                <td class="text-left pl-1">{{rentedLeasedData?.isRentPmtUpToDate}}</td>
-                <td class="text-left pl-1">{{rentedLeasedData?.isRentReceiptShown}}</td>
-            </ng-container>
-        </tr>
-        <tr *ngIf="isNotRentedLeased">
-            <ng-container *ngFor="let notRentedLeasedData of notRentedLeasedArray; let i = index;">
-                <td>{{(rentedLeasedArray.length) + (i + 1)}}.</td>
-                <td class="text-left pl-1">
-                    {{notRentedLeasedData?.dateOfInspection | date}}
-                    ({{notRentedLeasedData?.dateOfInspection | engNepDate: false}})
-                </td>
-                <td class="text-left pl-1">{{notRentedLeasedData?.particularsOfGoodInspected}}</td>
-                <td class="text-right pr-1">Rs. {{notRentedLeasedData?.stockValueReported | currencyFormatter}}</td>
-                <td class="text-left pl-1">{{notRentedLeasedData?.rents}}</td>
-            </ng-container>
-        </tr>
-    </ng-container>
-</table>
-
-<!-- ============================================================= Current Asset Inspection form End ==============================================================-->
-
-<!-- ============================================================= Current Asset Inspection:Insurance Verification form Start ==============================================================-->
-<p *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="font-weight-bold"></p>
-<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr>
-        <th colspan="7"><b>Current Asset Inspection: Insurance Verification</b></th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Assets Mortgaged</th>
-        <th>Insured Amount</th>
-        <th>Insurance Company</th>
-        <th>Expiry Date(AD/BS)</th>
-        <th>Client Over All Rating</th>
-        <th>Stock Value Confirmed
-    </tr>
-    <tr *ngFor="let insuranceData of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td class="text-right pr-1">
-            Rs. {{insuranceData?.insuranceVerification?.assetsMortgaged | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{insuranceData?.insuranceVerification?.insuredAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{insuranceData?.insuranceVerification?.insuranceCompany}}</td>
-        <td class="text-left pl-1">{{insuranceData?.insuranceVerification?.expiryDate | date}}
-            ({{insuranceData?.insuranceVerification?.expiryDate | engNepDate: false}})
-        </td>
-        <td class="text-left pl-1">{{insuranceData?.insuranceVerification?.clientsOverallRating}}</td>
-        <td class="text-right pr-1">
-            Rs. {{insuranceData?.insuranceVerification?.stockValueConfirmed | currencyFormatter}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th width="4%">SN.</th>
-        <th colspan="6">Comments</th>
-    </tr>
-    <tr *ngFor="let insuranceData of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td colspan="6" class="text-left pl-1">{{insuranceData?.insuranceVerification?.comments}}</td>
-    </tr>
-</table>
-<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-    </tr>
-    <ng-container *ngFor="let currentAssetStaff of formData['currentAssetsInspectionDetails'] let i = index;">
-        <tr *ngFor="let staff of currentAssetStaff?.insuranceVerification?.inspectingStaffsDetails let j = index;">
-            <td>{{(i + 1) + '.' + (j + 1)}}</td>
-            <td class="text-left pl-1">{{staff?.staffRepresentativeNameDesignation}}</td>
-            <td class="text-left pl-1">{{staff?.staffRepresentativeName}}</td>
-            <td class="text-left pl-1">{{staff?.staffRepresentativeNameDesignation2}}</td>
-            <td class="text-left pl-1">{{staff?.staffRepresentativeName2}}</td>
-        </tr>
-    </ng-container>
-</table>
-
-<!-- ============================================================= Current Asset Inspection form End ==============================================================-->
-
-<!-- ============================================================= Major Inquiries and Observations ===============================================================-->
-<p *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="font-weight-bold"></p>
-<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr>
-        <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th colspan="6">Explain the business nature, operating/manufacturing process in maximum 4 lines as per
-            observation/discussion with the customer during inspection.
-        </th>
-    </tr>
-    <tr *ngFor="let businessNature of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td colspan="6" class="text-left pl-1">{{businessNature?.majorInquiriesAndObservations?.businessNature}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation;
-            Loading/unloading happening/brief of various sections of business (Manufacturing/ Packaging/ Storage/
-            Dispatch/ Quality Control etc.), No of vehicles observed etc.
-        </th>
-    </tr>
-    <tr *ngFor="let businessActivities of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td colspan="6"
-            class="text-left pl-1">{{businessActivities?.majorInquiriesAndObservations?.businessActivities}}</td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th colspan="6">Questions to be asked to the accompanying person of client</th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th width="4%">SN.</th>
-        <th colspan="3">How is the business doing now compared to last year?</th>
-        <th colspan="3">What are the prospects and challenges for the business?</th>
-    </tr>
-    <tr *ngFor="let businessPC of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td colspan="3" class="text-left pl-1">{{businessPC?.majorInquiriesAndObservations?.businessProgress}}</td>
-        <td colspan="3" class="text-left pl-1">{{businessPC?.majorInquiriesAndObservations?.businessChallenges}}</td>
-    </tr>
-    <tr>
-        <th colspan="3"><b>Power Back-up Arrangement availability at site:</b></th>
-        <th colspan="2"><b>The stock register system at the site is in the form of:</b></th>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>SN.</th>
-        <th>Normal Electricity Line</th>
-        <th>Invertor/Generator</th>
-        <th>Ledger Book</th>
-        <th>Electronic</th>
-    </tr>
-    <tr *ngFor="let businessData of formData['currentAssetsInspectionDetails']; let i = index;">
-        <td>{{i + 1}}.</td>
-        <td class="text-left pl-1">{{businessData?.majorInquiriesAndObservations?.normalElectricityLine | booleanConvert}}
-        <td class="text-left pl-1">{{businessData?.majorInquiriesAndObservations?.invertorOrGenerator | booleanConvert}}
-        <td class="text-left pl-1">{{businessData?.majorInquiriesAndObservations?.ledgerBook | booleanConvert}}
-        <td class="text-left pl-1">{{businessData?.majorInquiriesAndObservations?.electronic | booleanConvert}}
-    </tr>
-</table>
-
-
-<!-- ============================================================= End Major Inquiries and Observations =============================================================-->
-
-<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <ng-container *ngFor="let questionChecklist of formData['currentAssetsInspectionDetails']; let i = index;">
-        <tr class="text-white sb-bg-dark">
-            <th colspan="2">Current Assets Inspection - Stock Checklist Questionnaire
-                - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}
-            </th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Is the customer upto date with other charges,chargeable to the other premises ?
-            </td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.uptoDateWithCharges"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.uptoDateWithCharges"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">All goods belongs to the borrowers and non are hold on account of third parties
-            </td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.borrowersPossession"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.borrowersPossession"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Confirm that valuation of stocks does not include and goods under TR</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.notUnderTR"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.notUnderTR"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">There is no evidence of any other bank interested in the goods</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.otherBankNotInterested"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.otherBankNotInterested"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Was the security in order ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.securityOrder"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.securityOrder"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Are the goods saleable ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.goodsSaleable"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.goodsSaleable"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Are the stocks registered upto date ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.stocksUptoDate"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.stocksUptoDate"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Does the stocks registered match with the stock list ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.matchWithTheStockList"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.matchWithTheStockList"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Is the storage condition satisfactory ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.storageConditionSatisfactory">
-                <i class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.storageConditionSatisfactory">
-                <i class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Is fire fighting evidence through arrangement ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.fireFightingEvidence"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.fireFightingEvidence"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Are the building/store in the good condition?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.buildingStoreCondition"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.buildingStoreCondition"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Are the special warranties in the insurance policy upto date ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.warrantiesUptoDate"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.warrantiesUptoDate"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">There is no evidence of goods hazardous nature in the premises</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.noHazardousNature"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.noHazardousNature"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Were our name board properly displayed ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Were our padlocks in use ?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.padlocksUse"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.padlocksUse"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Is the PAN/Registration Certificate of the business is displayed?</td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.certificate"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.certificate"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Were we provided with a detailed NCA report at the time of inspection against
-                which we could inspect the business?
-            </td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.ncaReport"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.ncaReport"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Additional Impression: Do you feel the stocks are largely as per the stock report
-                provided in terms of item/quantity?
-            </td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.stocksAreLarge"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.stocksAreLarge"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">Any evidence that there are charges of other entities/institutions in the
-                assets?
-            </td>
-            <td *ngIf="questionChecklist?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
-                    class="fas fa-check"></i></td>
-            <td *ngIf="!questionChecklist?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
-                    class="fas fa-times"></i></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="text-white sb-bg-dark">Finding & Comments
-                - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}</td>
-        </tr>
-        <tr>
-            <td colspan="2"
-                class="text-left pl-1">{{questionChecklist?.stockCheckListQuestionaire?.findingAndComments}}</td>
-        </tr>
-        <tr>
-            <td colspan="2" class="text-white sb-bg-dark">Remarks for 'NO' Option
-                - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}</td>
-        </tr>
-        <tr>
-            <td colspan="2"
-                class="text-left pl-1">{{questionChecklist?.stockCheckListQuestionaire?.remarksForNoOption}}</td>
-        </tr>
-    </ng-container>
-</table>
-<div>
-    <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-        <ng-container *ngFor="let receive of formData['currentAssetsInspectionDetails']; let i = index;">
+<div class="row">
+    <div class="col-md-12" *ngIf="formData?.currentResidentFormChecked">
+        <p><b>Current Resident</b></p>
+        <table class="table table-bordered table-responsive-md table-sm sb-small">
+            <tbody>
             <tr>
-                <th colspan="6">Current Assets Inspection - Receivables
-                    - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Party</th>
-                <th>Within 3 Months</th>
-                <th>6 Month</th>
-                <th>One year</th>
-                <th>1+ year</th>
-            </tr>
-            <tr *ngFor="let parties of receive?.receivablesAndPayables?.parties; let i=index">
-                <td>{{i + 1}}.</td>
-                <td class="text-left pl-1">{{parties?.party}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
-
-            </tr>
-            <tr class="text-right">
-                <td></td>
-                <td class="text-left pl-1">Total</td>
-                <td class="pr-1">
-                    <b>Rs. {{receive?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>
-                </td>
-                <td class="pr-1">
-                    <b>Rs. {{receive?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>
-                </td>
-                <td class="pr-1">
-                    <b>Rs. {{receive?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>
-                </td>
-                <td class="pr-1">
-                    <b>Rs. {{receive?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>
+                <th colspan="1" class="sb-bg-dark text-white">Date of Inspection</th>
+                <td colspan="3" *ngFor="let cr of formData['currentResidentDetails']">
+                    {{cr?.dateOfVisit ? (cr?.dateOfVisit | date) : 'NA'}}
+                    ({{cr?.dateOfVisit ? (cr?.dateOfVisit | engNepDate: false) : 'NA'}})
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td class="text-left pl-1">Grand Total</td>
-                <td colspan="4" class="text-right pr-1">
-                    <b>Rs. {{receive?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>
-                </td>
-            </tr>
-
-            <tr class="text-white sb-bg-dark">
-                <td colspan="6">Findings & Comments
-                    - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}
-            </tr>
-            <tr>
-                <td colspan="6"
-                    class="text-left pl-1">{{receive?.receivablesAndPayables?.findingsAndCommentsForCurrentAssetsInspection}}</td>
-            </tr>
-        </ng-container>
-    </table>
-    <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-        <ng-container *ngFor="let payable of formData['currentAssetsInspectionDetails']; let i = index;">
-            <tr>
-                <th colspan="6">Current Assets Inspection - Payable
-                    - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}
-                </th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Party</th>
-                <th>Within 3 Months</th>
-                <th>6 Month</th>
-                <th>One year</th>
-                <th>1+ year</th>
-            </tr>
-            <tr *ngFor="let parties of payable?.payable?.parties; let i=index">
-                <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{parties?.party}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
-
-            </tr>
-            <tr class="text-right">
-                <td></td>
-                <td class="text-left pl-1">Total</td>
-                <td class="pr-1"><b>Rs. {{payable?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
-                <td class="pr-1"><b>Rs. {{payable?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
-                <td class="pr-1"><b>Rs. {{payable?.payable?.oneYearTotal | currencyFormatter}}</b></td>
-                <td class="pr-1"><b>Rs. {{payable?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="text-left pl-1">Grand Total</td>
-                <td colspan="4" class="text-right pr-1"><b>Rs. {{payable?.payable?.grandTotal | currencyFormatter}}</b>
-                </td>
-            </tr>
-
-            <tr class="text-white sb-bg-dark">
-                <td colspan="6">Findings & Comments
-                    - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}
-            </tr>
-            <tr>
-                <td colspan="6"
-                    class="text-left pl-1">{{payable?.payable?.findingsAndCommentsForCurrentAssetsInspection}}</td>
-            </tr>
-        </ng-container>
-    </table>
-
-    <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-        <ng-container *ngFor="let assets of formData['currentAssetsInspectionDetails']; let i = index;">
-            <tr>
-                <th colspan="6">Other Current Assets
-                    - {{(formData['currentAssetsInspectionDetails'].length > 1) ? (i + 1) : ''}}
-                </th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3">Receivable Assets
-                </th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Particulars
-                </th>
-                <th>Amount</th>
-            </tr>
-            <tr *ngFor="let asset of assets?.otherCurrentAssets?.receivableAssets; let j = index;">
-                <td>{{j + 1}}</td>
-                <td class="text-left pl-1">{{asset?.particulars}}</td>
-                <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="text-left pl-1">Total</td>
-                <td class="text-right pr-1" colspan="2">
-                    <b>Rs. {{assets?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b>
-                </td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3">Inspecting Staffs
-                </th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Position</th>
-            </tr>
-            <tr *ngFor="let staff of assets?.otherCurrentAssets?.inspectingStaffs; let k=index">
-                <td>{{k + 1}}</td>
-                <td class="text-left pl-1">{{staff?.name}}</td>
-                <td class="text-left pl-1">{{staff?.position}}</td>
-            </tr>
-            <tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3">Payable Assets</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Particulars</th>
-                <th>Amount</th>
-            </tr>
-            <tr *ngFor="let asset of assets?.otherCurrentAssets?.payableAssets; let l=index">
-                <td>{{l + 1}}</td>
-                <td class="text-left pl-1">{{asset?.particulars}}</td>
-                <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="text-left pl-1">Total</td>
-                <td class="text-right pr-1" colspan="2">
-                    <b>Rs. {{assets?.otherCurrentAssets?.payableCurrentAssetsTotal  | currencyFormatter}}</b>
+                <th colspan="1" class="sb-bg-dark text-white">Inspected By</th>
+                <td colspan="3" *ngFor="let cr of formData['currentResidentDetails']">
+                    {{cr?.staffRepresentativeName ? ('Mr./Ms.' + cr?.staffRepresentativeName) : ''}}
+                    {{cr?.staffRepresentativeName2 ? (' && Mr./Ms. ' + cr?.staffRepresentativeName2) : ''}}
                 </td>
             </tr>
             <tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3" class="text-left pl-1">Bank Exposure
-                </th>
+                <th colspan="1" class="sb-bg-dark text-white">Comments, if any</th>
+                <td colspan="3" *ngFor="let cr of formData['currentResidentDetails']">{{cr?.findingComment}}</td>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Bank Name</th>
-                <th>Amount</th>
-            </tr>
-            <tr *ngFor="let bank of assets?.otherCurrentAssets?.bankExposures; let m=index">
-                <td>{{m + 1}}</td>
-                <td class="text-left pl-1">{{bank?.bankName}}</td>
-                <td class="text-right pr-1">Rs. {{bank?.amount | currencyFormatter}}</td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <td colspan="3">
-                    Overall Findings / Comment of CAI
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" *ngIf="formData?.businessSiteVisitFormChecked">
+        <p><b>Business Site Visit</b></p>
+        <p class="text-justify">
+            The business of the customer shall be visited/inspected at least 4 times in a year; however, the Bank
+            reserves the
+            right to visit/inspect the customer’s business any time, with or without prior notice to them. Visit reports
+            shall
+            be prepared and filed after they are noted by the BM/Unit Head. Any serious adverse issues observed during
+            the site
+            visit shall be escalated to Regional Office and Head Office along with course of action taken / to be taken,
+            where
+            warranted.
+        </p>
+        <p>Details of last 4 Business Inspection dates are as under;</p>
+        <table class="table table-bordered table-responsive-md table-sm sb-small">
+            <tbody>
+            <tr>
+                <th colspan="1" class="sb-bg-dark text-white">Date of Inspection</th>
+                <td colspan="3" *ngFor="let bs of formData['businessSiteVisitDetails']">
+                    {{bs?.dateOfVisit ? (bs?.dateOfVisit | date) : 'NA'}}
+                    ({{bs?.dateOfVisit ? (bs?.dateOfVisit | engNepDate: false) : 'NA'}})
                 </td>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1">{{assets?.otherCurrentAssets?.overAllFindings}}</td>
+                <th colspan="1" class="sb-bg-dark text-white">Inspected By</th>
+                <td colspan="3" *ngFor="let bs of formData['businessSiteVisitDetails']">
+                    {{bs?.staffRepresentativeName ? ('Mr./Ms.' + bs?.staffRepresentativeName) : ''}}
+                    {{bs?.staffRepresentativeName2 ? (' && Mr./Ms. ' + bs?.staffRepresentativeName2) : ''}}
+                </td>
             </tr>
-        </ng-container>
-    </table>
+            <tr>
+                <th colspan="1" class="sb-bg-dark text-white">Operating Status</th>
+                <td colspan="3" *ngFor="let bs of formData['businessSiteVisitDetails']">{{bs?.operatingStatus}}</td>
+            </tr>
+            <tr>
+                <th colspan="1" class="sb-bg-dark text-white">Comments, if any</th>
+                <td colspan="3" *ngFor="let bs of formData['businessSiteVisitDetails']">{{bs?.findingsAndComments}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" *ngIf="fixedAssetsData?.length > 0">
+        <p><b>Fixed Assets Collateral Inspection Details</b></p>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="landData?.length > 0">
+            <tr>
+                <th [colSpan]="landData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Land Security</th>
+            </tr>
+            <tbody>
+            <tr>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of landData">{{fad?.securityName}}</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of landData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of landData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of landData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="apartmentData?.length > 0">
+            <tr>
+                <th [colSpan]="apartmentData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Apartment Security</th>
+            </tr>
+            <tbody>
+            <tr>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of apartmentData">{{fad?.securityName}}</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of apartmentData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of apartmentData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of apartmentData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="landBuildingData?.length > 0">
+            <tr>
+                <th [colSpan]="landBuildingData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Land & Building Security</th>
+            </tr>
+            <tbody>
+            <tr>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of landBuildingData">{{fad?.securityName}}</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of landBuildingData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of landBuildingData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of landBuildingData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

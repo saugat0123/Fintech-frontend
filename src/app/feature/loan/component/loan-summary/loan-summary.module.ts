@@ -47,7 +47,6 @@ import { AboveRequestOfTheCustomerComponent } from './sme-loan-summary/above-ten
 import { AbovePurposeJustificationForProposalComponent } from './sme-loan-summary/above-ten-million/above-purpose-justification-for-proposal/above-purpose-justification-for-proposal.component';
 import { AboveBusinessRelatedInformationComponent } from './sme-loan-summary/above-ten-million/above-business-related-information/above-business-related-information.component';
 import { AboveBankSolComponent } from './sme-loan-summary/above-ten-million/above-bank-sol/above-bank-sol.component';
-import { AboveInspectionComponent } from './sme-loan-summary/above-ten-million/above-inspection/above-inspection.component';
 import { AboveAssessmentOfFacilitiesRequirementComponent } from './sme-loan-summary/above-ten-million/above-assessment-of-facilities-requirement/above-assessment-of-facilities-requirement.component';
 import { AboveSecurityArrangementComponent } from './sme-loan-summary/above-ten-million/above-security-arrangement/above-security-arrangement.component';
 import { AboveGroupExposureWithCcblComponent } from './sme-loan-summary/above-ten-million/above-group-exposure-with-ccbl/above-group-exposure-with-ccbl.component';
@@ -134,7 +133,6 @@ const ENTRY_COMPONENTS = [];
     AbovePurposeJustificationForProposalComponent,
     AboveBusinessRelatedInformationComponent,
     AboveBankSolComponent,
-    AboveInspectionComponent,
     AboveAssessmentOfFacilitiesRequirementComponent,
     AboveSecurityArrangementComponent,
     MGroupSummaryComponent,
