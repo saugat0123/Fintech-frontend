@@ -3,21 +3,25 @@
     <thead>
     <tr class="sb-bg-dark text-white">
         <th>Type</th>
-        <th>Comments/ Current Status</th>
+        <th>Comments</th>
+        <th>Current Status</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">Internal</th>
-        <td [innerHTML]="commentData?.previousCommentsDetailView | safeHtml"></td>
+        <td [innerHTML]="commentData?.previousComments | safeHtml"></td>
+        <td [innerHTML]="commentData?.previousStatus | safeHtml"></td>
     </tr>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">External</th>
-        <td [innerHTML]="commentData?.auditorCommentsDetailView | safeHtml"></td>
+        <td [innerHTML]="commentData?.auditorComments | safeHtml"></td>
+        <td [innerHTML]="commentData?.auditorStatus | safeHtml"></td>
     </tr>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">NRB</th>
-        <td [innerHTML]="commentData?.nrbCommentsDetailView | safeHtml"></td>
+        <td [innerHTML]="commentData?.nrbComments | safeHtml"></td>
+        <td [innerHTML]="commentData?.nrbStatus | safeHtml"></td>
     </tr>
     </tbody>
 </table>

@@ -2,57 +2,43 @@
     <nb-card-body>
         <form [formGroup]="commentsAccordionFormGroup">
             <div class="row">
-                <div class="col-md-12 form-group">
-                    <label for="previousComments"><b>Internal, Comments and Status</b></label>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
-                            <td><textarea rows="4" class="form-control" formControlName="previousComments"
-                                          id="previousComments" placeholder="Internal, Comments and Status"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th  class="sb-bg-dark text-white">For Detail View</th>
-                            <td><ckeditor id="previousCommentsDetailView" formControlName="previousCommentsDetailView" name="previousCommentsDetailView" type="text"
-                                          [config]="ckeConfig"></ckeditor>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-12 form-group">
-                    <label for="auditorComments"><b>External, Comments and Status</b></label>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
-                            <td><textarea rows="4" class="form-control" formControlName="auditorComments"
-                                          id="auditorComments" placeholder="External, Comments and Status"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th  class="sb-bg-dark text-white">For Detail View</th>
-                            <td><ckeditor id="auditorCommentsDetailView" formControlName="auditorCommentsDetailView" name="auditorCommentsDetailView" type="text"
-                                          [config]="ckeConfig"></ckeditor>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-12 form-group">
-                    <label for="nrbComments"><b>NRB, Comments and Status</b></label>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th class="sb-bg-dark text-white" style="width: 10%">For Executive View</th>
-                            <td><textarea rows="4" class="form-control" formControlName="nrbComments"
-                                          id="nrbComments" placeholder="NRB, Comments and Status"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th  class="sb-bg-dark text-white">For Detail View</th>
-                            <td><ckeditor id="nrbCommentsDetailView" formControlName="nrbCommentsDetailView" name="nrbCommentsDetailView" type="text"
-                                          [config]="ckeConfig"></ckeditor>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <table class="table table-condensed table-bordered table-responsive-md sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>Type</th>
+                        <th>Comments</th>
+                        <th>Current Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th class="sb-bg-secondary text-white" style="width: 5%">Internal</th>
+                        <td>
+                            <ckeditor id="previousComments" formControlName="previousComments" name="previousComments" type="text"
+                                      [config]="ckeConfig"></ckeditor>
+                        </td>
+                        <td><ckeditor id="previousStatus" formControlName="previousStatus" name="previousStatus" type="text"
+                                      [config]="ckeConfig"></ckeditor>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="sb-bg-secondary text-white" style="width: 5%">External</th>
+                        <td><ckeditor id="auditorComments" formControlName="auditorComments" name="auditorComments" type="text"
+                                      [config]="ckeConfig"></ckeditor></td>
+                        <td><ckeditor id="auditorStatus" formControlName="auditorStatus" name="auditorStatus" type="text"
+                                      [config]="ckeConfig"></ckeditor></td>
+                    </tr>
+                    <tr>
+                        <th class="sb-bg-secondary text-white" style="width: 5%">NRB</th>
+                        <td><ckeditor id="nrbComments" formControlName="nrbComments" name="nrbComments" type="text"
+                                      [config]="ckeConfig"></ckeditor>
+                        </td>
+                        <td><ckeditor id="nrbStatus" formControlName="nrbStatus" name="nrbStatus" type="text"
+                                      [config]="ckeConfig"></ckeditor>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </form>
     </nb-card-body>
