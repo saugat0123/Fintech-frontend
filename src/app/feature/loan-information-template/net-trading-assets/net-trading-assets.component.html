@@ -97,7 +97,7 @@
                             </tr>
 
                             <tr formGroupName="valueOfStock">
-                                <td>Value of Stock <span class="float-sm-right font-weight-bold">(A)</span> </td>
+                                <td>Value of Stock </td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfStock', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfStock', 'q1')"
@@ -135,7 +135,7 @@
                             </tr>
 
                             <tr formGroupName="valueOfDebtors">
-                                <td>Value of Debtors/ Receivables/ Trade Advances <span class="float-sm-right font-weight-bold">(B)</span> </td>
+                                <td>Value of Debtors/ Receivables/ Trade Advances</td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfDebtors', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfDebtors', 'q1')"
@@ -173,7 +173,7 @@
                             </tr>
 
                             <tr formGroupName="valueOfGoodsInTrans">
-                                <td>Trade/Commercial Advances, if any  <span class="float-sm-right font-weight-bold">(C)</span> </td>
+                                <td>Trade/Commercial Advances, if any</td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfGoodsInTrans', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfGoodsInTrans', 'q1')"
@@ -210,8 +210,44 @@
                                 </td>
                             </tr>
 
+                            <tr formGroupName="netTradingAssetsBefore">
+                                <td><strong>Total Current Assets <span class="float-sm-right">(A)</span></strong></td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q1']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q2']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q2"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q3']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q3"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q4']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'average']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
+                                           readonly
+                                           type="number">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Less: </th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             <tr formGroupName="valueOfCreditors">
-                                <td>Trade Creditors/ Payable <span class="float-sm-right font-weight-bold">(D)</span></td>
+                                <td>Trade Creditors/ Payable <b><span class="float-sm-right">(B)</span></b></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfCreditors', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfCreditors', 'q1')"
@@ -248,76 +284,8 @@
                                 </td>
                             </tr>
 
-                            <tr formGroupName="netTradingAssetsBefore">
-                                <td><strong>NTA (Before other bank's financing)</strong> <span class="float-sm-right font-weight-bold">(E)=(A+B+C-D)</span> </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q1']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
-                                           readonly type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q2']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q2"
-                                           readonly type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q3']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q3"
-                                           readonly type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'q4']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
-                                           readonly type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
-                            </tr>
-
-                            <tr formGroupName="otherBanksFinancing">
-                                <td>Other banks' financing<span class="float-sm-right font-weight-bold">(F)</span> </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q1']).value | currencyFormatter}}</span>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q1')"
-                                           *ngIf="fromProfile"
-                                           class="cellInput text-center"
-                                           formControlName="q1" type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q2']).value | currencyFormatter}}</span>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q2')"
-                                           *ngIf="fromProfile"
-                                           class="cellInput text-center"
-                                           formControlName="q2" type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q3']).value | currencyFormatter}}</span>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q3')"
-                                           *ngIf="fromProfile"
-                                           class="cellInput text-center"
-                                           formControlName="q3" type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q4']).value | currencyFormatter}}</span>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q4')"
-                                           *ngIf="fromProfile"
-                                           class="cellInput text-center"
-                                           formControlName="q4" type="number">
-                                </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
-                            </tr>
-
                             <tr formGroupName="netTradingAssetsAfter">
-                                <td><strong>NTA (After other bank's financing)</strong><span class="float-sm-right font-weight-bold">(G)=(E-F)</span> </td>
+                                <td><strong>Net Trading Asserts <span class="float-sm-right">(C) = (A-B)</span></strong></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsAfter', 'q1']).value | currencyFormatter}}</span>
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
@@ -347,7 +315,7 @@
                             </tr>
 
                             <tr formGroupName="drawingPower">
-                                <td>Drawing Power (in %) <span class="float-sm-right font-weight-bold">(H)</span> </td>
+                                <td>Drawing Power (in %) </td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPower', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'drawingPower', 'q1')"
@@ -385,7 +353,7 @@
                             </tr>
 
                             <tr formGroupName="drawingPowerAmount">
-                                <td><strong>Drawing Power (Amount)</strong> <span class="float-sm-right font-weight-bold">(I)=(H % G)</span></td>
+                                <td><strong>Drawing Power (Amount)</strong></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPowerAmount', 'q1']).value | currencyFormatter}}</span>
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
@@ -415,7 +383,7 @@
                             </tr>
 
                             <tr formGroupName="loanFromUs">
-                                <td>Proposed/Existing Facility of CCBL  <span class="float-sm-right font-weight-bold">(J)</span></td>
+                                <td>Proposed/Existing Facility of CCBL <span class="float-sm-right font-weight-bold">(D)</span></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['loanFromUs', 'q1']).value | currencyFormatter}}</span>
                                     <input (input)="calculateNta(netTradingAssetsFormGroup, 'loanFromUs', 'q1')"
@@ -452,8 +420,46 @@
                                 </td>
                             </tr>
 
-                            <tr formGroupName="surplusDeficit">
-                                <td><strong>Surplus/(Deficit)</strong> <span class="float-sm-right font-weight-bold">(I-J)</span></td>
+                            <tr formGroupName="otherBanksFinancing">
+                                <td>Existing Facility of Other Banks<span class="float-sm-right font-weight-bold">(E)</span> </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q1']).value | currencyFormatter}}</span>
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q1')"
+                                           *ngIf="fromProfile"
+                                           class="cellInput text-center"
+                                           formControlName="q1" type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q2']).value | currencyFormatter}}</span>
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q2')"
+                                           *ngIf="fromProfile"
+                                           class="cellInput text-center"
+                                           formControlName="q2" type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q3']).value | currencyFormatter}}</span>
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q3')"
+                                           *ngIf="fromProfile"
+                                           class="cellInput text-center"
+                                           formControlName="q3" type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'q4']).value | currencyFormatter}}</span>
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q4')"
+                                           *ngIf="fromProfile"
+                                           class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'average']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
+                                           readonly
+                                           type="number">
+                                </td>
+                            </tr>
+
+                            <tr formGroupName="totalFacility">
+                                <td><strong>Total Facility </strong> <span class="float-sm-right font-weight-bold">(F)=(D+E)</span></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'q1']).value | currencyFormatter}}</span>
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
@@ -482,6 +488,35 @@
                                 </td>
                             </tr>
 
+                            <tr formGroupName="surplusDeficit">
+                                <td><b>Utilization %</b> <span class="float-sm-right font-weight-bold">(G)=(F/C)%</span></td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'q1']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'q2']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q2"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'q3']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q3"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'q4']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
+                                           readonly type="number">
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'average']).value | currencyFormatter}}</span>
+                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
+                                           [readonly]="true"
+                                           type="number">
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </form>
