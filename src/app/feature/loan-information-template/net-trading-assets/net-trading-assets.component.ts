@@ -88,7 +88,8 @@ export class NetTradingAssetsComponent implements OnInit {
                         drawingPowerAmount: this.formBuilder.group(this.quarterCalculationObject),
                         asOnDate: this.formBuilder.group(this.quarterCalculationObject),
                         loanFromUs: this.formBuilder.group(this.quarterCalculationObject),
-                        surplusDeficit: this.formBuilder.group(this.quarterCalculationObject)
+                        surplusDeficit: this.formBuilder.group(this.quarterCalculationObject),
+                        totalFacility: this.formBuilder.group(this.quarterCalculationObject),
                     });
                 });
             }
@@ -137,7 +138,8 @@ export class NetTradingAssetsComponent implements OnInit {
                     drawingPower: this.formBuilder.group(this.setNestedFormValues(v.drawingPower)),
                     drawingPowerAmount: this.formBuilder.group(this.setNestedFormValues(v.drawingPowerAmount)),
                     loanFromUs: this.formBuilder.group(this.setNestedFormValues(v.loanFromUs)),
-                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit))
+                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit)),
+                    totalFacility: this.formBuilder.group(this.setNestedFormValues(v.totalFacility)),
                 };
                 this.netTradingAssetsFormArray.push(
                     this.formBuilder.group(formObjectData)
@@ -164,7 +166,8 @@ export class NetTradingAssetsComponent implements OnInit {
                     drawingPower: this.formBuilder.group(this.quarterCalculationObject),
                     drawingPowerAmount: this.formBuilder.group(this.quarterCalculationObject),
                     loanFromUs: this.formBuilder.group(this.quarterCalculationObject),
-                    surplusDeficit: this.formBuilder.group(this.quarterCalculationObject)
+                    surplusDeficit: this.formBuilder.group(this.quarterCalculationObject),
+                    totalFacility: this.formBuilder.group(this.quarterCalculationObject),
                 };
                 this.netTradingAssetsFormArray.push(this.formBuilder.group(formObjectData));
                 if (fiscalYearObj.isCurrentYear) {
@@ -226,6 +229,7 @@ export class NetTradingAssetsComponent implements OnInit {
         this.calculateAverage(ntaFormGroup, 'netTradingAssetsAfter');
         this.calculateAverage(ntaFormGroup, 'drawingPowerAmount');
         this.calculateAverage(ntaFormGroup, 'surplusDeficit');
+        this.calculateAverage(ntaFormGroup, 'totalFacility');
     }
 
     calculateAverage(ntaFormGroup, header) {
@@ -247,8 +251,7 @@ export class NetTradingAssetsComponent implements OnInit {
         ntaFormGroup.get(['netTradingAssetsBefore', quarter]).patchValue(
             Number(ntaFormGroup.get(['valueOfDebtors', quarter]).value) +
             Number(ntaFormGroup.get(['valueOfStock', quarter]).value) +
-            Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value) -
-            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value)
+            Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value)
         );
     }
 
@@ -257,16 +260,20 @@ export class NetTradingAssetsComponent implements OnInit {
             Number(ntaFormGroup.get(['valueOfStock', quarter]).value) +
             Number(ntaFormGroup.get(['valueOfDebtors', quarter]).value) +
             Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value) -
-            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value) -
-            Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value)
+            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value)
         );
         ntaFormGroup.get(['drawingPowerAmount', quarter]).patchValue(
             Number(ntaFormGroup.get(['netTradingAssetsAfter', quarter]).value) *
             Number(ntaFormGroup.get(['drawingPower', quarter]).value) / 100);
 
+        ntaFormGroup.get(['totalFacility', quarter]).patchValue(
+            Number(ntaFormGroup.get(['loanFromUs', quarter]).value) +
+            Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value)
+        );
+
         ntaFormGroup.get(['surplusDeficit', quarter]).patchValue(
-            Number(ntaFormGroup.get(['drawingPowerAmount', quarter]).value) -
-            Number(ntaFormGroup.get(['loanFromUs', quarter]).value));
+            (Number(ntaFormGroup.get(['totalFacility', quarter]).value) /
+            Number(ntaFormGroup.get(['netTradingAssetsAfter', quarter]).value)) * 100);
     }
 
     onChangeFiscalYear(selectedFiscalYearObj) {
