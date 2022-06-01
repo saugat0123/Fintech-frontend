@@ -431,59 +431,6 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'securityType']).value === 'TD'">
-                    <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="{{'loanExpiryDateType' + i}}"> Loan Expiry Date </label><br>
-                        <nb-radio-group class="d-inline-flex"
-                                        formControlName="loanExpiryDateType" id="{{'loanExpiryDateType' + i}}"
-                                        name="{{'loanExpiryDateType' + i}}" status="success">
-                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
-                            <nepali-patro [displayNepali]="true" [responseType]="2"
-                                          formControlName="loanExpiryDateNepali">
-                            </nepali-patro>
-                        </div>
-                        <input *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === dateType[0]?.value" [nbDatepicker]="previousDate"
-                               formControlName="loanExpiryDate"
-                               fullWidth
-                               id="loanExpiryDate"
-                               nbInput
-                               shape="semi-round"
-                               placeholder="Select Date" status="success">
-                        <nb-datepicker #previousDate></nb-datepicker>
-                    </div>
-                    <div class="col-md-4">
-                        <div *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="loanExpiryDateNepaliTrans" fullWidth id="loanExpiryDateNepaliTrans"
-                                   readonly
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                        <div *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="loanExpiryDateTrans" fullWidth id="loanExpiryDateTrans"
-                                   readonly
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === 'BS'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="loanExpiryDateNepaliCT" fullWidth id="loanExpiryDateNepaliCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                        <div *ngIf="educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value === 'AD'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="loanExpiryDateCT" fullWidth id="loanExpiryDateCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                    </div>
-                </div>
                 <!-- For Translation -->
                 <div class="row pt-5 pb-2 pr-4">
                     <div class="col-md-12 text-right">
