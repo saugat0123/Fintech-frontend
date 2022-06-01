@@ -98,7 +98,7 @@
         <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
     </tr>
     <tr>
-        <td [attr.rowspan]="propList?.length+1"></td>
+        <td [attr.rowspan]="propList?.length+1">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>
         <td [attr.rowspan]="propList?.length+1"></td>
         <td [attr.rowspan]="propList?.length+1"></td>
         <th class="sn">SN</th>

@@ -168,7 +168,7 @@ export class FixAssetCollateralComponent implements OnInit {
         if (formControls.length >= 1) {
             formControls.clear();
         }
-        //data.staffs.splice(0, 1);
+        // data.staffs.splice(0, 1);
         data.staffs.forEach((detail) => {
             formControls.push(
                 this.formBuilder.group({
