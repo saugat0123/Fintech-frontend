@@ -57,9 +57,9 @@
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
 <!--        <app-above-stock-statement></app-above-stock-statement>-->
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.siteVisit">
         <p class="text-uppercase"><strong>Inspection</strong></p>
-        <app-above-inspection></app-above-inspection>
+        <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"></app-site-visit-view>
     </li>
     <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
 

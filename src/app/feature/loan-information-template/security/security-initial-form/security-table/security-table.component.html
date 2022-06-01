@@ -38,7 +38,7 @@
                    (click)="sendSecurityName('buildingDetails', 'ApartmentSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a>
                 <a *ngIf="securityId" status="primary" size="tiny"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
-                   (click)="openSiteVisitModel('Land Security'+' '+(i+1), landSecurity?.uuid)"><i class="fa fa-sitemap fa-1x"></i></a>
+                   (click)="openSiteVisitModel('Apartment Security'+' '+(i+1), apartmentSecurity?.uuid)"><i class="fa fa-sitemap fa-1x"></i></a>
             </td>
         </tr>
         </tbody>
@@ -53,7 +53,7 @@
                    (click)="sendSecurityName('landBuilding', 'Land and Building Security', i)">
                 <i class="fa fa-trash fa-1x"></i></a>
                 <a *ngIf="securityId" status="primary" size="tiny"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
-                   (click)="openSiteVisitModel('Land Security'+' '+(i+1), landSecurity?.uuid)"><i class="fa fa-sitemap fa-1x"></i></a>
+                   (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1), landAndBuilding?.uuid)"><i class="fa fa-sitemap fa-1x"></i></a>
             </td>
         </tr>
         </tbody>

@@ -29,9 +29,6 @@ export class SiteVisitViewComponent implements OnInit {
             case 'businessSiteVisitFormChecked' :
               this.businessSiteVisitSummary = true;
               break;
-            case 'fixedAssetCollateralFormChecked' :
-              this.fixedAssetCollateralSummary = true;
-              break;
             case 'currentAssetsInspectionFormChecked' :
               this.currentAssetsInspectionSummary = true;
       }

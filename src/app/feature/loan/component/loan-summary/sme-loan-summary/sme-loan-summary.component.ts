@@ -469,7 +469,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
     if (this.loanDataHolder.loanHolder.crgCcbl) {
       this.ccblData = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
-      console.log('ccblData', this.ccblData);
     }
   }
 
