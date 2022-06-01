@@ -412,6 +412,7 @@
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0">
+                        <p><b>INSPECTIONS</b></p>
                         <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                                              [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                     </li>

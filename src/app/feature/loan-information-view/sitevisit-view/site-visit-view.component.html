@@ -65,7 +65,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="fixedAssetsData?.length > 0">
         <p><b>Fixed Assets Collateral Inspection Details</b></p>
         <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="landData?.length > 0">
             <tr>

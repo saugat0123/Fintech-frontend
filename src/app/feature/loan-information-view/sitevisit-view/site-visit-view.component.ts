@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -6,9 +6,9 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
     templateUrl: './site-visit-view.component.html',
     styleUrls: ['./site-visit-view.component.scss']
 })
-export class SiteVisitViewComponent implements OnInit {
+export class SiteVisitViewComponent implements OnInit, DoCheck {
     @Input() siteVisit: any;
-    @Input() fixedAssetsData: Array<any>;
+    @Input() fixedAssetsData;
     currentResidentSummary = false;
     businessSiteVisitSummary = false;
     fixedAssetCollateralSummary = false;
@@ -23,8 +23,10 @@ export class SiteVisitViewComponent implements OnInit {
     landData = [];
     apartmentData = [];
     landBuildingData = [];
+    iterableDiffer;
 
-    constructor() {
+    constructor(private iterableDiffers: IterableDiffers) {
+        this.iterableDiffer = iterableDiffers.find([]).create(null);
     }
 
     formData: any;
@@ -42,25 +44,28 @@ export class SiteVisitViewComponent implements OnInit {
                 case 'currentAssetsInspectionFormChecked' :
                     this.currentAssetsInspectionSummary = true;
             }
-            if (!ObjectUtil.isEmpty(this.formData) &&
-                !ObjectUtil.isEmpty(this.formData['currentAssetsInspectionDetails'])) {
-                this.formData['currentAssetsInspectionDetails'].forEach(val => {
-                    if (val.rents === 'Rented/Leased') {
-                        this.isRentedLeased = true;
-                        this.rentedLeasedArray.push(val);
-                    } else {
-                        this.isNotRentedLeased = true;
-                        this.notRentedLeasedArray.push(val);
-                    }
-                });
-            }
+            // if (!ObjectUtil.isEmpty(this.formData) &&
+            //     !ObjectUtil.isEmpty(this.formData['currentAssetsInspectionDetails'])) {
+            //     this.formData['currentAssetsInspectionDetails'].forEach(val => {
+            //         if (val.rents === 'Rented/Leased') {
+            //             this.isRentedLeased = true;
+            //             this.rentedLeasedArray.push(val);
+            //         } else {
+            //             this.isNotRentedLeased = true;
+            //             this.notRentedLeasedArray.push(val);
+            //         }
+            //     });
+            // }
         }
 
-        if (this.fixedAssetsData.length > 0) {
+    }
+
+    ngDoCheck(): void {
+        const changes = this.iterableDiffer.diff(this.fixedAssetsData);
+        if (changes) {
             this.landData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land Security'));
             this.apartmentData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Apartment Security'));
             this.landBuildingData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land And Building Security'));
-            console.log('landData', this.landData);
         }
     }
 
