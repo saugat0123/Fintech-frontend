@@ -64,7 +64,7 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
     }
-    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0])) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
