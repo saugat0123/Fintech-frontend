@@ -448,13 +448,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.crgGamma.data = data;
         this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
             .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Scoring!'));
                 this.triggerCustomerRefresh.emit(true);
                 this.nbDialogRef.close();
                 this.spinner.hide();
             }, error => {
                 console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Scoring!'));
                 this.spinner.hide();
 
             });
