@@ -64,7 +64,7 @@
     <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
 
         <div class="col-md-12">
-            <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
+            <p class="text-uppercase"><strong>Financial Highlights</strong></p>
             <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
         </div>
 <!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
