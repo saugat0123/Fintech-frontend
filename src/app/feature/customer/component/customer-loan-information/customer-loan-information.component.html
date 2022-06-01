@@ -1006,7 +1006,7 @@
             </div>
           </div>
 
-          <div class="col-md-12 mt-3">
+          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <div class="form-group">
               <label class="title"><strong>Regularity of payments:</strong></label>
               <input class="form-control" formControlName="regularityOfPayments"

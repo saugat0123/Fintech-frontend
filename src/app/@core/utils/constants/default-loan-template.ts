@@ -30,10 +30,10 @@ export class DefaultLoanTemplate {
             name: 'Loan Document',
             templateUrl: null
         },
-        {
+        /*{
             active: false,
             name: 'Reporting Info',
             templateUrl: null
-        }
+        }*/
     ];
 }
