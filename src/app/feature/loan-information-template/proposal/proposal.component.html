@@ -1009,7 +1009,7 @@
                         </div>
                     </ng-container>
                     <ng-container >
-                        <div class="col-md-12">
+                        <div class="col-md-12" *ngIf="fromProfile">
                             <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
                                                 [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"
                             (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
