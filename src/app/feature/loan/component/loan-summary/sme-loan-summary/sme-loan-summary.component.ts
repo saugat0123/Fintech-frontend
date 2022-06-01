@@ -208,6 +208,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   loaded = false;
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
+  fixedAssetsData = [];
 
   @Input() crgTotalRiskScore: any;
   data;
@@ -285,6 +286,32 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
       this.securityId = this.loanDataHolder.security.id;
       this.securityData = JSON.parse(this.loanDataHolder.security.data);
+      if (this.securityData['selectedArray'] !== undefined) {
+        // land security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('LandSecurity') !== -1) {
+            this.securityData['initialForm']['landDetails'].forEach((ld, index) => {
+              this.getFixedAssetsCollateral('Land Security ' + (index + 1), this.securityId, ld.uuid);
+            });
+          }
+        });
+        // apartment security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('ApartmentSecurity') !== -1) {
+            this.securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
+              this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1), this.securityId, appart.uuid);
+            });
+          }
+        });
+        // land and building security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('Land and Building Security') !== -1) {
+            this.securityData['initialForm']['landBuilding'].forEach((ld, index) => {
+              this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1), this.securityId, ld.uuid);
+            });
+          }
+        });
+      }
       this.securitySummary = true;
     }
 
@@ -858,5 +885,18 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.isAboveTenMillion = true;
       }
     }
+  }
+
+  getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
+        .subscribe((response: any) => {
+          if (response.detail.length > 0) {
+            this.fixedAssetsData.push(response.detail[response.detail.length - 1]);
+          }
+          // this.collateralSiteVisits = response.detail;
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+        });
   }
 }

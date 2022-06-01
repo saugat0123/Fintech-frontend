@@ -334,12 +334,14 @@
                                       [fiscalYear]="fiscalYearArray"
                                       [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
+                                      [fixedAssetsData]="fixedAssetsData"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
                 <app-above-ten-million [loanDataHolder]="loanDataHolder"
                                        [customerAllLoanList]="customerAllLoanList"
                                        [isDetailedView]="isDetailedView"
+                                       [fixedAssetsData]="fixedAssetsData"
                                        [fiscalYear]="fiscalYearArray"></app-above-ten-million>
             </ng-container>
         </nb-card-body>
