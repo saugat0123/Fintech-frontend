@@ -126,15 +126,6 @@ export class Section5InterestRatedRelatedClausesComponent implements OnInit {
           });
         }
       });
-      if (this.tempData.existingLoanForm.isExistingLoan = true) {
-        this.tempData.existingLoanForm.existingLoanFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
     }
   }
 }
