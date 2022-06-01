@@ -65,23 +65,89 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-12" *ngFor="let fad of fixedAssetsData">
-        <table class="table-bordered table-responsive-md table table-sm sb-small">
-            <tr class="sb-bg-dark">
-                <th colspan="2" class="text-center">Fixed Assets Collateral Inspection Detail of {{fad?.securityName}}</th>
+    <div class="col-md-12">
+        <p><b>Fixed Assets Collateral Inspection Details</b></p>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="landData?.length > 0">
+            <tr>
+                <th [colSpan]="landData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Land Security</th>
             </tr>
             <tbody>
             <tr>
-                <th class="sb-bg-secondary" style="width: 25%">Latest Date if Inspection</th>
-                <td style="width: 75%">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of landData">{{fad?.securityName}}</td>
             </tr>
             <tr>
-                <th class="sb-bg-secondary" style="width: 25%">Inspected By</th>
-                <td style="width: 75%">{{fad?.personContacted}}</td>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of landData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
             </tr>
             <tr>
-                <th class="sb-bg-secondary" style="width: 25%">Status/Comments <em><i>(if any)</i></em></th>
-                <td style="width: 75%">{{fad?.commentsAboutFAC}}</td>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of landData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of landData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="apartmentData?.length > 0">
+            <tr>
+                <th [colSpan]="apartmentData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Apartment Security</th>
+            </tr>
+            <tbody>
+            <tr>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of apartmentData">{{fad?.securityName}}</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of apartmentData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of apartmentData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of apartmentData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table-bordered table-responsive-md table table-sm sb-small" *ngIf="landBuildingData?.length > 0">
+            <tr>
+                <th [colSpan]="landBuildingData?.length + 1" class="text-center sb-bg-dark">Fixed Assets Collateral of Land & Building Security</th>
+            </tr>
+            <tbody>
+            <tr>
+                <th class="sb-bg-secondary">Security Name</th>
+                <td *ngFor="let fad of landBuildingData">{{fad?.securityName}}</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Latest Date of Inspection</th>
+                <td *ngFor="let fad of landBuildingData">{{fad?.siteVisitDate | date}} ({{fad?.siteVisitDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Inspected By</th>
+                <td *ngFor="let fad of landBuildingData">
+                    <span *ngFor="let st of (fad?.siteVisitJsonData | jsonParse)?.staffs">
+                        {{st?.staffRepresentativeName ? st?.staffRepresentativeName : 'NA'}},
+                        {{st?.staffRepresentativeName2 ? st?.staffRepresentativeName2 : 'NA'}} <br>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="sb-bg-secondary">Status/Comments <em><i>(if any)</i></em></th>
+                <td *ngFor="let fad of landBuildingData">{{(fad?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</td>
             </tr>
             </tbody>
         </table>

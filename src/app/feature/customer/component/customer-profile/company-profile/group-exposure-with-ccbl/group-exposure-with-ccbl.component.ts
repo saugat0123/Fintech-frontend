@@ -189,6 +189,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
 
   removeData(i: number, formArrayName) {
     (this.form.get(formArrayName) as FormArray).removeAt(i);
+    this.calculateTotalAmount();
   }
 
   calculateTotal(index: number) {

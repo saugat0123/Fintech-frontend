@@ -20,6 +20,9 @@ export class SiteVisitViewComponent implements OnInit {
     landSelected = false;
     apartmentSelected = false;
     landBuilding = false;
+    landData = [];
+    apartmentData = [];
+    landBuildingData = [];
 
     constructor() {
     }
@@ -51,6 +54,13 @@ export class SiteVisitViewComponent implements OnInit {
                     }
                 });
             }
+        }
+
+        if (this.fixedAssetsData.length > 0) {
+            this.landData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land Security'));
+            this.apartmentData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Apartment Security'));
+            this.landBuildingData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land And Building Security'));
+            console.log('landData', this.landData);
         }
     }
 

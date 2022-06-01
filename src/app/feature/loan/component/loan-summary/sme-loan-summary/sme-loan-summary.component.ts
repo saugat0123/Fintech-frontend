@@ -891,7 +891,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
         .subscribe((response: any) => {
           if (response.detail.length > 0) {
-            this.fixedAssetsData.push(response.detail[response.detail.length - 1]);
+            response.detail.forEach(rd => {
+              this.fixedAssetsData.push(rd);
+            });
           }
           // this.collateralSiteVisits = response.detail;
         }, error => {
