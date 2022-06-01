@@ -854,10 +854,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
 
-            if (this.loanType === 'RELEASE_AND_REPLACEMENT') {
-                    this.loanDocument.loanHolder.shareSecurity.customerShareData = this.approvedShareSecurity;
-            }
-
             if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
                 this.loanDocument.customerInfo = null;
             }

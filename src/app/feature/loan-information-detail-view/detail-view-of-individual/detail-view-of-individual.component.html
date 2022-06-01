@@ -1,7 +1,315 @@
+<div *ngIf="proposalData?.data !==null ">
+    <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                       [customerAllLoanList]="customerAllLoanList"
+                       [proposalData]="proposalData"
+                       [loanDataHolder]="loanDataHolder"></app-proposal-view>
+</div>
+
+<!--                release and replacement-->
+<ng-container *ngIf="loanDataHolder?.securities?.length > 0">
+    <!--                    proposed security-->
+    <app-security-summary  *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList" [pending]="true"></app-security-summary>
+</ng-container>
+<ng-container>
+    <!--                    existing security-->
+    <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList"></app-security-summary>
+</ng-container>
+<app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
+<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
+                     [calendarType]="calendarType"
+                     [loanDataHolder]="loanDataHolder"
+                     [customerInfoData]="loanDataHolder?.loanHolder"
+                     [individual]="loanDataHolder?.customerInfo"
+                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loaded" [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+
+<div>
+    <app-financial-view *ngIf="loanHolder?.financial"
+                        [customerType]="loanHolder?.customerType"
+                        [formData]="loanHolder?.financial"></app-financial-view>>
+    <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                   [loanDataHolder]="loanDataHolder"></app-cicl-view>
+    <app-dbr *ngIf="financial" [financialData]="financial" [proposalData]="proposalData"></app-dbr>
+    <ng-container *ngIf="checkedData?.waiverChecked">
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Waiver</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="checkedData?.deviationChecked">
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Deviation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+</div>
+
+<div *ngIf="productUtils.CBS_ENABLE">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <p><strong>Group Details</strong>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                           *ngIf="loanDataHolder"></app-cbs-table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!productUtils.CBS_ENABLE">
+    <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
+                                        [customerAllLoanList]="customerAllLoanList"
+                                        [proposalData]="proposalData"></app-proposal-justification-summary>
+</div>
+
+<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"></app-site-visit-view>
+
+<div class="borrower_class">
+    <div class="row">
+        <div class="col-md-12">
+            <hr class="print-line">
+            <p><strong class="header text-left">Purpose of Loan: </strong>
+                <span class="text-left" style="display: flex"
+                      [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount"
+                                 [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+
+<app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+
+<div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+
+    <app-report-summary
+            [approved]="true"
+            *ngIf="loanDataHolder?.reportingInfoLog"
+            [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+    </app-report-summary>
+</div>
+
+<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+    <span><strong>Loan Reporting Information</strong></span>
+    <app-report-summary
+            [approved]="false"
+            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+            [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+    <ng-template #noinfo>
+        <p>No any information tagged</p>
+    </ng-template>
+</div>
+
+<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+    <span><strong>Customer Reporting Information</strong></span>
+    <app-report-summary
+            [approved]="false"
+            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+</div>
+
+<app-insurance-view
+        *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+        [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+
+<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                       [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+
+<app-proposal-terms-and-condition-summery
+        *ngIf="loanDataHolder && customerAllLoanList"
+        [customerAllLoanList]="customerAllLoanList"
+        [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+
+<div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
+    <hr>
+    <p class="header"><strong class="header">Credit Risk Grading</strong></p>
+    <table
+            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+            <th>Credit Risk Grading (Flavour)</th>
+            <th>Credit Risk Grade</th>
+            <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
+            <th>Credit Risk Score</th>
+            <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngIf="creditRiskLambdaSummary">
+            <td class="text-left pl-1">Lambda</td>
+            <td><span
+                    [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
+            </td>
+            <td><span
+                    [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
+            </td>
+            <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
+            <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
+        </tr>
+        <tr *ngIf="crgGammaSummary">
+            <td class="text-left pl-1">Gamma</td>
+            <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
+            <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+<div class="row mt-3">
+    <div class="col-md-12">
+        <p><strong class="header">Authority Section</strong></p>
+        <table
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>S.N</th>
+                <th>Date</th>
+                <th>From User</th>
+
+                <th>To User</th>
+
+                <th>Status</th>
+                <th class="cmt-width">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="text-left pl-1">
+                    {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                </td>
+                <td class="text-left">
+                    <div class="pl-1">
+                        {{previousList?.fromUser?.name}}</div>
+                    <div class="pl-1">
+                        <span>({{previousList?.fromRole?.roleName}})</span>
+                    </div>
+
+                </td>
+
+                <td class="text-left">
+                    <div class="pl-1">
+                        {{previousList?.toUser?.name}}</div>
+                    <div class="pl-1">
+                        ({{previousList?.toRole?.roleName}})
+                    </div>
+                </td>
+
+                <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                <td class="text-left pl-1">
+                    <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                    previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49):
+                                    previousList?.comment)">
+                    </div>
+                    <a (click)="open(previousList?.comment)"
+                       *ngIf="previousList?.comment?.length > 50"
+                       class="text-left pl-1 disable-print">read more ....</a>
+                    <div>
+                        <span class="print-only text-justify pl-1 pr-1"
+                              [innerHTML]="previousList?.comment | safeHtml"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>{{currentIndex + 1}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                    ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                </td>
+                <td class="text-left">
+                    <div class="pl-1">
+                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                    <div class="pl-1">
+                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    </div>
+                </td>
+
+                <td class="text-left">
+                    <div class="pl-1">
+                        {{loanDataHolder?.currentStage?.toUser?.name}}</div>
+                    <div class="pl-1">
+                        <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                </td>
+
+                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
+                <td class="text-left">
+                    <div class="pl-1 disable-print">
+                                   <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    loanDataHolder?.currentStage?.comment?.substring(0, 49):
+                                    loanDataHolder?.currentStage?.comment)"></span>
+                    </div>
+                    <a (click)="open(loanDataHolder?.currentStage?.comment)"
+                       *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                       class="text-left pl-1 disable-print">read more ....</a>
+                    <div>
+                        <span class="print-only text-justify pl-1 pr-1"
+                              [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+     id="signatureDiv">
+    <div class="col-md-12 print-only">
+        <p><strong>Approval Chain</strong></p>
+    </div>
+    <div *ngFor="let previous of signatureList; let i=index;"
+         class="col-md-2 padding-0-125">
+        <div class="signature-block">
+            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
+            </div>
+            <hr class="border-dark m-0">
+            <div class="row justify-content-center signature mx-auto">
+                <div class="print-only signature-padding"></div>
+                <img align="middle" alt="signature"
+                     class="img-thumbnail border-0 signature-height signature-width"
+                     src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
+            </div>
+            <div class="text-center signature-detail sb-bg-secondary text-white">
+                <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                <p class="m-0 sb-small">
+                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
+                    )</p>
+                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                    ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-<table [innerHTML]="paperChecklist | safeHtml"></table>
+
+<app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist" *ngIf="checklistChecked" [innerHTML]="paperChecklist | safeHtml"></app-product-paper-checklist>
+
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>

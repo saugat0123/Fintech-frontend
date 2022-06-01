@@ -8,6 +8,9 @@ import {CollateralSiteVisitService} from '../../../../loan-information-template/
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {Security} from '../../../model/security';
+import {LoanDataHolder} from '../../../model/loanData';
+import {DocStatus} from '../../../model/docStatus';
+import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 
 
 @Component({
@@ -20,7 +23,9 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() shareSecurity;
     @Input() collateralData;
     @Input() proposal;
-    @Input() securities: Array<Security>;
+    @Input() securities: Array<Security> = [];
+    @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() pending;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -60,7 +65,6 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
     @Input() isApproveSecurity;
-    isSecurityPresent = false;
     landArray;
     landBuildingArray;
     apartmentArray;
@@ -75,91 +79,60 @@ export class SecuritySummaryComponent implements OnInit {
     personalArray;
     shareArray;
     plantArray;
-    constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
+
+    constructor(private collateralSiteVisitService: CollateralSiteVisitService,
+                private securityLoanReference: SecurityLoanReferenceService) {
     }
 
     ngOnInit() {
-        this.selectedSecurities();
-        this.setSelectedSecurities();
-        // if (!ObjectUtil.isEmpty(this.securityId)) {
-        //     this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-        //         .subscribe((response: any) => {
-        //             const siteVisit = response.detail;
-        //             if (this.landSelected) {
-        //                 const landDetails = this.formData['initialForm']['landDetails'];
-        //                 landDetails.forEach(v => {
-        //                     if (!ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-        //                     }
-        //                 });
-        //                 this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
-        //             }
-        //             if (this.landBuilding) {
-        //                 const landBuilding = this.formData['initialForm']['landBuilding'];
-        //                 landBuilding.forEach(v => {
-        //                     if (!ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-        //                     }
-        //                 });
-        //                 this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
-        //             }
-        //             if (this.apartmentSelected) {
-        //                 const buildingDetails = this.formData['initialForm']['buildingDetails'];
-        //                 buildingDetails.forEach(v => {
-        //                     if (!ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-        //                     }
-        //                 });
-        //                 this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
-        //             }
-        //             // for old loan that does not contains uuid for security and site visit
-        //             if (this.landSelected) {
-        //                 const landDetails = this.formData['initialForm']['landDetails'];
-        //                 landDetails.forEach(v => {
-        //                     if (ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-        //                     }
-        //                 });
-        //                 this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
-        //             }
-        //             if (this.landBuilding) {
-        //                 const landBuilding = this.formData['initialForm']['landBuilding'];
-        //                 landBuilding.forEach(v => {
-        //                     if (ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-        //                     }
-        //                 });
-        //                 this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
-        //             }
-        //             if (this.apartmentSelected) {
-        //                 const buildingDetails = this.formData['initialForm']['buildingDetails'];
-        //                 buildingDetails.forEach(v => {
-        //                     if (ObjectUtil.isEmpty(v.uuid)) {
-        //                         this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-        //                     }
-        //                 });
-        //                 this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
-        //             }
-        //             const arr = [];
-        //             this.collateralSiteVisits.forEach(f => {
-        //                 if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-        //                     arr.push(f.siteVisitDocuments);
-        //                 }
-        //             });
-        //             // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-        //             const docArray = flatten(arr);
-        //             // filter for only printable document
-        //             this.collateralSiteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-        //
-        //             this.collateralSiteVisits.filter(item => {
-        //                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-        //             });
-        //             if (this.collateralSiteVisits.length > 0) {
-        //                 this.isCollateralSiteVisitPresent = true;
-        //             }
-        //             this.downloadSiteVisitDocument.emit(this.collateralSiteVisitDocuments);
-        //         });
-        // }
+        if (this.customerAllLoanList.length > 0) {
+            this.securities = [];
+            if (this.pending) {
+                this.combineAllSecurity();
+                this.selectedSecurities();
+                this.setSelectedSecurities();
+            } else {
+                this.combinedAllApprovedSecurity();
+            }
+        }
+    }
+
+    combineAllSecurity() {
+        this.customerAllLoanList.forEach((ld) => {
+            if (ld.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED) && ld.securities.length > 0) {
+                ld.securities.forEach((s) => {
+                    this.securities.push(s);
+                });
+            }
+        });
+    }
+
+    combinedAllApprovedSecurity(): void {
+        let security: any;
+        this.customerAllLoanList.forEach((ld) => {
+            if (!ObjectUtil.isEmpty(ld.parentId) && ld.documentStatus.toString() !== 'APPROVED' ) {
+                this.securityLoanReference.getAllSecurityLoanReferencesByLoanId(ld.parentId).subscribe({
+                    next: (response: any) => {
+                         security = response.detail;
+                    },
+                    error: (err: any) => {},
+                    complete: () => {
+                        security.forEach((dd: any) => {
+                            const securityObj = new Security();
+                            securityObj.id = dd.securityId;
+                            securityObj.coverage = dd.coverage;
+                            securityObj.data = dd.data;
+                            securityObj.securityType = dd.securityType;
+                            securityObj.usedAmount = dd.usedAmount;
+                            securityObj.status = dd.status;
+                            this.securities.push(securityObj);
+                        });
+                        this.selectedSecurities();
+                        this.setSelectedSecurities();
+                    },
+                    });
+            }
+        });
     }
 
     calculateTotal() {

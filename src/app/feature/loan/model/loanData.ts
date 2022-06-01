@@ -39,6 +39,7 @@ import {CustomerLoanDto} from './customerLoanDto';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 import {Auto} from './Auto';
 import {LandBuilding} from './LandBuilding';
+import {SecurityLoanReference} from '../../modal/security-loan-reference';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -116,4 +117,5 @@ export class LoanDataHolder extends BaseEntity {
     cadStageChecked: boolean;
     selectedArray: string;
     financialAccountInformation: string;
+    securityLoanReferences: Array<SecurityLoanReference>;
 }

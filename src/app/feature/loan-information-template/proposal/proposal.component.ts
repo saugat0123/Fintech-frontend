@@ -23,6 +23,7 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
+import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
     selector: 'app-proposal',
@@ -41,6 +42,7 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
     @Input() isLoanBeingEdit = false;
@@ -487,6 +489,7 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
+        this.cadSetup.save();
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
@@ -544,7 +547,9 @@ export class ProposalComponent implements OnInit {
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
-                this.combinedLoansIds.push(this.loan.id);
+                if (!this.combinedLoansIds.includes(this.loan.id)) {
+                    this.combinedLoansIds.push(this.loan.id);
+                }
                 if (this.isLoanBeingEdit === false) {
                     this.loanList.push(this.loan);
                 }
@@ -973,9 +978,6 @@ export class ProposalComponent implements OnInit {
         });
     }
 
-    openCadSetup(data) {
-        this.nbService.open(data, {size: 'xl', backdrop: true});
-    }
 
     getData(data) {
         this.files = data;
@@ -1066,7 +1068,4 @@ export class ProposalComponent implements OnInit {
         }
     }
 
-    toggleCad() {
-        this.showCad = !this.showCad;
-    }
 }

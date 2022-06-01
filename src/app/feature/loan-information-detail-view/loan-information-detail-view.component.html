@@ -347,9 +347,12 @@
 <!--            </div>-->
 <!--            </div>-->
             <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
-                                           [loanDataHolder]="loanDataHolder"></app-detail-view-of-individual>
+                                           [loanDataHolder]="loanDataHolder"
+                                           [signatureList] = "signatureList"></app-detail-view-of-individual>
             <app-detail-view-of-institutional *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
-                                              [loanDataHolder]="loanDataHolder"></app-detail-view-of-institutional>
+                                              [loanDataHolder]="loanDataHolder" [customerAllLoanList]="customerAllLoanList"
+                                              [loanConfig] = "loanConfig"
+                                              [signatureList] = "signatureList"></app-detail-view-of-institutional>
         </div>
         </div>
 <app-overlay-spinner></app-overlay-spinner>

@@ -6,9 +6,10 @@
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
     </div>
 
+    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="true"></app-security-summary>
+    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="false"></app-security-summary>
     <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
-    <app-security-detail-view [securities]="loanDataHolder?.securities"></app-security-detail-view>
 
     <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                          [calendarType]="calendarType"
@@ -23,7 +24,7 @@
                            [loanId]="loanId"
                            [loanDataHolder]="loanDataHolder"
                            [customerInfo]="loanHolder"></app-company-info-view>
-    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [loanDataHolder]="loanDataHolder"
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loaded" [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder"
                         [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
     <div *ngIf="isIndividual">
         <app-financial-view *ngIf="loanHolder?.financial && isIndividual"

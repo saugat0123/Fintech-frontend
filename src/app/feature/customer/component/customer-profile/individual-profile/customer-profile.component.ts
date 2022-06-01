@@ -197,7 +197,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             }
             this.customerBasicFormBuilder();
             this.getProvince();
-            this.setRelatives(this.customer.customerRelatives);
+            if(this.customer.customerRelatives) {
+                this.setRelatives(this.customer.customerRelatives);
+            }
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);

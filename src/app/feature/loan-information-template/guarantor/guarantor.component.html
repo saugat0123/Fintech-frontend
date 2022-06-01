@@ -1173,7 +1173,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="successionPlanning"><strong>Succession Risk & Mitigation</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.successionPlanning.errors }"
+                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.successionPlanning?.errors }"
                                                   formControlName="successionPlanning" id="successionPlanning"
                                                   name="successionPlanning"
                                                   [config]="ckeConfig"></ckeditor>
@@ -1183,19 +1183,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="groupBackground"><strong>Group's Background and associated companies</strong></label>
-                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.groupBackground.errors }"
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.groupBackground?.errors }"
                                               formControlName="groupBackground" id="groupBackground"
                                               name="groupBackground" [config]="ckeConfig"
                                               type="text"></ckeditor>
-                                    <div *ngIf="submitted && guarantorDetails.groupBackground?.errors "
+                                    <div *ngIf="submitted && guarantorDetails?.groupBackground?.errors "
                                          class="invalid-feedback">
-                                        <div *ngIf="guarantorDetails.groupBackground?.errors.required">
+                                        <div *ngIf="guarantorDetails?.groupBackground?.errors?.required">
                                             Group's Background and associated companies is required
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" [formGroup]="guarantorDetails.get('promoterData')">
+                            <div class="row" *ngIf="customerInfo?.customerType === 'INSTITUTION' " [formGroup]="guarantorDetails?.get('promoterData')">
 
                                 <table  class="table table-sm table-bordered table-hover sb-small text-center">
                                     <thead>
@@ -1210,7 +1210,7 @@
                                     </thead>
                                     <tbody>
                                     <ng-container formArrayName="background">
-                                        <tr *ngFor="let background of guarantorDetails.get('promoterData').get('background')['controls']; let j = index;" [formGroupName]="j">
+                                        <tr *ngFor="let background of guarantorDetails?.get('promoterData')?.get('background')['controls']; let j = index;" [formGroupName]="j">
                                             <td>{{j + 1}}</td>
                                             <td><input type="text" formControlName="previousAssociations"></td>
                                             <td><input type="text" formControlName="natureOfBusiness"></td>
@@ -1245,7 +1245,7 @@
                                     </thead>
                                     <tbody>
                                     <ng-container formArrayName="familyDetails">
-                                        <tr *ngFor="let familyDetails of guarantorDetails.get('promoterData').get('familyDetails')['controls']; let j = index;" [formGroupName]="j">
+                                        <tr *ngFor="let familyDetails of guarantorDetails?.get('promoterData')?.get('familyDetails')['controls']; let j = index;" [formGroupName]="j">
                                             <td>{{j + 1}}</td>
                                             <td><input type="text" formControlName="name"></td>
                                             <td><input type="text" formControlName="relation"></td>

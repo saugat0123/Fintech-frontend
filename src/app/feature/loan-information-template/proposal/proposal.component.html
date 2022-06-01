@@ -997,9 +997,7 @@
                             </div>
                         </form>
                         <div class="col-md-12 form-group">
-                            <button nbButton (click)=" fromProfile ? toggleCad() :openCadSetup(datax)"><b>Setup Security Schedule</b>
-                            </button>
-                            <app-cad-file-setup  *ngIf="showCad" [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
+                            <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
                         </div>
                     </div>
                     <ng-container  *ngIf="fromProfile">
@@ -1010,8 +1008,8 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="fromProfile">
-                        <div class="col-md-12">
+                    <ng-container >
+                        <div class="col-md-12" *ngIf="fromProfile">
                             <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
                                                 [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"
                             (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
@@ -1024,6 +1022,3 @@
         </div>
     </div>
 </div>
-<ng-template #datax>
-    <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
-</ng-template>

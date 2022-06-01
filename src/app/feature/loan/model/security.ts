@@ -21,4 +21,5 @@ export class Security {
     templateName: string;
     securityLoanReferenceId: number;
     collateralSiteVisits: Array<CollateralSiteVisit>;
+    status: any;
 }

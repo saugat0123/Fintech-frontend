@@ -120,6 +120,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CollateralSiteVisitComponent,
         LoanSummaryInstitutionalComponent,
         LoanSummaryIndividualComponent,
+        CompanyInfoSummaryComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

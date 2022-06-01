@@ -2,178 +2,178 @@
     <nb-card>
         <nb-card-body id="print-block">
             <div class="row disable-print">
-<!--                <div class="col-md-12">-->
-<!--                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||-->
-<!--                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||-->
-<!--                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">-->
-<!--                        <nb-accordion>-->
-<!--                            <nb-accordion-item>-->
-<!--                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>-->
-<!--                                <nb-accordion-item-body>-->
-<!--                                    <app-role-heirarchy-chain [refId]="id"-->
-<!--                                                              [loanDataHolder]="loanDataHolder"-->
-<!--                                                              [branchId]="loanDataHolder?.branch?.id"-->
-<!--                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"-->
-<!--                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>-->
-<!--                                </nb-accordion-item-body>-->
-<!--                            </nb-accordion-item>-->
-<!--                        </nb-accordion>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-6">-->
-<!--                            <button nbButton-->
-<!--                                    shape="rectangle"-->
-<!--                                    status="primary"-->
-<!--                                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span-->
-<!--                                    class="px-2">customer Profile</span></button>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <div class="mt-2 float-right" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||-->
-<!--                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||-->
-<!--                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||-->
-<!--                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">-->
-<!--                                <button class="btn btn-primary sb-medium text-uppercase" nbButton size="tiny"-->
-<!--                                        status="primary" nbTooltip="Configure Approval Role Hierarchy"-->
-<!--                                        (click)="SetRoleHierarchy(loanDataHolder?.id)">-->
-<!--                                    Set Role Hierarchy-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                </div>-->
+                <div class="col-md-12">
+                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
+                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button nbButton
+                                    shape="rectangle"
+                                    status="primary"
+                                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                                    class="px-2">customer Profile</span></button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2 float-right" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
+                                <button class="btn btn-primary sb-medium text-uppercase" nbButton size="tiny"
+                                        status="primary" nbTooltip="Configure Approval Role Hierarchy"
+                                        (click)="SetRoleHierarchy(loanDataHolder?.id)">
+                                    Set Role Hierarchy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
             </div>
             <div  class=" col-md-12 summary">
-<!--                <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"-->
-<!--                 class="row text-success cursor disable-print">-->
-<!--                <div class="col-md-6 text-left">-->
-<!--                    <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId,loanDataHolder?.loan?.id)"-->
-<!--                       *ngIf="loanDataHolder?.parentId !== null"-->
-<!--                       class="text-left">{{loanType[loanDataHolder.loanType]}} From <i-->
-<!--                            class="p-1 fa fa-eye"></i></a>-->
-<!--                </div>-->
-<!--                <div class="col-md-6 text-right">-->
-<!--                    <a (click)="renewedOrCloseFrom(loanDataHolder?.childId,loanDataHolder?.loan?.id)"-->
-<!--                       *ngIf="loanDataHolder?.childId !== null"-->
-<!--                       class="text-right">{{loanType[loanDataHolder.loanType]}} to <i-->
-<!--                            class="p-1 fa fa-eye"></i></a>-->
-<!--                </div>-->
-<!--                <div class="col-md-12">-->
-<!--                    <hr/>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-4">-->
+                <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
+                 class="row text-success cursor disable-print">
+                <div class="col-md-6 text-left">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId,loanDataHolder?.loan?.id)"
+                       *ngIf="loanDataHolder?.parentId !== null"
+                       class="text-left">{{loanType[loanDataHolder.loanType]}} From <i
+                            class="p-1 fa fa-eye"></i></a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.childId,loanDataHolder?.loan?.id)"
+                       *ngIf="loanDataHolder?.childId !== null"
+                       class="text-right">{{loanType[loanDataHolder.loanType]}} to <i
+                            class="p-1 fa fa-eye"></i></a>
+                </div>
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
 
-<!--                            <div>-->
-<!--                                <strong> Priority:</strong>-->
-<!--                                <span class="badge badge-danger"-->
-<!--                                      >{{loanDataHolder.priority?.toString() | titlecase}}</span>-->
-<!--                            </div>-->
+                            <div>
+                                <strong> Priority:</strong>
+                                <span class="badge badge-danger"
+                                      >{{loanDataHolder.priority?.toString() | titlecase}}</span>
+                            </div>
 
-<!--                            <div>-->
-<!--                                <strong> Approving Level:</strong>-->
-<!--                                <span class="badge badge-danger"-->
-<!--                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>-->
-<!--                            </div>-->
+                            <div>
+                                <strong> Approving Level:</strong>
+                                <span class="badge badge-danger"
+                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>
+                            </div>
 
-<!--                            <div>-->
-<!--                                <strong>Loan Status:</strong>-->
-<!--                                <span class="badge badge-info"-->
-<!--                                      >{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>-->
-<!--                            </div>-->
-<!--                            <div class="clearfix">-->
-<!--                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>-->
-<!--                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Sender No.: </strong>{{senderDetails?.senderIdentity?.phone_number}}</span></div>-->
-<!--                                <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>-->
-<!--                                <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>-->
-<!--                                <br>-->
-<!--                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>-->
-<!--                                <br>-->
-<!--                                <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>-->
-<!--                                <br>-->
-<!--                                <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>-->
-<!--                                <br>-->
-<!--                                <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>-->
-<!--                                <br>-->
-<!--                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">-->
-<!--                            <span><strong>Review Date: </strong>-->
-<!--                                <ng-container *ngIf="naChecked; else date">-->
-<!--                                    {{'NA'}}-->
-<!--                                </ng-container>-->
-<!--                                <ng-template #date>-->
-<!--                                    <br>-->
-<!--                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>-->
-<!--                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}-->
-<!--                                </ng-template>-->
-<!--                            </span>-->
-<!--                                    <div>-->
-<!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
-<!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <br>-->
-<!--                                <div class="float-right" *ngIf="loanDataHolder?.isSol">-->
-<!--                                    <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>-->
+                            <div>
+                                <strong>Loan Status:</strong>
+                                <span class="badge badge-info"
+                                      >{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
+                            </div>
+                            <div class="clearfix">
+                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>
+                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Sender No.: </strong>{{senderDetails?.senderIdentity?.phone_number}}</span></div>
+                                <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>
+                                <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>
+                                <br>
+                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
+                                <br>
+                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                    <div>
+                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
+                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="float-right" *ngIf="loanDataHolder?.isSol">
+                                    <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
 
-<!--                            </div>-->
+                            </div>
 
-<!--                        </div>-->
-<!--                        <div class="col-md-4">-->
-<!--                            <div class="report-header">-->
-<!--                                <div class="report-header-heading header">{{client}}</div>-->
-<!--                                <div class="report-header-sub-heading">-->
-<!--                                    <span> Credit Appraisal </span>-->
-<!--                                    <br/>-->
-<!--                                    <span> for </span>-->
-<!--                                </div>-->
-<!--                                <div class="report-header-sub-heading"  *ngIf="!isJointInfo"><span><strong class="customer-name">-->
-<!--                                    {{loanCategory === 'INSTITUTION' ?-->
-<!--                                    loanDataHolder?.companyInfo?.companyName-->
-<!--                                    : loanDataHolder?.customerInfo?.customerName}}-->
-<!--                               </strong> </span>-->
-<!--                                </div>-->
-<!--                                <div class="report-header-sub-heading" *ngIf="isJointInfo">-->
-<!--                                    <div *ngFor="let jointCustomer of jointInfo">-->
-<!--                                        <ng-container *ngFor="let info of jointCustomer">-->
-<!--                                            <span  class="customer-name">{{loanCategory === 'INSTITUTION' ?-->
-<!--                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>-->
-<!--                                        </ng-container>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,-->
-<!--                                    {{loanDataHolder?.branch?.province?.name}}</div> <div class="badge badge-warning">Summary</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-4 text-left">-->
-<!--                            <img class="report-log img-thumbnail border-0" alt="logo"-->
-<!--                                 src="../../../../../assets/img/logo.png">-->
-<!--                            <br>-->
-<!--                            <div class="row sb-small">-->
-<!--                                <div class="col-md-12">-->
-<!--                    <span class=""><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}-->
-<!--                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row sb-small mb-1">-->
-<!--                                <div class="col-md-12">-->
-<!--                                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}  ({{nepaliDate}})</span>-->
-<!--                                    <span class=""><b>-->
-<!--                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>-->
-<!--                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}-->
-<!--                                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}}-->
-<!--                                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})-->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="report-header">
+                                <div class="report-header-heading header">{{client}}</div>
+                                <div class="report-header-sub-heading">
+                                    <span> Credit Appraisal </span>
+                                    <br/>
+                                    <span> for </span>
+                                </div>
+                                <div class="report-header-sub-heading"  *ngIf="!isJointInfo"><span><strong class="customer-name">
+                                    {{loanCategory === 'INSTITUTION' ?
+                                    loanDataHolder?.companyInfo?.companyName
+                                    : loanDataHolder?.customerInfo?.customerName}}
+                               </strong> </span>
+                                </div>
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span  class="customer-name">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div> <div class="badge badge-warning">Summary</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-left">
+                            <img class="report-log img-thumbnail border-0" alt="logo"
+                                 src="../../../../../assets/img/logo.png">
+                            <br>
+                            <div class="row sb-small">
+                                <div class="col-md-12">
+                    <span class=""><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                                </div>
+                            </div>
+                            <div class="row sb-small mb-1">
+                                <div class="col-md-12">
+                                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}  ({{nepaliDate}})</span>
+                                    <span class=""><b>
+                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
+                                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
 
-<!--                    </span>-->
+                    </span>
 
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <!--            <hr class="print-line">-->
 <!--            <div class="row">-->
 <!--                &lt;!&ndash; CRG - Gamma&ndash;&gt;-->
@@ -1268,10 +1268,10 @@
 <!--                    </table>-->
 <!--                </div>-->
 <!--            </div>-->
-                <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'"
-                                             [loanData] = "loanDataHolder"></app-loan-summary-individual>
-                <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'"
-                                                [loanData] = "loanDataHolder"></app-loan-summary-institutional>
+                <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && loaded && loanDataHolder"
+                                             [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList"></app-loan-summary-individual>
+                <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'  && loaded && loanDataHolder"
+                                                [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList"></app-loan-summary-institutional>
             </div>
         </nb-card-body>
     </nb-card>
