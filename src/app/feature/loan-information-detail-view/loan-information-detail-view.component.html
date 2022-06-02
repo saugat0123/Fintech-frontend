@@ -304,6 +304,13 @@
                         </app-customer-business-activity-or-backgrounds>
                     </li>
 
+                    <li *ngIf="loanHolder?.financial">
+                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
+                        <app-financial-view *ngIf="loanHolder?.financial"
+                                            [customerType]="loanHolder?.customerType"
+                                            [formData]="loanHolder?.financial"></app-financial-view>
+                    </li>
+
                     <li>
                         <p><strong>Purpose and Justification of Credit Proposal:</strong></p>
                         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
@@ -415,12 +422,7 @@
                         <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                                              [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                     </li>
-                    <li *ngIf="loanHolder?.financial">
-                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
-                        <app-financial-view *ngIf="loanHolder?.financial"
-                                            [customerType]="loanHolder?.customerType"
-                                            [formData]="loanHolder?.financial"></app-financial-view>
-                    </li>
+
                     <li *ngIf="loanDataHolder?.insurance">
                         <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
