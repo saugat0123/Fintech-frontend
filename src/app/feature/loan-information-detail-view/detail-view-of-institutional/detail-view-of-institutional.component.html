@@ -16,22 +16,8 @@
 </ng-container>
 <app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
-<nb-accordion *ngIf="isRemitLoan">
-    <nb-accordion-item>
-        <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video KYC</h6></nb-accordion-item-header>
-        <nb-accordion-item-body>
-            <app-video-kyc [showSender]="true"  [remitCustomer]="loanDataHolder.remitCustomer"  [isModal]="false" ></app-video-kyc>
-        </nb-accordion-item-body>
-    </nb-accordion-item>
-</nb-accordion>
 
 <hr class="print-line">
-<p class="header" [hidden]="loanCategory === 'INSTITUTION'"><strong   class="header">Applicant/Guarantor Profile</strong></p>
-<div class="row">
-    <div class="col-md-12">
-        <app-joint-customer-view *ngIf="isJointInfo && newJointInfo.length > 0" [jointDetails]="newJointInfo"></app-joint-customer-view>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-12">
         <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
@@ -40,6 +26,8 @@
                                [loanId]="loanId"
                                [loanDataHolder]="loanDataHolder"
                                [customerInfo]="loanDataHolder?.loanHolder"></app-company-info-view>
+        <app-guarantor-view  [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+
     </div>
 </div>
 
@@ -434,11 +422,21 @@
     </div>
 </div>
 <br>
+
+<div *ngIf="financialKeys?.length > 0 ">
+    <ng-container *ngFor="let title of financialKeys">
+        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
+        <hr>
+        <div class="row">
+            <app-financial-json-parser
+                    [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
+        </div>
+    </ng-container>
+</div>
 <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-<app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist" *ngIf="checklistChecked" [innerHTML]="paperChecklist | safeHtml"></app-product-paper-checklist>
 <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
                      [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"></app-site-visit-view>
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"

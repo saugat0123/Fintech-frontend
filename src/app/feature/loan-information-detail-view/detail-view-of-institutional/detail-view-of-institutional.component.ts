@@ -76,6 +76,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   documentNamesSplit: string[] = [];
   docMsg;
   rootDocLength;
+  financialData;
+  financialKeys;
 
   constructor(
       private fiscalYearService: FiscalYearService,
@@ -87,17 +89,11 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   ngOnInit() {
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
-    if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
-      this.isRemitLoan = true;
-    }
+
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.smallBusiness = true;
-    }
-    if (this.isRemitLoan) {
-      this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
-      this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
@@ -145,12 +141,14 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
         this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
       }
     }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financial)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financial.data)) {
+        this.financialData = JSON.parse(this.loanDataHolder.loanHolder.financial.data);
+        this.financialKeys = Object.keys(this.financialData);
+      }
+    }
     // getting fiscal years
     this.getFiscalYears();
-    this.disable();
-  }
-  updateChecklist(event) {
-    this.checklistData = event;
   }
   getFiscalYears() {
     this.fiscalYearService.getAll().subscribe(response => {
@@ -188,23 +186,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       } else {
         return 'SUPPORTED BY:';
       }
-    }
-  }
-
-  disable() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
-      const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
-      this.paperChecklist = obj.view;
-      this.allId = obj.id;
-      const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
-      this.allId.forEach(d => {
-        const input = parserData.getElementById(d);
-        const child = input.innerHTML;
-        if (!child.includes('checked')) {
-          input.innerHTML = `<input type="radio" disabled>`;
-        }
-      });
-      this.paperChecklist = parserData.body.innerHTML;
     }
   }
 
