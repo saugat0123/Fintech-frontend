@@ -3,6 +3,8 @@
             <h3>Edit Class A Sanction Loan Data</h3>
             <span class="font-weight-bold cursor float-right" style="margin-top: -2em" (click)="dialogRef.close()">x</span>
         </nb-card-header>
+    <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                       [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
     <form [nbSpinner]="spinner" [formGroup]="form">
         <nb-card-header class="container-fluid">
             <div class="row p-4">
