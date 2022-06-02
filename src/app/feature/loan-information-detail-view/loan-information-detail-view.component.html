@@ -281,8 +281,7 @@
                             for {{customerAllLoanList?.length > 1 ? 'following loan' :
                                 loanDataHolder?.loan?.name + ' of NPR ' + loanDataHolder?.proposal?.proposedLimit + '@' +
                                 (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
-                                ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths : 'NA') + ' tenure'}}
-                            to meet his/her personal obligation.</p>
+                                ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths/12 +' year(s)' : 'NA')  }}</p>
                         <div *ngIf="customerAllLoanList?.length > 1">
                             <ol type="a">
                                 <li class="sb-small p-0 m-0" *ngFor="let cal of customerAllLoanList">
@@ -290,8 +289,8 @@
                                     NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
                                     @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a
                                     for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
-                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths : 'NA'}} months
-                                    tenure</b></li>
+                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths/12+ ' year(s)' : 'NA'}}
+                                    </b></li>
                             </ol>
                         </div>
                     </li>
@@ -303,6 +302,13 @@
                                 [loanHolder]="loanDataHolder.loanHolder"
                         >
                         </app-customer-business-activity-or-backgrounds>
+                    </li>
+
+                    <li *ngIf="loanHolder?.financial">
+                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
+                        <app-financial-view *ngIf="loanHolder?.financial"
+                                            [customerType]="loanHolder?.customerType"
+                                            [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
 
                     <li>
@@ -368,7 +374,7 @@
                                                  [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
-                        <p><strong>Compliance:</strong></p>
+                        <p><strong>Compliance: </strong>We have fully adhered the policy of NRB and internal bank policies.</p>
                         <tr>
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
                         </tr>
@@ -387,6 +393,10 @@
                                 [cicl]="loanDataHolder?.loanHolder?.cicl"
                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
+                    </li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
+                        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
+                        <app-report-summary [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     </li>
                     <li>
                         <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
@@ -416,12 +426,7 @@
                         <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                                              [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                     </li>
-                    <li *ngIf="loanHolder?.financial">
-                        <p><strong>Financial Performance <br> Monthly Income / Expenditure Detail</strong></p>
-                        <app-financial-view *ngIf="loanHolder?.financial"
-                                            [customerType]="loanHolder?.customerType"
-                                            [formData]="loanHolder?.financial"></app-financial-view>
-                    </li>
+
                     <li *ngIf="loanDataHolder?.insurance">
                         <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
