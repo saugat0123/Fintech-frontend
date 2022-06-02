@@ -258,7 +258,6 @@ export class IncomeFromAccountComponent implements OnInit {
 
     removeGroupProfitability(i: number) {
         (this.incomeFormGroup.get('groupProfitability') as FormArray).removeAt(i);
-        this.calculateTotalIncomeDuringReviewGroup(i);
-        this.calculateTotalIncomeAfterReviewGroup(i);
+        this.calculateGrandTotal();
     }
 }
