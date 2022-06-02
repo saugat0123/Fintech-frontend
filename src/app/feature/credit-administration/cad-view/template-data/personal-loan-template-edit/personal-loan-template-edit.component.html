@@ -4,6 +4,8 @@
         <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()" style="margin-top:-2em">x</a>
     </nb-card-header>
     <div>
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
         <form [formGroup]="form">
             <div class="row pt-3 pl-2">
                 <div class="col-md-12 pt-3 pl-2">

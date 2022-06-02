@@ -1,18 +1,17 @@
 <nb-card>
 <nb-card-header class="container-fluid" [nbSpinner]="spinner">
-    <div class="row">
-        <div class="col-md-4" style="height: 125px;">
-            <form [formGroup]="homeLoanForm">
-                <label><strong>Home Loan Case</strong></label>
-                <ng-select (change)="typeOfHomeLoan($event)"
-                           [multiple]="false"
-                           formControlName="homeLoanType"
-                           placeholder="Select Case Type">
-                    <ng-option *ngFor="let typeOfLoan of homeLoanType" [value]="typeOfLoan.value">{{typeOfLoan.value}}</ng-option>
-                </ng-select>
-            </form>
-        </div>
-    </div>
+    <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                       [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+    <form [formGroup]="homeLoanForm">
+        <label><strong>Home Loan Case</strong></label>
+        <ng-select (change)="typeOfHomeLoan($event)"
+                   [multiple]="false"
+                   formControlName="homeLoanType"
+                   placeholder="Select Case Type">
+            <ng-option *ngFor="let typeOfLoan of homeLoanType"
+                       [value]="typeOfLoan.value">{{typeOfLoan.value}}</ng-option>
+        </ng-select>
+    </form>
 </nb-card-header>
 <nb-card-body class="row pt-3 pl-2">
     <div *ngIf="isConstructionLoan">
