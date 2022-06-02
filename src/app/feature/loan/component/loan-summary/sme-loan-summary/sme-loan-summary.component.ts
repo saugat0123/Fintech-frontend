@@ -213,6 +213,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   @Input() crgTotalRiskScore: any;
   data;
   approveAuth;
+  spinner = false;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
@@ -870,11 +871,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   detailViewCheck() {
+    this.ngxSpinner.show();
     if (this.isDetailedView) {
       this.isDetailedView = false;
       this.isSaneView = false;
       this.isAboveTenMillion = false;
       this.isUpToTenMillion = false;
+      this.spinner = false;
+      this.ngxSpinner.hide();
     } else {
       this.isDetailedView = true;
       if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
@@ -884,6 +888,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       } else {
         this.isAboveTenMillion = true;
       }
+      this.spinner = false;
+      this.ngxSpinner.hide();
     }
   }
 
