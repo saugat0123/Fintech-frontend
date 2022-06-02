@@ -13,7 +13,7 @@
                             <td>
                                 <b>कर्जा प्रकार:
                                     <ng-container>
-                                        {{finalFacility ? finalFacility : '_________________'}}
+                                        {{val?.facilityName ? val?.facilityName : '_________________'}}
                                     </ng-container>
                                     <br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
@@ -275,48 +275,13 @@
                                     <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                 </ng-container>
+
                                 <ng-container
-                                        *ngIf="val?.homeLoanCase === 'TAKEOVER' || val?.homeLoanCase === 'PURCHASE'">
-                                    <br/>
-                                    <!--Purchase case and Take over case-->
-                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
-                                    लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="margin"
-                                           formControlName="margin"
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
-                                    प्रतिशत बराबर रकम वा राजीनामामा उल्लेखित रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
-                                    बरावर कर्जा उपयोग गर्न सकिनेछ ।
-                                </ng-container>
-                                <ng-container *ngIf="val?.homeLoanCase === 'CONSTRUCTION'">
-                                    <br/>
-                                    <!--Construction-->
-                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
-                                    लेखिदिने
-                                    जग्गामा बन्न लाग्ने घरको निर्माण लागतको १०० प्रतिशत वा जग्गा र निर्माणीत भवनको
-                                    निकृष्ट स्थितिको
-                                    मूल्याङकन (Distress Situation Value) को ८० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये
-                                    जुन
-                                    कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
-                                </ng-container>
-                                <ng-container *ngIf="val?.firstTimeHomeBuyerCheck && val?.homeLoanCase !== 'CONSTRUCTION'">
-                                    <br/>
-                                    <!--New Home buyer-->
-                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
-                                    लेखिदिने घर/जग्गाको बजार मूल्यको मूल्याङकन (Fair Market Value) को
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="margin"
-                                           formControlName="margin"
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
-                                    प्रतिशत बराबर रकम वा राजीनामामा उल्लेखित रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
-                                    बरावर कर्जा उपयोग गर्न सकिनेछ ।
-                                </ng-container>
-                                <ng-container *ngIf="val?.NcellStaffCheck && val?.homeLoanCase !== 'CONSTRUCTION'">
+                                        *ngIf="(val?.NcellStaffCheck && val?.homeLoanCase !== 'CONSTRUCTION') else nonNcellClauses">
                                     <br/>
                                     <!--For NCELL Only-->
-                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
+                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको
+                                    पक्षमा धितो
                                     लेखिदिने घर/जग्गाको बजार मूल्यको मूल्याङकन (Fair Market Value) को
                                     <input class="form-field form-control-sm d-print-none"
                                            name="margin"
@@ -326,6 +291,60 @@
                                     प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न
                                     सकिनेछ ।
                                 </ng-container>
+
+                                <ng-template #nonNcellClauses>
+                                    <ng-container
+                                            *ngIf="(val?.firstTimeHomeBuyerCheck && val?.homeLoanCase !== 'CONSTRUCTION') else otherClauses">
+                                        <br/>
+                                        <!--New Home buyer-->
+                                        <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                        बैंकको पक्षमा धितो
+                                        लेखिदिने घर/जग्गाको बजार मूल्यको मूल्याङकन (Fair Market Value) को
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="margin"
+                                               formControlName="margin"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
+                                        प्रतिशत बराबर रकम वा राजीनामामा उल्लेखित रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                                        सो
+                                        बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </ng-container>
+                                    <ng-template #otherClauses>
+                                        <ng-container
+                                                *ngIf="val?.homeLoanCase === 'TAKEOVER' || val?.homeLoanCase === 'PURCHASE'">
+                                            <br/>
+                                            <!--Purchase case and Take over case-->
+                                            <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                            बैंकको पक्षमा धितो
+                                            लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
+                                            <input class="form-field form-control-sm d-print-none"
+                                                   name="margin"
+                                                   formControlName="margin"
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
+                                            प्रतिशत बराबर रकम वा राजीनामामा उल्लेखित रकम वा स्वीकृत कर्जा मध्ये जुन कम
+                                            हुन्छ
+                                            सो
+                                            बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                        </ng-container>
+                                        <ng-container *ngIf="val?.homeLoanCase === 'CONSTRUCTION'">
+                                            <br/>
+                                            <!--Construction-->
+                                            <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                            बैंकको पक्षमा धितोबन्धक
+                                            लेखिदिने
+                                            जग्गामा बन्न लाग्ने घरको निर्माण लागतको १०० प्रतिशत वा जग्गा र निर्माणीत
+                                            भवनको
+                                            निकृष्ट स्थितिको
+                                            मूल्याङकन (Distress Situation Value) को ८० प्रतिशत बराबर रकम वा स्वीकृत
+                                            कर्जा
+                                            मध्ये
+                                            जुन
+                                            कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                        </ng-container>
+                                    </ng-template>
+                                </ng-template>
+
                                 <ng-container>
                                     <br/>
                                     <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
@@ -1191,15 +1210,6 @@
                                 सकिनेछ ।<br>
                                 <b>चुक्ता भुक्तानी :</b> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
                                 भुक्तानी परिपक्क (Maturity) समयमा गर्नु पर्नेछ ।
-                                <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
-                                {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="loanExpiryDate"
-                                       formControlName="loanExpiryDate"
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">
-                                    {{val?.loanExpiryDateType === 'AD' ? val?.loanExpiryDateCT : val?.loanExpiryDateType === 'BS' ? val?.loanExpiryDateNepaliCT : '_________________'}}</span>
                             </td>
                         </ng-container>
                     </tr>
@@ -1291,15 +1301,6 @@
                                 सकिनेछ |<br>
                                 <b>चुक्ता भुक्तानी :</b> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
                                 भुक्तानी परिपक्क (Maturity) समयमा गर्नु पर्नेछ ।
-                                <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
-                                {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="loanExpiryDate"
-                                       formControlName="loanExpiryDate"
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">
-                                    {{val?.loanExpiryDateType === 'AD' ? val?.loanExpiryDateCT : val?.loanExpiryDateType === 'BS' ? val?.loanExpiryDateNepaliCT : '_________________'}}</span>
                             </td>
                         </ng-container>
                     </tr>

@@ -49,7 +49,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.educationLoanCombinedForm.patchValue(this.initialInformation.educationLoanForm);
       }
-      this.patchDate();
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
@@ -61,26 +60,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       }
     }
     this.setLoanId();
-  }
-  patchDate() {
-    for (let val = 0; val < this.initialInformation.educationLoanForm.educationLoanCombinedFormArray.length; val++) {
-      const loanExpiryDateType = this.initialInformation.educationLoanForm.educationLoanCombinedFormArray[val].
-          loanExpiryDateType;
-      if (loanExpiryDateType === 'AD') {
-        const loanExpiryDate = this.initialInformation.educationLoanForm.educationLoanCombinedFormArray[val].loanExpiryDate;
-        if (!ObjectUtil.isEmpty(loanExpiryDate)) {
-          this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', val, 'loanExpiryDate']).patchValue(
-              new Date(loanExpiryDate));
-        }
-      } else if (loanExpiryDateType === 'BS') {
-        const loanExpiryDate = this.initialInformation.educationLoanForm.educationLoanCombinedFormArray[val].
-            loanExpiryDateNepali;
-        if (!ObjectUtil.isEmpty(loanExpiryDate)) {
-          this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', val, 'loanExpiryDateNepali']).patchValue(
-              loanExpiryDate);
-        }
-      }
-    }
   }
   setLoanId() {
     this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
@@ -122,9 +101,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       FDAmountInFigure: [undefined],
       FDAmountInWords: [undefined],
       FDNumber: [undefined],
-      loanExpiryDateType: [undefined],
-      loanExpiryDate: [undefined],
-      loanExpiryDateNepali: [undefined],
 
       loanAmountInFigureTrans: [undefined],
       loanAmountInWordsTrans: [undefined],
@@ -142,9 +118,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       FDAmountInFigureTrans: [undefined],
       FDAmountInWordsTrans: [undefined],
       FDNumberTrans: [undefined],
-      loanExpiryDateTypeTrans: [undefined],
-      loanExpiryDateTrans: [undefined],
-      loanExpiryDateNepaliTrans: [undefined],
 
       loanAmountInFigureCT: [undefined],
       loanAmountInWordsCT: [undefined],
@@ -162,9 +135,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       FDAmountInFigureCT: [undefined],
       FDAmountInWordsCT: [undefined],
       FDNumberCT: [undefined],
-      loanExpiryDateTypeCT: [undefined],
-      loanExpiryDateCT: [undefined],
-      loanExpiryDateNepaliCT: [undefined],
 
       countryName: [undefined],
       securityType: [undefined],
@@ -359,37 +329,6 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'FDNumberTrans']).patchValue(convertTDNumber);
       this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'FDNumberCT']).patchValue(
           this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'FDNumberTrans']).value);
-    }
-    /* Converting value for date */
-    this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateTypeTrans']).patchValue(
-        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value
-    );
-    this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateTypeCT']).patchValue(
-        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateTypeTrans']).value
-    );
-    const tempDateOfExpType = this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateType']).value;
-    let tempExpDate;
-    if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDate']).value;
-      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
-      if (!ObjectUtil.isEmpty(tempExpDate)) {
-        const finalExpDate = this.englishCalenderPipe.transform(tempExpDate);
-        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateTrans']).patchValue(finalExpDate);
-        this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateCT']).patchValue(
-            this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateTrans']).value
-        );
-      }
-    }
-    if (tempDateOfExpType === 'BS') {
-      const tempDateOfExpNep = this.educationLoanCombinedForm.get(
-          ['educationLoanCombinedFormArray', i, 'loanExpiryDateNepali']).value;
-      tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
-          tempDateOfExpNep.nDate : '';
-      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateNepaliTrans']).patchValue(
-          tempExpDate);
-      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateNepaliCT']).patchValue(
-          this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanExpiryDateNepaliTrans']).value
-      );
     }
   }
 }

@@ -43,7 +43,6 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     console.log('Initial Data:', this.initialData);
     this.buildForm();
     this.patchData();
-    this.getFacilityName();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -948,30 +947,4 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     }
   }
 
-  getFacilityName() {
-    if (!ObjectUtil.isEmpty(this.initialData) &&
-        !ObjectUtil.isEmpty(this.initialData.existingLoanForm) &&
-        !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray) &&
-        this.initialData.existingLoanForm.existingLoanFormArray.length > 0) {
-      if (this.initialData.existingLoanForm.existingLoanFormArray.length === 1) {
-        const existingData = this.initialData.existingLoanForm.existingLoanFormArray[0];
-        this.finalFacility = existingData.facilityName;
-      } else if (this.initialData.existingLoanForm.existingLoanFormArray.length === 2) {
-        for (let val = 0; val < this.initialData.existingLoanForm.existingLoanFormArray.length; val++) {
-          const existingData = this.initialData.existingLoanForm.existingLoanFormArray[val];
-          this.facilityNames.push(existingData.facilityName);
-        }
-        this.allFacilityNames = this.facilityNames.join(' र ');
-        this.finalFacility = this.allFacilityNames;
-      } else {
-          for (let val = 0; val < this.initialData.existingLoanForm.existingLoanFormArray.length - 1; val++) {
-            const existingData =  this.initialData.existingLoanForm.existingLoanFormArray[val];
-            this.facilityNames.push(existingData.facilityName);
-        }
-        this.allFacilityNames = this.facilityNames.join(', ');
-        const existingData1 = this.initialData.existingLoanForm.existingLoanFormArray[this.initialData.existingLoanForm.existingLoanFormArray.length - 1];
-        this.finalFacility = this.allFacilityNames + ' र ' + existingData1.facilityName;
-      }
-    }
-  }
 }
