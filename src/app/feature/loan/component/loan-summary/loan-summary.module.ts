@@ -225,7 +225,8 @@ const ENTRY_COMPONENTS = [];
         AboveBankingArrangementOfTheCustomerComponent,
         AboveRiskAnalysisComponent,
         AuthoritySectionComponent,
-        RetailRecommendationComponent
+        RetailRecommendationComponent,
+        AboveReviewOfCreditFacilitiesComponent
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
