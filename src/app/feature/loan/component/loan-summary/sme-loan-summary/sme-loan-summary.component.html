@@ -318,6 +318,10 @@
                                                     [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                                 <!--                                <app-sana-mis-nrb-reporting [loanDataHolder]="loanDataHolder"></app-sana-mis-nrb-reporting>-->
                             </li>
+                            <li *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate">
+                                <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
+                                <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
+                            </li>
                             <li>
                                 <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
                                 <!--                                <app-conlusion-review-table></app-conlusion-review-table>-->
