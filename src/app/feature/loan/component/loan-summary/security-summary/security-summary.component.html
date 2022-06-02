@@ -1036,8 +1036,8 @@
                 </table>
             </div>
         </div>
-        <div *ngIf="isCollateralSiteVisitPresent && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.FULL_SETTLEMENT_LOAN)
-            && loanType !== loanTypeEnum?.getEnum(loanTypeEnum?.CLOSURE_LOAN)" class="col-md-12">
+        <div class="row"  *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
+        <div *ngIf="isCollateralSiteVisitPresent" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
             <ng-container>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -1070,6 +1070,7 @@
                     </tr>
                 </table>
             </ng-container>
+        </div>
         </div>
         <div *ngIf="formData?.initialForm?.remark" class="row">
             <div class="col-md-12">

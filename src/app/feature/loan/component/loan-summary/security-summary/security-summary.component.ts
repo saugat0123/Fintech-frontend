@@ -10,6 +10,7 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 import {SummaryType} from '../../SummaryType';
 import {flatten} from '@angular/compiler';
 import {LoanType} from '../../../model/loanType';
+import {LoanDataHolder} from '../../../model/loanData';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() count;
     @Input() shareSecurity;
     @Input() collateralData;
+    @Input() loanDataHolder: LoanDataHolder;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;

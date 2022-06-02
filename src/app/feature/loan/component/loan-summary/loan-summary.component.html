@@ -854,8 +854,9 @@
                 </ol>
             </div>
             </div>
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
             <div *ngIf="!productUtils.CBS_ENABLE" >
-                <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                         [customerAllLoanList]="customerAllLoanList"
@@ -873,12 +874,16 @@
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus"
                                   [loanType]="loanDataHolder?.loanType"
+                                  [loanDataHolder]="loanDataHolder"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
+<div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
-            <app-financial-summary *ngIf="financialSummary && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN) " [formData]="financialData"
+
+            <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
+</div>
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
@@ -911,7 +916,7 @@
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-3" *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
                 <div class="col-md-12">
                     <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                                     [formData]="siteVisitData"
@@ -1257,7 +1262,7 @@
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
-            <div class="col-md-12" *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
+            <div class="col-md-12">
                 <div class="row sb-medium py-2">
                     <div class="col-md-12">
                         <p><strong>Authority Comments</strong></p>

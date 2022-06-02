@@ -13,6 +13,7 @@ import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {SummaryType} from '../../loan/component/SummaryType';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-company-info-view',
@@ -23,6 +24,7 @@ export class CompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
   @Input() calendarType: CalendarType;
   @Input() customerInfo: CustomerInfoData;
+  @Input() loanDataHolder: LoanDataHolder;
   @Input() loanId: any;
   customerType = CustomerType;
   companyJsonData: CompanyJsonData;
@@ -44,6 +46,8 @@ export class CompanyInfoViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.loanDataHolder, 'customer info');
+
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
