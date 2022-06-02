@@ -101,7 +101,8 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Special Covenants/Conditions, if any</strong></p>
-        <app-above-special-covenants></app-above-special-covenants>
+        <span [innerHTML]="proposalData?.specialCovenant | safeHtml"></span>
+<!--        <app-above-special-covenants></app-above-special-covenants>-->
     </li>
     <li>
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE)</strong></p>
@@ -113,7 +114,8 @@
     </li>
     <li>
         <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY</strong></p>
-        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>
+        <span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span>
+<!--        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>-->
     </li>
     <li>
         <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS</strong></p>

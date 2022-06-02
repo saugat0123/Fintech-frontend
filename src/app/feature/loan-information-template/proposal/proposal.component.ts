@@ -403,6 +403,7 @@ export class ProposalComponent implements OnInit {
             AdminFee: [undefined],
             other: [undefined],
             creditHistory: ['0'],
+            specialCovenant: [undefined]
 
     });
     }
