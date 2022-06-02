@@ -78,7 +78,7 @@
                                        [value]="partner?.ownerFatherInLawNameCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
+                                <span class="print-only">{{partner ? partner?.ownerFatherInLawNameCT : '______________________'}}</span>को
                                 बुहारी
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerGender === 'MALE' ||
@@ -88,7 +88,7 @@
                                        [value]="partner?.ownerFatherNameCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
+                                <span class="print-only">{{partner ? partner?.ownerFatherNameCT : '______________________'}}</span>को
                                 <ng-container *ngIf="partner?.ownerGender === 'MALE'"> छोरा </ng-container>
                                 <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> छोरी </ng-container>
                                 <ng-container *ngIf="partner?.ownerGender === 'OTHERS'"> छोरा/छोरी/श्रीमती </ng-container>
@@ -100,7 +100,7 @@
                                        [value]="partner?.ownerHusbandNameCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
+                                <span class="print-only">{{partner ? partner?.ownerHusbandNameCT : '______________________'}}</span>को
                                 श्रीमती
                             </ng-container>
                             <ng-container
