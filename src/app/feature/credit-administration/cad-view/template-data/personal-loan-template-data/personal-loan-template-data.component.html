@@ -1,4 +1,7 @@
 <div [nbSpinner]="spinner">
+    <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                       [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+    <h5>Personal Loan Information</h5> <hr/>
     <form [formGroup]="form"><div class="row pt-3 pl-2">
         <div class="col-md-12 pt-3 pl-2">
             <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
