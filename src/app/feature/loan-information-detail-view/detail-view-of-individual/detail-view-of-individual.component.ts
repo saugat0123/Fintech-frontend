@@ -29,14 +29,13 @@ export class DetailViewOfIndividualComponent implements OnInit {
   @Input() calendarType;
   @Input() loanHolder;
   @Input() signatureList;
+  @Input() customerAllLoanList: LoanDataHolder[];
   loans;
   paperChecklist;
   allIds = [];
   allId;
   checklistChecked = false;
   proposalData: Proposal;
-  customerAllLoanList: LoanDataHolder[] = [];
-  loaded = false;
   financial;
   checkedData;
   proposalAllData;
@@ -65,6 +64,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
   crgGammaGrade;
   crgGammaScore = 0;
   crgGammaSummary = false;
+  financialData;
 
   constructor(
       private modalService: NgbModal,
@@ -75,6 +75,10 @@ export class DetailViewOfIndividualComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
+      this.financialData = this.loanDataHolder.financial;
+      this.financial = JSON.parse(this.financialData.data);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);

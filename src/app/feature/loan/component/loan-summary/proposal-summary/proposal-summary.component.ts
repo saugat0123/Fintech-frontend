@@ -64,6 +64,7 @@ export class ProposalSummaryComponent implements OnInit {
     }[] = [];
 
     ngOnInit() {
+
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         }

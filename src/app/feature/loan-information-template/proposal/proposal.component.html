@@ -834,20 +834,20 @@
                                                             <td colspan="1"><b>Deposit</b></td>
                                                             <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>
                                                         </tr>
-                                                        <tr *ngFor="let controls of commonLoanData?.get('deposit')['controls'];let i = index" formArrayName="deposit">
+                                                        <tr *ngFor="let controls of proposalForm?.get('deposit')['controls'];let i = index" formArrayName="deposit">
                                                             <ng-container [formGroupName]="i">
                                                                 <td><input nbInput type="text" formControlName="assets"></td>
-                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
                                                             </ng-container>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="1"><b>Shares & Securities</b></td>
                                                             <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
                                                         </tr>
-                                                        <tr *ngFor="let controls of commonLoanData?.get('shares')['controls'];let i = index" formArrayName="shares">
+                                                        <tr *ngFor="let controls of proposalForm?.get('shares')['controls'];let i = index" formArrayName="shares">
                                                             <ng-container [formGroupName]="i">
                                                                 <td><input nbInput type="text" formControlName="assets"></td>
-                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
                                                 </ng-container>
                                             </tr>
                                             <tr>
@@ -856,22 +856,22 @@
 
                                                         </tr>
 
-                                                        <tr *ngFor="let controls of commonLoanData?.get('realState')['controls'];let i = index" formArrayName="realState">
+                                                        <tr *ngFor="let controls of proposalForm?.get('realState')['controls'];let i = index" formArrayName="realState">
                                                             <ng-container [formGroupName]="i">
                                                                 <td><input nbInput type="text" formControlName="assets"></td>
-                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="commonLoanData?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                                <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="proposalForm?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
                                                             </ng-container>
                                                         </tr>
                                                         <tr>
                                                             <td><b>Vehicles</b></td>
                                                             <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
                                                         </tr>
-                                                        <tr *ngFor="let controls of commonLoanData?.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
+                                                        <tr *ngFor="let controls of proposalForm?.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
                                                             <ng-container [formGroupName]="i">
                                                                 <td><input nbInput type="text" formControlName="assets"></td>
                                                                 <td>
                                                                     <input nbInput type="number" (change)="calculate()" formControlName="amount">
-                                                                    <a *ngIf="commonLoanData?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                                                                    <a *ngIf="proposalForm?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
                                                                 </td>
                                                             </ng-container>
                                                         </tr>

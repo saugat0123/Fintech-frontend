@@ -1,17 +1,11 @@
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanStage} from '../../../model/loanStage';
 import {LoanType} from '../../../model/loanType';
-import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {DocAction} from '../../../model/docAction';
-import {CustomerType} from '../../../../customer/model/customerType';
-import {ApprovalRoleHierarchyComponent} from '../../../approval/approval-role-hierarchy.component';
-import {RouteConst} from '../../../../credit-administration/model/RouteConst';
-import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils';
 import {DocStatus} from '../../../model/docStatus';
@@ -27,9 +21,7 @@ import {Proposal} from '../../../../admin/modal/proposal';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {NbDialogRef} from '@nebular/theme';
-import {
-  SiteVisitDocument
-} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {DOCUMENT} from '@angular/common';
 import {UserService} from '../../../../../@core/service/user.service';
@@ -47,7 +39,7 @@ import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routi
 import {ToastService} from '../../../../../@core/utils';
 import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
 import {saveAs as importedSaveAs} from 'file-saver';
-import { Security } from 'src/app/feature/admin/modal/security';
+import {Security} from 'src/app/feature/admin/modal/security';
 
 @Component({
   selector: 'app-loan-summary-individual',
@@ -209,7 +201,8 @@ export class LoanSummaryIndividualComponent implements OnInit {
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       private toastService: ToastService,
       private fiscalYearService: FiscalYearService,
-  ) {}
+  ) {
+  }
 
   consumerFinance = false;
   smallBusiness = false;
@@ -280,11 +273,10 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   getLoanDataHolder() {
     // Setting financial data---
+    console.log('this is loan data holder from individual summary', this.loanDataHolder.financial);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
-      if (ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
-        this.financial = JSON.parse(this.financialData.data);
-      }
+      this.financial = JSON.parse(this.financialData.data);
       this.financialSummary = true;
     }
 

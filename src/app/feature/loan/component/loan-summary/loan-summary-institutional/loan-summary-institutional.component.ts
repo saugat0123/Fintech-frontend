@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Clients} from '../../../../../../environments/Clients';
@@ -15,9 +15,7 @@ import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogRef} from '@nebular/theme';
-import {
-  SiteVisitDocument
-} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {DOCUMENT} from '@angular/common';
 import {UserService} from '../../../../../@core/service/user.service';
@@ -40,7 +38,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {DocStatus} from '../../../model/docStatus';
-import { Security } from 'src/app/feature/admin/modal/security';
+import {Security} from 'src/app/feature/admin/modal/security';
 import {DocAction} from '../../../model/docAction';
 
 @Component({
@@ -199,7 +197,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       private toastService: ToastService,
       private fiscalYearService: FiscalYearService,
-  ) {}
+  ) {
+  }
 
   consumerFinance = false;
   smallBusiness = false;
@@ -531,6 +530,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     link.setAttribute('visibility', 'hidden');
     link.click();
   }
+
   /**
    * Get array of loan stage for authority signature array.
    *
@@ -596,6 +596,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
       this.isOpen = false;
     }
   }
+
   checkDocUploadConfig() {
     const storage = LocalStorageUtil.getStorage();
     const docStatus = this.loanDataHolder.documentStatus.toString();

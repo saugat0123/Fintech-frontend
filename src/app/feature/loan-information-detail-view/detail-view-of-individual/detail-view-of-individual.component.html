@@ -1,20 +1,23 @@
-<div *ngIf="proposalData?.data !==null ">
-    <app-proposal-view *ngIf="loanDataHolder?.proposal"
-                       [customerAllLoanList]="customerAllLoanList"
-                       [proposalData]="proposalData"
-                       [loanDataHolder]="loanDataHolder"></app-proposal-view>
+<div>
+    <app-proposal-summary *ngIf="loanDataHolder?.proposal"
+                          [customerAllLoanList]="customerAllLoanList"
+                          [proposalData]="loanDataHolder?.proposal"
+                          [loanDataHolder]="loanDataHolder"></app-proposal-summary>
 </div>
 
 <!--                release and replacement-->
 <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
     <!--                    proposed security-->
-    <app-security-summary  *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList" [pending]="true"></app-security-summary>
+    <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                              [pending]="true"></app-security-detail-view>
 </ng-container>
 <ng-container>
     <!--                    existing security-->
-    <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList"></app-security-summary>
+    <app-security-detail-view *ngIf="customerAllLoanList"
+                              [customerAllLoanList]="customerAllLoanList"></app-security-detail-view>
 </ng-container>
-<app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+<app-security-schedule [customerAllLoanList]="customerAllLoanList"
+                       [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
@@ -23,13 +26,14 @@
                      [individual]="loanDataHolder?.customerInfo"
                      [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
 
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loaded" [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder"
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
+                    [loanDataHolder]="loanDataHolder"
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 
 <div>
-    <app-financial-view *ngIf="loanHolder?.financial"
-                        [customerType]="loanHolder?.customerType"
-                        [formData]="loanHolder?.financial"></app-financial-view>>
+    <app-financial-view *ngIf="loanDataHolder?.financial"
+                        [customerType]="loanDataHolder?.loanHolder?.customerType"
+                        [formData]="loanDataHolder?.financial"></app-financial-view>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                    [loanDataHolder]="loanDataHolder"></app-cicl-view>
     <app-dbr *ngIf="financial" [financialData]="financial" [proposalData]="proposalData"></app-dbr>
@@ -59,6 +63,8 @@
             </tr>
         </table>
     </ng-container>
+    <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                           [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 </div>
 
 <div *ngIf="productUtils.CBS_ENABLE">
@@ -79,27 +85,6 @@
                                         [customerAllLoanList]="customerAllLoanList"
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
-
-<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
-                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"></app-site-visit-view>
-
-<div class="borrower_class">
-    <div class="row">
-        <div class="col-md-12">
-            <hr class="print-line">
-            <p><strong class="header text-left">Purpose of Loan: </strong>
-                <span class="text-left" style="display: flex"
-                      [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
-            </p>
-        </div>
-    </div>
-</div>
-
-<app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount"
-                                 [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
-
-<app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
-                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
@@ -132,8 +117,6 @@
         *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
         [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
 
-<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
-                       [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 
 <app-proposal-terms-and-condition-summery
         *ngIf="loanDataHolder && customerAllLoanList"
@@ -304,12 +287,32 @@
     </div>
 </div>
 
+
+<!--<div class="borrower_class">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-12">-->
+<!--            <hr class="print-line">-->
+<!--            <p><strong class="header text-left">Purpose of Loan: </strong>-->
+<!--                <span class="text-left" style="display: flex"-->
+<!--                      [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount"
+                                 [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+
+<app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+
 <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
 
-<app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist" *ngIf="checklistChecked" [innerHTML]="paperChecklist | safeHtml"></app-product-paper-checklist>
+<app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist"
+                             *ngIf="checklistChecked && loanDataHolder?.paperProductChecklist"></app-product-paper-checklist>
 
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
