@@ -588,6 +588,10 @@
                                     <nb-checkbox class="title" (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
                                                  [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First Time Home Buyer</strong>
                                     </nb-checkbox>
+                                    <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory" *ngIf="fromProfile">
+                                        <nb-radio value="0">With Credit History</nb-radio>
+                                        <nb-radio value="1">WithOut Credit History</nb-radio>
+                                    </nb-radio-group>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
                                     </div>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
@@ -704,6 +708,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="title" for="specialCovenant"><strong>Special Covenants/Conditions, If Any</strong></label>
+                                            <ckeditor
+                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
+                                                    formControlName="specialCovenant" id="specialCovenant"
+                                                    name="specialCovenant"
+                                                    [config]="ckeConfig"></ckeditor>
+                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
+                                                 class="text-danger">
+                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </ng-container>
                                 <div class="col-md-12 form-group" *ngIf="!fromProfile">
                                     <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
@@ -713,13 +731,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="fromProfile">
-                                <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory">
-                                    <nb-radio value="0">With Credit History</nb-radio>
-                                    <nb-radio value="1">WithOut Credit History</nb-radio>
-                                </nb-radio-group>
-                            </div>
-
                         </form>
                     </div>
                     <ng-container *ngIf="customerType === 'INDIVIDUAL' && fromProfile">
