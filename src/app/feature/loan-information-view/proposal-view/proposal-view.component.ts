@@ -1,12 +1,10 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, IterableDiffers, DoCheck} from '@angular/core';
 import {Proposal} from '../../admin/modal/proposal';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../loan/model/docStatus';
 import {LoanType} from '../../loan/model/loanType';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
-import {ActivatedRoute, Params} from '@angular/router';
-import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
@@ -16,7 +14,7 @@ import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
   templateUrl: './proposal-view.component.html',
   styleUrls: ['./proposal-view.component.scss']
 })
-export class ProposalViewComponent implements OnInit {
+export class ProposalViewComponent implements OnInit, DoCheck {
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() loanDataHolder: LoanDataHolder;
@@ -37,6 +35,7 @@ export class ProposalViewComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
+  isHome = false;
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
@@ -46,8 +45,10 @@ export class ProposalViewComponent implements OnInit {
   customerLoanDtoList: CustomerLoanDto[];
   array = [];
   dtoArray = [];
+  iterableDiffer;
 
-  constructor() {
+  constructor(private iterableDiffers: IterableDiffers) {
+    this.iterableDiffer = iterableDiffers.find([]).create(null);
   }
 
   ngOnInit() {
@@ -57,9 +58,6 @@ export class ProposalViewComponent implements OnInit {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
     }
     this.calculateInterestRate();
-    if (this.customerAllLoanList.length > 0) {
-      this.getLoanConfig();
-    }
   }
 
   public getTotal(key: string): number {
@@ -124,6 +122,7 @@ export class ProposalViewComponent implements OnInit {
         isGeneral: c.loan.loanTag === 'GENERAL',
         isShare: c.loan.loanTag === 'SHARE_SECURITY',
         isVehicle: c.loan.loanTag === 'VEHICLE',
+        isHome: c.loan.loanTag === 'HOME_LOAN',
         loanNature: c.loan.loanNature,
         loanNatureSelected: false,
         isTerminating: false,
@@ -160,6 +159,7 @@ export class ProposalViewComponent implements OnInit {
             isGeneral: cd.loanConfig.loanTag === 'GENERAL',
             isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
             isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+            isHome: cd.loanConfig.loanTag === 'HOME_LOAN',
             loanNature: cd.loanConfig.loanNature,
             loanNatureSelected: false,
             isTerminating: false,
@@ -230,5 +230,12 @@ export class ProposalViewComponent implements OnInit {
   calculateChangeInAmount(proposed, existing): number {
     const changeInAmount = Number(proposed) - Number(existing);
     return this.isNumber(changeInAmount);
+  }
+
+  ngDoCheck(): void {
+    const changes = this.iterableDiffer.diff(this.customerAllLoanList);
+    if (changes) {
+      this.getLoanConfig();
+    }
   }
 }

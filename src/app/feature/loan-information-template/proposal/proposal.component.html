@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
                                         <input
@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                                             Month.</strong></label>
@@ -178,7 +178,7 @@
 
                                 <!--                                start of repayment mode-->
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>
                                         <select
@@ -245,7 +245,7 @@
 
                                 <!--                start of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
+                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral || isHomeLoan))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
                                         <input
@@ -259,7 +259,7 @@
                                 installment amount div-->
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Interest Amount</strong></label>
@@ -272,7 +272,7 @@
                                     </div>
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Principal Amount</strong></label>
@@ -286,7 +286,7 @@
 
                                 <!--                start of Moratorium period amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral || isHomeLoan">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Moratorium Period (Month)</strong></label>
                                         <input
@@ -483,7 +483,7 @@
                                         </thead>
                                         <tbody>
                                         <ng-container>
-                                            <tr *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
+                                            <tr *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral || isHomeLoan">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Interest Rate</td>
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestCardRate"
@@ -560,13 +560,13 @@
                                                               id="strCharge">
                                                 </td>
                                             </tr>
-                                            <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
+                                            <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
                                                 <td colspan="3">
                                                     <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
                                                 </td>
                                             </tr>
-                                            <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                            <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
                                                     <td colspan="3">
                                                         <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
