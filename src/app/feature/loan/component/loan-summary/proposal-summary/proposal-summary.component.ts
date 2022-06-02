@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, IterableDiffers, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
@@ -16,7 +16,7 @@ import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
     templateUrl: './proposal-summary.component.html',
     styleUrls: ['./proposal-summary.component.scss']
 })
-export class ProposalSummaryComponent implements OnInit {
+export class ProposalSummaryComponent implements OnInit, DoCheck {
 
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
@@ -49,8 +49,10 @@ export class ProposalSummaryComponent implements OnInit {
     customerLoanDtoList: CustomerLoanDto[];
     array = [];
     dtoArray = [];
+    iterableDiffer;
 
-    constructor() {
+    constructor(private iterableDiffers: IterableDiffers) {
+        this.iterableDiffer = iterableDiffers.find([]).create(null);
     }
 
     ngOnInit() {
@@ -63,10 +65,6 @@ export class ProposalSummaryComponent implements OnInit {
         }
         this.calculateInterestRate();
         this.checkInstallmentAmount();
-        console.log('customerAllLoanList', this.customerAllLoanList);
-        if (this.customerAllLoanList.length > 0) {
-            this.getLoanConfig();
-        }
     }
 
     public getTotal(key: string): number {
@@ -150,6 +148,7 @@ export class ProposalSummaryComponent implements OnInit {
                 isGeneral: c.loan.loanTag === 'GENERAL',
                 isShare: c.loan.loanTag === 'SHARE_SECURITY',
                 isVehicle: c.loan.loanTag === 'VEHICLE',
+                isHomeLoan: c.loan.loanTag === 'HOME_LOAN',
                 loanNature: c.loan.loanNature,
                 loanNatureSelected: false,
                 isTerminating: false,
@@ -186,6 +185,7 @@ export class ProposalSummaryComponent implements OnInit {
                         isGeneral: cd.loanConfig.loanTag === 'GENERAL',
                         isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
                         isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+                        isHomeLoan: cd.loanConfig.loanTag === 'HOME_LOAN',
                         loanNature: cd.loanConfig.loanNature,
                         loanNatureSelected: false,
                         isTerminating: false,
@@ -257,5 +257,12 @@ export class ProposalSummaryComponent implements OnInit {
     calculateChangeInAmount(proposed, existing): number {
         const changeInAmount = Number(proposed) - Number(existing);
         return this.isNumber(changeInAmount);
+    }
+
+    ngDoCheck(): void {
+        const changes = this.iterableDiffer.diff(this.customerAllLoanList);
+        if (changes) {
+            this.getLoanConfig();
+        }
     }
 }

@@ -52,7 +52,9 @@ export class GroupExposureWithCcblComponent implements OnInit {
         this.form.get('outstandingOverdue').patchValue(CcblTable.outstandingOverdueTable());
       }
       const totalAmount = JSON.parse(this.mGroupInfo.totalAmount);
-      this.form.patchValue(totalAmount);
+      if (!ObjectUtil.isEmpty(totalAmount)) {
+        this.form.patchValue(totalAmount);
+      }
       this.setGroupPosition(JSON.parse(this.mGroupInfo.groupPosition));
       this.setCompanyName(JSON.parse(this.mGroupInfo.companyGroup));
       this.form.get('groupName').patchValue(this.mGroupInfo.groupName);
@@ -155,7 +157,9 @@ export class GroupExposureWithCcblComponent implements OnInit {
           proFunded: [0],
           proNonFunded: [0],
           proTotal: [0],
-          changeAmount: [0]
+          changeAmount: [0],
+          pricing: [undefined],
+          maturity: [undefined],
         })
     );
   }
@@ -221,6 +225,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
               proNonFunded: [d.proNonFunded],
               proTotal: [d.proTotal],
               changeAmount: [d.changeAmount],
+              pricing: [d.pricing],
+              maturity: [d.maturity],
             })
         );
       });
