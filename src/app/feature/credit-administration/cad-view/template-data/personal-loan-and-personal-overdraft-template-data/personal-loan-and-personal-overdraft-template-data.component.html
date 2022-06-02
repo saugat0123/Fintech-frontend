@@ -1,5 +1,7 @@
 <div [nbSpinner]="spinner">
     <form [formGroup]="form">
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
         <div class="col-md-12">
             <h5>
                 Personal Loan Details

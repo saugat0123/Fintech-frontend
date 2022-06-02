@@ -1,4 +1,7 @@
 <nb-card>
+    <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                       [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+    <h5>Interest Subsidy Information</h5> <hr/>
     <form [formGroup]="interestSubsidy" [nbSpinner]="spinner">
         <nb-card-header class="container-fluid">
             <div class="row p-4">

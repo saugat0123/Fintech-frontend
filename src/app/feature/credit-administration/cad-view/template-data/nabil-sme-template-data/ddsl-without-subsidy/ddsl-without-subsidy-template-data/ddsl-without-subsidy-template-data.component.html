@@ -1,4 +1,7 @@
 <nb-card>
+    <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                       [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
+    <h5>DDSL Loan Information</h5> <hr/>
     <form [nbSpinner]="spinner" [formGroup]="ddslFormGroup">
         <nb-card-header class="container-fluid">
             <div class="row p-4">

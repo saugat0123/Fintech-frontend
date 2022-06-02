@@ -6,6 +6,8 @@
         </div>
     </nb-card-header>
     <nb-card-body>
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
         <form [formGroup]="interestSubsidy" [nbSpinner]="spinner">
             <!-- Drop down and selection sections -->
             <div class="row p-4">
