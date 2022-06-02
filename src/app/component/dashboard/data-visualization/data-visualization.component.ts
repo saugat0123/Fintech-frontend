@@ -75,6 +75,7 @@ export class DataVisualizationComponent implements OnInit {
     this.getBarChartData();
     this.buildFilterForm();
     this.getWidth();
+this.fileCount();
   }
 
   filter(): void {
@@ -179,31 +180,22 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   private getSpecificProposedAmount(value) {
-
     if (value.name === 'Discussion') {
       this.discussionProposedAmount = this.discussionProposedAmount + value.value;
-      this.discussionFileCount = value.fileCount;
     } else if (value.name === 'Documentation') {
       this.documentationProposedAmount = this.documentationProposedAmount + value.value;
-      this.documentationFileCount = value.fileCount;
     } else if (value.name === 'Valuation') {
       this.valuationProposedAmount = this.valuationProposedAmount + value.value;
-      this.valuationFileCount = value.fileCount;
     } else if (value.name === 'Under Review') {
       this.reviewProposedAmount = this.reviewProposedAmount + value.value;
-      this.reviewFileCount = value.fileCount;
     } else if (value.name === 'Pending') {
       this.pendingProposedAmount = this.pendingProposedAmount + value.value;
-      this.pendingFileCount = value.fileCount;
     } else if (value.name === 'Approved') {
       this.approvedProposedAmount = this.approvedProposedAmount + value.value;
-      this.approvedFileCount = value.fileCount;
     } else if (value.name === 'Rejected') {
       this.rejectedProposedAmount = this.rejectedProposedAmount + value.value;
-      this.rejectedFileCount = value.fileCount;
     } else {
       this.closureProposedAmount = this.closureProposedAmount + value.value;
-      this.closureFileCount = value.fileCount;
     }
   }
 
@@ -289,6 +281,29 @@ export class DataVisualizationComponent implements OnInit {
         search: search.documentStatus
       }
     });
+  }
+
+  private fileCount(): void {
+    this.discussionFileCount = 0;
+    this.documentationFileCount = 0;
+    this.valuationFileCount = 0;
+    this.reviewFileCount = 0;
+    this.pendingFileCount = 0;
+    this.approvedFileCount = 0;
+    this.rejectedFileCount = 0;
+    this.closureFileCount = 0;
+
+    this.loanFormService.getStatus().subscribe( resp => {
+      this.discussionFileCount = resp.detail.Discussion;
+      this.documentationFileCount = resp.detail.Documentation;
+      this.valuationFileCount = resp.detail.Valuation;
+      this.reviewFileCount = resp.detail.UnderReview;
+      this.pendingFileCount = resp.detail.pending;
+      this.approvedFileCount = resp.detail.Approved;
+      this.rejectedFileCount = resp.detail.Rejected;
+      this.closureFileCount = resp.detail.Closed;
+    })
+
   }
 
 }
