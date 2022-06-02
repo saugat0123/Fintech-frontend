@@ -19,7 +19,6 @@ export class RetailPurposeAndJustificationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.proposalData)) {
       this.proposalAllData = JSON.parse(this.proposalData.data);
       this.checkedData = JSON.parse(this.proposalData.checkedData);
-      console.log('checkedData', this.checkedData);
     }
   }
 }

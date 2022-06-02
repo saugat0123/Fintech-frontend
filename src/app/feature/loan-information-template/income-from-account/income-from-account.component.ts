@@ -44,7 +44,6 @@ export class IncomeFromAccountComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
             this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
-            console.log('dataForEdit', this.dataForEdit);
             this.incomeFormGroup.patchValue(this.dataForEdit);
             if (ObjectUtil.isEmpty(this.dataForEdit.groupProfitability)) {
                 this.setOldGroupData(this.dataForEdit);
@@ -83,8 +82,6 @@ export class IncomeFromAccountComponent implements OnInit {
             administrationFeeDuring: undefined,
             administrationFeeAfterNext: undefined,
             accountName: undefined,
-            accountNoGroup: [undefined],
-            accountNameGroup: [undefined],
             groupProfitability: this.formBuilder.array([]),
             grandTotalDuring: 0,
             grandTotalProjected: 0,
@@ -179,6 +176,8 @@ export class IncomeFromAccountComponent implements OnInit {
     addGroupProfitability() {
         (this.incomeFormGroup.get('groupProfitability') as FormArray).push(
             this.formBuilder.group({
+                accountNoGroup: [undefined],
+                accountNameGroup: [undefined],
                 interestDuringReviewGroup: [undefined],
                 interestAfterNextReviewGroup: [undefined],
                 commissionDuringReviewGroup: [undefined],
@@ -193,13 +192,14 @@ export class IncomeFromAccountComponent implements OnInit {
                 administrationFeeAfterNextGroup: [undefined],
             })
         );
-        console.log('data', this.incomeFormGroup.get('groupProfitability') as FormArray);
     }
 
     setOldGroupData(data) {
         const groupData = this.incomeFormGroup.get('groupProfitability') as FormArray;
         groupData.push(
             this.formBuilder.group({
+                accountNoGroup: [data.accountNoGroup],
+                accountNameGroup: [data.accountNameGroup],
                 interestDuringReviewGroup: [data.interestDuringReviewGroup],
                 interestAfterNextReviewGroup: [data.interestAfterNextReviewGroup],
                 commissionDuringReviewGroup: [data.commissionDuringReviewGroup],
@@ -214,7 +214,6 @@ export class IncomeFromAccountComponent implements OnInit {
                 administrationFeeAfterNextGroup: [data.administrationFeeAfterNextGroup],
             })
         );
-        console.log('groupData', groupData);
     }
 
     setGroupProfitabilityData(data) {
@@ -223,6 +222,8 @@ export class IncomeFromAccountComponent implements OnInit {
             data.forEach(d => {
                 groupData.push(
                     this.formBuilder.group({
+                        accountNoGroup: [d.accountNoGroup],
+                        accountNameGroup: [d.accountNameGroup],
                         interestDuringReviewGroup: [d.interestDuringReviewGroup],
                         interestAfterNextReviewGroup: [d.interestAfterNextReviewGroup],
                         commissionDuringReviewGroup: [d.commissionDuringReviewGroup],

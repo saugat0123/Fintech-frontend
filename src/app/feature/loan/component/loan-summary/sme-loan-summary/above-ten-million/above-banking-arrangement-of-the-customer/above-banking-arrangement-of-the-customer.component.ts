@@ -27,14 +27,12 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('this.cicl', this.cicl);
     if (!ObjectUtil.isEmpty(this.multiBanking)) {
       this.multiBankingData = JSON.parse(this.multiBanking.data);
       this.checkedData = JSON.parse(this.multiBanking.checkedData);
     }
     if (!ObjectUtil.isEmpty(this.cicl)) {
       this.ciclData = JSON.parse(this.cicl.data);
-      console.log('ciclData', this.ciclData);
       if (!ObjectUtil.isEmpty(this.cicl.remarks)) {
         this.commentVisible = true;
       }
