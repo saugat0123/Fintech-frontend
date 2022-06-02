@@ -425,6 +425,10 @@
                     <li *ngIf="loanDataHolder?.insurance">
                         <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
+                    <li *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate">
+                        <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
+                        <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
+                    </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"

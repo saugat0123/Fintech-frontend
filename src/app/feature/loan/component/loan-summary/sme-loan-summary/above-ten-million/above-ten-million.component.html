@@ -121,7 +121,7 @@
         <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
     </li>
 
-    <li>
+    <li *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate">
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
         <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
     </li>
