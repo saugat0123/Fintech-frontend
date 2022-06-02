@@ -440,9 +440,9 @@
                                                        name="purposeOfLoan"
                                                        formControlName="purposeOfLoan"
                                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.purposeOfLoanCT || '_________________'}}</span>नामको सवारी
-                                साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग
-                                गर्न सकिनेछ ।
+                                <span class="print-only font-weight-bold">{{val?.purposeOfLoanCT || '_________________'}}</span>
+<!--                                        नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने-->
+                                        प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                                     </ng-container>
                                 <ng-container *ngIf="val?.autoLoanType === 'COMMERCIAL'">
                                     <br/>
@@ -497,6 +497,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
+                                <br>
                                 <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power): </b> सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
