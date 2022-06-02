@@ -23,9 +23,9 @@
 <!--        <ng-template  #roles>-->
 <!--            <app-roles-switch></app-roles-switch>-->
 <!--        </ng-template>-->
-        <nb-action class="control-item">
-            <nb-search type="rotate-layout" placeholder="Citizenship no."></nb-search>
-        </nb-action>
+<!--        <nb-action class="control-item">-->
+<!--            <nb-search type="rotate-layout" placeholder="Citizenship no."></nb-search>-->
+<!--        </nb-action>-->
         <nb-action class="control-item" icon="question-mark-circle-outline" nbTooltip="user guide" (click)="userGuide()" *ngIf="roleName === 'admin'"></nb-action>
         <nb-action>
             <nb-user [nbContextMenu]="userMenu" nbContextMenuTag="{{contextMenuTag}}" nbContextMenuTrigger="hover"
