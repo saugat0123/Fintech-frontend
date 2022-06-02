@@ -54,7 +54,7 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
       this.loanName.forEach(value => {
         if (value === 'HOME LOAN COMBINED') {
           this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
-            if (val.NcellStaffCheck = true) {
+            if (val.NcellStaffCheck === true) {
               this.NCELL = true;
             }
           });

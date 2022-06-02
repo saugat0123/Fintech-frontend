@@ -42,8 +42,10 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan.forEach(value => {
-        this.loanName.push(value.loan.name);
-        this.loanNepaliName.push(value.loan.nepaliName);
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+          this.loanNepaliName.push(value.loan.nepaliName);
+        }
       });
       this.loanName.forEach(value => {
         if (value === 'AUTO LOAN COMBINED') {

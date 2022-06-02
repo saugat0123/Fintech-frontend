@@ -1,6 +1,6 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
-        <form [formGroup]="form">
+        <form [formGroup]="form" *ngIf="isFixed || isFloating">
             <div>
                 <b>
                     ब्याजदर सम्बन्धी शर्तहरुः

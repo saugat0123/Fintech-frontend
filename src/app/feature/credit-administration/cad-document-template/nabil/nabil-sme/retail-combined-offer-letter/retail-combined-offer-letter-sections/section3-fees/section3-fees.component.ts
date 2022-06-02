@@ -50,6 +50,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isAutoLoan = true;
         }
         if (value === 'EDUCATION LOAN COMBINED') {
           this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
@@ -148,15 +149,6 @@ export class Section3FeesComponent implements OnInit {
           this.isPersonalWoCollateral = true;
         }
       });
-      if (this.tempData.existingLoanForm.isExistingLoan = true) {
-        this.tempData.existingLoanForm.existingLoanFormArray.forEach(val => {
-          if (val.interestRateType === 'FIXED_INTEREST') {
-            this.isFixed = true;
-          }if (val.interestRateType === 'FLOATING_INTEREST') {
-            this.isFloating = true;
-          }
-        });
-      }
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.loanCommitmentCheck = this.tempData.retailGlobalForm.loanCommitmentCheck;
