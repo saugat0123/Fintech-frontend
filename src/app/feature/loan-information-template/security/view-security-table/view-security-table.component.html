@@ -25,7 +25,7 @@
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
                     <td>
-                        <button nbTooltip="Edit" (click)="onEdit(security)"
+                        <button *ngIf="!toggleArray[i]?.approved" nbTooltip="Edit" (click)="onEdit(security)"
                                 class="btn btn-sm btn-flat">
                             <em class="fa fa-edit bg-transparent"></em>
                         </button>
