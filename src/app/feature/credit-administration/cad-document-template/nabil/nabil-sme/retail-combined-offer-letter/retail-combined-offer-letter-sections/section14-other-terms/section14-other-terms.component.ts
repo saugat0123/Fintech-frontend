@@ -28,13 +28,11 @@ export class Section14OtherTermsComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0]) &&
           !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
         this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
-        console.log(this.tempInformation.section14, 'tempInformation');
       }
     }
     this.checkCondition();
     if (!ObjectUtil.isEmpty(this.tempInformation) &&
         !ObjectUtil.isEmpty(this.tempInformation.section14)) {
-      console.log('Free Text:', this.tempInformation);
       this.form.get('nameOfEmbassyFreeTxt').patchValue(this.tempInformation.section14);
     }
   }
