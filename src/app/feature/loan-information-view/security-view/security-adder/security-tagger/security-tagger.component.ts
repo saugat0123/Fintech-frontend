@@ -33,10 +33,11 @@ export class SecurityTaggerComponent implements OnInit {
       if (LoanType[this.loanDataHolder.loanType] === LoanType.RELEASE_AND_REPLACEMENT) {
           this.isRelease = true;
           this.securityLoanReferenceService.getAllSecurityLoanReferencesByLoanId(this.loanDataHolder.parentId).subscribe((res) => {
-              this.existingSecurity = (res.detail).filter(f => f.status === 'INACTIVE').map((d) => {
+              this.existingSecurity = (res.detail).map((d) => {
                   return {data: JSON.parse(d.data), usedAmount: d.usedAmount, coverage: d.coverage, securityType: d.securityType};
               });
               console.log('this is approved security', res.detail);
+          // .filter(f => f.status === 'INACTIVE')
           });
       }
     this.buildForm();

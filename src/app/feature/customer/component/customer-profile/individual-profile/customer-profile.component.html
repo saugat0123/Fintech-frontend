@@ -538,6 +538,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                                 (deleteEmitter)="getCustomerLoans()"
                                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
                                                  [formValue]="customer"></app-customer-group-loan>

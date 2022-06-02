@@ -40,6 +40,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {Security} from 'src/app/feature/admin/modal/security';
+import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
 
 @Component({
   selector: 'app-loan-summary-individual',
@@ -764,6 +765,11 @@ export class LoanSummaryIndividualComponent implements OnInit {
     } else {
       this.hidePreviewButton = false;
     }
+  }
+
+  open(comments) {
+    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+    modalRef.componentInstance.comments = comments;
   }
 }
 

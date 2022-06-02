@@ -99,7 +99,7 @@ export class SecuritySummaryComponent implements OnInit {
 
     combineAllSecurity() {
         this.customerAllLoanList.forEach((ld) => {
-            if (ld.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED) && ld.securities.length > 0) {
+            if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
                 ld.securities.forEach((s) => {
                     this.securities.push(s);
                 });

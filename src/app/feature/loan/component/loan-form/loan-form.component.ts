@@ -42,24 +42,18 @@ import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {
-    CreditRiskGradingAlphaComponent
-} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
-import {
-    CreditRiskGradingGammaComponent
-} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {
-    CreditRiskGradingLambdaComponent
-} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
@@ -69,7 +63,7 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
-import { FinancialAccountInformationComponent } from '../../../loan-information-template/financial-account-information/financial-account-information.component';
+import {FinancialAccountInformationComponent} from '../../../loan-information-template/financial-account-information/financial-account-information.component';
 
 
 @Component({
@@ -436,6 +430,10 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     // this.loanDocument.customerInfo.isMicroCustomer ||
                     if ((environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+
+                    if (value.name === 'Financial/Account Information') {
                         this.templateList.splice(index, 1);
                     }
                 });

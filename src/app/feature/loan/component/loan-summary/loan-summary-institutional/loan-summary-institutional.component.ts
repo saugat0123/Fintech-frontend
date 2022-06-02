@@ -40,6 +40,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 import {DocStatus} from '../../../model/docStatus';
 import {Security} from 'src/app/feature/admin/modal/security';
 import {DocAction} from '../../../model/docAction';
+import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
 
 @Component({
   selector: 'app-loan-summary-institutional',
@@ -728,6 +729,10 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     } else {
       this.hidePreviewButton = false;
     }
+  }
+  open(comments) {
+    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+    modalRef.componentInstance.comments = comments;
   }
 }
 
