@@ -50,9 +50,13 @@
           Rs. {{incomeFromAccount?.totalIncomeAfterNextReview |currencyFormatter}}</td>
       </tr>
     </table>
+  </div>
+  <div class="col-md-12">
     <label style="font-size: 14px;"><strong>b. Profitability from the Group</strong></label><br>
-    <label style="font-size: 14px;"><strong>Group Account No: {{incomeFromAccount?.accountNoGroup}}</strong></label>&nbsp; &nbsp; &nbsp; &nbsp;
-    <label style="font-size: 14px;"><strong>Group Account Name: {{incomeFromAccount?.accountNameGroup}}</strong></label>
+  </div>
+  <div class="col-md-12" *ngFor="let group of groupProfitabilityData">
+    <label style="font-size: 14px;"><strong>Group Account No: {{group?.accountNoGroup}}</strong></label>&nbsp; &nbsp; &nbsp; &nbsp;
+    <label style="font-size: 14px;"><strong>Group Account Name: {{group?.accountNameGroup}}</strong></label>
     <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
       <thead>
       <tr class="sb-bg-dark text-white">
@@ -61,55 +65,57 @@
         <th>Projected For next Review Period</th>
       </tr>
       </thead>
+      <tbody>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Administration Fee</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.administrationFeeDuringGroup |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.administrationFeeAfterNextGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.administrationFeeDuringGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.administrationFeeAfterNextGroup |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Gross Interest</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.interestDuringReviewGroup |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.interestAfterNextReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.interestDuringReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.interestAfterNextReviewGroup |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Free and Commission</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.commissionDuringReviewGroup |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.commissionAfterNextReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.commissionDuringReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.commissionAfterNextReviewGroup |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Loan Processing Charge</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingDuringReviewGroup |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingAfterNextReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.loanProcessingDuringReviewGroup |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{group?.loanProcessingAfterNextReviewGroup |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Other Charges</td>
         <td class="text-right pr-1">
-          Rs. {{incomeFromAccount?.otherChargesDuringReviewGroup |currencyFormatter}}
+          Rs. {{group?.otherChargesDuringReviewGroup |currencyFormatter}}
         </td>
         <td class="text-right pr-1">
-          Rs. {{incomeFromAccount?.otherChargesAfterNextReviewGroup |currencyFormatter}}
+          Rs. {{group?.otherChargesAfterNextReviewGroup |currencyFormatter}}
         </td>
       </tr>
       <tr  class="font-weight-bold">
-        <td class="sb-bg-secondary text-white text-left pl-1">Total</td>
+        <th class="sb-bg-secondary text-white text-left pl-1">Total</th>
         <td class="text-right pr-1">
-          Rs. {{incomeFromAccount?.totalIncomeDuringReviewGroup |currencyFormatter}}
+          Rs. {{group?.totalIncomeDuringReviewGroup |currencyFormatter}}
         </td>
         <td class="text-right pr-1">
-          Rs. {{incomeFromAccount?.totalIncomeAfterNextReviewGroup |currencyFormatter}}</td>
-      </tr>
-    </table>
-    <table class="table table-responsive-md table-bordered sb-small text-center table-sm" *ngIf="incomeFromAccount?.incomeFromTheAccount">
-      <thead>
-      <tr class="sb-bg-dark text-white">
-        <th>Profitability Remark</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount"></td>
+          Rs. {{group?.totalIncomeAfterNextReviewGroup |currencyFormatter}}</td>
       </tr>
       </tbody>
+    </table>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+      <tr>
+        <th class="sb-bg-secondary text-white" style="width: 50%">Grand Total of During Review Period</th>
+        <th class="text-right pr-1" style="width: 50%">Rs. {{incomeFromAccount?.grandTotalDuring}}</th>
+      </tr>
+      <tr>
+        <th class="sb-bg-secondary text-white" style="width: 50%">Grand Total of Projected For Next Review Period</th>
+        <th class="text-right pr-1" style="width: 50%">Rs. {{incomeFromAccount?.grandTotalProjected}}</th>
+      </tr>
     </table>
   </div>
 </div>
