@@ -28,8 +28,10 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
             this.cadData.assignedLoan.forEach(val => {
-                this.loanName.push(val.loan.name);
-                this.loanNepaliName.push(val.loan.nepaliName);
+                if (!this.loanName.includes(val.loan.name)) {
+                    this.loanName.push(val.loan.name);
+                    this.loanNepaliName.push(val.loan.nepaliName);
+                }
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {

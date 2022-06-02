@@ -21,7 +21,7 @@ export enum RetailRequiredDocumentList {
     SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation',
     MULTI_BANKING_DECLARATION = 'Multi Banking Declaration',
     POD_RENEWABLE_APPLICATION = 'POD Renewable Application',
-    vM_DECLARATION_LETTER = '5M Declaration Letter'
+    FIVE_M_DECLARATION_LETTER = '5M Declaration Letter'
 
 }
 

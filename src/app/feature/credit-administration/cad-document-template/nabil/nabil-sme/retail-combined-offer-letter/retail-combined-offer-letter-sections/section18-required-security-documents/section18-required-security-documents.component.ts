@@ -40,7 +40,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   multiBankingDeclaration: boolean;
   personalGuarantee: boolean;
   podRenewableApplication: boolean;
-  vmDeclarationLetter: boolean;
+  fiveMDeclarationLetter: boolean;
   loanArray: Array<any> = new Array<any>();
   promissoryFigure: any;
   constructor(
@@ -91,7 +91,6 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       if (!ObjectUtil.isEmpty(val)) {
         this.loanArray.push(val);
       }
-      console.log('Loan Array:', this.loanArray);
       totalLoanAmount = totalLoanAmount + val;
     });
     if (!ObjectUtil.isEmpty(this.initialInfo) &&
@@ -212,18 +211,16 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       this.multiBankingDeclaration = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
-        && temp.requiredLegalDocument.requiredDocument.includes('Multi Banking Declaration')) {
-      this.multiBankingDeclaration = true;
-    }
-    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee and Networth Statement')) {
       this.personalGuarantee = true;
-    }    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('POD Renewable Application')) {
       this.podRenewableApplication = true;
-    }   if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('5M Declaration Letter')) {
-      this.vmDeclarationLetter = true;
+      this.fiveMDeclarationLetter = true;
     }
   }
   checkCondition() {
