@@ -70,7 +70,12 @@ export class CustomerInfoService extends BaseService<Object> {
     }
 
     public resetSecurity(parentId: number, id: number, customerInfoId: number) {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/security/reset?parentId=${parentId}&id=${id}&customerInfoId=${customerInfoId}`);
+        const req = ApiUtils.getRequest(`${this.getApi()}/security/reset?parentId=${parentId}&id=${id}&customerInfoId=${customerInfoId}`);
         return this.http.delete(req.url, {headers: req.header});
+    }
+
+    public unLinkSecurity(id: number, status) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/security/unlink?id=${id}&status=${status}`);
+        return this.http.put(req.url, {headers: req.header});
     }
 }

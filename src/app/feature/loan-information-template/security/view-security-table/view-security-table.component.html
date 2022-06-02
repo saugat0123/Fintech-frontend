@@ -25,25 +25,31 @@
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
                     <td>
-                        <button nbTooltip="Edit" (click)="onEdit(security)"
-                                class="btn btn-sm btn-flat">
-                            <em class="fa fa-edit bg-transparent"></em>
-                        </button>
-                        <button nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
-                                class="btn btn-sm btn-flat">
-                            <em class="fa fa-map-signs bg-transparent"></em>
-                        </button>
-                        <a class="px-2 cursor" *ngIf="toggleArray[i]?.securityPresent"
-                           (click)="toggleArray[i].toggled = !this.toggleArray[i]?.toggled"
-                                nbTooltip="click to view detail security">
-                            <em class="fa fa-eye"></em>
-                        </a>
-                        <a class="px-2 cursor" nbTooltip="Modify Security" *ngIf="toggleArray[i]?.approved"
-                        (click)="onEdit(security, 'INACTIVE')">
-                            <em class="fa fa-cogs"></em>
-                        </a>
-                        <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId"
-                        (click)="resetSecurity(security?.oldSecurityId, security?.id)">
+                       <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">
+                           <button nbTooltip="Edit" (click)="onEdit(security)"
+                                   class="btn btn-sm btn-flat">
+                               <em class="fa fa-edit bg-transparent"></em>
+                           </button>
+                           <button nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
+                                   class="btn btn-sm btn-flat">
+                               <em class="fa fa-map-signs bg-transparent"></em>
+                           </button>
+                           <a class="px-2 cursor" *ngIf="toggleArray[i]?.securityPresent"
+                              (click)="toggleArray[i].toggled = !this.toggleArray[i]?.toggled"
+                              nbTooltip="click to view detail security">
+                               <em class="fa fa-eye"></em>
+                           </a>
+                           <a class="px-2 cursor" nbTooltip="Modify Security" *ngIf="toggleArray[i]?.approved"
+                              (click)="onEdit(security, 'INACTIVE')">
+                               <em class="fa fa-cogs"></em>
+                           </a>
+                           <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId"
+                              (click)="resetSecurity(security?.oldSecurityId, security?.id)">
+                               <em class="fa fa-undo"></em>
+                           </a>
+                       </ng-container>
+                        <a class="px-2 cursor" nbTooltip="Unlink Security"
+                           (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'Inactive': 'Active')">
                             <em class="fa fa-undo"></em>
                         </a>
                     </td>

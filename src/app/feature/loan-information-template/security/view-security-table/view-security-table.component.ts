@@ -39,7 +39,7 @@ export class ViewSecurityTableComponent implements OnInit {
 
     ngOnInit() {
         if (this.customerInfo.securities.length > 0) {
-            this.securities = this.customerInfo.securities.filter((d) => d.status.toString() === 'ACTIVE');
+            this.securities = this.customerInfo.securities;
             this.securities.forEach((d, i) => {
                 this.toggleArray.push({ toggled: false, security: null, securityPresent: false, approved: false});
                 this.getSecurityDetails(d.id, i);
@@ -102,6 +102,20 @@ export class ViewSecurityTableComponent implements OnInit {
         this.customerInformationService.resetSecurity(parentId, id, this.customerInfo.id).subscribe({
             next: (res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Reset To Default'));
+                this.emitter.emit(true);
+            },
+            error: (error: any) => {
+                this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
+            },
+            complete: () => {
+                this.ngOnInit();
+            }
+        });
+    }
+    unlinkSecurity( id: number, status) {
+        this.customerInformationService.unLinkSecurity(id, status).subscribe({
+            next: (res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully ${status}`  ));
                 this.emitter.emit(true);
             },
             error: (error: any) => {
