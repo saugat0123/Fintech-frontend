@@ -1,235 +1,263 @@
 <nb-card>
-  <nb-card-body>
-    <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
-      <div class="row">
-        <label><strong>Profitability from the Clients</strong></label>
-        <div class="col-md-12">
-            <span><strong>Account No:</strong></span>
-            <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
-                   type="text" formControlName="accountNo"
-                   placeholder="Account Number" nbInput size="medium" name="accountNo"> &nbsp; &nbsp; &nbsp; &nbsp;
-<!--          To do: need to remove if not require in future-->
-<!--            <div *ngIf="(submitted) && formControls.accountNo.invalid"-->
-<!--                 class="invalid-feedback">-->
-<!--              <span *ngIf="formControls.accountNo.errors.required">Account No is required.</span>-->
-<!--            </div> -->
-            <span><strong>Account Name:</strong></span>
-            <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountName.errors }"
-                   type="text" formControlName="accountName"
-                   placeholder="Account Name" nbInput size="medium" name="accountName"><br>
-          <br>
-          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
-            <thead>
-            <tr class="sb-bg-secondary text-white">
-              <th>Particular</th>
-              <th>During Review Period</th>
-              <th>Projected For next Review Period</th>
-            </tr>
-            </thead>
-            <tr>
-              <td>Administration Fee</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                         class="form-control text-center"
-                         formControlName="administrationFeeDuring"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()"
-                         class="form-control text-center"
-                         formControlName="administrationFeeAfterNext"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Gross Interest</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="interestDuringReview"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
+    <nb-card-body>
+        <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
+            <div class="row">
+                <label><strong>Profitability from the Clients</strong></label>
+                <div class="col-md-12">
+                    <span><strong>Account No:</strong></span>
+                    <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
+                           type="text" formControlName="accountNo"
+                           placeholder="Account Number" nbInput size="medium" name="accountNo"> &nbsp; &nbsp; &nbsp;
+                    &nbsp;
+                    <span><strong>Account Name:</strong></span>
+                    <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountName.errors }"
+                           type="text" formControlName="accountName"
+                           placeholder="Account Name" nbInput size="medium" name="accountName"><br>
+                    <br>
+                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                        <thead>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>Particular</th>
+                            <th>During Review Period</th>
+                            <th>Projected For next Review Period</th>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td>Administration Fee</td>
+                            <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                       class="form-control text-center"
+                                       formControlName="administrationFeeDuring"
+                                       type="number" appDecimalNumber>
+                            </td>
+                            <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                                       class="form-control text-center"
+                                       formControlName="administrationFeeAfterNext"
+                                       type="number" appDecimalNumber>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gross Interest</td>
+                            <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="interestDuringReview"
+                                       type="number" appDecimalNumber>
+                                <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
+                                     class="invalid-feedback">
+                                    <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
+                                </div>
+                            </td>
+                            <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="interestAfterNextReview"
+                                       type="number" appDecimalNumber>
+                                <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
+                                     class="invalid-feedback">
+                                    <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fee and Commission</td>
+                            <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="commissionDuringReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                            <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="commissionAfterNextReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Loan Processing Charge</td>
+                            <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                       class="form-control text-center"
+                                       formControlName="loanProcessingDuringReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                            <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                                       class="form-control text-center"
+                                       formControlName="loanProcessingAfterNextReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Other Charges</td>
+                            <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="otherChargesDuringReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                            <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
+                                       class="form-control text-center"
+                                       formControlName="otherChargesAfterNextReview"
+                                       type="number" appDecimalNumber>
+                            </td>
+                        </tr>
+                        <tr class="font-weight-bold">
+                            <td>Total</td>
+                            <td><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="totalIncomeDuringReview"
+                                       type="number"></td>
+                            <td><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="totalIncomeAfterNextReview"
+                                       type="number"></td>
+                        </tr>
+                    </table>
                 </div>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="interestAfterNextReview"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
+                <label><strong>Profitability from the Group</strong></label>
+                <div class="col-md-12">
+                    <div class="col-sm-12" formArrayName="groupProfitability"
+                         *ngFor="let gp of incomeFormGroup?.get('groupProfitability')['controls']; let i = index">
+                        <div [formGroupName]="i">
+                            <span><strong>Group Account No:</strong></span>
+                            <input [ngClass]="{ 'is-invalid': (submitted) && formControls?.accountNoGroup?.errors }"
+                                   type="text" formControlName="accountNoGroup"
+                                   placeholder="Group Account Number" nbInput size="medium" name="accountNoGroup">
+                            &nbsp; &nbsp; &nbsp; &nbsp;
+                            <span><strong>Group Account Name:</strong></span>
+                            <input [ngClass]="{ 'is-invalid': (submitted) && formControls?.accountNameGroup?.errors }"
+                                   type="text" formControlName="accountNameGroup"
+                                   placeholder="Group Account Name" nbInput size="medium" name="accountNameGroup"><br>
+                            <br>
+                            <table class="table table-bordered table-responsive-sm table-hover table-sm sb-small text-center">
+                                <thead>
+                                <tr class="sb-bg-secondary text-white">
+                                    <th>Particular</th>
+                                    <th>During Review Period</th>
+                                    <th>Projected For next Review Period</th>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td>Administration Fee</td>
+                                    <td><input (change)="calculateTotalIncomeDuringReviewGroup(i)"
+                                               class="form-control text-center"
+                                               formControlName="administrationFeeDuringGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                    <td><input (change)="calculateTotalIncomeAfterReviewGroup(i)"
+                                               class="form-control text-center"
+                                               formControlName="administrationFeeAfterNextGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gross Interest</td>
+                                    <td><input (change)="calculateTotalIncomeDuringReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.interestDuringReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="interestDuringReviewGroup"
+                                               type="number" appDecimalNumber>
+                                        <div *ngIf="(submitted) && formControls?.interestDuringReviewGroup?.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls?.interestDuringReviewGroup?.errors?.required">Interest During Review is required.</span>
+                                        </div>
+                                    </td>
+                                    <td><input (change)="calculateTotalIncomeAfterReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.interestAfterNextReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="interestAfterNextReviewGroup"
+                                               type="number" appDecimalNumber>
+                                        <div *ngIf="(submitted) && formControls?.interestAfterNextReviewGroup?.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls?.interestAfterNextReviewGroup?.errors?.required">Interest After Next Review is required.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fee and Commission</td>
+                                    <td><input (change)="calculateTotalIncomeDuringReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.commissionDuringReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="commissionDuringReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                    <td><input (change)="calculateTotalIncomeAfterReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.commissionAfterNextReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="commissionAfterNextReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Loan Processing Charge</td>
+                                    <td><input (change)="calculateTotalIncomeDuringReviewGroup(i)"
+                                               class="form-control text-center"
+                                               formControlName="loanProcessingDuringReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                    <td><input (change)="calculateTotalIncomeAfterReviewGroup(i)"
+                                               class="form-control text-center"
+                                               formControlName="loanProcessingAfterNextReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Other Charges</td>
+                                    <td><input (change)="calculateTotalIncomeDuringReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.otherChargesDuringReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="otherChargesDuringReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                    <td><input (change)="calculateTotalIncomeAfterReviewGroup(i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls?.otherChargesAfterNextReviewGroup?.errors }"
+                                               class="form-control text-center"
+                                               formControlName="otherChargesAfterNextReviewGroup"
+                                               type="number" appDecimalNumber>
+                                    </td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td>Total</td>
+                                    <td><input [readOnly]="true" class="form-control text-center"
+                                               formControlName="totalIncomeDuringReviewGroup"
+                                               type="number"></td>
+                                    <td><input [readOnly]="true" class="form-control text-center"
+                                               formControlName="totalIncomeAfterNextReviewGroup"
+                                               type="number"></td>
+                                </tr>
+                            </table>
+                            <div class="text-right mb-2"
+                                 *ngIf="incomeFormGroup?.get('groupProfitability')['length'] > 1">
+                                <input (click)="removeGroupProfitability(i)" class="btn btn-sm btn-flat btn-danger"
+                                       type="button" value="Delete"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input (click)="addGroupProfitability()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                    <div>
+                        <table class="table table-bordered table-responsive-md text-center">
+                            <tr>
+                                <th>Grand Total</th>
+                                <td><input [readOnly]="true" class="form-control text-center"
+                                           formControlName="grandTotalDuring"
+                                           type="number"></td>
+                                <td><input [readOnly]="true" class="form-control text-center"
+                                           formControlName="grandTotalProjected"
+                                           type="number"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Fee and Commission</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Loan Processing Charge </td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Other Charges</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr class="font-weight-bold">
-              <td>Total</td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeDuringReview"
-                         type="number"></td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeAfterNextReview"
-                         type="number"></td>
-            </tr>
-          </table>
-        </div>
-        <label><strong>Profitability from the Group</strong></label>
-        <div class="col-md-12">
-          <span><strong>Group Account No:</strong></span>
-          <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNoGroup.errors }"
-                 type="text" formControlName="accountNoGroup"
-                 placeholder="Group Account Number" nbInput size="medium" name="accountNoGroup"> &nbsp; &nbsp; &nbsp; &nbsp;
-          <span><strong>Group Account Name:</strong></span>
-          <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNameGroup.errors }"
-                 type="text" formControlName="accountNameGroup"
-                 placeholder="Group Account Name" nbInput size="medium" name="accountNameGroup"><br>
-          <br>
-          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
-            <thead>
-            <tr class="sb-bg-secondary text-white">
-              <th>Particular</th>
-              <th>During Review Period</th>
-              <th>Projected For next Review Period</th>
-            </tr>
-            </thead>
-            <tr>
-              <td>Administration Fee</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReviewGroup()"
-                         class="form-control text-center"
-                         formControlName="administrationFeeDuringGroup"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReviewGroup()"
-                         class="form-control text-center"
-                         formControlName="administrationFeeAfterNextGroup"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Gross Interest</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="interestDuringReviewGroup"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestDuringReviewGroup.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestDuringReviewGroup.errors.required">Interest During Review is required.</span>
-                </div>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="interestAfterNextReviewGroup"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestAfterNextReviewGroup.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestAfterNextReviewGroup.errors.required">i]Interest After Next Review is required.</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Fee and Commission</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionDuringReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionAfterNextReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Loan Processing Charge </td>
-              <td><input (keyup)="calculateTotalIncomeDuringReviewGroup()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingDuringReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReviewGroup()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingAfterNextReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Other Charges</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesDuringReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReviewGroup()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReviewGroup.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesAfterNextReviewGroup"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr class="font-weight-bold">
-              <td>Total</td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeDuringReviewGroup"
-                         type="number"></td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeAfterNextReviewGroup"
-                         type="number"></td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="remark"><strong>Profitability Remark</strong></label>
-            <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
-                      class="form-control" formControlName="incomeFromTheAccount" id="remark"
-                      name="remark" placeholder="Remark" rows="3"></textarea>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-            <button nbButton type="submit">Save</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+                        <button nbButton type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
 </nb-card>
