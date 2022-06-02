@@ -76,6 +76,6 @@ export class CustomerInfoService extends BaseService<Object> {
 
     public unLinkSecurity(id: number, status) {
         const req = ApiUtils.getRequest(`${this.getApi()}/security/unlink?id=${id}&status=${status}`);
-        return this.http.put(req.url, {headers: req.header});
+        return this.http.put(req.url, {}, {headers: req.header});
     }
 }

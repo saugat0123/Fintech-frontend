@@ -49,8 +49,8 @@
                            </a>
                        </ng-container>
                         <a class="px-2 cursor" nbTooltip="Unlink Security"
-                           (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'Inactive': 'Active')">
-                            <em class="fa fa-undo"></em>
+                           (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'INACTIVE': 'ACTIVE')">
+                            <em class="fa fa-chain-broken"></em>
                         </a>
                     </td>
                 </tr>
