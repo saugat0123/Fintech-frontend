@@ -219,9 +219,6 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee and Networth Statement')) {
       this.personalGuarantee = true;
     }    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
-        && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee and Networth Statement')) {
-      this.personalGuarantee = true;
-    }   if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('POD Renewable Application')) {
       this.podRenewableApplication = true;
     }   if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
