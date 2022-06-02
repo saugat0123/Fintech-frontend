@@ -521,9 +521,9 @@ export class SecurityComponent implements OnInit {
 
     constructSecurityArray(formValues: any, securityType: any): Array<Security> {
         const securities: Array<Security> = new Array<Security>();
-        formValues.forEach(value => {
+        formValues.forEach((value, i) => {
             const security: Security = new Security();
-            if (this.isEdit) {
+            if (this.isEdit && i === 0) {
                 security.id = this.securityValue.id;
                 security.version = this.securityValue.version;
                 security.status = this.securityValue.status;

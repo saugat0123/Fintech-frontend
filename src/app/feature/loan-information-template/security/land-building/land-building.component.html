@@ -392,7 +392,7 @@
                         </div>
                         <div class="col-md-3 ">
                             <label for="district">District</label>
-                            <ng-select [items]="provinces"
+                            <ng-select [items]="districtList"
                                     bindLabel="name"
                                     formControlName="district"
                                     class="form-selection"
@@ -401,7 +401,7 @@
                         </div>
                         <div class="col-md-3 ">
                             <label for="municipality">Municipalities or VDC</label>
-                            <ng-select [items]="provinces"
+                            <ng-select [items]="municipalityList"
                                     bindLabel="name"
                                     formControlName="municipalityVdc"
                                     class="form-selection"
@@ -898,7 +898,7 @@
                 </div>
             </div>
 
-            <div class="text-right" *ngIf="!isEdit">
+            <div class="text-right" >
                 <input (click)="addLandBuilding()"
                        class="btn btn-sm btn-flat btn-primary"
                        type="button"
