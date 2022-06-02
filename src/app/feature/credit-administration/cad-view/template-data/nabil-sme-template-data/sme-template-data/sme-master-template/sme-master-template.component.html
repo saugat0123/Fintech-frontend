@@ -5,6 +5,8 @@
             (click)="nbDialogRef.close()">x</span>
     </nb-card-header>
     <nb-card-body>
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
         <app-sme-global-content #smeGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"
             [isEdit]="isEdit"></app-sme-global-content>
         <!-- Type of sme loan start here-->

@@ -5,6 +5,8 @@
         <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()" style="margin-top:-2em"><b>x</b></a>
     </nb-card-header>
     <nb-card-body>
+        <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                           [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
         <div [formGroup]="homeLoanForm">
             <ng-select [clearable]="false"
                        [multiple]="false"
