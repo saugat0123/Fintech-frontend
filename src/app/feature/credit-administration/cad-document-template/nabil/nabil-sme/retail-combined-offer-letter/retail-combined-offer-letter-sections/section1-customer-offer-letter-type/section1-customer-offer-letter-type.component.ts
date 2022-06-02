@@ -48,8 +48,10 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.cadData.assignedLoan.forEach(val => {
-        this.loanName.push(val.loan.name);
-        this.loanNepaliName.push(val.loan.nepaliName);
+        if  (!this.loanName.includes(val.loan.name)) {
+          this.loanName.push(val.loan.name);
+          this.loanNepaliName.push(val.loan.nepaliName);
+        }
       });
       this.loanName.forEach(value => {
         if (value === 'HOME LOAN COMBINED') {
