@@ -374,7 +374,7 @@
                                                  [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
                     <li *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
-                        <p><strong>Compliance:</strong></p>
+                        <p><strong>Compliance: </strong>We have fully adhered the policy of NRB and internal bank policies.</p>
                         <tr>
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
                         </tr>
@@ -393,6 +393,10 @@
                                 [cicl]="loanDataHolder?.loanHolder?.cicl"
                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
+                    </li>
+                    <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
+                        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
+                        <app-report-summary [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     </li>
                     <li>
                         <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></strong></p>
