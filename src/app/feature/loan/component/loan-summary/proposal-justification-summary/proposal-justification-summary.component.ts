@@ -17,6 +17,7 @@ export class ProposalJustificationSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.customerAllLoanList = this.customerAllLoanList.filter((d) => d.documentStatus.toString() !== 'APPROVED');
   }
 
 }
