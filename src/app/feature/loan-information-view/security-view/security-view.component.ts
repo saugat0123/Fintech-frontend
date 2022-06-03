@@ -25,7 +25,7 @@ export class SecurityViewComponent implements OnInit {
   @Input() collateralData;
   @Input() docStatus;
   @Input() loanDataType;
-  @Input() loanDataHolder: LoanDataHolder;
+  @Input() loanDataHolder
   securityData;
   shareSecurity;
   vehicleSelected = false;

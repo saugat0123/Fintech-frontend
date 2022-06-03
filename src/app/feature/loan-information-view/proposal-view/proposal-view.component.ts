@@ -22,7 +22,7 @@ import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
 export class ProposalViewComponent implements OnInit {
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
-  @Input() loanDataHolder: LoanDataHolder;
+  @Input() loanDataHolder
   public DocStatus = DocStatus;
   public LoanType = LoanType;
   public EnumUtils = EnumUtils;
