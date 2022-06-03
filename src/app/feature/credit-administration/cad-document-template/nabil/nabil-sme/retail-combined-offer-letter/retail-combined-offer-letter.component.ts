@@ -28,6 +28,7 @@ import {
 import {
     Section16AndSection17Component
 } from './retail-combined-offer-letter-sections/section16-and-section17/section16-and-section17.component';
+import {Section14OtherTermsComponent} from './retail-combined-offer-letter-sections/section14-other-terms/section14-other-terms.component';
 
 @Component({
     selector: 'app-retail-combined-offer-letter',
@@ -40,6 +41,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
     @ViewChild('section2', {static: false}) section2: Section2LoanTypeRetailComponent;
     @ViewChild('section7', {static: false}) section7: Section7InterestAndEmiPaymentRelatedComponent;
     @ViewChild('section8', {static: false}) section8: Section8LoanDisbursementRelatedClauseComponent;
+    @ViewChild('section14', {static: false}) section14: Section14OtherTermsComponent;
     @ViewChild('section18', {static: false}) section18: Section18RequiredSecurityDocumentsComponent;
     @ViewChild('section22', {static: false}) section22: Section19ToSection22Component;
     @ViewChild('section16', {static: false}) section16: Section16AndSection17Component;
@@ -120,7 +122,9 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
         const section2FreeText = this.section2.setTextAreaValue();
         const section7FreeText = this.section7.form.get('freeDate').value ? this.section7.form.get('freeDate').value : '';
         const section8FreeText = this.section8.setTextAreaValue();
-        const section18FreeText = {
+        // tslint:disable-next-line:max-line-length
+    const section14FreeText = this.section14.form.get('nameOfEmbassyFreeTxt').value ? this.section14.form.get('nameOfEmbassyFreeTxt').value : '';
+    const section18FreeText = {
             freeText2: this.section18.form.get('freeText2').value ? this.section18.form.get('freeText2').value : '',
             borrowerKhataNum: this.section18.form.get('borrowerKhataNum').value ? this.section18.form.get('borrowerKhataNum').value : '',
             letterOfConsentForContOfExistingMortgageName: this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value ? this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value : '',
@@ -161,7 +165,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
             section2: section2FreeText,
             section7: section7FreeText,
             section8: section8FreeText,
-            section18: section18FreeText,
+            section14: section14FreeText,section18: section18FreeText,
             section22: section22FreeText,
             section16: section16FreeText,
         };
