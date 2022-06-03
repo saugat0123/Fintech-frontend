@@ -165,7 +165,8 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
             section2: section2FreeText,
             section7: section7FreeText,
             section8: section8FreeText,
-            section14: section14FreeText,section18: section18FreeText,
+            section14: section14FreeText,
+            section18: section18FreeText,
             section22: section22FreeText,
             section16: section16FreeText,
         };
