@@ -9,6 +9,8 @@ import {Guarantor} from '../../../model/guarantor';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {Proposal} from '../../../../admin/modal/proposal';
+import {CustomerLoanDto} from '../../../model/customerLoanDto';
 
 
 @Injectable({
@@ -252,4 +254,16 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public saveCommonLoanDataBulk(proposalList: Array<Proposal>) {
+        const api = `${this.getApi()}/common-loan-data`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, proposalList, {headers: req.header});
+    }
+
+    /*public saveCbsNumbers(loanDataHolder) {
+        const api = `${this.getApi()}/cbs`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, loanDataHolder, {headers: req.header});
+    }*/
 }

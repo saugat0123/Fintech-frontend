@@ -20,5 +20,6 @@ export class SingleCombinedLoanDto {
   currentStage: LoanStage = new LoanStage();
   parentId?: number;
   loan: LoanConfig;
+  proposal: any;
 
 }
