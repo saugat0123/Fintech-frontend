@@ -24,13 +24,18 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     @Input() creditHistory: number;
     totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
+    creditRiskGrading1: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
     creditRiskDataValue;
     points: any;
 
     crgQuestionsList: Array<CrgQuestion> = [];
     riskGroupArray = [];
+    riskGroupArray1: Array<CrgGroup> = [];
     groupLabelMap: Map<number, string> = new Map<number, string>();
+    // groupLabelMapped: Map<string, string> = new Map(Array.from(this.groupLabelMap).map(([key, value]) => {
+    //     return [key, value];
+    // }));
     groupWeightageMap: Map<number, string> = new Map<number, string>();
 
     totalPointMapper: Map<string, number>;
@@ -61,6 +66,8 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     getGroupList() {
         this.crgGroupService.getAll().subscribe((res: any) => {
             this.riskGroupArray = res.detail;
+            this.riskGroupArray1 = res.detail;
+            console.log('riskGroupArray', this.riskGroupArray);
             this.riskGroupArray.forEach((value: CrgGroup) => {
                 this.groupLabelMap.set(value.id, value.label);
                 this.groupWeightageMap.set(value.id, value.weightage);
@@ -69,33 +76,94 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     buildFormAndCheckEdit() {
+        const crgGammaData = [];
         const crgFormGroupObject = {
             totalPoint: 0,
-            grade: null
+            grade: null,
+            groupObject: []
         };
+
         this.totalPointMapper = new Map<string, number>();
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = JSON.parse(this.formData.data);
         }
 
-        this.crgQuestionsList.forEach((value, index) => {
-            if (this.formDataForEdit !== undefined) {
-                this.totalPointMapper.set(value.description, this.formDataForEdit[value.description]);
-            }
-            crgFormGroupObject[value.description] = null;
-            crgFormGroupObject[`${value.description}Parameter`] = null;
-        });
+        // this.crgQuestionsList.forEach((value, index) => {
+        //     if (this.formDataForEdit !== undefined) {
+        //         this.totalPointMapper.set(value.description, this.formDataForEdit[value.description]);
+        //     }
+        //     if (!groupId.includes(value.crgGroupId)) {
+        //         groupId.push(value.crgGroupId);
+        //     }
+        //     crgFormGroupObject[value.description] = null;
+        //     crgFormGroupObject[`${value.description}Parameter`] = null;
+        // });
+        // console.log('groupId', groupId);
+        // const groupData = [];
+        // groupId.forEach(gid => {
+        //     this.riskGroupArray1.forEach(ca => {
+        //         if (ca.id === gid) {
+        //             const data = {
+        //                 id: ca.id,
+        //                 name: ca.label
+        //             };
+        //             if (!groupData.includes(gid)) {
+        //                 groupData.push(data);
+        //             }
+        //         }
+        //     });
+        // });
 
+        this.riskGroupArray1.forEach(ca1 => {
+            const crgData = this.crgQuestionsList.filter(cqu => cqu.crgGroupId === ca1.id);
+            console.log('crgData', crgData);
+            if (crgData.length > 0) {
+                if (!crgGammaData.includes(crgData)) {
+                    const data = {
+                        groupName: ca1.label,
+                        gammaQuestion: crgData
+                    };
+                    crgGammaData.push(data);
+                }
+            }
+        });
+        const dummyArray = [];
+        console.log('crgGammaData', crgGammaData);
+        crgGammaData.forEach((cgd, i) => {
+            const crgFormGroupObject1 = {
+                groupName: null,
+                gammaQuestionAnswer: null,
+            };
+            const dum = [];
+            const questionAnswer = {
+            };
+            cgd.gammaQuestion.forEach((value) => {
+                questionAnswer[value.description] = null;
+                questionAnswer[`${value.description}Parameter`] = null;
+            });
+            crgFormGroupObject1.groupName = cgd.groupName;
+            crgFormGroupObject1.gammaQuestionAnswer = questionAnswer;
+            dummyArray.push(crgFormGroupObject1);
+        });
+        console.log('dummyArraydummyArray', dummyArray);
+        crgFormGroupObject.groupObject.push(dummyArray);
+        console.log('crgFormGroupObject  crgFormGroupObject', crgFormGroupObject);
+
+
+        // this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
-        if (this.formDataForEdit !== undefined) {
-            this.totalPoints = this.formDataForEdit.totalPoint;
-            this.grading = this.formDataForEdit.grade;
-            this.creditRiskGrading.patchValue(this.formDataForEdit);
-            this.calculateTotalViaMap();
-        }
+        console.log('Before patch', this.creditRiskGrading);
+        // if (this.formDataForEdit !== undefined) {
+        //     this.totalPoints = this.formDataForEdit.totalPoint;
+        //     this.grading = this.formDataForEdit.grade;
+        //     this.creditRiskGrading.patchValue(this.formDataForEdit);
+        //     this.calculateTotalViaMap();
+        // }
+        // console.log('After patch data', crgFormGroupObject);
+
     }
 
-    onChangeOption(field, point, parameter) {
+    onChangeOption(field, point, parameter, groupId) {
         this.totalPointMapper.set(field, point);
         this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
         this.calculateTotalViaMap();

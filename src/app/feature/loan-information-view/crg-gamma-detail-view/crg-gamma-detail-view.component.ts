@@ -19,8 +19,10 @@ export class CrgGammaDetailViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('formData', this.formData);
     if (!ObjectUtil.isEmpty(this.formData) && this.formData) {
       this.crgGammaData = this.formData.data ? JSON.parse(this.formData.data) : this.formData.data;
+      console.log('crgGammaData', this.crgGammaData);
       for (const [key, value] of Object.entries(this.crgGammaData)) {
         const ansModel = {
           question: null,
@@ -36,6 +38,7 @@ export class CrgGammaDetailViewComponent implements OnInit {
         }
       }
     }
+    console.log('crgGammaList', this.crgGammaList);
   }
 
   onClose() {
