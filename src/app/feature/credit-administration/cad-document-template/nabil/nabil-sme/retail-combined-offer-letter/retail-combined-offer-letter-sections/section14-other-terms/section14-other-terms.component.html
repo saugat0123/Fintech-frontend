@@ -137,6 +137,16 @@
                         तपाईलाई दिन बाँकी रहेको (बचतकोष, बोनस, सञ्चयकोष, नागरीक लगानी कोष, उपदान लगायत
                         अन्य भुक्तानीहरु सहित) विघटन (Liquidation) गरी बैंकको लेना रकम असुल उपर गरिनेछ ।
                     </li>
+                    <li *ngIf="isEduLoan">
+                        कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन फिर्ता हुनेछैन । जुनसुकै कारणले
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfEmbassyFreeTxt"
+                               formControlName="nameOfEmbassyFreeTxt"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only">{{tempInformation?.section14 ? tempInformation?.section14 : '______________________'}}</span>
+                        ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
+                    </li>
                 </ol>
             </div>
         </form>
