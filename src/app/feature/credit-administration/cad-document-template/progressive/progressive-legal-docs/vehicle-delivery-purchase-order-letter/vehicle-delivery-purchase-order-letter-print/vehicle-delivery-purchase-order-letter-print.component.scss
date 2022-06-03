@@ -1,0 +1,34 @@
+@import '../../progressive-legal-docs.component';
+* {
+  line-height: 1.9em;
+}
+.viewFull {
+  max-height: 85vh;
+  text-align: justify;
+  /*.nepali {
+    margin-top: 1in;
+  }*/
+  .nepaliFont {
+    font-size: 22px !important;
+  }
+}
+
+span {
+  line-height: 1;
+}
+
+.unicode-size24{
+  font-size:24px;
+}
+
+.unicode-size16{
+  font-size:16px;
+}
+
+.preeti{
+  font-family: Preeti;
+}
+
+.size12 {
+  font-size: 12px;
+}

@@ -1,4 +1,4 @@
-@import '../../progressive-legal-docs.component';
+//@import '../../progressive-legal-docs.component';
 
 .viewFull {
   max-height: 85vh;
@@ -7,8 +7,23 @@
 p{
   line-height: 1.9em;
 }
-//*{
-//margin-left:20px;
-//margin-right:10px;
-//
-//}
+
+.unicode-size {
+  font-size: 16px;
+}
+
+.unicode-size24{
+  font-size: 24px;
+}
+
+.nepali {
+  font-size: 16px;
+  line-height: 1.5;
+  //margin: 10px 50px;
+  @extend .text-justify !optional;
+}
+
+.margin{
+  margin-top: 0.5in;
+  margin-left: 0.35in;
+}

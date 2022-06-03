@@ -1,5 +1,5 @@
-<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}">
-    <div class="col-md-12 viewFull">
+d<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}">
+    <div class="col-md-12 viewFull margin">
         <form class="nepali">
             <div class="nep">
                 <div class="text-center">
@@ -27,48 +27,32 @@
                     विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त रु
                     <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.subject !== null && printDocForm?.subject !== ''}">
                         {{printDocForm?.subject === null || printDocForm?.subject === '' ? '_________________' : printDocForm?.subject}}
-                    </span> को रिभल्भिङ/ चालु पूँजी/
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.punji !== null && printDocForm?.punji !== ''}">
-                        {{printDocForm?.punji === null || printDocForm?.punji === '' ? '_________________' : printDocForm?.punji}}
-                    </span>
-                    हद सम्म स्विकृत गरिएको सम्बन्धमा।
+                    </span> को रिभल्भिङ/ चालु पूँजी/कर्जा हद सम्म स्विकृत गरिएको सम्बन्धमा।
                 </strong>
                 <br>
                 <br>
                 <p>
                     उपरोक्त विषय सम्बन्धि
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-                        {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-                    </span>
-                    लाई उपरोक्त ऋणको सिमा उपलब्ध
-                    गराईएकोमा सो को
-                    लागि मैले/हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहीछाप गरि जारी गरि दिएकोमा
-                    म/हामी त्यस वित्तीय
-                    संस्थाबाट उपलब्ध गराइएको सुविधा कुनै पनि समयमा म/हामीलाई पूर्व सूचना नदिई रद्द गर्न सक्ने
-                    अधिकारको पालना
+                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                        {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}</span>
+                    लाई उपरोक्त ऋणको सिमा उपलब्ध गराईएकोमा सो को लागि मैले/हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहीछाप गरि जारी गरि
+                    दिएकोमा म/हामी त्यस वित्तीय संस्थाबाट उपलब्ध गराइएको सुविधा कुनै पनि समयमा म/हामीलाई पूर्व सूचना नदिई रद्द गर्न सक्ने अधिकारको पालना
                     गर्ने छु/छौं।
                 </p>
                 <p>
-                    कथम्कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस
-                    वित्तीय
-                    संस्थाले माग गरेमा
-                    सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, ब्याज वा जरिवाना शुल्क (पेनाल्टी) रकम समेत तुरुन्त भुक्तानी
-                    गर्ने
-                    बचन यसै
-                    पत्रद्वारा अवगत
-                    गर्दछु/छौं।
+                    कथम्कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस वित्तीय संस्थाले माग गरेमा सम्पूर्ण बाँकी ऋण तथा
+                    अन्य कुनै दस्तुर, ब्याज वा जरिवाना शुल्क (पेनाल्टी) रकम समेत तुरुन्त भुक्तानी गर्ने बचन यसै पत्रद्वारा अवगत गर्दछु/छौं।
                 </p>
                 <br>
                 <br>
-                <strong>भवदीय,</strong> <br><br>
+                <strong><p>भवदीय,</p></strong> <br><br>
 
                 ..............................................
                 <br>
                 ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
                 दस्तखत गर्नेको नामः
-                <span
-                    [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-                    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+                <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName2 !== null && printDocForm?.customerName2 !== ''}">
+                    {{printDocForm?.customerName2 === null || printDocForm?.customerName2 === '' ? '_________________' : printDocForm?.customerName2}}
                 </span>
                 <br>
                 <br>

@@ -1,23 +1,18 @@
 @import '../../progressive-legal-docs.component';
 
-//*{
-//margin-left:20px;
-//margin-right:10px;
-//
-//}
 @media print {
   .page-break { page-break-before: always; }
 }
-*{
+/**{
   line-height: 1.9em;
-}
+}*/
 .tableGuarantor {
   width:100%;
   height: 120px;
 }
 
 #fingerXap {
-  width: 500px;
+  width: 250px;
   margin-left: 10px;
   text-align: center;
 }
@@ -38,6 +33,10 @@ table {
 
 .unicode-size{
   font-size: 16px;
+}
+
+.unicode-size2{
+  font-size: 24px;
 }
 
 

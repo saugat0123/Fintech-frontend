@@ -17,19 +17,27 @@
 
 #fingerXap {
   width: 500px;
-
   text-align: center;
 }
-p{
-  line-height: 1.9em;
-}
+//p {
+//  text-align: justify;
+//  line-height: 1.9em;
+//}
 .viewFull {
   max-height: 85vh;
   text-align: justify;
 }
 
-* {
-  margin-top: 20px;
+.unicode-size {
+  font-size: 16px;
+}
+
+tr {
+  break-inside: initial;
+}
+
+.unicode-size24 {
+  font-size: 24px;
 }
 
 //#guaranter{
@@ -50,4 +58,14 @@ p{
 table {
   text-align: center;
   width: 100%;
+}
+
+span{
+  line-height: 1;
+}
+
+@media print {
+  .page-break {
+    page-break-after: always;
+  }
 }

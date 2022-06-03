@@ -6,7 +6,7 @@
         <h6 class="text-center">(Letter of Continuity)</h6>
       <strong class="text-left">
         प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
-        <input class="form-field form-control-sm nepaliFont"
+        <input class="form-field form-control-sm nepaliFont unicode-size"
                formControlName="branchName"
                placeholder=""
                type="text"/> शाखा |
@@ -20,10 +20,10 @@
           म/हामीले लिएको ऋण कर्जाको लागि मैले/हामीले गरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमा उल्लेख
           भएको रु.
           <input (change)="getNumAmountWord('amount','amountInWord')"
-                 class="form-field form-control-sm nepaliFont"
+                 class="form-field form-control-sm nepaliFont unicode-size"
                  formControlName="amount"
                  placeholder="" readonly type="text"/>
-          /- (अक्षेरुपी रु.<input class="form-field form-control-sm nepaliFont"
+          /- (अक्षेरुपी रु.<input class="form-field form-control-sm nepaliFont unicode-size"
                             formControlName="amountInWord"
                             placeholder=""
                             readonly type="text"/>) र सो मा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन र पछि भविष्यमा
@@ -35,12 +35,12 @@
           मेरो/हाम्रो खाताबाट सोझै झिकी हिसाव मिलान गर्नुहुन यो निरन्तरताको पत्रमा सहिछाप गरि दिएको छु/छौ ।
         </p>
       </div>
-      <p class="text-center"><strong>भवदीय,</strong></p>
-      <div class="row col-md-12 Sincerely text-center">
+      <p class="text-center mb-xl-5"><strong>भवदीय,</strong></p>
+      <div class="row col-md-12 Sincerely text-center mt-xl-5">
 <table>
   <thead>
   <tr>
-    <td style="text-align: right;width: 20%">दस्तखत र संस्थाको छाप :—</td>
+    <td style="text-align: right;width: 20%">दस्तखत :—</td>
     <td style="text-align: left;width: 80%">............................</td>
   </tr>
   </thead>
@@ -52,7 +52,7 @@
                placeholder=""
                readonly
                type="text"/>
-      <strong>(ना.प्र.नं</strong><input class="form-field form-control-sm nepaliFont"
+      <strong>(ना.प्र.नं.</strong><input class="form-field form-control-sm nepaliFont"
                        formControlName="borrowerCitizenshipNo"
                        placeholder=""
                        readonly
@@ -69,17 +69,17 @@
   </tr>
   <tr>
     <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी ठेगाना :—</td>
-    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
+    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont unicode-size"
                formControlName="borrowerPermanentDistrict"
                placeholder=""
                readonly
                type="text"/>
-      जिल्ला <input class="form-field form-control-sm nepaliFont"
+      जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
                     formControlName="borrowerPermanentMunicipality"
                     placeholder=""
                     readonly
                     type="text"/>
-      गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+      गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                formControlName="borrowerPermanentWardNo"
                                placeholder=""
                                readonly
@@ -88,24 +88,24 @@
                     formControlName="borrowerSabikVDC"
                     placeholder=""
                     type="text"/>
-      गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
+      गा.बि.स., वडा नं. <input class="form-field form-control-sm nepaliFont"
                              formControlName="borrowerSabikWardNo"
                              placeholder=""
                              type="text"/>)</td>
   </tr>
   <tr>
     <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :—</td>
-    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
+    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont unicode-size"
                formControlName="borrowerTempDistrict"
                placeholder=""
                readonly
                type="text"/>
-      जिल्ला<input class="form-field form-control-sm nepaliFont"
+      जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
                    formControlName="borrowerTempMunicipality"
                    placeholder=""
                    readonly
                    type="text"/>
-      गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont"
+      गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                 formControlName="borrowerTempWardNo"
                                 placeholder=""
                                 readonly
@@ -238,7 +238,7 @@
           <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                        formControlName="witnessName"
                                        type="text"/>
-            (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+            (ना.प्र.नं.<input class="form-field form-control-sm nepaliFont"
                              formControlName="witnessCitizenshipNo"
                              placeholder=""
                              type="text"/>
@@ -256,12 +256,12 @@
           <td>ठेगाना:</td>
           <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                        formControlName="witnessIssuedPlace"
-                                       placeholder="" type="text"/>जिल्ला <input
+                                       placeholder="" type="text"/>जिल्ला, <input
                   class="form-field form-control-sm nepaliFont"
                   formControlName="witnessMunicipality"
                   placeholder=""
                   type="text"/>
-            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+            गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                      formControlName="witnessWardNo"
                                      placeholder=""
                                      type="text"/></td>
@@ -282,7 +282,7 @@
           <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                        formControlName="witnessName1"
                                        type="text"/>
-            (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+            (ना.प्र.नं.<input class="form-field form-control-sm nepaliFont"
                              formControlName="witnessCitizenshipNo1"
                              placeholder=""
                              type="text"/>
@@ -300,12 +300,12 @@
           <td>ठेगाना:</td>
           <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                        formControlName="witnessIssuedPlace1"
-                                       placeholder="" type="text"/>जिल्ला <input
+                                       placeholder="" type="text"/>जिल्ला, <input
                   class="form-field form-control-sm nepaliFont"
                   formControlName="witnessMunicipality1"
                   placeholder=""
                   type="text"/>
-            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+            गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                      formControlName="witnessWardNo1"
                                      placeholder=""
                                      type="text"/></td>
@@ -350,6 +350,8 @@
     <button [disabled]="!initialInfoPrint"
             [useExistingCss]="true"
             class="btn btn-primary d-print-none"
+            nbButton
+            status="info"
             ngxPrint
             printSectionId="print-section-{{ offerLetterConst.LETTER_OF_CONTINUITY }}"> Print
     </button>

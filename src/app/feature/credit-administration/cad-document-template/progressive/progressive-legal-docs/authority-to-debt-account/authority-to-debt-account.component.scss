@@ -1,5 +1,7 @@
 @import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
-
+* {
+  line-height: 1.9em;
+}
 #Sincerely {
   margin-left: 100px;
   width: 70%;
@@ -24,6 +26,10 @@
 #guaranter2 {
   width: 50%;
   margin-left: 100px;
+}
+
+.unicode-size{
+  font-size:12pt;
 }
 
 

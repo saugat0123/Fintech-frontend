@@ -14,6 +14,8 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CustomerType} from '../../../../../customer/model/customerType';
+import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-consent-letter-individual',
@@ -21,6 +23,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
     styleUrls: ['./consent-letter-individual.component.scss']
 })
 export class ConsentLetterIndividualComponent implements OnInit {
+    @Input() customerInfo: CustomerInfoData;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() documentId: number;
     @Input() customerLoanId: number;
@@ -32,6 +35,7 @@ export class ConsentLetterIndividualComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    isIndividual = false;
 
     constructor(
         private dialogRef: NbDialogRef<ConsentLetterIndividualComponent>,
@@ -47,6 +51,13 @@ export class ConsentLetterIndividualComponent implements OnInit {
     ngOnInit() {
         this.bindForm();
         this.fillForm();
+        if (!ObjectUtil.isEmpty(this.cadData)) {
+            if (this.cadData.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+                this.isIndividual = true;
+            } else {
+                this.isIndividual = false;
+            }
+        }
     }
 
     fillForm(): void {
@@ -66,17 +77,27 @@ export class ConsentLetterIndividualComponent implements OnInit {
             });
         }
 
+
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+            let allCollateral = '';
+            if (!ObjectUtil.isEmpty(this.nepaliData)) {
+                (this.nepaliData.collateralDetails).forEach(collateral => {
+                    allCollateral = allCollateral + collateral.collateralName + ', ';
+                });
+                allCollateral = allCollateral.slice(0, -2);
+                allCollateral = allCollateral.replace(/,(?=[^,]*$)/, ' /');
+            }
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                branch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                name: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+                fname: allCollateral ? allCollateral : ''
             });
+            this.setJayejethaBibaran(this.nepaliData.collateralDetails);
         }
-
-
-
     }
+
     submit(): void {
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -137,6 +158,7 @@ export class ConsentLetterIndividualComponent implements OnInit {
             itisambatRojSubham: [undefined],
             sahamati: this.formBuilder.array([this.Sahamati()]),
             guarantorDetails: this.formBuilder.array([]),
+            jayejethaBibaran: this.formBuilder.array([]),
             witnessName: [undefined],
             witnessCitizenshipNo: [undefined],
             witnessCitizenshipIssueDate: [undefined],
@@ -150,7 +172,9 @@ export class ConsentLetterIndividualComponent implements OnInit {
             witnessCDOoffice1: [undefined],
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
-            witnessWardNo1: [undefined]
+            witnessWardNo1: [undefined],
+            parentName: [undefined],
+            grandParentName: [undefined]
         });
     }
 
@@ -184,7 +208,6 @@ export class ConsentLetterIndividualComponent implements OnInit {
         formArray.removeAt(index);
     }
 
-
     guarantorFormGroup(): FormGroup {
         return this.formBuilder.group({
             name: [undefined],
@@ -217,6 +240,52 @@ export class ConsentLetterIndividualComponent implements OnInit {
         });
     }
 
+    addJayejethaBibaran(): void {
+        const formArray = this.form.get('jayejethaBibaran') as FormArray;
+        formArray.push(this.guarantorFormGroup());
+    }
+
+    removeJayejethaBibaran(index: number): void {
+        const formArray = this.form.get('jayejethaBibaran') as FormArray;
+        formArray.removeAt(index);
+    }
+
+    jayejethaBibaranFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            gharName: [undefined],
+            parentName: [undefined],
+            grandParentName: [undefined],
+            district: [undefined],
+            munVdc: [undefined],
+            wadNo: [undefined],
+            kiNo: [undefined],
+            bargaMeter: [undefined],
+            sitNo: [undefined],
+        });
+    }
+
+
+    setJayejethaBibaran(data) {
+        const formArray = this.form.get('jayejethaBibaran') as FormArray;
+        if (data.length === 0) {
+            this.addJayejethaBibaran();
+            return;
+        }
+        data.forEach((value) => {
+            formArray.push(this.formBuilder.group({
+                gharName: [value.collateralName],
+                parentName: [value.collateralFatherName],
+                grandParentName: [value.collateralGrandFatherName],
+                district: [value.collateralDistrict],
+                munVdc: [value.collateralMunVdcOriginal],
+                wadNo: [value.collateralWardNoOld],
+                kiNo: [value.plotNo],
+                bargaMeter: [value.areaOfCollateral],
+                sitNo: [value.seatNo],
+            }));
+        });
+    }
+
     setSahamati(data) {
         const formArray = this.form.get('sahamati') as FormArray;
         (this.form.get('sahamati') as FormArray).clear();
@@ -230,8 +299,6 @@ export class ConsentLetterIndividualComponent implements OnInit {
                 relationship: [undefined],
                 signature: [undefined]
             }));
-
         });
     }
-
 }

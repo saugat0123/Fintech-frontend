@@ -3,7 +3,7 @@
 
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
-            <h6 class="text-center"><strong>खाताबाट रकमकट्टि गर्नदिइएको अख्तियारीनामा</strong></h6>
+            <h6 class="text-center"><strong>खाताबाट रकम कट्टि गर्न दिइएको अख्तियारीनामा</strong></h6>
             <h2 class="text-center"><strong>(Authority to Debt Account)</strong></h2>
             <p class="text-right"> मिति:
                 <input class="form-field form-control-sm nepaliFont "
@@ -13,14 +13,14 @@
             </p>
             <strong> प्रोग्रेशिभ फाईनान्स लि.</strong>
             <br>
-            <strong><input class="form-field form-control-sm nepaliFont "
-                      formControlName="BranchName"
-                      placeholder=""
-                      type="text"/> शाखा कार्यालय।</strong>
+            <strong><input class="form-field form-control-sm nepaliFont unicode-size"
+                           formControlName="BranchName"
+                           placeholder=""
+                           type="text"/> शाखा कार्यालय।</strong>
             <br>
             <br>
-            <p><strong>विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचतखाताको सीमा
-                रकमकट्टि गर्न विनाशर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको।
+            <p><strong>विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचत खाताको सीमा
+                रकम कट्टि गर्न विना शर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको।
             </strong>
             </p>
             <div class="row col-md-12">
@@ -29,11 +29,11 @@
                     म/हामीलाई त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो लागि खोलेको मेरो/हाम्रो नाममा बिभिन्न शिर्षक
                     अन्तर्गत स्वीकृत भएका कर्जा (Funded/Nonfunded) शिर्षक अन्तर्गत वित्तीय संस्थाले लिनु पर्ने रकम र
                     त्यस्तो कर्जामा कुनै संशोधन भई त्यसमा लाग्ने कमिशन, शुल्क, दस्तुर तथा पत्राचारको खर्च समेत केहि भएमा
-                    मेरो/हाम्रो उपरोक्त खाताहरु बाट आवश्यक रकमकट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अख्तियार
+                    मेरो/हाम्रो उपरोक्त खाताहरु बाट आवश्यक रकम कट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अख्तियार
                     प्रदान गर्दछू/छौ।
                     <br>
                     <br>
-                    चल्ति/बचतखाता नं.:
+                    चल्ति/बचत खाता नं.:
                     <input class="form-field form-control-sm nepaliFont "
                            formControlName="accNumber"
                            placeholder=""
@@ -47,8 +47,8 @@
                 </p>
                 <br>
                 <p>
-                    म/हामी त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो कुनै बैकिङ्गकार्य गरिएको रहेमा सोको सम्बन्धमा हुने
-                    वाभएको लागत खर्चको भुक्तानी पनि मेरो/हाम्रो चल्ती/बचत खाता बाट त्यस वित्तीय संस्थाले कट्टि गर्न
+                    म/हामी त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो कुनै बैकिङ्ग कार्य गरिएको रहेमा सोको सम्बन्धमा हुने
+                    वा भएको लागत खर्चको भुक्तानी पनि मेरो/हाम्रो चल्ती/बचत खाता बाट त्यस वित्तीय संस्थाले कट्टि गर्न
                     पूर्ण अपरिवर्तनिय अधिकार प्रत्यायोजन गर्दछू/छौं।
                 </p>
 
@@ -76,13 +76,14 @@
                 </table>
 
             </div>
-            <p><strong>भवदीय,</strong></p>
             <div class="row col-md-12" id="Sincerely">
                 <p>
+                    संस्थाको छाप :-
+                    <br><br><br>
                     दस्तखत :- ..................
                     <br>
                     दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont "
-                                                formControlName="sincerlyname"
+                                                formControlName="sincerelyName"
                                                 placeholder=""
                                                 type="text"/>(ना.प्र.न <input
                         class="form-field form-control-sm nepaliFont"
@@ -95,33 +96,58 @@
                     जि.प्र.का <input class="form-field form-control-sm nepaliFont"
                                      formControlName="jiPrakaName"
                                      placeholder=""
-                                     type="text"/> )
+                                     type="text"/>)
                     <br>
-                    स्थायी ठेगाना :-<input class="form-field form-control-sm nepaliFont "
-                                          formControlName="sincerlyPermanentAddress"
-                                          placeholder=""
-                                          type="text"/>
-                    जिल्ला<input class="form-field form-control-sm nepaliFont"
-                                 formControlName="jillaName"
-                                 placeholder=""
-                                 type="text"/>
-                    गा.पा./न.पा.वडा नं <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="jagaName"
+                    <ng-container *ngIf="this.loanCategory === 'INSTITUTION'">
+                        स्थायी ठेगाना :-<input class="form-field form-control-sm nepaliFont"
+                                               formControlName="sincerelyPermanentAddress"
+                                               placeholder=""
+                                               type="text"/>
+                        जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                     formControlName="jillaName"
+                                     placeholder=""
+                                     type="text"/>
+                    </ng-container>
+                    <ng-container *ngIf="this.loanCategory === 'INDIVIDUAL'">
+                        स्थायी ठेगाना :-<input class="form-field form-control-sm nepaliFont unicode-size"
+                                               formControlName="sincerelyPermanentAddress"
+                                               placeholder=""
+                                               type="text"/>
+                        जिल्ला<input class="form-field form-control-sm nepaliFont unicode-size"
+                                     formControlName="jillaName"
+                                     placeholder=""
+                                     type="text"/>
+                    </ng-container>
+                    गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="jagaName"
+                                                 placeholder=""
+                                                 type="text"/>
+                    <br>
+                    <ng-container *ngIf="this.loanCategory === 'INSTITUTION'">
+                        हालको ठेगाना :-<input class="form-field form-control-sm nepaliFont"
+                                              formControlName="sincerelyTempAddress"
                                               placeholder=""
                                               type="text"/>
-                    <br>
-                    हालको ठेगाना :-<input class="form-field form-control-sm nepaliFont "
-                                          formControlName="sincerlytempAddress"
-                                          placeholder=""
-                                          type="text"/>
-                    जिल्ला<input class="form-field form-control-sm nepaliFont"
-                                 formControlName="jillaName1"
-                                 placeholder=""
-                                 type="text"/>
-                    गा.पा./न.पा.वडा नं <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="jagaName1"
+                        जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                     formControlName="jillaName1"
+                                     placeholder=""
+                                     type="text"/>
+                    </ng-container>
+                    <ng-container *ngIf="this.loanCategory === 'INDIVIDUAL'">
+                        हालको ठेगाना :-<input class="form-field form-control-sm nepaliFont unicode-size"
+                                              formControlName="sincerelyTempAddress"
                                               placeholder=""
                                               type="text"/>
+                        जिल्ला<input class="form-field form-control-sm nepaliFont unicode-size"
+                                     formControlName="jillaName1"
+                                     placeholder=""
+                                     type="text"/>
+                    </ng-container>
+
+                    गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="jagaName1"
+                                                 placeholder=""
+                                                 type="text"/>
                     <br>
 
                     वावुको नाम :-<input class="form-field form-control-sm nepaliFont "
@@ -133,13 +159,13 @@
                                          formControlName="grandParentsName"
                                          placeholder=""
                                          type="text"/>
-
-
+                    <br>
+                    पति/पत्निको नाम :- <input class="form-control-sm form-field nepaliFont"
+                                              formControlName="husbandWifeName"
+                                              type="text">
                 </p>
             </div>
             <br>
-
-
             <div class="col-md-12">
                 <button class="btn btn-primary float-right" nbButton status="success" type="submit">
                     Save
@@ -149,12 +175,15 @@
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
                 class="btn btn-primary d-print-none"
+                nbButton
+                status="info"
                 ngxPrint
                 printSectionId="print-section-{{ offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT}}"> Print
         </button>
     </div>
 </div>
 <app-authority-to-debt-account-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                  hidden></app-authority-to-debt-account-print>
+                                     [loanCat]="loanCategory"
+                                     hidden></app-authority-to-debt-account-print>
 
 

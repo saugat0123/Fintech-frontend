@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -36,6 +35,7 @@ export class GuaranteeBondCorporateComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  corporateGuarantor = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<GuaranteeBondCorporateComponent>,
               private formBuilder: FormBuilder,
@@ -48,8 +48,15 @@ export class GuaranteeBondCorporateComponent implements OnInit {
 
 
   ngOnInit() {
+    this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     this.buildForm();
     this.fillForm();
+    (this.nepaliData.guarantorDetails).forEach(value => {
+      if (value.guarantorType === 'Corporate_Guarantor') {
+        this.corporateGuarantor.push(value);
+      }
+    });
+    this.setCorporateGuarantor(this.corporateGuarantor);
   }
 
   fillForm() {
@@ -66,13 +73,10 @@ export class GuaranteeBondCorporateComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
       });
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -114,7 +118,6 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       this.dialogRef.close();
     });
   }
-
 
   buildForm() {
     this.form = this.formBuilder.group({
@@ -182,6 +185,7 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       sicerlyHusbandName: [undefined],
       itiSambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+      corporateGuarantors: this.formBuilder.array([]),
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],
@@ -196,11 +200,8 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
       witnessWardNo1: [undefined]
-
-
     });
   }
-
 
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
@@ -211,12 +212,202 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
       guarantorWadNo: [undefined]
-
     });
-
-
   }
 
+  setCorporateGuarantor(data) {
+    const formArray = this.form.get('corporateGuarantors') as FormArray;
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    data.forEach((value, i) => {
+      formArray.push(this.formBuilder.group({
+        registerCompanyName: value.departmentGuarantor ? value.departmentGuarantor : '',
+        date: value.registrationDateGuarantor ? value.registrationDateGuarantor : '',
+        ltdNo: value.companyRegistrationNoGuarantor ? value.companyRegistrationNoGuarantor : '',
+        registerDistrict: value.companyDistrictGuarantor ? value.companyDistrictGuarantor : '',
+        regsiterMunicipality: value.companyVdcMunGuarantor ? value.companyVdcMunGuarantor : '',
+        registerWadNo: value.companyWardNoGuarantor ? value.companyWardNoGuarantor : '',
+        sewaKendra: value.taxPayerServiceOfficeGuarantor ? value.taxPayerServiceOfficeGuarantor : '',
+        certificateNo: value.panNoGuarantor ? value.panNoGuarantor : '',
+        registerDate: value.panRegistrationDateGuarantor ? value.panRegistrationDateGuarantor : '',
+        guaranterName: value.companyNameGuarantor ? value.companyNameGuarantor : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        regOffice: this.nepaliData.department ? this.nepaliData.department : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        praliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        rajaswaDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        rajaswaMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        rajaswaWadNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        sewakendra: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        PanNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        PaNoRegDate: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        registered: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        GuaranteeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        GuaranteeCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        GuaranteeDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        GuaranteeCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        GuaranteePermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        GuaranteePermanentMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        GuaranteePermanentWadNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        sabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        sabikWadNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        GuaranteeTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        GuaranteeTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        GuaranteeTempWadNo: this.nepaliData.representativeTemporaryWard ?  this.nepaliData.representativeTemporaryWard : '',
+        sicerlyFatherName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        sicerlyGrandFatherName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        sicerlyHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        districtName: [undefined],
+        municipalityName: [undefined],
+        wadNo: [undefined],
+        customerName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].customerName : '' : '' : ''],
+        sonDaughterName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                        this.initialInfoPrint.corporateGuarantors[i].sonDaughterName : '' : '' : ''],
+        husbandWifeName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].husbandWifeName : '' : '' : ''],
+        grandParentName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                         !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                         !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                         this.initialInfoPrint.corporateGuarantors[i].grandParentName : '' : '' : ''],
+        grandChildName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                        this.initialInfoPrint.corporateGuarantors[i].grandChildName : '' : '' : ''],
+        childName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].childName : '' : '' : ''],
+        middleDistrict: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].middleDistrict : '' : '' : ''],
+        middleMunicipality: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].middleMunicipality : '' : '' : ''],
+        middleWadNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].middleWadNo : '' : '' : ''],
+        age: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].age : '' : '' : ''],
+        citizenshipNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].citizenshipNo : '' : '' : ''],
+        citizenshipRegDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].citizenshipRegDate : '' : '' : ''],
+        pradanKaryalaya: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].pradanKaryalaya : '' : '' : ''],
+        middleAmount: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].middleAmount : '' : '' : ''],
+        middleAmountInWord: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].middleAmountInWord : '' : '' : ''],
+        sanakhatPersonNAme: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].sanakhatPersonNAme : '' : '' : ''],
+        sanakhatPersonSymbNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].sanakhatPersonSymbNo : '' : '' : ''],
+        itiSambatYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].itiSambatYear : '' : '' : ''],
+        itiSambaMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].itiSambaMonth : '' : '' : ''],
+        itiSambatDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].itiSambatDate : '' : '' : ''],
+        itiSambatTime: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].itiSambatTime : '' : '' : ''],
+        itiSambatRojSubham: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].itiSambatRojSubham : '' : '' : ''],
+        witnessName: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessName : '' : '' : ''],
+        witnessCitizenshipNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCitizenshipNo : '' : '' : ''],
+        witnessCitizenshipIssueDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCitizenshipIssueDate : '' : '' : ''],
+        witnessCDOoffice: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCDOoffice : '' : '' : ''],
+        witnessIssuedPlace: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessIssuedPlace : '' : '' : ''],
+        witnessMunicipality: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessMunicipality : '' : '' : ''],
+        witnessWardNo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessWardNo : '' : '' : ''],
+        witnessName1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessName1 : '' : '' : ''],
+        witnessCitizenshipNo1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCitizenshipNo1 : '' : '' : ''],
+        witnessCitizenshipIssueDate1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCitizenshipIssueDate1 : '' : '' : ''],
+        witnessCDOoffice1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessCDOoffice1 : '' : '' : ''],
+        witnessIssuedPlace1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessIssuedPlace1 : '' : '' : ''],
+        witnessMunicipality1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessMunicipality1 : '' : '' : ''],
+        witnessWardNo1: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.corporateGuarantors[i]) ?
+                    this.initialInfoPrint.corporateGuarantors[i].witnessWardNo1 : '' : '' : '']
+      }));
+    });
+  }
   setGuarantors(data) {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     if (data.length === 0) {

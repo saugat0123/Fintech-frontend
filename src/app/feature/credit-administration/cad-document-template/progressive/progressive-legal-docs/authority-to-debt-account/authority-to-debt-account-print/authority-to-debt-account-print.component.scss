@@ -1,11 +1,14 @@
-@import '../../progressive-legal-docs.component';
-
+//@import '../../progressive-legal-docs.component';
+* {
+  line-height: 1.5em;
+}
 #detail {
   margin-left: 50px;
 }
 
 #fingerXap {
-  width: 500px;
+  width: 400px;
+  height: 200px;
   margin-left: 10px;
   text-align: center;
 }
@@ -23,3 +26,12 @@
   max-height: 85vh;
   text-align: justify;
 }
+
+.unicode-size{
+  font-size:16px;
+}
+
+.unicode-size2{
+  font-size: 24px;
+}
+

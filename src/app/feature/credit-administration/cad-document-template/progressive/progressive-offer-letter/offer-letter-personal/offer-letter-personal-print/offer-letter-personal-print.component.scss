@@ -3,12 +3,8 @@
 .nepaliConfig {
   font-size: 17px;
   line-height: 1.6;
-  margin: 6px 20px;
-  @extend .text-justify;
-}
-
-* {
-  margin-top: 23px;
+  //margin: 6px 20px;
+  @extend .text-justify !optional;
 }
 
 .bodyParagraphTable {
@@ -23,6 +19,7 @@ p {
 
 span {
   font-size: 25px;
+  line-height: 1;
 }
 
 .unicode-size{
@@ -30,7 +27,7 @@ span {
 }
 
 .unicode-size2{
-  font-size: 23px;
+  font-size: 24px;
 }
 
 .unicode-size3{
@@ -51,3 +48,36 @@ span {
 .uniFont{
   font-size: 26px;
 }
+
+/*.margin {
+  margin: 1.3in 0.25in 1in 0.5in !important;
+}*/
+
+@media print {
+  @page {
+    margin: 1.3in 0.35in 0.75in 0.7in !important;
+  }
+
+  .pageBreak {
+    page-break-before: always !important;
+    page-break-after: always !important;
+  }
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color: transparent;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: transparent;
+  }
+}
+
+tr {
+  break-inside: initial;
+}
+
+.page-break { page-break-before: always; }

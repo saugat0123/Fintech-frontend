@@ -10,7 +10,6 @@ import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from "../../../../service/credit-administration.service";
 import {ToastService} from "../../../../../../@core/utils";
 import {RouterUtilsService} from "../../../../utils/router-utils.service";
-import {CustomerOfferLetterService} from "../../../../../loan/service/customer-offer-letter.service";
 import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {CadFile} from "../../../../model/CadFile";
 import {Document} from "../../../../../admin/modal/document";
@@ -33,6 +32,11 @@ export class RokkaLetterComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  customerInstitution = false;
+  customerIndividual = false;
+  loanData;
+  tempData;
+  primaryCollaterals = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<RokkaLetterComponent>,
               private formBuilder: FormBuilder,
@@ -40,10 +44,11 @@ export class RokkaLetterComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) { }
+              private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit() {
+    this.loanData = this.cadData.loanHolder;
+    this.tempData = JSON.parse(this.cadData.nepData);
     this.buildForm();
     this.fillForm();
   }
@@ -51,8 +56,11 @@ export class RokkaLetterComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       branchName: [undefined],
+      branchDistrict: [undefined],
+      branchPhoneNo: [undefined],
       letterNumber: [undefined],
       landRevenueOffice: [undefined],
+      landRevenueOfficeDistrict: [undefined],
       date: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
@@ -82,6 +90,20 @@ export class RokkaLetterComponent implements OnInit {
       financeBranchName: [undefined],
       financeBranchName2: [undefined],
       personalSignatureArray: this.formBuilder.array([this.buildPersonalSampleTable()]),
+      personalSignatureArray2: this.formBuilder.array([this.buildPersonalSampleTable2()]),
+      rokkaFaatOffice: [undefined],
+      rokkaFaatOfficeDistrict: [undefined],
+      karmachariName: [undefined],
+      postName: [undefined],
+      karmachariName2: [undefined],
+      postName2: [undefined],
+      corporateDistrict: [undefined],
+      corporateMunicipality: [undefined],
+      corporateWardNumber: [undefined],
+      corporateName: [undefined],
+      representativeName: [undefined],
+      collateralName: [undefined],
+      corporateAddress: [undefined]
     });
   }
 
@@ -94,9 +116,12 @@ export class RokkaLetterComponent implements OnInit {
           if (!ObjectUtil.isEmpty(initialInfo.personalSignatureArray)) {
             this.setPersonalSampleTest(initialInfo.personalSignatureArray);
           }
-          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
-            // this.form(initialInfo.guarantorDetails);
+          if (!ObjectUtil.isEmpty(initialInfo.personalSignatureArray2)) {
+            this.setPersonalSampleTest2(initialInfo.personalSignatureArray2);
           }
+         /* if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
+            // this.form(initialInfo.guarantorDetails);
+          }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -104,22 +129,34 @@ export class RokkaLetterComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      console.log('This is nepali Data: ', this.nepaliData);
-
       this.form.patchValue({
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        branchPhoneNo: this.nepaliData.branchTelNo ? this.nepaliData.branchTelNo : '',
         debtorName: this.nepaliData.name ? this.nepaliData.name : '',
-        perDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-        perMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-        perWardNumber: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        tempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-        tempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-        tempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        perMunicipality: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+        perWardNumber: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : '',
+        corporateDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        corporateMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        corporateWardNumber: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        corporateName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
       });
     }
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'Land_And_Building') {
+        this.primaryCollaterals.push(value);
+      }
+    });
+    this.setPersonalSampleTest(this.primaryCollaterals);
+    this.setPersonalSampleTest2(this.primaryCollaterals);
+
+    //this.setPersonalSampleTest(this.nepaliData.collateralDetails);
+
   }
 
   onSubmit() {
-    console.log('Form Control Data: ', this.form.value);
     let flag = true;
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -166,15 +203,23 @@ export class RokkaLetterComponent implements OnInit {
       tableLandOwnerName: [undefined],
       tableFatherName: [undefined],
       tableGrandFather: [undefined],
+      tableSpouseName: [undefined],
       tableAddressName: [undefined],
-      tableTempAddress: [undefined],
+      tableTempMun: [undefined],
+      tableTempWardNo: [undefined],
+      tableTempDistrict: [undefined],
       tableRegistrationNumber: [undefined],
       tableDistrictName: [undefined],
-      tablePerAddress: [undefined],
-      tableTempAddress2: [undefined],
+      tablePerMun: [undefined],
+      tablePerWardNo: [undefined],
+      tableTempMun2: [undefined],
+      tableTempWardNo2: [undefined],
       tableKittaNo: [undefined],
       tablelandArea: [undefined],
       tableSitNo: [undefined],
+      landOwnerDistrict: [undefined],
+      tableMunicipality: [undefined],
+      tableOldWardNum: [undefined],
     });
   }
 
@@ -195,26 +240,92 @@ export class RokkaLetterComponent implements OnInit {
     }
     data.forEach((value) => {
       formArray.push(this.formBuilder.group({
-        tableLandOwnerName: [value.tableLandOwnerName],
-        tableFatherName: [value.tableFatherName],
-        tableGrandFather: [value.tableGrandFather],
+        tableLandOwnerName: [value.collateralName],
+        tableFatherName: [value.collateralFatherName],
+        tableGrandFather: [value.collateralGrandFatherName],
+        tableSpouseName: [value.tableSpouseName],
         tableAddressName: [value.tableAddressName],
-        tableTempAddress: [value.tableTempAddress],
+        tableTempMun: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
+            value.collateralPermanentMunVdc.nepaliName : ''],
+        tableTempWardNo: [value.collateralPermanentWardNo],
+        landOwnerDistrict: [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+            value.collateralPermanentDistrict.nepaliName : ''],
         tableRegistrationNumber: [value.tableRegistrationNumber],
-        tableDistrictName: [value.tableDistrictName],
-        tablePerAddress: [value.tablePerAddress],
-        tableTempAddress2: [value.tableTempAddress2],
-        tableKittaNo: [value.tableKittaNo],
-        tablelandArea: [value.tablelandArea],
-        tableSitNo: [value.tableSitNo],
+        tableDistrictName: [value.collateralDistrict],
+        tablePerMun: [value.collateralPermanentVdc],
+        tablePerWardNo: [value.collateralPermanentVdcWard],
+        tableTempMun2: [value.collateralMunVdcChanged],
+        tableTempWardNo2: [value.wardNoNew],
+        tableKittaNo: [value.plotNo],
+        tablelandArea: [value.areaOfCollateral],
+        tableSitNo: [value.seatNo],
+        tableTempDistrict: [value.tableTempDistrict],
+        tableMunicipality: [value.collateralMunVdcOriginal],
+        tableOldWardNum: [value.collateralWardNoOld],
       }));
     });
   }
 
-  convertAmountInWords(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(convertedVal);
+  buildPersonalSampleTable2() {
+    return this.formBuilder.group({
+      institutionLandOwnerName: [undefined],
+      institutionRegistrationNo: [undefined],
+      institutionRegistrationDate: [undefined],
+      institutionPanNo: [undefined],
+      institutionLandOwnerDistrict: [undefined],
+      institutionPerMun: [undefined],
+      institutionPerWardNo: [undefined],
+      tableDistrictName: [undefined],
+      tableMunicipality: [undefined],
+      tableOldWardNum: [undefined],
+      tableKittaNo: [undefined],
+      tablelandArea: [undefined],
+      tableSitNo: [undefined]
+    });
   }
 
+  addPersonalSampleTable2() {
+    (this.form.get('personalSignatureArray2') as FormArray).push(this.buildPersonalSampleTable2());
+  }
+
+  removePersonalSampleTable2(index) {
+    (this.form.get('personalSignatureArray2') as FormArray).removeAt(index);
+  }
+
+  setPersonalSampleTest2(data) {
+    const formArray = this.form.get('personalSignatureArray2') as FormArray;
+    (this.form.get('personalSignatureArray2') as FormArray).clear();
+    if (data.length === 0) {
+      this.addPersonalSampleTable2();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        institutionLandOwnerName: [value.collateralName],
+        institutionRegistrationNo: [value.institutionRegistrationNo],
+        institutionRegistrationDate: [value.institutionRegistrationDate],
+        institutionPanNo: [value.institutionPanNo],
+        institutionLandOwnerDistrict: [value.institutionLandOwnerDistrict],
+        institutionPerMun: [value.institutionPerMun],
+        institutionPerWardNo: [value.institutionPerWardNo],
+        tableDistrictName: [value.collateralDistrict],
+        tableMunicipality: [value.collateralMunVdcOriginal],
+        tableOldWardNum: [value.collateralWardNoOld],
+        tableKittaNo: [value.plotNo],
+        tablelandArea: [value.areaOfCollateral],
+        tableSitNo: [value.seatNo]
+      }));
+    });
+  }
+
+  // convertAmountInWords(numLabel, wordLabel) {
+  //   const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+  //   const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+  //   this.form.get(wordLabel).patchValue(convertedVal);
+  // }
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
 }

@@ -4,9 +4,27 @@
   margin-right:5px;
   text-align: justify;
 }
+
+.unicode-size{
+  font-size:16px;
+}
+
+.unicode-size2{
+  font-size: 24px;
+}
+
 @media print {
   .page-break { page-break-before: always; }
 }
-strong{
-  text-decoration: underline;
+
+span {
+  line-height: 1;
 }
+
+.nepaliFont{
+  font-family: Preeti;
+}
+
+table { overflow: visible !important; }
+thead { display: table-header-group !important; }
+tr { page-break-inside: avoid !important; }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -34,6 +34,7 @@ export class AuthorityToDebtAccountComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanCategory;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,9 +47,11 @@ export class AuthorityToDebtAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.fillForm();
-
   }
 
   fillForm() {
@@ -64,13 +67,51 @@ export class AuthorityToDebtAccountComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      });
+      if (this.loanCategory === 'INSTITUTION') {
+        this.form.patchValue({
+          BranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+          sincerelyName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+          naPraNaName: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+          mitiName: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+          jiPrakaName: this.nepaliData.representativeCitizenshipIssuingAuthority ?
+              this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+          sincerelyPermanentAddress: !ObjectUtil.isEmpty(this.nepaliData.representativePermanentDistrict) ?
+              this.nepaliData.representativePermanentDistrict : '',
+          jillaName: !ObjectUtil.isEmpty(this.nepaliData.representativePermanentMunicipality) ?
+              this.nepaliData.representativePermanentMunicipality : '',
+          jagaName: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+          sincerelyTempAddress: !ObjectUtil.isEmpty(this.nepaliData.representativeTemporaryDistrict) ?
+              this.nepaliData.representativeTemporaryDistrict : '',
+          jillaName1: !ObjectUtil.isEmpty(this.nepaliData.representativeTemporaryMunicipality) ?
+              this.nepaliData.representativeTemporaryMunicipality : '',
+          jagaName1: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+          parentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+          grandParentsName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+          husbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : ''
+        });
+      }
+      if (this.loanCategory === 'INDIVIDUAL') {
+        this.form.patchValue({
+          BranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+          accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+          sincerelyName: this.nepaliData.name ? this.nepaliData.name : '',
+          naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+          mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+          jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+          sincerelyPermanentAddress: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+          jillaName: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+          jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+          sincerelyTempAddress: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
+          jillaName1: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ?
+              this.nepaliData.temporaryMunicipalities.nepaliName : '',
+          jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+          parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+          grandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+          husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : ''
+        });
+      }
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -113,40 +154,25 @@ export class AuthorityToDebtAccountComponent implements OnInit {
     });
   }
 
-
   buildForm() {
     this.form = this.formBuilder.group({
       date: [undefined],
-      amount: [undefined],
-      amountInWord: [undefined],
-      accNumber: [undefined],
-      sincerlyname: [undefined],
-      sincerlyPermanentAddress: [undefined],
-      sincerlytempAddress: [undefined],
-      parentName: [undefined],
-      grandParentName: [undefined],
-      clientName: [undefined],
       BranchName: [undefined],
-      itisambatYear: [undefined],
-      itisambatMonth: [undefined],
-      itisambatDate: [undefined],
-      itisambatTime: [undefined],
-      itisambatSubham: [undefined],
-      shakhaName: [undefined],
+      accNumber: [undefined],
+      sincerelyName: [undefined],
       naPraNaName: [undefined],
       mitiName: [undefined],
       jiPrakaName: [undefined],
+      sincerelyPermanentAddress: [undefined],
       jillaName: [undefined],
       jagaName: [undefined],
+      sincerelyTempAddress: [undefined],
       jillaName1: [undefined],
       jagaName1: [undefined],
+      parentName: [undefined],
       grandParentsName: [undefined],
-      ItisambatYear: [undefined],
-      ItisambatMonth: [undefined],
-      ItisambatDay: [undefined],
-      ItisambatTime: [undefined]
+      husbandWifeName: [undefined]
     });
   }
-
 }
 

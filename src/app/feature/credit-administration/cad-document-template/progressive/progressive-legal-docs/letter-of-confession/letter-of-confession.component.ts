@@ -8,18 +8,14 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
   selector: 'app-letter-of-confession',
@@ -39,7 +35,6 @@ export class LetterOfConfessionComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfConfessionComponent>,
               private formBuilder: FormBuilder,
@@ -54,14 +49,6 @@ export class LetterOfConfessionComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmountTemplate.engNumber = number;
-    } else {
-      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    }
     this.fillForm();
   }
 
@@ -81,22 +68,31 @@ export class LetterOfConfessionComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.form.patchValue({
         name: this.nepaliData.name ? this.nepaliData.name : '',
-        permanentVdcMun: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        financeVdcMun: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        grandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        parentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        husbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        permanentVdcMun: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
         permanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        permanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        permanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+        sabikVdcMun: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+        sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : '',
+        temporaryVdcMun: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        temporaryWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        temporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
+        relationship: this.nepaliData.name ? this.nepaliData.name : '',
         citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         citizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
         citizenshipIssueOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        parentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        grandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        husbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-        temporaryVdcMun: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-        temporaryWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
       });
     }
-    this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get('amountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    this.form.get('amount').patchValue(loanAmount.numberNepali);
+    this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
   }
 
 

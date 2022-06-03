@@ -8,18 +8,14 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-letter-of-continuity',
@@ -39,7 +35,6 @@ export class LetterOfContinuityComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
-    loanAmountTemplate = new NepaliNumberAndWords();
 
     constructor(private dialogRef: NbDialogRef<LetterOfContinuityComponent>,
                 private formBuilder: FormBuilder,
@@ -54,14 +49,6 @@ export class LetterOfContinuityComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-            this.loanAmountTemplate.engNumber = number;
-        } else {
-            this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-        }
         this.fillForm();
     }
 
@@ -77,26 +64,30 @@ export class LetterOfContinuityComponent implements OnInit {
             });
         }
 
+        const loanAmount = JSON.parse(this.cadData.nepData);
         this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.form.patchValue({
+                branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
-                borrowerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                borrowerPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
                 borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                borrowerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                borrowerPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
                 borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
                 borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
                 borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
                 borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-                borrowerTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                borrowerTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
                 borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-                borrowerTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+                borrowerTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                borrowerSabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                borrowerSabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
             });
         }
-        this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
-        this.form.get('amountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
+        this.form.get('amount').patchValue(loanAmount.numberNepali);
+        this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
     }
 
 
@@ -183,7 +174,7 @@ export class LetterOfContinuityComponent implements OnInit {
             witnessCDOoffice1: [undefined],
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
-            witnessWardNo1: [undefined]
+            witnessWardNo1: [undefined],
         });
     }
 

@@ -6,7 +6,7 @@
 //  overflow-y: visible;
 //}
 #fingerXap {
-  width: 500px;
+  width: 250px;
   text-align: center;
 }
 
@@ -18,7 +18,20 @@ table {
 .viewFull {
   max-height: 85vh;
   text-align: justify;
+  display: inline;
 }
 .uniFont{
-  font-size: 15px !important;
+  font-size: 16px !important;
+}
+
+span {
+  line-height: 1;
+}
+
+.size24 {
+  font-size: 24px;
+}
+
+tr {
+  break-inside: initial;
 }

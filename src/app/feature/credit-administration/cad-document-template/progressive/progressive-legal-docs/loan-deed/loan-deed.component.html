@@ -1,49 +1,58 @@
 <div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LOAN_DEED}}">
-
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
-            <h6 class="text-center"><strong>बिषयः कर्जा तमसुक</strong><br>
+            <h6 class="text-center"><strong><u>बिषयः कर्जा तमसुक</u></strong>
             </h6>
-
             <br>
-            <div class="row">
+            <div class="row text-justify">
                 <p>
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
-                    बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
+                    बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. ३२ स्थित
                     रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong> <input
-                        class="form-field nepaliFont form-control-sm" formControlName="district" type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm" formControlName="municipality"
+                        class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="branchDistrict" type="text">
+                    जिल्ला, <input class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="branchMunicipality"
                                   type="text">
-                    गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.<input class="form-field nepaliFont form-control-sm"
-                                                                 formControlName="wadNo" type="text">
-                    स्थित <input class="form-field nepaliFont form-control-sm" formControlName="branchName"
+                    गा.पा./न.पा./उ.म.न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                                                 formControlName="branchWardNo" type="text">
+                    स्थित <input class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="branchName"
                                  type="text">
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong>“धनी वित्तीय संस्था”</strong> भनिएको) लिखत
                     गरी दिनेका नाम<input class="form-field nepaliFont form-control-sm" formControlName="grandParentName"
                                          type="text">को
-                    नाति/नातिनि<input class="form-field nepaliFont form-control-sm" formControlName="parentName"
+                    <span *ngIf="form.get('gender').value === '1'; else granddaughter">नाति</span>
+                    <ng-template #granddaughter>
+                        <span>नातिनि</span>
+                    </ng-template>
+                    <input class="form-field nepaliFont form-control-sm" formControlName="parentName"
                                       type="text">
-                    को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" formControlName="husbandWifeName"
+                    को <span *ngIf="form.get('gender').value === '1'; else daughter">छोरा</span>
+                    <ng-template #daughter>
+                        <span>छोरी</span>
+                    </ng-template> <input class="form-field nepaliFont form-control-sm" formControlName="husbandWifeName"
                                         type="text">को
-                    पति/पत्नी<input class="form-field nepaliFont form-control-sm"
+                    <span *ngIf="form.get('gender').value === '1'; else wife">पति</span>
+                    <ng-template #wife>
+                        <span>पत्नी</span>
+                    </ng-template><input class="form-field nepaliFont form-control-sm uniCodeFont"
                                     formControlName="likhitDistrict"
                                     type="text">
-                    जिल्ला<input class="form-field nepaliFont form-control-sm"
-                                 formControlName="likhitMunicipalty"
+                    जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                 formControlName="likhitMunicipality"
                                  type="text">
-                    गा.पा./न.पा./म.न.पा. वडा नं.<input class="form-field nepaliFont form-control-sm"
-                                                       formControlName="likhitWadNo" type="text">
+                    गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
+                                                       formControlName="likhitWardNo" type="text">
                     (साबिक <input class="form-field nepaliFont form-control-sm"
                                   formControlName="sabikVDC" type="text">
-                    गा.बि.स./न.पा. वडा न. <input class="form-field nepaliFont form-control-sm"
+                    गा.बि.स./न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm"
                                                  formControlName="sabikWardNo" type="text"> ),
-                    स्थायी ठेगाना भई हाल <input class="form-field nepaliFont form-control-sm" formControlName="tempVDC"
+                    स्थायी ठेगाना भई हाल <input class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="tempVDC"
                                                 type="text">
 
-                    जिल्ला<input class="form-field nepaliFont form-control-sm" formControlName="staDistrict"
+                    जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                  formControlName="staDistrict"
                                  type="text">
-                    गा.पा./न.पा./म.न.पा. वडा नं.<input class="form-field nepaliFont form-control-sm"
-                                                       formControlName="tempWadNo" type="text">
+                    गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
+                                                       formControlName="tempWardNo" type="text">
                     स्थित<input class="form-field nepaliFont form-control-sm"
                                 formControlName="sthit" type="text">
 
@@ -62,73 +71,54 @@
                     गरेकोमा तपाई
                     धनी वित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति
                     <input class="form-control-sm form-field nepaliFont"
-                           formControlName="date" type="text">
-                    को ऋण स्वीकृती पत्र अनुसार स्वीकृत निम्नाअनुसारका
-                    ऋण कर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृती पत्रमा उल्लिखित तरिका बमोजिम प्राप्तगर्ने गरी यो
-                    ऋण कर्जाको तमसुक गरी दिएको ठीक साँचो हो।
-                    तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग सूविधाहरुमा लाग्ने व्याज, कमिशन,
-                    शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋणकर्जा तथा
-                    बैंकिङ्ग सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको
-                    मिति भित्रमा वा स्वीकृत ऋण कर्जा तथा बैंकिङ्ग
-                    सूविधा नविकरण भएमा नविकरण हूंदाकाबखत तपाई धनी वित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण
-                    स्वीकृति पत्रमा तोकिएको
-                    मिति भित्रमा ऋण कर्जाको सम्पूर्ण साँवा व्याज चूक्ता भूक्तान गर्नेछु/छौं। म/हामी ऋणीका नाममा
-                    स्वीकृत बैंकिङ्ग सुविधा (ग्यारेन्टी बण्ड तथा अन्य विभिन्न शीर्षक अन्तर्गत)
-                    को कर्जा उपभोग गर्दा तपाई धनी वित्तीय संस्था उपर कुनै थप दायित्व श्रृजना भएमा त्यस्तो
-                    थपदायित्व तपाई धनी वित्तीय संस्थाले माग गर्ना साथ तिर्ने बूझाउने छु/छौं।
-                    स्वीकृत ऋण कर्जा तथा भविष्यमा तपाई धनी वित्तीय संस्थाले उपलव्ध गराउने थप ऋण कर्जा तथा सूविधा
-                    समेतको सुरक्षण बापत म/हामी ऋणीको निजी श्रोतबाट खरिद
-                    गरेको, श्रृजना भएको र तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋण कर्जाबाट खरिद वा आयात गरेको/श्रृजना
-                    गरेको लगायत म/हामी ऋणीको नाममा रहे/भएको सम्पूर्ण
-                    चल/अचल सम्पत्ति तथा भविष्यमा म/हामी ऋणीको नाममा कायम हुने श्री सम्पत्ति तथा म/हामी ऋणीले
-                    भूक्तानी प्राप्त गर्न बाँकी
-                    रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनी वित्तीय संस्थाको नाममा
-                    सुरक्षण लेखिदिएको छु/छौं।
-                    सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई धनी वित्तीय संस्थाको
-                    नाममा धितोबन्धक लिखत गरिदिएको छु/गरिदिनेछु।
-                    प्राप्त ऋण कर्जाको तपाई धनी वित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थप ब्याज,
-                    कमिशन शुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृती पत्रानूसार
-                    तोकिएको तरिका बमोजिम नतिरे/नबुझाएमा वा बुझाउन आलटाल गरेमा वा किस्ता खिलाफी गरेमा वा ऋण
-                    स्वीकृति पत्र तथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
-                    समेत म/हामी ऋणीको नाममा तपाई धनी वित्तीय संस्थामा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा
-                    गरी तथा धितो लेखिदिएको
-                    सुरक्षण प्रचलित कानून बमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनी वित्तीय संस्थाको सम्पूर्ण
-                    लेना रकम असूल उपर गरि लिनूहोला। कथमकदाचित धितो
-                    लेखिदिएको सम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्रीहुन नसकेमा वा लिलाम बिक्री हुँदा समेत तपाई
-                    धनी वित्तीय संस्थाको सम्पूर्ण लेना असूलउपर नभएमा
-                    मेरो/हाम्रो/ऋणीको घरघरानाको श्रीसम्पत्तिबाट असूलउपर गरि लिनुहोला। नेपाल राष्ट्र बैंकद्धारा
-                    बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
-                    सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा
-                    मेरो/हाम्रो/ऋणीको मञ्जुरी छ भनी किनाराका साक्षीका
-                    रोहबरमा तपाई धनीव बित्तिय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनी वित्तीय
-                    संस्थालाई दिया/दियौं।
+                           formControlName="loanApprovedDate" type="text">
+                    को ऋण स्वीकृती पत्र अनुसार स्वीकृत निम्नाअनुसारका ऋण कर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृती पत्रमा उल्लिखित
+                    तरिका बमोजिम प्राप्तगर्ने गरी यो ऋण कर्जाको तमसुक गरी दिएको ठीक साँचो हो। तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋणकर्जा
+                    तथा बैंकिङ्ग सूविधाहरुमा लाग्ने व्याज, कमिशन, शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋणकर्जा तथा बैंकिङ्ग
+                    सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत ऋण कर्जा तथा बैंकिङ्ग
+                    सूविधा नविकरण भएमा नविकरण हूंदाकाबखत तपाई धनी वित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण स्वीकृति पत्रमा
+                    तोकिएको मिति भित्रमा ऋण कर्जाको सम्पूर्ण साँवा व्याज चूक्ता भूक्तान गर्नेछु/छौं। म/हामी ऋणीका नाममा स्वीकृत बैंकिङ्ग सुविधा
+                    (ग्यारेन्टी बण्ड तथा अन्य विभिन्न शीर्षक अन्तर्गत) को कर्जा उपभोग गर्दा तपाई धनी वित्तीय संस्था उपर कुनै थप दायित्व श्रृजना
+                    भएमा त्यस्तो थपदायित्व तपाई धनी वित्तीय संस्थाले माग गर्ना साथ तिर्ने बूझाउने छु/छौं। स्वीकृत ऋण कर्जा तथा भविष्यमा
+                    तपाई धनी वित्तीय संस्थाले उपलव्ध गराउने थप ऋण कर्जा तथा सूविधा समेतको सुरक्षण बापत म/हामी ऋणीको निजी श्रोतबाट
+                    खरिद गरेको, श्रृजना भएको र तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋण कर्जाबाट खरिद वा आयात गरेको/श्रृजना गरेको लगायत
+                    म/हामी ऋणीको नाममा रहे/भएको सम्पूर्ण चल/अचल सम्पत्ति तथा भविष्यमा म/हामी ऋणीको नाममा कायम हुने श्री सम्पत्ति
+                    तथा म/हामी ऋणीले भूक्तानी प्राप्त गर्न बाँकी रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनी वित्तीय
+                    संस्थाको नाममा सुरक्षण लेखिदिएको छु/छौं। सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई
+                    धनी वित्तीय संस्थाको नाममा धितोबन्धक लिखत गरिदिएको छु/गरिदिनेछु। प्राप्त ऋण कर्जाको तपाई धनी वित्तीय संस्थालाई तिर्नुपर्ने
+                    साँवा, व्याज, थप ब्याज, कमिशन शुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृती पत्रानूसार तोकिएको तरिका बमोजिम
+                    नतिरे/नबुझाएमा वा बुझाउन आलटाल गरेमा वा किस्ता खिलाफी गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको कुनै सर्त उल्लंघन
+                    गरेमा समेत म/हामी ऋणीको नाममा तपाई धनी वित्तीय संस्थामा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा गरी तथा
+                    धितो लेखिदिएको सुरक्षण प्रचलित कानून बमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनी वित्तीय संस्थाको सम्पूर्ण
+                    लेना रकम असूल उपर गरि लिनूहोला। कथमकदाचित धितो लेखिदिएको सम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्रीहुन नसकेमा वा
+                    लिलाम बिक्री हुँदा समेत तपाई धनी वित्तीय संस्थाको सम्पूर्ण लेना असूलउपर नभएमा मेरो/हाम्रो/ऋणीको घरघरानाको श्रीसम्पत्तिबाट
+                    असूलउपर गरि लिनुहोला। नेपाल राष्ट्र बैंकद्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था
+                    सम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा मेरो/हाम्रो/ऋणीको मञ्जुरी छ भनी किनाराका साक्षीका
+                    रोहबरमा तपाई धनीव बित्तिय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनी वित्तीय संस्थालाई दिया/दियौं।
                 </p>
                 <br>
-                <p class="text-center"><strong>स्वीकृत ऋणकर्जाको बिवरण</strong></p>
-                <div class="col-md-12 float-right">
-                </div>
-                <div calss="w-100">
+                <p class="text-center"><strong><u>स्वीकृत ऋणकर्जाको बिवरण</u></strong></p>
+                <div class="w-100">
                     <div>
                         <div>
                             <table class="table-bordered table text-center ">
                                 <thead>
                                 <tr>
-                                    <th width="5%">सि.नं.</th>
+                                    <th style="width:5%">सि.नं.</th>
                                     <th>ऋणकर्जा वा बैंकिङ्ग
                                         सूबिधा किसिम
                                     </th>
                                     <th>
                                         रकम
                                     </th>
-                                    <th>व्याज/कमिशन</th>
-                                    <th>कर्जाको अबधि</th>
+                                    <th>व्याज/सेवा शुल्क(%)</th>
+                                    <th>कर्जाको अबधि </th>
                                     <th>
                                         <button (click)="addSwikriti()" class="btn btn-primary btn-sm float-right "
                                                 size="tiny"
                                                 type="button">स्वीकृत थप्नुहोस्<em class="fas fa-plus"></em></button>
                                     </th>
                                 </tr>
-
                                 </thead>
                                 <tbody *ngFor="let guarantor of form.get('swikritiBibaran')['controls']; let i=index"
                                        formArrayName="swikritiBibaran">
@@ -137,17 +127,21 @@
                                         {{i + 1 | nepaliNumber}}.
                                     </td>
                                     <td><input class="form-field nepaliFont form-control-sm"
-                                               formControlName="approvedSubidhakisim"
+                                               formControlName="loanType"
                                                type="text"></td>
-                                    <td>(अक्षरेपि <input class="form-field nepaliFont form-control-sm"
-                                                         formControlName="approvedAmount"
+                                    <td>(अक्षरेपि <input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                                         formControlName="loanAmountInWords"
                                                          type="text">)
                                     </td>
                                     <td><input class="form-field nepaliFont form-control-sm"
-                                               formControlName="approvedCommision"
-                                               type="text"></td>
+                                               formControlName="interestRate"
+                                               type="text">,
+                                        <input class="form-field nepaliFont form-control-sm"
+                                               formControlName="serviceFeePercent"
+                                               type="text">
+                                    </td>
                                     <td><input class="form-field nepaliFont form-control-sm"
-                                               formControlName="approvedLoanTime"
+                                               formControlName="tenureOfLoanInYears"
                                                type="text"></td>
                                     <td>
                                         <button (click)="removeSwikriti(i)"
@@ -155,7 +149,7 @@
                                                 *ngIf="form.get('swikritiBibaran')['length']>1"
                                                 value="Delete">
                                             <em class="fas fa-trash" style="color: white;">
-                                                Delete Guarantor
+                                                स्वीकृत हटाउनुहोस्
                                             </em>
                                         </button>
                                     </td>
@@ -167,30 +161,25 @@
                 </div>
             </div>
             <br>
-            <p class="text-center"><strong>धितो सुरक्षण बापत रहेको/रहने सम्पत्तीको विवरण</strong></p>
+            <p class="text-center"><strong><u>धितो सुरक्षण बापत रहेको/रहने सम्पत्तीको विवरण</u></strong></p>
             <div>
                 <table class="table table-bordered text-center table-responsive-md">
                     <thead>
                     <tr>
-                        <th width="5%">सि.नं.</th>
-                        <th>धितोको बिवरण
-                        </th>
-                        <th width="10%">जिल्ला</th>
-                        <th width="10%">गा.पा./न.पा./ <br>
-                            म.न.पा.
-                        </th>
-                        <th width="7%">वडा नं.</th>
-                        <th width="10%">
-                            कि.नं
-                        </th>
-                        <th width="10%">क्षेत्रफल</th>
-                        <th width="10%">रजिष्टेशन नं.</th>
-                        <th width="28%">धनीको नाम थर र वतन</th>
-                        <th>
+                        <th style="width:5%">सि.नं.</th>
+                        <th>धितोको बिवरण</th>
+                        <th style="width:10%">जिल्ला</th>
+                        <th style="width:10%">गा.पा./न.पा./ <br>म.न.पा.</th>
+                        <th style="width:10%">वडा नं.</th>
+                        <th style="width:10%">कि.नं</th>
+                        <th style="width:10%">क्षेत्रफल</th>
+                        <th style="width:10%">रजिष्टेशन नं.</th>
+                        <th style="width:28%">धनीको नाम थर र वतन</th>
+                       <!-- <th>
                             <button (click)="addSecurity()" class="btn btn-primary btn-sm float-right "
                                     size="tiny"
                                     type="button">स्वीकृत थप्नुहोस्<em class="fas fa-plus"></em></button>
-                        </th>
+                        </th>-->
                     </tr>
                     </thead>
                     <tbody *ngFor="let guarantor of form.get('security')['controls']; let i=index"
@@ -202,32 +191,36 @@
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesDistrict"
+                                   readonly
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesMunicipality"
+                                   readonly
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
-                                   formControlName="SecuritiesWadNo"
+                                   formControlName="SecuritiesWardNo"
+                                   readonly
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesKeyNo"
+                                   readonly
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesArea"
+                                   readonly
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesRegNo"
                                    type="text"></td>
                         <td><input class="form-field nepaliFont form-control"
                                    formControlName="SecuritiesOwnerName"
+                                   readonly
                                    type="text"></td>
-                        <td>
+                        <td *ngIf="form.get('security')['length']>1" style="width: 5%">
                             <button (click)="removeSecurity(i)"
                                     class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
-                                    *ngIf="form.get('security')['length']>1"
                                     value="Delete">
                                 <em class="fas fa-trash" style="color: white;">
-                                    Delete Guarantor
                                 </em>
                             </button>
                         </td>
@@ -236,7 +229,6 @@
                 </table>
             </div>
             <br>
-
             <br>
             <strong> साक्षी :</strong>
             <!-- <div class="col-md-12 float-right">
@@ -393,6 +385,8 @@
                 </tr>
                 </tbody>
             </table>
+            <p>लिखत तयार पार्ने: <input class="form-field nepaliFont form-control-sm" formControlName="likhat"
+                                     type="text"></p>
             <br>
             <br>
             <br>
@@ -419,11 +413,12 @@
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
                 class="btn btn-primary d-print-none"
+                nbButton
+                status="info"
                 ngxPrint
                 printSectionId="print-section-{{ offerLetterConst.LOAN_DEED }}"> Print
         </button>
     </div>
-
 </div>
 
 <app-loan-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"

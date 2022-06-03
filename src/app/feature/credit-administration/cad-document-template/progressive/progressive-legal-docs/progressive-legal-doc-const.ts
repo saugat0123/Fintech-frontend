@@ -27,7 +27,9 @@ export enum ProgressiveLegalDocConst {
   LETTER_OF_CONFESSION = '2025',
   HP_DEED_CORPORATE = '2027',
   MORTGAGE_DEED_CORPORATE = '2026',
-  LOAN_DEED_CORPORATE = '2028'
+  LOAN_DEED_CORPORATE = '2028',
+  VEHICLE_NAMSARI_LETTER = '2029',
+  VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER = '2030'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -87,6 +89,10 @@ export namespace ProgressiveLegalDocConst {
         return 'Loan Deed Corporate';
       case ProgressiveLegalDocConst.LETTER_OF_CONTINUITY_INSTITUTIONAL:
         return 'Letter of Continuity Institution';
+      case ProgressiveLegalDocConst.VEHICLE_NAMSARI_LETTER:
+        return 'Vehicle Namsari Letter';
+      case ProgressiveLegalDocConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER:
+        return 'Vehicle Delivery Purchase Order Letter';
     }
   }
 

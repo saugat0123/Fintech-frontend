@@ -13,7 +13,7 @@
       </p>
       <strong> प्रोग्रेशिभ फाइनान्स लि.</strong>
       <br>
-      <strong> <input class="form-field form-control-sm nepaliFont "
+      <strong> <input class="form-field form-control-sm nepaliFont unicode-size"
                  formControlName="branchName"
                  placeholder=""
                  type="text"/> शाखा।</strong>
@@ -23,19 +23,19 @@
         <p>महोदय, <br>
           <br>
           म/हामी <input class="form-field form-control-sm nepaliFont "
-                        formControlName="name"
+                        formControlName="customerName"
                         placeholder=""
                         type="text"/>लाई
           त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
           बैकिङ्ग सुविधाहरु
           उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्य कुनै प्रकारबाट उधारो वा ऋण
-          सेवा प्रदान गरिएकोमा म/हामी रु.<input class="form-field form-control-sm nepaliFont "
+          सेवा प्रदान गरिएकोमा म/हामी रु.<input class="form-field form-control-sm nepaliFont unicode-size"
                                                 formControlName="amount"
                                                 placeholder=""
                                                 type="text"
                                                 readonly
                                                 (input)="convertAmountInWords('amount','amountInWords')"/>
-          अक्षरेंपी <input class="form-field form-control-sm nepaliFont "
+          अक्षरेंपी <input class="form-field form-control-sm nepaliFont unicode-size"
                            formControlName="amountInWords"
                            placeholder=""
                            readonly
@@ -73,12 +73,14 @@
                      type="text"/>
               </td>
             <td rowspan="2">
-              <input class="form-field form-control-sm nepaliFont "
+              <input class="form-field form-control-sm nepaliFont unicode-size"
+                     value="{{form.get('branchName').value}}"
                      formControlName="jariBranch"
                      placeholder=""
                      type="text"/>
             </td>
             <td rowspan="2"><input class="form-field form-control-sm nepaliFont "
+                                   value="{{form.get('customerName').value}}"
                                    formControlName="khatawalName"
                                    placeholder=""
                                    type="text"/>
@@ -128,6 +130,8 @@
     <button [disabled]="!initialInfoPrint"
             [useExistingCss]="true"
             class="btn btn-primary d-print-none"
+            nbButton
+            status="info"
             ngxPrint
             printSectionId="print-section-{{ offerLetterConst.LETTER_OF_LEIN }}"> Print
     </button>

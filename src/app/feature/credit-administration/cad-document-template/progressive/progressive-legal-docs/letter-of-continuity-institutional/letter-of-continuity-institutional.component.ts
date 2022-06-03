@@ -7,7 +7,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -15,9 +14,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
-import {NepDataPersonal} from '../../../../model/nepDataPersonal';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
@@ -40,11 +36,9 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
   offerLetterConst = ProgressiveLegalDocConst;
   customerOfferLetter: CustomerOfferLetterInstitutional;
   initialInfoPrint;
-  nepDataPersonal: NepDataPersonal;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfContinuityInstitutionalComponent>,
               private formBuilder: FormBuilder,
@@ -59,14 +53,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmountTemplate.engNumber = number;
-    } else {
-      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    }
     this.fillForm();
   }
 
@@ -83,18 +69,16 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       });
     }
 
+    const loanAmount = JSON.parse(this.cadData.nepData);
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       this.form.patchValue({
-        nepalSarkar: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         udhyogBibhag: this.nepaliData.department ? this.nepaliData.department : '',
         praliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
         underDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
         sewaKendra: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
         certificateNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
         regDate: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
-        // registeredName: this.nepaliData. ? this.nepaliData. : '',
         debtorName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         pratiNidhi: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
         // belowAmount: this.nepaliData.name ? this.nepaliData.name : '',
@@ -118,11 +102,17 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
         buttonParentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
         buttonGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
         buttonHusbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
-        branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        companyDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        companyMunVdc: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        companyWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        address: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        sabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        sabikWadNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : ''
       });
     }
-    this.form.get('belowAmount').patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get('belowAmountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
+    this.form.get('belowAmount').patchValue(loanAmount.numberNepali);
+    this.form.get('belowAmountInWord').patchValue(loanAmount.nepaliWords);
   }
 
 
@@ -169,7 +159,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      nepalSarkar: [undefined],
       amount: [undefined],
       sincerlyName: [undefined],
       sincerlyPermanentAddress: [undefined],
@@ -191,7 +180,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       sewaKendra: [undefined],
       certificateNo: [undefined],
       regDate: [undefined],
-      registeredName: [undefined],
       debtorName: [undefined],
       pratiNidhi: [undefined],
       belowAmount: [undefined],
@@ -241,7 +229,10 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      witnessWardNo1: [undefined],
+      companyDistrict: [undefined],
+      companyMunVdc: [undefined],
+      companyWardNo: [undefined],
     });
   }
 

@@ -15,9 +15,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
@@ -38,7 +35,6 @@ export class LetterOfLeinComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfLeinComponent>,
               private formBuilder: FormBuilder,
@@ -46,23 +42,11 @@ export class LetterOfLeinComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService,
-              private engToNepNumberPipe: EngToNepaliNumberPipe,
-              private currencyFormatPipe: CurrencyFormatterPipe) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmountTemplate.engNumber = number;
-    } else {
-      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    }
-    //this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
     this.fillForm();
   }
 
@@ -77,14 +61,16 @@ export class LetterOfLeinComponent implements OnInit {
       });
     }
 
-    this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get('amountInWords').patchValue(this.loanAmountTemplate.nepaliWords);
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    this.form.get('amount').patchValue(loanAmount.numberNepali);
+    this.form.get('amountInWords').patchValue(loanAmount.nepaliWords);
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : ''
       });
     }
   }

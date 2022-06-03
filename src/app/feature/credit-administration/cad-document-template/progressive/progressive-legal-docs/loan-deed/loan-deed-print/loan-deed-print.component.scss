@@ -1,8 +1,5 @@
-@import '../../progressive-legal-docs.component';
+//@import '../../progressive-legal-docs.component';
 *{
-//margin-left:20px;
-//margin-right:10px;
-  margin-top: 20px;
   line-height: 1.9em;
 }
 .viewFull {
@@ -12,6 +9,45 @@
 .uniCodeFont{
   font-size: 22px;
 }
-.nepaliFont{
-  font-size: 20px;
+.nepaliFontPreeti{
+  font-family: Preeti;
+}
+
+.unicode-size{
+  font-size: 24px;
+}
+
+.sizeFont {
+  font-size: 16px;
+}
+
+@media print {
+
+
+  .pageBreak {
+    page-break-before: always !important;
+    page-break-after: always !important;
+  }
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color: transparent;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: transparent;
+  }
+}
+
+.nepali {
+  font-size: 16px;
+  line-height: 1.5;
+  @extend .text-justify !optional;
+}
+
+span {
+  line-height: 1;
 }

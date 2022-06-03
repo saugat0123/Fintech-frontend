@@ -108,7 +108,6 @@ export class CompanyFormComponent implements OnInit {
     businessTypes = BusinessType.enumObject();
     contactPerson: ContactPerson = new ContactPerson();
     allDistrict: Array<District> = Array<District>();
-    private isBlackListed: boolean;
     companyStructureList: Array<Company>;
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
@@ -324,7 +323,7 @@ export class CompanyFormComponent implements OnInit {
             relationshipSince:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
-                    this.companyJsonData.relationshipSince, DateValidator.isValidBefore],
+                    new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :

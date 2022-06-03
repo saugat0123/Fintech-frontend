@@ -3,7 +3,6 @@
 .nepaliConfig {
   font-size: 16px;
   line-height: 1.6;
-  margin: 10px 50px;
   @extend .text-justify;
 }
 
@@ -27,4 +26,17 @@ span {
 
 .custom-table-bordered td {
   border: 1px solid #000 !important;
+}
+.uniFont{
+  font-size: 16px;
+}
+
+.uniFont2{
+  font-size: 20px;
+}
+
+@media print {
+  tr {
+    break-inside: initial;
+  }
 }

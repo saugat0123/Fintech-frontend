@@ -1,26 +1,18 @@
 <div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN}}">
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
-      <div class="row" style="margin-top: 50px">
-        <div class="col-md-8">
-          <p>
-            प.सं.:
-            <input class="form-control-sm form-field nepaliFont"
-                   formControlName="patraNum"
-                   type="text">
-            /पिएफएल/
-            <input class="form-control-sm form-field nepaliFont" formControlName="paFile" type="text">
-            /सिआरडि /०७७/०७८
-          </p>
-        </div>
-      </div><br>
-      <div style="...">
-        <p>
-          मिति :
-          <input class="form-control-sm form-field nepaliFont"
+      <div class="d-flex justify-content-between" style="margin-right: 5px;">
+        <div class="float-left">
+          मिति : <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="date">
-        </p>
+        </div>
+        <div class="float-right">
+          प.सं.
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="patraNum"
+                 type="text">
+        </div>
       </div>
       <div style="...">
         <p>
@@ -37,7 +29,15 @@
           <input class="form-control-sm form-field nepaliFont uniFont"
                  readonly
                  type="text"
-                 [value]="form.get('customerAddress').value">
+                 [value]="form.get('customerAddress').value">, वडा नं.
+          <input class="form-control-sm form-field nepaliFont"
+                 readonly
+                 type="text"
+                 [value]="form.get('customerAddressWard').value">,
+          <input class="form-control-sm form-field nepaliFont uniFont"
+                 readonly
+                 type="text"
+                 [value]="form.get('customerAddressDistrict').value">
         </p>
       </div>
       <div style="...">
@@ -46,7 +46,15 @@
           <input class="form-control-sm form-field nepaliFont uniFont"
                  readonly
                  type="text"
-                 [value]="form.get('customerTempAddress').value">
+                 [value]="form.get('customerTempAddress').value">, वडा नं.
+          <input class="form-control-sm form-field nepaliFont"
+                 readonly
+                 type="text"
+                 [value]="form.get('customerTempAddressWard').value">,
+          <input class="form-control-sm form-field nepaliFont uniFont"
+                 readonly
+                 type="text"
+                 [value]="form.get('customerTempAddressDistrict').value">
         </p>
       </div>
       <div style="...">
@@ -54,6 +62,12 @@
           नागरिकता बमोजिम ठेगाना :
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="customerCitizenshipAddress"
+                 type="text">, वडा नं.
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="customerCitizenshipAddressWard"
+                 type="text">,
+          <input class="form-control-sm form-field nepaliFont uniFont"
+                 formControlName="customerCitizenshipAddressDistrict"
                  type="text">
         </p>
       </div>
@@ -115,16 +129,16 @@
               <tr>
                 <td><strong>कर्जा सिमा :</strong></td>
                 <td>अधिकतम रु
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field nepaliFont uniFont"
                          type="text"
                          (input)="getNumAmountFormArray('amount','amountInWords')"
                          formControlName="amount">
                   /– (अक्षरेपी:
-                  <input class="form-control-lg form-field nepaliFont font-size-normal"
+                  <input class="form-control-lg form-field nepaliFont uniFont"
                          readonly
                          type="text"
                          formControlName="amountInWords">
-                  रुपैंया मात्र ।)
+                  मात्र ।)
                 </td>
               </tr>
               <tr>
@@ -138,8 +152,8 @@
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="monthlyPayment">
-                  / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  /- सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          readonly
                          formControlName="yearlyInterest">
@@ -169,7 +183,7 @@
                     प्रतिशत
                   </p>
                   <p>
-                    अस्थाई छुट Temporary Discount) :
+                    अस्थाई छुट (Temporary Discount) :
                     <input class="form-control-sm form-field nepaliFont"
                            type="text"
                            (change)="calcYearlyRate('interestBaseRate',
@@ -200,18 +214,17 @@
                            [value]="form.get('interestTempDiscountRate').value">
                     % =
                     <input
-                        class="form-control-sm form-field nepaliFont uniFont"
+                        class="form-control-sm form-field nepaliFont"
                         type="text"
                         readonly
                         formControlName="yearlyInterest">%
                   </p>
                   (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
                   कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट
-                  <input
-                      class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field nepaliFont"
                       type="text"
                       readonly
-                      [value]="form.get('loanLimitTime').value">वर्ष, भुक्तानीको आधारमा सो अवधि भित्र ।
+                      [value]="form.get('loanLimitTime').value"> वर्ष, भुक्तानीको आधारमा सो अवधि भित्र ।
                 </td>
               </tr>
               <tr>
@@ -252,17 +265,17 @@
         </table>
         <div class="row">
           <div style="margin-left: 80px">
+            <ng-container *ngIf="isHP">
             <p>क. <strong>Primary Collateral:  धितो राखिने सवारी साधनको बिबरण</strong></p>
             <table class="table table-bordered">
-              <thead>
+              <tbody>
               <tr>
                 <th>क्र.सं.</th>
                 <th width="40%">धितोको विवरण</th>
                 <th width="30%">कोटेशन मूल्य/ मुल्याङ्कन रकम</th>
                 <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
-                <th></th>
               </tr>
-              </thead>
+              </tbody>
               <tbody *ngFor="let primaryCollateral of form.get('primaryCollaterals')['controls']; index as i"
                      formArrayName="primaryCollaterals">
               <tr [formGroupName]="i">
@@ -278,15 +291,15 @@
                          formControlName="vehicleNumber"
                          type="text"> <br>
                   मोडल नं. :
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field"
                          formControlName="vehicleModelNum"
                          type="text"> <br>
                   इन्जिन नं. :
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field"
                          formControlName="engineNumber"
                          type="text"> <br>
                   च्यासिज नं. :
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field"
                          formControlName="chassisNumber"
                          type="text">
                 </td>
@@ -305,21 +318,20 @@
                          type="text"
                          formControlName="marginPercentageTwo"> %
                 </td>
-                <td>
-                  <em (click)="addPrimaryCollateral()" size="large"
-                      class="d-print-none fa fa-plus-square"></em>
+                <td *ngIf="form.get('primaryCollaterals')['length']>1">
                   <em (click)="removePrimaryCollateral(i)" size="small"
-                      class="d-print-none fa fa-trash"
-                      *ngIf="form.get('primaryCollaterals')['length']>1"></em>
+                      class="d-print-none fa fa-trash"></em>
                 </td>
               </tr>
               </tbody>
             </table>
             उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
             नाममा धनि दर्ता कायम गराउनु पर्ने छ ।<br><br>
-            <p>ख. <strong>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
+            </ng-container>
+            <ng-container *ngIf="isLandAndBuilding">
+            <p>{{isHP ? 'ख' : 'क'}}. <strong>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
             <table class="table table-bordered">
-              <thead>
+              <tbody>
               <tr>
                 <th  width="35%">जग्गाधनिको नाम, ठेगाना र तिनपूस्ते</th>
                 <th  width="15%">जिल्ला</th>
@@ -327,9 +339,8 @@
                 <th  width="8%">कि.नं.</th>
                 <th  width="20%">क्षेत्रफल रोपनी/ब.मी.</th>
                 <th  width="20%">सि.नं.</th>
-                <th></th>
               </tr>
-              </thead>
+              </tbody>
               <tbody *ngFor="let additionalCollateral of form.get('additionalCollaterals')['controls']; index as i"
                      formArrayName="additionalCollaterals">
               <tr [formGroupName]="i">
@@ -346,8 +357,14 @@
                          formControlName="grandFatherName"
                          type="text"> <br>
                   ठेगाना :
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field nepaliFont uniFont"
                          formControlName="address"
+                         type="text">,
+                  <input class="form-control-sm form-field nepaliFont"
+                         formControlName="addressVDC"
+                         type="text">,
+                  <input class="form-control-sm form-field nepaliFont"
+                         formControlName="addressWard"
                          type="text">
                 </td>
                 <td>
@@ -380,12 +397,11 @@
                          formControlName="jaggaSiNum"
                          type="text">
                 </td>
-                <td>
-                  <em (click)="addAdditionalCollateral()" size="large"
-                      class="d-print-none fa fa-plus-square"></em>
+                <td *ngIf="form.get('additionalCollaterals')['length']>1">
+                  <!--<em (click)="addAdditionalCollateral()" size="large"
+                      class="d-print-none fa fa-plus-square"></em>-->
                   <em (click)="removeAdditionalCollateral(i)" size="small"
-                      class="d-print-none fa fa-trash"
-                      *ngIf="form.get('additionalCollaterals')['length']>1"></em>
+                      class="d-print-none fa fa-trash"></em>
                 </td>
               </tr>
               </tbody>
@@ -409,12 +425,13 @@
                      type="text">
               को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात
               फाइनान्सको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
-              <input class="form-control-sm form-field nepaliFont"
+              <input class="form-control-sm form-field nepaliFont uniFont"
                      formControlName="farePrice"
                      type="text">
               मा दृ.ब पारित गरि यस
               फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
             </table>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -434,28 +451,23 @@
                  formArrayName="individualDetails"
                  id="individualDetail">
               <div [formGroupName]="i">
-                <p>{{i + 1 | nepaliWord: 'unicode'}}
+                <p>{{i + 1 | nepaliWord: 'unicode'}}.
                   <strong>श्री </strong>
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="shreeName1">
-                  र
-                  <input class="form-control-sm form-field nepaliFont"
-                         type="text"
-                         formControlName="shreeName2">
                   को रु.
                   <input
-                      class="form-control-sm form-field nepaliFont"
+                      class="form-control-sm form-field nepaliFont uniFont"
                       type="text"
                       (input)="getNumAmount('amount1','amountInWords1',i)"
-                      formControlName="amount1">
-                  /–
+                      formControlName="amount1">/–
                   (अक्षरेपी :
-                  <input class="form-control-lg form-field nepaliFont font-size-normal"
+                  <input class="form-control-lg form-field nepaliFont uniFont"
                          readonly
                          type="text"
                          formControlName="amountInWords1">
-                  रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
+                  मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
                   <em (click)="removeIndividualDetails(i)" size="small" class="float-right fa fa-trash"
                       *ngIf="form.get('individualDetails')['length']>1"></em>
                 </p>
@@ -469,16 +481,15 @@
           <tr>
             <td>२.२</td>
             <td>रु.
-              <input class="form-control-sm form-field nepaliFont"
+              <input class="form-control-sm form-field nepaliFont uniFont"
                      type="text"
-                     (input)="getNumAmountInWord('amount3','amountInWords3')"
-                     formControlName="amount3">
-              /-(अक्षरेपी:
-              <input class="form-control-lg form-field nepaliFont font-size-normal"
+                     (input)="getNumAmountInWord('amount','amountInWords')"
+                     formControlName="amount">/-(अक्षरेपी:
+              <input class="form-control-lg form-field nepaliFont uniFont"
                      readonly
                      type="text"
-                     formControlName="amountInWords3">
-              रुपैंया मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
+                     formControlName="amountInWords">
+              मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
               सही छाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्ने छ ।
             </td>
           </tr>
@@ -532,9 +543,9 @@
         <tr>
           <td><strong>४.</strong></td>
           <td> <strong>पुनरावलोकन :</strong> रु.
-            <input class="form-control-sm form-field nepaliFont"
+            <input class="form-control-sm form-field nepaliFont uniFont"
                    type="text"
-                   formControlName="amount4">
+                   formControlName="amount">
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
             सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ । <br>
           </td>
@@ -562,7 +573,7 @@
         <tr>
           <td>६.२</td>
           <td>
-            आवश्यक परेमा फाइनान्स समक्ष ऋणीले धितो राखेको सम्पत्ति पुरै वा आंिशक रुपमा फाइनान्सले अरु कुनै तेश्रो
+            आवश्यक परेमा फाइनान्स समक्ष ऋणीले धितो राखेको सम्पत्ति पुरै वा आंशिक रुपमा फाइनान्सले अरु कुनै तेश्रो
             पक्षलाई पुनः धितो दिन सक्नेछ ।
           </td>
         </tr>
@@ -850,7 +861,7 @@
                        value="{{form.get('financeBranch').value}}">
                 ।<br><br>
                 टेलिफोन :
-                <input class="form-control-sm form-field nepaliFont"
+                <input class="form-control-sm form-field nepaliFont uniFont"
                        type="text"
                        formControlName="telephoneNumber"><br>
               </td>
@@ -864,11 +875,19 @@
                 <input class="form-control-sm form-field nepaliFont uniFont"
                        readonly
                        type="text"
-                       [value]="form.get('customerTempAddress').value"><br><br>
+                       [value]="form.get('customerTempAddress').value">, वडा नं.
+                <input class="form-control-sm form-field nepaliFont"
+                       readonly
+                       type="text"
+                       [value]="form.get('customerTempAddressWard').value">,
+                <input class="form-control-sm form-field nepaliFont uniFont"
+                       readonly
+                       type="text"
+                       [value]="form.get('customerTempAddressDistrict').value"><br><br>
                 मोबाइल नं.
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
-                       formControlName="customerMobileNum1"><br>
+                       formControlName="customerMobileNum"><br>
                 Email Address :
                 <input class="form-control-sm form-field"
                        type="text"
@@ -912,7 +931,6 @@
           </div>
         </div>
       </div>
-      <br>
       <p>
         यस पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु मलाई पूर्ण मन्जुर छ । उपरोक्त बमोजिम फाइनान्सबाट प्राप्त हुने ऋण कर्जा
         सुबिधा तथा अन्य दायित्व तिर्न बुझाउन मेरो पूर्ण मन्जुरी रहेकोले यो कर्जा स्वीकृतिपत्रमा स्वीकृति जनाई सही छाप गरी
@@ -930,7 +948,7 @@
                    [value]="form.get('customerName').value"><br>
             नागरिकता नं., मिति र कार्यालय:—
             <strong> (ना.प्र.नं </strong>
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('signatoryCitizenshipNum').value">
@@ -947,9 +965,17 @@
             <strong> ) </strong><br>
             ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
             <input class="form-control-sm form-field nepaliFont uniFont"
-                   type="text"
                    readonly
-                   [value]="form.get('customerAddress').value">
+                   type="text"
+                   [value]="form.get('customerAddress').value">, वडा नं.
+            <input class="form-control-sm form-field nepaliFont"
+                   readonly
+                   type="text"
+                   [value]="form.get('customerAddressWard').value">,
+            <input class="form-control-sm form-field nepaliFont uniFont"
+                   readonly
+                   type="text"
+                   [value]="form.get('customerAddressDistrict').value">
             <br>
             बाजेको नाम :—
             <input class="form-control-sm form-field nepaliFont"
@@ -966,15 +992,15 @@
           </p>
         </div>
         <div class="col-md-6 justify-content-end">
-          <table id="fingerXap" class="table table-bordered text-center">
-            <thead>
+          <table id="fingerXap" class="table table-borderless text-center">
+            <tbody>
             <tr>
               <th style="border: none;">दाँ.</th>
               <th style="border: none;">बाँ.</th>
             </tr>
-            </thead>
+            </tbody>
             <tbody>
-            <tr style="height: 200px">
+            <tr>
               <td></td>
               <td></td>
             </tr>
@@ -1060,6 +1086,8 @@
             [useExistingCss]="true"
             [disabled]="!initialInfoPrint"
             printSectionId="print-section-{{ offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN }}"
+            nbButton
+            status="info"
             ngxPrint>print
     </button><br>
   </div>

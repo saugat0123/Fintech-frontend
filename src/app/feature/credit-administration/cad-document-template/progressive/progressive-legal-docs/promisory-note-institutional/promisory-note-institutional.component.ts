@@ -32,6 +32,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmount;
 
   constructor(private dialogRef: NbDialogRef<PromisoryNoteInstitutionalComponent>,
               private formBuilder: FormBuilder,
@@ -60,7 +61,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       certificateNo: [undefined],
       CertifiedDistrict: [undefined],
       CertifiedMunicipality: [undefined],
-      CertifiedWadNo: [undefined],
+      CertifiedWardNo: [undefined],
       bottomGrandfatherName: [undefined],
       bottomGrandMotherName: [undefined],
       bottomFatherName: [undefined],
@@ -68,10 +69,10 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       bottomHusbandName: [undefined],
       bottomDistrictName: [undefined],
       bottomMunicipalityName: [undefined],
-      bottomWadNo: [undefined],
+      bottomWardNo: [undefined],
       bottomTempDistrict: [undefined],
       bottomTempMunicipality: [undefined],
-      bottomTempWadNo: [undefined],
+      bottomTempWardNo: [undefined],
       bottomAge: [undefined],
       bottoCustomerName: [undefined],
       bottoCustomerCizenshipNo: [undefined],
@@ -87,12 +88,12 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       bottomSincerlyCDOoffice: [undefined],
       AkhtiyarPermanentDistrict: [undefined],
       AkhtiyarPermanentVDC: [undefined],
-      AkhtiyarPermanentWadNo: [undefined],
+      AkhtiyarPermanentWardNo: [undefined],
       SabikVDC: [undefined],
-      SabikWadNo: [undefined],
+      SabikWardNo: [undefined],
       AkhtiyarTempDistrict: [undefined],
       AkhtiyarTempVDC: [undefined],
-      AkhtiyarTempWadNo: [undefined],
+      AkhtiyarTempWardNo: [undefined],
       buttomSincerlyParentName: [undefined],
       buttomSincerlyGrandParentName: [undefined],
       buttomSincerlyHusbandName: [undefined],
@@ -125,6 +126,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
 
   }
   fillForm() {
+    this.loanAmount = JSON.parse(this.cadData.nepData);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -146,6 +148,51 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        MinistryOffice: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
+        DepartmentName: this.nepaliData.department ? this.nepaliData.department : '',
+        RegisterOffice: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        Act: this.nepaliData.nameOfRegisteringAct ? this.nepaliData.nameOfRegisteringAct : '',
+        UnderName: this.nepaliData.yearOfActEnactment ? this.nepaliData.yearOfActEnactment : '',
+        UnderDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        PraliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        ServiceOfficeName: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        certificateNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        CertifiedDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        CertifiedMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        CertifiedWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        CertifiedCompany: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        bottomGrandfatherName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        bottomFatherName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        bottomHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        bottomDistrictName: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        bottomMunicipalityName: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        bottomWardNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        bottomTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        bottomTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        bottomTempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        bottomAge: this.nepaliData.borrowerAge ? this.nepaliData.borrowerAge : '',
+        bottoCustomerName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        bottoCustomerCizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        bottomDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        bottomCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        bottomBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        bottomAmount: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '',
+        bottomAmountInWord: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
+        AkhtiyarName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        bottomSincerlyCitizenShipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        bottomSincerlyDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        bottomSincerlyCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        AkhtiyarPermanentDistrict:  this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        AkhtiyarPermanentVDC: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        AkhtiyarPermanentWardNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        SabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        SabikWardNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        AkhtiyarTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        AkhtiyarTempVDC: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        AkhtiyarTempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        buttomSincerlyParentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        buttomSincerlyGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        buttomSincerlyHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
       });
     }
   }
@@ -163,7 +210,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       guarantorCDOoffice: [undefined],
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined]
+      guarantorWardNo: [undefined]
     });
   }
   setsecGuarantorDetails(data) {
@@ -180,7 +227,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
         guarantorCDOoffice: [value.guarantorCDOoffice],
         guarantorDistrict: [value.guarantorDistrict],
         guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
+        guarantorWardNo: [value.guarantorWardNo]
       }));
     });
   }
@@ -214,7 +261,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       guarantorCDOoffice: [undefined],
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined]
+      guarantorWardNo: [undefined]
     });
   }
 
@@ -232,7 +279,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
         guarantorCDOoffice: [value.guarantorCDOoffice],
         guarantorDistrict: [value.guarantorDistrict],
         guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
+        guarantorWardNo: [value.guarantorWardNo]
       }));
     });
   }

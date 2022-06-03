@@ -12,7 +12,6 @@ import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
 import {OfferLetterCorporateComponent} from '../offer-letter-corporate/offer-letter-corporate.component';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -22,7 +21,7 @@ import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 @Component({
   selector: 'app-offer-letter-hire-purchase-and-auto-loan',
   templateUrl: './offer-letter-hire-purchase-and-auto-loan.component.html',
-  styleUrls: ['./offer-letter-hire-purchase-and-auto-loan.component.scss']
+  styleUrls: ['./offer-letter-hire-purchase-and-auto-loan.component.scss'],
 })
 export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   @Input() offerLetterType;
@@ -33,10 +32,13 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   customerOfferLetter: CustomerOfferLetter;
   initialInfoPrint;
   existingOfferLetter = false;
+  isHP = false;
+  isLandAndBuilding = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
   nepDataPersonal = new NepDataPersonal();
+  primaryCollaterals = new Array<any>();
+  secondaryCollaterals = new Array<any>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -54,45 +56,72 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'HP') {
+        this.primaryCollaterals.push(value);
+        this.isHP = true;
+      }
+    });
+    (this.nepaliData.collateralDetails).forEach(value => {
+      if (value.securityDetails === 'Land_And_Building') {
+        this.secondaryCollaterals.push(value);
+        this.isLandAndBuilding = true;
+      }
+    });
     this.buildForm();
     this.checkOfferLetter();
+    this.fillForm();
+    this.setPrimaryCollaterals(this.primaryCollaterals);
+    this.setAdditionalCollaterals(this.secondaryCollaterals);
+    this.setIndividualDetails(this.nepaliData.guarantorDetails);
   }
 
   fillForm() {
-    this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
-    let allGuarantors = '';
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
-      (this.nepaliData.guarantorDetails).forEach(guarantor => {
-        allGuarantors = allGuarantors + guarantor.name + ', ';
-      });
-      allGuarantors = allGuarantors.slice(0, -2);
-      allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
-      const customerAddress =
-          this.nepaliData.permanentMunicipality + ' वडा नं. ' +
-          this.nepaliData.permanentWard + ', ' +
-          this.nepaliData.permanentDistrict;
-      const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
-          this.nepaliData.temporaryWard + ', ' +
-          this.nepaliData.temporaryDistrict;
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
-        customerAddress: customerAddress ? customerAddress : '',
-        customerTempAddress: customerTempAddress ? customerTempAddress : '',
-        customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-        customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-        signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        financeBranch: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
-        serviceCharge: this.nepDataPersonal.serviceFee ? this.nepDataPersonal.serviceFee : '',
-        loanLimitTime: this.nepDataPersonal.tenureOfLoanInYears ? this.nepDataPersonal.tenureOfLoanInYears : '',
-        shreeName1: allGuarantors ? allGuarantors : '',
-        shreeName2: allGuarantors ? allGuarantors : ''
+        customerAddress: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ?
+            this.nepaliData.permanentMunicipalities.nepaliName : '',
+        customerAddressWard: !ObjectUtil.isEmpty( this.nepaliData.permanentWard) ?  this.nepaliData.permanentWard : '',
+        customerAddressDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        customerTempAddress: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ?
+            this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        customerTempAddressWard: !ObjectUtil.isEmpty(this.nepaliData.temporaryWard) ? this.nepaliData.temporaryWard : '',
+        customerTempAddressDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ?
+            this.nepaliData.temporaryDistrict.nepaliName : '',
+        customerCitizenshipAddress: !ObjectUtil.isEmpty(this.nepaliData.permanentVdc) ?  this.nepaliData.permanentVdc : '',
+        customerCitizenshipAddressWard: !ObjectUtil.isEmpty(this.nepaliData.permanentVdcWard) ? this.nepaliData.permanentVdcWard : '',
+        customerCitizenshipAddressDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ?
+            this.nepaliData.permanentDistrict.nepaliName : '',
+        customerMobileNum: !ObjectUtil.isEmpty(this.nepaliData.contactNumber) ? this.nepaliData.contactNumber : '',
+        financeBranch: !ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : '',
+        amount: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
+        amountInWords: !ObjectUtil.isEmpty(this.nepDataPersonal.nepaliWords) ? this.nepDataPersonal.nepaliWords : '',
+        monthlyPayment: !ObjectUtil.isEmpty(this.nepDataPersonal.installmentAmount) ? this.nepDataPersonal.installmentAmount : '',
+        yearlyInterest: !ObjectUtil.isEmpty(this.nepDataPersonal.interestRate) ? this.nepDataPersonal.interestRate : '',
+        interestBaseRate: !ObjectUtil.isEmpty(this.nepDataPersonal.baseRate) ? this.nepDataPersonal.baseRate : '',
+        interestPremiumRate: !ObjectUtil.isEmpty(this.nepDataPersonal.premium) ? this.nepDataPersonal.premium : '',
+        interestTempDiscountRate: !ObjectUtil.isEmpty(this.nepDataPersonal.discount) ? this.nepDataPersonal.discount : '',
+        dhitoDate: !ObjectUtil.isEmpty(this.nepaliData.valuationDate) ? this.nepaliData.valuationDate : '',
+        currentDate: !ObjectUtil.isEmpty(this.nepaliData.valuatorName) ? this.nepaliData.valuatorName : '',
+        marketPrice: !ObjectUtil.isEmpty(this.nepaliData.fairMarketValue) ? this.nepaliData.fairMarketValue : '',
+        distestPrice: !ObjectUtil.isEmpty(this.nepaliData.distressValue) ? this.nepaliData.distressValue : '',
+        farePrice: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
+        loanLimitTime: !ObjectUtil.isEmpty(this.nepDataPersonal.tenureOfLoanInYears) ? this.nepDataPersonal.tenureOfLoanInYears : '',
+        serviceCharge: !ObjectUtil.isEmpty(this.nepDataPersonal.serviceFeePercent) ? this.nepDataPersonal.serviceFeePercent : '',
+        telephoneNumber: !ObjectUtil.isEmpty(this.nepaliData.branchTelNo) ? this.nepaliData.branchTelNo : '',
+        customerEmail: !ObjectUtil.isEmpty(this.nepaliData.customerEmail) ? this.nepaliData.customerEmail : '',
+        signatoryCitizenshipNum: !ObjectUtil.isEmpty(this.nepaliData.citizenshipNo) ? this.nepaliData.citizenshipNo : '',
+        signatoryCitizenshipIssueDate: !ObjectUtil.isEmpty(this.nepaliData.citizenshipIssueDate) ?
+            this.nepaliData.citizenshipIssueDate : '',
+        signatoryCitizenshipIssuePlace: !ObjectUtil.isEmpty(this.nepaliData.citizenshipIssueDistrict) ?
+            this.nepaliData.citizenshipIssueDistrict : '',
+        signatoryParentName: !ObjectUtil.isEmpty(this.nepaliData.fatherName) ? this.nepaliData.fatherName : '',
+        signatoryGrandParentName: !ObjectUtil.isEmpty(this.nepaliData.grandFatherName) ? this.nepaliData.grandFatherName : '',
+        isLandAndBuilding: this.isLandAndBuilding,
+        isHP: this.isHP
       });
     }
   }
@@ -104,16 +133,10 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       this.offerLetterDocument = new OfferDocument();
       this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN);
       this.fillForm();
-      this.addPrimaryCollateral();
-      this.addAdditionalCollateral();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
-      this.setPrimaryCollaterals(initialInfo.primaryCollaterals);
-      this.setAdditionalCollaterals(initialInfo.additionalCollaterals);
-      this.setIndividualDetails(initialInfo.individualDetails);
-
       this.form.patchValue(this.initialInfoPrint);
     }
   }
@@ -134,7 +157,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
-    console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -152,39 +174,26 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   setPrimaryCollaterals(data) {
     const formArray = this.form.get('primaryCollaterals') as FormArray;
-    if (data.length === 0) {
-      this.addPrimaryCollateral();
-      return;
-    }
-    data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        vehicleType: [value.vehicleType],
-        vehicleNumber: [value.vehicleNumber],
-        vehicleModelNum: [value.vehicleModelNum],
-        engineNumber: [value.engineNumber],
-        chassisNumber: [value.chassisNumber],
-        quotationPrice: [value.quotationPrice],
-        vehicleQuotationPrice: [value.vehicleQuotationPrice],
-        marginPercentage: [value.marginPercentage],
-        marginPercentageOne: [value.marginPercentageOne],
-        marginPercentageTwo: [value.marginPercentageTwo],
-      }));
-    });
-  }
-
-  addPrimaryCollateral() {
-    (this.form.get('primaryCollaterals') as FormArray).push(
-        this.formBuilder.group({
-          vehicleType: [undefined],
-          vehicleNumber: [undefined],
-          vehicleModelNum: [undefined],
-          engineNumber: [undefined],
-          chassisNumber: [undefined],
-          vehicleQuotationPrice: [undefined],
-          marginPercentage: [undefined],
-          marginPercentageOne: [undefined],
-          marginPercentageTwo: [undefined],
+    data.forEach((value, i) => {
+      if (value.securityDetails === 'HP') {
+        formArray.push(this.formBuilder.group({
+          vehicleType: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : ''],
+          vehicleNumber: [!ObjectUtil.isEmpty(value.vehicleNumber) ? value.vehicleNumber : ''],
+          vehicleModelNum: [!ObjectUtil.isEmpty(value.vehicleModelNum) ? value.vehicleModelNum : ''],
+          engineNumber: [!ObjectUtil.isEmpty(value.engineNumber) ? value.engineNumber : ''],
+          chassisNumber: [!ObjectUtil.isEmpty(value.chassisNumber) ? value.chassisNumber : ''],
+          vehicleQuotationPrice: [!ObjectUtil.isEmpty(value.vehicleQuotationPrice) ? value.vehicleQuotationPrice : ''],
+          marginPercentageOne: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals[i]) ?
+                      this.initialInfoPrint.primaryCollaterals[i].marginPercentageOne : '' : '' : ''],
+          marginPercentageTwo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.primaryCollaterals[i]) ?
+                      this.initialInfoPrint.primaryCollaterals[i].marginPercentageTwo : '' : '' : ''],
         }));
+      }
+    });
   }
 
   removePrimaryCollateral(i: number) {
@@ -193,27 +202,29 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   setAdditionalCollaterals(data) {
     const formArray = this.form.get('additionalCollaterals') as FormArray;
-    if (data.length === 0) {
-      this.addAdditionalCollateral();
-      return;
-    }
     data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        name: [value.name],
-        fatherName: [value.fatherName],
-        grandFatherName: [value.grandFatherName],
-        address: [value.address],
-        district: [value.district],
-        existingAddress: [value.existingAddress],
-        currentAddress: [value.currentAddress],
-        jaggaKittaNum: [value.jaggaKittaNum],
-        landArea: [value.landArea],
-        jaggaSiNum: [value.jaggaSiNums],
-      }));
+      if (value.securityDetails === 'Land_And_Building') {
+        const tempExistingAddress = value.collateralMunVdcOriginal + ', ' + value.collateralWardNoOld;
+        const tempNewAddress = value.collateralMunVdcChanged + ', ' + value.wardNoNew;
+        formArray.push(this.formBuilder.group({
+          name: [!ObjectUtil.isEmpty(value.collateralName) ? value.collateralName : ''],
+          fatherName: [!ObjectUtil.isEmpty(value.collateralFatherName) ? value.collateralFatherName : ''],
+          grandFatherName: [!ObjectUtil.isEmpty(value.collateralGrandFatherName) ? value.collateralGrandFatherName : ''],
+          address: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ? value.collateralPermanentMunVdc.nepaliName : ''],
+          addressVDC: [!ObjectUtil.isEmpty(value.collateralPermanentVdc) ? value.collateralPermanentVdc : ''],
+          addressWard: [!ObjectUtil.isEmpty(value.collateralPermanentVdcWard) ? value.collateralPermanentVdcWard : ''],
+          district: [!ObjectUtil.isEmpty(value.collateralDistrict) ? value.collateralDistrict : ''],
+          existingAddress: [tempExistingAddress ? tempExistingAddress : ''],
+          currentAddress: [tempNewAddress ? tempNewAddress : ''],
+          jaggaKittaNum: [!ObjectUtil.isEmpty(value.plotNo) ? value.plotNo : ''],
+          landArea: [!ObjectUtil.isEmpty(value.areaOfCollateral) ? value.areaOfCollateral : ''],
+          jaggaSiNum: [!ObjectUtil.isEmpty(value.seatNo) ? value.seatNo : ''],
+        }));
+      }
     });
   }
 
-  addAdditionalCollateral() {
+  /*addAdditionalCollateral() {
     (this.form.get('additionalCollaterals') as FormArray).push(
         this.formBuilder.group({
           name: [undefined],
@@ -227,8 +238,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
           landArea: [undefined],
           jaggaSiNum: [undefined],
         }));
-
-  }
+  }*/
 
   removeAdditionalCollateral(i: number) {
     (this.form.get('additionalCollaterals') as FormArray).removeAt(i);
@@ -241,12 +251,17 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       this.addIndividualDetails();
       return;
     }
-    data.forEach(value => {
+    data.forEach((value, i) => {
+      /*let allGuarantors = '';
+      (this.nepaliData.guarantorDetails).forEach(guarantor => {
+        allGuarantors = allGuarantors + guarantor.guarantorName + ', ';
+      });
+      allGuarantors = allGuarantors.slice(0, -2);
+      allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');*/
       formArray.push(this.formBuilder.group({
-        shreeName1: [value.shreeName1],
-        shreeName2: [value.shreeName2],
-        amount1: [value.amount1],
-        amountInWords1: [value.amountInWords1],
+        shreeName1: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : ''],
+        amount1: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
+        amountInWords1: !ObjectUtil.isEmpty(this.nepDataPersonal.nepaliWords) ? this.nepDataPersonal.nepaliWords : '',
       }));
     });
   }
@@ -254,7 +269,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   addIndividualDetails() {
     return this.formBuilder.group({
           shreeName1: [undefined],
-          shreeName2: [undefined],
           amount1: [undefined],
           amountInWords1: [undefined],
         });
@@ -273,13 +287,18 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       patraNum: [undefined],
-      paFile: [undefined],
       date: [undefined],
       customerName: [undefined],
       financeBranch: [undefined],
       customerAddress: [undefined],
+      customerAddressWard: [undefined],
+      customerAddressDistrict: [undefined],
       customerTempAddress: [undefined],
+      customerTempAddressWard: [undefined],
+      customerTempAddressDistrict: [undefined],
       customerCitizenshipAddress: [undefined],
+      customerCitizenshipAddressWard: [undefined],
+      customerCitizenshipAddressDistrict: [undefined],
       customerMobileNum: [undefined],
       primaryCollaterals: this.formBuilder.array([]),
       additionalCollaterals: this.formBuilder.array([]),
@@ -289,14 +308,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       distestPrice: [undefined],
       farePrice: [undefined],
       individualDetails: this.formBuilder.array([this.addIndividualDetails()]),
-      amount2: [undefined],
-      amountInWords2: [undefined],
-      amount3: [undefined],
-      amountInWords3: [undefined],
-      amount4: [undefined],
       telephoneNumber: [undefined],
       currentAddress1: [undefined],
-      customerMobileNum1: [undefined],
       customerEmail: [undefined],
       employeeName1: [undefined],
       employeeName2: [undefined],
@@ -327,6 +340,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       loanLimitTime: [undefined],
       serviceCharge: [undefined],
       vehicleType: [undefined],
+      isLandAndBuilding: [false],
+      isHP: [false]
     });
   }
 

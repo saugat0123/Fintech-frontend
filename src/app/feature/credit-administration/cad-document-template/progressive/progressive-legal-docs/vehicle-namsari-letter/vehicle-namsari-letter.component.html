@@ -1,0 +1,236 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.VEHICLE_NAMSARI_LETTER}}">
+    <div class="col-md-12 viewFull">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="nep">
+                <div class="row d-flex justify-content-around">
+                    <div class="col-md-6">
+                        <p>
+                            च.न. <input class="form-control-sm form-field nepaliFont"
+                                        type="text"
+                                        formControlName="patraNum">/
+                            <input class="form-control-sm form-field nepaliFont"
+                                   type="text"
+                                   formControlName="patraNum2">
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">
+                            मिति :—
+                            <input class="form-control-sm form-field nepaliFont"
+                                   type="text"
+                                   formControlName="date">
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <p>श्रीमान् कार्यालय प्रमुखज्यू,<br>
+                        यातायात व्यवस्था कार्यालय<br>
+                        साना ठूला सवारी व्यवस्थापन विभाग<br>
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="province">
+                        प्रदेश, <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       formControlName="district">,
+                        <input class="form-control-sm form-field nepaliFont"
+                                 type="text"
+                                 formControlName="municipality"> ।
+                    </p>
+                </div>
+                <div class="text-center">
+                    <strong>विषयः नामसारी गरिदिने सम्बन्धमा ।</strong>
+                </div>
+                <br>
+                <p class="text-justify">
+                    महाशय,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;यस संस्थाबाट ऋणी
+                    <span *ngIf="isIndividual">
+                    <input class="form-control-sm form-field nepaliFont unicode-size16"
+                           type="text"
+                           formControlName="customerPermanentDistrict">
+                        जिल्ला, <input class="form-control-sm form-field nepaliFont"
+                                  type="text"
+                                  formControlName="customerPermanentVdc">
+                    गा.पा/न.पा/म.न.पा. वडा नं <input class="form-control-sm form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="customerPermanentVdcWard">
+                    स्थाई ठेगाना भई हाल <input class="form-control-sm form-field nepaliFont unicode-size16"
+                                               type="text"
+                                               formControlName="customerTemporaryDistrict">
+                    जिल्ला
+                    <input class="form-control-sm form-field nepaliFont unicode-size16"
+                           type="text"
+                           formControlName="customerTemporaryVdcMun">
+                    गा.पा/न.पा/म.न.पा. वडा नं <input class="form-control-sm form-field nepaliFont"
+                                                     type="text"
+                                                    formControlName="customerTemporaryWard">
+                    बस्ने श्री
+                    <input class="form-control-sm form-field nepaliFont"
+                            type="text"
+                            formControlName="customerName">
+                    (ना.प्र.नं. <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       formControlName="citizenshipNo">,
+                    <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       formControlName="citizenshipIssueAddress">)
+                    </span>
+                    <span *ngIf="!isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                        type="text"
+                        formControlName="companyDistrict">
+                        जिल्ला,
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyVdcMun">
+                        गा.पा/न.पा/म.न.पा वडा नं
+                        <input class="form-control-sm form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="companyWardNo">
+                        स्थित रजिष्टर्ड कार्यालय रहेको श्री <input class="form-control-sm form-field nepaliFont"
+                                                                   type="text"
+                                                                   formControlName="companyName">
+                        (Pan No
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="panNo">)
+                    </span>
+
+                    ले हायर पर्चेज कर्जा अन्तर्गत खरीद गर्ने गरी तपसिलमा लेखिए बमोजिमको इन्जिन नं., च्यासिस नं., दर्ता नं. को
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="vehicleName">
+                    <strong>गाडी/उपकरण</strong> धितो बापत रहने हुुनाले यस संस्थाको नाममा स्वामित्व धनी कायम गरी दिनु भई ऋणीमा श्री
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="debtorName">
+                    नाम राखी नामसारी दर्ता कायम गरी दिनु हुन अनुरोध गर्दछौ । उक्त नामसारी कार्यको लागि यस संस्थाका कर्मचारी <strong>श्री</strong>
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="officer">
+                    लाई अख्तियारी दिई पठाएका छौ । निज कर्मचारीको दस्तखत निम्न बमोजिम हुनेछ ।</p>
+                    <p class="text-center"><strong>धन्यवाद ! ! !</strong></p>
+                <div class="table-responsive">
+                    <div class="col-md-12 float-right">
+                        <button (click)="addMoreVehicleDetail()" class="btn btn-primary btn-sm float-right "
+                                size="tiny" type="button"><em
+                                class="fas fa-plus"></em></button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <caption style="caption-side: top; color: black;" class="text-center"><strong><u>तपसील</u></strong></caption>
+                        <tr>
+                            <th>क्र.स.</th>
+                            <th>सवारी साधन/उपकरणको विवरण</th>
+                            <th>ईन्जीन नं.</th>
+                            <th>चेसिस नं.</th>
+                            <th>दर्ता नं.</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let vehicleDetail of form.get('vehicleDetails')['controls']; let i = index;"
+                               formArrayName="vehicleDetails">
+                        <tr [formGroupName]="i">
+                            <td>{{i+1 | nepaliNumber}}.</td>
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont" id='vehicleSpecification'
+                                       formControlName="vehicleSpecification"
+                                       type="text"/>,
+                                <input class="form-field form-control-sm" id='upakaran'
+                                       formControlName="upakaran"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm" id='engineNo'
+                                       formControlName="engineNo"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm" id='chassisNo'
+                                       formControlName="chassisNo"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont" id='registeredNo'
+                                       formControlName="registeredNo"
+                                       type="text"/>
+                            </td>
+                            <td *ngIf="form.get('vehicleDetails')['length']>1" style="width: 5%">
+                                <button (click)="removeVehicleDetail(i)"
+                                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                        value="Delete">
+                                    <em class="fas fa-trash" style="color: white;">
+                                    </em>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        कर्मचारीको दस्तखत
+                        <br><br>
+                        ..........................
+                    </div>
+                </div>
+                <div class="text-center">
+                    भवदीय,
+                </div>
+                <div class="row d-flex justify-content-between">
+                    <div class="float-left">
+                        <p>
+                            .................................
+                            <br>
+                            कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"
+                                                  type="text"
+                                                  formControlName="karmachariName">
+                            <br>
+                            पदः<input class="form-control-sm form-field nepaliFont"
+                                      type="text"
+                                      formControlName="postName">
+                            <br>
+                            प्रोग्रेशिभ फाइनान्स लि.<br>
+                            <input class="form-control-sm form-field nepaliFont unicode-size16"
+                                   type="text"
+                                   formControlName="branchName"> शाखा
+                        </p>
+                    </div>
+                    <div class="float-right">
+                        <p>
+                            .................................
+                            <br>
+                                कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="karmachariName2">
+                                <br>
+                                पदः<input class="form-control-sm form-field nepaliFont"
+                                          type="text"
+                                          formControlName="postName2">
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                <input class="form-control-sm form-field nepaliFont unicode-size16"
+                                       type="text"
+                                       formControlName="branchName"> शाखा
+                        </p>
+                    </div>
+                </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                nbButton
+                status="info"
+                printSectionId="print-section-{{ offerLetterConst.VEHICLE_NAMSARI_LETTER }}"
+                ngxPrint> Print
+        </button>
+    </div>
+</div>
+<app-vehicle-namsari-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                                    hidden></app-vehicle-namsari-letter-print>
+

@@ -7,7 +7,7 @@
                         <div class="row d-flex justify-content-around" style="margin-top: 50px">
                             <div class="col-md-6">
                                 <p>
-                                    प.सं. प्रो.फा.लि
+                                    प.सं. प्रो.फा.लि.
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="patraNum">
@@ -39,11 +39,20 @@
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        readonly
-                                       [value]="form.get('customerWardNum').value">
+                                       [value]="form.get('customerWardNum').value">,
                                 <input class="form-control-sm form-field nepaliFont uniFont"
                                        readonly
                                        type="text"
-                                       [value]="form.get('customerDistrict').value">
+                                       [value]="form.get('customerDistrict').value"> (साबिक
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       formControlName="permanentVdc"> न.पा./गा. बि. स., वडा नं.
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       formControlName="permanentVdcWard">)
+
                             </p>
                             <p>
                                 हाल
@@ -118,7 +127,10 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                            <td rowspan="10" *ngIf="form.get('loanFacilityTable')['controls'].length<=1 else index"></td>
+                                            <ng-template #index>
+                                                <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                            </ng-template>
                                             <td style="width: 18%"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                             <td>
                                                 <input *ngIf="i > 0; else firstIndexLoanType"
@@ -183,10 +195,16 @@
                                             <td>
                                                 स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input *ngIf="i == 0; else Byajdar" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="interestFinalRate">
+                                                <ng-template #Byajdar>
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="interestFinalRate">
+                                                </ng-template>
 
                                                 प्रतिशत बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि महिनाको अन्तमा वा
                                                 अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा नेपाल
@@ -251,7 +269,7 @@
                                                            [value]="form.get(['loanFacilityTable', i, 'interestTempDiscountRate']).value">
                                                     % =
 
-                                                    <input
+                                                    <input *ngIf="i == 0; else Byajdar"
                                                             class="form-control-sm form-field nepaliFont font-size-normal"
                                                             type="text"
                                                             readonly
@@ -273,10 +291,16 @@
                                                 प्रतिशतले
                                                 हुनआउने रकम रु.
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input *ngIf="i == 0; else serviceFeeAmount" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="serviceFeeAmount">
+                                                <ng-template #serviceFeeAmount>
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="serviceFeeAmount">
+                                                </ng-template>
 
                                                 /–
                                             </td>
@@ -329,7 +353,7 @@
                                             <td><strong>प्रतिवद्धता शुल्क :</strong></td>
                                             <td>
                                                 रु.
-                                                <input class="form-control-sm form-field nepaliFont uniFont"
+                                                <input *ngIf="i > 0; else firstIndex" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get(['loanFacilityTable', i, 'amount']).value}}"
@@ -405,7 +429,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>धितो राखिने जायजेथाको बिबरण</strong>
-                                        <table class="table table-bordered">
+                                        <table class="table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>जग्गा धनिको नाम र तीन पूस्ते</th>
@@ -440,28 +464,44 @@
                                                     <br>
                                                     ठेगाना :
                                                     <input class="form-control-sm form-field nepaliFont uniFont"
-                                                           formControlName="address"
+                                                           formControlName="collateralPerMunVdc"
+                                                           readonly
+                                                           type="text">, वडा नं.
+                                                    <input class="form-control-sm form-field nepaliFont"
+                                                           formControlName="collateralPerWard"
+                                                           readonly
+                                                           type="text">,
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           formControlName="collateralPerDis"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                 </th>
                                                 <td>
-                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            readonly
-                                                           formControlName="jaggaDistrict">;
+                                                           formControlName="jaggaDistrict">
                                                 </td>
                                                 <td>
-                                                    स।बिक:
-                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    साबिक:
+                                                    <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            readonly
-                                                           formControlName="jaggaWard">
+                                                           formControlName="sabikMunVdc">, वडा नं.
+                                                    <input class="form-control-sm form-field nepaliFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="sabikWardNo">
                                                     <br>
-                                                    हाल: <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    हाल: <input class="form-control-sm form-field nepaliFont"
                                                                 type="text"
                                                                 readonly
-                                                                formControlName="hal">
+                                                                formControlName="halMunVdc">, वडा नं.
+                                                    <input class="form-control-sm form-field nepaliFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="halWardNo">
                                                 </td>
                                                 <td>
                                                     <input class="form-control-sm form-field nepaliFont"
@@ -503,7 +543,7 @@
                                                readonly
                                                formControlName="valuatorName">
 
-                                        बाट मुल्याङ्कित फेयस मार्केट मुल्य रु.
+                                        बाट मुल्याङ्कित फेयर मार्केट मुल्य रु.
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
@@ -516,13 +556,14 @@
                                                readonly
                                                formControlName="distressValue">
 
-                                        को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
+                                        को घर/जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
                                         लिगलगापात फाइनान्सको
                                         नाममा धितो वन्धकीको लिखत
                                         लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
                                         <input
-                                                class="form-control-sm form-field nepaliFont"
+                                                class="form-control-sm form-field nepaliFont uniFont"
                                                 type="text"
+                                                value="{{form.get('amount3').value}}"
                                                 formControlName="dhitoLekhi">
 
                                         मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -537,8 +578,9 @@
                                                formControlName="guarantorName">
                                         को रु.
                                         <input
-                                                class="form-control-sm form-field nepaliFont"
+                                                class="form-control-sm form-field nepaliFont uniFont"
                                                 type="text"
+                                                value="{{form.get('amount3').value}}"
                                                 (input)="getNumAmountWord('amount2','amountInWords2')"
                                                 formControlName="amount2">
                                         /–
@@ -546,6 +588,7 @@
                                         <input class="form-control-lg form-field nepaliFont uniFont"
                                                readonly
                                                type="text"
+                                               value="{{form.get('amountInWords3').value}}"
                                                formControlName="amountInWords2">
                                         मात्र ) को व्यक्तिगत जमानीको लिखत ।
                                     </td>
@@ -816,6 +859,25 @@
                                         छ ।
                                     </td>
                                 </tr>
+                                <tr *ngFor="let sartBandej of form.get('sartBandej')['controls']; index as i"
+                                    formArrayName="sartBandej">
+                                    <td [formGroupName]="i"><input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="sNo"></td>
+                                    <td [formGroupName]="i"><textarea class="form-control nepaliFont" rows="4" name="sartBandej" formControlName="sartBandej"
+                                              style="width: 100%;display: block;margin-right: auto;margin-left: 0; color: black;">
+                                    </textarea>
+                                        <button
+                                                (click)="removeSartBandej(i)"
+                                                class="mt-3 mb-3 float-right" nbButton
+                                                size="small"
+                                                status="primary"> हटाउनुहोस्
+                                        </button></td>
+                                </tr>
+                                <button (click)="addSartBandej()" nbButton size="small" status="info" class="float-right"
+                                        type="Button">
+                                    अन्य शर्त वन्देजहरु थप्नुहोस्
+                                </button>
                                 <tr>
                                     <td><strong>८.</strong></td>
                                     <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
@@ -1067,7 +1129,7 @@
                                                         formControlName="financeDistrict">
                                                 जिल्ला ।<br>
                                                 टेलिफोन :
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="financeTelephoneNum">
@@ -1366,13 +1428,11 @@
                                         <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
-                                               value="{{form.get('financeBranch').value}}"
-                                               formControlName="officeType">
+                                               value="{{form.get('financeBranch').value}}">
                                         शाखा,
                                         <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
-                                               formControlName="branchName"
                                                [value]="form.get('financeMunicipality').value">।
                                     </p>
                                 </div>
@@ -1451,14 +1511,22 @@
                                                        readonly
                                                        formControlName="municipalityName">
                                                 <strong>
-                                                    न.पा/म.न.पा
-                                                    वडा नं
+                                                    न.पा/म.न.पा.
+                                                    वडा नं.
                                                 </strong>
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="guarantorWardNo"
-                                                       size="2">
+                                                       size="2"> (साबिक
+                                                <input class="form-control-sm form-field nepaliFont"
+                                                       readonly
+                                                       type="text"
+                                                       formControlName="guarantorPermanentVdc"> न.पा./गा. बि. स.,  वडा नं.
+                                                <input class="form-control-sm form-field nepaliFont"
+                                                       readonly
+                                                       type="text"
+                                                       formControlName="guarantorPermanentVdcWard">)
                                             </p>
                                         </li>
                                         <li>
@@ -1467,6 +1535,20 @@
                                                 type="text"
                                                 readonly
                                                 formControlName="guarantorRelation">
+                                        </li>
+                                        <li>
+                                            वाजे/बजैको नामः <strong>श्री</strong>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="guarantorGrandFatherName">
+                                        </li>
+                                        <li>
+                                            वावु/आमाको नामः <strong>श्री</strong>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="guarantorFatherName">
                                         </li>
                                         <li>
                                             ससुराको नामः <strong>श्री</strong>

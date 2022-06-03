@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
-import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -33,6 +32,8 @@ export class LetterOfInstallmentsComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: Document;
   nepaliData;
+  nepDataPersonal: any;
+  isIndividual = false;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,6 +47,16 @@ export class LetterOfInstallmentsComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+    }
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (this.cadData.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+        this.isIndividual = true;
+      } else {
+        this.isIndividual = false;
+      }
+    }
     this.fillForm();
   }
 
@@ -55,16 +66,38 @@ export class LetterOfInstallmentsComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantorDetails(initialInfo.guarantorData);
+          // this.setGuarantorDetails(initialInfo.guarantorData);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        customerName:  this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+        customerName2: this.isIndividual ? this.nepaliData.name : this.nepaliData.representativeName,
+        branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
+        kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : ''
+      });
+
+      this.nepaliData.guarantorDetails.forEach((value, i) => {
+        if (value.guarantorType === 'Personal_Guarantor') {
+          this.form.patchValue({
+            guarantorName: !ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : '',
+            guarantorDistrict: !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+                value.guarantorPermanentDistrict.nepaliName : '',
+            guarantorMunVdc: !ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+                value.guarantorPermanentMunicipality.nepaliName : '',
+            guarantorWardNo: !ObjectUtil.isEmpty(value.guarantorPermanentWard) ?
+                value.guarantorPermanentWard : '',
+          });
+        }
       });
     }
   }
@@ -115,6 +148,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
       date: [undefined],
       branchName: [undefined],
       customerName: [undefined],
+      customerName2: [undefined],
       karjaAmount: [undefined],
       timePeriod: [undefined],
       kistaAmount: [undefined],
@@ -122,10 +156,12 @@ export class LetterOfInstallmentsComponent implements OnInit {
       kista: [undefined],
       debtorSign: [undefined],
       debtorName: [undefined],
-      InstitutionStamp: [undefined],
       guarantorName: [undefined],
       guarantorAddress: [undefined],
-      guarantorData: this.formBuilder.array([]),
+      guarantorDistrict: [undefined],
+      guarantorMunVdc: [undefined],
+      guarantorWardNo: [undefined],
+      // guarantorData: this.formBuilder.array([]),
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],
@@ -139,11 +175,12 @@ export class LetterOfInstallmentsComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      witnessWardNo1: [undefined],
+      installmentAmount: [undefined],
 
-    });
+  });
   }
-  addGuarantor(): void {
+  /*addGuarantor(): void {
     const formArray = this.form.get('guarantorData') as FormArray;
     formArray.push(this.guarantorFormGroup());
   }
@@ -171,7 +208,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         guarantorAddress: [value.guarantorAddress],
       }));
     });
-  }
+  }*/
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);

@@ -62,9 +62,29 @@ export class CrossGuaranteeBondComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        banijyaOffice: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        middleDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        middlePraliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        middleRegDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        middleRegMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        middleRegWadNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        buttonPersonName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        buttonSanchalakName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        buttonHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        downDistrictName: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        downMunicipalityName: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        downWadno: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        downTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        downTempMunicplaity: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        downTempWadNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        downAge: this.nepaliData.borrowerAge ? this.nepaliData.borrowerAge : '',
+        downDebtorName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
     }
   }

@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -33,6 +32,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmount;
 
   constructor(private dialogRef: NbDialogRef<HypothecationOfGoodsAndReceivablesBComponent>,
               private formBuilder: FormBuilder,
@@ -49,12 +49,16 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
   }
 
   fillForm() {
+    this.loanAmount = JSON.parse(this.cadData.nepData);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantors(initialInfo.guarantorDetail);
+          //this.setGuarantors(initialInfo.guarantorDetail);
+          if (!ObjectUtil.isEmpty(initialInfo.samaanBibaran)) {
+            this.setSamaanBibaran(initialInfo.samaanBibaran);
+          }
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -64,11 +68,44 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        districtName: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        municipalityName: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        wardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        matralayaName: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
+        bibhagCompany: this.nepaliData.department ? this.nepaliData.department : '',
+        regOffice: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        act:  this.nepaliData.nameOfRegisteringAct ? this.nepaliData.nameOfRegisteringAct : '',
+        actDate: this.nepaliData.yearOfActEnactment ? this.nepaliData.yearOfActEnactment : '',
+        pvtNo: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        karDataKaryalaya: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        karDataDate: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        sthaiLekhaNo: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        pramanPatraNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        pramanPatraDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        pramanPatraMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        pramanPatraWadNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        secSecurityOffice: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        sanchalak: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        pratinidhiGrandSon: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        pratinidhiDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        pratinidhiMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        pratinidhiWard: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        pratinidhiPermDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        pratinidhiPermMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        pratinidhiPermWard: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        customerName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        customerCitizenShipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        customerCitizenShipDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        customerCitizenShipDistrict: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        karjaRu: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '',
+        karjaRuWord: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
+        sawikMunicipality: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        sawikWard: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        pratinidhiSpouse: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
       });
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -133,9 +170,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       pramanPatraWadNo: [undefined],
       secSecurityOffice: [undefined],
       sanchalak: [undefined],
-      pratinidhiName: [undefined],
       pratinidhiGrandSon: [undefined],
-      pratinidhiChild: [undefined],
       pratinidhiSpouse: [undefined],
       pratinidhiDistrict: [undefined],
       pratinidhiMunicipality: [undefined],
@@ -153,9 +188,6 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       karjaRuWord: [undefined],
       tapsilMulyaRu: [undefined],
       tapsilMulyaWord: [undefined],
-      tapsilSN: [undefined],
-      tapsilBibaran: [undefined],
-      tapsilMulya: [undefined],
       signName: [undefined],
       signCitizenNo: [undefined],
       signDate: [undefined],
@@ -169,11 +201,8 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       currentMunicipality: [undefined],
       currentWard: [undefined],
       signFatherName: [undefined],
-      signMotherName: [undefined],
       signGrandFatherName: [undefined],
-      signGrandMotherName: [undefined],
       signHusbandName: [undefined],
-      signWifeName: [undefined],
       sanakhatPersonName: [undefined],
       sanakhatPersonSymNo: [undefined],
       itisambatYear: [undefined],
@@ -182,6 +211,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       itisambatTime: [undefined],
       itisambatSubham: [undefined],
       guarantorDetail: this.formBuilder.array([]),
+      samaanBibaran: this.formBuilder.array([]),
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],
@@ -238,6 +268,37 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
 
   removeGuarantor(index: number): void {
     const formArray = this.form.get('guarantorDetail') as FormArray;
+    formArray.removeAt(index);
+  }
+
+  samaanBibaranFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      tapsilBibaran: [undefined],
+      tapsilMulya: [undefined]
+    });
+  }
+
+  setSamaanBibaran(data) {
+    const formArray = this.form.get('samaanBibaran') as FormArray;
+    if (data.length === 0) {
+      this.addMoreSamaanBibaran();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        tapsilBibaran: [value.tapsilBibaran],
+        tapsilMulya: [value.tapsilMulya],
+      }));
+    });
+  }
+
+  addMoreSamaanBibaran(): void {
+    const formArray = this.form.get('samaanBibaran') as FormArray;
+    formArray.push(this.samaanBibaranFormGroup());
+  }
+
+  removeSamaanBibaran(index: number): void {
+    const formArray = this.form.get('samaanBibaran') as FormArray;
     formArray.removeAt(index);
   }
 

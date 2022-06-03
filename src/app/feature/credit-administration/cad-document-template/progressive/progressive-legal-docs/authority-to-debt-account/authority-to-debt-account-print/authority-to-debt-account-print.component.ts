@@ -8,7 +8,9 @@ import {ProgressiveLegalDocConst} from '../../progressive-legal-doc-const';
 })
 export class AuthorityToDebtAccountPrintComponent implements OnInit {
   @Input() printDocForm;
+  @Input() loanCat;
   offerLetterConst = ProgressiveLegalDocConst;
+
   constructor() { }
 
   ngOnInit() {

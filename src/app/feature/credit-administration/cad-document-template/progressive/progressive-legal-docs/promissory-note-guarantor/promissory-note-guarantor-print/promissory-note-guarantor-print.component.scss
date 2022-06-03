@@ -3,16 +3,9 @@
 #detail {
   margin-left: 50px;
 }
-*{
-//margin-left:20px;
-//margin-right:10px;
-//justify-content: left;
-margin-top: 20px;
-}
-
 
 #fingerXap {
-  width: 500px;
+  width: 250px;
   margin-left: 10px;
   text-align: center;
 }
@@ -32,4 +25,12 @@ margin-top: 20px;
 
 .unicode-size{
   font-size:12pt;
+}
+
+.uniFont{
+  font-size: 24px;
+}
+
+span {
+  line-height: 1;
 }

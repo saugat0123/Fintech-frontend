@@ -1,8 +1,10 @@
 @import '../../progressive-legal-docs.component';
 
+/*
 * {
   margin-top: 23px;
 }
+*/
 
 .bodyParagraphTable {
   text-align: justify;
@@ -15,10 +17,24 @@ p {
 }
 
 span {
-  font-size: 25px;
-  line-height: 1.5;
+  line-height: 1;
 }
 
 table {
   line-height: 1.1;
+}
+
+.unicode-size16{
+  font-size: 16px;
+}
+
+.unicode-size24{
+  font-size: 24px;
+}
+
+.unicode-size22{
+  font-size: 22px;
+}
+.unicode-size20{
+  font-size: 20px;
 }

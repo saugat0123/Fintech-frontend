@@ -37,3 +37,25 @@ p{
 .span-paragraph {
   line-height: 1.9em;
 }
+
+.unicode-size {
+  font-size: 12pt;
+}
+
+.unicode-size2{
+  font-size: 24px;
+}
+
+@media print {
+
+  @page {size: A4 landscape; }
+
+}
+
+tr {
+  page-break-inside: initial;
+}
+
+span{
+  line-height: 1;
+}

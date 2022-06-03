@@ -1,106 +1,98 @@
 <div class="container text-justify" class="row"
      id="print-section-{{offerLetterConst.LETTER_OF_LEIN}}">
-
   <div class="col-md-12 viewFull">
     <form class="nepali">
         <h6 class="text-center"><strong>ऋणीको नाममा जारी गरेको मुद्दती खाता रसिद विरुद्ध पेश्की दिएकोमा ग्रहणाधिकार–पत्र</strong></h6>
         <h6 class="text-center"><strong>(Letter of Lien)</strong></h6>
       <p class="text-right"> मिति:
         <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
-    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
-</span>
+            {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+        </span>
       </p>
+      <div class="row">
+      <div class="col-md-12">
       <strong> प्रोग्रेशिभ फाइनान्स लि.</strong>
       <br>
-      <strong> <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
-</span>शाखा।</strong>
-      <br>
-      <br>
-      <div class="row ">
-
-        <p>महोदय, <br>
-          <br>
-            म/हामी <span [ngClass]="{'nepaliFont' : printDocForm?.name !== null && printDocForm?.name !== ''}">
-    {{printDocForm?.name === null || printDocForm?.name === '' ? '_________________' : printDocForm?.name}}
-</span>लाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
-            बैकिङ्ग सुविधाहरु
-            उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्यकुनै प्रकारबाट उधारो वा ऋण
-            सेवा प्रदान गरिएकोमा म/हामी रु.<span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
-            {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
-            </span>
-            अक्षरेंपी <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
-            {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '_________________' : printDocForm?.amountInWords}}
-            </span>कोे मेरो नामको निम्न विवरणको
-            मुद्दती खाताको रसिद त्यस
-            वित्तीय संस्थालाई ग्रहणा धिकार–पत्र स्वरुप पेश गर्दछु/छौ। कथम कदाचित मैले/हामीले
-            मेरो/हाम्रो खाता माग गरिएको समयमा मिलान गर्न
-            असफल भएमा वा मेरो/हाम्रो दायित्व पुरा नगरेमा वा त्यस वित्तीय संस्थाप्रति आफ्नो वचनवद्धता कुनै
-            प्रकार वा तरिकबाट पुरा नगरेमा यस
-            मामिलामा त्यस वित्तीय संस्थाको अधिकार तथा उपचारमा कुनै पूर्वाग्रह नराखी त्यस वित्तीय
-            संस्थाले मुद्दती खाता रसिदहरुबाट म्याद पुग्ने
-            मिति वा सो अगावै कुनै पनि समयमा म/हामीलाई विना सूचना आफ्नो लेना असुल उपर गरी सोबाट मेरो/हाम्रो
-            खाता, दायित्व वा त्यस
-            वित्तीय संस्थाप्रतिको वचनवद्धता (commitment) मिलानगर्न म/हामी यसै पत्रसाथ अपरिवर्र्तीत
-            (irrevocably) र निश्चित
-            रुपले (expressly) अधिकार प्रत्यायोजन गर्दछु/छौं।
-        </p>
+          <strong><span [ngClass]="{'nepaliFont unicode-size16' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+              {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+          </span>शाखा।</strong>
       </div>
-      <p class="text-center">उपरोक्त उल्लेखित मुद्दती खाता रसिदहरुको विवरण</p>
-      <div style="overflow-x: auto">
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+        <p>महोदय, <br>
+            म/हामी <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+            {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}</span>लाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
+            बैकिङ्ग सुविधाहरु उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्यकुनै प्रकारबाट उधारो वा ऋण सेवा प्रदान गरिएकोमा म/हामी रु.
+            <span [ngClass]="{'nepaliFont unicode-size16' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
+            </span>अक्षरेंपी
+            <span [ngClass]="{'nepaliFont unicode-size16' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '_________________' : printDocForm?.amountInWords}}
+            </span>कोे मेरो नामको निम्न विवरणको मुद्दती खाताको रसिद त्यस वित्तीय संस्थालाई ग्रहणा धिकार–पत्र स्वरुप पेश गर्दछु/छौ। कथम कदाचित मैले/हामीले
+            मेरो/हाम्रो खाता माग गरिएको समयमा मिलान गर्न असफल भएमा वा मेरो/हाम्रो दायित्व पुरा नगरेमा वा त्यस वित्तीय संस्थाप्रति आफ्नो वचनवद्धता कुनै
+            प्रकार वा तरिकबाट पुरा नगरेमा यस मामिलामा त्यस वित्तीय संस्थाको अधिकार तथा उपचारमा कुनै पूर्वाग्रह नराखी त्यस वित्तीय संस्थाले मुद्दती खाता रसिदहरुबाट
+            म्याद पुग्ने मिति वा सो अगावै कुनै पनि समयमा म/हामीलाई विना सूचना आफ्नो लेना असुल उपर गरी सोबाट मेरो/हाम्रो खाता, दायित्व वा त्यस वित्तीय
+            संस्थाप्रतिको वचनवद्धता (commitment) मिलानगर्न म/हामी यसै पत्रसाथ अपरिवर्र्तीत (irrevocably) र निश्चित रुपले (expressly) अधिकार
+            प्रत्यायोजन गर्दछु/छौं।
+        </p>
+        </div>
+      </div>
+      <div>
         <table class="table table-bordered text-center table-responsive-md">
+          <caption style="caption-side: top; border: hidden" class="text-center">उपरोक्त उल्लेखित मुद्दती खाता रसिदहरुको विवरण</caption>
           <tr>
             <th>मुद्धति खाता रसिद</th>
             <th>जारी गर्ने शाखा</th>
             <th>खातावालको नाम</th>
             <th colspan="2">रकम</th>
-
           </tr>
           <tr>
             <td rowspan="2" style="width: 25%">
               <span [ngClass]="{'nepaliFont' : printDocForm?.muddatiKhata !== null && printDocForm?.muddatiKhata !== ''}">
-    {{printDocForm?.muddatiKhata === null || printDocForm?.muddatiKhata === '' ? '_________________' : printDocForm?.muddatiKhata}}
-</span></td>
+                {{printDocForm?.muddatiKhata === null || printDocForm?.muddatiKhata === '' ? '' : printDocForm?.muddatiKhata}}
+            </span></td>
             <td rowspan="2" style="width: 25%">
-                <span [ngClass]="{'nepaliFont' : printDocForm?.jariBranch !== null && printDocForm?.jariBranch !== ''}">
-    {{printDocForm?.jariBranch === null || printDocForm?.jariBranch === '' ? '_________________' : printDocForm?.jariBranch}}
-</span>
+            <span [ngClass]="{'nepaliFont unicode-size16' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '' : printDocForm?.branchName}}
+            </span>
             </td>
-            <td rowspan="2" style="width: 25%">  <span [ngClass]="{'nepaliFont' : printDocForm?.khatawalName !== null && printDocForm?.khatawalName !== ''}">
-    {{printDocForm?.khatawalName === null || printDocForm?.khatawalName === '' ? '_________________' : printDocForm?.khatawalName}}
-</span></td>
+            <td rowspan="2" style="width: 25%">
+            <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '' : printDocForm?.customerName}}
+            </span></td>
             <th width="5%">रु.</th>
             <th width="5%">पैसा</th>
           </tr>
           <tr>
-            <td style="width: 25%"> <span [ngClass]="{'nepaliFont' : printDocForm?.tableAmount !== null && printDocForm?.tableAmount !== ''}">
-    {{printDocForm?.tableAmount === null || printDocForm?.tableAmount === '' ? '_________________' : printDocForm?.tableAmount}}
-</span></td>
-            <td style="width: 25%"> <span [ngClass]="{'nepaliFont' : printDocForm?.tablePaisa !== null && printDocForm?.tablePaisa !== ''}">
-    {{printDocForm?.tablePaisa === null || printDocForm?.tablePaisa === '' ? '_________________' : printDocForm?.tablePaisa}}
-</span></td>
+            <td style="width: 25%">
+            <span [ngClass]="{'nepaliFont' : printDocForm?.tableAmount !== null && printDocForm?.tableAmount !== ''}">
+                {{printDocForm?.tableAmount === null || printDocForm?.tableAmount === '' ? '&nbsp;' : printDocForm?.tableAmount}}
+            </span></td>
+            <td style="width: 25%">
+            <span [ngClass]="{'nepaliFont' : printDocForm?.tablePaisa !== null && printDocForm?.tablePaisa !== ''}">
+                {{printDocForm?.tablePaisa === null || printDocForm?.tablePaisa === '' ? '&nbsp;' : printDocForm?.tablePaisa}}
+            </span></td>
           </tr>
         </table>
       </div>
+      <br>
       <div>
         <p>भवदीय,
           <br>
-          दस्तखत : .......................
-          <br>
-          नाम :  <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-</span>
-          <br>
-          ठेगाना :  <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
-    {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
-</span>
-
+          दस्तखत : ..............................................
+          <br>नाम :
+            <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+            </span><br>ठेगाना :
+            <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
+                {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
+            </span>
         </p>
         <p class="text-right" style="margin-right: 16rem">संस्थाको छाप : </p>
       </div>
-
     </form>
-
   </div>
 </div>
 

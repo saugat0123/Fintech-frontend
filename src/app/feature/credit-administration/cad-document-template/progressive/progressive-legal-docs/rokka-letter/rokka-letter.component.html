@@ -2,158 +2,113 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form" id="rokkaLetter" class="viewFull">
             <div class="row d-flex justify-content-around" style="margin-top: 50px">
-                <div class="col-md-6">
-                    <p>
-                        शाखा कार्यालय <input class="form-control-sm form-field nepaliFont"
-                                             type="text"
-                                             formControlName="branchName">
-                    </p>
-                    <p>
-                        प.सं. प्रो.फा.लि
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="letterNumber">
-                    </p>
-                    <p>
-                        श्रीमान् प्रमुख मालपोत अधिकृतज्यू,
-                    </p>
-                    <p>
-                        मालपोत कार्यालय
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="landRevenueOffice"> ।
-                    </p>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <p class="text-right">
-                        मिती:
+                        <strong>मिति:</strong>
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
                                formControlName="date">
-
+                    </p>
+                    <p>
+                        <strong>च.न.</strong>
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="letterNumber">
+                        <br>
+                        श्रीमान् मालपोत अधिकृत ज्यू,
+                        <br>
+                        मालपोत कार्यालय,<br>
+                        रजिष्टेसन फाँट, <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="landRevenueOffice">।
                     </p>
                 </div>
+
             </div>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p class="font-weight-bold text-center">
-                        <u>विषय: घर/जग्गा धितो बन्धक पास गरी रोक्का राख्न प्रतिनिधि खटाई पठाएको बारे ।</u>
+                        <u>विषयः अचल जायजेथाको दृष्टिबन्धक लिखत् पारित गरी रोक्का राखी जानकारी दिने बारे ।</u>
                     </p>
                 </div>
                 <div class="col-md-12 mt-3">
-                    <p>
-                        महोदय,
-                    </p>
-                    <p class="mt-2">
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="perDistrict">
-                        जिल्ला
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="perMunicipality">
-                        न.पा.वडा नं
-                        <input class="form-control-sm form-field nepaliFont shortInput"
-                               type="text"
-                               formControlName="perWardNumber">
-                        भै हाल
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="tempDistrict">
+                    <p>महाशय,</p>
+                    यस संस्थाका ऋणी
+                    <span *ngIf="loanData?.customerType === 'INDIVIDUAL'">
+                        <!--                    <div>-->
+                        &emsp;<input class="form-control-sm form-field nepaliFont unicode-size16"
+                                     type="text"
+                                     formControlName="perDistrict">
                         जिल्ला,
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               formControlName="tempMunicipality">
-                        म.न.पा.वडा नं
+                               formControlName="perMunicipality">
+                        गा.वि.स./न.पा., वडा नं.
                         <input class="form-control-sm form-field nepaliFont shortInput"
                                type="text"
-                               formControlName="tempWardNo">
-                        स्थित
+                               formControlName="perWardNumber">
+                        बस्ने श्री
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               formControlName="tempAddress"> ,
-                        बस्ने
+                               formControlName="debtorName">
+                    </span>
+                    <span *ngIf="loanData?.customerType === 'INSTITUTION'">
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               formControlName="debtorName"> ले तपशीलको जेथाको
-                        मूल्याड्ढनले खामेसम्म अर्थात रु
+                               formControlName="corporateDistrict"> जिल्ला,
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               (input)="convertAmountInWords('loanAmount', 'loanAmountWords')"
-                               formControlName="loanAmount">
-                        (अक्षरेपीः
-                        <input class="form-control-sm form-field nepaliFont longMediumInput"
+                               formControlName="corporateMunicipality"> गा.पा/न.पा/मा.न.पा., वडा नं.
+                        <input class="form-control-sm form-field nepaliFont shortInput"
                                type="text"
-                               formControlName="loanAmountWords">
-                        रुपैया मात्र।) सम्म कर्जा उपभोग गर्न सक्ने गरी तपशिलको जाय जेथा यस कम्पनीलाई सूरक्षण लेखाई दिनू
-                        भएको हूनाले
-                        बैंक तथा वित्तिय संस्था सम्बन्धि ऐन कानुन बमोजिम तपशिलको जेथा धितोबन्धक लिखत् पारित गरी रोक्का
-                        राख्न प्रस्तूत पत्र
-                        प्रेषित गरेका छौं। अतः तहांबाट उक्त जेथा रोक्का राखी पे्रषित सक्कल रोक्का पत्रमा दरपिट गरी यस
-                        कम्पनीको फूकूवा
-                        पत्र लेखि नआएसम्म उक्त जेथा कूनै पनि व्यहोराले बेच बिखन, दान दान्तव्य हक हस्तान्तरण, धितो बन्धक
-                        इत्यादी गर्न
-                        नपाउने गरी तपशिलको जेथा रोक्का राखी सो को जानकारी यस कम्पनीलाई गराई पाउन सादर अनुरोध छ। सो
-                        कार्यका
-                        लागि यस कम्पनीका कर्मचारी श्री
+                               formControlName="corporateWardNumber">,
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               formControlName="companyStaffName"> लाई अख्तियार दिई पठाइएको
-                        व्यहोरा समेत अनुरोध छ।
-                    </p>
+                               formControlName="corporateAddress"> स्थित रजिष्टर्ड कार्यालय रहेको
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="corporateName"> को प्रो./प्रतिनिधि श्री
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="representativeName">
+                    </span>
+                        ले तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु.
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text" formControlName="loanAmount"
+                               (input)="getNumAmountWord('loanAmount','loanAmountWords')">/-
+                        (अक्षरुपीः <input class="form-control-sm form-field nepaliFont longMediumInput unicode-size16"
+                                          type="text"
+                                          formControlName="loanAmountWords"> मात्र ।)</strong> सम्म कर्जा उपभोग
+                        गर्न सक्ने गरी सुरक्षण वापत श्री
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="collateralName">
+                    ले यस कम्पनीलाई सूरक्षण लेखाई दिनू भएको हूनाले बैंक तथा वित्तिय संस्था सम्बन्धि ऐन २०७३ बमोजिम तपशिलको जेथा दृष्टिबन्धक
+                    लिखत्पारित गरी रोक्का राख्न प्रस्तूत पत्र प्रेषित गरेका छौं । अतः तहांबाट उक्त जेथा रोक्का राखी पे्रषित सक्कल रोक्का पत्रमा दरपिठ गरी
+                    यस कम्पनीको फूकूवा पत्र लेखि नआएसम्म उक्त जेथा कूनै पनि व्यहोराले बेच बिखन, दान दान्तव्य हक हस्तान्तरण, धितो बन्धक इत्यादी
+                    गर्न नपाउने गरी तपशिलको जेथा रोक्का राखी सो को जानकारी यस कम्पनीलाई गराई पाउंन सादर अनूरोध छ । सो कार्यका लागि यस कम्पनीका
+                    <strong>कर्मचारी
+                        श्री <input class="form-control-sm form-field nepaliFont"
+                                    type="text"
+                                    formControlName="companyStaffName"> लाई</strong>
+                    अख्तियार दिई पठाइएको व्यहोरा समेत अनूरोध छ ।
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <div class="row ml-1">
-                        <p class="my-auto">
-                            निजको दस्तखत नमूनाः
-                        </p>
-                        <span style="height: 65px; width: 150px; margin-left: 10px; border: 1px solid black;"></span>
-                    </div>
-                    <p>
-                        ना.प्र.नं.
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="naPramanPatraNumber">
-                    </p>
-
-                </div>
-            </div>
+            <p class="text-left font-weight-bold">
+                <u>तपशिल</u>
+            </p>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center font-weight-bold">
-                        <u>
-                            तपशिल
-                        </u>
-                    </p>
-                    <p class="text-center">
-                        रोक्का राख्ने जायजेथाको विवरण
-                    </p>
-                </div>
-                <div class="col-md-12 mt-2">
                     <table class="table table-bordered">
-                        <caption></caption>
-                        <thead>
+                        <caption *ngIf="form.get('personalSignatureArray')['length'] >= 1" style="caption-side: top" class="font-weight-bold">रोक्का राख्ने जायजेथाको विवरण</caption>
+                        <thead *ngIf="form.get('personalSignatureArray')['length'] >= 1">
                         <tr>
-                            <th>
-                                घर जग्गाधनिको नाम र तिनपूस्ते
-                            </th>
-                            <th width="14%">
-                                जिल्ला
-                            </th>
-                            <th>
-                                जग्गाको म.न.पा. र गा.वि.स.,वडा नं.
-                            </th>
-                            <th width="10%">
-                                कि.नं.
-                            </th>
-                            <th>
-                                क्षेत्रफल बिगाहा/ब.मी.
-                            </th>
-                            <th width="8%">
-                                सिट नं.
-                            </th>
+                            <th style="width: 40%">जग्गाधनिको विवरण</th>
+                            <th style="width:14%">जिल्ला</th>
+                            <th style="width: 20%">जग्गाको न.पा./गा.वि.स., वडा नं.</th>
+                            <th style="width:10%">कि.नं.</th>
+                            <th>क्षेत्रफल (रोपनी/ब.मी.)</th>
+                            <th style="width:8%">सिट नं.</th>
                         </tr>
                         </thead>
                         <tbody *ngFor="let personalSignatureSample of form.get('personalSignatureArray')['controls']; let i = index;"
@@ -162,82 +117,174 @@
                             <td>
                                 <p>
                                     जग्गाधनिको नामः
-                                    <br>
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
+                                           readonly
                                            formControlName="tableLandOwnerName">
                                 </p>
                                 <p>
                                     बाबुको नामः
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
+                                           readonly
                                            formControlName="tableFatherName">
                                 </p>
                                 <p>
                                     बाजेको नामः
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
+                                           readonly
                                            formControlName="tableGrandFather">
 
                                 </p>
-                                <p>
-                                    ठेगानाः <input class="form-control-sm form-field nepaliFont"
+                                <p class="text-justify">
+                                    ठेगाना: <input class="form-control-sm form-field nepaliFont unicode-size16"
                                                    type="text"
-                                                   formControlName="tableAddressName">
-                                </p>
-                                <p>
-                                    हालः
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           type="text"
-                                           formControlName="tableTempAddress">
-                                </p>
-                                <p>
-                                    ना.प्र.नं. ः
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           type="text"
-                                           formControlName="tableRegistrationNumber">
+                                                   readonly
+                                                   formControlName="landOwnerDistrict">
+                                    जिल्ला, <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="tablePerMun"> गा.पा/न.पा.,
+                                    वडा नं. <input class="form-control-sm form-field nepaliFont shortInput"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="tablePerWardNo">
                                 </p>
                             </td>
                             <td>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
+                                       readonly
                                        formControlName="tableDistrictName">
                             </td>
                             <td>
-                                <div class="col-md-12">
-                                    <p>
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               formControlName="tablePerAddress">
-                                    </p>
-                                    <p>
-                                        हालः
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               formControlName="tableTempAddress2">
-                                    </p>
-                                </div>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableMunicipality">,
+                                <input class="form-control-sm form-field nepaliFont shortInput"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableOldWardNum">
                             </td>
                             <td>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
+                                       readonly
                                        formControlName="tableKittaNo">
                             </td>
                             <td>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
+                                       readonly
                                        formControlName="tablelandArea">
                             </td>
                             <td>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
+                                       readonly
                                        formControlName="tableSitNo">
                             </td>
                         </tr>
                         <div class="col-md-12">
                             <button
                                     (click)="removePersonalSampleTable(i)"
-                                    *ngIf="form.get('personalSignatureArray')['length'] > 1"
+                                    class="mt-3 mb-3" nbButton
+                                    size="small"
+                                    status="primary">हटाउनुहोस्
+                            </button>
+                        </div>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" *ngIf="loanData?.customerType === 'INSTITUTION'">
+                        <caption *ngIf="form.get('personalSignatureArray2')['length'] >= 1" style="caption-side: top" class="font-weight-bold">रोक्का राख्ने जायजेथाको विवरण</caption>
+                        <thead *ngIf="form.get('personalSignatureArray2')['length'] >= 1">
+                        <tr>
+                            <th style="width: 40%">जग्गाधनिको विवरण</th>
+                            <th style="width:14%">जिल्ला</th>
+                            <th style="width: 20%">जग्गाको न.पा./गा.वि.स., वडा नं.</th>
+                            <th style="width:10%">कि.नं.</th>
+                            <th>क्षेत्रफल (रोपनी/ब.मी.)</th>
+                            <th style="width:8%">सिट नं.</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let personalSignatureSample of form.get('personalSignatureArray2')['controls']; let i = index;"
+                               formArrayName="personalSignatureArray2">
+                        <tr [formGroupName]="i">
+                            <td>
+                                <p>
+                                    जग्गाधनिको नामः
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="institutionLandOwnerName">
+                                </p>
+                                <p>
+                                    दर्ता नं., मिति:
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="institutionRegistrationNo">,
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="institutionRegistrationDate">
+                                </p>
+                                <p>
+                                    प्यान नं.:
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="institutionPanNo">
+
+                                </p>
+                                <p class="text-justify">
+                                    ठेगाना: <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="institutionLandOwnerDistrict">
+                                    जिल्ला, <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="institutionPerMun"> गा.पा/न.पा.,
+                                    वडा नं. <input class="form-control-sm form-field nepaliFont shortInput"
+                                                   type="text"
+                                                   formControlName="institutionPerWardNo">
+                                </p>
+                            </td>
+                            <td>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableDistrictName">
+                            </td>
+                            <td>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableMunicipality">,
+                                <input class="form-control-sm form-field nepaliFont shortInput"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableOldWardNum">
+                            </td>
+                            <td>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableKittaNo">
+                            </td>
+                            <td>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tablelandArea">
+                            </td>
+                            <td>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       readonly
+                                       formControlName="tableSitNo">
+                            </td>
+                        </tr>
+                        <div class="col-md-12">
+                            <button
+                                    (click)="removePersonalSampleTable2(i)"
                                     class="mt-3 mb-3" nbButton
                                     size="small"
                                     status="primary">हटाउनुहोस्
@@ -247,61 +294,74 @@
                     </table>
                 </div>
             </div>
-            <div class="row mr-1 mb-3">
+            <!--<div class="row mr-1 mb-3">
                 <div class="col-md-12 text-right">
                     <button (click)="addPersonalSampleTable()" nbButton size="small" status="info" type="Button">
                         साक्षीहरु थप्नुहोस्
                     </button>
                 </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-md-12">
-                    <p>
-                        <u>
-                            उक्त जग्गाले चर्चेको लिगलगापात् समेत ।
+                    <p>.........................<br>
+                        कर्मचारीको दस्तखत
+                    </p>
+                    <p class="font-weight-bold">
+                        <u>बोधार्थ,<br>
+                            मालपोत कार्यालय<br>
+                            रोक्का फाँट,
+                            <input class="form-control-sm form-field nepaliFont"
+                                   type="text"
+                                   formControlName="rokkaFaatOffice">।
+                            <!--                           , <input class="form-control-sm form-field nepaliFont"-->
+                            <!--                                                                        type="text"-->
+                            <!--                                                                        formControlName="rokkaFaatOfficeDistrict"> ।-->
                         </u>
-                    </p>
-                    <p>
-                        बोधार्थः <input class="form-control-sm form-field nepaliFont"
-                                        type="text"
-                                        formControlName="tableBodartha">
-                    </p>
-                    <p>
-                        श्री रोक्का फांट
                     </p>
                 </div>
             </div>
+            <p class="text-left">भवदीय,</p>
             <div class="row d-flex justify-content-around">
                 <div class="col-md-6">
                     <p>
                         .................................
+                        <br><strong>
+                        कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"
+                                              type="text"
+                                              formControlName="karmachariName">
                         <br>
-                        आधिकारीक हस्ताक्षर
+                        पदः<input class="form-control-sm form-field nepaliFont"
+                                  type="text"
+                                  formControlName="postName">
                         <br>
-                        कर्जा विभा
-                        <br>
-                        <input class="form-control-sm form-field nepaliFont"
+                        प्रोग्रेशिभ फाइनान्स लि.<br>
+                        <input class="form-control-sm form-field nepaliFont unicode-size16"
                                type="text"
-                               formControlName="financeBranchName"
-                               [value]="form.get('branchName').value"> शाखा
+                               [value]="form.get('branchName').value"
+                               formControlName="financeBranchName"> शाखा</strong>
                     </p>
                 </div>
                 <div class="col-md-6">
                     <p class="text-right">
                         .................................
                         <br>
-                        आधिकारीक हस्ताक्षर
-                        <br>
-                        शाखा प्रबन्धक
-                        <br>
-                        <input class="form-control-sm form-field nepaliFont"
-                               type="text"
-                               formControlName="financeBranchName2"
-                               [value]="form.get('branchName').value"> शाखा
+                        <strong>
+                            कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"
+                                                  type="text"
+                                                  formControlName="karmachariName2">
+                            <br>
+                            पदः<input class="form-control-sm form-field nepaliFont"
+                                      type="text"
+                                      formControlName="postName2">
+                            <br>
+                            प्रोग्रेशिभ फाइनान्स लि.<br>
+                            <input class="form-control-sm form-field nepaliFont unicode-size16"
+                                   type="text"
+                                   [value]="form.get('branchName').value"
+                                   formControlName="financeBranchName2"> शाखा</strong>
                     </p>
                 </div>
             </div>
-
             <div class="col-md-12">
                 <button class="btn btn-primary float-right" nbButton status="success" type="submit">
                     Save
@@ -311,10 +371,13 @@
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
                 class="btn btn-primary d-print-none float-left"
+                nbButton
+                status="info"
                 ngxPrint
                 printSectionId="print-section-{{ offerLetterConst.ROKKA_LETTER }}"> Print
         </button>
     </div>
 </div>
 
-<app-rokka-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" hidden></app-rokka-letter-print>
+<app-rokka-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                        [cadData] = "cadData" hidden></app-rokka-letter-print>

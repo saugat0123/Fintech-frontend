@@ -1,0 +1,293 @@
+<section class="row" id="{{offerLetterConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER}}">
+    <div class="col-md-12 viewFull text-justify">
+        <form [formGroup]="vehicleDeliveryForm" (ngSubmit)="onSubmit()">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <p class="text-right">
+                        कर्पोरेट कार्यालय, तिनकुने, काठमाण्डौ<br>
+                        मार्फतः शाखा कार्यालय, <input class="form-control-sm form-field nepaliFont size16"
+                                                      type="text"
+                                                      formControlName="branchName">,
+                        <input class="form-control-sm form-field nepaliFont size16"
+                               type="text"
+                               formControlName="branchDistrict">।
+                    </p>
+                </div>
+            </div>
+            <div class="nep">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="font-weight-bold">प.सं <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       formControlName="patraNumber"></p>
+                        <p><input class="form-control-sm form-field nepaliFont"
+                                  type="text"
+                                  formControlName="patraNumberTwo"><br>
+                            <input class="form-control-sm form-field nepaliFont"
+                                  type="text"
+                                  formControlName="patraNumberThree">,
+                            <input class="form-control-sm form-field nepaliFont"
+                                   type="text"
+                                   formControlName="patraNumberFour">
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="font-weight-bold text-right">
+                            मिति: <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       formControlName="date"></p>
+                    </div>
+                </div>
+                <main class="mt-2">
+                    <p class="text-center font-weight-bold my-3">
+                        विषय: <input class="form-control-sm form-field nepaliFont"
+                                     type="text"
+                                     formControlName="bisaya">
+                        डेलिभरी गरिदिने बारे ।
+                    </p>
+                    <p class="mt-2">महाशय,</p>
+<!--                    FOR INDIVIDUAL/PERSONAL-->
+                    <p>
+                    <span *ngIf="isIndividual">
+                        <input style="font-size: 16px !important;" class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerPermanentDistrict">
+                        जिल्ला, <input class="form-control-sm form-field nepaliFont"
+                                       type="text"
+                                       formControlName="customerPermanentVdc"> गा.पा/न.पा/म.न.पा., वडा नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerPermanentVdcWard"> स्थाई ठेगाना भई हाल
+                        <input style="font-size: 16px !important;" class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerTemporaryDistrict"> जिल्ला
+                        <input style="font-size: 16px !important;" class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerTemporaryVdcMun">
+                        गा.पा/न.पा/म.न.पा., वडा नं. <input class="form-control-sm form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="customerTemporaryWard">
+                        बस्ने श्री
+                        <span *ngIf="isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerName"></span>
+                        <span *ngIf="!isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyName">
+                        </span>
+                        (ना.प्र.नं. <input class="form-control-sm form-field nepaliFont"
+                                                                                  type="text"
+                                                                                  formControlName="citizenshipNo">
+                        , <input class="form-control-sm form-field nepaliFont"
+                                 type="text"
+                                 formControlName="citizenshipIssueAddress"> )</span>
+
+<!--                    FOR CORPORATE-->
+                    <span *ngIf="!isIndividual" class="my-3">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyDistrict">
+                        जिल्ला,
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyVdcMun">
+                        गा.पा/न.पा/म.न.पा., वडा नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyWardNo">
+                        स्थित रजिष्टर्ड कार्यालय रहेको श्री <input class="form-control-sm form-field nepaliFont"
+                                                                   type="text"
+                                                                   formControlName="companyName">
+                        PAN No. (<input class="form-control-sm form-field nepaliFont"
+                                type="text"
+                                formControlName="panNumber">)
+                        का संचालक/अखितयारी प्राप्त व्यक्ति/प्रतिनिधि/प्रोप्राईटर श्री <input class="form-control-sm form-field nepaliFont"
+                                                                                             type="text"
+                                                                                             formControlName="proprietor">
+                        </span>
+                    ले तेहांकोे मिति <input class="form-control-sm form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="dateTwo">
+                        कोे कोटेशन अनुसार रु. <input class="form-control-sm form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="vehiclePrice">
+                        /– मोल पर्ने <input class="form-control-sm form-field nepaliFont"
+                                            type="text"
+                                            formControlName="thanOne">
+                        थान
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="bisaya"
+                               type="text"/>
+                        हा.प./अटो कर्जा अन्तर्गत श्री
+                        <span *ngIf="isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerName"></span>
+                        <span *ngIf="!isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyName">
+                        </span>
+                        को नाममा खरिद गर्न यस संस्थामा दिएको निवेदन स्वीकृत भएकोले तपसिलमा उल्लेखित
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="thanTwo">
+                        थान
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="bisaya"
+                               type="text"/>
+                        निज श्री
+                        <span *ngIf="isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerName"></span>
+                        <span *ngIf="!isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyName">
+                        </span>
+                        लाई डेलिभरी गरिदिनुहुन अनुरोध गर्दछौँ ।</p>
+                    <p class="my-3">साथै तहाको उक्त कोटेशन अनुशारको रकम मध्यबाट मार्जिन वापतको रकम निज श्री
+                        <span *ngIf="isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="customerName"></span>
+                        <span *ngIf="!isIndividual">
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="companyName">
+                        </span>
+                        लिनुभई तपसिलमा उल्लेखित <input class="form-control-sm form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="thanThree"> थान
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="bisaya"
+                               type="text"/>
+                        यस संस्थाको नाममा नामसारी भै विलबुक तथा विमा पोलिसि उपलब्ध भएपछि तेंहालाई रु. <input class="form-control-sm form-field"
+                                                                                                            type="text"
+                                                                                                            formControlName="loanAmount">
+                        /– (अक्षेरेपी: <input class="form-control-sm form-field"
+                                              type="text"
+                                              formControlName="loanAmountInWords">
+                        मात्र ।) को चेकद्वारा भुक्तानी पठाई दिने व्यहोरा अनुरोध छ ।</p>
+
+                    <div class="mt-3">
+                        <p class="font-weight-bold my-3">तपसिल</p>
+                    </div>
+                    <div class="col-md-12 float-right my-2">
+                        <button nbButton status="success" (click)="addMoreVehicleDetail()" size="small" class=" float-right"><nb-icon icon="plus-outline"></nb-icon></button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>क्र.स.</th>
+                            <th>सवारी साधन/उपकरणको विवरण</th>
+                            <th>ईन्जीन नं.</th>
+                            <th>चेसिस नं.</th>
+                            <th>दर्ता नं.</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let vehicleDetail of vehicleDeliveryForm.get('vehicleDetails')['controls']; let i = index;"
+                               formArrayName="vehicleDetails">
+                        <tr [formGroupName]="i">
+                            <td>{{i+1 | nepaliNumber}}.</td>
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont" id='vehicleSpecification'
+                                       formControlName="vehicleSpecification"
+                                       type="text"/>,
+                                <input class="form-field form-control-sm" id='upakaran'
+                                       formControlName="upakaran"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm" id='engineNo'
+                                       formControlName="engineNo"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm" id='chassisNo'
+                                       formControlName="chassisNo"
+                                       type="text"/>
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont" id='registeredNo'
+                                       formControlName="registeredNo"
+                                       type="text"/>
+                            </td>
+                            <td *ngIf="vehicleDeliveryForm.get('vehicleDetails')['length']>1" style="width: 5%">
+                                <button (click)="removeVehicleDetail(i)"
+                                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                        value="Delete">
+                                    <em class="fas fa-trash" style="color: white;">
+                                    </em>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="my-3"><span class="font-weight-bold">नोटः</span> कोटेशन पत्रमा उल्लेखित रकम बराबरको रकम भ्याट बिलमा समेत हुनुपर्नेछ । फरक पर्न गएमा भ्याट बिलमा उल्लेख भएको रकमको अधिकतम
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="noteOne"> प्रतिशत सम्म मात्र भुक्रानी दिईनेछ । साथै यो पत्रको मितिले
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               formControlName="noteTwo"> दिनभित्र यस संस्थाको नाममा प्रस्तावित गाडि नामसारी भै दावि रकम भुक्तानी माग गरिसक्नुपर्नेछ । सो अवधि पश्चात् दावि रकम उपलब्ध गराउन संस्था बाध्य हुनेछैन ।</p>
+                    <p class="my-4">भवदीय,</p>
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <p>
+                                .................................
+                                <br>
+                                कर्मचारीको नामः <input class="form-control-sm form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="karmachariName">
+                                <br>
+                                पदः <input class="form-control-sm form-field nepaliFont"
+                                          type="text"
+                                          formControlName="postName">
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                कर्पोरेट कार्यालय
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-right">
+                                .................................
+                                <br>
+                                कर्मचारीको नामः<input class="form-control-sm form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="karmachariName2">
+                                <br>
+                                पदः<input class="form-control-sm form-field nepaliFont"
+                                          type="text"
+                                          formControlName="postName2">
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                कर्पोरेट कार्यालय
+                            </p>
+                        </div>
+                    </div>
+                </main>
+
+            </div>
+            <div class="col-md-12">
+                <button type="submit" (click)="onSubmit()" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                nbButton
+                status="info"
+                printSectionId="print-section-{{ offerLetterConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER }}"
+                ngxPrint> Print
+        </button>
+    </div>
+</section>
+<app-vehicle-delivery-purchase-order-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                                  [isIndividual]="isIndividual"
+                                  hidden></app-vehicle-delivery-purchase-order-letter-print>

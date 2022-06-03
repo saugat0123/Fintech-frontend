@@ -1,6 +1,13 @@
-
 .uniFont{
   font-size:  16px;
 }
 
+#fingerXap {
+  width: 50%
+}
 
+@media print {
+  tr {
+    break-inside: initial;
+  }
+}

@@ -28,13 +28,16 @@ export class NepDataPersonal {
     collateralName: string;
     collateralFatherName: string;
     collateralGrandFatherName: string;
-    collateralProvince: string;
-    collateralDistrict: string;
-    collateralMunVdc: string;
-    collateralWardNo: string;
+    collateralPermanentProvince: string;
+    collateralPermanentDistrict: string;
+    collateralPermanentMunVdc: string;
+    collateralPermanentWardNo: string;
     collateralTemporaryDistrict: string;
     collateralTemporaryMunVdc: string;
     collateralTemporaryWardNo: string;
+    collateralDistrict: string;
+    collateralMunVdcOriginal: string;
+    collateralMunVdcChanged: string;
     plotNo: string;
     areaOfCollateral: string;
     seatNo: string;
@@ -42,4 +45,16 @@ export class NepDataPersonal {
     valuatorName: string;
     fairMarketValue: string;
     distressValue: string;
+    collateralWardNoOld: string;
+    collateralProvinceNo: string;
+    wardNoNew: string;
+    toleNew: string;
+    toleOld: string;
+    plotNoOld: string;
+    collateralType: string;
+    numberNepali: string;
+    nepaliWords: string;
+    engNumber: number;
+    initDate: string;
+
 }

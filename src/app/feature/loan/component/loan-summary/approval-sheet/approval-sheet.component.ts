@@ -392,10 +392,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
-                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED')|| (this.loanDataHolder.documentStatus.toString() === 'CLOSED')) {
+                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
                         this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
                     } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED')));
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
                     }
                 } else {
                     this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));

@@ -22,11 +22,7 @@
                 <p>
                     महोदय,
                     <br>
-                    नेपाल सरकार, <input class="form-field form-control-sm nepaliFont"
-                                        formControlName="nepalSarkar"
-                                        placeholder=""
-                                        readonly
-                                        type="text"/> कम्पनी रजिष्ट्रारको कार्यालय/वाणिज्य विभाग/उद्योग विभाग
+                    नेपाल सरकार, कम्पनी रजिष्ट्रारको कार्यालय/वाणिज्य विभाग/उद्योग विभाग
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="udhyogBibhag"
                            placeholder=""
@@ -65,9 +61,18 @@
                                         readonly
                                         type="text"/>
                     मा दर्ता भएको <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="registeredName"
+                                         formControlName="companyDistrict"
                                          placeholder=""
                                          type="text"/>
+                    जिल्ला  <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="companyMunVdc"
+                                   placeholder=""
+                                   type="text"/>
+                    गा.पा./न.पा., वडा नं
+                    <input class="form-field form-control-sm nepaliFont shortInput"
+                           formControlName="companyWardNo"
+                           placeholder=""
+                           type="text"/>
                     स्थित<input class="form-field form-control-sm nepaliFont"
                                 formControlName="debtorName"
                                 placeholder=""
@@ -140,7 +145,7 @@
                                   placeholder=""
                                   readonly
                                   type="text"/>
-                    गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                    गा.पा./न.पा., वडा नं<input class="form-field form-control-sm nepaliFont shortInput"
                                              formControlName="signaturePersonPermanentWadNo"
                                              placeholder=""
                                              readonly
@@ -149,7 +154,7 @@
                                   formControlName="sabikVDC"
                                   placeholder=""
                                   type="text"/>
-                    गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
+                    गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                            formControlName="sabikWadNo"
                                            placeholder=""
                                            type="text"/>)
@@ -164,7 +169,7 @@
                                  placeholder=""
                                  readonly
                                  type="text"/>
-                    गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont"
+                    गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                               formControlName="signaturePersonTempWadNo"
                                               placeholder=""
                                               readonly
@@ -317,7 +322,7 @@
                                 formControlName="witnessMunicipality"
                                 placeholder=""
                                 type="text"/>
-                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont shortInput"
                                                      formControlName="witnessWardNo"
                                                      placeholder=""
                                                      type="text"/></td>
@@ -361,7 +366,7 @@
                                 formControlName="witnessMunicipality1"
                                 placeholder=""
                                 type="text"/>
-                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont shortInput"
                                                      formControlName="witnessWardNo1"
                                                      placeholder=""
                                                      type="text"/></td>
@@ -385,13 +390,14 @@
                                     type="text">
                     साल <input class="form-field nepaliFont form-control-sm" formControlName="itisambatMonth"
                                type="text">
-                    महिना <input class="form-field nepaliFont form-control-sm" formControlName="itisambatDate"
+                    महिना <input class="form-field nepaliFont shortInput form-control-sm" formControlName="itisambatDate"
                                  type="text">
                     गते <input class="form-field nepaliFont form-control-sm" formControlName="itisambatTime"
                                type="text">
                     रोज शुभम् <input class="form-field nepaliFont form-control-sm"
                                      formControlName="itisambatSubham"
-                                     type="text"><br>
+                                     type="text">
+                </p><br>
                     (संस्थागत)
             </div>
 
@@ -404,6 +410,8 @@
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
                 class="btn btn-primary d-print-none"
+                nbButton
+                status="info"
                 ngxPrint
                 printSectionId="print-section-{{ offerLetterConst.LETTER_OF_CONTINUITY_INSTITUTIONAL }}"> Print
         </button>

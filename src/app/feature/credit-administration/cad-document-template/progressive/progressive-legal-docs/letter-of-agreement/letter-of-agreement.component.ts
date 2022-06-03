@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -8,13 +8,13 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-letter-of-agreement',
@@ -35,6 +35,8 @@ export class LetterOfAgreementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal = new NepDataPersonal();
+  landAndBuildingCollaterals = new Array<any>();
 
   constructor(private dialogRef: NbDialogRef<LetterOfAgreementComponent>,
               private formBuilder: FormBuilder,
@@ -42,8 +44,7 @@ export class LetterOfAgreementComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -61,13 +62,15 @@ export class LetterOfAgreementComponent implements OnInit {
         }
       });
     }
-
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+      (this.nepaliData.collateralDetails).forEach(value => {
+        if (value.securityDetails === 'Land_And_Building') {
+          this.landAndBuildingCollaterals.push(value);
+        }
       });
+      this.setCollaterals(this.landAndBuildingCollaterals);
     }
   }
 
@@ -114,29 +117,9 @@ export class LetterOfAgreementComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      // district: [undefined],
-      // municipality: [undefined],
-      // wadNo: [undefined],
-      // grandParentName: [undefined],
-      // parentName: [undefined],
-      // age: [undefined],
-      // customerName: [undefined],
-      // municipalityWadNo: [undefined],
-      // tolName: [undefined],
-      // malpotOffice: [undefined],
-      // regNo: [undefined],
-      // date: [undefined],
-      // PassedDistrict: [undefined],
-      // PassedMunicipality: [undefined],
-      // PassedWadNo: [undefined],
-      // companyName: [undefined],
-      // amount: [undefined],
-      // amountInWord: [undefined],
-      // itiYear: [undefined],
-      // itiMonth: [undefined],
-      // itiDate: [undefined],
-      // itiSambat: [undefined]
-      tole: [undefined],
+      collateralDetails: this.formBuilder.array([]),
+      landAndBuildingCollaterals: this.formBuilder.array([]),
+      malpot: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
       perWardNo: [undefined],
@@ -148,6 +131,8 @@ export class LetterOfAgreementComponent implements OnInit {
       fatherName: [undefined],
       loanHolderAge: [undefined],
       loanHolderName: [undefined],
+      financeDistrict: [undefined],
+      financeMunicipality: [undefined],
       financeWardNo: [undefined],
       financeBranchName: [undefined],
       officeRegNo: [undefined],
@@ -161,8 +146,105 @@ export class LetterOfAgreementComponent implements OnInit {
       itiYear: [undefined],
       itiMonth: [undefined],
       itiDate: [undefined],
-      itiSambat: [undefined]
+      itiSambat: [undefined],
+      gender: [undefined]
     });
+  }
+  collateralFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      malpot: [undefined],
+      perDistrict: [undefined],
+      perMunicipality: [undefined],
+      perWardNo: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryMunicipalityVDC: [undefined],
+      temporaryWardNo: [undefined],
+      temporaryAddress: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      loanHolderAge: [undefined],
+      loanHolderName: [undefined],
+      financeDistrict: [undefined],
+      financeMunicipality: [undefined],
+      financeWardNo: [undefined],
+      financeBranchName: [undefined],
+      officeRegNo: [undefined],
+      financeRegistrationDate: [undefined],
+      districtName: [undefined],
+      municipalityName: [undefined],
+      wardNo: [undefined],
+      companyName: [undefined],
+      loanAmount: [undefined],
+      loanAmountWords: [undefined],
+      itiYear: [undefined],
+      itiMonth: [undefined],
+      itiDate: [undefined],
+      itiSambat: [undefined],
+    });
+  }
+  setCollaterals(data) {
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    const formArray = this.form.get('collateralDetails') as FormArray;
+    if (data.length === 0) {
+      this.addMoreCollateral();
+      return;
+    }
+    data.forEach((value, i) => {
+        formArray.push(this.formBuilder.group({
+          perDistrict: [value.collateralPermanentDistrict.nepaliName ? value.collateralPermanentDistrict.nepaliName : ''],
+          perMunicipality: [value.collateralPermanentMunVdc.nepaliName ? value.collateralPermanentMunVdc.nepaliName : ''],
+          perWardNo: [value.collateralPermanentWardNo ? value.collateralPermanentWardNo : ''],
+          grandFatherName: [value.collateralGrandFatherName ? value.collateralGrandFatherName : ''],
+          fatherName: [value.collateralFatherName ? value.collateralFatherName : ''],
+          loanHolderName: [value.collateralName ? value.collateralName : ''],
+          financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+          financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+          financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+          financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+          districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+          municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+          wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+          companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+          loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+          loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+          loanHolderAge: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].loanHolderAge : '' : '' : ''],
+          malpot: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].malpot : '' : '' : ''],
+          financeRegistrationDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].financeRegistrationDate : '' : '' : ''],
+          itiYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiYear : '' : '' : ''],
+          itiMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiMonth : '' : '' : ''],
+          itiDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiDate : '' : '' : ''],
+          itiSambat: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].itiSambat : '' : '' : ''],
+          officeRegNo : [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+              !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                      this.initialInfoPrint.collateralDetails[i].officeRegNo : '' : '' : '']
+        }));
+    });
+  }
+  addMoreCollateral(): void {
+    const formArray = this.form.get('collateralDetails') as FormArray;
+    formArray.push(this.collateralFormGroup());
   }
 
   getNumAmountWord(numLabel, wordLabel) {

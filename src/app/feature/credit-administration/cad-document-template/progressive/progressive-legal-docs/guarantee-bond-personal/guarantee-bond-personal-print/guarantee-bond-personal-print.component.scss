@@ -1,11 +1,63 @@
-@import '../../progressive-legal-docs.component';
+//@import '../../progressive-legal-docs.component';
 
 .fingerXap {
-  width: 500px;
+  width: 300px;
   text-align: center;
 }
 
 table {
   width: 100%;
-  text-align: center;
+}
+
+.unicode-size{
+  font-size: 16px;
+}
+
+.unicode-size2{
+ font-size: 24px;
+}
+
+@media print {
+  .pageBreak {
+    page-break-before: always !important;
+    page-break-after: always !important;
+  }
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color: transparent;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: transparent;
+  }
+}
+
+.nepali {
+  font-size: 16px;
+  line-height: 1.6;
+  @extend .text-justify !optional;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+tr{
+  break-inside: initial;
+}
+
+.nepaliFontPreeti{
+  font-family: Preeti;
+}
+
+tr {
+  break-inside: initial;
+}
+
+span {
+  line-height: 1;
 }

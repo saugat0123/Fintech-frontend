@@ -18,6 +18,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {sum} from 'd3';
 
 @Component({
   selector: 'app-hypothecation-of-goods-and-receivables-a',
@@ -36,6 +37,9 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  totalAmt = new Array<number>();
+  totalAmount: number = 0;
+  totalAmount2: number = 0;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -54,31 +58,12 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.fillForm();
-  }
-
-  fillForm() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.setAnusuchis(initialInfo.anusuchis);
-          this.setFinanceGuarantors(initialInfo.financeGuarantors);
-          this.setGuarantors(initialInfo.guarantors);
-          this.form.patchValue(this.initialInfoPrint);
-        }
-      });
-    }
-
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.initialInfoPrint.koshMaAdharit.forEach(val => {
+        this.totalAmt.push(this.nepToEngNumberPipe.transform(val.amount));
       });
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -176,6 +161,46 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
     (this.form.get('financeGuarantors') as FormArray).removeAt(index);
   }
 
+  setKoshMaAdharit(data) {
+    const formArray = this.form.get('koshMaAdharit') as FormArray;
+    /*if (data.length === 0) {
+      this.addEmptyKoshMaAdharit();
+      return;
+    }*/
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        name: [value.name],
+        amount: [value.amount]
+      }));
+    });
+  }
+
+  addEmptyKoshMaAdharit() {
+    (this.form.get('koshMaAdharit') as FormArray).push(
+        this.formBuilder.group({
+          name: [undefined],
+          amount: [undefined]
+        }));
+  }
+
+  removeKoshMaAdharit(index) {
+    this.addAmounts();
+    this.totalAmount = 0;
+    let sumAmount: number;
+    this.totalAmt.splice(index, 1);
+    if (this.totalAmt.length > 0) {
+      this.totalAmt.forEach(value => {
+        this.totalAmount = this.totalAmount + Number(value);
+      });
+    }
+    sumAmount = this.totalAmount + this.totalAmount2;
+    this.form.patchValue({
+      totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+      totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
+    });
+    (this.form.get('koshMaAdharit') as FormArray).removeAt(index);
+  }
+
   setGuarantors(data) {
     const formArray = this.form.get('guarantors') as FormArray;
     if (data.length === 0) {
@@ -203,20 +228,22 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       financePlace: [undefined],
+      financeMuni: [undefined],
+      financeWard: [undefined],
       financeBranch: [undefined],
-      customerName: [undefined],
-      customerAddress: [undefined],
+      companyName: [undefined],
+      companyAddress: [undefined],
       transactionPlace: [undefined],
       regNum: [undefined],
       regDate: [undefined],
       regOffice: [undefined],
-      properitierName: [undefined],
-      properitierAge: [undefined],
-      properitierCitizenNum: [undefined],
-      properitierCitizenAddress: [undefined],
-      properitierCurrentAddress: [undefined],
-      properitierParentName: [undefined],
-      properitierGrandParentName: [undefined],
+      proprietorName: [undefined],
+      proprietorAge: [undefined],
+      proprietorCitizenNum: [undefined],
+      proprietorCitizenAddress: [undefined],
+      proprietorCurrentAddress: [undefined],
+      proprietorParentName: [undefined],
+      proprietorGrandParentName: [undefined],
       loanApproveDate: [undefined],
       loanApprovePasa: [undefined],
       jamanatAmount: [undefined],
@@ -243,7 +270,54 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       guarantors: this.formBuilder.array([]),
       financeGuarantors: this.formBuilder.array([]),
       anusuchis: this.formBuilder.array([]),
+      koshMaAdharit: this.formBuilder.array([]),
     });
+  }
+
+  fillForm() {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.setAnusuchis(initialInfo.anusuchis);
+          this.setFinanceGuarantors(initialInfo.financeGuarantors);
+          this.setGuarantors(initialInfo.guarantors);
+          this.setKoshMaAdharit(initialInfo.koshMaAdharit);
+          this.form.patchValue(this.initialInfoPrint);
+        }
+      });
+    }
+
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+
+      const tempAddress = this.nepaliData.companyDistrict + ', ' +
+          this.nepaliData.companyVdcMun + ', ' + this.nepaliData.companyWardNo;
+      const tempPropCitizenAddress = this.nepaliData.representativePermanentDistrict + ', ' +
+          this.nepaliData.representativePermanentVdc + ', ' + this.nepaliData.representativePermanentVdcWard;
+      const tempPropCurrentAddress = this.nepaliData.representativeTemporaryDistrict + ', ' +
+          this.nepaliData.representativeTemporaryMunicipality + ', ' + this.nepaliData.representativeTemporaryWard;
+      const tempParentName = (!ObjectUtil.isEmpty(this.nepaliData.representativeFatherName) ?
+          this.nepaliData.representativeFatherName : '') + ' ÷ ' + (!ObjectUtil.isEmpty(this.nepaliData.representativeHusbandWifeName)
+          ? this.nepaliData.representativeHusbandWifeName : '');
+      this.form.patchValue({
+        financePlace: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        financeMuni: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        financeWard: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        companyAddress: [tempAddress ? tempAddress : ''],
+        regNum: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        proprietorName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        proprietorCitizenNum: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        proprietorCitizenAddress: tempPropCitizenAddress ? tempPropCitizenAddress : '',
+        proprietorCurrentAddress: tempPropCurrentAddress ? tempPropCurrentAddress : '',
+        proprietorParentName: tempParentName ? tempParentName : '',
+        proprietorGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+      });
+    }
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -253,7 +327,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   }
 
   addAmounts() {
-    let total = 0;
+    this.totalAmount2 = 0;
     let res;
     const toAddFormControl = [
       'jamanatAmount',
@@ -262,16 +336,39 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       'revolvingAmount',
       'demandLoanAmount',
       'fixedTermAmount',
-      'koshOtherAmount1',
-      'koshOtherAmount2',
     ];
     toAddFormControl.forEach(f => {
       res = +this.nepToEngNumberPipe.transform(this.form.get(f).value);
-      total += res;
+      this.totalAmount2 += res;
+      const sumAmount: number = this.totalAmount + this.totalAmount2;
       this.form.patchValue({
-        totalLimitAmount: this.engToNepNumberPipe.transform(total.toString()),
-        totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(total)
+        totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+        totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
       });
     });
   }
+
+  updateAmount(amount, i) {
+    this.addAmounts();
+    let sumAmount: number;
+    this.totalAmount = 0;
+    this.totalAmt[i] = Number(this.nepToEngNumberPipe.transform(this.form.get(['koshMaAdharit', i, amount]).value));
+    if (this.totalAmt.length > 0) {
+      this.totalAmt.forEach(value => {
+        this.totalAmount = this.totalAmount + Number(value);
+      });
+    }
+    sumAmount = this.totalAmount + this.totalAmount2;
+    this.form.patchValue({
+      totalLimitAmount: this.engToNepNumberPipe.transform((sumAmount).toString()),
+      totalLimitAmountInWords: this.nepaliCurrencyWordPipe.transform(sumAmount)
+    });
+  }
+
+  /*addSumKoshMaAdharit(target1, target2) {
+    const totalSum: number = this.totalAmount + this.totalAmount2;
+    console.log('total Sum', totalSum);
+    this.form.get(target1).patchValue(totalSum.toString());
+    this.form.get(target2).patchValue(this.nepaliCurrencyWordPipe.transform(totalSum));
+  }*/
 }

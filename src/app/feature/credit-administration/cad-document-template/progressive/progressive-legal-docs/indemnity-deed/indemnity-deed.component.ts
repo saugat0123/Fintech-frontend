@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -8,13 +8,13 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 
 @Component({
@@ -34,6 +34,8 @@ export class IndemnityDeedComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    loanData;
+    loanCategory;
 
     constructor(private dialogRef: NbDialogRef<IndemnityDeedComponent>,
                 private formBuilder: FormBuilder,
@@ -41,11 +43,14 @@ export class IndemnityDeedComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private routerUtilsService: RouterUtilsService,
-                private customerOfferLetterService: CustomerOfferLetterService) {
+                private routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+            this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+        }
+        this.loanData = this.cadData.loanHolder;
         this.buildForm();
         this.fillForm();
     }
@@ -64,25 +69,53 @@ export class IndemnityDeedComponent implements OnInit {
 
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             const loanAmount = JSON.parse(this.cadData.nepData);
+            const customerType = this.cadData.loanHolder.customerType;
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-            this.form.patchValue({
-                customerName: this.nepaliData.name ? this.nepaliData.name : '',
-                sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
-                sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-                sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-                sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-                sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-                sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-                sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                sinserlyTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-                sinserlyTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-                sinserlyTempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-                parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-                grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-                husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-                amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-                amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-            });
+            if (customerType === CustomerType.INDIVIDUAL) {
+                this.form.patchValue({
+                    customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                    signatureName: this.nepaliData.name ? this.nepaliData.name : '',
+                    sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+                    sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+                    sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                    sincerlyPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+                    sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                    sincerlyPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                    sinserlyTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                    sinserlyTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                    sinserlyTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                    parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                    grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                    husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+                    branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                    chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+                    sabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                    sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
+                });
+            } else {
+                this.form.patchValue({
+                    branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                    customerName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+                    signatureName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+                    sincerlyCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+                    sincerlyDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+                    // tslint:disable-next-line:max-line-length
+                    sincerlyCdOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+                    sincerlyPermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+                    sincerlyPermanentMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+                    sincerlyPermanentWardNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+                    sinserlyTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+                    sinserlyTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+                    sinserlyTempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+                    parentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+                    grandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+                    husbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+                    sabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+                    sabikWardNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : ''
+                });
+            }
+            this.form.get('amount').patchValue(loanAmount.numberNepali);
+            this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
         }
     }
 
@@ -135,17 +168,16 @@ export class IndemnityDeedComponent implements OnInit {
             chaltiKhata: [undefined],
             amount: [undefined],
             amountInWord: [undefined],
-            middleBranchNAme: [undefined],
             sincerlyName: [undefined],
             sincerlyDate: [undefined],
             sincerlyPermanentDistrict: [undefined],
             sincerlyPermanentMunicipality: [undefined],
-            sincerlyPermanentWadNo: [undefined],
+            sincerlyPermanentWardNo: [undefined],
             sabikVDC: [undefined],
-            sabikWadNo: [undefined],
+            sabikWardNo: [undefined],
             sinserlyTempDistrict: [undefined],
             sinserlyTempMunicipality: [undefined],
-            sinserlyTempWadNo: [undefined],
+            sinserlyTempWardNo: [undefined],
             parentName: [undefined],
             grandParentName: [undefined],
             husbandWifeName: [undefined],
@@ -186,7 +218,8 @@ export class IndemnityDeedComponent implements OnInit {
             guarantorCDOoffice1: [undefined],
             guarantorPermanentMunicipality1: [undefined],
             guarantorPermanentWardNo1: [undefined],
-            issuedPlace1: [undefined]
+            issuedPlace1: [undefined],
+            signatureName: [undefined]
         });
     }
 

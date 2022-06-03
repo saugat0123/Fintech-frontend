@@ -1,0 +1,17 @@
+@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
+* {
+  line-height: 1.9em;
+}
+.nepaliFont {
+  font-size: 22px;
+}
+
+.bigFont {
+  input[type="text"] {
+    font-size: 16px !important;
+  }
+}
+
+.size16 {
+  font-size: 16px;
+}

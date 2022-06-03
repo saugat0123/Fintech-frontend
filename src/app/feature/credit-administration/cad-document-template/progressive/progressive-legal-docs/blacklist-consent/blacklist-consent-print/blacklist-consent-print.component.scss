@@ -1,4 +1,4 @@
-@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
+//@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
 
 #Sincerely {
   margin-left: 100px;
@@ -21,7 +21,7 @@
 
 #signature,
 #signature2{
-  margin-left: 800px;
+  margin-left: 150px;
 }
 
 .guaranter {
@@ -39,4 +39,20 @@
   margin-left: 100px;
 }
 
+.unicode-size16{
+  font-size: 16px;
+}
 
+.unicode-size24{
+  font-size: 24px;
+}
+
+.nepali {
+  font-size: 16px;
+  line-height: 1.6;
+  @extend .text-justify !optional;
+}
+
+.nepaliFontPreeti {
+  font-family: Preeti;
+}
