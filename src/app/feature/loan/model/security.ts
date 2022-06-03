@@ -22,4 +22,5 @@ export class Security {
     securityLoanReferenceId: number;
     collateralSiteVisits: Array<CollateralSiteVisit>;
     status: any;
+    oldSecurityId: number;
 }
