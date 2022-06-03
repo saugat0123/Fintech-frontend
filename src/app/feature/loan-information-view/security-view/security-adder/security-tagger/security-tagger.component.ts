@@ -36,7 +36,6 @@ export class SecurityTaggerComponent implements OnInit {
               this.existingSecurity = (res.detail).map((d) => {
                   return {data: JSON.parse(d.data), usedAmount: d.usedAmount, coverage: d.coverage, securityType: d.securityType};
               });
-              console.log('this is approved security', res.detail);
           // .filter(f => f.status === 'INACTIVE')
           });
       }

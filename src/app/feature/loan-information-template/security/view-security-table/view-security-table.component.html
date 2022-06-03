@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-        [nbSpinner]="spinner">
+               [nbSpinner]="spinner">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
@@ -25,32 +25,32 @@
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
                     <td>
-                       <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">
-                           <button nbTooltip="Edit" (click)="onEdit(security)"
-                                   class="btn btn-sm btn-flat">
-                               <em class="fa fa-edit bg-transparent"></em>
-                           </button>
-                           <button nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
-                                   class="btn btn-sm btn-flat">
-                               <em class="fa fa-map-signs bg-transparent"></em>
-                           </button>
-                           <a class="px-2 cursor" *ngIf="toggleArray[i]?.securityPresent"
-                              (click)="toggleArray[i].toggled = !this.toggleArray[i]?.toggled"
-                              nbTooltip="click to view detail security">
-                               <em class="fa fa-eye"></em>
-                           </a>
-                           <a class="px-2 cursor" nbTooltip="Modify Security" *ngIf="toggleArray[i]?.approved"
-                              (click)="onEdit(security, 'INACTIVE')">
-                               <em class="fa fa-cogs"></em>
-                           </a>
-                           <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId"
-                              (click)="resetSecurity(security?.oldSecurityId, security?.id)">
-                               <em class="fa fa-undo"></em>
-                           </a>
-                       </ng-container>
-                        <a class="px-2 cursor" nbTooltip="Unlink Security"
+                        <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">
+                            <button *ngIf="!toggleArray[i]?.approved" nbTooltip="Edit" (click)="onEdit(security)"
+                                    class="btn btn-sm btn-flat">
+                                <em class="fa fa-edit bg-transparent"></em>
+                            </button>
+                            <button nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
+                                    class="btn btn-sm btn-flat">
+                                <em class="fa fa-map-signs bg-transparent"></em>
+                            </button>
+                            <a class="px-2 cursor" *ngIf="toggleArray[i]?.securityPresent"
+                               (click)="toggleArray[i].toggled = !this.toggleArray[i]?.toggled"
+                               nbTooltip="click to view detail security">
+                                <em class="fa fa-eye"></em>
+                            </a>
+                            <a class="px-2 cursor" nbTooltip="Modify Security" *ngIf="toggleArray[i]?.approved && security?.status.toString() === 'ACTIVE'"
+                               (click)="onEdit(security, 'INACTIVE')">
+                                <em class="fa fa-cogs"></em>
+                            </a>
+                            <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId && isMaker && !toggleArray[i]?.approved"
+                               (click)="resetSecurity(security?.oldSecurityId, security?.id)">
+                                <em class="fa fa-undo"></em>
+                            </a>
+                        </ng-container>
+                        <a class="px-2 cursor" nbTooltip="{{security?.status.toString() === 'ACTIVE' ? 'UN-LINK' : 'LINK'}} SECURITY" *ngIf="toggleArray[i]?.approved"
                            (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'INACTIVE': 'ACTIVE')">
-                            <em class="fa fa-chain-broken"></em>
+                            <i [ngClass]="security?.status === 'ACTIVE' ? 'fa fa-minus-square' : 'fa fa-link'" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
@@ -58,7 +58,8 @@
                     <td colspan="9">
                         <ng-container *ngIf="toggleArray[i]?.toggled">
                             <app-security-tagged-component
-                                    [tagged]="toggleArray[i]?.security" [security]="security?.data"></app-security-tagged-component>
+                                    [tagged]="toggleArray[i]?.security"
+                                    [security]="security?.data"></app-security-tagged-component>
                         </ng-container>
                     </td>
                 </tr>
