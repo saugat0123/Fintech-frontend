@@ -59,6 +59,7 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('this is loans', this.resCombinedData);
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
         this.fetchCombinedLoanData();
@@ -76,7 +77,6 @@ export class CommonLoanDataComponent implements OnInit {
             solConclusionRecommendation: [undefined],
             riskConclusionRecommendation: [undefined],
             termsAndCondition: [undefined],
-            mergedCheck: [undefined],
             shares: this.formBuilder.array([]),
             realState: this.formBuilder.array([]),
             vehicle: this.formBuilder.array([]),
@@ -102,29 +102,25 @@ export class CommonLoanDataComponent implements OnInit {
 
     setTestValue(parsedData) {
         if (!ObjectUtil.isEmpty(parsedData)) {
-            if (ObjectUtil.isEmpty(parsedData.commonLoanData)) {
-                return;
-            }
-            const commonData = JSON.parse(parsedData.commonLoanData);
-            this.commonLoanData.patchValue(commonData);
-            this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
-            if (!ObjectUtil.isEmpty(commonData.vehicle)) {
-                this.setFormData(commonData.vehicle, 'vehicle');
+            this.commonLoanData.patchValue(parsedData);
+            this.setCheckedData(JSON.parse(this.resCombinedData[0].proposal.checkedData));
+            if (!ObjectUtil.isEmpty(parsedData.vehicle)) {
+                this.setFormData(parsedData.vehicle, 'vehicle');
             } else {
                 this.addKeyValue('vehicle');
             }
-            if (!ObjectUtil.isEmpty(commonData.realState)) {
-                this.setFormData(commonData.realState, 'realState');
+            if (!ObjectUtil.isEmpty(parsedData.realState)) {
+                this.setFormData(parsedData.realState, 'realState');
             } else {
                 this.addKeyValue('realState');
             }
-            if (!ObjectUtil.isEmpty(commonData.shares)) {
-                this.setFormData(commonData.shares, 'shares');
+            if (!ObjectUtil.isEmpty(parsedData.shares)) {
+                this.setFormData(parsedData.shares, 'shares');
             } else {
                 this.addKeyValue('shares');
             }
-            if (!ObjectUtil.isEmpty(commonData.deposit)) {
-                this.setFormData(commonData.deposit, 'deposit');
+            if (!ObjectUtil.isEmpty(parsedData.deposit)) {
+                this.setFormData(parsedData.deposit, 'deposit');
             } else {
                 this.addKeyValue('deposit');
             }
@@ -147,16 +143,16 @@ export class CommonLoanDataComponent implements OnInit {
             debtChecked: this.debtChecked,
             netChecked: this.netChecked,
         };
-        this.commonLoanData.patchValue({
-            mergedCheck: JSON.stringify(mergeChecked)
-        });
         const loanList = [];
         // this.updateCombinedDetails();
         this.resCombinedData.forEach((value) => {
             const tempProposalData = JSON.parse(value.proposal.data);
+            value.checkedData = JSON.stringify(mergeChecked);
             if (!ObjectUtil.isEmpty(tempProposalData)) {
                 tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
-                value.proposal.data = JSON.stringify(tempProposalData);
+                const tempForm = this.formBuilder.group(tempProposalData);
+                tempForm.patchValue(this.commonLoanData.value);
+                value.proposal.data = JSON.stringify(tempForm.value);
                 loanList.push(value);
             }
             this.resCombinedData = loanList;

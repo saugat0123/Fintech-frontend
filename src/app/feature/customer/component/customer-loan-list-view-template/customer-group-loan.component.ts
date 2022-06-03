@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanType} from '../../../loan/model/loanType';
@@ -26,7 +26,6 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanTag} from '../../../loan/model/loanTag';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
-import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CommonLoanDataComponent} from '../customer-loan-information/common-loan-data/common-loan-data.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
@@ -709,12 +708,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
     openCommonModal(id, combinedLoans) {
+      const combinedLoan = this.loan.filter((s) => s.combinedLoan.id === id);
         this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
             {
                 context: {
                     customerInfo: this.customerInfo,
                     loanId: id,
-                  resCombinedData: combinedLoans
+                  resCombinedData: combinedLoan
                 },
                 closeOnBackdropClick: false,
                 closeOnEsc: false

@@ -21,6 +21,7 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit, OnChan
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.customerAllLoanList = this.customerAllLoanList.filter((d) => d.documentStatus.toString() !== 'APPROVED');
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
       this.customerAllLoanList.forEach((d) => {
         if (!ObjectUtil.isEmpty(d.proposal.checkedData)) {
