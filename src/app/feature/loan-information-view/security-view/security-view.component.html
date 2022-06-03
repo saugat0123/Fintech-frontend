@@ -1242,7 +1242,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row" *ngIf="isCollateralSiteVisit">
+  <div class="row" *ngIf="isCollateralSiteVisit  && loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN' ">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
         <tr>

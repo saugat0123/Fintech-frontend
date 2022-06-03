@@ -18,19 +18,22 @@
 <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                        [calendarType]="calendarType"
                        [formValue]="loanDataHolder?.companyInfo"
-                       [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
+                       [loanId]="loanId" [customerInfo]="loanHolder" [loanDataHolder]="loanDataHolder"></app-company-info-view>
 <!--End Company Details-->'
 
 <!-- Start Cicl Details-->
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-cicl-view *ngIf="loanHolder?.cicl"
                [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+</div>
 <!-- End Cicl Details-->
 
 <!-- Start Proposal Details-->
 <app-proposal-view *ngIf="loanDataHolder?.proposal"
                    [customerAllLoanList]="customerAllLoanList"
                    [proposalData]="proposalData"
-                   [loanDataHolder]="loanDataHolder"></app-proposal-view>
+                   [loanDataHolder]="loanDataHolder"
+                   [loanData]="loanDataHolder" ></app-proposal-view>
 <!-- End Proposal Details-->
 
 <div class="row">
@@ -41,16 +44,20 @@
         <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></p>
     </div>
 </div>
-
-<!-- Start Justification of proposal-->
-<div *ngIf="!productUtils.CBS_ENABLE">
-    <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
-                                        [customerAllLoanList]="customerAllLoanList"
-                                        [proposalData]="proposalData"></app-proposal-justification-summary>
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+    <!-- Start Justification of proposal-->
+    <div *ngIf="!productUtils.CBS_ENABLE">
+        <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
+                                            [customerAllLoanList]="customerAllLoanList"
+                                            [proposalData]="proposalData"></app-proposal-justification-summary>
+    </div>
+    <!-- End Justification of proposal-->
 </div>
-<!-- End Justification of proposal-->
+
+
 
 <!-- Start Income From Account Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
@@ -112,35 +119,44 @@
         <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
     </tr>
 </table>
+</div>
 <!-- End Income From Account Details-->
 
 <!-- Start Security Details-->
+
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
-                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"  [loanDataHolder]="loanDataHolder"></app-security-view>
 <!-- End Security Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
 <!-- Start SiteVisit Details-->
-<app-site-visit-view *ngIf="loanHolder?.siteVisit"
-                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-<!-- End SiteVisit Details-->
+    <app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                         [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+    <!-- End SiteVisit Details-->
 
-<!-- Start Insurance Details-->
-<app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
-                    [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+    <!-- Start Insurance Details-->
+
+    <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+                        [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
 <!-- End Insurance Details-->
-
+</div>
 <!--Start Guarantor Details-->
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 <!--End Guarantor Details-->
 
-<!-- Start Financial Details-->
-<app-financial-view *ngIf="loanHolder?.financial"
-                    [customerType]="loanHolder?.customerType"
-                    [formData]="loanHolder?.financial"></app-financial-view>
-<!-- End Financial Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+
+    <!-- Start Financial Details-->
+    <app-financial-view
+            [customerType]="loanHolder?.customerType"
+            [formData]="loanHolder?.financial"></app-financial-view>
+    <!-- End Financial Details-->
+
+</div>
+
 
 <!-- Start NTCA Details-->
 <ng-container *ngIf="client === clientName?.ICFC; else otherBank">
@@ -159,13 +175,17 @@
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
-<div *ngIf="!productUtils.CBS_ENABLE">
+<!-- End Group and Group security Details-->
+
+<!-- Security Exposure -->
+<div *ngIf="!productUtils.CBS_ENABLE && loanDataHolder?.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
     <app-collateral-summary
             *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
             [customerAllLoanList]="customerAllLoanList"
             [security]="loanDataHolder?.security"></app-collateral-summary>
-</div>
-<!-- End Group and Group security Details-->
+
+
+<!-- Security Exposure  End-->
 
 <div class="row">
     <div class="col-md-12">
@@ -177,6 +197,7 @@
 </div>
 
 <!--Start Risk and Mitigation-->
+
 <div class="row">
     <div class="col-md-12">
         <p><strong>Risk & Mitigation</strong></p>
@@ -231,14 +252,15 @@
         </table>
     </div>
 </div>
+</div>
 <!--End Risk and Mitigation-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
 <!-- Start Gamma Details-->
 <app-crg-gamma-detail-view
         *ngIf="loanDataHolder?.crgGamma"
         [formData]="loanDataHolder?.crgGamma" [loanCategory]="loanDataHolder?.loanCategory"></app-crg-gamma-detail-view>
 <!-- End Gamma Details-->
-
 <!-- Start Reporting Information Details-->
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
     <span><strong>Reporting Information</strong></span>
@@ -258,19 +280,20 @@
         <p>No any information tagged</p>
     </ng-template>
 </div>
-<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA && loanDataHolder.loanType !== 'CLOSURE_LOAN'
+    && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
     <span><strong>Customer Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
 </div>
 <!-- End Reporting Information Details-->
-
+</div>
 <!-- Start All Document Details-->
 <app-all-document-view *ngIf="loanDataHolder"
                        [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)">
 <span><strong>Obtainable Document</strong></span>
-<div>
     <ol class="row" type="1">
         <li style="font-size: 12.60px"
             class="col-md-4" *ngFor="let doc of obtainableDocuments;
@@ -280,13 +303,15 @@
                         let i=index">{{otherDoc}}</li>
     </ol>
 </div>
+
 <!-- End All Document Details-->
 
 <!-- Start Credit Checklist Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist"
                            [formData]="loanHolder?.creditChecklist"
                            [fromProfile]="false"
-                           [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
+                           [customerType]="loanHolder?.customerType"></app-credit-checklist-view></div>
 <!-- End Credit Checklist Details-->
 
 <!--Start proposal terms and condition-->

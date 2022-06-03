@@ -826,7 +826,7 @@
                 </div>
             </div>
 
-            <div *ngIf="client === clientName.ICFC">
+            <div *ngIf="client === clientName.ICFC && loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)">
                 <p><strong>Other Documents to be Completed</strong>
                 <div>
 
@@ -840,7 +840,9 @@
                 </ol>
             </div>
             </div>
-            <div *ngIf="!productUtils.CBS_ENABLE">
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+            <div *ngIf="!productUtils.CBS_ENABLE" >
+
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                         [customerAllLoanList]="customerAllLoanList"
@@ -858,11 +860,14 @@
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
+<div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
+</div>
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
@@ -874,9 +879,10 @@
                                  [fiscalYears]="fiscalYearArray"
                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             </ng-template>
-
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
+            </div>
             <br>
             <div *ngIf="client === clientName?.MEGA">
                 <app-comments-summary *ngIf="commentsSummary"
@@ -894,7 +900,7 @@
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-3" *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
                 <div class="col-md-12">
                     <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                                     [formData]="siteVisitData"
@@ -910,7 +916,8 @@
                         [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
                 </app-report-summary>
             </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED' && loanData.loanType !== loanType?.getEnum(loanType?.CLOSURE_LOAN)
+                && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
                 <span><strong>Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
@@ -920,17 +927,18 @@
                     <p>No any information tagged</p>
                 </ng-template>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA  && loanData?.loanType !== 'CLOSURE_LOAN'
+                && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
                 <span><strong>Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
             </div>
-
+<div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary></div>
 
-            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
+            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA && loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)" >
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
