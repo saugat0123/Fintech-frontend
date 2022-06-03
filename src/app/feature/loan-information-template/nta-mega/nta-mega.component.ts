@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-nta-mega',
@@ -47,7 +48,8 @@ export class NtaMegaComponent implements OnInit {
 
   constructor(protected formBuilder: FormBuilder,
               protected fiscalYearService: FiscalYearService,
-              protected toastService: ToastService) {
+              protected toastService: ToastService,
+              private overlay: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -267,11 +269,12 @@ export class NtaMegaComponent implements OnInit {
         this.spinner = false;
     }
 
-    onSubmit() {
-        if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
-            this.netTradingAssetSubmitData = this.netTradingAssetsData;
-        }
-        this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
-        this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
+  onSubmit() {
+    this.overlay.show();
+    if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
+      this.netTradingAssetSubmitData = this.netTradingAssetsData;
     }
+    this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+    this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
+  }
 }
