@@ -274,7 +274,6 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   getLoanDataHolder() {
     // Setting financial data---
-    console.log('this is loan data holder from individual summary', this.loanDataHolder.financial);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
       this.financial = JSON.parse(this.financialData.data);
