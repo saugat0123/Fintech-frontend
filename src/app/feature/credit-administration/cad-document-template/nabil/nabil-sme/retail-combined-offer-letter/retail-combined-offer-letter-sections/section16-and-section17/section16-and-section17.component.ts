@@ -35,11 +35,11 @@ export class Section16AndSection17Component implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      loanCommitmentCheck: !ObjectUtil.isEmpty(this.saveDiv.section16) ?
-          !ObjectUtil.isEmpty(this.saveDiv.section16.loanCommitmentCheck) ?
+      loanCommitmentCheck: !ObjectUtil.isEmpty(this.saveDiv) ?
+          !ObjectUtil.isEmpty(this.saveDiv.section16) ?
               this.saveDiv.section16.loanCommitmentCheck : '' : '',
-      crossDefaultCheck: !ObjectUtil.isEmpty(this.saveDiv.section16) ?
-          !ObjectUtil.isEmpty(this.saveDiv.section16.crossDefaultCheck) ?
+      crossDefaultCheck: !ObjectUtil.isEmpty(this.saveDiv) ?
+          !ObjectUtil.isEmpty(this.saveDiv.section16) ?
               this.saveDiv.section16.crossDefaultCheck : '' : '',
     });
   }

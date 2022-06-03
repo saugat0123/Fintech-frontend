@@ -15,18 +15,30 @@ export class Section14OtherTermsComponent implements OnInit {
   assignedData;
   isShareLoan: boolean;
   NCELL: boolean;
+  isEduLoan: boolean;
+  tempInformation;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.buildForm();
-    this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0]) &&
+          !ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].supportedInformation)) {
+        this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
+      }
+    }
     this.checkCondition();
+    if (!ObjectUtil.isEmpty(this.tempInformation) &&
+        !ObjectUtil.isEmpty(this.tempInformation.section14)) {
+      this.form.get('nameOfEmbassyFreeTxt').patchValue(this.tempInformation.section14);
+    }
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-
+      nameOfEmbassyFreeTxt: [undefined]
     });
   }
   checkCondition() {
@@ -40,10 +52,13 @@ export class Section14OtherTermsComponent implements OnInit {
         }
         if (value === 'HOME LOAN COMBINED') {
           this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
-            if (val.NcellStaffCheck = true) {
+            if (val.NcellStaffCheck === true) {
               this.NCELL = true;
             }
           });
+        }
+        if (value === 'EDUCATION LOAN COMBINED') {
+          this.isEduLoan = true;
         }
       });
     }
