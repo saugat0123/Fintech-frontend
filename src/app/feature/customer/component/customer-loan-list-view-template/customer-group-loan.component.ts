@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanType} from '../../../loan/model/loanType';
@@ -27,6 +27,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanTag} from '../../../loan/model/loanTag';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
 import {LoanConfig} from '../../../admin/modal/loan-config';
+import {CommonLoanDataComponent} from '../customer-loan-information/common-loan-data/common-loan-data.component';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 
 @Component({
@@ -44,7 +46,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private toastService: ToastService,
               private  activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private ngxSpinnerService: NgxSpinnerService
+              private ngxSpinnerService: NgxSpinnerService,
+              private nbDialogModal: NbDialogService
               ) {
   }
   totalApprovedProposedAmount;
@@ -130,6 +133,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     documentStatus: null
   }];
   isLoanBeginEdit = false;
+  @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
+  nbDialogRef: NbDialogRef<any>;
+  COMBINED_KEY = 'Combined Loan';
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -696,4 +702,22 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.ngOnInit();
     this.modalService.dismissAll();
   }
+
+    openCommonModal(id, isCombined?) {
+        this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
+            {
+                context: {
+                    customerInfo: this.customerInfo,
+                    loanId: id,
+                    isLoanCombined: isCombined,
+                },
+                closeOnBackdropClick: false,
+                closeOnEsc: false
+            });
+        this.nbDialogRef.onClose.subscribe((res) => {
+            if (res) {
+                this.triggerCustomerRefresh.emit(true);
+            }
+        });
+    }
 }

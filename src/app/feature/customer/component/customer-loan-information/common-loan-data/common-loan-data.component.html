@@ -1,0 +1,237 @@
+<nb-card class="template-css">
+    <nb-card-header>
+        Common Loan Data
+        <a (click)="closeDialog()" aria-label="Close"
+           class="close cursor" data-dismiss="modal">
+                      <span (click)="closeDialog()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="commonLoanData">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
+                        <ckeditor [config]="ckeConfig"
+                                  [style]="{height:'250px !important;'}"
+                                  formControlName="borrowerInformation"
+                                  placeholder="Background"
+                                  required>
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+                        <ckeditor
+                                [config]="ckeConfig" formControlName="disbursementCriteria"
+                                id="disbursementCriteria"
+                                name="disbursementCriteria"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title" for="repayment"><strong>Repayment</strong></label>
+                        <ckeditor
+                                [config]="ckeConfig" formControlName="repayment"
+                                id="repayment"
+                                name="repayment"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title" for="remark">
+                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
+                        <ckeditor
+                                [config]="ckeConfig" formControlName="remark"
+                                id="remark"></ckeditor>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 mt-3">
+                    <div class="form-group">
+                        <label class="title"><strong>Summary & Recommendation</strong></label>
+                        <ckeditor [config]="ckeConfig"
+                                  [style]="{height:'250px !important;'}"
+                                  formControlName="summeryRecommendation"
+                                  placeholder="Summary & Recommendation">
+                        </ckeditor>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <h6><strong>Additional Description</strong></h6>
+                    <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
+                                 [checked]="waiverChecked">
+                        <b>Waiver</b>
+                    </nb-checkbox>
+                    <div *ngIf="waiverChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="waiverConclusionRecommendation"></ckeditor>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
+                                 [checked]="deviationChecked">
+                        <b>Deviation</b>
+                    </nb-checkbox>
+                    <div *ngIf="deviationChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="deviationConclusionRecommendation"></ckeditor>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <nb-checkbox (change)="checkChecked($event.target?.checked,'sol')"
+                                 [checked]="solChecked"><b>Single Obligor Limit</b>
+                    </nb-checkbox>
+                    <div *ngIf="solChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="solConclusionRecommendation"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+
+                    <nb-checkbox (change)="checkChecked($event.target?.checked,'risk')"
+                                 [checked]="riskChecked"><b>Risk & Mitigation</b>
+                    </nb-checkbox>
+                    <div *ngIf="riskChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="riskConclusionRecommendation"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+
+                    <nb-checkbox (change)="checkChecked($event.target?.checked,'debt')"
+                                 [checked]="debtChecked"><b>Debt Structure and Control</b>
+                    </nb-checkbox>
+                    <div *ngIf="debtChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="termsAndCondition"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <nb-checkbox (change)="checkChecked($event.target?.checked,'net')"
+                                     [checked]="netChecked"><b>Net Worth</b>
+                        </nb-checkbox>
+                        <table *ngIf="netChecked"
+                               class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr class="sb-bg-dark text-white">
+                                <th>Assets</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-left">
+                            <tr>
+                                <td colspan="1"><b>Deposit</b></td>
+                                <td colspan="1"><a (click)="addKeyValue('deposit')" class="float-right"
+                                                   href="javascript: void(0)"><i class="fa fa-plus"
+                                                                                 nbTooltip="Add Deposit"></i></a>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let controls of commonLoanData?.get('deposit')['controls'];let i = index"
+                                formArrayName="deposit">
+                                <ng-container [formGroupName]="i">
+                                    <td><input formControlName="assets" nbInput type="text"></td>
+                                    <td><input (change)="calculate()" formControlName="amount" nbInput type="number"> <a
+                                            (click)="removeValue('deposit', i)"
+                                            *ngIf="commonLoanData?.get('deposit')['length'] > 1"
+                                            href="javascript: void(0)"><i
+                                            class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td colspan="1"><b>Shares & Securities</b></td>
+                                <td colspan="1"><a (click)="addKeyValue('shares')" class="float-right"
+                                                   href="javascript: void(0)"><i class="fa fa-plus"
+                                                                                 nbTooltip="Add Shares & security"></i></a>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let controls of commonLoanData?.get('shares')['controls'];let i = index"
+                                formArrayName="shares">
+                                <ng-container [formGroupName]="i">
+                                    <td><input formControlName="assets" nbInput type="text"></td>
+                                    <td><input (change)="calculate()" formControlName="amount" nbInput type="number"> <a
+                                            (click)="removeValue('shares', i)"
+                                            *ngIf="commonLoanData?.get('shares')['length'] > 1"
+                                            href="javascript: void(0)"><i
+                                            class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td><b>Real Estate (Land and Building)</b></td>
+                                <td colspan="1"><a (click)="addKeyValue('realState')" class="float-right"
+                                                   href="javascript: void(0)"><i class="fa fa-plus"
+                                                                                 nbTooltip="Add Real Estate (Land and Building)"></i></a>
+                                </td>
+
+                            </tr>
+
+                            <tr *ngFor="let controls of commonLoanData?.get('realState')['controls'];let i = index"
+                                formArrayName="realState">
+                                <ng-container [formGroupName]="i">
+                                    <td><input formControlName="assets" nbInput type="text"></td>
+                                    <td><input (change)="calculate()" formControlName="amount" nbInput type="number"> <a
+                                            (click)="removeValue('realState', i)"
+                                            *ngIf="commonLoanData?.get('realState')['length'] > 1"
+                                            href="javascript: void(0)"><i
+                                            class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td><b>Vehicles</b></td>
+                                <td colspan="1"><a (click)="addKeyValue('vehicle')" class="float-right"
+                                                   href="javascript: void(0)"><i class="fa fa-plus"
+                                                                                 nbTooltip="Add Vehicles"></i></a>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let controls of commonLoanData?.get('vehicle')['controls'];let i = index"
+                                formArrayName="vehicle">
+                                <ng-container [formGroupName]="i">
+                                    <td><input formControlName="assets" nbInput type="text"></td>
+                                    <td>
+                                        <input (change)="calculate()" formControlName="amount" nbInput type="number">
+                                        <a (click)="removeValue('vehicle', i)"
+                                           *ngIf="commonLoanData?.get('vehicle')['length'] > 1"
+                                           href="javascript: void(0)"><i
+                                                class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Total:</b></td>
+                                <td><input (change)="calculate()" formControlName="total" nbInput type="number"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b>
+                                </td>
+                                <td><input formControlName="totals" nbInput type="number"></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+       <!-- <div class="col-md-12 form-group">
+            <button (click)="openCadSetup(datax)" nbButton><b>Setup Security Schedule</b>
+            </button>
+        </div>-->
+    </nb-card-body>
+    <nb-card-footer>
+        <div>
+            <button (click)="saveCommonLoanData()"
+                    class="btn float-right d-flex justify-content-end" nbButton type="submit">Save
+            </button>
+        </div>
+    </nb-card-footer>
+</nb-card>
