@@ -48,6 +48,7 @@ import {VideoKycModule} from '../video-kyc/video-kyc.module';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {NepaliPatroModule} from 'nepali-patro';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
+import { CommonLoanDataComponent } from './component/customer-loan-information/common-loan-data/common-loan-data.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -75,7 +76,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent],
+    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, CommonLoanDataComponent],
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,
@@ -116,7 +117,8 @@ const COMPONENTS = [
     EditSwotComponent,
     CustomerLoanApplyComponent,
     JointFormComponent,
-    ChangeLoanComponent
+    ChangeLoanComponent,
+    CommonLoanDataComponent
   ]
 })
 export class CustomerModule {
