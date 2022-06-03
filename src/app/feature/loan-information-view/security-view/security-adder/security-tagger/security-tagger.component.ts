@@ -146,7 +146,7 @@ export class SecurityTaggerComponent implements OnInit {
         }
     }
 
-    public tagSecurity(security: any, key, idx: number): void {
+    public tagSecurity(security: any, idx: number, secId: number): void {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.id)) {
             const id = this.toggleArray[idx].security.map((d) => {
                 if (d.customerLoan.id === this.loanDataHolder.id) {
@@ -161,11 +161,23 @@ export class SecurityTaggerComponent implements OnInit {
             this.isUsedAmount[idx] = true;
             return;
         }
-        if (this.securityList.length > 0) {
-            this.securityList.splice(idx, 1);
-        }
-        this.securityList.push(security.value);
+            const index = this.getIndex(secId);
+            if (index) {
+                this.securityList[index] = security.value;
+            } else {
+                this.securityList.push(security.value);
+            }
         this.calculateCoverage();
+    }
+
+    getIndex(security): number {
+        let i: number = null;
+        this.securityList.forEach((s, index) => {
+            if (s.id === Number(security)) {
+                i = index;
+            }
+        });
+        return i;
     }
 
     public removeSecurity(idx, securityLoanReferenceId: number): void {
