@@ -540,6 +540,7 @@
                         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                                 (triggerCustomerRefresh)="refreshCustomerInfo()"
                                                  [formValue]="customer"></app-customer-group-loan>
                     </div>
                 </div>
