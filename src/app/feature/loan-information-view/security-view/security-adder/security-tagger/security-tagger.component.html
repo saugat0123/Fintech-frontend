@@ -49,7 +49,7 @@
                                             <em class="fa fa-eye"></em>
                                         </a>
                                         <button nbButton size="small"
-                                                (click)="tagSecurity(security, 'plantDetails', i)"
+                                                (click)="tagSecurity(security, i, security?.get('id').value)"
                                                 [disabled]="limitExceed[i]">
                                             <i class="fa fa-plus"></i></button>
                                     </td>
@@ -88,8 +88,8 @@
             <ng-container *ngFor="let security of securityList; let i=index;">
                 <tr>
                     <td>{{i + 1}}</td>
-                    <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : loanDataHolder?.loanHolder?.name}}</td>
-                    <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
+                    <td>{{security?.data ? (security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner  : loanDataHolder?.loanHolder?.name :  loanDataHolder?.loanHolder?.name}}</td>
+                    <td>{{security?.data  ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
