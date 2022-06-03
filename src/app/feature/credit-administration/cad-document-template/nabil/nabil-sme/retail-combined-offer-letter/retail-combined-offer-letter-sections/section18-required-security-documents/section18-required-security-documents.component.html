@@ -25,20 +25,24 @@
                 <ul>
                     <li *ngIf="promissoryVisible">
                         <!--Could be multiple as per facility type-->
-                       रु.
-                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                               name="loanAmountInFigure"
-                               formControlName="loanAmountInFigure"
-                               placeholder=" "
-                               type="text"/>
-                        <span class="print-only font-weight-bold">
-                            {{form?.get('loanAmountInFigure')?.value || '______________________'}}</span>/-
-                        को प्रतिज्ञा पत्र । (Promissory Note)
+                        <ng-container *ngFor="let promissoryfigure of loanArray; let i = index">
+                            रु.
+                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                                   [value]="promissoryfigure.toString() | engToNepaliNumber"
+                                   name="loanAmountInFigure"
+                                   formControlName="loanAmountInFigure"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only font-weight-bold">
+                            {{promissoryfigure?.toString() | engToNepaliNumber : '____________'}}</span>
+                            {{loanArray.length === 1 ? '' : loanArray.length === 2 ? 'र' : (i < loanArray.length - 2 ? ',' : (i > loanArray.length - 2  ? '' : 'र'))}}
+                        </ng-container>
+                        /- को प्रतिज्ञा पत्र । (Promissory Note)
                     </li>
                     <li *ngIf="continuityVisible">
                        निरन्तरताको लिखत । (Letter of Continuity)
                     </li>
-                    <li>
+                    <li *ngIf="multiBankingDeclaration">
                         बहुबैंकिङ घोषणा पत्र ।
                     </li>
                     <li *ngIf="loanDeedVisible">
@@ -69,6 +73,7 @@
                         <span class="print-only font-weight-bold">{{form?.get('remortgageDeedAmountInFigure')?.value || '______________________'}}</span>/–
                         को पुंनधितोबन्धक तमसुक । (Re-Mortgage Deed)
                     </li>
+                    <ng-container *ngIf="personalGuarantee">
                     <li *ngFor="let guarantors of guarantorParsed">
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="nameOfGuarantors"
@@ -94,8 +99,9 @@
                                              [value]="guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : ''"/>
                         <span class="print-only font-weight-bold">
                             {{guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : '______________________'}}</span>/- मात्र)
-                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण । (Multi Banking Declaration)
                     </li>
+                    </ng-container>
                     <li *ngIf="hirePurchaseAgreement">
                         हायर पर्चेज सम्झौता । (Hire Purchase Agreement)
                     </li>
@@ -134,11 +140,11 @@
                     <li *ngIf="sharePledgeDeed">
                       धितोबन्धक लिखत (Share pledge deed)
                     </li>
-                    <li>
-                       व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।
+                    <li *ngIf="podRenewableApplication">
+                       व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन । (POD Renewable Application)
                     </li>
-                    <li>
-                        समग्र बैंक तथा बितिय सस्था वाट रु ५०,००,०००/ भन्दा वढि अधिविकर्ष कर्जा नलिएको स्वघोषणा ।
+                    <li *ngIf="fiveMDeclarationLetter">
+                        समग्र बैंक तथा बितिय सस्था वाट रु ५०,००,०००/ भन्दा वढि अधिविकर्ष कर्जा नलिएको स्वघोषणा । (5M Declaration Letter)
                     </li>
                     <li *ngIf="nrbDeclarationForm">
                       ग्राहक स्वघोषणा फारम । (NRB Declaration Form)
