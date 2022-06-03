@@ -64,6 +64,7 @@ export class ProposalSummaryComponent implements OnInit {
     }[] = [];
 
     ngOnInit() {
+
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         }
@@ -79,6 +80,7 @@ export class ProposalSummaryComponent implements OnInit {
             this.calculateInterestRate();
             this.getLoanConfig();
             this.checkInstallmentAmount();
+            console.log('this.customerAllLoanList', this.customerAllLoanList);
         }
         if (this.loanDataHolder) {
             if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {

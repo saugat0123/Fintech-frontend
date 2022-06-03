@@ -56,7 +56,10 @@ export class ProposalViewComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
   }
-
+  loanDatas: {
+    loanNatureSelected: any, fundableNonFundableSelcted: any, isFundable: any, isTerminating: any,
+    isVehicle: any, isShare: any, isGeneral: any, showInstallmentAmount: any, showRepaymentMode: any, showPrincipalAmount: any, isFixedDeposit: any, isRevolving: any
+  }[] = [];
   ngOnInit() {
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
@@ -72,8 +75,59 @@ export class ProposalViewComponent implements OnInit {
     if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
       this.isRemit = true;
     }
+    if (this.customerAllLoanList.length > 0) {
+      this.setToggled();
+    }
   }
-
+  public setToggled() {
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.loanDatas = [];
+      this.customerAllLoanList.forEach((d, i) => {
+        const loan = d.loan;
+        const toggle = {
+          loanNatureSelected: false,
+          fundableNonFundableSelcted: !ObjectUtil.isEmpty(loan.isFundable),
+          isFundable: loan.isFundable,
+          isTerminating: false,
+          isVehicle: loan.loanTag === 'VEHICLE',
+          isShare: loan.loanTag === 'SHARE_SECURITY',
+          isGeneral: loan.loanTag === 'GENERAL',
+          showInstallmentAmount: false,
+          showRepaymentMode: false,
+          showPrincipalAmount: false,
+          isFixedDeposit: loan.loanTag === 'FIXED_DEPOSIT',
+          isRevolving: false
+        };
+        const proposalData = JSON.parse(d.proposal.data);
+        if (proposalData.repaymentMode === 'EMI' || proposalData.repaymentMode === 'EQI') {
+          toggle.showInstallmentAmount = true;
+        }
+        if (proposalData.repaymentMode === 'CUSTOM') {
+          toggle.showRepaymentMode = true;
+        }
+        if (proposalData.repaymentMode === 'AT MATURITY') {
+          toggle.showPrincipalAmount = true;
+        }
+        const loanNature = loan.loanNature;
+        if (!ObjectUtil.isEmpty(loanNature)) {
+          toggle.loanNatureSelected = true;
+          toggle.isTerminating = this.loanNature === 'Terminating';
+          toggle.isRevolving = this.loanNature === 'Revolving';
+          if (toggle.isRevolving) {
+            toggle.isGeneral = false;
+          }
+        }
+        if (!toggle.isFundable) {
+          toggle.isGeneral = false;
+        }
+        if (toggle.isFixedDeposit) {
+          toggle.loanNatureSelected = false;
+          toggle.fundableNonFundableSelcted = false;
+        }
+        this.loanDatas.push(toggle);
+      });
+    }
+  }
   public getTotal(key: string): number {
       const filteredList = this.customerAllLoanList.filter(l => l.proposal.data !== null);
       const tempList = filteredList

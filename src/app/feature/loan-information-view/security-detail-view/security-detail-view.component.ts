@@ -5,6 +5,9 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {DocStatus} from '../../loan/model/docStatus';
+import {SecurityLoanReferenceService} from '../../security-service/security-loan-reference.service';
 
 @Component({
   selector: 'app-security-detail-view',
@@ -13,6 +16,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 })
 export class SecurityDetailViewComponent implements OnInit {
   @Input() securities: Array<Security>;
+  @Input() customerAllLoanList: LoanDataHolder [];
+  @Input() pending;
   landSelected = false;
   apartmentSelected = false;
   plantSelected = false;
@@ -49,12 +54,20 @@ export class SecurityDetailViewComponent implements OnInit {
   shareArray;
   plantArray;
 
-  constructor() {
+  constructor(private securityLoanReference: SecurityLoanReferenceService) {
   }
 
   ngOnInit() {
-    this.selectedSecurities();
-    this.setSelectedSecurities();
+    if (this.customerAllLoanList.length > 0) {
+      this.securities = [];
+      if (this.pending) {
+        this.combineAllSecurity();
+        this.selectedSecurities();
+        this.setSelectedSecurities();
+      } else {
+        this.combinedAllApprovedSecurity();
+      }
+    }
   }
 
   private managedArray(array) {
@@ -273,5 +286,42 @@ export class SecurityDetailViewComponent implements OnInit {
         }
       });
     }
+  }
+  combineAllSecurity() {
+    this.customerAllLoanList.forEach((ld) => {
+      if (ld.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED) && ld.securities.length > 0) {
+        ld.securities.forEach((s) => {
+          this.securities.push(s);
+        });
+      }
+    });
+  }
+
+  combinedAllApprovedSecurity(): void {
+    let security: any;
+    this.customerAllLoanList.forEach((ld) => {
+      if (!ObjectUtil.isEmpty(ld.parentId) && ld.documentStatus.toString() !== 'APPROVED' ) {
+        this.securityLoanReference.getAllSecurityLoanReferencesByLoanId(ld.parentId).subscribe({
+          next: (response: any) => {
+            security = response.detail;
+          },
+          error: (err: any) => {},
+          complete: () => {
+            security.forEach((dd: any) => {
+              const securityObj = new Security();
+              securityObj.id = dd.securityId;
+              securityObj.coverage = dd.coverage;
+              securityObj.data = dd.data;
+              securityObj.securityType = dd.securityType;
+              securityObj.usedAmount = dd.usedAmount;
+              securityObj.status = dd.status;
+              this.securities.push(securityObj);
+            });
+            this.selectedSecurities();
+            this.setSelectedSecurities();
+          },
+        });
+      }
+    });
   }
 }
