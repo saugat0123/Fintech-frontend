@@ -43,6 +43,8 @@ import {DbrModule} from '../../../dbr/dbr.module';
 import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
 import {ProductPaperModule} from '../../../loan-information-template/product-paper-checklist/product-paper-.module';
 import {SecurityViewModule} from '../../../loan-information-view/security-view/security-view/security-view.module';
+import {LoanSummaryInstitutionalComponent} from './loan-summary-institutional/loan-summary-institutional.component';
+import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-summary-individual.component';
 
 
 const COMPONENTS = [
@@ -72,7 +74,8 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent,  LoanSummaryInstitutionalComponent,
+        LoanSummaryIndividualComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -114,7 +117,10 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
         MultiBankingSummaryComponent,
-        CollateralSiteVisitComponent
+        CollateralSiteVisitComponent,
+        LoanSummaryInstitutionalComponent,
+        LoanSummaryIndividualComponent,
+        CompanyInfoSummaryComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

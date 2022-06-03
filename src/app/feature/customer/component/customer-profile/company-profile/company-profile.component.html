@@ -424,6 +424,7 @@
       <nb-card-body>
         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                 (deleteEmitter)="getCustomerLoans()"
                                  [customerLoans]="customerLoans"
                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
         ></app-customer-group-loan>

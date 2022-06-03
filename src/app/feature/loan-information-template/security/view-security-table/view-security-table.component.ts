@@ -8,6 +8,8 @@ import {Status} from '../../../../@core/Status';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-view-security-table',
@@ -30,28 +32,17 @@ export class ViewSecurityTableComponent implements OnInit {
         isSiteVisit: null,
         status: Status.ACTIVE,
     };
-
+    modifiedIds = [];
+    isMaker;
     constructor(private customerLoanInformation: CustomerLoanInformationComponent,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
                 private customerInformationService: CustomerInfoService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private ngxSpinnerService: NgxSpinnerService) {
     }
 
     ngOnInit() {
-        if (this.customerInfo.securities.length > 0) {
-            this.securities = this.customerInfo.securities.filter((d) => d.status.toString() === 'ACTIVE');
-            this.securities.forEach((d, i) => {
-                this.toggleArray.push({ toggled: false, security: null, securityPresent: false, approved: false});
-                this.getSecurityDetails(d.id, i);
-            });
-        }
-
-        this.customerLoanInformation.securities$.subscribe(value => {
-                if (value.length > 0) {
-                    this.securities = value;
-                }
-            }
-        );
+        this.manageViewSecurity();
     }
 
     public onEdit(security: Security, status?: any): void {
@@ -99,18 +90,69 @@ export class ViewSecurityTableComponent implements OnInit {
     }
 
     resetSecurity(parentId: number, id: number) {
+        this.ngxSpinnerService.show();
         this.customerInformationService.resetSecurity(parentId, id, this.customerInfo.id).subscribe({
             next: (res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Reset To Default'));
                 this.emitter.emit(true);
             },
             error: (error: any) => {
+                this.ngxSpinnerService.hide();
                 this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
             },
             complete: () => {
                 this.ngOnInit();
+                this.ngxSpinnerService.hide();
             }
         });
+    }
+    unlinkSecurity( id: number, status) {
+        this.ngxSpinnerService.show();
+        this.customerInformationService.unLinkSecurity(id, status).subscribe({
+            next: (res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully ${status}`  ));
+                this.emitter.emit(true);
+            },
+            error: (error: any) => {
+                this.ngxSpinnerService.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
+            },
+            complete: () => {
+                this.ngxSpinnerService.hide();
+                this.ngOnInit();
+            }
+        });
+    }
+
+    manageViewSecurity() {
+        this.isMaker = LocalStorageUtil.getStorage().roleType === 'MAKER';
+        if (this.customerInfo.securities.length > 0) {
+            this.securities = this.customerInfo.securities;
+            // separate modified security by old security id
+            this.securities.forEach((d, i) => {
+                if (!ObjectUtil.isEmpty(d.oldSecurityId)) {
+                    this.modifiedIds.push(d.oldSecurityId);
+                }
+            });
+            //filter and remove modified secuirty by old id
+            if (this.modifiedIds.length > 0) {
+                this.modifiedIds.forEach((i) => {
+                    this.securities = this.securities.filter((d) => d.id !== i);
+                });
+            }
+            // get details from backed of each security tagged on loans
+            this.securities.forEach((d, i) => {
+                this.toggleArray.push({toggled: false, security: null, securityPresent: false, approved: false});
+                this.getSecurityDetails(d.id, i);
+            });
+        }
+
+        this.customerLoanInformation.securities$.subscribe(value => {
+                if (value.length > 0) {
+                    this.securities = value;
+                }
+            }
+        );
     }
 
 }

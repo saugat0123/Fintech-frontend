@@ -44,10 +44,13 @@
 
         <th>Loan Administration Fee </th>
         <th>Limit Expiry/Tenure(AD/BS)</th>
+        <th>Repayment Mode</th>
+        <th>Other Details</th>
+        <th>Purpose of Loan</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let loan of customerAllLoanList"
+      <tr *ngFor="let loan of customerAllLoanList, let i = index"
           [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
         <td class="text-left pl-1">
           <ng-container
@@ -121,6 +124,56 @@
 <!--          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}} ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>-->
 <!--          <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>-->
 <!--        </td>-->
+        <td>
+          <ng-container>
+            <table>
+              <tr class="text-white sb-bg-dark">
+                <th *ngIf="(loanDatas[i]?.loanNatureSelected && loanDatas[i]?.fundableNonFundableSelcted &&   loanDatas[i]?.isFundable &&   loanDatas[i]?.isTerminating) ||  loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral">Repayment Mode</th>
+                <th *ngIf=" loanDatas[i]?.showInstallmentAmount  && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.isTerminating) || loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral)">EMI Amount</th>
+                <th *ngIf="! loanDatas[i]?.showInstallmentAmount &&  ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Interest Amount</th>
+                <th *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Interest Payment</th>
+                <th *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Principal Payment</th>
+                <th *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Principal Amount</th>
+                <th *ngIf=" loanDatas[i]?.showPrincipalAmount && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Principal Amount</th>
+              </tr>
+              <tr>
+                <td *ngIf="(loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.fundableNonFundableSelcted &&   loanDatas[i]?.isFundable &&   loanDatas[i]?.isTerminating) ||  loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral" class="pl-1">{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>
+                <td *ngIf=" loanDatas[i]?.showInstallmentAmount  && ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating  &&  loanDatas[i]?.isFundable) || (  loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>
+                <td *ngIf="! loanDatas[i]?.showInstallmentAmount &&  ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating) || ( loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>
+                <td *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating) || ( loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pl-1">{{(loan?.proposal?.data | jsonParse)?.repaymentModeInterest}}</td>
+                <td *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating) || ( loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pl-1">{{(loan?.proposal?.data | jsonParse)?.repaymentModePrincipal}}</td>
+                <td *ngIf=" loanDatas[i]?.showRepaymentMode && ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating) || ( loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pr-1">Rs.{{(loan?.proposal?.data | jsonParse)?.principalAmount}}</td>
+                <td *ngIf=" loanDatas[i]?.showPrincipalAmount && ((loanDatas[i]?.loanNatureSelected &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isTerminating) || ( loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral))" class=" pr-1">Rs.{{(loan?.proposal?.data | jsonParse)?.principalAmount}}</td>
+              </tr>
+            </table>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
+            <span >Loan Administration: </span>
+            <div *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
+              Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+            <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+          </ng-container>
+          <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
+            <span >Commitment Fee :</span>
+            <span>{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
+          </ng-container>
+          <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
+            <span >Prepayment Fee: </span>
+            <span>{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
+          </ng-container>
+          <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
+            <span >Swap Fee: </span>
+            <span>{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
+
+          </ng-container>
+        </td>
+        <td>
+                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.purposeOfLoan">
+                        {{(loan?.proposal?.data | jsonParse)?.purposeOfLoan}}
+                    </span>
+        </td>
       </tr>
       <tr *ngFor="let loanDto of customerLoanDtoList"
           [class.font-weight-bold]="proposalData?.id === loanDto?.proposal?.id">
@@ -248,6 +301,9 @@
           <td>-</td>
           <td>-</td>
         </ng-template>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Non-Funded</strong></td>
@@ -279,6 +335,9 @@
           <td>-</td>
           <td>-</td>
         </ng-template>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Total</strong></td>
@@ -311,6 +370,9 @@
           <td>-</td>
           <td>-</td>
         </ng-template>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       </tbody>
     </table>

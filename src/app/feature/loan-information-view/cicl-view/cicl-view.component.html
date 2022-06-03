@@ -55,7 +55,10 @@
         <td>{{ciclValue?.repaymentTrack}}</td>
       </tr>
     </table>
+    <hr class="print-line">
     <app-newt-worth *ngIf="loanDataHolder?.proposal?.data" [proposal]="loanDataHolder?.proposal"></app-newt-worth>
-    <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
+    <hr class="print-line">
+    <app-financial-account-information *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'" [financialFormValue]="loanDataHolder"></app-financial-account-information>
+    <hr class="print-line">
   </div>
 </div>

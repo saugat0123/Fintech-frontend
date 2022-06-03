@@ -24,7 +24,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() collateralData;
     @Input() proposal;
     @Input() securities: Array<Security> = [];
-    @Input() customerAllLoanList: LoanDataHolder [];
+    @Input() customerAllLoanList: LoanDataHolder[];
     @Input() pending;
     landSelected = false;
     apartmentSelected = false;
@@ -99,7 +99,7 @@ export class SecuritySummaryComponent implements OnInit {
 
     combineAllSecurity() {
         this.customerAllLoanList.forEach((ld) => {
-            if (ld.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED) && ld.securities.length > 0) {
+            if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
                 ld.securities.forEach((s) => {
                     this.securities.push(s);
                 });
