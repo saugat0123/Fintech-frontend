@@ -156,6 +156,45 @@
                       सम्बन्धित निक्षेप सदस्यबाट चेक (DIS) मा हस्ताक्षर प्रमाणित गराई सो चेक सहित यस बैंकको
                         पक्षमा उल्लेखित शेयरहरु रोक्का राखिएको पत्र (Share pledge Confirmation)
                     </li>
+                    <li *ngIf="houseCompletionCertificate">
+                        भवन निर्माण सम्पन्न प्रमाणपत्र । (House Completion Certificate)
+                    </li>
+                    <li *ngIf="negativeLien">
+                        Negative Lien
+                    </li>
+                    <li *ngIf="letterOfConsentForContOfExistingMortgage">
+                        धितोबन्धक रहेको घर/जग्गा धनी श्री
+                        <input class="form-field form-control-sm d-print-none"
+                               name="letterOfConsentForContOfExistingMortgageName"
+                               formControlName="letterOfConsentForContOfExistingMortgageName"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{form?.get('letterOfConsentForContOfExistingMortgageName')?.value || '______________________'}}</span>
+
+                        को धितो निरन्तरताको मन्जुरीनामा (Letter of Consent from Mortgage property owner for continuation of existing mortgage)
+                    </li>
+                    <li *ngIf="debitAuthority">
+                        ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न श्री
+                        <span class="font-weight-bold">
+                        {{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '____________________'}}</span>
+                        को खाता नं
+                        <input class="form-field form-control-sm d-print-none"
+                               name="borrowerKhataNum"
+                               formControlName="borrowerKhataNum"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{form?.get('borrowerKhataNum')?.value || '______________________'}}</span>
+                        बाट खर्च कटाउने अख्तीयारी पत्र । (Debit Authority)
+                    </li>
+                    <li *ngIf="letterofSetOff">
+                        मोजरा पत्र । (Letter of Set Off)
+                    </li>
+                    <li *ngIf="fixedDepositCertificate">
+                        श्री
+                        <span class="print-only font-weight-bold">_______________</span>
+                        को रु <span class="print-only font-weight-bold">__________________</span>
+                        को सक्कल मुद्दती रसिद । (Fixed Deposit Certificate)
+                    </li>
                     <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px" class="d-print-none">Add
                         Text Area
                     </button>
