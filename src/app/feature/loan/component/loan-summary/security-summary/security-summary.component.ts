@@ -23,7 +23,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() count;
     @Input() shareSecurity;
     @Input() collateralData;
-    @Input() loanDataHolder: LoanDataHolder;
+    @Input() loanDataHolder
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
