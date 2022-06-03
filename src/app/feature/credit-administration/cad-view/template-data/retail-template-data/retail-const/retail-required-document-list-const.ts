@@ -18,7 +18,11 @@ export enum RetailRequiredDocumentList {
     SHARE_PLEDGE_DEED = 'Share Pledge Deed',
     NRB_DECLARATION_FORM = 'NED Declaration Form',
     RISK_TAKER_DETAIL = 'Risk Taker Detail',
-    SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation'
+    SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation',
+    MULTI_BANKING_DECLARATION = 'Multi Banking Declaration',
+    POD_RENEWABLE_APPLICATION = 'POD Renewable Application',
+    FIVE_M_DECLARATION_LETTER = '5M Declaration Letter'
+
 }
 
 

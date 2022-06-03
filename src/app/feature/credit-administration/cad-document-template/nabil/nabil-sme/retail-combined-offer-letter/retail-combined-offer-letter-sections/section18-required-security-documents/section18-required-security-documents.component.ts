@@ -37,6 +37,12 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   sharePledgeConfirmation: boolean;
   freeTextVal;
   isPODSelected: boolean;
+  multiBankingDeclaration: boolean;
+  personalGuarantee: boolean;
+  podRenewableApplication: boolean;
+  fiveMDeclarationLetter: boolean;
+  loanArray: Array<any> = new Array<any>();
+  promissoryFigure: any;
   constructor(
       private formBuilder: FormBuilder,
       public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe
@@ -82,6 +88,9 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     let totalLoanDeed = 0;
     this.cadData.assignedLoan.forEach(value => {
       const val = value.proposal.proposedLimit;
+      if (!ObjectUtil.isEmpty(val)) {
+        this.loanArray.push(val);
+      }
       totalLoanAmount = totalLoanAmount + val;
     });
     if (!ObjectUtil.isEmpty(this.initialInfo) &&
@@ -93,7 +102,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       });
     }
     this.form.patchValue({
-      loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
+      // loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
       totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? (totalLoanAmount + totalLoanDeed) : '',
     });
     if (!ObjectUtil.isEmpty(this.cadData) &&
@@ -139,7 +148,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         && temp.requiredLegalDocument.requiredDocument.includes('Loan Deed')) {
       this.loanDeedVisible = true;
     }
-    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Mortgaged Deed')) {
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Mortgage Deed')) {
       this.mortgagedVisible = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Re-Mortgage Deed')) {
@@ -196,6 +205,22 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('Share Pledge Confirmation')) {
       this.sharePledgeConfirmation = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Multi Banking Declaration')) {
+      this.multiBankingDeclaration = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee and Networth Statement')) {
+      this.personalGuarantee = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('POD Renewable Application')) {
+      this.podRenewableApplication = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('5M Declaration Letter')) {
+      this.fiveMDeclarationLetter = true;
     }
   }
   checkCondition() {

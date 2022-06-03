@@ -16,6 +16,7 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   loanOption;
   loanData;
   loanName: Array<any> = new Array<any>();
+  loanNepaliName: Array<any> = new Array<any>();
   NCELL: boolean;
   reqDate;
   prevDate;
@@ -47,7 +48,10 @@ export class Section1CustomerOfferLetterTypeComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.cadData.assignedLoan.forEach(val => {
-        this.loanName.push(val.loan.name);
+        if  (!this.loanName.includes(val.loan.name)) {
+          this.loanName.push(val.loan.name);
+          this.loanNepaliName.push(val.loan.nepaliName);
+        }
       });
       this.loanName.forEach(value => {
         if (value === 'HOME LOAN COMBINED') {
