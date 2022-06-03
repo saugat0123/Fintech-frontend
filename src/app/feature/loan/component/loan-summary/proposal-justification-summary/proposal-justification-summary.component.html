@@ -1,5 +1,5 @@
 <div class="py-2">
-    <div *ngIf="client == clientName.LAXMIBANK"><span><strong>{{client === clientName?.LAXMIBANK ? 'Justification and purpose of present proposal:' : 'Justification of Facilities:'}}</strong></span></div>
+    <div><span><strong>    Justification and purpose of present proposal</strong></span></div>
     <hr>
     <div class="py-2">
         <ol>
@@ -9,7 +9,7 @@
 <!--                </div>-->
 
                 <div>
-                    <div class="row sb-small" ><strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit :' : 'Background :' }}</strong></div>
+                    <div class="row sb-small" ><strong>Justification of limit</strong></div>
                     <div class="sb-small">
                         <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
                     </div>
