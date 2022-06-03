@@ -386,19 +386,21 @@
             </tr>
 
             </tbody>
-            <tr class="text-white sb-bg-dark">
+
+            <tr class="text-white sb-bg-dark" *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
                 <th colspan="4">Note</th>
             </tr>
-            <tr>
+            <tr *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
                 <td colspan="4" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
             </tr>
         </table>
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
             <tr class="text-white sb-bg-dark">
                 <th>Business Objective</th>
             </tr>
             <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
+        <div  *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
         <table *ngIf="summaryType === summaryTypeName.GENERAL"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -516,6 +518,7 @@
             </tr>
             </tbody>
         </table>
+        </div>
         <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>

@@ -12,6 +12,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {flatten} from '@angular/compiler';
 import {SummaryType} from '../../loan/component/SummaryType';
 import {LoanType} from '../../loan/model/loanType';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-security-view',
@@ -24,6 +25,7 @@ export class SecurityViewComponent implements OnInit {
   @Input() collateralData;
   @Input() docStatus;
   @Input() loanDataType;
+  @Input() loanDataHolder: LoanDataHolder;
   securityData;
   shareSecurity;
   vehicleSelected = false;
