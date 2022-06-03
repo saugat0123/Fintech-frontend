@@ -52,7 +52,7 @@
                                     <a nbTooltip="Edit loan" class="text-info" *ngIf="model?.currentStage?.toRole?.roleType.toString()==='MAKER' || (currentUserRoleType === 'ADMIN')"
                                        (click)="onEdit(proposal, model?.id)">
                                         <em class="fa fa-edit"></em></a>&nbsp;
-                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model?.id, model?.loanName === COMBINED_KEY)" *ngIf="(currentUserRoleType === 'MAKER')"><em
+                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model?.id, model?.combinedLoans)" *ngIf="(currentUserRoleType === 'MAKER' && model?.loanName === COMBINED_KEY)"><em
                                             class="fa fa-window-restore"></em></a>&nbsp;
                                 </td>
                             </tr>

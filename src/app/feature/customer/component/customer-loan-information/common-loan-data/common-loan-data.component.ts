@@ -13,9 +13,7 @@ import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
-import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {CombinedLoanService} from '../../../../service/combined-loan.service';
-import {Proposal} from '../../../../admin/modal/proposal';
 import {CustomerLoanDto} from '../../../../loan/model/customerLoanDto';
 
 @Component({
@@ -26,7 +24,7 @@ import {CustomerLoanDto} from '../../../../loan/model/customerLoanDto';
 export class CommonLoanDataComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() loanId: any;
-    @Input() isLoanCombined = false;
+    @Input() resCombinedData: any;
 
     commonLoanData: FormGroup;
     solChecked = false;
@@ -44,10 +42,7 @@ export class CommonLoanDataComponent implements OnInit {
     client = environment.client;
     clientName = Clients;
     ckeConfig;
-    singleLoan: LoanDataHolder;
     parsedProposalData;
-    resCombinedData: any;
-    finalProposalData: Array<Proposal>;
     finalLoanData: Array<CustomerLoanDto>;
 
     constructor(private toastService: ToastService,
@@ -64,14 +59,9 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.spinner.show();
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
-        if (this.isLoanCombined) {
-            this.fetchCombinedLoanData(this.loanId);
-        } else {
-            this.fetchLoanData(this.loanId);
-        }
+        this.fetchCombinedLoanData();
     }
 
     buildProposalCommonForm() {
@@ -100,40 +90,14 @@ export class CommonLoanDataComponent implements OnInit {
         });
     }
 
-    fetchLoanData(id: any) {
-        if (ObjectUtil.isEmpty(id)) {
-            return;
-        }
-        this.customerLoanService.getSingleLoanByLoanHolderId(id).subscribe((res: any) => {
-            this.singleLoan = res.detail;
-            const tempProposal = !ObjectUtil.isEmpty(this.singleLoan) ? this.singleLoan.proposal : null;
-            this.parsedProposalData = !ObjectUtil.isEmpty(tempProposal) ? JSON.parse(this.singleLoan.proposal.data)
-                : null;
-            this.setTestValue(this.parsedProposalData);
-            this.spinner.hide();
-        }, error => {
-            this.toastService.show(new Alert(AlertType.DANGER, 'Error while loading loan data!!'));
-            this.spinner.hide();
-        });
-    }
-
     /* For the Customer Loan Service */
-    fetchCombinedLoanData(id) {
-        if (ObjectUtil.isEmpty(id)) {
-            return;
-        }
-        this.combinedLoanService.detail(id).subscribe((res: any) => {
-            this.resCombinedData = res.detail;
-            const tempLoanList = !ObjectUtil.isEmpty(this.resCombinedData) ?
-                this.resCombinedData.loans : null;
-            const tempProposalData = !ObjectUtil.isEmpty(tempLoanList) ?
-                JSON.parse(tempLoanList[0].proposal.data) : null;
-            this.setTestValue(tempProposalData);
-            this.spinner.hide();
-        }, error => {
-            this.toastService.show(new Alert(AlertType.DANGER, 'Error while loading loan data!!'));
-            this.spinner.hide();
-        });
+    fetchCombinedLoanData() {
+        const tempLoanList = !ObjectUtil.isEmpty(this.resCombinedData) ?
+            this.resCombinedData : null;
+        const tempProposalData = !ObjectUtil.isEmpty(tempLoanList) ?
+            JSON.parse(tempLoanList[0].proposal.data) : null;
+        this.setTestValue(tempProposalData);
+        this.spinner.hide();
     }
 
     setTestValue(parsedData) {
@@ -186,40 +150,19 @@ export class CommonLoanDataComponent implements OnInit {
         this.commonLoanData.patchValue({
             mergedCheck: JSON.stringify(mergeChecked)
         });
-        const testData = [];
-
-        if (!this.isLoanCombined) {
-            /* For Individual Save */
-            this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
-            const proposal = !ObjectUtil.isEmpty(this.singleLoan) ? this.singleLoan.proposal : null;
-            const finalData = !ObjectUtil.isEmpty(proposal) ? JSON.parse(proposal.data) : null;
-
-            if (!ObjectUtil.isEmpty(finalData)) {
-                finalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
-                this.singleLoan.proposal.data = JSON.stringify(finalData);
-                testData.push(this.singleLoan);
-            } else {
-                const temp = {
-                    commonLoanData: this.commonLoanData.value
-                };
-                this.singleLoan.proposal.data = JSON.stringify(temp);
-                testData.push(this.singleLoan);
+        const loanList = [];
+        // this.updateCombinedDetails();
+        this.resCombinedData.forEach((value) => {
+            const tempProposalData = JSON.parse(value.proposal.data);
+            if (!ObjectUtil.isEmpty(tempProposalData)) {
+                tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
+                value.proposal.data = JSON.stringify(tempProposalData);
+                loanList.push(value);
             }
-        } else {
-            // this.updateCombinedDetails();
-            this.resCombinedData.loans.forEach((value) => {
-                const tempProposalData = JSON.parse(value.proposal.data);
-                if (!ObjectUtil.isEmpty(tempProposalData)) {
-                    tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
-                    value.proposal.data = JSON.stringify(tempProposalData);
-                    testData.push(value);
-                }
-                this.resCombinedData.loans = testData;
-            });
-        }
-
+            this.resCombinedData = loanList;
+        });
         /* TEST FOR THE API */
-        this.customerLoanService.saveCommonLoanDataBulk(testData).subscribe((res: any) => {
+        this.customerLoanService.saveCommonLoanDataBulk(loanList).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
             this.finalLoanData = res.detail;
             this.nbDialogRef.close(true);
@@ -234,73 +177,6 @@ export class CommonLoanDataComponent implements OnInit {
         this.nbDialogRef.close(false);
     }
 
-    updateIndividualDetails() {
-        /* For Individual Save */
-        const testData = [];
-        this.customerInfo.commonLoanData = JSON.stringify(this.commonLoanData.value);
-        const proposal = !ObjectUtil.isEmpty(this.singleLoan) ? this.singleLoan.proposal : null;
-        const finalData = !ObjectUtil.isEmpty(proposal) ? JSON.parse(proposal.data) : null;
-
-        if (!ObjectUtil.isEmpty(finalData)) {
-            finalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
-            this.singleLoan.proposal.data = JSON.stringify(finalData);
-            testData.push(this.singleLoan.proposal);
-        } else {
-            const temp = {
-                commonLoanData: this.commonLoanData.value
-            };
-            this.singleLoan.proposal.data = JSON.stringify(temp);
-            testData.push(this.singleLoan.proposal);
-        }
-
-        /*this.customerLoanService.save(this.singleLoan).subscribe((res: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
-            this.singleLoan = res.detail;
-            this.nbDialogRef.close(true);
-            this.spinner.hide();
-        }, error => {
-            this.spinner.hide();
-            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
-        });*/
-
-        /* TEST FOR THE API */
-
-        this.customerLoanService.saveCommonLoanDataBulk(testData).subscribe((res: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
-            this.finalLoanData = res.detail;
-            this.nbDialogRef.close(true);
-            this.spinner.hide();
-        }, error => {
-            this.spinner.hide();
-            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
-        });
-    }
-
-    updateCombinedDetails() {
-        /* For Combine Save */
-        if (this.isLoanCombined && !ObjectUtil.isEmpty(this.resCombinedData)) {
-            const tempData = [];
-            this.resCombinedData.loans.forEach((value) => {
-                const tempProposalData = JSON.parse(value.proposal.data);
-                if (!ObjectUtil.isEmpty(tempProposalData)) {
-                    tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
-                    value.proposal.data = JSON.stringify(tempProposalData);
-                    tempData.push(value);
-                }
-                this.resCombinedData.loans = tempData;
-            });
-
-            this.combinedLoanService.save(this.resCombinedData).subscribe((res: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
-                this.singleLoan = res.detail;
-                this.nbDialogRef.close(true);
-                this.spinner.hide();
-            }, error => {
-                this.spinner.hide();
-                this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
-            });
-        }
-    }
 
     checkChecked(event, type) {
         switch (type) {

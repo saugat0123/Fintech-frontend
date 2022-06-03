@@ -325,7 +325,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           requiredCollateral: loan.proposal.collateralRequirement,
           currentStage: loan.currentStage,
           parentId: loan.parentId,
-          loan: loan.loan
+          loan: loan.loan,
+          proposal: loan.proposal
         });
       } else if (   // check if combined loan is not included already
           !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -372,11 +373,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               requiredCollateral: l.proposal.collateralRequirement,
               currentStage: l.currentStage,
               parentId: l.parentId,
-              loan: l.loan
+              loan: l.loan,
+              proposal: l.proposal
             };
             return singleCombinedLoanDto;
           }),
-          loan: loan.loan
+          loan: loan.loan,
+          proposal: loan.proposal
         };
         loanHistories.push(dto);
       }
@@ -703,13 +706,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.modalService.dismissAll();
   }
 
-    openCommonModal(id, isCombined?) {
+    openCommonModal(id, combinedLoans) {
         this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
             {
                 context: {
                     customerInfo: this.customerInfo,
                     loanId: id,
-                    isLoanCombined: isCombined,
+                  resCombinedData: combinedLoans
                 },
                 closeOnBackdropClick: false,
                 closeOnEsc: false
