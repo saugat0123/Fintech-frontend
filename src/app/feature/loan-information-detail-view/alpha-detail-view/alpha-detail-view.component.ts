@@ -15,6 +15,7 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
 import {ActivatedRoute} from '@angular/router';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {LoanType} from '../../loan/model/loanType';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -50,6 +51,7 @@ export class AlphaDetailViewComponent implements OnInit {
   businessGiven;
   @Output() documents = new EventEmitter();
   siteVisitDocuments: Array<SiteVisitDocument>;
+  loanType = LoanType;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,

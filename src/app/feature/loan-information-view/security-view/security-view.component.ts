@@ -11,6 +11,8 @@ import {SiteVisitDocument} from '../../loan-information-template/security/securi
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {flatten} from '@angular/compiler';
 import {SummaryType} from '../../loan/component/SummaryType';
+import {LoanType} from '../../loan/model/loanType';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-security-view',
@@ -22,7 +24,8 @@ export class SecurityViewComponent implements OnInit {
   @Input() shareSecurityData;
   @Input() collateralData;
   @Input() docStatus;
-  securityData: Security;
+  @Input() loanDataHolder
+  securityData;
   shareSecurity;
   vehicleSelected = false;
   landSelected = false;
@@ -63,6 +66,7 @@ export class SecurityViewComponent implements OnInit {
   bondSecurity = false;
   totalBondSecurityValue = 0;
   @Output() downloadSiteVisitDocument = new EventEmitter();
+  loanType = LoanType;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
