@@ -5,4 +5,5 @@ export class OtherCompanyDetail {
   ClassificationByNRB: string;
   negativeList: string;
   negativeListRemark: string;
+  firmRenew: string;
 }

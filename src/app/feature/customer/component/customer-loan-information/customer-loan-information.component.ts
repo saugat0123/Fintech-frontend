@@ -714,6 +714,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             // this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+        } else {
+            this.commonLoanData.get('waiverConclusionRecommendation').patchValue(this.groupTable);
         }
     }
 

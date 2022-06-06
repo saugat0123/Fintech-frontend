@@ -1020,6 +1020,26 @@
 
             </div>
           </div>
+          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Disbursement Criteria</strong></label>
+              <ckeditor [config]="ckeConfig"
+                        [style]="{height:'250px !important;'}"
+                        formControlName="disbursementCriteria"
+                        placeholder="Disbursement Criteria">
+              </ckeditor>
+            </div>
+          </div>
+          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Repayment</strong></label>
+              <ckeditor [config]="ckeConfig"
+                        [style]="{height:'250px !important;'}"
+                        formControlName="repayment"
+                        placeholder="Repayment">
+              </ckeditor>
+            </div>
+          </div>
 
           <div class="col-md-12 form-group">
             <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
