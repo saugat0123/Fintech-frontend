@@ -193,7 +193,7 @@
         <div class="row">
             <div *ngFor="let cn of form?.get('companyGroup')['controls']; let ii = index"
                  formArrayName="companyGroup" class="col-md-4">
-                <label for="name"><strong>CompanyName {{ii + 1}}</strong></label>
+                <label for="name"><strong>Company Name {{ii + 1}}</strong></label>
                 <div [formGroupName]="ii" class="form-group">
                     <input formControlName="name"
                            class="form-control"
