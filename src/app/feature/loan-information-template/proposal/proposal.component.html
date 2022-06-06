@@ -45,10 +45,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">
+                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'CLOSURE_LOAN'">
                                     <div class="form-group">
-                                        <label class="title" for="settlementAmount"></label>
-                                        <strong>Settlement Amount</strong>
+                                        <label class="title" for="settlementAmount">
+                                            <strong>Settlement Amount</strong>
+                                        </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.settlementAmount.errors }"
                                                (keyup)="calculateLimitValues()"
@@ -80,6 +81,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
@@ -238,6 +240,7 @@
                                     </div>
 
                                 </div>
+                                </ng-container>
                                 <div class="col-md-4"
                                      *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
@@ -292,6 +295,7 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
@@ -688,6 +692,7 @@
                                     </div>
 
                                 </div>
+                                </ng-container>
 
 
                                 <!--                end of Moratorium Period amount div-->
@@ -714,6 +719,8 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== loanEnumType?.getEnum(loanEnumType?.FULL_SETTLEMENT_LOAN)
+                                    && loanType !== loanEnumType?.getEnum(loanEnumType?.CLOSURE_LOAN)">
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
                                         <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Loan background' }}</strong>
@@ -768,6 +775,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                </ng-container>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="remark">
@@ -810,6 +819,7 @@
                                     </div>
                                 </div>
 
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
@@ -907,6 +917,7 @@
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
+                                </ng-container>
                             </div>
 
                         </form>
