@@ -203,9 +203,13 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   consumerFinance = false;
   smallBusiness = false;
+  fullSettlement = false;
 
   ngOnInit() {
     this.getLoanDataHolder();
+    if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
+      this.fullSettlement = true;
+    }
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
     }
