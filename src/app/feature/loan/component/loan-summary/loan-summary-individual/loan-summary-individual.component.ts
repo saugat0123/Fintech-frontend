@@ -183,6 +183,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
   hidePreviewButton = false;
   zipDocName;
   loaded = false;
+  fullSettlement = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -213,7 +214,10 @@ export class LoanSummaryIndividualComponent implements OnInit {
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
     }
-    this.disable();
+    if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
+      this.fullSettlement = true;
+    }
+      this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
