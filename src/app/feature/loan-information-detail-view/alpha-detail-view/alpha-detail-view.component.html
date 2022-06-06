@@ -148,10 +148,13 @@
                         [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
 <!-- End Insurance Details-->
 </div>
-<!--Start Guarantor Details-->
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-<!--End Guarantor Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+    <!--Start Guarantor Details-->
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+    <!--End Guarantor Details-->
+</div>
+
 
 <div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
