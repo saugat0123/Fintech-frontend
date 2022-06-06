@@ -5,7 +5,7 @@
                 <div class="text-center">
                     <strong>बिषयः व्यक्तिगत जमानत</strong>
                 </div>
-                <p>
+                <p class="text-justify">
                     लिखितम धनीका नाम प्रचलित कम्पनी सम्बन्धी कानुन तथा बैंक तथा वित्तीय संस्था सम्बन्धी कानुन, २०७३
                     बमोजिम संस्थापना भएको प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा/मुख्य कार्यालय
                     <span [ngClass]="{'nepaliFontPreeti unicode-size' : guarantor?.branchName !== null && guarantor?.branchName !== ''}">
@@ -212,7 +212,7 @@
                         </span>मा रजिष्टर्ड कार्यालय रहेको
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.enterpriseName !== null && guarantor?.enterpriseName !== ''}">
                             {{guarantor?.enterpriseName === null || guarantor?.enterpriseName === '' ? '_________________' : guarantor?.enterpriseName}}
-                        </span>(जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) का तर्पmबाट अधिकार प्राप्त
+                        </span>(जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) का तर्फबाट अधिकार प्राप्त
                         संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.grandFatherName !== null && guarantor?.grandFatherName !== ''}">
                             {{guarantor?.grandFatherName === null || guarantor?.grandFatherName === '' ? '_________________' : guarantor?.grandFatherName}}
