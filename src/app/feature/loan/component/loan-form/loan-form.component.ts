@@ -418,6 +418,29 @@ export class LoanFormComponent implements OnInit {
             //         }
             //     });
             // }
+            if (this.loanType === 'FULL_SETTLEMENT_LOAN') {
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Guarantor') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Loan Document') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Product Paper Checklist') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
+            if (this.loanType === 'FULL_SETTLEMENT_LOAN') {
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Reporting Info') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
