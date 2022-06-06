@@ -1462,8 +1462,8 @@
       </tbody>
     </table>
   </div>
-
-  <div class="row"  *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN'">
+  <div class="row" *ngIf="isCollateralSiteVisit && loanDataType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)
+        && loanDataType !== loanType?.getEnum(loanType?.CLOSURE_LOAN)">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
         <tr>
@@ -1501,7 +1501,6 @@
         </tr>
       </tbody>
     </table>
-
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
       <tr>
