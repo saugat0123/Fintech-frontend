@@ -18,6 +18,7 @@ import {CcblTable} from './ccbl-table';
 export class GroupExposureWithCcblComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Output() responseData: EventEmitter<MGroup> = new EventEmitter();
+  @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType;
 
   form: FormGroup;
@@ -108,10 +109,10 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.mGroupService.save(this.mGroupInfo).subscribe((response) => {
       this.responseData.emit(response.detail);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Exposure'));
+      this.triggerCustomerRefresh.emit(true);
       this.spinner = false;
     }, error => {
       console.log(error);
-
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while saving: ' + error));
       this.spinner = false;
     });

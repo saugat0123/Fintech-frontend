@@ -678,11 +678,25 @@
                                     </div>
                                 </div>
                                 <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
-
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="title" for="disbursementCriteria"><strong>Disbursement
-                                                Criteria</strong></label>
+                                            <label class="title" for="specialCovenant"><strong>Special Covenants/Conditions, If Any</strong></label>
+                                            <ckeditor
+                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
+                                                    formControlName="specialCovenant" id="specialCovenant"
+                                                    name="specialCovenant"
+                                                    [config]="ckeConfig"></ckeditor>
+                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
+                                                 class="text-danger">
+                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="customerType === 'INSTITUTION'">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
                                             <ckeditor
                                                     [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
                                                     formControlName="disbursementCriteria" id="disbursementCriteria"
@@ -708,20 +722,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title" for="specialCovenant"><strong>Special Covenants/Conditions, If Any</strong></label>
-                                            <ckeditor
-                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
-                                                    formControlName="specialCovenant" id="specialCovenant"
-                                                    name="specialCovenant"
-                                                    [config]="ckeConfig"></ckeditor>
-                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
-                                                 class="text-danger">
-                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </ng-container>
                                 <div class="col-md-12 form-group" *ngIf="!fromProfile">
                                     <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>

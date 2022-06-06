@@ -57,8 +57,6 @@ import { AboveSwotAnalysisComponent } from './sme-loan-summary/above-ten-million
 import { AbovePricingAndEstimatedIncomeFromTheAccountComponent } from './sme-loan-summary/above-ten-million/above-pricing-and-estimated-income-from-the-account/above-pricing-and-estimated-income-from-the-account.component';
 import { AboveFixedAssetsCollateralComputationSheetComponent } from './sme-loan-summary/above-ten-million/above-fixed-assets-collateral-computation-sheet/above-fixed-assets-collateral-computation-sheet.component';
 import { AboveSpecialCovenantsComponent } from './sme-loan-summary/above-ten-million/above-special-covenants/above-special-covenants.component';
-import { AboveModeOfDisbursementComponent } from './sme-loan-summary/above-ten-million/above-mode-of-disbursement/above-mode-of-disbursement.component';
-import { AboveRepaymentModalityOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-repayment-modality-of-credit-facilities/above-repayment-modality-of-credit-facilities.component';
 import { AboveWaiverDeviationsDeferalsRebatesComponent } from './sme-loan-summary/above-ten-million/above-waiver-deviations-deferals-rebates/above-waiver-deviations-deferals-rebates.component';
 import { AboveReviewOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-review-of-credit-facilities/above-review-of-credit-facilities.component';
 import { GroupCreditFacilityReportComponent } from './group-credit-facility-report/group-credit-facility-report.component';
@@ -159,8 +157,6 @@ const ENTRY_COMPONENTS = [];
     AbovePricingAndEstimatedIncomeFromTheAccountComponent,
     AboveFixedAssetsCollateralComputationSheetComponent,
     AboveSpecialCovenantsComponent,
-    AboveModeOfDisbursementComponent,
-    AboveRepaymentModalityOfCreditFacilitiesComponent,
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
     GroupCreditFacilityReportComponent,

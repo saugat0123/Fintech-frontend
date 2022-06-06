@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../../../model/loanData';
 
 @Component({
   selector: 'app-above-pricing-and-estimated-income-from-the-account',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./above-pricing-and-estimated-income-from-the-account.component.scss']
 })
 export class AbovePricingAndEstimatedIncomeFromTheAccountComponent implements OnInit {
+  @Input() customerAllLoanList: LoanDataHolder[];
 
   constructor() { }
 
