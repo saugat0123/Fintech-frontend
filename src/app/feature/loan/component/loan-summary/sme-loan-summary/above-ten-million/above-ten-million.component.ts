@@ -16,6 +16,7 @@ export class AboveTenMillionComponent implements OnInit {
   @Input() fiscalYear;
   @Input() isDetailedView: boolean;
   @Input() fixedAssetsData: Array<any>;
+  @Input() totalProposedLimit: number;
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;

@@ -697,8 +697,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     buildProposalCommonForm() {
         this.commonLoanData = this.formBuilder.group({
             borrowerInformation: [undefined],
-            disbursementCriteria: [undefined],
-            repayment: [undefined],
             remark: [undefined],
             summeryRecommendation: [undefined],
             approvingAuthority: [undefined],
