@@ -11,7 +11,7 @@ import {SummaryType} from '../../SummaryType';
 })
 export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   @Input() customerAllLoanList: Array<LoanDataHolder>;
-  @Input() loanDataHolder: LoanDataHolder;
+  @Input() loanDataHolder
   @Input() loanCategory;
   client = environment.client;
   clientName = Clients;
