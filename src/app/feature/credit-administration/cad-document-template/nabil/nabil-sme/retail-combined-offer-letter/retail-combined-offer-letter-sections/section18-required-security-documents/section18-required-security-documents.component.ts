@@ -92,6 +92,9 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       mortgageDeedAmountInFigure: [undefined],
       borrowerKhataNum: [undefined],
       letterOfConsentForContOfExistingMortgageName: [undefined],
+      newOrAdditionalLoan: [undefined],
+      pdoNabil: [undefined],
+      mortgageDate: [undefined],
     });
   }
   fillForm() {
@@ -119,6 +122,12 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
           this.saveFreeText.section18.borrowerKhataNum : '',
       letterOfConsentForContOfExistingMortgageName: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
           this.saveFreeText.section18.letterOfConsentForContOfExistingMortgageName : '',
+      newOrAdditionalLoan: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.newOrAdditionalLoan : '',
+      pdoNabil: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.pdoNabil : '',
+      mortgageDate: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.mortgageDate : '',
     });
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
