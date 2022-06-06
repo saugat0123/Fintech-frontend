@@ -431,7 +431,9 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.cadData.assignedLoan.forEach(value => {
-        this.loanName.push(value.loan.name);
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+        }
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
       });

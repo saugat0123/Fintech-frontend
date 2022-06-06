@@ -35,7 +35,9 @@ export class Section13ClausesPersonalLoanAndOverdraftComponent implements OnInit
   checkLoan() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan.forEach(value => {
-        this.loanName.push(value.loan.name);
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+        }
       });
       this.getLoan();
       if (!ObjectUtil.isEmpty(this.tempData) &&

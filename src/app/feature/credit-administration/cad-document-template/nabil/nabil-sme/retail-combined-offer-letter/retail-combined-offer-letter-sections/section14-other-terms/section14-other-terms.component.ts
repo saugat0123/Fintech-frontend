@@ -44,7 +44,9 @@ export class Section14OtherTermsComponent implements OnInit {
   checkCondition() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.assignedData = this.cadData.assignedLoan.forEach(value => {
-        this.loanName.push(value.loan.name);
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+        }
       });
       this.loanName.forEach(value => {
         if (value === 'NABIL SHARE LOAN POD COMBINED' || value === 'SHARE LOAN DEMAND COMBINED') {
