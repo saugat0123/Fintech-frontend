@@ -156,15 +156,15 @@
 </div>
 
 
-<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
-    <!-- Start Financial Details-->
-    <app-financial-view
-            [customerType]="loanHolder?.customerType"
-            [formData]="loanHolder?.financial"></app-financial-view>
-    <!-- End Financial Details-->
 
-</div>
+<!-- Start Financial Details-->
+<app-financial-view *ngIf="loanHolder?.financial && loanDataHolder?.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)"
+                    [customerType]="loanHolder?.customerType"
+                    [formData]="loanHolder?.financial"></app-financial-view>
+<!-- End Financial Details-->
+
+
 
 
 <!-- Start NTCA Details-->
