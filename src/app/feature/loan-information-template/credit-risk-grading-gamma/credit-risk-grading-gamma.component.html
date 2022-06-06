@@ -1,137 +1,140 @@
-<!--<section>-->
+<section>
 
-<!--    <nb-accordion class="mb-4">-->
-<!--        <nb-accordion-item>-->
-<!--            <nb-accordion-item-header>-->
-<!--                <em><mark><strong>click me to view Credit Scoring Breakdown</strong></mark></em>-->
-<!--            </nb-accordion-item-header>-->
-<!--            <nb-accordion-item-body>-->
-<!--              <div>-->
-<!--                  <table class="table table-hover table-bordered text-center">-->
-<!--                      <thead>-->
-<!--                      <tr class="sb-bg-dark">-->
-<!--                          <th>S.N</th>-->
-<!--                          <th>Range of score</th>-->
-<!--                          <th>Perceived Risk</th>-->
-<!--                          <th>Decision</th>-->
-<!--                      </tr>-->
-<!--                      </thead>-->
-<!--                      <tbody>-->
-<!--                      <tr>-->
-<!--                          <td>i</td>-->
-<!--                          <td>>=90</td>-->
-<!--                          <td>Virtually zero risk</td>-->
-<!--                          <td rowspan="5">Accept</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>ii</td>-->
-<!--                          <td>>=75</td>-->
-<!--                          <td>Lower risk</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>iii</td>-->
-<!--                          <td>>=65</td>-->
-<!--                          <td>Low risk</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>iv</td>-->
-<!--                          <td>>=55</td>-->
-<!--                          <td>Moderate risk</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>v</td>-->
-<!--                          <td>>=45</td>-->
-<!--                          <td>Average risk</td>-->
+    <nb-accordion class="mb-4">
+        <nb-accordion-item>
+            <nb-accordion-item-header>
+                <em><mark><strong>click me to view Credit Scoring Breakdown</strong></mark></em>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div>
+                  <table class="table table-hover table-bordered text-center">
+                      <thead>
+                      <tr class="sb-bg-dark">
+                          <th>S.N</th>
+                          <th>Range of score</th>
+                          <th>Perceived Risk</th>
+                          <th>Decision</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>i</td>
+                          <td>>=90</td>
+                          <td>Virtually zero risk</td>
+                          <td rowspan="5">Accept</td>
+                      </tr>
+                      <tr>
+                          <td>ii</td>
+                          <td>>=75</td>
+                          <td>Lower risk</td>
+                      </tr>
+                      <tr>
+                          <td>iii</td>
+                          <td>>=65</td>
+                          <td>Low risk</td>
+                      </tr>
+                      <tr>
+                          <td>iv</td>
+                          <td>>=55</td>
+                          <td>Moderate risk</td>
+                      </tr>
+                      <tr>
+                          <td>v</td>
+                          <td>>=45</td>
+                          <td>Average risk</td>
 
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>vi</td>-->
-<!--                          <td>>=35</td>-->
-<!--                          <td>High risk</td>-->
-<!--                          <td>To be approved from  one level CAD authority</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>vii</td>-->
-<!--                          <td>>=25</td>-->
-<!--                          <td>Pre-default risk</td>-->
-<!--                          <td>Minimum approving authority to be  CCO</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                          <td>viii</td>-->
-<!--                          <td><25</td>-->
-<!--                          <td>Default risk</td>-->
-<!--                          <td>Decline</td>-->
-<!--                      </tr>-->
+                      </tr>
+                      <tr>
+                          <td>vi</td>
+                          <td>>=35</td>
+                          <td>High risk</td>
+                          <td>To be approved from  one level CAD authority</td>
+                      </tr>
+                      <tr>
+                          <td>vii</td>
+                          <td>>=25</td>
+                          <td>Pre-default risk</td>
+                          <td>Minimum approving authority to be  CCO</td>
+                      </tr>
+                      <tr>
+                          <td>viii</td>
+                          <td><25</td>
+                          <td>Default risk</td>
+                          <td>Decline</td>
+                      </tr>
 
-<!--                      </tbody>-->
-<!--                  </table>-->
-<!--              </div>-->
-<!--            </nb-accordion-item-body>-->
-<!--        </nb-accordion-item>-->
-<!--    </nb-accordion>-->
+                      </tbody>
+                  </table>
+              </div>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
 
-<!--    <form [formGroup]="creditRiskGrading">-->
-<!--       <mark> <strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>-->
-<!--        <table class="table table-bordered table-striped text-center">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>SN.</th>-->
-<!--                <th>Criteria</th>-->
-<!--                <th>Weight</th>-->
-<!--                <th>Parameter</th>-->
-<!--&lt;!&ndash;                <th *ngIf="fromProfile">Score</th>&ndash;&gt;-->
-<!--                <th *ngIf="fromProfile">Actual Parameter</th>-->
-<!--                <th>Score Obtained</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-
-<!--            <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">-->
-<!--                <tr style="background-color: #17a2b1" *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId || crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
+    <form [formGroup]="creditRiskGrading">
+       <mark> <strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+            <tr>
+                <th>SN.</th>
+                <th>Criteria</th>
+                <th>Weight</th>
+                <th>Parameter</th>
+                <th *ngIf="fromProfile">Actual Parameter</th>
+                <th>Score Obtained</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let crg of crgGammaData; let i =  index">
+                  <tr style="background-color: #17a2b1">
+                      <td>Topic</td>
+                      <th>{{crg?.groupName}}</th>
+                      <th>{{crg?.weightage}} %</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                <tr *ngFor="let ans of crg?.gammaQuestion; let ii = index">
+                    <td>{{ii + 1}}</td>
+                    <td>{{ans?.description}}</td>
+                    <td></td>
+                    <td>
+                        <ng-container *ngFor="let answer of ans?.answers">
+                            <ul>
+                                <li *ngIf="answer.status === 'ACTIVE'">
+                                    {{answer?.description}}
+                                </li>
+                            </ul>
+                        </ng-container>
+                    </td>
+<!--                    {{ans?.get('')}}-->
+<!--                    controlscontrols::: {{creditRiskGrading?.get('groupObject')['controls']?.get('groupObject')}}-->
 <!--                    <td>-->
-<!--                        <b>Topic</b>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        groupName-->
-<!--                        <ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
-<!--                            <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>-->
-<!--                            <br><br>-->
+<!--                        <ng-container *ngFor="let answer of ans?.answers">-->
+<!--                            <input class="form-control"-->
+<!--                                   [formControlName]="ans?.description"-->
+<!--                                   type="radio"><br>-->
 <!--                        </ng-container>-->
 <!--                    </td>-->
-<!--                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
-<!--                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>-->
-<!--                    </td>-->
-<!--                    <td></td>-->
-<!--                    <td></td>-->
-<!--                    <td></td>-->
-<!--                </tr>-->
+                </tr>
+<!--                  <ng-container>-->
+<!--                      <tr *ngFor="let keys of parseKeys(crg?.gammaQuestionAnswer); let x = index;">-->
+<!--                          <td>{{keys}}</td>-->
+<!--                      </tr>-->
+<!--                  </ng-container>-->
+              </ng-container>
+<!--            </ng-container>-->
+            </tbody>
 
+
+
+<!--            <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">-->
 <!--                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">-->
-<!--                    <td>{{i+1}}</td>-->
-<!--                    <td class="desc-td-width">-->
-<!--                        &lt;!&ndash;<ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
-<!--                            <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>-->
-<!--                            <br><br>-->
-<!--                        </ng-container>&ndash;&gt;-->
-<!--                        <p>{{ crgQuestion?.description }}</p>-->
-<!--                    </td>-->
-<!--                    <td></td>-->
+
 <!--                    &lt;!&ndash;<td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
 <!--                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>-->
 <!--                    </td>-->
 <!--                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>&ndash;&gt;-->
-<!--                    <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :-->
-<!--                        creditRiskGrading.get(crgQuestion?.description + 'Parameter').value}}</td>-->
 <!--                    <ng-container *ngIf="fromProfile">-->
-<!--                        <td>-->
-<!--                            <ul>-->
-<!--                                <ng-container *ngFor="let answer of crgQuestion?.answers">-->
-<!--                                    <li *ngIf="answer?.status == 'ACTIVE'">-->
-<!--                                        {{ answer?.description }}-->
-<!--                                    </li>-->
-<!--                                </ng-container>-->
-<!--                            </ul>-->
-<!--                        </td>-->
 <!--&lt;!&ndash;                        <td>&ndash;&gt;-->
 <!--&lt;!&ndash;                            <ul class="list-unstyled">&ndash;&gt;-->
 <!--&lt;!&ndash;                                <ng-container *ngFor="let answer of crgQuestion?.answers">&ndash;&gt;-->
@@ -166,10 +169,10 @@
 <!--                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>-->
 <!--            </tr>-->
 <!--            </tbody>-->
-<!--        </table>-->
-<!--    </form>-->
-<!--    &lt;!&ndash;<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">-->
-<!--        <button (click)="onSubmit()" nbButton type="button">save</button>-->
-<!--    </div>&ndash;&gt;-->
-<!--</section>-->
+        </table>
+    </form>
+    <!--<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>-->
+</section>
 
