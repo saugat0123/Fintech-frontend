@@ -448,13 +448,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.crgGamma.data = data;
         this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
             .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Scoring!'));
                 this.triggerCustomerRefresh.emit(true);
                 this.nbDialogRef.close();
                 this.spinner.hide();
             }, error => {
                 console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Scoring!'));
                 this.spinner.hide();
 
             });
@@ -466,7 +466,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             TemplateName.NET_WORTH).subscribe(rs => {
             this.spinner.hide();
             this.nbDialogRef.close();
-        }, err=>{
+            this.triggerCustomerRefresh.emit(true);
+        }, err => {
                 this.spinner.hide();
         });
     }
@@ -696,8 +697,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     buildProposalCommonForm() {
         this.commonLoanData = this.formBuilder.group({
             borrowerInformation: [undefined],
-            disbursementCriteria: [undefined],
-            repayment: [undefined],
             remark: [undefined],
             summeryRecommendation: [undefined],
             approvingAuthority: [undefined],
@@ -705,13 +704,16 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
-            regularityOfPayments: [undefined]
+            regularityOfPayments: [undefined],
+            specialInstruction: [undefined]
 
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             // this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
+        } else {
+            this.commonLoanData.get('waiverConclusionRecommendation').patchValue(this.groupTable);
         }
     }
 

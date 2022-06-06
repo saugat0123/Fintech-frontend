@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
                                         <input
@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                                             Month.</strong></label>
@@ -178,7 +178,7 @@
 
                                 <!--                                start of repayment mode-->
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>
                                         <select
@@ -245,7 +245,7 @@
 
                                 <!--                start of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
+                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral || isHomeLoan))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
                                         <input
@@ -259,7 +259,7 @@
                                 installment amount div-->
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Interest Amount</strong></label>
@@ -272,7 +272,7 @@
                                     </div>
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Principal Amount</strong></label>
@@ -286,7 +286,7 @@
 
                                 <!--                start of Moratorium period amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral || isHomeLoan">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Moratorium Period (Month)</strong></label>
                                         <input
@@ -483,7 +483,7 @@
                                         </thead>
                                         <tbody>
                                         <ng-container>
-                                            <tr *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
+                                            <tr *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral || isHomeLoan">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Interest Rate</td>
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestCardRate"
@@ -560,13 +560,13 @@
                                                               id="strCharge">
                                                 </td>
                                             </tr>
-                                            <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
+                                            <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
                                                 <td colspan="3">
                                                     <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
                                                 </td>
                                             </tr>
-                                            <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                            <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
                                                     <td colspan="3">
                                                         <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
@@ -588,12 +588,11 @@
                                     <nb-checkbox class="title" (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
                                                  [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First Time Home Buyer</strong>
                                     </nb-checkbox>
+                                    <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory" *ngIf="fromProfile">
+                                        <nb-radio value="0">With Credit History</nb-radio>
+                                        <nb-radio value="1">WithOut Credit History</nb-radio>
+                                    </nb-radio-group>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
-                                        <nb-radio-group class="d-flex" formControlName="collateral" id="collateral">
-                                            <nb-radio *ngFor="let col of collateral"
-                                                      [value]="col">
-                                                {{col}}</nb-radio>
-                                        </nb-radio-group>
                                     </div>
                                     <div class="form-group" *ngIf="firstTimeHomeBuyerChecked">
                                         <p><i>Note: As per Unified NRB Directive 3/076, clause number 10, drawdown
@@ -678,12 +677,26 @@
                                         </table>
                                     </div>
                                 </div>
-                                <ng-container *ngIf="!fromProfile">
-
+                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="title" for="disbursementCriteria"><strong>Disbursement
-                                                Criteria</strong></label>
+                                            <label class="title" for="specialCovenant"><strong>Special Covenants/Conditions, If Any</strong></label>
+                                            <ckeditor
+                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
+                                                    formControlName="specialCovenant" id="specialCovenant"
+                                                    name="specialCovenant"
+                                                    [config]="ckeConfig"></ckeditor>
+                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
+                                                 class="text-danger">
+                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="customerType === 'INSTITUTION'">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
                                             <ckeditor
                                                     [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
                                                     formControlName="disbursementCriteria" id="disbursementCriteria"
@@ -709,32 +722,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title" for="remark">
-                                                <strong>Remarks</strong></label>
-                                            <ckeditor
-                                                    formControlName="remark" id="remark"
-                                                    [config]="ckeConfig"></ckeditor>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title" for="accountStrategy">
-                                                <strong>Account Strategy</strong></label>
-                                            <ckeditor
-                                                    formControlName="accountStrategy" id="accountStrategy"
-                                                    [config]="ckeConfig"></ckeditor>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
-                                        <div>
-                                            <ckeditor formControlName="waiverConclusionRecommendation"
-                                                      [config]="ckeConfig"></ckeditor>
-                                        </div>
-                                    </div>
+
                                 </ng-container>
+                                <div class="col-md-12 form-group" *ngIf="!fromProfile">
+                                    <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>
+                                    <div>
+                                        <ckeditor formControlName="waiverConclusionRecommendation"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -743,13 +739,14 @@
                             <nb-accordion>
                                 <nb-accordion-item>
                                     <nb-accordion-item-header>
-                                        Credit Risk Score
+                                        Credit Scoring
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
                                         <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile"
                                                                         [formData]="loan?.crgGamma"
                                                                        [fromProfile]="true"
                                                                        [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"
+                                                                        [creditHistory]="proposalForm?.get('creditHistory')?.value"
                                                                         (crgDataEmitter)="setIndividualCrgGamma($event)"
                                                                        ></app-credit-risk-grading-gamma>
                                     </nb-accordion-item-body>

@@ -45,16 +45,22 @@
     <li *ngIf="loanDataHolder?.insurance">
         <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
     </li>
+    <li *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0">
+        <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                             [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
+    </li>
     <li *ngIf="loanDataHolder?.security">
         <!-- security arrangement -->
         <p><strong>SECURITY ARRANGEMENT</strong></p>
+        <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
+                             [loanDataHolder]="loanDataHolder"></app-retail-security>
 
-        <app-security-summary *ngIf="loanDataHolder?.security"
-                              [shareSecurity]="(loanDataHolder?.loanHolder?.shareSecurity?.data | jsonParse)"
-                              [formData]="(loanDataHolder?.loanHolder?.security?.data | jsonParse)"
-                              [securityId]="loanDataHolder?.security?.id"
-                              [collateralData]="loanDataHolder?.collateralSiteVisits"
-                              [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>
+<!--        <app-security-summary *ngIf="loanDataHolder?.security"-->
+<!--                              [shareSecurity]="(loanDataHolder?.loanHolder?.shareSecurity?.data | jsonParse)"-->
+<!--                              [formData]="(loanDataHolder?.loanHolder?.security?.data | jsonParse)"-->
+<!--                              [securityId]="loanDataHolder?.security?.id"-->
+<!--                              [collateralData]="loanDataHolder?.collateralSiteVisits"-->
+<!--                              [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>-->
 
     </li>
     <li *ngIf="loanDataHolder?.loanHolder?.financial">
@@ -128,6 +134,10 @@
         <p><strong>MIS/NRB REPORTING</strong></p>
         <app-report-summary [approved]="false"
                             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+    </li>
+    <li *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate">
+        <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
+        <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
     </li>
     <li>
         <!-- conlusion review table -->

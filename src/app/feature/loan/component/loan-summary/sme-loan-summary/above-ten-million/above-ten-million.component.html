@@ -46,25 +46,21 @@
         <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData">
         </app-income-from-account-summery>
     </li>
-
-    <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
-        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
-        <app-report-summary [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-    </li>
     <li *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0">
         <p class="text-uppercase"><strong>Stock Statement</strong></p>
         <app-nta-summary [fiscalYears]="fiscalYear"
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
 <!--        <app-above-stock-statement></app-above-stock-statement>-->
     </li>
-    <li>
+    <li *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0">
         <p class="text-uppercase"><strong>Inspection</strong></p>
-        <app-above-inspection></app-above-inspection>
+        <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                             [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
     </li>
     <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
 
         <div class="col-md-12">
-            <p class="text-uppercase"><strong>Financial Highlights</strong><span> (0 denotes current FY)</span></p>
+            <p class="text-uppercase"><strong>Financial Highlights</strong></p>
             <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
         </div>
 <!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
@@ -85,53 +81,63 @@
         <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
     </li>
     <li>
+        <p><strong>PRICING: </strong></p>
+        <app-retail-recommendation [loanDataHolder]="loanHolder"
+                                   [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
+    </li>
+    <li *ngIf="loanDataHolder?.loanHolder?.security">
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
+        <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
+                             [loanDataHolder]="loanDataHolder"></app-retail-security>
         <div>
-            <app-insurance-summary  [insurance]="loanDataHolder?.insurance">
-
-            </app-insurance-summary>
+            <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
         <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
-
     </li>
-    <li>
-        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise)</strong></p>
-        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>
-    </li>
+<!--    <li>-->
+<!--        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise)</strong></p>-->
+<!--        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>-->
+<!--    </li>-->
     <li>
         <p class="text-uppercase"><strong>Special Covenants/Conditions, if any</strong></p>
-        <app-above-special-covenants></app-above-special-covenants>
+        <span [innerHTML]="proposalData?.specialCovenant | safeHtml"></span>
+<!--        <app-above-special-covenants></app-above-special-covenants>-->
     </li>
     <li>
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE)</strong></p>
-        <app-above-mode-of-disbursement></app-above-mode-of-disbursement>
+        <span [innerHTML]="proposalData?.disbursementCriteria | safeHtml"></span>
+
     </li>
     <li>
         <p><strong>REPAYMENT MODALITY OF CREDIT FACILITIES (FACILITY WISE)</strong></p>
-        <app-above-repayment-modality-of-credit-facilities></app-above-repayment-modality-of-credit-facilities>
+        <span [innerHTML]="proposalData?.repayment | safeHtml"></span>
     </li>
     <li>
         <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY</strong></p>
-        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>
+        <span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span>
+<!--        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>-->
     </li>
     <li>
         <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
         <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
     </li>
+    <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
+        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
+        <app-report-summary [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+    </li>
 
-    <li>
+    <li *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate">
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
         <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
     </li>
     <li>
         <p><strong>CONCLUSIONS AND RECOMMENDATIONS</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-<!--        <app-conlusion-review-table [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-conlusion-review-table>-->
-        <div class="p-2 background-info col-md-12 mb-3">
-            <span [innerHTML]="proposalData?.summeryRecommendation | safeHtml"></span>
-        </div>
+        <app-conlusion-review-table [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [totalProposedLimit]="totalProposedLimit"></app-conlusion-review-table>
         <app-signature-section [loanDataHolder]="loanDataHolder"
                                [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>

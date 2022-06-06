@@ -1,23 +1,136 @@
-<div class="first">
-    <p class="p-2"><strong>Recommend as follows:</strong></p>
+<div class="col-md-12">
+    <label><strong>Pricing Recommendation are as follows:</strong></label>
+    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+            <th style="width: 35px">Name of Facility</th>
+            <th>Particulars</th>
+            <th>Card Rate</th>
+            <th>Existing Rate</th>
+            <th>Proposed Rate</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let cl of customerAllLoanList">
+            <tr>
+                <td rowspan="10" style="width: 30%">Pricing detail of <span class="font-weight-bold">{{cl?.loan?.name}}</span></td>
+                <td style="vertical-align: middle;font-weight: bold">Interest Rate</td>
+                <td>
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.interestCardRate ? (cl?.proposal?.data | jsonParse)?.interestCardRate : 'NA'}}
+                    </span> % p.a
+                </td>
+                <td>
+                    <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.interestExistingRate ? (cl?.proposal?.data | jsonParse)?.interestRate : 'NA'}}
+                    </span> % p.a
+                <td>
+                     <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.interestRate ? (cl?.proposal?.data | jsonParse)?.interestRate : 'NA'}}
+                    </span> % p.a
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Processing Rate</td>
+                <td>
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.processCardRate ? (cl?.proposal?.data | jsonParse)?.processCardRate : 'NA'}}
+                    </span> % p.a
+                </td>
+                <td>
+                    <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.processExistingRate ? (cl?.proposal?.data | jsonParse)?.processExistingRate : 'NA'}}
+                    </span> % p.a
+                <td>
+                     <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.processProposedRate ? (cl?.proposal?.data | jsonParse)?.processProposedRate : 'NA'}}
+                    </span> % p.a
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Comissions Rate</td>
+                <td>
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.commissionsCardRate ? (cl?.proposal?.data | jsonParse)?.commissionsCardRate : 'NA'}}
+                    </span> % p.a
+                </td>
+                <td>
+                    <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.commissionsExistingRate ? (cl?.proposal?.data | jsonParse)?.commissionsExistingRate : 'NA'}}
+                    </span> % p.a
+                <td>
+                     <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.commissionsProposedRate ? (cl?.proposal?.data | jsonParse)?.commissionsProposedRate : 'NA'}}
+                    </span> % p.a
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Cash Margin</td>
+                <td>
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.cashCardRate ? (cl?.proposal?.data | jsonParse)?.cashCardRate : 'NA'}}
+                    </span> % p.a
+                </td>
+                <td>
+                    <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.cashExistingRate ? (cl?.proposal?.data | jsonParse)?.cashExistingRate : 'NA'}}
+                    </span> % p.a
+                <td>
+                     <span class="font-weight-bold">
+                    {{(cl?.proposal?.data | jsonParse)?.cashMargin ? (cl?.proposal?.data | jsonParse)?.cashMargin : 'NA'}}
+                    </span> % p.a
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Prepayment Charge</td>
+                <td colspan="3">
+                    <table class="table-borderless table-sm" style="width: 100%">
+                        <tbody>
+                            <td class="border-right">
+                                 <span class="font-weight-bold">
+                                 {{(cl?.proposal?.data | jsonParse)?.prepaymentCardRate ? (cl?.proposal?.data | jsonParse)?.prepaymentCardRate : 'NA'}}
+                                </span> as per NRB
+                            </td>
+                            <td>
+                                <span class="font-weight-bold">
+                                {{(cl?.proposal?.data | jsonParse)?.prepaymentExistingRate ? (cl?.proposal?.data | jsonParse)?.prepaymentExistingRate : 'NA'}}
+                                </span>as per NRB
+                            </td>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">STR Charge</td>
+                <td colspan="3">
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.strCharge ? (cl?.proposal?.data | jsonParse)?.strCharge : 'NA'}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Commitment Rate</td>
+                <td colspan="3">
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.commitmentFee ? (cl?.proposal?.data | jsonParse)?.commitmentFee : 'NA'}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Administrative Rate</td>
+                <td colspan="3">
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.serviceCharge ? (cl?.proposal?.data | jsonParse)?.serviceCharge : 'NA'}}
+                    </span> % of the approved limit
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;font-weight: bold">Other</td>
+                <td colspan="3">
+                   <span class="font-weight-bold">
+                     {{(cl?.proposal?.data | jsonParse)?.other ? (cl?.proposal?.data | jsonParse)?.other : 'NA'}}
+                    </span> as per NRB
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<table class="table table-bordered sb-small mt-3">
-    <tr>
-        <td>
-            <p>Proposal:</p>
-            <p>The client has requested us to provide <span class="font-weight-bold">{{proposalData?.proposedLimit |
-                    currency: 'NPR '}}</span></p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p>Pricing:</p>
-            <p>Interest: <span class="font-weight-bold">{{proposalData?.interestRate ? proposalData?.interestRate :
-                    'NA'}}</span> % p.a, (BR + 0.59%)</p>
-            <p>Loan Administrative Fee: ............. % of the approved limit</p>
-            <p>CIC charge: <span class="font-weight-bold">{{loanDataHolder?.loanHolder?.cicl?.cibCharge | currency: 'NPR'}}</span></p>
-            <p>Prepayment Charge: As per NRB</p>
-            <p>Swap Charge: As per NRB </p>
-        </td>
-    </tr>
-</table>

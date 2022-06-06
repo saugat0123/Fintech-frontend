@@ -18,6 +18,7 @@ import {CcblTable} from './ccbl-table';
 export class GroupExposureWithCcblComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Output() responseData: EventEmitter<MGroup> = new EventEmitter();
+  @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType;
 
   form: FormGroup;
@@ -52,7 +53,9 @@ export class GroupExposureWithCcblComponent implements OnInit {
         this.form.get('outstandingOverdue').patchValue(CcblTable.outstandingOverdueTable());
       }
       const totalAmount = JSON.parse(this.mGroupInfo.totalAmount);
-      this.form.patchValue(totalAmount);
+      if (!ObjectUtil.isEmpty(totalAmount)) {
+        this.form.patchValue(totalAmount);
+      }
       this.setGroupPosition(JSON.parse(this.mGroupInfo.groupPosition));
       this.setCompanyName(JSON.parse(this.mGroupInfo.companyGroup));
       this.form.get('groupName').patchValue(this.mGroupInfo.groupName);
@@ -106,10 +109,10 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.mGroupService.save(this.mGroupInfo).subscribe((response) => {
       this.responseData.emit(response.detail);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Exposure'));
+      this.triggerCustomerRefresh.emit(true);
       this.spinner = false;
     }, error => {
       console.log(error);
-
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while saving: ' + error));
       this.spinner = false;
     });
@@ -155,7 +158,9 @@ export class GroupExposureWithCcblComponent implements OnInit {
           proFunded: [0],
           proNonFunded: [0],
           proTotal: [0],
-          changeAmount: [0]
+          changeAmount: [0],
+          pricing: [undefined],
+          maturity: [undefined],
         })
     );
   }
@@ -189,6 +194,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
 
   removeData(i: number, formArrayName) {
     (this.form.get(formArrayName) as FormArray).removeAt(i);
+    this.calculateTotalAmount();
   }
 
   calculateTotal(index: number) {
@@ -220,6 +226,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
               proNonFunded: [d.proNonFunded],
               proTotal: [d.proTotal],
               changeAmount: [d.changeAmount],
+              pricing: [d.pricing],
+              maturity: [d.maturity],
             })
         );
       });

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../credit-risk-grading/model/CrgGroup';
@@ -16,11 +16,12 @@ import {Status} from '../../../@core/Status';
     templateUrl: './credit-risk-grading-gamma.component.html',
     styleUrls: ['./credit-risk-grading-gamma.component.scss']
 })
-export class CreditRiskGradingGammaComponent implements OnInit {
+export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     @Input() formData: CreditRiskGradingGamma;
     @Input() fromProfile: boolean;
     @Input() loanConfigId: number;
     @Output() crgDataEmitter = new EventEmitter();
+    @Input() creditHistory: number;
     totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
@@ -38,7 +39,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     formDataForEdit;
 
 
-
     constructor(
         private crgGroupService: CrgGroupService,
         private questionService: RiskGradingService,
@@ -49,10 +49,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getGroupList();
-        if (!this.fromProfile) {
-            this.totalPointsColspan = 2;
-        }
         /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
         let customerTypeParam = '';
         if (customerType) {
@@ -60,17 +56,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         } else {
             customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
         }*/
-
-        this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
-            const questionsList = res.detail;
-            this.crgQuestionsList = questionsList.filter(q => {
-                return q.status === Status.ACTIVE;
-            });
-            this.buildFormAndCheckEdit();
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
-        });
     }
 
     getGroupList() {
@@ -117,30 +102,30 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     calculateTotalViaMap() {
-            let total = 0;
-            this.totalPointMapper.forEach(data => {
-                total = total + Number(data);
-            });
-            this.totalPoints = total;
-            this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-            if (this.totalPoints >= 90) {
-                this.grading = 'Virtually zero risk, Accept';
-            } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
-                this.grading = 'Lower risk, Accept';
-            } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-                this.grading = 'Low risk, Accept';
-            } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
-                this.grading = 'Moderate risk, Accept';
-            } else if (this.totalPoints >= 45) {
-                this.grading = 'Average risk, Accept';
-            }else if(this.totalPoints >= 35){
-                this.grading = 'High risk risk, To be approved from  one level CAD authority';
-            }else if(this.totalPoints >= 25){
-                this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
-            }else if(this.totalPoints < 25){
-                this.grading = 'Default risk, Decline';
-            }
-            this.creditRiskGrading.get('grade').patchValue(this.grading);
+        let total = 0;
+        this.totalPointMapper.forEach(data => {
+            total = total + Number(data);
+        });
+        this.totalPoints = total;
+        this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
+        if (this.totalPoints >= 90) {
+            this.grading = 'Virtually zero risk, Accept';
+        } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
+            this.grading = 'Lower risk, Accept';
+        } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
+            this.grading = 'Low risk, Accept';
+        } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
+            this.grading = 'Moderate risk, Accept';
+        } else if (this.totalPoints >= 45) {
+            this.grading = 'Average risk, Accept';
+        } else if (this.totalPoints >= 35) {
+            this.grading = 'High risk risk, To be approved from  one level CAD authority';
+        } else if (this.totalPoints >= 25) {
+            this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
+        } else if (this.totalPoints < 25) {
+            this.grading = 'Default risk, Decline';
+        }
+        this.creditRiskGrading.get('grade').patchValue(this.grading);
     }
 
     onSubmit() {
@@ -149,5 +134,22 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         }
         this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
         this.crgDataEmitter.emit(this.creditRiskData);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getGroupList();
+        if (!this.fromProfile) {
+            this.totalPointsColspan = 2;
+        }
+        this.questionService.getAllQuestionsByFid(this.loanConfigId, this.creditHistory).subscribe((res: any) => {
+            const questionsList = res.detail;
+            this.crgQuestionsList = questionsList.filter(q => {
+                return q.status === Status.ACTIVE;
+            });
+            this.buildFormAndCheckEdit();
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
+        });
     }
 }

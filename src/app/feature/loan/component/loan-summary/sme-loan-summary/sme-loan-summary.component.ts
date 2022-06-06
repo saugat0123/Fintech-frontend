@@ -207,10 +207,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   totalProposedLimit = 0;
   loaded = false;
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
+  ccblData: any;
+  fixedAssetsData = [];
 
   @Input() crgTotalRiskScore: any;
   data;
   approveAuth;
+  spinner = false;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
@@ -285,6 +288,32 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
       this.securityId = this.loanDataHolder.security.id;
       this.securityData = JSON.parse(this.loanDataHolder.security.data);
+      if (this.securityData['selectedArray'] !== undefined) {
+        // land security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('LandSecurity') !== -1) {
+            this.securityData['initialForm']['landDetails'].forEach((ld, index) => {
+              this.getFixedAssetsCollateral('Land Security ' + (index + 1), this.securityId, ld.uuid);
+            });
+          }
+        });
+        // apartment security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('ApartmentSecurity') !== -1) {
+            this.securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
+              this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1), this.securityId, appart.uuid);
+            });
+          }
+        });
+        // land and building security
+        this.securityData['selectedArray'].filter(f => {
+          if (f.indexOf('Land and Building Security') !== -1) {
+            this.securityData['initialForm']['landBuilding'].forEach((ld, index) => {
+              this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1), this.securityId, ld.uuid);
+            });
+          }
+        });
+      }
       this.securitySummary = true;
     }
 
@@ -353,24 +382,25 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     // Setting credit risk GAMMA data---
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
-      this.crgGammaSummary = true;
-      const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
-      this.crgGammaGrade = crgParsedData.grade;
-      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint)
-        ? 0
-        : crgParsedData.totalPoint;
-      if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
-        this.crgGammaGradeStatusBadge = 'badge badge-success';
-      } else if (
-        this.crgGammaGrade === 'Bad & Loss' ||
-        this.crgGammaGrade === 'Doubtful'
-      ) {
-        this.crgGammaGradeStatusBadge = 'badge badge-danger';
-      } else {
-        this.crgGammaGradeStatusBadge = 'badge badge-warning';
-      }
-    }
+    // DO not Remove
+    // if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
+    //   this.crgGammaSummary = true;
+    //   const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
+    //   this.crgGammaGrade = crgParsedData.grade;
+    //   this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint)
+    //     ? 0
+    //     : crgParsedData.totalPoint;
+    //   if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-success';
+    //   } else if (
+    //     this.crgGammaGrade === 'Bad & Loss' ||
+    //     this.crgGammaGrade === 'Doubtful'
+    //   ) {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-danger';
+    //   } else {
+    //     this.crgGammaGradeStatusBadge = 'badge badge-warning';
+    //   }
+    // }
 
 
     // Setting SiteVisit data--
@@ -465,6 +495,10 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
     // getting fiscal years
     this.getFiscalYears();
+
+    if (this.loanDataHolder.loanHolder.crgCcbl) {
+      this.ccblData = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
+    }
   }
 
   getAllLoans(customerInfoId: number) {
@@ -473,8 +507,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       isStaged: 'true',
     };
     this.customerLoanService.getAllWithSearch(search).toPromise().then((res: any) => {
-        // this.loaded = true;
-          console.log('I am here');
+        this.loaded = true;
         this.customerAllLoanList = res.detail;
         // push current loan if not fetched from staged spec response
         if (ObjectUtil.isEmpty(this.requestedLoanType)) {
@@ -846,11 +879,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     } else {
       this.isAboveTenMillion = true;
     }
+    // this.ngxSpinner.show();
     // if (this.isDetailedView) {
     //   this.isDetailedView = false;
     //   this.isSaneView = false;
     //   this.isAboveTenMillion = false;
     //   this.isUpToTenMillion = false;
+    //   this.spinner = false;
+    //   this.ngxSpinner.hide();
     // } else {
     //   this.isDetailedView = true;
     //   if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
@@ -860,6 +896,22 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     //   } else {
     //     this.isAboveTenMillion = true;
     //   }
+    //   this.spinner = false;
+    //   this.ngxSpinner.hide();
     // }
+  }
+
+  getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
+        .subscribe((response: any) => {
+          if (response.detail.length > 0) {
+            response.detail.forEach(rd => {
+              this.fixedAssetsData.push(rd);
+            });
+          }
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+        });
   }
 }

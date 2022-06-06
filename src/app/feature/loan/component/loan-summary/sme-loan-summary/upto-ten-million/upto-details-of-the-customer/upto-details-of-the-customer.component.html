@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td><b>Firm renewed</b></td>
-        <td colspan="2">For FY {{companyInfo?.otherCompanyDetail?.firmRenew}}</td>
+        <td colspan="2">For FY {{companyJsonData?.otherCompanyDetail?.firmRenew}}</td>
         <td><b>A/C strategy</b> </td>
         <td></td>
         <td colspan="2">{{companyJsonData?.relationshipSince ? (companyJsonData?.relationshipSince | date) : 'N/A'}}</td>
@@ -98,9 +98,9 @@
         <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
     </tr>
     <tr>
-        <td [attr.rowspan]="propList?.length+1">{{commentData?.previousComments}}</td>
-        <td [attr.rowspan]="propList?.length+1">{{commentData?.auditorComments}}</td>
-        <td [attr.rowspan]="propList?.length+1">{{commentData?.nrbComments}}</td>
+        <td [attr.rowspan]="propList?.length+1">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>
+        <td [attr.rowspan]="propList?.length+1"></td>
+        <td [attr.rowspan]="propList?.length+1"></td>
         <th class="sn">SN</th>
         <th colspan="2">Name</th>
         <th>Designation</th>

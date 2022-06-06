@@ -1,53 +1,72 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-site-visit-view',
-  templateUrl: './site-visit-view.component.html',
-  styleUrls: ['./site-visit-view.component.scss']
+    selector: 'app-site-visit-view',
+    templateUrl: './site-visit-view.component.html',
+    styleUrls: ['./site-visit-view.component.scss']
 })
-export class SiteVisitViewComponent implements OnInit {
-  @Input() siteVisit: any;
-  currentResidentSummary = false;
-  businessSiteVisitSummary = false;
-  fixedAssetCollateralSummary = false;
-  currentAssetsInspectionSummary = false;
-  isRentedLeased = false;
-  isNotRentedLeased = false;
-  rentedLeasedArray: Array<any> = new Array<any>();
-  notRentedLeasedArray: Array<any> = new Array<any>();
-  constructor() { }
+export class SiteVisitViewComponent implements OnInit, DoCheck {
+    @Input() siteVisit: any;
+    @Input() fixedAssetsData;
+    currentResidentSummary = false;
+    businessSiteVisitSummary = false;
+    fixedAssetCollateralSummary = false;
+    currentAssetsInspectionSummary = false;
+    isRentedLeased = false;
+    isNotRentedLeased = false;
+    rentedLeasedArray: Array<any> = new Array<any>();
+    notRentedLeasedArray: Array<any> = new Array<any>();
+    landSelected = false;
+    apartmentSelected = false;
+    landBuilding = false;
+    landData = [];
+    apartmentData = [];
+    landBuildingData = [];
+    iterableDiffer;
 
-  formData: any;
-  ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.siteVisit)) {
-     this.formData = JSON.parse( this.siteVisit.data);
-          switch (this.formData['checkboxSelected']) {
-            case 'currentResidentFormChecked' :
-              this.currentResidentSummary = true;
-              break;
-            case 'businessSiteVisitFormChecked' :
-              this.businessSiteVisitSummary = true;
-              break;
-            case 'fixedAssetCollateralFormChecked' :
-              this.fixedAssetCollateralSummary = true;
-              break;
-            case 'currentAssetsInspectionFormChecked' :
-              this.currentAssetsInspectionSummary = true;
-      }
-      if (!ObjectUtil.isEmpty(this.formData) &&
-          !ObjectUtil.isEmpty(this.formData['currentAssetsInspectionDetails'])) {
-        this.formData['currentAssetsInspectionDetails'].forEach(val => {
-          if (val.rents === 'Rented/Leased') {
-            this.isRentedLeased = true;
-            this.rentedLeasedArray.push(val);
-          } else {
-            this.isNotRentedLeased = true;
-            this.notRentedLeasedArray.push(val);
-          }
-        });
-      }
+    constructor(private iterableDiffers: IterableDiffers) {
+        this.iterableDiffer = iterableDiffers.find([]).create(null);
     }
+
+    formData: any;
+
+    ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.siteVisit)) {
+            this.formData = JSON.parse(this.siteVisit.data);
+            switch (this.formData['checkboxSelected']) {
+                case 'currentResidentFormChecked' :
+                    this.currentResidentSummary = true;
+                    break;
+                case 'businessSiteVisitFormChecked' :
+                    this.businessSiteVisitSummary = true;
+                    break;
+                case 'currentAssetsInspectionFormChecked' :
+                    this.currentAssetsInspectionSummary = true;
+            }
+            // if (!ObjectUtil.isEmpty(this.formData) &&
+            //     !ObjectUtil.isEmpty(this.formData['currentAssetsInspectionDetails'])) {
+            //     this.formData['currentAssetsInspectionDetails'].forEach(val => {
+            //         if (val.rents === 'Rented/Leased') {
+            //             this.isRentedLeased = true;
+            //             this.rentedLeasedArray.push(val);
+            //         } else {
+            //             this.isNotRentedLeased = true;
+            //             this.notRentedLeasedArray.push(val);
+            //         }
+            //     });
+            // }
+        }
+
+    }
+
+    ngDoCheck(): void {
+        const changes = this.iterableDiffer.diff(this.fixedAssetsData);
+        if (changes) {
+            this.landData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land Security'));
+            this.apartmentData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Apartment Security'));
+            this.landBuildingData = this.fixedAssetsData.filter((fad) => fad.securityName.includes('Land And Building Security'));
+        }
     }
 
 }

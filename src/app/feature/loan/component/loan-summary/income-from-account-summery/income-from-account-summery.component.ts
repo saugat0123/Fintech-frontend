@@ -12,6 +12,7 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
   incomeFromAccount;
   newCustomerFlag: boolean[];
+  groupProfitabilityData = [];
 
   constructor() {
   }
@@ -19,6 +20,10 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.incomeFromAccount = JSON.parse(this.formData.data);
+      if (!ObjectUtil.isEmpty(this.incomeFromAccount.groupProfitability)) {
+        this.groupProfitabilityData = [];
+        this.groupProfitabilityData = this.incomeFromAccount.groupProfitability;
+      }
       this.newCustomerFlag = this.incomeFromAccount.newCustomerChecked;
     }
   }

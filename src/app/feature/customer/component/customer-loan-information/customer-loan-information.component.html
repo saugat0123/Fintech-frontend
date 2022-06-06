@@ -4,8 +4,34 @@
   </nb-card-header>
 
   <nb-card-body>
-    <div class="row">
 
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a (click)="openModel(commonLoanDatas)" class="cursor info-label">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">COMMON DATA<br><em class="sb-small">WAIVERS, DEVIATIONS, DIFERRALS AND REBETS</em></p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em *ngIf="customerInfo?.commonLoanData"
+                    class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!customerInfo?.commonLoanData"
+                    class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
       <div class="col-md-4">
         <div class="row">
           <nb-card #itemSiteVisit class="col-md-11 py-2">
@@ -14,7 +40,9 @@
 
                 <div class="col-md-8">
                   <p class="custom-font">
-                    SITE VISIT
+                    SITE VISIT <br><em class="sb-small"> Current Resident,
+                    Business Site,
+                    Current Assets Inspection</em>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -96,7 +124,7 @@
               <div class="row">
                 <div class="col-md-8">
                   <p class="custom-font">
-                    <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+                    <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES <br><em class="sb-small"> UMI, GI, TMO</em></span>
                     <span
                         *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
                   </p>
@@ -370,7 +398,7 @@
 
                 <div class="col-md-8">
                   <p class="custom-font">
-                    CREDIT CHECKLIST
+                    CREDIT CHECKLIST <br><em class="sb-small"> Prudence and Due Diligence, NRB Regulatory Compliance</em>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -510,7 +538,7 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" hidden>
         <div class="row">
           <nb-card #dataFromPreviousSecurity class="col-md-11 py-2">
             <a (click)="openModel(dataFromPreviousSecurityTemplate)" class="cursor info-label">
@@ -562,29 +590,6 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4">
-        <div class="row">
-          <nb-card class="col-md-11 py-2">
-            <a (click)="openModel(commonLoanDatas)" class="cursor info-label">
-              <div class="row">
-                <div class="col-md-8">
-                  <p class="custom-font">COMMON LOAN DATA</p>
-                </div>
-                <div class="col-md-4 d-flex justify-content-end">
-              <span style="color: green" title="Status : Saved">
-                <em *ngIf="customerInfo?.commonLoanData"
-                    class="fas fa-check-circle px-2"></em>
-              </span>
-                  <span style="color: red" title="Status : Not Saved">
-                <em *ngIf="!customerInfo?.commonLoanData"
-                    class="fas fa-times-circle px-2"></em>
-              </span>
-                </div>
-              </div>
-            </a>
-          </nb-card>
-        </div>
-      </div>
 
       <div class="col-md-4">
         <div class="row">
@@ -594,7 +599,8 @@
 
                 <div class="col-md-8">
                   <p class="custom-font">
-                    BANKING ARRANGEMENT
+                    BANKING ARRANGEMENT <br><em class="sb-small"> Multiple Banking, Average Utilization & Transaction
+                  </em>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -632,7 +638,8 @@
           </nb-card>
         </ng-template>
       </div>
-      <div *ngIf="customerInfo.customerType === customerType.INSTITUTION" class="col-md-4">
+      <!-- hide INSTITUTIONAL CRG -->
+      <div hidden class="col-md-4">
         <div class="row">
           <nb-card #itemCreditRiskGrading class="col-md-11 py-2">
             <a (click)="openModel(itemCreditRiskGradingTemplate)" class="cursor info-label">
@@ -655,7 +662,7 @@
             </a>
           </nb-card>
         </div>
-        <ng-template #itemCreditRiskGradingTemplate let-data let-ref="dialogRef">
+        <ng-template #itemCreditRiskGradingTemplate let-data let-ref="dialogRef" hidden>
           <nb-card class="template-css">
             <nb-card-header>
               INSTITUTIONAL CRG
@@ -821,7 +828,7 @@
 
                 <div class="col-md-8">
                   <p class="custom-font">
-                    Net Worth
+                    NET WORTH <br><em class="sb-small"> Customer(s) Assets, Liabilities</em>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -868,7 +875,7 @@
               <div class="row cursor">
                 <div class="col-md-8">
                   <p class="custom-font">
-                    CRG-CCBL
+                    Counter Party Risk Rating
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -886,7 +893,7 @@
         <ng-template #crgCcbl let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              CRG-CCBL
+              Counter Party Risk Rating
               <a (click)="ref.close()" aria-label="Close"
                  class="close cursor" data-dismiss="modal">
                       <span (click)="ref.close()" style="color: red">
@@ -950,7 +957,7 @@
 <ng-template #commonLoanDatas let-data let-ref="dialogRef">
   <nb-card class="template-css">
     <nb-card-header>
-      COMMON LOAN DATA
+      COMMON DATA
       <a (click)="ref.close()" aria-label="Close"
          class="close cursor" data-dismiss="modal">
                       <span (click)="ref.close()" style="color: red">
@@ -997,7 +1004,15 @@
             </div>
           </div>
 
-          <div class="col-md-12 mt-3">
+          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType== customerType.INDIVIDUAL">
+            <div class="form-group">
+              <label class="title"><strong>Special Instructions</strong></label>
+              <input class="form-control" formControlName="specialInstruction"
+                     placeholder="eg: as of Poush End 2077" />
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <div class="form-group">
               <label class="title"><strong>Regularity of payments:</strong></label>
               <input class="form-control" formControlName="regularityOfPayments"

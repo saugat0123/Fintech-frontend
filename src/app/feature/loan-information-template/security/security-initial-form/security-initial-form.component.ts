@@ -72,7 +72,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
-    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent
+    @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
 
     securityId = SecurityIds;
     selectedArray = [];
@@ -623,6 +623,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     apartmentDeveloperNames: this.formBuilder.array([]),
+                    uuid: [singleData.uuid || this.uuid()]
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -723,7 +724,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     geoLocation: [singleData.geoLocation],
                     addressLine1: [singleData.addressLine1],
                     addressLine2: [singleData.addressLine2],
-                    registerOffice: [singleData.registerOffice]
+                    registerOffice: [singleData.registerOffice],
+                    uuid: [singleData.uuid || this.uuid()]
                 })
             );
         });
@@ -933,8 +935,6 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
-                f.get('valuationAmount').clearValidators();
-                f.get('valuationAmount').updateValueAndValidity();
                 f.get('quotationAmount').clearValidators();
                 f.get('quotationAmount').updateValueAndValidity();
             });
@@ -1307,6 +1307,7 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
             apartmentDeveloperNames: this.formBuilder.array([]),
+            uuid: [this.uuid()],
         });
     }
     LandBuildingDetailsFormGroup() {
@@ -1377,7 +1378,8 @@ export class SecurityInitialFormComponent implements OnInit {
             geoLocation: [undefined],
             addressLine1: [undefined],
             addressLine2: [undefined],
-            registerOffice: [undefined]
+            registerOffice: [undefined],
+            uuid: [this.uuid()]
         });
     }
 

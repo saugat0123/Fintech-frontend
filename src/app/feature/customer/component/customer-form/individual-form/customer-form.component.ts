@@ -381,15 +381,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine2],
-            fatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.fatherName],
-            grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.grandFatherName],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email],
+            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -443,8 +439,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
-        individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
-        individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
         return JSON.stringify(individualJsonData);
     }

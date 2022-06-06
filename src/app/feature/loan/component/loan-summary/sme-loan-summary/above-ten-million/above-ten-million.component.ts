@@ -15,9 +15,12 @@ export class AboveTenMillionComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() fiscalYear;
   @Input() isDetailedView: boolean;
+  @Input() fixedAssetsData: Array<any>;
+  @Input() totalProposedLimit: number;
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;
+  loanHolder;
   guarantorData;
   customerCategory = CustomerCategory.SME_ABOVE_TEN_MILLION;
   incomeFromAccountSummary = false;
