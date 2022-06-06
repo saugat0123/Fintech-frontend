@@ -29,13 +29,11 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('companyInfo', this.companyInfo);
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
         const data = JSON.parse(this.loanDataHolder.loanHolder.data);
         this.reviewDate = data.reviewDate;
-        console.log('reviewDate', this.reviewDate);
       }
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
