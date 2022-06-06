@@ -3,6 +3,8 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {SummaryType} from '../../SummaryType';
+import {LoanType} from '../../../model/loanType';
+import {DocStatus} from '../../../model/docStatus';
 
 @Component({
   selector: 'app-proposal-terms-and-condition-summery',
@@ -18,6 +20,8 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   @Input() loanSummary;
+  loanType = LoanType;
+  docType = DocStatus;
 
   constructor() { }
 
