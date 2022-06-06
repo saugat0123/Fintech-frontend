@@ -13,7 +13,7 @@ import {DocStatus} from '../../../model/docStatus';
 })
 export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   @Input() customerAllLoanList: Array<LoanDataHolder>;
-  @Input() loanDataHolder
+  @Input() loanDataHolder;
   @Input() loanCategory;
   client = environment.client;
   clientName = Clients;
