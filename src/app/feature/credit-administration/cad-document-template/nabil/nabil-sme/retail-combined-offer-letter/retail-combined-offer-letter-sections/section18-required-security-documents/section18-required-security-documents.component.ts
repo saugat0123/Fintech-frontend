@@ -278,10 +278,4 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       }
     });
   }
-  showNewCheck(data) {
-    console.log('Show New Or Additional Loan Type Check?', data);
-  }
-  showPDOCheck(data) {
-    console.log('Show PDO OR Nabil Sahayatri Check?', data);
-  }
 }
