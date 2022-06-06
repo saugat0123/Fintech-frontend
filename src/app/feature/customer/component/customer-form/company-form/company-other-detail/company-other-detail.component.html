@@ -6,7 +6,7 @@
         <div class="col-md-4 form-group">
             <label><strong>Firm renewed Up to </strong></label>
             <select formControlName="firmRenew" id="firmRenew"
-                    [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
+                    [ngClass]="{'is-invalid':submitted &&  form.firmRenew?.errors}" class="form-control">
                 <option [value]="null">Select Firm Renewed up to</option>
                 <option *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
                     {{fiscalYear.year}}
