@@ -85,7 +85,10 @@ export class SecuritySummaryComponent implements OnInit {
 
     ngOnInit() {
         // Set Security Details for view
-        if (!ObjectUtil.isEmpty(this.securities)) {
+        const securityLen = !ObjectUtil.isEmpty(this.securities) ? this.securities.length
+            : 0;
+        if (securityLen > 0) {
+            this.securities = this.securities.filter((l: Security) => l.status === 'ACTIVE');
             this.selectedSecurities();
             this.setSelectedSecurities();
         }
