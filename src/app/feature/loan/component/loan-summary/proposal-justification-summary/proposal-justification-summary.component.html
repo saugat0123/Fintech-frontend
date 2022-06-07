@@ -1,7 +1,7 @@
-<ol>
-  <li *ngFor="let data of customerAllLoanList;let i = index" class="col-sm-12">
+
+  <div *ngFor="let data of customerAllLoanList;let i = index" class="col-sm-12">
     <div class="row sb-medium">
-        <span><u>{{data?.loanType | replace:'_' :' ' + ' OF '
+        <span><b>3. {{i+1}} </b><u>{{ data?.loanType | replace:'_' :' ' + ' OF '
         + data.loan.name}} (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit}}, Tenure: {{data.proposal.tenureDurationInMonths}}
           months
                             </em></mark>)</u></span>
@@ -12,6 +12,6 @@
               [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
       </div>
     </div>
-  </li>
-</ol>
+  </div>
+
 
