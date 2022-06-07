@@ -36,30 +36,24 @@
                 </div>
 
                 <div class="form-group">
-                    <ng-select
+                    <input type ="text" nbInput class="form-control"
+                           *ngIf="allApproveLoan?.length > 0" disabled
                             (change)="getCustomerLoanFromCategory($event, null)"
-                            [clearable]="false"
-                            [closeOnSelect]="true"
-                            [hideSelected]="true"
-                            [items]="loanTypeList"
-                            [multiple]="false"
-                            bindLabel="name"
-                            formControlName="loanConfig"
-                            placeholder="Select Loan type">
-                    </ng-select>
+                            formControlName="loanConfig">
                 </div>
                 <div class="form-group">
                     <ng-select
                             [closeOnSelect]="true"
                             [hideSelected]="true"
                             [items]="customerLoanList"
-                            [multiple]="false"
+                            [multiple]="true"
+                            [(ngModel)]="allApproveLoan"
                             [ngClass]="{
                                'is-invalid': customerLoan.invalid && (customerLoan.dirty || customerLoan.touched),
                                 'is-valid': !customerLoan.invalid && (customerLoan.dirty || customerLoan.touched)
                                 }"
-                            bindLabel="customerInfo.customerName"
-                            formControlName="customerLoan" placeholder="Select Customer Loan">
+                            bindLabel="loan.name"
+                            formControlName="customerLoan" >
                         <ng-template let-index="index" let-item="item" let-search="searchTerm" ng-option-tmp>
                             Holder name: <strong>{{item['customerInfo']['customerName']}}</strong> |
                             Loan category: <strong> {{item['loanCategory']}}</strong>
@@ -199,3 +193,4 @@
         </nb-card-footer>
     </form>
 </nb-card>
+<app-overlay-spinner></app-overlay-spinner>

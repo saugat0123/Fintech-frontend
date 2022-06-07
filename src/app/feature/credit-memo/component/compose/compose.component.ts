@@ -22,6 +22,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {DocPath} from './doc-path';
 import {Security} from '../../../loan/model/security';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-compose',
@@ -56,6 +57,8 @@ export class ComposeComponent implements OnInit {
     allApproveLoan: LoanDataHolder [] = [];
     mergeSecurity: Security [] = [];
     mergedProposal = [];
+    selectedLoanList = [];
+
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
@@ -65,7 +68,8 @@ export class ComposeComponent implements OnInit {
         private creditMemoService: CreditMemoService,
         private creditMemoTypeService: CreditMemoTypeService,
         private loanConfigService: LoanConfigService,
-        private customerLoanService: LoanFormService
+        private customerLoanService: LoanFormService,
+        private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -90,12 +94,12 @@ export class ComposeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildForm();
         this.getCreditMemoTypes();
         this.getLoanTypes();
-
-
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         this.activatedRoute.queryParams.subscribe((params) => {
+            this.spinnerService.show();
             if (!(Object.keys(params).length === 0 && params.constructor === Object)) {
                 this.raisedFromCatalogue = true;
                 this.customerInfoId = params.customerInfoId;
@@ -104,12 +108,14 @@ export class ComposeComponent implements OnInit {
                         this.allApproveLoan = res.detail;
                     },
                     error: () => {
+                        this.spinnerService.hide();
                         this.toastService.show(new Alert(AlertType.ERROR, 'OPPS Something went Wrong Could Not Fetch Loan Data!!!'));
                     },
                     complete: () => {
                         if (this.allApproveLoan.length > 0) {
                             this.allApproveLoan = this.allApproveLoan.filter(d => d.documentStatus.toString() === 'APPROVED');
                             this.allApproveLoan.forEach((d) => {
+                                this.selectedLoanList.push(d.loan);
                                 if (d.securities.length > 0) {
                                     d.securities.forEach((s) => {
                                         this.mergeSecurity.push(s);
@@ -121,73 +127,48 @@ export class ComposeComponent implements OnInit {
                                 });
                             });
                         }
+                        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
+                            this.isNewMemo = true;
+                            this.memoTask = 'Compose New';
+                            this.memo = new CreditMemo();
+                            this.buildMemoForm(this.memo);
+                        } else {
+                            this.isNewMemo = false;
+                            this.memoTask = 'Edit';
+                            window.localStorage.removeItem('tempPath');
+                            this.creditMemoService.detail(Number(this.memoId)).subscribe((response: any) => {
+                                this.memo = response.detail;
+                                this.buildMemoForm(this.memo);
+
+                                // Setting existing documents --
+
+                                this.creditMemoTypeDocuments = response.detail.type.documents;
+                                this.editedCreditMemoTypeDocuments = this.memo.memoTypeDocuments;
+                                this.editedCreditMemoTypeDocuments.forEach((singleDoc, i) => {
+                                    this.creditMemoTypeDocuments.forEach((initDoc, j) => {
+                                        if (singleDoc.document.id === initDoc.id) {
+                                            initDoc.checked = true;
+                                            initDoc.url = singleDoc.path;
+                                        }
+                                    });
+                                });
+
+                            }, error => console.error(error));
+                        }
+                        this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
+                            const paramLoanConfig = response.detail as LoanConfig;
+                            this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
+                        });
+
+                        this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
+                        this.spinnerService.hide();
                     }
                 });
-                this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
-                    const paramLoanConfig = response.detail as LoanConfig;
-                    this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
-                });
-
-                this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
             }
         });
-        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
-            this.isNewMemo = true;
-            this.memoTask = 'Compose New';
-            this.memo = new CreditMemo();
-        } else {
-            this.isNewMemo = false;
-            this.memoTask = 'Edit';
-            this.creditMemoService.detail(Number(this.memoId)).subscribe((response: any) => {
-                this.memo = response.detail;
-                this.buildMemoForm(this.memo);
-
-                // Setting existing documents --
-                this.creditMemoDocuments = this.memo.customerLoan.loan.creditMemoDocuments;
-                this.editedCreditMemoDocuments = this.memo.documents;
-                this.editedCreditMemoDocuments.forEach((singleDoc, i) => {
-                    this.creditMemoDocuments.forEach((initDoc, j) => {
-                        if (singleDoc.document.id === initDoc.id) {
-                            initDoc.checked = true;
-                            initDoc.url = singleDoc.path;
-                        }
-                    });
-                });
-
-            }, error => console.error(error));
-        }
-
-        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
-            this.isNewMemo = true;
-            this.memoTask = 'Compose New';
-            this.memo = new CreditMemo();
-        } else {
-            this.isNewMemo = false;
-            this.memoTask = 'Edit';
-            window.localStorage.removeItem('tempPath');
-            this.creditMemoService.detail(Number(this.memoId)).subscribe((response: any) => {
-                this.memo = response.detail;
-                this.buildMemoForm(this.memo);
-
-                // Setting existing documents --
-
-                this.creditMemoTypeDocuments = response.detail.type.documents;
-                this.editedCreditMemoTypeDocuments = this.memo.memoTypeDocuments;
-                this.editedCreditMemoTypeDocuments.forEach((singleDoc, i) => {
-                    this.creditMemoTypeDocuments.forEach((initDoc, j) => {
-                        if (singleDoc.document.id === initDoc.id) {
-                            initDoc.checked = true;
-                            initDoc.url = singleDoc.path;
-                        }
-                    });
-                });
-
-            }, error => console.error(error));
-        }
-        this.buildMemoForm(this.memo);
     }
 
-    buildMemoForm(memo: CreditMemo) {
+    buildMemoForm(memo?: CreditMemo) {
         this.memoComposeForm = this.formBuilder.group(
             {
                 subject: [memo.subject, [Validators.required, CustomValidator.notEmpty]],
@@ -195,14 +176,24 @@ export class ComposeComponent implements OnInit {
                 type: [memo.type, Validators.required],
                 content: [memo.content, [Validators.required, CustomValidator.notEmpty]],
                 customerLoan: new FormControl({
-                    value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined,
+                    value: !ObjectUtil.isEmpty(this.allApproveLoan) ? this.allApproveLoan : undefined,
                     disabled: true
                 }, Validators.required),
-                loanConfig: new FormControl({
-                    value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
-                        memo.customerLoan.loan : undefined,
-                    disabled: true
-                }, Validators.required),
+                loanConfig: [this.allApproveLoan.length > 0 ? this.allApproveLoan[0].customerInfo.customerName : undefined, Validators.required],
+                proposalData: [undefined]
+            }
+        );
+    }
+
+    buildForm() {
+        this.memoComposeForm = this.formBuilder.group(
+            {
+                subject: [undefined, [Validators.required, CustomValidator.notEmpty]],
+                referenceNumber: [undefined, [Validators.required, CustomValidator.notEmpty]],
+                type: [undefined, Validators.required],
+                content: [undefined, [Validators.required, CustomValidator.notEmpty]],
+                customerLoan: [undefined],
+                loanConfig: [undefined],
                 proposalData: [undefined]
             }
         );
@@ -227,17 +218,16 @@ export class ComposeComponent implements OnInit {
             this.memoComposeForm.get('customerLoan').patchValue(undefined);
         }
 
-        const searchObj = {loanConfigId: String(loanConfig.id)};
-        this.customerLoanService.getAllCustomerLoanByConfigId(searchObj, 1, 100).subscribe(response => {
-            this.customerLoanList = response.detail.content;
-            if (this.raisedFromCatalogue) {
-                const activeCustomerLoan = this.customerLoanList.filter(
-                    customerLoan => customerLoan.id === Number(loanId)
-                );
-                this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
-                this.memoComposeForm.get('loanConfig').patchValue(activeCustomerLoan[0].loan);
-            }
-        });
+        // const searchObj = {loanConfigId: String(loanConfig.id)};
+        // this.customerLoanService.getAllCustomerLoanByConfigId(searchObj, 1, 100).subscribe(response => {
+        this.customerLoanList = this.allApproveLoan;
+        if (this.raisedFromCatalogue) {
+            const activeCustomerLoan = this.customerLoanList.filter(
+                customerLoan => customerLoan.id === Number(loanId)
+            );
+            // this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
+            // }
+        }
     }
 
     documentUploader(event, uploadedDocument, index: number, type: any) {

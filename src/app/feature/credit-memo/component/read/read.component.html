@@ -14,10 +14,10 @@
                             {{vendor}}
                         </div>
                         <div class="report-header-sub-heading">
-                            Diary Note of {{memo?.customerLoan?.loan?.name}} <br> for
+                            Diary Note of {{memo?.customerLoan[0]?.loan?.name}} <br> for
                         </div>
                         <div class="report-header-sub-heading">
-                            {{memo?.customerLoan?.customerInfo?.customerName}}
+                            {{memo?.customerLoan[0]?.customerInfo?.customerName}}
                         </div>
                     </div>
                 </div>
@@ -37,6 +37,8 @@
                     <p class="text-right"><strong>Date: </strong>{{memo?.createdAt | date}}</p>
                 </div>
             </div>
+            <hr class="print-line">
+            <app-security-summary *ngIf="mergedSecurity?.length > 0" [securities]="mergedSecurity" ></app-security-summary>
             <hr class="print-line">
             <div class="row">
                 <div class="col-md-12 my-3">

@@ -13,11 +13,12 @@ export class CreditMemo {
     content: string;
     currentStage: CreditMemoStage;
     documentStatus: DocStatus;
-    customerLoan: LoanDataHolder;
+    customerLoan: LoanDataHolder [];
     previousStages: Array<CreditMemoStage>;
     documents: Array<CreditMemoDocument>;
     distinctPreviousList: any;
     version: number;
     createdAt: string;
     memoTypeDocuments: Array<CreditMemoMemoTypeDocument>;
+    proposalData: string;
 }
