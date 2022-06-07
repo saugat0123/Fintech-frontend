@@ -32,8 +32,11 @@ export class RetailSecurityComponent implements OnInit {
     securityOther;
     proposalAllData;
     files = [];
+    shareData;
+    shareDataDetails;
     ngOnInit() {
         this.formData = JSON.parse(this.security.data);
+        console.log(this.formData, 'files security::;');
         if (!ObjectUtil.isEmpty(this.formData.files)) {
             this.files = JSON.parse(this.formData.files);
         }
@@ -129,6 +132,10 @@ export class RetailSecurityComponent implements OnInit {
                 }
             });
         }
+        this.shareData = JSON.parse(this.loanDataHolder.loanHolder.shareSecurity.data);
+        this.shareDataDetails = this.loanDataHolder.loanHolder.shareSecurity;
+        console.log('shareData', this.shareData);
+        console.log(this.shareDataDetails, 'share Data Details');
 
     }
 
@@ -141,5 +148,4 @@ export class RetailSecurityComponent implements OnInit {
         });
         return total;
     }
-
 }
