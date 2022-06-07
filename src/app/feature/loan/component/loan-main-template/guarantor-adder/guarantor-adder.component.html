@@ -19,7 +19,7 @@
       <div class="col-md-12">
         <p><strong>Tagged Guarantor Details</strong></p>
         <table
-            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
           <thead>
           <tr class="text-white sb-bg-dark">
             <th>S.N</th>
@@ -31,21 +31,35 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let guarantor of selectedGuarantorList; let i= index">
-            <td>{{i + 1}}</td>
-            <td>{{guarantor?.name}}</td>
-            <td>{{guarantor?.citizenNumber}}</td>
-            <td>{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
-            <td>{{guarantor?.contactNumber}}</td>
-            <td> <button (click)="removeGuarantor(guarantor)"
-                         class="btn btn-sm btn-flat btn-danger">
-              <em class="fa fa-trash bg-transparent"></em>
-            </button>
-              <button (click)="openGuarantorDetailModal(guarantor)"
-                         class="ml-1 btn btn-sm btn-flat btn-primary">
-              <em class="fa fa-info bg-transparent"></em>
-            </button></td>
-          </tr>
+          <ng-container *ngFor="let guarantorData of selectedGuarantorList; let i= index">
+            <tr>
+              <ng-container>
+                <td>{{i + 1}}</td>
+                <td>{{guarantorData?.name}}</td>
+                <td>{{guarantorData?.citizenNumber}}</td>
+                <td>{{guarantorData?.issuedPlace }},{{guarantorData?.province?.name}}
+                  ,{{guarantorData?.district?.name}}</td>
+                <td>{{guarantorData?.contactNumber}}</td>
+                <td>
+                  <button (click)="removeGuarantor(guarantorData)"
+                          class="btn btn-sm btn-flat btn-danger">
+                    <em class="fa fa-trash bg-transparent"></em>
+                  </button>
+                  <button class="ml-1 btn btn-sm btn-flat btn-primary"
+                          (click)="toggle[i].hide = !this.toggle[i].hide">
+                    <em class="fa fa-info bg-transparent"></em>
+                  </button>
+                </td>
+              </ng-container>
+            </tr>
+            <tr *ngIf="toggle[i].hide">
+              <td colspan="9">
+                <ng-container>
+                  <app-guarantor-detail [guarantorData]="guarantorData"></app-guarantor-detail>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
           </tbody>
         </table>
         <p *ngIf="selectedGuarantorList.length === 0" class="text-center">No Guarantor tagged yet!</p>
