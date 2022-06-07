@@ -43,6 +43,7 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
     borrowerFreeText1: Array<any> = new Array<any>();
     freeTextVal: Array<any> = new Array<any>();
     borrowerDetailsVal: Array<any> = new Array<any>();
+    securityOwnerFreeTxt: Array<any> = new Array<any>();
     primarySecurityData: any[] = [];
     secondarySecurityData: any[] = [];
 
@@ -121,17 +122,11 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
             mortgageNo: [undefined],
             totalMortgageAmount: [undefined],
             totalAmount: [undefined],
-            landOwnerName: [undefined],
-            fatherHusbandName: [undefined],
-            grandFatherInLawName: [undefined],
-            landOwnerAddress: [undefined],
-            citizenshipNo: [undefined],
-            citizenIssueDate: [undefined],
-            citizenIssueDistrict: [undefined],
             borrowerNameArray: this.formBuilder.array([]),
             borrowerNameArray1: this.formBuilder.array([]),
             nameFreeText: this.formBuilder.array([]),
             borrowerDetails: this.formBuilder.array([]),
+            ownerDetails: this.formBuilder.array([]),
             // Witness Fields
             witnessDistrict1: [undefined],
             witnessMuni1: [undefined],
@@ -168,6 +163,18 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
         });
     }
 
+    ownerDetailsFree() {
+        return this.formBuilder.group({
+            landOwnerName: [undefined],
+            fatherHusbandName: [undefined],
+            grandFatherInLawName: [undefined],
+            landOwnerAddress: [undefined],
+            citizenshipNo: [undefined],
+            citizenIssueDate: [undefined],
+            citizenIssueDistrict: [undefined]
+        });
+    }
+
     addBorrowerFreeText() {
         (this.form.get('borrowerNameArray') as FormArray).push(this.borrowerFree());
     }
@@ -178,6 +185,10 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
 
     addBorrowerNameFreeText() {
         (this.form.get('nameFreeText') as FormArray).push(this.borrowerNameFree());
+    }
+
+    addSecurityOwnerFreeText() {
+        (this.form.get('ownerDetails') as FormArray).push(this.ownerDetailsFree());
     }
 
     removeAtIndex(i: number) {
@@ -195,7 +206,9 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
     removeSecurityAtIndex(ii: number) {
         (this.form.get('borrowerNameArray1') as FormArray).removeAt(ii);
     }
-
+    removeSecurityOwnerIndex(ii: number) {
+        (this.form.get('ownerDetails') as FormArray).removeAt(ii);
+    }
     removeBorrowerAtIndex(ii: number) {
         (this.form.get('borrowerDetails') as FormArray).removeAt(ii);
     }
@@ -225,6 +238,7 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
                     );
                     this.addBorrowerFreeText();
                 }
+                this.addSecurityOwnerFreeText();
             }
         });
     }
@@ -243,6 +257,7 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
                     );
                     this.addBorrowerFreeText1();
                 }
+                this.addSecurityOwnerFreeText();
             }
         });
     }
@@ -301,7 +316,7 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
 
     setIssuedDate() {
         if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-            const dateOfApprovalType = this.initialInfo.retailGlobalForm.sanctionLetterDateType ?
+            const dateOfApprovalType = this.initialInfo.retailGlobalForm ?
                 this.initialInfo.retailGlobalForm.sanctionLetterDateType : '';
             if (dateOfApprovalType === 'AD') {
                 const templateDateApproval = this.initialInfo.retailGlobalForm.sanctionLetterDate ?
@@ -422,6 +437,25 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
             };
             this.borrowerDetailsVal.push(freeText);
         }
+        for (let j = 0; j < this.form.get('ownerDetails')['length']; j++) {
+            const freeText1 = {
+                landOwnerName: this.form.get(['ownerDetails', j, 'landOwnerName']) ?
+                    this.form.get(['ownerDetails', j, 'landOwnerName']).value : '',
+                fatherHusbandName: this.form.get(['ownerDetails', j, 'fatherHusbandName']) ?
+                    this.form.get(['ownerDetails', j, 'fatherHusbandName']).value : '',
+                grandFatherInLawName: this.form.get(['ownerDetails', j, 'grandFatherInLawName']) ?
+                    this.form.get(['ownerDetails', j, 'grandFatherInLawName']).value : '',
+                landOwnerAddress: this.form.get(['ownerDetails', j, 'landOwnerAddress']) ?
+                    this.form.get(['ownerDetails', j, 'landOwnerAddress']).value : '',
+                citizenshipNo: this.form.get(['ownerDetails', j, 'citizenshipNo']) ?
+                    this.form.get(['ownerDetails', j, 'citizenshipNo']).value : '',
+                citizenIssueDate: this.form.get(['ownerDetails', j, 'citizenIssueDate']) ?
+                    this.form.get(['ownerDetails', j, 'citizenIssueDate']).value : '',
+                citizenIssueDistrict: this.form.get(['ownerDetails', j, 'citizenIssueDistrict']) ?
+                    this.form.get(['ownerDetails', j, 'citizenIssueDistrict']).value : '',
+            };
+            this.securityOwnerFreeTxt.push(freeText1);
+        }
         const free1 = {
             // for witness
             witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
@@ -440,17 +474,11 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
             dateOfMortgageProperty: this.form.get('dateOfMortgageProperty') ? this.form.get('dateOfMortgageProperty').value : '',
             mortgageNo: this.form.get('mortgageNo') ? this.form.get('mortgageNo').value : '',
             totalMortgageAmount: this.form.get('totalMortgageAmount') ? this.form.get('totalMortgageAmount').value : '',
-            landOwnerName: this.form.get('landOwnerName') ? this.form.get('landOwnerName').value : '',
-            fatherHusbandName: this.form.get('fatherHusbandName') ? this.form.get('fatherHusbandName').value : '',
-            grandFatherInLawName: this.form.get('grandFatherInLawName') ? this.form.get('grandFatherInLawName').value : '',
-            landOwnerAddress: this.form.get('landOwnerAddress') ? this.form.get('landOwnerAddress').value : '',
-            citizenshipNo: this.form.get('citizenshipNo') ? this.form.get('citizenshipNo').value : '',
-            citizenIssueDate: this.form.get('citizenIssueDate') ? this.form.get('citizenIssueDate').value : '',
-            citizenIssueDistrict: this.form.get('citizenIssueDistrict') ? this.form.get('citizenIssueDistrict').value : '',
             borrowerNameArray: this.borrowerFreeText,
             borrowerNameArray1: this.borrowerFreeText1,
             nameFreeText: this.freeTextVal,
             borrowerDetails: this.borrowerDetailsVal,
+            ownerDetails: this.securityOwnerFreeTxt,
             totalAmount: this.form.get('totalAmount') ? this.form.get('totalAmount').value : ''
         };
         return JSON.stringify(free1);
@@ -503,6 +531,26 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
                 }
             }
         }
+        if (!ObjectUtil.isEmpty(this.supportedInfo)) {
+            if (!ObjectUtil.isEmpty(this.supportedInfo.ownerDetails)) {
+                for (let j = 0; j < this.supportedInfo.ownerDetails.length; j++) {
+                    this.form.get(['ownerDetails', j, 'landOwnerName']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].landOwnerName : '');
+                    this.form.get(['ownerDetails', j, 'fatherHusbandName']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].fatherHusbandName : '');
+                    this.form.get(['ownerDetails', j, 'grandFatherInLawName']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].grandFatherInLawName : '');
+                    this.form.get(['ownerDetails', j, 'landOwnerAddress']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].landOwnerAddress : '');
+                    this.form.get(['ownerDetails', j, 'citizenshipNo']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].citizenshipNo : '');
+                    this.form.get(['ownerDetails', j, 'citizenIssueDate']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].citizenIssueDate : '');
+                    this.form.get(['ownerDetails', j, 'citizenIssueDistrict']).patchValue(this.supportedInfo.ownerDetails ?
+                        this.supportedInfo.ownerDetails[j].citizenIssueDistrict : '');
+                }
+            }
+        }
     }
 
     fillForm() {
@@ -513,13 +561,6 @@ export class ConsentLetterForMortgageIndividualComponent implements OnInit {
             dateOfMortgageProperty: this.supportedInfo ? this.supportedInfo.dateOfMortgageProperty : '',
             mortgageNo: this.supportedInfo ? this.supportedInfo.mortgageNo : '',
             totalMortgageAmount: this.supportedInfo ? this.supportedInfo.totalMortgageAmount : '',
-            landOwnerName: this.supportedInfo ? this.supportedInfo.landOwnerName : '',
-            fatherHusbandName: this.supportedInfo ? this.supportedInfo.fatherHusbandName : '',
-            grandFatherInLawName: this.supportedInfo ? this.supportedInfo.grandFatherInLawName : '',
-            landOwnerAddress: this.supportedInfo ? this.supportedInfo.landOwnerAddress : '',
-            citizenshipNo: this.supportedInfo ? this.supportedInfo.citizenshipNo : '',
-            citizenIssueDate: this.supportedInfo ? this.supportedInfo.citizenIssueDate : '',
-            citizenIssueDistrict: this.supportedInfo ? this.supportedInfo.citizenIssueDistrict : '',
             // witness
             witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
             witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
