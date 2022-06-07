@@ -71,6 +71,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   loanPurposeArray: Array<any> = new Array<any>();
   loanPurpose: any;
   cadInitialInfo: any;
+  isAutoLoan: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -430,8 +431,16 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.cadData.assignedLoan.forEach(value => {
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+        }
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
+      });
+      this.loanName.forEach(value => {
+        if (value === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
+        }
       });
     }
     if (!ObjectUtil.isEmpty(this.initialInfo) &&
@@ -598,7 +607,8 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
 
   convertNepaliNumberAmount(value) {
-    return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
+    // return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
+    return this.engToNepNumberPipe.transform(String(value));
   }
 
   convertNepaliNumber(value) {

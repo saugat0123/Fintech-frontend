@@ -125,10 +125,16 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
     const section14FreeText = this.section14.form.get('nameOfEmbassyFreeTxt').value ? this.section14.form.get('nameOfEmbassyFreeTxt').value : '';
     const section18FreeText = {
-            freeText2: this.section18.form.get('freeText2').value ? this.section18.form.get('freeText2').value : '',
-            borrowerKhataNum: this.section18.form.get('borrowerKhataNum').value ? this.section18.form.get('borrowerKhataNum').value : '',
-            letterOfConsentForContOfExistingMortgageName: this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value ? this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value : '',
-        };
+        freeText2: this.section18.form.get('freeText2').value ? this.section18.form.get('freeText2').value : '',
+        borrowerKhataNum: this.section18.form.get('borrowerKhataNum').value ? this.section18.form.get('borrowerKhataNum').value : '',
+        letterOfConsentForContOfExistingMortgageName: this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value ? this.section18.form.get('letterOfConsentForContOfExistingMortgageName').value : '',
+        newOrAdditionalLoan: this.section18.form.get('newOrAdditionalLoan').value ?
+            this.section18.form.get('newOrAdditionalLoan').value : '',
+        pdoNabil: this.section18.form.get('pdoNabil').value ?
+            this.section18.form.get('pdoNabil').value : '',
+        mortgageDate: this.section18.form.get('mortgageDate').value ?
+            this.section18.form.get('mortgageDate').value : '',
+    };
         const section22FreeText = {
             freeText1: this.section22.form.get('freeText1').value ? this.section22.form.get('freeText1').value : '',
             freeText2: this.section22.form.get('freeText2').value ? this.section22.form.get('freeText2').value : '',
