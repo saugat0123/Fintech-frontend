@@ -35,7 +35,6 @@ export class RetailSecurityComponent implements OnInit {
     shareData;
     ngOnInit() {
         this.formData = JSON.parse(this.security.data);
-        console.log(this.formData, 'files security::;');
         if (!ObjectUtil.isEmpty(this.formData.files)) {
             this.files = JSON.parse(this.formData.files);
         }
