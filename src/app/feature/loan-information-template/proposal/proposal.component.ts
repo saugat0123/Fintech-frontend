@@ -1051,15 +1051,17 @@ export class ProposalComponent implements OnInit {
   }
   setFixedArray() {
     const fixedAssets = this.proposalForm.get('fixedAssetsSummary') as FormArray;
-    this.formDataForEdit.fixedAssetsSummary.forEach(d => {
-      fixedAssets.push(this.formBuilder.group({
-        particular: [d.particular],
-        unit: [d.unit],
-        rate: [d.rate],
-        total: [d.total],
-        remarks: [d.remarks],
-      }));
-    });
+      if (this.customerInfo.customerType === 'INSTITUTION') {
+          this.formDataForEdit.fixedAssetsSummary.forEach(d => {
+              fixedAssets.push(this.formBuilder.group({
+                  particular: [d.particular],
+                  unit: [d.unit],
+                  rate: [d.rate],
+                  total: [d.total],
+                  remarks: [d.remarks],
+              }));
+          });
+      }
   }
 
     deleteEmitter(event) {
