@@ -359,56 +359,68 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="container col-md-8 justify-content-center" style="margin-top: 10px;">
-                    <table class="table-borderless" style="width: 40%;">
-                        <tbody>
-                        <tr style="height: 150px;">
-                            <th width="50%" style="vertical-align: top">दायाँ</th>
-                            <th width="50%" style="vertical-align: top">बायाँ</th>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    ..................................<br>
-                    <span style="margin-left: 50px;"> सही </span><br>
-                    घर/जग्गाधनीको नाम: <input class="form-field form-control-sm d-print-none"
-                                              name="landOwnerName"
-                                              formControlName="landOwnerName"
-                                              type="text"/>
-                    <span class="print-only">{{form.get('landOwnerName') ? form.get('landOwnerName')?.value : '____________________________'}}</span><br>
-                    बाबु/पतिको नाम: <input class="form-field form-control-sm d-print-none"
-                                           name="fatherHusbandName"
-                                           formControlName="fatherHusbandName"
-                                           type="text"/>
-                    <span class="print-only">{{form.get('fatherHusbandName') ? form.get('fatherHusbandName')?.value : '____________________________'}}</span><br>
-                    बाजे/ससुराको नाम: <input class="form-field form-control-sm d-print-none"
-                                             name="grandFatherInLawName"
-                                             formControlName="grandFatherInLawName"
-                                             type="text"/>
-                    <span class="print-only">{{form.get('grandFatherInLawName') ? form.get('grandFatherInLawName')?.value : '____________________________'}}</span><br>
-                    ठेगाना: <input class="form-field form-control-sm d-print-none"
-                                   name="landOwnerAddress"
-                                   formControlName="landOwnerAddress"
-                                   type="text"/>
-                    <span class="print-only">{{form.get('landOwnerAddress') ? form.get('landOwnerAddress')?.value : '____________________________'}}</span><br>
-                    ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
-                                      name="citizenshipNo"
-                                      formControlName="citizenshipNo"
-                                      type="text"/>
-                    <span class="print-only">{{form.get('citizenshipNo') ? form.get('citizenshipNo')?.value : '____________________________'}}</span>,
-                    मिति <input class="form-field form-control-sm d-print-none"
-                                name="citizenIssueDate"
-                                formControlName="citizenIssueDate"
-                                type="text"/>
-                    <span class="print-only">{{form.get('citizenIssueDate') ? form.get('citizenIssueDate')?.value : '____________________________'}}</span>,
-                    जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm d-print-none"
-                                                   name="citizenIssueDistrict"
-                                                   formControlName="citizenIssueDistrict"
+                <div class="container col-md-8" style="margin-top: 10px;">
+                    <ng-container *ngFor="let securityOwner of form.get('ownerDetails')['controls']; let i4 = index"
+                                  formArrayName="ownerDetails">
+                        <ng-container [formGroupName]="i4">
+                            <table class="table-borderless" style="width: 40%; margin-top: 30px">
+                                <tbody>
+                                <tr style="height: 150px;">
+                                    <th width="50%" style="vertical-align: top">दायाँ</th>
+                                    <th width="50%" style="vertical-align: top">बायाँ</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            ..................................<br>
+                            <span style="margin-left: 50px;"> सही </span><br>
+                            घर/जग्गाधनीको नाम: <input class="form-field form-control-sm d-print-none"
+                                                      name="landOwnerName"
+                                                      formControlName="landOwnerName"
+                                                      type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'landOwnerName']) ? form.get(['ownerDetails', i4, 'landOwnerName'])?.value : '____________________________'}}</span><br>
+                            बाबु/पतिको नाम: <input class="form-field form-control-sm d-print-none"
+                                                   name="fatherHusbandName"
+                                                   formControlName="fatherHusbandName"
                                                    type="text"/>
-                    <span class="print-only">{{form.get('citizenIssueDistrict') ? form.get('citizenIssueDistrict')?.value : '____________________________'}}</span>
-
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'fatherHusbandName']) ? form.get(['ownerDetails', i4, 'fatherHusbandName'])?.value : '____________________________'}}</span><br>
+                            बाजे/ससुराको नाम: <input class="form-field form-control-sm d-print-none"
+                                                     name="grandFatherInLawName"
+                                                     formControlName="grandFatherInLawName"
+                                                     type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'grandFatherInLawName']) ? form.get(['ownerDetails', i4, 'grandFatherInLawName'])?.value : '____________________________'}}</span><br>
+                            ठेगाना: <input class="form-field form-control-sm d-print-none"
+                                           name="landOwnerAddress"
+                                           formControlName="landOwnerAddress"
+                                           type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'landOwnerAddress']) ? form.get(['ownerDetails', i4, 'landOwnerAddress'])?.value : '____________________________'}}</span><br>
+                            ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
+                                              name="citizenshipNo"
+                                              formControlName="citizenshipNo"
+                                              type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'citizenshipNo']) ? form.get(['ownerDetails', i4, 'citizenshipNo'])?.value : '____________________________'}}</span>,
+                            मिति <input class="form-field form-control-sm d-print-none"
+                                        name="citizenIssueDate"
+                                        formControlName="citizenIssueDate"
+                                        type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'citizenIssueDate']) ? form.get(['ownerDetails', i4, 'citizenIssueDate'])?.value : '____________________________'}}</span>,
+                            जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm d-print-none"
+                                                           name="citizenIssueDistrict"
+                                                           formControlName="citizenIssueDistrict"
+                                                           type="text"/>
+                            <span class="print-only">{{form.get(['ownerDetails', i4, 'citizenIssueDistrict']) ? form.get(['ownerDetails', i4, 'citizenIssueDistrict'])?.value : '____________________________'}}</span>
+                            <div class="float-right">
+                                <ng-container *ngIf="form.get('ownerDetails')['length'] > 0">
+                                    <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecurityOwnerIndex(i4)"
+                                            style="position: static">
+                                        <em class="fa fa-trash" style="color: white;"></em>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </ng-container>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" style="margin-top: 20px">
                     <strong>साक्षीहरु:</strong><br>
                     <ol class="conditions-list">
                         <li><input class="form-field form-control-sm d-print-none"
