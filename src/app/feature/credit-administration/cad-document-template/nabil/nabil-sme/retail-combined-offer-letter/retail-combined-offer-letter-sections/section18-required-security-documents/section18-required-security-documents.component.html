@@ -74,7 +74,7 @@
                         बहुबैंकिङ घोषणा पत्र ।
                     </li>
                     <li *ngIf="loanDeedVisible">
-                        रु. <input class="form-field form-control-sm d-print-none nepaliFont"
+                        रु. <input class="form-field form-control-sm d-print-none"
                                    name="totalAmountInFigure"
                                    formControlName="totalAmountInFigure"
                                    placeholder=" "
@@ -127,7 +127,7 @@
                                              [value]="guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : ''"/>
                         <span class="print-only font-weight-bold">
                             {{guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : '______________________'}}</span>/- मात्र)
-                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण । (Multi Banking Declaration)
+                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण । (Personal Guarantee and Networth Statement)
                     </li>
                     </ng-container>
                     <li *ngIf="hirePurchaseAgreement">
