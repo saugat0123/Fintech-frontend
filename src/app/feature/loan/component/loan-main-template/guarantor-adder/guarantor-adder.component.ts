@@ -2,8 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Guarantor} from '../../../model/guarantor';
 import {FormControl, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {GuarantorDetailComponent} from './guarantor-detail/guarantor-detail.component';
-import {NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-guarantor-adder',
@@ -18,10 +16,11 @@ export class GuarantorAdderComponent implements OnInit {
   guarantorList: Array<Guarantor> = [];
   selectedGuarantorList: Array<Guarantor> = [];
   msg = '';
+  toggle: { hide: boolean } [] = [];
 
   guarantor = new FormControl(undefined , Validators.required);
 
-  constructor(private nbDialogService: NbDialogService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -36,6 +35,7 @@ export class GuarantorAdderComponent implements OnInit {
     const presentGuarantor = this.selectedGuarantorList.filter(d => d.id === data.id);
     if (presentGuarantor.length <= 0) {
       this.selectedGuarantorList.push(data);
+      this.toggle.push({hide: false});
       this.msg = '';
     } else {
       this.msg = 'selected guarantor is already added !';
@@ -46,15 +46,12 @@ export class GuarantorAdderComponent implements OnInit {
   removeGuarantor(data) {
     const removeIndex = this.findGuarantorIndex(data);
     this.selectedGuarantorList.splice(removeIndex, 1);
+    this.toggle.splice(removeIndex, 1);
     this.emitter.emit(this.selectedGuarantorList);
   }
 
   findGuarantorIndex(data) {
     return this.selectedGuarantorList.indexOf(this.selectedGuarantorList.
     filter(d => d.id.toString() === data.id.toString())[0]);
-  }
-
-  openGuarantorDetailModal(guarantorData) {
-    this.nbDialogService.open(GuarantorDetailComponent ,  {context: {guarantorData}});
   }
 }
