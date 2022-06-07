@@ -84,7 +84,7 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.customerAllLoanList.length > 0) {
+        if (this.customerAllLoanList.length > 0 && ObjectUtil.isEmpty(this.securities)) {
             this.securities = [];
             if (this.pending) {
                 this.combineAllSecurity();
@@ -93,6 +93,9 @@ export class SecuritySummaryComponent implements OnInit {
             } else {
                 this.combinedAllApprovedSecurity();
             }
+        } else if (!ObjectUtil.isEmpty(this.securities)) {
+            this.selectedSecurities();
+            this.setSelectedSecurities();
         }
     }
 

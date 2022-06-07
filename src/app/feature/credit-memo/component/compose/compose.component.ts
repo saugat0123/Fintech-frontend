@@ -21,6 +21,7 @@ import {CreditMemoMemoTypeDocument} from '../../model/credit-memo-memo-type-docu
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {DocPath} from './doc-path';
+import {Security} from '../../../loan/model/security';
 
 @Component({
     selector: 'app-compose',
@@ -51,7 +52,10 @@ export class ComposeComponent implements OnInit {
     docSpinner = false;
     ckeConfig = Editor.CK_CONFIG;
     tempDocPath = Array<DocPath>();
-
+    customerInfoId;
+    allApproveLoan: LoanDataHolder [] = [];
+    mergeSecurity: Security [] = [];
+    mergedProposal = [];
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
@@ -94,7 +98,31 @@ export class ComposeComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             if (!(Object.keys(params).length === 0 && params.constructor === Object)) {
                 this.raisedFromCatalogue = true;
-
+                this.customerInfoId = params.customerInfoId;
+                this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe({
+                    next: (res: any) => {
+                        this.allApproveLoan = res.detail;
+                    },
+                    error: () => {
+                        this.toastService.show(new Alert(AlertType.ERROR, 'OPPS Something went Wrong Could Not Fetch Loan Data!!!'));
+                    },
+                    complete: () => {
+                        if (this.allApproveLoan.length > 0) {
+                            this.allApproveLoan = this.allApproveLoan.filter(d => d.documentStatus.toString() === 'APPROVED');
+                            this.allApproveLoan.forEach((d) => {
+                                if (d.securities.length > 0) {
+                                    d.securities.forEach((s) => {
+                                        this.mergeSecurity.push(s);
+                                    });
+                                }
+                                this.mergedProposal.push({
+                                    loanId: d.id,
+                                    proposalData: d.proposal.data
+                                });
+                            });
+                        }
+                    }
+                });
                 this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
                     const paramLoanConfig = response.detail as LoanConfig;
                     this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
@@ -174,7 +202,8 @@ export class ComposeComponent implements OnInit {
                     value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
                         memo.customerLoan.loan : undefined,
                     disabled: true
-                }, Validators.required)
+                }, Validators.required),
+                proposalData: [undefined]
             }
         );
     }

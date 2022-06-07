@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {LoanSummaryComponent} from './loan-summary.component';
 import {SitevistSummaryComponentComponent} from './sitevist-summary-component/sitevist-summary-component.component';
 import {FinancialSummaryComponent} from './financial-summary/financial-summary.component';
-import {SecuritySummaryComponent} from './security-summary/security-summary.component';
 import {InsuranceSummaryComponent} from './insurance-summary/insurance-summary.component';
 import {GuarantorSummaryComponent} from './guarantor-summary/guarantor-summary.component';
 import {CustomerGroupSummaryComponent} from './customer-group-summary/customer-group-summary.component';
@@ -50,7 +49,6 @@ import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-sum
 const COMPONENTS = [
     SitevistSummaryComponentComponent,
     FinancialSummaryComponent,
-    SecuritySummaryComponent,
     ProposalSummaryComponent,
     LoanSummaryComponent,
     InsuranceSummaryComponent,
@@ -105,7 +103,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
-        SecuritySummaryComponent,
         GuarantorSummaryComponent,
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,

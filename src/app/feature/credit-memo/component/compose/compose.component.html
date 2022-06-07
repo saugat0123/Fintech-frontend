@@ -48,7 +48,6 @@
                             placeholder="Select Loan type">
                     </ng-select>
                 </div>
-
                 <div class="form-group">
                     <ng-select
                             [closeOnSelect]="true"
@@ -68,7 +67,7 @@
 
                     </ng-select>
                 </div>
-
+            <app-security-summary *ngIf="allApproveLoan?.length > 0" [customerAllLoanList]="allApproveLoan" [securities]="mergeSecurity" [pending] = "false" ></app-security-summary>
                 <!--Document upload-->
                 <div class="form-group">
                     <ckeditor [config]="ckeConfig" formControlName="content"></ckeditor>
