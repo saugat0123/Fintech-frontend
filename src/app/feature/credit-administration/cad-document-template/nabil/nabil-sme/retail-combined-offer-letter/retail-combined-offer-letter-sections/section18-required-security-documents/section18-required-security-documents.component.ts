@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
   selector: 'app-section18-required-security-documents',
@@ -52,7 +53,8 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   saveFreeText: any;
   constructor(
       private formBuilder: FormBuilder,
-      public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe
+      public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+      private englishToNepali: EngToNepaliNumberPipe
   ) { }
 
   ngOnInit() {
@@ -115,9 +117,10 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         totalLoanDeed = totalLoanDeed + totalAmount;
       });
     }
+    const tempAmount = totalLoanAmount + totalLoanDeed;
     this.form.patchValue({
       // loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
-      totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? (totalLoanAmount + totalLoanDeed) : '',
+      totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? this.englishToNepali.transform(tempAmount.toString()) : '',
       borrowerKhataNum: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
           this.saveFreeText.section18.borrowerKhataNum : '',
       letterOfConsentForContOfExistingMortgageName: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
