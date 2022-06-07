@@ -137,9 +137,9 @@
                               </thead>
                               <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                                   <td>Apartment {{i+1}}</td>
-                                  <td>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</td>
+                                  <td>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</td>
                                   <td>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
-                                  <td>{{buildingDetails?.distressValue || 'NA'}}</td>
+                                  <td>{{buildingDetails?.buildingDistressValue || 'NA'}}</td>
                               </tr>
                               <tr>
                                   <td class="font-weight-bold">Total</td>
