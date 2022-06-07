@@ -127,10 +127,11 @@
 <!--                                           type="radio"><br>-->
 <!--                                </div>-->
 <!--                            </ng-container>-->
-                            <ng-container formArrayName="gammaQuestionAnswer" *ngFor="let answer of ans?.answers; let ii = index">
-                                <div *ngIf="answer?.status === 'ACTIVE'"  [formGroupName]="crg">
+                            <ng-container *ngFor="let answer of ans?.answers; let ii = index">
+                                <div *ngIf="answer?.status === 'ACTIVE'"  [formGroupName]="crg?.gammaQuestionAnswer">
                                     <input class="form-check-input"
                                            [value]="answer?.points"
+                                           [formControlName]="ans?.description"
                                            [id]="ans?.description + ii"
                                            type="radio">
                                     <br>
