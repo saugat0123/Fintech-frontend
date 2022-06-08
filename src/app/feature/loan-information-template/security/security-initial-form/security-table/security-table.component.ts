@@ -66,7 +66,6 @@ export class SecurityTableComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.customerId = params.customerInfoId;
-      console.log(this.customerId);
       this.customerInfo.getCustomerInfoById(this.customerId).subscribe(response=>{
         console.log(response);
         this.securityId = response.security.id;
