@@ -38,13 +38,13 @@
                                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                 <tbody>
                                 <tr><td class="text-right pr-1">{{vehicleDetails?.model || 'N/A'}}</td></tr>
-                                <tr>    <td class="text-right pr-1">Rs. {{(vehicleDetails?.valuationAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>    <td class="text-right pr-1">Rs. {{(vehicleDetails?.quotationAmount | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
                                 <tr> <td class="text-right pl-1">{{ vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'N/A'}}</td></tr>
-                                <tr> <td class="text-right pr-1">{{vehicleDetails?.engineNumber || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-1">{{vehicleDetails?.chassisNumber || 'N/A'}}</td></tr>
+                                <tr> <td class="text-right pr-1">{{vehicleDetails?.engineNo || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">{{vehicleDetails?.chasisNo || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
                                 <tr>  <td class="text-right pl-1">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
                                 <tr> <td class="text-right pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
@@ -461,7 +461,7 @@
                                     <tr>  <td class="text-right pr-1">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat || 'N/A')}}</td></tr>
                                     <tr> <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pr-1">Rs. {{(landBuilding?.marketValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pr-1">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td  class="text-right pr-1">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>

@@ -63,7 +63,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
@@ -139,7 +138,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     CustomerAssociateComponent,
-    GuarantorDetailComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
@@ -156,7 +154,6 @@ const ENTRY_COMPONENTS = [
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent,
-    GuarantorDetailComponent,
 ];
 
 const modules = {

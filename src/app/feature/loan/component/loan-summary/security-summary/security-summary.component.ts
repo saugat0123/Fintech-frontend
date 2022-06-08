@@ -9,7 +9,6 @@ import {CollateralSiteVisit} from '../../../../loan-information-template/securit
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {Security} from '../../../model/security';
 import {LoanDataHolder} from '../../../model/loanData';
-import {DocStatus} from '../../../model/docStatus';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 
 
@@ -85,7 +84,18 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.customerAllLoanList.length > 0) {
+        // Set Security Details for view
+        const securityLen = !ObjectUtil.isEmpty(this.securities) ? this.securities.length
+            : 0;
+        if (securityLen > 0) {
+            this.securities = this.securities.filter((l: Security) => l.status === 'ACTIVE');
+            this.selectedSecurities();
+            this.setSelectedSecurities();
+        }
+
+        const loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ?
+            this.customerAllLoanList.length : 0;
+        if (loanListLen > 0) {
             this.securities = [];
             if (this.pending) {
                 this.combineAllSecurity();
@@ -132,21 +142,6 @@ export class SecuritySummaryComponent implements OnInit {
                     },
                     });
             }
-        });
-    }
-
-    calculateTotal() {
-        const depositList = this.formData['initialForm']['fixedDepositDetails'];
-        depositList.forEach(deposit => {
-            this.totalAmount += deposit.amount;
-        });
-    }
-
-    private calculateShareTotals() {
-        const shareList = this.shareSecurity['shareSecurityDetails'];
-        shareList.forEach(share => {
-            this.shareTotalValue += share.total;
-            this.totalConsideredValue += share.consideredValue;
         });
     }
 

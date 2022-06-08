@@ -667,7 +667,7 @@
                                     </div>
                                 </div>
                                 <ng-container *ngIf="!fromProfile">
-                                        <div class="row">
+                                        <div class="row" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                             <div class="col-md-12">
                                                 <div class="form-group" style="max-height: 300px !important;height: 250px;">
                                                     <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
@@ -675,8 +675,7 @@
                                                               [style]="{height:'250px !important;'}"
                                                               placeholder="Background"
                                                               required
-                                                              [config]="ckeConfig"
-                                                    >
+                                                              [config]="ckeConfig">
                                                     </ckeditor>
                                                 </div>
                                             </div>
@@ -722,7 +721,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                                 <h6><strong>Additional Description</strong></h6>
                                                 <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                                                              [checked]="waiverChecked">
@@ -734,7 +733,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                                 <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
                                                              [checked]="deviationChecked">
                                                     <b>Deviation</b>
@@ -745,7 +744,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                                 <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
                                                              [checked]="solChecked"><b>Single Obligor Limit</b>
                                                 </nb-checkbox>
@@ -754,7 +753,7 @@
                                                               [config]="ckeConfig"></ckeditor>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
 
                                                 <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
                                                              [checked]="riskChecked"><b>Risk & Mitigation</b>
@@ -764,7 +763,7 @@
                                                               [config]="ckeConfig"></ckeditor>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
 
                                                 <nb-checkbox (change)="checkChecked($event.target.checked,'debt')"
                                                              [checked]="debtChecked"><b>Debt Structure and Control</b>
@@ -797,7 +796,7 @@
                                     </div>
                                 </ng-container>
                                 <ng-container *ngIf="isInsti">
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                         <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')"
                                             [checked]="checkedHistorical">
                                             <b>Justification for change (Historical)</b>
@@ -806,7 +805,7 @@
                                             <ckeditor [config]="ckeConfig" formControlName="justificationChangeHistorical"></ckeditor>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                             <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')"
                                                 [checked]="checkedProjection">
                                                 <b>Justification for change (Projection)</b>
@@ -818,9 +817,11 @@
                                 </ng-container>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
-                                                                 [checked]="netChecked"><b>Net Worth</b>
-                                                    </nb-checkbox>
+                                                    <div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
+                                                        <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
+                                                                     [checked]="netChecked"><b>Net Worth</b>
+                                                        </nb-checkbox>
+                                                    </div>
                                                     <table *ngIf="netChecked"
                                                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                                         <thead>
@@ -890,7 +891,7 @@
                                                 </div>
                                 </div>
                                 <div class="col-md-12 form-group" *ngIf="isInsti">
-                                    <div class="row">
+                                    <div class="row" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                         <div class="col-md-12 d-flex justify-content-start align-items-center">
                                             <nb-checkbox (change)="checkChecked($event.target.checked,'fixedAssets')" [checked]="fixedAssetsChecked">
                                                 <b>Fixed Assets Summary</b>
@@ -996,12 +997,12 @@
                                 </ng-container>
                             </div>
                         </form>
-                        <div class="col-md-12 form-group">
+                        <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                             <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
                         </div>
                     </div>
                     <ng-container  *ngIf="fromProfile">
-                        <div class="col-md-12">
+                        <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">
