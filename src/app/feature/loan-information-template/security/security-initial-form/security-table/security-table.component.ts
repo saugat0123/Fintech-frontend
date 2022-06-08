@@ -67,9 +67,7 @@ export class SecurityTableComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.customerId = params.customerInfoId;
       this.customerInfo.getCustomerInfoById(this.customerId).subscribe(response=>{
-        console.log(response);
         this.securityId = response.security.id;
-        console.log(this.securityId, 'security id' );
       });
     });
     if (this.selectedArray !== undefined) {
