@@ -126,7 +126,7 @@
                   <p class="custom-font">
                     <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES <br><em class="sb-small"> UMI, GI, TMO</em></span>
                     <span
-                        *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+                        *ngIf="customerInfo?.customerType == customerType.INSTITUTION">INCOME TO THE BANK</span>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -146,7 +146,7 @@
             <nb-card-header>
                 <span
                     *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">INCOME TO THE BANK</span>
               <a (click)="ref.close()" aria-label="Close"
                  class="close cursor" data-dismiss="modal">
                       <span (click)="ref.close()" style="color: red">
@@ -157,6 +157,7 @@
               <app-financial #financialComponent
                              (financialDataEmitter)="saveFinancial($event)"
                              [formData]="customerInfo?.financial"
+                             [customerInfo]="customerInfo"
                              [fromProfile]="true"></app-financial>
             </nb-card-body>
           </nb-card>
