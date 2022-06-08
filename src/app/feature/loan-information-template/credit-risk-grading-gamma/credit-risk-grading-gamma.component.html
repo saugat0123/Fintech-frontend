@@ -90,19 +90,17 @@
                           *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
                 <ng-container [formGroupName]="i">
                     <tr style="background-color: #17a2b1">
-                        <td>Topic</td>
+                        <th>Topic</th>
                         <th>{{crg?.groupName}}</th>
                         <th>{{crg?.weightage}} %</th>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td>{{crg?.groupTotal}}</td>
                     </tr>
                     <tr *ngFor="let ans of crgGammaData[i]?.gammaQuestion; let ii = index">
                         <td>{{ii + 1}}</td>
                         <td class="desc-td-width">
-<!--                            <ng-container *ngFor="let answer of ans?.gammaQuestion">-->
                                 <span *ngIf="ans?.status === 'ACTIVE'">{{ans?.description}}</span>
-<!--                            </ng-container>-->
                         </td>
                         <td></td>
                         <td>
@@ -113,23 +111,13 @@
                                     </li>
                                 </ng-container>
                             </ul>
-                            123
                         </td>
                         <td>
-<!--                            <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">-->
-<!--                                <div *ngIf="answer?.status == 'ACTIVE'">-->
-<!--                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"-->
-<!--                                           [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"-->
-<!--                                           [value]="answer?.points"-->
-<!--                                           class="form-control-input"-->
-<!--                                           [formControlName]="crgQuestion?.description"-->
-<!--                                           [id]="crgQuestion?.description+i"-->
-<!--                                           type="radio"><br>-->
-<!--                                </div>-->
-<!--                            </ng-container>-->
                             <ng-container *ngFor="let answer of ans?.answers; let ii = index">
-                                <div *ngIf="answer?.status === 'ACTIVE'"  [formGroupName]="crg?.gammaQuestionAnswer">
-                                    <input class="form-check-input"
+                                <div *ngIf="answer?.status === 'ACTIVE'"  formGroupName="gammaQuestionAnswer">
+                                    <input (click)="onChangeOption(ans?.description, answer?.points, answer?.description, i, crg?.groupName)"
+                                           [checked]="totalPointMapper.get(ans?.description) === answer?.points"
+                                           class="form-check-input"
                                            [value]="answer?.points"
                                            [formControlName]="ans?.description"
                                            [id]="ans?.description + ii"
@@ -138,62 +126,20 @@
                                 </div>
                             </ng-container>
                         </td>
+                        <td>
+                            {{creditRiskGrading?.get(['groupObject', i, 'gammaQuestionAnswer'])?.get(ans?.description)?.value}}
+                        </td>
                     </tr>
                 </ng-container>
-
-
-                <!--                  <ng-container>-->
-                <!--                      <tr *ngFor="let keys of parseKeys(crg?.gammaQuestionAnswer); let x = index;">-->
-                <!--                          <td>{{keys}}</td>-->
-                <!--                      </tr>-->
-                <!--                  </ng-container>-->
             </ng-container>
-            <!--            </ng-container>-->
             </tbody>
-
-
-            <!--            <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">-->
-            <!--                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">-->
-
-            <!--                    &lt;!&ndash;<td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">-->
-            <!--                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>-->
-            <!--                    </td>-->
-            <!--                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>&ndash;&gt;-->
-            <!--                    <ng-container *ngIf="fromProfile">-->
-            <!--&lt;!&ndash;                        <td>&ndash;&gt;-->
-            <!--&lt;!&ndash;                            <ul class="list-unstyled">&ndash;&gt;-->
-            <!--&lt;!&ndash;                                <ng-container *ngFor="let answer of crgQuestion?.answers">&ndash;&gt;-->
-            <!--&lt;!&ndash;                                    <li *ngIf="answer?.status == 'ACTIVE'">&ndash;&gt;-->
-            <!--&lt;!&ndash;                                        {{ answer?.points }}&ndash;&gt;-->
-            <!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
-            <!--&lt;!&ndash;                                </ng-container>&ndash;&gt;-->
-            <!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
-            <!--&lt;!&ndash;                        </td>&ndash;&gt;-->
-            <!--                        <td>-->
-            <!--                            <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">-->
-            <!--                                <div *ngIf="answer?.status == 'ACTIVE'">-->
-            <!--                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description, crgQuestion?.crgGroupId)"-->
-            <!--                                           [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"-->
-            <!--                                           [value]="answer?.points"-->
-            <!--                                           class="form-control-input"-->
-            <!--                                           [formControlName]="crgQuestion?.description"-->
-            <!--                                           [id]="crgQuestion?.description+i"-->
-            <!--                                           type="radio"><br>-->
-            <!--                                </div>-->
-            <!--                            </ng-container>-->
-            <!--                        </td>-->
-            <!--                    </ng-container>-->
-            <!--&lt;!&ndash;                    <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>&ndash;&gt;-->
-            <!--                    <td>{{creditRiskGrading.get(crgQuestion?.description) ? creditRiskGrading.get(crgQuestion?.description).value : ''}}</td>-->
-            <!--                </tr>-->
-            <!--            </ng-container>-->
-
-            <!--            <tr>-->
-            <!--                <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>-->
-            <!--                <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>-->
-            <!--                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>-->
-            <!--            </tr>-->
-            <!--            </tbody>-->
+            <tbody>
+            <tr>
+                <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
+                <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
+                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
+            </tr>
+            </tbody>
         </table>
     </form>
     <!--<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
