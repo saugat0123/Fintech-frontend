@@ -19,7 +19,6 @@ import {environment} from '../../../../environments/environment';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading.service';
 import {CrgQuestion} from '../../credit-risk-grading/model/CrgQuestion';
-import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-financial',
@@ -34,8 +33,8 @@ export class FinancialComponent implements OnInit {
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();
-    @Input() customerInfo: CustomerInfoData;
-
+    @Input() customerInfo;
+    customerType = CustomerType;
     disableCrgAlphaParams = environment.disableCrgAlpha;
 
     isBusinessLoan = true;
@@ -218,10 +217,10 @@ export class FinancialComponent implements OnInit {
             this.fiscalYear = this.currentFormData['fiscalYear'];
             this.auditorList = this.currentFormData['auditorList'];
             const initialFormData = this.currentFormData['initialForm'];
-
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
             this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
+            this.setProjectedUtilization(initialFormData.projectedUtilizationFreeText);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('totalExpenseObligation').setValue(initialFormData.totalExpenseObligation);
@@ -324,10 +323,58 @@ export class FinancialComponent implements OnInit {
             financialDetailCheckBtn: ['old'],
             projectedFinancialsCheckBtn: [undefined],
             // riskFactorForm: this.buildRiskFactorForm(),
-            emiCCBL: [undefined]
+            emiCCBL: [undefined],
+            // interest
+            utilization: [undefined],
+            interestCustomer: [undefined],
+            processingFeeCustomer: [undefined],
+            lcCommCustomer: [undefined],
+            bgCommCustomer: [undefined],
+            forexGainsCustomer: [undefined],
+            othersCustomer: [undefined],
+            totalCustomer: [undefined],
+            interestGrp: [undefined],
+            processingFeeGrp: [undefined],
+            lcCommGrp: [undefined],
+            bgCommGrp: [undefined],
+            forexGainsGrp: [undefined],
+            othersGrp: [undefined],
+            totalGrp: [undefined],
+            projectedUtilizationFreeText: this.formBuilder.array([])
+        });
+    }
+    projectedUtilizationFree() {
+        return this.formBuilder.group({
+            facility: [undefined],
+            interest: [undefined],
+            processingFee: [undefined],
+            comm: [undefined],
+            forexGains: [undefined],
+            others: [undefined],
+            total: [undefined]
         });
     }
 
+    addProjectedUtilization() {
+        (this.financialForm.get('projectedUtilizationFreeText') as FormArray).push(this.projectedUtilizationFree());
+    }
+    removeProjectedUtilization(i) {
+        (this.financialForm.get('projectedUtilizationFreeText') as FormArray).removeAt(i);
+    }
+    setProjectedUtilization(data) {
+        const arrayForm = this.financialForm.get('projectedUtilizationFreeText') as FormArray;
+        data.forEach(val => {
+            arrayForm.push(this.formBuilder.group({
+                facility: [val ? val.facility : ''],
+                interest: [val ? val.interest : ''],
+                processingFee: [val ? val.processingFee : ''],
+                comm: [val ? val.comm : ''],
+                forexGains: [val ? val.forexGains : ''],
+                others: [val ? val.others : ''],
+                total: [val ? val.total : ''],
+            }));
+        });
+    }
     toggleHistory($event: boolean) {
         this.historicalDataPresent = $event;
         this.financialForm.get('historicalDataPresent').setValue($event);
@@ -668,6 +715,7 @@ export class FinancialComponent implements OnInit {
         this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.financialForm.patchValue({
+            // tslint:disable-next-line:max-line-length
             totalNetMonthlyIncome: (Number(this.financialForm.get('totalIncome').value) - Number(this.financialForm.get('totalExpense').value))
         });
         this.currentFormData['initialForm'] = this.financialForm.value;
