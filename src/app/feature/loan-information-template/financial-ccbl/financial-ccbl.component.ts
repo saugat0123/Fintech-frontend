@@ -47,7 +47,12 @@ export class FinancialCcblComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
             financialHighlight: [data ? data.financialHighlight : undefined],
             financialFigure: [data ? data.financialFigure : undefined],
-            assesment: [data ? data.assesment : undefined]
+            assesment: [data ? data.assesment : undefined],
+            assesment2: [data ? data.assesment2 : undefined],
+            assesment3: [data ? data.assesment3 : undefined],
+            comment: [data ? data.comment : undefined],
+            comment2: [data ? data.comment2 : undefined],
+            comment3: [data ? data.comment3 : undefined]
         });
     }
     upload(event) {
