@@ -14,6 +14,11 @@
     <!--                    existing security-->
     <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList"></app-security-detail-view>
 </ng-container>
+<ng-container>
+    <!--                    Approved Loan Security -->
+    <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                              [loanDataHolder]="loanDataHolder"></app-security-detail-view>
+</ng-container>
 <app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 

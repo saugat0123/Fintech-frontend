@@ -53,6 +53,7 @@ export class SecurityDetailViewComponent implements OnInit {
   personalArray;
   shareArray;
   plantArray;
+  @Input() loanDataHolder: LoanDataHolder;
 
   constructor(private securityLoanReference: SecurityLoanReferenceService) {
   }
@@ -65,7 +66,10 @@ export class SecurityDetailViewComponent implements OnInit {
         this.selectedSecurities();
         this.setSelectedSecurities();
       } else {
-        this.combinedAllApprovedSecurity();
+        if (ObjectUtil.isEmpty(this.loanDataHolder)) {
+          this.combinedAllApprovedSecurity();
+        }
+        this.setApprovedLoanSecurity();
       }
     }
   }
@@ -323,5 +327,14 @@ export class SecurityDetailViewComponent implements OnInit {
         });
       }
     });
+  }
+
+  setApprovedLoanSecurity() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      this.securities = this.loanDataHolder.documentStatus.toString() === 'APPROVED' ?
+          this.loanDataHolder.securities : [];
+    }
+    this.selectedSecurities();
+    this.setSelectedSecurities();
   }
 }

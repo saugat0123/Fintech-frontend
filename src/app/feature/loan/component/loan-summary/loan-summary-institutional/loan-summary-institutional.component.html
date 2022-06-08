@@ -20,6 +20,12 @@
                 <app-security-summary *ngIf="customerAllLoanList"
                                       [customerAllLoanList]="customerAllLoanList"></app-security-summary>
             </ng-container>
+            <ng-container>
+                <!--                    Approved loan security -->
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [customerAllLoanList]="customerAllLoanList"
+                                      [loanDataHolder]="loanDataHolder"></app-security-summary>
+            </ng-container>
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
