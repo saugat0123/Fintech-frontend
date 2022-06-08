@@ -207,6 +207,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.loanList = response.detail;
+            this.loanList = this.loanList.filter(f => f.isRemit === false);
             this.nonMicroLoanList = this.loanList;
             this.spinner = false;
         }, (err) => {
