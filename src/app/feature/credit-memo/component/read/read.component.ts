@@ -54,7 +54,7 @@ export class ReadComponent implements OnInit {
             this.memo = response.detail;
             this.currentMemoStage = String(this.memo.currentStage.docAction);
             this.signatureList = this.memo.distinctPreviousList;
-            this.taggedLoans = this.memo.customerLoan;
+            this.taggedLoans = this.memo.customerLoans;
             if (this.taggedLoans.length > 0) {
                 this.taggedLoans.forEach((d) => {
                     if (d.securities.length > 0) {

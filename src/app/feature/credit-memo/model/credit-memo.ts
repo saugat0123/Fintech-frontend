@@ -13,7 +13,8 @@ export class CreditMemo {
     content: string;
     currentStage: CreditMemoStage;
     documentStatus: DocStatus;
-    customerLoan: LoanDataHolder [];
+    customerLoans: LoanDataHolder [];
+    customerLoan: LoanDataHolder;
     previousStages: Array<CreditMemoStage>;
     documents: Array<CreditMemoDocument>;
     distinctPreviousList: any;

@@ -61,6 +61,38 @@
 
                     </ng-select>
                 </div>
+                <div class="form-group" >
+                    <form [formGroup] = "proposalForm" >
+                        <div class="row" formArrayName="data" *ngFor="let proposal of proposalForm.get('data')['controls']; let i = index">
+                        <ng-container class="form-group" formGroupName="{{i}}">
+                           <ng-container  class="form-group"  [formGroup] ="proposal.get('proposalData')">
+                               <div class="col-md-4" >
+                                   <div class="form-group">
+                                       <label class="title" for="outStandingLimit">
+                                           <strong>Outstanding Limit</strong>
+                                       </label>
+                                       <input class="form-control"
+                                              formControlName="outStandingLimit" id="outStandingLimit"
+                                              name="outStandingLimit" placeholder="Limit Amount"
+                                              type="number">
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label class="title" for="proposedLimit"><strong>Approved Limit</strong></label>
+                                       <input
+                                               class="form-control"
+                                               formControlName="proposedLimit" id="proposedLimit"
+                                               name="proposedLimit" placeholder="Approved limit"
+                                               type="number" appDecimalNumber>
+
+                                   </div>
+                               </div>
+                           </ng-container>
+                       </ng-container>
+                        </div>
+                    </form>
+                </div>
             <app-security-summary *ngIf="allApproveLoan?.length > 0" [customerAllLoanList]="allApproveLoan" [securities]="mergeSecurity" [pending] = "false" ></app-security-summary>
                 <!--Document upload-->
                 <div class="form-group">
