@@ -58,11 +58,6 @@ const routes: Routes = [
       },
 
       {
-        path: 'template',
-        loadChildren: () => import('./form-builder/form-builder.module').then(m => m.FormBuilderModule)
-      },
-
-      {
         path: 'credit',
         loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
       },
