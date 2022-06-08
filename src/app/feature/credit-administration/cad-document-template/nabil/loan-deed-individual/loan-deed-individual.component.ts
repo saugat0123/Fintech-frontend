@@ -324,7 +324,6 @@ export class LoanDeedIndividualComponent implements OnInit {
     let combinedApprovalDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-      console.log('Offer:', this.offerDocumentDetails);
       if (!ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm) &&
           !ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType)) {
         if (this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType === 'AD') {
@@ -1096,7 +1095,6 @@ export class LoanDeedIndividualComponent implements OnInit {
           );
         }
         this.addCombinedFreeText();
-        console.log('comined free text:', this.loanDeedIndividual);
         if (this.cadData.cadFileList.length > 0) {
           this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
               (!ObjectUtil.isEmpty(this.supportedInfo) &&
@@ -1146,7 +1144,6 @@ export class LoanDeedIndividualComponent implements OnInit {
         });
         const free = this.loanDeedIndividual.value;
         if (this.cadInitialInfo !== null) {
-          console.log('CAd Initial Info:', this.cadInitialInfo);
           for (let val = 0; val < free.loanDeedIndividuals.length; val++) {
             this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
