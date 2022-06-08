@@ -10,6 +10,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
 import {Status} from '../../../@core/Status';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -44,6 +45,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     formDataForEdit;
     crgGammaData: any;
     crgGammaTest: any;
+    spinner = false;
 
 
     constructor(
@@ -51,23 +53,27 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         private questionService: RiskGradingService,
         private toastService: ToastService,
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
     ) {
     }
 
     ngOnInit() {
         console.log('formData', this.formData);
+        this.spinner = true;
         this.getGroupList();
         if (!this.fromProfile) {
             this.totalPointsColspan = 2;
         }
+        this.spinner = true;
         this.questionService.getAllQuestionsByFid(this.loanConfigId, this.creditHistory).subscribe((res: any) => {
+            this.spinner = false;
             const questionsList = res.detail;
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;
             });
             this.buildFormAndCheckEdit();
         }, error => {
+            this.spinner = false;
             console.log(error);
             this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
         });
@@ -78,11 +84,14 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         } else {
             customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
         }*/
+        this.spinner = false;
     }
 
     getGroupList() {
+        this.spinner = true;
         this.crgGroupService.getAll().subscribe((res: any) => {
             this.riskGroupArray = res.detail;
+            this.spinner = false;
             this.riskGroupArray.forEach((value: CrgGroup) => {
                 this.groupLabelMap.set(value.id, value.label);
                 this.groupWeightageMap.set(value.id, value.weightage);
@@ -91,6 +100,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     buildFormAndCheckEdit() {
+        this.spinner = true;
         this.crgGammaData = [];
         const crgFormGroupObject = {
             totalPoint: 0,
@@ -147,7 +157,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.creditRiskGrading.get('groupObject').patchValue(this.formDataForEdit.groupObject);
             // this.calculateTotalViaMap();
         }
-
+        this.spinner = false;
+        console.log('creditRiskGrading', this.creditRiskGrading.value);
     }
 
     onChangeOption(field, point, parameter, index, groupName) {
@@ -184,6 +195,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.grading = 'Default risk, Decline';
         }
         this.creditRiskGrading.get('grade').patchValue(this.grading);
+        console.log('creditRiskGrading', this.creditRiskGrading.value);
     }
 
     onSubmit() {

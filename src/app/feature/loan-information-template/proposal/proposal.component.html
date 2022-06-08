@@ -742,7 +742,7 @@
                                         Credit Scoring
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile"
+                                        <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile && loanDataReady"
                                                                         [formData]="loan?.crgGamma"
                                                                        [fromProfile]="true"
                                                                        [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"

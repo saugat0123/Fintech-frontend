@@ -1,4 +1,4 @@
-<section>
+<section [nbSpinner]="spinner">
 
     <nb-accordion class="mb-4">
         <nb-accordion-item>
@@ -95,7 +95,7 @@
                         <th>{{crg?.weightage}} %</th>
                         <td></td>
                         <td></td>
-                        <td>{{crg?.groupTotal}}</td>
+                        <th><span>Total:</span>{{crg?.groupTotal}}</th>
                     </tr>
                     <tr *ngFor="let ans of crgGammaData[i]?.gammaQuestion; let ii = index">
                         <td>{{ii + 1}}</td>
@@ -146,4 +146,5 @@
         <button (click)="onSubmit()" nbButton type="button">save</button>
     </div>-->
 </section>
+<!--<app-overlay-spinner></app-overlay-spinner>-->
 

@@ -92,6 +92,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     pendingLoanList = [];
     approvedLoanList = [];
     @ViewChild('groupLoan', {static: false}) groupLoan: CustomerGroupLoanComponent;
+    proposalSpinner = false;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -441,6 +442,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         return returnArray;
     }
     getCustomerLoans() {
+        this.proposalSpinner = true;
         this.modalService.dismissAll();
         this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
@@ -449,6 +451,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.approvedLoanList = this.managedArray(approved);
             const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
             this.pendingLoanList = this.managedArray(array);
+            this.proposalSpinner = false;
         });
     }
 }
