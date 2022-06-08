@@ -32,6 +32,7 @@ export class RetailSecurityComponent implements OnInit {
     securityOther;
     proposalAllData;
     files = [];
+    shareData;
     ngOnInit() {
         this.formData = JSON.parse(this.security.data);
         if (!ObjectUtil.isEmpty(this.formData.files)) {
@@ -129,7 +130,7 @@ export class RetailSecurityComponent implements OnInit {
                 }
             });
         }
-
+        this.shareData = JSON.parse(this.loanDataHolder.loanHolder.shareSecurity.data);
     }
 
     getTotal(controlName, keyName) {
@@ -141,5 +142,4 @@ export class RetailSecurityComponent implements OnInit {
         });
         return total;
     }
-
 }
