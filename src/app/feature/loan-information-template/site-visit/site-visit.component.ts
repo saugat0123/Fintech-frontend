@@ -61,8 +61,6 @@ export class SiteVisitComponent implements OnInit {
   spinner = false;
   client = environment.client;
   clientName = Clients;
-  optionList = ['Yes', 'No', 'NA'];
-  options = [' Owned', 'Rented'];
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -183,8 +181,6 @@ export class SiteVisitComponent implements OnInit {
                 new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        unit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.unit],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
                 : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation)],
@@ -207,47 +203,7 @@ export class SiteVisitComponent implements OnInit {
         businessSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLongitude],
         businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude],
-        inventory: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.inventory],
-        accountsReceivable: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.accountsReceivable],
-        accountsPayable: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.accountsPayable],
-        businessNetTradingAssets: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.businessNetTradingAssets],
-        proposedLimitNta: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.proposedLimitNta],
-        premises: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.premises],
-        rentPayment: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.rentPayment],
-        rentReceipt: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.rentReceipt],
-        borrowerRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.borrowerRadio],
-        valuationRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.valuationRadio],
-        evidenceRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.evidenceRadio],
-        nameOfBank: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.nameOfBank],
-        securityRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.securityRadio],
-        stockRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.stockRadio],
-        fireFightingRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.fireFightingRadio],
-        buildingRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.buildingRadio],
-        hazardousRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.hazardousRadio],
-        environmentRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.environmentRadio],
-        remarksUpdates: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.remarksUpdates],
-        remarksIfAny: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.remarksIfAny],
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
         dateOfInspection: [this.formDataForEdit === undefined ? '' :
@@ -1126,15 +1082,6 @@ export class SiteVisitComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
       this.spinner = false;
     });
-  }
-
-  calculateNetTradingAssests() {
-    let businessNetTradingAssets = 0;
-    businessNetTradingAssets =
-       Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('inventory').value) +
-            Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsReceivable').value) -
-            Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsPayable').value);
-    this.siteVisitFormGroup.get('businessSiteVisitDetails').get('businessNetTradingAssets').setValue(businessNetTradingAssets.toFixed(2));
   }
 }
 
