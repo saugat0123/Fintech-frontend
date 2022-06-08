@@ -33,17 +33,25 @@ export class CollateralSiteVisitComponent implements OnInit {
       this.url = ApiConfig.URL;
       this.random = Math.floor(Math.random() * 100) + 1;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {
+          this.loanDataHolder.securities.map(value => {
+              value.data = JSON.parse(value.data);
+              value.collateralSiteVisits =  value.collateralSiteVisits.map(value1 => {
+                  value1.siteVisitJsonData = JSON.parse(value1.siteVisitJsonData);
+                  return value1;
+              });
+              return value;
+          });
           this.loanDataHolder.securities.forEach((security: Security) => {
               if (!ObjectUtil.isEmpty(security.collateralSiteVisits)) {
                   this.isCollateralSiteVisitPresent = true;
-                  security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
+                 /* security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
                       this.siteVisitJson.push(JSON.parse(collateralSiteVisit.siteVisitJsonData));
                       if (!ObjectUtil.isEmpty(collateralSiteVisit.siteVisitDocuments)) {
                           collateralSiteVisit.siteVisitDocuments.forEach((siteVisitDocument: SiteVisitDocument) => {
                               this.siteVisitDocuments.push(siteVisitDocument);
                           });
                       }
-                  });
+                  });*/
               }
           });
       }

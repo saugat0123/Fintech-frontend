@@ -1,191 +1,530 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
-    <div class="col-md-12">
-        <p  class="header"><strong   class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="11">
-                Security Collateral Site Visit Detail
-            </th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>S.N</th>
-            <th>Site Visit Date(AD/BS)</th>
-            <th>Phone No</th>
-            <th>Province</th>
-            <th>District</th>
-            <th>Municipality</th>
-            <th>Ward Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td>{{i+1}}</td>
-            <td class="text-left pl-1">{{siteVisit?.date | date}} ({{siteVisit?.date | engNepDate: false}})</td>
-            <td class="text-right pr-1">{{siteVisit?.phoneNoOfContact || 'NA'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.province.name}}</td>
-            <td class="text-left pl-1">{{siteVisit?.district.name}}</td>
-            <td class="text-left pl-1">{{siteVisit?.municipalityVdc.name}}</td>
-            <td class="text-right pr-1">{{siteVisit?.ward}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="7">Facilities</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>S.N</th>
-            <th>Road Approach</th>
-            <th>Road Width(in feet)</th>
-            <th>Approach Distance</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td>{{i+1}}</td>
-            <td class="text-right pr-1">{{siteVisit?.roadApproach}}</td>
-            <td class="text-right pr-1">{{siteVisit?.roadWidth}}</td>
-            <td class="text-right pr-1">{{siteVisit?.approachDistance}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="12">Other Facility</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>S.N</th>
-            <th>Water Supply</th>
-            <th>Electricity</th>
-            <th>Boundary Wall Construction</th>
-            <th>Boundary Fencing</th>
-            <th>Drainage</th>
-            <th>Open</th>
-            <th>Telephone Line</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td>{{i+1}}</td>
-            <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
-        </tr>
-        </tbody>
-    </table>
+    <p class="header"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
+    <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
+        <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
+            <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
+             security?.securityType === 'LAND_BUILDING_SECURITY'">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
+                        <div class="right-content">
+                            <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                        </div>
+                        <div class="left-content"><strong>Credit Risk Grade: </strong>
+                            <span>{{loanDataHolder?.creditRisk || ''}}</span></div>
+                    </div>
+                    <p><strong>Customer:
+                        {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
+                            loanDataHolder?.companyInfo?.companyName
+                            : loanDataHolder?.customerInfo?.customerName}}
+                    </strong></p>
+                    <p><strong>Date of
+                        Inspection: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                    </p>
+                    <table class="table table-sm table-bordered sb-small">
+                        <thead>
+                        <tr class="text-center">
+                            <th *ngIf="security?.securityType === 'LAND_SECURITY'">Land</th>
+                            <th *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">Land & Building</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>1. Owner of the Property: </strong>
+                                <span>{{security?.data?.owner || ''}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><strong>2. Location/Details of Property: </strong></label><br>
+                                <label><strong>Current Address: </strong></label>
+                                <div class="row col-lg-12">
+                                    <div class="col-lg-6">State:
+                                        <span>{{collateral?.siteVisitJsonData?.province?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">District:
+                                        <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                        <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">Ward No.:
+                                        <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                </div>
+                                <label><strong>Details as per Title Deed (Lal Purja): </strong></label>
+                                <div class="row col-md-12">
+                                    <div class="col-lg-4">Plot No.: <span>{{security?.data?.plotNumber || ''}}</span></div>
+                                    <div class="col-lg-4">Area of Land: <span>{{security?.data?.area || ''}}</span></div>
+                                    <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' && collateral?.siteVisitJsonData?.building === 'YES'">
+                                        <div class="col-lg-4">Total Plinth Area of Building:
+                                            <span>{{collateral?.siteVisitJsonData?.buildingArea || ''}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
+                                        <div class="col-lg-4">Total Plinth Area of Building:
+                                            <span>{{security?.data?.totalBuildingArea || ''}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="security?.securityType === 'LAND_SECURITY'">
+                                        <div class="col-lg-4">District:
+                                            <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-8">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                            <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Ward No:
+                                            <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                        <div class="col-lg-4">Access:
+                                            <span>{{security?.data?.roadAccessBluePrint || 'No'}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Width of Road:
+                                            <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Blacktopped:
+                                            <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : 'No'}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Boundary Remark:
+                                            <span>{{collateral?.siteVisitJsonData?.building === 'NO' ?
+                                                collateral?.siteVisitJsonData?.remarksForOtherFacility : ''}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
+                                        <div class="col-lg-4">District:
+                                            <span>{{security?.data?.district?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-8">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                            <span>{{security?.data?.municipalityVdc?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Ward No:
+                                            <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                        <div class="col-lg-4">Access:
+                                            <span>{{security?.data?.roadAccessBluePrint || 'No'}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Width of Road:
+                                            <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Blacktopped:
+                                            <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : 'No'}}</span>
+                                        </div>
+                                        <div class="col-lg-4">Boundary Remark:
+                                            <span>{{collateral?.siteVisitJsonData?.building === 'NO' ?
+                                                collateral?.siteVisitJsonData?.remarksForOtherFacility : ''}}</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>3. Ownership status of property is not Guthi/Mohi</label><br>
+                                <label>Remarks: <span>{{security?.data?.typeOfProperty !== 'Guthi' ? 'Yes' : 'No'}}</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>4. Is there any noticeable remark on/to/near the property e.g. river; temple,
+                                    playing ground etc.?</label><br>
+                                <label>Remarks:
+                                    <span>{{collateral?.siteVisitJsonData?.riverOrCanalSetbacks === 'YES' ? 'Yes' : 'No'}}</span></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>5. Previously Valuated:
+                                    <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date ? 'Yes' : 'No'}}</span></label>
+                                <ng-container *ngIf="security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date">
+                                    <div class="row col-md-12">
+                                        <div class="col-lg-6">Last Valuation Date:
+                                            <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date || ''}}</span></div>
+                                        <div class="col-lg-6">Valuated by:
+                                            <span>{{security?.data?.buildingValuator?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">MV:
+                                            <span>{{security?.distressValue || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">FMV:
+                                            <span>{{security?.fairMarketValue || ''}}</span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>6. Are all the applicable taxes current?: Yes/No</label><br>
+                                <label>Tax Payment Receipt seen? Yes/No</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>7. Other Comments/Remarks: </label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <label><strong>Location sketch attached.</strong></label>
+                    <table class="table table-bordered table-sm sb-small">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="row col-md-12">
+                                    <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
+                                        <div class="col-lg-6 mt-2">
+                                            <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
+                                                 class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table text-center">
+                        <tbody>
+                        <tr>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Location Sketch:</strong></p>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                        <tr>
+                            <td width="20%"><strong>Business Name</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Address</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Nearest Landmark to FAC</strong></td>
+                            <td>{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Site Visited By</strong></td>
+                            <td>{{security?.data?.buildingValuator?.name || ''}}</td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Site Visit Date</strong></td>
+                            <td>{{collateral?.siteVisitJsonData?.date || ''}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="17">Building Detail</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>S.N</th>
-            <th>Building Area</th>
-            <th>Construction Year(AD/BS)</th>
-            <th>Building Type</th>
-            <th>Number of Storey</th>
-            <th>Mortar Cement</th>
-            <th>Inside Furniture</th>
-            <th>Frame Structure</th>
-            <th>RCC Roofing</th>
-            <th>Bathroom And Toilet</th>
-            <th>Naksa Pass Obtained</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td>{{i+1}}</td>
-            <td class="text-left pl-1">{{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}</td>
-            <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
-                ({{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | engNepDate: false}})</td>
-            <td class="text-left pl-1">{{siteVisit?.builtUpArea === null ? 'NA' : siteVisit?.builtUpArea}}</td>
-            <td class="text-left pl-1">{{siteVisit?.noOfStorey === null ? 'NA' : siteVisit?.noOfStorey}}</td>
-            <td class="text-left pl-1">{{siteVisit?.mortarCement === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.insideFurniture === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.frameStructure === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.rccRoofing === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.bathroomAndToilet === true ? 'YES' : 'NO'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.naksaPassObtained === true ? 'YES' : 'NO'}}</td>
-        </tr>
-        </tbody>
-    </table>
+                    <p><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
+                        mark business unit)</small></p>
+                    <p><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
+                        photo. Also, if applicable, photograph of business unit should clearly show its board or
+                        PAN/VAT certificate in case unit has no outlet, overall premise and stocks]</small></p>
+                    <!--<strong *ngIf="siteVisitDocuments?.length>0" class="ml-3">Collateral Site Visit Documents</strong>
 
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr class="text-white sb-bg-dark">
-            <th colspan="1">S.N</th>
-            <th colspan="4">Remarks For 'NO' Option</th>
-            <th colspan="3">Comments about FAC</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td colspan="1">{{i+1}}</td>
-            <td class="text-left pl-1" colspan="4">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
-            <td class="text-left pl-1" colspan="3">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="5">Vicinity to the Basic Amenities</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>S.N</th>
-            <th>Major Market Places</th>
-            <th>Schools/Colleges</th>
-            <th>Hospital/Nursing Home</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <td>{{i+1}}</td>
-            <td class="text-left pl-1">{{siteVisit?.majorMarketPlaces || 'NA'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.schoolOrCollege || 'NA'}}</td>
-            <td class="text-left pl-1">{{siteVisit?.hospitalOrNursingHome || 'NA'}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="6">Location Details</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-            <th class="sn">S.N</th>
-            <th>Longitude</th>
-            <th>Latitude</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
-            <tr>
-                <td>{{i+1}}</td>
-                <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
-                <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
-            </tr>
+                    <div *ngIf="siteVisitDocuments?.length>0" class="container mt-2">
+                        <div class="row">
+                            <div class="col-md-6" *ngFor="let doc of siteVisitDocuments;">
+                                <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
+                                     class="figure-img img-fluid rounded  img-medium"
+                                     alt="{{doc?.docName}}" style="cursor: pointer"
+                                     (click)="viewDocument(doc?.docPath,doc?.docName)">
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </ng-container>
+            <ng-container *ngIf="security?.securityType === 'VEHICLE_SECURITY'">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
+                        <div class="right-content">
+                            <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                        </div>
+                        <div class="left-content"><strong>Credit Risk Grade: </strong>
+                            <span>{{loanDataHolder?.creditRisk || ''}}</span></div>
+                    </div>
+                    <p><strong>Customer:
+                        {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
+                            loanDataHolder?.companyInfo?.companyName
+                            : loanDataHolder?.customerInfo?.customerName}}
+                    </strong></p>
+                    <p><strong>Date of
+                        Inspection: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                    </p>
+                    <table class="table table-sm table-bordered sb-small">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Vehicle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>1. Owner of the Property: </strong> <span>
+                                {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
+                                loanDataHolder?.companyInfo?.companyName
+                                : loanDataHolder?.customerInfo?.customerName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><strong>2. Details of Property: </strong></label>
+                                <div class="row col-md-12">
+                                    <div class="col-lg-4">Model No.: <span>{{security?.data?.model || ''}}</span></div>
+                                    <div class="col-lg-4">Engine No.: <span>{{security?.data?.engineNo || ''}}</span></div>
+                                    <div class="col-lg-4">Chassis No.: <span>{{security?.data?.chasisNo || ''}}</span></div>
+                                    <div class="col-lg-4">Registration No.: <span>{{security?.data?.registrationNumber || ''}}</span></div>
+                                    <div class="col-lg-4">Registration Date: <span>{{(security?.data?.registrationDate | date) || ''}}</span></div>
+                                    <div class="col-lg-4">Manufacture Year: <span>{{(security?.data?.manufactureYear | date) || ''}}</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td>
+                                <label>3. Previously Valuated:
+                                    <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date ? 'Yes' : 'No'}}</span></label>
+                                <ng-container *ngIf="security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date">
+                                    <div class="row col-md-12">
+                                        <div class="col-lg-6">Last Valuation Date:
+                                            <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date || ''}}</span></div>
+                                        <div class="col-lg-6">Valuated by: <span>{{security?.data?.landValuator?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">MV:
+                                            <span>{{security?.distressValue || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">FMV:
+                                            <span>{{security?.fairMarketValue || ''}}</span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>
+                                <label><strong>3. Showroom Details: </strong></label>
+                                <div class="row col-md-12">
+                                    <div class="col-lg-4">Showroom Name: <span>{{security?.data?.showroomName || ''}}</span></div>
+                                    <div class="col-lg-4">Showroom Address: <span>{{security?.data?.showroomAddress || ''}}</span></div>
+                                    <div class="col-lg-4">Remark: <span>{{security?.data?.vehicleRemarks || ''}}</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <label><strong>sketch attached.</strong></label>
+                    <table class="table table-bordered table-sm sb-small">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="row col-md-12">
+                                    <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
+                                        <div class="col-lg-6 mt-2">
+                                            <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
+                                                 class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table text-center">
+                        <tbody>
+                        <tr>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{security?.data?.vehicalStaffRepresentativeName || ''}}</span><br>
+                                Position: <span>{{security?.data?.vehicalStaffRepresentativeDesignation || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{security?.data?.vehicaleStaffRepresentativeName2 || ''}}</span><br>
+                                Position: <span>{{security?.data?.vehicaleStaffRepresentativeDesignation2 || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="security?.securityType === 'APARTMENT_SECURITY'">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
+                        <div class="right-content">
+                            <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                        </div>
+                        <div class="left-content"><strong>Credit Risk Grade: </strong>
+                            <span>{{loanDataHolder?.creditRisk || ''}}</span></div>
+                    </div>
+                    <p><strong>Customer:
+                        {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
+                            loanDataHolder?.companyInfo?.companyName
+                            : loanDataHolder?.customerInfo?.customerName}}
+                    </strong></p>
+                    <p><strong>Date of
+                        Inspection: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                    </p>
+                    <table class="table table-sm table-bordered sb-small">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Apartment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>1. Owner of the Property: </strong>
+                                <span>{{security?.data?.proposedOwner || ''}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><strong>2. Location/Details of Property: </strong></label><br>
+                                <label><strong>Current Address: </strong></label>
+                                <div class="row col-lg-12">
+                                    <div class="col-lg-6">State:
+                                        <span>{{collateral?.siteVisitJsonData?.province?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">District:
+                                        <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                        <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-6">Ward No.:
+                                        <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                </div>
+                                <label><strong>Details as per Title Deed: </strong></label>
+                                <div class="row col-md-12">
+                                        <div class="col-lg-4">Apartment Name: <span>{{security?.data?.buildingName || ''}}</span></div>
+                                        <div class="col-lg-4">Apartment Description: <span>{{security?.data?.buildingDescription || ''}}</span></div>
+                                    <ng-container
+                                            *ngIf="collateral?.siteVisitJsonData?.building === 'YES'">
+                                        <div class="col-lg-4">Total Plinth Area of Building:
+                                            <span>{{collateral?.siteVisitJsonData?.buildingArea || ''}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <div class="col-lg-4">District:
+                                        <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-8">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                        <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                    </div>
+                                    <div class="col-lg-4">Ward No:
+                                        <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>3. Previously Valuated:
+                                    <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date ? 'Yes' : 'No'}}</span></label>
+                                <ng-container *ngIf="security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date">
+                                    <div class="row col-md-12">
+                                        <div class="col-lg-6">Last Valuation Date:
+                                            <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date || ''}}</span></div>
+                                        <div class="col-lg-6">Valuated by:
+                                                <span>{{security?.data?.ApartmentValuator?.name || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">MV:
+                                            <span>{{security?.distressValue || ''}}</span>
+                                        </div>
+                                        <div class="col-lg-6">FMV:
+                                            <span>{{security?.fairMarketValue || ''}}</span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <label><strong>Location sketch attached.</strong></label>
+                    <table class="table table-bordered table-sm sb-small">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="row col-md-12">
+                                    <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
+                                        <div class="col-lg-6 mt-2">
+                                            <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
+                                                 class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table text-center">
+                        <tbody>
+                        <tr>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                            <td><br><br>
+                                --------------------------------<br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
+                                Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Location Sketch:</strong></p>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                        <tr>
+                            <td width="20%"><strong>Business Name</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Address</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Nearest Landmark to FAC</strong></td>
+                            <td>{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Site Visited By</strong></td>
+                            <td>{{security?.data?.ApartmentValuator?.name || ''}}</td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><strong>Site Visit Date</strong></td>
+                            <td>{{collateral?.siteVisitJsonData?.date || ''}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
+                        mark business unit)</small></p>
+                    <p><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
+                        photo. Also, if applicable, photograph of business unit should clearly show its board or
+                        PAN/VAT certificate in case unit has no outlet, overall premise and stocks]</small></p>
+                    <!--<strong *ngIf="siteVisitDocuments?.length>0" class="ml-3">Collateral Site Visit Documents</strong>
+
+                    <div *ngIf="siteVisitDocuments?.length>0" class="container mt-2">
+                        <div class="row">
+                            <div class="col-md-6" *ngFor="let doc of siteVisitDocuments;">
+                                <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
+                                     class="figure-img img-fluid rounded  img-medium"
+                                     alt="{{doc?.docName}}" style="cursor: pointer"
+                                     (click)="viewDocument(doc?.docPath,doc?.docName)">
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </ng-container>
         </ng-container>
-        </tbody>
-    </table>
-    <strong *ngIf="siteVisitDocuments?.length>0" class="ml-3">Collateral Site Visit Documents</strong>
-
-    <div *ngIf="siteVisitDocuments?.length>0" class="container mt-2">
-        <div class="row">
-            <div class="col-md-6" *ngFor="let doc of siteVisitDocuments;">
-                <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
-                     class="figure-img img-fluid rounded  img-medium"
-                     alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)">
-            </div>
-        </div>
-    </div>
-</div>
+    </ng-container>
 </div>
