@@ -25,8 +25,10 @@ export class GuarantorAdderComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.guarantorData)) {
+      this.toggle.push({hide: false});
     this.guarantorList = this.guarantorData.guarantorList;
     } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
+      this.toggle.push({hide: false});
     this.selectedGuarantorList = this.taggedGuarantors;
     }
   }
