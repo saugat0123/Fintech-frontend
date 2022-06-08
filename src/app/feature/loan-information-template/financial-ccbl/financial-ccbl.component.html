@@ -35,7 +35,25 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label><strong>ASSESSMENT OF FACILITIES REQUIREMENT </strong></label>
-                            <ckeditor [config]="ckEditor" formControlName="assesment"></ckeditor>
+                            <ol>
+                                <li><strong>FB Working capital assessment</strong> (Amounts in Million)
+                                </li>
+                                <ckeditor [config]="ckEditor" formControlName="assesment"></ckeditor>
+                                <label>Comment:</label><br>
+                                <textarea rows="5" style="width:100%" formControlName="comment"></textarea>
+                                <li>
+                                    <strong>ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
+                                </li>
+                                <ckeditor [config]="ckEditor" formControlName="assesment2"></ckeditor>
+                                <label>Comment:</label><br>
+                                <textarea rows="5" style="width:100%" formControlName="comment2"></textarea>
+                                <li>
+                                    <strong>ASSESSMENT OF OTHER CREDIT FACILITIES:</strong> (Amounts in Million)
+                                </li>
+                                <ckeditor [config]="ckEditor" formControlName="assesment3"></ckeditor>
+                                <label>Comment:</label><br>
+                                <textarea rows="5" style="width:100%" formControlName="comment3"></textarea>
+                            </ol>
                         </div>
                     </div>
                 </form>
@@ -74,7 +92,17 @@
             <label><strong>ASSESSMENT OF FACILITIES REQUIREMENT  </strong></label>
             <br>
             <div class="col-md-12">
-                <table  style="width: 100%" [innerHTML]="data?.data?.assesment | safeHtml" ></table>
+                <ol>
+                    <li><strong>FB Working capital assessment</strong></li> (Amounts in Million)
+                    <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment || 'NA' | safeHtml" ></table>
+                    <table  style="width: 100%" [innerHTML]="data?.data?.comment | safeHtml" ></table>
+                    <li class="text-uppercase"> <strong>ASSESSMENT OF TERM LOAN</strong></li> (Amounts in Million)
+                    <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment2 || 'NA' | safeHtml" ></table>
+                    <table  style="width: 100%" [innerHTML]="data?.data?.comment2 | safeHtml" ></table>
+                    <li class="text-uppercase"><strong>ASSESSMENT OF OTHER CREDIT FACILITIES: </strong></li> (Amounts in Million)
+                    <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment3 || 'NA' | safeHtml" ></table>
+                    <table  style="width: 100%" [innerHTML]="data?.data?.comment3 | safeHtml" ></table>
+                </ol>
             </div>
         </div>
     </div>
