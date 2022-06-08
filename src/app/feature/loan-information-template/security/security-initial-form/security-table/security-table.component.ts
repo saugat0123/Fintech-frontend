@@ -3,6 +3,11 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {any} from 'codelyzer/util/function';
+import {CollateralSiteVisitService} from '../fix-asset-collateral/collateral-site-visit.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-security-table',
@@ -47,11 +52,27 @@ export class SecurityTableComponent implements OnInit {
   isShareSecurity = false;
   shareSecurityData: any;
   isBondSecurity = false;
-  bondSecurity: any;
+  bondSecurity: any;''
+  customerId: any
+  securityId: any
 
-  constructor() { }
+  constructor(
+      private collateralSiteVisitService: CollateralSiteVisitService,
+      private customerInfo: CustomerInfoService,
+      private toastService: ToastService,
+      private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.customerId = params.customerInfoId;
+      console.log(this.customerId);
+      this.customerInfo.getCustomerInfoById(this.customerId).subscribe(response=>{
+        console.log(response);
+        this.securityId = response.security.id;
+        console.log(this.securityId, 'security id' );
+      });
+    });
     if (this.selectedArray !== undefined) {
       // land security
       this.selectedArray.filter(f => {
@@ -166,12 +187,33 @@ export class SecurityTableComponent implements OnInit {
     this.securityEmitter.emit(valueToEmit);
     if (formArrayName === 'landDetails') {
       this.isLandSecurity = false;
+      this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, 'Land Security' )
+          .subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+          }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+            console.error(error);
+          });
     }
     if (formArrayName === 'buildingDetails') {
       this.isApartmentSecurity = false;
+      this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, 'Apartment Security' )
+          .subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+          }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+            console.error(error);
+          });
     }
     if (formArrayName === 'landBuilding') {
       this.isLandAndBuilding = false;
+      this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, 'Land And Building Security' )
+          .subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+          }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+            console.error(error);
+          });
     }
     if (formArrayName === 'plantDetails') {
       this.isPlantAndMachinery = false;

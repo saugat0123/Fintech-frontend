@@ -33,6 +33,9 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {CollateralSiteVisitService} from './fix-asset-collateral/collateral-site-visit.service';
+import {CustomerInfoService} from '../../../customer/service/customer-info.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -96,6 +99,7 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
     selectedSecurity: string;
+    securityIdValue: any
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -155,6 +159,7 @@ export class SecurityInitialFormComponent implements OnInit {
     isOpen = false;
     newOwnerShipTransfer = [];
     bondSecurity = false;
+    customerId: any
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -165,11 +170,23 @@ export class SecurityInitialFormComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastService: ToastService,
                 private roleService: RoleService,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService,
+                private collateralSiteVisitService: CollateralSiteVisitService,
+                private customerInfo: CustomerInfoService,
+                private route: ActivatedRoute) {
     }
 
 
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            this.customerId = params.customerInfoId;
+            console.log(this.customerId);
+            this.customerInfo.getCustomerInfoById(this.customerId).subscribe(response=>{
+                console.log(response);
+                this.securityIdValue = response.security.id;
+                console.log(this.securityIdValue, 'security id' );
+            });
+        });
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -1623,6 +1640,13 @@ export class SecurityInitialFormComponent implements OnInit {
     removeLandDetails(index: number) {
         (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
         this.updateLandSecurityTotal();
+        this.collateralSiteVisitService.deleteAllSiteVisit(this.securityIdValue, `Land Security ${index+1}` )
+            .subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+                console.error(error);
+            });
     }
 
     removeHypothecation(index: number) {
@@ -1656,6 +1680,13 @@ export class SecurityInitialFormComponent implements OnInit {
 
     removeBuildingDetails(index: number) {
         (this.securityForm.get('buildingDetails') as FormArray).removeAt(index);
+        this.collateralSiteVisitService.deleteAllSiteVisit(this.securityIdValue, `Apartment Security ${index+1}` )
+            .subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+                console.error(error);
+            });
     }
 
     removeBuildingUnderConstructions(index: number) {
@@ -1765,6 +1796,13 @@ export class SecurityInitialFormComponent implements OnInit {
 
     removeLandBuildingDetails(i) {
         (this.securityForm.get('landBuilding') as FormArray).removeAt(i);
+        this.collateralSiteVisitService.deleteAllSiteVisit(this.securityIdValue, `Land And Building Security ${i+1}` )
+            .subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+                console.error(error);
+            });
     }
 
     fixedDepositFormGroup(): FormGroup {
