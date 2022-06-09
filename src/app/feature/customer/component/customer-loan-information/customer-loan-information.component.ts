@@ -972,4 +972,19 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.nbDialogRef.close();
         this.ngOnInit();
     }
+
+    saveCustomerInfo() {
+        this.spinner.show();
+        this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
+            this.customerInfo = res.detail;
+            this.nbDialogRef.close();
+            this.onRefresh();
+            this.spinner.hide();
+            this.triggerCustomerRefresh.emit(true);
+        }, error => {
+            this.spinner.hide();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
+    }
 }
