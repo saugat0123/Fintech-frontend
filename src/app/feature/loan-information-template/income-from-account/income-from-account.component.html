@@ -109,6 +109,14 @@
                            formControlName="totalIncomeAfterNextReview"
                            type="number"></td>
               </tr>
+              <tr>
+                <td><strong>Remark</strong></td>
+                <td colspan="3">
+                  <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.earningRemarkIndividual.errors }"
+                            class="form-control" formControlName="earningRemarkIndividual" id="earningRemarkIndividual"
+                            name="earningRemarkIndividual" placeholder="Earning Remark" rows="3"></textarea>
+                </td>
+              </tr>
             </table>
           </ng-container>
 
@@ -368,9 +376,9 @@
               <tr>
                 <td><strong>Remark</strong></td>
                 <td colspan="3">
-                  <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.earningRemark.errors }"
-                            class="form-control" formControlName="earningRemark" id="earningRemark"
-                            name="earningRemark" placeholder="Earning Remark" rows="3"></textarea>
+                  <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.earningRemarkInstitutional.errors }"
+                            class="form-control" formControlName="earningRemarkInstitutional" id="earningRemarkInstitutional"
+                            name="earningRemarkInstitutional" placeholder="Earning Remark" rows="3"></textarea>
                 </td>
               </tr>
             </table>
