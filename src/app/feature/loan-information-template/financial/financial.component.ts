@@ -333,6 +333,7 @@ export class FinancialComponent implements OnInit {
             forexGainsCustomer: [undefined],
             othersCustomer: [undefined],
             totalCustomer: [undefined],
+            projectedUtilization: [undefined],
             interestGrp: [undefined],
             processingFeeGrp: [undefined],
             lcCommGrp: [undefined],
@@ -340,6 +341,7 @@ export class FinancialComponent implements OnInit {
             forexGainsGrp: [undefined],
             othersGrp: [undefined],
             totalGrp: [undefined],
+            comments: [undefined],
             projectedUtilizationFreeText: this.formBuilder.array([])
         });
     }
@@ -374,6 +376,32 @@ export class FinancialComponent implements OnInit {
                 total: [val ? val.total : ''],
             }));
         });
+    }
+    calculateTotal() {
+        const total = Number(this.financialForm.get('interestCustomer').value) +
+            Number(this.financialForm.get('processingFeeCustomer').value) +
+            Number(this.financialForm.get('lcCommCustomer').value) +
+            Number( this.financialForm.get('bgCommCustomer').value) +
+            Number( this.financialForm.get('forexGainsCustomer').value) +
+            Number(this.financialForm.get('othersCustomer').value);
+        this.financialForm.get('totalCustomer').patchValue(total);
+    }
+    calculateTotalGrp() {
+        const total = Number(this.financialForm.get('interestGrp').value) +
+            Number(this.financialForm.get('processingFeeGrp').value) +
+            Number(this.financialForm.get('lcCommGrp').value) +
+            Number( this.financialForm.get('bgCommGrp').value) +
+            Number( this.financialForm.get('forexGainsGrp').value) +
+            Number(this.financialForm.get('othersGrp').value);
+            this.financialForm.get('totalGrp').patchValue(total);
+    }
+    calcTotal(i: any) {
+        const total = Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'interest']).value) +
+            Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'processingFee']).value) +
+            Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'comm']).value) +
+            Number( this.financialForm.get(['projectedUtilizationFreeText', i, 'forexGains']).value) +
+            Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'others']).value);
+            this.financialForm.get(['projectedUtilizationFreeText', i, 'total']).patchValue(total);
     }
     toggleHistory($event: boolean) {
         this.historicalDataPresent = $event;
