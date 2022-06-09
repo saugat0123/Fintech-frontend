@@ -50,9 +50,10 @@ export class FinancialCcblComponent implements OnInit {
             assesment: [data ? data.assesment : undefined],
             assesment2: [data ? data.assesment2 : undefined],
             assesment3: [data ? data.assesment3 : undefined],
-            comment: [data ? data.comment : undefined],
-            comment2: [data ? data.comment2 : undefined],
-            comment3: [data ? data.comment3 : undefined]
+            assessmentComment: [data ? data.assessmentComment : undefined],
+            assessmentComment2: [data ? data.assessmentComment2 : undefined],
+            assessmentComment3: [data ? data.assessmentComment3 : undefined],
+            commentFinancialHighlight: [data ? data.commentFinancialHighlight : undefined]
         });
     }
     upload(event) {
