@@ -57,19 +57,30 @@
         <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                              [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
     </li>
-    <li *ngIf="financialCCBL?.data?.financialHighlight" class="table-responsive-md">
+    <li *ngIf="financialCCBL?.data" class="table-responsive-md">
 
         <div class="col-md-12">
             <p class="text-uppercase"><strong>Financial Highlights</strong></p>
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight | safeHtml" ></table>
+            <table  style="width: 100%" class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.commentFinancialHighlight | safeHtml" ></table>
         </div>
 <!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
 <!--                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>-->
     </li>
-    <li *ngIf="financialCCBL?.data?.assesment">
+    <li *ngIf="financialCCBL?.data">
         <div class="col-md-12">
         <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
-        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment | safeHtml" ></table>
+           <ol>
+               <li><strong>FB Working capital assessment</strong> (Amounts in Million)</li>
+        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
+        <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment | safeHtml" ></table>
+               <li class="text-uppercase"> <strong>ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)</li>
+        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
+        <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment2 | safeHtml" ></table>
+               <li class="text-uppercase"><strong>ASSESSMENT OF OTHER CREDIT FACILITIES: </strong> (Amounts in Million)</li>
+        <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
+        <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment3 | safeHtml" ></table>
+           </ol>
         </div>
     </li>
     <li>
