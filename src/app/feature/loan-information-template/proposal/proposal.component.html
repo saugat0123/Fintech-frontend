@@ -479,6 +479,7 @@
                                                 <th>Card Rate</th>
                                                 <th>Existing Rate</th>
                                                 <th>Proposed Rate</th>
+                                                <th>Deviation with Card Rate</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -497,6 +498,10 @@
                                                            [(ngModel)]="interestLimit" formControlName="interestRate" type="number"
                                                            (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
                                                 </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestDevCardRate"
+                                                           id="interestDevCardRate">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Processing Fee</td>
@@ -509,6 +514,10 @@
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="processProposedRate"
                                                               id="processProposedRate">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processDevCardRate"
+                                                           id="processDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
@@ -524,6 +533,10 @@
                                                     <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="commissionPercentage"
                                                               id="commissionPercentage">
                                                 </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionDevCardRate"
+                                                           id="commissionDevCardRate">
+                                                </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Cash Margin</td>
@@ -536,10 +549,14 @@
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="cashMargin">
                                                 </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="cashMarginDevCardRate"
+                                                           id="cashMarginDevCardRate">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Prepayment Charge</td>
-                                                <td colspan="3">
+                                                <td colspan="4">
                                                     <table class="table-borderless table-sm" style="width: 100%">
                                                         <tbody>
                                                         <td class="border-right">If paid by own sources
@@ -555,27 +572,27 @@
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">STR Charge</td>
-                                                <td colspan="3">
+                                                <td colspan="4">
                                                     <input rows="1" class="form-control mt-1 mb-1" formControlName="strCharge"
                                                               id="strCharge">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
-                                                <td colspan="3">
+                                                <td colspan="4">
                                                     <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
-                                                    <td colspan="3">
+                                                    <td colspan="4">
                                                         <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
                                                                   id="serviceCharge" appDecimalNumber>
                                                     </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">Other</td>
-                                                <td colspan="3">
+                                                <td colspan="4">
                                                         <input rows="1" class="form-control mt-1 mb-1" formControlName="other"
                                                                   id="other">
                                                 </td>
