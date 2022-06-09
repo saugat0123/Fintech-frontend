@@ -215,7 +215,8 @@ export class ProposalComponent implements OnInit {
         this.addFixedArray();
       }
             this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
-            this.proposalForm.patchValue(this.formDataForEdit);
+            this.setProposalData(this.formDataForEdit);
+            this.setSummaryEnvironment(this.formDataForEdit);
             this.setCheckedData(this.checkedDataEdit);
             this.interestLimit = this.formDataForEdit['interestRate'];
             this.existInterestLimit = this.formDataForEdit['existInterestRate'];
@@ -1070,4 +1071,75 @@ export class ProposalComponent implements OnInit {
         }
     }
 
+    private setSummaryEnvironment(formDataForEdit: any) {
+        const summaryEnvironmentFormGroup = this.proposalForm.get('summaryEnvironment') as FormGroup;
+        if (!ObjectUtil.isEmpty(formDataForEdit.summaryEnvironment)) {
+            summaryEnvironmentFormGroup.get('priority').patchValue(formDataForEdit.summaryEnvironment.priority);
+            summaryEnvironmentFormGroup.get('criticalSectorList').patchValue(formDataForEdit.summaryEnvironment.criticalSectorList);
+            summaryEnvironmentFormGroup.get('criticalSector').patchValue(formDataForEdit.summaryEnvironment.criticalSector);
+            summaryEnvironmentFormGroup.get('processApplicable').patchValue(formDataForEdit.summaryEnvironment.processApplicable);
+        }
+    }
+
+    private setProposalData(formDataForEdit: any) {
+        this.proposalForm.get('proposedLimit').setValue(formDataForEdit.proposedLimit);
+        this.proposalForm.get('interestRate').setValue(formDataForEdit.interestRate);
+        this.proposalForm.get('baseRate').setValue(formDataForEdit.baseRate);
+        this.proposalForm.get('premiumRateOnBaseRate').setValue(formDataForEdit.premiumRateOnBaseRate);
+        this.proposalForm.get('serviceChargeMethod').setValue(formDataForEdit.serviceChargeMethod);
+        this.proposalForm.get('swapChargeMethod').setValue(formDataForEdit.swapChargeMethod);
+        this.proposalForm.get('tenureDurationInMonths').setValue(formDataForEdit.tenureDurationInMonths);
+        this.proposalForm.get('repaymentMode').setValue(formDataForEdit.repaymentMode);
+        this.proposalForm.get('repaymentModeInterest').setValue(formDataForEdit.repaymentModeInterest);
+        this.proposalForm.get('repaymentModePrincipal').setValue(formDataForEdit.repaymentModePrincipal);
+        this.proposalForm.get('disbursementCriteria').setValue(formDataForEdit.disbursementCriteria);
+        this.proposalForm.get('repayment').setValue(formDataForEdit.repayment);
+        this.proposalForm.get('borrowerInformation').setValue(formDataForEdit.borrowerInformation);
+        this.proposalForm.get('interestAmount').setValue(formDataForEdit.interestAmount);
+        this.proposalForm.get('existingLimit').setValue(formDataForEdit.existingLimit);
+        this.proposalForm.get('outStandingLimit').setValue(formDataForEdit.outStandingLimit);
+        this.proposalForm.get('collateralRequirement').setValue(formDataForEdit.collateralRequirement);
+        this.proposalForm.get('swapCharge').setValue(formDataForEdit.swapCharge);
+        this.proposalForm.get('subsidizedLoan').setValue(formDataForEdit.subsidizedLoan);
+        this.proposalForm.get('remark').setValue(formDataForEdit.remark);
+        this.proposalForm.get('cashMargin').setValue(formDataForEdit.cashMargin);
+        this.proposalForm.get('commissionPercentage').setValue(formDataForEdit.commissionPercentage);
+        this.proposalForm.get('commissionFrequency').setValue(formDataForEdit.commissionFrequency);
+        this.proposalForm.get('couponRate').setValue(formDataForEdit.couponRate);
+        this.proposalForm.get('premiumOnCouponRate').setValue(formDataForEdit.premiumOnCouponRate);
+        this.proposalForm.get('tenorOfEachDeal').setValue(formDataForEdit.tenorOfEachDeal);
+        this.proposalForm.get('cashMarginMethod').setValue(formDataForEdit.cashMarginMethod);
+        this.proposalForm.get('enhanceLimitAmount').setValue(formDataForEdit.enhanceLimitAmount);
+        this.proposalForm.get('subsidyLoanType').setValue(formDataForEdit.subsidyLoanType);
+        this.proposalForm.get('others').setValue(formDataForEdit.others);
+        this.proposalForm.get('installmentAmount').setValue(formDataForEdit.installmentAmount);
+        this.proposalForm.get('principalAmount').setValue(formDataForEdit.principalAmount);
+        this.proposalForm.get('moratoriumPeriod').setValue(formDataForEdit.moratoriumPeriod);
+        this.proposalForm.get('prepaymentCharge').setValue(formDataForEdit.prepaymentCharge);
+        this.proposalForm.get('commitmentFee').setValue(formDataForEdit.commitmentFee);
+        this.proposalForm.get('solConclusionRecommendation').setValue(formDataForEdit.solConclusionRecommendation);
+        this.proposalForm.get('waiverConclusionRecommendation').setValue(formDataForEdit.waiverConclusionRecommendation);
+        this.proposalForm.get('riskConclusionRecommendation').setValue(formDataForEdit.riskConclusionRecommendation);
+        this.proposalForm.get('summeryRecommendation').setValue(formDataForEdit.summeryRecommendation);
+        this.proposalForm.get('purposeOfLoan').setValue(formDataForEdit.purposeOfLoan);
+        this.proposalForm.get('termsAndCondition').setValue(formDataForEdit.termsAndCondition);
+        this.proposalForm.get('prepaymentSwapCommitment').setValue(formDataForEdit.prepaymentSwapCommitment);
+        this.proposalForm.get('existCashMargin').setValue(formDataForEdit.existCashMargin);
+        this.proposalForm.get('existCashMarginMethod').setValue(formDataForEdit.existCashMarginMethod);
+        this.proposalForm.get('existInterestRate').setValue(formDataForEdit.existInterestRate);
+        this.proposalForm.get('existCommissionPercentage').setValue(formDataForEdit.existCommissionPercentage);
+        this.proposalForm.get('settlementAmount').setValue(formDataForEdit.settlementAmount);
+        this.proposalForm.get('files').setValue(formDataForEdit.files);
+        this.proposalForm.get('deviationConclusionRecommendation').setValue(formDataForEdit.deviationConclusionRecommendation);
+        this.proposalForm.get('depositBank').setValue(formDataForEdit.depositBank);
+        this.proposalForm.get('depositOther').setValue(formDataForEdit.depositOther);
+        this.proposalForm.get('depositBankRemark').setValue(formDataForEdit.depositBankRemark);
+        this.proposalForm.get('depositOtherRemark').setValue(formDataForEdit.depositOtherRemark);
+        this.proposalForm.get('total').setValue(formDataForEdit.total);
+        this.proposalForm.get('totals').setValue(formDataForEdit.totals);
+        this.proposalForm.get('borrowingCase').setValue(formDataForEdit.borrowingCase);
+        this.proposalForm.get('endUseOfFund').setValue(formDataForEdit.endUseOfFund);
+        this.proposalForm.get('justificationChangeHistorical').setValue(formDataForEdit.justificationChangeHistorical);
+        this.proposalForm.get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
+    }
 }
