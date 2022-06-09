@@ -34,13 +34,6 @@
                             formControlName="type" placeholder="Select Diary Note type">
                     </ng-select>
                 </div>
-
-                <div class="form-group">
-                    <input type ="text" nbInput class="form-control"
-                           *ngIf="allApproveLoan?.length > 0" disabled
-                            (change)="getCustomerLoanFromCategory($event, null)"
-                            formControlName="loanConfig">
-                </div>
                 <div class="form-group">
                     <ng-select
                             [closeOnSelect]="true"
@@ -65,7 +58,8 @@
                     <form [formGroup] = "proposalForm" >
                         <div class="row" formArrayName="data" *ngFor="let proposal of proposalForm.get('data')['controls']; let i = index">
                         <ng-container class="form-group" formGroupName="{{i}}">
-                           <ng-container  class="form-group"  [formGroup] ="proposal.get('proposalData')">
+                            <h6>{{allApproveLoan[i]?.loan?.name}}</h6><br>
+                            <ng-container  class="form-group"  [formGroup] ="proposal.get('proposalData')">
                                <div class="col-md-4" >
                                    <div class="form-group">
                                        <label class="title" for="outStandingLimit">

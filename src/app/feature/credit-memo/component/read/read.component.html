@@ -38,6 +38,8 @@
                 </div>
             </div>
             <hr class="print-line">
+            <app-proposal-summary *ngIf="memo?.customerLoans" [customerAllLoanList]="memo?.customerLoans"></app-proposal-summary>
+            <hr class="print-line">
             <app-security-summary *ngIf="mergedSecurity?.length > 0" [securities]="mergedSecurity"></app-security-summary>
             <hr class="print-line">
             <div class="row">

@@ -137,7 +137,7 @@ export class ComposeComponent implements OnInit {
                         }
                         this.spinnerService.hide();
                     }});
-
+                this.loanId = params.loanId;
                 this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
             }
         });
@@ -208,11 +208,6 @@ export class ComposeComponent implements OnInit {
                     value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined,
                     disabled: true
                 }, Validators.required),
-                loanConfig: new FormControl({
-                    value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
-                        memo.customerLoan.loan : undefined,
-                    disabled: true
-                }, Validators.required)
             }
         );
     }
@@ -243,8 +238,7 @@ export class ComposeComponent implements OnInit {
                 const activeCustomerLoan = this.customerLoanList.filter(
                     customerLoan => customerLoan.id === Number(loanId)
                 );
-                this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
-                this.memoComposeForm.get('loanConfig').patchValue(activeCustomerLoan[0]);
+                // this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
             }
         });
     }
@@ -332,11 +326,17 @@ export class ComposeComponent implements OnInit {
 
 
     saveMemo() {
+        if (this.raisedFromCatalogue) {
+            const activeCustomerLoan = this.customerLoanList.filter(
+                customerLoan => customerLoan.id === Number(this.loanId)
+            );
+            this.memo.customerLoan = activeCustomerLoan[0];
+            console.log(activeCustomerLoan[0]);
+        }
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.referenceNumber = this.memoComposeForm.get('referenceNumber').value;
         this.memo.type = this.memoComposeForm.get('type').value;
         this.memo.content = this.memoComposeForm.get('content').value;
-        this.memo.customerLoan = this.memoComposeForm.get('customerLoan').value;
         this.memo.documents = this.editedCreditMemoDocuments;
         this.memo.memoTypeDocuments = this.editedCreditMemoTypeDocuments;
         this.memo.proposalData = JSON.stringify(this.proposalForm.value);
