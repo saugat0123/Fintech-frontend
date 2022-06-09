@@ -1,21 +1,50 @@
 <div>
-    <h5>8. Customer Background</h5>
+    <h5>5. Company Background</h5>
 </div>
 <div [formGroup]="marketScenarioForm">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <label for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
-                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"
-                                name="marketDemandService" id="marketDemandService">
-                    <nb-radio value="lowDemand">Low Demand</nb-radio>
-                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
-                    <nb-radio value="highDemand">High Demand</nb-radio>
-                </nb-radio-group>
-                <div *ngIf="submitted && form.marketDemandService?.errors "
-                     class="small text-danger">
-                    <div *ngIf="form.marketDemandService?.errors.required">
-                        Market Demand Service is required
+                <label for="marketRisk"><strong>Business Objectives</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
+                          formControlName="BusinessIndustryOutlook" id="marketRisk"
+                          name="marketRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
+                <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
+                        Business Objectives is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="managementRisk"><strong>Business process and capacity</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
+                          formControlName="technicalAspect" id="managementRisk"
+                          name="managementRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
+
+                <div *ngIf="submitted && form.technicalAspect?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.technicalAspect?.errors.required">
+                        Business process and capacity is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="securityRisk"><strong>Raw Materials</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.securityRisk.errors }"
+                          formControlName="securityRisk" id="securityRisk"
+                          name="securityRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
+                <div *ngIf="submitted && form.securityRisk?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.securityRisk?.errors.required">
+                        Raw Materials is required
                     </div>
                 </div>
             </div>
@@ -50,8 +79,38 @@
                 </div>
             </div>
         </div>
-
-
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="marketDemandService"><strong>Demand of Product/Service</strong></label> <br>
+                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"
+                                name="marketDemandService" id="marketDemandService">
+                    <nb-radio value="lowDemand">Low Demand</nb-radio>
+                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
+                    <nb-radio value="highDemand">High Demand</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="submitted && form.marketDemandService?.errors "
+                     class="small text-danger">
+                    <div *ngIf="form.marketDemandService?.errors.required">
+                        Market Demand Product/Service is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="marketingStrategies"><strong>Marketing and distribution Strategies</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.marketingStrategies.errors }"
+                          formControlName="marketingStrategies" id="marketingStrategies"
+                          name="marketingStrategies" [config]="ckeConfig"
+                          type="text"></ckeditor>
+                <div *ngIf="submitted && form.marketingStrategies?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.marketingStrategies?.errors.required">
+                        Marketing and distribution Strategies is required
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="competitorsOverview"><strong>Pricing & Competitors Overview</strong></label>
@@ -67,94 +126,33 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-group">
-                <label for="marketRisk"><strong>Business Objectives</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
-                          formControlName="BusinessIndustryOutlook" id="marketRisk"
-                          name="marketRisk" [config]="ckeConfig"
-                          type="text"></ckeditor>
-                <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
-                     class="invalid-feedback">
-                    <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
-                        Business Objectives is required
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="marketingStrategies"><strong>Marketing Strategies</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.marketingStrategies.errors }"
-                          formControlName="marketingStrategies" id="marketingStrategies"
-                          name="marketingStrategies" [config]="ckeConfig"
-                          type="text"></ckeditor>
-                <div *ngIf="submitted && form.marketingStrategies?.errors "
-                     class="invalid-feedback">
-                    <div *ngIf="form.marketingStrategies?.errors.required">
-                        Marketing Strategies is required
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="managementRisk"><strong>Manufacturing Process, capacity, future plan </strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
-                          formControlName="technicalAspect" id="managementRisk"
-                          name="managementRisk" [config]="ckeConfig"
-                          type="text"></ckeditor>
-
-                <div *ngIf="submitted && form.technicalAspect?.errors "
-                     class="invalid-feedback">
-                    <div *ngIf="form.technicalAspect?.errors.required">
-                        Manufacturing Process, capacity, future plan is required
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="securityRisk"><strong>Raw Materials</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.securityRisk.errors }"
-                          formControlName="securityRisk" id="securityRisk"
-                          name="securityRisk" [config]="ckeConfig"
-                          type="text"></ckeditor>
-                <div *ngIf="submitted && form.securityRisk?.errors "
-                     class="invalid-feedback">
-                    <div *ngIf="form.securityRisk?.errors.required">
-                        Raw Materials is required
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="financialAndCashFlowRisk"><strong>Market demand of product/service</strong></label>
+                <label for="futurePlan"><strong>Future plan</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.financialAndCashFlowRisk.errors }"
-                          formControlName="financialAndCashFlowRisk" id="financialAndCashFlowRisk"
-                          name="financialAndCashFlowRisk" [config]="ckeConfig"
+                          formControlName="futurePlan" id="futurePlan"
+                          name="futurePlan" [config]="ckeConfig"
                           type="text"></ckeditor>
-                <div *ngIf="submitted && form.financialAndCashFlowRisk?.errors "
+                <div *ngIf="submitted && form.futurePlan?.errors "
                      class="invalid-feedback">
-                    <div *ngIf="form.financialAndCashFlowRisk?.errors.required">
-                        Market demand of product/service is required
+                    <div *ngIf="form.futurePlan?.errors.required">
+                        Future plan is required
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="form-group">
-                <label for="financialAndCashFlowRisk"><strong>Group's Background and associated companies</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.groupBackground.errors }"
-                          formControlName="groupBackground" id="groupBackground"
-                          name="groupBackground" [config]="ckeConfig"
+                <label for="latestBusinessUpdates"><strong>Latest Business Updates</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.latestBusinessUpdates.errors }"
+                          formControlName="latestBusinessUpdates" id="latestBusinessUpdates"
+                          name="latestBusinessUpdates" [config]="ckeConfig"
                           type="text"></ckeditor>
-                <div *ngIf="submitted && form.groupBackground?.errors "
+                <div *ngIf="submitted && form.latestBusinessUpdates?.errors "
                      class="invalid-feedback">
-                    <div *ngIf="form.groupBackground?.errors.required">
-                        Group's Background and associated companies is required
+                    <div *ngIf="form.latestBusinessUpdates?.errors.required">
+                        Latest Business Updates is required
                     </div>
                 </div>
             </div>

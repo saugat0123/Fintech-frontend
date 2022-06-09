@@ -536,7 +536,8 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.businessManagementRisk],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.BusinessIndustryOutlook],
-
+            otherRemarks: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.otherRemarks],
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
                 registrationType: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -1128,6 +1129,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.otherRemarks = this.companyInfoFormGroup.get('otherRemarks').value;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
 
