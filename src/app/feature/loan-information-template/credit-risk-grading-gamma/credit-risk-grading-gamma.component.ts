@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+    AfterViewChecked,
+    AfterViewInit,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../credit-risk-grading/model/CrgGroup';
@@ -17,25 +28,24 @@ import {NgxSpinnerService} from 'ngx-spinner';
     templateUrl: './credit-risk-grading-gamma.component.html',
     styleUrls: ['./credit-risk-grading-gamma.component.scss']
 })
-export class CreditRiskGradingGammaComponent implements OnInit {
+export class CreditRiskGradingGammaComponent implements OnInit, OnChanges, OnDestroy {
     @Input() formData: CreditRiskGradingGamma;
     @Input() fromProfile: boolean;
     @Input() loanConfigId: number;
     @Output() crgDataEmitter = new EventEmitter();
     @Input() creditHistory: number;
+    @Input() loanDataReady: boolean;
     totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
-    creditRiskGrading1: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
     creditRiskDataValue;
     points: any;
 
     crgQuestionsList: Array<CrgQuestion> = [];
+    crgQuestionsList1: Array<CrgQuestion> = [];
     riskGroupArray = [];
+    riskGroupArray1 = [];
     groupLabelMap: Map<number, string> = new Map<number, string>();
-    // groupLabelMapped: Map<string, string> = new Map(Array.from(this.groupLabelMap).map(([key, value]) => {
-    //     return [key, value];
-    // }));
     groupWeightageMap: Map<number, string> = new Map<number, string>();
 
     totalPointMapper: Map<string, number>;
@@ -44,8 +54,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     grading: string;
     formDataForEdit;
     crgGammaData: any;
-    crgGammaTest: any;
     spinner = false;
+    viewLoad = false;
 
 
     constructor(
@@ -58,48 +68,54 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('formData', this.formData);
-        this.spinner = true;
-        this.getGroupList();
-        if (!this.fromProfile) {
-            this.totalPointsColspan = 2;
-        }
-        this.spinner = true;
-        this.questionService.getAllQuestionsByFid(this.loanConfigId, this.creditHistory).subscribe((res: any) => {
-            this.spinner = false;
-            const questionsList = res.detail;
-            this.crgQuestionsList = questionsList.filter(q => {
-                return q.status === Status.ACTIVE;
-            });
-            this.buildFormAndCheckEdit();
-        }, error => {
-            this.spinner = false;
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
-        });
-        /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
-        let customerTypeParam = '';
-        if (customerType) {
-            customerTypeParam = customerType === 'INDIVIDUAL' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION;
-        } else {
-            customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
-        }*/
-        this.spinner = false;
+        console.log('loanConfigId', this.loanConfigId);
+        console.log('fromProfile', this.fromProfile);
+        console.log('called ngOninti');
+        console.log('loanDataReady loanDataReady' , this.loanDataReady);
+        // this.spinner = true;
+        // this.getGroupList();
+        // if (!this.fromProfile) {
+        //     this.totalPointsColspan = 2;
+        // }
+        // this.spinner = true;
+        this.getQuestionList();
+        // this.getQuestionList();
+        // /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
+        // let customerTypeParam = '';
+        // if (customerType) {
+        //     customerTypeParam = customerType === 'INDIVIDUAL' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION;
+        // } else {
+        //     customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
+        // }*/
+        // this.spinner = false;
     }
 
-    getGroupList() {
+    // ngAfterViewChecked(): void {
+    //     console.log('view Chaeked');
+    // }
+
+    ngOnDestroy(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    getGroupList(crgQuestionsList) {
         this.spinner = true;
         this.crgGroupService.getAll().subscribe((res: any) => {
             this.riskGroupArray = res.detail;
+            console.log('group Array', res.detail);
             this.spinner = false;
             this.riskGroupArray.forEach((value: CrgGroup) => {
                 this.groupLabelMap.set(value.id, value.label);
                 this.groupWeightageMap.set(value.id, value.weightage);
             });
+        }, () => {
+        }, () => {
+            this.buildFormAndCheckEdit(crgQuestionsList);
         });
     }
 
-    buildFormAndCheckEdit() {
+    buildFormAndCheckEdit(questionList) {
+        console.log('questionList questionList', questionList);
         this.spinner = true;
         this.crgGammaData = [];
         const crgFormGroupObject = {
@@ -112,9 +128,17 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = JSON.parse(this.formData.data);
         }
-        this.riskGroupArray.forEach(ca1 => {
-            const crgData = this.crgQuestionsList.filter(cqu => (cqu.crgGroupId === ca1.id && cqu.status === 'ACTIVE'));
+        const questionWithIdZero = questionList.filter(cqu => (cqu.fid === 0));
+        const questionWithIdOne = questionList.filter(cqu => (cqu.fid === 1));
+        console.log('questionWithIdOne', questionWithIdOne);
+        console.log('questionWithIdZero', questionWithIdZero);
+        this.riskGroupArray.forEach((ca1) => {
+            const crgData = questionList.filter(cqu => (cqu.crgGroupId === ca1.id && cqu.status === 'ACTIVE'));
             if (crgData.length > 0) {
+                crgData.forEach((cd, i) => {
+                    const cData = cd.answers.filter(a => a.status === 'ACTIVE');
+                    cd.answers = cData;
+                });
                 if (!this.crgGammaData.includes(crgData)) {
                     const data = {
                         groupName: ca1.label,
@@ -125,6 +149,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                 }
             }
         });
+        console.log('crgGammaData', this.crgGammaData);
         this.crgGammaData.forEach((cgd, i) => {
             const gammaQuestionObject = {
                 groupName: [null],
@@ -206,9 +231,16 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         this.crgDataEmitter.emit(this.creditRiskData);
     }
 
-    // ngOnChanges(changes: SimpleChanges): void {
-    //
-    // }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.creditRiskGrading.valueChanges.subscribe(res => console.log('resresresres', res));
+        console.log('changes', changes);
+        // if (!changes.creditHistory.firstChange  ||  (changes.creditHistory.previousValue !== undefined)) {
+        //     console.log('change credit value');
+        //     // this.ngOnInit();
+        //     // console.log('called change');
+        //     this.getQuestionList();
+        // }
+    }
 
     parseKeys(obj): string[] {
         if (!ObjectUtil.isEmpty(obj)) {
@@ -217,7 +249,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         return [];
     }
 
-    private calculateGroupTotal() {
+    calculateGroupTotal() {
         this.totalGroupPointMapper.forEach((tg, i) => {
             let total = 0;
             tg.forEach(gt => {
@@ -226,4 +258,32 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.creditRiskGrading.get(['groupObject', i, 'groupTotal']).patchValue(total);
         });
     }
+
+    getQuestionList() {
+        this.spinner = true;
+        this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
+            const questionsList = res.detail;
+            this.crgQuestionsList = questionsList.filter(q => {
+                return q.status === Status.ACTIVE;
+            });
+            console.log('initial question', questionsList);
+            // this.spinner = false;
+        }, error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.DANGER, 'Error fetching question list!'));
+        }, () => {
+            this.getGroupList(this.crgQuestionsList);
+            // if (this.riskGroupArray.length > 0) {
+            //     this.buildFormAndCheckEdit(this.crgQuestionsList);
+            // }
+            this.spinner = false;
+        });
+    }
+
+    // ngAfterViewInit(): void {
+    //     this.viewLoad = true;
+    //     // this.ngOnInit();
+    //     console.log('called view init');
+    // }
 }

@@ -99,9 +99,9 @@
           </ng-template>
 
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma' && allId?.loanCategory === 'INDIVIDUAL'">
-            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+<!--            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
             <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
-                                           [fromProfile]="true"
+                                           [fromProfile]="false"
                                            [loanConfigId]="id"
                                            [creditHistory]="(loanDocument?.proposal?.data | jsonParse)?.creditHistory"
                                            [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>

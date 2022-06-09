@@ -1,4 +1,4 @@
-<section [nbSpinner]="spinner">
+<section>
 
     <nb-accordion class="mb-4">
         <nb-accordion-item>
@@ -100,13 +100,13 @@
                     <tr *ngFor="let ans of crgGammaData[i]?.gammaQuestion; let ii = index">
                         <td>{{ii + 1}}</td>
                         <td class="desc-td-width">
-                                <span *ngIf="ans?.status === 'ACTIVE'">{{ans?.description}}</span>
+                                <span >{{ans?.description}}</span>
                         </td>
                         <td></td>
                         <td>
                             <ul>
                                 <ng-container *ngFor="let answer of ans?.answers">
-                                    <li *ngIf="answer?.status == 'ACTIVE'">
+                                    <li>
                                         {{ answer?.description }}
                                     </li>
                                 </ng-container>
@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             <ng-container *ngFor="let answer of ans?.answers; let ii = index">
-                                <div *ngIf="answer?.status === 'ACTIVE'"  formGroupName="gammaQuestionAnswer">
+                                <div  formGroupName="gammaQuestionAnswer">
                                     <input (click)="onChangeOption(ans?.description, answer?.points, answer?.description, i, crg?.groupName)"
                                            [checked]="totalPointMapper.get(ans?.description) === answer?.points"
                                            class="form-check-input"
