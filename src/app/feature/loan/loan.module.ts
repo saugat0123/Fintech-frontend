@@ -91,6 +91,7 @@ import {
     SummaryInstitutionalModule
 } from './component/loan-summary/loan-summary-institutional/summary-institutional/summary-institutional.module';
 import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
+import { FacilityUtilizationComponent } from './component/facility-utilization/facility-utilization.component';
 
 const COMPONENTS = [
     LoanFormComponent,
