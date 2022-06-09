@@ -5,7 +5,7 @@
              formArrayName="guaranteeProprietorship">
             <div class="col-md-12" [formGroupName]="i">
                 <div class="form-group align">
-                    <h5 class="text-center"><strong>व्यक्तिगत जमानतको लिखत</strong></h5>
+                    <h5 class="text-center"><span class="font-weight-bold">व्यक्तिगत जमानतको लिखत</span></h5>
                     <div class="row">
                         <div class="col-md-12">
                             <p class="lh-30">
@@ -17,8 +17,8 @@
                                 <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "branchName"]).value || '_____________________'}}</span>
                             </span>
                                 मा शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त “धनी
-                                <strong>बैंक”</strong> भनिएको छ) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने <strong>तपसिल
-                                खण्ड “ख”</strong> मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त <strong>“जमानतदिने”</strong>
+                                <span class="font-weight-bold">बैंक”</span> भनिएको छ) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने <span class="font-weight-bold">तपसिल
+                                खण्ड “ख”</span> मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त <span class="font-weight-bold">“जमानतदिने”</span>
                                 भनिएको छ आगे
                                 <br>
                                 <span>
@@ -36,7 +36,7 @@
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
                                        formControlName="authorizedBodyName" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "authorizedBodyName"]).value}}</strong>
+                                <span class="font-weight-bold print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "authorizedBodyName"]).value}}</span>
                             </span>,
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="headDepartment"
@@ -102,7 +102,7 @@
                                 />
                                 <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "loanPurpose"]).value || '_____________________'}}</span>
                             </span>
-                                गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि <strong>ऋणीले</strong> तपाई धनी बैंकसंग
+                                गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि <span class="font-weight-bold">ऋणीले</span> तपाई धनी बैंकसंग
                                 अनुरोध गरेकोमा
                                 तपाई धनी बैंकबाट निज ऋणीको नाममा जारी भएको मिति
                                 <span>
@@ -124,38 +124,38 @@
                             </span> मात्र)
                                 तथा भविष्यमा उल्लिखित ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण
                                 वापत तपाई धनी बैंकबाट माथवर/हैसियतवाल व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुदा
-                                उल्लिखित ऋणीले <strong>मलाई/हामीलाई</strong>
+                                उल्लिखित ऋणीले <span class="font-weight-bold">मलाई/हामीलाई</span>
                                 जमानत वसी दिनुहोस भनी अनुरोध गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनीु बैंकबाट
                                 समेत निज ऋणीले प्राप्त गरेको/गर्ने उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी
                                 बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
                                 व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन तपाईहरुको मंजुरी छ,छैन भनी सोधनी
-                                हुंदा सोमा <strong>मेरो/हाम्रो</strong> चित्त बुझेकोले देहायका <strong>तपसिल खण्ड क</strong> मा उल्लिखित
+                                हुंदा सोमा <span class="font-weight-bold">मेरो/हाम्रो</span> चित्त बुझेकोले देहायका <span class="font-weight-bold">तपसिल खण्ड क</span> मा उल्लिखित
                                 शर्त वन्देजहरुको
                                 अधिनमा रही तपाईं धनी बैंकको पक्षमा आफ्नो
-                                राजीखुसिले यो व्यक्तिगत जमानतको लिखत <strong>गरिदिंए/दियौं</strong> । निज ऋणीले तपाईं धनी बैंकबाट यसअघि
+                                राजीखुसिले यो व्यक्तिगत जमानतको लिखत <span class="font-weight-bold">गरिदिंए/दियौं</span> । निज ऋणीले तपाईं धनी बैंकबाट यसअघि
                                 प्राप्त गरेको उपयोग गरेको तथा यस उप्रान्त प्राप्त गर्ने उपयोग गर्ने विभिन्न ऋणकर्जा तथा
                                 बैकिंग सुविधाहरु वापत तपाईं धनी बैंकलाई समय
                                 सयममा किस्ता किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई
-                                ऋणकर्जा सुविधा सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले <strong>म/हामी</strong> जमानत
+                                ऋणकर्जा सुविधा सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले <span class="font-weight-bold">म/हामी</span> जमानत
                                 दिने उपर दावी लिएमा सो दावी लिएको मितिले ७ (सात)
-                                दिनभित्र <strong>म/हामी</strong> स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम कलम चुक्ता भुक्तान
-                                <strong>गर्नेछु/छौं</strong> । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी बांकि राखेमा
+                                दिनभित्र <span class="font-weight-bold">म/हामी</span> स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम कलम चुक्ता भुक्तान
+                                <span class="font-weight-bold">गर्नेछु/छौं</span> । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी बांकि राखेमा
                                 वा धिङन्याई गरेमा प्रचलित कानून तथा तपाई धनी बैंकको
-                                नियमानुसार म/हामी जमानत दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको्र चलअचल
+                                नियमानुसार म/हामी जमानत दिनेलाई ऋणी सरह कारवाही गरी <span class="font-weight-bold">मेरो/हाम्रो</span> घरघरानाको्र चलअचल
                                 जायजेथाबाट तपाई धनी बैंकको लेना रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम
-                                <strong>मैले/हामीले</strong> तिर्नु बुझाउनु पर्ने होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <strong>छैन/छैनौं,</strong>
+                                <span class="font-weight-bold">मैले/हामीले</span> तिर्नु बुझाउनु पर्ने होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <span class="font-weight-bold">छैन/छैनौं,</span>
                                 गरे यसै लिखतले बदर गराई लिनु होला भनी मेरो/हाम्रो मनोमान राजिखुसिले वांया किनाराका
                                 साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा सहिछाप गरी तपाईं धनी बैंकलाई
-                                <strong>बुझाएं/बुझायौं</strong> र यसको दोहरी समेत <strong>बुझीलिंए/बुझीलिंयौं</strong> ।
+                                <span class="font-weight-bold">बुझाएं/बुझायौं</span> र यसको दोहरी समेत <span class="font-weight-bold">बुझीलिंए/बुझीलिंयौं</span> ।
                             </p>
                         </div>
                     </div>
                     <div class="row mt-5">
                         <div class="col-sm-12">
                             <div class="lh-30">
-                                <h6 class="title text-center"><strong>तपसिल खण्ड क</strong></h6>
+                                <h6 class="title text-center"><span class="font-weight-bold">तपसिल खण्ड क</span></h6>
                                 <br>
-                                <strong>शर्तवन्देजहरु : </strong>
+                                <span class="font-weight-bold">शर्तवन्देजहरु : </span>
                                 <br>
                                 <ol class="conditions">
                                     <li>
@@ -320,9 +320,9 @@
                     <div class="row mt-5">
                         <div class="col-sm-12">
                             <div class="lh-30">
-                                <h6 class="title text-center"><strong>तपसिल खण्ड ख</strong></h6>
+                                <h6 class="title text-center"><span class="font-weight-bold">तपसिल खण्ड ख</span></h6>
                                 <br>
-                                <strong>जमानतदिने : </strong>
+                                <span class="font-weight-bold">जमानतदिने : </span>
                                 <br>
                                 <br>
 
@@ -387,7 +387,7 @@
                                                 <span>
                                             <input class="form-field form-control-sm d-print-none" name="guarantorForeignAddress"
                                                    formControlName="guarantorForeignAddress" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "guarantorForeignAddress"]).value}}</strong>
+                                            <span class="font-weight-bold print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "guarantorForeignAddress"]).value}}</span>
                                         </span>
                                             </p>
                                         </ng-container>
@@ -421,7 +421,7 @@
                                                 <span>
                                             <input class="form-field form-control-sm d-print-none" name="guarantorTempForeignAddress"
                                                    formControlName="guarantorTempForeignAddress" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "guarantorTempForeignAddress"]).value}}</strong>
+                                            <span class="font-weight-bold print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "guarantorTempForeignAddress"]).value}}</span>
                                         </span>
                                             </p>
                                         </ng-container>
@@ -453,7 +453,7 @@
                                                 <span>
                                             <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
                                                    formControlName="passportExpiryDate" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "passportExpiryDate"]).value || '_____________________'}}</strong>
+                                            <span class="font-weight-bold print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "passportExpiryDate"]).value || '_____________________'}}</span>
                                         </span>
                                             </ng-container>
                                         </p>
