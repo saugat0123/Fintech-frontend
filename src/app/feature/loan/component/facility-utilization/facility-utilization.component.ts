@@ -25,7 +25,7 @@ export class FacilityUtilizationComponent implements OnInit {
          minimum: null
     };
      totalKeys = Object.keys(this.totals);
-
+     data;
     ngOnInit() {
         this.buildForm();
         if (this.customerInfo.facilityUtilization) {
@@ -64,8 +64,8 @@ export class FacilityUtilizationComponent implements OnInit {
 
     setFacility() {
         const data = JSON.parse(this.customerInfo.facilityUtilization);
+        this.data = data;
         this.facilityUtilizatoinForm.patchValue(data);
-        this.facilityUtilizatoinForm.get('lcIssued').patchValue(new Date(data.lcIssued));
         if (!ObjectUtil.isEmpty(data.data) && data.data.length > 0) {
             const formArray = (this.facilityUtilizatoinForm.get('data') as FormArray);
             data.data.forEach((d) => {
