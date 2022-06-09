@@ -462,6 +462,41 @@
           </nb-card>
         </ng-template>
       </div>
+      <div class="col-md-4" *ngIf="customerInfo?.facilityUtilization">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #facility>
+            <a class="cursor info-label" (click)="openModel(facilityTemp)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">FACILITY UTILIZATION</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #facilityTemp let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              FACILITY UTILIZATION
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-facility-utilization [fromProfile]="false"
+                                        [customerInfo]="customerInfo">
+              </app-facility-utilization>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
 
     </div>
 <!--    <nb-accordion>-->
