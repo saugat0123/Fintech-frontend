@@ -68,8 +68,8 @@
                     <th colspan="3">Existing</th>
                     <th colspan="3">Proposed</th>
                     <th rowspan="2">Change</th>
-                    <th rowspan="2">Pricing</th>
-                    <th rowspan="2">Maturity</th>
+                    <th rowspan="2" *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">Pricing</th>
+                    <th rowspan="2" *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">Maturity</th>
                     <th *ngIf="form.get('groupLimit')['length'] > 1" rowspan="2">Action</th>
                 </tr>
                 <tr>
@@ -124,11 +124,11 @@
                                formControlName="changeAmount"
                                placeholder="Changes"
                                type="number"/></td>
-                    <td><input class="form-control text-center"
+                    <td *ngIf="customerInfo?.customerType === 'INDIVIDUAL'"><input class="form-control text-center"
                                formControlName="pricing"
                                placeholder="Pricing"
                                type="text"/></td>
-                    <td><input class="form-control text-center"
+                    <td *ngIf="customerInfo?.customerType === 'INDIVIDUAL'"><input class="form-control text-center"
                                formControlName="maturity"
                                placeholder="Maturity"
                                type="text"/></td>
