@@ -18,6 +18,7 @@ import { DetailViewOfIndividualComponent } from './detail-view-of-individual/det
 import { DetailViewOfInstitutionalComponent } from './detail-view-of-institutional/detail-view-of-institutional.component';
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
 import {VideoKycModule} from '../video-kyc/video-kyc.module';
+import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {VideoKycModule} from '../video-kyc/video-kyc.module';
         DbrModule,
         ProductPaperModule,
         VideoKycModule,
+        SecurityViewModule,
 
     ]
 })
