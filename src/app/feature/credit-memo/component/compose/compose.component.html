@@ -34,33 +34,19 @@
                             formControlName="type" placeholder="Select Diary Note type">
                     </ng-select>
                 </div>
-
-                <div class="form-group">
-                    <ng-select
-                            (change)="getCustomerLoanFromCategory($event, null)"
-                            [clearable]="false"
-                            [closeOnSelect]="true"
-                            [hideSelected]="true"
-                            [items]="loanTypeList"
-                            [multiple]="false"
-                            bindLabel="name"
-                            formControlName="loanConfig"
-                            placeholder="Select Loan type">
-                    </ng-select>
-                </div>
-
                 <div class="form-group">
                     <ng-select
                             [closeOnSelect]="true"
                             [hideSelected]="true"
                             [items]="customerLoanList"
-                            [multiple]="false"
+                            [multiple]="true"
+                            [(ngModel)]="allApproveLoan"
                             [ngClass]="{
                                'is-invalid': customerLoan.invalid && (customerLoan.dirty || customerLoan.touched),
                                 'is-valid': !customerLoan.invalid && (customerLoan.dirty || customerLoan.touched)
                                 }"
-                            bindLabel="customerInfo.customerName"
-                            formControlName="customerLoan" placeholder="Select Customer Loan">
+                            bindLabel="loan.name"
+                            formControlName="customerLoan" >
                         <ng-template let-index="index" let-item="item" let-search="searchTerm" ng-option-tmp>
                             Holder name: <strong>{{item['customerInfo']['customerName']}}</strong> |
                             Loan category: <strong> {{item['loanCategory']}}</strong>
@@ -68,7 +54,40 @@
 
                     </ng-select>
                 </div>
+                <div class="form-group" >
+                    <form [formGroup] = "proposalForm" >
+                        <div class="row" formArrayName="data" *ngFor="let proposal of proposalForm.get('data')['controls']; let i = index">
+                        <ng-container class="form-group" formGroupName="{{i}}">
+                            <h6>{{allApproveLoan[i]?.loan?.name}}</h6><br>
+                            <ng-container  class="form-group"  [formGroup] ="proposal.get('proposalData')">
+                               <div class="col-md-4" >
+                                   <div class="form-group">
+                                       <label class="title" for="outStandingLimit">
+                                           <strong>Outstanding Limit</strong>
+                                       </label>
+                                       <input class="form-control"
+                                              formControlName="outStandingLimit" id="outStandingLimit"
+                                              name="outStandingLimit" placeholder="Limit Amount"
+                                              type="number">
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label class="title" for="proposedLimit"><strong>Approved Limit</strong></label>
+                                       <input
+                                               class="form-control"
+                                               formControlName="proposedLimit" id="proposedLimit"
+                                               name="proposedLimit" placeholder="Approved limit"
+                                               type="number" appDecimalNumber>
 
+                                   </div>
+                               </div>
+                           </ng-container>
+                       </ng-container>
+                        </div>
+                    </form>
+                </div>
+            <app-security-summary *ngIf="allApproveLoan?.length > 0" [customerAllLoanList]="allApproveLoan" [securities]="mergeSecurity" [pending] = "false" ></app-security-summary>
                 <!--Document upload-->
                 <div class="form-group">
                     <ckeditor [config]="ckeConfig" formControlName="content"></ckeditor>
@@ -200,3 +219,4 @@
         </nb-card-footer>
     </form>
 </nb-card>
+<app-overlay-spinner></app-overlay-spinner>
