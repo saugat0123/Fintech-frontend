@@ -88,14 +88,14 @@ export class SecuritySummaryComponent implements OnInit {
         const securityLen = !ObjectUtil.isEmpty(this.securities) ? this.securities.length
             : 0;
         if (securityLen > 0) {
-            this.securities = this.securities.filter((l: Security) => l.status === 'ACTIVE');
+            // this.securities = this.securities.filter((l: Security) => l.status === 'ACTIVE');
             this.selectedSecurities();
             this.setSelectedSecurities();
         }
 
         const loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ?
             this.customerAllLoanList.length : 0;
-        if (loanListLen > 0) {
+        if (loanListLen > 0 && ObjectUtil.isEmpty(this.securities) ) {
             this.securities = [];
             if (this.pending) {
                 this.combineAllSecurity();
@@ -104,6 +104,9 @@ export class SecuritySummaryComponent implements OnInit {
             } else {
                 this.combinedAllApprovedSecurity();
             }
+        } else if (!ObjectUtil.isEmpty(this.securities)) {
+            this.selectedSecurities();
+            this.setSelectedSecurities();
         }
     }
 

@@ -20,5 +20,6 @@ export class Memo {
     createdAt: string;
     lastModifiedAt: string;
     version: number;
+    proposalData: string;
 
 }

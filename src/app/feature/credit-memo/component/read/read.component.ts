@@ -13,6 +13,7 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CreditMemo} from '../../model/credit-memo';
 import {CreditMemoStage} from '../../model/credit-memo-stage';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
     selector: 'app-read',
@@ -33,7 +34,8 @@ export class ReadComponent implements OnInit {
 
     signatureList = [];
     sortedList: CreditMemoStage[] = [];
-
+    mergedSecurity = [];
+    taggedLoans: LoanDataHolder [] = [];
     constructor(
         private router: Router,
         private modalService: NgbModal,
@@ -51,8 +53,17 @@ export class ReadComponent implements OnInit {
         this.creditMemoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
             this.currentMemoStage = String(this.memo.currentStage.docAction);
-
             this.signatureList = this.memo.distinctPreviousList;
+            this.taggedLoans = this.memo.customerLoans;
+            if (this.taggedLoans.length > 0) {
+                this.taggedLoans.forEach((d) => {
+                    if (d.securities.length > 0) {
+                        d.securities.forEach((s) => {
+                            this.mergedSecurity.push(s);
+                        });
+                    }
+                });
+            }
             this.sortedList.push(...this.memo.previousStages, this.memo.currentStage);
             let lastBackwardIndex = 0;
             this.sortedList.forEach((data, index) => {
@@ -95,8 +106,8 @@ export class ReadComponent implements OnInit {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
-                loanConfigId: this.memo.customerLoan.loan.id,
-                customerId: this.memo.customerLoan.id,
+                loanConfigId: this.memo.customerLoan[0].loan.id,
+                customerId: this.memo.customerLoan[0].id,
                 catalogue: true
             }
         }).then(() => {

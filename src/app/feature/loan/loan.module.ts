@@ -90,6 +90,7 @@ import {FinancialAccountInformationModule} from '../loan-information-template/fi
 import {
     SummaryInstitutionalModule
 } from './component/loan-summary/loan-summary-institutional/summary-institutional/summary-institutional.module';
+import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -213,7 +214,8 @@ const modules = {
         ProductPaperModule,
         FeatureModule,
         FinancialAccountInformationModule,
-        SummaryInstitutionalModule
+        SummaryInstitutionalModule,
+        SecurityViewModule
 
     ],
 
