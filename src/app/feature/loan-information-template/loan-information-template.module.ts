@@ -68,6 +68,7 @@ import {OtherSecurityComponent} from './security/other-security/other-security.c
 import {LandComponent} from './security/land/land.component';
 import {ViewSecurityTableComponent} from './security/view-security-table/view-security-table.component';
 import {SecurityTaggedModule} from './security/security-tagged-component/security-tagged.module';
+import { GroupSummarySheetComponent } from './group-summary-sheet/group-summary-sheet.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -124,8 +125,9 @@ const COMPONENTS = [
         LeaseAssignmentComponent,
         OtherSecurityComponent,
         LandComponent,
-        ViewSecurityTableComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
+        ViewSecurityTableComponent,
+        GroupSummarySheetComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

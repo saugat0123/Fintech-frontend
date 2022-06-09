@@ -5,7 +5,6 @@
 
   <nb-card-body>
     <div class="row">
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemSiteVisit>
@@ -49,8 +48,6 @@
         </nb-card>
       </ng-template>
     </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #ciclComponent>
@@ -111,8 +108,6 @@
       </nb-card>
         </div>
       </div>
-
-
       <div class="col-md-4" *ngIf=" (customerInfo?.customerType === customerType?.INDIVIDUAL)">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemFinancial>
@@ -185,12 +180,6 @@
             </nb-card-body>
           </nb-card>
       </ng-template>
-
-
-
-
-
-
       <!--      //remaining-->
       <div class="col-md-4" *ngIf="otherMicroDetailsVisibility">
       <div class="row">
@@ -235,11 +224,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
-
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
@@ -281,8 +265,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
       <div class="row">
         <nb-card class="col-md-11 py-2" #itemNetTradingAssets>
@@ -345,8 +327,6 @@
           </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemSecurity>
@@ -393,8 +373,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemGuarantor>
@@ -438,7 +416,6 @@
         </nb-card>
       </ng-template>
       </div>
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemInsurance>
@@ -479,8 +456,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
       <!--<nb-accordion-item #itemCrgAlpha>
        <a class="cursor info-label">
           <div class="row col-md-12">
@@ -576,9 +551,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion>
@@ -782,7 +754,50 @@
         </nb-card>
       </ng-template>
 
-<!--      <div class="col-md-4">-->
+      <!--Group Summary Sheet (GSS)-->
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #GSSTData>
+            <a class="cursor info-label" (click)="openModel(GSSTemplate)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">GROUP SUMMARY SHEET (GSS)</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.gssData" style="color:green"
+                    title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.gssData" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #GSSTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header> GROUP SUMMARY SHEET (GSS)
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-group-summary-sheet [fromProfile]="true"
+                                       [calendarType]="calendarType"
+                                       [gssData]="customerInfo?.gssData"
+                                       (gssDataEmitter)="saveGssData($event)">
+              </app-group-summary-sheet>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
+
+      <!--      <div class="col-md-4">-->
 <!--        <nb-card class="col-md-4 py-2" #commentsFromAccount >-->
 <!--          <a class="cursor info-label">-->
 <!--            <div class="row col-md-12">-->
