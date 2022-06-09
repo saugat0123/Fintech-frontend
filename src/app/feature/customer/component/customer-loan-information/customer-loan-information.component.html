@@ -163,7 +163,7 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="customerInfo.customerType === customerType.INDIVIDUAL">
         <div class="row">
           <nb-card #itemIncomeFromAccount class="col-md-11 py-2">
             <a (click)="openModel(inccomeFromAccountComponentTemplate)" class="cursor info-label">

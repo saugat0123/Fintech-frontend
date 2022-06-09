@@ -392,6 +392,10 @@ export class ProposalComponent implements OnInit {
             existingDateOfExpiry: [undefined],
             // pricing table
             interestCardRate: [undefined],
+            interestDevCardRate: [undefined],
+            processDevCardRate: [undefined],
+            commissionDevCardRate: [undefined],
+            cashMarginDevCardRate: [undefined],
             processCardRate: [undefined],
             processExistingRate: [undefined],
             processProposedRate: [undefined],
