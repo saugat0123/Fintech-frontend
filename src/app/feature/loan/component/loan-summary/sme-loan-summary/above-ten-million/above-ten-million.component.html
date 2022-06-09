@@ -94,6 +94,10 @@
         <p><strong>PRICING: </strong></p>
         <app-retail-recommendation [loanDataHolder]="loanHolder"
                                    [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
+        <p><strong>Income to the Bank: </strong></p>
+        <app-financial-view [formData]="loanDataHolder?.financial"
+                            [data]="loanDataHolder?.financial"
+                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
     </li>
     <li *ngIf="loanDataHolder?.loanHolder?.security">
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>

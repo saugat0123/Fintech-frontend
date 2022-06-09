@@ -294,7 +294,7 @@
                         <label class="title"><strong>Utilization:</strong><strong
                                 class="text-danger">*</strong></label>
                         <input  formControlName="utilization" placeholder="utilization"
-                                type="text" class="form-control">
+                                type="number" class="form-control">
                     </div>
                 </div>
             </nb-card-body>
@@ -342,8 +342,8 @@
                     <div class="form-group">
                         <label class="title"><strong>Projected Utilization:</strong><strong
                                 class="text-danger">*</strong></label>
-                        <input  formControlName="utilization" placeholder="Projected Utilization"
-                                type="text" class="form-control">
+                        <input  formControlName="projectedUtilization" placeholder="Projected Utilization"
+                                type="number" class="form-control">
                     </div>
                 </div>
             </nb-card-body>
@@ -387,6 +387,15 @@
                 <div class="py-2 d-flex justify-content-end">
                     <input (click)="addProjectedUtilization()" class="btn btn-sm btn-flat float-right btn-primary"
                            type="button" value="Add More"/>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title"><strong>Comments:</strong></label>
+                        <textarea rows="3" formControlName="comments" placeholder="comments"
+                                  type="number" class="form-control"></textarea>
+                    </div>
                 </div>
             </nb-card-body>
         </nb-card>

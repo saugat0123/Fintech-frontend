@@ -333,6 +333,7 @@ export class FinancialComponent implements OnInit {
             forexGainsCustomer: [undefined],
             othersCustomer: [undefined],
             totalCustomer: [undefined],
+            projectedUtilization: [undefined],
             interestGrp: [undefined],
             processingFeeGrp: [undefined],
             lcCommGrp: [undefined],
@@ -340,6 +341,7 @@ export class FinancialComponent implements OnInit {
             forexGainsGrp: [undefined],
             othersGrp: [undefined],
             totalGrp: [undefined],
+            comments: [undefined],
             projectedUtilizationFreeText: this.formBuilder.array([])
         });
     }
