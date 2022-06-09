@@ -49,7 +49,6 @@ import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-sum
 const COMPONENTS = [
     SitevistSummaryComponentComponent,
     FinancialSummaryComponent,
-    ProposalSummaryComponent,
     LoanSummaryComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
@@ -107,7 +106,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
         FinancialSummaryComponent,
-        ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
         PreviousSecuritySummaryComponent,

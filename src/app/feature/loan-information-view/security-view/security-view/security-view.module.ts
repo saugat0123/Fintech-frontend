@@ -6,19 +6,22 @@ import {NbSpinnerModule} from '@nebular/theme';
 import {SecuritySummaryComponent} from '../../../loan/component/loan-summary/security-summary/security-summary.component';
 import {CoreModule} from '../../../../@core/core.module';
 import {NepaliPatroModule} from 'nepali-patro';
+import {ProposalSummaryComponent} from '../../../loan/component/loan-summary/proposal-summary/proposal-summary.component';
+import {ThemeModule} from '../../../../@theme/theme.module';
 
 
 
 @NgModule({
   declarations: [ SecurityTaggedSummaryComponent,
-    SecurityTaggedCommonComponent, SecuritySummaryComponent],
+    SecurityTaggedCommonComponent, SecuritySummaryComponent, ProposalSummaryComponent],
     imports: [
         CommonModule,
         NbSpinnerModule,
         CoreModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        ThemeModule
     ],
   exports: [ SecurityTaggedSummaryComponent,
-      SecuritySummaryComponent]
+      SecuritySummaryComponent, ProposalSummaryComponent]
 })
 export class SecurityViewModule { }
