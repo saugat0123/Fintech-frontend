@@ -38,7 +38,7 @@ export class CreditMemoModalComponent {
     onRaiseMemo() {
         this.spinner = true;
         this.router.navigate([`${CreditMemoFullRoutes.COMPOSE}`],
-            {queryParams: {loanCategoryId: this.customerLoan.loan.id, loanId: this.customerLoan.id}})
+            {queryParams: {loanCategoryId: this.customerLoan.loan.id, loanId: this.customerLoan.id, customerInfoId: this.customerLoan.loanHolder.id}})
             .then(() => {
                 this.activeModalService.close();
             });

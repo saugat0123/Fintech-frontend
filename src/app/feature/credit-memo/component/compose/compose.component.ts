@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
@@ -21,6 +21,8 @@ import {CreditMemoMemoTypeDocument} from '../../model/credit-memo-memo-type-docu
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {DocPath} from './doc-path';
+import {Security} from '../../../loan/model/security';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-compose',
@@ -51,6 +53,12 @@ export class ComposeComponent implements OnInit {
     docSpinner = false;
     ckeConfig = Editor.CK_CONFIG;
     tempDocPath = Array<DocPath>();
+    customerInfoId;
+    allApproveLoan: LoanDataHolder [] = [];
+    mergeSecurity: Security [] = [];
+    selectedLoanList = [];
+    proposalForm;
+    loanId;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -61,7 +69,8 @@ export class ComposeComponent implements OnInit {
         private creditMemoService: CreditMemoService,
         private creditMemoTypeService: CreditMemoTypeService,
         private loanConfigService: LoanConfigService,
-        private customerLoanService: LoanFormService
+        private customerLoanService: LoanFormService,
+        private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -88,18 +97,47 @@ export class ComposeComponent implements OnInit {
     ngOnInit() {
         this.getCreditMemoTypes();
         this.getLoanTypes();
-
-
+        this.proposalForm = this.formBuilder.group({
+            data: this.formBuilder.array([])
+        });
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         this.activatedRoute.queryParams.subscribe((params) => {
+            this.spinnerService.show();
             if (!(Object.keys(params).length === 0 && params.constructor === Object)) {
                 this.raisedFromCatalogue = true;
-
+                this.customerInfoId = params.customerInfoId;
                 this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
                     const paramLoanConfig = response.detail as LoanConfig;
                     this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
                 });
-
+                this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe({
+                    next: (res: any) => {
+                        this.allApproveLoan = res.detail;
+                    },
+                    error: () => {
+                        this.spinnerService.hide();
+                        this.toastService.show(new Alert(AlertType.ERROR, 'OPPS Something went Wrong Could Not Fetch Loan Data!!!'));
+                    },
+                    complete: () => {
+                        const proposalForm = (this.proposalForm.get('data') as FormArray);
+                        if (this.allApproveLoan.length > 0) {
+                            this.allApproveLoan = this.allApproveLoan.filter(d => d.documentStatus.toString() === 'APPROVED');
+                            this.allApproveLoan.forEach((d) => {
+                                proposalForm.push(this.formBuilder.group({
+                                    loanId: d.id,
+                                    proposalData: this.formBuilder.group(JSON.parse(d.proposal.data))
+                                }));
+                                this.selectedLoanList.push(d.loan);
+                                if (d.securities.length > 0) {
+                                    d.securities.forEach((s) => {
+                                        this.mergeSecurity.push(s);
+                                    });
+                                }
+                            });
+                        }
+                        this.spinnerService.hide();
+                    }});
+                this.loanId = params.loanId;
                 this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
             }
         });
@@ -170,11 +208,6 @@ export class ComposeComponent implements OnInit {
                     value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined,
                     disabled: true
                 }, Validators.required),
-                loanConfig: new FormControl({
-                    value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
-                        memo.customerLoan.loan : undefined,
-                    disabled: true
-                }, Validators.required)
             }
         );
     }
@@ -205,8 +238,7 @@ export class ComposeComponent implements OnInit {
                 const activeCustomerLoan = this.customerLoanList.filter(
                     customerLoan => customerLoan.id === Number(loanId)
                 );
-                this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
-                this.memoComposeForm.get('loanConfig').patchValue(activeCustomerLoan[0].loan);
+                // this.memoComposeForm.get('customerLoan').patchValue(activeCustomerLoan[0]);
             }
         });
     }
@@ -294,13 +326,20 @@ export class ComposeComponent implements OnInit {
 
 
     saveMemo() {
+        if (this.raisedFromCatalogue) {
+            const activeCustomerLoan = this.customerLoanList.filter(
+                customerLoan => customerLoan.id === Number(this.loanId)
+            );
+            this.memo.customerLoan = activeCustomerLoan[0];
+            console.log(activeCustomerLoan[0]);
+        }
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.referenceNumber = this.memoComposeForm.get('referenceNumber').value;
         this.memo.type = this.memoComposeForm.get('type').value;
         this.memo.content = this.memoComposeForm.get('content').value;
-        this.memo.customerLoan = this.memoComposeForm.get('customerLoan').value;
         this.memo.documents = this.editedCreditMemoDocuments;
         this.memo.memoTypeDocuments = this.editedCreditMemoTypeDocuments;
+        this.memo.proposalData = JSON.stringify(this.proposalForm.value);
         this.creditMemoService.save(this.memo).subscribe((response: any) => {
             const savedCreditMemo = response.detail;
             this.router.navigate([`${CreditMemoFullRoutes.READ}/${savedCreditMemo.id}`]).then(() => {
