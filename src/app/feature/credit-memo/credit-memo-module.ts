@@ -43,7 +43,6 @@ import {SecurityViewModule} from '../loan-information-view/security-view/securit
         SecurityViewModule,
         RouterModule.forChild(CreditMemoRoutes),
         NgxPrintModule,
-        LoanSummaryModule
     ],
     entryComponents: [
         ActionComponent,
