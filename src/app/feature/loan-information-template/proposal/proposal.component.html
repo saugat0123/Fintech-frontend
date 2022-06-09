@@ -306,7 +306,7 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
+                                <div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
@@ -560,7 +560,7 @@
 
                                     </div>
                                 </div>
-
+</div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title"><strong>Limit Expiry/Loan Tenure </strong><br>
@@ -652,7 +652,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+<div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-4 form-group" *ngIf="(client !== clientName?.MEGA) && (client !== clientName?.SHINE_RESUNGA)">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
@@ -706,8 +706,8 @@
                                     </div>
 
                                 </div>
-                                </ng-container>
 
+</div>
 
                                 <!--                end of Moratorium Period amount div-->
                                 <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
