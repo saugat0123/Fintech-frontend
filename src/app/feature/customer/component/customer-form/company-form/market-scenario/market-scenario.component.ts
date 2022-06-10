@@ -38,8 +38,8 @@ export class MarketScenarioComponent implements OnInit {
             marketingStrategies: [undefined],
             technicalAspect: [undefined],
             securityRisk: [undefined],
-            financialAndCashFlowRisk: [undefined],
-            groupBackground: [undefined],
+            futurePlan: [undefined],
+            latestBusinessUpdates: [undefined],
         });
     }
 
