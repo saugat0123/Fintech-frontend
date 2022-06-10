@@ -154,6 +154,7 @@
                     <th>Insured Amount</th>
                     <th>Insurance Validity</th>
                     <th>Insurance Company</th>
+                    <th>Endorsement</th>
                 </tr>
                 <tbody *ngFor="let insurance of insuranceData; let i= index">
                 <tr class="text-left">
@@ -163,6 +164,7 @@
                     <td>Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
                     <td>{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
                     <td>{{insurance?.company}}</td>
+                    <td>{{insurance?.endorsement}}</td>
                 </tr>
                 </tbody>
             </table>
