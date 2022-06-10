@@ -91,5 +91,6 @@ export class CustomerInfoData {
     commonLoanData: string;
     gssData: string;
     facilityUtilization: string;
+    otherDetails: string;
 
 }
