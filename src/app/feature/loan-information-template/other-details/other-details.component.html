@@ -1,0 +1,235 @@
+<div [formGroup]="otherForm" class="row">
+    <div class="col-md-12 row">
+        <div class="col-md-12">
+            <label class="header"><strong class="header">1. IRD Submission report</strong></label>
+        </div>
+        <div class="ml-1 col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label><strong>Last obtained for FY</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           formControlName="lastFYIRD"
+                           id="lastFYIRD"
+                           name="lastFYIRD"
+                           placeholder="Last obtained for FY"
+                           type="text">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="justifyIRD"><strong>Justification for deviation (if any):</strong></label>
+                <ckeditor formControlName="justifyIRD" id="justifyIRD" [config]="ckeConfig"></ckeditor>
+            </div>
+        </div>
+
+        <div class="mt-2 col-md-12">
+            <label class="header"><strong class="header">2. Tax Clearance Report</strong></label>
+        </div>
+        <div class="ml-1 col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label><strong>Last obtained for FY</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           formControlName="lastFYTax"
+                           id="lastFYTax"
+                           name="lastFYTax"
+                           placeholder="Last obtained for FY"
+                           type="text">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="justifyIRD"><strong>Justification for deviation (if any):</strong></label>
+                <ckeditor formControlName="justifyTax" id="justifyTax" [config]="ckeConfig"></ckeditor>
+            </div>
+        </div>
+
+        <div class="mt-2 col-md-12">
+            <label class="header"><strong class="header">3. External Credit Rating</strong></label>
+        </div>
+        <div class="ml-1 col-md-12 row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label><strong>External Rating Agency Name</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           formControlName="agencyName"
+                           id="agencyName"
+                           name="agencyName"
+                           placeholder="Agency Name"
+                           type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label><strong>Rating Report Date</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           [nbDatepicker]="reportingDate"
+                           formControlName="reportDate"
+                           id="reportDate"
+                           name="reportDate"
+                           placeholder="Rating Report Date"
+                           type="text">
+                    <nb-datepicker #reportingDate></nb-datepicker>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label><strong>Long Term Rating</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           formControlName="longTermRating"
+                           id="longTermRating"
+                           name="longTermRating"
+                           placeholder="Long Term Rating"
+                           type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label><strong>Short Term Rating</strong></label>
+                    <input class="form-control form-control-sm-error rounded"
+                           formControlName="shortTermRating"
+                           id="shortTermRating"
+                           name="shortTermRating"
+                           placeholder="Short Term Rating"
+                           type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label class="header"><strong class="header">4. MOA/AOA Declaration</strong></label>
+        </div>
+        <div class="ml-1 col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label><strong>Present request is in line with company’s bylaws/MOA/AOA:</strong></label>
+                    <nb-radio-group class="d-flex" formControlName="moaAoa" name="moaAoa">
+                        <nb-radio *ngFor="let data of moaAoa"
+                                  [value]="data?.key">{{data?.value}}</nb-radio>
+                    </nb-radio-group>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label class="header"><strong class="header">5. Security Inspection</strong></label>
+        </div>
+        <div class="ml-1 col-md-12">
+            <div class="col-md-12">
+                <table class="table table-sm sb-small table-bordered text-center">
+                    <thead>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Security Type</th>
+                        <th>Date of Inspection</th>
+                        <th>Report Filed</th>
+                        <th>Approved Frequency</th>
+                        <th width="4%" *ngIf="otherForm.get('securityInspection')['length'] > 1">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of otherForm.get('securityInspection')['controls']; let i = index;"
+                        formArrayName="securityInspection">
+                        <ng-container [formGroupName]="i">
+                        <td>
+                            <input class="form-control form-control-sm-error rounded"
+                                   formControlName="securityType"
+                                   id="securityType"
+                                   name="securityType"
+                                   placeholder="Security Type"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-control form-control-sm-error rounded"
+                                   [nbDatepicker]="inspectionDate"
+                                   formControlName="dateOfInspection"
+                                   id="dateOfInspection"
+                                   name="dateOfInspection"
+                                   placeholder="Date of Inspection"
+                                   type="text">
+                            <nb-datepicker #inspectionDate></nb-datepicker>
+                        </td>
+                        <td>
+                            <nb-radio-group class="d-flex" formControlName="reportField" name="reportField{{i}}">
+                                <nb-radio *ngFor="let data of moaAoa"
+                                      [value]="data?.key">{{data?.value}}</nb-radio>
+                            </nb-radio-group>
+                        </td>
+                        <td>
+                            <input class="form-control form-control-sm-error rounded"
+                                   formControlName="approvedFrequency"
+                                   id="approvedFrequency"
+                                   name="approvedFrequency"
+                                   placeholder="Approved Frequency"
+                                   type="text">
+                        </td>
+                            <td *ngIf="otherForm.get('securityInspection')['length'] > 1">
+                                <button class="btn btn-sm btn-flat ng-star-inserted cursor" (click)="removeSecurity(i)">
+                                    <em class="fas fa-trash bg-transparent"></em>
+                                </button>
+                            </td>
+                        </ng-container>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <input (click)="addSecurityData()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More Security"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label class="header"><strong class="header">6. Consortium Meeting Details: (if applicable)</strong></label>
+        </div>
+        <div class="ml-1 col-md-12">
+            <div class="col-md-12">
+                <table class="table table-sm sb-small table-bordered text-center">
+                    <thead>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Date</th>
+                        <th>Purpose</th>
+                        <th width="4%" *ngIf="otherForm.get('meetingDetails')['length'] > 1">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of otherForm.get('meetingDetails')['controls']; let i = index;"
+                        formArrayName="meetingDetails">
+                        <ng-container [formGroupName]="i">
+                            <td>
+                                <input class="form-control form-control-sm-error rounded"
+                                       [nbDatepicker]="meetingDate"
+                                       formControlName="meetingDate"
+                                       id="meetingDate"
+                                       name="meetingDate"
+                                       placeholder="Date"
+                                       type="text">
+                                <nb-datepicker #meetingDate></nb-datepicker>
+                            </td>
+                            <td>
+                                <input class="form-control form-control-sm-error rounded"
+                                       formControlName="meetingPurpose"
+                                       id="meetingPurpose"
+                                       name="meetingPurpose"
+                                       placeholder="Purpose"
+                                       type="text">
+                            </td>
+                            <td *ngIf="otherForm.get('meetingDetails')['length'] > 1">
+                                <button class="btn btn-sm btn-flat ng-star-inserted cursor" (click)="removeMeeting(i)">
+                                    <em class="fas fa-trash bg-transparent"></em>
+                                </button>
+                            </td>
+                        </ng-container>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <input (click)="addMeetingData()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+            <button (click)="onSubmit()" nbButton type="button">save</button>
+        </div>
+    </div>
+</div>
