@@ -28,6 +28,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
     creditChecklistGeneral: CreditChecklistGeneral = new CreditChecklistGeneral();
     optionList = ['Yes', 'No', 'Na'];
     optionListRegulatory = ['Yes', 'No'];
+    riskLevelOptions = ['HIGH', 'MEDIUM', 'LOW'];
     questionAnswer = [];
     riskCalculate = new Map();
 
@@ -41,7 +42,9 @@ export class CreditChecklistGeneralComponent implements OnInit {
             this.dataForEdit = JSON.parse(this.formData.data);
         }
         this.buildForm(this.dataForEdit);
-        if (this.customerType.toLowerCase() === 'institution') {
+        const lowerCustomerType = !ObjectUtil.isEmpty(this.customerType) ? this.customerType.toLowerCase()
+            : '';
+        if (lowerCustomerType === 'institution') {
            this.questionAnswer = this.buildQuestionAnswer();
             this.questionAnswer.forEach(d => {
                 const fa = this.formGroupCheckList.get('question') as FormArray;
@@ -235,7 +238,11 @@ export class CreditChecklistGeneralComponent implements OnInit {
             bl: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.bl)],
             question: this.formBuilder.array([]),
             esRisk: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.esRisk)],
-            riskCalculate: undefined
+            riskCalculate: undefined,
+            criticalSector: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.criticalSector)],
+            esDiligence: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.esDiligence)],
+            riskLevel: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.riskLevel)],
+            correctiveActionPlan: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.correctiveActionPlan)]
         });
     }
 
@@ -518,5 +525,10 @@ export class CreditChecklistGeneralComponent implements OnInit {
         }
         this.creditChecklistGeneral.data = JSON.stringify(this.formGroupCheckList.value);
         this.creditChecklistGeneralEmitter.emit(this.creditChecklistGeneral);
+    }
+
+    setDefaultValueYes() {
+        this.formGroupCheckList.get('criticalSector').patchValue('Yes');
+        this.formGroupCheckList.get('esDiligence').patchValue('Yes');
     }
 }

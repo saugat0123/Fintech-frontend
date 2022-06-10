@@ -32,6 +32,7 @@ export class CreditChecklistViewComponent implements OnInit {
   checklist: CreditChecklistGeneralComponent = new CreditChecklistGeneralComponent();
   questionAnswer = [];
   answer = [];
+  riskLevelOptions = ['HIGH', 'MEDIUM', 'LOW'];
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -42,7 +43,10 @@ export class CreditChecklistViewComponent implements OnInit {
       this.answer = this.dataForEdit.question;
     }
     this.buildForm(this.dataForEdit);
-    if (this.customerType.toLowerCase() === 'institution') {
+    const lowerCustomerType = !ObjectUtil.isEmpty(this.customerType) ?
+        this.customerType.toLowerCase()
+        : '';
+    if (lowerCustomerType === 'institution') {
       this.questionAnswer = this.checklist.buildQuestionAnswer();
     }
   }
@@ -158,6 +162,10 @@ export class CreditChecklistViewComponent implements OnInit {
       valuatorRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.valuatorRemark)],
       borrower: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrower)],
       borrowerRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrowerRemark)],
+      criticalSector: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.criticalSector)],
+      esDiligence: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.esDiligence)],
+      riskLevel: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.riskLevel)],
+      correctiveActionPlan: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.correctiveActionPlan)]
 
     });
   }
@@ -227,5 +235,10 @@ export class CreditChecklistViewComponent implements OnInit {
     this.creditChecklistView.data = JSON.stringify(this.formGroupCheckList.value);
     this.creditChecklistViewEmitter.emit(this.creditChecklistView);
     console.log(this.formGroupCheckList.value);
+  }
+
+  setDefaultValueYes() {
+    this.formGroupCheckList.get('criticalSector').patchValue('Yes');
+    this.formGroupCheckList.get('esDiligence').patchValue('Yes');
   }
 }
