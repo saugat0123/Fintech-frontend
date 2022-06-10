@@ -19,6 +19,10 @@ export class ReviewDateComponent implements OnInit {
   checked = false;
   reviewDateData: ReviewDate = new ReviewDate();
   dataForEdit;
+  nextReviewChecked = false;
+  lastReviewChecked = false;
+  tempFirstDate;
+  tempSecondDate;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -27,6 +31,8 @@ export class ReviewDateComponent implements OnInit {
       this.reviewDateData = this.reviewData;
       this.dataForEdit = JSON.parse(this.reviewData.data);
       this.checked = this.dataForEdit.checked;
+      this.nextReviewChecked = this.dataForEdit.nextReviewDateChecked;
+      this.lastReviewChecked = this.dataForEdit.lastReviewDateChecked;
     }
     this.buildForm(this.dataForEdit);
   }
@@ -41,6 +47,10 @@ export class ReviewDateComponent implements OnInit {
               new Date(data.nextReviewDate)],
       checked: [ObjectUtil.isEmpty(data) ? undefined :
           ObjectUtil.setUndefinedIfNull(data.checked)],
+      nextReviewDateChecked: [ObjectUtil.isEmpty(data) ? undefined :
+          ObjectUtil.setUndefinedIfNull(data.nextReviewDateChecked)],
+      lastReviewDateChecked: [ObjectUtil.isEmpty(data) ? undefined :
+          ObjectUtil.setUndefinedIfNull(data.lastReviewDateChecked)],
     });
   }
 
@@ -51,6 +61,32 @@ export class ReviewDateComponent implements OnInit {
       this.reviewDate.get('nextReviewDate').setValue(null);
     } else {
       this.checked = false;
+    }
+  }
+
+  checkControlChanged(event, control) {
+    if (event) {
+      if (control === 'lastReviewDateChecked') {
+        this.tempFirstDate = this.reviewDate.get('lastReviewDate').value;
+        this.lastReviewChecked = true;
+        this.reviewDate.get('lastReviewDate').setValue(null);
+      } else if (control === 'nextReviewDateChecked') {
+        this.tempSecondDate = this.reviewDate.get('nextReviewDate').value;
+        this.nextReviewChecked = true;
+        this.reviewDate.get('nextReviewDate').setValue(null);
+      } else {
+        this.lastReviewChecked = false;
+        this.nextReviewChecked = false;
+      }
+    } else {
+      if (control === 'lastReviewDateChecked') {
+        this.lastReviewChecked = false;
+        this.reviewDate.get('lastReviewDate').setValue(this.tempFirstDate);
+      }
+      if (control === 'nextReviewDateChecked') {
+        this.nextReviewChecked = false;
+        this.reviewDate.get('nextReviewDate').setValue(this.tempSecondDate);
+      }
     }
   }
 

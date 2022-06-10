@@ -694,7 +694,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <ng-container *ngIf="customerType.toLowerCase() === 'institution'">
+                    <ng-container *ngIf="customerType?.toLowerCase() === 'institution'">
                         <h6 >Environment and Social Risk Management - Exclusion and Critical Sector Checklist</h6>
                         <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
@@ -1390,6 +1390,102 @@
                             </b></td></tr>
 
                         </table>
+
+                        <!-- FOR ESRM (SUMMARY) SECTION -->
+                        <h6 *ngIf="dataForEdit?.criticalSector">ESRM - Summary</h6>
+                        <ng-container *ngIf="dataForEdit?.criticalSector">
+                            <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                                <thead>
+                                <tr *ngIf="fromProfile">
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan="3">
+                                        <button (click)="setDefaultValueYes()"
+                                                class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                                        </button>
+                                    </th>
+
+                                </tr>
+                                <tr class="sb-bg-dark">
+                                    <th rowspan="2">SN</th>
+                                    <th rowspan="2">Particulars</th>
+                                    <th class="width text-center" colspan="3">Remarks</th>
+                                </tr>
+                                <tr *ngIf="fromProfile">
+                                    <th>Yes</th>
+                                    <th>No</th>
+                                    <th>N/A</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>
+                                        Falls under Exclusion and critical sector list
+                                    </td>
+                                    <ng-container *ngIf="fromProfile">
+                                        <td *ngFor="let option of optionList"><input
+                                                [value]="option" formControlName="criticalSector" type="radio"></td>
+                                    </ng-container>
+                                    <td *ngIf="!fromProfile">{{dataForEdit?.criticalSector === 'Na' ? 'N/A' : dataForEdit?.criticalSector}}</td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>
+                                        E&S Due Diligence process Applicable
+                                    </td>
+                                    <ng-container *ngIf="fromProfile">
+                                        <td *ngFor="let option of optionList"><input
+                                                [value]="option" formControlName="esDiligence" type="radio"></td>
+                                    </ng-container>
+                                    <td *ngIf="!fromProfile">{{dataForEdit?.esDiligence === 'Na' ? 'N/A' : dataForEdit?.esDiligence}}</td>
+                                </tr>
+                                <tr *ngIf="!fromProfile && dataForEdit?.esDiligence === 'Yes'">
+                                    <td>3.</td>
+                                    <td>
+                                        Level of risk associated with the business
+                                    </td>
+                                    <td>{{dataForEdit?.riskLevel}}</td>
+                                </tr>
+                                <tr *ngIf="!fromProfile &&
+                                    (dataForEdit?.riskLevel === 'HIGH' || dataForEdit?.riskLevel === 'MEDIUM')
+                                    && dataForEdit?.esDiligence === 'Yes'">
+                                    <td>4.</td>
+                                    <td>
+                                        Correction Plan
+                                    </td>
+                                    <td>{{dataForEdit?.correctiveActionPlan}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div *ngIf="fromProfile && this.formGroupCheckList.get('esDiligence')?.value === 'Yes'">
+                                        <label class="font-weight-bold" for="riskLevelOption">
+                                            Level of risk associated with the business
+                                        </label>
+                                        <ng-select
+                                                [placeholder]="formGroupCheckList.get('riskLevel')?.value ? '' : 'Please select risk level'"
+                                                class="mb-5"
+                                                formControlName="riskLevel" fullWidth id="riskLevelOption">
+                                            <ng-option *ngFor="let risk of riskLevelOptions"
+                                                       [value]="risk"> {{risk}} </ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div *ngIf="fromProfile && (this.formGroupCheckList.get('riskLevel')?.value === 'HIGH' ||
+                      this.formGroupCheckList.get('riskLevel')?.value === 'MEDIUM') && this.formGroupCheckList.get('esDiligence')?.value === 'Yes'">
+                                        <label class="font-weight-bold" for="riskLevelOption">
+                                            Correction Plan
+                                        </label>
+                                        <input class="form-control" formControlName="correctiveActionPlan"
+                                               placeholder="Corrective Action Plan">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
                     </ng-container>
                 </div>
 

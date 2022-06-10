@@ -17,7 +17,7 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <label>Last Review Date</label>
-                    <ng-container *ngIf="checked; else naCheck">
+                    <ng-container *ngIf="lastReviewChecked; else naCheck">
                         <input class="form-control"
                                [readOnly]="true"
                                formControlName="lastReviewDate"
@@ -35,10 +35,15 @@
                                       [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
                         <nb-datepicker #lastReviewDate></nb-datepicker>
                     </ng-template>
+                    <div class="mt-2">
+                        <nb-checkbox (change)="checkControlChanged($event.target.checked, 'lastReviewDateChecked')"
+                                     [checked]="lastReviewChecked" formControlName="lastReviewDateChecked"><b>NA</b>
+                        </nb-checkbox>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <label>Next Review Date</label>
-                    <ng-container *ngIf="checked; else na">
+                    <ng-container *ngIf="nextReviewChecked; else na">
                         <input class="form-control"
                                [readOnly]="true"
                                formControlName="nextReviewDate"
@@ -56,12 +61,17 @@
                                       [ePreDate]="reviewDate?.get('nextReviewDate')?.value"></app-calendar>
                         <nb-datepicker #nextReviewDate></nb-datepicker>
                     </ng-template>
+                    <div class="mt-2">
+                        <nb-checkbox class="mt-2" (change)="checkControlChanged($event.target.checked, 'nextReviewDateChecked')"
+                                     [checked]="nextReviewChecked" formControlName="nextReviewDateChecked"><b>NA</b>
+                        </nb-checkbox>
+                    </div>
                 </div>
-                <div class="col-md-4 py-4">
+               <!-- <div class="col-md-4 py-4">
                     <nb-checkbox (change)="checkChecked($event.target.checked)"
                                  [checked]="checked" formControlName="checked"><b>NA</b>
                     </nb-checkbox>
-                </div>
+                </div>-->
             </div>
 
             <nb-card-footer *ngIf="fromProfile">
