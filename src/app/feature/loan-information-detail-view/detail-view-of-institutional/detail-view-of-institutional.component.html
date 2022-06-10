@@ -4,7 +4,8 @@
                            [proposalData]="proposalData"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </ng-container>
-
+<!--     Group Summary Sheet    -->
+<app-group-summary-sheet-view [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
 <!--                release and replacement-->
 <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
 <!--                    proposed security-->

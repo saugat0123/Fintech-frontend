@@ -51,6 +51,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {BehaviorSubject} from 'rxjs';
+import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -112,6 +113,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     private reviewDate: ReviewDate;
     @ViewChild('multiBankingComponent', {static: false})
     private multiBankingComponent: MultiBanking;
+    @ViewChild('gssComponent', {static: false})
+    private gssComponent: GroupSummarySheetComponent;
 
     @ViewChild('microCrgParamsComponent', {static: false})
     private microCrgParamsComponent: NbAccordionItemComponent;
@@ -738,6 +741,24 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Multi Banking!'));
             });
     }
+
+    saveGssData(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.gssData = data;
+        this.customerInfoService.save(this.customerInfo)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Summary Sheet!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Group Summary Sheet!'));
+            });
+        }
+    }
     update(data) {
         this.customerInfo = data;
     }
@@ -950,5 +971,20 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.triggerCustomerRefresh.emit();
         this.nbDialogRef.close();
         this.ngOnInit();
+    }
+
+    saveCustomerInfo() {
+        this.spinner.show();
+        this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Common Data!'));
+            this.customerInfo = res.detail;
+            this.nbDialogRef.close();
+            this.onRefresh();
+            this.spinner.hide();
+            this.triggerCustomerRefresh.emit(true);
+        }, error => {
+            this.spinner.hide();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
     }
 }

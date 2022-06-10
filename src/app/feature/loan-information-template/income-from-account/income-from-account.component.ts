@@ -134,7 +134,10 @@ export class IncomeFromAccountComponent implements OnInit {
       economicProfit: [0],
       economicProfitPercentage: [undefined],
       grossSubCateGory: this.formBuilder.array([]),
-      riskBasedPrice: this.formBuilder.array([])
+      riskBasedPrice: this.formBuilder.array([]),
+      earningRemarkIndividual: [undefined],
+      earningRemarkInstitutional: [undefined],
+      riskRemark: [undefined]
     });
   }
 
