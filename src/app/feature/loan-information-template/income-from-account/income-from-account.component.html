@@ -109,6 +109,14 @@
                            formControlName="totalIncomeAfterNextReview"
                            type="number"></td>
               </tr>
+              <tr>
+                <td><strong>Remark</strong></td>
+                <td colspan="3">
+                  <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.earningRemarkIndividual.errors }"
+                            class="form-control" formControlName="earningRemarkIndividual" id="earningRemarkIndividual"
+                            name="earningRemarkIndividual" placeholder="Earning Remark" rows="3"></textarea>
+                </td>
+              </tr>
             </table>
           </ng-container>
 
@@ -365,6 +373,14 @@
                            formControlName="totalNextReview"
                            type="number"></td>
               </tr>
+              <tr>
+                <td><strong>Remark</strong></td>
+                <td colspan="3">
+                  <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.earningRemarkInstitutional.errors }"
+                            class="form-control" formControlName="earningRemarkInstitutional" id="earningRemarkInstitutional"
+                            name="earningRemarkInstitutional" placeholder="Earning Remark" rows="3"></textarea>
+                </td>
+              </tr>
             </table>
 
             <span><strong>Profitability From Customer</strong></span>
@@ -523,6 +539,12 @@
             </tr>
             </tbody>
           </table>
+            <div class="form-group">
+              <label for="remark"><strong>Remark</strong></label>
+              <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.riskRemark.errors }"
+                        class="form-control" formControlName="riskRemark" id="riskRemark"
+                        name="riskRemark" placeholder="Risk Remark" rows="3"></textarea>
+            </div>
           <div class="float-right">
             <input (click)="addRiskBasedPrice()" class="btn btn-sm btn-flat btn-primary"
                    type="button" value="Add More"/>
