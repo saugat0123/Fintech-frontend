@@ -1,0 +1,220 @@
+<div [formGroup]="gssForm" class="row">
+    <div class="col-md-12 row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>GSS Date</strong></label>
+                <input [nbDatepicker]="gssDate"
+                       *ngIf="calendarType === 'AD'"
+                       class="form-control form-control-sm-error rounded"
+                       formControlName="gssDate"
+                       id="gssDate"
+                       name="gssDate"
+                       placeholder="GSS Date"
+                       type="text">
+                <app-calendar [ePreDate]="gssForm.get('gssDate').value"
+                              *ngIf="calendarType === 'BS'"
+                              (messageToEmit)="gssForm.get('gssDate').patchValue($event?.eDate)"></app-calendar>
+                <nb-datepicker #gssDate></nb-datepicker>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Last GSS Date</strong></label>
+                <input [nbDatepicker]="lastGssDate"
+                       *ngIf="calendarType === 'AD'"
+                       class="form-control form-control-sm-error rounded"
+                       formControlName="lastGSSDate"
+                       name="lastGSSDate"
+                       id="lastGSSDate"
+                       placeholder="Last GSS Date"
+                       type="text">
+                <app-calendar
+                        [ePreDate]="gssForm.get('lastGSSDate').value"
+                        *ngIf="calendarType === 'BS'"
+                        (messageToEmit)="gssForm.get('lastGSSDate').patchValue($event?.eDate)"></app-calendar>
+                <nb-datepicker #lastGssDate></nb-datepicker>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Name of Group</strong></label>
+                <input class="form-control form-control-sm-error rounded"
+                       formControlName="groupName"
+                       id="groupName"
+                       name="groupName"
+                       placeholder="Name of Group"
+                       type="text">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Group Code</strong></label>
+                <input class="form-control form-control-sm-error rounded"
+                       formControlName="groupCode"
+                       id="groupCode"
+                       name="groupCode"
+                       placeholder="Group Code"
+                       type="text">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Group Controller</strong></label>
+                <input class="form-control form-control-sm-error rounded"
+                       formControlName="groupController"
+                       id="groupController"
+                       name="groupController"
+                       placeholder="Group Controller"
+                       type="text">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><strong>Peak Exposure Level</strong></label>
+                <input class="form-control form-control-sm-error rounded"
+                       formControlName="peakExposureLevel"
+                       id="peakExposureLevel"
+                       name="peakExposureLevel"
+                       placeholder="Peak Exposure Level"
+                       type="text">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label><strong>Exposure details</strong></label>
+            <table class="table table-sm sb-small table-bordered text-center">
+                <thead>
+                <tr class="sb-bg-secondary text-white">
+                    <th width="3%">S.No.</th>
+                    <th width="23%">Customer Name</th>
+                    <th width="10%">Customer ID</th>
+                    <th width="15%">Risk Grade</th>
+                    <th width="15%">Funded Exposure</th>
+                    <th width="15%">Non Funded Exposure</th>
+                    <th width="15%">Total Exposure</th>
+                    <th width="4%" *ngIf="gssForm.get('gssDetails')['length'] > 1">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of gssForm.get('gssDetails')['controls']; let i = index"
+                    formArrayName="gssDetails">
+                    <ng-container [formGroupName]="i">
+                        <td>{{i + 1}}.</td>
+                        <td><input class="form-control text-center"
+                                   formControlName="customerName"
+                                   placeholder="Customer Name"
+                                   type="text"/></td>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="customerID"
+                                   placeholder="Customer ID"
+                                   type="text"/>
+                        </td>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="riskGrade"
+                                   placeholder="Risk Grade"
+                                   type="text"/>
+                        </td>
+                        <td><input (keyup)="calculateTotalGss()"
+                                   (change)="multiTotalLimit(i)"
+                                   class="form-control text-center"
+                                   formControlName="fundedLimited"
+                                   placeholder="Funded Exposure"
+                                   type="number"/>
+                        </td>
+                        <td><input (keyup)="calculateTotalGss()"
+                                   (change)="multiTotalLimit(i)"
+                                   class="form-control text-center"
+                                   formControlName="nonFundedLimited"
+                                   placeholder="Non Funded Exposure"
+                                   type="number"/>
+                        </td>
+                        <td><input [readOnly]="true"
+                                   class="form-control text-center"
+                                   formControlName="totalLimit"
+                                   placeholder="Total Limit"
+                                   type="number"/></td>
+                        <td *ngIf="gssForm.get('gssDetails')['length'] > 1">
+                            <button class="btn btn-sm btn-flat ng-star-inserted cursor" (click)="removeGss(i)">
+                                <em class="fas fa-trash bg-transparent"></em>
+                            </button>
+                        </td>
+                    </ng-container>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="3">Grand Total</td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="totalFundedLimited"
+                               type="number">
+                    </td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="totalNonFundedLimited"
+                               type="number">
+                    </td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="totalLimited1"
+                               type="number">
+                    </td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="3">Total Group Limit exceeding 1 year</td>
+                    <td colspan="3">
+                        <input class="form-control text-center"
+                               formControlName="totalLimitExceed1Year"
+                               type="text">
+                    </td>
+
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="3">Total Increase During Current Financial Year(Including Proposed Limit)</td>
+                    <td colspan="3">
+                        <input class="form-control text-center"
+                               formControlName="totalIncreaseCurrent"
+                               type="text">
+                    </td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="3">Other Liabilities</td>
+                    <td colspan="3">
+                        <input class="form-control text-center"
+                               formControlName="otherLiabilities"
+                               type="text">
+                    </td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="3">Earning from proposed relation in next one year</td>
+                    <td colspan="3">
+                        <input class="form-control text-center"
+                               formControlName="earningProposedRelation"
+                               type="number">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <input (click)="addGssData()" class="btn btn-sm btn-flat btn-primary"
+                       type="button" value="Add More"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label for="gssRemark">Remarks:</label>
+            <textarea rows="5" id="gssRemark" formControlName="gssRemark" class="form-control"
+                      placeholder="Remarks"></textarea>
+        </div>
+        <div class="col-md-12 mt-3">
+            <label for="backgroundDetail">Group's Background and associated companies details:</label>
+            <textarea rows="5" id="backgroundDetail" formControlName="backgroundDetail" class="form-control"
+                      placeholder="Group's Background and associated companies details:"></textarea>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+            <button (click)="onSubmit()" nbButton type="button">save</button>
+        </div>
+    </div>
+</div>
