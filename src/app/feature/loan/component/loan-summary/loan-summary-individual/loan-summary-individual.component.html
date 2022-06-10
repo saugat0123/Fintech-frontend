@@ -11,11 +11,9 @@
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
             <!--                release and replacement-->
-            <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
                 <!--                    proposed security-->
                 <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
                                       [pending]="true"></app-security-summary>
-            </ng-container>
             <ng-container>
                 <!--                    existing security-->
                 <app-security-summary *ngIf="customerAllLoanList"

@@ -1,5 +1,5 @@
 <hr class="print-line">
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="securities?.length > 0">
     <div class="col-md-12">
         <p  class="header"><strong  class="header">{{pending ? 'Propose Security Schedule' : 'Existing Security Schedule'}}</strong></p>
         <div class="row" *ngIf="vehicleSelected">
@@ -719,7 +719,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let singleShareData of shareSecurity; let i = index">
+                    <tr *ngFor="let singleShareData of shareArray; let i = index">
                         <td>{{i + 1}}</td>
                         <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
                         <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
