@@ -89,5 +89,7 @@ export class CustomerInfoData {
     landBuildings: Array<LandBuilding>;
     selectedArray: string;
     commonLoanData: string;
+    gssData: string;
+    facilityUtilization: string;
 
 }
