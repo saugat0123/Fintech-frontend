@@ -66,11 +66,11 @@ export class FinancialUploadViewComponent implements OnInit {
 
     submitData() {
         this.spinner = true;
-        if (this.customerInfo.customerType === 'INSTITUTION' && this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
-            this.fg.append('sbk', JSON.stringify(this.form.value));
-        } else {
-            this.fg.append('sbk', '');
-        }
+        // if (this.customerInfo.customerType === 'INSTITUTION' && this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        //     this.fg.append('sbk', JSON.stringify(this.form.value));
+        // } else {
+        //     this.fg.append('sbk', '');
+        // }
         this.customerInfoService.uploadFinancialExcel(this.fg).subscribe((res: any) => {
             this.customerInfo = res.detail;
             this.financialData = JSON.parse(this.customerInfo.financial.data);

@@ -15,6 +15,10 @@ export class FinancialKeysPipe implements PipeTransform {
             return 'Common Size PL';
         }  else  if (value === 'cashFlowData') {
             return 'Detail CF';
+        } else  if (value === 'commonSizeBs') {
+            return 'Common Size BS';
+        } else  if (value === 'quickCashFlow') {
+            return 'Quick Cash Flow';
         } else {
             return value;
         }
