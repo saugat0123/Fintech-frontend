@@ -759,6 +759,24 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             });
         }
     }
+
+    saveOthersData(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.otherDetails = data;
+            this.customerInfoService.save(this.customerInfo)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Other Details!'));
+                    this.nbDialogRef.close();
+                    this.triggerCustomerRefresh.emit(true);
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Other Details!'));
+                });
+        }
+    }
     update(data) {
         this.customerInfo = data;
     }
