@@ -30,4 +30,5 @@ export class CompanyJsonData {
   relationshipSinceWithCustomer: string = undefined;
   irdReport: string;
   accountDetails: any;
+  otherRemarks: string;
 }
