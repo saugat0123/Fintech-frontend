@@ -5,6 +5,8 @@ import {SecurityLoanReferenceService} from '../../../../security-service/securit
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanType} from '../../../../loan/model/loanType';
+import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-security-tagger',
@@ -14,6 +16,7 @@ import {LoanType} from '../../../../loan/model/loanType';
 export class SecurityTaggerComponent implements OnInit {
   @Input() securities: Array<Security>;
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() mGroupCode;
   securityForm: FormGroup;
   limitExceed = [];
   isUsedAmount = [];
@@ -26,8 +29,11 @@ export class SecurityTaggerComponent implements OnInit {
   @Output() deleteEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   isRelease = false;
   existingSecurity = [];
+  customerInfoList: Array<CustomerInfoData>;
+
   constructor(private formBuilder: FormBuilder,
-              private securityLoanReferenceService: SecurityLoanReferenceService) { }
+              private securityLoanReferenceService: SecurityLoanReferenceService,
+              private customerInfoService: CustomerInfoService) { }
 
   ngOnInit() {
       if (LoanType[this.loanDataHolder.loanType] === LoanType.RELEASE_AND_REPLACEMENT) {
@@ -45,10 +51,35 @@ export class SecurityTaggerComponent implements OnInit {
       this.toggleSecurity();
       this.getAllSecurityByLoanHolderId();
     }
+      this.getAllCustomerSecurityByCustomerGroupCode();
   }
 
   get securityControls(): FormArray {
     return this.securityForm.get('securityDetails') as FormArray;
+  }
+
+  private getAllCustomerSecurityByCustomerGroupCode(): void {
+      if (!ObjectUtil.isEmpty(this.mGroupCode)) {
+          this.customerInfoService.getAllCustomerByGroupCode(this.mGroupCode).subscribe((response: any) => {
+             this.customerInfoList = response.detail;
+             if (this.customerInfoList.length > 0) {
+                 const securities = [];
+                 this.customerInfoList.forEach((customerInfoData: CustomerInfoData) => {
+                     if (customerInfoData.securities.length > 0) {
+                         customerInfoData.securities.forEach((security: Security) => {
+                             securities.push(security);
+                         });
+                     }
+                 });
+                 this.securities = securities;
+                 if (this.securities.length > 0) {
+                     this.setSecurities(this.securities);
+                     this.toggleSecurity();
+                     this.getAllSecurityByLoanHolderId();
+                 }
+             }
+          });
+      }
   }
 
     private getAllSecurityByLoanHolderId(): void {
@@ -97,7 +128,8 @@ export class SecurityTaggerComponent implements OnInit {
             coverage: [singleData.coverage],
             freeLimit: [singleData.considerValue],
             usedAmount: [singleData.usedAmount],
-              status: [singleData.status]
+            status: [singleData.status],
+            isCrossCollateral: [!ObjectUtil.isEmpty(this.mGroupCode) ? true : false]
           })
       );
     });
