@@ -7,4 +7,5 @@ export class SecurityLoanReference {
     coverage: number;
     data: string;
     customerLoan: LoanDataHolder;
+    isCrossCollateral: boolean;
 }

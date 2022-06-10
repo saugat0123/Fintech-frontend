@@ -78,4 +78,10 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/security/unlink?id=${id}&status=${status}`);
         return this.http.put(req.url, {}, {headers: req.header});
     }
+
+    public getAllCustomerByGroupCode(groupCode: string): Observable<any> {
+        const api = `${this.getApi()}/group-code/${groupCode}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }

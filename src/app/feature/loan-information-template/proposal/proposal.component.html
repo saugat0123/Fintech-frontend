@@ -1012,6 +1012,7 @@
                     <ng-container >
                         <div class="col-md-12" *ngIf="fromProfile">
                             <app-security-adder #securityAdderComponent (tagSecurityEmitter)="setLoanHolder($event)"
+                                                [mGroupCode]="customerInfo?.mgroupInfo?.groupCode"
                                                 [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"
                             (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
                         </div>

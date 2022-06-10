@@ -18,6 +18,8 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     @ViewChild('securityTaggerComponent', {static: false}) securityTagger: SecurityTaggerComponent;
     @Output() tagSecurityEmitter = new EventEmitter();
     @Output() deleteEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() mGroupCode;
+    fromGroupCode = false;
     proposedLimit: number;
     spinner = false;
     deleteTaggedSecurity = false;
@@ -28,6 +30,9 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.mGroupCode)) {
+            this.fromGroupCode = true;
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {

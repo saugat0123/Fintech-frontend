@@ -1,6 +1,7 @@
 <nb-card [nbSpinner]="spinner">
     <nb-card-header>
-        <strong>All Securities</strong>
+        <strong>All Securities</strong><br>
+        <span *ngIf="mGroupCode" class="text-danger font-italic">This customer has group code tagged so current security is from customer's group code</span>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="securityForm">

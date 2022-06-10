@@ -23,4 +23,5 @@ export class Security {
     collateralSiteVisits: Array<CollateralSiteVisit>;
     status: any;
     oldSecurityId: number;
+    isCrossCollateral: boolean;
 }
