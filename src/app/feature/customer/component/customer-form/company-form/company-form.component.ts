@@ -411,6 +411,14 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.paidUpCapital, Validators.required],
 
+            forexOnSale: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.forexOnSale],
+
+            forexOnPurchase: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.forexOnPurchase],
+
             issuedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.issuedCapital],
@@ -828,6 +836,8 @@ export class CompanyFormComponent implements OnInit {
         // capital
         this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
         this.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
+        this.capital.forexOnSale = this.companyInfoFormGroup.get('forexOnSale').value;
+        this.capital.forexOnPurchase = this.companyInfoFormGroup.get('forexOnPurchase').value;
         this.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
         this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
         this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
