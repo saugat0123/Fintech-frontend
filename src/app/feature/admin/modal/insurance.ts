@@ -13,4 +13,5 @@ export class Insurance extends BaseEntity {
   policyDocumentPath: string;
   remark: string;
   assetInsured: string;
+  endorsement: string;
 }

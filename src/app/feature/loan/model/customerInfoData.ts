@@ -90,5 +90,7 @@ export class CustomerInfoData {
     selectedArray: string;
     commonLoanData: string;
     gssData: string;
+    facilityUtilization: string;
+    otherDetails: string;
 
 }

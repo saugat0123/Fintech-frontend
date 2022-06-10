@@ -62,6 +62,7 @@ export class InsuranceComponent implements OnInit {
                 policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
                 policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)],
                 policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
+                endorsement: [ObjectUtil.setUndefinedIfNull(data.endorsement)],
                 remark: [ObjectUtil.setUndefinedIfNull(data.remark)],
                 assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured)]});
     }

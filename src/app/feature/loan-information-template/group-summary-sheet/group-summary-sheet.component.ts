@@ -28,31 +28,32 @@ export class GroupSummarySheetComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.gssData)) {
             const data = JSON.parse(this.gssData);
-            this.gssForm.patchValue(data);
+            this.buildForm(data);
             this.setGssData(data.gssDetails);
         } else {
+            this.buildForm();
             this.addGssData();
         }
     }
 
-    buildForm() {
+    buildForm(data?: any) {
         this.gssForm = this.formBuilder.group({
-            gssDate: [undefined],
-            lastGSSDate: [undefined],
-            groupName: [undefined],
-            groupCode: [undefined],
-            groupController: [undefined],
-            peakExposureLevel: [undefined],
+            gssDate: [data ? new Date(data.gssDate) : undefined],
+            lastGSSDate: [data ? new Date(data.lastGSSDate) : undefined],
+            groupName: [data ? data.groupName : undefined],
+            groupCode: [data ? data.groupCode : undefined],
+            groupController: [data ? data.groupController : undefined],
+            peakExposureLevel: [data ? data.peakExposureLevel : undefined],
             gssDetails: this.formBuilder.array([]),
-            totalFundedLimited: [undefined],
-            totalNonFundedLimited: [undefined],
-            totalLimited1: [undefined],
-            gssRemark: [undefined],
-            backgroundDetail: [undefined],
-            totalLimitExceed1Year: [undefined],
-            totalIncreaseCurrent: [undefined],
-            otherLiabilities: [undefined],
-            earningProposedRelation: [undefined],
+            totalFundedLimited: [data ? data.totalFundedLimited : undefined],
+            totalNonFundedLimited: [data ? data.totalNonFundedLimited : undefined],
+            totalLimited1: [data ? data.totalLimited1 : undefined],
+            gssRemark: [data ? data.gssRemark : undefined],
+            backgroundDetail: [data ? data.backgroundDetail : undefined],
+            totalLimitExceed1Year: [data ? data.totalLimitExceed1Year : undefined],
+            totalIncreaseCurrent: [data ? data.totalIncreaseCurrent : undefined],
+            otherLiabilities: [data ? data.otherLiabilities : undefined],
+            earningProposedRelation: [data ? data.earningProposedRelation : undefined],
         });
     }
     get form() {
