@@ -532,6 +532,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     getAllLoans(customerInfoId: number): void {
+        this.spinnerService.show();
         const search = {
             loanHolderId: customerInfoId.toString(),
             isStaged: 'true'
@@ -573,8 +574,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
                     this.loaded = true;
                 }
-            }, error => {
-                console.error(error);
+            this.spinnerService.hide();
+        }, error => {
+            this.spinnerService.hide();
+            console.error(error);
             });
     }
 
