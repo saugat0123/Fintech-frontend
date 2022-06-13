@@ -244,7 +244,7 @@
                                 <!--                                end of repayment mode-->
 
                                 <!--                start of installment amount div-->
-                                <div class="col-md-4"
+                                <div class="col-md-4" (change)="checkRepaymentMode()"
                                      *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral || isHomeLoan))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
@@ -285,7 +285,7 @@
                                     </div>
 
                                 <!--                start of Moratorium period amount div-->
-                                <div class="col-md-4"
+                                <div class="col-md-4" (change)="checkRepaymentMode()"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral || isHomeLoan">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Moratorium Period (Month)</strong></label>
