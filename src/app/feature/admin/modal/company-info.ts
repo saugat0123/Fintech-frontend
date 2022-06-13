@@ -5,6 +5,7 @@ import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
 import {ShareholderKyc} from './shareholder-kyc';
+import {CompanyContactDetail} from './crg/companyContactDetail';
 
 export class CompanyInfo {
     id: number;
@@ -44,4 +45,5 @@ export class CompanyInfo {
     accountNo: string;
     accountStrategy: string;
     customerCategory: any;
+    companyContactDetail: CompanyContactDetail;
 }

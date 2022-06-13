@@ -245,7 +245,12 @@
                             <li *ngIf="loanDataHolder?.insurance">
                                 <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                             </li>
-                            <!--Site-visit-->
+                            <!-- Security Details -->
+                            <li *ngIf="loanDataHolder?.security">
+                                <app-security-view [security]="loanDataHolder?.security">
+                                </app-security-view>
+                            </li>
+                            <!-- Site-visit -->
                             <li *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0">
                                 <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                                                      [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>

@@ -119,6 +119,10 @@
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
 <!--        <app-nta-statement-and-inspection></app-nta-statement-and-inspection>-->
     </li>
+    <li *ngIf="loanDataHolder?.security">
+        <app-security-view [security]="loanDataHolder?.security">
+        </app-security-view>
+    </li>
     <li>
         <!-- waiver deviations and deferral -->
         <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
