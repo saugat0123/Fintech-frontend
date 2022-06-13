@@ -2,8 +2,10 @@
     <nb-card-header class="text-center" >
     </nb-card-header>
     <nb-card-body>
-        <div *ngIf="customerInfo?.securities?.length > 0">
-            <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities" [loanDataHolder]="loanHolder"
+        <div *ngIf="customerInfo?.securities?.length > 0 || fromGroupCode">
+            <app-security-tagger #securityTaggerComponent [securities]="customerInfo?.securities"
+                                 [mGroupCode]="customerInfo?.mgroupInfo?.groupCode"
+                                 [loanDataHolder]="loanHolder"
                                        [proposedLimit]="proposedLimit" (deleteEmitter)="catchEmit($event)"></app-security-tagger>
         </div>
     </nb-card-body>

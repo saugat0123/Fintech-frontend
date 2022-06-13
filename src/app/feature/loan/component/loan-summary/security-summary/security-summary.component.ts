@@ -85,22 +85,11 @@ export class SecuritySummaryComponent implements OnInit {
 
     ngOnInit() {
         // Set Security Details for view
-        const securityLen = !ObjectUtil.isEmpty(this.securities) ? this.securities.length
-            : 0;
-        if (securityLen > 0) {
-            // this.securities = this.securities.filter((l: Security) => l.status === 'ACTIVE');
-            this.selectedSecurities();
-            this.setSelectedSecurities();
-        }
-
-        const loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ?
-            this.customerAllLoanList.length : 0;
-        if (loanListLen > 0 && ObjectUtil.isEmpty(this.securities) ) {
+        const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
+        if (loanListLen > 0 && this.securities.length < 1 ) {
             this.securities = [];
             if (this.pending) {
                 this.combineAllSecurity();
-                this.selectedSecurities();
-                this.setSelectedSecurities();
             } else {
                 this.combinedAllApprovedSecurity();
             }
@@ -113,11 +102,14 @@ export class SecuritySummaryComponent implements OnInit {
     combineAllSecurity() {
         this.customerAllLoanList.forEach((ld) => {
             if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
-                ld.securities.forEach((s) => {
-                    this.securities.push(s);
-                });
+                this.securities =  this.securities.concat(ld.securities);
             }
         });
+        if (this.securities.length > 0) {
+            this.selectedSecurities();
+            this.setSelectedSecurities();
+        }
+
     }
 
     combinedAllApprovedSecurity(): void {
