@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 text-center">
+    <div class="col-md-12 text-center" *ngIf="customerType === 'INDIVIDUAL'">
         <div class="row">
          <div class="col-md-4">
              <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
@@ -94,3 +94,69 @@
         </table>
     </div>
 </div>
+<div class="col-md-12" *ngIf="customerType === 'INSTITUTION'">
+    <label>Income earned by the Bank: last 1 year/Avg. utilization FB limit/s: <strong>{{initialData?.initialForm.utilization}}%</strong></label>
+    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+        <thead>
+            <tr class="text-white sb-bg-dark">
+                <th></th>
+                <th>Interest</th>
+                <th>Processing Fee</th>
+                <th>LC Comm.</th>
+                <th>Bg Comm.</th>
+                <th>Forex gains</th>
+                <th>Other</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">Customer</td>
+                <td class="text-center">{{initialData?.initialForm.interestCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.processingFeeCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.lcCommCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.bgCommCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.forexGainsCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.othersCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm.totalCustomer}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Group Total</td>
+                <td class="text-center">{{initialData?.initialForm.interestGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.processingFeeGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.lcCommGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.bgCommGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.forexGainsGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.othersGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm.totalGrp}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <label>Estimation of income for the Bank from the customer for the next one year, assuming <strong>{{initialData?.initialForm.utilization}}%</strong> utilization of the limit</label>
+    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+            <th>Facility</th>
+            <th>Interest</th>
+            <th>Processing Fee</th>
+            <th>Comm.</th>
+            <th>Forex gains</th>
+            <th>Other</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let projectedUtilization of financialData['initialForm']['projectedUtilizationFreeText'];">
+                <td class="text-center">{{projectedUtilization?.facility}}</td>
+                <td class="text-center">{{projectedUtilization?.interest}}</td>
+                <td class="text-center">{{projectedUtilization?.processingFee}}</td>
+                <td class="text-center">{{projectedUtilization?.comm}}</td>
+                <td class="text-center">{{projectedUtilization?.forexGains}}</td>
+                <td class="text-center">{{projectedUtilization?.others}}</td>
+                <td class="text-center">{{projectedUtilization?.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <label>Comments: {{initialData?.initialForm.comments}}</label>
+</div>
+

@@ -249,7 +249,7 @@
                                 <!--                                end of repayment mode-->
 
                                 <!--                start of installment amount div-->
-                                <div class="col-md-4"
+                                <div class="col-md-4" (change)="checkRepaymentMode()"
                                      *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral || isHomeLoan))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
@@ -290,7 +290,7 @@
                                 </div>
 
                                 <!--                start of Moratorium period amount div-->
-                                <div class="col-md-4"
+                                <div class="col-md-4" (change)="checkRepaymentMode()"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral || isHomeLoan">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Moratorium Period (Month)</strong></label>
@@ -336,101 +336,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!--<div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title"><strong>Limit Expiry/Loan Tenure </strong><br>
-                                            <div class="pt-3">
-                                                <input
-                                                        [ngClass]="{ 'is-untouched': (submitted) && formControls.limitExpiryMethod.errors }"
-                                                        formControlName="limitExpiryMethod"
-                                                        name="limitExpiryMethod" type="radio"
-                                                        value="ABSOLUTE"><strong>Absolute </strong>
-                                                <input formControlName="limitExpiryMethod" name="limitExpiryMethod"
-                                                       type="radio" value="CUSTOM"><strong> Custom</strong>
-                                                <small
-                                                        *ngIf="(submitted) && formControls.limitExpiryMethod.invalid && formControls.limitExpiryMethod.errors.required"
-                                                        style="color:#DC3545">
-                                                    Limit Expiry Method is required
-                                                </small>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="absoluteSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="dateOfExpiry"><strong>Date of Expiry</strong></label>
-                                        <input [nbDatepicker]="DOE"
-                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.dateOfExpiry.errors }"
-                                               class="form-control" formControlName="dateOfExpiry" id="dateOfExpiry"
-                                               name="dateOfExpiry" placeholder="Date of Expiry">
-                                        <nb-datepicker #DOE></nb-datepicker>
-                                        <div *ngIf="(submitted) && formControls.dateOfExpiry.invalid"
-                                             class="invalid-feedback">
-                      <span
-                              *ngIf="formControls.dateOfExpiry.errors.required">Date of Expiry is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="duration"><strong>Duration</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.duration.errors }"
-                                               class="form-control" formControlName="duration" id="duration"
-                                               name="duration" placeholder="Duration"
-                                               type="number">
-                                        <div *ngIf="(submitted) && formControls.duration.invalid"
-                                             class="invalid-feedback">
-                      <span
-                              *ngIf="formControls.duration.errors.required">Duration is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="frequency"><strong>Frequency</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid': (submitted ) && formControls.frequency.errors }"
-                                                class="custom-select" formControlName="frequency"
-                                                id="frequency"
-                                                name="frequency">
-                                            <option [ngValue]="undefined" hidden selected>Select</option>
-                                            <option value="DAY">Day(s)</option>
-                                            <option value="MONTH">Month(s)</option>
-                                            <option value="QUATER">Quarter(s)</option>
-                                            <option value="YEAR">Year(s)</option>
-                                        </select>
-                                        <div *ngIf="(submitted) && formControls.frequency.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.frequency.errors.required">Frequency is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="condition"><strong>Condition</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid': (submitted ) && formControls.condition.errors }"
-                                                class="custom-select" formControlName="condition"
-                                                id="condition"
-                                                name="condition">
-                                            <option [ngValue]="undefined" hidden selected>Select</option>
-                                            <option value="FROM THE DATE OF APPROVAL">From the date of approval</option>
-                                            <option value="FROM THE DATE OF INITIATION OF LOAN">From the date of
-                                                initiation of loan
-                                            </option>
-                                            <option value="FROM EACH DEAL">From each deal</option>
-                                            <option value="FROM THE DATE OF IMPLEMENTATION">From the date of implementation</option>
-                                        </select>
-                                        <div *ngIf="(submitted) && formControls.condition.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.condition.errors.required">Condition is required</span>
-                                        </div>
-                                    </div>
-                                </div>-->
-                                <!--                end of Moratorium Period amount div-->
-
-
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
                                         <strong>Purpose {{customerType === 'INDIVIDUAL' ? ' and Justification' :
@@ -482,12 +387,13 @@
                                     <label class="title"><strong>Pricing</strong></label>
                                     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
-                                            <th>Pricing</th>
-                                            <th>Card Rate</th>
-                                            <th>Existing Rate</th>
-                                            <th>Proposed Rate</th>
-                                        </tr>
+                                            <tr class="sb-bg-dark text-white">
+                                                <th>Pricing</th>
+                                                <th>Card Rate</th>
+                                                <th>Existing Rate</th>
+                                                <th>Proposed Rate</th>
+                                                <th>Deviation with Card Rate</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                         <ng-container>
@@ -512,6 +418,10 @@
                                                            (input)="checkRepaymentMode(); checkCustomRepaymentMode()"
                                                            appDecimalNumber>
                                                 </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestDevCardRate"
+                                                           id="interestDevCardRate">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">
@@ -529,6 +439,10 @@
                                                     <input rows="1" class="form-control mt-1 mb-1" type="number"
                                                            formControlName="processProposedRate"
                                                            id="processProposedRate">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processDevCardRate"
+                                                           id="processDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
@@ -549,6 +463,10 @@
                                                            formControlName="commissionPercentage"
                                                            id="commissionPercentage">
                                                 </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionDevCardRate"
+                                                           id="commissionDevCardRate">
+                                                </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">
@@ -563,15 +481,16 @@
                                                            formControlName="existCashMargin"
                                                            id="existCashMargin"></td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
-                                                           formControlName="cashMargin">
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="cashMargin">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="cashMarginDevCardRate"
+                                                           id="cashMarginDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    Prepayment Charge
-                                                </td>
-                                                <td colspan="3">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Prepayment Charge</td>
+                                                <td colspan="4">
                                                     <table class="table-borderless table-sm" style="width: 100%">
                                                         <tbody>
                                                         <td class="border-right">If paid by own sources
@@ -591,42 +510,30 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    STR Charge
-                                                </td>
-                                                <td colspan="3">
-                                                    <input rows="1" class="form-control mt-1 mb-1"
-                                                           formControlName="strCharge"
-                                                           id="strCharge">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">STR Charge</td>
+                                                <td colspan="4">
+                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="strCharge"
+                                                              id="strCharge">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    Commitment Fee
-                                                </td>
-                                                <td colspan="3">
-                                                    <input rows="1" class="form-control mt-1 mb-1"
-                                                           formControlName="commitmentFee">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
+                                                <td colspan="4">
+                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    Administrative Rate
-                                                </td>
-                                                <td colspan="3">
-                                                    <input rows="1" class="form-control mt-1 mb-1"
-                                                           formControlName="serviceCharge"
-                                                           id="serviceCharge" appDecimalNumber>
-                                                </td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
+                                                    <td colspan="4">
+                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
+                                                                  id="serviceCharge" appDecimalNumber>
+                                                    </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    Other
-                                                </td>
-                                                <td colspan="3">
-                                                    <input rows="1" class="form-control mt-1 mb-1"
-                                                           formControlName="other"
-                                                           id="other">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Other</td>
+                                                <td colspan="4">
+                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="other"
+                                                                  id="other">
                                                 </td>
                                             </tr>
                                         </ng-container>

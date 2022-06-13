@@ -294,7 +294,7 @@
                         <label class="title"><strong>Utilization:</strong><strong
                                 class="text-danger">*</strong></label>
                         <input  formControlName="utilization" placeholder="utilization"
-                                type="text" class="form-control">
+                                type="number" class="form-control">
                     </div>
                 </div>
             </nb-card-body>
@@ -315,23 +315,23 @@
                     <tbody>
                     <tr>
                         <td>Customer</td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestCustomer" id="interestCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processingFeeCustomer" id="processingFeeCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="lcCommCustomer" id="lcCommCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="bgCommCustomer" id="bgCommCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="forexGainsCustomer" id="forexGainsCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="othersCustomer" id="othersCustomer"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="totalCustomer" id="totalCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="interestCustomer" id="interestCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="processingFeeCustomer" id="processingFeeCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="lcCommCustomer" id="lcCommCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="bgCommCustomer" id="bgCommCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="forexGainsCustomer" id="forexGainsCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="othersCustomer" id="othersCustomer"></td>
+                        <td><input readonly rows="1"  class="form-control mt-1 mb-1" (change)="calculateTotal()" formControlName="totalCustomer" id="totalCustomer"></td>
                     </tr>
                     <tr>
                         <td>Group Total</td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestGrp" id="interestGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processingFeeGrp" id="processingFeeGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="lcCommGrp" id="lcCommGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="bgCommGrp" id="bgCommGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="forexGainsGrp" id="forexGainsGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="othersGrp" id="othersGrp"></td>
-                        <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="totalGrp" id="totalGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="interestGrp" id="interestGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="processingFeeGrp" id="processingFeeGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="lcCommGrp" id="lcCommGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="bgCommGrp" id="bgCommGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="forexGainsGrp" id="forexGainsGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="othersGrp" id="othersGrp"></td>
+                        <td><input readonly rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" formControlName="totalGrp" id="totalGrp"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -342,8 +342,8 @@
                     <div class="form-group">
                         <label class="title"><strong>Projected Utilization:</strong><strong
                                 class="text-danger">*</strong></label>
-                        <input  formControlName="utilization" placeholder="Projected Utilization"
-                                type="text" class="form-control">
+                        <input  formControlName="projectedUtilization" placeholder="Projected Utilization"
+                                type="number" class="form-control">
                     </div>
                 </div>
             </nb-card-body>
@@ -366,12 +366,12 @@
                             <ng-container [formGroupName]="i">
                                 <tr>
                                     <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="facility" id="facility"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interest" id="interest"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processingFee" id="processingFee"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="comm" id="comm"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="forexGains" id="forexGains"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="others" id="others"></td>
-                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="total" id="total"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="interest" id="interest"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="processingFee" id="processingFee"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="comm" id="comm"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="forexGains" id="forexGains"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="others" id="others"></td>
+                                    <td><input readonly rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="total" id="total"></td>
                                     <td *ngIf="financialForm.get('projectedUtilizationFreeText') ['length'] > 0" width="2%"
                                         style="vertical-align: middle;font-weight: bold; text-align: center">
                                         <a nbButton status="primary" size="tiny" nbTooltip="Remove"
@@ -387,6 +387,15 @@
                 <div class="py-2 d-flex justify-content-end">
                     <input (click)="addProjectedUtilization()" class="btn btn-sm btn-flat float-right btn-primary"
                            type="button" value="Add More"/>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title"><strong>Comments:</strong></label>
+                        <textarea rows="3" formControlName="comments" placeholder="comments"
+                                  type="number" class="form-control"></textarea>
+                    </div>
                 </div>
             </nb-card-body>
         </nb-card>

@@ -12,7 +12,8 @@ import {ToastService} from '../../../@core/utils';
 export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
-  @Input() customerType: any;
+  @Input() customerType;
+  @Input() data;
   isMicro = false;
   financialData: any;
   isBusinessLoan = false;
@@ -20,6 +21,7 @@ export class FinancialViewComponent implements OnInit {
   disableCrgAlphaParams = environment.disableCrgAlpha;
   auditorList = [];
   incomeSource;
+  initialData;
 
   constructor(protected toastService: ToastService) {
   }
@@ -31,6 +33,10 @@ export class FinancialViewComponent implements OnInit {
         this.isBusinessLoan = true;
       }
     }
+    if (this.data !== undefined) {
+      this.initialData = JSON.parse(this.data.data);
+    }
+    console.log(this.data, 'data');
     this.auditorList = this.financialData.auditorList;
   }
 

@@ -19,7 +19,6 @@
                 <th>Province</th>
                 <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
                 <th>Type</th>
-                <th>Business Unit</th>
                 <th>Loan Document No</th>
                 <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Approved On <em class="fas fa-sort"></em></th>
                 <th *ngIf="isMaker">Add Exposure</th>
@@ -37,7 +36,6 @@
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                     <td *ngIf="isMaker"><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>

@@ -104,16 +104,6 @@
                                             class="sb-small">INDIVIDUAL</span></option>
                                 </select>
                             </div>
-                            <div class="col-md-3 mb-3 py-2">
-                                <select
-                                        class="form-control form-control-tiny" formControlName="clientType">
-                                    <option [ngValue]="null">Select Business Unit</option>
-                                    <option *ngFor="let data of (clientType | keyvalue)" [ngValue]="data?.key">
-                                        <span
-                                                class="sb-small">
-                                            {{data?.value}}</span></option>
-                                </select>
-                            </div>
                             <div class="col-md-3 py-2">
                                 <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
                                        placeholder="Customer Code" type="text">
@@ -151,7 +141,6 @@
                             <th>Customer Name</th>
                             <th>Customer Code</th>
                             <th>Customer Type</th>
-                            <th>Business Unit</th>
                             <th>Contact Number</th>
                             <th>Detail</th>
                         </tr>
@@ -165,7 +154,6 @@
                                 <td>{{loanHolderLoans?.customerInfo?.name}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
-                                <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
 
                                 <td>
