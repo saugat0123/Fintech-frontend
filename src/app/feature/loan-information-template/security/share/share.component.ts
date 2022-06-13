@@ -11,6 +11,7 @@ import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
 import {NbToastrService} from '@nebular/theme';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-share',
@@ -30,6 +31,7 @@ export class ShareComponent implements OnInit {
   submitted = false;
   @Input() security: Security;
   @Input() isEdit = false;
+  @Input() calendarType: CalendarType;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -116,6 +118,7 @@ export class ShareComponent implements OnInit {
           ratioAsPerAuitedFinancial: [data.ratioAsPerAuitedFinancial],
           shareRate: [data.shareRate],
           drawingPower: [data.drawingPower],
+          shareSecurityFirstValuationDate: [data.shareSecurityFirstValuationDate]
         })
     );
   }
@@ -191,6 +194,7 @@ export class ShareComponent implements OnInit {
       ratioAsPerAuitedFinancial: [undefined],
       shareRate: [undefined],
       drawingPower: [undefined],
+      shareSecurityFirstValuationDate: [undefined]
     });
   }
 

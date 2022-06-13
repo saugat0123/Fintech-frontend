@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-corporation-guarantee',
@@ -14,6 +15,7 @@ export class CorporationGuaranteeComponent implements OnInit {
     ckeConfig;
     @Input() security: Security;
     @Input() isEdit = false;
+    @Input() calendarType: CalendarType;
 
 
     constructor(private formBuilder: FormBuilder) {

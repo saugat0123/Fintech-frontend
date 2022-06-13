@@ -678,9 +678,9 @@
                                        [nbDatepicker]="firstValuationDate"
                                        type="text"/>
                                 <app-calendar
-                                        (messageToEmit)="landBuildingForm.get(['landDetails',i,'landBuildingFirstValuationDate']).patchValue($event?.eDate)"
+                                        (messageToEmit)="landBuildingForm.get(['landBuilding',i,'landBuildingFirstValuationDate']).patchValue($event?.eDate)"
                                         *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="landBuildingForm.get(['landDetails',i,'landBuildingFirstValuationDate']).value"></app-calendar>
+                                        [ePreDate]="landBuildingForm.get(['landBuilding',i,'landBuildingFirstValuationDate']).value"></app-calendar>
                                 <nb-datepicker #firstValuationDate></nb-datepicker>
                             </div>
                         </div>

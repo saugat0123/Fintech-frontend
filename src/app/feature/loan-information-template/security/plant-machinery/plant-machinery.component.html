@@ -172,9 +172,9 @@
                                    [nbDatepicker]="firstValuationDate"
                                    type="text"/>
                             <app-calendar
-                                    (messageToEmit)="plantMachineryForm.get(['landDetails',i,'plantMachineryFirstValuationDate']).patchValue($event?.eDate)"
+                                    (messageToEmit)="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).patchValue($event?.eDate)"
                                     *ngIf="calendarType === 'BS'"
-                                    [ePreDate]="plantMachineryForm.get(['landDetails',i,'plantMachineryFirstValuationDate']).value"></app-calendar>
+                                    [ePreDate]="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).value"></app-calendar>
                             <nb-datepicker #firstValuationDate></nb-datepicker>
                         </div>
                     </div>

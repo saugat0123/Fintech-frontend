@@ -54,6 +54,7 @@ export class InsurancePolicyComponent implements OnInit {
                 earlySurrenderDate: [formData.earlySurrenderDate],
                 consideredValue: [formData.considerValue],
                 cashBackAmount: [formData.cashBackAmount],
+                insurancePolicyFirstValuationDate: [formData.insurancePolicyFirstValuationDate],
             })
         );
     }
@@ -94,7 +95,8 @@ export class InsurancePolicyComponent implements OnInit {
                 surrenderValue: [undefined],
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
-                cashBackAmount: [undefined]
+                cashBackAmount: [undefined],
+                insurancePolicyFirstValuationDate: [undefined]
             }
         );
     }

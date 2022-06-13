@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-lease-assignment',
@@ -13,6 +14,7 @@ export class LeaseAssignmentComponent implements OnInit {
   ckeConfig;
   @Input() security: Security;
   @Input() isEdit = false;
+  @Input() calendarType: CalendarType;
 
 
   constructor(private formBuilder: FormBuilder) { }
@@ -35,7 +37,8 @@ export class LeaseAssignmentComponent implements OnInit {
           otherDetail: [formData.otherDetail],
           considerValue: [formData.considerValue],
           distressValue: [formData.distressValue],
-          fairMarketValue: [formData.fairMarketValue]
+          fairMarketValue: [formData.fairMarketValue],
+          leaseAssignmentFirstValuationDate: [formData.leaseAssignmentFirstValuationDate]
         })
     );
   }
@@ -55,7 +58,8 @@ export class LeaseAssignmentComponent implements OnInit {
           otherDetail: [undefined],
           considerValue: 0,
           distressValue: [undefined],
-          fairMarketValue: [undefined]
+          fairMarketValue: [undefined],
+          leaseAssignmentFirstValuationDate: [undefined]
         }
     );
   }

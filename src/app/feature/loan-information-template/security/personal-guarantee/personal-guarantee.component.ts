@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-personal-guarantee',
@@ -14,7 +15,7 @@ export class PersonalGuaranteeComponent implements OnInit {
     ckeConfig;
     @Input() security: Security;
     @Input() isEdit = false;
-
+    @Input() calendarType: CalendarType;
 
 
     constructor(private formBuilder: FormBuilder) {
@@ -42,7 +43,8 @@ export class PersonalGuaranteeComponent implements OnInit {
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
-                otherDetail: [formData.otherDetail]
+                otherDetail: [formData.otherDetail],
+                personalGuaranteeFirstValuationDate: [formData.personalGuaranteeFirstValuationDate]
             })
         );
     }
@@ -76,7 +78,8 @@ export class PersonalGuaranteeComponent implements OnInit {
                 considerValue: 0,
                 fairMarketValue: [undefined],
                 distressValue: [undefined],
-                otherDetail: [undefined]
+                otherDetail: [undefined],
+                personalGuaranteeFirstValuationDate: [undefined]
             }
         );
     }

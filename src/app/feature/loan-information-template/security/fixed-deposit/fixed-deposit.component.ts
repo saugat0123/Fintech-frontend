@@ -43,7 +43,8 @@ export class FixedDepositComponent implements OnInit {
           remarks: [formData.remarks],
           accountHolderName: [formData.accountHolderName],
           accountNumber: [formData.accountNumber],
-          tenureStartDate: [formData.tenureStartDate]
+          tenureStartDate: [formData.tenureStartDate],
+            fixedDepositFirstValuationDate: [formData.fixedDepositFirstValuationDate]
         })
     );
   }
@@ -75,7 +76,8 @@ export class FixedDepositComponent implements OnInit {
       remarks: [undefined],
       accountHolderName: [undefined],
       accountNumber: [undefined, Validators.required],
-      tenureStartDate: [undefined]
+      tenureStartDate: [undefined],
+        fixedDepositFirstValuationDate: [undefined]
     });
   }
 

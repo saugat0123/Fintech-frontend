@@ -302,7 +302,7 @@
                                   type="text"/>
                        </div>
                    </div>
-                   <div class="col-md-3">
+                   <div class="col-md-4">
                        <div class="form-group">
                            <label class="title" for="vehicleFirstValuationDate">First Valuation Date</label>
                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
@@ -312,9 +312,9 @@
                                   [nbDatepicker]="firstValuationDate"
                                   type="text"/>
                            <app-calendar
-                                   (messageToEmit)="vehicleForm.get(['landDetails',i,'vehicleFirstValuationDate']).patchValue($event?.eDate)"
+                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).patchValue($event?.eDate)"
                                    *ngIf="calendarType === 'BS'"
-                                   [ePreDate]="vehicleForm.get(['landDetails',i,'vehicleFirstValuationDate']).value"></app-calendar>
+                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).value"></app-calendar>
                            <nb-datepicker #firstValuationDate></nb-datepicker>
                        </div>
                    </div>
