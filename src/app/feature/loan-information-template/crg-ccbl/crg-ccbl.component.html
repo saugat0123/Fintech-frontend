@@ -17,10 +17,23 @@
                 </span>
                 </div>
             </div>
-            <div class="col-md-12">
-                <label for="score"><b>Obtained Score</b></label>
-                <br>
-                <input [(ngModel)]="obtainedScore" (change)="calculateCCBL()" name="obtainedScore" id="score" nbInput>
+            <div class="col-md-12" class="d-flex">
+                <div class="mr-5">
+                    <label for="score"><b>Obtained Score :</b></label>
+                    <br>
+                    <input [(ngModel)]="obtainedScore" (change)="calculateCCBL()" name="obtainedScore" id="score" nbInput>
+                </div>
+                <div>
+                    <nb-card-body>
+                        <label><b>Fiscal Year :</b></label>
+                        <br>
+                        <nb-select placeholder="Select Fiscal Year" style="width: 230px !important;" [(ngModel)]="selectedFiscalYear">
+                            <nb-option name="selectedFiscalYear" *ngFor="let fiscalYear of fiscalYearArray" [value]="fiscalYear.year">{{fiscalYear.year}}
+                                <ng-container *ngIf="fiscalYear?.isCurrentYear"> (Current Year)</ng-container>
+                            </nb-option>
+                        </nb-select>
+                    </nb-card-body>
+                </div>
             </div>
             <div class="col-md-4">
                 <br>
