@@ -692,33 +692,24 @@ export class ProposalComponent implements OnInit {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
     const moratoriumPeriod = this.proposalForm.get('moratoriumPeriod').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
-    const n = this.proposalForm.get('tenureDurationInMonths').value;
+    let n = this.proposalForm.get('tenureDurationInMonths').value;
+    const eqiRate = Number(this.proposalForm.get('interestRate').value) / (4 * 100);
     if (!ObjectUtil.isEmpty(moratoriumPeriod)) {
-        if (!ObjectUtil.isEmpty(n) && !ObjectUtil.isEmpty(proposedAmount)) {
-            const emi = Number(proposedAmount / Number(n - moratoriumPeriod));
-            switch (repaymentMode) {
-                case 'emi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
-                    break;
-                case 'eqi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
-                    break;
-            }
-        }
+        n = n - moratoriumPeriod;
+    }
+    if (proposedAmount && rate && n) {
+      const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+      const eqi = Number((proposedAmount * eqiRate * Math.pow(1 + eqiRate, n / 3)) / Number(Math.pow(1 + eqiRate, n / 3) - 1));
+      switch (repaymentMode) {
+        case 'emi':
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          break;
+        case 'eqi':
+          this.proposalForm.get('installmentAmount').patchValue(Number(eqi.toFixed(2)));
+          break;
+      }
     } else {
-        if (proposedAmount && rate && n) {
-            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-            switch (repaymentMode) {
-                case 'emi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(8)));
-                    break;
-                case 'eqi':
-                    this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(8)));
-                    break;
-            }
-        } else {
-            this.proposalForm.get('installmentAmount').patchValue(undefined);
-        }
+      this.proposalForm.get('installmentAmount').patchValue(undefined);
     }
   }
 
