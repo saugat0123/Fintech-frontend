@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FacilityUtilizationComponent} from './facility-utilization.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NbButtonModule, NbDatepickerModule, NbInputModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbCheckboxModule, NbDatepickerModule, NbInputModule} from '@nebular/theme';
 import {CoreModule} from '../../../../@core/core.module';
 
 
@@ -15,7 +15,9 @@ import {CoreModule} from '../../../../@core/core.module';
         NbInputModule,
         CoreModule,
         NbButtonModule,
-        NbDatepickerModule
+        NbDatepickerModule,
+        NbCardModule,
+        NbCheckboxModule
     ],
   exports: [FacilityUtilizationComponent]
 })
