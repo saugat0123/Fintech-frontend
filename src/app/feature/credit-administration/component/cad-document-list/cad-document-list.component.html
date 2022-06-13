@@ -18,7 +18,6 @@
                 <th>Province</th>
                 <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
 <!--                <th>Type</th>-->
-                <th>Business Unit</th>
                 <th>Document Status</th>
                 <th
                     nbTooltip="Sort By" (click)="asc = !asc;sortFilter('cadCurrentStage.toUser.name',asc === true ? 'ASC':'DESC')"
@@ -45,7 +44,6 @@
                         {{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
 <!--                    <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>-->
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}-<span *ngIf="model?.cadCurrentStage?.toUser?.name">{{model?.cadCurrentStage?.toRole?.roleName}}</span></td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date :'medium'}}</td>
