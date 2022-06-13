@@ -106,6 +106,7 @@ export class LandComponent implements OnInit {
           landOtherBranchChecked: [formData.landOtherBranchChecked],
           kycCheckForLand: [formData.kycCheckForLand],
           landRate: [formData.landRate],
+          landFirstValuationDate: [formData.landFirstValuationDate],
         })
     );
   }
@@ -306,7 +307,8 @@ export class LandComponent implements OnInit {
       ownerKycApplicableData: [undefined],
       landOtherBranchChecked: [undefined],
       kycCheckForLand: [false],
-      landRate: [undefined]
+      landRate: [undefined],
+      landFirstValuationDate: [undefined]
     });
   }
 

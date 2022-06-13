@@ -349,6 +349,22 @@
                                            type="text"/>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentFirstValuationDate">First Valuation Date</label>
+                                    <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                           formControlName="apartmentFirstValuationDate"
+                                           id="apartmentFirstValuationDate"
+                                           name="apartmentFirstValuationDate" placeholder="First Valuation Date"
+                                           [nbDatepicker]="firstValuationDate"
+                                           type="text"/>
+                                    <app-calendar
+                                            (messageToEmit)="apartmentForm.get(['landDetails',i,'apartmentFirstValuationDate']).patchValue($event?.eDate)"
+                                            *ngIf="calendarType === 'BS'"
+                                            [ePreDate]="apartmentForm.get(['landDetails',i,'apartmentFirstValuationDate']).value"></app-calendar>
+                                    <nb-datepicker #firstValuationDate></nb-datepicker>
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="apartmentStaffRepresentativeDesignation">Staff

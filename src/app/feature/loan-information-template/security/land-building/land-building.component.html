@@ -668,6 +668,22 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landBuildingFirstValuationDate">First Valuation Date</label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                       formControlName="landBuildingFirstValuationDate"
+                                       id="landBuildingFirstValuationDate"
+                                       name="landBuildingFirstValuationDate" placeholder="First Valuation Date"
+                                       [nbDatepicker]="firstValuationDate"
+                                       type="text"/>
+                                <app-calendar
+                                        (messageToEmit)="landBuildingForm.get(['landDetails',i,'landBuildingFirstValuationDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="landBuildingForm.get(['landDetails',i,'landBuildingFirstValuationDate']).value"></app-calendar>
+                                <nb-datepicker #firstValuationDate></nb-datepicker>
+                            </div>
+                        </div>
                         <div class="col-md-4"
                              *ngIf="landBuildingForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
                             <div class="form-group">

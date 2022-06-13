@@ -97,7 +97,8 @@ export class ApartmentComponent implements OnInit {
           apartmentOtherBranchChecked: [formData.apartmentOtherBranchChecked],
           proposedOwner: [formData.proposedOwner],
           apartmentRate: [formData.apartmentRate],
-          buildingReliasableValue: [formData.buildingReliasableValue]
+          buildingReliasableValue: [formData.buildingReliasableValue],
+          apartmentFirstValuationDate: [formData.apartmentFirstValuationDate]
         })
     );
 
@@ -203,7 +204,8 @@ export class ApartmentComponent implements OnInit {
       apartmentOtherBranchChecked: [undefined],
       proposedOwner: [undefined],
       apartmentRate: [undefined],
-      buildingReliasableValue: [undefined]
+      buildingReliasableValue: [undefined],
+      apartmentFirstValuationDate: [undefined]
     });
   }
 

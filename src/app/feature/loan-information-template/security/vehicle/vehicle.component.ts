@@ -85,7 +85,8 @@ export class VehicleComponent implements OnInit {
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
-                freeLimit: [formData.freeLimit]
+                freeLimit: [formData.freeLimit],
+                vehicleFirstValuationDate: [formData.vehicleFirstValuationDate]
             })
         );
     }
@@ -210,7 +211,8 @@ export class VehicleComponent implements OnInit {
             considerValue: [undefined],
             fairMarketValue: [undefined],
             distressValue: [undefined],
-            freeLimit: [undefined]
+            freeLimit: [undefined],
+            vehicleFirstValuationDate: [undefined]
         });
     }
 

@@ -75,6 +75,7 @@ export class PlantMachineryComponent implements OnInit {
                 plantOtherBranchChecked: [formData.plantOtherBranchChecked],
                 realisableRate: [formData.realisableRate],
                 realisableValue: [formData.realisableValue],
+                plantMachineryFirstValuationDate: [formData.plantMachineryFirstValuationDate]
             })
         );
 
@@ -199,7 +200,8 @@ export class PlantMachineryComponent implements OnInit {
       plantMachineryStaffRepresentativeName2: [undefined],
       plantOtherBranchChecked: [undefined],
       realisableRate: [undefined],
-      realisableValue: [undefined]
+      realisableValue: [undefined],
+        plantMachineryFirstValuationDate: [undefined]
     });
   }
 
