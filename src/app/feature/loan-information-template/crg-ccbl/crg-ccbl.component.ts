@@ -7,6 +7,9 @@ import {CustomerInfoService} from '../../customer/service/customer-info.service'
 import {ToastService} from '../../../@core/utils';
 import {CommonService} from '../../../@core/service/common.service';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CalendarType} from '../../../@core/model/calendar-type';
+import {FiscalYearService} from '../../admin/service/fiscal-year.service';
+import {FiscalYear} from '../../admin/modal/FiscalYear';
 
 @Component({
     selector: 'app-crg-ccbl',
@@ -17,6 +20,7 @@ export class CrgCcblComponent implements OnInit {
     constructor(
         private spinner: NgxSpinnerService,
         private customerInfoService: CustomerInfoService,
+        protected fiscalYearService: FiscalYearService,
         private toastService: ToastService,
         public commonService: CommonService) {
     }
@@ -31,14 +35,27 @@ export class CrgCcblComponent implements OnInit {
     restUrl = ApiConfig.URL;
     thresholdPoint: string;
     thresholdOutcome: string;
+    calenderType = CalendarType.AD;
+    fiscalYearArray = new Array<FiscalYear>();
+    selectedFiscalYear: string;
 
     ngOnInit() {
+        this.getFiscalYear();
         if (!ObjectUtil.isEmpty(this.customerInfo.crgCcbl)) {
             this.data = JSON.parse(this.customerInfo.crgCcbl);
             this.obtainedScore = this.data.data;
+            this.selectedFiscalYear = this.data.selectedFiscalYear;
             this.thresholdPoint = this.data.thresholdPoint;
             this.thresholdOutcome = this.data.thresholdOutcome;
         }
+    }
+    getFiscalYear() {
+        this.fiscalYearService.getAll().subscribe(response => {
+           this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
     }
 
     upload(event) {
@@ -57,6 +74,7 @@ export class CrgCcblComponent implements OnInit {
                     const data = {
                         file: res.detail,
                         data: this.obtainedScore,
+                        selectedFiscalYear: this.selectedFiscalYear,
                         thresholdPoint: this.thresholdPoint,
                         thresholdOutcome: this.thresholdOutcome
                     };
@@ -73,6 +91,7 @@ export class CrgCcblComponent implements OnInit {
             const data = {
                 file: this.data.file ? this.data.file : '',
                 data: this.obtainedScore,
+                selectedFiscalYear: this.selectedFiscalYear,
                 thresholdPoint: this.thresholdPoint,
                 thresholdOutcome: this.thresholdOutcome
             };
