@@ -72,7 +72,7 @@
         </nb-accordion-item>
     </nb-accordion>
 
-    <form [formGroup]="creditRiskGrading">
+    <form [formGroup]="creditRiskGrading" [nbSpinner]="spinner">
         <mark><strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
         <table class="table table-bordered table-striped text-center">
             <thead>
@@ -85,53 +85,130 @@
                 <th>Score Obtained</th>
             </tr>
             </thead>
-            <tbody>
-            <ng-container formArrayName="groupObject"
-                          *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
-                <ng-container [formGroupName]="i">
-                    <tr style="background-color: #17a2b1">
+<!--            *ngIf="creditHistory?.toString() === '0'"-->
+            <tbody formArrayName="groupObject"
+                   *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
+            <ng-container [formGroupName]="i">
+                <ng-container *ngFor="let answer of crg">
+                    <tr style="background-color: #17a2b1" >
                         <th>Topic</th>
-                        <th>{{crg?.groupName}}</th>
-                        <th>{{crg?.weightage}} %</th>
+                        <th>{{answer?.groupName}}</th>
+                        <th>{{answer?.weightage}} %</th>
                         <td></td>
                         <td></td>
-                        <th><span>Total:</span>{{crg?.groupTotal}}</th>
+                        <th><span>Total:</span>{{answer?.groupTotal}}</th>
                     </tr>
-                    <tr *ngFor="let ans of crgGammaData[i]?.gammaQuestion; let ii = index">
-                        <td>{{ii + 1}}</td>
-                        <td class="desc-td-width">
-                                <span >{{ans?.description}}</span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <ul>
-                                <ng-container *ngFor="let answer of ans?.answers">
-                                    <li>
-                                        {{ answer?.description }}
-                                    </li>
+                    <tr *ngFor="let ans of parseKeys(answer?.gammaQuestionAnswer); let ii = index" [formArrayName]="i">
+                        <div>
+                            <td>{{ii+1}}</td>
+                            <td></td>
+                            <td>{{ans}}</td>
+                            <td>
+                                <ul>
+                                    <ng-container *ngFor="let answ of withHistoryAns[ii]?.answers">
+                                        test
+                                        <li>{{answ?.description}}</li>
+                                    </ng-container>
+                                </ul>
+                            </td>
+                            <td>
+                                <ng-container *ngFor="let answ of withHistoryAns[ii]?.answers">
+                                    here
+                                    <div formGroupName="gammaQuestionAnswer">
+                                        <input [formControlName]="ans" [value]="answ?.points" type="radio">
+                                    </div>
                                 </ng-container>
-                            </ul>
-                        </td>
-                        <td>
-                            <ng-container *ngFor="let answer of ans?.answers; let ii = index">
-                                <div  formGroupName="gammaQuestionAnswer">
-                                    <input (click)="onChangeOption(ans?.description, answer?.points, answer?.description, i, crg?.groupName)"
-                                           [checked]="totalPointMapper.get(ans?.description) === answer?.points"
-                                           class="form-check-input"
-                                           [value]="answer?.points"
-                                           [formControlName]="ans?.description"
-                                           [id]="ans?.description + ii"
-                                           type="radio">
-                                    <br>
-                                </div>
-                            </ng-container>
-                        </td>
-                        <td>
-                            {{creditRiskGrading?.get(['groupObject', i, 'gammaQuestionAnswer'])?.get(ans?.description)?.value}}
-                        </td>
+                            </td>
+                        </div>
                     </tr>
+<!--                    <tr *ngFor="let hisAns of withCreditHistoryData[i]?.gammaQuestion; let ii = index">-->
+<!--                        <td>{{ii + 1}}</td>-->
+<!--                        <td class="desc-td-width">-->
+<!--                                <span >{{hisAns?.description}}</span>-->
+<!--                        </td>-->
+<!--                        <td></td>-->
+<!--                        <td>-->
+<!--                            <ul>-->
+<!--                                <ng-container *ngFor="let answer of hisAns?.answers">-->
+<!--                                    <li>-->
+<!--                                        {{ answer?.description }}-->
+<!--                                    </li>-->
+<!--                                </ng-container>-->
+<!--                            </ul>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <ng-container *ngFor="let answ of hisAns?.answers; let iii = index">-->
+<!--                                <div  formGroupName="gammaQuestionAnswer">-->
+<!--                                    <input (click)="onChangeOption(hisAns?.description, answ?.points, answ?.description, i, crg?.groupName)"-->
+<!--                                           [checked]="totalPointMapper.get(hisAns?.description) === answ?.points"-->
+<!--                                           class="form-check-input"-->
+<!--                                           [value]="answ?.points"-->
+<!--                                           [formControlName]="hisAns?.description"-->
+<!--                                           [id]="hisAns?.description + iii"-->
+<!--                                           type="radio">-->
+<!--                                    <br>-->
+<!--                                </div>-->
+<!--                            </ng-container>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            {{creditRiskGrading?.get(['withCreditGroupObject', i, 'gammaQuestionAnswer'])?.get(hisAns?.description)?.value}}-->
+<!--                        </td>-->
+<!--                    </tr>-->
                 </ng-container>
             </ng-container>
+            </tbody>
+
+            <tbody>
+            <hr>
+            Start without History Data
+            <hr>
+
+<!--            <ng-container formArrayName="withoutCreditGroupObject"-->
+<!--                          *ngFor="let crg of creditRiskGrading?.get('withoutCreditGroupObject')?.value; let iv =  index">-->
+<!--                <ng-container [formGroupName]="iv">-->
+<!--                    <tr style="background-color: #17a2b1">-->
+<!--                        <th>Topic</th>-->
+<!--                        <th>{{crg?.groupName}}</th>-->
+<!--                        <th>{{crg?.weightage}} %</th>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <th><span>Total:</span>{{crg?.groupTotal}}</th>-->
+<!--                    </tr>-->
+<!--                    <tr *ngFor="let ans of withoutCreditHistoryData[iv]?.gammaQuestion; let v = index">-->
+<!--                        <td>{{v + 1}}</td>-->
+<!--                        <td class="desc-td-width">-->
+<!--                            <span >{{ans?.description}}</span>-->
+<!--                        </td>-->
+<!--                        <td></td>-->
+<!--                        <td>-->
+<!--                            <ul>-->
+<!--                                <ng-container *ngFor="let answer of ans?.answers">-->
+<!--                                    <li>-->
+<!--                                        {{ answer?.description }}-->
+<!--                                    </li>-->
+<!--                                </ng-container>-->
+<!--                            </ul>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <ng-container *ngFor="let answer of ans?.answers; let vi = index">-->
+<!--                                <div  formGroupName="gammaQuestionAnswer">-->
+<!--                                    <input (click)="onChangeOption(ans?.description, answer?.points, answer?.description, iv, crg?.groupName)"-->
+<!--                                           [checked]="totalPointMapper.get(ans?.description) === answer?.points"-->
+<!--                                           class="form-check-input"-->
+<!--                                           [value]="answer?.points"-->
+<!--                                           [formControlName]="ans?.description"-->
+<!--                                           [id]="ans?.description + vi"-->
+<!--                                           type="radio">-->
+<!--                                    <br>-->
+<!--                                </div>-->
+<!--                            </ng-container>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            {{creditRiskGrading?.get(['withoutCreditGroupObject', iv, 'gammaQuestionAnswer'])?.get(ans?.description)?.value}}-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </ng-container>-->
+<!--            </ng-container>-->
             </tbody>
             <tbody>
             <tr>

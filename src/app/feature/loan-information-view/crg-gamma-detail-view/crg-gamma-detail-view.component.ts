@@ -50,6 +50,7 @@ export class CrgGammaDetailViewComponent implements OnInit {
                 this.crgGammaList.push(crgData);
             });
         }
+        console.log('crgGammaList', this.crgGammaList);
     }
 
     onClose() {
