@@ -1,4 +1,4 @@
-<section *ngIf="creditRiskGrading?.get('groupObject')['controls']">
+<section>
 
     <nb-accordion class="mb-4">
         <nb-accordion-item>
@@ -87,9 +87,9 @@
             </thead>
 <!--            *ngIf="creditHistory?.toString() === '0'"-->
             <tbody formArrayName="groupObject"
-                   *ngFor="let crg of creditRiskGrading?.get('groupObject')['controls']; let i =  index">
-            <ng-container [formGroupName]="i">
-                <ng-container *ngFor="let answer of crg?.value">
+                   *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
+            <ng-container>
+                <ng-container *ngFor="let answer of crg">
                     <tr style="background-color: #17a2b1" >
                         <th>Topic</th>
                         <th>{{answer?.groupName}}</th>
@@ -98,7 +98,7 @@
                         <td></td>
                         <th><span>Total:</span>{{answer?.groupTotal}}</th>
                     </tr>
-                    <tr *ngFor="let ans of questions[i]; let ii = index" [formGroup]="crg.get([i,'gammaQuestionAnswer'])">
+                    <tr *ngFor="let ans of questions[i]; let ii = index">
                             <td>{{ii+1}}</td>
                             <td>{{ans}}</td>
                         <td></td>
@@ -113,8 +113,7 @@
                             <td>
                                 <ng-container>
                                     <div *ngFor="let answ of answers[i][ii]">
-                                        {{answ?.points}}
-                                        <input [name]="ans" (click)="click(answ?.points, ans, i)" [value]="answ?.points" type="radio">
+                                        <input [name]="ans" (click)="click(answ?.points, ans, i)"  type="radio">
                                     </div>
                                 </ng-container>
                             </td>
