@@ -122,40 +122,7 @@
                             </td>
                         <td>{{this.creditRiskGrading?.get(['groupObject', i, j])?.get('gammaQuestionAnswer')?.get(ans)?.value}}</td>
                     </tr>
-<!--                    <tr *ngFor="let hisAns of withCreditHistoryData[i]?.gammaQuestion; let ii = index">-->
-<!--                        <td>{{ii + 1}}</td>-->
-<!--                        <td class="desc-td-width">-->
-<!--                                <span >{{hisAns?.description}}</span>-->
-<!--                        </td>-->
-<!--                        <td></td>-->
-<!--                        <td>-->
-<!--                            <ul>-->
-<!--                                <ng-container *ngFor="let answer of hisAns?.answers">-->
-<!--                                    <li>-->
-<!--                                        {{ answer?.description }}-->
-<!--                                    </li>-->
-<!--                                </ng-container>-->
-<!--                            </ul>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <ng-container *ngFor="let answ of hisAns?.answers; let iii = index">-->
-<!--                                <div  formGroupName="gammaQuestionAnswer">-->
-<!--                                    <input (click)="onChangeOption(hisAns?.description, answ?.points, answ?.description, i, crg?.groupName)"-->
-<!--                                           [checked]="totalPointMapper.get(hisAns?.description) === answ?.points"-->
 
-                    <!--                                           class="form-check-input"-->
-<!--                                           [value]="answ?.points"-->
-<!--                                           [formControlName]="hisAns?.description"-->
-<!--                                           [id]="hisAns?.description + iii"-->
-<!--                                           type="radio">-->
-<!--                                    <br>-->
-<!--                                </div>-->
-<!--                            </ng-container>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            {{creditRiskGrading?.get(['withCreditGroupObject', i, 'gammaQuestionAnswer'])?.get(hisAns?.description)?.value}}-->
-<!--                        </td>-->
-<!--                    </tr>-->
                 </ng-container>
             </ng-container>
             </tbody>
@@ -165,65 +132,15 @@
             Start without History Data
             <hr>
 
-<!--            <ng-container formArrayName="withoutCreditGroupObject"-->
-<!--                          *ngFor="let crg of creditRiskGrading?.get('withoutCreditGroupObject')?.value; let iv =  index">-->
-<!--                <ng-container [formGroupName]="iv">-->
-<!--                    <tr style="background-color: #17a2b1">-->
-<!--                        <th>Topic</th>-->
-<!--                        <th>{{crg?.groupName}}</th>-->
-<!--                        <th>{{crg?.weightage}} %</th>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <th><span>Total:</span>{{crg?.groupTotal}}</th>-->
-<!--                    </tr>-->
-<!--                    <tr *ngFor="let ans of withoutCreditHistoryData[iv]?.gammaQuestion; let v = index">-->
-<!--                        <td>{{v + 1}}</td>-->
-<!--                        <td class="desc-td-width">-->
-<!--                            <span >{{ans?.description}}</span>-->
-<!--                        </td>-->
-<!--                        <td></td>-->
-<!--                        <td>-->
-<!--                            <ul>-->
-<!--                                <ng-container *ngFor="let answer of ans?.answers">-->
-<!--                                    <li>-->
-<!--                                        {{ answer?.description }}-->
-<!--                                    </li>-->
-<!--                                </ng-container>-->
-<!--                            </ul>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <ng-container *ngFor="let answer of ans?.answers; let vi = index">-->
-<!--                                <div  formGroupName="gammaQuestionAnswer">-->
-<!--                                    <input (click)="onChangeOption(ans?.description, answer?.points, answer?.description, iv, crg?.groupName)"-->
-<!--                                           [checked]="totalPointMapper.get(ans?.description) === answer?.points"-->
-<!--                                           class="form-check-input"-->
-<!--                                           [value]="answer?.points"-->
-<!--                                           [formControlName]="ans?.description"-->
-<!--                                           [id]="ans?.description + vi"-->
-<!--                                           type="radio">-->
-<!--                                    <br>-->
-<!--                                </div>-->
-<!--                            </ng-container>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            {{creditRiskGrading?.get(['withoutCreditGroupObject', iv, 'gammaQuestionAnswer'])?.get(ans?.description)?.value}}-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                </ng-container>-->
-<!--            </ng-container>-->
             </tbody>
             <tbody>
             <tr>
                 <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
                 <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
-                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
+                <th class="text-center">{{creditRiskGrading?.get('totalPoint')?.value}}</th>
             </tr>
             </tbody>
         </table>
     </form>
-    <!--<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-        <button (click)="onSubmit()" nbButton type="button">save</button>
-    </div>-->
 </section>
-<!--<app-overlay-spinner></app-overlay-spinner>-->
 

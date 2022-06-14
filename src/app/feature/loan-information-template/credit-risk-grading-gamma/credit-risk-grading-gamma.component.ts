@@ -344,9 +344,23 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.spinner = false;
         });
     }
+
     click(data, ans, i, ii) {
         this.creditRiskGrading.get(['groupObject', i, ii]).get('gammaQuestionAnswer').get(ans).patchValue(data);
-        console.log('this is cliked data',  this.creditRiskGrading);
+        //total point
+        const keys = this.parseKeys(this.creditRiskGrading.get(['groupObject', i, ii]).get('gammaQuestionAnswer').value);
+        let total = 0;
+        keys.forEach((k) => {
+            if (!ObjectUtil.isEmpty(this.creditRiskGrading.get(['groupObject', i, ii]).get('gammaQuestionAnswer').get(k).value)) {
+                total += Number(this.creditRiskGrading.get(['groupObject', i, ii]).get('gammaQuestionAnswer').get(k).value);
+            }
+        });
+        this.creditRiskGrading.get(['groupObject', i, ii]).get('groupTotal').patchValue(total);
+        let finalTotal = 0;
+        this.creditRiskGrading.get(['groupObject', i]).value.forEach((d) => {
+            finalTotal += Number(d.groupTotal);
+        });
+        this.creditRiskGrading.get('totalPoint').patchValue(finalTotal);
     }
 
 }
