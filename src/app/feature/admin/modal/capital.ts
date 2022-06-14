@@ -7,4 +7,6 @@ export class Capital {
     fixedCapital: number;
     workingCapital: number;
     numberOfShareholder: number;
+    forexOnSale: string;
+    forexOnPurchase: string;
 }

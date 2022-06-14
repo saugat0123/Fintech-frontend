@@ -2,18 +2,6 @@
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
   <nb-card-body>
-    <div class="row">
-      <div *ngIf="showDocStatusDropDown" class="col-md-3">
-        <form [formGroup]="docStatusForm">
-          <label><strong>
-            <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
-          </strong></label>
-          <select class="custom-select" formControlName="documentStatus">
-            <option *ngFor="let status of docStatusMakerList" [ngValue]="status">{{status}}</option>
-          </select>
-        </form>
-      </div>
-    </div>
     <nb-tabset>
       <nb-tab tabTitle="Proposal">
         <app-proposal #proposal *ngIf="loanDataHolder?.loan" [formValue]="loanDataHolder?.proposal"

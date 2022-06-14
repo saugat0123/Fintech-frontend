@@ -1,6 +1,6 @@
 <form [formGroup]="financialForm" class="form-horizontal mb-2">
     <div>
-        <nb-card>
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-header>
                 <h3><strong>Income of Borrower</strong></h3>
             </nb-card-header>
@@ -84,8 +84,7 @@
                 </div>
             </nb-card-body>
         </nb-card>
-
-        <nb-card>
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-header>
                 <h3><strong>Expenses of Borrower</strong></h3>
             </nb-card-header>
@@ -156,7 +155,7 @@
             </nb-card-body>
         </nb-card>
 
-        <nb-card>
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-header>
                 <h3><strong>Obligation at other bank</strong></h3>
             </nb-card-header>
@@ -227,7 +226,7 @@
             </nb-card-body>
         </nb-card>
 
-        <nb-card>
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
@@ -281,6 +280,121 @@
                         <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
                              class="invalid-feedback">Invalid Existing Obligation at other Bank
                         </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+        <nb-card *ngIf="customerInfo?.customerType === customerType.INSTITUTION">
+            <nb-card-header>
+                <h3><strong>Income earned by the Bank</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="title"><strong>Utilization:</strong><strong
+                                class="text-danger">*</strong></label>
+                        <input  formControlName="utilization" placeholder="utilization"
+                                type="number" class="form-control">
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th></th>
+                        <th>Interest</th>
+                        <th>Processing Fee</th>
+                        <th>LC Comm.</th>
+                        <th>BG Comm.</th>
+                        <th>Forex gains</th>
+                        <th>Others</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Customer</td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="interestCustomer" id="interestCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="processingFeeCustomer" id="processingFeeCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="lcCommCustomer" id="lcCommCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="bgCommCustomer" id="bgCommCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="forexGainsCustomer" id="forexGainsCustomer"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotal()" type="number" formControlName="othersCustomer" id="othersCustomer"></td>
+                        <td><input readonly rows="1"  class="form-control mt-1 mb-1" (change)="calculateTotal()" formControlName="totalCustomer" id="totalCustomer"></td>
+                    </tr>
+                    <tr>
+                        <td>Group Total</td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="interestGrp" id="interestGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="processingFeeGrp" id="processingFeeGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="lcCommGrp" id="lcCommGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="bgCommGrp" id="bgCommGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="forexGainsGrp" id="forexGainsGrp"></td>
+                        <td><input rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" type="number" formControlName="othersGrp" id="othersGrp"></td>
+                        <td><input readonly rows="1" class="form-control mt-1 mb-1" (change)="calculateTotalGrp()" formControlName="totalGrp" id="totalGrp"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+
+            <nb-card-body>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="title"><strong>Projected Utilization:</strong><strong
+                                class="text-danger">*</strong></label>
+                        <input  formControlName="projectedUtilization" placeholder="Projected Utilization"
+                                type="number" class="form-control">
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>Facility</th>
+                        <th>Interest</th>
+                        <th>Processing Fee</th>
+                        <th>Comm.</th>
+                        <th>Forex gains</th>
+                        <th>Others</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let projectedUtilization of financialForm?.get('projectedUtilizationFreeText')['controls']; let i = index;"
+                                      formArrayName="projectedUtilizationFreeText">
+                            <ng-container [formGroupName]="i">
+                                <tr>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="facility" id="facility"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="interest" id="interest"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="processingFee" id="processingFee"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="comm" id="comm"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="forexGains" id="forexGains"></td>
+                                    <td><input rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="others" id="others"></td>
+                                    <td><input readonly rows="1" class="form-control mt-1 mb-1" (change)="calcTotal(i)" type="number" formControlName="total" id="total"></td>
+                                    <td *ngIf="financialForm.get('projectedUtilizationFreeText') ['length'] > 0" width="2%"
+                                        style="vertical-align: middle;font-weight: bold; text-align: center">
+                                        <a nbButton status="primary" size="tiny" nbTooltip="Remove"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary float-right cursor"
+                                           (click)="removeProjectedUtilization(i)">
+                                            <i class="fa fa-trash fa-1x"></i></a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <div class="py-2 d-flex justify-content-end">
+                    <input (click)="addProjectedUtilization()" class="btn btn-sm btn-flat float-right btn-primary"
+                           type="button" value="Add More"/>
+                </div>
+            </nb-card-body>
+            <nb-card-body>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title"><strong>Comments:</strong></label>
+                        <textarea rows="3" formControlName="comments" placeholder="comments"
+                                  type="number" class="form-control"></textarea>
                     </div>
                 </div>
             </nb-card-body>
