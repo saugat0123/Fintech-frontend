@@ -95,7 +95,7 @@ export class SecurityTaggerComponent implements OnInit {
                                 d.securityLoanReferenceId = dd.id;
                                 d.usedAmount = dd.usedAmount;
                                 d.coverage = dd.coverage;
-                                d.freeLimit = this.toggleArray[i].freeLimit;
+                                d.freeLimit = d.considerValue - d.usedAmount;
                                 this.securityList.push(d);
                                 this.limitExceed[i] = true;
                             }
@@ -161,7 +161,7 @@ export class SecurityTaggerComponent implements OnInit {
                     totalUsedAmount += d.usedAmount;
                 }
             });
-            this.toggleArray[i].freeLimit = Number(this.securityForm.get(['securityDetails', i , 'considerValue']).value) - totalUsedAmount;
+            this.toggleArray[i].freeLimit = Number(this.securityForm.get(['securityDetails', i , 'considerValue']).value);
             // this.securityForm.get(['securityDetails', i , 'freeLimit']).setValue(this.toggleArray[i].freeLimit);
             this.securityPresent[i] = this.toggleArray[i].security.length > 0;
         }, (err) => {
@@ -195,12 +195,12 @@ export class SecurityTaggerComponent implements OnInit {
                 this.securityForm.get(['securityDetails', idx, 'securityLoanReferenceId']).patchValue(id[0]);
             }
         }
+        // Set Free limit for added security
+        security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
         if (security.value.usedAmount <= 0) {
             this.isUsedAmount[idx] = true;
             return;
         }
-        // Set Free limit for added security
-        security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
             const index = this.getIndex(secId);
             if (index) {
                 this.securityList[index] = security.value;
@@ -265,7 +265,9 @@ export class SecurityTaggerComponent implements OnInit {
 
     setLimitExceed(index, secId) {
         this.securityList.forEach((data, idx) => {
-            this.limitExceed[index] = secId === data.id;
+            if (secId === data.id) {
+                this.limitExceed[index] = secId === data.id;
+            }
         });
     }
 
