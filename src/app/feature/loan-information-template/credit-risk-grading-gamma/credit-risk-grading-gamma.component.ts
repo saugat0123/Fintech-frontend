@@ -241,40 +241,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         console.log(this.totalWithHistoryPointMapper, this.totalWithoutHistoryPointMapper);
     }
 
-    calculateTotalViaMap(history: number) {
-        let total = 0;
-        if (history === 0) {
-            this.totalWithHistoryPointMapper.forEach(data => {
-                total = total + Number(data);
-            });
-        } else {
-            this.totalWithoutHistoryPointMapper.forEach(data => {
-                total = total + Number(data);
-            });
-        }
-        this.totalPoints = total;
-        this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-        if (this.totalPoints >= 90) {
-            this.grading = 'Virtually zero risk, Accept';
-        } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
-            this.grading = 'Lower risk, Accept';
-        } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-            this.grading = 'Low risk, Accept';
-        } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
-            this.grading = 'Moderate risk, Accept';
-        } else if (this.totalPoints >= 45) {
-            this.grading = 'Average risk, Accept';
-        } else if (this.totalPoints >= 35) {
-            this.grading = 'High risk risk, To be approved from  one level CAD authority';
-        } else if (this.totalPoints >= 25) {
-            this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
-        } else if (this.totalPoints < 25) {
-            this.grading = 'Default risk, Decline';
-        }
-        this.creditRiskGrading.get('grade').patchValue(this.grading);
-        console.log('creditRiskGrading', this.creditRiskGrading.value);
-    }
-
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.creditRiskData = this.formData;
@@ -334,13 +300,36 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
 
     calcFinalTotal() {
         let finalTotal = 0;
-        this.creditRiskGrading.get(['groupObject', this.creditHistory]).value.forEach((d) => {
-            finalTotal += Number(d.groupTotal);
-        });
-        this.creditRiskGrading.get('totalPoint').patchValue(finalTotal);
+        if (!ObjectUtil.isEmpty(this.creditRiskGrading.get(['groupObject', this.creditHistory]))) {
+            this.creditRiskGrading.get(['groupObject', this.creditHistory]).value.forEach((d) => {
+                if (!ObjectUtil.isEmpty(d.groupTotal)) {
+                    finalTotal += Number(d.groupTotal);
+                }
+            });
+            this.creditRiskGrading.get('totalPoint').patchValue(finalTotal);
+            if (finalTotal >= 90) {
+                this.grading = 'Virtually zero risk, Accept';
+            } else if (finalTotal >= 75 && finalTotal < 90) {
+                this.grading = 'Lower risk, Accept';
+            } else if (finalTotal >= 65 && finalTotal < 75) {
+                this.grading = 'Low risk, Accept';
+            } else if (finalTotal >= 55 && finalTotal < 65) {
+                this.grading = 'Moderate risk, Accept';
+            } else if (finalTotal >= 45) {
+                this.grading = 'Average risk, Accept';
+            } else if (finalTotal >= 35) {
+                this.grading = 'High risk risk, To be approved from  one level CAD authority';
+            } else if (finalTotal >= 25) {
+                this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
+            } else if (finalTotal < 25) {
+                this.grading = 'Default risk, Decline';
+            }
+            this.creditRiskGrading.get('grade').patchValue(this.grading);
+        }
+
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.calcFinalTotal();
+            this.calcFinalTotal();
     }
 }
