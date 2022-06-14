@@ -61,6 +61,22 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="hypothecationFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="hypothecationFirstValuationDate"
+                                   id="hypothecationFirstValuationDate"
+                                   name="hypothecationFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="hypothecationForm.get(['hypothecationOfStock', i,'hypothecationFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="hypothecationForm.get(['hypothecationOfStock', i,'hypothecationFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <nb-checkbox id="ownerKycInfoForHypothecatio{{i}}" class="ml-2"

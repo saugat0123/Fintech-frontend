@@ -139,6 +139,22 @@
                                    type="number"/>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="insurancePolicyFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="insurancePolicyFirstValuationDate"
+                                   id="insurancePolicyFirstValuationDate"
+                                   name="insurancePolicyFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="insurancePolicyForm.get(['insurancePolicy', i,'insurancePolicyFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="insurancePolicyForm.get(['insurancePolicy', i,'insurancePolicyFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
                 </div>
                 <div *ngIf="insurancePolicyForm.get('insurancePolicy') ['length'] > 1" class="text-right">
                     <input (click)="removeInsurance(i)"

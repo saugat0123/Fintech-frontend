@@ -304,6 +304,22 @@
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
+                           <label class="title" for="vehicleFirstValuationDate">First Valuation Date</label>
+                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                  formControlName="vehicleFirstValuationDate"
+                                  id="vehicleFirstValuationDate"
+                                  name="vehicleFirstValuationDate" placeholder="First Valuation Date"
+                                  [nbDatepicker]="firstValuationDate"
+                                  type="text"/>
+                           <app-calendar
+                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).patchValue($event?.eDate)"
+                                   *ngIf="calendarType === 'BS'"
+                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).value"></app-calendar>
+                           <nb-datepicker #firstValuationDate></nb-datepicker>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
                            <label class="title" for="vehicalStaffRepresentativeDesignation">Staff Representative
                                Designation 1</label>
                            <select class="form-control rounded"
