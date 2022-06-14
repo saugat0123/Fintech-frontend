@@ -446,7 +446,7 @@
             <nb-card-body>
                 <div class="row" [@displayState]="maker" *ngIf="maker">
                     <div class="col-md-4">
-                        <select [(ngModel)]="selectedLoanType"
+                        <select [(ngModel)]="selectedLoanType" disabled
                                 class="form-control rounded" name="loanType" required>
                             <option [ngValue]="undefined" hidden> Select Loan Type</option>
                             <option *ngFor="let list of multipleSelectedLoanType"

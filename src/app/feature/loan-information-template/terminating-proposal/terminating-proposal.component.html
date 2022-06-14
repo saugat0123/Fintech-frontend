@@ -1,0 +1,499 @@
+<!--<div class="col-md-4" *ngIf="checkApproved">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>-->
+<!--        <input class="form-control"-->
+<!--               [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"-->
+<!--               (keyup)="calculateLimitValues()"-->
+<!--               formControlName="existingLimit" id="existingLimit"-->
+<!--               name="existingLimit" placeholder="Existing limit"-->
+<!--               type="number">-->
+<!--        <div *ngIf=" (submitted)  && formControls.existingLimit.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="(formControls.existingLimit.errors.required)">Existing Limit is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="outStandingLimit">-->
+<!--            <strong>Outstanding Limit</strong>-->
+<!--        </label>-->
+<!--        <input class="form-control"-->
+<!--               [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"-->
+<!--               (keyup)="calculateLimitValues()"-->
+<!--               formControlName="outStandingLimit" id="outStandingLimit"-->
+<!--               name="outStandingLimit" placeholder="Limit Amount"-->
+<!--               type="number">-->
+<!--        <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="settlementAmount"></label>-->
+<!--        <strong>Settlement Amount</strong>-->
+<!--        <input class="form-control"-->
+<!--               [ngClass]="{ 'is-invalid': (submitted) && formControls.settlementAmount.errors }"-->
+<!--               (keyup)="calculateLimitValues()"-->
+<!--               formControlName="settlementAmount" id="settlementAmount"-->
+<!--               name="settlementAmount" placeholder="Settlement Amount"-->
+<!--               type="number">-->
+<!--        <div *ngIf=" (submitted)  && formControls.settlementAmount.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="(formControls.settlementAmount.errors.required)">Settlement Amount is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="col-md-4" *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="enhanceLimitAmount">-->
+<!--            <strong>{{loanType === 'RENEW_WITH_ENHANCEMENT' ? 'Enhance Limit' : 'Enhancement Amount'}}</strong>-->
+<!--        </label>-->
+<!--        <input class="form-control"-->
+<!--               [ngClass]="{ 'is-invalid': (submitted) && formControls.enhanceLimitAmount.errors }"-->
+<!--               (keyup)="calculateLimitValues()"-->
+<!--               formControlName="enhanceLimitAmount" id="enhanceLimitAmount"-->
+<!--               name="enhanceLimitAmount" placeholder="Enhance Amount"-->
+<!--               type="number">-->
+<!--        <div *ngIf=" (submitted)  && formControls.enhanceLimitAmount.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="(formControls.enhanceLimitAmount.errors.required)">Enhance limit is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>-->
+<!--        <input-->
+<!--                [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"-->
+<!--                class="form-control"-->
+<!--                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"-->
+<!--                formControlName="proposedLimit" id="proposedLimit"-->
+<!--                name="proposedLimit" placeholder="Proposed limit"-->
+<!--                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>-->
+<!--        <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>-->
+
+<!--            <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>-->
+<!--            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="existCashMargin"><strong> Existing Cash Margin</strong>-->
+<!--            <input-->
+<!--                    formControlName="existCashMarginMethod"-->
+<!--                    name="existCashMarginMethod"-->
+<!--                    type="radio"-->
+<!--                    value="PERCENT"> <strong> % </strong>-->
+<!--            <input-->
+<!--                    formControlName="existCashMarginMethod"-->
+<!--                    name="existCashMarginMethod"-->
+<!--                    type="radio"-->
+<!--                    value="FLAT"> <strong>Flat</strong>-->
+<!--        </label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="existCashMargin"-->
+<!--                id="existCashMargin"-->
+<!--                name="existCashMargin" placeholder=" Existing Cash Margin"-->
+<!--                type="number">-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="cashMargin"><strong>Cash Margin</strong>-->
+<!--            <input-->
+<!--                    formControlName="cashMarginMethod"-->
+<!--                    name="cashMarginMethod" type="radio"-->
+<!--                    value="PERCENT"><strong>% </strong>-->
+<!--            <input formControlName="cashMarginMethod" name="cashMarginMethod"-->
+<!--                   type="radio" value="FLAT"><strong> Flat</strong>-->
+<!--        </label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="cashMargin"-->
+<!--                id="cashMargin"-->
+<!--                name="cashMargin" placeholder="Cash Margin"-->
+<!--                type="number">-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label for="existCommissionPercentage"><strong>Existing Commission (%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="existCommissionPercentage"-->
+<!--                id="existCommissionPercentage" name="existCommissionPercentage"-->
+<!--                placeholder="Existing Commision (%)"-->
+<!--                type="number">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="commissionPercentage"><strong>Commission (%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="commissionPercentage"-->
+<!--                id="commissionPercentage" name="commissionPercentage"-->
+<!--                placeholder="Commission (%)"-->
+<!--                type="number">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="commissionFrequency"><strong>Commission-->
+<!--            Frequency</strong></label>-->
+<!--        <select-->
+<!--                [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionFrequency.errors }"-->
+<!--                class="form-control" formControlName="commissionFrequency"-->
+<!--                id="commissionFrequency" name="commissionFrequency">-->
+<!--            <option [ngValue]="null" hidden>Select Commission Frequency</option>-->
+<!--            <option value="MONTH">Per Month</option>-->
+<!--            <option value="QUARTER">Per Quarter</option>-->
+<!--            <option value="ANNUM">Per Annum</option>-->
+<!--        </select>-->
+<!--        <div *ngIf="(submitted) && formControls.commissionFrequency.invalid"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="formControls.commissionFrequency.errors.required">Commission Frequency is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div *ngIf="isFixedDeposit" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="couponRate"><strong>Coupon Rate</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="couponRate"-->
+<!--                id="couponRate" name="couponRate" placeholder="Coupon Rate"-->
+<!--                type="number">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div *ngIf="isFixedDeposit" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="premiumOnCouponRate"><strong>Premium On Coupon-->
+<!--            Rate</strong></label>-->
+<!--        <input-->
+<!--                [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumOnCouponRate.errors }"-->
+<!--                class="form-control" formControlName="premiumOnCouponRate"-->
+<!--                id="premiumOnCouponRate" name="premiumOnCouponRate"-->
+<!--                placeholder="Premium On Coupon Rate"-->
+<!--                type="number">-->
+<!--        <div *ngIf="(submitted) && formControls.premiumOnCouponRate.invalid"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="formControls.premiumOnCouponRate.errors.required">Premium On Coupon Rate is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' ">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="existInterestRate"> <strong> Existing Interest Rate(%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="existInterestRate"-->
+<!--                id="existInterestRate" name="existInterestRate" placeholder="Existing Interest Rate(%)"-->
+<!--                [(ngModel)]="existInterestLimit"-->
+<!--                type="number" appDecimalNumber-->
+<!--        >-->
+<!--    </div>-->
+
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="interestRate"><strong>Interest-->
+<!--            Rate(%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="interestRate"-->
+<!--                id="interestRate" name="interestRate" placeholder="Interest Rate(%)"-->
+<!--                [(ngModel)]="interestLimit"-->
+<!--                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber-->
+<!--                readonly >-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="baseRate" id="baseRate"-->
+<!--                name="baseRate" placeholder="Base Rate(%)"-->
+<!--                type="number" appDecimalNumber>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base-->
+<!--            Rate(%)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control"-->
+<!--                class="form-control" formControlName="premiumRateOnBaseRate"-->
+<!--                id="premiumRateOnBaseRate" name="premiumRate"-->
+<!--                placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"-->
+<!--                type="number" >-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="serviceCharge"><strong>Loan Administration Fee </strong>-->
+<!--            <input-->
+<!--                    formControlName="serviceChargeMethod"-->
+<!--                    name="serviceChargeMethod" type="radio"-->
+<!--                    value="PERCENT"><strong>% </strong>-->
+<!--            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"-->
+<!--                   type="radio" value="FLAT"><strong> Flat</strong>-->
+<!--        </label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="serviceCharge"-->
+<!--                id="serviceCharge"-->
+<!--                name="serviceCharge" placeholder="Loan Administration Fee"-->
+<!--                type="number" appDecimalNumber>-->
+
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in-->
+<!--            Month.</strong></label>-->
+<!--        <input-->
+<!--                class="form-control"-->
+<!--                formControlName="tenureDurationInMonths" id="tenureDurationInMonths"-->
+<!--                placeholder="Tenure Duration in Months"-->
+<!--                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>-->
+
+
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; start of repayment mode&ndash;&gt;-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>-->
+<!--        <select-->
+<!--                class="custom-select" formControlName="repaymentMode"-->
+<!--                id="repaymentMode"-->
+<!--                name="repaymentMode"-->
+<!--                (change)="checkInstallmentAmount()">-->
+<!--            <option [ngValue]="null" hidden selected>Select</option>-->
+<!--            <option value="EMI">EMI</option>-->
+<!--            <option value="EQI">EQI</option>-->
+<!--            <option value="AT MATURITY">At Maturity</option>-->
+<!--            <option value="CUSTOM">Custom</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div  *ngIf="showRepaymentMode" class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>-->
+<!--        <select-->
+<!--            #interestRepayment-->
+<!--            [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModeInterest.errors }"-->
+<!--            class="custom-select" formControlName="repaymentModeInterest"-->
+<!--            id="repaymentModeInterest"-->
+<!--            name="repaymentModeInterest"-->
+<!--            (change)="calculateRepaymentModeAmounts(interestRepayment.value , 'INTEREST')">-->
+<!--            <option [ngValue]="null" hidden selected>Select</option>-->
+<!--            <option value="MONTHLY">Monthly</option>-->
+<!--            <option value="QUARTERLY">Quarterly</option>-->
+<!--            <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
+<!--            <option value="ANNUALLY">Annually</option>-->
+<!--        </select>-->
+
+<!--        <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"-->
+<!--             class="invalid-feedback">-->
+<!--                                        <span *ngIf="formControls.repaymentModeInterest.errors.required">-->
+<!--                                            Repayment Frequency is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div  class="col-md-4" *ngIf="showRepaymentMode">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>-->
+<!--        <select-->
+<!--            #repaymentModePrincipal-->
+<!--            [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModePrincipal.errors }"-->
+<!--            class="custom-select" formControlName="repaymentModePrincipal"-->
+<!--            id="repaymentModePrincipal"-->
+<!--            name="repaymentModePrincipal"-->
+<!--            (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL')">-->
+<!--            <option [ngValue]="null" hidden selected>Select</option>-->
+<!--            <option value="MONTHLY">Monthly</option>-->
+<!--            <option value="QUARTERLY">Quarterly</option>-->
+<!--            <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
+<!--            <option value="ANNUALLY">Annually</option>-->
+<!--            <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>-->
+<!--        </select>-->
+<!--        <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"-->
+<!--             class="invalid-feedback">-->
+<!--                                        <span *ngIf="formControls.repaymentModePrincipal.errors.required">-->
+<!--                                            Repayment Frequency is required</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash;                                end of repayment mode&ndash;&gt;-->
+
+<!--&lt;!&ndash;                start of installment amount div&ndash;&gt;-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">-->
+<!--    <div class="form-group>">-->
+<!--        <label class="title"> <strong>Installment Amount</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="installmentAmount"-->
+<!--                id="installmentAmount"-->
+<!--                name="installmentAmount" placeholder="Installment Amount"-->
+<!--                type="number" readonly>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash;                end of ng s-->
+<!--installment amount div&ndash;&gt;-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&-->
+<!--                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))-->
+<!--                                           && (showInterestAmount ">-->
+<!--    <div class="form-group>">-->
+<!--        <label class="title"> <strong>Interest Amount</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="interestAmount"-->
+<!--                id="interestAmount"-->
+<!--                name="interestAmount" placeholder="Interest Amount" disabled-->
+<!--                type="number">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&-->
+<!--                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))-->
+<!--                                           && (showInterestAmount)">-->
+<!--    <div class="form-group>">-->
+<!--        <label class="title"> <strong>Principal Amount</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="principalAmount"-->
+<!--                id="principalAmount"-->
+<!--                name="principalAmount" placeholder="Principle Amount" disabled-->
+<!--                type="number">-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;                start of Moratorium period amount div&ndash;&gt;-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">-->
+<!--    <div class="form-group>">-->
+<!--        <label class="title"> <strong>Moratorium Period (Month)</strong></label>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="moratoriumPeriod"-->
+<!--                id="moratoriumPeriod"-->
+<!--                name="moratoriumPeriod" placeholder="Example: 4 month"-->
+<!--                type="number" appDecimalNumber>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash;                end of Moratorium Period amount div&ndash;&gt;-->
+
+<!--<div class="col-md-4"-->
+<!--     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">-->
+<!--    <div class="form-group">-->
+<!--        <div class="variable">-->
+<!--            <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>-->
+<!--            </label>-->
+<!--            &nbsp;-->
+<!--        </div>-->
+<!--        <input-->
+<!--                class="form-control"-->
+<!--                formControlName="commitmentFee" id="commitmentFee"-->
+<!--                name="commitmentFee"-->
+<!--                placeholder="Commitment Fee"-->
+<!--                type="text"-->
+<!--        />-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="col-md-4"-->
+<!--     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) ">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="tenorOfEachDeal"><strong>Tenure of each deal</strong></label>-->
+<!--        <input-->
+<!--                class="form-control"-->
+<!--                formControlName="tenorOfEachDeal" id="tenorOfEachDeal"-->
+<!--                name="tenorOfEachDeal"-->
+<!--                placeholder="Tenure of each deal" type="text"/>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;                start of Prepayment charge  div&ndash;&gt;-->
+<!--<div class="col-md-4"-->
+<!--     *ngIf=" ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">-->
+<!--    <div class="form-group>">-->
+<!--        <div class="variable">-->
+<!--            <label class="title"> <strong>Prepayment Charge (in%)-->
+<!--            </strong></label> &nbsp;-->
+<!--        </div>-->
+<!--        <input-->
+<!--                [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"-->
+<!--                class="form-control" formControlName="prepaymentCharge"-->
+<!--                id="prepaymentCharge" name="prepaymentCharge"-->
+<!--                type="text"-->
+<!--                placeholder="Prepayment Charge"-->
+<!--        >-->
+<!--        <div *ngIf="(submitted) && formControls.prepaymentCharge.errors"-->
+<!--             class="invalid-feedback">-->
+<!--            <div *ngIf="formControls.prepaymentCharge.errors.required">-->
+<!--                Prepayment Charge is required-->
+<!--            </div>-->
+<!--            <div *ngIf="formControls.prepaymentCharge.errors.min || formControls.prepaymentCharge.errors.max">-->
+<!--                Enter 0 - 100 number only-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4">-->
+<!--    <div class="form-group">-->
+<!--        <label class="title" for="collateralRequirement"><strong>Collateral requirement-->
+<!--            (in%)</strong></label>-->
+<!--        <input-->
+<!--                [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"-->
+<!--                class="form-control"-->
+<!--                formControlName="collateralRequirement" id="collateralRequirement"-->
+<!--                name="collateralRequirement"-->
+<!--                placeholder="Collateral requirement" type="number" appDecimalNumber/>-->
+<!--        <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"-->
+<!--             class="invalid-feedback">-->
+<!--            <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="col-md-4 form-group">-->
+<!--    <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"-->
+<!--                 [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>-->
+<!--    </nb-checkbox>-->
+<!--    <div *ngIf="swapChargeChecked">-->
+<!--        <div class="variable">-->
+<!--            <input-->
+<!--                    formControlName="swapChargeMethod"-->
+<!--                    name="swapChargeMethod" type="radio"-->
+<!--                    value="PERCENT"><strong> % </strong>-->
+<!--            <input formControlName="swapChargeMethod" name="swapChargeMethod"-->
+<!--                   type="radio" value="FLAT"><strong> Flat</strong>-->
+<!--            &nbsp;-->
+<!--        </div>-->
+<!--        <input-->
+<!--                class="form-control" formControlName="swapCharge"-->
+<!--                id="swapCharge"-->
+<!--                name="swapCharge" placeholder="Swap Charge"-->
+<!--                type="text"/>-->
+<!--    </div>-->
+<!--</div>-->
+
+

@@ -118,4 +118,5 @@ export class LoanDataHolder extends BaseEntity {
     selectedArray: string;
     financialAccountInformation: string;
     securityLoanReferences: Array<SecurityLoanReference>;
+    approvedProposalData: string;
 }

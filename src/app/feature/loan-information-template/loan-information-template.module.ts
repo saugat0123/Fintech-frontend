@@ -70,6 +70,7 @@ import {ViewSecurityTableComponent} from './security/view-security-table/view-se
 import {SecurityTaggedModule} from './security/security-tagged-component/security-tagged.module';
 import { GroupSummarySheetComponent } from './group-summary-sheet/group-summary-sheet.component';
 import { OtherDetailsComponent } from './other-details/other-details.component';
+import { TerminatingProposalComponent } from './terminating-proposal/terminating-proposal.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -128,7 +129,8 @@ const COMPONENTS = [
         LandComponent,
         ViewSecurityTableComponent,
         GroupSummarySheetComponent,
-        OtherDetailsComponent],
+        OtherDetailsComponent,
+        TerminatingProposalComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent],
     entryComponents: [...COMPONENTS],
     imports: [

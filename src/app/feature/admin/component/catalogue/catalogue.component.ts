@@ -135,6 +135,8 @@ export class CatalogueComponent implements OnInit {
     }];
     isCombineLoan = false;
     select: HTMLSelectElement;
+    loanTypes = LoanType.value();
+    types = [];
 
     constructor(
         private branchService: BranchService,
@@ -174,6 +176,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.types = this.loanTypes.filter(val => val.key === 'NEW_LOAN' || val.key === 'CLOSURE_LOAN');
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.currentUserName = LocalStorageUtil.getStorage().username;
         this.activatedRoute.queryParams.subscribe(
