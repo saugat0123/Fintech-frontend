@@ -169,12 +169,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
                     console.log('I am called');
                     answer.push(value.answers);
                 }
-                if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
-                    this.totalWithHistoryPointMapper.set(value.description,
-                        this.formDataForEdit.withCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-                    pointMapper.set(value.description,
-                        this.formDataForEdit.withCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-                }
                 questionAnswer[value.description] = null;
             });
             this.withHistoryAns.push(answer);
@@ -200,14 +194,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
                 if (!this.withHistoryAns.includes(value.answers)) {
                     answerNon.push(value.answers);
                 }
-                if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
-                    this.totalWithoutHistoryPointMapper.set(value.description,
-                        this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-                    pointMapper.set(value.description,
-                        this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-                }
                 questionAnswer[value.description] = null;
-                // questionAnswer[`${value.description}Parameter`] = null;
             });
             this.withoutHistoryAns.push(answerNon);
             this.totalGroupPointMapper.push(pointMapper);
@@ -326,7 +313,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
         }
-
     }
 
     ngOnChanges(changes: SimpleChanges): void {

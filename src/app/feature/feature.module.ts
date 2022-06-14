@@ -62,7 +62,8 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
              CreditRiskGradingGammaComponent, MultipleBankingComponent,
           InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent
         ],
-        providers: [SafePipe]
+        providers: [SafePipe],
+    entryComponents: [CreditRiskGradingGammaComponent]
     }
 )
 export class FeatureModule {

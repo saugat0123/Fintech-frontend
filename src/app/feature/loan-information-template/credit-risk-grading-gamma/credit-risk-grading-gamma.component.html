@@ -112,6 +112,7 @@
                                 <div *ngFor="let answ of answers[creditHistory][0][j][ii]">
                                     <input [name]="ans + creditHistory +j "
                                            (click)="click(answ?.points, ans,j)"
+                                           [disabled]="fromProfile"
                                            [checked]="this.creditRiskGrading?.get(['groupObject', creditHistory, j])?.get('gammaQuestionAnswer')?.get(ans)?.value === answ?.points"
                                            type="radio">
                                 </div>
