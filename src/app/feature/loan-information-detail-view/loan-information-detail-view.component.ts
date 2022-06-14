@@ -292,6 +292,8 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     onOpen() {
         const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg'});
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
+        crgGamma.componentInstance.loanHolderData = this.loanDataHolder;
+        crgGamma.componentInstance.landSecurityDetails =  JSON.parse(this.loanDataHolder.security.data);
     }
 
     getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
