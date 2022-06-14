@@ -40,7 +40,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
           distressValue: [formData.distressValue],
           fairMarketValue: [formData.fairMarketValue],
           otherDetail: [formData.otherDetail],
-            assignmentOfReceivablesFirstValuationDate: [formData.assignmentOfReceivablesFirstValuationDate]
+            assignmentOfReceivablesFirstValuationDate: [new Date(formData.assignmentOfReceivablesFirstValuationDate)]
         })
     );
   }

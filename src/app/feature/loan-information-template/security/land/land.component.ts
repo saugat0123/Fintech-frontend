@@ -106,7 +106,7 @@ export class LandComponent implements OnInit {
           landOtherBranchChecked: [formData.landOtherBranchChecked],
           kycCheckForLand: [formData.kycCheckForLand],
           landRate: [formData.landRate],
-          landFirstValuationDate: [formData.landFirstValuationDate],
+          landFirstValuationDate: [new Date(formData.landFirstValuationDate)],
         })
     );
   }

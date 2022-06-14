@@ -118,7 +118,7 @@ export class ShareComponent implements OnInit {
           ratioAsPerAuitedFinancial: [data.ratioAsPerAuitedFinancial],
           shareRate: [data.shareRate],
           drawingPower: [data.drawingPower],
-          shareSecurityFirstValuationDate: [data.shareSecurityFirstValuationDate]
+          shareSecurityFirstValuationDate: [new Date(data.shareSecurityFirstValuationDate)]
         })
     );
   }

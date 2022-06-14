@@ -38,7 +38,7 @@ export class LeaseAssignmentComponent implements OnInit {
           considerValue: [formData.considerValue],
           distressValue: [formData.distressValue],
           fairMarketValue: [formData.fairMarketValue],
-          leaseAssignmentFirstValuationDate: [formData.leaseAssignmentFirstValuationDate]
+          leaseAssignmentFirstValuationDate: [new Date(formData.leaseAssignmentFirstValuationDate)]
         })
     );
   }

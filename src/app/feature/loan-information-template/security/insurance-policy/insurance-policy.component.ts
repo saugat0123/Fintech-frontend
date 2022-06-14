@@ -54,7 +54,7 @@ export class InsurancePolicyComponent implements OnInit {
                 earlySurrenderDate: [formData.earlySurrenderDate],
                 consideredValue: [formData.considerValue],
                 cashBackAmount: [formData.cashBackAmount],
-                insurancePolicyFirstValuationDate: [formData.insurancePolicyFirstValuationDate],
+                insurancePolicyFirstValuationDate: [new Date(formData.insurancePolicyFirstValuationDate)],
             })
         );
     }

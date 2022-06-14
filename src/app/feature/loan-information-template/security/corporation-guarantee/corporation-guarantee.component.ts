@@ -45,6 +45,7 @@ export class CorporationGuaranteeComponent implements OnInit {
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 otherDetail: [formData.otherDetail],
+                corporateGuaranteeFirstValuationDate: [new Date(formData.corporateGuaranteeFirstValuationDate)]
             })
         );
     }
@@ -78,6 +79,7 @@ export class CorporationGuaranteeComponent implements OnInit {
           fairMarketValue: [undefined],
           distressValue: [undefined],
           otherDetail: [undefined],
+          corporateGuaranteeFirstValuationDate: [undefined]
         }
     );
   }

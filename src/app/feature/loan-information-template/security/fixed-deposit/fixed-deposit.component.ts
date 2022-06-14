@@ -44,7 +44,7 @@ export class FixedDepositComponent implements OnInit {
           accountHolderName: [formData.accountHolderName],
           accountNumber: [formData.accountNumber],
           tenureStartDate: [formData.tenureStartDate],
-            fixedDepositFirstValuationDate: [formData.fixedDepositFirstValuationDate]
+            fixedDepositFirstValuationDate: [new Date(formData.fixedDepositFirstValuationDate)]
         })
     );
   }

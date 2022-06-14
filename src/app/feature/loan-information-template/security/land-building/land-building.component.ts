@@ -439,7 +439,7 @@ export class LandBuildingComponent implements OnInit {
           addressLine2: [formData.addressLine2],
           registerOffice: [formData.registerOffice],
           freeLimit: [formData.freeLimit],
-          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate]
+          landBuildingFirstValuationDate: [new Date(formData.landBuildingFirstValuationDate)]
         })
     );
   }

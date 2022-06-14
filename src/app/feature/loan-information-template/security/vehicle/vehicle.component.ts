@@ -86,7 +86,7 @@ export class VehicleComponent implements OnInit {
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 freeLimit: [formData.freeLimit],
-                vehicleFirstValuationDate: [formData.vehicleFirstValuationDate]
+                vehicleFirstValuationDate: [new Date(formData.vehicleFirstValuationDate)]
             })
         );
     }

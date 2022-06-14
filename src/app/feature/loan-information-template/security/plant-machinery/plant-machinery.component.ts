@@ -75,7 +75,7 @@ export class PlantMachineryComponent implements OnInit {
                 plantOtherBranchChecked: [formData.plantOtherBranchChecked],
                 realisableRate: [formData.realisableRate],
                 realisableValue: [formData.realisableValue],
-                plantMachineryFirstValuationDate: [formData.plantMachineryFirstValuationDate]
+                plantMachineryFirstValuationDate: [new Date(formData.plantMachineryFirstValuationDate)]
             })
         );
 

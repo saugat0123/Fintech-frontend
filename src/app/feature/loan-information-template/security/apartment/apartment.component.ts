@@ -98,7 +98,7 @@ export class ApartmentComponent implements OnInit {
           proposedOwner: [formData.proposedOwner],
           apartmentRate: [formData.apartmentRate],
           buildingReliasableValue: [formData.buildingReliasableValue],
-          apartmentFirstValuationDate: [formData.apartmentFirstValuationDate]
+          apartmentFirstValuationDate: [new Date(formData.apartmentFirstValuationDate)]
         })
     );
 
