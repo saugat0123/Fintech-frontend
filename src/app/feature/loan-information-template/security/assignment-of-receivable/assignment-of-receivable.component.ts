@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-assignment-of-receivable',
@@ -14,6 +15,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
   ckeConfig;
   @Input() security: Security;
   @Input() isEdit = false;
+  @Input() calendarType: CalendarType;
 
 
   constructor(private formBuilder: FormBuilder) { }
@@ -37,7 +39,8 @@ export class AssignmentOfReceivableComponent implements OnInit {
           considerValue: [formData.considerValue],
           distressValue: [formData.distressValue],
           fairMarketValue: [formData.fairMarketValue],
-          otherDetail: [formData.otherDetail]
+          otherDetail: [formData.otherDetail],
+            assignmentOfReceivablesFirstValuationDate: [formData.assignmentOfReceivablesFirstValuationDate ? new Date(formData.assignmentOfReceivablesFirstValuationDate) : '']
         })
     );
   }
@@ -66,7 +69,8 @@ export class AssignmentOfReceivableComponent implements OnInit {
           considerValue: 0,
           distressValue: [undefined],
           fairMarketValue: [undefined],
-          otherDetail: [undefined]
+          otherDetail: [undefined],
+          assignmentOfReceivablesFirstValuationDate: [undefined]
         }
     );
   }

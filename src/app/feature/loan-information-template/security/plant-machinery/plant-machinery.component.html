@@ -164,6 +164,22 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label class="title" for="plantMachineryFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="plantMachineryFirstValuationDate"
+                                   id="plantMachineryFirstValuationDate"
+                                   name="plantMachineryFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label class="title" for="plantMachineryStaffRepresentativeDesignation">Staff
                                 Representative Designation 1</label>
                             <select class="form-control rounded"

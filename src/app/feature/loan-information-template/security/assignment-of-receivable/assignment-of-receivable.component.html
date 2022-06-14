@@ -23,6 +23,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="title" for="assignmentOfReceivablesFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="assignmentOfReceivablesFirstValuationDate"
+                                   id="assignmentOfReceivablesFirstValuationDate"
+                                   name="assignmentOfReceivablesFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="assignmentForm.get(['assignmentOfReceivables',i,'assignmentOfReceivablesFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="assignmentForm.get(['assignmentOfReceivables',i,'assignmentOfReceivablesFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Other Detail</label>
