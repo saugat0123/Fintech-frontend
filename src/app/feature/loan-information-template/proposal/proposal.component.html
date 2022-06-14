@@ -387,13 +387,13 @@
                                     <label class="title"><strong>Pricing</strong></label>
                                     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
                                         <thead>
-                                            <tr class="sb-bg-dark text-white">
-                                                <th>Pricing</th>
-                                                <th>Card Rate</th>
-                                                <th>Existing Rate</th>
-                                                <th>Proposed Rate</th>
-                                                <th>Deviation with Card Rate</th>
-                                            </tr>
+                                        <tr class="sb-bg-dark text-white">
+                                            <th>Pricing</th>
+                                            <th>Card Rate</th>
+                                            <th>Existing Rate</th>
+                                            <th>Proposed Rate</th>
+                                            <th>Deviation with Card Rate</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         <ng-container>
@@ -419,7 +419,8 @@
                                                            appDecimalNumber>
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="interestDevCardRate"
                                                            id="interestDevCardRate">
                                                 </td>
                                             </tr>
@@ -441,7 +442,8 @@
                                                            id="processProposedRate">
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="processDevCardRate"
                                                            id="processDevCardRate">
                                                 </td>
                                             </tr>
@@ -464,7 +466,8 @@
                                                            id="commissionPercentage">
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="commissionDevCardRate"
                                                            id="commissionDevCardRate">
                                                 </td>
                                             </tr>
@@ -481,15 +484,19 @@
                                                            formControlName="existCashMargin"
                                                            id="existCashMargin"></td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="cashMargin">
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="cashMargin">
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="cashMarginDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="cashMarginDevCardRate"
                                                            id="cashMarginDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Prepayment Charge</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Prepayment Charge
+                                                </td>
                                                 <td colspan="4">
                                                     <table class="table-borderless table-sm" style="width: 100%">
                                                         <tbody>
@@ -510,30 +517,42 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">STR Charge</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    STR Charge
+                                                </td>
                                                 <td colspan="4">
-                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="strCharge"
-                                                              id="strCharge">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="strCharge"
+                                                           id="strCharge">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Commitment Fee
+                                                </td>
                                                 <td colspan="4">
-                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="commitmentFee">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
-                                                    <td colspan="4">
-                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
-                                                                  id="serviceCharge" appDecimalNumber>
-                                                    </td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Administrative Rate
+                                                </td>
+                                                <td colspan="4">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="serviceCharge"
+                                                           id="serviceCharge" appDecimalNumber>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Other</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Other
+                                                </td>
                                                 <td colspan="4">
-                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="other"
-                                                                  id="other">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="other"
+                                                           id="other">
                                                 </td>
                                             </tr>
                                         </ng-container>
@@ -703,34 +722,16 @@
                                         Credit Scoring
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        creditHistory::: {{proposalForm?.get('creditHistory')?.value}}
-                                        <div>
-                                            <app-credit-risk-grading-gamma #crgGamma0
-                                                                           *ngIf="(proposalForm?.get('creditHistory')?.value === '0')"
-                                                                           [formData]="loan?.crgGamma"
-                                                                           [fromProfile]="fromProfile"
-                                                                           [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"
-                                                                           [creditHistory]="0"
-                                                                           [loanDataReady]="loanDataReady"
-                                                                           (crgDataEmitter)="setIndividualCrgGamma($event)">
-                                            </app-credit-risk-grading-gamma>
-                                        </div>
-<!--                                        <div>-->
-<!--                                            <app-credit-risk-grading-gamma #crgGamma1-->
-<!--                                                                           *ngIf="(proposalForm?.get('creditHistory')?.value === '1')"-->
-<!--                                                                           [formData]="loan?.crgGamma"-->
-<!--                                                                           [fromProfile]="fromProfile"-->
-<!--                                                                           [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"-->
-<!--                                                                           [creditHistory]="1"-->
-<!--                                                                           [loanDataReady]="loanDataReady"-->
-<!--                                                                           (crgDataEmitter)="setIndividualCrgGamma($event)"-->
-<!--                                            ></app-credit-risk-grading-gamma>-->
-<!--                                        </div>-->
-
+                                        <app-credit-risk-grading-gamma #crgGamma0
+                                                                       [formData]="loan?.crgGamma"
+                                                                       [fromProfile]="fromProfile"
+                                                                       [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"
+                                                                       [creditHistory]="proposalForm?.get('creditHistory')?.value"
+                                                                       [loanDataReady]="loanDataReady"
+                                                                       (crgDataEmitter)="setIndividualCrgGamma($event)">
+                                        </app-credit-risk-grading-gamma>
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
-
-
                             </nb-accordion>
                         </div>
                     </ng-container>
