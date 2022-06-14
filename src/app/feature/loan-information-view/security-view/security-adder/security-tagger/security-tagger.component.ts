@@ -197,6 +197,7 @@ export class SecurityTaggerComponent implements OnInit {
         }
         // Set Free limit for added security
         security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
+        security.value.coverage = ((security.value.usedAmount / this.proposedLimit) * 100).toFixed(2);
         if (security.value.usedAmount <= 0) {
             this.isUsedAmount[idx] = true;
             return;
