@@ -62,7 +62,7 @@ export class PlantMachineryComponent implements OnInit {
                 quotation: [formData.quotation],
                 supplier: [formData.supplier],
                 plantMachineryValuator: [formData.plantMachineryValuator],
-                plantMachineryValuatorDate: [formData.plantMachineryValuatorDate],
+                plantMachineryValuatorDate: [new Date(formData.plantMachineryValuatorDate)],
                 plantMachineryValuatorRepresentative: [formData.plantMachineryValuatorRepresentative],
                 plantMachineryStaffRepresentativeName: [formData.plantMachineryStaffRepresentativeName],
                 plantBranch: [formData.plantBranch],

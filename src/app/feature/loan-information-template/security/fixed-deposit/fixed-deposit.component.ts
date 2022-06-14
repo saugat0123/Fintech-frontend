@@ -37,13 +37,13 @@ export class FixedDepositComponent implements OnInit {
           considerValue: [formData.considerValue],
           distressValue: [formData.distressValue],
           fairMarketValue: [formData.fairMarketValue],
-          expiryDate: [formData.expiryDate],
+          expiryDate: [new Date(formData.expiryDate)],
           couponRate: [formData.couponRate],
           beneficiary: [formData.beneficiary],
           remarks: [formData.remarks],
           accountHolderName: [formData.accountHolderName],
           accountNumber: [formData.accountNumber],
-          tenureStartDate: [formData.tenureStartDate],
+          tenureStartDate: [new Date(formData.tenureStartDate)],
             fixedDepositFirstValuationDate: [new Date(formData.fixedDepositFirstValuationDate)]
         })
     );

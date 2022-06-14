@@ -86,7 +86,7 @@ export class ApartmentComponent implements OnInit {
           buildingDistressValue: [formData.buildingDistressValue],
           buildingDetailsDescription: [formData.buildingDetailsDescription],
           ApartmentValuator: [formData.ApartmentValuator],
-          ApartmentValuatorDate: [formData.ApartmentValuatorDate],
+          ApartmentValuatorDate: [new Date(formData.ApartmentValuatorDate)],
           ApartmentValuatorRepresentative: [formData.ApartmentValuatorRepresentative],
           ApartmentStaffRepresentativeName: [formData.ApartmentStaffRepresentativeName],
           apartmentBranch: [formData.apartmentBranch],
