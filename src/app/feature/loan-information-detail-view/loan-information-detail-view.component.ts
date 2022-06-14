@@ -63,6 +63,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     commonLoanData: any;
     companyGroup;
     fixedAssetsData = [];
+    lastDateOfInspection: any;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -166,6 +167,13 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                             });
                         }
                     });
+                }
+            }
+
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+                const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+                if (data.currentResidentFormChecked) {
+                    this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
                 }
             }
 
