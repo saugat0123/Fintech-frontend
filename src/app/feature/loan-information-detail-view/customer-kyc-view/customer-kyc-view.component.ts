@@ -18,8 +18,6 @@ export class CustomerKycViewComponent implements OnInit {
   jointRelatives: Array<any> = new Array<any>();
 
   ngOnInit() {
-
-    console.log(this.customer);
     if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
       this.isJointCustomer = true;
       const data = JSON.parse(this.customer.jointInfo);
