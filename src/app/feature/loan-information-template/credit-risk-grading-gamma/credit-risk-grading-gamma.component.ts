@@ -51,8 +51,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     withoutCreditHistoryData: any;
     withHistoryAns: any;
     withoutHistoryAns: any;
-    questions = [];
-    answers = [];
+    questions = [[], []];
+    answers = [[] , []];
 
 
     constructor(
@@ -69,31 +69,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         console.log('fromProfile', this.fromProfile);
         console.log('called ngOninti');
         console.log('loanDataReady loanDataReady' , this.loanDataReady);
-        // this.spinner = true;
-        // this.getGroupList();
-        // if (!this.fromProfile) {
-        //     this.totalPointsColspan = 2;
-        // }
-        // this.spinner = true;
         this.getQuestionList();
-        // this.getQuestionList();
-        // /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
-        // let customerTypeParam = '';
-        // if (customerType) {
-        //     customerTypeParam = customerType === 'INDIVIDUAL' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION;
-        // } else {
-        //     customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
-        // }*/
-        // this.spinner = false;
     }
-
-    // ngAfterViewChecked(): void {
-    //     console.log('view Chaeked');
-    // }
-
-    // ngOnDestroy(): void {
-    //     throw new Error('Method not implemented.');
-    // }
 
     getGroupList(crgQuestionsList) {
         this.spinner = true;
@@ -170,7 +147,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                     c.answers = cData;
                     ansData.answers = cData;
                 });
-                this.withoutHistoryAns.push(ansData);
                 if (!this.withoutCreditHistoryData.includes(withoutData)) {
                     const woData = {
                         groupName: ca1.label,
@@ -186,8 +162,11 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         // console.log('crgGammaData', this.crgGammaData);
         const historyData = [];
         const withoutHistoryData = [];
+        const questions = [];
+        const nonHisQuestion = [];
         // let testFormGroup: FormGroup;
         this.withCreditHistoryData.forEach((cgd, i) => {
+            const answer = [];
             const gammaQuestionObject: FormGroup = this.formBuilder.group({
                 groupName: null,
                 weightage: null,
@@ -196,10 +175,9 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             const questionAnswer: any = {};
             const pointMapper = new Map<string, number>();
             cgd.gammaQuestion.forEach((value) => {
-                if (value.status === 'ACTIVE') {
                     if (!this.withHistoryAns.includes(value.answers)) {
                         console.log('I am called');
-                        this.withHistoryAns.push(value.answers);
+                        answer.push(value.answers);
                     }
                     if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
                         this.totalWithHistoryPointMapper.set(value.description,
@@ -209,60 +187,60 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                     }
                     questionAnswer[value.description] = null;
                     // questionAnswer[`${value.description}Parameter`] = null;
-                }
             });
+            this.withHistoryAns.push(answer);
             this.totalGroupPointMapper.push(pointMapper);
             gammaQuestionObject.get('groupName').patchValue(cgd.groupName);
             gammaQuestionObject.get('weightage').patchValue(cgd.weightage);
-            this.questions.push(Object.keys(questionAnswer));
+            questions.push(Object.keys(questionAnswer));
             console.log('questionAnswer ======================', this.formBuilder.group(questionAnswer));
-            // testFormGroup = this.formBuilder.group(questionAnswer);
-            // console.log('====================  Test Group ===================', testFormGroup);
             gammaQuestionObject.addControl('gammaQuestionAnswer', this.formBuilder.group(questionAnswer));
-            // (gammaQuestionObject.get('gammaQuestionAnswer')).patchValue(this.formBuilder.group(questionAnswer)) ;
             console.log('gammaQuestionObject gammaQuestionObject', gammaQuestionObject);
             historyData.push(gammaQuestionObject);
         });
+        this.questions[0].push(questions);
+        crgFormGroupObject.groupObject.push(this.formBuilder.array(historyData));
+        this.withoutCreditHistoryData.forEach((cgd, i) => {
+            const answerNon = [];
+            const gammaQuestionObject: FormGroup = this.formBuilder.group({
+                groupName: null,
+                weightage: null,
+                groupTotal: 0
+            });
+            const questionAnswer = {
+            };
+            const pointMapper = new Map<string, number>();
+            cgd.gammaQuestion.forEach((value) => {
+                if (!this.withHistoryAns.includes(value.answers)) {
+                    console.log('without history');
+                    answerNon.push(value.answers);
+                }
+                if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
+                    this.totalWithoutHistoryPointMapper.set(value.description,
+                        this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
+                    pointMapper.set(value.description,
+                        this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
+                }
+                questionAnswer[value.description] = null;
+                // questionAnswer[`${value.description}Parameter`] = null;
+            });
+            this.withoutHistoryAns.push(answerNon);
+            this.totalGroupPointMapper.push(pointMapper);
+            gammaQuestionObject.get('groupName').patchValue(cgd.groupName);
+            gammaQuestionObject.get('weightage').patchValue(cgd.weightage);
+            nonHisQuestion.push(Object.keys(questionAnswer));
+            gammaQuestionObject.addControl('gammaQuestionAnswer', this.formBuilder.group(questionAnswer));
+            withoutHistoryData.push(gammaQuestionObject);
+        });
+        this.questions[1].push(nonHisQuestion);
+
         console.log('withHistoryAns', this.withHistoryAns);
         console.log('asdasdasdasd', this.questions);
-        this.answers.push(this.withHistoryAns);
-        this.answers.push(this.withoutHistoryAns);
+        this.answers[0].push(this.withHistoryAns);
+        this.answers[1].push(this.withoutHistoryAns);
         console.log('answers', this.answers);
-        crgFormGroupObject.groupObject.push(this.formBuilder.array(historyData));
-        // this.withoutCreditHistoryData.forEach((cgd, i) => {
-        //     const gammaQuestionObject: FormGroup = this.formBuilder.group({
-        //         groupName: null,
-        //         weightage: null,
-        //         groupTotal: 0
-        //     });
-        //     const questionAnswer = {
-        //     };
-        //     const pointMapper = new Map<string, number>();
-        //     cgd.gammaQuestion.forEach((value) => {
-        //         if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
-        //             this.totalWithoutHistoryPointMapper.set(value.description,
-        //                 this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-        //             pointMapper.set(value.description,
-        //                 this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
-        //         }
-        //         questionAnswer[value.description] = null;
-        //         questionAnswer[`${value.description}Parameter`] = null;
-        //     });
-        //     this.totalGroupPointMapper.push(pointMapper);
-        //     gammaQuestionObject.get('groupName').patchValue(cgd.groupName);
-        //     gammaQuestionObject.get('weightage').patchValue(cgd.weightage);
-        //     console.log('questionAnswer ======================', this.formBuilder.group(questionAnswer));
-        //     // testFormGroup = this.formBuilder.group(questionAnswer);
-        //     // console.log('====================  Test Group ===================', testFormGroup);
-        //     gammaQuestionObject.addControl('gammaQuestionAnswer', this.formBuilder.group(questionAnswer));
-        //     withoutHistoryData.push(gammaQuestionObject);
-        //     // gammaQuestionObject.groupName = cgd.groupName;
-        //     // gammaQuestionObject.weightage = cgd.weightage;
-        //     // gammaQuestionObject.gammaQuestionAnswer = this.formBuilder.group(questionAnswer);
-        //     // crgFormGroupObject.withoutCreditGroupObject.push(this.formBuilder.group(gammaQuestionObject));
-        // });
         console.log('totalPointMapper', this.totalWithoutHistoryPointMapper);
-        // crgFormGroupObject.groupObject.push(this.formBuilder.array(withoutHistoryData));
+        crgFormGroupObject.groupObject.push(this.formBuilder.array(withoutHistoryData));
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
         if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
             this.totalPoints = this.formDataForEdit.totalPoint;
@@ -277,8 +255,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     onChangeOption(field, point, parameter, history: number) {
-        console.log('field', field, point, parameter);
-        console.log('change Event');
         console.log(history);
         if (history === 0) {
             this.totalWithHistoryPointMapper.set(field, point);
@@ -286,11 +262,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.totalWithoutHistoryPointMapper.set(field, point);
         }
         console.log(this.totalWithHistoryPointMapper, this.totalWithoutHistoryPointMapper);
-        // this.totalGroupPointMapper[index].set(field, point);
-        // this.creditRiskGrading.get(['groupObject', index, 'gammaQuestionAnswer']).get(field).patchValue(point);
-        // this.creditRiskGrading.get(['groupObject', index, 'gammaQuestionAnswer']).get(`${field}Parameter`).patchValue(parameter);
-        // this.calculateGroupTotal();
-        // this.calculateTotalViaMap(history);
     }
 
     calculateTotalViaMap(history: number) {
@@ -335,17 +306,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         this.crgDataEmitter.emit(this.creditRiskData);
     }
 
-    // ngOnChanges(changes: SimpleChanges): void {
-    //     this.creditRiskGrading.valueChanges.subscribe(res => console.log('resresresres', res));
-    //     console.log('changes', changes);
-    //     // if (!changes.creditHistory.firstChange  ||  (changes.creditHistory.previousValue !== undefined)) {
-    //     //     console.log('change credit value');
-    //     //     // this.ngOnInit();
-    //     //     // console.log('called change');
-    //     //     this.getQuestionList();
-    //     // }
-    // }
-
     parseKeys(obj): string[] {
         console.log('obj', obj);
         if (!ObjectUtil.isEmpty(obj)) {
@@ -384,17 +344,9 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.spinner = false;
         });
     }
-    click(data, ans, i) {
-        this.creditRiskGrading.get(['groupObject', i]).get([i, 'gammaQuestionAnswer']).get(ans).patchValue(data);
-        console.log('this is form group', this.creditRiskGrading);
-        console.log('this is cliked data', data);
-        console.log('this is cliked daaata', this.creditRiskGrading.get(['groupObject', i]).get([i, 'gammaQuestionAnswer']).get(ans).value);
-        console.log('this is yooo data', ans);
+    click(data, ans, i, ii) {
+        this.creditRiskGrading.get(['groupObject', i, ii]).get('gammaQuestionAnswer').get(ans).patchValue(data);
+        console.log('this is cliked data',  this.creditRiskGrading);
     }
-    // ngAfterViewInit(): void {
-    //     this.viewLoad = true;
-    //     // this.ngOnInit();
-    //     console.log('called view init');
-    // }
 
 }

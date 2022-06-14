@@ -89,7 +89,7 @@
             <tbody formArrayName="groupObject"
                    *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
             <ng-container>
-                <ng-container *ngFor="let answer of crg">
+                <ng-container *ngFor="let answer of crg; let j = index">
                     <tr style="background-color: #17a2b1" >
                         <th>Topic</th>
                         <th>{{answer?.groupName}}</th>
@@ -98,26 +98,29 @@
                         <td></td>
                         <th><span>Total:</span>{{answer?.groupTotal}}</th>
                     </tr>
-                    <tr *ngFor="let ans of questions[i]; let ii = index">
+                    <tr *ngFor="let ans of questions[i][0][j]; let ii = index">
                             <td>{{ii+1}}</td>
                             <td>{{ans}}</td>
                         <td></td>
 
                         <td>
                                 <ul>
-                                    <ng-container *ngFor="let answ of answers[i][ii]">
+                                    <ng-container *ngFor="let answ of answers[i][0][j][ii]">
                                         <li>{{answ?.description}}</li>
                                     </ng-container>
                                 </ul>
                             </td>
                             <td>
                                 <ng-container>
-                                    <div *ngFor="let answ of answers[i][ii]">
-                                        <input [name]="ans" (click)="click(answ?.points, ans, i)"  type="radio">
+                                    <div *ngFor="let answ of answers[i][0][j][ii]">
+                                        <input [name]="ans + i +j " (click)="click(answ?.points, ans, i,j)"
+                                               [checked] ="this.creditRiskGrading?.get(['groupObject', i, j])?.get('gammaQuestionAnswer')?.get(ans)?.value === answ?.points"
+                                               type="radio">
                                     </div>
+
                                 </ng-container>
                             </td>
-                        <td>{{this.creditRiskGrading?.get(['groupObject', i])?.get([i, 'gammaQuestionAnswer'])?.get(ans).value}}</td>
+                        <td>{{this.creditRiskGrading?.get(['groupObject', i, j])?.get('gammaQuestionAnswer')?.get(ans)?.value}}</td>
                     </tr>
 <!--                    <tr *ngFor="let hisAns of withCreditHistoryData[i]?.gammaQuestion; let ii = index">-->
 <!--                        <td>{{ii + 1}}</td>-->
@@ -139,7 +142,8 @@
 <!--                                <div  formGroupName="gammaQuestionAnswer">-->
 <!--                                    <input (click)="onChangeOption(hisAns?.description, answ?.points, answ?.description, i, crg?.groupName)"-->
 <!--                                           [checked]="totalPointMapper.get(hisAns?.description) === answ?.points"-->
-<!--                                           class="form-check-input"-->
+
+                    <!--                                           class="form-check-input"-->
 <!--                                           [value]="answ?.points"-->
 <!--                                           [formControlName]="hisAns?.description"-->
 <!--                                           [id]="hisAns?.description + iii"-->
