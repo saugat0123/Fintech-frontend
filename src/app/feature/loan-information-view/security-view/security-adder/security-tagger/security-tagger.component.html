@@ -36,7 +36,8 @@
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"
                                                (input)="calcFreeLimit(i,toggleArray[i]?.freeLimit, security.get('usedAmount').value,
-                                                                       'securityDetails')"
+                                                                       'securityDetails',
+                                                                       security.get('id').value)"
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>

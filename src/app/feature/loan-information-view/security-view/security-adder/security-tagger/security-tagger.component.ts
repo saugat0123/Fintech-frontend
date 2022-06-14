@@ -97,6 +97,7 @@ export class SecurityTaggerComponent implements OnInit {
                                 d.coverage = dd.coverage;
                                 d.freeLimit = this.toggleArray[i].freeLimit;
                                 this.securityList.push(d);
+                                this.limitExceed[i] = true;
                             }
                         });
                     });
@@ -115,6 +116,9 @@ export class SecurityTaggerComponent implements OnInit {
   setSecurities(securityData) {
     const plantDetails = this.securityForm.get('securityDetails') as FormArray;
     securityData.forEach((singleData, index) => {
+        const tempUsedAmount = (singleData.usedAmount ?
+            singleData.usedAmount : singleData.considerValue);
+        const calcCoverage = this.calcDefaultCoverage(tempUsedAmount);
       plantDetails.push(
           this.formBuilder.group({
             id: [singleData.id],
@@ -125,9 +129,9 @@ export class SecurityTaggerComponent implements OnInit {
             distressValue: [singleData.distressValue],
             considerValue: [singleData.considerValue],
             securityType: [singleData.securityType],
-            coverage: [singleData.coverage],
+            coverage: [calcCoverage],
             freeLimit: [singleData.considerValue],
-            usedAmount: [singleData.usedAmount],
+            usedAmount: [singleData.usedAmount ? singleData.usedAmount : singleData.considerValue],
             status: [singleData.status],
             isCrossCollateral: [!ObjectUtil.isEmpty(this.mGroupCode) ? true : false]
           })
@@ -135,12 +139,14 @@ export class SecurityTaggerComponent implements OnInit {
     });
   }
 
-  public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string): void {
+  public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string, id): void {
+      const tempFreeLimit = freeLimit;
       freeLimit -= usedAmount;
       const coverage = (usedAmount / this.proposedLimit) * 100;
       this.limitExceed[index] = freeLimit < 0;
+      this.setLimitExceed(index, id);
       this.isUsedAmount[index] = false;
-      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
+      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(tempFreeLimit);
       this.securityForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
 
@@ -156,7 +162,7 @@ export class SecurityTaggerComponent implements OnInit {
                 }
             });
             this.toggleArray[i].freeLimit = Number(this.securityForm.get(['securityDetails', i , 'considerValue']).value) - totalUsedAmount;
-            this.securityForm.get(['securityDetails', i , 'freeLimit']).setValue(this.toggleArray[i].freeLimit);
+            // this.securityForm.get(['securityDetails', i , 'freeLimit']).setValue(this.toggleArray[i].freeLimit);
             this.securityPresent[i] = this.toggleArray[i].security.length > 0;
         }, (err) => {
             this.spinner = false;
@@ -193,6 +199,8 @@ export class SecurityTaggerComponent implements OnInit {
             this.isUsedAmount[idx] = true;
             return;
         }
+        // Set Free limit for added security
+        security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
             const index = this.getIndex(secId);
             if (index) {
                 this.securityList[index] = security.value;
@@ -200,6 +208,9 @@ export class SecurityTaggerComponent implements OnInit {
                 this.securityList.push(security.value);
             }
         this.calculateCoverage();
+        this.securityList.forEach((data, i) => {
+            this.limitExceed[idx] = data.id === secId;
+        });
     }
 
     getIndex(security): number {
@@ -213,6 +224,11 @@ export class SecurityTaggerComponent implements OnInit {
     }
 
     public removeSecurity(idx, securityLoanReferenceId: number): void {
+      this.securityForm.get('securityDetails').value.forEach((data, index) => {
+          if (this.securityList[idx].id === data.id) {
+              this.limitExceed[index] = false;
+          }
+      });
         this.securityList.splice(idx, 1);
         if (!ObjectUtil.isEmpty(securityLoanReferenceId)) {
             this.securityLoanReferenceService.deleteSecurityLoanReferenceById(securityLoanReferenceId).subscribe((res) => {
@@ -235,6 +251,22 @@ export class SecurityTaggerComponent implements OnInit {
             coveragePercent = 0;
         }
         this.coverage = coveragePercent;
+    }
+
+    calcDefaultCoverage(useAmount) {
+        useAmount = !ObjectUtil.isEmpty(useAmount) ? useAmount : 0;
+        const finalData = 0;
+        if (!ObjectUtil.isEmpty(this.proposedLimit)) {
+            const tempUsedAmount = !ObjectUtil.isEmpty(this.proposedLimit) ? this.proposedLimit : 0;
+            return Number((useAmount / tempUsedAmount) * 100).toFixed(2);
+        }
+        return finalData;
+    }
+
+    setLimitExceed(index, secId) {
+        this.securityList.forEach((data, idx) => {
+            this.limitExceed[index] = secId === data.id;
+        });
     }
 
 }
