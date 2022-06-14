@@ -126,6 +126,22 @@
                                       id="realisableValue" name="total" placeholder="Realisable Value" readonly>
                            </div>
                        </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="shareSecurityFirstValuationDate">First Valuation Date</label>
+                               <input *ngIf="calendarType === 'AD'" class="form-control"
+                                      formControlName="shareSecurityFirstValuationDate"
+                                      id="shareSecurityFirstValuationDate"
+                                      name="shareSecurityFirstValuationDate" placeholder="First Valuation Date"
+                                      [nbDatepicker]="firstValuationDate"
+                                      type="text"/>
+                               <app-calendar
+                                       (messageToEmit)="shareSecurityForm.get(['shareSecurityDetails', shareFieldIndex,'shareSecurityFirstValuationDate']).patchValue($event?.eDate)"
+                                       *ngIf="calendarType === 'BS'"
+                                       [ePreDate]="shareSecurityForm.get(['shareSecurityDetails', shareFieldIndex,'shareSecurityFirstValuationDate']).value"></app-calendar>
+                               <nb-datepicker #firstValuationDate></nb-datepicker>
+                           </div>
+                       </div>
                    </div>
                    <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                         class="d-flex justify-content-sm-end">

@@ -94,6 +94,22 @@
                             <nb-datepicker #expiryDate></nb-datepicker>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="fixedDepositFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="fixedDepositFirstValuationDate"
+                                   id="fixedDepositFirstValuationDate"
+                                   name="fixedDepositFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="fixedDepositForm.get(['fixedDepositDetails',i,'fixedDepositFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="fixedDepositForm.get(['fixedDepositDetails',i,'fixedDepositFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">

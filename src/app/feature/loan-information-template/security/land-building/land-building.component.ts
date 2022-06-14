@@ -334,7 +334,8 @@ export class LandBuildingComponent implements OnInit {
       addressLine1: [undefined],
       addressLine2: [undefined],
       registerOffice: [undefined],
-      freeLimit: [undefined]
+      freeLimit: [undefined],
+      landBuildingFirstValuationDate: [undefined]
     });
   }
 
@@ -380,13 +381,13 @@ export class LandBuildingComponent implements OnInit {
           costPerSquare: [formData.costPerSquare],
           totalCost: [formData.totalCost],
           buildingValuator: [formData.buildingValuator],
-          buildingValuatorDate: [formData.buildingValuatorDate],
+          buildingValuatorDate: [formData.buildingValuatorDate ? new Date(formData.buildingValuatorDate) : ''],
           buildingValuatorRepresentative: [formData.buildingValuatorRepresentative],
           buildingStaffRepresentativeName: [formData.buildingStaffRepresentativeName],
           buildingBranch: [formData.buildingBranch],
           landConsideredValue: [formData.landConsideredValue],
           typeOfProperty: [formData.typeOfProperty],
-          ownershipTransferDate: [formData.ownershipTransferDate],
+          ownershipTransferDate: [formData.ownershipTransferDate ? new Date(formData.ownershipTransferDate) : ''],
           ownershipTransferThrough: [formData.ownershipTransferThrough],
           otherOwnershipTransferValue: [formData.otherOwnershipTransferValue],
           saleOwnershipTransfer: [formData.saleOwnershipTransfer],
@@ -437,7 +438,8 @@ export class LandBuildingComponent implements OnInit {
           addressLine1: [formData.addressLine1],
           addressLine2: [formData.addressLine2],
           registerOffice: [formData.registerOffice],
-          freeLimit: [formData.freeLimit]
+          freeLimit: [formData.freeLimit],
+          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : '']
         })
     );
   }

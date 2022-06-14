@@ -79,7 +79,7 @@ export class LandComponent implements OnInit {
           considerValue: [formData.considerValue],
           description: [formData.description],
           landValuator: [formData.landValuator],
-          landValuatorDate: [formData.landValuatorDate],
+          landValuatorDate: [formData.landValuatorDate ? new Date(formData.landValuatorDate) : ''],
           landValuatorRepresentative: [formData.landValuatorRepresentative],
           landStaffRepresentativeName: [formData.landStaffRepresentativeName],
           landBranch: [formData.landBranch],
@@ -90,7 +90,7 @@ export class LandComponent implements OnInit {
           landStaffRepresentativeName2: [formData.landStaffRepresentativeName2],
           landStaffRepresentativeDesignation2: [formData.landStaffRepresentativeDesignation2],
           landSecurityLegalDocumentAddress: [formData.landSecurityLegalDocumentAddress],
-          ownershipTransferDate: [formData.ownershipTransferDate],
+          ownershipTransferDate: [formData.ownershipTransferDate ? new Date(formData.ownershipTransferDate) : ''],
           ownershipTransferThrough: [formData.ownershipTransferThrough],
           otherOwnershipTransferValue: [formData.otherOwnershipTransferValue],
           saleOwnershipTransfer: [formData.saleOwnershipTransfer],
@@ -106,6 +106,7 @@ export class LandComponent implements OnInit {
           landOtherBranchChecked: [formData.landOtherBranchChecked],
           kycCheckForLand: [formData.kycCheckForLand],
           landRate: [formData.landRate],
+          landFirstValuationDate: [formData.landFirstValuationDate ? new Date(formData.landFirstValuationDate) : ''],
         })
     );
   }
@@ -306,7 +307,8 @@ export class LandComponent implements OnInit {
       ownerKycApplicableData: [undefined],
       landOtherBranchChecked: [undefined],
       kycCheckForLand: [false],
-      landRate: [undefined]
+      landRate: [undefined],
+      landFirstValuationDate: [undefined]
     });
   }
 
