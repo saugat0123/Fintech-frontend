@@ -45,7 +45,7 @@ export class CorporationGuaranteeComponent implements OnInit {
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 otherDetail: [formData.otherDetail],
-                corporateGuaranteeFirstValuationDate: [new Date(formData.corporateGuaranteeFirstValuationDate)]
+                corporateGuaranteeFirstValuationDate: [formData.corporateGuaranteeFirstValuationDate ? new Date(formData.corporateGuaranteeFirstValuationDate) : '']
             })
         );
     }

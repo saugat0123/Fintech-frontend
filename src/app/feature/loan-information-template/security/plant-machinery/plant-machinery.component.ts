@@ -62,7 +62,7 @@ export class PlantMachineryComponent implements OnInit {
                 quotation: [formData.quotation],
                 supplier: [formData.supplier],
                 plantMachineryValuator: [formData.plantMachineryValuator],
-                plantMachineryValuatorDate: [new Date(formData.plantMachineryValuatorDate)],
+                plantMachineryValuatorDate: [formData.plantMachineryValuatorDate ? new Date(formData.plantMachineryValuatorDate) : ''],
                 plantMachineryValuatorRepresentative: [formData.plantMachineryValuatorRepresentative],
                 plantMachineryStaffRepresentativeName: [formData.plantMachineryStaffRepresentativeName],
                 plantBranch: [formData.plantBranch],
@@ -75,7 +75,7 @@ export class PlantMachineryComponent implements OnInit {
                 plantOtherBranchChecked: [formData.plantOtherBranchChecked],
                 realisableRate: [formData.realisableRate],
                 realisableValue: [formData.realisableValue],
-                plantMachineryFirstValuationDate: [new Date(formData.plantMachineryFirstValuationDate)]
+                plantMachineryFirstValuationDate: [formData.plantMachineryFirstValuationDate ? new Date(formData.plantMachineryFirstValuationDate) : '']
             })
         );
 

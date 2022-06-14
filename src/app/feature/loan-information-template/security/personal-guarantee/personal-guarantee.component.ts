@@ -44,7 +44,7 @@ export class PersonalGuaranteeComponent implements OnInit {
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 otherDetail: [formData.otherDetail],
-                personalGuaranteeFirstValuationDate: [new Date(formData.personalGuaranteeFirstValuationDate)]
+                personalGuaranteeFirstValuationDate: [formData.personalGuaranteeFirstValuationDate ? new Date(formData.personalGuaranteeFirstValuationDate) : '']
             })
         );
     }

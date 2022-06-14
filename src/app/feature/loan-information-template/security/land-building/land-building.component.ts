@@ -381,13 +381,13 @@ export class LandBuildingComponent implements OnInit {
           costPerSquare: [formData.costPerSquare],
           totalCost: [formData.totalCost],
           buildingValuator: [formData.buildingValuator],
-          buildingValuatorDate: [new Date(formData.buildingValuatorDate)],
+          buildingValuatorDate: [formData.buildingValuatorDate ? new Date(formData.buildingValuatorDate) : ''],
           buildingValuatorRepresentative: [formData.buildingValuatorRepresentative],
           buildingStaffRepresentativeName: [formData.buildingStaffRepresentativeName],
           buildingBranch: [formData.buildingBranch],
           landConsideredValue: [formData.landConsideredValue],
           typeOfProperty: [formData.typeOfProperty],
-          ownershipTransferDate: [new Date(formData.ownershipTransferDate)],
+          ownershipTransferDate: [formData.ownershipTransferDate ? new Date(formData.ownershipTransferDate) : ''],
           ownershipTransferThrough: [formData.ownershipTransferThrough],
           otherOwnershipTransferValue: [formData.otherOwnershipTransferValue],
           saleOwnershipTransfer: [formData.saleOwnershipTransfer],
@@ -439,7 +439,7 @@ export class LandBuildingComponent implements OnInit {
           addressLine2: [formData.addressLine2],
           registerOffice: [formData.registerOffice],
           freeLimit: [formData.freeLimit],
-          landBuildingFirstValuationDate: [new Date(formData.landBuildingFirstValuationDate)]
+          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : '']
         })
     );
   }

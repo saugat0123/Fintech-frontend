@@ -44,17 +44,17 @@ export class InsurancePolicyComponent implements OnInit {
             this.formBuilder.group({
                 insuredAmount: [formData.insuredAmount],
                 insuranceCompanyName: [formData.insuranceCompanyName],
-                policyStartDate: [new Date(formData.policyStartDate)],
-                maturityDate: [new Date(formData.maturityDate)],
+                policyStartDate: [formData.policyStartDate ? new Date(formData.policyStartDate) : ''],
+                maturityDate: [formData.maturityDate ? new Date(formData.maturityDate) : ''],
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 insurancePolicyType: [formData.insurancePolicyType],
                 surrenderValue: [formData.surrenderValue],
-                earlySurrenderDate: [new Date(formData.earlySurrenderDate)],
+                earlySurrenderDate: [formData.earlySurrenderDate ? new Date(formData.earlySurrenderDate) : ''],
                 consideredValue: [formData.considerValue],
                 cashBackAmount: [formData.cashBackAmount],
-                insurancePolicyFirstValuationDate: [new Date(formData.insurancePolicyFirstValuationDate)],
+                insurancePolicyFirstValuationDate: [formData.insurancePolicyFirstValuationDate ? new Date(formData.insurancePolicyFirstValuationDate) : ''],
             })
         );
     }

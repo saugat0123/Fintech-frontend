@@ -37,7 +37,7 @@ export class OtherSecurityComponent implements OnInit {
           considerValue: [formData.considerValue],
           distressValue: [formData.distressValue],
           fairMarketValue: [formData.fairMarketValue],
-          otherSecurityFirstValuationDate: [new Date(formData.otherSecurityFirstValuationDate)]
+          otherSecurityFirstValuationDate: [formData.otherSecurityFirstValuationDate ? new Date(formData.otherSecurityFirstValuationDate) : '']
         })
     );
   }

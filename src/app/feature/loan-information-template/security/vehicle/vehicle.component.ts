@@ -55,7 +55,7 @@ export class VehicleComponent implements OnInit {
             this.formBuilder.group({
                 model: [formData.model],
                 registrationNumber: [formData.registrationNumber],
-                registrationDate: [new Date(formData.registrationDate)],
+                registrationDate: [formData.registrationDate ? new Date(formData.registrationDate) : ''],
                 engineNo: [formData.engineNo],
                 chasisNo: [formData.chasisNo],
                 quotationAmount: [formData.quotationAmount],
@@ -64,7 +64,7 @@ export class VehicleComponent implements OnInit {
                 loanExposure: [formData.loanExposure],
                 showroomCommission: [formData.showroomCommission],
                 vehicalValuator: [formData.vehicalValuator],
-                vehicalValuatorDate: [new Date(formData.vehicalValuatorDate)],
+                vehicalValuatorDate: [formData.vehicalValuatorDate ? new Date(formData.vehicalValuatorDate) : ''],
                 vehicalValuatorRepresentative: [formData.vehicalValuatorRepresentative],
                 vehicalStaffRepresentativeName: [formData.vehicalStaffRepresentativeName],
                 vehicalBranch: [formData.vehicalBranch],
@@ -73,8 +73,8 @@ export class VehicleComponent implements OnInit {
                 vehicaleStaffRepresentativeName2: [formData.vehicaleStaffRepresentativeName2],
                 showroomAddress: [formData.showroomAddress],
                 showroomName: [formData.showroomName],
-                ownershipTransferDate: [new Date(formData.ownershipTransferDate)],
-                vehicleQuotationDate: [new Date(formData.vehicleQuotationDate)],
+                ownershipTransferDate: [formData.ownershipTransferDate ? new Date(formData.ownershipTransferDate) : ''],
+                vehicleQuotationDate: [formData.vehicleQuotationDate ? new Date(formData.vehicleQuotationDate) : ''],
                 vehicleRemarks: [formData.vehicleRemarks],
                 vehicleOtherBranchChecked: [formData.vehicleOtherBranchChecked],
                 isNew: [formData.isNew],
@@ -86,7 +86,7 @@ export class VehicleComponent implements OnInit {
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 freeLimit: [formData.freeLimit],
-                vehicleFirstValuationDate: [new Date(formData.vehicleFirstValuationDate)]
+                vehicleFirstValuationDate: [formData.vehicleFirstValuationDate ? new Date(formData.vehicleFirstValuationDate) : '']
             })
         );
     }

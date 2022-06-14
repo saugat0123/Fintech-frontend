@@ -48,7 +48,7 @@ export class HypothecationOfStockComponent implements OnInit {
                 hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
                 ownerKycApplicableData: [formData.ownerKycApplicableData],
                 kycCheckForHypthecation: [formData.kycCheckForHypthecation],
-                hypothecationFirstValuationDate: [new  Date(formData.hypothecationFirstValuationDate)]
+                hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
             })
         );
     }
