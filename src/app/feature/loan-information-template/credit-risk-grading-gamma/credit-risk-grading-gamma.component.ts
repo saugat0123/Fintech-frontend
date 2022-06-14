@@ -28,8 +28,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
     creditRiskDataValue;
     points: any;
-    a = 0;
-    b = 1;
 
     crgQuestionsList: Array<CrgQuestion> = [];
     // crgQuestionsList1: Array<CrgQuestion> = [];
@@ -65,9 +63,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('fromProfile', this.fromProfile);
-        console.log('called ngOninti');
-        console.log('loanDataReady loanDataReady', this.loanDataReady);
         this.getQuestionList();
     }
 
@@ -75,7 +70,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         this.spinner = true;
         this.crgGroupService.getAll().subscribe((res: any) => {
             this.riskGroupArray = res.detail;
-            console.log('group Array', res.detail);
             this.spinner = false;
             this.riskGroupArray.forEach((value: CrgGroup) => {
                 this.groupLabelMap.set(value.id, value.label);
@@ -89,7 +83,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
 
     buildFormAndCheckEdit(questionList) {
         // list of questions
-        console.log('questionList questionList', questionList);
         this.spinner = true;
         this.crgGammaData = [];
         this.withCreditHistoryData = [];
@@ -109,13 +102,10 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         }
         const withHistory = questionList.filter(cqu => (cqu.fid === 0));
         const withoutHistory = questionList.filter(cqu => (cqu.fid === 1));
-        console.log('questionWithIdOne', withHistory);
-        console.log('questionWithIdZero', withoutHistory);
         // multiple group codes
         this.riskGroupArray.forEach((ca1) => {
             // with data can have multiple question of multiple group
             const withData = withHistory.filter(cqu => (cqu.crgGroupId === ca1.id));
-            console.log('withData', withData);
             const withoutData = withoutHistory.filter(cqu => (cqu.crgGroupId === ca1.id));
             if (withData.length > 0) {
                 // removing inactive answers
@@ -166,7 +156,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
             const pointMapper = new Map<string, number>();
             cgd.gammaQuestion.forEach((value) => {
                 if (!this.withHistoryAns.includes(value.answers)) {
-                    console.log('I am called');
                     answer.push(value.answers);
                 }
                 questionAnswer[value.description] = null;
@@ -214,18 +203,17 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
             this.totalPoints = this.formDataForEdit.totalPoint;
             this.grading = this.formDataForEdit.grade;
             this.creditRiskGrading.get('groupObject').patchValue(this.formDataForEdit.groupObject);
+            this.calcFinalTotal();
         }
         this.spinner = false;
     }
 
     onChangeOption(field, point, parameter, history: number) {
-        console.log(history);
         if (history === 0) {
             this.totalWithHistoryPointMapper.set(field, point);
         } else {
             this.totalWithoutHistoryPointMapper.set(field, point);
         }
-        console.log(this.totalWithHistoryPointMapper, this.totalWithoutHistoryPointMapper);
     }
 
     onSubmit() {
@@ -237,7 +225,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     parseKeys(obj): string[] {
-        console.log('obj', obj);
         if (!ObjectUtil.isEmpty(obj)) {
             return Object.keys(obj);
         }
@@ -260,7 +247,6 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;
             });
-            console.log('initial question', questionsList);
         }, error => {
             this.spinner = false;
             console.log(error);
