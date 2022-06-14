@@ -1,16 +1,5 @@
-import {
-    AfterViewChecked,
-    AfterViewInit,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges
-} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../credit-risk-grading/model/CrgGroup';
 import {CrgGroupService} from '../../credit-risk-grading/service/crg-group.service';
@@ -21,7 +10,6 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
 import {Status} from '../../../@core/Status';
-import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -40,15 +28,18 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
     creditRiskDataValue;
     points: any;
+    a = 0;
+    b = 1;
 
     crgQuestionsList: Array<CrgQuestion> = [];
-    crgQuestionsList1: Array<CrgQuestion> = [];
+    // crgQuestionsList1: Array<CrgQuestion> = [];
     riskGroupArray = [];
-    riskGroupArray1 = [];
+    // riskGroupArray1 = [];
     groupLabelMap: Map<number, string> = new Map<number, string>();
     groupWeightageMap: Map<number, string> = new Map<number, string>();
 
-    totalPointMapper: Map<string, number>;
+    totalWithHistoryPointMapper: Map<string, number>;
+    totalWithoutHistoryPointMapper: Map<string, number>;
     totalGroupPointMapper = [];
     totalPoints = 0;
     grading: string;
@@ -59,6 +50,9 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     withCreditHistoryData;
     withoutCreditHistoryData: any;
     withHistoryAns: any;
+    withoutHistoryAns: any;
+    questions = [];
+    answers = [];
 
 
     constructor(
@@ -118,12 +112,14 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     buildFormAndCheckEdit(questionList) {
+        // list of questions
         console.log('questionList questionList', questionList);
         this.spinner = true;
         this.crgGammaData = [];
         this.withCreditHistoryData = [];
         this.withoutCreditHistoryData = [];
         this.withHistoryAns = [];
+        this.withoutHistoryAns = [];
         const crgFormGroupObject = {
             totalPoint: 0,
             grade: null,
@@ -131,7 +127,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             // withoutCreditGroupObject: this.formBuilder.array([])
         };
 
-        this.totalPointMapper = new Map<string, number>();
+        this.totalWithHistoryPointMapper = new Map<string, number>();
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = JSON.parse(this.formData.data);
         }
@@ -139,20 +135,23 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         const withoutHistory = questionList.filter(cqu => (cqu.fid === 1));
         console.log('questionWithIdOne', withHistory);
         console.log('questionWithIdZero', withoutHistory);
+        //multiple group codes
         this.riskGroupArray.forEach((ca1) => {
+            //with data can have multiple question of multiple group
             const withData = withHistory.filter(cqu => (cqu.crgGroupId === ca1.id));
             console.log('withData', withData);
             const withoutData = withoutHistory.filter(cqu => (cqu.crgGroupId === ca1.id));
             if (withData.length > 0) {
-                const ansData = {
-                    answers: null
-                };
+                // const ansData = {
+                //     answers: null
+                // };
+                //removing inactive answers
                 withData.forEach(cd => {
                     const cData = cd.answers.filter(a => a.status === 'ACTIVE');
                     cd.answers = cData;
-                    ansData.answers = cData;
+                    // ansData.answers = cData;
                 });
-                this.withHistoryAns.push(ansData);
+                // this.withHistoryAns.push(ansData);
                 if (!this.withCreditHistoryData.includes(withData)) {
                     const wData = {
                         groupName: ca1.label,
@@ -162,25 +161,31 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                     this.withCreditHistoryData.push(wData);
                 }
             }
-            // if (withoutData.length > 0) {
-            //     withoutData.forEach(c => {
-            //         const d = c.answers.filter(a => a.status === 'ACTIVE');
-            //         c.answers = d;
-            //     });
-            //     if (!this.withoutCreditHistoryData.includes(withoutData)) {
-            //         const woData = {
-            //             groupName: ca1.label,
-            //             weightage: ca1.weightage,
-            //             gammaQuestion: withoutData
-            //         };
-            //         this.withoutCreditHistoryData.push(woData);
-            //     }
-            // }
+            if (withoutData.length > 0) {
+                const ansData = {
+                    answers: null
+                };
+                withoutData.forEach(c => {
+                    const cData = c.answers.filter(a => a.status === 'ACTIVE');
+                    c.answers = cData;
+                    ansData.answers = cData;
+                });
+                this.withoutHistoryAns.push(ansData);
+                if (!this.withoutCreditHistoryData.includes(withoutData)) {
+                    const woData = {
+                        groupName: ca1.label,
+                        weightage: ca1.weightage,
+                        gammaQuestion: [] = withoutData
+                    };
+                    this.withoutCreditHistoryData.push(woData);
+                }
+            }
         });
         console.log('withCreditHistoryData withCreditHistoryData', this.withCreditHistoryData);
         console.log('withoutCreditHistoryData', this.withoutCreditHistoryData);
         // console.log('crgGammaData', this.crgGammaData);
         const historyData = [];
+        const withoutHistoryData = [];
         // let testFormGroup: FormGroup;
         this.withCreditHistoryData.forEach((cgd, i) => {
             const gammaQuestionObject: FormGroup = this.formBuilder.group({
@@ -192,19 +197,24 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             const pointMapper = new Map<string, number>();
             cgd.gammaQuestion.forEach((value) => {
                 if (value.status === 'ACTIVE') {
+                    if (!this.withHistoryAns.includes(value.answers)) {
+                        console.log('I am called');
+                        this.withHistoryAns.push(value.answers);
+                    }
                     if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
-                        this.totalPointMapper.set(value.description,
+                        this.totalWithHistoryPointMapper.set(value.description,
                             this.formDataForEdit.withCreditGroupObject[i].gammaQuestionAnswer[value.description]);
                         pointMapper.set(value.description,
                             this.formDataForEdit.withCreditGroupObject[i].gammaQuestionAnswer[value.description]);
                     }
                     questionAnswer[value.description] = null;
-                    questionAnswer[`${value.description}Parameter`] = null;
+                    // questionAnswer[`${value.description}Parameter`] = null;
                 }
             });
             this.totalGroupPointMapper.push(pointMapper);
             gammaQuestionObject.get('groupName').patchValue(cgd.groupName);
             gammaQuestionObject.get('weightage').patchValue(cgd.weightage);
+            this.questions.push(Object.keys(questionAnswer));
             console.log('questionAnswer ======================', this.formBuilder.group(questionAnswer));
             // testFormGroup = this.formBuilder.group(questionAnswer);
             // console.log('====================  Test Group ===================', testFormGroup);
@@ -214,20 +224,23 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             historyData.push(gammaQuestionObject);
         });
         console.log('withHistoryAns', this.withHistoryAns);
+        console.log('asdasdasdasd', this.questions);
+        this.answers.push(this.withHistoryAns);
+        this.answers.push(this.withoutHistoryAns);
+        console.log('answers', this.answers);
         crgFormGroupObject.groupObject.push(this.formBuilder.array(historyData));
         // this.withoutCreditHistoryData.forEach((cgd, i) => {
-        //     const gammaQuestionObject = {
-        //         groupName: [null],
-        //         weightage: [null],
-        //         gammaQuestionAnswer: this.formBuilder.group({}),
-        //         groupTotal: [0]
-        //     };
+        //     const gammaQuestionObject: FormGroup = this.formBuilder.group({
+        //         groupName: null,
+        //         weightage: null,
+        //         groupTotal: 0
+        //     });
         //     const questionAnswer = {
         //     };
         //     const pointMapper = new Map<string, number>();
         //     cgd.gammaQuestion.forEach((value) => {
         //         if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
-        //             this.totalPointMapper.set(value.description,
+        //             this.totalWithoutHistoryPointMapper.set(value.description,
         //                 this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
         //             pointMapper.set(value.description,
         //                 this.formDataForEdit.withoutCreditGroupObject[i].gammaQuestionAnswer[value.description]);
@@ -236,11 +249,20 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         //         questionAnswer[`${value.description}Parameter`] = null;
         //     });
         //     this.totalGroupPointMapper.push(pointMapper);
-        //     gammaQuestionObject.groupName = cgd.groupName;
-        //     gammaQuestionObject.weightage = cgd.weightage;
-        //     gammaQuestionObject.gammaQuestionAnswer = this.formBuilder.group(questionAnswer);
-        //     crgFormGroupObject.withoutCreditGroupObject.push(this.formBuilder.group(gammaQuestionObject));
+        //     gammaQuestionObject.get('groupName').patchValue(cgd.groupName);
+        //     gammaQuestionObject.get('weightage').patchValue(cgd.weightage);
+        //     console.log('questionAnswer ======================', this.formBuilder.group(questionAnswer));
+        //     // testFormGroup = this.formBuilder.group(questionAnswer);
+        //     // console.log('====================  Test Group ===================', testFormGroup);
+        //     gammaQuestionObject.addControl('gammaQuestionAnswer', this.formBuilder.group(questionAnswer));
+        //     withoutHistoryData.push(gammaQuestionObject);
+        //     // gammaQuestionObject.groupName = cgd.groupName;
+        //     // gammaQuestionObject.weightage = cgd.weightage;
+        //     // gammaQuestionObject.gammaQuestionAnswer = this.formBuilder.group(questionAnswer);
+        //     // crgFormGroupObject.withoutCreditGroupObject.push(this.formBuilder.group(gammaQuestionObject));
         // });
+        console.log('totalPointMapper', this.totalWithoutHistoryPointMapper);
+        // crgFormGroupObject.groupObject.push(this.formBuilder.array(withoutHistoryData));
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
         if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
             this.totalPoints = this.formDataForEdit.totalPoint;
@@ -248,26 +270,40 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.creditRiskGrading.get('groupObject').patchValue(this.formDataForEdit.groupObject);
             // this.calculateTotalViaMap();
         }
+        // const control = this.creditRiskGrading.get('groupObject') as FormArray;
+
         this.spinner = false;
         console.log('creditRiskGrading', this.creditRiskGrading);
     }
 
-    onChangeOption(field, point, parameter, index, groupName) {
-        console.log('field', field);
+    onChangeOption(field, point, parameter, history: number) {
+        console.log('field', field, point, parameter);
         console.log('change Event');
-        // this.totalPointMapper.set(field, point);
+        console.log(history);
+        if (history === 0) {
+            this.totalWithHistoryPointMapper.set(field, point);
+        } else {
+            this.totalWithoutHistoryPointMapper.set(field, point);
+        }
+        console.log(this.totalWithHistoryPointMapper, this.totalWithoutHistoryPointMapper);
         // this.totalGroupPointMapper[index].set(field, point);
         // this.creditRiskGrading.get(['groupObject', index, 'gammaQuestionAnswer']).get(field).patchValue(point);
         // this.creditRiskGrading.get(['groupObject', index, 'gammaQuestionAnswer']).get(`${field}Parameter`).patchValue(parameter);
         // this.calculateGroupTotal();
-        // this.calculateTotalViaMap();
+        // this.calculateTotalViaMap(history);
     }
 
-    calculateTotalViaMap() {
+    calculateTotalViaMap(history: number) {
         let total = 0;
-        this.totalPointMapper.forEach(data => {
-            total = total + Number(data);
-        });
+        if (history === 0) {
+            this.totalWithHistoryPointMapper.forEach(data => {
+                total = total + Number(data);
+            });
+        } else {
+            this.totalWithoutHistoryPointMapper.forEach(data => {
+                total = total + Number(data);
+            });
+        }
         this.totalPoints = total;
         this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
         if (this.totalPoints >= 90) {
@@ -312,16 +348,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
 
     parseKeys(obj): string[] {
         console.log('obj', obj);
-        // let ansModel;
-        // for (const [key, value] of Object.entries(obj)) {
-        //     ansModel = {
-        //         question: null
-        //     };
-        //     if (!key.includes('Parameter')) {
-        //         ansModel.question = key;
-        //     }
-        // }
-
         if (!ObjectUtil.isEmpty(obj)) {
             return Object.keys(obj);
         }
@@ -358,10 +384,17 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.spinner = false;
         });
     }
-
+    click(data, ans, i) {
+        this.creditRiskGrading.get(['groupObject', i]).get([i, 'gammaQuestionAnswer']).get(ans).patchValue(data);
+        console.log('this is form group', this.creditRiskGrading);
+        console.log('this is cliked data', data);
+        console.log('this is cliked daaata', this.creditRiskGrading.get(['groupObject', i]).get([i, 'gammaQuestionAnswer']).get(ans).value);
+        console.log('this is yooo data', ans);
+    }
     // ngAfterViewInit(): void {
     //     this.viewLoad = true;
     //     // this.ngOnInit();
     //     console.log('called view init');
     // }
+
 }

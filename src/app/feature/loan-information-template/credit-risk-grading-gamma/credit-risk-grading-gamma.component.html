@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="creditRiskGrading?.get('groupObject')['controls']">
 
     <nb-accordion class="mb-4">
         <nb-accordion-item>
@@ -87,9 +87,9 @@
             </thead>
 <!--            *ngIf="creditHistory?.toString() === '0'"-->
             <tbody formArrayName="groupObject"
-                   *ngFor="let crg of creditRiskGrading?.get('groupObject')?.value; let i =  index">
+                   *ngFor="let crg of creditRiskGrading?.get('groupObject')['controls']; let i =  index">
             <ng-container [formGroupName]="i">
-                <ng-container *ngFor="let answer of crg">
+                <ng-container *ngFor="let answer of crg?.value">
                     <tr style="background-color: #17a2b1" >
                         <th>Topic</th>
                         <th>{{answer?.groupName}}</th>
@@ -98,28 +98,27 @@
                         <td></td>
                         <th><span>Total:</span>{{answer?.groupTotal}}</th>
                     </tr>
-                    <tr *ngFor="let ans of parseKeys(answer?.gammaQuestionAnswer); let ii = index" [formArrayName]="i">
-                        <div>
+                    <tr *ngFor="let ans of questions[i]; let ii = index" [formGroup]="crg.get([i,'gammaQuestionAnswer'])">
                             <td>{{ii+1}}</td>
-                            <td></td>
                             <td>{{ans}}</td>
-                            <td>
+                        <td></td>
+
+                        <td>
                                 <ul>
-                                    <ng-container *ngFor="let answ of withHistoryAns[ii]?.answers">
-                                        test
+                                    <ng-container *ngFor="let answ of answers[i][ii]">
                                         <li>{{answ?.description}}</li>
                                     </ng-container>
                                 </ul>
                             </td>
                             <td>
-                                <ng-container *ngFor="let answ of withHistoryAns[ii]?.answers">
-                                    here
-                                    <div formGroupName="gammaQuestionAnswer">
-                                        <input [formControlName]="ans" [value]="answ?.points" type="radio">
+                                <ng-container>
+                                    <div *ngFor="let answ of answers[i][ii]">
+                                        {{answ?.points}}
+                                        <input [name]="ans" (click)="click(answ?.points, ans, i)" [value]="answ?.points" type="radio">
                                     </div>
                                 </ng-container>
                             </td>
-                        </div>
+                        <td>{{this.creditRiskGrading?.get(['groupObject', i])?.get([i, 'gammaQuestionAnswer'])?.get(ans).value}}</td>
                     </tr>
 <!--                    <tr *ngFor="let hisAns of withCreditHistoryData[i]?.gammaQuestion; let ii = index">-->
 <!--                        <td>{{ii + 1}}</td>-->
