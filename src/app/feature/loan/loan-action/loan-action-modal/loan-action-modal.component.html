@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="isMaker">
+                <div *ngIf="isMaker" hidden>
                     <div class="col-md-12">
                         <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)"
                                      [checked]="customerLoanHolder.isSol">is SOL?
