@@ -10,6 +10,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class CrgGammaDetailViewComponent implements OnInit {
 
   @Input() formData: any;
+  @Input() loanHolderData;
+  @Input() landSecurityDetails;
   crgGammaList = [];
   crgGammaData;
   spinner = false;
