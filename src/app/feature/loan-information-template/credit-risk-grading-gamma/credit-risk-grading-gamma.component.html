@@ -1,5 +1,10 @@
 <section>
-    <nb-accordion class="mb-4">
+    <div class="modal-header text-center" *ngIf="!fromProfile">
+        <a (click)="onClose()" aria-label="Close" class="close cursor disable-print"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </div>
+    <nb-accordion class="mb-4 disable-print">
         <nb-accordion-item>
             <nb-accordion-item-header>
                 <em>
@@ -112,7 +117,7 @@
                                 <div *ngFor="let answ of answers[creditHistory][0][j][ii]">
                                     <input [name]="ans + creditHistory +j "
                                            (click)="click(answ?.points, ans,j)"
-                                           [disabled]="fromProfile"
+                                           [disabled]="!fromProfile"
                                            [checked]="this.creditRiskGrading?.get(['groupObject', creditHistory, j])?.get('gammaQuestionAnswer')?.get(ans)?.value === answ?.points"
                                            type="radio">
                                 </div>
@@ -126,7 +131,7 @@
             </ng-container>
             </tbody>
             <tbody>
-            <tr>
+            <tr class="sb-bg-secondary">
                 <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
                 <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
                 <th class="text-center">{{creditRiskGrading?.get('totalPoint')?.value}}</th>

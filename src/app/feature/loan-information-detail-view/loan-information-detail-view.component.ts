@@ -283,9 +283,9 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     }
 
     onOpen() {
-        const crgGamma = this.modalService.open(CreditRiskGradingGammaComponent, {size: 'lg'});
+        const crgGamma = this.modalService.open(CreditRiskGradingGammaComponent, {size: 'lg', backdrop: false});
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
-        crgGamma.componentInstance.fromProfile = true;
+        crgGamma.componentInstance.fromProfile = false;
         crgGamma.componentInstance.loanConfigId = this.loanDataHolder.loan.id;
         crgGamma.componentInstance.creditHistory = JSON.parse(this.loanDataHolder.proposal.data).creditHistory;
     }

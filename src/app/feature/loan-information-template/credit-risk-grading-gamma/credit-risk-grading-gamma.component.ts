@@ -10,6 +10,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
 import {Status} from '../../../@core/Status';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -59,6 +60,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         private toastService: ToastService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private modalService: NgbModal
     ) {
     }
 
@@ -303,5 +305,9 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
             this.calcFinalTotal();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
     }
 }
