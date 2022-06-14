@@ -25,7 +25,7 @@
 
 
             <tbody>
-            <tr *ngFor="let data of customer.customerRelatives; let i=index">
+            <tr *ngFor="let data of customer?.customerRelatives; let i=index">
                 <td>{{data?.customerRelation}}</td>
                 <td>{{data?.customerRelativeName}}</td>
                 <td>{{data?.citizenshipNumber}}</td>
