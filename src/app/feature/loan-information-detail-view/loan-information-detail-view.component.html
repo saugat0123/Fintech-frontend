@@ -270,7 +270,7 @@
                                 <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate:false}})</p>
                             </div>
                             <div class="col-md-6 text-right">
-                                <p><strong>Late Date of Inspection: </strong>................</p>
+                                <p><strong>Late Date of Inspection: </strong>{{lastDateOfInspection ? (lastDateOfInspection | date) : 'NA'}} ({{lastDateOfInspection ? (lastDateOfInspection | engNepDate: false) : 'NA'}})</p>
                                 <p><strong>Obligation Group (Name/Code): </strong>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}/ {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>
                             </div>
                         </div>
