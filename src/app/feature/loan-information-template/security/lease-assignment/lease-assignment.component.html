@@ -10,6 +10,24 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label class="title" for="leaseAssignmentFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="leaseAssignmentFirstValuationDate"
+                                   id="leaseAssignmentFirstValuationDate"
+                                   name="leaseAssignmentFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="leaseAssignmentForm.get(['leaseAssignment',i,'leaseAssignmentFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="leaseAssignmentForm.get(['leaseAssignment',i,'leaseAssignmentFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label>Other Detail</label>
                             <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
                         </div>
