@@ -7,7 +7,7 @@
                 <span aria-hidden="true">×</span></a>
         </div>
         <app-home-loan-compliance-status
-                *ngIf="loanHolderData?.loan?.name === 'HOME LOAN AND LAND LOAN' || loanHolderData?.loan?.name === 'HOME LOAN'"
+                *ngIf="loanHolderData?.loan?.loanTag === 'HOME LOAN'"
                 [loanHolderData]="loanHolderData"
                 [landSecurityDetails]="landSecurityDetails"></app-home-loan-compliance-status>
         <table class="table table-condensed table-bordered table-sm
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <th class="text-center pr-1 pl-1" colspan="2">Total Score:</th>
-                <th class="text-right pr-1">{{crgGammaData?.totalPoint}}</th>
+                <th class="text-center pl-1 pr-1">{{crgGammaData?.totalPoint}}</th>
             </tr>
             </tbody>
         </table>
