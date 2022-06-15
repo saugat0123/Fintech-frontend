@@ -52,6 +52,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {BehaviorSubject} from 'rxjs';
 import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
+import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -140,6 +141,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     @ViewChild('securityComponent', {static: false})
     public securityComponent: SecurityComponent;
+    @ViewChild('commonLoanInformation', {static: false})
+    public commonLoanInformation: CommonLoanInformationComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;

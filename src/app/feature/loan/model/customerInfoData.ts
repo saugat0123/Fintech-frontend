@@ -92,5 +92,5 @@ export class CustomerInfoData {
     gssData: string;
     facilityUtilization: string;
     otherDetails: string;
-
+    existingExposures: Array<ExistingExposure>;
 }
