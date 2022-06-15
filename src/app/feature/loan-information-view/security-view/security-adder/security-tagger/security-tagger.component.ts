@@ -213,7 +213,7 @@ export class SecurityTaggerComponent implements OnInit {
             }
         this.calculateCoverage();
         this.securityList.forEach((data, i) => {
-            this.limitExceed[idx] = data.id === secId;
+           this.setLimitExceed(idx, data.id);
         });
     }
 

@@ -59,7 +59,7 @@
                             </tr>
                             <tr *ngIf="security?.get('status').value === 'ACTIVE'">
                                 <td colspan="9">
-                                    <ng-container *ngIf="toggleArray[i].toggled">
+                                    <ng-container *ngIf="toggleArray[i]?.toggled">
                                         <app-security-tagged-component [security]="security?.get('data')?.value"
                                                 [tagged]="toggleArray[i]?.security"></app-security-tagged-component>
                                     </ng-container>
