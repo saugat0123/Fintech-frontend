@@ -32,16 +32,13 @@ export class HomeLoanComplianceStatusComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loanHolder = JSON.parse(this.loanHolderData.financial.data);
+        if (!ObjectUtil.isEmpty(this.loanHolderData) && !ObjectUtil.isEmpty(this.loanHolderData.financial)) {
+            this.loanHolder = JSON.parse(this.loanHolderData.financial.data);
+        }
         this.setWithCreditHistoryRequiredParameter();
         this.setWithOutCreditHistoryRequiredParameter();
         this.setLTV();
         this.setCompiledWithValue();
-       /* if (this.withCreditHistory) {
-            this.setWithCreditHistoryRequiredParameter();
-        } else {
-            this.setWithOutCreditHistoryRequiredParameter();
-        }*/
     }
     setWithCreditHistoryRequiredParameter() {
         this.requirementUMI = 1.25;
