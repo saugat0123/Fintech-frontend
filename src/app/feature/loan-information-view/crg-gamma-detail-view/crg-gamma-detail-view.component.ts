@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-crg-gamma-detail-view',
@@ -10,7 +11,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class CrgGammaDetailViewComponent implements OnInit {
 
   @Input() formData: any;
-  @Input() loanHolderData;
+  @Input() loanHolderData: LoanDataHolder;
   @Input() landSecurityDetails;
   @Input() creditHistory: number;
   crgGammaList = [];
