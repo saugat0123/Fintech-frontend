@@ -11,12 +11,12 @@
   <div class="py-2" *ngIf="loanDataHolder?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)
             && loanDataHolder?.loanType !== loanType?.getEnum(loanType.CLOSURE_LOAN); else termsCondition">
     <ol>
-      <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
+      <li class="col-md-12" >
         <div class="row sb-medium">
-          <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
+          <span [class.font-weight-bold]="loanDataHolder?.proposal.id == loanDataHolder?.proposal?.id"><u>{{loanDataHolder?.loan?.name}}({{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})) :</u></span>
           <div class="row col-md-12">
 <!--            <div>-->
-              <span  [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
+              <span  [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.termsAndCondition || 'NA' "></span>
 <!--            </div>-->
           </div>
         </div>
@@ -27,13 +27,13 @@
 
     <ng-template #termsCondition>
         <div class="py-2">
-            <div *ngFor="let data of customerAllLoanList;" class="row sb-medium">
-                <div *ngIf="data?.proposal?.id === loanDataHolder?.proposal?.id" class="col-md-12">
-                      <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}
-                          ({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
+            <div class="row sb-medium">
+                <div class="col-md-12">
+                      <span><u>{{loanDataHolder?.loan?.name}}
+                          ({{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})) :</u></span>
                     <!--            <div>-->
                     <div class="row col-md-12">
-                        <span [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
+                        <span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.termsAndCondition || 'NA' "></span>
                     </div>
                     <!--            </div>-->
                 </div>
