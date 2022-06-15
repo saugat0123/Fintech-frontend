@@ -551,6 +551,8 @@ export class LoanFormComponent implements OnInit {
     if (name === 'Credit Risk Grading - Gamma' && action) {
       this.crgGamma.onSubmit();
       this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
+      console.log('loanDocument', this.loanDocument);
+      console.log('crgGamma', this.loanDocument.crgGamma);
     }
 
     if (name === 'Group' && action) {

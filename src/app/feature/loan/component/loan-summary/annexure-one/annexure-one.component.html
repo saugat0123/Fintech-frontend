@@ -1,449 +1,453 @@
 <div class="row">
-  <div class="col-md-12">
-    <p class="text-center"><strong>Annexure-1</strong></p>
-    <div *ngFor="let siteVisit of siteVisitJson; let i = index">
-      <table class="table table-sm table-bordered text-center table-sm sb-small">
-        <thead>
-        <tr>
-          <th colspan="11">Security Collateral Site Visit Detail</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th>S.N</th>
-          <th>Security</th>
-          <th>Site Visit Date(AD/BS)</th>
-          <th>Person Contacted</th>
-          <th>Phone No</th>
-          <th>Address Line 1</th>
-          <th>Address Line 2</th>
-          <th>Province</th>
-          <th>District</th>
-          <th>Municipality</th>
-          <th>Ward Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>{{i + 1}}</td>
-          <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
-          <td class="text-left pl-1">{{siteVisit?.date | date}}
-            ({{siteVisit?.date | engNepDate: false}})
-          </td>
-          <td class="text-left pl-1">{{siteVisit?.personContacted}}</td>
-          <td class="text-right pr-1">{{siteVisit?.phoneNoOfContact || 'NA'}}</td>
-          <td class="text-left pl-1">{{siteVisit?.address1 || 'NA'}}</td>
-          <td class="text-left pl-1">{{siteVisit?.address2 || 'NA'}}</td>
-          <td class="text-left pl-1">{{siteVisit?.province.name}}</td>
-          <td class="text-left pl-1">{{siteVisit?.district.name}}</td>
-          <td class="text-left pl-1">{{siteVisit?.municipalityVdc.name}}</td>
-          <td class="text-right pr-1">{{siteVisit?.ward}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <div class="row">
-        <div class="col-md-6">
-          <table class="table table-sm table-bordered text-center table-sm sb-small">
-            <tr>
-              <th class="sb-bg-secondary text-white">Road Approach</th>
-              <td class="text-center pr-1">{{siteVisit?.roadApproach}}</td>
-            </tr>
-            <tr>
-              <th class="sb-bg-secondary text-white">Road Width(in feet)</th>
-              <td class="text-center pr-1">{{siteVisit?.roadWidth}}</td>
-            </tr>
-            <tr>
-              <th class="sb-bg-secondary text-white">Prominent Place</th>
-              <td class="text-center pl-1">{{siteVisit?.prominentPlace}}</td>
-            </tr>
-            <tr>
-              <th class="sb-bg-secondary text-white">Approach Distance</th>
-              <td class="text-center pr-1">{{siteVisit?.approachDistance}}</td>
-            </tr>
-            <tr>
-              <th class="sb-bg-secondary text-white">Road Access From</th>
-              <td class="text-center pl-1">{{siteVisit?.roadAccessFrom}}</td>
-            </tr>
-          </table>
+    <div class="col-md-12">
+        <p class="text-center"><strong>Annexure-1</strong></p>
+        <div *ngFor="let siteVisit of siteVisitJson; let i = index">
+            <table class="table table-sm table-bordered text-center table-sm sb-small">
+                <thead>
+                <tr>
+                    <th colspan="11">Security Collateral Site Visit Detail</th>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Security</th>
+                    <th>Site Visit Date(AD/BS)</th>
+                    <th>Person Contacted</th>
+                    <th>Phone No</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                    <th>Province</th>
+                    <th>District</th>
+                    <th>Municipality</th>
+                    <th>Ward Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.date | date}}
+                        ({{siteVisit?.date | engNepDate: false}})
+                    </td>
+                    <td class="text-left pl-1">{{siteVisit?.personContacted}}</td>
+                    <td class="text-right pr-1">{{siteVisit?.phoneNoOfContact || 'NA'}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.address1 || 'NA'}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.address2 || 'NA'}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.province.name}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.district.name}}</td>
+                    <td class="text-left pl-1">{{siteVisit?.municipalityVdc.name}}</td>
+                    <td class="text-right pr-1">{{siteVisit?.ward}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-sm table-bordered text-center table-sm sb-small">
+                        <tr>
+                            <th class="sb-bg-secondary text-white">Road Approach</th>
+                            <td class="text-center pr-1">{{siteVisit?.roadApproach}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-secondary text-white">Road Width(in feet)</th>
+                            <td class="text-center pr-1">{{siteVisit?.roadWidth}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-secondary text-white">Prominent Place</th>
+                            <td class="text-center pl-1">{{siteVisit?.prominentPlace}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-secondary text-white">Approach Distance</th>
+                            <td class="text-center pr-1">{{siteVisit?.approachDistance}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-secondary text-white">Road Access From</th>
+                            <td class="text-center pl-1">{{siteVisit?.roadAccessFrom}}</td>
+                        </tr>
+                    </table>
 
-          <table class="table table-sm table-bordered text-center table-sm sb-small">
-            <tr>
-              <td><strong>Does Land has Building</strong></td>
-              <td class="text-center pl-1"> {{siteVisit?.building === null ? 'NA'
-                  : siteVisit?.building}}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6 float-left">
-          <table class="table table-bordered table-sm sb-small text-center">
-            <tr class="text-white sb-bg-dark">
-              <th>SN</th>
-              <th>Particulars</th>
-              <th>Outcome</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Water Supply</td>
-              <td>
+                    <table class="table table-sm table-bordered text-center table-sm sb-small">
+                        <tr>
+                            <td><strong>Does Land has Building</strong></td>
+                            <td class="text-center pl-1"> {{siteVisit?.building === null ? 'NA'
+                                : siteVisit?.building}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6 float-left">
+                    <table class="table table-bordered table-sm sb-small text-center">
+                        <tr class="text-white sb-bg-dark">
+                            <th>SN</th>
+                            <th>Particulars</th>
+                            <th>Outcome</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Water Supply</td>
+                            <td>
                             <span
-                                *ngIf="siteVisit?.waterSupply === true;  else waterSupplyUnChecked">
+                                    *ngIf="siteVisit?.waterSupply === true;  else waterSupplyUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #waterSupplyUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Electricity</td>
-              <td>
+                                <ng-template #waterSupplyUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Electricity</td>
+                            <td>
                             <span
-                                *ngIf="siteVisit?.electricity === true;  else electricityUnChecked">
+                                    *ngIf="siteVisit?.electricity === true;  else electricityUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #electricityUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Boundary Wall Construction</td>
-              <td>
+                                <ng-template #electricityUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Boundary Wall Construction</td>
+                            <td>
                              <span
-                                 *ngIf="siteVisit?.boundaryWallConstruction === true;  else boundaryWallConstructionUnChecked">
+                                     *ngIf="siteVisit?.boundaryWallConstruction === true;  else boundaryWallConstructionUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #boundaryWallConstructionUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Boundary Fencing</td>
-              <td>
+                                <ng-template #boundaryWallConstructionUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Boundary Fencing</td>
+                            <td>
                             <span
-                                *ngIf="siteVisit?.boundaryFencing === true;  else boundaryFencingUnChecked">
+                                    *ngIf="siteVisit?.boundaryFencing === true;  else boundaryFencingUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #boundaryFencingUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Drainage</td>
-              <td>
+                                <ng-template #boundaryFencingUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Drainage</td>
+                            <td>
                             <span *ngIf="siteVisit?.drainage === true;  else drainageUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #drainageUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Open</td>
-              <td>
+                                <ng-template #drainageUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Open</td>
+                            <td>
                             <span *ngIf="siteVisit?.open === true;  else openUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #openUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Telephone Line</td>
-              <td>
+                                <ng-template #openUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Telephone Line</td>
+                            <td>
                             <span
-                                *ngIf="siteVisit?.telephoneLine === true;  else telephoneLineUnChecked">
+                                    *ngIf="siteVisit?.telephoneLine === true;  else telephoneLineUnChecked">
                                 <i class="fas fa-check"></i>
                             </span>
-                <ng-template #telephoneLineUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-          </table>
+                                <ng-template #telephoneLineUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div *ngIf="siteVisit?.building == 'YES'" class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered table-sm sb-small text-center">
+                        <tr class="text-white sb-bg-dark">
+                            <th>SN</th>
+                            <th>Particulars</th>
+                            <th>Check for Yes</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Load Bearing Wall</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.loadBearingWall === true;  else loadBearingWallUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #loadBearingWallUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mortar Cement</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.mortarCement === true;  else mortarCementUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #mortarCementUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Other Roofing</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.otherRoofing === true;  else otherRoofingUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #otherRoofingUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Inside Furniture</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.insideFurniture === true;  else insideFurnitureUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #insideFurnitureUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Frame Structure</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.frameStructure === true;  else frameStructureUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #frameStructureUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>RCC Roofing</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.rccRoofing === true;  else rccRoofingUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #rccRoofingUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Bathroom And Toilet</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.rccRoofing === true;  else bathroomAndToiletUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #bathroomAndToiletUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Naksa Pass Obtained</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.naksaPassObtained === true;  else naksaPassObtainedUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #naksaPassObtainedUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Building Completion Certificate Obtained</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.buildingCompCertificate === true;  else buildingCompCertificateUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #buildingCompCertificateUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Construction appears to be as per the Approved Naksa Pass</td>
+                            <td>
+                                    <span
+                                            *ngIf="siteVisit?.constructionAsPerNaksa === true;  else constructionAsPerNaksaUnChecked">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                <ng-template #constructionAsPerNaksaUnChecked>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-6 float-left">
+                    <table class="table table-bordered table-sm sb-small text-center">
+
+                        <tr>
+                            <td class="sb-bg-secondary text-white">Building Area</td>
+                            <td>
+                                {{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-secondary text-white">Construction Year</td>
+                            <td>
+                                {{siteVisit?.constructionYear === null ? 'NA' : siteVisit?.constructionYear}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-secondary text-white">Building Type</td>
+                            <td>
+                                {{siteVisit?.buildingType === null ? 'NA' : siteVisit?.buildingType}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-secondary text-white">Built Up Area</td>
+                            <td>
+                                {{siteVisit?.builtUpArea === null ? 'NA' : siteVisit?.builtUpArea}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-secondary text-white">Number of Storey</td>
+                            <td>
+                                {{siteVisit?.noOfStorey === null ? 'NA' : siteVisit?.noOfStorey}}
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div *ngIf="siteVisit?.building != 'YES'" class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Remarks For 'NO'
+                        Building
+                        Option</strong></div>
+                    <div class="col-md-9 sb-small">{{siteVisit?.remarksForOtherFacility || 'NA'}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Comments about
+                        FAC</strong></div>
+                    <div class="col-md-9 sb-small">{{siteVisit?.commentAboutFAC || 'NA'}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-sm table-bordered text-center table-sm sb-small">
+                        <tr class="text-white sb-bg-dark">
+                            <th colspan="2">Vicinity to the Basic Amenities</th>
+                        </tr>
+                        <tr>
+                            <th>Major Market Places</th>
+                            <td class="text-left pl-1">{{siteVisit?.majorMarketPlaces || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Schools/Colleges</th>
+                            <td class="text-left pl-1">{{siteVisit?.schoolOrCollege || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Hospital/Nursing Home</th>
+                            <td class="text-left pl-1">{{siteVisit?.hospitalOrNursingHome || 'NA'}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-sm table-bordered text-center table-sm sb-small">
+                        <tr>
+                            <th class="text-white sb-bg-dark" colspan="6">Location Details</th>
+                        </tr>
+                        <tr>
+                            <th>Longitude</th>
+                            <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Latitude</th>
+                            <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered text-center table-sm sb-small">
+                        <thead>
+                        <tr>
+                            <th class="text-white sb-bg-dark" colspan="2">
+                                Site Visit Staff Details
+                            </th>
+                        </tr>
+                        <tr class="text-white sb-bg-secondary">
+
+                            <th>Staff Representative 1</th>
+                            <th>Staff Representative 2</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container>
+                            <tr *ngFor="let staff of siteVisit.staffs;">
+                                <td class="text-left pl-1">{{staff.staffRepresentativeName || 'NA'}}<br>
+                                    ({{staff.staffRepresentativeNameDesignation || 'NA'}})
+                                </td>
+                                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'NA'}}
+                                    <br>({{staff.staffRepresentativeName2
+                                    || 'NA'}})
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div *ngIf="siteVisit?.building == 'YES'" class="row">
-        <div class="col-md-6">
-          <table class="table table-bordered table-sm sb-small text-center">
-            <tr class="text-white sb-bg-dark">
-              <th>SN</th>
-              <th>Particulars</th>
-              <th>Check for Yes</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Load Bearing Wall</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.loadBearingWall === true;  else loadBearingWallUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #loadBearingWallUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Mortar Cement</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.mortarCement === true;  else mortarCementUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #mortarCementUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Other Roofing</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.otherRoofing === true;  else otherRoofingUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #otherRoofingUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Inside Furniture</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.insideFurniture === true;  else insideFurnitureUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #insideFurnitureUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Frame Structure</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.frameStructure === true;  else frameStructureUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #frameStructureUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>RCC Roofing</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.rccRoofing === true;  else rccRoofingUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #rccRoofingUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Bathroom And Toilet</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.rccRoofing === true;  else bathroomAndToiletUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #bathroomAndToiletUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Naksa Pass Obtained</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.naksaPassObtained === true;  else naksaPassObtainedUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #naksaPassObtainedUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Building Completion Certificate Obtained</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.buildingCompCertificate === true;  else buildingCompCertificateUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #buildingCompCertificateUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Construction appears to be as per the Approved Naksa Pass</td>
-              <td>
-                                    <span
-                                        *ngIf="siteVisit?.constructionAsPerNaksa === true;  else constructionAsPerNaksaUnChecked">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                <ng-template #constructionAsPerNaksaUnChecked>
-                  <i class="fas fa-times"></i>
-                </ng-template>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="col-md-6 float-left">
-          <table class="table table-bordered table-sm sb-small text-center">
-
-            <tr>
-              <td class="sb-bg-secondary text-white">Building Area</td>
-              <td>
-                {{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}
-              </td>
-            </tr>
-            <tr>
-              <td class="sb-bg-secondary text-white">Construction Year</td>
-              <td>
-                {{siteVisit?.constructionYear === null ? 'NA' : siteVisit?.constructionYear}}
-              </td>
-            </tr>
-            <tr>
-              <td class="sb-bg-secondary text-white">Building Type</td>
-              <td>
-                {{siteVisit?.buildingType === null ? 'NA' : siteVisit?.buildingType}}
-              </td>
-            </tr>
-            <tr>
-              <td class="sb-bg-secondary text-white">Built Up Area</td>
-              <td>
-                {{siteVisit?.builtUpArea === null ? 'NA' : siteVisit?.builtUpArea}}
-              </td>
-            </tr>
-            <tr>
-              <td class="sb-bg-secondary text-white">Number of Storey</td>
-              <td>
-                {{siteVisit?.noOfStorey === null ? 'NA' : siteVisit?.noOfStorey}}
-              </td>
-            </tr>
-
-          </table>
-
-
-        </div>
-      </div>
-
-      <div *ngIf="siteVisit?.building != 'YES'" class="row">
-        <div class="col-md-12">
-          <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Remarks For 'NO'
-            Building
-            Option</strong></div>
-          <div class="col-md-9 sb-small">{{siteVisit?.remarksForOtherFacility || 'NA'}}</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Comments about
-            FAC</strong></div>
-          <div class="col-md-9 sb-small">{{siteVisit?.commentAboutFAC || 'NA'}}</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <table class="table table-sm table-bordered text-center table-sm sb-small">
-            <tr class="text-white sb-bg-dark">
-              <th colspan="2">Vicinity to the Basic Amenities</th>
-            </tr>
-            <tr>
-              <th>Major Market Places</th>
-              <td class="text-left pl-1">{{siteVisit?.majorMarketPlaces || 'NA'}}</td>
-            </tr>
-            <tr>
-              <th>Schools/Colleges</th>
-              <td class="text-left pl-1">{{siteVisit?.schoolOrCollege || 'NA'}}</td>
-            </tr>
-            <tr>
-              <th>Hospital/Nursing Home</th>
-              <td class="text-left pl-1">{{siteVisit?.hospitalOrNursingHome || 'NA'}}</td>
-            </tr>
-
-          </table>
-        </div>
-        <div class="col-md-6">
-          <table class="table table-sm table-bordered text-center table-sm sb-small">
-            <tr>
-              <th class="text-white sb-bg-dark" colspan="6">Location Details</th>
-            </tr>
-            <tr>
-              <th>Longitude</th>
-              <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
-            </tr>
-            <tr>
-              <th>Latitude</th>
-              <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
-            </tr>
-
-          </table>
-        </div>
-
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-sm table-bordered text-center table-sm sb-small">
-            <thead>
-            <tr>
-              <th class="text-white sb-bg-dark" colspan="2">
-                Site Visit Staff Details
-              </th>
-            </tr>
-            <tr class="text-white sb-bg-secondary">
-
-              <th>Staff Representative 1</th>
-              <th>Staff Representative 2</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container>
-              <tr *ngFor="let staff of siteVisit.staffs;">
-                <td class="text-left pl-1">{{staff.staffRepresentativeName || 'NA'}}<br>
-                  ({{staff.staffRepresentativeNameDesignation || 'NA'}})
-                </td>
-                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'NA'}}
-                  <br>({{staff.staffRepresentativeName2
-                  || 'NA'}})
-                </td>
-              </tr>
-            </ng-container>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
     </div>
-
+  <div class="col-md-12">
+    <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                               [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                               [fromProfile]="false"
+                               [customerType]="loanDataHolder?.loanHolder?.customerType">
+    </app-credit-checklist-view>
   </div>
 </div>
