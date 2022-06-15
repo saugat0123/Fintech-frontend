@@ -16,7 +16,7 @@
                             <th>Distress Value</th>
                             <th>Consider Value</th>
                             <th width="35%">Amount to Use</th>
-                            <th>Free Limit</th>
+<!--                            <th>Free Limit</th>-->
                             <th>Coverage(%)</th>
                             <th>Security Type</th>
                             <th>Action</th>
@@ -41,7 +41,7 @@
                                                [readOnly]="proposedLimit === undefined || proposedLimit <= 0">
                                         <span *ngIf="isUsedAmount[i]" class="text-danger">Amount is required!!</span>
                                     </td>
-                                    <td>{{security.get('freeLimit')?.value || '0'}}</td>
+<!--                                    <td>{{security.get('freeLimit')?.value || '0'}}</td>-->
                                     <td>{{security.get('coverage')?.value || '0'}}</td>
                                     <td>{{security.get('securityType')?.value || 'N/A'}}</td>
                                     <td>
@@ -80,7 +80,7 @@
                 <th>Distress Value</th>
                 <th>Consider Value</th>
                 <th>Used Amount</th>
-                <th>Free Limit</th>
+<!--                <th>Free Limit</th>-->
                 <th>Coverage(%)</th>
                 <th>Security Type</th>
                 <th>Action</th>
@@ -96,7 +96,7 @@
                     <td>{{security?.distressValue || '0'}}</td>
                     <td>{{security?.considerValue || '0'}}</td>
                     <td>{{security?.usedAmount || '0'}}</td>
-                    <td>{{security?.freeLimit || '0'}}</td>
+<!--                    <td>{{security?.freeLimit || '0'}}</td>-->
                     <td>{{security?.coverage || '0'}}</td>
                     <td>{{security?.securityType ? (security?.securityType.toString() | replace :'_' : ' ') : 'NA'}}</td>
                     <td>

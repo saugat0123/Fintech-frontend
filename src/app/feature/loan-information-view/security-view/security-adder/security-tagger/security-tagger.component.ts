@@ -95,7 +95,7 @@ export class SecurityTaggerComponent implements OnInit {
                                 d.securityLoanReferenceId = dd.id;
                                 d.usedAmount = dd.usedAmount;
                                 d.coverage = dd.coverage;
-                                d.freeLimit = d.considerValue - d.usedAmount;
+                                // d.freeLimit = this.toggleArray[i].freeLimit;
                                 this.securityList.push(d);
                                 this.limitExceed[i] = true;
                             }
@@ -140,13 +140,12 @@ export class SecurityTaggerComponent implements OnInit {
   }
 
   public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string, id): void {
-      const tempFreeLimit = freeLimit;
-      freeLimit -= usedAmount;
+      // freeLimit -= usedAmount;
       const coverage = (usedAmount / this.proposedLimit) * 100;
       this.limitExceed[index] = freeLimit < 0;
       this.setLimitExceed(index, id);
       this.isUsedAmount[index] = false;
-      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(tempFreeLimit);
+      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
       this.securityForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
 
@@ -196,8 +195,12 @@ export class SecurityTaggerComponent implements OnInit {
             }
         }
         // Set Free limit for added security
-        security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
-        security.value.coverage = ((security.value.usedAmount / this.proposedLimit) * 100).toFixed(2);
+        // security.value.freeLimit = security.value.considerValue - security.value.usedAmount;
+        if (!ObjectUtil.isEmpty(this.proposedLimit)) {
+            const calcCoverageVal = ((security.value.usedAmount / this.proposedLimit) * 100).toFixed(2);
+            security.value.coverage = calcCoverageVal;
+            this.securityForm.get(['securityDetails', idx, 'coverage']).patchValue(calcCoverageVal);
+        }
         if (security.value.usedAmount <= 0) {
             this.isUsedAmount[idx] = true;
             return;
