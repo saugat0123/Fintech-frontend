@@ -349,6 +349,10 @@
                                        [fiscalYear]="fiscalYearArray"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
+            <ng-container *ngIf="loanDataHolder?.security && fixedAssetsData.length > 0">
+                <app-annexure-one [loanDataHolder]="loanDataHolder"
+                                  [fixedAssetsData]="fixedAssetsData"></app-annexure-one>
+            </ng-container>
         </nb-card-body>
     </nb-card>
 </section>
