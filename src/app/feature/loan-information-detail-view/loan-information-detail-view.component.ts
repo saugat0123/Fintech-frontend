@@ -21,7 +21,6 @@ import {CrgGammaDetailViewComponent} from '../loan-information-view/crg-gamma-de
 import {
     CollateralSiteVisitService
 } from '../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
-import {CreditRiskGradingGammaComponent} from '../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -291,11 +290,10 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     }
 
     onOpen() {
-        const crgGamma = this.modalService.open(CreditRiskGradingGammaComponent, {size: 'lg', backdrop: false});
+        const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg', backdrop: false});
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
-        crgGamma.componentInstance.fromProfile = false;
-        crgGamma.componentInstance.loanConfigId = this.loanDataHolder.loan.id;
-        crgGamma.componentInstance.creditHistory = JSON.parse(this.loanDataHolder.proposal.data).creditHistory;
+        crgGamma.componentInstance.loanHolderData = this.loanDataHolder;
+        crgGamma.componentInstance.landSecurityDetails =  JSON.parse(this.loanDataHolder.security.data);
     }
 
     getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
