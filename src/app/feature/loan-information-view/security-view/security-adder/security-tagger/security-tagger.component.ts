@@ -73,6 +73,7 @@ export class SecurityTaggerComponent implements OnInit {
                  });
                  this.securities = securities;
                  if (this.securities.length > 0) {
+                     (this.securityForm.get('securityDetails') as FormArray).clear();
                      this.setSecurities(this.securities);
                      this.toggleSecurity();
                      this.getAllSecurityByLoanHolderId();
@@ -140,12 +141,13 @@ export class SecurityTaggerComponent implements OnInit {
   }
 
   public calcFreeLimit(index: number, freeLimit: number, usedAmount: number, formControlName: string, id): void {
-      // freeLimit -= usedAmount;
+      const tempFreeLimit = freeLimit;
+      freeLimit -= usedAmount;
       const coverage = (usedAmount / this.proposedLimit) * 100;
       this.limitExceed[index] = freeLimit < 0;
       this.setLimitExceed(index, id);
       this.isUsedAmount[index] = false;
-      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
+      this.securityForm.get([formControlName, index, 'freeLimit']).setValue(tempFreeLimit);
       this.securityForm.get([formControlName, index, 'coverage']).setValue(Number(coverage.toFixed(2)));
   }
 
