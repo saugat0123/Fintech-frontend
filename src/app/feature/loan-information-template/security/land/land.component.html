@@ -428,6 +428,22 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="landFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="landFirstValuationDate"
+                                   id="landFirstValuationDate"
+                                   name="landFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="landForm.get(['landDetails',i,'landFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="landForm.get(['landDetails',i,'landFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
                     <div class="col-md-3"
                          *ngIf="landForm.get(['landDetails',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
                         <div class="form-group">
@@ -502,14 +518,13 @@
                     <!--                                              (revaluationDataEmitter)="eventLandSecurity($event, i)"-->
                     <!--                    ></app-security-revaluation>-->
                     <!--                </div>-->
-                    <div *ngIf="landForm.get('landDetails') ['length'] > 1" class="col-md-1">
-                        <input (click)="removeLandDetails(i)"
-                               class="align-self-end btn btn-sm btn-danger btn-primary"
-                               type="button" value="Delete"/>
-                    </div>
 
                 </div>
-
+                <div *ngIf="landForm.get('landDetails') ['length'] > 1" class="col-md-1">
+                    <input (click)="removeLandDetails(i)"
+                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                           type="button" value="Delete"/>
+                </div>
             </div>
             <hr>
         </div>

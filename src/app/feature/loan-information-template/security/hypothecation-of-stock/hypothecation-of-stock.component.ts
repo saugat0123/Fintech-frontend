@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RelationshipList} from '../../../loan/model/relationshipList';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-hypothecation-of-stock',
@@ -16,6 +17,7 @@ export class HypothecationOfStockComponent implements OnInit {
     ckeConfig;
     @Input() security: Security;
     @Input() isEdit = false;
+    @Input() calendarType: CalendarType;
 
 
     constructor(private formBuilder: FormBuilder) { }
@@ -45,7 +47,8 @@ export class HypothecationOfStockComponent implements OnInit {
                 description: [formData.description],
                 hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
                 ownerKycApplicableData: [formData.ownerKycApplicableData],
-                kycCheckForHypthecation: [formData.kycCheckForHypthecation]
+                kycCheckForHypthecation: [formData.kycCheckForHypthecation],
+                hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
             })
         );
     }
@@ -73,7 +76,8 @@ export class HypothecationOfStockComponent implements OnInit {
                 description: [undefined],
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
-                kycCheckForHypthecation: [false]
+                kycCheckForHypthecation: [false],
+                hypothecationFirstValuationDate: [undefined]
             }
         );
     }
