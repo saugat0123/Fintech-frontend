@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value !== 'PARTIAL_SETTLEMENT_LOAN'">
+                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value === 'PARTIAL_SETTLEMENT_LOAN'">
                         <div class="form-group">
                             <label class="title" for="settlementAmount"></label>
                             <strong>Settlement Amount</strong>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value !== 'RENEW_WITH_ENHANCEMENT' || controls?.get('loanType')?.value !== 'ENHANCED_LOAN'" >
+                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value === 'RENEW_WITH_ENHANCEMENT' || controls?.get('loanType')?.value === 'ENHANCED_LOAN'" >
                         <div class="form-group">
                             <label class="title" for="enhanceLimitAmount">
                                 <strong>Enhancement Amount</strong>
