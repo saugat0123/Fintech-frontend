@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
     selector: 'app-home-loan-compliance-status',
@@ -7,9 +8,9 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
     styleUrls: ['./home-loan-compliance-status.component.scss']
 })
 export class HomeLoanComplianceStatusComponent implements OnInit {
-    @Input() loanHolderData;
+    @Input() loanHolderData: LoanDataHolder;
     @Input() landSecurityDetails;
-    loanHolder;
+    financialData;
     proposal;
     landAndBuilding;
     requirementUMI;
@@ -32,16 +33,13 @@ export class HomeLoanComplianceStatusComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loanHolder = JSON.parse(this.loanHolderData.financial.data);
+        if (!ObjectUtil.isEmpty(this.loanHolderData.financial)) {
+            this.financialData = JSON.parse(this.loanHolderData.financial.data);
+        }
         this.setWithCreditHistoryRequiredParameter();
         this.setWithOutCreditHistoryRequiredParameter();
         this.setLTV();
         this.setCompiledWithValue();
-       /* if (this.withCreditHistory) {
-            this.setWithCreditHistoryRequiredParameter();
-        } else {
-            this.setWithOutCreditHistoryRequiredParameter();
-        }*/
     }
     setWithCreditHistoryRequiredParameter() {
         this.requirementUMI = 1.25;
@@ -49,10 +47,11 @@ export class HomeLoanComplianceStatusComponent implements OnInit {
         this.requirementLTV = 60;
     }
     setWithOutCreditHistoryRequiredParameter() {
-        this.positionUMI = (this.loanHolder.initialForm.totalNetMonthlyIncome / this.loanHolder.initialForm.emiWithProposal).toFixed(2);
-        const totalEMI = Number(this.loanHolder.initialForm.emiWithProposal) +
-            Number(this.loanHolder.initialForm.existingObligationOtherBank);
-        this.positionDTI = (totalEMI / this.loanHolder.initialForm.totalIncome).toFixed(2);
+        this.positionUMI = (this.financialData.initialForm.totalNetMonthlyIncome /
+            this.financialData.initialForm.emiWithProposal).toFixed(2);
+        const totalEMI = Number(this.financialData.initialForm.emiWithProposal) +
+            Number(this.financialData.initialForm.existingObligationOtherBank);
+        this.positionDTI = (totalEMI / this.financialData.initialForm.totalIncome).toFixed(2);
     }
     setLTV() {
         const securityData = this.landSecurityDetails;
