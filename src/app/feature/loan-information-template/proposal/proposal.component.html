@@ -1,4 +1,4 @@
-<div class="tab-pane fade active show" id="proposal">
+<div class="tab-pane fade scrollable active show" id="proposal">
     <div class="row">
         <div class="col-md-12">
             <nb-card>
@@ -57,7 +57,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4" *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'">
+                                <div class="col-md-4"
+                                     *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="enhanceLimitAmount">
                                             <strong>{{loanType === 'RENEW_WITH_ENHANCEMENT' ? 'Enhance Limit' : 'Enhancement Amount'}}</strong>
@@ -84,7 +85,8 @@
                                                 [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
-                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()"
+                                                appDecimalNumber>
                                         <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
@@ -172,7 +174,8 @@
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                                                 placeholder="Tenure Duration in Months"
-                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()"
+                                                appDecimalNumber>
                                     </div>
                                 </div>
 
@@ -180,7 +183,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
-                                        <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>
+                                        <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>
                                         <select
                                                 class="custom-select" formControlName="repaymentMode"
                                                 id="repaymentMode"
@@ -194,9 +197,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div  *ngIf="showRepaymentMode" class="col-md-4">
+                                <div *ngIf="showRepaymentMode" class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
+                                        <label class="title" for="repaymentModeInterest"><strong>Interest
+                                            Payment</strong></label>
                                         <select
                                             #interestRepayment
                                             [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModeInterest.errors }"
@@ -218,9 +222,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div  class="col-md-4" *ngIf="showRepaymentMode">
+                                <div class="col-md-4" *ngIf="showRepaymentMode">
                                     <div class="form-group">
-                                        <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
+                                        <label class="title" for="repaymentModePrincipal"><strong>Principal
+                                            Payment</strong></label>
                                         <select
                                             #repaymentModePrincipal
                                             [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModePrincipal.errors }"
@@ -257,32 +262,32 @@
                                 </div>
                                 <!--                end of ng s
                                 installment amount div-->
-                                    <div class="col-md-4"
-                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                <div class="col-md-4"
+                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
-                                        <div class="form-group>">
-                                            <label class="title"> <strong>Interest Amount</strong></label>
-                                            <input
-                                                    class="form-control" formControlName="interestAmount"
-                                                    id="interestAmount"
-                                                    name="interestAmount" placeholder="Interest Amount" disabled
-                                                    type="number">
-                                        </div>
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Interest Amount</strong></label>
+                                        <input
+                                                class="form-control" formControlName="interestAmount"
+                                                id="interestAmount"
+                                                name="interestAmount" placeholder="Interest Amount" disabled
+                                                type="number">
                                     </div>
-                                    <div class="col-md-4"
-                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral || isHomeLoan)))
                                            ">
-                                        <div class="form-group>">
-                                            <label class="title"> <strong>Principal Amount</strong></label>
-                                            <input
-                                                    class="form-control" formControlName="principalAmount"
-                                                    id="principalAmount"
-                                                    name="principalAmount" placeholder="Principle Amount" disabled
-                                                    type="number">
-                                        </div>
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Principal Amount</strong></label>
+                                        <input
+                                                class="form-control" formControlName="principalAmount"
+                                                id="principalAmount"
+                                                name="principalAmount" placeholder="Principle Amount" disabled
+                                                type="number">
                                     </div>
+                                </div>
 
                                 <!--                start of Moratorium period amount div-->
                                 <div class="col-md-4" (change)="checkRepaymentMode()"
@@ -316,10 +321,13 @@
                                 </div>
                                 <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
-                                        <label class="title" for="existingDateOfExpiry"><strong>Existing Date of Expiry</strong></label>
+                                        <label class="title" for="existingDateOfExpiry"><strong>Existing Date of
+                                            Expiry</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && formControls.existingDateOfExpiry.errors }"
-                                               class="form-control" formControlName="existingDateOfExpiry" id="existingDateOfExpiry"
-                                               name="existingDateOfExpiry" placeholder="Existing Date of Expiry" type="date">
+                                               class="form-control" formControlName="existingDateOfExpiry"
+                                               id="existingDateOfExpiry"
+                                               name="existingDateOfExpiry" placeholder="Existing Date of Expiry"
+                                               type="date">
                                         <div *ngIf="(submitted) && formControls.existingDateOfExpiry.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.existingDateOfExpiry.errors">
@@ -350,7 +358,8 @@
                                     </div>
                                 </div>
                                 <div *ngIf="isShare" class="col-md-12">
-                                    <div class="form-group"><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against Share)</strong>
+                                    <div class="form-group"><strong>Debt Structure and Control Mechanism: For
+                                        Overdraft/Demand Loan (Loan Against Share)</strong>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.debtStructure.errors }"
                                                 formControlName="debtStructure"
@@ -378,127 +387,172 @@
                                     <label class="title"><strong>Pricing</strong></label>
                                     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
                                         <thead>
-                                            <tr class="sb-bg-dark text-white">
-                                                <th>Pricing</th>
-                                                <th>Card Rate</th>
-                                                <th>Existing Rate</th>
-                                                <th>Proposed Rate</th>
-                                                <th>Deviation with Card Rate</th>
-                                            </tr>
+                                        <tr class="sb-bg-dark text-white">
+                                            <th>Pricing</th>
+                                            <th>Card Rate</th>
+                                            <th>Existing Rate</th>
+                                            <th>Proposed Rate</th>
+                                            <th>Deviation with Card Rate</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         <ng-container>
                                             <tr *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral || isHomeLoan">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Interest Rate</td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestCardRate"
-                                                              id="interestCardRate">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Interest Rate
                                                 </td>
-                                                <td><input rows="1" class="form-control mt-1 mb-1" name="existInterestRate" formControlName="existInterestRate"
-                                                               id="existInterestRate" [(ngModel)]="existInterestLimit"
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="interestCardRate"
+                                                           id="interestCardRate">
+                                                </td>
+                                                <td><input rows="1" class="form-control mt-1 mb-1"
+                                                           name="existInterestRate" formControlName="existInterestRate"
+                                                           id="existInterestRate" [(ngModel)]="existInterestLimit"
                                                            type="number" appDecimalNumber></td>
                                                 <td>
-                                                    <input rows="1" id="interestRate" class="form-control mt-1 mb-1" type="number"
-                                                           [(ngModel)]="interestLimit" formControlName="interestRate" type="number"
-                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
+                                                    <input rows="1" id="interestRate" class="form-control mt-1 mb-1"
+                                                           type="number"
+                                                           [(ngModel)]="interestLimit" formControlName="interestRate"
+                                                           type="number"
+                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()"
+                                                           appDecimalNumber>
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="interestDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="interestDevCardRate"
                                                            id="interestDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Processing Fee</td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processCardRate"
-                                                              id="processCardRate">
-                                                </td>
-                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processExistingRate"
-                                                              id="processExistingRate"></td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="processProposedRate"
-                                                              id="processProposedRate">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Processing Fee
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="processDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="processCardRate"
+                                                           id="processCardRate">
+                                                </td>
+                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="processExistingRate"
+                                                           id="processExistingRate"></td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="processProposedRate"
+                                                           id="processProposedRate">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="processDevCardRate"
                                                            id="processDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Commissions</td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionsCardRate"
-                                                              id="commissionsCardRate">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Commissions
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="existCommissionPercentage"
-                                                              id="existCommissionPercentage"></td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="commissionPercentage"
-                                                              id="commissionPercentage">
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="commissionsCardRate"
+                                                           id="commissionsCardRate">
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="commissionDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="existCommissionPercentage"
+                                                           id="existCommissionPercentage"></td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="commissionPercentage"
+                                                           id="commissionPercentage">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="commissionDevCardRate"
                                                            id="commissionDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="!isFundable && fundableNonFundableSelcted">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Cash Margin</td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="cashCardRate"
-                                                              id="cashCardRate">
-                                                </td>
-                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="existCashMargin"
-                                                              id="existCashMargin"></td>
-                                                <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="number" formControlName="cashMargin">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Cash Margin
                                                 </td>
                                                 <td>
-                                                    <input rows="1" class="form-control mt-1 mb-1" type="text" formControlName="cashMarginDevCardRate"
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="cashCardRate"
+                                                           id="cashCardRate">
+                                                </td>
+                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="existCashMargin"
+                                                           id="existCashMargin"></td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="cashMargin">
+                                                </td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="cashMarginDevCardRate"
                                                            id="cashMarginDevCardRate">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Prepayment Charge</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Prepayment Charge
+                                                </td>
                                                 <td colspan="4">
                                                     <table class="table-borderless table-sm" style="width: 100%">
                                                         <tbody>
                                                         <td class="border-right">If paid by own sources
-                                                            <input rows="1" class="form-control mt-1 mb-1" formControlName="prepaymentCardRate"
-                                                                   id="prepaymentCardRate">% of the pre-paid amount, flat
+                                                            <input rows="1" class="form-control mt-1 mb-1"
+                                                                   formControlName="prepaymentCardRate"
+                                                                   id="prepaymentCardRate">% of the pre-paid amount,
+                                                            flat
                                                         </td>
                                                         <td>If swapped to other bank/FI
-                                                            <input rows="1" class="form-control mt-1 mb-1" formControlName="prepaymentExistingRate"
-                                                                   id="prepaymentExistingRate">% of the pre-paid amount, flat</td>
+                                                            <input rows="1" class="form-control mt-1 mb-1"
+                                                                   formControlName="prepaymentExistingRate"
+                                                                   id="prepaymentExistingRate">% of the pre-paid amount,
+                                                            flat
+                                                        </td>
                                                         </tbody>
                                                     </table>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">STR Charge</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    STR Charge
+                                                </td>
                                                 <td colspan="4">
-                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="strCharge"
-                                                              id="strCharge">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="strCharge"
+                                                           id="strCharge">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan)">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Commitment Fee</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Commitment Fee
+                                                </td>
                                                 <td colspan="4">
-                                                    <input rows="1" class="form-control mt-1 mb-1" formControlName="commitmentFee">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="commitmentFee">
                                                 </td>
                                             </tr>
                                             <tr *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral ||isHomeLoan">
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Administrative Rate</td>
-                                                    <td colspan="4">
-                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="serviceCharge"
-                                                                  id="serviceCharge" appDecimalNumber>
-                                                    </td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Administrative Rate
+                                                </td>
+                                                <td colspan="4">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="serviceCharge"
+                                                           id="serviceCharge" appDecimalNumber>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">Other</td>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Other
+                                                </td>
                                                 <td colspan="4">
-                                                        <input rows="1" class="form-control mt-1 mb-1" formControlName="other"
-                                                                  id="other">
+                                                    <input rows="1" class="form-control mt-1 mb-1"
+                                                           formControlName="other"
+                                                           id="other">
                                                 </td>
                                             </tr>
                                         </ng-container>
@@ -506,10 +560,13 @@
                                     </table>
                                 </div>
                                 <div class="col-md-12" *ngIf="isHomeLoan">
-                                    <nb-checkbox class="title" (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
-                                                 [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First Time Home Buyer</strong>
+                                    <nb-checkbox class="title"
+                                                 (change)="checkChecked($event.target.checked,'firstTimeHomeBuyer')"
+                                                 [checked]="firstTimeHomeBuyerChecked"><strong style="font-size: 16px">First
+                                        Time Home Buyer</strong>
                                     </nb-checkbox>
-                                    <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory" *ngIf="fromProfile">
+                                    <nb-radio-group class="d-flex" formControlName="creditHistory" id="creditHistory"
+                                                    *ngIf="fromProfile">
                                         <nb-radio value="0">With Credit History</nb-radio>
                                         <nb-radio value="1">WithOut Credit History</nb-radio>
                                     </nb-radio-group>
@@ -601,7 +658,8 @@
                                 <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="title" for="specialCovenant"><strong>Special Covenants/Conditions, If Any</strong></label>
+                                            <label class="title" for="specialCovenant"><strong>Special
+                                                Covenants/Conditions, If Any</strong></label>
                                             <ckeditor
                                                     [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
                                                     formControlName="specialCovenant" id="specialCovenant"
@@ -617,7 +675,8 @@
                                 <ng-container *ngIf="customerType === 'INSTITUTION'">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+                                            <label class="title" for="disbursementCriteria"><strong>Disbursement
+                                                Criteria</strong></label>
                                             <ckeditor
                                                     [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
                                                     formControlName="disbursementCriteria" id="disbursementCriteria"
@@ -663,26 +722,25 @@
                                         Credit Scoring
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        <app-credit-risk-grading-gamma  #crgGamma *ngIf="fromProfile"
-                                                                        [formData]="loan?.crgGamma"
-                                                                       [fromProfile]="true"
+                                        <app-credit-risk-grading-gamma #crgGamma0
+                                                                       [formData]="loan?.crgGamma"
+                                                                       [fromProfile]="fromProfile"
                                                                        [loanConfigId]="fromProfile ? loan?.loan?.id : allId?.loanId"
-                                                                        [creditHistory]="proposalForm?.get('creditHistory')?.value"
-                                                                        (crgDataEmitter)="setIndividualCrgGamma($event)"
-                                                                       ></app-credit-risk-grading-gamma>
+                                                                       [creditHistory]="proposalForm?.get('creditHistory')?.value"
+                                                                       [loanDataReady]="loanDataReady"
+                                                                       (crgDataEmitter)="setIndividualCrgGamma($event)">
+                                        </app-credit-risk-grading-gamma>
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
-
-
                             </nb-accordion>
                         </div>
                     </ng-container>
                     <br>
-                    <ng-container  *ngIf="fromProfile" >
+                    <ng-container *ngIf="fromProfile">
                         <div class="col-md-12">
-                            <app-guarantor-adder  (emitter)="guarantors($event)"
-                                                  [taggedGuarantors]="loan?.taggedGuarantors"
-                                                  [guarantorData]="customerInfo?.guarantors">
+                            <app-guarantor-adder (emitter)="guarantors($event)"
+                                                 [taggedGuarantors]="loan?.taggedGuarantors"
+                                                 [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
                     </ng-container>

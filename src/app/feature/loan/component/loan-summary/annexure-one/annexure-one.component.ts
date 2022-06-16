@@ -54,8 +54,17 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
     if (changes) {
       this.siteVisitJson = [];
       this.siteVisitDocuments = [];
+      this.collateralSiteVisits =[];
       if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
-        this.collateralSiteVisits = this.fixedAssetsData;
+          // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
+          let map = new Map();
+          this.fixedAssetsData.forEach(f => {
+            const securityName = f.securityName;
+            if (!map.has(securityName)) {
+              this.collateralSiteVisits.push(f);
+            }
+            map.set(securityName, securityName);
+          });
         const doc = [];
         this.collateralSiteVisits.forEach(f => {
           if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
