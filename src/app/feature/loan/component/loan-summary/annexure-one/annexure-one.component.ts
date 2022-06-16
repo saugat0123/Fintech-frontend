@@ -19,7 +19,7 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() fixedAssetsData;
   collateralSiteVisits: Array<CollateralSiteVisit> = [];
-  siteVisitDocuments: Array<SiteVisitDocument>;
+  siteVisitDocuments = [];
   siteVisitJson = [];
   isPrintable = 'YES';
   url: string;
@@ -36,7 +36,7 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
     this.url = ApiConfig.URL;
   }
 
-  viewDocument(url: string, name: string) {
+  viewDocumentAnnex(url: string, name: string) {
     const viewDocName = name.concat(this.fileType);
     const link = document.createElement('a');
     link.target = '_blank';
@@ -54,7 +54,7 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
     if (changes) {
       this.siteVisitJson = [];
       this.siteVisitDocuments = [];
-      this.collateralSiteVisits =[];
+      this.collateralSiteVisits = [];
       if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
           // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
           let map = new Map();
@@ -65,23 +65,46 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
             }
             map.set(securityName, securityName);
           });
-        const doc = [];
+        console.log(this.collateralSiteVisits, ' collateral site');
+        const siteVisitDoc = [];
         this.collateralSiteVisits.forEach(f => {
-          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-            doc.push(f.siteVisitDocuments);
+          const doc = [];
+          if (f.siteVisitDocuments.length > 0) {
+            f.siteVisitDocuments.forEach((sv: SiteVisitDocument) => {
+              doc.push(sv);
+            });
+          }
+          if (doc.length > 0) {
+            siteVisitDoc.push(doc);
           }
         });
+        this.siteVisitDocuments = siteVisitDoc;
+        // console.log('siteVisitDoc siteVisitDoc', siteVisitDoc);
+        // siteVisitDoc.forEach((site: Array<SiteVisitDocument>) => {
+        //   console.log('s s', s);
+        //   s.fil(f => f.isPrintable === this.isPrintable);
+        // });
+
         // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-        const docArray = flatten(doc);
-        // filter for only printable document
-        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+        // const docArray = flatten(doc);
+        // // filter for only printable document
+        // this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+        console.log(this.siteVisitDocuments, 'siteVisitDocuemtns');
 
         this.collateralSiteVisits.filter(item => {
           this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
         });
+
       }
     }
   }
 
-
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
 }

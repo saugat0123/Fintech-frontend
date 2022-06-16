@@ -5,10 +5,9 @@
       <table class="table table-sm table-bordered text-center table-sm sb-small">
         <thead>
         <tr>
-          <th colspan="11">Security Collateral Site Visit Detail</th>
+          <th colspan="11">Security Collateral Site Visit Detail of {{siteVisit?.securityName}}</th>
         </tr>
         <tr class="text-white sb-bg-dark">
-          <th>S.N</th>
           <th>Security</th>
           <th>Site Visit Date(AD/BS)</th>
           <th>Person Contacted</th>
@@ -23,7 +22,6 @@
         </thead>
         <tbody>
         <tr>
-          <td>{{i + 1}}</td>
           <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
           <td class="text-left pl-1">{{siteVisit?.date | date}}
             ({{siteVisit?.date | engNepDate: false}})
@@ -75,12 +73,10 @@
         <div class="col-md-6 float-left">
           <table class="table table-bordered table-sm sb-small text-center">
             <tr class="text-white sb-bg-dark">
-              <th>SN</th>
               <th>Particulars</th>
               <th>Outcome</th>
             </tr>
             <tr>
-              <td>1</td>
               <td>Water Supply</td>
               <td>
                             <span
@@ -93,7 +89,6 @@
               </td>
             </tr>
             <tr>
-              <td>2</td>
               <td>Electricity</td>
               <td>
                             <span
@@ -106,7 +101,6 @@
               </td>
             </tr>
             <tr>
-              <td>3</td>
               <td>Boundary Wall Construction</td>
               <td>
                              <span
@@ -119,7 +113,6 @@
               </td>
             </tr>
             <tr>
-              <td>4</td>
               <td>Boundary Fencing</td>
               <td>
                             <span
@@ -132,7 +125,6 @@
               </td>
             </tr>
             <tr>
-              <td>5</td>
               <td>Drainage</td>
               <td>
                             <span *ngIf="siteVisit?.drainage === true;  else drainageUnChecked">
@@ -144,7 +136,6 @@
               </td>
             </tr>
             <tr>
-              <td>6</td>
               <td>Open</td>
               <td>
                             <span *ngIf="siteVisit?.open === true;  else openUnChecked">
@@ -156,7 +147,6 @@
               </td>
             </tr>
             <tr>
-              <td>7</td>
               <td>Telephone Line</td>
               <td>
                             <span
@@ -171,17 +161,14 @@
           </table>
         </div>
       </div>
-
       <div *ngIf="siteVisit?.building == 'YES'" class="row">
         <div class="col-md-6">
           <table class="table table-bordered table-sm sb-small text-center">
             <tr class="text-white sb-bg-dark">
-              <th>SN</th>
               <th>Particulars</th>
               <th>Check for Yes</th>
             </tr>
             <tr>
-              <td>1</td>
               <td>Load Bearing Wall</td>
               <td>
                                     <span
@@ -194,7 +181,6 @@
               </td>
             </tr>
             <tr>
-              <td>2</td>
               <td>Mortar Cement</td>
               <td>
                                     <span
@@ -207,7 +193,6 @@
               </td>
             </tr>
             <tr>
-              <td>3</td>
               <td>Other Roofing</td>
               <td>
                                     <span
@@ -220,7 +205,6 @@
               </td>
             </tr>
             <tr>
-              <td>4</td>
               <td>Inside Furniture</td>
               <td>
                                     <span
@@ -233,7 +217,6 @@
               </td>
             </tr>
             <tr>
-              <td>5</td>
               <td>Frame Structure</td>
               <td>
                                     <span
@@ -246,7 +229,6 @@
               </td>
             </tr>
             <tr>
-              <td>6</td>
               <td>RCC Roofing</td>
               <td>
                                     <span
@@ -259,7 +241,6 @@
               </td>
             </tr>
             <tr>
-              <td>7</td>
               <td>Bathroom And Toilet</td>
               <td>
                                     <span
@@ -272,7 +253,6 @@
               </td>
             </tr>
             <tr>
-              <td>8</td>
               <td>Naksa Pass Obtained</td>
               <td>
                                     <span
@@ -285,7 +265,6 @@
               </td>
             </tr>
             <tr>
-              <td>9</td>
               <td>Building Completion Certificate Obtained</td>
               <td>
                                     <span
@@ -298,7 +277,6 @@
               </td>
             </tr>
             <tr>
-              <td>10</td>
               <td>Construction appears to be as per the Approved Naksa Pass</td>
               <td>
                                     <span
@@ -352,7 +330,6 @@
 
         </div>
       </div>
-
       <div *ngIf="siteVisit?.building != 'YES'" class="row">
         <div class="col-md-12">
           <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Remarks For 'NO'
@@ -361,7 +338,6 @@
           <div class="col-md-9 sb-small">{{siteVisit?.remarksForOtherFacility || 'NA'}}</div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-3 sb-bg-secondary text-white sb-small"><strong>Comments about
@@ -369,7 +345,6 @@
           <div class="col-md-9 sb-small">{{siteVisit?.commentAboutFAC || 'NA'}}</div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6">
           <table class="table table-sm table-bordered text-center table-sm sb-small">
@@ -409,7 +384,6 @@
         </div>
 
       </div>
-
       <div class="row">
         <div class="col-md-12">
           <table class="table table-sm table-bordered text-center table-sm sb-small">
@@ -420,7 +394,6 @@
               </th>
             </tr>
             <tr class="text-white sb-bg-secondary">
-
               <th>Staff Representative 1</th>
               <th>Staff Representative 2</th>
             </tr>
@@ -441,9 +414,25 @@
           </table>
         </div>
       </div>
-
-
+      <table class="table table-sm table-bordered text-center table-sm sb-small">
+        <thead>
+        <tr>
+          <th colspan="4" class="sb-bg-dark text-white">Site Visit Map Document</th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th class="sb-bg-secondary">Documents Name</th>
+          <th class="sb-bg-secondary">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let doc of siteVisitDocuments[i]">
+          <ng-container *ngIf="doc?.isPrintable === 'YES'">
+            <td class="text-left pl-1 text-center">{{doc?.docName}}</td>
+          <td class="text-right pr-1 text-center" (click)="viewDocumentAnnex(doc?.docPath,doc?.docName)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></td>
+          </ng-container>
+        </tr>
+        </tbody>
+      </table>
     </div>
-
   </div>
 </div>
