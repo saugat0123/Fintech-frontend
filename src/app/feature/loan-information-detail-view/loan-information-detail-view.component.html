@@ -264,7 +264,7 @@
             </div>
             <div class="container-fluid">
                 <ol class="heading-list">
-                    <li>
+                    <li class="libold">
                         <div class="row">
                             <div class="col-md-6">
                                 <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}}
@@ -282,7 +282,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>REQUEST OF THE CLIENT : </strong></p>
                         <p class="sb-small">The client has requested us
                             for {{customerAllLoanList?.length > 1 ? 'following loan' :
@@ -301,7 +301,7 @@
                             </ol>
                         </div>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>PERSONAL/BUSINESS BACKGROUND : </strong></p>
                         <app-customer-business-activity-or-backgrounds
                                 *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
@@ -310,27 +310,27 @@
                         </app-customer-business-activity-or-backgrounds>
                     </li>
 
-                    <li>
+                    <li class="libold">
                         <p><strong>FINANCIAL PERFORMANCE : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
                         <app-financial-view *ngIf="loanHolder?.financial"
                                             [customerType]="loanHolder?.customerType"
                                             [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
 
-                    <li>
+                    <li class="libold">
                         <p><strong>PURPOSE AND JUSTIFICATION OF CREDIT
                             PROPOSAL: {{loanDataHolder?.proposal ? '' : 'NA'}}</strong></p>
                         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
                                                               [loanDataHolder]="loanDataHolder"
                                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
                         <app-retail-source-of-repayment
                                 *ngIf="loanHolder?.financial"
                                 [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>CURRENT LIMITS AND OUTSTANDING OF THE CLIENT : <em class="text-danger sb-small">Bold
                             row indicates current loan proposal</em> </strong></p>
                         <app-proposal-view *ngIf="loanDataHolder?.proposal"
@@ -338,7 +338,7 @@
                                            [proposalData]="loanDataHolder?.proposal"
                                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase"><strong>Name of the companies under the
                             group: {{companyGroup?.length > 0 ? '' : 'NA'}}</strong></p>
                         <div class="col-md-4" *ngIf="companyGroup?.length > 0">
@@ -353,7 +353,7 @@
                         </div>
                     </li>
 
-                    <li>
+                    <li class="libold">
                         <!-- group position -->
                         <strong>GROUP EXPOSURE (in NPR.) {{loanDataHolder?.loanHolder?.mgroupInfo ? ('as of ' +
                             (loanDataHolder?.loanHolder.mgroupInfo?.groupExposureDate ? (loanDataHolder?.loanHolder.mgroupInfo?.groupExposureDate | date) : 'NA')) : ': NA'}}</strong>
@@ -361,25 +361,25 @@
                                              [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"
                                              [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase"><strong>Regularity of
                             payments: {{commonLoanData?.regularityOfPayments ? commonLoanData?.regularityOfPayments : 'NA'}}</strong>
                         </p>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase">
                             <strong>Profitability {{loanHolder?.incomeFromAccount ? '' : 'NA'}}</strong></p>
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                                          [formData]="loanHolder?.incomeFromAccount">
                         </app-income-from-account-summery>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase"><strong>Risks
                             : {{loanDataHolder?.loanHolder?.riskAnalysis ? '' : 'NA'}}</strong></p>
                         <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis"
                                                  [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong
                                 class="text-uppercase">Compliance: </strong> {{proposalData?.compliance ? 'We have fully adhered the policy of NRB and internal bank policies.' : 'NA'}}
                         </p>
@@ -387,12 +387,12 @@
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
                         </tr>
                     </li>
-                    <li *ngIf="loanDataHolder?.loan?.loanTag === 'SHARE_SECURITY'">
+                    <li class="libold" *ngIf="loanDataHolder?.loan?.loanTag === 'SHARE_SECURITY'">
                         <p><strong>Debt Structure and Control Mechanism: For Overdraft/Demand Loan (Loan Against
                             Share)</strong>
                             <span [innerHTML]="proposalData?.debtStructure || 'NA' | safeHtml"></span>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase"><strong>Banking Arrangement
                             : {{loanDataHolder?.loanHolder?.multiBanking ? '' : 'NA'}}</strong></p>
                         <app-above-banking-arrangement-of-the-customer
@@ -403,27 +403,27 @@
                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p class="text-uppercase"><b>MIS/NRB
                             REPORTING: {{loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 ? '' : ' NA'}}</b>
                         </p>
                         <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0"
                                             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS <em>(IF ANY)</em>:
                             {{proposalData?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
                         <tr *ngIf="proposalData?.waiverConclusionRecommendation">
                             <td [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></td>
                         </tr>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>SECURITY DETAILS: {{loanDataHolder?.loanHolder?.security ? '' : ' NA'}}</strong></p>
                         <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security"
                                              [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p>
                             <b>INSPECTIONS: {{loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0 ? '' : 'NA'}}</b>
                         </p>
@@ -433,13 +433,13 @@
                                 [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                     </li>
 
-                    <li>
+                    <li class="libold">
                         <p><strong>DETAIL OF INSURANCE: {{loanDataHolder?.insurance?.length > 0 ? '' : 'NA'}}</strong>
                         </p>
                         <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0"
                                                [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>REVIEW OF CREDIT
                             FACILITIES: {{(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate ? '' : 'NA'}}</strong>
                         </p>
@@ -447,13 +447,13 @@
                                 *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate"
                                 [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
                     </li>
-                    <li>
+                    <li class="libold">
                         <p><strong>RECOMMENDATION: </strong></p>
                         <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList"
                                                    [loanDataHolder]="loanHolder"
                                                    [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
                     </li>
-                    <li>
+                    <li class="libold">
                         <app-authority-section [loanDataHolder]="loanDataHolder"></app-authority-section>
                     </li>
                     <div>
