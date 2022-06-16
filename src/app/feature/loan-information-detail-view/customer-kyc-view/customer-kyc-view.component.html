@@ -21,9 +21,6 @@
                 <th>Net Worth</th>
             </tr>
             </thead>
-
-
-
             <tbody>
             <tr *ngFor="let data of customer?.customerRelatives; let i=index">
                 <td>{{data?.customerRelation}}</td>
@@ -32,7 +29,6 @@
                 <td>{{data?.citizenshipIssuedDate | date}}</td>
                 <td>{{data?.citizenshipIssuedPlace}}</td>
                 <td>{{data?.relativeNetWorth}}</td>
-
             </tr>
             </tbody>
         </table>

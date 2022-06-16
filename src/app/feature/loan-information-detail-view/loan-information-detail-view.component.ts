@@ -82,6 +82,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            console.log('loanDataHolder', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.incomeSource = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
             }

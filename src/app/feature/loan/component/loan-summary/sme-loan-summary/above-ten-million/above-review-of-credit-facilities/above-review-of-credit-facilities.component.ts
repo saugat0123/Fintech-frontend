@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {LoanDataHolder} from '../../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 
@@ -7,7 +7,7 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
   templateUrl: './above-review-of-credit-facilities.component.html',
   styleUrls: ['./above-review-of-credit-facilities.component.scss']
 })
-export class AboveReviewOfCreditFacilitiesComponent implements OnInit {
+export class AboveReviewOfCreditFacilitiesComponent implements OnInit, OnChanges {
   @Input() loanDataHolder: LoanDataHolder;
   reviewDate;
   isReviewDate = false;
@@ -15,9 +15,14 @@ export class AboveReviewOfCreditFacilitiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.data);
-    if (!ObjectUtil.isEmpty(reviewDateData)) {
-      this.reviewDate = reviewDateData.reviewDate;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+      const reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.data);
+      if (!ObjectUtil.isEmpty(reviewDateData)) {
+        this.reviewDate = reviewDateData.reviewDate;
+      }
     }
   }
 
