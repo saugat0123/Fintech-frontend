@@ -281,7 +281,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
                     finalTotal += Number(d.groupTotal);
                 }
             });
-            this.creditRiskGrading.get('totalPoint').patchValue(finalTotal);
+            this.creditRiskGrading.get('totalPoint').patchValue(Number(finalTotal).toFixed(2));
             if (finalTotal >= 90) {
                 this.grading = 'Virtually zero risk, Accept';
             } else if (finalTotal >= 75 && finalTotal < 90) {
