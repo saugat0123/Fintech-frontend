@@ -1,44 +1,56 @@
 <section class="enable-print">
-<div id="print-gammaDetail">
-    <div class="modal-header text-center">
-        <p class="mt-4 text-center"><strong>Credit Risk Grading</strong></p>
-        <a (click)="onClose()" aria-label="Close" class="close cursor disable-print"
-           data-dismiss="modal">
-            <span aria-hidden="true">×</span></a>
-    </div>
-    <table class="table table-condensed table-bordered table-sm
+    <div id="print-gammaDetail">
+        <div class="modal-header text-center">
+            <p class="mt-4 text-center"><strong>Credit Risk Grading</strong></p>
+            <a (click)="onClose()" aria-label="Close" class="close cursor disable-print"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </div>
+        <app-home-loan-compliance-status
+                *ngIf="loanHolderData?.loan?.loanTag === 'HOME LOAN'"
+                [loanHolderData]="loanHolderData"
+                [landSecurityDetails]="landSecurityDetails"></app-home-loan-compliance-status>
+        <table class="table table-condensed table-bordered table-sm
         table-responsive-md text-center table-sm sb-small">
-        <thead>
-        <tr>
-            <th colspan="5">Credit Scoring</th>
-        </tr>
-        <tr class="sb-bg-dark text-white">
-            <th class="sn">S.N</th>
-            <th>Question</th>
-            <th>Score</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let crgGammaData of crgGammaList; let i = index">
-            <td class="text-center">{{ i+1 }}</td>
-            <td class="text-left font-weight-bold pl-1"><span>{{ crgGammaData?.question }}</span></td>
-            <td class="text-right font-weight-bold pr-1"><span>{{ crgGammaData?.score }}</span></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="sb-bg-secondary text-white text-left pl-1"><strong>Total Score :</strong></td>
-            <td colspan="1" class="sb-bg-secondary text-white text-right pr-1"><strong><span>{{ crgGammaData?.totalPoint }}</span></strong></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="sb-bg-secondary text-white text-left pl-1"><strong>Grade :</strong></td>
-            <td colspan="1" class="sb-bg-secondary text-white text-left pl-1"><strong><span>{{ crgGammaData?.grade }}</span></strong></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="float-right mr-2">
-        <button [useExistingCss]="true" class="btn-sm btn-warning float-right disable-print" ngxPrint
-                printSectionId="print-gammaDetail" styleSheetFile="assets/css/printStyles.scss">
-            PRINT
-        </button>
+            <thead>
+            <tr>
+                <th colspan="5">Credit Scoring</th>
+            </tr>
+            <tr class="sb-bg-dark text-white">
+                <th class="sn">S.No</th>
+                <th>Question</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let crgGammaData of crgGammaList">
+            <tr class="sb-bg-secondary text-white">
+                <td class="text-center font-weight-bold pl-1">Topic</td>
+                <td class="text-center font-weight-bold pl-1"><span>{{ crgGammaData?.groupName }}</span></td>
+                <td class="text-center font-weight-bold pr-1"><span>Group Total: {{ crgGammaData?.groupTotal }}</span>
+                </td>
+            </tr>
+            <tr *ngFor="let data of Object.keys(crgGammaData?.gammaQuestionAnswer); let i = index">
+                <td class="text-center pr-1 pl-1">{{i + 1}}</td>
+                <td class="text-left pl-1">{{data}}</td>
+                <td class="text-right pr-1">{{crgGammaData?.gammaQuestionAnswer[data]}}</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <th class="text-center pr-1 pl-1" colspan="2">Grade:</th>
+                <th class="text-center pl-1 pr-1">{{crgGammaData?.grade}}</th>
+            </tr>
+            <tr>
+                <th class="text-center pr-1 pl-1" colspan="2">Total Score:</th>
+                <th class="text-center pl-1 pr-1">{{crgGammaData?.totalPoint}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <div class="float-right mr-2">
+            <button [useExistingCss]="true" class="btn-sm btn-warning float-right disable-print" ngxPrint
+                    printSectionId="print-gammaDetail" styleSheetFile="assets/css/printStyles.scss">
+                PRINT
+            </button>
+        </div>
     </div>
-</div>
 </section>

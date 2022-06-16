@@ -294,7 +294,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.securityData['selectedArray'].filter(f => {
           if (f.indexOf('LandSecurity') !== -1) {
             this.securityData['initialForm']['landDetails'].forEach((ld, index) => {
-              this.getFixedAssetsCollateral('Land Security ' + (index + 1), this.securityId, ld.uuid);
+              this.getFixedAssetsCollateral('Land Security ' + (index + 1),
+                  this.securityId, ld.uuid, this.loanDataHolder.documentStatus);
             });
           }
         });
@@ -302,7 +303,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.securityData['selectedArray'].filter(f => {
           if (f.indexOf('ApartmentSecurity') !== -1) {
             this.securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
-              this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1), this.securityId, appart.uuid);
+              this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1),
+                  this.securityId, appart.uuid, this.loanDataHolder.documentStatus);
             });
           }
         });
@@ -310,7 +312,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.securityData['selectedArray'].filter(f => {
           if (f.indexOf('Land and Building Security') !== -1) {
             this.securityData['initialForm']['landBuilding'].forEach((ld, index) => {
-              this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1), this.securityId, ld.uuid);
+              this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1),
+                  this.securityId, ld.uuid, this.loanDataHolder.documentStatus);
             });
           }
         });
@@ -895,17 +898,23 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
-    this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
-        .subscribe((response: any) => {
-          if (response.detail.length > 0) {
-            response.detail.forEach(rd => {
-              this.fixedAssetsData.push(rd);
-            });
-          }
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
-        });
+  getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string, docStatus: DocStatus) {
+    console.log('docStatus', docStatus);
+    if (docStatus.toString() === 'APPROVED') {
+      this.fixedAssetsData = this.loanDataHolder.collateralSiteVisits;
+    } else {
+      this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
+          .subscribe((response: any) => {
+            if (response.detail.length > 0) {
+              response.detail.forEach(rd => {
+                this.fixedAssetsData.push(rd);
+              });
+            }
+          }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+          });
+    }
+
   }
 }

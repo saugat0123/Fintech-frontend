@@ -62,6 +62,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     commonLoanData: any;
     companyGroup;
     fixedAssetsData = [];
+    lastDateOfInspection: any;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -81,6 +82,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            console.log('loanDataHolder', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.incomeSource = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
             }
@@ -165,6 +167,13 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
                             });
                         }
                     });
+                }
+            }
+
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+                const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+                if (data.currentResidentFormChecked) {
+                    this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
                 }
             }
 
@@ -282,8 +291,11 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     }
 
     onOpen() {
-        const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg'});
+        const crgGamma = this.modalService.open(CrgGammaDetailViewComponent, {size: 'lg', backdrop: false});
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
+        crgGamma.componentInstance.creditHistory = JSON.parse(this.loanDataHolder.proposal.data).creditHistory;
+        crgGamma.componentInstance.loanHolderData = this.loanDataHolder;
+        crgGamma.componentInstance.landSecurityDetails =  JSON.parse(this.loanDataHolder.security.data);
     }
 
     getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {

@@ -60,11 +60,12 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 
 
         ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-        CreditRiskGradingGammaComponent, MultipleBankingComponent,
-        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent
-    ],
-        providers: [SafePipe]
+        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+             CreditRiskGradingGammaComponent, MultipleBankingComponent,
+          InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent, ContactDetailsComponent
+        ],
+        providers: [SafePipe],
+    entryComponents: [CreditRiskGradingGammaComponent]
     }
 )
 export class FeatureModule {

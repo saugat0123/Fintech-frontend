@@ -1,0 +1,38 @@
+<section class="enable-print">
+    <div id="print-gammaDetail">
+        <table class="table table-condensed table-bordered table-sm
+        table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr>
+                <th colspan="5">Compliance Status</th>
+            </tr>
+            <tr class="sb-bg-dark text-white">
+                <th>Particulars</th>
+                <th>UMI/EMI (min.)</th>
+                <th>DTI (max.)</th>
+                <th>LTV (max.)</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Requirement:</td>
+                    <td>{{requirementUMI}}</td>
+                    <td>{{requirementDTI}}%</td>
+                    <td>{{requirementLTV}}%</td>
+                </tr>
+                <tr>
+                    <td>Actual Position:</td>
+                    <td>{{positionUMI}}</td>
+                    <td>{{positionDTI}}%</td>
+                    <td>{{positionLTV}}%</td>
+                </tr>
+                <tr>
+                    <td>Complied With:</td>
+                    <td>{{compiledWithUMI ? 'Yes' : 'No'}}</td>
+                    <td>{{compiledWithDTI ? 'Yes' : 'No'}}</td>
+                    <td>{{compiledWithLTV ? 'Yes' : 'No'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

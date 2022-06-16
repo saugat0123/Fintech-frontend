@@ -250,9 +250,7 @@ export class FinancialComponent implements OnInit {
         }
         this.checkDisableAlpha();
         this.questionService.getAllQuestions(0).subscribe(s => {
-            console.log(s, 'QUESTION');
             this.crgQuestionsList = s.detail[0];
-            console.log(this.crgQuestionsList, 'LISSSTT');
         });
 
       this.patchTotalIncome();
@@ -627,7 +625,6 @@ export class FinancialComponent implements OnInit {
     // Header Part--
 
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
