@@ -914,7 +914,7 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
-            <app-common-loan-information [customerInfo]="customerInfo"></app-common-loan-information>
+            <app-common-loan-information [customerInfo]="customerInfo" (emitter)="onRefresh()"></app-common-loan-information>
           </nb-card-body>
         </nb-card>
       </ng-template>

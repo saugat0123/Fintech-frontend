@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -7,7 +7,6 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
     selector: 'app-common-loan-information',
@@ -16,20 +15,23 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 })
 export class CommonLoanInformationComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
+    @Output() emitter = new EventEmitter();
 
     constructor(
         private formBuilder: FormBuilder,
         private customerInfoService: CustomerInfoService,
         private toastService: ToastService,
-        private spinnerService: NgxSpinnerService, private dialogService: NbDialogRef<CommonLoanInformationComponent>) {
+        private spinnerService: NgxSpinnerService,) {
     }
 
     commonLoanForm: FormGroup;
     commonLoans: ExistingExposure [] = [];
+
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
             this.commonLoans = this.customerInfo.existingExposures;
+            this.setLoans();
         }
     }
 
@@ -45,7 +47,7 @@ export class CommonLoanInformationComponent implements OnInit {
             id: [undefined],
             loanId: [undefined],
             proposalData: this.formBuilder.group({}),
-            loanTypes: [undefined],
+            loanType: [undefined],
             version: [0],
             loanName: [undefined],
         }));
@@ -58,7 +60,7 @@ export class CommonLoanInformationComponent implements OnInit {
                 id: [e.id],
                 loanId: [e.loanId],
                 proposalData: this.formBuilder.group(JSON.parse(e.proposalData)),
-                loanTypes: [e.loanType],
+                loanType: [e.loanType],
                 version: [e.version],
                 loanName: [e.loanName]
             }));
@@ -67,6 +69,7 @@ export class CommonLoanInformationComponent implements OnInit {
 
     removeLoans(i) {
         (this.commonLoanForm.get('data') as FormArray).removeAt(i);
+        this.toastService.show(new Alert(AlertType.INFO, 'Please Save To Remove The Loan'));
     }
 
     save() {
@@ -83,7 +86,7 @@ export class CommonLoanInformationComponent implements OnInit {
                 },
                 complete: () => {
                     this.spinnerService.hide();
-                    this.dialogService.close();
+                    this.emitter.emit();
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Common Loan'));
                 }
             });
@@ -93,14 +96,8 @@ export class CommonLoanInformationComponent implements OnInit {
         const exposureArray: ExistingExposure [] = [];
         const formArray = (this.commonLoanForm.get('data'));
         formArray.value.forEach((d, i) => {
-            const existingExposure = new ExistingExposure();
-            existingExposure.proposalData = JSON.stringify(d.proposalData);
-            existingExposure.loanId = d.loanId;
-            existingExposure.id = d.id;
-            existingExposure.loanType = d.loanType;
-            existingExposure.version = d.version;
-            existingExposure.loanName = d.loanName;
-            exposureArray.push(existingExposure);
+            d.proposalData = JSON.stringify(d.proposalData);
+            exposureArray.push(d);
         });
         return exposureArray;
     }
@@ -182,6 +179,7 @@ export class CommonLoanInformationComponent implements OnInit {
             // this.showInterestAmount = true;
         }
     }
+
     calculateRepaymentModeAmounts(repaymentMode, key, i) {
         let principleAmount = 0;
         let interestAmount = 0;
