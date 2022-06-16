@@ -335,7 +335,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus) ? undefined : this.customer.maritalStatus, Validators.required],
             gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
-            bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
+            // bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -423,7 +423,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customer.gender = this.customerInfo.gender;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.customerLegalDocumentAddress = this.customerInfo.customerLegalDocumentAddress;
-        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        // this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -504,7 +504,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     setWithin(event) {
         this.customer.withinLimitRemarks = event.target.value;
-        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        // this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customer.clientType = this.customerInfo.clientType;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
