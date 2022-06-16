@@ -8,6 +8,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {LoanType} from '../../../../loan/model/loanType';
 
 @Component({
     selector: 'app-common-loan-information',
