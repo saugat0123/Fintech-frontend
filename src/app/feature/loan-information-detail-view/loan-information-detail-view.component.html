@@ -267,21 +267,28 @@
                     <li>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate:false}})</p>
+                                <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}}
+                                    ({{loanDataHolder?.createdAt | engNepDate:false}})</p>
                             </div>
                             <div class="col-md-6 text-right">
-                                <p><strong>Late Date of Inspection: </strong>{{lastDateOfInspection ? (lastDateOfInspection | date) : 'NA'}} ({{lastDateOfInspection ? (lastDateOfInspection | engNepDate: false) : 'NA'}})</p>
-                                <p><strong>Obligation Group (Name/Code): </strong>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}}/ {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</p>
+                                <p><strong>Late Date of
+                                    Inspection: </strong>{{lastDateOfInspection ? (lastDateOfInspection | date) : 'NA'}}
+                                    ({{lastDateOfInspection ? (lastDateOfInspection | engNepDate: false) : 'NA'}})</p>
+                                <p><strong>Obligation Group (Name/Code): </strong>
+                                    {{loanDataHolder?.loanHolder?.mgroupInfo?.groupName ? loanDataHolder?.loanHolder?.mgroupInfo?.groupName : 'NA'}}
+                                    /
+                                    {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode ? loanDataHolder?.loanHolder?.mgroupInfo?.groupCode : 'NA'}}
+                                </p>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <p><strong>Request of the Client: </strong></p>
+                        <p><strong>REQUEST OF THE CLIENT : </strong></p>
                         <p class="sb-small">The client has requested us
                             for {{customerAllLoanList?.length > 1 ? 'following loan' :
                                 loanDataHolder?.loan?.name + ' of NPR ' + loanDataHolder?.proposal?.proposedLimit + '@' +
                                 (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
-                                ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths/12 +' year(s)' : 'NA')  }}</p>
+                                ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths / 12 + ' year(s)' : 'NA')  }}</p>
                         <div *ngIf="customerAllLoanList?.length > 1">
                             <ol type="a">
                                 <li class="sb-small p-0 m-0" *ngFor="let cal of customerAllLoanList">
@@ -289,13 +296,13 @@
                                     NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
                                     @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a
                                     for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
-                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths/12+ ' year(s)' : 'NA'}}
-                                    </b></li>
+                                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths / 12 + ' year(s)' : 'NA'}}
+                                </b></li>
                             </ol>
                         </div>
                     </li>
                     <li>
-                        <p><strong>Personal/Business background: </strong></p>
+                        <p><strong>PERSONAL/BUSINESS BACKGROUND : </strong></p>
                         <app-customer-business-activity-or-backgrounds
                                 *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
                                 [customer]="loanDataHolder.customerInfo"
@@ -304,33 +311,27 @@
                     </li>
 
                     <li>
-                        <p><strong>Financial Performance {{loanHolder?.financial ? '' : ': NA'}}</strong></p>
+                        <p><strong>FINANCIAL PERFORMANCE : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
                         <app-financial-view *ngIf="loanHolder?.financial"
                                             [customerType]="loanHolder?.customerType"
                                             [formData]="loanHolder?.financial"></app-financial-view>
                     </li>
 
                     <li>
-                        <p><strong>Purpose and Justification of Credit Proposal: {{loanDataHolder?.proposal ? '': 'NA'}}</strong></p>
+                        <p><strong>PURPOSE AND JUSTIFICATION OF CREDIT
+                            PROPOSAL: {{loanDataHolder?.proposal ? '' : 'NA'}}</strong></p>
                         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
                                                               [loanDataHolder]="loanDataHolder"
                                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
                     </li>
                     <li>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>Source of Repayment : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
-                            </div>
-                            <!--<div class="col-md-6">
-                                <p class="text-right"><strong>PAN No. : {{incomeSource?.panNumber}}</strong></p>
-                            </div>-->
-                        </div>
+                        <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
                         <app-retail-source-of-repayment
                                 *ngIf="loanHolder?.financial"
                                 [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
                     </li>
                     <li>
-                        <p><strong>Current limits and outstanding of the Client: <em class="text-danger sb-small">Bold
+                        <p><strong>CURRENT LIMITS AND OUTSTANDING OF THE CLIENT : <em class="text-danger sb-small">Bold
                             row indicates current loan proposal</em> </strong></p>
                         <app-proposal-view *ngIf="loanDataHolder?.proposal"
                                            [customerAllLoanList]="customerAllLoanList"
@@ -338,8 +339,9 @@
                                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
                     </li>
                     <li>
-                        <p><strong>Name of the companies under the group: {{companyGroup?.length > 0 ? '' : 'NA'}}</strong></p>
-                        <div class="col-md-4">
+                        <p class="text-uppercase"><strong>Name of the companies under the
+                            group: {{companyGroup?.length > 0 ? '' : 'NA'}}</strong></p>
+                        <div class="col-md-4" *ngIf="companyGroup?.length > 0">
                             <table class="table table-responsive-md table-bordered text-center table-sm">
                                 <tbody>
                                 <tr *ngFor="let cg of companyGroup; let cgi = index">
@@ -360,21 +362,27 @@
                                              [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
                     </li>
                     <li>
-                        <p><strong>Regularity of payments: {{commonLoanData?.regularityOfPayments ? commonLoanData?.regularityOfPayments : 'NA'}}</strong></p>
+                        <p class="text-uppercase"><strong>Regularity of
+                            payments: {{commonLoanData?.regularityOfPayments ? commonLoanData?.regularityOfPayments : 'NA'}}</strong>
+                        </p>
                     </li>
                     <li>
-                        <p><strong>Profitability {{loanHolder?.incomeFromAccount ? '': 'NA'}}</strong></p>
+                        <p class="text-uppercase">
+                            <strong>Profitability {{loanHolder?.incomeFromAccount ? '' : 'NA'}}</strong></p>
                         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                                          [formData]="loanHolder?.incomeFromAccount">
                         </app-income-from-account-summery>
                     </li>
                     <li>
-                        <p><strong>Risks : {{loanDataHolder?.loanHolder?.riskAnalysis ? '': 'NA'}}</strong></p>
+                        <p class="text-uppercase"><strong>Risks
+                            : {{loanDataHolder?.loanHolder?.riskAnalysis ? '' : 'NA'}}</strong></p>
                         <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis"
                                                  [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
                     </li>
                     <li>
-                        <p><strong>Compliance: </strong>We have fully adhered the policy of NRB and internal bank policies.</p>
+                        <p><strong
+                                class="text-uppercase">Compliance: </strong> {{proposalData?.compliance ? 'We have fully adhered the policy of NRB and internal bank policies.' : 'NA'}}
+                        </p>
                         <tr>
                             <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
                         </tr>
@@ -385,7 +393,8 @@
                             <span [innerHTML]="proposalData?.debtStructure || 'NA' | safeHtml"></span>
                     </li>
                     <li>
-                        <p class="text-uppercase"><strong>Banking Arrangement : {{loanDataHolder?.loanHolder?.multiBanking ? '' : 'NA'}}</strong></p>
+                        <p class="text-uppercase"><strong>Banking Arrangement
+                            : {{loanDataHolder?.loanHolder?.multiBanking ? '' : 'NA'}}</strong></p>
                         <app-above-banking-arrangement-of-the-customer
                                 *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
                                 [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
@@ -394,42 +403,52 @@
                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
                     </li>
-                    <li *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels">
-                        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
-                        <app-report-summary [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+                    <li>
+                        <p class="text-uppercase"><b>MIS/NRB
+                            REPORTING: {{loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 ? '' : ' NA'}}</b>
+                        </p>
+                        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0"
+                                            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     </li>
                     <li>
-                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS  <em>(IF ANY)</em></strong></p>
-                        <tr>
-                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation ? (proposalData?.waiverConclusionRecommendation | safeHtml) : 'NA'"></td>
+                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS <em>(IF ANY)</em>:
+                            {{proposalData?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
+                        <tr *ngIf="proposalData?.waiverConclusionRecommendation">
+                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></td>
                         </tr>
                     </li>
                     <li>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p><strong>Security (to be obtained) {{loanDataHolder?.loanHolder?.security ? '' : 'NA'}}</strong></p>
-                            </div>
-                        </div>
-                        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"
+                        <p><strong>SECURITY DETAILS: {{loanDataHolder?.loanHolder?.security ? '' : ' NA'}}</strong></p>
+                        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security"
+                                             [loanDataHolder]="loanDataHolder"
                                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
                     </li>
                     <li>
-                        <p><b>INSPECTIONS: {{loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0 ? '' : 'NA'}}</b></p>
-                        <app-site-visit-view [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
-                                             [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
+                        <p>
+                            <b>INSPECTIONS: {{loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0 ? '' : 'NA'}}</b>
+                        </p>
+                        <app-site-visit-view
+                                *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0"
+                                [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                                [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
                     </li>
 
                     <li>
-                        <p><strong>DETAIL OF INSURANCE: {{loanDataHolder?.insurance ? '' : 'NA'}}</strong></p>
-                        <app-insurance-summary *ngIf="loanDataHolder?.insurance"
+                        <p><strong>DETAIL OF INSURANCE: {{loanDataHolder?.insurance?.length > 0 ? '' : 'NA'}}</strong>
+                        </p>
+                        <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0"
                                                [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
                     </li>
                     <li>
-                        <p><strong>REVIEW OF CREDIT FACILITIES: {{(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate ? '' : 'NA'}}</strong></p>
-                        <app-above-review-of-credit-facilities [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
+                        <p><strong>REVIEW OF CREDIT
+                            FACILITIES: {{(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate ? '' : 'NA'}}</strong>
+                        </p>
+                        <app-above-review-of-credit-facilities
+                                *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate"
+                                [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
                     </li>
                     <li>
-                        <p><strong>Recommendation: </strong></p>
+                        <p><strong>RECOMMENDATION: </strong></p>
                         <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList"
                                                    [loanDataHolder]="loanHolder"
                                                    [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
@@ -440,14 +459,21 @@
                     <div>
                         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                     </div>
+                </ol>
 
-                    <li *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
+                <!-- Annex -->
+                <div style="page-break-after: always"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-crg-gamma-detail-view *ngIf="loanDataHolder?.crgGamma"
+                                                   [formData]="loanDataHolder?.crgGamma"></app-crg-gamma-detail-view>
+                        <div style="page-break-after: always"></div>
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [fromProfile]="false"
                                                    [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-                    </li>
-                </ol>
+                    </div>
+                </div>
             </div>
             <ng-template #allDocumentView>
                 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
