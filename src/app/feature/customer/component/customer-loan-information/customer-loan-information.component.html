@@ -80,7 +80,7 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
-            <app-cicl #ciclComponent [ciclValue]="ciclResponse" [fromProfile]="true"
+            <app-cicl #ciclComponent [ciclValue]="ciclResponse" [customerInfoId]="customerInfoId" [fromProfile]="true"
                       (ciclDataEmitter)="saveCICL($event)"></app-cicl>
 
           </nb-card-body>
