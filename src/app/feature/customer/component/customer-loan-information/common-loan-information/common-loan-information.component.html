@@ -437,6 +437,6 @@
                 </div>
             </div>
         </form>
-        <button class="float-right" [disabled]="commonLoans?.length > 0" (click)="save()" nbButton>Save</button>
+        <button class="float-right" [disabled]="commonLoans?.length < 1" (click)="save()" nbButton>Save</button>
     </div>
 </div>
