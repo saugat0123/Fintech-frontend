@@ -319,7 +319,7 @@
                     </div>
                     <!--                end of ng s
                     installment amount div-->
-                    <div class="col-md-4" *ngIf="((controls.get('proposalData').get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
+                    <div class="col-md-4" *ngIf="((controls?.get('proposalData')?.get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
                                            ((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isTerminating) || (conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)))
                                            && (conditionalArray[i]?.showInterestAmount)">
                         <div class="form-group>">
@@ -331,7 +331,7 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4"  *ngIf="((controls?.get('proposalDaata').get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
+                    <div class="col-md-4"  *ngIf="((controls?.get('proposalData').get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
                                            ((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isTerminating)
                                             || (conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)))
                                            && (conditionalArray[i]?.showInterestAmount)">

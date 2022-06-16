@@ -146,15 +146,20 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     checkRepaymentMode(i) {
-        // this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').setValue(0);
-        const repaymentMode = this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value;
-        switch (repaymentMode) {
-            case 'EMI':
-                this.calculateEmiEqiAmount('emi', i);
-                break;
-            case 'EQI':
-                this.calculateEmiEqiAmount('eqi', i);
-                break;
+        if (this.conditionalArray[i].showInstallmentAmount) {
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('installmentAmount').patchValue(0);
+            const repaymentMode = this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value;
+
+            switch (repaymentMode) {
+                case 'EMI':
+                    this.calculateEmiEqiAmount('emi', i);
+                    break;
+                case 'EQI':
+                    this.calculateEmiEqiAmount('eqi', i);
+                    break;
+            }
+        } else {
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('installmentAmount').patchValue(0);
         }
     }
 
@@ -181,25 +186,26 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     checkCustomRepaymentMode(i) {
-        // if (this.showRepaymentMode) {
+        if (this.conditionalArray[i].showRepaymentMode) {
         this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModePrincipal').value, 'PRINCIPAL', i);
         this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModeInterest').value, 'INTEREST', i);
-        // }
+        }
     }
 
     checkInstallmentAmount(i) {
         if (this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EMI' || this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EQI') {
+            this.conditionalArray[i].showRepaymentMode = false;
+            this.conditionalArray[i].showInstallmentAmount = true;
             this.checkRepaymentMode(i);
         } else if (this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'CUSTOM') {
-            // this.showInterestAmount = false;
-            // this.showRepaymentMode = true;
-            // this.showInstallmentAmount = false;
-            // this.controlValidation(['repaymentModeInterest', 'repaymentModePrincipal'], true);
+            this.conditionalArray[i].showInterestAmount = false;
+            this.conditionalArray[i].showRepaymentMode = true;
+            this.conditionalArray[i].showInstallmentAmount = false;
         } else {
             // this.calculateInterestAmountForRepaymentMode();
-            // this.showInstallmentAmount = false;
-            // this.showRepaymentMode = false;
-            // this.showInterestAmount = true;
+            this.conditionalArray[i].showInstallmentAmount = false;
+            this.conditionalArray[i].showRepaymentMode = false;
+            this.conditionalArray[i].showInterestAmount = true;
         }
     }
 
@@ -291,6 +297,7 @@ export class CommonLoanInformationComponent implements OnInit {
             check.loanNatureSelected = false;
             check.fundableNonFundableSelcted = false;
         }
+        console.log('this iasdasd', check);
         this.conditionalArray.push(check);
     }
 
