@@ -21,7 +21,7 @@ export class CommonLoanInformationComponent implements OnInit {
         private formBuilder: FormBuilder,
         private customerInfoService: CustomerInfoService,
         private toastService: ToastService,
-        private spinnerService: NgxSpinnerService,) {
+        private spinnerService: NgxSpinnerService) {
     }
 
     commonLoanForm: FormGroup;
@@ -44,37 +44,42 @@ export class CommonLoanInformationComponent implements OnInit {
     addLoans() {
         const formArray = (this.commonLoanForm.get('data') as FormArray);
         formArray.push(this.formBuilder.group({
-            id: [undefined],
-            loanId: [undefined],
             proposalData: this.formBuilder.group({}),
             loanType: [undefined],
-            version: [0],
             loanName: [undefined],
         }));
     }
 
     setLoans() {
         const formArray = (this.commonLoanForm.get('data') as FormArray);
-        this.commonLoans.forEach((e) => {
+        this.commonLoans.forEach((e, i) => {
             formArray.push(this.formBuilder.group({
-                id: [e.id],
-                loanId: [e.loanId],
                 proposalData: this.formBuilder.group(JSON.parse(e.proposalData)),
                 loanType: [e.loanType],
-                version: [e.version],
-                loanName: [e.loanName]
+                loanName: [e.loanName],
             }));
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
+                .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
+                .patchValue((Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
+            this.checkInstallmentAmount(i);
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').valueChanges.subscribe(value => {
+                this.commonLoanForm.get(['data', i, 'proposalData']).get('principalAmount')
+                    .patchValue(Number(value));
+            });
         });
     }
 
     removeLoans(i) {
         (this.commonLoanForm.get('data') as FormArray).removeAt(i);
+        this.commonLoans.splice(i,1);
         this.toastService.show(new Alert(AlertType.INFO, 'Please Save To Remove The Loan'));
     }
 
     save() {
         this.spinnerService.show();
-        this.commonLoans = this.setAllExposure();
+        this.setAllExposure();
+        console.log('this is common loan', this.commonLoans);
         this.customerInfoService.saveExistingExposure(this.commonLoans, this.customerInfo.id).subscribe(
             {
                 next: (res) => {
@@ -92,14 +97,11 @@ export class CommonLoanInformationComponent implements OnInit {
             });
     }
 
-    setAllExposure(): ExistingExposure [] {
-        const exposureArray: ExistingExposure [] = [];
+    setAllExposure() {
         const formArray = (this.commonLoanForm.get('data'));
         formArray.value.forEach((d, i) => {
-            d.proposalData = JSON.stringify(d.proposalData);
-            exposureArray.push(d);
+            this.commonLoans[i].proposalData = JSON.stringify(d.proposalData);
         });
-        return exposureArray;
     }
 
     calculateLimitValues(i) {
@@ -124,7 +126,7 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     checkRepaymentMode(i) {
-        this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').setValue(0);
+        // this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').setValue(0);
         const repaymentMode = this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value;
         switch (repaymentMode) {
             case 'EMI':
@@ -137,6 +139,7 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     calculateEmiEqiAmount(repaymentMode, i) {
+        console.log('this is proposal data of index', this.commonLoanForm.get(['data', i, 'proposalData']));
         const proposedAmount = this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').value;
         const rate = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate').value) / (12 * 100);
         const n = this.commonLoanForm.get(['data', i, 'proposalData']).get('tenureDurationInMonths').value;
@@ -153,7 +156,7 @@ export class CommonLoanInformationComponent implements OnInit {
                     break;
             }
         } else {
-            this.commonLoanForm.get(['data', i, 'proposalData']).get('installmentAmount').patchValue(undefined);
+            // this.commonLoanForm.get(['data', i, 'proposalData']).get('installmentAmount').patchValue();
         }
     }
 

@@ -277,36 +277,36 @@
 
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
-                            <select
-                                #repaymentModePrincipal
-                                class="custom-select" formControlName="repaymentModePrincipal"
-                                id="repaymentModePrincipal"
-                                name="repaymentModePrincipal"
-                                (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL',i)">
-                                <option [ngValue]="null" hidden selected>Select</option>
-                                <option value="MONTHLY">Monthly</option>
-                                <option value="QUARTERLY">Quarterly</option>
-                                <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                <option value="ANNUALLY">Annually</option>
-                            </select>
-                        </div>
-                    </div>
+<!--                    <div class="col-md-4">-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>-->
+<!--                            <select-->
+<!--                                #repaymentModePrincipal-->
+<!--                                class="custom-select" formControlName="repaymentModePrincipal"-->
+<!--                                id="repaymentModePrincipal"-->
+<!--                                name="repaymentModePrincipal"-->
+<!--                                (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL',i)">-->
+<!--                                <option [ngValue]="null" hidden selected>Select</option>-->
+<!--                                <option value="MONTHLY">Monthly</option>-->
+<!--                                <option value="QUARTERLY">Quarterly</option>-->
+<!--                                <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
+<!--                                <option value="ANNUALLY">Annually</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <!--                                end of repayment mode-->
 
                     <!--                start of installment amount div-->
-                    <div class="col-md-4">
-                        <div class="form-group>">
-                            <label class="title"> <strong>Installment Amount</strong></label>
-                            <input
-                                    class="form-control" formControlName="installmentAmount"
-                                    id="installmentAmount"
-                                    name="installmentAmount" placeholder="Installment Amount"
-                                    type="number" readonly>
-                        </div>
-                    </div>
+<!--                    <div class="col-md-4">-->
+<!--                        <div class="form-group>">-->
+<!--                            <label class="title"> <strong>Installment Amount</strong></label>-->
+<!--                            <input-->
+<!--                                    class="form-control" formControlName="installmentAmount"-->
+<!--                                    id="installmentAmount"-->
+<!--                                    name="installmentAmount" placeholder="Installment Amount"-->
+<!--                                    type="number" readonly>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <!--                end of ng s
                     installment amount div-->
                     <div class="col-md-4">

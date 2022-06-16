@@ -5,4 +5,5 @@ class ExistingExposure {
     proposalData: string;
     loanType: string;
     loanName: string;
+    loanConfig: any;
 }
