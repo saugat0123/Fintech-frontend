@@ -36,7 +36,6 @@ export class FinancialViewComponent implements OnInit {
     if (this.data !== undefined) {
       this.initialData = JSON.parse(this.data.data);
     }
-    console.log(this.data, 'data');
     this.auditorList = this.financialData.auditorList;
   }
 

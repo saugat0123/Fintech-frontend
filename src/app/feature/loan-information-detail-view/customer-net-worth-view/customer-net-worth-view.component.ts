@@ -19,7 +19,6 @@ export class CustomerNetWorthViewComponent implements OnInit {
   @Input() customer: Customer;
 
   ngOnInit() {
-    console.log(this.customer, 'Customer');
     this.getCustomerNetWorthDetail();
   }
 

@@ -42,8 +42,7 @@ export class ProposalComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
-    @ViewChild('crgGamma0', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
-    @ViewChild('crgGamma1', {static: false}) crgGammaComponent1: CreditRiskGradingGammaComponent;
+    @ViewChild('crgGamma', {static: false}) crgGammaComponent: CreditRiskGradingGammaComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
