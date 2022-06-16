@@ -203,11 +203,19 @@ export class CommonLoanInformationComponent implements OnInit {
             this.conditionalArray[i].showRepaymentMode = true;
             this.conditionalArray[i].showInstallmentAmount = false;
         } else {
-            // this.calculateInterestAmountForRepaymentMode();
+            this.calculateInterestAmountForRepaymentMode(i);
             this.conditionalArray[i].showInstallmentAmount = false;
             this.conditionalArray[i].showRepaymentMode = false;
             this.conditionalArray[i].showInterestAmount = true;
         }
+    }
+    calculateInterestAmountForRepaymentMode(i) {
+        const proposeLimit = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').value);
+        const interestRate = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate').value);
+        const tenureDurationInMonths = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('tenureDurationInMonths').value) / 12;
+        const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('interestAmount').setValue(Number(interestAmount).toFixed(2));
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
     }
 
     calculateRepaymentModeAmounts(repaymentMode, key, i) {
