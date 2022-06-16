@@ -1,22 +1,22 @@
 <div class="row mt-1">
     <div class="col-md-12">
-        <p class="security-header"><strong class="security-header">Other Security Document</strong></p>
+        <p class="fontSize-10"><strong class="fontSize-10">Other Security Document</strong></p>
         <table class="table table-bordered text-center table-sm sb-small" *ngIf="files!==null">
             <tbody>
             <tr *ngFor="let data of files; let index = index">
-                <td  class="text-left" colspan="2">{{data?.name}}</td>
+                <td  class="text-left fontSize-10" colspan="2">{{data?.name}}</td>
             </tr>
             <tr>
-                <td class="text-left sb-bg-dark">Total Security Value (MV) in CA</td>
-                <td class="text-right">Rs.{{loanDataHolder?.loanHolder?.security?.totalSecurityAmount |currencyFormatter}}</td>
+                <td class="text-left sb-bg-dark fontSize-10">Total Security Value (MV) in CA</td>
+                <td class="text-right fontSize-10">Rs.{{loanDataHolder?.loanHolder?.security?.totalSecurityAmount |currencyFormatter}}</td>
             </tr>
             <tr>
-                <td class="text-left sb-bg-dark">Expected Loss Given Default</td>
-                <td class="text-right">{{(fixedAssets | currencyFormatter) ?fixedAssets:'0'}}</td>
+                <td class="text-left sb-bg-dark fontSize-10">Expected Loss Given Default</td>
+                <td class="text-right fontSize-10">{{(fixedAssets | currencyFormatter) ?fixedAssets:'0'}}</td>
             </tr>
             <tr>
-                <td class="text-left sb-bg-dark">Loan to Security Ratio (Total Loan/Total RV)</td>
-                <td class="text-right">{{loanToSecurity?.toFixed(2)   || '0'}}</td>
+                <td class="text-left sb-bg-dark fontSize-10">Loan to Security Ratio (Total Loan/Total RV)</td>
+                <td class="text-right fontSize-10">{{loanToSecurity?.toFixed(2)   || '0'}}</td>
             </tr>
             </tbody>
         </table>

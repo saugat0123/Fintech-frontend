@@ -1,6 +1,6 @@
 <section class="enable-print summary">
     <div id="print-block">
-        <div class=" col-md-12 summary">
+        <div class=" col-md-12 summary" style="margin-top: 55px">
             <hr class="print-line">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
@@ -28,7 +28,7 @@
 
            <ng-container>
                <hr class="print-line">
-               <p class="header" [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor
+               <p class="fontSize-12" [hidden]="loanCategory === 'INSTITUTION'"><strong class="fontSize-12">Applicant/Guarantor
                    Profile</strong></p>
 
                <div class="row">
@@ -46,21 +46,21 @@
                            <div>
                                <div class="col-md-12">
                                    <hr class="print-line">
-                                   <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left"
+                                   <p><strong class="fontSize-12 text-left">Purpose of Loan: </strong> <span class="text-left"
                                                                                                         style="display: flex"
                                                                                                         [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                                    </p>
                                </div>
                                <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                                    <hr class="print-line">
-                                   <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left"
+                                   <p><strong class="fontSize-12 text-left">Borrowing Case: </strong> <span class="text-left"
                                                                                                        style="display: flex"
                                                                                                        [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span>
                                    </p>
                                </div>
                                <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
                                    <hr class="print-line">
-                                   <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left"
+                                   <p><strong class="fontSize-12 text-left">End Use Of Fund: </strong> <span class="text-left"
                                                                                                         style="display: flex"
                                                                                                         [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span>
                                    </p>
@@ -71,14 +71,14 @@
                                <ng-container>
                                    <div class="col-md-12">
                                        <hr class="print-line">
-                                       <p><strong class="header text-left">Justification for Change (Historical): </strong>
+                                       <p><strong class="fontSize-12 text-left">Justification for Change (Historical): </strong>
                                            <span class="text-left" style="display: flex"
                                                  [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
                                        </p>
                                    </div>
                                    <div class="col-md-12">
                                        <hr class="print-line">
-                                       <p><strong class="header text-left">Justification for Change (Projection)
+                                       <p><strong class="fontSize-12 text-left">Justification for Change (Projection)
                                            : </strong> <span class="text-left" style="display: flex"
                                                              [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
                                        </p>
@@ -90,11 +90,11 @@
                                <ng-container *ngIf="smallBusiness">
                                    <div class="col-md-12 form-group">
                                        <div class="row">
-                                           <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                           <div class="col-md-12 d-flex justify-content-start align-items-center fontSize-10">
                                                <b>Fixed Assets Summary</b>
                                            </div>
                                        </div>
-                                       <table class="table table-sm table-bordered table-hover sb-small text-center">
+                                       <table class="table table-sm table-bordered table-hover sb-small text-center fontSize-10">
                                            <thead>
                                            <tr class="sb-bg-dark text-white">
                                                <th>S.N</th>
@@ -110,11 +110,11 @@
                                                style="text-align: center;">
                                                <ng-container>
                                                    <td>{{i + 1}}</td>
-                                                   <td>{{fixedAssets?.particular || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.unit || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.rate || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.total || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.remarks || 'NA'}}</td>
+                                                   <td class="fontSize-10">{{fixedAssets?.particular || 'NA'}}</td>
+                                                   <td class="fontSize-10">{{fixedAssets?.unit || 'NA'}}</td>
+                                                   <td class="fontSize-10">{{fixedAssets?.rate || 'NA'}}</td>
+                                                   <td class="fontSize-10">{{fixedAssets?.total || 'NA'}}</td>
+                                                   <td class="fontSize-10">{{fixedAssets?.remarks || 'NA'}}</td>
                                                </ng-container>
                                            </tr>
                                            </tbody>
@@ -122,13 +122,13 @@
                                    </div>
                                    <div class="col-md-12 form-group">
                                        <div class="row">
-                                           <div class="col-md-12 d-flex justify-content-start align-items-center">
+                                           <div class="col-md-12 d-flex justify-content-start align-items-center fontSize-10">
                                                <b>Summary of Environment & Social Risk Assessment</b>
                                            </div>
                                        </div>
                                        <table class="table table-sm table-bordered table-hover sb-small text-center">
                                            <thead>
-                                           <tr class="sb-bg-dark text-white">
+                                           <tr class="sb-bg-dark text-white fontSize-10">
                                                <th>S.N</th>
                                                <th>Particulars</th>
                                                <th>Remarks</th>
@@ -137,23 +137,23 @@
                                            <tbody class="text-left">
                                            <tr>
                                                <td>1</td>
-                                               <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                               <td class="text-center">
+                                               <td class="text-left fontSize-10">Falls under Exclusion and critical sector list</td>
+                                               <td class="text-center fontSize-10">
                                                    {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES' : 'NO'}}
                                                </td>
                                            </tr>
                                            <tr>
                                                <td>2</td>
-                                               <td class="text-left">E & S Due Diligence process Applicable</td>
-                                               <td class="text-center">
+                                               <td class="text-left fontSize-10">E & S Due Diligence process Applicable</td>
+                                               <td class="text-center fontSize-10">
                                                    {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES' : 'NO'}}
 
                                                </td>
                                            </tr>
                                            <tr>
                                                <td>3</td>
-                                               <td class="text-left">Level of Risk</td>
-                                               <td>
+                                               <td class="text-left fontSize-10">Level of Risk</td>
+                                               <td class="fontSize-10">
                                                    {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
 
@@ -161,8 +161,8 @@
                                            </tr>
                                            <tr>
                                                <td>4</td>
-                                               <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                               <td>
+                                               <td class="text-left fontSize-10">Falls under Exclusion and critical sector list</td>
+                                               <td class="fontSize-10">
                                                    {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
 
                                                </td>
@@ -172,26 +172,26 @@
                                    </div>
                                </ng-container>
                                <ng-container *ngIf="checkedData?.waiverChecked">
-                                   <hr class="print-line header">
+                                   <hr class="print-line fontSize-12">
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                        <tr class="  text-white sb-bg-dark">
-                                           <th class="">Waiver</th>
+                                           <th class="fontSize-10">Waiver</th>
                                        </tr>
                                        <tr>
-                                           <td class="text-left pl-1"><span
+                                           <td class="text-left pl-1 fontSize-10"><span
                                                    [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
                                            </td>
                                        </tr>
                                    </table>
                                </ng-container>
                                <ng-container *ngIf="checkedData?.deviationChecked">
-                                   <hr class="print-line header">
+                                   <hr class="print-line fontSize-12">
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                        <tr class="text-white sb-bg-dark">
-                                           <th class="">Deviation</th>
+                                           <th class="fontSize-10">Deviation</th>
                                        </tr>
                                        <tr>
-                                           <td class="text-left pl-1"><span
+                                           <td class="text-left pl-1 fontSize-10"><span
                                                    [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
                                            </td>
                                        </tr>
@@ -206,58 +206,58 @@
                <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
                    <div class="col-md-12">
                        <hr class="print-line">
-                       <p><strong class="header">Detail of Present Proposal of the Facility</strong></p>
+                       <p><strong class="fontSize-12 fontSize-12">Detail of Present Proposal of the Facility</strong></p>
                        <table class="table table-bordered text-center table-sm sb-small">
                            <tbody>
                            <tr>
-                               <th>Credit Facility</th>
-                               <td>{{loanDataHolder?.loan?.name}}</td>
+                               <th class="fontSize-10">Credit Facility</th>
+                               <td class="fontSize-10">{{loanDataHolder?.loan?.name}}</td>
 
-                               <th>Proposed Limit</th>
-                               <td>{{dmsLoanFile?.proposedAmount
+                               <th class="fontSize-10">Proposed Limit</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.proposedAmount
                                || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
-                               <th>Interest Rate</th>
-                               <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+                               <th class="fontSize-10">Interest Rate</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
 
-                               <th>Tenure Duration In Month</th>
-                               <td>{{(dmsLoanFile?.tenureDuration
+                               <th class="fontSize-10">Tenure Duration In Month</th>
+                               <td class="fontSize-10">{{(dmsLoanFile?.tenureDuration
                                    || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
                            </tr>
                            <tr>
-                               <th>Loan Administration Fee</th>
-                               <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                               <th class="fontSize-10">Loan Administration Fee</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                                    {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
                                    {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
                                </td>
 
-                               <th>FMV Funding Percentage</th>
-                               <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+                               <th class="fontSize-10">FMV Funding Percentage</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.fmvFundingPercent}} %</td>
 
-                               <th>Total FMV</th>
-                               <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+                               <th class="fontSize-10">Total FMV</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
-                               <th>Total DV</th>
-                               <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+                               <th class="fontSize-10">Total DV</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
 
-                               <th>Total Loan Limit</th>
-                               <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+                               <th class="fontSize-10">Total Loan Limit</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
                            </tr>
                            <tr>
-                               <th>Institution Exposure</th>
-                               <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
+                               <th class="fontSize-10">Institution Exposure</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
-                               <th>Group Exposure</th>
-                               <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+                               <th class="fontSize-10">Group Exposure</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
 
-                               <th>Debt Service Coverage
+                               <th class="fontSize-10">Debt Service Coverage
                                    Ratio
                                </th>
-                               <td>{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+                               <td class="fontSize-10">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
 
-                               <th>Dealing Product Name</th>
-                               <td>{{dmsLoanFile?.dealingProductName}}</td>
+                               <th class="fontSize-10">Dealing Product Name</th>
+                               <td class="fontSize-10">{{dmsLoanFile?.dealingProductName}}</td>
                            </tr>
                            <tr>
                            </tr>
@@ -270,11 +270,11 @@
             <hr class="print-line">
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong class="header">Authority Section</strong></p>
+                    <p><strong class="fontSize-12">Authority Section</strong></p>
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
+                        <tr class="sb-bg-dark text-white fontSize-10">
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
@@ -288,29 +288,29 @@
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">
+                            <td class="text-left pl-1 fontSize-10">
                                 {{previousList?.lastModifiedAt | date}}
                                 ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     {{previousList?.fromUser?.name}}</div>
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     <span>({{previousList?.fromRole?.roleName}})</span>
                                 </div>
                             </td>
 
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     {{previousList?.toUser?.name}}</div>
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     ({{previousList?.toRole?.roleName}})
                                 </div>
                             </td>
 
-                            <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                            <td class="text-left pl-1 fonySize-10">{{previousList?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                <div class="pl-1 disable-print fontSize-10" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment)">
@@ -319,44 +319,44 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only justify-content"
+                                    <span class="pl-1 print-only justify-content fontSize-10"
                                           [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                            <td class="text-left pl-1 fontSize-12">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
                                 ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                                 </div>
                             </td>
 
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                <div class="pl-1">
+                                <div class="pl-1 fontSize-10">
                                     <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                                 </div>
                             </td>
 
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
-                            <td class="text-left">
-                                <div class="pl-1 disable-print">
+                            <td class="text-left pl-1 fontSize-10">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
+                            <td class="text-left fontSize-10">
+                                <div class="pl-1 disable-print fontSize-10">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="text-left pl-1 disable-print">read more ....</a>
+                                   class="text-left pl-1 disable-print fontSize-10">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1"
+                                    <span class="pl-1 print-only text-justify pr-1 fontSize-10"
                                           [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
@@ -369,12 +369,12 @@
             <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
                 <div class="col-md-12 print-only">
-                    <p><strong class="header">Approval Chain</strong></p>
+                    <p><strong class="fontSize-12">Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white fontSize-10">
                             <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
@@ -385,11 +385,11 @@
                                  src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">
+                            <p class="m-0 sb-small fontSize-10">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small fontSize-10">
                                 ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
                                 )</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                            <p class="m-0 sb-small fontSize-10">{{previous?.lastModifiedAt | date}}
                                 ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <p><b>Address Verification</b></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th colspan="6">Permanent Address</th>
                 </tr>
                 <tr>
@@ -15,14 +15,14 @@
                     <th>Address Line 2</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">{{individual?.province?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.district?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
-                    <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.province?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.district?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.municipalities?.name}}</td>
+                    <td class="text-right pr-1 fontSize-10">{{individual?.wardNumber || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th colspan="6">Temporary Address</th>
                 </tr>
                 <tr>
@@ -34,12 +34,12 @@
                     <th>Address Line 2</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
-                    <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.temporaryProvince?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.temporaryDistrict?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individual?.temporaryMunicipalities?.name}}</td>
+                    <td class="text-right pr-1 fontSize-10">{{individual?.temporaryWardNumber || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
                 </tr>
             </table>
         </div>
@@ -48,51 +48,51 @@
     <p><strong>Applicant/Guarantor Profile</strong></p>
 </div>
     <div *ngIf="!isRemit" class="borrower_class">
-        <p class="sub-header"><strong class="sub-header">Borrower Details</strong></p>
+        <p class="fontSize-10"><strong class="fontSize-10">Borrower Details</strong></p>
             <div class="col-md-12">
                 <div>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Name</td>
-                            <td class="pl-1 text-right">{{individual?.customerName}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Name</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.customerName}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Customer Id</td>
-                            <td class="pl-1 text-right">{{customerInfo?.customerCode || 'N/A'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Customer Id</td>
+                            <td class="pl-1 text-right fontSize-10">{{customerInfo?.customerCode || 'N/A'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
-                            <td class="pl-1 text-right">{{individual?.dob | date}}
+                            <td class="sb-bg-dark text-white fontSize-10">Date of birth(AD/BS)</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.dob | date}}
                                 ({{individual?.dob | engNepDate: false}}
                                 )
                             </td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Age</td>
-                            <td class="pl-1 text-right">{{calculateAge(individual?.dob)}} years</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Age</td>
+                            <td class="pl-1 text-right fontSize-10">{{calculateAge(individual?.dob)}} years</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Citizenship no.</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipNumber}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Citizenship no.</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.citizenshipNumber}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Citizenship Issued Date(AD/BS)</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedDate | date}}
+                            <td class="sb-bg-dark text-white fontSize-10">Citizenship Issued Date(AD/BS)</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.citizenshipIssuedDate | date}}
                                 ({{individual?.citizenshipIssuedDate | engNepDate: false}})
                             </td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Issued Place</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedPlace}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Issued Place</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.citizenshipIssuedPlace}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Gender</td>
-                            <td class="pl-1 text-right">{{individual?.gender}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Gender</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.gender}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Marital Status</td>
-                            <td class="pl-1 text-right">{{individual?.maritalStatus}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Marital Status</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.maritalStatus}}</td>
                         </tr>
                         <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
                             <td class="sb-bg-dark text-white">Father's Name</td>
@@ -103,32 +103,32 @@
                             <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Mobile Number</td>
-                            <td class="pl-1 text-right">{{individual?.contactNumber || 'NA'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Mobile Number</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.contactNumber || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">LandLine Number</td>
-                            <td class="pl-1 text-right">{{individual?.landLineNumber || 'NA'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">LandLine Number</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.landLineNumber || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Email</td>
-                            <td class="pl-1 text-right">{{individual?.email || 'NA'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Email</td>
+                            <td class="pl-1 text-right fontSize-10">{{individual?.email || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Occupation</td>
-                            <td class="pl-1 text-right">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Occupation</td>
+                            <td class="pl-1 text-right fontSize-10">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Income Source</td>
-                            <td class="pl-1 text-right">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Income Source</td>
+                            <td class="pl-1 text-right fontSize-10">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Client Type</td>
-                            <td class="pl-1 text-right">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Client Type</td>
+                            <td class="pl-1 text-right fontSize-10">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Address as per Legal Document</td>
-                            <td class="pl-1 text-right">{{customerInfo?.customerLegalDocumentAddress}}</td>
+                            <td class="sb-bg-dark text-white fontSize-10">Address as per Legal Document</td>
+                            <td class="pl-1 text-right fontSize-10">{{customerInfo?.customerLegalDocumentAddress}}</td>
                         </tr>
                         <tr class="text-left" *ngIf="client === clientName?.SHINE_RESUNGA">
                             <td class="sb-bg-dark text-white">Obligor Code</td>
@@ -141,11 +141,11 @@
     <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class">
         <div class="row">
             <div class="col-md-12">
-                <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
+                <p class="fontSize-10"><strong class="fontSize-10">Family Details</strong></p>
                 <table
                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="text-white sb-bg-dark fontSize-10">
                         <th>Name</th>
                         <th>Relation Name</th>
                         <th>Citizenship no.</th>
@@ -156,16 +156,16 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let relative of individual?.customerRelatives">
-                        <td class="text-left pl-1">{{relative?.customerRelativeName || 'NA'}}</td>
-                        <td class="text-left pl-1">{{relative?.customerRelation || 'NA'}}</td>
-                        <td class="text-left pr-1">{{relative?.citizenshipNumber || 'NA'}}</td>
-                        <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'NA'}}</td>
-                        <td class="text-left pl-1">
+                        <td class="text-left pl-1 fontSize-10">{{relative?.customerRelativeName || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{relative?.customerRelation || 'NA'}}</td>
+                        <td class="text-left pr-1 fontSize-10">{{relative?.citizenshipNumber || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{relative?.citizenshipIssuedPlace || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">
                             {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'N/A'}}
                             ({{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}}
                             )
                         </td>
-                        <td class="text-left pl-1">{{relative?.age || 'N/A'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{relative?.age || 'N/A'}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -177,9 +177,9 @@
             <p><b> Proposal</b></p>
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
-                    <th>Limit</th>
-                    <th>{{loanDataHolder.proposal.proposedLimit}}</th>
-                    <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                    <th class="fontSize-10">Limit</th>
+                    <th class="fontSize-10">{{loanDataHolder.proposal.proposedLimit}}</th>
+                    <th class="fontSize-10">{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
                 </tr>
             </table>
         </div>
@@ -224,44 +224,44 @@
 <!--        </div>-->
         <div class="row mt-1" *ngIf="isRemit">
             <div class="col-md-12">
-                <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
+                <p class="fontSize-10"><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead class="sb-bg-dark">
                     <tr>
-                        <th>Particulars</th>
-                        <th>Summary</th>
+                        <th class="fontSize-10">Particulars</th>
+                        <th class="fontSize-10">Summary</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><b>Name of Employee</b></td>
-                        <td>{{this.loanDataHolder.remitCustomer.senderName}}</td>
+                        <td class="fontSize-10"><b>Name of Employee</b></td>
+                        <td class="fontSize-10">{{this.loanDataHolder.remitCustomer.senderName}}</td>
                     </tr>
                     <tr>
-                        <td>Company Name</td>
-                        <td>{{senderDetails.senderEmployment.company_name}}</td>
+                        <td class="fontSize-10">Company Name</td>
+                        <td class="fontSize-10">{{senderDetails.senderEmployment.company_name}}</td>
                     </tr>
                     <tr>
-                        <td>Address/Contact</td>
-                        <td>{{senderDetails.senderAddress.temp_country +","+ senderDetails.senderAddress.temp_city}}</td>
+                        <td class="fontSize-10">Address/Contact</td>
+                        <td class="fontSize-10">{{senderDetails.senderAddress.temp_country +","+ senderDetails.senderAddress.temp_city}}</td>
                     </tr>
                     <tr>
-                        <td>Post/Designation</td>
-                        <td>{{senderDetails.senderEmployment.profession_or_position}}</td>
+                        <td class="fontSize-10">Post/Designation</td>
+                        <td class="fontSize-10">{{senderDetails.senderEmployment.profession_or_position}}</td>
                     </tr>
                     <tr>
-                        <td>Years Of Service</td>
-                        <td>{{senderDetails.senderEmployment.employment_period}} months</td>
+                        <td class="fontSize-10">Years Of Service</td>
+                        <td class="fontSize-10">{{senderDetails.senderEmployment.employment_period}} months</td>
                     </tr>
                     <tr>
-                        <td>Monthly Salary/ Remittance recieved monthly</td>
-                        <td>{{senderDetails.senderEmployment.monthly_salary}}</td>
+                        <td class="fontSize-10">Monthly Salary/ Remittance recieved monthly</td>
+                        <td class="fontSize-10">{{senderDetails.senderEmployment.monthly_salary}}</td>
                     </tr>
                     <tr>
-                        <td>Exchange Rate:<br>
+                        <td class="fontSize-10">Exchange Rate:<br>
 
                             <b>Date of exchange rate:</b></td>
-                        <td>{{senderDetails.senderEmployment.currency}}</td>
+                        <td class="fontSize-10">{{senderDetails.senderEmployment.currency}}</td>
                     </tr>
                     </tbody>
 
@@ -270,37 +270,37 @@
         </div>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark fontSize-10">
                 <th colspan="2">Introduction</th>
             </tr>
             <tr>
-                <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
+                <td colspan="2" class="text-left pl-1 fontSize-10" [innerHTML]="individual?.introduction | safeHtml"></td>
             </tr>
             <ng-container *ngIf="individualJsonData !== null">
             <ng-container *ngIf="(individualJsonData?.checkedData)?.incomeRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th colspan="2">Income Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-left pl-1"
+                    <td colspan="2" class="text-left pl-1 fontSize-10"
                         [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.securityRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th colspan="2">Security Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-left pl-1"
+                    <td colspan="2" class="text-left pl-1 fontSize-10"
                         [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.successionRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th colspan="2">Succession Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-left pl-1"
+                    <td colspan="2" class="text-left pl-1 fontSize-10"
                         [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
                 </tr>
             </ng-container>
@@ -317,164 +317,164 @@
     </div>
 
     <div class="col-md-12" *ngIf="isRemit">
-        <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+        <p class="fontSize-10"><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark">
             <tr>
-                <td><b>Particular</b></td>
+                <td class="fontSize-10"><b>Particular</b></td>
                 <td></td>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>Monthly Income From Remittance</td>
-                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                <td class="fontSize-10">Monthly Income From Remittance</td>
+                <td class="fontSize-10">{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
             </tr>
             <tr>
-                <td>Other Income</td>
+                <td class="fontSize-10">Other Income</td>
                 <td></td>
             </tr>
             <tr>
-                <td><b>Total Monthly Income</b></td>
-                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                <td class="fontSize-10"><b>Total Monthly Income</b></td>
+                <td class="fontSize-10">{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
             </tr>
             <tr>
-                <td>Monthly Obligation on Proposed loan</td>
+                <td class="fontSize-10">Monthly Obligation on Proposed loan</td>
                 <td></td>
             </tr>
             <tr>
-                <td>Total Monthly Obligation</td>
+                <td class="fontSize-10">Total Monthly Obligation</td>
                 <td></td>
             </tr>
             <tr>
-                <td>DBR</td>
-                <td>{{(dbr)?((dbr) | number : '1.2-3'):'N/A'}}</td>
+                <td class="fontSize-10">DBR</td>
+                <td class="fontSize-10">{{(dbr)?((dbr) | number : '1.2-3'):'N/A'}}</td>
             </tr>
             </tbody>
         </table>
-        <div class="border">
+        <div class="border fontSize-10">
             <p>* Income from migration work is only accepted for DBR calculation in case of pre migration loan and Livelihood Improvement Loan. However, 50% of the income from proposed business can be considered on case of Women Empowerment Loan</p>
         </div>
     </div>
 </div>
 <div *ngIf="isJointInfo" class="row">
     <div class="col-md-12 text-center">
-        <p class="sub-header text-left" ><strong   class="header">Joint Details</strong></p>
+        <p class="fontSize-12 text-left" ><strong   class="fontSize-12">Joint Details</strong></p>
         <ng-container *ngFor="let joint of jointInfo">
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
                     <td>
                         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Name</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Name</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Customer Id</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Customer Id</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Date of birth(AD/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Age</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Age</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Citizenship no.</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Citizenship no.</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Issued Date(Ad/BS)</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Issued Date(Ad/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Issued Place</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Issued Place</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Gender</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Gender</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Marital Status</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Marital Status</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Mobile Number</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Mobile Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">LandLine Number</td>
+                                <td class="sb-bg-dark text-white fontSize-10">LandLine Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Email</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Email</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Occupation</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Occupation</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Income Source</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Income Source</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Client Type</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Client Type</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Pan Number</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Pan Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Account Number</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Account Number</td>
                             </tr>
                         </table>
                         </td>
                     <td *ngFor="let info of joint">
                         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tr>
-                                <td class="text-left">{{info?.customerName || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.customerName || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.customerCode || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.customerCode || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                <td class="text-left fontSize-10">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{calculateAge(info?.dob)}} years</td>
+                                <td class="text-left fontSize-10">{{calculateAge(info?.dob)}} years</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipNumber || 'NA'}}</td>
+                                <td class="text-left fontSize-10">{{info?.citizenshipNumber || 'NA'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipIssuedDate | date}}
+                                <td class="text-left fontSize-10">{{info?.citizenshipIssuedDate | date}}
                                     ({{info?.citizenshipIssuedDate | engNepDate: false}})</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipIssuedPlace || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.citizenshipIssuedPlace || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.gender?.toLowerCase() || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.gender?.toLowerCase() || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.maritalStatus?.toLowerCase() || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.maritalStatus?.toLowerCase() || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.contactNumber || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.contactNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.landLineNumber || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.landLineNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.email || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.email || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.occupation || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.occupation || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.incomeSource || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.incomeSource || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
+                                <td class="text-left fontSize-10">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.panNumber || 'N/A'}}</td>
+                                <td class="text-left fontSize-10">{{info?.panNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">
                                     <table>
                                         <tr *ngFor="let acc of info?.accountDetails">
-                                            <td>
+                                            <td class="fontSize-10">
                                                 {{acc?.accountNo || 'N/A'}}</td>
                                         </tr>
                                     </table>
@@ -484,10 +484,10 @@
                     </td>
                 </tr>
             </table>
-            <p class="sub-header" ><strong   class="header">Family Details</strong></p>
+            <p class="fontSize-12" ><strong   class="fontSize-12">Family Details</strong></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
                 <tbody>
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th>Name</th>
                     <th>Relation Name</th>
                     <th>Citizenship no.</th>
@@ -497,11 +497,11 @@
                 </tr>
                 <ng-container>
                     <tr *ngFor="let infos of info?.customerRelations">
-                        <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
-                        <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
-                        <td class="text-left pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
-                        <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
-                        <td class="text-left pl-1">
+                        <td class="text-left pl-1 fontSize-10">{{infos?.customerRelativeName || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.customerRelation || 'NA'}}</td>
+                        <td class="text-left pr-1 fontSize-10">{{infos?.citizenshipNumber || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">
                             {{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>
                         <td class="text-left pl-1">{{infos?.age || 'N/A'}}</td>
                     </tr>
@@ -510,7 +510,7 @@
             </table>
         </ng-container>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark fontSize-10">
                 <th colspan="7">Permanent Address</th>
             </tr>
             <tr>
@@ -524,16 +524,16 @@
             </tr>
             <ng-container *ngFor="let jointCustomer of jointInfo">
                 <tr *ngFor="let info of jointCustomer">
-                    <td class="text-left pl-1">{{info?.customerName}}</td>
-                    <td class="text-left pl-1">{{info?.province?.name}}</td>
-                    <td class="text-left pl-1">{{info?.district?.name}}</td>
-                    <td class="text-left pl-1">{{info?.municipalities?.name}}</td>
-                    <td class="text-right pr-1">{{info?.wardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.permanentAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.permanentAddressLine2 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.customerName}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.province?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.district?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.municipalities?.name}}</td>
+                    <td class="text-right pr-1 fontSize-10">{{info?.wardNumber || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.permanentAddressLine1 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
             </ng-container>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark fontSize-10">
                 <th colspan="7">Temporary Address</th>
             </tr>
             <tr>
@@ -547,13 +547,13 @@
             </tr>
             <ng-container *ngFor="let jointCustomer of jointInfo">
                 <tr *ngFor="let info of jointCustomer">
-                    <td class="text-left pl-1">{{info?.customerName}}</td>
-                    <td class="text-left pl-1">{{info?.temporaryProvince?.name}}</td>
-                    <td class="text-left pl-1">{{info?.temporaryDistrict?.name}}</td>
-                    <td class="text-left pl-1">{{info?.temporaryMunicipalities?.name}}</td>
-                    <td class="text-right pr-1">{{info?.temporaryWardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.temporaryAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.temporaryAddressLine2 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.customerName}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.temporaryProvince?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.temporaryDistrict?.name}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.temporaryMunicipalities?.name}}</td>
+                    <td class="text-right pr-1 fontSize-10">{{info?.temporaryWardNumber || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.temporaryAddressLine1 || 'NA'}}</td>
+                    <td class="text-left pl-1 fontSize-10">{{info?.temporaryAddressLine2 || 'NA'}}</td>
                 </tr>
             </ng-container>
         </table>
@@ -562,34 +562,34 @@
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tbody>
-        <tr class="text-white sb-bg-dark">
+        <tr class="text-white sb-bg-dark fontSize-10">
             <th colspan="2">Introduction</th>
         </tr>
         <tr>
-            <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
+            <td colspan="2" class="text-left pl-1 fontSize-10" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
         </tr>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark fontSize-10">
                 <th colspan="2">Income Risk & Mitigation</th>
             </tr>
             <tr>
-                <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
+                <td colspan="2" class="text-left pl-1 fontSize-10" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
             </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.securityRiskChecked">
-        <tr class="text-white sb-bg-dark">
+        <tr class="text-white sb-bg-dark fontSize-10">
             <th colspan="2">Security Risk & Mitigation</th>
         </tr>
         <tr>
-            <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
+            <td colspan="2" class="text-left pl-1 fontSize-10" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
         </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.successionRiskChecked">
-        <tr class="text-white sb-bg-dark">
+        <tr class="text-white sb-bg-dark fontSize-10">
             <th colspan="2">Succession Risk & Mitigation</th>
         </tr>
         <tr>
-            <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
+            <td colspan="2" class="text-left pl-1 fontSize-10" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
         </tr>
         </ng-container>
 <!--        <tr class="text-white sb-bg-dark">-->

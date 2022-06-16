@@ -2,15 +2,15 @@
 <div *ngIf="!isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p class="header"><strong   class="header">Income Source</strong></p>
+      <p class="header"><strong   class="header fontSize">Income Source</strong></p>
       <div class="row">
         <div class="col-md-12">
           <table class="table table-bordered text-right table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="6">Income of Borrower/Guarantor</th>
+              <th class="text-center font" colspan="6">Income of Borrower/Guarantor</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark font">
               <th>S.N</th>
               <th>Source of Income</th>
               <th>Type</th>
@@ -22,16 +22,16 @@
             <tbody>
             <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
               <td>{{i + 1}}</td>
-              <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
-              <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
-              <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+              <td class="text-left pl-1 font">{{incomeOfBorrower.incomeSource}}</td>
+              <td class="text-left pl-1 font">{{incomeOfBorrower.organization}}</td>
+              <td class="text-right pr-1 font">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
               <td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>
-              <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
+              <td class="text-left pl-1 font">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total Income</strong></td>
+              <td class="text-left pl-1 font" colspan="3"><strong>Total Income</strong></td>
               <td colspan="3" class="text-right pr-1">
-                <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
+                <strong class="font">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
             </tr>
             </tbody>
@@ -134,12 +134,12 @@
 <div *ngIf="isBusinessLoan && (loanDataHolder?.companyInfo?.microCustomerType != 'DIRECT')">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p><strong>Financial Highlights of the Entity</strong></p>
+      <p><strong class="font">Financial Highlights of the Entity</strong></p>
       <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr>
-          <th class="text-center sb-bg-dark text-white" colspan="7">Financial Auditor Detail Information</th>
+          <th class="text-center sb-bg-dark text-white font" colspan="7">Financial Auditor Detail Information</th>
         </tr>
-        <tr class="sb-bg-secondary text-white">
+        <tr class="sb-bg-secondary text-white font">
           <th scope="col" class="sn">S.N</th>
           <th scope="col">Audited</th>
           <th scope="col">Audit Firm</th>
@@ -150,19 +150,19 @@
         </tr>
         <tr *ngFor="let auditor of auditorList; let i = index">
           <td><strong>{{i + 1}}</strong></td>
-          <td class="text-right pr-1">{{auditor['audited']}}</td>
-          <td class="text-left pl-1">{{auditor['auditFirm']}}</td>
-          <td class="text-left pl-1">{{auditor['proprietePartner']}}</td>
-          <td class="text-right pr-1">{{auditor['membershipNo']}}</td>
-          <td class="text-left pl-1">{{auditor['certificateOfPractice']}}</td>
-          <td class="text-left pl-1">{{auditor['class']}}</td>
+          <td class="text-right pr-1 font">{{auditor['audited']}}</td>
+          <td class="text-left pl-1 font">{{auditor['auditFirm']}}</td>
+          <td class="text-left pl-1 font">{{auditor['proprietePartner']}}</td>
+          <td class="text-right pr-1 font">{{auditor['membershipNo']}}</td>
+          <td class="text-left pl-1 font">{{auditor['certificateOfPractice']}}</td>
+          <td class="text-left pl-1 font">{{auditor['class']}}</td>
         </tr>
       </table>
       <div *ngIf="activateOldFinancialSummary" class="row">
         <div class="col-md-12">
           <table class="table table-bordered table-sm sb-small">
             <thead>
-            <tr class="sb-bg-dark text-white">
+            <tr class="sb-bg-dark text-white font">
               <th>S.No.</th>
               <th>Particulars/Years:</th>
               <th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>
@@ -171,50 +171,50 @@
             <tbody>
 
             <tr class="sb-bg-secondary">
-              <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center">
-                <strong>Major
+              <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center font">
+                <strong class="font">Major
                   Financial Indicators</strong></td>
             </tr>
             <tr>
               <td>1</td>
-              <td class="text-left pl-1"><strong>Current Ratio (in times)</strong></td>
-              <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio" class="text-left pl-1">
+              <td class="text-left pl-1 font"><strong>Current Ratio (in times)</strong></td>
+              <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio" class="text-left pl-1 font">
                 {{currentRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>2</td>
-              <td class="text-left pl-1"><strong>Operating Profit Margin (%)</strong></td>
-              <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI" class="text-left pl-1">
+              <td class="text-left pl-1 font"><strong>Operating Profit Margin (%)</strong></td>
+              <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI" class="text-left pl-1 font">
                 {{operatingProfitKI.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>3</td>
-              <td class="text-left pl-1"><strong>Inventory Turnover Ratio (in times)</strong></td>
-              <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio" class="text-left pl-1">
+              <td class="text-left pl-1 font"><strong>Inventory Turnover Ratio (in times)</strong></td>
+              <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio" class="text-left pl-1 font">
                 {{inventoryTurnoverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>4</td>
-              <td class="text-left pl-1"><strong>Interest Coverage Ratio (in times)</strong></td>
-              <td *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
+              <td class="text-left pl-1 font"><strong>Interest Coverage Ratio (in times)</strong></td>
+              <td class="font" *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
                 {{interestCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>5</td>
-              <td class="text-left pl-1"><strong>Debtor/Receivable Turnover Ratio (in times)</strong></td>
-              <td *ngFor="let debtorTurnOverRatio of financialData['keyIndicatorsData']?.debtorTurnOverRatio">
+              <td class="text-left pl-1 font"><strong>Debtor/Receivable Turnover Ratio (in times)</strong></td>
+              <td class="font" *ngFor="let debtorTurnOverRatio of financialData['keyIndicatorsData']?.debtorTurnOverRatio">
                 {{debtorTurnOverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>6</td>
-              <td class="text-left pl-1"><strong>Debt-Equity Ratio - General (in times)</strong></td>
-              <td *ngFor="let debtServiceCoverageRatio of financialData['keyIndicatorsData']?.debtServiceCoverageRatio">
+              <td class="text-left pl-1 font"><strong>Debt-Equity Ratio - General (in times)</strong></td>
+              <td class="font" *ngFor="let debtServiceCoverageRatio of financialData['keyIndicatorsData']?.debtServiceCoverageRatio">
                 {{debtServiceCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>7</td>
-              <td class="text-left pl-1"><strong>Net Profit Margin (%)</strong></td>
-              <td *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
+              <td class="text-left pl-1 font"><strong>Net Profit Margin (%)</strong></td>
+              <td class="font" *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
                 {{currentAssetValue.value | currencyFormatter}}</td>
             </tr>
             </tbody>
@@ -231,18 +231,18 @@
 
 <div class="row mt-3" *ngIf="isBusinessLoan">
   <div class="col-md-12">
-    <p><strong>Financial Statements Justification:</strong></p>
+    <p><strong class="fontSize">Financial Statements Justification:</strong></p>
     <hr>
-    <p class="sb-small"><strong>Income Statement:</strong></p>
-    <p [innerHTML]="financialData['incomeStatementData']?.justificationIncomeStatement | safeHtml"></p>
+    <p class="sb-small font"><strong>Income Statement:</strong></p>
+    <p class="font" [innerHTML]="financialData['incomeStatementData']?.justificationIncomeStatement | safeHtml"></p>
     <hr>
-    <p class="sb-small"><strong>Balance Sheet:</strong></p>
-    <p [innerHTML]="financialData['balanceSheetData']?.justificationBalanceSheet | safeHtml"></p>
+    <p class="sb-small font"><strong>Balance Sheet:</strong></p>
+    <p class="font" [innerHTML]="financialData['balanceSheetData']?.justificationBalanceSheet | safeHtml"></p>
     <hr>
-    <p class="sb-small"><strong>Cash Flow Statement:</strong></p>
-    <p [innerHTML]="financialData['cashFlowStatementData']?.justificationCashFlowStatement | safeHtml"></p>
+    <p class="sb-small font"><strong>Cash Flow Statement:</strong></p>
+    <p class="font" [innerHTML]="financialData['cashFlowStatementData']?.justificationCashFlowStatement | safeHtml"></p>
     <hr>
-    <p class="sb-small"><strong>Key Indicators:</strong></p>
-    <p [innerHTML]="financialData['keyIndicatorsData']?.justificationKeyIndicators | safeHtml"></p>
+    <p class="sb-small font"><strong>Key Indicators:</strong></p>
+    <p class="font" [innerHTML]="financialData['keyIndicatorsData']?.justificationKeyIndicators | safeHtml"></p>
   </div>
 </div>

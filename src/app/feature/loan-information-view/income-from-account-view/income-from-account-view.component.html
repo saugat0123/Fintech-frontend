@@ -4,9 +4,9 @@
         table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr>
-                <th colspan="5">Account History</th>
+                <th colspan="5" class="fontSize-12">Account History</th>
             </tr>
-            <tr class="sb-bg-dark text-white">
+            <tr class="sb-bg-dark text-white fontSize-10">
                 <th>Particular</th>
                 <th>Total Number</th>
                 <th>Total Value</th>
@@ -14,47 +14,47 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">Credit Transaction in Account</td>
-                <td class="text-right pr-1">
+                <td class="text-left pl-1 fontSize-10">Credit Transaction in Account</td>
+                <td class="text-right pr-1 fontSize-10">
                     Rs. {{data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
-                <td class="text-right pr-1">
+                <td class="text-right pr-1 fontSize-10">
                     Rs. {{data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1">Debit Transaction in Account</td>
-                <td class="text-right pr-1">
+                <td class="text-left pl-1 fontSize-10">Debit Transaction in Account</td>
+                <td class="text-right pr-1 fontSize-10">
                     Rs. {{data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
-                <td class="text-right pr-1">
+                <td class="text-right pr-1 fontSize-10">
                     Rs. {{data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
             <tr *ngIf="!individual">
-                <td class="sb-bg-secondary text-white text-left pl-1">Credit entries as percentage of sales</td>
-                <td class="text-left pl-1">
+                <td class="sb-bg-secondary text-white text-left pl-1 fontSize-10">Credit entries as percentage of sales</td>
+                <td class="text-left pl-1 fontSize-10">
                     {{data?.accountTransactionForm?.creditEntries}}
                 </td>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 fontSize-10">
                     {{data?.accountTransactionForm?.creditEntriesValue}}
                 </td>
             </tr>
             <tr *ngIf="!individual">
-                <td class="sb-bg-secondary text-white text-left pl-1">Remarks</td>
-                <td colspan="2" class="text-left pl-1">
+                <td class="sb-bg-secondary text-white text-left pl-1 fontSize-10">Remarks</td>
+                <td colspan="2" class="text-left pl-1 fontSize-10">
                     {{data?.accountTransactionForm?.remarks}}
                 </td>
             </tr>
             <tr *ngIf="!disabledAlpha && !disabledLambda">
-                <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
-                <td colspan="2" class="text-left pl-1">
+                <td class="sb-bg-secondary text-white text-left pl-1 fontSize-10">Repayment track in our bank</td>
+                <td colspan="2" class="text-left pl-1 fontSize-10">
                     {{data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
                 </td>
             </tr>
             <tr *ngIf="!individual">
-                <td class="sb-bg-secondary text-white text-left pl-1">Repayment Remarks</td>
-                <td colspan="2" class="text-left pl-1">
+                <td class="sb-bg-secondary text-white text-left pl-1 fontSize-10">Repayment Remarks</td>
+                <td colspan="2" class="text-left pl-1 fontSize-10">
                     {{data?.repaymentRemarks}}
                 </td>
             </tr>

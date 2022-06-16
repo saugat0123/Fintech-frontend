@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <p class="sub-header text-left" ><strong   class="header">Joint Details</strong></p>
+        <p class="text-left" ><strong   class="fontSize-12">Joint Details</strong></p>
         <ng-container *ngFor="let jointCustomer of jointDetails">
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tbody>
@@ -11,31 +11,31 @@
 
                             <tbody>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Name</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Name</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Gender</td>
+                                <td class="sb-bg-dark text-white fontSize-10">Gender</td>
                             </tr>
 
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Date Of Birth (AD/BS)</td>
                             </tr>
 
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Phone Number</td>
                             </tr>
 
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Occupation</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Occupation</td>
                             </tr>
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Marital Status</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Marital Status</td>
                             </tr>
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Age</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Age</td>
                             </tr>
                             <tr>
-                                <td class="sb-bg-dark text-left text-white">Email</td>
+                                <td class="sb-bg-dark text-left text-white fontSize-10">Email</td>
                             </tr>
 
                             </tbody>
@@ -45,30 +45,30 @@
                         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tbody>
                             <tr class="text-left">
-                                <td class=" ">{{customer?.customerName || 'N/A'}}</td>
+                                <td class="fontSize-10">{{customer?.customerName || 'N/A'}}</td>
                             </tr>
                             <tr class="text-left">
-                                <td class=" ">{{customer?.gender || 'N/A'}}</td>
+                                <td class="fontSize-10">{{customer?.gender || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class=" text-left ">{{(customer?.dob | date) || 'N/A'}}</td>
-                            </tr>
-
-                            <tr>
-                                <td class=" text-left ">{{customer?.contactNumber || 'N/A'}}</td>
+                                <td class=" text-left fontSize-10">{{(customer?.dob | date) || 'N/A'}}</td>
                             </tr>
 
                             <tr>
-                                <td class=" text-left ">{{customer?.occupation || 'N/A'}}</td>
+                                <td class=" text-left v">{{customer?.contactNumber || 'N/A'}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class=" text-left fontSize-10">{{customer?.occupation || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class=" text-left ">{{customer?.maritalStatus || 'N/A'}}</td>
+                                <td class=" text-left fontSize-10">{{customer?.maritalStatus || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class=" text-left ">{{calculateAge(customer?.dob) || 'N/A'}}</td>
+                                <td class=" text-left fontSize-10">{{calculateAge(customer?.dob) || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class=" text-left ">{{customer?.email || 'N/A'}}</td>
+                                <td class=" text-left fontSize-10">{{customer?.email || 'N/A'}}</td>
                             </tr>
 
                             </tbody>
@@ -77,10 +77,10 @@
                 </tr>
                 </tbody>
             </table>
-            <p class="sub-header" ><strong   class="header">Family Details</strong></p>
+            <p class="fontSize-12" ><strong   class="fontSize-12">Family Details</strong></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of jointCustomer">
                 <tbody>
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark fontSize-10">
                     <th>Name</th>
                     <th>Relation Name</th>
                     <!--                                <th>Citizenship no.</th>-->
@@ -91,12 +91,12 @@
                 </tr>
                 <ng-container>
                     <tr *ngFor="let infos of info?.customerRelations">
-                        <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
-                        <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.customerRelativeName || 'NA'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.customerRelation || 'NA'}}</td>
                         <!--                                    <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>-->
                         <!--                                    <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>-->
-                        <td class="text-left pl-1">{{infos?.age || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{infos?.occupation || 'N/A'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.age || 'N/A'}}</td>
+                        <td class="text-left pl-1 fontSize-10">{{infos?.occupation || 'N/A'}}</td>
                     </tr>
                 </ng-container>
                 </tbody>

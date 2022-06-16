@@ -3,7 +3,7 @@
 <table *ngIf="list.length > 0"
         class="table table-bordered table-responsive-md table-sm sb-small text-center">
     <thead>
-    <tr class="sb-bg-dark text-white">
+    <tr class="sb-bg-dark text-white fontSize-10">
         <th>S.N</th>
         <th>Branch Code</th>
         <th>Obligor</th>
@@ -18,19 +18,19 @@
     <tbody>
     <tr *ngFor="let data of list;let i = index">
         <td>{{i + 1}}</td>
-        <td class="text-right pr-1">{{data?.jsonDataMap?.BranchCode || '-'}}</td>
-        <td class="text-left pl-1">{{data?.obligor || '-'}}</td>
-        <td class="text-right pr-1">{{data?.jsonDataMap?.MainCode || '-'}}</td>
-        <td class="text-left pl-1">{{data?.jsonDataMap?.Name || '-'}}</td>
-        <td class="text-left pl-1">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
+        <td class="text-right pr-1 fontSize-10">{{data?.jsonDataMap?.BranchCode || '-'}}</td>
+        <td class="text-left pl-1 fontSize-10">{{data?.obligor || '-'}}</td>
+        <td class="text-right pr-1 fontSize-10">{{data?.jsonDataMap?.MainCode || '-'}}</td>
+        <td class="text-left pl-1 fontSize-10">{{data?.jsonDataMap?.Name || '-'}}</td>
+        <td class="text-left pl-1 fontSize-10">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
+        <td class="text-right pr-1 fontSize-10">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
+        <td class="text-right pr-1 fontSize-10">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
     </tr>
     <tr>
-        <td class="sb-bg-dark text-white text-left pl-1" colspan="6"><strong>Total</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
+        <td class="sb-bg-dark text-white text-left pl-1 fontSize-10" colspan="6"><strong>Total</strong></td>
+        <td class="text-right pr-1 fontSize-10"><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
+        <td class="text-right pr-1 fontSize-10"><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
         <td>-</td>
     </tr>
 

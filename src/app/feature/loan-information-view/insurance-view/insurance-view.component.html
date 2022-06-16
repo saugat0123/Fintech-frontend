@@ -1,16 +1,16 @@
 <div class="row mt-4">
   <div class="col-md-12 text-center">
-    <p><strong>Insurance Detail</strong></p>
+    <p><strong class="fontSize-12">Insurance Detail</strong></p>
     <table class="table table-bordered text-center table-responsive-md table-sm sb-small" *ngFor="let insurance of insurance; let i= index">
       <thead>
       <tr>
-        <th colspan="8">
+        <th colspan="8" class="fontSize-10">
           {{i+1}}.Insurance
         </th>
       </tr>
       </thead>
       <thead>
-      <tr class="text-white sb-bg-dark">
+      <tr class="text-white sb-bg-dark fontSize-10">
         <th>S.N</th>
         <th>Policy Number</th>
         <th>Assets Insured</th>
@@ -24,38 +24,38 @@
       <tbody>
       <tr>
         <td>{{i+1}}.</td>
-        <td class="text-right pr-1">{{insurance?.policyNumber}}</td>
-        <td class="text-left pl-1">{{insurance?.assetInsured}}</td>
-        <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{insurance?.company}}</td>
-        <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
+        <td class="text-right pr-1 fontSize-10">{{insurance?.policyNumber}}</td>
+        <td class="text-left pl-1 fontSize-10">{{insurance?.assetInsured}}</td>
+        <td class="text-right pr-1 fontSize-10">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
+        <td class="text-left pl-1 fontSize-10">{{insurance?.company}}</td>
+        <td class="text-right pr-1 fontSize-10">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
+        <td class="text-left pl-1 fontSize-10">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
+        <td class="text-left pl-1 fontSize-10">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
       </tr>
-      <tr class="text-white sb-bg-dark">
+      <tr class="text-white sb-bg-dark fontSize-10">
         <th></th>
         <th colspan="7">Policy Type /Coverage</th>
       </tr>
       <tr>
         <th></th>
-        <td colspan="7" class="text-left pl-1">{{insurance.policyType}}</td>
+        <td colspan="7" class="text-left pl-1 fontSize-10">{{insurance.policyType}}</td>
       </tr>
-      <tr class="text-white sb-bg-dark">
+      <tr class="text-white sb-bg-dark fontSize-10">
         <th></th>
         <th colspan="7">Remark (if any)</th>
       </tr>
       <tr>
         <th></th>
-        <td colspan="7" class="text-left pl-1">{{insurance.remark}}</td>
+        <td colspan="7" class="text-left pl-1 fontSize-10">{{insurance.remark}}</td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr class="text-white sb-bg-dark">
           <th></th>
-          <th colspan="5">Remarks</th>
+          <th colspan="5" class="fontSize-10">Remarks</th>
         </tr>
         <tr>
           <th></th>
-          <td colspan="5" class="text-left pl-1">{{insurance?.remarks}}</td>
+          <td colspan="5" class="text-left pl-1 fontSize-10">{{insurance?.remarks}}</td>
         </tr>
       </ng-container>
       </tbody>
