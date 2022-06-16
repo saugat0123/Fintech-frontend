@@ -4,7 +4,7 @@
             <div clas="col-md-12" *ngFor="let controls of commonLoanForm.get('data')['controls']; let i = index;">
                 <div class="nb-card-header"><p><b>Loan Name: {{controls?.get('loanName')?.value}}</b></p> <p><b>Loan Type: {{controls?.get('loanType')?.value}}</b></p></div>
                 <div class="row" [formGroup]="controls?.get('proposalData')">
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="conditionalArray[i]?.checkApproved">
                         <div class="form-group">
                             <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
                             <input class="form-control"
@@ -14,7 +14,7 @@
                                    type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value !== 'NEW_LOAN'">
                         <div class="form-group">
                             <label class="title" for="outStandingLimit">
                                 <strong>Outstanding Limit</strong>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value !== 'PARTIAL_SETTLEMENT_LOAN'">
                         <div class="form-group">
                             <label class="title" for="settlementAmount"></label>
                             <strong>Settlement Amount</strong>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="controls?.get('loanType')?.value !== 'RENEW_WITH_ENHANCEMENT' || controls?.get('loanType')?.value !== 'ENHANCED_LOAN'" >
                         <div class="form-group">
                             <label class="title" for="enhanceLimitAmount">
                                 <strong>Enhancement Amount</strong>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && controls?.get('loanType')?.value !== 'NEW_LOAN'">
                         <div class="form-group">
                             <label class="title" for="existCashMargin"><strong> Existing Cash Margin</strong>
                                 <input
@@ -87,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted">
                         <div class="form-group">
                             <label class="title" for="cashMargin"><strong>Cash Margin</strong>
                                 <input
@@ -106,7 +106,7 @@
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && controls?.get('loanType')?.value !== 'NEW_LOAN'">
                         <div class="form-group">
                             <label for="existCommissionPercentage"><strong>Existing Commission (%)</strong></label>
                             <input
@@ -116,7 +116,7 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted">
                         <div class="form-group">
                             <label class="title" for="commissionPercentage"><strong>Commission (%)</strong></label>
                             <input
@@ -130,7 +130,7 @@
                             <!--                    </div>-->
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted">
                         <div class="form-group">
                             <label class="title" for="commissionFrequency"><strong>Commission
                                 Frequency</strong></label>
@@ -145,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="conditionalArray[i]?.isFixedDeposit">
                         <div class="form-group">
                             <label class="title" for="couponRate"><strong>Coupon Rate</strong></label>
                             <input
@@ -154,7 +154,7 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="conditionalArray[i]?.isFixedDeposit">
                         <div class="form-group">
                             <label class="title" for="premiumOnCouponRate"><strong>Premium On Coupon
                                 Rate</strong></label>
@@ -165,7 +165,10 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4"
+                         *ngIf="((conditionalArray[i]?.isFundable && (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving)) || conditionalArray[i]?.isFixedDeposit ||
+                          conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral) &&
+                           controls?.get('loanType')?.value !== 'NEW_LOAN'">
                         <div class="form-group">
                             <label class="title" for="existInterestRate"> <strong> Existing Interest
                                 Rate(%)</strong></label>
@@ -178,7 +181,11 @@
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4"
+                         *ngIf="(conditionalArray[i]?.isFundable &&
+                          (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving))
+                           || conditionalArray[i]?.isFixedDeposit || conditionalArray[i]?.isVehicle ||
+                            conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral">
                         <div class="form-group">
                             <label class="title" for="interestRate"><strong>Interest
                                 Rate(%)</strong></label>
@@ -190,7 +197,7 @@
                                     readonly>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving)) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral">
                         <div class="form-group">
                             <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
                             <input
@@ -199,8 +206,8 @@
                                     type="number" appDecimalNumber>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
+                    <div class="col-md-4" *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving)) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral">
+                        <div class="form-group" >
                             <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                 Rate(%)</strong></label>
                             <input
@@ -211,7 +218,9 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4"  *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted &&
+                     conditionalArray[i]?.isFundable && (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving)) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare
+                      || conditionalArray[i]?.isGeneral">
                         <div class="form-group">
                             <label class="title" for="serviceCharge"><strong>Loan Administration Fee </strong>
                                 <input
@@ -228,7 +237,8 @@
                                     type="number" appDecimalNumber>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4"   *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted &&
+                     conditionalArray[i]?.isFundable && conditionalArray[i]?.isTerminating) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral">
                         <div class="form-group">
                             <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                                 Month.</strong></label>
@@ -243,7 +253,7 @@
                     </div>
 
                     <!--                                start of repayment mode-->
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted &&  conditionalArray[i]?.isFundable &&  conditionalArray[i]?.isTerminating) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral">
                         <div class="form-group">
                             <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>
                             <select
@@ -259,7 +269,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="conditionalArray[i]?.showRepaymentMode">
                         <div class="form-group">
                             <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
                             <select
@@ -277,39 +287,41 @@
 
                         </div>
                     </div>
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>-->
-<!--                            <select-->
-<!--                                #repaymentModePrincipal-->
-<!--                                class="custom-select" formControlName="repaymentModePrincipal"-->
-<!--                                id="repaymentModePrincipal"-->
-<!--                                name="repaymentModePrincipal"-->
-<!--                                (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL',i)">-->
-<!--                                <option [ngValue]="null" hidden selected>Select</option>-->
-<!--                                <option value="MONTHLY">Monthly</option>-->
-<!--                                <option value="QUARTERLY">Quarterly</option>-->
-<!--                                <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
-<!--                                <option value="ANNUALLY">Annually</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="col-md-4" *ngIf="conditionalArray[i]?.showRepaymentMode">
+                        <div class="form-group">
+                            <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
+                            <select
+                                #repaymentModePrincipal
+                                class="custom-select" formControlName="repaymentModePrincipal"
+                                id="repaymentModePrincipal"
+                                name="repaymentModePrincipal"
+                                (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL',i)">
+                                <option [ngValue]="null" hidden selected>Select</option>
+                                <option value="MONTHLY">Monthly</option>
+                                <option value="QUARTERLY">Quarterly</option>
+                                <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                <option value="ANNUALLY">Annually</option>
+                            </select>
+                        </div>
+                    </div>
                     <!--                                end of repayment mode-->
 
                     <!--                start of installment amount div-->
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="form-group>">-->
-<!--                            <label class="title"> <strong>Installment Amount</strong></label>-->
-<!--                            <input-->
-<!--                                    class="form-control" formControlName="installmentAmount"-->
-<!--                                    id="installmentAmount"-->
-<!--                                    name="installmentAmount" placeholder="Installment Amount"-->
-<!--                                    type="number" readonly>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="col-md-4"  *ngIf="conditionalArray[i]?.showInstallmentAmount  && ((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isTerminating  && conditionalArray[i]?.isFundable) || ( conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral))">
+                        <div class="form-group>">
+                            <label class="title"> <strong>Installment Amount</strong></label>
+                            <input
+                                    class="form-control" formControlName="installmentAmount"
+                                    id="installmentAmount"
+                                    name="installmentAmount" placeholder="Installment Amount"
+                                    type="number" readonly>
+                        </div>
+                    </div>
                     <!--                end of ng s
                     installment amount div-->
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="((controls.get('proposalData').get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
+                                           ((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isTerminating) || (conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)))
+                                           && (conditionalArray[i]?.showInterestAmount)">
                         <div class="form-group>">
                             <label class="title"> <strong>Interest Amount</strong></label>
                             <input
@@ -319,7 +331,10 @@
                                     type="number">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4"  *ngIf="((controls?.get('proposalDaata').get('repaymentMode').value != null) && (!conditionalArray[i]?.showInstallmentAmount || conditionalArray[i]?.showRepaymentMode) &&
+                                           ((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.isFundable && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isTerminating)
+                                            || (conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)))
+                                           && (conditionalArray[i]?.showInterestAmount)">
                         <div class="form-group>">
                             <label class="title"> <strong>Principal Amount</strong></label>
                             <input
@@ -331,7 +346,7 @@
                     </div>
 
                     <!--                start of Moratorium period amount div-->
-                    <div class="col-md-4">
+                    <div class="col-md-4"   *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && conditionalArray[i]?.isTerminating) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isGeneral">
                         <div class="form-group>">
                             <label class="title"> <strong>Moratorium Period (Month)</strong></label>
                             <input
@@ -343,7 +358,7 @@
                     </div>
                     <!--                end of Moratorium Period amount div-->
 
-                    <div class="col-md-4">
+                    <div class="col-md-4"   *ngIf="((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && (conditionalArray[i]?.isTerminating || conditionalArray[i]?.isRevolving)) || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)">
                         <div class="form-group">
                             <div class="variable">
                                 <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>
@@ -360,6 +375,7 @@
                     </div>
 
                     <div class="col-md-4"
+                         *ngIf="(conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && conditionalArray[i]?.isRevolving) "
                     >
                         <div class="form-group">
                             <label class="title" for="tenorOfEachDeal"><strong>Tenure of each deal</strong></label>
@@ -373,7 +389,8 @@
                     </div>
 
                     <!--                start of Prepayment charge  div-->
-                    <div class="col-md-4">
+                    <div class="col-md-4"  *ngIf="((conditionalArray[i]?.loanNatureSelected && conditionalArray[i]?.fundableNonFundableSelcted && conditionalArray[i]?.isFundable && conditionalArray[i]?.isTerminating)
+                    || conditionalArray[i]?.isVehicle || conditionalArray[i]?.isShare || conditionalArray[i]?.isGeneral)">
                         <div class="form-group>">
                             <div class="variable">
                                 <label class="title"> <strong>Prepayment Charge (in%)

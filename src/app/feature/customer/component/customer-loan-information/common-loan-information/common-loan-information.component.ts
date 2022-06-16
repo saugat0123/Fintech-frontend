@@ -7,6 +7,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
 
 @Component({
     selector: 'app-common-loan-information',
@@ -26,6 +27,24 @@ export class CommonLoanInformationComponent implements OnInit {
 
     commonLoanForm: FormGroup;
     commonLoans: ExistingExposure [] = [];
+    conditionalArray: {
+        checkApproved: boolean,
+        isFundable: boolean,
+        fundableNonFundableSelcted: boolean,
+        isFixedDeposit: boolean,
+        loanNature: any,
+        loanNatureSelected: boolean,
+        isRevolving: boolean,
+        isTerminating: boolean,
+        isGeneral: boolean,
+        isVehicle: boolean,
+        isShare: boolean,
+        showInstallmentAmount: boolean,
+        showRepaymentMode: boolean,
+        swapChargeChecked: boolean,
+        othersSubsidyLoan: boolean,
+        showInterestAmount: boolean,
+    } [] = [];
 
     ngOnInit() {
         this.buildForm();
@@ -58,6 +77,7 @@ export class CommonLoanInformationComponent implements OnInit {
                 loanType: [e.loanType],
                 loanName: [e.loanName],
             }));
+            this.setCondition(i);
             this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
                 .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
             this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
@@ -72,7 +92,7 @@ export class CommonLoanInformationComponent implements OnInit {
 
     removeLoans(i) {
         (this.commonLoanForm.get('data') as FormArray).removeAt(i);
-        this.commonLoans.splice(i,1);
+        this.commonLoans.splice(i, 1);
         this.toastService.show(new Alert(AlertType.INFO, 'Please Save To Remove The Loan'));
     }
 
@@ -221,6 +241,57 @@ export class CommonLoanInformationComponent implements OnInit {
                 this.commonLoanForm.get(['data', i, 'proposalData']).get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
             }
         }
+    }
+
+
+    setCondition(i) {
+        const data = this.commonLoans[i].loanConfig as LoanConfig;
+        const loanType = this.commonLoans[i].loanType;
+        const check = {
+            checkApproved: false,
+            isFundable: false,
+            fundableNonFundableSelcted: false,
+            isFixedDeposit: false,
+            loanNature: null,
+            loanNatureSelected: false,
+            isRevolving: false,
+            isTerminating: false,
+            isGeneral: false,
+            isVehicle: false,
+            isShare: false,
+            showInstallmentAmount: false,
+            showRepaymentMode: false,
+            swapChargeChecked: false,
+            othersSubsidyLoan: false,
+            showInterestAmount: false,
+        };
+        if (loanType === 'RENEWED_LOAN' || loanType === 'ENHANCED_LOAN' || loanType === 'PARTIAL_SETTLEMENT_LOAN'
+            || loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT') {
+            check.checkApproved = true;
+        }
+        check.isFundable = data.isFundable;
+        check.fundableNonFundableSelcted = !ObjectUtil.isEmpty(data.isFundable);
+        check.isFixedDeposit = data.loanTag === 'FIXED_DEPOSIT';
+        check.isGeneral = data.loanTag === 'GENERAL';
+        check.isShare = data.loanTag === 'SHARE_SECURITY';
+        check.isVehicle = data.loanTag === 'VEHICLE';
+        check.loanNature = data.loanNature;
+        if (!ObjectUtil.isEmpty(check.loanNature)) {
+            check.loanNatureSelected = true;
+            check.isTerminating = check.loanNature === 'Terminating';
+            check.isRevolving = check.loanNature === 'Revolving';
+            if (check.isRevolving) {
+                check.isGeneral = false;
+            }
+        }
+        if (!check.isFundable) {
+            check.isGeneral = false;
+        }
+        if (check.isFixedDeposit) {
+            check.loanNatureSelected = false;
+            check.fundableNonFundableSelcted = false;
+        }
+        this.conditionalArray.push(check);
     }
 
 }
