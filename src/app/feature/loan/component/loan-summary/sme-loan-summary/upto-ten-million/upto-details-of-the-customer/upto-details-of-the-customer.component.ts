@@ -48,7 +48,11 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
         const oldData = JSON.parse(this.loanDataHolder.loanHolder.data);
-        this.commentData = JSON.parse(oldData.data);
+        if (!ObjectUtil.isEmpty(oldData)) {
+          if (!ObjectUtil.isEmpty(oldData.data)) {
+            this.commentData = JSON.parse(oldData.data);
+          }
+        }
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
         this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
