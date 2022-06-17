@@ -56,6 +56,22 @@
                                  type="number"/>
                       </div>
                   </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="title" for="corporateGuaranteeFirstValuationDate">First Valuation Date</label>
+                          <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                 formControlName="corporateGuaranteeFirstValuationDate"
+                                 id="corporateGuaranteeFirstValuationDate"
+                                 name="corporateGuaranteeFirstValuationDate" placeholder="First Valuation Date"
+                                 [nbDatepicker]="firstValuationDate"
+                                 type="text"/>
+                          <app-calendar
+                                  (messageToEmit)="corporateForm.get(['corporateGuarantee',i,'corporateGuaranteeFirstValuationDate']).patchValue($event?.eDate)"
+                                  *ngIf="calendarType === 'BS'"
+                                  [ePreDate]="corporateForm.get(['corporateGuarantee',i,'corporateGuaranteeFirstValuationDate']).value"></app-calendar>
+                          <nb-datepicker #firstValuationDate></nb-datepicker>
+                      </div>
+                  </div>
 
                   <div class="col-md-12">
                       <div class="form-group">

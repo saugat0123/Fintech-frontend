@@ -44,16 +44,17 @@ export class InsurancePolicyComponent implements OnInit {
             this.formBuilder.group({
                 insuredAmount: [formData.insuredAmount],
                 insuranceCompanyName: [formData.insuranceCompanyName],
-                policyStartDate: [formData.policyStartDate],
-                maturityDate: [formData.maturityDate],
+                policyStartDate: [formData.policyStartDate ? new Date(formData.policyStartDate) : ''],
+                maturityDate: [formData.maturityDate ? new Date(formData.maturityDate) : ''],
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 insurancePolicyType: [formData.insurancePolicyType],
                 surrenderValue: [formData.surrenderValue],
-                earlySurrenderDate: [formData.earlySurrenderDate],
+                earlySurrenderDate: [formData.earlySurrenderDate ? new Date(formData.earlySurrenderDate) : ''],
                 consideredValue: [formData.considerValue],
                 cashBackAmount: [formData.cashBackAmount],
+                insurancePolicyFirstValuationDate: [formData.insurancePolicyFirstValuationDate ? new Date(formData.insurancePolicyFirstValuationDate) : ''],
             })
         );
     }
@@ -94,7 +95,8 @@ export class InsurancePolicyComponent implements OnInit {
                 surrenderValue: [undefined],
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
-                cashBackAmount: [undefined]
+                cashBackAmount: [undefined],
+                insurancePolicyFirstValuationDate: [undefined]
             }
         );
     }
