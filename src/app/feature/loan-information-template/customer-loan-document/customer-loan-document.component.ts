@@ -29,6 +29,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     @Input() loanType: LoanType;
     @Output() documentEmitter = new EventEmitter();
     @Input() fromProfile;
+    @Input() loanId: number;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
@@ -45,6 +46,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     deleteDocument = [];
     localStorage = LocalStorageUtil.getStorage();
     isMaker = false;
+
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
@@ -73,7 +75,11 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 if (customerId === undefined) {
                     customerId = '';
                 }
-                this.actualLoanId = customerId;
+                if (!ObjectUtil.isEmpty(this.loanId)) {
+                    this.actualLoanId = this.loanId;
+                } else {
+                    this.actualLoanId = customerId;
+                }
                 if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
                     loanId = this.loanDataHolder.loan.id;
                     this.loanConfigId = loanId;
