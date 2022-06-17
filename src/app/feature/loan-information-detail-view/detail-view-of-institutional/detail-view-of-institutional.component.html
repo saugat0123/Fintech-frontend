@@ -1,12 +1,13 @@
 <script src="detail-view-of-institutional.component.ts"></script>
 <section class="enable-print summary">
-    <div id="print-block">
-<ng-container *ngIf="proposalData?.data !== null">
-        <app-proposal-view *ngIf="loanDataHolder?.proposal"
-                           [customerAllLoanList]="customerAllLoanList"
-                           [proposalData]="proposalData"
-                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
-</ng-container>
+<!--<ng-container *ngIf="proposalData?.data !== null">-->
+       <div>
+           <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                              [customerAllLoanList]="customerAllLoanList"
+                              [proposalData]="proposalData"
+                              [loanDataHolder]="loanDataHolder"></app-proposal-view>
+       </div>
+<!--</ng-container>-->
 <!--     Group Summary Sheet    -->
 <app-group-summary-sheet-view [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
 <!--                release and replacement-->
@@ -447,6 +448,4 @@
                      [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
-    </div>
-
 </section>
