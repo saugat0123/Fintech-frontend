@@ -11,7 +11,9 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {DocStatus} from '../../loan/model/docStatus';
-import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {
+  CollateralSiteVisitService
+} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
@@ -64,7 +66,16 @@ export class AllDocumentViewComponent implements OnInit {
         const securityId = this.loanDataHolder.security.id;
         const securityData = JSON.parse(this.loanDataHolder.security.data);
         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-          this.fixedAssetsData = this.loanDataHolder.collateralSiteVisits;
+          const doc = this.loanDataHolder.collateralSiteVisits;
+          if (doc.length > 0) {
+            doc.forEach(d => {
+              if (!ObjectUtil.isEmpty(d.siteVisitDocuments)) {
+                d.siteVisitDocuments.forEach(sv => {
+                  this.colSiteVisitDocument.push(sv);
+                });
+              }
+            });
+          }
         } else {
           if (securityData['selectedArray'] !== undefined) {
             // land security
