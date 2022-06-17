@@ -1,26 +1,26 @@
 <hr class="print-line">
 <div class="row mt-2">
     <div class="col-md-12">
-        <p  class="fontSize-12"><strong   class="fontSize-12">Multi Banking/Consortium Financing</strong></p>
-        <span><strong class="fontSize-10">Multi Banking ? </strong>{{multiBankingData?.isMultiBanking === true ? 'YES' : 'NO'}}</span>
+        <p  class="header"><strong   class="header">Multi Banking/Consortium Financing</strong></p>
+        <span><strong class="sub-header">Multi Banking ? </strong>{{multiBankingData?.isMultiBanking === true ? 'YES' : 'NO'}}</span>
         <ng-container *ngIf="multiBankingData?.isMultiBanking">
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark fontSize-10">
+                <tr class="sb-bg-dark sub-header">
                     <td>First Pari Passu Agreement Date</td>
                     <td>Latest Pari Passu Agreement Date</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10">{{multiBankingData?.firstPari ? (multiBankingData?.firstPari | date) : 'NA'}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{multiBankingData?.lastPari ? (multiBankingData?.lastPari | date) : 'NA'}}</td>
+                    <td class="text-left pl-1 sub-header">{{multiBankingData?.firstPari ? (multiBankingData?.firstPari | date) : 'NA'}}</td>
+                    <td class="text-left pl-1 sub-header">{{multiBankingData?.lastPari ? (multiBankingData?.lastPari | date) : 'NA'}}</td>
                 </tr> | date
                 </tbody>
             </table>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white fontSize-10">
+                <tr class="sb-bg-dark text-white sub-header">
                     <th>S.N</th>
                     <th>Bank Name</th>
                     <th>Date</th>
@@ -36,39 +36,39 @@
                 <tbody>
                 <tr *ngFor="let multi of multiBankingData?.multiBanking; let i= index">
                     <td>{{i+1}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{multi?.bankName}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{multi?.date | date}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.fundedLimited}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.nonFundedLimited}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.totalLimit}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.fundedOS}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.nonFundedOS}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{multi?.totalOS}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{multi?.remarks}}</td>
+                    <td class="text-left pl-1 sub-header">{{multi?.bankName}}</td>
+                    <td class="text-left pl-1 sub-header">{{multi?.date | date}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.fundedLimited}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.nonFundedLimited}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.totalLimit}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.fundedOS}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.nonFundedOS}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{multi?.totalOS}}</td>
+                    <td class="text-left pl-1 sub-header">{{multi?.remarks}}</td>
                 </tr>
                 </tbody>
             </table>
         </ng-container>
 
-        <span><strong class="fontSize-10">Consortium Financing ? </strong>{{multiBankingData?.isConsortium === true ? 'YES' : 'NO'}}</span>
+        <span><strong class="sub-header">Consortium Financing ? </strong>{{multiBankingData?.isConsortium === true ? 'YES' : 'NO'}}</span>
         <ng-container *ngIf="multiBankingData?.isConsortium">
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark fontSize-10">
+                <tr class="sb-bg-dark sub-header">
                     <td>First Facilities Agreement Date</td>
                     <td>Latest Facilities Agreement Date</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10">{{multiBankingData?.firstFacility ? (multiBankingData?.firstFacility | date) : 'NA'}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{multiBankingData?.latestFacility ? (multiBankingData?.latestFacility | date) : 'NA'}}</td>
+                    <td class="text-left pl-1 sub-header">{{multiBankingData?.firstFacility ? (multiBankingData?.firstFacility | date) : 'NA'}}</td>
+                    <td class="text-left pl-1 sub-header">{{multiBankingData?.latestFacility ? (multiBankingData?.latestFacility | date) : 'NA'}}</td>
                 </tr>
                 </tbody>
             </table>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white fontSize-10">
+                <tr class="sb-bg-dark text-white sub-header">
                     <th>S.N</th>
                     <th>Bank Name</th>
                     <th>Date</th>
@@ -84,15 +84,15 @@
                 <tbody>
                 <tr *ngFor="let const of multiBankingData?.consortium; let i= index">
                     <td>{{i+1}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{const?.conBankName}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{const?.conDate | date}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conFundedLimited}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conNonFundedLimited}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conTotalLimit}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conFundedOS}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conNonFundedOS}}</td>
-                    <td class="text-right pr-1 fontSize-10">Rs. {{const?.conTotalOS}}</td>
-                    <td class="text-left pl-1 fontSize-10">{{const?.conRemarks}}</td>
+                    <td class="text-left pl-1 sub-header">{{const?.conBankName}}</td>
+                    <td class="text-left pl-1 sub-header">{{const?.conDate | date}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conFundedLimited}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conNonFundedLimited}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conTotalLimit}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conFundedOS}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conNonFundedOS}}</td>
+                    <td class="text-right pr-1 sub-header">Rs. {{const?.conTotalOS}}</td>
+                    <td class="text-left pl-1 sub-header">{{const?.conRemarks}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -100,7 +100,7 @@
         <br>
         <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
             <thead>
-            <tr class="sb-bg-dark text-white fontSize-10">
+            <tr class="sb-bg-dark text-white sub-header">
                 <th>Lead Bank</th>
                 <th>Financial Information of the Borrower</th>
                 <th>Last Audited Year</th>
@@ -115,16 +115,16 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.leadBank}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.financialInformation}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.lastAudited | date}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.auditorName}}</td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{multiBankingData?.taxAmount}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.nameExecutive}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.addressExecutive}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.dateOfApp | date}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.consortiumMember}}</td>
-                <td class="text-left pl-1 fontSize-10">{{multiBankingData?.nameOfLeader}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.leadBank}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.financialInformation}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.lastAudited | date}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.auditorName}}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{multiBankingData?.taxAmount}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.nameExecutive}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.addressExecutive}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.dateOfApp | date}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.consortiumMember}}</td>
+                <td class="text-left pl-1 sub-header">{{multiBankingData?.nameOfLeader}}</td>
             </tr>
             </tbody>
         </table>

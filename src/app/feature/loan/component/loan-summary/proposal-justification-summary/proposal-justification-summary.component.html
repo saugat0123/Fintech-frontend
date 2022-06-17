@@ -1,5 +1,5 @@
 <div class="py-2">
-    <div><span><strong class="fontSize-12">    Justification and purpose of present proposal</strong></span></div>
+    <div><span><strong class="header">    Justification and purpose of present proposal</strong></span></div>
     <hr>
     <div class="py-2">
         <ol>
@@ -9,22 +9,22 @@
 <!--                </div>-->
 
                 <div>
-                    <div class="row sb-small fontSize-10" ><strong>Justification of limit</strong></div>
-                    <div class="sb-small fontSize-10">
+                    <div class="row sb-small sub-header" ><strong>Justification of limit</strong></div>
+                    <div class="sb-small sub-header">
                         <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
-                    <div class="row sb-small fontSize-10"><strong> Disbursement criteria :</strong></div>
-                    <div class="sb-small fontSize-10">
+                    <div class="row sb-small sub-header"><strong> Disbursement criteria :</strong></div>
+                    <div class="sb-small sub-header">
                         <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
-                    <div class="row sb-small fontSize-10"><strong> Repayment criteria :</strong></div>
-                    <div class="sb-small fontSize-10">
+                    <div class="row sb-small sub-header"><strong> Repayment criteria :</strong></div>
+                    <div class="sb-small sub-header">
                         <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>

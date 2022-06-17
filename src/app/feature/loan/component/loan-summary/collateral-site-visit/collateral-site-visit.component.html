@@ -1,5 +1,5 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
-    <p class="fontSize-12"><strong class="fontSize-12">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
+    <p class="header"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
     <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
@@ -7,105 +7,105 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
                         <div class="right-content">
-                            <strong class="fontSize-10">Date: </strong><span class="fontSize-10">{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                            <strong class="sub-header">Date: </strong><span class="sub-header">{{collateral?.siteVisitJsonData?.date || ''}}</span>
                         </div>
-                        <div class="left-content"><strong class="fontSize-10">Credit Risk Grade: </strong>
-                            <span class="fontSize-10">{{loanDataHolder?.creditRisk || ''}}</span></div>
+                        <div class="left-content"><strong class="sub-header">Credit Risk Grade: </strong>
+                            <span class="sub-header">{{loanDataHolder?.creditRisk || ''}}</span></div>
                     </div>
-                    <p><strong class="fontSize-10">Customer:
+                    <p><strong class="sub-header">Customer:
                         {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
                             loanDataHolder?.companyInfo?.companyName
                             : loanDataHolder?.customerInfo?.customerName}}
                     </strong></p>
-                    <p><strong class="fontSize-10">Date of
-                        Inspection: </strong><span class="fontSize-10">{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                    <p><strong class="sub-header">Date of
+                        Inspection: </strong><span class="sub-header">{{collateral?.siteVisitJsonData?.date || ''}}</span>
                     </p>
                     <table class="table table-sm table-bordered sb-small">
                         <thead>
-                        <tr class="text-center fontSize-10">
+                        <tr class="text-center sub-header">
                             <th *ngIf="security?.securityType === 'LAND_SECURITY'">Land</th>
                             <th *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">Land & Building</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td><strong class="fontSize-10">1. Owner of the Property: </strong>
-                                <span class="fontSize-10">{{security?.data?.owner || ''}}</span>
+                            <td><strong class="sub-header">1. Owner of the Property: </strong>
+                                <span class="sub-header">{{security?.data?.owner || ''}}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label><strong class="fontSize-10">2. Location/Details of Property: </strong></label><br>
-                                <label><strong class="fontSize-10">Current Address: </strong></label>
+                                <label><strong class="sub-header">2. Location/Details of Property: </strong></label><br>
+                                <label><strong class="sub-header">Current Address: </strong></label>
                                 <div class="row col-lg-12">
-                                    <div class="col-lg-6 fontSize-10">State:
+                                    <div class="col-lg-6 sub-header">State:
                                         <span>{{collateral?.siteVisitJsonData?.province?.name || ''}}</span>
                                     </div>
-                                    <div class="col-lg-6 fontSize-10">District:
+                                    <div class="col-lg-6 sub-header">District:
                                         <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
                                     </div>
-                                    <div class="col-lg-6 fontSize-10">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                    <div class="col-lg-6 sub-header">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
                                         <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
                                     </div>
-                                    <div class="col-lg-6 fontSize-10">Ward No.:
+                                    <div class="col-lg-6 sub-header">Ward No.:
                                         <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
                                 </div>
-                                <label><strong class="fontSize-10">Details as per Title Deed (Lal Purja): </strong></label>
+                                <label><strong class="sub-header">Details as per Title Deed (Lal Purja): </strong></label>
                                 <div class="row col-md-12">
-                                    <div class="col-lg-4 fontSize-10">Plot No.: <span>{{security?.data?.plotNumber || ''}}</span></div>
-                                    <div class="col-lg-4 fontSize-10">Area of Land: <span>{{security?.data?.area || ''}}</span></div>
+                                    <div class="col-lg-4 sub-header">Plot No.: <span>{{security?.data?.plotNumber || ''}}</span></div>
+                                    <div class="col-lg-4 sub-header">Area of Land: <span>{{security?.data?.area || ''}}</span></div>
                                     <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' && collateral?.siteVisitJsonData?.building === 'YES'">
-                                        <div class="col-lg-4 fontSize-10">Total Plinth Area of Building:
+                                        <div class="col-lg-4 sub-header">Total Plinth Area of Building:
                                             <span>{{collateral?.siteVisitJsonData?.buildingArea || ''}}</span>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
-                                        <div class="col-lg-4 fontSize-10">Total Plinth Area of Building:
+                                        <div class="col-lg-4 sub-header">Total Plinth Area of Building:
                                             <span>{{security?.data?.totalBuildingArea || ''}}</span>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="security?.securityType === 'LAND_SECURITY'">
-                                        <div class="col-lg-4 fontSize-10">District:
+                                        <div class="col-lg-4 sub-header">District:
                                             <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
                                         </div>
-                                        <div class="col-lg-8 fontSize-10">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                        <div class="col-lg-8 sub-header">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
                                             <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Ward No:
+                                        <div class="col-lg-4 sub-header">Ward No:
                                             <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
-                                        <div class="col-lg-4 fontSize-10">Access:
+                                        <div class="col-lg-4 sub-header">Access:
                                             <span>{{security?.data?.roadAccessBluePrint || 'No'}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Width of Road:
+                                        <div class="col-lg-4 sub-header">Width of Road:
                                             <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Blacktopped:
+                                        <div class="col-lg-4 sub-header">Blacktopped:
                                             <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : 'No'}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Boundary Remark:
+                                        <div class="col-lg-4 sub-header">Boundary Remark:
                                             <span>{{collateral?.siteVisitJsonData?.building === 'NO' ?
                                                 collateral?.siteVisitJsonData?.remarksForOtherFacility : ''}}</span>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
-                                        <div class="col-lg-4 fontSize-10">District:
+                                        <div class="col-lg-4 sub-header">District:
                                             <span>{{security?.data?.district?.name || ''}}</span>
                                         </div>
-                                        <div class="col-lg-8 fontSize-10">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
+                                        <div class="col-lg-8 sub-header">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
                                             <span>{{security?.data?.municipalityVdc?.name || ''}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Ward No:
+                                        <div class="col-lg-4 sub-header">Ward No:
                                             <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
-                                        <div class="col-lg-4 fontSize-10">Access:
+                                        <div class="col-lg-4 sub-header">Access:
                                             <span>{{security?.data?.roadAccessBluePrint || 'No'}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Width of Road:
+                                        <div class="col-lg-4 sub-header">Width of Road:
                                             <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Blacktopped:
+                                        <div class="col-lg-4 sub-header">Blacktopped:
                                             <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : 'No'}}</span>
                                         </div>
-                                        <div class="col-lg-4 fontSize-10">Boundary Remark:
+                                        <div class="col-lg-4 sub-header">Boundary Remark:
                                             <span>{{collateral?.siteVisitJsonData?.building === 'NO' ?
                                                 collateral?.siteVisitJsonData?.remarksForOtherFacility : ''}}</span>
                                         </div>
@@ -114,14 +114,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="fontSize-10">
+                            <td class="sub-header">
                                 <label>3. Ownership status of property is not Guthi/Mohi</label><br>
                                 <label>Remarks: <span>{{security?.data?.typeOfProperty !== 'Guthi' ? 'Yes' : 'No'}}</span>
                                 </label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="fontSize-10">
+                            <td class="sub-header">
                                 <label>4. Is there any noticeable remark on/to/near the property e.g. river; temple,
                                     playing ground etc.?</label><br>
                                 <label>Remarks:
@@ -129,7 +129,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="fontSize-10">
+                            <td class="sub-header">
                                 <label>5. Previously Valuated:
                                     <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date ? 'Yes' : 'No'}}</span></label>
                                 <ng-container *ngIf="security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date">
@@ -150,19 +150,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="fontSize-10">
+                            <td class="sub-header">
                                 <label>6. Are all the applicable taxes current?: Yes/No</label><br>
                                 <label>Tax Payment Receipt seen? Yes/No</label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="fontSize-10">
+                            <td class="sub-header">
                                 <label>7. Other Comments/Remarks: </label>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <label><strong class="fontSize-10">Location sketch attached.</strong></label>
+                    <label><strong class="sub-header">Location sketch attached.</strong></label>
                     <table class="table table-bordered table-sm sb-small">
                         <tbody>
                         <tr>
@@ -182,13 +182,13 @@
                     <table class="table text-center">
                         <tbody>
                         <tr>
-                            <td class="fontSize-10"><br><br>
+                            <td class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
                                 Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
-                            <td class="fontSize-10"><br><br>
+                            <td class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
                                 Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
@@ -197,35 +197,35 @@
                         </tr>
                         </tbody>
                     </table>
-                    <p><strong class="fontSize-10">Location Sketch:</strong></p>
+                    <p><strong class="sub-header">Location Sketch:</strong></p>
                     <table class="table table-sm table-bordered">
                         <tbody>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Business Name</strong></td>
+                            <td width="20%"><strong  class="sub-header">Business Name</strong></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Address</strong></td>
+                            <td width="20%"><strong  class="sub-header">Address</strong></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Nearest Landmark to FAC</strong></td>
-                            <td  class="fontSize-10">{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Nearest Landmark to FAC</strong></td>
+                            <td  class="sub-header">{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Site Visited By</strong></td>
-                            <td  class="fontSize-10">{{security?.data?.buildingValuator?.name || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Site Visited By</strong></td>
+                            <td  class="sub-header">{{security?.data?.buildingValuator?.name || ''}}</td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Site Visit Date</strong></td>
-                            <td  class="fontSize-10">{{collateral?.siteVisitJsonData?.date || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Site Visit Date</strong></td>
+                            <td  class="sub-header">{{collateral?.siteVisitJsonData?.date || ''}}</td>
                         </tr>
                         </tbody>
                     </table>
 
-                    <p  class="fontSize-10"><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
+                    <p  class="sub-header"><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
                         mark business unit)</small></p>
-                    <p  class="fontSize-10"><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
+                    <p  class="sub-header"><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
                         photo. Also, if applicable, photograph of business unit should clearly show its board or
                         PAN/VAT certificate in case unit has no outlet, overall premise and stocks]</small></p>
                     <!--<strong *ngIf="siteVisitDocuments?.length>0" class="ml-3">Collateral Site Visit Documents</strong>
@@ -245,36 +245,36 @@
             <ng-container *ngIf="security?.securityType === 'VEHICLE_SECURITY'">
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
-                        <div class="right-content fontSize-10">
+                        <div class="right-content sub-header">
                             <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
                         </div>
-                        <div class="left-content"><strong  class="fontSize-10">Credit Risk Grade: </strong>
-                            <span  class="fontSize-10">{{loanDataHolder?.creditRisk || ''}}</span></div>
+                        <div class="left-content"><strong  class="sub-header">Credit Risk Grade: </strong>
+                            <span  class="sub-header">{{loanDataHolder?.creditRisk || ''}}</span></div>
                     </div>
-                    <p><strong  class="fontSize-10">Customer:
+                    <p><strong  class="sub-header">Customer:
                         {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
                             loanDataHolder?.companyInfo?.companyName
                             : loanDataHolder?.customerInfo?.customerName}}
                     </strong></p>
-                    <p><strong  class="fontSize-10">Date of
-                        Inspection: </strong><span  class="fontSize-10">{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                    <p><strong  class="sub-header">Date of
+                        Inspection: </strong><span  class="sub-header">{{collateral?.siteVisitJsonData?.date || ''}}</span>
                     </p>
                     <table class="table table-sm table-bordered sb-small">
                         <thead>
-                        <tr class="text-center fontSize-10">
+                        <tr class="text-center sub-header">
                             <th>Vehicle</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td  class="fontSize-10"><strong>1. Owner of the Property: </strong> <span>
+                            <td  class="sub-header"><strong>1. Owner of the Property: </strong> <span>
                                 {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
                                 loanDataHolder?.companyInfo?.companyName
                                 : loanDataHolder?.customerInfo?.customerName}}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td  class="fontSize-10">
+                            <td  class="sub-header">
                                 <label><strong>2. Details of Property: </strong></label>
                                 <div class="row col-md-12">
                                     <div class="col-lg-4">Model No.: <span>{{security?.data?.model || ''}}</span></div>
@@ -307,7 +307,7 @@
                             </td>
                         </tr>-->
                         <tr>
-                            <td  class="fontSize-10">
+                            <td  class="sub-header">
                                 <label><strong>3. Showroom Details: </strong></label>
                                 <div class="row col-md-12">
                                     <div class="col-lg-4">Showroom Name: <span>{{security?.data?.showroomName || ''}}</span></div>
@@ -318,7 +318,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <label><strong  class="fontSize-10">sketch attached.</strong></label>
+                    <label><strong  class="sub-header">sketch attached.</strong></label>
                     <table class="table table-bordered table-sm sb-small">
                         <tbody>
                         <tr>
@@ -338,13 +338,13 @@
                     <table class="table text-center">
                         <tbody>
                         <tr>
-                            <td  class="fontSize-10"><br><br>
+                            <td  class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{security?.data?.vehicalStaffRepresentativeName || ''}}</span><br>
                                 Position: <span>{{security?.data?.vehicalStaffRepresentativeDesignation || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
-                            <td  class="fontSize-10"><br><br>
+                            <td  class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{security?.data?.vehicaleStaffRepresentativeName2 || ''}}</span><br>
                                 Position: <span>{{security?.data?.vehicaleStaffRepresentativeDesignation2 || ''}}</span><br>
@@ -358,34 +358,34 @@
             <ng-container *ngIf="security?.securityType === 'APARTMENT_SECURITY'">
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
-                        <div class="right-content fontSize-10">
+                        <div class="right-content sub-header">
                             <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
                         </div>
-                        <div class="left-content fontSize-10"><strong>Credit Risk Grade: </strong>
+                        <div class="left-content sub-header"><strong>Credit Risk Grade: </strong>
                             <span>{{loanDataHolder?.creditRisk || ''}}</span></div>
                     </div>
-                    <p><strong  class="fontSize-10">Customer:
+                    <p><strong  class="sub-header">Customer:
                         {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
                             loanDataHolder?.companyInfo?.companyName
                             : loanDataHolder?.customerInfo?.customerName}}
                     </strong></p>
-                    <p  class="fontSize-10"><strong>Date of
+                    <p  class="sub-header"><strong>Date of
                         Inspection: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
                     </p>
                     <table class="table table-sm table-bordered sb-small">
                         <thead>
-                        <tr class="text-center fontSize-10">
+                        <tr class="text-center sub-header">
                             <th>Apartment</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td  class="fontSize-10"><strong>1. Owner of the Property: </strong>
+                            <td  class="sub-header"><strong>1. Owner of the Property: </strong>
                                 <span>{{security?.data?.proposedOwner || ''}}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td  class="fontSize-10">
+                            <td  class="sub-header">
                                 <label><strong>2. Location/Details of Property: </strong></label><br>
                                 <label><strong>Current Address: </strong></label>
                                 <div class="row col-lg-12">
@@ -423,7 +423,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td  class="fontSize-10">
+                            <td  class="sub-header">
                                 <label>3. Previously Valuated:
                                     <span>{{security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date ? 'Yes' : 'No'}}</span></label>
                                 <ng-container *ngIf="security?.collateralSiteVisits[i2-1]?.siteVisitJsonData?.date">
@@ -445,7 +445,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <label><strong class="fontSize-10">Location sketch attached.</strong></label>
+                    <label><strong class="sub-header">Location sketch attached.</strong></label>
                     <table class="table table-bordered table-sm sb-small">
                         <tbody>
                         <tr>
@@ -465,13 +465,13 @@
                     <table class="table text-center">
                         <tbody>
                         <tr>
-                            <td  class="fontSize-10"><br><br>
+                            <td  class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
                                 Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
-                            <td  class="fontSize-10"><br><br>
+                            <td  class="sub-header"><br><br>
                                 --------------------------------<br>
                                 Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
                                 Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
@@ -480,35 +480,35 @@
                         </tr>
                         </tbody>
                     </table>
-                    <p><strong  class="fontSize-10">Location Sketch:</strong></p>
+                    <p><strong  class="sub-header">Location Sketch:</strong></p>
                     <table class="table table-sm table-bordered">
                         <tbody>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Business Name</strong></td>
+                            <td width="20%"><strong  class="sub-header">Business Name</strong></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Address</strong></td>
+                            <td width="20%"><strong  class="sub-header">Address</strong></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Nearest Landmark to FAC</strong></td>
-                            <td  class="fontSize-10">{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Nearest Landmark to FAC</strong></td>
+                            <td  class="sub-header">{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Site Visited By</strong></td>
-                            <td  class="fontSize-10">{{security?.data?.ApartmentValuator?.name || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Site Visited By</strong></td>
+                            <td  class="sub-header">{{security?.data?.ApartmentValuator?.name || ''}}</td>
                         </tr>
                         <tr>
-                            <td width="20%"><strong  class="fontSize-10">Site Visit Date</strong></td>
-                            <td class="fontSize-10">{{collateral?.siteVisitJsonData?.date || ''}}</td>
+                            <td width="20%"><strong  class="sub-header">Site Visit Date</strong></td>
+                            <td class="sub-header">{{collateral?.siteVisitJsonData?.date || ''}}</td>
                         </tr>
                         </tbody>
                     </table>
 
-                    <p  class="fontSize-10"><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
+                    <p  class="sub-header"><strong>Location of Business Unit: </strong> <small>(Please insert screenshot of Google Maps and
                         mark business unit)</small></p>
-                    <p  class="fontSize-10"><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
+                    <p  class="sub-header"><strong>Photographs of the FAC and Business Unit: </strong> <small>[Please mark collateral in
                         photo. Also, if applicable, photograph of business unit should clearly show its board or
                         PAN/VAT certificate in case unit has no outlet, overall premise and stocks]</small></p>
                     <!--<strong *ngIf="siteVisitDocuments?.length>0" class="ml-3">Collateral Site Visit Documents</strong>

@@ -1,3 +1,4 @@
+<section class="enable-print summary">
 <ng-container *ngIf="proposalData?.data !== null">
         <app-proposal-view *ngIf="loanDataHolder?.proposal"
                            [customerAllLoanList]="customerAllLoanList"
@@ -38,27 +39,27 @@
             <div>
                 <div class = "col-md-12">
                     <hr class="print-line">
-                    <p><strong  class="fontSize-12 text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                    <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                     </p>
                 </div>
                 <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                     <hr class="print-line">
-                    <p><strong class="fontSize-12 text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
+                    <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
                 </div>
                 <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
                     <hr class="print-line">
-                    <p><strong class="fontSize-12 text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
+                    <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
                 </div>
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
                 <ng-container *ngIf="smallBusiness">
                     <div class = "col-md-12">
                         <hr class="print-line">
-                        <p><strong  class="fontSize-12 text-left">Justification for Change (Historical): </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
+                        <p><strong  class="header text-left">Justification for Change (Historical): </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
                     <div class = "col-md-12">
                         <hr class="print-line">
-                        <p><strong  class="fontSize-12 text-left">Justification for Change (Projection) : </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
+                        <p><strong  class="header text-left">Justification for Change (Projection) : </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
                 </ng-container>
@@ -68,13 +69,13 @@
                 <ng-container *ngIf="smallBusiness">
                     <div class="col-md-12 form-group">
                         <div class="row">
-                            <div class="col-md-12 d-flex justify-content-start align-items-center fontSize-12">
+                            <div class="col-md-12 d-flex justify-content-start align-items-center header">
                                 <b>Fixed Assets Summary</b>
                             </div>
                         </div>
                         <table  class="table table-sm table-bordered table-hover sb-small text-center">
                             <thead>
-                            <tr class="sb-bg-dark text-white fontSize-10">
+                            <tr class="sb-bg-dark text-white sub-header">
                                 <th>S.N</th>
                                 <th>Particulars</th>
                                 <th>Unit</th>
@@ -83,7 +84,7 @@
                                 <th>Remarks</th>
                             </tr>
                             </thead>
-                            <tbody class="text-left fontSize-10">
+                            <tbody class="text-left sub-header">
                             <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index" style="text-align: center;">
                                 <ng-container >
                                     <td>{{i + 1}}</td>
@@ -99,37 +100,37 @@
                     </div>
                     <div class="col-md-12 form-group" >
                         <div class="row">
-                            <div class="col-md-12 d-flex justify-content-start align-items-center fontSize-10">
+                            <div class="col-md-12 d-flex justify-content-start align-items-center sub-header">
                                 <b>Summary of Environment & Social Risk Assessment</b>
                             </div>
                         </div>
                         <table class="table table-sm table-bordered table-hover sb-small text-center">
                             <thead>
-                            <tr class="sb-bg-dark text-white fontSize-10">
+                            <tr class="sb-bg-dark text-white sub-header">
                                 <th>S.N</th>
                                 <th>Particulars</th>
                                 <th>Remarks</th>
                             </tr>
                             </thead>
-                            <tbody class="text-left fontSize-10">
+                            <tbody class="text-left sub-header">
                             <tr>
                                 <td>1</td>
-                                <td class="text-left fontSize-10">Falls under Exclusion and critical sector list</td>
-                                <td class="text-center fontSize-10">
+                                <td class="text-left sub-header">Falls under Exclusion and critical sector list</td>
+                                <td class="text-center sub-header">
                                     {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES': 'NO'}}
                                 </td>
                             </tr>
                             <tr>
-                                <td class="fontSize-10">2</td>
-                                <td class="text-left fontSize-10">E & S Due Diligence process Applicable</td>
-                                <td class="text-center fontSize-10">
+                                <td class="sub-header">2</td>
+                                <td class="text-left sub-header">E & S Due Diligence process Applicable</td>
+                                <td class="text-center sub-header">
                                     {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES': 'NO'}}
 
                                 </td>
                             </tr>
                             <tr>
-                                <td class="fontSize-10">3</td>
-                                <td class="text-left fontSize-10">Level of Risk </td>
+                                <td class="sub-header">3</td>
+                                <td class="text-left sub-header">Level of Risk </td>
                                 <td>
                                     {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
@@ -137,8 +138,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="fontSize-10">4</td>
-                                <td class="text-left fontSize-10">Falls under Exclusion and critical sector list </td>
+                                <td class="sub-header">4</td>
+                                <td class="text-left sub-header">Falls under Exclusion and critical sector list </td>
                                 <td>
                                     {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
 
@@ -149,24 +150,24 @@
                     </div>
                 </ng-container>
                 <ng-container *ngIf="checkedData?.waiverChecked">
-                    <hr class="print-line fontSize-12">
+                    <hr class="print-line header">
                     <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-                        <tr class="  text-white sb-bg-dark fontSize-10">
+                        <tr class="  text-white sb-bg-dark sub-header">
                             <th   class="">Waiver</th>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1 fontSize-10"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                            <td class="text-left pl-1 sub-header"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                         </tr>
                     </table>
                 </ng-container>
                 <ng-container *ngIf="checkedData?.deviationChecked">
-                    <hr class="print-line fontSize-12">
+                    <hr class="print-line header">
                     <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                        <tr class="text-white sb-bg-dark fontSize-10">
+                        <tr class="text-white sb-bg-dark sub-header">
                             <th   class="">Deviation</th>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1 fontSize-10"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                            <td class="text-left pl-1 sub-header"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                         </tr>
                     </table>
                 </ng-container>
@@ -179,10 +180,10 @@
 <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
     <div class="col-md-12">
         <hr class="print-line">
-        <p ><strong   class="fontSize-12">Detail of Present Proposal of the Facility</strong></p>
+        <p ><strong   class="header">Detail of Present Proposal of the Facility</strong></p>
         <table class="table table-bordered text-center table-sm sb-small">
             <tbody>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Credit Facility</th>
                 <td>{{loanDataHolder?.loan?.name}}</td>
 
@@ -198,7 +199,7 @@
                     || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
             </tr>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Loan Administration Fee</th>
                 <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                     {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
@@ -217,7 +218,7 @@
                 <th>Total Loan Limit</th>
                 <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
             </tr>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Institution Exposure</th>
                 <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
@@ -242,10 +243,10 @@
 <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
     <div class="col-md-12">
         <hr class="print-line">
-        <p ><strong   class="fontSize-12">Detail of Present Proposal of the Facility</strong></p>
+        <p ><strong   class="header">Detail of Present Proposal of the Facility</strong></p>
         <table class="table table-bordered text-center table-sm sb-small">
             <tbody>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Credit Facility</th>
                 <td>{{loanDataHolder?.loan?.name}}</td>
 
@@ -261,7 +262,7 @@
                     || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
             </tr>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Loan Administration Fee</th>
                 <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                     {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
@@ -280,7 +281,7 @@
                 <th>Total Loan Limit</th>
                 <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
             </tr>
-            <tr class="fontSize-10">
+            <tr class="sub-header">
                 <th>Institution Exposure</th>
                 <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
@@ -305,11 +306,11 @@
 <hr class="print-line">
 <div class="row mt-3">
     <div class="col-md-12">
-        <p><strong   class="fontSize-12">Authority Section</strong></p>
+        <p><strong   class="header">Authority Section</strong></p>
         <table
                 class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
-            <tr class="sb-bg-dark text-white fontSize-10">
+            <tr class="sb-bg-dark text-white sub-header">
                 <th>S.N</th>
                 <th>Date</th>
                 <th>From User</th>
@@ -323,71 +324,71 @@
             <tbody>
             <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                 <td>{{i + 1}}</td>
-                <td class="text-left pl-1 fontSize-10">
+                <td class="text-left pl-1 sub-header">
                     {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                 </td>
                 <td class="text-left">
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         {{previousList?.fromUser?.name}}</div>
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         <span>({{previousList?.fromRole?.roleName}})</span>
                     </div>
                 </td>
 
-                <td class="text-left fontSize-10">
-                    <div class="pl-1 fontSize-10">
+                <td class="text-left sub-header">
+                    <div class="pl-1 sub-header">
                         {{previousList?.toUser?.name}}</div>
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         ({{previousList?.toRole?.roleName}})
                     </div>
                 </td>
 
-                <td class="text-left pl-1" fontSize-10>{{previousList?.docAction | loanStatusPipe }}</td>
-                <td class="text-left fontSize-10">
-                    <div class="pl-1 disable-print fontSize-10" [innerHTML]="customSafePipe(
+                <td class="text-left pl-1" sub-header>{{previousList?.docAction | loanStatusPipe }}</td>
+                <td class="text-left sub-header">
+                    <div class="pl-1 disable-print sub-header" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment)">
                     </div>
                     <a (click)="open(previousList?.comment)"
                        *ngIf="previousList?.comment?.length > 50"
-                       class="text-left pl-1 disable-print fontSize-10">read more ....</a>
+                       class="text-left pl-1 disable-print sub-header">read more ....</a>
                     <div>
-                        <span class="pl-1 print-only justify-content fontSize-10" [innerHTML]="previousList?.comment | safeHtml"></span>
+                        <span class="pl-1 print-only justify-content sub-header" [innerHTML]="previousList?.comment | safeHtml"></span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>{{currentIndex + 1}}</td>
-                <td class="text-left pl-1 fontSize-10">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                <td class="text-left pl-1 sub-header">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                 <td class="text-left">
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                     </div>
                 </td>
 
                 <td class="text-left">
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                    <div class="pl-1 fontSize-10">
+                    <div class="pl-1 sub-header">
                         <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                     </div>
                 </td>
 
-                <td class="text-left pl-1 fontSize-10">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
-                <td class="text-left fontSize-10">
-                    <div class="pl-1 disable-print fontSize-10">
+                <td class="text-left pl-1 sub-header">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
+                <td class="text-left sub-header">
+                    <div class="pl-1 disable-print sub-header">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>
                     </div>
                     <a (click)="open(loanDataHolder.currentStage.comment)"
                        *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                       class="text-left pl-1 disable-print fontSize-10">read more ....</a>
+                       class="text-left pl-1 disable-print sub-header">read more ....</a>
                     <div>
-                        <span class="pl-1 print-only text-justify pr-1 fontSize-10" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                        <span class="pl-1 print-only text-justify pr-1 sub-header" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                     </div>
                 </td>
             </tr>
@@ -399,12 +400,12 @@
 <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
      id="signatureDiv">
     <div class="col-md-12 print-only">
-        <p><strong   class="fontSize-12">Approval Chain</strong></p>
+        <p><strong   class="header">Approval Chain</strong></p>
     </div>
     <div *ngFor="let previous of signatureList; let i=index;"
          class="col-md-2 padding-0-125">
         <div class="signature-block">
-            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white fontSize-10">
+            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white sub-header">
                 <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
             </div>
             <hr class="border-dark m-0">
@@ -415,9 +416,9 @@
                      src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
             </div>
             <div class="text-center signature-detail sb-bg-secondary text-white">
-                <p class="m-0 sb-small fontSize-10">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                <p class="m-0 sb-small fontSize-10">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
-                <p class="m-0 sb-small fontSize-10">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                <p class="m-0 sb-small sub-header">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                <p class="m-0 sb-small sub-header">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
+                <p class="m-0 sb-small sub-header">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
             </div>
         </div>
     </div>
@@ -426,7 +427,7 @@
 
 <div *ngIf="financialKeys?.length > 0 ">
     <ng-container *ngFor="let title of financialKeys">
-        <p class="fontSize-10"><strong class="fontSize-10">{{title | financialPipe}}</strong></p>
+        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
         <hr>
         <div class="row">
             <app-financial-json-parser
@@ -445,3 +446,4 @@
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
+</section>

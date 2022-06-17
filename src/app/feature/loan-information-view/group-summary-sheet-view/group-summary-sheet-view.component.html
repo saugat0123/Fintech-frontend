@@ -1,32 +1,32 @@
 <div class="row">
     <div class="col-md-12">
-        <p class="fontSize-12"><strong class="fontSize-12">Group Summary Sheet</strong></p>
+        <p class="header"><strong class="header">Group Summary Sheet</strong></p>
         <div class="mt-2">
-            <label><strong class="fontSize-10">Group Details</strong></label>
+            <label><strong class="sub-header">Group Details</strong></label>
             <table class="table table-sm sb-small table-bordered table-hover">
                 <tbody>
                 <tr>
                     <td>
-                        <strong class="fontSize-10">Date: </strong><span>{{gssData?.gssDate}}</span>
+                        <strong class="sub-header">Date: </strong><span>{{gssData?.gssDate}}</span>
                     </td>
                     <td>
-                        <strong class="fontSize-10">Last GSS Date: </strong><span>{{gssData?.lastGSSDate}}</span>
+                        <strong class="sub-header">Last GSS Date: </strong><span>{{gssData?.lastGSSDate}}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <strong class="fontSize-10">Name of Customer Group: </strong><span>{{gssData?.groupName}}</span>
+                        <strong class="sub-header">Name of Customer Group: </strong><span>{{gssData?.groupName}}</span>
                     </td>
                     <td>
-                        <strong class="fontSize-10">Group Code: </strong><span>{{gssData?.groupCode}}</span>
+                        <strong class="sub-header">Group Code: </strong><span>{{gssData?.groupCode}}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <strong class="fontSize-10">Peak Exposure Level<small> (if applicable)</small>:
-                        </strong><span class="fontSize-10">{{gssData?.peakExposureLevel}}</span>
+                        <strong class="sub-header">Peak Exposure Level<small> (if applicable)</small>:
+                        </strong><span class="sub-header">{{gssData?.peakExposureLevel}}</span>
                     </td>
-                    <td class="fontSize-10">
+                    <td class="sub-header">
                         <strong>Group Controller: </strong><span>{{gssData?.groupController}}</span>
                     </td>
                 </tr>
@@ -34,10 +34,10 @@
             </table>
         </div>
         <div class="mt-2">
-            <label><strong class="fontSize-10">Exposure Details</strong></label>
+            <label><strong class="sub-header">Exposure Details</strong></label>
             <table class="table table-sm sb-small table-bordered text-center">
                 <thead>
-                <tr class="sb-bg-secondary text-white fontSize-10">
+                <tr class="sb-bg-secondary text-white sub-header">
                     <th width="2%">S.No.</th>
                     <th width="20%">Customer Name</th>
                     <th width="10%">Customer ID</th>
@@ -49,7 +49,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="fontSize-10" *ngFor="let data of gssData?.gssDetails; let i = index">
+                <tr class="sub-header" *ngFor="let data of gssData?.gssDetails; let i = index">
                     <td>{{i + 1}}.</td>
                     <td>{{data?.customerName}}</td>
                     <td>{{data?.customerID}}</td>
@@ -61,12 +61,12 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="4" class="text-right fontSize-10">Grand Total</td>
-                    <td class="fontSize-10">{{gssData?.totalFundedLimited}}</td>
-                    <td class="fontSize-10">{{gssData?.totalNonFundedLimited}}</td>
-                    <td class="fontSize-10">{{gssData?.totalLimited1}}</td>
+                    <td colspan="4" class="text-right sub-header">Grand Total</td>
+                    <td class="sub-header">{{gssData?.totalFundedLimited}}</td>
+                    <td class="sub-header">{{gssData?.totalNonFundedLimited}}</td>
+                    <td class="sub-header">{{gssData?.totalLimited1}}</td>
                 </tr>
-                <tr class="text-right fontSize-10">
+                <tr class="text-right sub-header">
                     <td></td>
                     <td colspan="4">Total Group Limit exceeding 1 year</td>
                     <td colspan="3">
@@ -74,21 +74,21 @@
                     </td>
 
                 </tr>
-                <tr class="text-right fontSize-10">
+                <tr class="text-right sub-header">
                     <td></td>
                     <td colspan="4">Total Increase During Current Financial Year(Including Proposed Limit)</td>
                     <td colspan="3">
                         {{gssData?.totalIncreaseCurrent}}
                     </td>
                 </tr>
-                <tr class="text-right fontSize-10">
+                <tr class="text-right sub-header">
                     <td></td>
                     <td colspan="4">Other Liabilities</td>
                     <td colspan="3">
                         {{gssData?.otherLiabilities}}
                     </td>
                 </tr>
-                <tr class="text-right fontSize-10">
+                <tr class="text-right sub-header">
                     <td></td>
                     <td colspan="4">Earning from proposed relation in next one year</td>
                     <td colspan="3">
@@ -99,11 +99,11 @@
             </table>
         </div>
         <div class="mt-2">
-            <label><strong class="fontSize-10">Remarks</strong></label>
+            <label><strong class="sub-header">Remarks</strong></label>
            <table class="table table-sm sb-small table-bordered">
                <tbody>
                <tr>
-                   <td class="fontSize-10">
+                   <td class="sub-header">
                        {{gssData?.gssRemark}}
                    </td>
                </tr>
@@ -111,7 +111,7 @@
            </table>
         </div>
         <div class="mt-2">
-            <label><strong class="fontSize-10">Approvals</strong></label>
+            <label><strong class="sub-header">Approvals</strong></label>
             <table class="table table-sm sb-small table-bordered">
                 <tbody>
                 <tr style="height: 30vh;">
@@ -119,7 +119,7 @@
                     <td width="33%"></td>
                     <td width="34%"></td>
                 </tr>
-                <tr class="text-center fontSize-10">
+                <tr class="text-center sub-header">
                     <th>Group Controller</th>
                     <th>HC-C</th>
                     <th>DCEO/CEO/Management Committee/Board</th>

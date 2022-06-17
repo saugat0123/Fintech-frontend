@@ -1,30 +1,30 @@
 <hr class="print-line">
 <div class="row">
     <div class="col-md-12">
-        <p  class="fontSize-12"><strong   class="fontSize-12">Debt Burden Ratio:</strong></p>
+        <p  class="header"><strong   class="header">Debt Burden Ratio:</strong></p>
         <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-left">
             <thead>
-            <tr class="text-white sb-bg-dark fontSize-10">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Particualrs</th>
                 <th>DBR</th>
             </tr>
             </thead>
             <tbody>
 <tr>
-    <td class="fontSize-10">Gross Monthly Income (GMI)</td>
-    <td class="text-right fontSize-10">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">Gross Monthly Income (GMI)</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
-    <td class="fontSize-10">{{data?.particulars}}</td>
-    <td class="text-right fontSize-10">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">{{data?.particulars}}</td>
+    <td class="text-right sub-header">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
-    <td class="fontSize-10">Total Monthly Obligation</td>
-    <td class="text-right fontSize-10">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">Total Monthly Obligation</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
-    <td class="fontSize-10">Gross DBR (EMI/GMI)</td>
-    <td class="text-right fontSize-10">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100)?.toFixed(2)}} %</td>
+    <td class="sub-header">Gross DBR (EMI/GMI)</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100)?.toFixed(2)}} %</td>
 </tr>
             </tbody>
         </table>

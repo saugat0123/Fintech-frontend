@@ -1,10 +1,10 @@
 <div class="row mt-1">
 <div class="col-md-12">
-    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"   class="fontSize-12">Personal Details</strong></p>
+    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"   class="header">Personal Details</strong></p>
     <ng-container *ngIf="isRemit;">
         <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr class="text-white sb-bg-dark fontSize-10">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Particulars</th>
                 <th>Applicant/Beneficiary</th>
                 <th>Guarantor/Migrant Worker</th>
@@ -12,52 +12,52 @@
             </thead>
             <tbody>
             <tr>
-                <td class="fontSize-10">Name</td>
-                <td class="text-left pl-1 fontSize-10">{{(remit?.beneficiaryName) ? (remit?.beneficiaryName) : 'N/A'}}</td>
-                <td class="fontSize-10">
+                <td class="sub-header">Name</td>
+                <td class="text-left pl-1 sub-header">{{(remit?.beneficiaryName) ? (remit?.beneficiaryName) : 'N/A'}}</td>
+                <td class="sub-header">
                     {{(remit?.senderName) ? (remit?.senderName) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Age</td>
-                <td class="text-left pl-1 fontSize-10">{{calculateAge(loanHolder?.customerInfo?.dob)}}</td>
+                <td class="sub-header">Age</td>
+                <td class="text-left pl-1 sub-header">{{calculateAge(loanHolder?.customerInfo?.dob)}}</td>
 
-                <td class="fontSize-10">
+                <td class="sub-header">
                     {{(senderDetails?.senderIdentity?.dob_bs) ? calculateAge((senderDetails?.senderIdentity?.dob_bs)) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Father's Name</td>
-                <td class="text-left pl-1 fontSize-10">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) : 'N/A'}}</td>
-                <td class="fontSize-10">
+                <td class="sub-header">Father's Name</td>
+                <td class="text-left pl-1 sub-header">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) : 'N/A'}}</td>
+                <td class="sub-header">
                     {{(senderDetails?.senderIdentity?.father_name) ? (senderDetails?.senderIdentity?.father_name) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Grand Father's Name</td>
-                <td class="text-left pl-1 fontSize-10">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) : 'N/A'}}</td>
-                <td class="fontSize-10">
+                <td class="sub-header">Grand Father's Name</td>
+                <td class="text-left pl-1 sub-header">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) : 'N/A'}}</td>
+                <td class="sub-header">
                     {{(senderDetails?.senderIdentity?.grandfather_name) ? (senderDetails?.senderIdentity?.grandfather_name) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Marital Status</td>
-                <td class="text-left pl-1 fontSize-10">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
-                <td class="fontSize-10">
+                <td class="sub-header">Marital Status</td>
+                <td class="text-left pl-1 sub-header">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
+                <td class="sub-header">
                     {{(senderDetails?.senderIdentity?.relationship_status) ? (senderDetails?.senderIdentity?.relationship_status?.toUpperCase()) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Home/Telephone Number</td>
+                <td class="sub-header">Home/Telephone Number</td>
 
-                <td class="text-left pl-1 fontSize-10">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) : 'N/A'}}</td>
-                <td class="fontSize-10">
+                <td class="text-left pl-1 sub-header">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) : 'N/A'}}</td>
+                <td class="sub-header">
                     {{(senderDetails?.senderIdentity?.alternative_phone_no) ? (senderDetails?.senderIdentity?.alternative_phone_no) : 'N/A'}}
                 </td>
             </tr>
             <tr>
-                <td class="fontSize-10">Estimated Net Worth</td>
-                <td class="text-left pl-1 fontSize-10">
+                <td class="sub-header">Estimated Net Worth</td>
+                <td class="text-left pl-1 sub-header">
                     {{(beneficiaryDetails?.beneficiaryOtherDetail?.benef_net_worth) ? (beneficiaryDetails?.beneficiaryOtherDetail?.benef_net_worth) : 'N/A'}}
 
                 </td>
@@ -67,12 +67,12 @@
             </tbody>
         </table>
         <div class="text-justify col-md-12 border">
-            <p class="fontSize-10">Additional guarantee to be obtained if required for additional comfort.<br>
+            <p class="sub-header">Additional guarantee to be obtained if required for additional comfort.<br>
                 Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
         </div>
     </ng-container>
     <div>
-        <p *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo" class="fontSize-10"><strong  class="fontSize-10">Applicant Details</strong></p>
+        <p *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo" class="sub-header"><strong  class="sub-header">Applicant Details</strong></p>
         <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
                 <div>
@@ -80,48 +80,48 @@
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center  sb-small">
                         <tbody>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white fontSize-10">Name</td>
-                            <td class="pl-1 text-right fontSize-10">{{loanHolder?.customerInfo?.customerName}}</td>
+                            <td class="sb-bg-dark text-white sub-header">Name</td>
+                            <td class="pl-1 text-right sub-header">{{loanHolder?.customerInfo?.customerName}}</td>
                         </tr>
                         <tr>
-                          <td class="text-left sb-bg-dark text-white fontSize-10">Father's Name</td>
-                            <td class="pl-1 text-right fontSize-10">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                          <td class="text-left sb-bg-dark text-white sub-header">Father's Name</td>
+                            <td class="pl-1 text-right sub-header">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                          <td class="text-left sb-bg-dark text-white fontSize-10">Grand Father Name</td>
-                            <td class="pl-1 text-right fontSize-10">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                          <td class="text-left sb-bg-dark text-white sub-header">Grand Father Name</td>
+                            <td class="pl-1 text-right sub-header">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">Date Of Birth (AD/BS)</td>
-                            <td class="pl-1 text-right fontSize-10">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                            <td class="sb-bg-dark text-left text-white sub-header">Date Of Birth (AD/BS)</td>
+                            <td class="pl-1 text-right sub-header">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
                         </tr>
 <!--                        <tr>-->
 <!--                            <td class="sb-bg-dark text-left text-white">Citizenship Number</td>-->
 <!--                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.citizenshipNumber || 'N/A'}}</td>-->
 <!--                        </tr>-->
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">Phone Number</td>
-                            <td class="text-right pr-1 fontSize-10">{{loanHolder?.customerInfo?.contactNumber || 'N/A'}}</td>
+                            <td class="sb-bg-dark text-left text-white sub-header">Phone Number</td>
+                            <td class="text-right pr-1 sub-header">{{loanHolder?.customerInfo?.contactNumber || 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">LandLine Number</td>
-                            <td class="text-right pr-1 fontSize-10">{{loanHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
+                            <td class="sb-bg-dark text-left text-white sub-header">LandLine Number</td>
+                            <td class="text-right pr-1 sub-header">{{loanHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">Occupation</td>
-                            <td class="pl-1 text-right fontSize-10">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                            <td class="sb-bg-dark text-left text-white sub-header">Occupation</td>
+                            <td class="pl-1 text-right sub-header">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
 <!--                        <tr>-->
 <!--                            <td class="sb-bg-dark text-left text-white">Income Source</td>-->
 <!--                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>-->
 <!--                        </tr>-->
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">Age</td>
-                            <td class="text-right pl-1 fontSize-10">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
+                            <td class="sb-bg-dark text-left text-white sub-header">Age</td>
+                            <td class="text-right pl-1 sub-header">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white fontSize-10">Marital Status</td>
-                            <td class="text-right pl-1 fontSize-10">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
+                            <td class="sb-bg-dark text-left text-white sub-header">Marital Status</td>
+                            <td class="text-right pl-1 sub-header">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
                         </tr>
 
 <!--                        <tr >-->
@@ -141,10 +141,10 @@
     <ng-container *ngIf="isRemit">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-left"><strong  class="fontSize-12">Remit Loan Document</strong></p>
+                <p class="text-left"><strong  class="header">Remit Loan Document</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead>
-                    <tr class="text-white sb-bg-dark fontSize-10">
+                    <tr class="text-white sb-bg-dark sub-header">
                         <th>S.N.</th>
                         <th>File Name</th>
                         <th>Action</th>
@@ -152,9 +152,9 @@
                     </thead>
                     <tbody *ngFor="let document of newDocDetails; let i = index">
                     <ng-container *ngIf="document!==null">
-                        <td class="fontSize-10">{{(document?.name) ? (i + 1) : 'N/A'}}</td>
-                        <td class="fontSize-10">{{(document?.name) ? (document?.name) : 'N/A'}}</td>
-                        <td class="fontSize-10">
+                        <td class="sub-header">{{(document?.name) ? (i + 1) : 'N/A'}}</td>
+                        <td class="sub-header">{{(document?.name) ? (document?.name) : 'N/A'}}</td>
+                        <td class="sub-header">
                 <span class="ml-1" *ngIf="document?.fullpath !== null">
                     <a (click)="opendocument(document)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
                 </span>

@@ -1,19 +1,19 @@
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
-        <p  class="fontSize-12"><strong   class="fontSize-12">Facility Schedule</strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
+        <p  class="header"><strong   class="header">Facility Schedule</strong> <em class="text-danger"> &nbsp;Bold row indicates
             current loan proposal</em></p>
         <ul>
             <li class="sb-medium"><i class="fas fa-check-circle"></i> = Approved
                 <i class="fas fa-times-circle"></i> = Not Approved,
-                <i class="text-round fontSize-10">N</i>ew Loan
-                <i class="text-round fontSize-10">R</i>enewed Loan
-                <i class="text-round fontSize-10">E</i>nhanced Loan
-                <i class="text-round fontSize-10">C</i>losure Loan
-                <i class="text-round fontSize-10">P</i>artial Settlement Loan
-                <i class="text-round fontSize-10">F</i>ull Settlement Loan
-                <i class="text-round fontSize-10">R/E</i>new With Enhancement
+                <i class="text-round sub-header">N</i>ew Loan
+                <i class="text-round sub-header">R</i>enewed Loan
+                <i class="text-round sub-header">E</i>nhanced Loan
+                <i class="text-round sub-header">C</i>losure Loan
+                <i class="text-round sub-header">P</i>artial Settlement Loan
+                <i class="text-round sub-header">F</i>ull Settlement Loan
+                <i class="text-round sub-header">R/E</i>new With Enhancement
             </li>
-            <li class="sb-medium fontSize-10"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate
+            <li class="sb-medium sub-header"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate
                 <span *ngIf="!consumerFinance">,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span></span>
             </li>
         </ul>
@@ -29,7 +29,7 @@
         <table
                 class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr class="sb-bg-dark text-white fontSize-10">
+            <tr class="sb-bg-dark text-white sub-header">
                 <th>Loan Facility</th>
                 <th>Existing Limit</th>
                 <th *ngIf="!isRemit">Outstanding</th>
@@ -49,7 +49,7 @@
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList; let i = index"
                 [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
-                <td class="text-left pl-1 fontSize-10">
+                <td class="text-left pl-1 sub-header">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
                     &nbsp;|&nbsp;
@@ -58,32 +58,32 @@
                     &nbsp;|&nbsp;
                     {{ loan?.loan?.name }})
                 </td>
-                <td class="text-right pr-1 fontSize-10" >
+                <td class="text-right pr-1 sub-header" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-                <td class="text-right pr-1 fontSize-10" *ngIf="!isRemit" >
+                <td class="text-right pr-1 sub-header" *ngIf="!isRemit" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
                 </td>
-                <td class="text-right pr-1 fontSize-10"  *ngIf="!isRemit">
+                <td class="text-right pr-1 sub-header"  *ngIf="!isRemit">
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
                 </td>
-                <td class="text-right pr-1 fontSize-10" *ngIf="!isRemit">
+                <td class="text-right pr-1 sub-header" *ngIf="!isRemit">
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.settlementAmount">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1 fontSize-10">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-                <td class="fontSize-10" *ngIf="!isRemit">
+                <td class="text-right pr-1 sub-header">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="sub-header" *ngIf="!isRemit">
                     <span *ngIf="loan?.loan?.isFundable">
                         IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}}%
                     </span>
@@ -97,7 +97,7 @@
                     </span>
                 </td>
 
-                <td class="fontSize-10">
+                <td class="sub-header">
                     <span *ngIf="loan?.loan?.isFundable">
                         BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}} %,
                         PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
@@ -111,13 +111,13 @@
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
                 </td>
 
-                        <td class="fontSize-10">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
+                        <td class="sub-header">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
 
                         </td>
                 <td>
                     <ng-container>
                         <table>
-                            <tr class="text-white sb-bg-dark fontSize-10">
+                            <tr class="text-white sb-bg-dark sub-header">
                                 <th *ngIf="(loanDatas[i].loanNatureSelected && loanDatas[i].fundableNonFundableSelcted &&   loanDatas[i].isFundable &&   loanDatas[i].isTerminating) ||  loanDatas[i].isVehicle ||  loanDatas[i].isShare ||  loanDatas[i].isGeneral">Repayment Mode</th>
                                 <th *ngIf=" loanDatas[i].showInstallmentAmount  && ((loanDatas[i].loanNatureSelected && loanDatas[i].fundableNonFundableSelcted &&  loanDatas[i].isFundable &&  loanDatas[i].isTerminating) || loanDatas[i].isVehicle || loanDatas[i].isShare || loanDatas[i].isGeneral)">EMI Amount</th>
                                 <th *ngIf="! loanDatas[i].showInstallmentAmount &&  ((loanDatas[i].loanNatureSelected && loanDatas[i].isFundable && loanDatas[i].fundableNonFundableSelcted && loanDatas[i].isTerminating) || (loanDatas[i].isVehicle || loanDatas[i].isShare || loanDatas[i].isGeneral))">Interest Amount</th>
@@ -126,7 +126,7 @@
                                 <th *ngIf=" loanDatas[i].showRepaymentMode && ((loanDatas[i].loanNatureSelected && loanDatas[i].isFundable && loanDatas[i].fundableNonFundableSelcted && loanDatas[i].isTerminating) || (loanDatas[i].isVehicle || loanDatas[i].isShare || loanDatas[i].isGeneral))">Principal Amount</th>
                                 <th *ngIf=" loanDatas[i].showPrincipalAmount && ((loanDatas[i].loanNatureSelected && loanDatas[i].isFundable && loanDatas[i].fundableNonFundableSelcted && loanDatas[i].isTerminating) || (loanDatas[i].isVehicle || loanDatas[i].isShare || loanDatas[i].isGeneral))">Principal Amount</th>
                             </tr>
-                            <tr class="fontSize-10">
+                            <tr class="sub-header">
                                 <td *ngIf="(loanDatas[i].loanNatureSelected &&  loanDatas[i].fundableNonFundableSelcted &&   loanDatas[i].isFundable &&   loanDatas[i].isTerminating) ||  loanDatas[i].isVehicle ||  loanDatas[i].isShare ||  loanDatas[i].isGeneral" class="pl-1">{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>
                                 <td *ngIf=" loanDatas[i].showInstallmentAmount  && ((loanDatas[i].loanNatureSelected &&  loanDatas[i].fundableNonFundableSelcted &&  loanDatas[i].isTerminating  &&  loanDatas[i].isFundable) || (  loanDatas[i].isVehicle ||  loanDatas[i].isShare ||  loanDatas[i].isGeneral))" class=" pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>
                                 <td *ngIf="! loanDatas[i].showInstallmentAmount &&  ((loanDatas[i].loanNatureSelected &&  loanDatas[i].isFundable &&  loanDatas[i].fundableNonFundableSelcted &&  loanDatas[i].isTerminating) || ( loanDatas[i].isVehicle ||  loanDatas[i].isShare ||  loanDatas[i].isGeneral))" class=" pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>
@@ -140,34 +140,34 @@
                 </td>
                 <td>
                 <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
-                    <span class="fontSize-10">Loan Administration: </span>
-                    <div class="fontSize-10" *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
+                    <span class="sub-header">Loan Administration: </span>
+                    <div class="sub-header" *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
-                    <ng-template class="fontSize-10" #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+                    <ng-template class="sub-header" #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
                 </ng-container>
             <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
-                <span class="fontSize-10" >Commitment Fee :</span>
-                <span class="fontSize-10">{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
+                <span class="sub-header" >Commitment Fee :</span>
+                <span class="sub-header">{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
             </ng-container>
             <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
-                <span class="fontSize-10">Prepayment Fee: </span>
-                <span class="fontSize-10">{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
+                <span class="sub-header">Prepayment Fee: </span>
+                <span class="sub-header">{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
             </ng-container>
             <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
-                <span class="fontSize-10">Swap Fee: </span>
-                <span class="fontSize-10">{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
+                <span class="sub-header">Swap Fee: </span>
+                <span class="sub-header">{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
 
             </ng-container>
                 </td>
                 <td>
-                    <span class="fontSize-10" *ngIf="(loan?.proposal?.data | jsonParse)?.purposeOfLoan">
+                    <span class="sub-header" *ngIf="(loan?.proposal?.data | jsonParse)?.purposeOfLoan">
                         {{(loan?.proposal?.data | jsonParse)?.purposeOfLoan}}
                     </span>
                 </td>
             </tr>
-            <tr class="fontSize-10" *ngFor="let loanDto of customerLoanDtoList"
+            <tr class="sub-header" *ngFor="let loanDto of customerLoanDtoList"
                 [class.font-weight-bold]="proposalData?.id === loanDto?.proposal?.id">
-                <td class="text-left pl-1 fontSize-10">
+                <td class="text-left pl-1 sub-header">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loanDto?.documentStatus}"></ng-container>
                     &nbsp;|&nbsp;
@@ -176,33 +176,33 @@
                     &nbsp;|&nbsp;
                     {{ loanDto?.name }} ({{ loanDto?.createdAt | date}} ({{ loanDto?.createdAt | engNepDate: false }}))
                 </td>
-                <td class="text-right pr-1 fontSize-10">
+                <td class="text-right pr-1 sub-header">
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.existingLimit">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-                <td class="text-right pr-1 fontSize-10">
+                <td class="text-right pr-1 sub-header">
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.outStandingLimit">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
                 </td>
-                <td class="text-right pr-1 fontSize-10">
+                <td class="text-right pr-1 sub-header">
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
                 </td>
-                <td class="text-right pr-1 fontSize-10">
+                <td class="text-right pr-1 sub-header">
                     <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.settlementAmount">
                         Rs. {{(loanDto?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loanDto?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1 fontSize-10">Rs. {{loanDto?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{loanDto?.proposal?.proposedLimit | currencyFormatter}}</td>
 
-                <td class="text-right pr-1 fontSize-10">
+                <td class="text-right pr-1 sub-header">
                     <span *ngIf="(loanDto.isFundable) && ((loanDto?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
                         IR: {{(loanDto?.proposal?.data | jsonParse)?.existInterestRate}} %
                     </span>
@@ -221,46 +221,46 @@
                 </td>
 
                 <td>
-                    <span *ngIf="loanDto.isFundable" class="fontSize-10">
+                    <span *ngIf="loanDto.isFundable" class="sub-header">
                         BR : {{ (loanDto?.proposal?.data | jsonParse)?.baseRate}} %,
                         PR : {{ (loanDto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
                         IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %
                     </span>
-                    <span *ngIf="!loanDto.isFundable" class="fontSize-10">
-                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'" class="fontSize-10">
+                    <span *ngIf="!loanDto.isFundable" class="sub-header">
+                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'" class="sub-header">
                             CM: Rs.  {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
                             ,</span>
-                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'" class="fontSize-10">
+                        <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'" class="sub-header">
                             CM: {{ ((loanDto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                         COM:{{(loanDto?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
                 </td>
 
                 <td width="150px" class="text-left pl-1">
                     <span *ngIf="!loanDto.proposal.limitExpiryMethod">-</span>
-                    <span *ngIf="loanDto.proposal.limitExpiryMethod === 'ABSOLUTE'" class="fontSize-10">{{loanDto.proposal?.dateOfExpiry | date}}
+                    <span *ngIf="loanDto.proposal.limitExpiryMethod === 'ABSOLUTE'" class="sub-header">{{loanDto.proposal?.dateOfExpiry | date}}
                         ({{loanDto.proposal?.dateOfExpiry | engNepDate: false}})</span>
-                    <span *ngIf="loanDto.proposal.limitExpiryMethod === 'CUSTOM'" class="fontSize-10">{{loanDto.proposal?.duration}} {{loanDto.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
+                    <span *ngIf="loanDto.proposal.limitExpiryMethod === 'CUSTOM'" class="sub-header">{{loanDto.proposal?.duration}} {{loanDto.proposal?.frequency}} {{loanDto.proposal?.condition}}</span>
                 </td>
             </tr>
             <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1 fontSize-10"><strong>Funded</strong></td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
+                <td class="text-left pl-1 sub-header"><strong>Funded</strong></td>
+                <td class="text-right pr-1 sub-header">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">
+                    <span class="sub-header">
                         Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
                     </span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">
+                    <span class="sub-header">
                         Rs. {{ getTotalFundable('enhanceLimitAmount', true, customerAllLoanList) | currencyFormatter }}
                     </span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">
+                    <span class="sub-header">
                         Rs. {{ getTotalFundable('settlementAmount', true, customerAllLoanList) | currencyFormatter }}
                     </span>
                 </td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
@@ -276,22 +276,22 @@
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
             <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1 fontSize-10"><strong>Non-Funded</strong></td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
+                <td class="text-left pl-1 sub-header"><strong>Non-Funded</strong></td>
+                <td class="text-right pr-1 sub-header">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">
+                    <span class="sub-header">
                         Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
                     </span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">Rs. {{ getTotalFundable('enhanceLimitAmount', false, customerAllLoanList) | currencyFormatter }}</span>
+                    <span class="sub-header">Rs. {{ getTotalFundable('enhanceLimitAmount', false, customerAllLoanList) | currencyFormatter }}</span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">
+                    <span class="sub-header">
                         Rs. {{ getTotalFundable('settlementAmount', false, customerAllLoanList) | currencyFormatter }}
                     </span>
                 </td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
                     <td >-</td>
                     <td>-</td>
                     <td>-</td>
@@ -305,19 +305,19 @@
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
             <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1 fontSize-10"><strong>Total</strong></td>
+                <td class="text-left pl-1 sub-header"><strong>Total</strong></td>
 
-                <td class="text-right pr-1 fontSize-10">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
+                    <span class="sub-header">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}</span>
+                    <span class="sub-header">Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}</span>
                 </td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
-                    <span class="fontSize-10">Rs. {{ getTotal('settlementAmount') | currencyFormatter }}</span>
+                    <span class="sub-header">Rs. {{ getTotal('settlementAmount') | currencyFormatter }}</span>
                 </td>
-                <td class="text-right pr-1 fontSize-10">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                     <td >-</td>
                     <td>-</td>
                     <td>-</td>
@@ -334,11 +334,11 @@
     </div>
 </div>
 
-<ng-template class="fontSize-10" #tickCross let-status>
+<ng-template class="sub-header" #tickCross let-status>
     <i *ngIf="status === DocStatus[DocStatus.APPROVED]" class="fas fa-check-circle"></i>
     <i *ngIf="status !== DocStatus[DocStatus.APPROVED]" class="fas fa-times-circle"></i>
 </ng-template>
-<ng-template class="fontSize-10" #loanTypeLetter let-loanType>
+<ng-template class="sub-header" #loanTypeLetter let-loanType>
     <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN)" class="text-round">N</i>
     <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEWED_LOAN)"
        class="text-round">R</i>
@@ -355,8 +355,8 @@
 </ng-template>
 
 <div class="row">
-    <div class="col-md-12 sb-medium fontSize-10">
-        <strong class="fontSize-10">Total Proposed Limit (in words):</strong>
+    <div class="col-md-12 sb-medium sub-header">
+        <strong class="sub-header">Total Proposed Limit (in words):</strong>
         {{ getTotal('proposedLimit') | currencyFormatter}}
         (Rs. {{ getTotal('proposedLimit') | inWords | titlecase }}
         Only /-)
@@ -368,17 +368,17 @@
     <div class="col-md-12">
         <table *ngIf="productUtils?.CBS_ENABLE"
                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="text-white sb-bg-dark fontSize-10">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>Disbursement Criteria</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
+                    <td class="text-left pl-1 sub-header" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
                 </tr>
-                <tr class="text-white sb-bg-dark fontSize-10">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>Repayment</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
+                    <td class="text-left pl-1 sub-header" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
                 </tr>
         </table>
     </div>
@@ -386,27 +386,27 @@
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
             <ng-container *ngIf="checkedData?.solChecked">
-                <tr class="text-white sb-bg-dark fontSize-10">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>Single Obligor Limit</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    <td class="text-left pl-1 sub-header"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="checkedData?.riskChecked">
-                <tr class="text-white sb-bg-dark fontSize-10">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1 fontSize-10"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    <td class="text-left pl-1 sub-header"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
         </table>
 
         <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
             <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
-                <td class="sb-bg-dark text-white fontSize-10">CIB Charge</td>
-                <td class="fontSize-10">{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
+                <td class="sb-bg-dark text-white sub-header">CIB Charge</td>
+                <td class="sub-header">{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
             </tr>
         </table>
 

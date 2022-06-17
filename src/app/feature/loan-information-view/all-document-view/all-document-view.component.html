@@ -1,6 +1,6 @@
 <nb-card class="modal-dialog-scrollable">
   <nb-card-header>
-          <span class="fontSize-10">
+          <span class="sub-header">
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white disable-print"
                     *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath"
@@ -14,12 +14,12 @@
   <nb-card-body>
   <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
     <div class="col-md-12">
-      <p><strong class="fontSize-10">Loan Documents</strong></p>
+      <p><strong class="sub-header">Loan Documents</strong></p>
     </div>
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark fontSize-10">
+        <tr class="text-white sb-bg-dark sub-header">
           <th class="sn">S.N</th>
           <th>Document</th>
           <th>Preview</th>
@@ -30,9 +30,9 @@
         <tbody>
         <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
           <td>{{i + 1}}</td>
-          <td class="text-left pl-1 fontSize-10">{{singleDoc?.document?.name}}</td>
-          <td class="fontSize-10"><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
-          <td class="fontSize-10">
+          <td class="text-left pl-1 sub-header">{{singleDoc?.document?.name}}</td>
+          <td class="sub-header"><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
+          <td class="sub-header">
             <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
                aria-hidden="true" class="fa fa-download"
                style="cursor: pointer"></i>
@@ -44,9 +44,9 @@
   </div>
   <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
     <div class="col-md-12">
-      <p><strong class="fontSize-10">Customer General Document</strong></p>
+      <p class="sub-header"><strong class="sub-header">Customer General Document</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
-        <tr class="text-white sb-bg-dark fontSize-10">
+        <tr class="text-white sb-bg-dark sub-header">
           <th class="sn">SN</th>
           <th>Document</th>
           <th *ngIf="!hidePreviewButton">Preview</th>
@@ -54,9 +54,9 @@
         </tr>
         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
           <td>{{i+1}}</td>
-          <td class="text-left pl-1 fontSize-10">{{generalDoc?.document?.displayName}}</td>
-          <td class="fontSize-10" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
-          <td class="fontSize-10">
+          <td class="text-left pl-1 sub-header">{{generalDoc?.document?.displayName}}</td>
+          <td class="sub-header" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
+          <td class="sub-header">
             <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
               <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download" style="cursor: pointer"></i>
             </ng-container>
@@ -73,10 +73,10 @@
 
   <div *ngIf="minOneGuarantorDoc" class="row">
     <div class="col-md-12">
-      <p><strong class="fontSize-10">Guarantor Documents</strong></p>
+      <p><strong class="sub-header">Guarantor Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark fontSize-10">
+        <tr class="text-white sb-bg-dark sub-header">
           <th class="sn">S.N</th>
           <th>Guarantor</th>
           <th>Document</th>
@@ -88,10 +88,10 @@
         <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
         <tr *ngIf="singleDoc?.docPath">
           <td>{{i + 1}}</td>
-          <td class="text-left pl-1 fontSize-10">{{singleDoc?.name}}</td>
-          <td class="fontSize-10">Net Worth Document</td>
-          <td class="fontSize-10" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
-          <td class="fontSize-10">
+          <td class="text-left pl-1 sub-header">{{singleDoc?.name}}</td>
+          <td class="sub-header">Net Worth Document</td>
+          <td class="sub-header" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
+          <td class="sub-header">
             <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
               <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
                  aria-hidden="true" class="fa fa-download"
@@ -110,10 +110,10 @@
   </div>
   <div *ngIf="minOneInsuranceDoc" class="row">
     <div class="col-md-12">
-      <p><strong class="fontSize-10">Insurance Documents</strong></p>
+      <p><strong class="sub-header">Insurance Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark fontSize-10">
+        <tr class="text-white sb-bg-dark sub-header">
           <th class="sn">S.N</th>
           <th>Policy Number</th>
           <th>Company</th>
@@ -125,11 +125,11 @@
         <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
         <tr *ngIf="singleDoc.policyDocumentPath">
           <td>{{i + 1}}</td>
-          <td class="text-right pr-1 fontSize-10">{{singleDoc?.policyNumber}}</td>
-          <td class="text-left pl-1 fontSize-10">{{singleDoc?.company}}</td>
-          <td class="text-left pl-1 fontSize-10">Insurance Policy</td>
-          <td class="fontSize-10" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
-          <td class="fontSize-10">
+          <td class="text-right pr-1 sub-header">{{singleDoc?.policyNumber}}</td>
+          <td class="text-left pl-1 sub-header">{{singleDoc?.company}}</td>
+          <td class="text-left pl-1 sub-header">Insurance Policy</td>
+          <td class="sub-header" *ngIf="!hidePreviewButton"><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
+          <td class="sub-header">
             <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
               <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
                   aria-hidden="true" class="fa fa-download"
@@ -149,22 +149,22 @@
 
   <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row">
     <div class="col-md-12">
-      <p><strong class="fontSize-10">Cad Documents</strong></p>
+      <p><strong class="sub-header">Cad Documents</strong></p>
 <!--      <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>-->
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead class="text-white sb-bg-dark">
         <tr>
-          <th class="sn fontSize-10">S.N</th>
-          <th class="fontSize-10">Document</th>
-          <th class="fontSize-10">Preview</th>
-          <th class="fontSize-10">Download</th>
+          <th class="sn sub-header">S.N</th>
+          <th class="sub-header">Document</th>
+          <th class="sub-header">Preview</th>
+          <th class="sub-header">Download</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
           <td>{{i + 1}}</td>
           <td class="text-left pl-1 fontSize10">{{singleDoc?.document?.name}}</td>
-          <td class="fontSize-10">
+          <td class="sub-header">
             <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
                class="fas fa-eye"></i></td>
           <td class="ofntSize-10">

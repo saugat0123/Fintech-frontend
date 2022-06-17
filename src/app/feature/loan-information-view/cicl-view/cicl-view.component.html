@@ -1,7 +1,7 @@
 <hr class="print-line">
 <div class="row">
   <div class="col-md-12 text-center">
-    <p class="text-left"><strong   class="fontSize-12">Banking Relationship</strong></p>
+    <p class="text-left"><strong   class="header">Banking Relationship</strong></p>
 <!--    <p class="text-left sb-small"><b>Cib-->
 <!--      Charge:</b> {{ciclValue?.cibCharge ? ('Rs ' + ciclValue?.cibCharge) : ciclValue?.cibRemark?(ciclValue?.cibRemark | jsonParse)?.value:'N/A'}}</p>-->
     <div *ngIf="ciclList.length !== 0">
@@ -9,7 +9,7 @@
               class="table table-bordered table-hover table-sm sb-small text-center">
         <thead>
 
-        <tr class="sb-bg-dark text-white fontSize-10">
+        <tr class="sb-bg-dark text-white sub-header">
           <th>S.N</th>
           <th>Name</th>
           <th>Cicl Relation</th>
@@ -26,33 +26,33 @@
         </tr>
         <tr *ngFor="let data of ciclList; let i=index">
           <td>{{i + 1}}</td>
-          <td class="text-left pl-1 fontSize-10">{{data?.nameOfBorrower}}</td>
-          <td class="text-left pl-1 fontSize-10">{{ciclRelationList[data.ciclRelation]}}</td>
-          <td class="text-left pl-1 fontSize-10">{{data?.nameOfFI || 'NA'}}</td>
-          <td class="text-left pl-1 fontSize-10">{{data?.facility || 'NA'}}</td>
-          <td class="text-right pr-1 fontSize-10">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
-          <td class="text-left pl-1 fontSize-10">{{data?.status || 'NA'}}</td>
-          <td class="text-left pl-1 fontSize-10">{{data?.obtaineddate | date}} ({{data?.obtaineddate | engNepDate: false}})</td>
-          <td class="text-right pr-1 fontSize-10">Rs. {{data?.loanamount | currencyFormatter}}</td>
-          <td class="text-right pr-1 fontSize-10">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
-          <td class="text-right pr-1 fontSize-10">{{data?.overdue}}</td>
-          <td class="text-right pr-1 fontSize-10">{{data?.probabilityDefer}} %</td>
-          <td class="text-right pr-1 fontSize-10">{{data?.riskScore}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.nameOfBorrower}}</td>
+          <td class="text-left pl-1 sub-header">{{ciclRelationList[data.ciclRelation]}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.nameOfFI || 'NA'}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.facility || 'NA'}}</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.status || 'NA'}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.obtaineddate | date}} ({{data?.obtaineddate | engNepDate: false}})</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.loanamount | currencyFormatter}}</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
+          <td class="text-right pr-1 sub-header">{{data?.overdue}}</td>
+          <td class="text-right pr-1 sub-header">{{data?.probabilityDefer}} %</td>
+          <td class="text-right pr-1 sub-header">{{data?.riskScore}}</td>
         </tr>
         </thead>
       </table>
     </div>
     <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
-      <tr class="sb-bg-dark text-white fontSize-10">
+      <tr class="sb-bg-dark text-white sub-header">
         <td>Remarks</td>
       </tr>
-      <td class="text-justify px-2 fontSize-10" style="overflow-wrap: break-word; "><span
+      <td class="text-justify px-2 sub-header" style="overflow-wrap: break-word; "><span
               [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
       <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-dark text-white">
-        <th class="fontSize-10">Repayment track in other BFIs</th>
+        <th class="sub-header">Repayment track in other BFIs</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">
-        <td class="fontSize-10">{{ciclValue?.repaymentTrack}}</td>
+        <td class="sub-header">{{ciclValue?.repaymentTrack}}</td>
       </tr>
     </table>
     <hr class="print-line">
