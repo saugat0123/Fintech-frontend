@@ -167,18 +167,21 @@
 
 
 
-<!-- Start NTCA Details-->
-<ng-container>
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</ng-container>
-<ng-template>
-    <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                     [fiscalYears]="fiscalYearArray"
-                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-</ng-template>
-<!-- End NTCA Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN' && loanDataHolder?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
+    <!-- Start NTCA Details-->
+    <ng-container>
+        <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                              [fiscalYears]="fiscalYearArray"
+                              [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+    </ng-container>
+    <ng-template>
+        <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                         [fiscalYears]="fiscalYearArray"
+                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+    </ng-template>
+    <!-- End NTCA Details-->
+</div>
+
 
 <!-- Start Group and Group security Details-->
 <div *ngIf="megaGroupEnabled">
