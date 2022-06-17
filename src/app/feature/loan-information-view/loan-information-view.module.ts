@@ -26,6 +26,7 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
 import {NgxPrintModule} from 'ngx-print';
 import {RetailSecurityComponent} from '../loan-information-detail-view/retail-security/retail-security.component';
 import { HomeLoanComplianceStatusComponent } from './home-loan-compliance-status/home-loan-compliance-status.component';
+import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HomeLoanComplianceStatusComponent } from './home-loan-compliance-status
     HomeLoanChecklistComponent,
       SecurityAdderComponent,
       RetailSecurityComponent,
-      HomeLoanComplianceStatusComponent
+      HomeLoanComplianceStatusComponent,
+      CreditChecklistViewComponent
   ],
     exports: [
         InsuranceViewComponent,
@@ -61,7 +63,8 @@ import { HomeLoanComplianceStatusComponent } from './home-loan-compliance-status
         CrgGammaDetailViewComponent,
         HomeLoanChecklistComponent,
         SecurityAdderComponent,
-        RetailSecurityComponent
+        RetailSecurityComponent,
+        CreditChecklistViewComponent
     ],
     imports: [
         CommonModule,

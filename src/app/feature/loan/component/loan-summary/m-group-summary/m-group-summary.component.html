@@ -19,8 +19,8 @@
 
     <div class="col-md-12" *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION
      || customerCategory === 'executing' || customerType === 'INDIVIDUAL'">
-        <span class="float-left"><strong>Group Limit</strong></span>
-        <table class="table table-responsive-md table-bordered text-center table-sm">
+        <span class="float-left"><strong>Group Limit {{groupPosition?.length > 0 ? '': 'NA'}}</strong></span>
+        <table class="table table-responsive-md table-bordered text-center table-sm" *ngIf="groupPosition?.length > 0">
             <thead class="sb-bg-dark text-white">
             <tr class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
                 <th rowspan="2" class="sn">SN</th>

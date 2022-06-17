@@ -250,9 +250,7 @@ export class FinancialComponent implements OnInit {
         }
         this.checkDisableAlpha();
         this.questionService.getAllQuestions(0).subscribe(s => {
-            console.log(s, 'QUESTION');
             this.crgQuestionsList = s.detail[0];
-            console.log(this.crgQuestionsList, 'LISSSTT');
         });
 
       this.patchTotalIncome();

@@ -23,7 +23,7 @@ import {CustomerType} from '../../../model/customerType';
 import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
-import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
+import {NbAccordionItemComponent, NbDialogRef, NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
@@ -37,6 +37,8 @@ import {CommonService} from '../../../../../@core/service/common.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {CustomerDocuments} from '../../../../loan/model/customerDocuments';
 import {DocStatus} from '../../../../loan/model/docStatus';
+import {ProposalComponent} from '../../../../loan-information-template/proposal/proposal.component';
+import {SearchResultComponent} from '../../../../../@theme/components/header/header-form/searchResult.component';
 
 @Component({
     selector: 'app-customer-profile',
@@ -104,6 +106,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     documentSpinner = false;
     approvedLoanList;
     pendingLoanList;
+    dialogRef: NbDialogRef<any>;
 
 
 
@@ -332,7 +335,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus) ? undefined : this.customer.maritalStatus, Validators.required],
             gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
-            bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
+            // bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -420,7 +423,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.customer.gender = this.customerInfo.gender;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.customerLegalDocumentAddress = this.customerInfo.customerLegalDocumentAddress;
-        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        // this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -501,7 +504,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     setWithin(event) {
         this.customer.withinLimitRemarks = event.target.value;
-        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        // this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customer.clientType = this.customerInfo.clientType;
         this.customer.maritalStatus = this.customerInfo.maritalStatus;
         this.customer.gender = this.customerInfo.gender;
@@ -535,11 +538,41 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.loan.customerInfo = this.getCustomerInfos(this.customer.id);
 
         }
+        const context = {
+            loan: this.loan,
+            fromProfile: true,
+            customerInfo: this.customerInfo,
+            loanType: this.selectedLoanType,
+        };
+       // this.dialogRef = this.dialogService.open(ProposalComponent, {
+       //     context,
+       //      closeOnBackdropClick: false,
+       //      hasBackdrop: false,
+       //      hasScroll: true
+       //  });
+        // dialogRef.onClose.subscribe((res: any) => {
+        //     console.log('emit data', res);
+        // });
+        // const modalRef = this.modalService.open(ProposalComponent, {backdrop: 'static', scrollable: true, size: 'xl', keyboard: true});
+        // modalRef.componentInstance.loan = this.loan;
+        // modalRef.componentInstance.fromProfile = true;
+        // modalRef.componentInstance.customerInfo = this.customerInfo;
+        // modalRef.componentInstance.loanType = this.selectedLoanType;
         this.modalService.open(proposal, {
             size: 'xl',
             windowClass: 'modal-holder',
             scrollable: true,
         });
+
+
+        // this.router.navigate(['/home/loan-information-template/proposal'], {
+        //     queryParams: {
+        //         loan: this.loan,
+        //         fromProfile: true,
+        //         customerInfo: this.customerInfo,
+        //         loanType: this.selectedLoanType,
+        //     }
+        // });
     }
 
     getCustomerInfos(id) {

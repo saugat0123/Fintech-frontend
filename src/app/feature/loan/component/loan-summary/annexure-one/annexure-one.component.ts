@@ -19,7 +19,7 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() fixedAssetsData;
   collateralSiteVisits: Array<CollateralSiteVisit> = [];
-  siteVisitDocuments: Array<SiteVisitDocument>;
+  siteVisitDocuments = [];
   siteVisitJson = [];
   isPrintable = 'YES';
   url: string;
@@ -36,7 +36,7 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
     this.url = ApiConfig.URL;
   }
 
-  viewDocument(url: string, name: string) {
+  viewDocumentAnnex(url: string, name: string) {
     const viewDocName = name.concat(this.fileType);
     const link = document.createElement('a');
     link.target = '_blank';
@@ -54,25 +54,44 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
     if (changes) {
       this.siteVisitJson = [];
       this.siteVisitDocuments = [];
+      this.collateralSiteVisits = [];
       if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
-        this.collateralSiteVisits = this.fixedAssetsData;
-        const doc = [];
+          // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
+          let map = new Map();
+          this.fixedAssetsData.forEach(f => {
+            const securityName = f.securityName;
+            if (!map.has(securityName)) {
+              this.collateralSiteVisits.push(f);
+            }
+            map.set(securityName, securityName);
+          });
+        const siteVisitDoc = [];
         this.collateralSiteVisits.forEach(f => {
-          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-            doc.push(f.siteVisitDocuments);
+          const doc = [];
+          if (f.siteVisitDocuments.length > 0) {
+            f.siteVisitDocuments.forEach((sv: SiteVisitDocument) => {
+              if (sv.isPrintable === this.isPrintable) {
+                doc.push(sv);
+              }
+            });
           }
+            siteVisitDoc.push(doc);
         });
-        // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-        const docArray = flatten(doc);
-        // filter for only printable document
-        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
+        this.siteVisitDocuments = siteVisitDoc;
         this.collateralSiteVisits.filter(item => {
           this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
         });
+
       }
     }
   }
 
-
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
 }

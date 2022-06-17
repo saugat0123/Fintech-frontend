@@ -9,7 +9,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 export class HomeLoanComplianceStatusComponent implements OnInit {
     @Input() loanHolderData;
     @Input() landSecurityDetails;
-    loanHolder;
+    financialData;
     proposal;
     landAndBuilding;
     requirementUMI;
@@ -32,8 +32,8 @@ export class HomeLoanComplianceStatusComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.loanHolderData) && !ObjectUtil.isEmpty(this.loanHolderData.financial)) {
-            this.loanHolder = JSON.parse(this.loanHolderData.financial.data);
+        if (!ObjectUtil.isEmpty(this.loanHolderData.financial)) {
+            this.financialData = JSON.parse(this.loanHolderData.financial.data);
         }
         this.setWithCreditHistoryRequiredParameter();
         this.setWithOutCreditHistoryRequiredParameter();
@@ -46,10 +46,11 @@ export class HomeLoanComplianceStatusComponent implements OnInit {
         this.requirementLTV = 60;
     }
     setWithOutCreditHistoryRequiredParameter() {
-        this.positionUMI = (this.loanHolder.initialForm.totalNetMonthlyIncome / this.loanHolder.initialForm.emiWithProposal).toFixed(2);
-        const totalEMI = Number(this.loanHolder.initialForm.emiWithProposal) +
-            Number(this.loanHolder.initialForm.existingObligationOtherBank);
-        this.positionDTI = (totalEMI / this.loanHolder.initialForm.totalIncome).toFixed(2);
+        this.positionUMI = (this.financialData.initialForm.totalNetMonthlyIncome /
+            this.financialData.initialForm.emiWithProposal).toFixed(2);
+        const totalEMI = Number(this.financialData.initialForm.emiWithProposal) +
+            Number(this.financialData.initialForm.existingObligationOtherBank);
+        this.positionDTI = (totalEMI / this.financialData.initialForm.totalIncome).toFixed(2);
     }
     setLTV() {
         const securityData = this.landSecurityDetails;
