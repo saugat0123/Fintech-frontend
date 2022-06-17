@@ -306,9 +306,10 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-                                <div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
+                                <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
+
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted   && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
                                         <label class="title" for="serviceCharge"><strong>Service Charge </strong>
                                             <input
@@ -560,99 +561,8 @@
 
                                     </div>
                                 </div>
-</div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title"><strong>Limit Expiry/Loan Tenure </strong><br>
-                                            <div class="pt-3">
-                                                <input
-                                                        [ngClass]="{ 'is-untouched': (submitted) && formControls.limitExpiryMethod.errors }"
-                                                        formControlName="limitExpiryMethod"
-                                                        name="limitExpiryMethod" type="radio"
-                                                        value="ABSOLUTE"><strong>Absolute </strong>
-                                                <input formControlName="limitExpiryMethod" name="limitExpiryMethod"
-                                                       type="radio" value="CUSTOM"><strong> Custom</strong>
-                                                <small
-                                                        *ngIf="(submitted) && formControls.limitExpiryMethod.invalid && formControls.limitExpiryMethod.errors.required"
-                                                        style="color:#DC3545">
-                                                    Limit Expiry Method is required
-                                                </small>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="absoluteSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="dateOfExpiry"><strong>Date of Expiry</strong></label>
-                                        <input [nbDatepicker]="DOE"
-                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.dateOfExpiry.errors }"
-                                               class="form-control" formControlName="dateOfExpiry" id="dateOfExpiry"
-                                               name="dateOfExpiry" placeholder="Date of Expiry">
-                                        <nb-datepicker #DOE></nb-datepicker>
-                                        <div *ngIf="(submitted) && formControls.dateOfExpiry.invalid"
-                                             class="invalid-feedback">
-                      <span
-                              *ngIf="formControls.dateOfExpiry.errors.required">Date of Expiry is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="duration"><strong>Duration</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.duration.errors }"
-                                               class="form-control" formControlName="duration" id="duration"
-                                               name="duration" placeholder="Duration"
-                                               type="number">
-                                        <div *ngIf="(submitted) && formControls.duration.invalid"
-                                             class="invalid-feedback">
-                      <span
-                              *ngIf="formControls.duration.errors.required">Duration is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="frequency"><strong>Frequency</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid': (submitted ) && formControls.frequency.errors }"
-                                                class="custom-select" formControlName="frequency"
-                                                id="frequency"
-                                                name="frequency">
-                                            <option [ngValue]="undefined" hidden selected>Select</option>
-                                            <option value="DAY">Day(s)</option>
-                                            <option value="MONTH">Month(s)</option>
-                                            <option value="QUARTER">Quarter(s)</option>
-                                            <option value="YEAR">Year(s)</option>
-                                        </select>
-                                        <div *ngIf="(submitted) && formControls.frequency.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.frequency.errors.required">Frequency is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" *ngIf="customSelected">
-                                    <div class="form-group">
-                                        <label class="title" for="condition"><strong>Condition</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid': (submitted ) && formControls.condition.errors }"
-                                                class="custom-select" formControlName="condition"
-                                                id="condition"
-                                                name="condition">
-                                            <option [ngValue]="undefined" hidden selected>Select</option>
-                                            <option value="FROM THE DATE OF APPROVAL">From the date of approval</option>
-                                            <option value="FROM THE DATE OF INITIATION OF LOAN">From the date of
-                                                initiation of loan
-                                            </option>
-                                            <option value="FROM EACH DEAL">From each deal</option>
-                                            <option value="FROM THE DATE OF IMPLEMENTATION">From the date of implementation</option>
-                                        </select>
-                                        <div *ngIf="(submitted) && formControls.condition.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.condition.errors.required">Condition is required</span>
-                                        </div>
-                                    </div>
-                                </div>
-<div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
+
+
                                 <div class="col-md-4 form-group" *ngIf="(client !== clientName?.MEGA) && (client !== clientName?.SHINE_RESUNGA)">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
@@ -706,8 +616,102 @@
                                     </div>
 
                                 </div>
+                                </ng-container>
 
-</div>
+                                <ng-container >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title"><strong>Limit Expiry/Loan Tenure </strong><br>
+                                                <div class="pt-3">
+                                                    <input
+                                                            [ngClass]="{ 'is-untouched': (submitted) && formControls.limitExpiryMethod.errors }"
+                                                            formControlName="limitExpiryMethod"
+                                                            name="limitExpiryMethod" type="radio"
+                                                            value="ABSOLUTE"><strong>Absolute </strong>
+                                                    <input formControlName="limitExpiryMethod" name="limitExpiryMethod"
+                                                           type="radio" value="CUSTOM"><strong> Custom</strong>
+                                                    <small
+                                                            *ngIf="(submitted) && formControls.limitExpiryMethod.invalid && formControls.limitExpiryMethod.errors.required"
+                                                            style="color:#DC3545">
+                                                        Limit Expiry Method is required
+                                                    </small>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="absoluteSelected">
+                                        <div class="form-group">
+                                            <label class="title" for="dateOfExpiry"><strong>Date of Expiry</strong></label>
+                                            <input [nbDatepicker]="DOE"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && formControls.dateOfExpiry.errors }"
+                                                   class="form-control" formControlName="dateOfExpiry" id="dateOfExpiry"
+                                                   name="dateOfExpiry" placeholder="Date of Expiry">
+                                            <nb-datepicker #DOE></nb-datepicker>
+                                            <div *ngIf="(submitted) && formControls.dateOfExpiry.invalid"
+                                                 class="invalid-feedback">
+                      <span
+                              *ngIf="formControls.dateOfExpiry.errors.required">Date of Expiry is required</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="customSelected">
+                                        <div class="form-group">
+                                            <label class="title" for="duration"><strong>Duration</strong></label>
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && formControls.duration.errors }"
+                                                   class="form-control" formControlName="duration" id="duration"
+                                                   name="duration" placeholder="Duration"
+                                                   type="number">
+                                            <div *ngIf="(submitted) && formControls.duration.invalid"
+                                                 class="invalid-feedback">
+                      <span
+                              *ngIf="formControls.duration.errors.required">Duration is required</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="customSelected">
+                                        <div class="form-group">
+                                            <label class="title" for="frequency"><strong>Frequency</strong></label>
+                                            <select
+                                                    [ngClass]="{ 'is-invalid': (submitted ) && formControls.frequency.errors }"
+                                                    class="custom-select" formControlName="frequency"
+                                                    id="frequency"
+                                                    name="frequency">
+                                                <option [ngValue]="undefined" hidden selected>Select</option>
+                                                <option value="DAY">Day(s)</option>
+                                                <option value="MONTH">Month(s)</option>
+                                                <option value="QUARTER">Quarter(s)</option>
+                                                <option value="YEAR">Year(s)</option>
+                                            </select>
+                                            <div *ngIf="(submitted) && formControls.frequency.invalid"
+                                                 class="invalid-feedback">
+                                                <span *ngIf="formControls.frequency.errors.required">Frequency is required</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="customSelected">
+                                        <div class="form-group">
+                                            <label class="title" for="condition"><strong>Condition</strong></label>
+                                            <select
+                                                    [ngClass]="{ 'is-invalid': (submitted ) && formControls.condition.errors }"
+                                                    class="custom-select" formControlName="condition"
+                                                    id="condition"
+                                                    name="condition">
+                                                <option [ngValue]="undefined" hidden selected>Select</option>
+                                                <option value="FROM THE DATE OF APPROVAL">From the date of approval</option>
+                                                <option value="FROM THE DATE OF INITIATION OF LOAN">From the date of
+                                                    initiation of loan
+                                                </option>
+                                                <option value="FROM EACH DEAL">From each deal</option>
+                                                <option value="FROM THE DATE OF IMPLEMENTATION">From the date of implementation</option>
+                                            </select>
+                                            <div *ngIf="(submitted) && formControls.condition.invalid"
+                                                 class="invalid-feedback">
+                                                <span *ngIf="formControls.condition.errors.required">Condition is required</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
 
                                 <!--                end of Moratorium Period amount div-->
                                 <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
