@@ -26,7 +26,6 @@ import {DocumentService} from '../../../admin/component/document/document.servic
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
-import {CombinedLoan} from '../../model/combined-loan';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
@@ -50,7 +49,7 @@ import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DocStatus} from '../../model/docStatus';
-import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
+import {CombinedLoan} from '../../model/combined-loan';
 
 @Component({
     selector: 'app-loan-summary',
@@ -537,9 +536,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             loanHolderId: customerInfoId.toString(),
             isStaged: 'true'
         };
-        this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
-            .toPromise().then(async (res: any) => {
-                this.customerAllLoanList = await res.detail;
+        this.customerLoanService.getLoansByLoanHolderId(customerInfoId).subscribe({
+            next: (res: any) => {
+                this.customerAllLoanList = res.detail;
+            },
+            error: (err) => {
+
+            },
+            complete: () => {
                 // push current loan if not fetched from staged spec response
                 if (ObjectUtil.isEmpty(this.requestedLoanType) && this.customerAllLoanList.length > 0) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
@@ -558,27 +562,55 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
                 if (combinedLoans.length > 0) {
                     const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
-                        (response.detail as CombinedLoan).loans.forEach((cl) => {
-                            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
-                            if (!allLoanIds.includes(cl.id)) {
-                                this.customerAllLoanList.push(cl);
-                            }
-                        });
-                    }, err => {
-                        console.error(err);
-                    }).finally( () => {
-                        this.loaded = true;
+                    this.combinedLoanService.detail(combinedLoanId).subscribe({
+                        next: (res) => {
+                            (res.detail as CombinedLoan).loans.forEach((cl) => {
+                                const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+                                if (!allLoanIds.includes(cl.id)) {
+                                    this.customerAllLoanList.push(cl);
+                                }
+                            });
+                        },
+                        error: (err) => {
+
+                        },
+                        complete: () => {
+                            this.loaded = true;
+                        }
                     });
                 } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id ||
+                        (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
                     this.loaded = true;
                 }
-            this.spinnerService.hide();
-        }, error => {
-            this.spinnerService.hide();
-            console.error(error);
-            });
+                if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+                        this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.documentStatus.toString() !== 'APPROVED');
+                        this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.combinedLoan.id === this.loanDataHolder.combinedLoan.id);
+                    } else {
+                        this.customerAllLoanList = [];
+                        this.customerAllLoanList.push(this.loanDataHolder);
+                    }
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+                        this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
+                            if (e.docStatus.toString() === 'APPROVED') {
+                                const loan = new LoanDataHolder();
+                                const prop = new Proposal();
+                                prop.data = e.proposalData;
+                                prop.proposedLimit = e.originalLimit;
+                                loan.proposal = prop;
+                                loan.loan = e.loanConfig;
+                                loan.documentStatus = DocStatus.APPROVED;
+                                loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                                this.customerAllLoanList.push(loan);
+                            }
+                        });
+                    }
+                }
+
+                this.spinnerService.hide();
+            }
+        });
     }
 
     download(i) {

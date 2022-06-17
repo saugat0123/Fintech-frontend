@@ -96,30 +96,6 @@ export class ProposalSummaryComponent implements OnInit {
     public setToggled() {
         if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
             this.loanDatas = [];
-            if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-                if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.documentStatus.toString() !== 'APPROVED');
-                    this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.combinedLoan.id === this.loanDataHolder.combinedLoan.id);
-                } else {
-                    this.customerAllLoanList = [];
-                    this.customerAllLoanList.push(this.loanDataHolder);
-                }
-                if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
-                    this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
-                        if (e.docStatus.toString() === 'APPROVED') {
-                            const loan = new LoanDataHolder();
-                            const prop = new Proposal();
-                            prop.data = e.proposalData;
-                            prop.proposedLimit = e.originalLimit;
-                            loan.proposal = prop;
-                            loan.loan = e.loanConfig;
-                            loan.documentStatus = DocStatus.APPROVED;
-                            loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
-                            this.customerAllLoanList.push(loan);
-                        }
-                    });
-                }
-            }
             this.customerAllLoanList.forEach((d, i) => {
                 const loan = d.loan;
                 const toggle = {
