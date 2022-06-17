@@ -10,8 +10,11 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
-import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {DocStatus} from '../../loan/model/docStatus';
+import {
+  CollateralSiteVisitService
+} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
 @Component({
@@ -30,10 +33,14 @@ export class AllDocumentViewComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   hidePreviewButton = false;
   documentName;
+  fixedAssetsData = [];
+  colSiteVisitDocument = [];
+  fileType = '.jpg';
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
               private documentService: DocumentService,
+              private collateralSiteVisitService: CollateralSiteVisitService,
   ) {
   }
 
@@ -47,8 +54,6 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
       }
-    }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
         this.loanDataHolder.insurance.forEach(value => {
           if (value.policyDocumentPath) {
@@ -56,6 +61,52 @@ export class AllDocumentViewComponent implements OnInit {
             this.minOneInsuranceDoc = true;
           }
         });
+      }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        const securityId = this.loanDataHolder.security.id;
+        const securityData = JSON.parse(this.loanDataHolder.security.data);
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          const doc = this.loanDataHolder.collateralSiteVisits;
+          if (doc.length > 0) {
+            doc.forEach(d => {
+              if (!ObjectUtil.isEmpty(d.siteVisitDocuments)) {
+                d.siteVisitDocuments.forEach(sv => {
+                  this.colSiteVisitDocument.push(sv);
+                });
+              }
+            });
+          }
+        } else {
+          if (securityData['selectedArray'] !== undefined) {
+            // land security
+            securityData['selectedArray'].filter(f => {
+              if (f.indexOf('LandSecurity') !== -1) {
+                securityData['initialForm']['landDetails'].forEach((ld, index) => {
+                  this.getFixedAssetsCollateral('Land Security ' + (index + 1),
+                      securityId, ld.uuid);
+                });
+              }
+            });
+            // apartment security
+            securityData['selectedArray'].filter(f => {
+              if (f.indexOf('ApartmentSecurity') !== -1) {
+                securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
+                  this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1),
+                      securityId, appart.uuid);
+                });
+              }
+            });
+            // land and building security
+            securityData['selectedArray'].filter(f => {
+              if (f.indexOf('Land and Building Security') !== -1) {
+                securityData['initialForm']['landBuilding'].forEach((ld, index) => {
+                  this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1),
+                      securityId, ld.uuid);
+                });
+              }
+            });
+          }
+        }
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -88,6 +139,8 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   previewOfferLetterDocument(url: string, name: string): void {
+    console.log('url', url);
+    console.log('name', name);
     const link = document.createElement('a');
     link.target = '_blank';
     link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
@@ -121,7 +174,7 @@ export class AllDocumentViewComponent implements OnInit {
         }
       }
       // Collateral SiteVisit Document
-      const siteVisitDocument = this.siteVisitDocument;
+      const siteVisitDocument = this.colSiteVisitDocument;
       if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
           docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
@@ -182,6 +235,39 @@ export class AllDocumentViewComponent implements OnInit {
     } else {
       this.hidePreviewButton = false;
     }
+  }
+
+  getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
+        .subscribe((response: any) => {
+          if (response.detail.length > 0) {
+            response.detail.forEach(rd => {
+              this.fixedAssetsData.push(rd);
+            });
+          }
+          console.log('fixedAssetsData 123123', this.fixedAssetsData);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+        }, () => {
+          const doc = new Set();
+          this.colSiteVisitDocument = [];
+          this.fixedAssetsData.forEach(fd => {
+            if (fd.siteVisitDocuments.length > 0) {
+              doc.add(fd.siteVisitDocuments);
+            }
+          });
+          console.log('doc', doc);
+          if (doc.size > 0) {
+            doc.forEach(d => {
+              d.forEach(cd => {
+                this.colSiteVisitDocument.push(cd);
+              });
+            });
+          }
+          console.log('After Complete siteVisitDocument', this.colSiteVisitDocument);
+        });
+
   }
 
 }
