@@ -6,4 +6,6 @@ class ExistingExposure {
     loanType: string;
     loanName: string;
     loanConfig: any;
+    docStatus: any;
+    originalLimit: number;
 }

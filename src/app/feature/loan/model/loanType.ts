@@ -28,6 +28,9 @@ export namespace LoanType {
         });
         return enums;
     }
+    export function getKeyByValue(enumValue) {
+        return Object.keys(LoanType).find(key => LoanType[key] === enumValue);
+    }
 }
 
 

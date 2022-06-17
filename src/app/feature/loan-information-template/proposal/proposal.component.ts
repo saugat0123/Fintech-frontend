@@ -148,6 +148,7 @@ export class ProposalComponent implements OnInit {
     customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
+    existingExpo = [];
 
 
     constructor(private formBuilder: FormBuilder,
@@ -296,6 +297,9 @@ export class ProposalComponent implements OnInit {
                     .forEach((l) => this.combinedLoansIds.push(l.id));
             }
         });
+        // if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
+        //     this.existingExpo = this.customerInfo.existingExposures.filter((d) => d.loanName.toLocaleLowerCase() === this.loan.loan.name.toLocaleLowerCase() && d.loanConfig.loanNature === 'Revolving');
+        // }
     }
 
     getLoanData() {
@@ -1141,5 +1145,8 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('endUseOfFund').setValue(formDataForEdit.endUseOfFund);
         this.proposalForm.get('justificationChangeHistorical').setValue(formDataForEdit.justificationChangeHistorical);
         this.proposalForm.get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
+    }
+    patchValue(data) {
+        this.proposalForm.patchValue(JSON.parse(data));
     }
 }

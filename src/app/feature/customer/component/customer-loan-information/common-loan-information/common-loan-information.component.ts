@@ -8,7 +8,6 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {LoanType} from '../../../../loan/model/loanType';
 
 @Component({
     selector: 'app-common-loan-information',
@@ -77,7 +76,9 @@ export class CommonLoanInformationComponent implements OnInit {
                 proposalData: this.formBuilder.group(JSON.parse(e.proposalData)),
                 loanType: [e.loanType],
                 loanName: [e.loanName],
+                originalLimit: [e.originalLimit]
             }));
+            this.commonLoanForm.get(['data', i , 'proposalData']).get('existingLimit').patchValue(e.originalLimit);
             this.setCondition(i);
             this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
                 .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
@@ -122,6 +123,7 @@ export class CommonLoanInformationComponent implements OnInit {
         const formArray = (this.commonLoanForm.get('data'));
         formArray.value.forEach((d, i) => {
             this.commonLoans[i].proposalData = JSON.stringify(d.proposalData);
+            this.commonLoans[i].originalLimit = Number(d.proposalData.existingLimit);
         });
     }
 
@@ -188,8 +190,8 @@ export class CommonLoanInformationComponent implements OnInit {
 
     checkCustomRepaymentMode(i) {
         if (this.conditionalArray[i].showRepaymentMode) {
-        this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModePrincipal').value, 'PRINCIPAL', i);
-        this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModeInterest').value, 'INTEREST', i);
+            this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModePrincipal').value, 'PRINCIPAL', i);
+            this.calculateRepaymentModeAmounts(this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentModeInterest').value, 'INTEREST', i);
         }
     }
 
@@ -209,6 +211,7 @@ export class CommonLoanInformationComponent implements OnInit {
             this.conditionalArray[i].showInterestAmount = true;
         }
     }
+
     calculateInterestAmountForRepaymentMode(i) {
         const proposeLimit = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').value);
         const interestRate = Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate').value);
