@@ -1,4 +1,6 @@
+<script src="detail-view-of-individual.component.ts"></script>
 <section class="enable-print summary">
+    <div id="print-block">
 <div>
     <app-proposal-summary *ngIf="loanDataHolder?.proposal"
                           [customerAllLoanList]="customerAllLoanList"
@@ -317,4 +319,5 @@
 
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
+    </div>
 </section>
