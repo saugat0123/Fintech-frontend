@@ -15,7 +15,9 @@ export class NrbStatutoryRemarksStatusComponent implements OnInit {
   ngOnInit() {
       const data =  JSON.parse(this.loanDataHolder.loanHolder.data);
       if (!ObjectUtil.isEmpty(data)) {
-          this.commentData = JSON.parse(data.data);
+          if (!ObjectUtil.isEmpty(data.data)) {
+              this.commentData = JSON.parse(data.data);
+          }
       }
   }
 

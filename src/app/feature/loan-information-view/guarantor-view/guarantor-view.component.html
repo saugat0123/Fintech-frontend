@@ -1,17 +1,16 @@
-<div *ngIf="guarantorData?.length > 0" class="row">
-    <div class="col-md-12 text-center">
-        <p class="text-center"><strong>Personal Guarantor Details</strong></p>
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+ <p><strong>15.2 Personal Guarantor Details</strong></p>
+    <div *ngIf="guarantorData?.length > 0" class="col-md-12 row">
+    <table class=" table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
             <thead>
             <!--      <tr *ngFor="let guarantor of personalGuarantorData; let i= index">-->
             <!--        <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>-->
             <!--      </tr>-->
             <tr class="text-white sb-bg-dark">
                 <th class="sn" rowspan="2">SN</th>
-                <th rowspan="2">Guarantor Name</th>
+                <th rowspan="2">Guarantors Name</th>
                 <th rowspan="2">Relation/Position</th>
                 <th colspan="2">CitizenNumber</th>
-                <th rowspan="2">Guarantor Amount</th>
+                <th rowspan="2">Guarantee Amount</th>
                 <th colspan="2">RNW*</th>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -36,8 +35,10 @@
             </tr>
             </tbody>
         </table>
+    </div>
 
-        <p class="text-center"><strong>Corporate Guarantor Details</strong></p>
+    <p><strong>15.3 Corporate Guarantor Details</strong></p>
+      <div *ngIf="guarantorData?.length > 0" class="col-md-12 row">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
             <thead>
             <!--      <tr>-->
@@ -70,6 +71,4 @@
             </tr>
             </tbody>
         </table>
-        `
     </div>
-</div>

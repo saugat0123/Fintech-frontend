@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
     selector: 'app-home-loan-compliance-status',
@@ -8,7 +7,7 @@ import {LoanDataHolder} from '../../loan/model/loanData';
     styleUrls: ['./home-loan-compliance-status.component.scss']
 })
 export class HomeLoanComplianceStatusComponent implements OnInit {
-    @Input() loanHolderData: LoanDataHolder;
+    @Input() loanHolderData;
     @Input() landSecurityDetails;
     financialData;
     proposal;
