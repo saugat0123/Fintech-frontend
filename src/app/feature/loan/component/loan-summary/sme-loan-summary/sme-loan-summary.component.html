@@ -131,12 +131,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
+          <!--  <div class="col mt-3 disable-print" style="margin-left: -2.3rem;">
                 <div class="col-md-6">
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
                             (click)="detailViewCheck()">{{!isDetailedView ? "DETAILED VIEW" : "EXECUTIVE SUMMARY"}}</button>
                 </div>
-            </div>
+            </div>-->
 
             <hr class="print-line disable-print">
             <ng-container *ngIf="loanDataHolder?.loanHolder?.crgCcbl">
@@ -175,7 +175,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="!isSaneView && !isAboveTenMillion && !isUpToTenMillion">
+            <ng-container>
                 <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [isDetailedView]="isDetailedView"
@@ -235,11 +235,6 @@
 <!--                                <app-security-tagged-view [loanDataHolder]="loanDataHolder"></app-security-tagged-view>-->
                                 <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
                                                      [loanDataHolder]="loanDataHolder"></app-retail-security>
-<!--                                <app-security-view [shareSecurityData]="loanDataHolder?.shareSecurity"-->
-<!--                                                   [securityId]="loanDataHolder?.security?.id"-->
-<!--                                                   [security]="loanDataHolder?.security" [docStatus]="loanDataHolder?.documentStatus"-->
-<!--                                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>-->
-                                <!--                                <app-sana-security-arrangement [loanDataHolder]="loanDataHolder"></app-sana-security-arrangement>-->
                             </li>
                             <!--                            Insurance Deatils-->
                             <li *ngIf="loanDataHolder?.insurance">

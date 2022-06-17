@@ -3,6 +3,7 @@ import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
 import {ToastService} from '../../../@core/utils';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-financial-view',
@@ -27,16 +28,20 @@ export class FinancialViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.formData !== undefined) {
+    if (!ObjectUtil.isEmpty(this.formData)) {
       this.financialData = JSON.parse(this.formData.data);
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION ) {
         this.isBusinessLoan = true;
       }
     }
-    if (this.data !== undefined) {
+    if (!ObjectUtil.isEmpty(this.data)) {
       this.initialData = JSON.parse(this.data.data);
     }
-    this.auditorList = this.financialData.auditorList;
+    if (!ObjectUtil.isEmpty(this.financialData)) {
+      if (!ObjectUtil.isEmpty(this.financialData.auditorList)) {
+        this.auditorList = this.financialData.auditorList;
+      }
+    }
   }
 
   changeActiveTab(tabs: QueryList<any>) {
