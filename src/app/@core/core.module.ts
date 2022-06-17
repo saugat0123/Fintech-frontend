@@ -20,6 +20,7 @@ import {FormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
+import { SafePipe } from './pipe/safe.pipe';
 
 
 const DATA_SERVICES = [];
@@ -62,7 +63,8 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         ...UTILITY_MODULES,
         LoginPopUp,
-        NepaliNumberPipe
+        NepaliNumberPipe,
+        SafePipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -78,7 +80,8 @@ const UTILITY_MODULES = [
         NepaliPercentWordPipe,
         NepaliCurrencyWordPipe,
         LoginPopUp,
-        NepaliNumberPipe
+        NepaliNumberPipe,
+        SafePipe
 
     ], entryComponents: [LoginPopUp]
 })
