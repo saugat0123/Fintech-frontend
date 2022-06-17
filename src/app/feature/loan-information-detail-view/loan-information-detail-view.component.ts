@@ -138,34 +138,38 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
             }
             if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
                 const securityData = JSON.parse(this.loanDataHolder.security.data);
-                if (securityData['selectedArray'] !== undefined) {
-                    // land security
-                    securityData['selectedArray'].filter(f => {
-                        if (f.indexOf('LandSecurity') !== -1) {
-                            securityData['initialForm']['landDetails'].forEach((ld, index) => {
-                                this.getFixedAssetsCollateral('Land Security ' + (index + 1),
-                                    this.loanDataHolder.security.id, ld.uuid);
-                            });
-                        }
-                    });
-                    // apartment security
-                    securityData['selectedArray'].filter(f => {
-                        if (f.indexOf('ApartmentSecurity') !== -1) {
-                            securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
-                                this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1),
-                                    this.loanDataHolder.security.id, appart.uuid);
-                            });
-                        }
-                    });
-                    // land and building security
-                    securityData['selectedArray'].filter(f => {
-                        if (f.indexOf('Land and Building Security') !== -1) {
-                            securityData['initialForm']['landBuilding'].forEach((ld, index) => {
-                                this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1),
-                                    this.loanDataHolder.security.id, ld.uuid);
-                            });
-                        }
-                    });
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.fixedAssetsData = this.loanDataHolder.collateralSiteVisits;
+                } else {
+                    if (securityData['selectedArray'] !== undefined) {
+                        // land security
+                        securityData['selectedArray'].filter(f => {
+                            if (f.indexOf('LandSecurity') !== -1) {
+                                securityData['initialForm']['landDetails'].forEach((ld, index) => {
+                                    this.getFixedAssetsCollateral('Land Security ' + (index + 1),
+                                        this.loanDataHolder.security.id, ld.uuid);
+                                });
+                            }
+                        });
+                        // apartment security
+                        securityData['selectedArray'].filter(f => {
+                            if (f.indexOf('ApartmentSecurity') !== -1) {
+                                securityData['initialForm']['buildingDetails'].forEach((appart, ind) => {
+                                    this.getFixedAssetsCollateral('Apartment Security ' + (ind + 1),
+                                        this.loanDataHolder.security.id, appart.uuid);
+                                });
+                            }
+                        });
+                        // land and building security
+                        securityData['selectedArray'].filter(f => {
+                            if (f.indexOf('Land and Building Security') !== -1) {
+                                securityData['initialForm']['landBuilding'].forEach((ld, index) => {
+                                    this.getFixedAssetsCollateral('Land And Building Security ' + (index + 1),
+                                        this.loanDataHolder.security.id, ld.uuid);
+                                });
+                            }
+                        });
+                    }
                 }
             }
 

@@ -1,7 +1,6 @@
-import {Component, DoCheck, Input, IterableDiffers, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {flatten} from '@angular/compiler';
 import {
   CollateralSiteVisit
 } from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
@@ -29,7 +28,8 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
   iterableDiffer;
 
   constructor(private iterableDiffers: IterableDiffers) {
-    this.iterableDiffer = iterableDiffers.find([]).create(null);}
+    this.iterableDiffer = iterableDiffers.find([]).create(null);
+  }
 
   ngOnInit() {
     this.random = Math.floor(Math.random() * 100) + 1;
@@ -56,32 +56,38 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
       this.siteVisitDocuments = [];
       this.collateralSiteVisits = [];
       if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
-          // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
-          let map = new Map();
-          this.fixedAssetsData.forEach(f => {
-            const securityName = f.securityName;
-            if (!map.has(securityName)) {
-              this.collateralSiteVisits.push(f);
-            }
-            map.set(securityName, securityName);
-          });
+        // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
+        const map = new Map();
+        this.fixedAssetsData.forEach(f => {
+          const securityName = f.securityName;
+          if (!map.has(securityName)) {
+            this.collateralSiteVisits.push(f);
+          }
+          map.set(securityName, securityName);
+        });
         const siteVisitDoc = [];
         this.collateralSiteVisits.forEach(f => {
           const doc = [];
-          if (f.siteVisitDocuments.length > 0) {
+          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
             f.siteVisitDocuments.forEach((sv: SiteVisitDocument) => {
               if (sv.isPrintable === this.isPrintable) {
                 doc.push(sv);
               }
             });
           }
-            siteVisitDoc.push(doc);
+          siteVisitDoc.push(doc);
         });
         this.siteVisitDocuments = siteVisitDoc;
-        this.collateralSiteVisits.filter(item => {
-          this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-        });
-
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          const collateralData = this.collateralSiteVisits.reverse();
+          collateralData.filter(item => {
+            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+          });
+        } else {
+          this.collateralSiteVisits.filter(item => {
+            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+          });
+        }
       }
     }
   }
