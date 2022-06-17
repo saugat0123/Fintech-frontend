@@ -257,6 +257,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.companyInfo = this.loanData.companyInfo;
       this.tempData = JSON.parse(this.companyInfo.companyJsonData);
     }
+    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
+      this.isSaneView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
+      this.isUpToTenMillion = true;
+    } else {
+      this.isAboveTenMillion = true;
+    }
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
@@ -717,25 +724,26 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     };
     // @ts-ignore
     this.dialogRef = this.nbDialogService
-        .open(ApprovalRoleHierarchyComponent, {
-          context,
-        })
-        .onClose.subscribe((res: any) => {
-          this.activatedRoute.queryParams.subscribe((res) => {
-            this.loanConfigId = res.loanConfigId;
-            this.customerId = res.customerId;
-          });
-          this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then((value) => {
-            if (value) {
-              this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                  loanConfigId: this.loanConfigId,
-                  customerId: this.customerId,
-                },
-              });
-            }
-          });
+      .open(ApprovalRoleHierarchyComponent, {
+        context,
+      })
+      .onClose.subscribe((res: any) => {
+          // tslint:disable-next-line:no-shadowed-variable
+        this.activatedRoute.queryParams.subscribe((res) => {
+          this.loanConfigId = res.loanConfigId;
+          this.customerId = res.customerId;
         });
+        this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then((value) => {
+          if (value) {
+            this.router.navigate(['/home/loan/summary'], {
+              queryParams: {
+                loanConfigId: this.loanConfigId,
+                customerId: this.customerId,
+              },
+            });
+          }
+        });
+      });
   }
 
   public close() {

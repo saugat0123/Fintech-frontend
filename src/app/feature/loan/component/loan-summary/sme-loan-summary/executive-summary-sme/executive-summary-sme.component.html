@@ -29,53 +29,44 @@
                 <!-- Proposal-view of the customer -->
                 <p>
                     <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong><br>
-                    <app-proposal-summary *ngIf="loanDataHolder?.proposal"
+                    <app-proposal-summary *ngIf="loanDataHolder?.proposal else noCurrentStatus"
                                           [loanDataHolder]="loanDataHolder"
                                           [customerAllLoanList]="customerAllLoanList"
                                           [proposalData]="loanDataHolder?.proposal"></app-proposal-summary>
+                    <ng-template #noCurrentStatus>Not Available</ng-template>
                 </p>
             </li>
-            <li *ngIf="loanDataHolder?.security">
+            <li>
                 <!-- Security Summary -->
                 <p>
                     <strong>SECURITY ARRANGEMENT</strong><br>
-                    <app-retail-security [security]="loanDataHolder?.loanHolder?.security"
+                    <app-retail-security *ngIf="loanDataHolder?.security else noSecurity"
+                                         [security]="loanDataHolder?.loanHolder?.security"
                                          [loanDataHolder]="loanDataHolder"></app-retail-security>
-
-<!--                    <app-security-summary *ngIf="loanDataHolder?.security"-->
-<!--                                          [shareSecurity]="shareSecurityData"-->
-<!--                                          [formData]="securityData"-->
-<!--                                          [securityId]="loanDataHolder?.security?.id"-->
-<!--                                          [collateralData]="loanDataHolder?.collateralSiteVisits"-->
-<!--                                          [docStatus]="loanDataHolder?.documentStatus"> </app-security-summary>-->
+                    <ng-template #noSecurity>Not Available</ng-template>
                 </p>
             </li>
-            <li *ngIf="financialCCBL?.data?.financialFigure">
+            <li>
                 <!-- Key financial -->
-                <p>
-                    <strong>KEY FINANCIAL FIGURES</strong><br>
-                </p>
-                <br>
-                <div class="row">
+                <strong>KEY FINANCIAL FIGURES</strong><br>
+                <div class="row" *ngIf="financialCCBL?.data?.financialFigure else noKey">
+                    <br>
                     <div class="col-md-12">
                         <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
                     </div>
                 </div>
-                <br>
-
-                <!--                    <app-financial-summary *ngIf="loanDataHolder?.financial"-->
-                <!--                                           [formData]="loanDataHolder?.financial"-->
-                <!--                                           [loanType]="loanDataHolder?.loanCategory"> </app-financial-summary>-->
+                <ng-template #noKey>Not Available</ng-template>
             </li>
 
-            <li *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">
-                <!-- group position -->
+            <li>
+                <!-- group position-->
                 <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
                 as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
-                ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b>
-                <app-m-group-summary
+                ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b><br>
+                <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo else noGroup"
                         [customerCategory]="'executing'"
                         [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                <ng-template #noGroup>Not Available</ng-template>
             </li>
 
             <li>
