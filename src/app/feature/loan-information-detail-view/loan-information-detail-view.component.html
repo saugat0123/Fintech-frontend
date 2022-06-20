@@ -184,14 +184,6 @@
                                    (documents)="checkSiteVisitDocument($event)"></app-gamma-detail-view>
 
             <!-- Micro Detail View-->
-            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
-                                             [calendarType]="calendarType"
-                                             [customerAllLoanList]="customerAllLoanList"
-                                             [fiscalYearArray]="fiscalYearArray"
-                                             [loanDataHolder]="loanDataHolder"
-                                             [loanHolder]="loanHolder"
-                                             [loanId]="id"
-                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
 
             <!-- Alpha or ICFC Summay Page-->
             <app-alpha-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName?.ALPHA)"

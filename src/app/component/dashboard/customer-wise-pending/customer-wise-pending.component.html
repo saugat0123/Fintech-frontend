@@ -291,14 +291,12 @@
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
                 <td>{{previous?.docAction}}</td>
-                <td colspan="6"><span [innerHTML]="customSafePipe(previous.comment)"></span></td>
             </tr>
             <tr>
                 <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{model?.currentStage?.fromUser?.name}}</td>
                 <td>{{model?.currentStage?.toUser.name}}</td>
                 <td>{{model?.currentStage?.docAction}}</td>
-                <td colspan="6"><span [innerHTML]="customSafePipe(model?.currentStage?.comment)"></span></td>
 
             </tr>
             <tr>
