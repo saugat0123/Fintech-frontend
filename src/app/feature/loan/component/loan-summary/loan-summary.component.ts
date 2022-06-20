@@ -593,7 +593,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     }
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
                         this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
-                            if (e.docStatus.toString() === 'APPROVED') {
+                            if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id) {
                                 const loan = new LoanDataHolder();
                                 const prop = new Proposal();
                                 prop.data = e.proposalData;
