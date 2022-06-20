@@ -30,7 +30,7 @@
                     </app-tag-cbs-customer>
                 </div>
                 <div *ngIf="sbsGroupEnabled">
-                    <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
+                    <button [disabled]="!isEditable"  [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
                             [nbPopoverPlacement]="'left'">
                         Groups
                         <nb-icon icon="arrow-down-outline"></nb-icon>
