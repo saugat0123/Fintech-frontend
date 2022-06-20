@@ -174,7 +174,7 @@
                                     </thead>
                                     <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
                                     <tr *ngIf="singleDoc?.docPath">
-                                        <td>{{i + 1}}</td>
+                                        <td class="sub-header">{{i + 1}}</td>
                                         <td class="text-left pl-1 sub-header">{{singleDoc?.name}}</td>
                                         <td class="text-left pl-1 sub-header">Net Worth Document</td>
                                         <td>
@@ -193,11 +193,11 @@
                                 <table
                                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                     <thead>
-                                    <tr class="text-white sb-bg-dark sub-header">
-                                        <th>Name</th>
-                                        <th>Undivided Family Member</th>
-                                        <th>Age</th>
-                                        <th>Occupation</th>
+                                    <tr class="text-white sb-bg-dark">
+                                        <th class="sub-header">Name</th>
+                                        <th class="sub-header">Undivided Family Member</th>
+                                        <th class="sub-header">Age</th>
+                                        <th class="sub-header">Occupation</th>
 
 
                                     </tr>
@@ -417,7 +417,7 @@
             <div class="col-md-12">
                 <hr class="print-line">
                 <p><strong class="header">Security Offered</strong></p>
-                <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
+                <p><label *ngFor="let security of securities; let i = index" class="sub-header">{{i + 1}}
                     . {{Security[security]}}&nbsp;&nbsp;</label>
                 </p>
             </div>
@@ -474,7 +474,7 @@
         <div class="row">
             <div class="col-md-12">
                 <hr class="print-line">
-                <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left"
+                <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left sub-header"
                                                                                      style="display: flex"
                                                                                      [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
                 </p>
@@ -488,15 +488,15 @@
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
                         <thead>
-                        <tr class="text-white sb-bg-dark sub-header">
-                            <th>S.N</th>
-                            <th>Document</th>
-                            <th>Checked</th>
+                        <tr class="text-white sb-bg-dark">
+                            <th class="sub-header">S.N</th>
+                            <th class="sub-header">Document</th>
+                            <th class="sub-header">Checked</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
-                            <td>{{i + 1}}</td>
+                            <td class="sub-header">{{i + 1}}</td>
                             <td class="text-left pl-1 fontSize">{{singleDoc?.document?.name}}</td>
                             <td class="sub-header">
                                 <i class="fas fa-check" *ngIf="singleDoc?.documentPath"></i>
@@ -514,12 +514,12 @@
             <table
                     class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th>Credit Risk Grading (Flavour)</th>
-                    <th>Credit Risk Grade</th>
-                    <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
-                    <th>Credit Risk Score</th>
-                    <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
+                <tr class="text-white sb-bg-dark">
+                    <th class="sub-header">Credit Risk Grading (Flavour)</th>
+                    <th class="sub-header">Credit Risk Grade</th>
+                    <th class="sub-header" *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
+                    <th class="sub-header">Credit Risk Score</th>
+                    <th class="sub-header" *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -550,20 +550,20 @@
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white sub-header">
-                            <th>S.N</th>
-                            <th>Date</th>
-                            <th>From User</th>
+                        <tr class="sb-bg-dark text-white">
+                            <th class="sub-header">S.N</th>
+                            <th class="sub-header">Date</th>
+                            <th class="sub-header">From User</th>
 
-                            <th>To User</th>
+                            <th class="sub-header">To User</th>
 
-                            <th>Status</th>
-                            <th class="cmt-width">Remarks</th>
+                            <th class="sub-header">Status</th>
+                            <th class="cmt-width sub-header">Remarks</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
+                            <td class="sub-header">{{i + 1}}</td>
                             <td class="text-left pl-1 sub-header">
                                 {{previousList?.lastModifiedAt | date}}
                                 ({{previousList?.lastModifiedAt | engNepDate: false}})
@@ -601,7 +601,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{currentIndex + 1}}</td>
+                            <td class="sub-header">{{currentIndex + 1}}</td>
                             <td class="text-left pl-1 sub-header">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
                                 ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>

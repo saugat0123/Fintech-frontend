@@ -18,7 +18,7 @@
                 </table>
 <!--                <label>Credit Checklist-General</label>-->
                         <!--          <form [formGroup]="formGroupCheckList">-->
-                            <label><strong>Date of Checklist:</strong> </label>
+                            <label><strong class="sub-header">Date of Checklist:</strong> </label>
                             <ng-container *ngIf="fromProfile">
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
                                        class="form-control "
@@ -148,12 +148,12 @@
 
                                     </tr>
                                     <tr class="text-white sb-bg-dark">
-                                        <th class="px-2">SN</th>
-                                        <th class="px-2">Prohibition on Lending to Promoter,Shareholder and Employee</th>
+                                        <th class="px-2 sub-header">SN</th>
+                                        <th class="px-2 sub-header">Prohibition on Lending to Promoter,Shareholder and Employee</th>
                                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                                         <th *ngIf="fromProfile" class="px-2">No</th>
-                                        <th class="sub-header" *ngIf="!fromProfile" class="px-2">Yes/No</th>
-                                        <th class="width px-2">Remarks</th>
+                                        <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
+                                        <th class="width px-2 sub-header">Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -355,7 +355,7 @@
                 </table>
 <label><strong class="sub-header">This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank__________________.</strong></label>
                 <div *ngIf="client === clientName.LAXMIBANK">
-                    <label  class="sub-header"><b>AML / CFT Checklist</b></label>
+                    <label  class="sub-header"><strong class="sub-header">AML / CFT Checklist</strong></label>
                     <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                         <thead>
                         <tr  *ngIf="fromProfile">
@@ -371,8 +371,8 @@
                         <tr class="text-white sb-bg-dark">
                             <th class="px-2 sub-header">SN</th>
                             <th class="px-2 sub-header">particulars</th>
-                            <th *ngIf="fromProfile" class="px-2">Yes</th>
-                            <th *ngIf="fromProfile" class="px-2">No</th>
+                            <th *ngIf="fromProfile" class="px-2 sub-header">Yes</th>
+                            <th *ngIf="fromProfile" class="px-2 sub-header">No</th>
                             <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
                             <th class="width px-2 sub-header">Remarks</th>
                         </tr>
@@ -1406,9 +1406,9 @@
                                     </th>
 
                                 </tr>
-                                <tr class="sb-bg-dark sub-header">
-                                    <th rowspan="2">SN</th>
-                                    <th rowspan="2">Particulars</th>
+                                <tr class="sb-bg-dark">
+                                    <th rowspan="2" class="sub-header">SN</th>
+                                    <th rowspan="2" class="sub-header">Particulars</th>
                                     <th class="width text-center sub-header" colspan="3">Remarks</th>
                                 </tr>
                                 <tr *ngIf="fromProfile">

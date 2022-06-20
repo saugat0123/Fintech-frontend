@@ -9,23 +9,23 @@
 <!--                </div>-->
 
                 <div>
-                    <div class="row sb-small sub-header" ><strong>Justification of limit</strong></div>
+                    <div class="row sb-small sub-header" ><strong class="sub-header">Justification of limit</strong></div>
                     <div class="sb-small sub-header">
-                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
+                        <span class="sub-header" [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
-                    <div class="row sb-small sub-header"><strong> Disbursement criteria :</strong></div>
+                    <div class="row sb-small sub-header"><strong class="sub-header"> Disbursement criteria :</strong></div>
                     <div class="sb-small sub-header">
-                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
+                        <span class="sub-header" [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
-                    <div class="row sb-small sub-header"><strong> Repayment criteria :</strong></div>
+                    <div class="row sb-small sub-header"><strong class="sub-header"> Repayment criteria :</strong></div>
                     <div class="sb-small sub-header">
-                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
+                        <span class="sub-header" [innerHTML]="(customerAllLoanList[0]?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <hr>

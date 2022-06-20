@@ -211,6 +211,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   ngOnInit() {
     this.getLoanDataHolder();
+    console.log('this.loanDataHolder', this.loanDataHolder);
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
     }

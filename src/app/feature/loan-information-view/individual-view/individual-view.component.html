@@ -1,18 +1,18 @@
 <div *ngIf="individual && !isJointInfo" class="row">
     <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
-        <div class="col-md-12">
+        <div class="col-md-12 summary">
             <p class="header"><strong class="header">Address Verification</strong></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th colspan="6">Permanent Address</th>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="6" class="sub-header">Permanent Address</th>
                 </tr>
                 <tr>
-                    <th> Province</th>
-                    <th>District</th>
-                    <th> Municipalities</th>
-                    <th>Ward no.</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
+                    <th class="sub-header"> Province</th>
+                    <th class="sub-header">District</th>
+                    <th class="sub-header"> Municipalities</th>
+                    <th class="sub-header">Ward no.</th>
+                    <th class="sub-header">Address Line 1</th>
+                    <th class="sub-header">Address Line 2</th>
                 </tr>
                 <tr>
                     <td class="text-left pl-1 sub-header">{{individual?.province?.name}}</td>
@@ -22,16 +22,16 @@
                     <td class="text-left pl-1 sub-header">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
                     <td class="text-left pl-1 sub-header">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th colspan="6">Temporary Address</th>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="6" class="sub-header">Temporary Address</th>
                 </tr>
                 <tr>
-                    <th>Province</th>
-                    <th>District</th>
-                    <th>Municipalities</th>
-                    <th>Ward no.</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
+                    <th class="sub-header">Province</th>
+                    <th class="sub-header">District</th>
+                    <th class="sub-header">Municipalities</th>
+                    <th class="sub-header">Ward no.</th>
+                    <th class="sub-header">Address Line 1</th>
+                    <th class="sub-header">Address Line 2</th>
                 </tr>
                 <tr>
                     <td class="text-left pl-1 sub-header">{{individual?.temporaryProvince?.name}}</td>
@@ -44,10 +44,10 @@
             </table>
         </div>
     </ng-container>
-<div class="col-md-12">
+<div class="col-md-12 summary">
     <p class="header"><strong class="header">Applicant/Guarantor Profile</strong></p>
 </div>
-    <div *ngIf="!isRemit" class="borrower_class">
+    <div *ngIf="!isRemit" class="borrower_class summary">
         <p class="sub-header"><strong class="sub-header">Borrower Details</strong></p>
             <div class="col-md-12">
                 <div>
@@ -139,19 +139,19 @@
         </div>
     </div>
     <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class">
-        <div class="row">
+        <div class="row summary">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
                 <table
                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark sub-header">
-                        <th>Name</th>
-                        <th>Relation Name</th>
-                        <th>Citizenship no.</th>
-                        <th>Citizenship Issued District</th>
-                        <th>Citizenship Issued Date(AD/BS)</th>
-                        <th>Age</th>
+                    <tr class="text-white sb-bg-dark">
+                        <th class="sub-header">Name</th>
+                        <th class="sub-header">Relation Name</th>
+                        <th class="sub-header">Citizenship no.</th>
+                        <th class="sub-header">Citizenship Issued District</th>
+                        <th class="sub-header">Citizenship Issued Date(AD/BS)</th>
+                        <th class="sub-header">Age</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -173,7 +173,7 @@
         </div>
     </div>
     <ng-container *ngIf="isRemit">
-        <div class="col-md-12">
+        <div class="col-md-12 summary">
             <p class="header"><strong class="header"> Proposal</strong></p>
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
@@ -222,7 +222,7 @@
 <!--&lt;!&ndash;                </table>&ndash;&gt;-->
 <!--            </div>-->
 <!--        </div>-->
-        <div class="row mt-1" *ngIf="isRemit">
+        <div class="row mt-1 summary" *ngIf="isRemit">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header"> Financial/ Repayment Ability: Primary Source of Income</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
@@ -271,15 +271,15 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark sub-header">
-                <th colspan="2">Introduction</th>
+                <th colspan="2" class="sub-header">Introduction</th>
             </tr>
             <tr>
                 <td colspan="2" class="text-left pl-1 sub-header" [innerHTML]="individual?.introduction | safeHtml"></td>
             </tr>
             <ng-container *ngIf="individualJsonData !== null">
             <ng-container *ngIf="(individualJsonData?.checkedData)?.incomeRiskChecked">
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th colspan="2">Income Risk & Mitigation</th>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2" class="sub-header">Income Risk & Mitigation</th>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-left pl-1 sub-header"
@@ -287,8 +287,8 @@
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.securityRiskChecked">
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th colspan="2">Security Risk & Mitigation</th>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2" class="sub-header">Security Risk & Mitigation</th>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-left pl-1 sub-header"
@@ -296,8 +296,8 @@
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.successionRiskChecked">
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th colspan="2">Succession Risk & Mitigation</th>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2" class="sub-header">Succession Risk & Mitigation</th>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-left pl-1 sub-header"
@@ -316,7 +316,7 @@
         </table>
     </div>
 
-    <div class="col-md-12" *ngIf="isRemit">
+    <div class="col-md-12 summary" *ngIf="isRemit">
         <p class="sub-header"><strong class="sub-header">DBR Calculation: ( To be calculated at Base Rate +2)</strong></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -358,7 +358,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="isJointInfo" class="row">
+<div *ngIf="isJointInfo" class="row summary">
     <div class="col-md-12 text-center">
         <p class="header text-left" ><strong   class="header">Joint Details</strong></p>
         <ng-container *ngFor="let joint of jointInfo">
@@ -487,13 +487,13 @@
             <p class="header" ><strong class="header">Family Details</strong></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
                 <tbody>
-                <tr class="text-white sb-bg-dark sub-header">
-                    <th>Name</th>
-                    <th>Relation Name</th>
-                    <th>Citizenship no.</th>
-                    <th>Citizenship Issued District</th>
-                    <th>Citizenship Issued Date(AD/BS)</th>
-                    <th>Age</th>
+                <tr class="text-white sb-bg-dark">
+                    <th class="sub-header">Name</th>
+                    <th class="sub-header">Relation Name</th>
+                    <th class="sub-header">Citizenship no.</th>
+                    <th class="sub-header">Citizenship Issued District</th>
+                    <th class="sub-header">Citizenship Issued Date(AD/BS)</th>
+                    <th class="sub-header">Age</th>
                 </tr>
                 <ng-container>
                     <tr *ngFor="let infos of info?.customerRelations">
@@ -510,17 +510,17 @@
             </table>
         </ng-container>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark sub-header">
-                <th colspan="7">Permanent Address</th>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="7" class="sub-header">Permanent Address</th>
             </tr>
             <tr>
-                <th>Customer Name</th>
-                <th>Province</th>
-                <th>District</th>
-                <th>Municipalities</th>
-                <th>Ward no.</th>
-                <th>Address Line 1</th>
-                <th>Address Line 2</th>
+                <th class="sub-header">Customer Name</th>
+                <th class="sub-header">Province</th>
+                <th class="sub-header">District</th>
+                <th class="sub-header">Municipalities</th>
+                <th class="sub-header">Ward no.</th>
+                <th class="sub-header">Address Line 1</th>
+                <th class="sub-header">Address Line 2</th>
             </tr>
             <ng-container *ngFor="let jointCustomer of jointInfo">
                 <tr *ngFor="let info of jointCustomer">
@@ -533,17 +533,17 @@
                     <td class="text-left pl-1 sub-header">{{info?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
             </ng-container>
-            <tr class="text-white sb-bg-dark sub-header">
-                <th colspan="7">Temporary Address</th>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="7" class="sub-header">Temporary Address</th>
             </tr>
             <tr>
-                <th>Customer Name</th>
-                <th>Province</th>
-                <th>District</th>
-                <th>Municipalities</th>
-                <th>Ward no.</th>
-                <th>Address Line 1</th>
-                <th>Address Line 2</th>
+                <th class="sub-header">Customer Name</th>
+                <th class="sub-header">Province</th>
+                <th class="sub-header">District</th>
+                <th class="sub-header">Municipalities</th>
+                <th class="sub-header">Ward no.</th>
+                <th class="sub-header">Address Line 1</th>
+                <th class="sub-header">Address Line 2</th>
             </tr>
             <ng-container *ngFor="let jointCustomer of jointInfo">
                 <tr *ngFor="let info of jointCustomer">
@@ -559,34 +559,34 @@
         </table>
     </div>
 </div>
-<div *ngIf="isJointInfo" class="col-md-12 text-center">
+<div *ngIf="isJointInfo" class="col-md-12 text-center summary">
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tbody>
-        <tr class="text-white sb-bg-dark sub-header">
-            <th colspan="2">Introduction</th>
+        <tr class="text-white sb-bg-dark">
+            <th colspan="2" class="sub-header">Introduction</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1 sub-header" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
         </tr>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
-            <tr class="text-white sb-bg-dark sub-header">
-                <th colspan="2">Income Risk & Mitigation</th>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2" class="sub-header">Income Risk & Mitigation</th>
             </tr>
             <tr>
                 <td colspan="2" class="text-left pl-1 sub-header" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
             </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.securityRiskChecked">
-        <tr class="text-white sb-bg-dark sub-header">
-            <th colspan="2">Security Risk & Mitigation</th>
+        <tr class="text-white sb-bg-dark">
+            <th colspan="2" class="sub-header">Security Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1 sub-header" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
         </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.successionRiskChecked">
-        <tr class="text-white sb-bg-dark sub-header">
-            <th colspan="2">Succession Risk & Mitigation</th>
+        <tr class="text-white sb-bg-dark">
+            <th colspan="2" class="sub-header">Succession Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1 sub-header" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>

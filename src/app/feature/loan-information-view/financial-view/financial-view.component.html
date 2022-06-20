@@ -1,23 +1,23 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <p *ngIf="!isBusinessLoan" class="float-left sub-header"><strong>Income & Bank Obligation</strong></p>
+        <p *ngIf="!isBusinessLoan" class="float-left sub-header"><strong class="sub-header">Income & Bank Obligation</strong></p>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th colspan="6" class="sub-header">Income of Borrower/Guarantor</th>
             </tr>
-            <tr class="text-white sb-bg-dark sub-header">
-                <th class="sn">S.N</th>
-                <th>Income Source</th>
-                <th>Organization</th>
-                <th>Amount</th>
-                <th>Age Of Income Generated</th>
-                <th>Remarks</th>
+            <tr class="text-white sb-bg-dark">
+                <th class="sn sub-header">S.N</th>
+                <th class="sub-header">Income Source</th>
+                <th class="sub-header">Organization</th>
+                <th class="sub-header">Amount</th>
+                <th class="sub-header">Age Of Income Generated</th>
+                <th class="sub-header">Remarks</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let incomeOfBorrower of financialData['initialForm']['incomeOfBorrower']; let i = index;">
-                <td>{{i + 1}}</td>
+                <td class="sub-header">{{i + 1}}</td>
                 <td class="text-left pl-1 sub-header">{{incomeOfBorrower.incomeSource}}</td>
                 <td class="text-left pl-1 sub-header">{{incomeOfBorrower.organization}}</td>
                 <td class="text-right pr-1 sub-header">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
@@ -25,8 +25,8 @@
                 <td class="text-left pl-1 sub-header">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1 sub-header"><b>Total Income </b></td>
-                <td class="text-right pr-1 sub-header" colspan="3"><b>Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</b></td>
+                <td colspan="3" class="text-left pl-1 sub-header"><strong class="sub-header">Total Income </strong></td>
+                <td class="text-right pr-1 sub-header" colspan="3"><strong class="sub-header">Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</strong></td>
             </tr>
             </tbody>
         </table>
@@ -37,32 +37,32 @@
                 <th colspan="4" class="sub-header">Bank Obligation of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Particulars</th>
-                <th>Amount</th>
-                <th>Remarks</th>
+                <th class="sn sub-header">S.N</th>
+                <th class="sub-header">Particulars</th>
+                <th class="sub-header">Amount</th>
+                <th class="sub-header">Remarks</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let expensesOfBorrower of financialData['initialForm']['expensesOfBorrower']; let i = index;">
-                <td>{{i + 1}}</td>
+                <td class="sub-header">{{i + 1}}</td>
                 <td  class="text-left pl-1 sub-header">{{expensesOfBorrower.particulars}}</td>
                 <td class="text-right pr-1 sub-header">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
                 <td  class="text-left pl-1 sub-header">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td class="text-left pl-1 sub-header" colspan="2"><strong>Total Bank Obligation</strong></td>
+                <td class="text-left pl-1 sub-header" colspan="2"><strong class="sub-header">Total Bank Obligation</strong></td>
                 <td class="text-right pr-1 sub-header" colspan="2">
-                    <strong>Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
+                    <strong class="sub-header">Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
                 </td>
             </tr>
         </table>
         <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
-                <td class="text-left pl-1 sub-header" colspan="2"><strong>Net Saving</strong></td>
+                <td class="text-left pl-1 sub-header" colspan="2"><strong class="sub-header">Net Saving</strong></td>
                 <td colspan="2" class="text-right pr-1 sub-header">
-                    <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
+                    <strong class="sub-header">Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
                 </td>
             </tr>
 <!--            <tr>-->
@@ -97,26 +97,26 @@
             <tr>
                 <th colspan="7" class="sub-header">Other Detail Of Borrower</th>
             </tr>
-            <tr class="text-white sb-bg-dark sub-header">
-                <td>
+            <tr class="text-white sb-bg-dark">
+                <td class="sub-header">
                     Major Source Of Income
                 </td>
-                <td>
+                <td class="sub-header">
                   Numbers Of years
                 </td>
-                <td>
+                <td class="sub-header">
                    Alternative Source Of Income
                 </td>
-                <td>
+                <td class="sub-header">
                     Source Amount
                 </td>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td  class="text-left pl-1 sub-header">{{ financialData['initialForm']['majorSourceIncomeType']}}</td>
+                <td class="text-left pl-1 sub-header">{{ financialData['initialForm']['majorSourceIncomeType']}}</td>
                 <td class="text-right pl-1 sub-header">{{ financialData['initialForm']['periodOfEarning']}}</td>
-                <td  class="text-left pl-1 sub-header">{{ financialData['initialForm']['alternateIncomeSource']}}</td>
+                <td class="text-left pl-1 sub-header">{{ financialData['initialForm']['alternateIncomeSource']}}</td>
                 <td class="text-right pr-1 sub-header">Rs.{{ financialData['initialForm']['alternateIncomeSourceAmount'] | currencyFormatter}}</td>
               </tr>
             </tbody>
@@ -1076,7 +1076,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let project of financialData['initialForm']['projectDetailsArray']; let i = index;">
-                    <td>{{i+1}}</td>
+                    <td class="sub-header">{{i+1}}</td>
                     <td class="text-left pl-1 sub-header">{{project?.projectDescription}}</td>
                     <td class="text-right pr-1 sub-header">Rs. {{project?.projectCost}}</td>
                 </tr>

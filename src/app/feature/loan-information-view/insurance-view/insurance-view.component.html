@@ -10,20 +10,20 @@
       </tr>
       </thead>
       <thead>
-      <tr class="text-white sb-bg-dark sub-header">
-        <th>S.N</th>
-        <th>Policy Number</th>
-        <th>Assets Insured</th>
-        <th>Insured value(Amount In NRP)</th>
-        <th>Insurance Company</th>
-        <th>Premium Amount</th>
-        <th>Issued Date(AD/BS)</th>
-        <th>Expiry Date(AD/BS)</th>
+      <tr class="text-white sb-bg-dark">
+        <th class="sub-header">S.N</th>
+        <th class="sub-header">Policy Number</th>
+        <th class="sub-header">Assets Insured</th>
+        <th class="sub-header">Insured value(Amount In NRP)</th>
+        <th class="sub-header">Insurance Company</th>
+        <th class="sub-header">Premium Amount</th>
+        <th class="sub-header">Issued Date(AD/BS)</th>
+        <th class="sub-header">Expiry Date(AD/BS)</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td>{{i+1}}.</td>
+        <td class="sub-header">{{i+1}}.</td>
         <td class="text-right pr-1 sub-header">{{insurance?.policyNumber}}</td>
         <td class="text-left pl-1 sub-header">{{insurance?.assetInsured}}</td>
         <td class="text-right pr-1 sub-header">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
@@ -32,17 +32,17 @@
         <td class="text-left pl-1 sub-header">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
         <td class="text-left pl-1 sub-header">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
       </tr>
-      <tr class="text-white sb-bg-dark sub-header">
+      <tr class="text-white sb-bg-dark">
         <th></th>
-        <th colspan="7">Policy Type /Coverage</th>
+        <th colspan="7" class="sub-header">Policy Type /Coverage</th>
       </tr>
       <tr>
         <th></th>
         <td colspan="7" class="text-left pl-1 sub-header">{{insurance.policyType}}</td>
       </tr>
-      <tr class="text-white sb-bg-dark sub-header">
+      <tr class="text-white sb-bg-dark">
         <th></th>
-        <th colspan="7">Remark (if any)</th>
+        <th colspan="7" class="sub-header">Remark (if any)</th>
       </tr>
       <tr>
         <th></th>
