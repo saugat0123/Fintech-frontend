@@ -96,7 +96,7 @@
     </div>
 </div>
 <div class="col-md-12" *ngIf="customerType === 'INSTITUTION'">
-    <label>14.2.1 Income earned by the Bank: last 1 year/Avg. utilization FB limit/s: <strong>{{initialData?.initialForm.utilization}}%</strong></label>
+    <label>14.2.1 Income earned by the Bank: last 1 year/Avg. utilization FB limit/s: <strong>{{initialData?.initialForm?.utilization}} %</strong></label>
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
         <thead>
             <tr class="text-white sb-bg-dark">
@@ -113,27 +113,27 @@
         <tbody>
             <tr>
                 <td class="text-center">Customer</td>
-                <td class="text-center">{{initialData?.initialForm.interestCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.processingFeeCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.lcCommCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.bgCommCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.forexGainsCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.othersCustomer}}</td>
-                <td class="text-center">{{initialData?.initialForm.totalCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.interestCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.processingFeeCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.lcCommCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.bgCommCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.forexGainsCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.othersCustomer}}</td>
+                <td class="text-center">{{initialData?.initialForm?.totalCustomer}}</td>
             </tr>
             <tr>
                 <td class="text-center">Group Total</td>
-                <td class="text-center">{{initialData?.initialForm.interestGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.processingFeeGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.lcCommGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.bgCommGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.forexGainsGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.othersGrp}}</td>
-                <td class="text-center">{{initialData?.initialForm.totalGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.interestGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.processingFeeGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.lcCommGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.bgCommGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.forexGainsGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.othersGrp}}</td>
+                <td class="text-center">{{initialData?.initialForm?.totalGrp}}</td>
             </tr>
         </tbody>
     </table>
-    <label>14.2.2 Estimation of income for the Bank from the customer for the next one year, assuming <strong>{{initialData?.initialForm.utilization}}%</strong> utilization of the limit</label>
+    <label>14.2.2 Estimation of income for the Bank from the customer for the next one year, assuming <strong>{{initialData?.initialForm?.utilization}} %</strong> utilization of the limit</label>
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
         <thead>
         <tr class="text-white sb-bg-dark">
@@ -158,6 +158,6 @@
             </tr>
         </tbody>
     </table>
-    <label>Comments: {{initialData?.initialForm.comments}}</label>
+    <label>Comments: {{initialData?.initialForm.comments ? initialData?.initialForm.comments : 'NA'}}</label>
 </div>
 
