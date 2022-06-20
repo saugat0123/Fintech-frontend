@@ -24,9 +24,9 @@
           <tbody>
           <ng-container *ngFor="let gDoc of generalDocumentReq; let i=index">
             <tr>
-              <td>
+              <th>
                 {{i + 1}}
-              </td>
+              </th>
               <td>{{gDoc.name}}</td>
               <td>{{gDoc?.document?.displayName || 'Default' | titlecase }}</td>
               <td align="center" *ngIf="currentRoleTypeMaker">

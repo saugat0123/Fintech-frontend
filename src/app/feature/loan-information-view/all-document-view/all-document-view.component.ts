@@ -36,6 +36,7 @@ export class AllDocumentViewComponent implements OnInit {
   fixedAssetsData = [];
   colSiteVisitDocument = [];
   fileType = '.jpg';
+  customerGeneralDocument;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -62,7 +63,20 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
       }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.customerGeneralDocuments)) {
+        this.customerGeneralDocument = [];
+        const gDocSet = new Set();
+        const gDoc = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+        gDoc.forEach(g => {
+          gDocSet.add(g.document.id);
+        });
+        gDocSet.forEach(gd => {
+          const gDocument = gDoc.filter(d => d.document.id === gd);
+          this.customerGeneralDocument.push(gDocument);
+        });
+      }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
         const securityId = this.loanDataHolder.security.id;
         const securityData = JSON.parse(this.loanDataHolder.security.data);
         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
@@ -139,8 +153,6 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   previewOfferLetterDocument(url: string, name: string): void {
-    console.log('url', url);
-    console.log('name', name);
     const link = document.createElement('a');
     link.target = '_blank';
     link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
@@ -245,7 +257,6 @@ export class AllDocumentViewComponent implements OnInit {
               this.fixedAssetsData.push(rd);
             });
           }
-          console.log('fixedAssetsData 123123', this.fixedAssetsData);
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
@@ -257,7 +268,6 @@ export class AllDocumentViewComponent implements OnInit {
               doc.add(fd.siteVisitDocuments);
             }
           });
-          console.log('doc', doc);
           if (doc.size > 0) {
             doc.forEach(d => {
               d.forEach(cd => {
@@ -265,7 +275,6 @@ export class AllDocumentViewComponent implements OnInit {
               });
             });
           }
-          console.log('After Complete siteVisitDocument', this.colSiteVisitDocument);
         });
 
   }
