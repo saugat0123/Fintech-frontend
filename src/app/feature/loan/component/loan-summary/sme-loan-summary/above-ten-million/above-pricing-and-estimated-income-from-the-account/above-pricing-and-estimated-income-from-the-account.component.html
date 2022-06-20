@@ -3,44 +3,43 @@
 <div class="container mr-4">
     <div class="d-flex justify-content-between">
         <p><strong>14.1.1.	Interest (%  p.a.)</strong></p>
-        <p><strong>(Note: Base Rate: 7.77%, avg. CoF: 5.72% p.a., Chaitra end 2077)</strong></p>
     </div>
 </div>
-<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+<table class="table table-condensed text-center table-bordered table-responsive-md table-sm sb-small">
     <thead>
     <tr class="sb-bg-dark text-white">
-        <th>SN</th>
+        <th class="sn">SN</th>
         <th>Facility</th>
         <th>Card rate</th>
         <th>Existing rate</th>
         <th>Proposed rate</th>
-        <th>Proposed rate	Deviation with Card Rate</th>
+        <th>Deviation with Card Rate</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let c of customerAllLoanList; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{c?.loan?.name}}</td>
+        <td class="text-left pl-1">
+            {{(c?.proposal?.data | jsonParse)?.interestCardRate ? (c?.proposal?.data | jsonParse)?.interestCardRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.existInterestRate ? (c?.proposal?.data | jsonParse)?.existInterestRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.interestRate ? (c?.proposal?.data | jsonParse)?.interestRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.interestDevCardRate ? (c?.proposal?.data | jsonParse)?.interestDevCardRate : 'NA'}}
+        </td>
     </tr>
     </tbody>
 </table>
-<p>Interest is payable on quarterly basis, as per Nepali calendar…………. Rate of interest is subject to change as per the Bank’s decision.</p>
-<p>Penal interest: 2% additional on the overdue principal amount for the period the overdue remains.</p>
-    <div class="container">
-        <p><strong>14.1.2. Processing fee: (flat, one time; payable upfront at the time of first disbursement of the loan)</strong></p>
-    </div>
+<!--<p>Interest is payable on quarterly basis, as per Nepali calendar…………. Rate of interest is subject to change as per the Bank’s decision.</p>-->
+<!--<p>Penal interest: 2% additional on the overdue principal amount for the period the overdue remains.</p>-->
+<div class="container">
+    <p><strong>14.1.2. Processing fee: (flat, one time; payable upfront at the time of first disbursement of the loan)</strong></p>
+</div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
     <tr class="sb-bg-dark text-white">
@@ -53,21 +52,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let c of customerAllLoanList; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{c?.loan?.name}}</td>
+        <td class="text-left pl-1">
+            {{(c?.proposal?.data | jsonParse)?.processCardRate ? (c?.proposal?.data | jsonParse)?.processCardRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.processExistingRate ? (c?.proposal?.data | jsonParse)?.processExistingRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.processProposedRate ? (c?.proposal?.data | jsonParse)?.processProposedRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.processDevCardRate ? (c?.proposal?.data | jsonParse)?.processDevCardRate : 'NA'}}
+        </td>
     </tr>
     </tbody>
 </table>
@@ -84,17 +83,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>….% of the pre-paid amount, flat</td>
-        <td>….% of the pre-paid amount, flat</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let c of customerAllLoanList; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{c?.loan?.name}}</td>
+        <td class="text-left pl-1">
+            {{(c?.proposal?.data | jsonParse)?.prepaymentCardRate ?
+            (c?.proposal?.data | jsonParse)?.prepaymentCardRate + ' % of the pre-paid amount, flat' : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.prepaymentExistingRate ?
+            (c?.proposal?.data | jsonParse)?.prepaymentExistingRate + ' % of the pre-paid amount, flat' : 'NA'}}
+        </td>
     </tr>
     </tbody>
 </table>
@@ -113,29 +112,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td></td>
-        <td>LC opening</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>BG issuance</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>Others</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let c of customerAllLoanList; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{c?.loan?.name}}</td>
+        <td class="text-left pl-1">
+            {{(c?.proposal?.data | jsonParse)?.commissionsCardRate ? (c?.proposal?.data | jsonParse)?.commissionsCardRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.existCommissionPercentage ? (c?.proposal?.data | jsonParse)?.existCommissionPercentage : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.commissionPercentage ? (c?.proposal?.data | jsonParse)?.commissionPercentage : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.commissionDevCardRate ? (c?.proposal?.data | jsonParse)?.commissionDevCardRate : 'NA'}}
+        </td>
     </tr>
     </tbody>
 </table>
@@ -154,131 +145,32 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td></td>
-        <td>TR</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>LC</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>BG</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let c of customerAllLoanList; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{c?.loan?.name}}</td>
+        <td class="text-left pl-1">
+            {{(c?.proposal?.data | jsonParse)?.cashCardRate ? (c?.proposal?.data | jsonParse)?.cashCardRate : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.existCashMargin ? (c?.proposal?.data | jsonParse)?.existCashMargin : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.cashMargin ? (c?.proposal?.data | jsonParse)?.cashMargin : 'NA'}}
+        </td>
+        <td class="text-right pr-1">
+            {{(c?.proposal?.data | jsonParse)?.cashMarginDevCardRate ? (c?.proposal?.data | jsonParse)?.cashMarginDevCardRate : 'NA'}}
+        </td>
     </tr>
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.6. Forex: …. paisa discount / USD on sale; …. paisa / USD premium on purchase</strong></p>
-    <p><strong>14.1.7. CIC charge: on actual basis</strong></p>
-    <p><strong>14.1.8. STR charge: on actual basis</strong></p>
-    <p><strong>14.1.9. Commitment fee:</strong></p>
-    <p><strong>14.1.10. Other charges/fees: (Draft, ABBS, etc.)</strong></p>
+    <p><strong>14.1.6. Forex: {{loanDataHolder?.companyInfo?.capital?.forexOnSale ? loanDataHolder?.companyInfo?.capital?.forexOnSale : 'NA'}} </strong> paisa discount / USD on sale;
+        <strong>{{loanDataHolder?.companyInfo?.capital?.forexOnPurchase ? loanDataHolder?.companyInfo?.capital?.forexOnPurchase : 'NA'}}</strong>  paisa / USD premium on purchase</p>
+    <p><strong>14.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? loanDataHolder?.loanHolder?.cicl?.cibCharge : 'NA'}}</p>
+    <p><strong>14.1.8. STR charge: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.strCharge ?
+        (loanDataHolder?.proposal?.data | jsonParse)?.strCharge : 'NA'}}</p>
+    <p><strong>14.1.9. Commitment fee:</strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee ?
+        (loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee : 'NA'}}</p>
+    <p><strong>14.1.10. Other charges/fees: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.other ?
+        (loanDataHolder?.proposal?.data | jsonParse)?.other : 'NA'}}</p>
 </div>
-<p><strong>14.2. Income to the Bank</strong></p>
-<div class="container">
-    <p><strong>14.2.1. Income earned by the Bank: last 1 year / Avg. utilization FB limit/s: …%</strong></p>
-</div>
-<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-    <thead>
-    <tr class="sb-bg-dark text-white">
-        <th></th>
-        <th>Interest </th>
-        <th>Processing fee</th>
-        <th>LC comm.</th>
-        <th>BG comm.</th>
-        <th>Forex gains</th>
-        <th>Others</th>
-        <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Customer</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Group total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<div class="container">
-    <p><strong>14.2.2. Estimation of income for the Bank from the customer for the next one year, assuming ….. utilization of the ….</strong></p>
-</div>
-<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-    <thead>
-    <tr class="sb-bg-dark text-white">
-        <th>Facility</th>
-        <th>Interest</th>
-        <th>Processing fee</th>
-        <th>Comm.</th>
-        <th>Forex gains</th>
-        <th>Others</th>
-        <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<p>Comments:</p>
-

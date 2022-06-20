@@ -8,6 +8,7 @@ import {LoanDataHolder} from '../../../../../model/loanData';
 })
 export class AbovePricingAndEstimatedIncomeFromTheAccountComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() loanDataHolder: LoanDataHolder;
 
   constructor() { }
 
