@@ -542,8 +542,10 @@
               <nb-card>
                   <div class="row" style="overflow-y: auto; min-height: 100px; height: auto">
                       <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
-                          <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
+                          <app-customer-loan-document [fromProfile]="true"
+                                                      (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
                                                       [loanDataHolder]="subLoan"
+                                                      [loanId]="subLoan?.id"
                                                       [loanType]="subLoan?.loanType"></app-customer-loan-document>
                       </div>
                   </div>

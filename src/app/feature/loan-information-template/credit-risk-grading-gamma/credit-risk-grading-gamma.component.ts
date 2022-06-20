@@ -261,15 +261,17 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
 
     click(data, ans, ii) {
         this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('gammaQuestionAnswer').get(ans).patchValue(data);
-        //total point
+        // total point
         const keys = this.parseKeys(this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('gammaQuestionAnswer').value);
         let total = 0;
         keys.forEach((k) => {
-            if (!ObjectUtil.isEmpty(this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('gammaQuestionAnswer').get(k).value)) {
-                total += Number(this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('gammaQuestionAnswer').get(k).value);
+            if (!ObjectUtil.isEmpty(this.creditRiskGrading.get(['groupObject', this.creditHistory, ii])
+                .get('gammaQuestionAnswer').get(k).value)) {
+                total += Number(this.creditRiskGrading.get(['groupObject', this.creditHistory, ii])
+                    .get('gammaQuestionAnswer').get(k).value);
             }
         });
-        this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('groupTotal').patchValue(total);
+        this.creditRiskGrading.get(['groupObject', this.creditHistory, ii]).get('groupTotal').patchValue(Number(total).toFixed(2));
         this.calcFinalTotal();
     }
 
@@ -304,7 +306,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-            this.calcFinalTotal();
+        this.calcFinalTotal();
     }
 
     onClose() {

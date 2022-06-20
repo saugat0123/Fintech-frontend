@@ -57,18 +57,26 @@
                         <th *ngIf="!hidePreviewButton">Preview</th>
                         <th *ngIf="!hidePreviewButton">Download</th>
                     </tr>
-                    <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
-                        <td>{{i + 1}}</td>
-                        <td class="text-left pl-1">{{generalDoc?.docPath.substring(generalDoc?.docPath.lastIndexOf('/') + 1, generalDoc.docPath.length)}}</td>
-                        <td *ngIf="!hidePreviewButton">
-                            <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                                class="fas fa-eye"></i>
-                        </td>
-                        <td *ngIf="!hidePreviewButton">
-                            <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                               class="fas fa-download" style="cursor: pointer"></i>
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let generalDoc of customerGeneralDocument; let i = index">
+                        <tr>
+                            <th>{{i+1}}</th>
+                            <th>{{generalDoc[0]?.document?.name}}</th>
+                            <td *ngIf="!hidePreviewButton"></td>
+                            <td *ngIf="!hidePreviewButton"></td>
+                        </tr>
+                        <tr *ngFor="let gDoc of generalDoc; let j = index">
+                            <td>{{i+1}}.{{j+1}}</td>
+                            <td class="text-left pl-1">{{gDoc?.docPath.substring(gDoc?.docPath.lastIndexOf('/') + 1, gDoc.docPath.length)}}</td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="previewOfferLetterDocument(gDoc?.docPath, gDoc?.document?.displayName)"
+                                   class="fas fa-eye"></i>
+                            </td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="downloadCustomerDocument(gDoc?.docPath, gDoc?.document?.displayName)"
+                                   class="fas fa-download" style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </table>
             </div>
         </div>
@@ -87,21 +95,21 @@
                     </tr>
                     </thead>
                     <ng-container *ngFor="let singleGuarantor of taggedGuarantorWithDoc; let i = index">
-                        <tbody  *ngFor="let singleDoc of singleGuarantor.docPath.split(','); let j =  index">
-                            <tr *ngIf="singleDoc">
-                                <td>{{i + 1}}.{{j + 1}}</td>
-                                <td class="text-left pl-1">{{singleGuarantor?.name}}</td>
-                                <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
-                                <td *ngIf="!hidePreviewButton"><i
-                                        (click)="previewOfferLetterDocument(singleDoc,singleGuarantor?.name + 'Net Worth Doc')"
-                                        class="fas fa-eye"></i>
-                                </td>
-                                <td *ngIf="!hidePreviewButton">
-                                    <i (click)="downloadCustomerDocument(singleDoc, singleGuarantor?.name+' Net Worth Doc')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </td>
-                            </tr>
+                        <tbody *ngFor="let singleDoc of singleGuarantor.docPath.split(','); let j =  index">
+                        <tr *ngIf="singleDoc">
+                            <td>{{i + 1}}.{{j + 1}}</td>
+                            <td class="text-left pl-1">{{singleGuarantor?.name}}</td>
+                            <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                            <td *ngIf="!hidePreviewButton"><i
+                                    (click)="previewOfferLetterDocument(singleDoc,singleGuarantor?.name + 'Net Worth Doc')"
+                                    class="fas fa-eye"></i>
+                            </td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="downloadCustomerDocument(singleDoc, singleGuarantor?.name+' Net Worth Doc')"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
                         </tbody>
                     </ng-container>
                 </table>
@@ -123,22 +131,55 @@
                     </thead>
                     <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">
                         <tbody *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">
-                            <tr *ngIf="singleDoc">
-                                <td>{{i + 1}}.{{j + 1}}</td>
-                                <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>
-                                <td class="text-left pl-1">{{singleInsurance?.company}}</td>
-                                <td class="text-left pl-1">{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
-                                <td *ngIf="!hidePreviewButton"><i
-                                        (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"
-                                        class="fas fa-eye"></i></td>
-                                <td *ngIf="!hidePreviewButton">
-                                    <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </td>
-                            </tr>
+                        <tr *ngIf="singleDoc">
+                            <td>{{i + 1}}.{{j + 1}}</td>
+                            <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>
+                            <td class="text-left pl-1">{{singleInsurance?.company}}</td>
+                            <td class="text-left pl-1">{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                            <td *ngIf="!hidePreviewButton"><i
+                                    (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"
+                                    class="fas fa-eye"></i></td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
                         </tbody>
                     </ng-container>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="colSiteVisitDocument?.length > 0">
+            <div class="col-md-12">
+                <p><strong>Collateral Documents</strong></p>
+                <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th>SN</th>
+                        <th>Security Name</th>
+                        <th>Document Name</th>
+                        <th *ngIf="!hidePreviewButton">Preview</th>
+                        <th *ngIf="!hidePreviewButton">Download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let sd of colSiteVisitDocument; let si = index">
+                        <td class="sn">{{si}}</td>
+                        <td class="text-left pl-1">{{sd?.securityName}}</td>
+                        <td class="text-left pl-1">{{sd?.docName}}</td>
+
+                        <td *ngIf="!hidePreviewButton">
+                            <i (click)="previewOfferLetterDocument(sd?.docPath?.concat(sd?.docName)?.concat(fileType), sd?.docName)"
+                               class="fas fa-eye"></i>
+                        </td>
+                        <td *ngIf="!hidePreviewButton">
+                            <i (click)="downloadCustomerDocument(sd?.docPath?.concat(sd?.docName)?.concat(fileType), sd?.docName)"
+                               class="fas fa-download" style="cursor: pointer"></i>
+                        </td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
