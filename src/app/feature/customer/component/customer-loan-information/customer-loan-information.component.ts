@@ -171,8 +171,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     netChecked = false;
     swapChargeChecked = false;
     subsidizedLoanChecked = false;
-    loanDocument: LoanDataHolder;
-    loanTag: string;
     reviewDate;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
 
@@ -274,19 +272,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.checkCrgGamma = true;
             }
         }
-
-        this.route.queryParamMap.subscribe((q: any) => {
-            this.loanConfigService.detail(q.get('id')).subscribe(s => {
-                this.loanTag = s.detail.loanTag;
-            });
-
-            this.loanFormService.detail(q.get('id')).subscribe(
-                (response: any) => {
-                    this.loanDocument = response.detail;
-
-                });
-        });
-
     }
 
     public saveSiteVisit(data: string) {
