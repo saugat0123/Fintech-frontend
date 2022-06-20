@@ -57,18 +57,26 @@
                         <th *ngIf="!hidePreviewButton">Preview</th>
                         <th *ngIf="!hidePreviewButton">Download</th>
                     </tr>
-                    <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
-                        <td>{{i + 1}}</td>
-                        <td class="text-left pl-1">{{generalDoc?.docPath.substring(generalDoc?.docPath.lastIndexOf('/') + 1, generalDoc.docPath.length)}}</td>
-                        <td *ngIf="!hidePreviewButton">
-                            <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                               class="fas fa-eye"></i>
-                        </td>
-                        <td *ngIf="!hidePreviewButton">
-                            <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                               class="fas fa-download" style="cursor: pointer"></i>
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let generalDoc of customerGeneralDocument; let i = index">
+                        <tr>
+                            <th>{{i+1}}</th>
+                            <th>{{generalDoc[0]?.document?.name}}</th>
+                            <td *ngIf="!hidePreviewButton"></td>
+                            <td *ngIf="!hidePreviewButton"></td>
+                        </tr>
+                        <tr *ngFor="let gDoc of generalDoc; let j = index">
+                            <td>{{i+1}}.{{j+1}}</td>
+                            <td class="text-left pl-1">{{gDoc?.docPath.substring(gDoc?.docPath.lastIndexOf('/') + 1, gDoc.docPath.length)}}</td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="previewOfferLetterDocument(gDoc?.docPath, gDoc?.document?.displayName)"
+                                   class="fas fa-eye"></i>
+                            </td>
+                            <td *ngIf="!hidePreviewButton">
+                                <i (click)="downloadCustomerDocument(gDoc?.docPath, gDoc?.document?.displayName)"
+                                   class="fas fa-download" style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </table>
             </div>
         </div>
