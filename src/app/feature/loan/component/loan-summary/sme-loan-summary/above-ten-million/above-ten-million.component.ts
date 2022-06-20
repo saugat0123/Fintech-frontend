@@ -3,6 +3,7 @@ import {LoanDataHolder} from '../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
 import {CustomerCategory} from '../../../../../customer/model/customerCategory';
+import {environment} from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-above-ten-million',
@@ -26,7 +27,18 @@ export class AboveTenMillionComponent implements OnInit {
   incomeFromAccountSummary = false;
   incomeFromAccountData: any;
   financialCCBL;
-  constructor() {}
+  client: string;
+  isJointInfo = false;
+  loanCategory;
+  jointInfo = [];
+  currentDocAction = '';
+  crgGammaGrade;
+  crgGammaSummary = false;
+  crgGammaScore = 0;
+  crgGammaGradeStatusBadge;
+  constructor() {
+    this.client = environment.client;
+  }
 
   ngOnInit() {
     console.log('fixedAssetsData', this.fixedAssetsData);
@@ -48,6 +60,32 @@ export class AboveTenMillionComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
       this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
       this.incomeFromAccountSummary = true;
+    }
+    if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
+        !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+      const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+      this.isJointInfo = true;
+    }
+    this.loanCategory = this.loanDataHolder.loanCategory;
+    this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
+    // Setting credit risk GAMMA---
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
+      this.crgGammaSummary = true;
+      const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
+      if (!ObjectUtil.isEmpty(crgParsedData)) {
+        this.crgGammaGrade = crgParsedData.grade;
+      }
+      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+      if (!ObjectUtil.isEmpty(this.crgGammaGrade)) {
+        if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+          this.crgGammaGradeStatusBadge = 'badge badge-success';
+        } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+          this.crgGammaGradeStatusBadge = 'badge badge-danger';
+        } else {
+          this.crgGammaGradeStatusBadge = 'badge badge-warning';
+        }
+      }
     }
   }
 }
