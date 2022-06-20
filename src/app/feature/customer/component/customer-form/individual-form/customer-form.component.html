@@ -661,7 +661,7 @@
                                    formArrayName="customerRelatives">
                                <div [formGroupName]="i">
                                    <div class="row">
-                                       <div class="col-md-2">
+                                       <div class="col-md-3">
                                            <div class="form-group">
                                                <label for="customerRelation{{i}}"><strong>Relation</strong></label>
                                                <select class="form-control" formControlName="customerRelation"
@@ -678,7 +678,7 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div class="col-md-2">
+                                       <div class="col-md-3">
                                            <div class="form-group">
                                                <label for="relationName{{i}}"><strong>Name</strong></label>
                                                <input class="form-control" formControlName="customerRelativeName"
@@ -732,28 +732,66 @@
 <!--                                               </div>-->
 <!--                                           </div>-->
 <!--                                       </div>-->
-                                       <div class="col-md-2">
+                                       <div class="col-md-3">
+                                           <div class="form-group">
+                                               <label for="dateOfBirth{{i}}"><strong>Date of birth</strong></label>
+                                               <input [nbDatepicker]="dateOfBirth" *ngIf="calendarType === 'AD'"
+                                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dateOfBirth.errors }"
+                                                      class="form-control date-pick" formControlName="dateOfBirth"
+                                                      id="dateOfBirth{{i}}"
+                                                      name="dateOfBirth"
+                                                      placeholder="Customer Relative Date of birth"
+                                                      (ngModelChange)="calculateAge(i)">
+                                               <input *ngIf="calendarType === 'BS'" formControlName="dateOfBirth" hidden>
+                                               <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="relatives.get('dateOfBirth').value"
+                                                             (messageToEmit)="relatives.get('dateOfBirth').patchValue($event?.eDate)"></app-calendar>
+                                               <nb-datepicker #dateOfBirth></nb-datepicker>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-3">
                                            <div class="form-group">
                                                <label for="age{{i}}"><strong>Age</strong></label>
                                                <input class="form-control"
                                                       formControlName="age"
                                                       id="age{{i}}" type="number"
-                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}" readonly>
                                                <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
                                                    Age is required
                                                </div>
                                            </div>
                                        </div>
-                                       <div class="col-md-2">
+                                       <div class="col-md-3">
                                            <div class="form-group">
                                                <label for="occupation{{i}}"><strong>Occupation</strong></label>
-                                               <input class="form-control"
-                                                      formControlName="occupation"
-                                                      id="occupation{{i}}" type="text"
-                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}">
+                                               <nb-select [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}"
+                                                          formControlName="occupation"
+                                                          placeholder="Occupation" multiple fullWidth
+                                                          (selectedChange)="relativeOccupationChange(i)">
+                                                   <nb-option value="Business Owner">Business Owner</nb-option>
+                                                   <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
+                                                   <nb-option value="Lawyer">Lawyer</nb-option>
+                                                   <nb-option value="Doctor">Doctor</nb-option>
+                                                   <nb-option value="Engineer">Engineer</nb-option>
+                                                   <nb-option value="Government Job">Government Job</nb-option>
+                                                   <nb-option value="Banker">Banker</nb-option>
+                                                   <nb-option value="Teaching Professional">Teaching Professional</nb-option>
+                                                   <nb-option value="Salary">Salary</nb-option>
+                                                   <nb-option value="Farmer">Farmer</nb-option>
+                                                   <nb-option value="House Wife">House Wife</nb-option>
+                                                   <nb-option value="Other">Other</nb-option>
+                                               </nb-select>
                                                <div *ngIf="submitted && relatives.get('occupation').errors" class="small text-danger">
                                                    Occupation is required
                                                </div>
+                                           </div>
+                                       </div>
+                                       <div *ngIf="tempFlag.showOtherOccupation"
+                                            class="col-md-3 form-group">
+                                           <label>Other occupation(s)</label>
+                                           <input class="form-control" formControlName="relativeOtherOccupation" id="relativeOtherOccupation"
+                                                  name="relativeOtherOccupation" placeholder="Other occupation" type="text">
+                                           <div *ngIf="submitted && relatives.get('relativeOtherOccupation').errors" class="small text-danger">
+                                               Other Occupation is required
                                            </div>
                                        </div>
                                        <div *ngIf="i>1" class="ml-3">

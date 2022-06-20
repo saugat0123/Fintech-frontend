@@ -193,7 +193,9 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
                 occupation: [undefined],
-                version: [0]
+                version: [0],
+                dateOfBirth: [undefined],
+                relativeOtherOccupation: [undefined]
             })
         );
     }
@@ -519,7 +521,9 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
                 occupation: [undefined],
-                version: [undefined]
+                version: [undefined],
+                dateOfBirth: [undefined],
+                relativeOtherOccupation: [undefined]
             }));
         });
     }
@@ -541,6 +545,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
                     age: [singleRelatives.age],
                     occupation: [singleRelatives.occupation],
+                    dateOfBirth: [singleRelatives.dateOfBirth],
+                    relativeOtherOccupation: [singleRelatives.relativeOtherOccupation]
                 }));
             });
 
@@ -797,6 +803,26 @@ bankingRelationshipList = BankingRelationship.enumObject();
             }
                 break;
 
+        }
+    }
+
+    calculateAge(i) {
+        const date = this.basicInfo.get(['customerRelatives', i, 'dateOfBirth']).value;
+        const difference = Math.abs(Date.now() - new Date(date).getTime());
+        const calculatedAge = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        this.basicInfo.get(['customerRelatives', i, 'age']).patchValue(calculatedAge);
+    }
+
+    relativeOccupationChange(i) {
+        let isOtherSelected;
+        if (!ObjectUtil.isEmpty(this.basicInfo.get(['customerRelatives', i, 'occupation']).value)) {
+            isOtherSelected = this.basicInfo.get(['customerRelatives', i, 'occupation']).value.includes('Other');
+        }
+        if (isOtherSelected) {
+            this.tempFlag.showOtherOccupation = true;
+        } else {
+            this.tempFlag.showOtherOccupation = false;
+            this.basicInfo.get(['customerRelatives', i, 'otherOccupation']).setValue(null);
         }
     }
 }
