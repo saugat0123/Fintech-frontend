@@ -86,10 +86,9 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Pricing and estimated income from the account:</strong></p>
-            <strong>14.1 Pricing</strong>
-            <br>  We purpose the following pricing for the proposed credit facilities:<br>
-            <app-retail-recommendation [loanDataHolder]="loanHolder"
-                                       [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
+        <app-above-pricing-and-estimated-income-from-the-account *ngIf="customerAllLoanList?.length > 0"
+                                                                 [customerAllLoanList]="customerAllLoanList"
+                                                                 [loanDataHolder]="loanDataHolder"></app-above-pricing-and-estimated-income-from-the-account>
             <strong>14.2 Income to the Bank: </strong>
             <app-financial-view [formData]="loanDataHolder?.financial"
                                 [data]="loanDataHolder?.financial"
