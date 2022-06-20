@@ -28,7 +28,6 @@ import {ProposalCalculationUtils} from '../../../feature/loan/component/loan-sum
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
 import {CustomerService} from '../../../feature/admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {SafePipe} from '../../../feature/memo/pipe/safe.pipe';
 import {LoanTag} from '../../../feature/loan/model/loanTag';
 
 @Component({
@@ -101,7 +100,6 @@ export class CustomerWisePendingComponent implements OnInit {
         private location: AddressService,
         private customerService: CustomerService,
         private modalService: NgbModal,
-        private safePipe: SafePipe,
         private  activatedRoute: ActivatedRoute) {
     }
 
@@ -340,9 +338,7 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
 
-    public customSafePipe(val) {
-        return this.safePipe.transform(val);
-    }
+
 
     combineLoanListDisplay(data, template, index) {
         const list = this.loanHolderLoanListTemp[index].combineList;

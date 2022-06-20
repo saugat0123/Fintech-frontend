@@ -16,7 +16,6 @@ import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disab
 import {CommonAddressComponent} from './common-address/common-address.component';
 import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.component';
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
-import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
 
 
@@ -47,7 +46,7 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 
       ],
       exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
-      providers: [SafePipe]
+      providers: []
     }
 )
 export class FeatureModule {
