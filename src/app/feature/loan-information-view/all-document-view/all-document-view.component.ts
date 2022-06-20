@@ -36,6 +36,7 @@ export class AllDocumentViewComponent implements OnInit {
   fixedAssetsData = [];
   colSiteVisitDocument = [];
   fileType = '.jpg';
+  customerGeneralDocument;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -62,7 +63,20 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
       }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.customerGeneralDocuments)) {
+        this.customerGeneralDocument = [];
+        const gDocSet = new Set();
+        const gDoc = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+        gDoc.forEach(g => {
+          gDocSet.add(g.document.id);
+        });
+        gDocSet.forEach(gd => {
+          const gDocument = gDoc.filter(d => d.document.id === gd);
+          this.customerGeneralDocument.push(gDocument);
+        });
+      }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
         const securityId = this.loanDataHolder.security.id;
         const securityData = JSON.parse(this.loanDataHolder.security.data);
         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
