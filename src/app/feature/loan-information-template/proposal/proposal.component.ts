@@ -227,9 +227,9 @@ export class ProposalComponent implements OnInit {
         });
 
         this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(8)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(8)));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
         // this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
         this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
@@ -871,9 +871,8 @@ export class ProposalComponent implements OnInit {
     const baseRate = Number(this.proposalForm.get('baseRate').value);
     const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
     const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
-
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(8));
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
   }
 
   onChange() {

@@ -146,10 +146,10 @@
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral || isHomeLoan">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
-                                        <input
-                                                class="form-control" formControlName="baseRate" id="baseRate"
+                                        <input (change)="calculateInterestRate()"
+                                               class="form-control" formControlName="baseRate" id="baseRate"
                                                 name="baseRate" placeholder="Base Rate(%)"
-                                                type="number" appDecimalNumber>
+                                                type="number">
                                     </div>
                                 </div>
                                 <div class="col-md-4"
@@ -157,12 +157,12 @@
                                     <div class="form-group">
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
-                                        <input
-                                                class="form-control"
+                                        <input (change)="calculateInterestRate()"
+                                               class="form-control"
                                                 class="form-control" formControlName="premiumRateOnBaseRate"
                                                 id="premiumRateOnBaseRate" name="premiumRate"
                                                 placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
-                                                type="number" readonly>
+                                                type="number">
                                     </div>
                                 </div>
                                 <div class="col-md-4"
@@ -409,14 +409,13 @@
                                                 <td><input rows="1" class="form-control mt-1 mb-1"
                                                            name="existInterestRate" formControlName="existInterestRate"
                                                            id="existInterestRate" [(ngModel)]="existInterestLimit"
-                                                           type="number" appDecimalNumber></td>
+                                                           type="number"></td>
                                                 <td>
                                                     <input rows="1" id="interestRate" class="form-control mt-1 mb-1"
                                                            type="number"
                                                            [(ngModel)]="interestLimit" formControlName="interestRate"
                                                            type="number"
-                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()"
-                                                           appDecimalNumber>
+                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()">
                                                 </td>
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text"

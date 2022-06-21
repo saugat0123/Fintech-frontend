@@ -47,7 +47,7 @@
                                     <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
                                            [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
                                            class="form-control" formControlName="amount"
-                                           placeholder="Amount (Monthly)" type="number"  appDecimalNumber>
+                                           placeholder="Amount (Monthly)" type="number">
                                     <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                     <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
                                            [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
                                            formControlName="amount" placeholder="Amount (Monthly)"
-                                           type="number" class="form-control" appDecimalNumber>
+                                           type="number" class="form-control">
                                     <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount is required</span>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 
         <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-header>
-                <h3><strong>Obligation at other bank</strong></h3>
+                <h3><strong>Existing Obligation at CCBL/Other Bank</strong></h3>
             </nb-card-header>
             <nb-card-body>
                 <div *ngFor="let data of financialForm.get('obligationAtOtherBank')['controls']; let obligationIndex = index"
@@ -186,7 +186,7 @@
                                     <input #value (keyup)="setObligation(value)"
                                            [ngClass]="{'is-invalid': submitted && data.get('obliAmount').invalid}"
                                            formControlName="obliAmount" placeholder="Amount (Monthly)"
-                                           type="number" class="form-control" appDecimalNumber>
+                                           type="number" class="form-control">
                                     <span *ngIf="data.get('obliAmount').invalid" class="invalid-feedback">Amount is required</span>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 pl-5">
-                        <label class="title"><strong> Total Monthly Obligation at other bank :
+                        <label class="title"><strong> Total Monthly Obligation at CCBL/Other Bank :
                             Rs.{{financialForm.get('totalExpenseObligation').value | currencyFormatter}}</strong></label>
                     </div>
                     <div class="col-md-6 text-right">
@@ -272,13 +272,13 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
+                        <label for="existingObligationOtherBank"><strong>Existing Obligation at CCBL/Other Bank</strong></label>
                         <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
                                (change)="totalObligation()"
                                placeholder="Amount" appDecimalNumber>
                         <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
-                             class="invalid-feedback">Invalid Existing Obligation at other Bank
+                             class="invalid-feedback">Invalid Existing Obligation at CCBL/Other Bank
                         </div>
                     </div>
                 </div>
