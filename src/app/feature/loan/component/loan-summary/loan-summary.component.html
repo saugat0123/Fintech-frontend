@@ -887,7 +887,7 @@
             <div  *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
 
 
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <ng-container>
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
