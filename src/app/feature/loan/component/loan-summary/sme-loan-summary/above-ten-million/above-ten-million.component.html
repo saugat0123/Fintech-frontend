@@ -226,12 +226,20 @@
     </li>
     <li>
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE):</strong></p>
-        <span [innerHTML]="proposalData?.disbursementCriteria | safeHtml"></span>
+        <div class="col-md-12" *ngFor="let cl of customerAllLoanList">
+            <span><b>{{cl?.loan?.name}}</b></span>
+            <br>
+            <span [innerHTML]="(cl?.proposal?.data | jsonParse)?.disbursementCriteria  || 'NA' | safeHtml"></span>
+        </div>
 
     </li>
     <li>
         <p><strong>REPAYMENT MODALITY OF CREDIT FACILITIES (FACILITY WISE):</strong></p>
-        <span [innerHTML]="proposalData?.repayment | safeHtml"></span>
+        <div class="col-md-12" *ngFor="let cl of customerAllLoanList">
+            <span><b>{{cl?.loan?.name}}</b></span>
+            <br>
+            <span [innerHTML]="(cl?.proposal?.data | jsonParse)?.repayment || 'NA'| safeHtml"></span>
+        </div>
     </li>
     <li>
         <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY:</strong></p>

@@ -300,20 +300,15 @@
                             </li>
                             <li>
                                 <p><strong>DISBURSEMENT MODALITY:</strong></p>
-                                <app-sana-disbursement-modality
-                                        [loanDataHolder]="loanDataHolder"></app-sana-disbursement-modality>
+                                <span [innerHTML]="proposalView?.disbursementCriteria || 'NA' | safeHtml"></span>
                             </li>
                             <li>
-                                <p><strong>
-                                    REPAYMENT MODALITY:
-                                </strong></p>
-                                <app-sana-repayment-modality
-                                        [loanDataHolder]="loanDataHolder"></app-sana-repayment-modality>
+                                <p><strong>REPAYMENT MODALITY:</strong></p>
+                                <span [innerHTML]="proposalView?.repayment || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <app-waiver-deviations-and-deferral
-                                        [loanDataHolder]="loanDataHolder"></app-waiver-deviations-and-deferral>
+                                <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
@@ -356,6 +351,7 @@
                                        [fiscalYear]="fiscalYearArray"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
+            <div style="page-break-after: always !important;"></div>
             <ng-container *ngIf="loanDataHolder?.security && fixedAssetsData.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>

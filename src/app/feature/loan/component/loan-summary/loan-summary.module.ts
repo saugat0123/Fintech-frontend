@@ -69,15 +69,12 @@ import { UptoConvenantsComponent } from './sme-loan-summary/upto-ten-million/upt
 import { UptoDisbursementModalityComponent } from './sme-loan-summary/upto-ten-million/upto-disbursement-modality/upto-disbursement-modality.component';
 import { UptoRepaymentModalityComponent } from './sme-loan-summary/upto-ten-million/upto-repayment-modality/upto-repayment-modality.component';
 import { NtaStatementAndInspectionComponent } from './sme-loan-summary/upto-ten-million/nta-statement-and-inspection/nta-statement-and-inspection.component';
-import { WaiverDeviationsAndDeferralComponent } from './sme-loan-summary/upto-ten-million/waiver-deviations-and-deferral/waiver-deviations-and-deferral.component';
 import { SanaByabasayiSaralKarjaComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-byabasayi-saral-karja.component';
 import { SanaCurrentStatusAndPresentProposalComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-current-status-and-present-proposal/sana-current-status-and-present-proposal.component';
 import { SanaSecurityArrangementComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-security-arrangement/sana-security-arrangement.component';
 import { SanaAssessmentForRequirementOfFundComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-assessment-for-requirement-of-fund/sana-assessment-for-requirement-of-fund.component';
 import { SanaOtherChargesComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-other-charges/sana-other-charges.component';
 import { SanaCovenantsComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-covenants/sana-covenants.component';
-import { SanaDisbursementModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-disbursement-modality/sana-disbursement-modality.component';
-import { SanaRepaymentModalityComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-repayment-modality/sana-repayment-modality.component';
 import { SanaMisNrbReportingComponent } from './sme-loan-summary/sana-byabasayi-saral-karja/sana-mis-nrb-reporting/sana-mis-nrb-reporting.component';
 import {SecurityTaggedModule} from '../../../loan-information-template/security/security-tagged-component/security-tagged.module';
 import {SecurityTaggedViewModule} from '../../../loan-information-template/security/security-tagged-view/security-tagged-view.module';
@@ -170,15 +167,12 @@ const ENTRY_COMPONENTS = [];
     UptoDisbursementModalityComponent,
     UptoRepaymentModalityComponent,
     NtaStatementAndInspectionComponent,
-    WaiverDeviationsAndDeferralComponent,
     SanaByabasayiSaralKarjaComponent,
     SanaCurrentStatusAndPresentProposalComponent,
     SanaSecurityArrangementComponent,
     SanaAssessmentForRequirementOfFundComponent,
     SanaOtherChargesComponent,
     SanaCovenantsComponent,
-    SanaDisbursementModalityComponent,
-    SanaRepaymentModalityComponent,
     SanaMisNrbReportingComponent,
     AuthoritySectionComponent,
     RetailRecommendationComponent,
