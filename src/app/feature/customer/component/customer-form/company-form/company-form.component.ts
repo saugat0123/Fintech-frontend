@@ -30,8 +30,6 @@ import {Experience} from '../../../../admin/modal/experience';
 import {Succession} from '../../../../admin/modal/succession';
 import {RegulatoryConcern} from '../../../../admin/modal/regulatory-concern';
 import {MarketCompetition} from '../../../../admin/modal/marketCompetition';
-import {IndustryGrowth} from '../../../../admin/modal/industryGrowth';
-import {Buyer} from '../../../../admin/modal/buyer';
 import {Supplier} from '../../../../admin/modal/supplier';
 import {BusinessAndIndustry} from '../../../../admin/modal/businessAndIndustry';
 import {CompanyOtherDetailComponent} from './company-other-detail/company-other-detail.component';
@@ -52,7 +50,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
 import {CustomerCategory} from '../../../model/customerCategory';
 import {ContactDetailsComponent} from '../../../../contact-details/contact-details.component';
-import {CompanyContactDetail} from '../../../../admin/modal/crg/companyContactDetail';
 
 @Component({
     selector: 'app-company-form',
@@ -93,7 +90,7 @@ export class CompanyFormComponent implements OnInit {
     capital: Capital = new Capital();
     swot: Swot = new Swot();
     locations: CompanyLocations = new CompanyLocations();
-    contact: CompanyContactDetail = new CompanyContactDetail();
+    contactDetails;
     proprietors: Proprietors = new Proprietors();
     provinceList: Array<Province> = new Array<Province>();
     districtList: Array<District> = new Array<District>();
@@ -180,7 +177,6 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
-        console.log('contact Dwetail', this.companyContactDetail.submitData);
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.customerCategory = this.formValue.customerCategory;
@@ -197,7 +193,7 @@ export class CompanyFormComponent implements OnInit {
             this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
+           if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
             }
             if (FormUtils.isJson(this.companyInfo.companyLocations.projectAddress)) {
@@ -206,7 +202,9 @@ export class CompanyFormComponent implements OnInit {
             if (FormUtils.isJson(this.companyInfo.companyLocations.correspondenceAddress)) {
                 this.companyCorrespondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
             }
-            this.contact = this.companyInfo.companyContactDetail;
+            if (!ObjectUtil.isEmpty(this.companyInfo.companyContactDetails)) {
+                this.contactDetails = this.companyInfo.companyContactDetails;
+            }
         }
         this.buildForm();
         this.getAllDistrict();
@@ -452,50 +450,18 @@ export class CompanyFormComponent implements OnInit {
             ]),
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined :
+                this.companyInfo.companyLocations.version],
             locationId: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.id],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined :
+                this.companyInfo.companyLocations.id],
             houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined :
+                this.companyInfo.companyLocations.houseNumber],
             streetName: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined :
+                this.companyInfo.companyLocations.streetName],
             address: [undefined],
-            registeredOfficeLegalAddress: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficeLegalAddress],
-            residenceOfMainPerson: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPerson],
-            factoryBusinessLegalAddress: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessLegalAddress],
-            registeredOfficePhoneNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficePhoneNumber],
-            residenceOfMainPersonPhoneNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPersonPhoneNumber],
-            factoryBusinessPhoneNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessPhoneNumber],
-            registeredOfficeFax: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficeFax],
-            residenceOfMainPersonFax: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPersonFax],
-            factoryBusinessFax: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessFax],
-            registeredOfficeEmail: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficeEmail],
-            residenceOfMainPersonEmail: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPersonEmail],
-            factoryBusinessEmail: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessEmail],
-            registeredOfficeContactPer: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficeContactPer],
-            residenceOfMainPersonContactPer: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPersonContactPer],
-            factoryBusinessContactPer: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessContactPer],
-            registeredOfficeMobile: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.registeredOfficeMobile],
-            residenceOfMainPersonMobile: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.residenceOfMainPersonMobile],
-            factoryBusinessMobile: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyContactDetail)) ? undefined : this.companyInfo.companyContactDetail.factoryBusinessMobile],
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
                 this.companyInfo.successionPlanning],
@@ -909,28 +875,9 @@ export class CompanyFormComponent implements OnInit {
         // this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
-        /*this.contact.registeredOfficeLegalAddress = this.companyContactDetail.contactDetailsFormGroup.get('registeredOfficeLegalAddress').value;
-        this.contact.residenceOfMainPerson = this.companyInfoFormGroup.get('residenceOfMainPerson').value;
-        this.contact.factoryBusinessLegalAddress = this.companyInfoFormGroup.get('factoryBusinessLegalAddress').value;
-        this.contact.registeredOfficePhoneNumber = this.companyInfoFormGroup.get('registeredOfficePhoneNumber').value;
-        this.contact.residenceOfMainPersonPhoneNumber = this.companyInfoFormGroup.get('residenceOfMainPersonPhoneNumber').value;
-        this.contact.factoryBusinessPhoneNumber = this.companyInfoFormGroup.get('factoryBusinessPhoneNumber').value;
-        this.contact.registeredOfficeFax = this.companyInfoFormGroup.get('registeredOfficeFax').value;
-        this.contact.residenceOfMainPersonFax = this.companyInfoFormGroup.get('residenceOfMainPersonFax').value;
-        this.contact.factoryBusinessFax = this.companyInfoFormGroup.get('factoryBusinessFax').value;
-        this.contact.registeredOfficeEmail = this.companyInfoFormGroup.get('registeredOfficeEmail').value;
-        this.contact.residenceOfMainPersonEmail = this.companyInfoFormGroup.get('residenceOfMainPersonEmail').value;
-        this.contact.factoryBusinessEmail = this.companyInfoFormGroup.get('factoryBusinessEmail').value;
-        this.contact.registeredOfficeContactPer = this.companyInfoFormGroup.get('registeredOfficeContactPer').value;
-        this.contact.residenceOfMainPersonContactPer = this.companyInfoFormGroup.get('residenceOfMainPersonContactPer').value;
-        this.contact.factoryBusinessContactPer = this.companyInfoFormGroup.get('factoryBusinessContactPer').value;
-        this.contact.registeredOfficeMobile = this.companyInfoFormGroup.get('registeredOfficeMobile').value;
-        this.contact.residenceOfMainPersonMobile = this.companyInfoFormGroup.get('residenceOfMainPersonMobile').value;
-        this.contact.factoryBusinessMobile = this.companyInfoFormGroup.get('factoryBusinessMobile').value;*/
         this.companyInfo.companyLocations = this.locations;
         // this.companyInfo.companyContactDetail = this.contact;
-        this.companyInfo.companyContactDetail = this.companyContactDetail.submitData;
-        console.log('company data:::::::', this.companyContactDetail.submitData);
+        this.companyInfo.companyContactDetails = this.companyContactDetail.submitData;
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;
@@ -1052,8 +999,6 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
-
-
     checkPanNumberNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
             if (!ObjectUtil.isEmpty(res.detail)) {
@@ -1065,8 +1010,6 @@ export class CompanyFormComponent implements OnInit {
             console.error(error);
         });
     }
-
-
 
 
     getSubSector() {
@@ -1207,9 +1150,5 @@ export class CompanyFormComponent implements OnInit {
             this.companyProjectLocation.addressForm.get('ward').patchValue(null);
             this.sameAddress = value;
         }
-    }
-
-    getFormData(data: any) {
-        console.log('Data:', data);
     }
 }

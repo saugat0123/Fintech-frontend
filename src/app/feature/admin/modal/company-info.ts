@@ -45,5 +45,5 @@ export class CompanyInfo {
     accountNo: string;
     accountStrategy: string;
     customerCategory: any;
-    companyContactDetail: CompanyContactDetail;
+    companyContactDetails: string;
 }

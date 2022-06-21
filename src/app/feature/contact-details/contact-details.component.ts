@@ -23,6 +23,11 @@ export class ContactDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.setData();
+  }
+
+  get form() {
+    return this.contactDetailsFormGroup.controls;
   }
 
   buildForm() {
@@ -48,13 +53,15 @@ export class ContactDetailsComponent implements OnInit {
     });
   }
 
-  get form() {
-    return this.contactDetailsFormGroup.controls;
+  setData() {
+    if (!ObjectUtil.isEmpty(this.contactDetail)) {
+      this.contactDetailsFormGroup.patchValue(JSON.parse(this.contactDetail));
+    }
   }
 
   onSubmit() {
     this.submitted = true;
-    this.submitData = this.contactDetailsFormGroup.value;
+    this.submitData = JSON.stringify(this.contactDetailsFormGroup.value);
   }
 
 }

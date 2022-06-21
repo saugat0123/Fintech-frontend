@@ -132,52 +132,38 @@
     </tr>
     <tr>
         <td>Address</td>
-        <td>{{registeredAddress?.province?.name}},
-            {{registeredAddress?.district?.name}},
-            {{registeredAddress?.municipalityVdc?.name}},
-            {{registeredAddress?.address1}},
-            {{registeredAddress?.address2}},
-            {{registeredAddress?.ward}}
-        </td>
-        <ng-container *ngFor="let personCon of contactedPerson; let iii = index">
-            <td>{{personCon?.address}}</td>
-        </ng-container>
-        <td>{{currentAddress?.province?.name}},
-            {{currentAddress?.district?.name}},
-            {{currentAddress?.municipalityVdc?.name}},
-            {{currentAddress?.address1}},
-            {{currentAddress?.address2}},
-            {{currentAddress?.ward}}
-        </td>
+        <td>{{contactDetails?.registeredOfficeLegalAddress}}</td>
+        <td>{{contactDetails?.residenceOfMainPerson}}</td>
+        <td>{{contactDetails?.factoryBusinessLegalAddress}}</td>
     </tr>
     <tr>
         <td>Phone#</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{contactDetails?.registeredOfficePhoneNumber}}</td>
+        <td>{{contactDetails?.residenceOfMainPersonPhoneNumber}}</td>
+        <td>{{contactDetails?.factoryBusinessPhoneNumber}}</td>
     </tr>
     <tr>
         <td>Fax</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{contactDetails?.registeredOfficeFax}}</td>
+        <td>{{contactDetails?.residenceOfMainPersonFax}}</td>
+        <td>{{contactDetails?.factoryBusinessFax}}</td>
     </tr>
     <tr>
         <td>Email</td>
-        <td>{{companyInfo?.email}}</td>
-        <td>{{contactedPerson[0]?.contactEmail}}</td>
-        <td>{{companyInfo?.email}}</td>
+        <td>{{contactDetails?.registeredOfficeEmail}}</td>
+        <td>{{contactDetails?.residenceOfMainPersonEmail}}</td>
+        <td>{{contactDetails?.factoryBusinessEmail}}</td>
     </tr>
     <tr>
         <td>Contact Person/s</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{contactDetails?.registeredOfficeContactPer}}</td>
+        <td>{{contactDetails?.residenceOfMainPersonContactPer}}</td>
+        <td>{{contactDetails?.factoryBusinessContactPer}}</td>
     </tr>
     <tr>
         <td>Mobile#</td>
-        <td>{{companyInfo?.contactNum}}</td>
-        <td>{{contactedPerson[0]?.contactNumber}}</td>
-        <td>{{companyInfo?.contactNum}}</td>
+        <td>{{contactDetails?.registeredOfficeMobile}}</td>
+        <td>{{contactDetails?.residenceOfMainPersonMobile}}</td>
+        <td>{{contactDetails?.factoryBusinessMobile}}</td>
     </tr>
 </table>
