@@ -1147,15 +1147,15 @@
                                                   #companyOtherDetailComponent></app-company-other-detail>
                         <hr>
                         <div>
-                            <h5>6. {{(customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION) ?
+                            <h5>5. {{(customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION) ?
                                 'BUSINESS RELATED INFORMATION' : 'BACKGROUND INFORMATION' }}</h5>
-                            <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]">6.1 The Customer:</h6>
+                            <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]">5.1 The Customer:</h6>
                         </div>
                         <ng-container *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]; else smeUpToTen">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="promoterBackground"><strong>6.1.1 Promoters background, experience
+                                        <label for="promoterBackground"><strong>5.1.1 Promoters background, experience
                                             and resources</strong></label>
                                         <ckeditor id="promoterBackground" formControlName="promoterBackground"
                                                   name="promoterBackground" type="text"
@@ -1173,7 +1173,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="lineOfBusiness"><strong>6.1.2. Line/s of business activity</strong></label>
+                                        <label for="lineOfBusiness"><strong>5.1.2. Line/s of business activity</strong></label>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && form.lineOfBusiness.errors }"
                                                 formControlName="lineOfBusiness" id="lineOfBusiness"
@@ -1192,7 +1192,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="discriptionWithComment"><strong>6.1.3. Description with comments on
+                                        <label for="discriptionWithComment"><strong>5.1.3. Description with comments on
                                             major items dealt in </strong></label>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && form.discriptionWithComment.errors }"
@@ -1211,7 +1211,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="majorBuyersSuppliers"><strong>6.1.4. Major Buyers and
+                                        <label for="majorBuyersSuppliers"><strong>5.1.4. Major Buyers and
                                             Suppliers/Manufacturers </strong></label>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && form.majorBuyersSuppliers.errors }"
@@ -1230,7 +1230,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="group"><strong>6.2 The Group</strong></label>
+                                        <label for="group"><strong>5.2 The Group</strong></label>
                                         <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.group.errors }"
                                                   formControlName="group" id="group"
                                                   name="group" [config]="ckeConfig"
@@ -1251,7 +1251,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="business"><strong>6.1 BUSINESS</strong></label>
+                                        <label for="business"><strong>4.1 BUSINESS</strong></label>
                                         <ckeditor id="business" formControlName="business" name="business" type="text"
                                                   [config]="ckeConfig"
                                                   [ngClass]="{ 'is-invalid': (submitted) && form.business.errors }"></ckeditor>
@@ -1267,7 +1267,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="promoterNetWorth"><strong>6.2 PROMOTERS/KEY PERSON(S) AND THEIR
+                                        <label for="promoterNetWorth"><strong>4.2 PROMOTERS/KEY PERSON(S) AND THEIR
                                             NETWORTH:</strong></label>
                                         <ckeditor id="promoterNetWorth" formControlName="promoterNetWorth"
                                                   name="promoterNetWorth" type="text"
