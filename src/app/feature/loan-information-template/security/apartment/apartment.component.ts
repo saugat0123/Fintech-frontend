@@ -98,7 +98,8 @@ export class ApartmentComponent implements OnInit {
           proposedOwner: [formData.proposedOwner],
           apartmentRate: [formData.apartmentRate],
           buildingReliasableValue: [formData.buildingReliasableValue],
-          apartmentFirstValuationDate: [formData.apartmentFirstValuationDate ? new Date(formData.apartmentFirstValuationDate) : '']
+          apartmentFirstValuationDate: [formData.apartmentFirstValuationDate ? new Date(formData.apartmentFirstValuationDate) : ''],
+          isValuated: [formData.isValuated]
         })
     );
 
@@ -205,7 +206,8 @@ export class ApartmentComponent implements OnInit {
       proposedOwner: [undefined],
       apartmentRate: [undefined],
       buildingReliasableValue: [undefined],
-      apartmentFirstValuationDate: [undefined]
+      apartmentFirstValuationDate: [undefined],
+      isValuated: [undefined]
     });
   }
 
