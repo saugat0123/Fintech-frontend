@@ -13,12 +13,16 @@
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
                     <option [ngValue]="null" hidden>Select Date</option>
-                    <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
+                    <option *ngFor="let siteVisit of collateralSiteVisits"
+                            [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
             <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
-                <button nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
-                <button nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>
+                <button nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i
+                        class="fa fa-trash"></i></button>
+                <br>
+                <button nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">
+                    Delete All<i class="fa fa-trash"></i></button>
             </div>
         </div>
         <div class="row">
@@ -74,13 +78,13 @@
                             <div class="col-md-4 form-group">
                                 <label for="province">Province</label>
                                 <ng-select [ngClass]="{'is-invalid': submitted && form.province.errors}"
-                                        (change)="getDistrictsById(form.province.value?.id , $event)"
-                                        [compareWith]="compareFn"
-                                        formControlName="province"
-                                        id="province"
-                                        bindLabel="name">
+                                           (change)="getDistrictsById(form.province.value?.id , $event)"
+                                           [compareWith]="compareFn"
+                                           formControlName="province"
+                                           id="province"
+                                           bindLabel="name">
                                     <ng-option *ngFor="let provinceVal of provinceList"
-                                            [value]="provinceVal">
+                                               [value]="provinceVal">
                                         {{provinceVal.name}}
                                     </ng-option>
                                 </ng-select>
@@ -94,13 +98,13 @@
                             <div class="col-md-4 form-group">
                                 <label for="district">District</label>
                                 <ng-select [ngClass]="{'is-invalid': submitted && form.district.errors}"
-                                        (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
-                                        [compareWith]="compareFn"
-                                        formControlName="district"
-                                        id="district"
-                                        bindLabel="name">
+                                           (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+                                           [compareWith]="compareFn"
+                                           formControlName="district"
+                                           id="district"
+                                           bindLabel="name">
                                     <ng-option *ngFor="let districtVal of districts"
-                                            [value]="districtVal">
+                                               [value]="districtVal">
                                         {{districtVal.name}}
                                     </ng-option>
                                 </ng-select>
@@ -114,12 +118,12 @@
                             <div class="col-md-4 form-group">
                                 <label for="municipality">Municipalities or VDC</label>
                                 <ng-select [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
-                                        [compareWith]="compareFn"
-                                        formControlName="municipalityVdc"
-                                        id="municipality"
-                                        bindLabel="name">
+                                           [compareWith]="compareFn"
+                                           formControlName="municipalityVdc"
+                                           id="municipality"
+                                           bindLabel="name">
                                     <ng-option *ngFor="let municipalityVal of municipalities"
-                                            [value]="municipalityVal">
+                                               [value]="municipalityVal">
                                         {{municipalityVal.name}}
                                     </ng-option>
                                 </ng-select>
@@ -457,93 +461,96 @@
                                 </table>
                             </div>
                             <div class="col-md-12">
+                                <table class="table table-bordered table-sm sb-small text-center">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="7">Valuation Details</th>
+                                    </tr>
+                                    <tr class="text-white sb-bg-dark">
+                                        <th>Particulars</th>
+                                        <th>Plot No.</th>
+                                        <th>Area (sq meter etc.)</th>
+                                        <th>MV</th>
+                                        <th>FMV</th>
+                                        <th>DV</th>
+                                        <th *ngIf="valuationDetailsForm?.length>1">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let valuationDetail of fixedAssetsForm?.get('valuationDetails')['controls']; let i = index;"
+                                        formArrayName="valuationDetails">
+                                        <ng-container [formGroupName]="i">
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              formControlName="particulars"
+                                                                              id="particulars"
+                                                                              name="particulars"
+                                                                              placeholder="Particulars" type="text">
+                                            </td>
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              formControlName="plotNo"
+                                                                              id="plotNo"
+                                                                              name="plotNo"
+                                                                              placeholder="Plot No." type="text"></td>
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              formControlName="area"
+                                                                              id="area"
+                                                                              name="area"
+                                                                              placeholder="Area" type="text"></td>
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              (keyup)="onChangeValueMv('mv','totalMv', i)"
+                                                                              [defaultValue]="0"
+                                                                              formControlName="mv"
+                                                                              id="mv"
+                                                                              name="mv"
+                                                                              placeholder="MV" type="text"></td>
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              (keyup)="onChangeValueFmv('fmv','totalFmv', i)"
+                                                                              [defaultValue]="0"
+                                                                              formControlName="fmv"
+                                                                              id="fmv"
+                                                                              name="fmv"
+                                                                              placeholder="FMV" type="text"></td>
+                                            <td class="text-left pl-1"><input class="form-control"
+                                                                              (keyup)="onChangeValueDv('dv','totalDv', i)"
+                                                                              [defaultValue]="0"
+                                                                              formControlName="dv"
+                                                                              id="dv"
+                                                                              name="dv"
+                                                                              placeholder="DV" type="text"></td>
+                                            <td *ngIf="valuationDetailsForm?.length>1">
+                                                <div class="col-md-1 pt-4">
+                                                    <input class="align-self-end btn btn-sm btn-danger btn-primary"
+                                                           (click)="deleteValuationDetails(i)" type="button"
+                                                           value="Delete"/>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-1 sb-bg-secondary text-white" colspan="3">Total:</td>
+                                        <td class="text-left pl-1"><input class="form-control"
+                                                                          formControlName="totalMv"
+                                                                          id="totalMv"
+                                                                          name="totalMv"
+                                                                          placeholder="Total MV" type="text"></td>
+                                        <td class="text-left pl-1"><input class="form-control"
+                                                                          formControlName="totalFmv"
+                                                                          id="totalFmv"
+                                                                          name="totalFmv"
+                                                                          placeholder="Total FMV" type="text"></td>
+                                        <td class="text-left pl-1"><input class="form-control"
+                                                                          formControlName="totalDv"
+                                                                          id="totalDv"
+                                                                          name="totalDv"
+                                                                          placeholder="Total DV" type="text"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <div class="text-right">
-                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addValuationDetails()">Add Valuation Details
+                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addValuationDetails()">Add
+                                        Valuation Details
                                     </button>
                                 </div>
-                                <table class="table table-bordered table-sm sb-small text-center">
-                                <thead>
-                                <tr>
-                                    <th colspan="6">Valuation Details</th>
-                                </tr>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>Particulars</th>
-                                    <th>Plot No.</th>
-                                    <th>Area (sq meter etc.)</th>
-                                    <th>MV</th>
-                                    <th>FMV</th>
-                                    <th>DV</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                 <tr *ngFor="let valuationDetail of fixedAssetsForm.get('valuationDetails')['controls']; let i = index;" formArrayName="valuationDetails">
-
-                                     <ng-container [formGroupName]="i">
-
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="particulars"
-                                                                      id="particulars"
-                                                                      name="particulars"
-                                                                      placeholder="Particulars" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="plotNo"
-                                                                      id="plotNo"
-                                                                      name="plotNo"
-                                                                      placeholder="Plot No." type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="area"
-                                                                      id="area"
-                                                                      name="area"
-                                                                      placeholder="Area" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      (keyup)="onChangeValueMv('mv','totalMv', i)"
-                                                                      [defaultValue]="0"
-                                                                      formControlName="mv"
-                                                                      id="mv"
-                                                                      name="mv"
-                                                                      placeholder="MV" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      (keyup)="onChangeValueFmv('fmv','totalFmv', i)"
-                                                                      [defaultValue]="0"
-                                                                      formControlName="fmv"
-                                                                      id="fmv"
-                                                                      name="fmv"
-                                                                      placeholder="FMV" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      (keyup)="onChangeValueDv('dv','totalDv', i)"
-                                                                      [defaultValue]="0"
-                                                                      formControlName="dv"
-                                                                      id="dv"
-                                                                      name="dv"
-                                                                      placeholder="DV" type="text"></td>
-                                    <td *ngIf="valuationDetailsForm.length>1">
-                                        <div class="col-md-1 pt-4">
-                                            <input class="align-self-end btn btn-sm btn-danger btn-primary"
-                                               (click)="deleteValuationDetails(i)" type="button" value="Delete"/>
-                                        </div>
-                                    </td>
-                                     </ng-container>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1 sb-bg-secondary text-white" colspan="3">Total: </td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="totalMv"
-                                                                      id="totalMv"
-                                                                      name="totalMv"
-                                                                      placeholder="Total MV" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="totalFmv"
-                                                                      id="totalFmv"
-                                                                      name="totalFmv"
-                                                                      placeholder="Total FMV" type="text"></td>
-                                    <td class="text-left pl-1"><input class="form-control"
-                                                                      formControlName="totalDv"
-                                                                      id="totalDv"
-                                                                      name="totalDv"
-                                                                      placeholder="Total DV" type="text"></td>
-                                </tr>
-                                </tbody>
-                            </table>
                             </div>
                             <div class="col-md-12">
                                 <div *ngFor="let staff of staffsForm; let i = index;" formArrayName="staffs">
@@ -634,10 +641,11 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-12">
-                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
-                 (click)="openDocumentCreateModal(null)">
-                <i class="fa fa-plus"></i>
-            </button>
+                <strong>Site Visit Map Document</strong>
+                <button nbButton size="tiny" status="success"
+                        (click)="openDocumentCreateModal(null)">
+                    <i class="fa fa-plus"></i>
+                </button>
                 <table class="table table-bordered table-hover table-sm sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -649,17 +657,18 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let doc of siteVisitDocument;let i=index;">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{doc?.docName}}</td>
                         <td>
-                        <span *ngIf="doc.isPrintable==='YES'"><i class="fas fa-check-circle text-success"></i></span>
+                            <span *ngIf="doc.isPrintable==='YES'"><i
+                                    class="fas fa-check-circle text-success"></i></span>
                             <span *ngIf="doc.isPrintable==='NO'"><i class="fas fa-times-circle text-danger"></i></span>
                         </td>
                         <td>
                             <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)">
                                 <i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
                             </span>
-                            <span *ngIf="doc?.isApproved;else templateRef"  data-toggle="tooltip"
+                            <span *ngIf="doc?.isApproved;else templateRef" data-toggle="tooltip"
                                   nbTooltip="This document contained approved loan and cannot be edit">
                                     <a class="fa fa-edit cursor ml-1"></a>
                                 </span>
@@ -680,12 +689,15 @@
 <ng-template #confirmModel>
     <nb-card>
         <nb-card-header>{{modelHeader}}
-        <button class="float-right" nbButton size="tiny" (click)="onClose(confirmModel)">X</button>
+            <button class="float-right" nbButton size="tiny" (click)="onClose(confirmModel)">X</button>
         </nb-card-header>
         <nb-card-body>{{modelBody}}</nb-card-body>
         <nb-card-footer>
-            <button nbButton size="tiny" status="primary" class="float-left" (click)="deleteSiteVisit(security_id_for_delete, confirmModel)">YES</button>
-            <button nbButton size="tiny" status="success" class="float-right" (click)="onClose(confirmModel)">NO</button>
+            <button nbButton size="tiny" status="primary" class="float-left"
+                    (click)="deleteSiteVisit(security_id_for_delete, confirmModel)">YES
+            </button>
+            <button nbButton size="tiny" status="success" class="float-right" (click)="onClose(confirmModel)">NO
+            </button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
