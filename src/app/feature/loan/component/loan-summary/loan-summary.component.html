@@ -884,17 +884,13 @@
 
             <hr>
 </div>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+
+
+            <ng-container *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType?.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             </ng-container>
-
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-template>
             <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN' && loanData?.loanType !== loanType.getEnum(loanType?.FULL_SETTLEMENT_LOAN)">
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
