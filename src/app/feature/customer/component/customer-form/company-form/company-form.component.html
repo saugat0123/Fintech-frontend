@@ -964,11 +964,10 @@
                         <!--                       </div>-->
                         <!-- END ROW -->
                 <div class="col-md-12">
-                    <label><h6><b>Address and contact details</b></h6></label>
                     <app-contact-details #contactDetail [contactDetail]="contactDetails"></app-contact-details>
                 </div>
                         <hr>
-                        <div>
+                        <!--<div>
                             <h5>3.Primary Contact Person Details</h5>
                         </div>
                         <div
@@ -1072,13 +1071,13 @@
                                 Add Secondary Contact
                             </button>
                         </div>
-                        <hr>
+                        <hr>-->
                         <!--company location-->
-                        <div>
+                     <!--   <div>
                             <h5>4. Company Location Detail</h5>
-                        </div>
-                        <div class="row ">
-                            <!--  <div class="col-md-4">
+                        </div>-->
+                        <!--<div class="row ">
+                            &lt;!&ndash;  <div class="col-md-4">
                                   <div class="form-group">
                                       <label><strong>House Number</strong></label>
                                       <input class="form-control" formControlName="houseNumber"
@@ -1112,8 +1111,8 @@
                                           </div>
                                       </div>
                                   </div>
-                              </div>-->
-                            <div class="col-md-12">
+                              </div>&ndash;&gt;
+                          &lt;!&ndash;  <div class="col-md-12">
                                 <label><h6><b>Registered Address</b></h6></label>
                                 <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
                             </div>
@@ -1127,11 +1126,11 @@
                                 <app-common-address #companyProjectLocation
                                                     [sameAddress]="sameAddress"
                                                     [address]="companyProjectAddress"></app-common-address>
-                            </div>
-                            <!--                           <div class="col-md-12">-->
-                            <!--                               <label><h6><b>Correspondence Address</b></h6></label>-->
-                            <!--                               <app-common-address #companyCorrespondenceLocation [address]="companyCorrespondenceAddress"></app-common-address>-->
-                            <!--                           </div>-->
+                            </div>&ndash;&gt;
+                            &lt;!&ndash;                           <div class="col-md-12">&ndash;&gt;
+                            &lt;!&ndash;                               <label><h6><b>Correspondence Address</b></h6></label>&ndash;&gt;
+                            &lt;!&ndash;                               <app-common-address #companyCorrespondenceLocation [address]="companyCorrespondenceAddress"></app-common-address>&ndash;&gt;
+                            &lt;!&ndash;                           </div>&ndash;&gt;
                             <div class="col-md-12">
                                 <label><h6><b>Branch Location</b></h6></label>
                                 <input class="form-control col-md-6" formControlName="branchAddress"
@@ -1143,7 +1142,7 @@
                                        placeholder="Warehouse Location" type="text">
                             </div>
                         </div>
-                        <hr>
+                        <hr>-->
                         <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail"
                                                   #companyOtherDetailComponent></app-company-other-detail>
                         <hr>
