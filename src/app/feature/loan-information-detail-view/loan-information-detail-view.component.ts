@@ -1,5 +1,5 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
 import {LoanFormService} from '../loan/component/loan-form/service/loan-form.service';
@@ -7,7 +7,6 @@ import {LoanDataHolder} from '../loan/model/loanData';
 import {environment} from '../../../environments/environment';
 import {ReadmoreModelComponent} from '../loan/component/readmore-model/readmore-model.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanStage} from '../loan/model/loanStage';
 import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
@@ -22,6 +21,7 @@ import {SummaryType} from '../loan/component/SummaryType';
 import {ObtainableDoc} from '../loan-information-template/obtained-document/obtainableDoc';
 import {LoanType} from '../loan/model/loanType';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {DocStatus} from '../loan/model/docStatus';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -229,7 +229,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     activeRibbon() {
-        if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
+        if (this.loanDataHolder.documentStatus.toString() === 'PENDING' ) {
+            this.showRibbon = false;
+        } else if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.CLOSED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REJECT)) {
             this.showRibbon = false;
