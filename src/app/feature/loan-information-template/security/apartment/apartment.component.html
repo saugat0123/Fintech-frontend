@@ -307,7 +307,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <nb-checkbox class="form-control" formControlName="isValuated">As per valuation report in valuation</nb-checkbox>
+                        <div class="row" *ngIf="apartmentForm.get(['buildingDetails',i,'isValuated']).value">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Valuator Name</label>
