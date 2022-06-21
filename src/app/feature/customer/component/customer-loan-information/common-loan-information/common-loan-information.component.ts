@@ -8,6 +8,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
 
 @Component({
     selector: 'app-common-loan-information',
@@ -22,7 +24,9 @@ export class CommonLoanInformationComponent implements OnInit {
         private formBuilder: FormBuilder,
         private customerInfoService: CustomerInfoService,
         private toastService: ToastService,
-        private spinnerService: NgxSpinnerService) {
+        private spinnerService: NgxSpinnerService,
+        private loanFormService: LoanFormService,
+    ) {
     }
 
     commonLoanForm: FormGroup;
@@ -78,7 +82,7 @@ export class CommonLoanInformationComponent implements OnInit {
                 loanName: [e.loanName],
                 originalLimit: [e.originalLimit]
             }));
-            this.commonLoanForm.get(['data', i , 'proposalData']).get('existingLimit').patchValue(e.originalLimit);
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('existingLimit').patchValue(e.originalLimit);
             this.setCondition(i);
             this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
                 .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
@@ -309,8 +313,23 @@ export class CommonLoanInformationComponent implements OnInit {
             check.loanNatureSelected = false;
             check.fundableNonFundableSelcted = false;
         }
-        console.log('this iasdasd', check);
         this.conditionalArray.push(check);
     }
 
+    resetData(id: number, index: number) {
+        let data = null;
+        this.loanFormService.detail(id).subscribe({
+            next: (res) => {
+                const loanData: LoanDataHolder = res.detail;
+                data = loanData.proposal.data;
+            },
+            error: (err) => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Something Went Wrong'));
+            },
+            complete: () => {
+                this.commonLoanForm.get(['data', index, 'proposalData']).patchValue(JSON.parse(data));
+                this.toastService.show(new Alert(AlertType.INFO, 'Please Save To Apply The Changes'));
+            }
+        });
+    }
 }
