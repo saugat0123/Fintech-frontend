@@ -8,7 +8,8 @@ export enum LoanType {
     RENEW_WITH_ENHANCEMENT = 'Renew with Enhancement',
     RELEASE_AND_REPLACEMENT= 'Release and Replacement',
     PARTIAL_RELEASE_OF_COLLATERAL= 'Partial Release of Collateral',
-    INTEREST_RATE_REVISION= 'Interest Rate Revision'
+    INTEREST_RATE_REVISION= 'Interest Rate Revision',
+    OTHERS= 'Others'
 }
 
 export namespace LoanType {

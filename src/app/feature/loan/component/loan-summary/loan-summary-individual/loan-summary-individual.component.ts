@@ -184,6 +184,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
   zipDocName;
   loaded = false;
   fullSettlement = false;
+  others = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -216,6 +217,9 @@ export class LoanSummaryIndividualComponent implements OnInit {
     }
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
       this.fullSettlement = true;
+    }
+    if (LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS) {
+      this.others = true;
     }
       this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
