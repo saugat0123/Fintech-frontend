@@ -1,5 +1,3 @@
-import {RelativeOccupations} from './crg/relativeOccupations';
-
 export class CustomerRelative {
     id: number;
     created: Date;
