@@ -230,6 +230,7 @@ export class FinancialComponent implements OnInit {
             this.historicalDataPresent = initialFormData.historicalDataPresent;
             this.financialForm.patchValue(initialFormData);
             this.methodListeners();
+            this.patchTotalIncome();
         } else {
             if (this.isBusinessLoan) {
                 const currentFormDataJson = JSON.stringify(currentFormData['default']);
@@ -252,8 +253,6 @@ export class FinancialComponent implements OnInit {
         this.questionService.getAllQuestions(0).subscribe(s => {
             this.crgQuestionsList = s.detail[0];
         });
-
-      this.patchTotalIncome();
     }
 
     patchTotalIncome() {
@@ -678,9 +677,9 @@ export class FinancialComponent implements OnInit {
         (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
             total = Number(group.get('amount').value) + Number(total);
         });
-        this.financialForm.get(resultControllerName).setValue(total);
-        this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
-            - Number(this.financialForm.get('totalExpense').value));
+        this.financialForm.get(resultControllerName).setValue(Number(total).toFixed(2));
+        const totalNetSaving = Number(this.financialForm.get('totalIncome').value) - Number(this.financialForm.get('totalExpense').value);
+        this.financialForm.get('netSaving').setValue(Number(totalNetSaving).toFixed(2));
     }
 
     totalAdditionInitialFormObligation(formArrayName, resultControllerName) {
