@@ -736,7 +736,6 @@
                                            <div class="form-group">
                                                <label for="dateOfBirth{{i}}"><strong>Date of birth</strong></label>
                                                <input [nbDatepicker]="dateOfBirth" *ngIf="calendarType === 'AD'"
-                                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dateOfBirth.errors }"
                                                       class="form-control date-pick" formControlName="dateOfBirth"
                                                       id="dateOfBirth{{i}}"
                                                       name="dateOfBirth"
@@ -762,9 +761,9 @@
                                        </div>
                                        <div class="col-md-3">
                                            <div class="form-group">
-                                               <label for="occupation{{i}}"><strong>Occupation</strong></label>
-                                               <nb-select [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}"
-                                                          formControlName="occupation"
+                                               <label for="relativeOtherOccupation{{i}}"><strong>Occupation</strong></label>
+                                               <nb-select [ngClass]="{'is-invalid': (submitted) && relatives.get('relativeOtherOccupation').errors}"
+                                                          formControlName="relativeOtherOccupation"
                                                           placeholder="Occupation" multiple fullWidth
                                                           (selectedChange)="relativeOccupationChange(i)">
                                                    <nb-option value="Business Owner">Business Owner</nb-option>
@@ -780,19 +779,16 @@
                                                    <nb-option value="House Wife">House Wife</nb-option>
                                                    <nb-option value="Other">Other</nb-option>
                                                </nb-select>
-                                               <div *ngIf="submitted && relatives.get('occupation').errors" class="small text-danger">
+                                               <div *ngIf="submitted && relatives.get('relativeOtherOccupation').errors" class="small text-danger">
                                                    Occupation is required
                                                </div>
                                            </div>
                                        </div>
-                                       <div *ngIf="tempFlag.showOtherOccupation"
+                                       <div *ngIf="relativesFlagArray[i]"
                                             class="col-md-3 form-group">
-                                           <label>Other occupation(s)</label>
-                                           <input class="form-control" formControlName="relativeOtherOccupation" id="relativeOtherOccupation"
-                                                  name="relativeOtherOccupation" placeholder="Other occupation" type="text">
-                                           <div *ngIf="submitted && relatives.get('relativeOtherOccupation').errors" class="small text-danger">
-                                               Other Occupation is required
-                                           </div>
+                                           <label for="occupation{{i}}">Other occupation(s)</label>
+                                           <input class="form-control" formControlName="occupation" id="occupation{{i}}"
+                                                  name="occupation" placeholder="Other occupation" type="text">
                                        </div>
                                        <div *ngIf="i>1" class="ml-3">
                                            <button (click)="removeRelatives(i)"

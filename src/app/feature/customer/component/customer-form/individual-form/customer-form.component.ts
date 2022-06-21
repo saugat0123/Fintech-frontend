@@ -26,6 +26,7 @@ import {MicroIndividualFormComponent} from '../../../../micro-loan/form-componen
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
+import {json} from 'd3';
 
 @Component({
     selector: 'app-customer-form',
@@ -34,6 +35,7 @@ import {BankingRelationship} from '../../../../admin/modal/banking-relationship'
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
     onActionChangeSpinner = false;
+    relativesFlagArray: any = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -198,10 +200,12 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 relativeOtherOccupation: [undefined]
             })
         );
+        this.relativesFlagArray.push(false);
     }
 
     removeRelatives(i) {
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
+        this.relativesFlagArray.pop(i);
     }
 
     getDistricts(province: Province) {
@@ -355,6 +359,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
                     this.customer.introduction = this.basicInfo.get('introduction').value;
                     this.customer.version = this.basicInfo.get('version').value;
                     const rawFromValue = this.basicInfo.getRawValue();
+                    rawFromValue.customerRelatives.forEach((val: any, i: number) => {
+                        const tempString = JSON.stringify(val.relativeOtherOccupation);
+                        rawFromValue.customerRelatives[i].relativeOtherOccupation = tempString;
+                    });
                     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
                     /** banking relation setting data from child **/
@@ -525,6 +533,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 dateOfBirth: [undefined],
                 relativeOtherOccupation: [undefined]
             }));
+            this.relativesFlagArray.push(false);
         });
     }
 
@@ -546,7 +555,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                     age: [singleRelatives.age],
                     occupation: [singleRelatives.occupation],
                     dateOfBirth: [singleRelatives.dateOfBirth],
-                    relativeOtherOccupation: [singleRelatives.relativeOtherOccupation]
+                    relativeOtherOccupation: [JSON.parse(singleRelatives.relativeOtherOccupation)]
                 }));
             });
 
@@ -814,15 +823,11 @@ bankingRelationshipList = BankingRelationship.enumObject();
     }
 
     relativeOccupationChange(i) {
-        let isOtherSelected;
-        if (!ObjectUtil.isEmpty(this.basicInfo.get(['customerRelatives', i, 'occupation']).value)) {
-            isOtherSelected = this.basicInfo.get(['customerRelatives', i, 'occupation']).value.includes('Other');
-        }
-        if (isOtherSelected) {
-            this.tempFlag.showOtherOccupation = true;
+        const isOtherSelected = this.basicInfo.get(['customerRelatives', i, 'relativeOtherOccupation']).value;
+        if (!ObjectUtil.isEmpty(isOtherSelected) && isOtherSelected.includes('Other')) {
+            this.relativesFlagArray[i] = true;
         } else {
-            this.tempFlag.showOtherOccupation = false;
-            this.basicInfo.get(['customerRelatives', i, 'otherOccupation']).setValue(null);
+            this.relativesFlagArray[i] = false;
         }
     }
 }
