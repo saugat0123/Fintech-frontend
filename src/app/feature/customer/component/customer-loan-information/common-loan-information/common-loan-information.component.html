@@ -6,10 +6,11 @@
                     <div class="nb-card-header"><p><b>Loan Name: {{controls?.get('loanName')?.value}}</b></p>
                         <p><b>Loan Type: {{controls?.get('loanType')?.value}}</b></p>
                         <p><b>Loan Nature: {{commonLoans[i]?.loanConfig?.loanNature}}</b></p>
-                        <a class="px-2 cursor" nbTooltip="Reset Data"
+                        <a class="px-2 cursor float-right" nbTooltip="Reset Data"
                            (click)="resetData(commonLoans[i]?.loanId, i)">
                             <em class="fa fa-undo"></em>
-                        </a></div>
+                        </a>
+                    </div>
                     <div class="row" [formGroup]="controls?.get('proposalData')">
                         <div class="col-md-4">
                             <div class="form-group">
