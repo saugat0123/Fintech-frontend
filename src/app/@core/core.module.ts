@@ -21,6 +21,7 @@ import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { SafePipe } from './pipe/safe.pipe';
+import { ThreeDigitDecimalDirective } from './directive/three-digit-decimal.directive';
 
 
 const DATA_SERVICES = [];
@@ -64,7 +65,8 @@ const UTILITY_MODULES = [
         ...UTILITY_MODULES,
         LoginPopUp,
         NepaliNumberPipe,
-        SafePipe
+        SafePipe,
+        ThreeDigitDecimalDirective
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -81,7 +83,8 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         LoginPopUp,
         NepaliNumberPipe,
-        SafePipe
+        SafePipe,
+        ThreeDigitDecimalDirective
 
     ], entryComponents: [LoginPopUp]
 })

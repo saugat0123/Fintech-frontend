@@ -4,6 +4,7 @@ import {Directive, ElementRef, HostListener} from '@angular/core';
   selector: '[appThreeDigitDecimal]'
 })
 export class ThreeDigitDecimalDirective {
+
   private regex: RegExp = new RegExp(/^\d*\.?\d{0,3}$/g);
   private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', '-'];
   constructor(private el: ElementRef) {}
