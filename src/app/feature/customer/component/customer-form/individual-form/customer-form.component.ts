@@ -815,15 +815,6 @@ bankingRelationshipList = BankingRelationship.enumObject();
         }
     }
 
-    calculateAge(i) {
-        const date = this.basicInfo.get(['customerRelatives', i, 'dateOfBirth']).value;
-        if (!ObjectUtil.isEmpty(date)) {
-            const difference = Math.abs(Date.now() - new Date(date).getTime());
-            const calculatedAge = Math.floor((difference / (1000 * 3600 * 24)) / 365);
-            this.basicInfo.get(['customerRelatives', i, 'age']).patchValue(calculatedAge);
-        }
-    }
-
     relativeOccupationChange(i) {
         const isOtherSelected = this.basicInfo.get(['customerRelatives', i, 'relativeOtherOccupation']).value;
         if (!ObjectUtil.isEmpty(isOtherSelected) && isOtherSelected.includes('Other')) {

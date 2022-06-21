@@ -739,24 +739,11 @@
                                                       class="form-control date-pick" formControlName="dateOfBirth"
                                                       id="dateOfBirth{{i}}"
                                                       name="dateOfBirth"
-                                                      placeholder="Customer Relative Date of birth"
-                                                      (ngModelChange)="calculateAge(i)">
+                                                      placeholder="Customer Relative Date of birth">
                                                <input *ngIf="calendarType === 'BS'" formControlName="dateOfBirth" hidden>
                                                <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="relatives.get('dateOfBirth').value"
                                                              (messageToEmit)="relatives.get('dateOfBirth').patchValue($event?.eDate)"></app-calendar>
                                                <nb-datepicker #dateOfBirth></nb-datepicker>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-3">
-                                           <div class="form-group">
-                                               <label for="age{{i}}"><strong>Age</strong></label>
-                                               <input class="form-control"
-                                                      formControlName="age"
-                                                      id="age{{i}}" type="number"
-                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}" readonly>
-                                               <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
-                                                   Age is required
-                                               </div>
                                            </div>
                                        </div>
                                        <div class="col-md-3">
