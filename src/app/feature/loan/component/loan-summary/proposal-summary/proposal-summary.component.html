@@ -116,7 +116,7 @@
 
                         </td>
                 <td>
-                    <ng-container>
+                    <ng-container *ngIf="loanDatas[i]?.isTerminating; else tenure;">
                         <table>
                             <tr class="text-white sb-bg-dark">
                                 <th *ngIf="(loanDatas[i]?.loanNatureSelected && loanDatas[i]?.fundableNonFundableSelcted &&   loanDatas[i]?.isFundable &&   loanDatas[i]?.isTerminating) ||  loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral">Repayment Mode</th>
@@ -138,6 +138,7 @@
                             </tr>
                         </table>
                     </ng-container>
+                    <p #tenure>{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>
                 </td>
                 <td>
                 <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
