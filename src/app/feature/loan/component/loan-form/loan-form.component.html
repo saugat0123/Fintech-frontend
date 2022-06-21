@@ -109,7 +109,6 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
                         <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
-                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
@@ -205,11 +204,6 @@
                     <!-- Todo Not require for srdb-->
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-crg-micro *ngIf="loanDataReady" #crgMicro
-                                       [formData]="loanDocument?.crgMicro"
-                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
-                                       [security]="loanDocument?.security"
-                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">

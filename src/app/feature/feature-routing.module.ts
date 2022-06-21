@@ -22,10 +22,7 @@ const routes: Routes = [
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
         canActivate: [RouteGuard]
       },
-      {
-        path: 'memo',
-        loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule)
-      },
+
       {
         path: 'loan',
         loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule)
