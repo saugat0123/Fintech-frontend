@@ -762,8 +762,7 @@
                                        <div class="col-md-3">
                                            <div class="form-group">
                                                <label for="relativeOtherOccupation{{i}}"><strong>Occupation</strong></label>
-                                               <nb-select [ngClass]="{'is-invalid': (submitted) && relatives.get('relativeOtherOccupation').errors}"
-                                                          formControlName="relativeOtherOccupation"
+                                               <nb-select formControlName="relativeOtherOccupation"
                                                           placeholder="Occupation" multiple fullWidth
                                                           (selectedChange)="relativeOccupationChange(i)">
                                                    <nb-option value="Business Owner">Business Owner</nb-option>
@@ -779,9 +778,6 @@
                                                    <nb-option value="House Wife">House Wife</nb-option>
                                                    <nb-option value="Other">Other</nb-option>
                                                </nb-select>
-                                               <div *ngIf="submitted && relatives.get('relativeOtherOccupation').errors" class="small text-danger">
-                                                   Occupation is required
-                                               </div>
                                            </div>
                                        </div>
                                        <div *ngIf="relativesFlagArray[i]"
