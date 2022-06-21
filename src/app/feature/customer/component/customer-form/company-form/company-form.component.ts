@@ -798,16 +798,16 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.submitted = true;
         this.companyOtherDetailComponent.onSubmit();
-        this.companyLocation.onSubmit();
-        this.companyProjectLocation.onSubmit();
+        //this.companyLocation.onSubmit();
+        //this.companyProjectLocation.onSubmit();
         this.companyContactDetail.onSubmit();
-        if (this.companyInfoFormGroup.invalid ||
+        /*if (this.companyInfoFormGroup.invalid ||
             this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
-        }
+        }*/
        /* if (this.companyInfoFormGroup.invalid ||
             this.contactDetails.contactDetailsFormGroup.invalid || this.contactDetails.contactDetailsFormGroup.invalid) {
             this.spinner = false;
@@ -870,8 +870,8 @@ export class CompanyFormComponent implements OnInit {
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
-        this.locations.address = JSON.stringify(this.companyLocation.submitData);
-        this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
+        //this.locations.address = JSON.stringify(this.companyLocation.submitData);
+        //this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
         // this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
