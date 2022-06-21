@@ -1,66 +1,66 @@
 <div class="row">
     <div class="col-md-12">
-      <p  class="sub-header"><strong   class="header">Business Profile</strong></p>
+      <p  class="header"><strong   class="header">Business Profile</strong></p>
       <table
-          class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
+          class="table table-condensed table-bordered table-responsive-md table-sm company-detail">
         <tr>
-          <td><b>Nature Of business</b></td>
-          <td>{{companyJsonData?.majorProductService}}</td>
-          <td><b>Relationship Start (with group) (AD/BS)</b>: {{companyJsonData?.relationshipSince | date}}
+          <td class="sub-header"><b>Nature Of business</b></td>
+          <td class="sub-header">{{companyJsonData?.majorProductService}}</td>
+          <td class="sub-header"><b>Relationship Start (with group) (AD/BS)</b>: {{companyJsonData?.relationshipSince | date}}
             ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
         </tr>
         <tr>
-          <td><b>Sister Concerns</b></td>
-          <td>{{companyJsonData?.sisterConcern || 'N/A'}}</td>
-          <td><b>Relationship Since (with customer) (AD/BS)</b>: {{companyJsonData?.relationshipSinceWithCustomer | date}}
+          <td class="sub-header"><b>Sister Concerns</b></td>
+          <td class="sub-header">{{companyJsonData?.sisterConcern || 'N/A'}}</td>
+          <td class="sub-header"><b>Relationship Since (with customer) (AD/BS)</b>: {{companyJsonData?.relationshipSinceWithCustomer | date}}
             ({{companyJsonData?.relationshipSinceWithCustomer |engNepDate: false}})</td>
         </tr>
         <tr>
-          <td rowspan="6"><b>RegistrationDetail</b></td>
-          <td><b>Dept/office</b></td>
-          <td>{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
+          <td rowspan="6" class="sub-header"><b>RegistrationDetail</b></td>
+          <td class="sub-header"><b>Dept/office</b></td>
+          <td class="sub-header">{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
         </tr>
         <tr>
           <td></td>
           <td></td>
         </tr>
         <tr>
-          <td><b>Date(AD/BS)</b></td>
-          <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
+          <td class="sub-header"><b>Date(AD/BS)</b></td>
+          <td class="sub-header">{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
         </tr>
         <tr>
-          <td><b>Regd. Number</b></td>
-          <td>{{companyInfo?.registrationNumber}}</td>
+          <td class="sub-header"><b>Regd. Number</b></td>
+          <td class="sub-header">{{companyInfo?.registrationNumber}}</td>
         </tr>
         <tr>
-          <td><b>Regd. District</b></td>
-          <td>{{companyInfo?.legalStatus?.registrationDistrict}}</td>
+          <td class="sub-header"><b>Regd. District</b></td>
+          <td class="sub-header">{{companyInfo?.legalStatus?.registrationDistrict}}</td>
         </tr>
         <tr>
-          <td><b>Registered at Udhyog Bibhag?</b></td>
-          <td>{{companyInfo?.legalStatus?.udhyogBibhag}}</td>
+          <td class="sub-header"><b>Registered at Udhyog Bibhag?</b></td>
+          <td class="sub-header">{{companyInfo?.legalStatus?.udhyogBibhag}}</td>
         </tr>
         <tr *ngIf="client === clientName?.SHINE_RESUNGA">
-          <td><b>Address as per legal Document</b></td>
-          <td>{{companyJsonData?.addressLegalDocument}}</td>
+          <td class="sub-header"><b>Address as per legal Document</b></td>
+          <td class="sub-header">{{companyJsonData?.addressLegalDocument}}</td>
         </tr>
         <tr>
-          <td><b>PAN Number</b></td>
+          <td class="sub-header"><b>PAN Number</b></td>
           <td>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4 sub-header">
                 {{companyInfo?.panNumber}}
                 <span class="float-right">
               |
             </span>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 sub-header">
                 <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
                 <span class="float-right">
               |
             </span>
               </div>
-             <div class="col-md-4">
+             <div class="col-md-4 sub-header">
                <b>Registered Office</b>: {{companyInfo?.legalStatus.panRegistrationOffice}}
              </div>
             </div>
@@ -68,86 +68,86 @@
         </tr>
         <tr>
           <td colspan="1"></td>
-          <td><b>VAT Number</b></td>
+          <td class="sub-header"><b>VAT Number</b></td>
           <td>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4 fontSize">
                 {{companyInfo?.vatNo}}
                 <span class="float-right">
               |
             </span>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 sub-header">
                 <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.vatRegistrationDate | date}} ({{companyInfo?.legalStatus?.vatRegistrationDate |engNepDate: false}})
                 <span class="float-right">
               |
             </span>
               </div>
-             <div class="col-md-4">
+             <div class="col-md-4 sub-header">
                <b>Registered Office</b>: {{companyInfo?.legalStatus.vatRegistrationOffice}}
              </div>
             </div>
           </td>
         </tr>
         <tr>
-          <td>
+          <td class="sub-header">
             <b>Tax Clearance Till</b>
           </td>
-          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>
-          <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
+          <td class="sub-header">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>
+          <td class="sub-header"><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
             :'N/A'}}</td>
         </tr>
 
         <tr>
-          <td>
+          <td class="sub-header">
             <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
           </td>
-          <td colspan="2">
+          <td colspan="2" class="sub-header">
             {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
           </td>
         </tr>
         <tr>
-          <td><b>Issue Place</b></td>
-          <td colspan="2">{{companyInfo?.issuePlace}}</td>
+          <td class="sub-header"><b>Issue Place</b></td>
+          <td colspan="2" class="sub-header">{{companyInfo?.issuePlace}}</td>
         </tr>
         <tr>
-          <td><b>Registered Address</b></td>
-          <td  colspan="2">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}, {{companyLocationData?.municipalityVdc?.name}}),
+          <td class="sub-header"><b>Registered Address</b></td>
+          <td  colspan="2" class="sub-header">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}, {{companyLocationData?.municipalityVdc?.name}}),
             {{companyLocationData?.ward}},  {{companyLocationData?.address1}} , {{companyLocationData?.address2}}</td>
         </tr>
         <tr>
-          <td><b>Project Address</b></td>
-          <td  colspan="2">({{projectAddress?.province?.name}},{{projectAddress?.district?.name}}, {{projectAddress?.municipalityVdc?.name}}),
+          <td class="sub-header"><b>Project Address</b></td>
+          <td  colspan="2" class="sub-header">({{projectAddress?.province?.name}},{{projectAddress?.district?.name}}, {{projectAddress?.municipalityVdc?.name}}),
             {{projectAddress?.ward}},  {{projectAddress?.address1}} , {{projectAddress?.address2}}</td>
         </tr>
         <tr>
-          <td><b>Correspondence Address</b></td>
-          <td  colspan="2">({{correspondenceAddress?.province?.name}},{{correspondenceAddress?.district?.name}}, {{correspondenceAddress?.municipalityVdc?.name}}),
+          <td class="sub-header"><b>Correspondence Address</b></td>
+          <td  colspan="2" class="sub-header">({{correspondenceAddress?.province?.name}},{{correspondenceAddress?.district?.name}}, {{correspondenceAddress?.municipalityVdc?.name}}),
             {{correspondenceAddress?.ward}},  {{correspondenceAddress?.address1}} , {{correspondenceAddress?.address2}}</td>
         </tr>
         <tr>
           <td>
-            <div><b>Name</b></div>
-            <div><b>Contact Number</b></div>
-            <div><b>E-mail address:</b></div>
-            <div><b>Functional Position</b></div>
+            <div class="sub-header"><b>Name</b></div>
+            <div class="sub-header"><b>Contact Number</b></div>
+            <div class="sub-header"><b>E-mail address:</b></div>
+            <div class="sub-header"><b>Functional Position</b></div>
           </td>
           <td>
-            <div><b> Key Contact Person/Position</b></div>
+            <div class="sub-header"><b> Key Contact Person/Position</b></div>
             <ng-container *ngIf="contact != undefined || contact != null">
-              <div>{{contact[0]?.contactName}}</div>
-              <div>{{contact[0]?.contactNumber}}</div>
-              <div>{{contact[0]?.email}}</div>
-              <div>{{contact[0]?.functionalPosition}}</div>
+              <div class="sub-header">{{contact[0]?.contactName}}</div>
+              <div class="sub-header">{{contact[0]?.contactNumber}}</div>
+              <div class="sub-header">{{contact[0]?.email}}</div>
+              <div class="sub-header">{{contact[0]?.functionalPosition}}</div>
             </ng-container>
           </td>
           <td>
-           <div> <b>Alternative Contact Person</b></div>
+           <div class="sub-header"> <b>Alternative Contact Person</b></div>
             <ng-container *ngIf="contact?.length > 1">
-              <div>{{contact[1]?.contactName}}</div>
-              <div>{{contact[1]?.contactNumber}}</div>
-              <div>{{contact[1]?.email}}</div>
-              <div>{{contact[1]?.functionalPosition}}</div>
+              <div class="sub-header">{{contact[1]?.contactName}}</div>
+              <div class="sub-header">{{contact[1]?.contactNumber}}</div>
+              <div class="sub-header">{{contact[1]?.email}}</div>
+              <div class="sub-header">{{contact[1]?.functionalPosition}}</div>
             </ng-container>
             <span *ngIf="contact?.length == 1">N/A</span>
           </td>
@@ -161,20 +161,20 @@
           <td>asdas</td>
         </tr>-->
         <tr>
-          <td><b>Classification as per NRB Directive</b></td>
-          <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB || 'N/A'}}</td>
+          <td class="sub-header"><b>Classification as per NRB Directive</b></td>
+          <td colspan="2" class="sub-header">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB || 'N/A'}}</td>
         </tr>
 
         <tr *ngIf="client !== clientName?.SHINE_RESUNGA">
-          <td><b>Customer Negative List Checked</b></td>
-          <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
-            <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
-            <span class="ml-5">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span></td>
+          <td class="sub-header"><b>Customer Negative List Checked</b></td>
+          <td colspan="2"><span class="sub-header">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
+            <span class="ml-2 sub-header">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
+            <span class="ml-5 sub-header">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span></td>
         </tr>
 
         <tr>
-          <td><b>Authorized / Issue / Paid Up Capital</b></td>
-          <td colspan="2">Rs. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
+          <td class="sub-header"><b>Authorized / Issue / Paid Up Capital</b></td>
+          <td colspan="2" class="sub-header">Rs. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
             / Rs. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
             / Rs. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
         </tr>
@@ -195,22 +195,22 @@
         </ng-container>
 
         <tr>
-          <td><b>Client Type</b></td>
-          <td>{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
+          <td class="sub-header"><b>Client Type</b></td>
+          <td class="sub-header">{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
 
         </tr>
         <tr>
-          <td><b>SubSector</b></td>
-          <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
+          <td class="sub-header"><b>SubSector</b></td>
+          <td class="sub-header">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
         <tr>
-          <td><b>Account Number</b></td>
-          <td>{{companyInfo?.accountNo || 'N/A'}}</td>
+          <td class="sub-header"><b>Account Number</b></td>
+          <td class="sub-header">{{companyInfo?.accountNo || 'N/A'}}</td>
         </tr>
 
         <tr>
-          <td><b>IRD report obtained and attached</b></td>
-          <td>{{companyJsonData?.irdReport || 'N/A'}}</td>
+          <td class="sub-header"><b>IRD report obtained and attached</b></td>
+          <td class="sub-header">{{companyJsonData?.irdReport || 'N/A'}}</td>
         </tr>
 
 <!--        Obligor Code for SRDB only-->
@@ -225,7 +225,7 @@
   <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
   <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
     <thead>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
       <th class="sn">S.No</th>
       <th>Shareholder/Promoters</th>
       <th>Designation</th>
@@ -236,14 +236,14 @@
     <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
       <tr>
         <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{share?.name}}</td>
-        <td class="text-left pl-1">{{share?.type}}</td>
-        <td class="text-right pr-1">{{share?.share}}%</td>
+        <td class="text-left pl-1 sub-header">{{share?.name}}</td>
+        <td class="text-left pl-1 sub-header">{{share?.type}}</td>
+        <td class="text-right pr-1 sub-header">{{share?.share}}%</td>
       </tr>
     </ng-container>
     <tr>
-      <th colspan="3" class="text-left pl-1">Total</th>
-      <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
+      <th colspan="3" class="text-left pl-1 sub-header">Total</th>
+      <th class="text-right pr-1 sub-header">{{companyJsonData?.totalSharePercent}}%</th>
     </tr>
 
     </tbody>
@@ -252,29 +252,29 @@
 
 <div class="col-md-12">
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
       <th>Business Process </th>
     </tr>
     <tr>
-      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
+      <td class="text-left pl-1 sub-header"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
       <th>Major Suppliers</th>
     </tr>
     <tr>
-      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+      <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
       <th>Major Buyers</th>
     </tr>
     <tr>
-      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
+      <td class="text-left pl-1b sub-header" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
     </tr>
     <tr class="text-white sb-bg-dark">
       <th>Risk & Mitigation</th>
     </tr>
     <tr>
-      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
+      <td class="text-left pl-1 sub-header"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
     </tr>
   </table>
 </div>

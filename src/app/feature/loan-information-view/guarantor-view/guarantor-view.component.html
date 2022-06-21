@@ -10,47 +10,47 @@
 
               <tbody>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Name</td>
+                <td class="sb-bg-dark text-white sub-header">Name</td>
               </tr>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Gender</td>
+                <td class="sb-bg-dark text-white sub-header">Gender</td>
               </tr>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Relationship With Borrower</td>
+                <td class="sb-bg-dark text-white sub-header">Relationship With Borrower</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-dark text-white">Father's Name</td>
+                <td class="text-left sb-bg-dark text-white sub-header">Father's Name</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-dark text-white">Grand Father Name</td>
+                <td class="text-left sb-bg-dark text-white sub-header">Grand Father Name</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Date Of Birth (AD/BS)</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Citizenship Number</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Citizenship Number</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Phone Number</td>
               </tr>
 
               <tr>
-                <td class="sb-bg-dark text-left text-white">Occupation</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Occupation</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Net Worth</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Net Worth</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Age</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Age</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Email</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Email</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Permanent Address</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Permanent Address</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Temporary Address</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Temporary Address</td>
               </tr>
               </tbody>
             </table>
@@ -60,47 +60,47 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
               <tbody>
               <tr class="text-left">
-                <td class=" ">{{subGuarantor?.name || 'N/A'}}</td>
+                <td class="sub-header">{{subGuarantor?.name || 'N/A'}}</td>
               </tr>
-              <tr class="text-left">
+              <tr class="text-left sub-header">
                 <td class=" ">{{subGuarantor?.gender || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.relationship || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.relationship || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.fatherName || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.fatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.contactNumber || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.contactNumber || 'N/A'}}</td>
               </tr>
 
               <tr>
-                <td class=" text-left ">{{subGuarantor?.profession || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.netWorth || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.netWorth || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.email || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
+                <td class=" text-left sub-header">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
+                <td class=" text-left sub-header">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
               </tr>
               </tbody>
             </table>
@@ -114,7 +114,7 @@
 
 <div *ngIf="promoter?.length > 0 && customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row">
   <div class="col-md-12 text-center">
-    <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/ Proprietor Details'}}</strong></p>
+    <p class="float-left sub-header" ><strong  class="sub-header sub-header">{{'Promoter/ Proprietor Details'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoter; let i= index">
       <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
         <tr>
@@ -124,47 +124,47 @@
 
               <tbody>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Name</td>
+                <td class="sb-bg-dark text-white sub-header">Name</td>
               </tr>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Gender</td>
+                <td class="sb-bg-dark text-white sub-header">Gender</td>
               </tr>
               <tr class="text-left">
-                <td class="sb-bg-dark text-white">Relationship With Borrower</td>
+                <td class="sb-bg-dark text-white sub-header">Relationship With Borrower</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-dark text-white">Father's Name</td>
+                <td class="text-left sb-bg-dark text-white sub-header">Father's Name</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-dark text-white">Grand Father Name</td>
+                <td class="text-left sb-bg-dark text-white sub-header">Grand Father Name</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Date Of Birth (AD/BS)</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Citizenship Number</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Citizenship Number</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Phone Number</td>
               </tr>
 
               <tr>
-                <td class="sb-bg-dark text-left text-white">Occupation</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Occupation</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Net Worth</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Net Worth</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Age</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Age</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Email</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Email</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Permanent Address</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Permanent Address</td>
               </tr>
               <tr>
-                <td class="sb-bg-dark text-left text-white">Temporary Address</td>
+                <td class="sb-bg-dark text-left text-white sub-header">Temporary Address</td>
               </tr>
               </tbody>
             </table>
@@ -174,47 +174,47 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
               <tbody>
               <tr class="text-left">
-                <td class=" ">{{subGuarantor?.name || 'N/A'}}</td>
+                <td class="sub-header">{{subGuarantor?.name || 'N/A'}}</td>
               </tr>
               <tr class="text-left">
-                <td class=" ">{{subGuarantor?.gender || 'N/A'}}</td>
+                <td class="sub-header">{{subGuarantor?.gender || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.relationship || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.relationship || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.fatherName || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.fatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
+                <td class="text-left sub-header">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.contactNumber || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.contactNumber || 'N/A'}}</td>
               </tr>
 
               <tr>
-                <td class=" text-left ">{{subGuarantor?.profession || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.netWorth || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.netWorth || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.email || 'N/A'}}</td>
+                <td class=" text-left sub-header">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
+                <td class=" text-left sub-header">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
+                <td class=" text-left sub-header">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
               </tr>
               </tbody>
             </table>
@@ -227,10 +227,10 @@
 </div>
 <div *ngIf="promoterBackground?.length > 0 &&  customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row">
   <div class="col-md-12 text-center">
-    <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
+    <p class="float-left sub-header" ><strong  class="sub-header sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
       <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
-    <thead class="sb-bg-dark text-white">
+    <thead class="sb-bg-dark text-white sub-header">
 <tr>
   <th>S.N</th>
   <th>Name</th>
@@ -244,22 +244,22 @@
         <tbody>
         <tr *ngFor="let promoter of (guarantor?.promoterData | jsonParse)?.background; let j = index;" >
           <td>{{j + 1}}</td>
-          <td>{{guarantor?.name}}</td>
-          <td>{{promoter?.previousAssociations}}</td>
-          <td>{{promoter?.natureOfBusiness}}</td>
-          <td>{{promoter?.capacity}}</td>
-          <td>{{(promoter?.tenure | date)}}</td>
-          <td>{{guarantor?.guarantorType}}</td>
+          <td class="sub-header">{{guarantor?.name}}</td>
+          <td class="sub-header">{{promoter?.previousAssociations}}</td>
+          <td class="sub-header">{{promoter?.natureOfBusiness}}</td>
+          <td class="sub-header">{{promoter?.capacity}}</td>
+          <td class="sub-header">{{(promoter?.tenure | date)}}</td>
+          <td class="sub-header">{{guarantor?.guarantorType}}</td>
         </tr>
         </tbody>
       </table>
     </ng-container>
   </div>
   <div class="col-md-12 text-center">
-    <p class="float-left sub-header" ><strong  class="sub-header">{{'Undivided Family Members'}}</strong></p>
+    <p class="float-left sub-header" ><strong  class="sub-header sub-header">{{'Undivided Family Members'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
       <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
-    <thead class="sb-bg-dark text-white">
+    <thead class="sb-bg-dark text-white sub-header">
 <tr>
   <th>S.N</th>
   <th>Name</th>
@@ -273,12 +273,12 @@
         <tbody>
         <tr *ngFor="let promoter of (guarantor?.promoterData | jsonParse)?.familyDetails; let j = index;" >
           <td>{{j + 1}}</td>
-          <td>{{promoter?.name}}</td>
-          <td>{{promoter?.relation}}</td>
-          <td>{{promoter?.age}}</td>
-          <td>{{promoter?.profession}}</td>
-          <td>{{guarantor?.name}}</td>
-          <td>{{guarantor?.guarantorType}}</td>
+          <td class="sub-header">{{promoter?.name}}</td>
+          <td class="sub-header">{{promoter?.relation}}</td>
+          <td class="sub-header">{{promoter?.age}}</td>
+          <td class="sub-header">{{promoter?.profession}}</td>
+          <td class="sub-header">{{guarantor?.name}}</td>
+          <td class="sub-header">{{guarantor?.guarantorType}}</td>
         </tr>
         </tbody>
       </table>

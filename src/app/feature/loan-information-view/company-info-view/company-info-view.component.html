@@ -1,98 +1,98 @@
 <div class="row" *ngIf="formValue">
     <div class="col-md-12">
-        <p><strong>Company Information</strong></p>
+        <p><strong class="header">Company Information</strong></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
 <!--            <tr class="text-white sb-bg-dark">-->
 <!--                <th colspan="12">Company Information</th>-->
 <!--            </tr>-->
-            <tr class="text-white sb-bg-dark">
-                <th>Company Name</th>
-                <th>Customer ID</th>
-                <th>Establishment Date(AD/BS)</th>
-                <th>Registration Number</th>
-                <th>Issue Place</th>
-                <th>PAN</th>
-                <th>VAT</th>
-                <th>Business Type</th>
-                <th *ngIf="client === clientName?.SHINE_RESUNGA">Address as per Legal Document</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header">Company Name</th>
+                <th class="sub-header">Customer ID</th>
+                <th class="sub-header">Establishment Date(AD/BS)</th>
+                <th class="sub-header">Registration Number</th>
+                <th class="sub-header">Issue Place</th>
+                <th class="sub-header">PAN</th>
+                <th class="sub-header">VAT</th>
+                <th class="sub-header">Business Type</th>
+                <th class="sub-header" *ngIf="client === clientName?.SHINE_RESUNGA">Address as per Legal Document</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{formValue?.companyName}}</td>
-                <td class="text-right pr-1">{{customerInfo['customerCode'] || 'N/A'}}</td>
-                <td class="text-left pl-1">{{formValue?.establishmentDate | date}} ({{formValue?.establishmentDate | engNepDate: false}})</td>
-                <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
-                <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.companyName}}</td>
+                <td class="text-right pr-1 sub-header">{{customerInfo['customerCode'] || 'N/A'}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.establishmentDate | date}} ({{formValue?.establishmentDate | engNepDate: false}})</td>
+                <td class="text-right pr-1 sub-header">{{formValue?.registrationNumber}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
                 <td class="text-right pr1">{{formValue?.vatNo}}</td>
-                <td class="text-left pl-1">{{formValue?.businessType}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.businessType}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">
-                <th>Email</th>
-                <th>Mobile Number</th>
-                <th>LandLine Number</th>
-                <th>Major products/Service</th>
-                <th>Relationship Since (with group)(AD/BS)</th>
-                <th>Relationship Since (with customer)(AD/BS)</th>
-                <th>Client Type</th>
-                <th>Sub Sector</th>
-                <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
+                <th class="sub-header">Email</th>
+                <th class="sub-header">Mobile Number</th>
+                <th class="sub-header">LandLine Number</th>
+                <th class="sub-header">Major products/Service</th>
+                <th class="sub-header">Relationship Since (with group)(AD/BS)</th>
+                <th class="sub-header">Relationship Since (with customer)(AD/BS)</th>
+                <th class="sub-header">Client Type</th>
+                <th class="sub-header">Sub Sector</th>
+                <th class="sub-header" *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">{{formValue?.email}}</td>
-                <td class="text-right pr-1">{{formValue?.contactNum}}</td>
-                <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSinceWithCustomer | date}} ({{companyJsonData?.relationshipSinceWithCustomer | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{(loanDataHolder?.loanHolder?.clientType) | clientType}}</td>
-                <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
-                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
+                <td class="text-right pr-1 sub-header">{{formValue?.contactNum}}</td>
+                <td class="text-right pr-1 sub-header">{{formValue?.landLineNumber}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.majorProductService}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.relationshipSinceWithCustomer | date}} ({{companyJsonData?.relationshipSinceWithCustomer | engNepDate: false}})</td>
+                <td class="text-left pl-1 sub-header">{{(loanDataHolder?.loanHolder?.clientType) | clientType}}</td>
+                <td class="text-left pl-1 sub-header">{{customerInfo['subsectorDetail']}}</td>
+                <td class="text-left pl-1 sub-header" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
 
             </tr>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" *ngIf="companyJsonData?.isAdditionalCompanyInfo">
             <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="5">Additional registration/license information
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header" colspan="5">Additional registration/license information
                 </th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <td>Type of Registration/License</td>
-                <td>Name of license holder</td>
-                <td>License Issued Date(AD/BS)</td>
-                <td>License Expiry Date(AD/BS)</td>
-                <td>License Issue Place</td>
+                <td class="sub-header">Type of Registration/License</td>
+                <td class="sub-header">Name of license holder</td>
+                <td class="sub-header">License Issued Date(AD/BS)</td>
+                <td class="sub-header">License Expiry Date(AD/BS)</td>
+                <td class="sub-header">License Issue Place</td>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}} ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}} {{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
+                <td class="text-left pl-1 sub-header">{{additionalInfoJsonData?.registrationType}}</td>
+                <td class="text-left pl-1 sub-header">{{additionalInfoJsonData?.licenseHolderName}}</td>
+                <td class="text-left pl-1 sub-header">{{additionalInfoJsonData?.licenseIssuedDate | date}} ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}})</td>
+                <td class="text-left pl-1 sub-header">{{additionalInfoJsonData?.licenseExpiryDate | date}} {{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
+                <td class="text-left pl-1 sub-header">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
             <tr>
                 <td colspan="5">
                     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
                         <tr class="text-white sb-bg-dark">
-                            <td colspan="4">License Number</td>
-                            <td colspan="4">Issuer Of License</td>
-                            <td colspan="4">Remarks</td>
+                            <td class="sub-header" colspan="4">License Number</td>
+                            <td class="sub-header" colspan="4">Issuer Of License</td>
+                            <td class="sub-header" colspan="4">Remarks</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="4">{{additionalInfoJsonData?.licenseNo}}</td>
-                            <td colspan="4">{{additionalInfoJsonData?.issuerOfLiscence}}</td>
-                            <td colspan="4" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
+                            <td colspan="4" class="sub-header">{{additionalInfoJsonData?.licenseNo}}</td>
+                            <td colspan="4" class="sub-header">{{additionalInfoJsonData?.issuerOfLiscence}}</td>
+                            <td colspan="4" class="sub-header" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
                         </tr>
 
                         </tbody>
@@ -104,46 +104,46 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="12">Legal Status</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header" colspan="12">Legal Status</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Corporate Structure</th>
-                <th>Registered Office</th>
-                <th>Registered Under Act</th>
-                <th>Registration Date(AD/BS)</th>
-                <th>Registration Issued Place</th>
-                <th>PAN Registration Office</th>
-                <th>PAN Registration Date(AD/BS)</th>
-                <th>Registration Expiry Date(AD/BS)</th>
-                <th>VAT Registration Date</th>
-                <th>VAT Registration Office</th>
-                <th>Registration District</th>
-                <th>Registered at Udhyog Bibhag?</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header">Corporate Structure</th>
+                <th class="sub-header">Registered Office</th>
+                <th class="sub-header">Registered Under Act</th>
+                <th class="sub-header">Registration Date(AD/BS)</th>
+                <th class="sub-header">Registration Issued Place</th>
+                <th class="sub-header">PAN Registration Office</th>
+                <th class="sub-header">PAN Registration Date(AD/BS)</th>
+                <th class="sub-header">Registration Expiry Date(AD/BS)</th>
+                <th class="sub-header">VAT Registration Date</th>
+                <th class="sub-header">VAT Registration Office</th>
+                <th class="sub-header">Registration District</th>
+                <th class="sub-header">Registered at Udhyog Bibhag?</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
-                <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
-                <td class="text-right pr-1">
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
+                <td class="text-left pl-1 sub-header">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.registeredUnderAct}}</td>
+                <td class="text-right pr-1 sub-header">
                     {{formValue?.legalStatus?.registrationDate ? (formValue?.legalStatus?.registrationDate | date) : 'NA'}}
                     ({{formValue?.legalStatus?.registrationDate? (formValue?.legalStatus?.registrationDate | engNepDate: false) : 'NA'}})</td>
                 <td class="text-right pr-1">{{formValue?.legalStatus?.regIssuedPlace}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
+                <td class="text-left pl-1 sub-header">
                     {{formValue?.legalStatus?.panRegistrationDate ? (formValue?.legalStatus?.panRegistrationDate | date) : 'NA'}}
                     ({{formValue?.legalStatus?.panRegistrationDate? (formValue?.legalStatus?.panRegistrationDate |engNepDate: false) : 'NA'}})</td>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">
                     {{formValue?.legalStatus?.registrationExpiryDate ? (formValue?.legalStatus?.registrationExpiryDate | date) : 'NA'}}
                     ({{formValue?.legalStatus?.registrationExpiryDate ? (formValue?.legalStatus?.registrationExpiryDate | engNepDate: false) : 'NA'}})</td>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">
                     {{formValue?.legalStatus?.vatRegistrationDate ? (formValue?.legalStatus?.vatRegistrationDate | date) : 'NA'}}
                     ({{formValue?.legalStatus?.vatRegistrationDate? (formValue?.legalStatus?.vatRegistrationDate |engNepDate: false) : 'NA'}})</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.vatRegistrationOffice}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationDistrict}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.udhyogBibhag}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.vatRegistrationOffice}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.registrationDistrict}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.legalStatus?.udhyogBibhag}}</td>
             </tr>
 <!--            <tr>-->
 <!--                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
@@ -164,26 +164,26 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="7">Capital Information</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header" colspan="7">Capital Information</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Authorized Capital</th>
-                <th>Issued Capital</th>
-                <th>Paid Up Capital</th>
+                <th class="sub-header">Authorized Capital</th>
+                <th class="sub-header">Issued Capital</th>
+                <th class="sub-header">Paid Up Capital</th>
                 <ng-container *ngIf="client === clientName?.ICFC">
-                    <th *ngIf="formValue?.capital?.totalCapital > 0">Total Capital</th>
-                    <th *ngIf="formValue?.capital?.fixedCapital > 0">Fixed Capital</th>
-                    <th *ngIf="formValue?.capital?.workingCapital > 0">Working Capital</th>
+                    <th class="sub-header" *ngIf="formValue?.capital?.totalCapital > 0">Total Capital</th>
+                    <th class="sub-header" *ngIf="formValue?.capital?.fixedCapital > 0">Fixed Capital</th>
+                    <th class="sub-header" *ngIf="formValue?.capital?.workingCapital > 0">Working Capital</th>
                 </ng-container>
 <!--                <th>Number Of Shareholder</th>-->
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1 sub-header">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
                 <ng-container *ngIf="client === clientName?.ICFC">
                     <td class="text-right pr-1" *ngIf="formValue?.capital?.totalCapital > 0">Rs. {{formValue?.capital?.totalCapital}}</td>
                     <td class="text-right pr-1" *ngIf="formValue?.capital?.fixedCapital > 0">Rs. {{formValue?.capital?.fixedCapital}}</td>
@@ -197,23 +197,23 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="6">Contact Person Details</th>
+                <th class="sub-header" colspan="6">Contact Person Details</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Contact Number</th>
-                <th>Email</th>
-                <th>Functional Position</th>
+                <th class="sn sub-header">S.N</th>
+                <th class="sub-header">Name</th>
+                <th class="sub-header">Contact Number</th>
+                <th class="sub-header">Email</th>
+                <th class="sub-header">Functional Position</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let contactPerson of contactPersonJsonData; let i=index;">
                 <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{contactPerson?.contactName}}</td>
-                <td class="text-right pr-1">{{contactPerson?.contactNumber}}</td>
-                <td class="text-left pl-1">{{contactPerson?.contactEmail}}</td>
-                <td class="text-left pl-1">{{contactPerson?.functionalPosition}}</td>
+                <td class="text-left pl-1 sub-header">{{contactPerson?.contactName}}</td>
+                <td class="text-right pr-1 sub-header">{{contactPerson?.contactNumber}}</td>
+                <td class="text-left pl-1 sub-header">{{contactPerson?.contactEmail}}</td>
+                <td class="text-left pl-1 sub-header">{{contactPerson?.functionalPosition}}</td>
             </tr>
             </tbody>
         </table>
@@ -221,85 +221,85 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="5">Company Location Detail</th>
+                <th colspan="5" class="sub-header">Company Location Detail</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="text-white sb-bg-dark">
-                <th>Registered Address</th>
-                <th>Registered Ward</th>
-                <th>Registered Address Line 1</th>
-                <th>Registered Address Line 2</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header">Registered Address</th>
+                <th class="sub-header">Registered Ward</th>
+                <th class="sub-header">Registered Address Line 1</th>
+                <th class="sub-header">Registered Address Line 2</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">
                     ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
                     , {{companyLocationData?.municipalityVdc?.name}})
                 </td>
-                <td class="text-right pr-1"> {{companyLocationData?.ward}}</td>
-                <td class="text-left pl-1"> {{companyLocationData?.address1}}</td>
-                <td class="text-left pl-1"> {{companyLocationData?.address2}}</td>
+                <td class="text-right pr-1 sub-header"> {{companyLocationData?.ward}}</td>
+                <td class="text-left pl-1 sub-header"> {{companyLocationData?.address1}}</td>
+                <td class="text-left pl-1 sub-header"> {{companyLocationData?.address2}}</td>
             </tr>
             </tbody>
             <tbody>
             <tr class="text-white sb-bg-dark">
-                <th>Project Address</th>
-                <th>Project Ward</th>
-                <th>Project Address Line 1</th>
-                <th>Project Address Line 2</th>
+                <th class="sub-header">Project Address</th>
+                <th class="sub-header">Project Ward</th>
+                <th class="sub-header">Project Address Line 1</th>
+                <th class="sub-header">Project Address Line 2</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">
                     ({{projectAddress?.province?.name}},{{projectAddress?.district?.name}}
                     , {{projectAddress?.municipalityVdc?.name}})
                 </td>
-                <td class="text-right pr-1"> {{projectAddress?.ward}}</td>
-                <td class="text-left pl-1"> {{projectAddress?.address1}}</td>
-                <td class="text-left pl-1"> {{projectAddress?.address2}}</td>
+                <td class="text-right pr-1 sub-header"> {{projectAddress?.ward}}</td>
+                <td class="text-left pl-1 sub-header"> {{projectAddress?.address1}}</td>
+                <td class="text-left pl-1 sub-header"> {{projectAddress?.address2}}</td>
             </tr>
             </tbody>
             <tbody>
             <tr class="text-white sb-bg-dark">
-                <th>Correspondence Address</th>
-                <th>Correspondence Ward</th>
-                <th>Correspondence Address Line 1</th>
-                <th>Correspondence Address Line 2</th>
+                <th class="sub-header">Correspondence Address</th>
+                <th class="sub-header">Correspondence Ward</th>
+                <th class="sub-header">Correspondence Address Line 1</th>
+                <th class="sub-header">Correspondence Address Line 2</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">
+                <td class="text-left pl-1 sub-header">
                     ({{correspondenceAddress?.province?.name}},{{correspondenceAddress?.district?.name}}
                     , {{correspondenceAddress?.municipalityVdc?.name}})
                 </td>
-                <td class="text-right pr-1"> {{correspondenceAddress?.ward}}</td>
-                <td class="text-left pl-1"> {{correspondenceAddress?.address1}}</td>
-                <td class="text-left pl-1"> {{correspondenceAddress?.address2}}</td>
+                <td class="text-right pr-1 sub-header"> {{correspondenceAddress?.ward}}</td>
+                <td class="text-left pl-1 sub-header"> {{correspondenceAddress?.address1}}</td>
+                <td class="text-left pl-1 sub-header"> {{correspondenceAddress?.address2}}</td>
             </tr>
             </tbody>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="8">Other Details</th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th colspan="8" class="sub-header">Other Details</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Tax Clearance Till</th>
-                <th>Tax Clearance Remark</th>
-                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Customer Negative List Checked</th>
-                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Negative List Remark</th>
-                <th>Classification as per NRB directive</th>
-                <th></th>
-                <th></th>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header">Tax Clearance Till</th>
+                <th class="sub-header">Tax Clearance Remark</th>
+                <th class="sub-header" *ngIf="client !== clientName?.SHINE_RESUNGA">Customer Negative List Checked</th>
+                <th class="sub-header" *ngIf="client !== clientName?.SHINE_RESUNGA">Negative List Remark</th>
+                <th class="sub-header">Classification as per NRB directive</th>
+                <th class="sub-header"></th>
+                <th class="sub-header"></th>
 
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>
+                <td class="text-left pl-1 sub-header" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>
+                <td class="text-left pl-1 sub-header" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
 
             </tr>
             </tbody>
@@ -308,33 +308,33 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Sister Concern</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.sisterConcern}}</td>
             </tr>
             </thead>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Business Process </th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
+                <td class="text-left pl-1 sub-header"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
             </tr>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
+                <td class="text-left pl-1 sub-header"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
             </tr>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th>Business Industry Outlook</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.BusinessIndustryOutlook | safeHtml"></span></td>
+                <td class="text-left pl-1 sub-header"><span [innerHTML]="companyJsonData?.BusinessIndustryOutlook | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -342,29 +342,29 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="8">Management Team</th>
+                <th colspan="8" class="sub-header">Management Team</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Address as per Legal Document</th>
+                <th class="sn sub-header">S.N</th>
+                <th class="sub-header">Name</th>
+                <th class="sub-header">Designation</th>
+                <th class="sub-header">Address as per Legal Document</th>
             </tr>
             </thead>
             <tbody *ngFor="let management of companyJsonData?.managementTeamList; let i=index">
             <tr>
                 <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{management?.name}}</td>
-                <td class="text-left pl-1">{{management?.designation}}</td>
-                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1 sub-header">{{management?.name}}</td>
+                <td class="text-left pl-1 sub-header">{{management?.designation}}</td>
+                <td class="text-left pl-1 sub-header">{{management?.companyLegalDocumentAddress}}</td>
             </tr>
 
             </tbody>
-            <tr class="text-white sb-bg-dark">
+            <tr class="text-white sb-bg-dark sub-header">
                 <th colspan="3">Note</th>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+                <td colspan="3" class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
             </tr>
         </table>
 
@@ -492,67 +492,67 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Customer Background</th>
+                <th class="sub-header">Customer Background</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Market demand of product/service</th>
+                <th class="sub-header">Market demand of product/service</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['marketDemandService']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Key Suppliers</th>
+                <th class="sub-header">Key Suppliers</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Key Buyers</th>
+                <th class="sub-header">Key Buyers</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Pricing & Competitors Overview</th>
+                <th class="sub-header">Pricing & Competitors Overview</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Business Objectives</th>
+                <th class="sub-header">Business Objectives</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Marketing Strategies</th>
+                <th class="sub-header">Marketing Strategies</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Manufacturing Process, capacity, future plan </th>
+                <th class="sub-header">Manufacturing Process, capacity, future plan </th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Raw Materials</th>
+                <th class="sub-header">Raw Materials</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Market demand of product/service</th>
+                <th class="sub-header">Market demand of product/service</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Group's Background and associated companies</th>
+                <th class="sub-header">Group's Background and associated companies</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['groupBackground']"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.marketScenario['groupBackground']"></td>
             </tr>
         </table>
 
@@ -560,72 +560,72 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="4">SWOT Analysis</th>
+                <th colspan="4" class="sub-header">SWOT Analysis</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Strength</th>
-                <th>Weakness</th>
-                <th>Opportunity</th>
-                <th>Threats</th>
+                <th class="sub-header">Strength</th>
+                <th class="sub-header">Weakness</th>
+                <th class="sub-header">Opportunity</th>
+                <th class="sub-header">Threats</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
             </tr>
             </tbody>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Succession Risk & Mitigation</th>
+                <th class="sub-header">Succession Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
+                <td class="text-left pl-1 sub-header"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
             </tr>
         </table>
 
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Business Objective</th>
+                <th class="sub-header">Business Objective</th>
             </tr>
-            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
+            <tr class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
 
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th colspan="2">Raw Materials</th>
+                <th colspan="2" class="sub-header">Raw Materials</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Raw Material Sourcing</th>
-                <th>Raw Materials Availability</th>
+                <th class="sub-header">Raw Material Sourcing</th>
+                <th class="sub-header">Raw Materials Availability</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.rawMaterialSourcing}}</td>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.rawMaterialAvailability}}</td>
             </tr>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Group’s background</th>
+                <th class="sub-header">Group’s background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
             </tr>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Legal review Remarks</th>
+                <th class="sub-header">Legal review Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
+                <td class="text-left pl-1 sub-header" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
             </tr>
         </table>
 <!--        <table *ngIf="!srdbAffiliatedId"-->
@@ -721,53 +721,53 @@
         <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th colspan="2">Company Relationship with Bank</th>
+                <th colspan="2" class="sub-header">Company Relationship with Bank</th>
             </tr>
             <tr>
-                <th class="text-white sb-bg-dark">Banking Relationship</th>
-                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
+                <th class="text-white sb-bg-dark sub-header">Banking Relationship</th>
+                <td class="text-left pl-1 sub-header">{{bankingRelation?.bankingRelationship}}</td>
             </tr>
             <tr>
-                <th class="text-white sb-bg-dark">Account Turnover
+                <th class="text-white sb-bg-dark sub-header">Account Turnover
                 </th>
-                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
+                <td class="text-left pl-1 sub-header">{{bankingRelation?.accountTurnover}}</td>
             </tr>
             <tr>
-                <th class="text-white sb-bg-dark">Repayment History</th>
-                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
+                <th class="text-white sb-bg-dark sub-header">Repayment History</th>
+                <td class="text-left pl-1 sub-header">{{bankingRelation?.repaymentHistory}}</td>
             </tr>
         </table>
 
         <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th colspan="5">Business & Industry</th>
+                <th colspan="5" class="sub-header">Business & Industry</th>
+            </tr>
+            <tr class="text-white sb-bg-dark sub-header">
+                <th class="sub-header">Regulatory Concern</th>
+                <th class="sub-header">Supplier</th>
+                <th class="sub-header">Buyer</th>
+                <th class="sub-header">Industry Growth</th>
+                <th class="sub-header">Market Competition</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1 sub-header">{{businessAndIndustry?.regulatoryConcern}}</td>
+                <td class="text-left pl-1 sub-header">{{businessAndIndustry?.supplier}}</td>
+                <td class="text-left pl-1 sub-header">{{businessAndIndustry?.buyer}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.industryGrowth}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.marketCompetition}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Regulatory Concern</th>
-                <th>Supplier</th>
-                <th>Buyer</th>
-                <th>Industry Growth</th>
-                <th>Market Competition</th>
+                <th class="sub-header">Experience</th>
+                <th class="sub-header">Succession</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{businessAndIndustry?.regulatoryConcern}}</td>
-                <td class="text-left pl-1">{{businessAndIndustry?.supplier}}</td>
-                <td class="text-left pl-1">{{businessAndIndustry?.buyer}}</td>
-                <td class="text-left pl-1">{{formValue?.industryGrowth}}</td>
-                <td class="text-left pl-1">{{formValue?.marketCompetition}}</td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Experience</th>
-                <th>Succession</th>
+                <td class="text-left pl-1 sub-header">{{formValue?.experience}}</td>
+                <td class="text-left pl-1 sub-header">{{formValue?.succession}}</td>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{formValue?.experience}}</td>
-                <td class="text-left pl-1">{{formValue?.succession}}</td>
-            </tr>
-            <tr>
-                <th class="sb-bg-dark text-white">IRD report obtained and attached</th>
-                <td class="text-left pl-1">{{companyJsonData?.irdReport}}</td>
+                <th class="sb-bg-dark text-white sub-header">IRD report obtained and attached</th>
+                <td class="text-left pl-1 sub-header">{{companyJsonData?.irdReport}}</td>
             </tr>
         </table>
     </div>

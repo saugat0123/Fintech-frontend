@@ -21,7 +21,7 @@
           <nb-tab tabTitle="Credit Checklist-General">
             <!--          <form [formGroup]="formGroupCheckList">-->
             <div class="form-group col-md-5" style="display: flex">
-              <label>Date of Checklist: </label>
+              <label class="sub-header">Date of Checklist: </label>
               <ng-container *ngIf="fromProfile">
                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
                        class="form-control "

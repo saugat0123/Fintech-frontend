@@ -4,33 +4,33 @@
         class="table table-bordered table-responsive-md table-sm sb-small text-center">
     <thead>
     <tr class="sb-bg-dark text-white">
-        <th>S.N</th>
-        <th>Branch Code</th>
-        <th>Obligor</th>
-        <th>Main Code</th>
-        <th>Name</th>
-        <th>Type Of Credit</th>
-        <th>Approved Limit</th>
-        <th>O/SPrincipal</th>
-        <th>Interest Rate</th>
+        <th class="sub-header">S.N</th>
+        <th class="sub-header">Branch Code</th>
+        <th class="sub-header">Obligor</th>
+        <th class="sub-header">Main Code</th>
+        <th class="sub-header">Name</th>
+        <th class="sub-header">Type Of Credit</th>
+        <th class="sub-header">Approved Limit</th>
+        <th class="sub-header">O/SPrincipal</th>
+        <th class="sub-header">Interest Rate</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of list;let i = index">
-        <td>{{i + 1}}</td>
-        <td class="text-right pr-1">{{data?.jsonDataMap?.BranchCode || '-'}}</td>
-        <td class="text-left pl-1">{{data?.obligor || '-'}}</td>
-        <td class="text-right pr-1">{{data?.jsonDataMap?.MainCode || '-'}}</td>
-        <td class="text-left pl-1">{{data?.jsonDataMap?.Name || '-'}}</td>
-        <td class="text-left pl-1">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
+        <td class="header">{{i + 1}}</td>
+        <td class="text-right pr-1 sub-header">{{data?.jsonDataMap?.BranchCode || '-'}}</td>
+        <td class="text-left pl-1 sub-header">{{data?.obligor || '-'}}</td>
+        <td class="text-right pr-1 sub-header">{{data?.jsonDataMap?.MainCode || '-'}}</td>
+        <td class="text-left pl-1 sub-header">{{data?.jsonDataMap?.Name || '-'}}</td>
+        <td class="text-left pl-1 sub-header">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
+        <td class="text-right pr-1 sub-header">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
+        <td class="text-right pr-1 sub-header">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
     </tr>
     <tr>
-        <td class="sb-bg-dark text-white text-left pl-1" colspan="6"><strong>Total</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
+        <td class="sb-bg-dark text-white text-left pl-1 sub-header" colspan="6"><strong class="sub-header">Total</strong></td>
+        <td class="text-right pr-1 sub-header"><strong class="sub-header">Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
+        <td class="text-right pr-1 sub-header"><strong class="sub-header">Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
         <td>-</td>
     </tr>
 

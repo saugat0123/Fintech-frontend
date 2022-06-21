@@ -60,6 +60,21 @@
 
     .enable-print{
       width: 1024px;
+      .header {
+        font-family: Cambria, Georgia, serif !important;
+        font-size: 50pt !important;
+        padding-top: 32px !important;
+      }
+      .sub-header {
+        font-family: Cambria, Georgia, serif !important;
+        font-size: 46pt !important;
+        margin-top: 10px;
+      }
+      fontSize {
+        font-family: Cambria, Georgia, serif !important;
+        font-size: 46pt !important;
+        margin-top: 10px;
+      }
     }
     .disable-print {
       display: none;

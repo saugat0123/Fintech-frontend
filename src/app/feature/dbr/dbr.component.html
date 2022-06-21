@@ -5,26 +5,26 @@
         <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-left">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th>Particualrs</th>
-                <th>DBR</th>
+                <th class="sub-header">Particualrs</th>
+                <th class="sub-header">DBR</th>
             </tr>
             </thead>
             <tbody>
 <tr>
-    <td>Gross Monthly Income (GMI)</td>
-    <td class="text-right">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">Gross Monthly Income (GMI)</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
-    <td>{{data?.particulars}}</td>
-    <td class="text-right">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">{{data?.particulars}}</td>
+    <td class="text-right sub-header">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
-    <td>Total Monthly Obligation</td>
-    <td class="text-right">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="sub-header">Total Monthly Obligation</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
-    <td>Gross DBR (EMI/GMI)</td>
-    <td class="text-right">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100)?.toFixed(2)}} %</td>
+    <td class="sub-header">Gross DBR (EMI/GMI)</td>
+    <td class="text-right sub-header">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100)?.toFixed(2)}} %</td>
 </tr>
             </tbody>
         </table>

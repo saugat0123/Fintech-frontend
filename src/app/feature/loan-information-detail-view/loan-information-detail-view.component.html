@@ -27,53 +27,49 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="text-left">
-                                <strong>Priority:</strong>
-                                <span class="badge badge-danger">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
+                                <strong class="header">Priority:</strong>
+                                <span class="badge badge-danger sub-header">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
                             </div>
 
                             <div class="text-left">
-                                <strong>
+                                <strong class="header">
                                 Approving Level:
                                 </strong>
-                                <span class="badge badge-danger">{{loanDataHolder?.approvingLevel?.toString() | titlecase}}</span>
+                                <span class="badge badge-danger sub-header">{{loanDataHolder?.approvingLevel?.toString() | titlecase}}</span>
                             </div>
 
                             <div class="text-left">
-                                <strong>
+                                <strong class="header">
                                 Loan Status:
                                 </strong>
-                                <span class="badge badge-info">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
+                                <span class="badge badge-info sub-header">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
                             <div class="clearfix" style="margin-top: 4em">
-                                <div class="float-left">
-                                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
+                                <div class="text-left">
+                                    <strong class="header">Ref. No: </strong><span class="header">{{loanDataHolder?.refNo}}</span>
                                 </div>
-                                <br/>
-                                <div class="float-left">
-                                    <b>Branch Code: {{loanDataHolder?.branch.branchCode}}</b>
+                                <div class="text-left">
+                                    <strong class="header">Branch Code: </strong><span class="header">{{loanDataHolder?.branch.branchCode}}</span>
                                 </div>
-                                <br/>
-                                <div class="float-left">
-                                    <span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " " + loanDataHolder?.loan?.shortNames}}</span>
+                                <div class="text-left">
+                                    <strong class="header">Product: </strong><span class="header">{{loanDataHolder?.loan?.name + " " + loanDataHolder?.loan?.shortNames}}</span>
                                 </div>
-                                <br/>
-                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
-                                        <span><strong>Review Date: </strong>
-                                            <ng-container *ngIf="naChecked; else date">
-                                                {{'NA'}}
-                                            </ng-container>
-                                            <ng-template #date>
-                                                <br>
-                                                Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
-                                                <br>
-                                                Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
-                                            </ng-template>
-                                        </span>
-                                        <div>
-                                            Credit Risk Score:
-                                            <span class="badge badge-info"
-                                                  style="font-size: 11px">{{loanDataHolder?.creditRisk}}</span>
-                                         </div>
+                                <div class="text-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                                       <span class="header"><strong class="header">Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date class="header">
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
+                                    <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                    <div>
+                                        <strong class="header" *ngIf="loanDataHolder?.creditRisk">Credit Risk Score:</strong>
+                                        <p class="badge badge-info sub-header">{{loanDataHolder?.creditRisk}}</p>
+                                    </div>
                                 </div>
                                 <!--<strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
                                 <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
@@ -83,12 +79,12 @@
                             <div class="report-header">
                                 <div class="report-header-heading header"><strong class="header">{{client}}</strong></div>
                                 <div class="report-header-sub-heading">
-                                    Credit Appraisal
+                                    <span class="header"> Credit Appraisal </span>
                                     <br/>
-                                    for
+                                    <span class="header"> for </span>
                                 </div>
                                 <div class="report-header-sub-heading" *ngIf="!isJointInfo">
-                                    <strong class="customer-name">
+                                    <strong class="customer-name header">
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
@@ -98,16 +94,16 @@
                                     <div *ngFor="let jointCustomer of jointInfo">
                                         <ng-container *ngFor="let info of jointCustomer">
                                             <span class="sb-medium">
-                                                <strong class="customer-name">
+                                                <strong class="customer-name header">
                                                 {{loanCategory === 'INSTITUTION' ?
                                                 loanDataHolder?.companyInfo?.companyName : info?.customerName}}
                                                 </strong></span><br/>
                                         </ng-container>
                                     </div>
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                <div class="report-header-sub-heading header">{{loanDataHolder?.branch?.name}} Branch ,
                                     {{loanDataHolder?.branch?.province?.name}}</div>
-                                <div class="badge badge-warning">Detail</div>
+                                <div class="badge badge-warning sub-header">Detail</div>
                             </div>
                         </div>
                         <div class="col-md-4 text-left">
@@ -116,19 +112,20 @@
                             <br/>
                             <div class="row sb-small">
                                 <div class="col-md-12">
-                                    <span class="float-left"><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
-                                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    <span class="header"><strong class="header">Loan Authority Under</strong>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                                 </div>
                             </div>
                             <div class="row sb-small mb-1">
                                 <div class="col-md-12">
-                                    <span class="float-left"> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
-                                    <span class="float-left"><b>
-                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                                    <span class="header"> <strong class="header">Application Received On:</strong> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
+                                    <span class="header"><strong class="sub-header">
+                        <span *ngIf="currentDocAction === 'FORWARD'" class="header">Forwarded</span>
+                        <span *ngIf="currentDocAction === 'BACKWARD'" class="header">Backwarded</span> by: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
                                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
-                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
+                        <strong class="strong"> on:</strong> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
                     </span>
+
                                 </div>
                             </div>
                         </div>

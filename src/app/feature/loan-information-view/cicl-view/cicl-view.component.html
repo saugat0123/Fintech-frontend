@@ -1,7 +1,7 @@
 <hr class="print-line">
 <div class="row">
   <div class="col-md-12 text-center">
-    <p class="text-left header"><strong   class="header">Banking Relationship</strong></p>
+    <p class="text-left"><strong   class="header">Banking Relationship</strong></p>
 <!--    <p class="text-left sb-small"><b>Cib-->
 <!--      Charge:</b> {{ciclValue?.cibCharge ? ('Rs ' + ciclValue?.cibCharge) : ciclValue?.cibRemark?(ciclValue?.cibRemark | jsonParse)?.value:'N/A'}}</p>-->
     <div *ngIf="ciclList.length !== 0">
@@ -10,49 +10,49 @@
         <thead>
 
         <tr class="sb-bg-dark text-white">
-          <th>S.N</th>
-          <th>Name</th>
-          <th>Cicl Relation</th>
-          <th>Name of FI</th>
-          <th>Facility</th>
-          <th>OverDue Amount</th>
-          <th>status</th>
-          <th>Obtained Date(AD/BS)</th>
-          <th>Loan Limit</th>
-          <th>Outstanding Amount</th>
-          <th>Overdue Installment(s)</th>
-          <th>Probability of Defer(in %)</th>
-          <th>Risk Score</th>
+          <th class="sub-header">S.N</th>
+          <th class="sub-header">Name</th>
+          <th class="sub-header">Cicl Relation</th>
+          <th class="sub-header">Name of FI</th>
+          <th class="sub-header">Facility</th>
+          <th class="sub-header">OverDue Amount</th>
+          <th class="sub-header">status</th>
+          <th class="sub-header">Obtained Date(AD/BS)</th>
+          <th class="sub-header">Loan Limit</th>
+          <th class="sub-header">Outstanding Amount</th>
+          <th class="sub-header">Overdue Installment(s)</th>
+          <th class="sub-header">Probability of Defer(in %)</th>
+          <th class="sub-header">Risk Score</th>
         </tr>
         <tr *ngFor="let data of ciclList; let i=index">
-          <td>{{i + 1}}</td>
-          <td class="text-left pl-1">{{data?.nameOfBorrower}}</td>
-          <td class="text-left pl-1">{{ciclRelationList[data.ciclRelation]}}</td>
-          <td class="text-left pl-1">{{data?.nameOfFI || 'NA'}}</td>
-          <td class="text-left pl-1">{{data?.facility || 'NA'}}</td>
-          <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
-          <td class="text-left pl-1">{{data?.status || 'NA'}}</td>
-          <td class="text-left pl-1">{{data?.obtaineddate | date}} ({{data?.obtaineddate | engNepDate: false}})</td>
-          <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
-          <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
-          <td class="text-right pr-1">{{data?.overdue}}</td>
-          <td class="text-right pr-1">{{data?.probabilityDefer}} %</td>
-          <td class="text-right pr-1">{{data?.riskScore}}</td>
+          <td class="sub-header">{{i + 1}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.nameOfBorrower}}</td>
+          <td class="text-left pl-1 sub-header">{{ciclRelationList[data.ciclRelation]}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.nameOfFI || 'NA'}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.facility || 'NA'}}</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.status || 'NA'}}</td>
+          <td class="text-left pl-1 sub-header">{{data?.obtaineddate | date}} ({{data?.obtaineddate | engNepDate: false}})</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.loanamount | currencyFormatter}}</td>
+          <td class="text-right pr-1 sub-header">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
+          <td class="text-right pr-1 sub-header">{{data?.overdue}}</td>
+          <td class="text-right pr-1 sub-header">{{data?.probabilityDefer}} %</td>
+          <td class="text-right pr-1 sub-header">{{data?.riskScore}}</td>
         </tr>
         </thead>
       </table>
     </div>
     <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
-      <tr class="sb-bg-dark text-white ">
-        <td>Remarks</td>
+      <tr class="sb-bg-dark text-white sub-header">
+        <td class="sub-header">Remarks</td>
       </tr>
-      <td class="text-justify px-2" style="overflow-wrap: break-word; "><span
+      <td class="text-justify px-2 sub-header" style="overflow-wrap: break-word; "><span
               [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
       <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-dark text-white">
-        <th>Repayment track in other BFIs</th>
+        <th class="sub-header">Repayment track in other BFIs</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">
-        <td>{{ciclValue?.repaymentTrack}}</td>
+        <td class="sub-header">{{ciclValue?.repaymentTrack}}</td>
       </tr>
     </table>
     <hr class="print-line">

@@ -11,14 +11,14 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
-                <table *ngIf="!fromProfile" class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                <table *ngIf="!fromProfile" class="table table-bordered text-center table-responsive-md table-sm">
                     <tr>
-                        <th class="sb-bg-dark text-white">Credit CheckList</th>
+                        <th class="sb-bg-dark text-white sub-header">Credit CheckList</th>
                     </tr>
                 </table>
 <!--                <label>Credit Checklist-General</label>-->
                         <!--          <form [formGroup]="formGroupCheckList">-->
-                            <label><strong>Date of Checklist:</strong> </label>
+                            <label><strong class="sub-header">Date of Checklist:</strong> </label>
                             <ng-container *ngIf="fromProfile">
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
                                        class="form-control "
@@ -29,11 +29,11 @@
                                         [ePreDate]="formGroupCheckList.get('dateCheckList').value"></app-calendar>
                                 <nb-datepicker #dateOfChecklist></nb-datepicker>
                             </ng-container>
-                            <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
+                            <span class="sub-header" *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
 
 
-                <label><strong>Regulatory Compliance Checklist</strong></label><br/>
-                <label><strong>NRB Directive No. 6. 8. (ka)</strong></label>
+                <label><strong class="sub-header">Regulatory Compliance Checklist</strong></label><br/>
+                <label><strong class="sub-header">NRB Directive No. 6. 8. (ka)</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr *ngIf="fromProfile" class="text-white sb-bg-dark">
@@ -47,18 +47,18 @@
 
                                     </tr>
                                     <tr class="text-white sb-bg-dark">
-                                        <th class="px-2">SN</th>
-                                        <th class="px-2">Prohibition on Lending to Directors</th>
+                                        <th class="px-2 sub-header">SN</th>
+                                        <th class="px-2 sub-header">Prohibition on Lending to Directors</th>
                                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                                         <th *ngIf="fromProfile" class="px-2">No</th>
-                                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                                        <th class=sub-header *ngIf="!fromProfile" class="px-2">Yes/No</th>
                                         <th class="width px-2">Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>1.</td>
-                                        <td class="text-justify px-2">The Borrower or members of his/her undivided family is not a Director on the
+                                        <td class="sub-header">1.</td>
+                                        <td class="text-justify px-2 sub-header">The Borrower or members of his/her undivided family is not a Director on the
                                             Bank.
                                         </td>
                                         <ng-container *ngIf="fromProfile">
@@ -66,16 +66,16 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="director" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.director}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.director}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="directorRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.directorRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.directorRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>2.</td>
-                                        <td class="text-justify px-2">A Director of the Bank or his/hers undivided family member is not a Manager,
+                                        <td class="sub-header">2.</td>
+                                        <td class="text-justify px-2 sub-header">A Director of the Bank or his/hers undivided family member is not a Manager,
                                             Partner ,Agent and Guarantor and does not have
                                             a direct financial interest in the Borrowing firm/ company.
                                         </td>
@@ -84,16 +84,16 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="bankPost" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.bankPost}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.bankPost}}</td>
 
                                         <td  *ngIf="fromProfile"> <input class="form-control" formControlName="bankPostRemark"
                                                                          placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.bankPostRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.bankPostRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>3.</td>
-                                        <td class="text-justify px-2">A Director of the Bank or his/hers undivided family member does not own more
+                                        <td class="sub-header">3.</td>
+                                        <td class="text-justify px-2 sub-header">A Director of the Bank or his/hers undivided family member does not own more
                                             than 15% shares in the Borrowing firm/company.
                                         </td>
                                         <ng-container *ngIf="fromProfile">
@@ -102,18 +102,18 @@
                                                                                                    formControlName="share"
                                                                                                    type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.share}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.share}}</td>
 
                                         <td *ngIf="fromProfile"
                                         ><input class="form-control" formControlName="shareRemark"
                                                 placeholder="Remarks"
                                         ></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.shareRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.shareRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>4.</td>
-                                        <td class="text-justify px-2">A Director of the Bank or member of such Director's undivided family has not
+                                        <td class="sub-header">4.</td>
+                                        <td class="text-justify px-2 sub-header">A Director of the Bank or member of such Director's undivided family has not
                                             provided a Guarantee in favor of the Bank to secure
                                             loans and advances made to the Borrowing firm /company.
                                         </td>
@@ -122,11 +122,11 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="guarantor" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantor}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.guarantor}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="guarantorRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantorRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.guarantorRemark}}</td>
 
                                     </tr>
 
@@ -134,7 +134,7 @@
                                 </table>
 
 
-                <label><strong>NRB Directive No. 6. 8. (kha)</strong></label>
+                <label><strong class="sub-header">NRB Directive No. 6. 8. (kha)</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr  *ngIf="fromProfile">
@@ -148,18 +148,18 @@
 
                                     </tr>
                                     <tr class="text-white sb-bg-dark">
-                                        <th class="px-2">SN</th>
-                                        <th class="px-2">Prohibition on Lending to Promoter,Shareholder and Employee</th>
+                                        <th class="px-2 sub-header">SN</th>
+                                        <th class="px-2 sub-header">Prohibition on Lending to Promoter,Shareholder and Employee</th>
                                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                                         <th *ngIf="fromProfile" class="px-2">No</th>
-                                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
-                                        <th class="width px-2">Remarks</th>
+                                        <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
+                                        <th class="width px-2 sub-header">Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>1.</td>
-                                        <td class="text-justify px-2">
+                                        <td class="sub-header">1.</td>
+                                        <td class="text-justify px-2 sub-header">
                                             1.	The Borrower is not a Promoter or a Shareholder in the Promoter Group or the members
                                             of the Borrower’s undivided family holding more than 1% of the total shares of the Bank and Bank’s employee.
                                         </td>
@@ -167,34 +167,34 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="promoter" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>2.</td>
-                                        <td class="text-justify px-2">2.	The Borrower is not (a) Director, (b) individual/firm/company/ corporation holding 1%
+                                        <td class="sub-header">2.</td>
+                                        <td class="text-justify px-2 sub-header">2.	The Borrower is not (a) Director, (b) individual/firm/company/ corporation holding 1%
                                             or more shares of the bank, (c) Chief Executive, (d) current Statutory Auditor, (e) Legal
                                             Advisor or family members of these individuals or (f) firm/ company/ corporation holding right to nominate or appoint Director of the Bank.
-                                            <span *ngIf="!fromProfile"><b>{{dataForEdit?.bankName}}</b></span> .
+                                            <span class="sub-header" *ngIf="!fromProfile"><b>{{dataForEdit?.bankName}}</b></span> .
                                         </td>
                                         <ng-container *ngIf="fromProfile">
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="shareOfBank" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.shareOfBank}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.shareOfBank}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="shareOfBankRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.shareOfBankRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.shareOfBankRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>3.</td>
-                                        <td class="text-justify px-2">3.	A Partner or a Guarantor with financial interest in the Borrowing firm / company:
+                                        <td class="sub-header">3.</td>
+                                        <td class="text-justify px-2 sub-header">3.	A Partner or a Guarantor with financial interest in the Borrowing firm / company:
                                             <br>
                                             •	does not hold more than 1% of the shares of the Bank
                                             <br>
@@ -206,16 +206,16 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="guarantorOfBank" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBank}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBank}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="guarantorOfBankRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBankRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBankRemark}}</td>
 
                                     </tr>
                                     <tr>
-                                        <td>4.</td>
-                                        <td class="text-justify px-2">4.	A shareholder with 10% of total voting rights in the Borrowing firm/ company:
+                                        <td class="sub-header">4.</td>
+                                        <td class="text-justify px-2 sub-header">4.	A shareholder with 10% of total voting rights in the Borrowing firm/ company:
                                             <br>
                                             •	does not hold more than 1% of the shares of the Bank
                                             <br>
@@ -227,17 +227,17 @@
                                             <td *ngFor="let option of optionListRegulatory"><input
                                                     [value]="option" formControlName="financialInterest" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialInterest}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.financialInterest}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="financialInterestRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialInterestRemark}}</td>
+                                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.financialInterestRemark}}</td>
 
                                     </tr>
                                     </tbody>
                                 </table>
 
-                <label><strong>NRB Directive No. 6. 8. (Ga)</strong></label>
+                <label><strong class="sub-header">NRB Directive No. 6. 8. (Ga)</strong></label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <thead>
                     <tr  *ngIf="fromProfile">
@@ -249,33 +249,33 @@
 
                     </tr>
                     <tr class="text-white sb-bg-dark">
-                        <th class="px-2">SN</th>
-                        <th class="px-2">Prohibition on Lending against assets as security/ collateral owned by:</th>
+                        <th class="px-2 sub-header">SN</th>
+                        <th class="px-2 sub-header">Prohibition on Lending against assets as security/ collateral owned by:</th>
                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                         <th *ngIf="fromProfile" class="px-2">No</th>
-                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                        <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
                         <th class="width px-2">Remarks</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1.</td>
-                        <td class="text-justify px-2">
+                        <td class="sub-header">1.</td>
+                        <td class="text-justify px-2 sub-header">
                             	None of the assets that have been pledged as the collateral / security for the loan belong to (a) Promoter, (b) Director of the Bank, (c) Chief Executive or by members of his/her family.  </td>
                         <ng-container *ngIf="fromProfile">
                             <td *ngFor="let option of optionListRegulatory"><input
                                     [value]="option" formControlName="prohibited" type="radio"></td>
                         </ng-container>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibited}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.prohibited}}</td>
 
                         <td *ngIf="fromProfile"><input class="form-control" formControlName="prohibitedRemark"
                                                        placeholder="Remarks"></td>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibitedRemark}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.prohibitedRemark}}</td>
 
                     </tr>
                     </tbody>
                 </table>
-                <label><strong>NRB Directive No. 6. 8. (Nga)</strong></label>
+                <label><strong class="sub-header">NRB Directive No. 6. 8. (Nga)</strong></label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <thead>
                     <tr  *ngIf="fromProfile">
@@ -286,33 +286,33 @@
 
                     </tr>
                     <tr class="text-white sb-bg-dark">
-                        <th class="px-2">SN</th>
-                        <th class="px-2">Prohibition on Lending to empanelled valuator</th>
+                        <th class="px-2 sub-header">SN</th>
+                        <th class="px-2 sub-header">Prohibition on Lending to empanelled valuator</th>
                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                         <th *ngIf="fromProfile" class="px-2">No</th>
-                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                        <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
                         <th class="width px-2">Remarks</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1.</td>
-                        <td class="text-justify px-2">
+                        <td class="sub-header">1.</td>
+                        <td class="text-justify px-2 sub-header">
                             The Borrower is not an empanelled valuator of the Bank.  </td>
                         <ng-container *ngIf="fromProfile">
                             <td *ngFor="let option of optionListRegulatory"><input
                                     [value]="option" formControlName="valuator" type="radio"></td>
                         </ng-container>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.valuator}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.valuator}}</td>
 
                         <td *ngIf="fromProfile"><input class="form-control" formControlName="valuatorRemark"
                                                        placeholder="Remarks"></td>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.valuatorRemark}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.valuatorRemark}}</td>
 
                     </tr>
                     </tbody>
                 </table>
-                <label><strong>NRB Directive No. 6. 15</strong></label>
+                <label><strong class="sub-header">NRB Directive No. 6. 15</strong></label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <thead>
                     <tr  *ngIf="fromProfile">
@@ -326,36 +326,36 @@
 
                     </tr>
                     <tr class="text-white sb-bg-dark">
-                        <th class="px-2">SN</th>
-                        <th class="px-2">Prohibition on Lending</th>
+                        <th class="px-2 sub-header">SN</th>
+                        <th class="px-2 sub-header">Prohibition on Lending</th>
                         <th *ngIf="fromProfile" class="px-2">Yes</th>
                         <th *ngIf="fromProfile" class="px-2">No</th>
-                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
-                        <th class="width px-2">Remarks</th>
+                        <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
+                        <th class="width px-2 sub-header">Remarks</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1.</td>
-                        <td class="text-justify px-2">
+                        <td class="sub-header">1.</td>
+                        <td class="text-justify px-2 sub-header">
                             Financials of the Borrower is not audited by an individual or partnership accountancy firm owned by share holder of the Bank holding 1% or more shares of the Bank.
                         </td>
                         <ng-container *ngIf="fromProfile">
                             <td *ngFor="let option of optionListRegulatory"><input
                                     [value]="option" formControlName="borrower" type="radio"></td>
                         </ng-container>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.borrower}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.borrower}}</td>
 
                         <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowerRemark"
                                                        placeholder="Remarks"></td>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.borrowerRemark}}</td>
+                        <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.borrowerRemark}}</td>
 
                     </tr>
                     </tbody>
                 </table>
-<label><strong>This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank__________________.</strong></label>
+<label><strong class="sub-header">This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank__________________.</strong></label>
                 <div *ngIf="client === clientName.LAXMIBANK">
-                    <label  ><b>AML / CFT Checklist</b></label>
+                    <label  class="sub-header"><strong class="sub-header">AML / CFT Checklist</strong></label>
                     <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                         <thead>
                         <tr  *ngIf="fromProfile">
@@ -369,327 +369,327 @@
 
                         </tr>
                         <tr class="text-white sb-bg-dark">
-                            <th class="px-2">SN</th>
-                            <th class="px-2">particulars</th>
-                            <th *ngIf="fromProfile" class="px-2">Yes</th>
-                            <th *ngIf="fromProfile" class="px-2">No</th>
-                            <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
-                            <th class="width px-2">Remarks</th>
+                            <th class="px-2 sub-header">SN</th>
+                            <th class="px-2 sub-header">particulars</th>
+                            <th *ngIf="fromProfile" class="px-2 sub-header">Yes</th>
+                            <th *ngIf="fromProfile" class="px-2 sub-header">No</th>
+                            <th *ngIf="!fromProfile" class="px-2 sub-header">Yes/No</th>
+                            <th class="width px-2 sub-header">Remarks</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         <tr>
-                            <td>1.</td>
-                            <td class="text-justify px-2">
+                            <td class="sub-header">1.</td>
+                            <td class="text-justify px-2 sub-header">
                                 Has the following information/documents been obtained?
                             </td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="information" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.information}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.information}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="informationRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.informationRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.informationRemark}}</td>
 
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2" > a) Duly filled Account Opening Form</td>
+                            <td class="text-justify px-2 sub-header" > a) Duly filled Account Opening Form</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="form" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.form}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.form}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="formRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.formRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.formRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
 
                                 b) Duly filled KYC form of Customer</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="kyc" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.kyc}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.kyc}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="kycRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.kycRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.kycRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
                                 c) Duly filled KYC form of account operator and Directors (in case of corporate account)</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="operators" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.operators}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.operators}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="operatorsRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.operatorsRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.operatorsRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
                                 d) Necessary documents as per NRB Directive No. 19 (Annexure 19.1) and Bank's Checklist for Account Opening</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="document" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.document}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.document}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="documentRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.documentRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.documentRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
                                 e) Nature of Business and Income Source been identified?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="nature" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.nature}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.nature}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="natureRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.natureRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.natureRemark}}</td>
                         </tr>
                         <tr>
-                            <td>2.</td>
-                            <td class="text-justify px-2">Audited financials been reviewed? (For corporate account)
+                            <td class="sub-header">2.</td>
+                            <td class="text-justify px-2 sub-header">Audited financials been reviewed? (For corporate account)
                             </td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="audited" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.audited}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.audited}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
                                 a) If yes, any dual financials observed?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="financial" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.financial}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.financial}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="financialRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.financialRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.financialRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
 
                                 b) If yes, is it in line with nature of business?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="business" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.business}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.business}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="businessRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.businessRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.businessRemark}}</td>
                         </tr>
 
 
 
                         <tr>
-                            <td>3.</td>
-                            <td class="text-justify px-2">Is the customer our existing customer?
+                            <td class="sub-header">3.</td>
+                            <td class="text-justify px-2 sub-header">Is the customer our existing customer?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="customer" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.customer}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.customer}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="customerRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.customerRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.customerRemark}}</td>
 
                         </tr>
                         <tr>
-                            <td>4.</td>
-                            <td class="text-justify px-2">Has the customer availed loan previously from Laxmi Bank?
+                            <td class="sub-header">4.</td>
+                            <td class="text-justify px-2 sub-header">Has the customer availed loan previously from Laxmi Bank?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="loan" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.loan}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.loan}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="loanRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.loanRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.loanRemark}}</td>
 
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2"> a) If yes, has the loan been settled?</td>
+                            <td class="text-justify px-2 sub-header"> a) If yes, has the loan been settled?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="settled" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.settled}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.settled}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="settledRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.settledRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.settledRemark}}</td>
                         </tr>
 
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">
+                            <td class="text-justify px-2 sub-header">
                                 b) If yes, has pre-payment been made?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="payment" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.payment}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.payment}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="paymentRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.paymentRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.paymentRemark}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">  c) If pre-payment been made, has the source of fund been identified?</td>
+                            <td class="text-justify px-2 sub-header">  c) If pre-payment been made, has the source of fund been identified?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="identified" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.identified}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.identified}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="identifiedRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.identifiedRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.identifiedRemark}}</td>
                         </tr>
                         <tr>
                         <tr>
-                            <td>5.</td>
-                            <td class="text-justify px-2">Is the customer categorized as high risk?
+                            <td class="sub-header">5.</td>
+                            <td class="text-justify px-2 sub-header">Is the customer categorized as high risk?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="risk" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.risk}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.risk}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="riskRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.riskRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.riskRemark}}</td>
 
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2">  a) If yes, has enhanced due diligence been conducted?</td>
+                            <td class="text-justify px-2 sub-header">  a) If yes, has enhanced due diligence been conducted?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="enhanced" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.enhanced}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.enhanced}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="enhancedRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.enhancedRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.enhancedRemark}}</td>
                         </tr>
                         <tr>
-                            <td>6.</td>
-                            <td class="text-justify px-2">Is the customer categorized as PEP?
+                            <td class="sub-header">6.</td>
+                            <td class="text-justify px-2 sub-header">Is the customer categorized as PEP?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="PEP" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.PEP}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.PEP}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="PEPRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.PEPRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.PEPRemark}}</td>
 
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-justify px-2"> a) If yes, has enhanced due diligence been conducted?</td>
+                            <td class="text-justify px-2 sub-header"> a) If yes, has enhanced due diligence been conducted?</td>
                             <ng-container *ngIf="fromProfile">
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="diligence" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.diligence}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.diligence}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="diligenceRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.diligenceRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.diligenceRemark}}</td>
                         </tr>
                         <tr>
-                            <td>7.</td>
-                            <td class="text-justify px-2">Has information from CIC been obtained?
+                            <td class="sub-header">7.</td>
+                            <td class="text-justify px-2 sub-header">Has information from CIC been obtained?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="CIC" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.CIC}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.CIC}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="CICRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.CICRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.CICRemark}}</td>
 
                         </tr>
                         <tr>
-                            <td>8.</td>
-                            <td class="text-justify px-2">Is credit rating of customer in line with Bank's provision?
+                            <td class="sub-header">8.</td>
+                            <td class="text-justify px-2 sub-header">Is credit rating of customer in line with Bank's provision?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="rating" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.rating}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.rating}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="ratingRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.ratingRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.ratingRemark}}</td>
 
                         </tr>
                         <tr>
-                            <td>9.</td>
-                            <td class="text-justify px-2">Any suspicious/unusual behavior observed regarding the account/ transaction?
+                            <td class="sub-header">9.</td>
+                            <td class="text-justify px-2 sub-header">Any suspicious/unusual behavior observed regarding the account/ transaction?
                             </td>
                             <ng-container *ngIf="fromProfile">
 
                                 <td *ngFor="let option of optionListRegulatory"><input
                                         [value]="option" formControlName="transaction" type="radio"></td>
                             </ng-container>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.transaction}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.transaction}}</td>
 
                             <td *ngIf="fromProfile"><input class="form-control" formControlName="transactionRemark"
                                                            placeholder="Remarks"></td>
-                            <td *ngIf="!fromProfile">{{dataForEdit?.transactionRemark}}</td>
+                            <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.transactionRemark}}</td>
 
                         </tr>
                         </tbody>
@@ -705,12 +705,12 @@
                                 </th>
 
                             </tr>
-                            <tr class="text-white sb-bg-dark">
+                            <tr class="text-white sb-bg-dark sub-header">
                                 <th>SN.</th>
                                 <th>Particulars</th>
                                 <th colspan="3">Remarks (Y/N)</th>
                             </tr>
-                            <tr>
+                            <tr class="sub-header">
                                 <th>A</th>
                                 <th>Exclusion Checklist</th>
                                 <th colspan="3"></th>
@@ -719,13 +719,13 @@
                             <tbody>
                             <tr>
                                 <td></td>
-                                <td>Core business function of the borrower is: </td>
-                                <td><b>Yes</b></td>
-                                <td colspan="2"><b>Remarks</b></td>
+                                <td class="sub-header">Core business function of the borrower is: </td>
+                                <td class="sub-header"><b>Yes</b></td>
+                                <td colspan="2" class="sub-header"><b>Remarks</b></td>
                             </tr>
                             <tr>
-                                <td>1.</td>
-                                <td>
+                                <td class="sub-header">1.</td>
+                                <td class="sub-header">
                                     Production or trade in any product or activity deemed illegal under host country laws or regulations or international conventions
                                     and agreements, or subject to international bans, such as pharmaceuticals, pesticides/herbicides, ozone depleting substances, PCB's,
                                     wildlife or products regulated under the Convention on International Trade in Endangered Species (CITES).
@@ -734,31 +734,31 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="cites" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.cites}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.cites}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="citesRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.citesRemarks}}</td>
+                                <td colspan="2" class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.citesRemarks}}</td>
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td>
+                                <td class="sub-header">2.</td>
+                                <td class="sub-header">
                                     Fishing with the use of explosives or cyanide
                                 </td>
                                 <ng-container *ngIf="fromProfile">
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="fishing" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.fishing}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.fishing}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="fishingRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.fishingRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.fishingRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td>
+                                <td class="">3.</td>
+                                <td class="sub-header">
                                     Operations impacting UNESCO World Heritage Site or other cultural heritage in Nepal
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -766,16 +766,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="unesco" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.unesco}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.unesco}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="unescoRemarks"
                                                                placeholder="Remarks"></td>
-                                <td  colspan="2" *ngIf="!fromProfile">{{dataForEdit?.unescoRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.unescoRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td>
+                                <td class="sub-header">4.</td>
+                                <td class="sub-header">
                                     Illegal logging, and logging operations or conversion of land for plantation use in primary tropical moist forests
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -783,16 +783,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="logging" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.logging}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.logging}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="loggingRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.loggingRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.loggingRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>5.</td>
-                                <td>
+                                <td class="sub-header">5.</td>
+                                <td class="sub-header">
                                     Production or activities involving forced labour/ child labour or resulting in violation of human rights or human trafficking
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -800,16 +800,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="humanRight" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.humanRight}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.humanRight}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="humanRightRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.humanRightRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.humanRightRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>6.</td>
-                                <td>
+                                <td class="sub-header">6.</td>
+                                <td class="sub-header">
                                     Production or activities that impinge on the lands owned, or claimed under adjudication, by Indigenous Peoples, without full documented consent of such peoples
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -817,16 +817,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="productionActivities" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.productionActivities}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.productionActivities}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="productionActivitiesRemarks"
                                                                placeholder="Remarks"></td>
-                                <td  colspan="2" *ngIf="!fromProfile">{{dataForEdit?.productionActivitiesRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.productionActivitiesRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>7.</td>
-                                <td>
+                                <td class="sub-header">7.</td>
+                                <td class="sub-header">
                                     Production or activities that impinge on the lands owned, or claimed under adjudication, by Indigenous Peoples, without full documented consent of such peoples
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -834,61 +834,61 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="ifc" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.ifc}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.ifc}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="ifcRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.ifcRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.ifcRemarks}}</td>
 
                             </tr>
-                            <tr><td colspan="5">
+                            <tr><td colspan="5" class="sub-header">
                                 Production or trade in, without due approval:
                             </td></tr>
                             <tr>
-                                <td>1.</td>
-                                <td colspan="4">
+                                <td class="sub-header">1.</td>
+                                <td colspan="4" class="sub-header">
                                     Explosives and gunpowder, chemical weapons
                                 </td>
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td colspan="4">
+                                <td class="sub-header">2.</td>
+                                <td colspan="4" class="sub-header">
                                     Products from marijuana plants
                                 </td>
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td colspan="4">
+                                <td class="sub-header">3.</td>
+                                <td colspan="4" class="sub-header">
                                     Lotteries
                                 </td>
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td colspan="4">
+                                <td class="sub-header">4.</td>
+                                <td colspan="4" class="sub-header">
                                     Nuclear power plants
                                 </td>
                             </tr>
                             <tr>
-                                <td>5.</td>
-                                <td colspan="4">
+                                <td class="sub-header">5.</td>
+                                <td colspan="4" class="sub-header">
                                     Coal-fired power plants
                                 </td>
                             </tr>
                             <tr>
-                                <td>6.</td>
-                                <td colspan="4">
+                                <td class="sub-header">6.</td>
+                                <td colspan="4" class="sub-header">
                                     Mining of gold, silver, diamond and other precious stones
                                 </td>
                             </tr>
                             <tr>
-                                <td>7.</td>
-                                <td colspan="4">
+                                <td class="sub-header">7.</td>
+                                <td colspan="4" class="sub-header">
                                     Hunted animals
                                 </td>
                             </tr>
                             <tr>
 
-                                <td [colSpan]="fromProfile?'2':'3'">
+                                <td [colSpan]="fromProfile?'2':'3'" class="sub-header">
                                     License from the Industrial and Investment Promotion Board (“Board”) shall be obtained in order to establish the following industries:
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -896,86 +896,86 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="liscenceBoard" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.liscenceBoard}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.liscenceBoard}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="liscenceBoardRemarks"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.liscenceBoardRemarks}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.liscenceBoardRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>1.</td>
-                                <td colspan="4">
+                                <td class="sub-header">1.</td>
+                                <td colspan="4" class="sub-header">
                                     Arms and ammunitions manufacture
                                 </td>
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td colspan="4">
+                                <td class="sub-header">2.</td>
+                                <td colspan="4" class="sub-header">
                                     Explosive materials manufacture
                                 </td>
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td colspan="4">
+                                <td class="sub-header">3.</td>
+                                <td colspan="4" class="sub-header">
                                     Security Printing, Currency Printing
                                 </td>
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td colspan="4">
+                                <td class="sub-header">4.</td>
+                                <td colspan="4" class="sub-header">
                                     Tobacco products manufacture
                                 </td>
                             </tr>
                             <tr>
-                                <td>5.</td>
-                                <td colspan="4">
+                                <td class="sub-header">5.</td>
+                                <td colspan="4" class="sub-header">
                                     Liquor manufacture
                                 </td>
                             </tr>
                             <tr>
-                                <td>6.</td>
-                                <td colspan="4">
+                                <td class="sub-header">6.</td>
+                                <td colspan="4" class="sub-header">
                                     Mining (medium and large industries)
                                 </td>
                             </tr>
                             <tr>
-                                <td>7.</td>
-                                <td colspan="4">
+                                <td class="sub-header">7.</td>
+                                <td colspan="4" class="sub-header">
                                     Radio and telecommunication equipment manufacture
                                 </td>
                             </tr>
                             <tr>
-                                <td>8.</td>
-                                <td colspan="4">
+                                <td class="sub-header">8.</td>
+                                <td class="sub-header" colspan="4">
                                     Mining of precious materials and petroleum
                                 </td>
                             </tr>
                             <tr>
-                                <td>9.</td>
-                                <td colspan="4">
+                                <td class="sub-header">9.</td>
+                                <td class="sub-header" colspan="4">
                                     Others as prescribed by prevailing law
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="5" class="sub-header">
                                     Industries requiring license from the Board as per prevailing law on foreign investment and technology transfer.
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="1"><b>B</b></td>
-                                <td colspan="4">
+                                <td colspan="1" class="sub-header"><b>B</b></td>
+                                <td colspan="4" class="sub-header">
                                     Critical Sector Checklist
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="5" class="sub-header">
                                     <b>Core business function of the borrower is:</b>
                                 </td>
                             </tr>
                             <tr>
-                                <td>1.</td>
-                                <td>
+                                <td class="sub-header">1.</td>
+                                <td class="sub-header">
                                     Washing, dyeing and finishing units of Ready Made Garment (RMG) sector
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -983,16 +983,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="washing" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.washing}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.washing}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="washingRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.washingRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.washingRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td>
+                                <td class="sub-header">2.</td>
+                                <td class="sub-header">
                                     Steel re-rolling mills in small scale
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1000,16 +1000,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="steel" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.steel}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.steel}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="steelRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.steelRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.steelRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td>
+                                <td class="sub-header">3.</td>
+                                <td class="sub-header">
                                     Brick kilns
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1017,16 +1017,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="bricks" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.bricks}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.bricks}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="bricksRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.bricksRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.bricksRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td>
+                                <td class="sub-header">4.</td>
+                                <td class="sub-header">
                                     Tanning, dressing and dyeing of leather and fur
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1034,16 +1034,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="tanning" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.tanning}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.tanning}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="tanningRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.tanningRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.tanningRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>5.</td>
-                                <td>
+                                <td class="sub-header">5.</td>
+                                <td class="sub-header">
                                     Manufacturing of pesticides, agrochemical and nitrogen
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1051,16 +1051,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="nitrogen" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.nitrogen}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.nitrogen}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="nitrogenRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.nitrogenRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.nitrogenRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>6.</td>
-                                <td>
+                                <td class="sub-header">6.</td>
+                                <td class="sub-header">
                                     Manufacturing of Chemicals and chemicals products
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1068,16 +1068,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="chemicals" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.chemicals}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.chemicals}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="chemicalsRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.chemicalsRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.chemicalsRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>7.</td>
-                                <td>
+                                <td class="sub-header">7.</td>
+                                <td class="sub-header">
                                     Manufacturing of rubber and plastic products
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1085,16 +1085,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="plastic" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.plastic}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.plastic}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="plasticRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.plasticRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.plasticRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>8.</td>
-                                <td>
+                                <td class="sub-header">8.</td>
+                                <td class="sub-header">
                                     Manufacturing of batteries and accumulators
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1102,16 +1102,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="batteries" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.batteries}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.batteries}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="batteriesRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.batteriesRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.batteriesRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>9.</td>
-                                <td>
+                                <td class="sub-header">9.</td>
+                                <td class="sub-header">
                                     Manufacturing of papers and processing of paper pulp
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1119,16 +1119,16 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="papers" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.papers}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.papers}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="papersRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.papersRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.papersRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>10.</td>
-                                <td>
+                                <td class="sub-header">10.</td>
+                                <td class="sub-header">
                                     Foundries in small scale
                                 </td>
                                 <ng-container *ngIf="fromProfile">
@@ -1136,19 +1136,19 @@
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="smallScale" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.smallScale}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.smallScale}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="smallScaleRemarks"
                                                                placeholder="Remarks"></td>
-                                <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.smallScaleRemarks}}</td>
+                                <td class="sub-header" colspan="2" *ngIf="!fromProfile">{{dataForEdit?.smallScaleRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td><i>Note:</i></td>
-                                <td colspan="4"><i>A. Remarks to any of the business function of the borrower is “Yes”, shall fall under “Exclusion List”</i></td>
+                                <td class="sub-header"><i>Note:</i></td>
+                                <td colspan="4" class="sub-header"><i>A. Remarks to any of the business function of the borrower is “Yes”, shall fall under “Exclusion List”</i></td>
                             </tr>
                             <tr>
-                                <td colspan="5"><i>B .Remarks to any of the business function of the borrower is “Yes”, shall fall under “Critical Sector”</i></td>
+                                <td colspan="5" class="sub-header"><i>B .Remarks to any of the business function of the borrower is “Yes”, shall fall under “Critical Sector”</i></td>
                             </tr>
                             </tbody>
                         </table>
@@ -1156,50 +1156,50 @@
                         <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
                             <tr>
-                                <th>SN</th>
-                                <th>Parameters</th>
+                                <th class="sub-header">SN</th>
+                                <th class="sub-header">Parameters</th>
                                 <th *ngIf="fromProfile">Yes</th>
                                 <th *ngIf="fromProfile">No</th>
-                                <th *ngIf="!fromProfile">Yes/No</th>
-                                <th class="width">Remarks</th>
+                                <th class="sub-header" *ngIf="!fromProfile">Yes/No</th>
+                                <th class="width sub-header">Remarks</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>1.</td>
-                                <td>Is there any overdue in the account with 30+ DPD currently?
+                                <td class="sub-header">1.</td>
+                                <td class="sub-header">Is there any overdue in the account with 30+ DPD currently?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="overdue" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.overdue}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.overdue}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="overdueRemarks"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.overdueRemarks}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.overdueRemarks}}</td>
 
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td>Are there any overdue which have been due for 90 days or more at other FI’s?
+                                <td class="sub-header">2.</td>
+                                <td class="sub-header">Are there any overdue which have been due for 90 days or more at other FI’s?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="fi" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.fi}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.fi}}</td>
 
                                 <td  *ngIf="fromProfile"> <input class="form-control" formControlName="fiRemark"
                                                                  placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.fiRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.fiRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td>Has the unit incurred net loss for three consecutive years?
+                                <td class="sub-header">3.</td>
+                                <td class="sub-header">Has the unit incurred net loss for three consecutive years?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
@@ -1207,61 +1207,61 @@
                                                                                            formControlName="unit"
                                                                                            type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.unit}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.unit}}</td>
 
                                 <td *ngIf="fromProfile"
                                 ><input class="form-control" formControlName="unitRemark"
                                         placeholder="Remarks"
                                 ></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.unitRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.unitRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td>Is the Net Worth (Share Capital + Reserves) negative?
+                                <td class="sub-header">4.</td>
+                                <td class="sub-header">Is the Net Worth (Share Capital + Reserves) negative?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="netWorths" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.netWorths}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.netWorths}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="netWorthsRemark"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.netWorthsRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.netWorthsRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>5.</td>
-                                <td>Is Debt to Equity ratio more than 80:20?
+                                <td class="sub-header">5.</td>
+                                <td class="sub-header">Is Debt to Equity ratio more than 80:20?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="der" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.der}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.der}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="derRemark"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.derRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.derRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>6.</td>
-                                <td>Has the consortium been formed for multi-banking unit availing the limit of NPR 2 bio?
+                                <td class="sub-header">6.</td>
+                                <td class="sub-header">Has the consortium been formed for multi-banking unit availing the limit of NPR 2 bio?
                                 </td>
                                 <ng-container *ngIf="fromProfile">
 
                                     <td *ngFor="let option of optionListRegulatory"><input
                                             [value]="option" formControlName="npr" type="radio"></td>
                                 </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.npr}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.npr}}</td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="nprRemark"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.nprRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.nprRemark}}</td>
 
                             </tr>
                             </tbody>
@@ -1270,49 +1270,49 @@
                         <table  class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
                             <tr>
-                                <th>SN</th>
-                                <th>Parameters</th>
-                                <th class="width">Remarks</th>
+                                <th class="sub-header">SN</th>
+                                <th class="sub-header">Parameters</th>
+                                <th class="width sub-header">Remarks</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>1.</td>
-                                <td>Debt Service Coverage Ratio
+                                <td class="sub-header">1.</td>
+                                <td class="sub-header">Debt Service Coverage Ratio
                                 </td>
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="dscrRemark"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.dscrRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.dscrRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>2.</td>
-                                <td>Interest Service Coverage Ratio
+                                <td class="sub-header">2.</td>
+                                <td class="sub-header">Interest Service Coverage Ratio
                                 </td>
                                 <td  *ngIf="fromProfile"> <input class="form-control" formControlName="iscrRemark"
                                                                  placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.iscrRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.iscrRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>3.</td>
-                                <td>Adjusted Debt Equity
+                                <td class="sub-header">3.</td>
+                                <td class="sub-header">Adjusted Debt Equity
                                 </td>
                                 <td *ngIf="fromProfile"
                                 ><input class="form-control" formControlName="adeRemark"
                                         placeholder="Remarks"
                                 ></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.adeRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.adeRemark}}</td>
 
                             </tr>
                             <tr>
-                                <td>4.</td>
-                                <td>Others
+                                <td class="sub-header">4.</td>
+                                <td class="sub-header">Others
                                 </td>
 
                                 <td *ngIf="fromProfile"><input class="form-control" formControlName="oRemark"
                                                                placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.oRemark}}</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.oRemark}}</td>
 
                             </tr>
                             </tbody>
@@ -1321,71 +1321,71 @@
                         <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
                             <tr>
-                            <th class="sb-bg-dark">
+                            <th class="sb-bg-dark sub-header">
                                 <b>Basic Information</b>
                             </th>
-                            <th class="sb-bg-dark">
+                            <th class="sb-bg-dark sub-header">
                                 <b>Information</b>
                             </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td  >Date:</td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                                <td class="sub-header">Date:</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
                             </tr>
                             <tr>
-                                <td>Name Of Client/Account:</td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.client}}</td>
+                                <td class="sub-header">Name Of Client/Account:</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.client}}</td>
                             </tr>
                             <tr>
-                                <td>Customer ID:</td>
-                                <td  *ngIf="!fromProfile">{{dataForEdit?.customerId}}</td>
+                                <td class="sub-header">Customer ID:</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.customerId}}</td>
                             </tr>
                             <tr>
-                                <td  >Location:</td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.location}}</td>
+                                <td class="sub-header">Location:</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.location}}</td>
                             </tr>
                             <tr>
-                                <td  >Industry / Sector: (NRB Sector Code)</td>
-                                <td  *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                                <td class="sub-header">Industry / Sector: (NRB Sector Code)</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
                             </tr>
                             <tr>
-                                <td  >Product Manufactured / Traded:</td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.traded}}</td>
+                                <td class="sub-header">Product Manufactured / Traded:</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.traded}}</td>
                             </tr>
                             <tr>
-                                <td >Name of A/RM/ BM</td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.nameOf}}</td>
+                                <td class="sub-header">Name of A/RM/ BM</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.nameOf}}</td>
                             </tr>
                             <tr>
-                                <td  >Business line (Sub-sector): (NRB sub sector code)</td>
-                                <td  *ngIf="!fromProfile">{{dataForEdit?.bl}}</td>
+                                <td class="sub-header">Business line (Sub-sector): (NRB sub sector code)</td>
+                                <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.bl}}</td>
                             </tr>
                             </tbody>
                         </table>
                         <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
                             <tr class="sb-bg-dark">
-                                <th>SN</th>
-                                <th>Question</th>
-                                <th class="width"colspan="3" >Answer</th>
+                                <th class="sub-header">SN</th>
+                                <th class="sub-header">Question</th>
+                                <th class="width sub-header"colspan="3" >Answer</th>
                             </tr>
                             </thead>
                             <tbody  *ngFor="let question of questionAnswer;let i = index;">
                             <tr>
-                                <th>{{question?.sn}}</th>
-                                <th colspan="2"><b>{{question?.question}}</b></th>
-                                <th colspan="2">{{answer[i]?.answer}}</th>
+                                <th class="sub-header">{{question?.sn}}</th>
+                                <th class="sub-header" colspan="2"><b>{{question?.question}}</b></th>
+                                <th class="sub-header" colspan="2">{{answer[i]?.answer}}</th>
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="5" class="sub-header">
                                   Remarks:  {{answer[i]?.remarks}}
                                 </td>
                             </tr>
                             </tbody>
-                            <tr><td colspan="2"><b>E&S Risk Rating of the Project (ESRR):</b>
-                            </td><td colspan="3"><b>
+                            <tr><td colspan="2" class="sub-header"><b>E&S Risk Rating of the Project (ESRR):</b>
+                            </td><td colspan="3" class="sub-header"><b>
                                 {{dataForEdit?.esRisk}}
                             </b></td></tr>
 
@@ -1407,9 +1407,9 @@
 
                                 </tr>
                                 <tr class="sb-bg-dark">
-                                    <th rowspan="2">SN</th>
-                                    <th rowspan="2">Particulars</th>
-                                    <th class="width text-center" colspan="3">Remarks</th>
+                                    <th rowspan="2" class="sub-header">SN</th>
+                                    <th rowspan="2" class="sub-header">Particulars</th>
+                                    <th class="width text-center sub-header" colspan="3">Remarks</th>
                                 </tr>
                                 <tr *ngIf="fromProfile">
                                     <th>Yes</th>
@@ -1419,30 +1419,30 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1.</td>
-                                    <td>
+                                    <td class="sub-header">1.</td>
+                                    <td class="sub-header">
                                         Falls under Exclusion and critical sector list
                                     </td>
                                     <ng-container *ngIf="fromProfile">
                                         <td *ngFor="let option of optionList"><input
                                                 [value]="option" formControlName="criticalSector" type="radio"></td>
                                     </ng-container>
-                                    <td *ngIf="!fromProfile">{{dataForEdit?.criticalSector === 'Na' ? 'N/A' : dataForEdit?.criticalSector}}</td>
+                                    <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.criticalSector === 'Na' ? 'N/A' : dataForEdit?.criticalSector}}</td>
                                 </tr>
                                 <tr>
-                                    <td>2.</td>
-                                    <td>
+                                    <td class="sub-header">2.</td>
+                                    <td class="sub-header">
                                         E&S Due Diligence process Applicable
                                     </td>
                                     <ng-container *ngIf="fromProfile">
                                         <td *ngFor="let option of optionList"><input
                                                 [value]="option" formControlName="esDiligence" type="radio"></td>
                                     </ng-container>
-                                    <td *ngIf="!fromProfile">{{dataForEdit?.esDiligence === 'Na' ? 'N/A' : dataForEdit?.esDiligence}}</td>
+                                    <td class="sub-header" *ngIf="!fromProfile">{{dataForEdit?.esDiligence === 'Na' ? 'N/A' : dataForEdit?.esDiligence}}</td>
                                 </tr>
                                 <tr *ngIf="!fromProfile && dataForEdit?.esDiligence === 'Yes'">
-                                    <td>3.</td>
-                                    <td>
+                                    <td class="sub-header">3.</td>
+                                    <td class="sub-header">
                                         Level of risk associated with the business
                                     </td>
                                     <td>{{dataForEdit?.riskLevel}}</td>
@@ -1450,11 +1450,11 @@
                                 <tr *ngIf="!fromProfile &&
                                     (dataForEdit?.riskLevel === 'HIGH' || dataForEdit?.riskLevel === 'MEDIUM')
                                     && dataForEdit?.esDiligence === 'Yes'">
-                                    <td>4.</td>
-                                    <td>
+                                    <td class="sub-header">4.</td>
+                                    <td class="sub-header">
                                         Correction Plan
                                     </td>
-                                    <td>{{dataForEdit?.correctiveActionPlan}}</td>
+                                    <td class="sub-header">{{dataForEdit?.correctiveActionPlan}}</td>
                                 </tr>
                                 </tbody>
                             </table>

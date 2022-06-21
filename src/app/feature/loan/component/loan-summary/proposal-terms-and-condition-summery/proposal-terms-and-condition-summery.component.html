@@ -1,6 +1,6 @@
 <div class="py-2">
     <div>
-        <span *ngIf="checked"><strong>Debt Structure and Control</strong></span>
+        <span *ngIf="checked"><strong class="header">Debt Structure and Control</strong></span>
     </div>
 <!--    <ng-template #otherBank>-->
 <!--        <span><strong>Terms And Condition</strong></span>-->
@@ -9,12 +9,12 @@
   <div class="py-2">
     <ol>
         <ng-container >
-            <li class="col-md-12" *ngIf="(customerAllLoanList[0]?.proposal?.checkedData | jsonParse)?.debtChecked">
+            <li class="col-md-12 sub-header" *ngIf="(customerAllLoanList[0]?.proposal?.checkedData | jsonParse)?.debtChecked">
                 <div class="row sb-medium" >
 <!--                    <span [class.font-weight-bold]="customerAllLoanList[0]?.proposal.id == loanDataHolder?.proposal?.id"><u>{{customerAllLoanList[0].loan.name}}({{customerAllLoanList[0].createdAt | date}} ({{customerAllLoanList[0].createdAt | engNepDate: false}})) :</u></span>-->
-                    <div class="row col-md-12">
+                    <div class="row col-md-12 sub-header">
                         <!--            <div>-->
-                        <span  [innerHTML]="(customerAllLoanList[0].proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
+                        <span class="sub-header"  [innerHTML]="(customerAllLoanList[0].proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
                         <!--            </div>-->
                     </div>
                 </div>

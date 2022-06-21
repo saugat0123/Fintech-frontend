@@ -1,8 +1,8 @@
 <p class="header"><b class="header">Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
+<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small sub-header">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Owner Name</th>
         <th>Location</th>
         <th>Ward</th>
@@ -11,17 +11,17 @@
         <th>Nearby</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['ownerName']}}</td>
-        <td class="text-left pl-1"> {{formData['currentResidentDetails']['address']?.province?.name}},
+        <td class="text-left pl-1 sub-header">{{formData['currentResidentDetails']['ownerName']}}</td>
+        <td class="text-left pl-1 sub-header"> {{formData['currentResidentDetails']['address']?.province?.name}},
             {{formData['currentResidentDetails']['address']?.district?.name}},
             {{formData['currentResidentDetails']['address']?.municipalityVdc?.name}},
         </td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['address']?.ward}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address1}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['currentResidentDetails']['address']?.ward}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentResidentDetails']['address']?.address1}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentResidentDetails']['address']?.address2}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentResidentDetails']['nearBy']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
@@ -30,26 +30,26 @@
         <th>Latitude</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
+        <td class="text-left pl-1 sub-header">{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
+        <td class="text-left pl-1 sub-header">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1 sub-header">{{formData?.currentResidentDetails?.staffRepresentativeName2}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
     </tr>
 
 </table>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="4">Finding & Comment</th>
     </tr>
     <tr>
-        <td colspan="4" class="text-left pl-1">{{formData?.currentResidentDetails?.findingComment}}</td>
+        <td colspan="4" class="text-left pl-1 sub-header">{{formData?.currentResidentDetails?.findingComment}}</td>
     </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold"><strong class="header">Business Inspection Report</strong></p>
+<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="header"><strong class="header">Business Inspection Report</strong></p>
 <!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
 <!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
 <!--    <tr class="text-white sb-bg-dark">-->
@@ -107,18 +107,18 @@
 <!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>-->
 <!--    </tr>-->
 <!--</table>-->
-<p class="font-weight-bold">Date: </p>
-<p class="font-weight-bold">Unit: {{formData['businessSiteVisitDetails']['unit']}}</p>
-<p class="font-weight-bold">Date of inspection: {{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</p>
-<p class="font-weight-bold">Inspected by: {{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</p>
+<p class="font-weight-bold sub-header">Date: </p>
+<p class="font-weight-bold sub-header">Unit: {{formData['businessSiteVisitDetails']['unit']}}</p>
+<p class="font-weight-bold sub-header">Date of inspection: {{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</p>
+<p class="font-weight-bold sub-header">Inspected by: {{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</p>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
     class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>1. Facilities and Utilization (as on inspection date)</th>
     </tr>
     <tr>
         <td>
-            <p class="text-right">(Amounts in NPR ‘000s)</p>
+            <p class="text-right sub-header">(Amounts in NPR ‘000s)</p>
                 <table  class="table table-bordered table-responsive-md text-center">
                     <tr class="text-white sb-bg-dark">
                         <th>Facilities</th>
@@ -126,13 +126,13 @@
                         <th>Outstanding</th>
                         <th>Remarks</th>
                     </tr>
-                    <tr class="text-left" *ngFor="let loan of customerAllLoanList, let i = index">
+                    <tr class="text-left sub-header" *ngFor="let loan of customerAllLoanList, let i = index">
                         <td>{{ loan?.loan?.name }}</td>
                         <td>Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
                         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</td>
                         <td>{{(loan?.proposal?.data | jsonParse)?.remarks}}</td>
                     </tr>
-                    <tr class="sb-bg-secondary text-white text-left">
+                    <tr class="sb-bg-secondary text-white text-left sub-header">
                         <td>Total</td>
                         <td>Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                         <td></td>
@@ -141,13 +141,13 @@
                 </table>
         </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>2. Latest Valuation of Net Trading Assets: (as on inspection date)</th>
     </tr>
     <tr>
         <td>
             <table class="table table-bordered table-responsive-md text-center">
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>S.N</th>
                     <th>Insured item</th>
                     <th>Insurance Coverage</th>
@@ -157,7 +157,7 @@
                     <th>Endorsement</th>
                 </tr>
                 <tbody *ngFor="let insurance of insuranceData; let i= index">
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>{{i+1}}.</td>
                     <td>{{insurance?.assetInsured}}</td>
                     <td>{{insurance.policyType}}</td>
@@ -168,109 +168,109 @@
                 </tr>
                 </tbody>
             </table>
-            <p class="text-left">Are the policies solely endorsed to us? Yes/No</p>
+            <p class="text-left sub-header">Are the policies solely endorsed to us? Yes/No</p>
         </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>3. Insurance of Stock and Fixed Assets (including collateral assets)</th>
     </tr>
     <tr>
         <td>
             <table class="table table-bordered table-responsive-md text-center">
-                <tr class="text-white sb-bg-dark">
+                <tr class="text-white sb-bg-dark sub-header">
                     <th>Particulars</th>
                     <th>Amount (NPR ‘000s)</th>
                 </tr>
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>Inventory (A)</td>
                     <td>{{formData['businessSiteVisitDetails']['inventory']}}</td>
                 </tr>
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>Accounts Receivable (B)</td>
                     <td>{{formData['businessSiteVisitDetails']['accountsReceivable']}}</td>
                 </tr>
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>Accounts Payable (C)</td>
                     <td>{{formData['businessSiteVisitDetails']['accountsPayable']}}</td>
                 </tr>
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>Net Trading Assets (A+B-C)</td>
                     <td>{{formData['businessSiteVisitDetails']['businessNetTradingAssets']}}</td>
                 </tr>
-                <tr class="text-left">
+                <tr class="text-left sub-header">
                     <td>Proposed Limit as % of NTA</td>
                     <td>{{formData['businessSiteVisitDetails']['proposedLimitNta']}}</td>
                 </tr>
             </table>
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>4. Location of Unit/Goods: {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
             {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},
             {{formData['businessSiteVisitDetails']['officeAddress']?.municipalityVdc?.name}},
             {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             <p>5. Premises, where goods are stored is (are)	: {{formData['businessSiteVisitDetails']['premises']}}<br>
              If rented, Rent Payment Current	    : {{formData['businessSiteVisitDetails']['rentPayment']}}<br>
              Rent Receipt Shown	                : {{formData['businessSiteVisitDetails']['rentReceipt']}}</p>
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>6. All the goods belong to the borrower and that none are held on account of third parties (on consignment or otherwise).
             {{formData['businessSiteVisitDetails']['borrowerRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             7. Valuation does not include any goods released under T/R and/or against acceptance.
             {{formData['businessSiteVisitDetails']['valuationRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             8. Was there evidence of any other bank or party being interested in the goods hypothecated to the Bank?  {{formData['businessSiteVisitDetails']['evidenceRadio']}}
             If, yes mention the names of banks/other parties. {{formData['businessSiteVisitDetails']['nameOfBank']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             9. Was the security in order?
             {{formData['businessSiteVisitDetails']['securityRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             10. Are the stock registers up-to-date?
             {{formData['businessSiteVisitDetails']['stockRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             11. Are firefighting arrangements in evidence?
             {{formData['businessSiteVisitDetails']['fireFightingRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             12. Is the building / go-down / store in good condition?
             {{formData['businessSiteVisitDetails']['buildingRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             13. Are goods of a hazardous nature stored on the premises?
             {{formData['businessSiteVisitDetails']['hazardousRadio']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             14. Factors of environment & social risk assessed during the inspection? {{formData['businessSiteVisitDetails']['environmentRadio']}}
             Remarks/updates, if any: {{formData['businessSiteVisitDetails']['remarksUpdates']}}
         </td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>
             Remarks (If any): {{formData['businessSiteVisitDetails']['remarksIfAny']}}
         </td>
@@ -281,15 +281,15 @@
         <td>------------------------------</td>
         <td>------------------------------</td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>Inspected by</td>
         <td>Reviewed by</td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>Name:</td>
         <td>Name:</td>
     </tr>
-    <tr class="text-left">
+    <tr class="text-left sub-header">
         <td>Designation:</td>
         <td>Designation:</td>
     </tr>
@@ -300,7 +300,7 @@
     {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Asset Collateral'}} & Facilities Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Date of Inspection</th>
         <th>Address</th>
         <th>Ward</th>
@@ -314,23 +314,23 @@
 
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | engNepDate: false}} </td>
-        <td class="text-left pl-1">
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['date'] | engNepDate: false}} </td>
+        <td class="text-left pl-1 sub-header">
             {{formData['fixedAssetCollateralDetails']['address']?.province?.name}},
             {{formData['fixedAssetCollateralDetails']['address']?.district?.name}},
             {{formData['fixedAssetCollateralDetails']['address']?.municipalityVdc?.name}}
         </td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['address']?.ward}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['address']?.address1}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['address']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['personContacted']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['phoneNoOfContact']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['typeOfProperty']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['shapeOfLand']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['address']?.ward}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['address']?.address1}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['address']?.address2}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['personContacted']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['phoneNoOfContact']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['typeOfProperty']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['shapeOfLand']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
 
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Road Approach</th>
         <th>Road Width(in feet)</th>
         <th>Road Access From in feet</th>
@@ -350,30 +350,30 @@
     <!--   Facilities     ==================-->
 
     <tr>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['prominentPlace']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['approachDistance']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['electricity'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryWallConstruction'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryFencing']| booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['facilities']['prominentPlace']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['facilities']['approachDistance']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['electricity'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryWallConstruction'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryFencing']| booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="12">Remarks</th>
     </tr>
     <tr>
-        <td colspan="12" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
+        <td colspan="12" class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Building</th>
         <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
             <th>Building Area</th>
@@ -388,20 +388,20 @@
         </ng-container>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
         <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | engNepDate: false}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | engNepDate: false}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}</td>
+            <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
         </ng-container>
     </tr>
-    <tr class="text-white sb-bg-dark" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
+    <tr class="text-white sb-bg-dark sub-header" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
         <th>Frame Structure</th>
         <th>RCC Roofing</th>
         <th>Bathroom and Toilet</th>
@@ -410,22 +410,22 @@
         <th>Construction as per Approved Naksa Pass</th>
     </tr>
     <tr *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['rccRoofing'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['bathroomAndToilet'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['naksaPassObtained'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['rccRoofing'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['bathroomAndToilet'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['naksaPassObtained'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Any Road Setbacks</th>
         <th>Any River/Canal Setbacks</th>
         <th>Any High-Tension Setbacks</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
     </tr>
 
 </table>
@@ -433,51 +433,51 @@
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
-        <th colspan="3">Vicinity to the Basic Amenities</th>
+        <th colspan="3" class="sub-header">Vicinity to the Basic Amenities</th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Major Market Place</th>
         <th>School/College</th>
         <th>Hospital/Nursing Home</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['majorMarketPlaces']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['schoolOrCollege']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['hospitalOrNursingHome']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['majorMarketPlaces']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['schoolOrCollege']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['hospitalOrNursingHome']}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="3">Comment about FAC</th>
     </tr>
     <tr>
-        <td colspan="3" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
+        <td colspan="3" class="text-left pl-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
 
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="3">Location details</th>
     </tr>
     <tr>
-        <td>Longitude</td>
-        <td>latitude</td>
+        <td class="sub-header">Longitude</td>
+        <td class="sub-header">latitude</td>
     </tr>
     <tr>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLongitude']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLatitude']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLongitude']}}</td>
+        <td class="text-right pr-1 sub-header">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLatitude']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeNameDesignation}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeName}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeName2}}</td>
 
     </tr>
 </table>
@@ -487,12 +487,12 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="7"><b>Current Asset Inspection: Stock</b></td>
+        <td colspan="7" class="sub-header"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr *ngIf="!formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
+        <td colspan="4" class="sub-header"><b>Current Asset Inspection: Stock</b></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Date of Inspection(AD/BS)</th>
         <th>Particulars Of Good Inspected</th>
         <th>Stock Value Reported</th>
@@ -503,14 +503,14 @@
     </tr>
 
     <tr>
-        <td class="text-left pl-1">
+        <td class="text-left pl-1 sub-header">
             {{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}} ({{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
-        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
-        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
-        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
+        <td class="text-right pr-1 sub-header">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
+        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
+        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
+        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
     </tr>
 
 
@@ -523,9 +523,9 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
-        <th colspan="6"><b>Current Asset Inspection: Insurance Verification</b></th>
+        <th colspan="6" class="sub-header"><b>Current Asset Inspection: Insurance Verification</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Assets Mortgaged</th>
         <th>Insured Amount</th>
         <th>Insurance Company</th>
@@ -536,34 +536,34 @@
 
     <tr>
 
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}} ({{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
+        <td class="text-right pr-1 sub-header">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
+        <td class="text-right pr-1 sub-header">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}} ({{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}})</td>
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
+        <td class="text-right pr-1 sub-header">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="6">Comments</th>
     </tr>
     <tr>
-        <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['comments']}}</td>
+        <td colspan="6" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['comments']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeNameDesignation}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeName}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1 sub-header">{{staff.staffRepresentativeName2}}</td>
     </tr>
 </table>
 
@@ -574,46 +574,46 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
-        <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
+        <th colspan="6" class="sub-header"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="6">Explain the business nature, operating/manufacturing process in maximum 4 lines as per observation/discussion with the customer during inspection.</th>
     </tr>
     <tr>
-        <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
+        <td colspan="6" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation; Loading/unloading happening/brief of various sections of business (Manufacturing/ Packaging/ Storage/ Dispatch/ Quality Control etc.), No of vehicles observed etc.</th>
     </tr>
     <tr>
-        <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
+        <td colspan="6" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="6">Questions to be asked to the accompanying person of client</th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="3">How is the business doing now compared to last year?</th>
         <th colspan="3">What are the prospects and challenges for the business?</th>
     </tr>
     <tr>
-        <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
-        <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
+        <td colspan="3" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
+        <td colspan="3" class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
     </tr>
     <tr>
-        <th colspan="2"><b>Power Back-up Arrangement availability at site:</b></th>
-        <th colspan="2"><b>The stock register system at the site is in the form of:</b></th>
+        <th colspan="2" class="sub-header"><b>Power Back-up Arrangement availability at site:</b></th>
+        <th colspan="2" class="sub-header"><b>The stock register system at the site is in the form of:</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th>Normal Electricity Line</th>
         <th>Invertor/Generator</th>
         <th>Ledger Book</th>
         <th>Electronic</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['normalElectricityLine'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['invertorOrGenerator'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['ledgerBook'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['electronic'] | booleanConvert}}
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['normalElectricityLine'] | booleanConvert}}
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['invertorOrGenerator'] | booleanConvert}}
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['ledgerBook'] | booleanConvert}}
+        <td class="text-left pl-1 sub-header">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['electronic'] | booleanConvert}}
     </tr>
 </table>
 
@@ -622,155 +622,155 @@
 
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="text-white sb-bg-dark sub-header">
         <th colspan="2">Current Assets Inspection  - Stock Checklist Questionnaire
         </th>
     </tr>
     <tr>
-        <td class="text-left pl-1">Is the customer upto date with other charges,chargeable to the other premises ?</td>
+        <td class="text-left pl-1 sub-header">Is the customer upto date with other charges,chargeable to the other premises ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.uptoDateWithCharges"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.uptoDateWithCharges"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">All goods belongs to the borrowers and non are hold on account of third parties</td>
+        <td class="text-left pl-1 sub-header">All goods belongs to the borrowers and non are hold on account of third parties</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.borrowersPossession"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.borrowersPossession"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Confirm that valuation of stocks does not include and goods under TR</td>
-        <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR"><i
+        <td class="text-left pl-1 sub-header">Confirm that valuation of stocks does not include and goods under TR</td>
+        <td class="sub-header" *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR"><i
                 class="fas fa-check"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">There is no evidence of any other bank interested in the goods</td>
+        <td class="text-left pl-1 sub-header">There is no evidence of any other bank interested in the goods</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherBankNotInterested"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherBankNotInterested"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Was the security in order ?</td>
+        <td class="text-left pl-1 sub-header">Was the security in order ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.securityOrder"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.securityOrder"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Are the goods saleable ?</td>
+        <td class="text-left pl-1 sub-header">Are the goods saleable ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.goodsSaleable"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.goodsSaleable"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Are the stocks registered upto date ?</td>
+        <td class="text-left pl-1 sub-header">Are the stocks registered upto date ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksUptoDate"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksUptoDate"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Does the stocks registered match with the stock list ?</td>
+        <td class="text-left pl-1 sub-header">Does the stocks registered match with the stock list ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.matchWithTheStockList"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.matchWithTheStockList"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Is the storage condition satisfactory ?</td>
+        <td class="text-left pl-1 sub-header">Is the storage condition satisfactory ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.storageConditionSatisfactory">
-            <i class="fas fa-check"></i></td>
+            <i class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.storageConditionSatisfactory">
-            <i class="fas fa-times"></i></td>
+            <i class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Is fire fighting evidence through arrangement ?</td>
+        <td class="text-left pl-1 sub-header">Is fire fighting evidence through arrangement ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.fireFightingEvidence"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.fireFightingEvidence"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Are the building/store in the good condition?</td>
+        <td class="text-left pl-1 sub-header">Are the building/store in the good condition?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.buildingStoreCondition"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.buildingStoreCondition"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Are the special warranties in the insurance policy upto date ?</td>
+        <td class="text-left pl-1 sub-header">Are the special warranties in the insurance policy upto date ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.warrantiesUptoDate"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.warrantiesUptoDate"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">There is no evidence of goods hazardous nature in the premises</td>
+        <td class="text-left pl-1 sub-header">There is no evidence of goods hazardous nature in the premises</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.noHazardousNature"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.noHazardousNature"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Were our name board properly displayed ?</td>
+        <td class="text-left pl-1 sub-header">Were our name board properly displayed ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Were our padlocks in use ?</td>
+        <td class="text-left pl-1 sub-header">Were our padlocks in use ?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.padlocksUse"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.padlocksUse"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Is the PAN/Registration Certificate of the business is displayed?</td>
+        <td class="text-left pl-1 sub-header">Is the PAN/Registration Certificate of the business is displayed?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header "></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Were we provided with a detailed NCA report at the time of inspection against which we could inspect the business?</td>
+        <td class="text-left pl-1 sub-header">Were we provided with a detailed NCA report at the time of inspection against which we could inspect the business?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.ncaReport"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.ncaReport"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Additional Impression: Do you feel the stocks are largely as per the stock report provided in terms of item/quantity?</td>
+        <td class="text-left pl-1 sub-header">Additional Impression: Do you feel the stocks are largely as per the stock report provided in terms of item/quantity?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksAreLarge"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksAreLarge"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td class="text-left pl-1">Any evidence that there are charges of other entities/institutions in the assets?</td>
+        <td class="text-left pl-1 sub-header">Any evidence that there are charges of other entities/institutions in the assets?</td>
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
-                class="fas fa-check"></i></td>
+                class="fas fa-check sub-header"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
-                class="fas fa-times"></i></td>
+                class="fas fa-times sub-header"></i></td>
     </tr>
     <tr>
-        <td colspan="2" class="text-white sb-bg-dark">Finding & Comments</td>
+        <td colspan="2" class="text-white sb-bg-dark sub-header">Finding & Comments</td>
     </tr>
     <tr>
-        <td colspan="2" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.findingAndComments}}</td>
+        <td colspan="2" class="text-left pl-1 sub-header">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.findingAndComments}}</td>
 
     </tr>
     <tr>
-        <td colspan="2" class="text-white sb-bg-dark">Remarks for 'NO' Option</td>
+        <td colspan="2" class="text-white sb-bg-dark sub-header">Remarks for 'NO' Option</td>
     </tr>
     <tr>
-        <td colspan="2" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.remarksForNoOption}}</td>
+        <td colspan="2" class="text-left pl-1 sub-header">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.remarksForNoOption}}</td>
 
     </tr>
 </table>
