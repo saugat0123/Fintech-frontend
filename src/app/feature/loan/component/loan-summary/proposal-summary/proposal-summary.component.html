@@ -138,7 +138,10 @@
                             </tr>
                         </table>
                     </ng-container>
-                    <p #tenure>{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>
+                    <ng-template #tenure>
+                        <p >{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>
+
+                    </ng-template>
                 </td>
                 <td>
                 <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
