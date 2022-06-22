@@ -189,7 +189,7 @@ export class AllDocumentViewComponent implements OnInit {
       const siteVisitDocument = this.colSiteVisitDocument;
       if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
-          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+          docPaths.push(doc.docPath);
         }
       }
     } else {
