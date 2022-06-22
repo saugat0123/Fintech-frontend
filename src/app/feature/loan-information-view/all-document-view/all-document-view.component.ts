@@ -37,6 +37,7 @@ export class AllDocumentViewComponent implements OnInit {
   colSiteVisitDocument = [];
   fileType = '.jpg';
   customerGeneralDocument;
+  ccblDocument = [];
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -123,6 +124,7 @@ export class AllDocumentViewComponent implements OnInit {
         }
       }
     }
+    this.getCCBLDocument();
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
     this.checkDocumentStatus();
   }
@@ -277,6 +279,48 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
 
+  }
+
+  getCCBLDocument() {
+    const doc = {
+      documentName: null,
+      docPath: null
+    };
+    const docSet = new Set();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgCcbl)) {
+        const crgDocument = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
+        if (!ObjectUtil.isEmpty(crgDocument.file)) {
+          const splitDocument = crgDocument.file.split('/');
+          const docFullName = splitDocument[splitDocument.length - 1];
+          const docName = docFullName.split('.');
+          const documentName = docName[0];
+          doc.documentName = documentName;
+          doc.docPath = crgDocument.file;
+          docSet.add(doc);
+        }
+      }
+
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
+        const financialDocument = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
+        if (!ObjectUtil.isEmpty(financialDocument.file)) {
+          const splitDocument = financialDocument.file.split('/');
+          const docFullName = splitDocument[splitDocument.length - 1];
+          const docName = docFullName.split('.');
+          const documentName = docName[0];
+          doc.documentName = documentName;
+          doc.docPath = financialDocument.file;
+          docSet.add(doc);
+        }
+      }
+
+      if (docSet.size > 0) {
+        docSet.forEach(d => {
+          this.ccblDocument.push(d);
+        });
+        console.log('ccblDocument', this.ccblDocument);
+      }
+    }
   }
 
 }

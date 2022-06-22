@@ -184,6 +184,37 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <p><strong>CCBL Document</strong></p>
+                <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th class="sn">S.N</th>
+                        <th>Document Name</th>
+                        <th *ngIf="!hidePreviewButton">Preview</th>
+                        <th *ngIf="!hidePreviewButton">Download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ccbl of ccblDocument; let j = index">
+                        <td>{{j+1}}</td>
+                        <td  class="text-left pl-1">{{ccbl?.documentName}}</td>
+                        <td *ngIf="!hidePreviewButton">
+                            <i (click)="previewOfferLetterDocument(ccbl?.docPath, ccbl?.documentName)"
+                               class="fas fa-eye"></i></td>
+                        <td *ngIf="!hidePreviewButton">
+                            <i (click)="downloadCustomerDocument(ccbl?.docPath, ccbl?.documentName)"
+                               aria-hidden="true" class="fa fa-download"
+                               style="cursor: pointer"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
         <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row">
             <div class="col-md-12">
                 <p><strong>Cad Documents</strong></p>
