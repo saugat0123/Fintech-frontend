@@ -83,7 +83,7 @@
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter}}</td>
                 <td *ngIf="!isRemit">
                     <span *ngIf="loan?.loan?.isFundable">
                         IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}}%

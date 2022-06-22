@@ -264,6 +264,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     this.postCombinedAction(true);
                     this.nbDialogRef.close();
                     this.emitter.emit(true);
+                } else {
+                    this.emitter.emit();
                 }
             });
         // }
