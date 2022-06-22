@@ -87,12 +87,12 @@
                                     <td style="width: 15%"><strong>कर्जा सिमा :</strong></td>
                                     <td>
                                         अधिकतम रु.
-                                        <span [ngClass]="{'nepaliFont uniFont2' : loan?.amount1 !== null && loan?.amount1 !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
                                             {{loan?.amount1 === null || loan?.amount1 === '' ? '______________' : loan?.amount1}}
                                         </span>
                                         ।–
                                         (अक्षरेपी:
-                                        <span [ngClass]="{'nepaliFont font-size-normal' : loan?.amountInWords1 !== null && loan?.amountInWords1 !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.amountInWords1 !== null && loan?.amountInWords1 !== ''}">
                                             {{loan?.amountInWords1 === null || loan?.amountInWords1 === '' ? '______________________' : loan?.amountInWords1}}
                                         </span>
                                         मात्र ) ।
@@ -101,7 +101,7 @@
                                 <tr>
                                     <td><strong>उदेश्य :</strong></td>
                                     <td>
-                                    <span [ngClass]="{'nepaliFont' : loan?.loanPurpose !== null && loan?.loanPurpose !== ''}">
+                                    <span [ngClass]="{'nepaliFont unicodeSize24' : loan?.loanPurpose !== null && loan?.loanPurpose !== ''}">
                                         {{loan?.loanPurpose === null || loan?.loanPurpose === '' ? '_________________' : loan?.loanPurpose}}
                                     </span>
                                         लगानीगर्न ।
@@ -173,7 +173,7 @@
                                 </tr>
                                 <tr>
                                     <td>कर्जाको अवधि</td>
-                                    <td>ई.स
+                                    <td>ई.स.
                                         <span [ngClass]="{'nepaliFont' : loan?.loanLimitYearAD !== null && loan?.loanLimitYearAD !== ''}">
                                             {{loan?.loanLimitYearAD === null || loan?.loanLimitYearAD === '' ? '___________' : loan?.loanLimitYearAD}}
                                         </span>
@@ -192,12 +192,12 @@
                                 <tr>
                                     <td>प्रतिवद्धता शुल्क</td>
                                     <td>रु.
-                                        <span [ngClass]="{'nepaliFont uniFont2' : loan?.amount1 !== null && loan?.amount1 !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
                                             {{loan?.amount1 === null || loan?.amount1 === '' ? '___________' : loan?.amount1}}
                                         </span>
                                         को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
                                         अग्रिम भुक्तानी गरेमा वा कर्जा
-                                        चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकम माथप
+                                        चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकम मा थप
                                         <span [ngClass]="{'nepaliFont' : loan?.pratibadhataAdditionalAmount !== null && loan?.pratibadhataAdditionalAmount !== ''}">
                                             {{loan?.pratibadhataAdditionalAmount === null || loan?.pratibadhataAdditionalAmount === '' ? '_____' : loan?.pratibadhataAdditionalAmount}}
                                         </span>
@@ -332,7 +332,7 @@
                                         {{printDocForm?.dhitoDistress === null || printDocForm?.dhitoDistress === '' ? '___________' : printDocForm?.dhitoDistress}}
                                     </span>
                                     को जग्गातथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात फाइनान्सको
-                                    नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमागई रु.
+                                    नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.dhitoLekhi !== null && printDocForm?.dhitoLekhi !== ''}">
                                         {{printDocForm?.dhitoLekhi === null || printDocForm?.dhitoLekhi === '' ? '___________' : printDocForm?.dhitoLekhi}}
                                     </span>
@@ -393,7 +393,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
+                                    उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभ फाइनान्स लि.को
                                     नाममा धनि दर्ता कायम गराउनु पर्ने छ ।<br><br>
                                     </ng-container>
                                 </td>
@@ -402,19 +402,17 @@
                                 <td>२.१</td>
                                 <td colspan="2"><strong>श्री </strong>
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.shreeName1 !== null && printDocForm?.shreeName1 !== ''}">
-                                        {{printDocForm?.shreeName1 === null || printDocForm?.shreeName1 === '' ? '________________' : printDocForm?.shreeName1}}
-                                    </span>
-                                    को रु.
+                                        {{printDocForm?.shreeName1 === null || printDocForm?.shreeName1 === '' ? '________________' : printDocForm?.shreeName1}}</span>को
+                                    रु.
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                                         {{printDocForm?.amount === null || printDocForm?.amount === '' ? '___________' : printDocForm?.amount}}
                                     </span>
                                     /–
                                     (अक्षरेपी:
-
-                                    <span [ngClass]="{'nepaliFont font-size-normal' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
                                         {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '________________' : printDocForm?.amountInWords}}
                                     </span>
-                                    मात्र )को व्यक्तिगत जमानीको लिखत । <br></td>
+                                    मात्र) को व्यक्तिगत जमानीको लिखत । <br></td>
                             </tr>
                             <tr>
                                 <td>२.२</td>
@@ -430,7 +428,7 @@
                                     </span>
                                     ।–(अक्षरेपी:
 
-                                    <span [ngClass]="{'nepaliFont font-size-normal' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
                                         {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '___________________' : printDocForm?.amountInWords}}
                                     </span>
                                     मात्र ।)को ऋणि तथा जमानीकर्ताले
@@ -926,12 +924,12 @@
                     <div class="col-md-12">
                         <table class="table text-center table-bordered">
                             <tr>
-                                <th style="width: 60%">फाइनान्स</th>
-                                <th>ऋणी</th>
+                                <th style="width: 50%">फाइनान्स</th>
+                                <th style="width: 50%">ऋणी</th>
                             </tr>
                             <tbody>
                             <tr>
-                                <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
+                                <td style="width: 50%"> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
                                     शाखा कार्यालय
 
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
@@ -977,7 +975,7 @@
                                     </span>
                                     <br>
                                 </td>
-                                <td>
+                                <td style="width: 50%">
                                     श्री
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_______________' : printDocForm?.customerName}}
@@ -1047,13 +1045,13 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table  table-bordered">
+                        <table class="table table-borderless">
                             <tr>
                             </tr>
                             <tbody>
-                            <tr>
+                            <tr class="text-center">
                                 <td>
-                                    ....................................
+                                    ........................................................................
                                     <br>
                                     आधिकारीक दस्तखत<br>
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.employeeName !== null && printDocForm?.employeeName !== ''}">
@@ -1072,7 +1070,7 @@
 
                                 </td>
                                 <td>
-                                    ....................................
+                                    ........................................................................
                                     <br>
                                     आधिकारीक दस्तखत<br>
 
@@ -1108,28 +1106,16 @@
                 </p>
 
                 <br>
-
-                औठा छाप दाँ. बाँ.
-
-                <table style="width: 35%;" class="table  table-bordered text-center">
-
-                    <thead>
-                    <tr>
-                        <th style="border: none;">दाँ.</th>
-                        <th style="border: none;">बाँ.</th>
+                <table class="table-bordered text-center float-right" style="width: 40%">
+                    <tr style="break-inside: avoid; height: 220px">
+                        <td style="border: none; vertical-align: top">दाँ.</td>
+                        <td style="border: none; vertical-align: top">बाँ.</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="height: 130px;">
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    </tbody>
                 </table>
                 <br>
                 <div><p>दस्तखत र संस्थाको छाप — .....................................
                     <br>
-                    दस्तखतगर्नेको नाम
+                    दस्तखत गर्नेको नाम
                     <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryName !== null && printDocForm?.signatoryName !== ''}">
                         {{printDocForm?.signatoryName === null || printDocForm?.signatoryName === '' ? '_____________' : printDocForm?.signatoryName}}
                     </span>
@@ -1146,7 +1132,7 @@
                         {{printDocForm?.signatoryCitizenshipIssuePlace === null || printDocForm?.signatoryCitizenshipIssuePlace === '' ? '_____________' : printDocForm?.signatoryCitizenshipIssuePlace}}
                     </span>
                     <br>
-                    अख्तियार प्राप्तव्यक्तिको ठेगाना:—
+                    अख्तियार प्राप्त व्यक्तिको ठेगाना:—
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarName2 !== null && printDocForm?.akhtiyarName2 !== ''}">
                         {{printDocForm?.akhtiyarName2 === null || printDocForm?.akhtiyarName2 === '' ? '_____________' : printDocForm?.akhtiyarName2}}
                     </span>
@@ -1154,7 +1140,7 @@
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarMunicipality2 !== null && printDocForm?.akhtiyarMunicipality2 !== ''}">
                         {{printDocForm?.akhtiyarMunicipality2 === null || printDocForm?.akhtiyarMunicipality2 === '' ? '_____________' : printDocForm?.akhtiyarMunicipality2}}
                     </span>
-                    न.पा/म.न.पा वडा नं
+                    न.पा./म.न.पा. वडा नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarWardNum2 !== null && printDocForm?.akhtiyarWardNum2 !== ''}">
                         {{printDocForm?.akhtiyarWardNum2 === null || printDocForm?.akhtiyarWardNum2 === '' ? '_____' : printDocForm?.akhtiyarWardNum2}}
                     </span>
@@ -1182,6 +1168,7 @@
                                     <span [ngClass]="{'nepaliFont' : guarantor?.name !== null && guarantor?.name !== ''}">
                                         {{guarantor?.name === null || guarantor?.name === '' ? '_____________' : guarantor?.name}}
                                     </span>
+                                    <br>
                                     ठेगाना:
                                     <span [ngClass]="{'nepaliFont' : guarantor?.guarantorLegalDocumentAddress !== null && guarantor?.guarantorLegalDocumentAddress !== ''}">
                                         {{guarantor?.guarantorLegalDocumentAddress === null || guarantor?.guarantorLegalDocumentAddress === '' ? '_____________' : guarantor?.guarantorLegalDocumentAddress}}
@@ -1195,13 +1182,12 @@
                 <br>
                 <strong>सनाखत साक्षी</strong>
                 <br>
-                ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत
-                कर्मचारी
+                ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
                 <span [ngClass]="{'nepaliFont' : printDocForm?.sahichhapEmployee !== null && printDocForm?.sahichhapEmployee !== ''}">
                     {{printDocForm?.sahichhapEmployee === null || printDocForm?.sahichhapEmployee === '' ? '_____________' : printDocForm?.sahichhapEmployee}}
                 </span>
-
-                ईतिसम्बन्त
+                <p class="text-center">
+                ईति सम्बन्त
                 <span [ngClass]="{'nepaliFont' : printDocForm?.docYear !== null && printDocForm?.docYear !== ''}">
                     {{printDocForm?.docYear === null || printDocForm?.docYear === '' ? '_____________' : printDocForm?.docYear}}
                 </span>
@@ -1217,6 +1203,7 @@
                 <span [ngClass]="{'nepaliFont' : printDocForm?.docRoj !== null && printDocForm?.docRoj !== ''}">
                     {{printDocForm?.docRoj === null || printDocForm?.docRoj === '' ? '_____________' : printDocForm?.docRoj}}
                 </span> शुभम् ।
+                </p>
 
             </div>
             <div class="page-break"></div>
@@ -1254,12 +1241,9 @@
                         <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                             {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_____________' : printDocForm?.customerName}}
                         </span>
-                        लाई दिने/दिएकोे कर्जा/सुबिधा स्वीकृती
-                        पत्र मा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु म/हामि तपशिलमा उल्लेखित
-                        जमानतकर्ताहरुलाई पूर्ण मन्जुर छ ।
-                        उपरोक्त पत्र बमोजिम वित्तीय सस्थाबाट प्राप्त हुने ऋण कर्जा सुबिधा तथा अन्य दायित्व
-                        तिर्न बुझाउन मेरो/हाम्रो पूर्ण
-                        मन्जुरी रहेकोले यो पत्रमा स्वीकृति जनाई सही छाप गरी तपाई वित्तीय सस्थालाई
+                        लाई दिने/दिएकोे कर्जा/सुबिधा स्वीकृती पत्र मा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु म/हामि तपशिलमा उल्लेखित
+                        जमानतकर्ताहरुलाई पूर्ण मन्जुर छ । उपरोक्त पत्र बमोजिम वित्तीय सस्थाबाट प्राप्त हुने ऋण कर्जा सुबिधा तथा अन्य
+                        दायित्व तिर्न बुझाउन मेरो/हाम्रो पूर्ण मन्जुरी रहेकोले यो पत्रमा स्वीकृति जनाई सही छाप गरी तपाई वित्तीय सस्थालाई
                         दिए/दियौ ।
                     </p>
                 </div>
@@ -1318,7 +1302,7 @@
                             {{addGuarantor?.tapsilGuarantorMunicipality === null || addGuarantor?.tapsilGuarantorMunicipality === '' ? '_____________' : addGuarantor?.tapsilGuarantorMunicipality}}
                         </span>
                     </ng-container>
-                    न.पा/म.न.पा वडा न
+                    न.पा/म.न.पा. वडा न.
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorWardNum !== null && addGuarantor?.tapsilGuarantorWardNum !== ''}">
                         {{addGuarantor?.tapsilGuarantorWardNum === null || addGuarantor?.tapsilGuarantorWardNum === '' ? '_____' : addGuarantor?.tapsilGuarantorWardNum}}
                     </span></p>
@@ -1335,6 +1319,14 @@
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorSpouseName !== null && addGuarantor?.tapsilGuarantorSpouseName !== ''}">
                         {{addGuarantor?.tapsilGuarantorSpouseName === null || addGuarantor?.tapsilGuarantorSpouseName === '' ? '_____________' : addGuarantor?.tapsilGuarantorSpouseName}}
                     </span></p>
+                <p>बुबाको नाम : श्री
+                    <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorFatherName !== null && addGuarantor?.tapsilGuarantorFatherName !== ''}">
+                    {{addGuarantor?.tapsilGuarantorFatherName === null || addGuarantor?.tapsilGuarantorFatherName === '' ? '_____________' : addGuarantor?.tapsilGuarantorFatherName}}
+                </span></p>
+                <p>बाजेको नाम : श्री
+                    <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorGrandFatherName !== null && addGuarantor?.tapsilGuarantorGrandFatherName !== ''}">
+                    {{addGuarantor?.tapsilGuarantorGrandFatherName === null || addGuarantor?.tapsilGuarantorGrandFatherName === '' ? '_____________' : addGuarantor?.tapsilGuarantorGrandFatherName}}
+                </span></p>
                 <p>सम्पर्क फोन/मोवाइल न. :
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorContactNum !== null && addGuarantor?.tapsilGuarantorContactNum !== ''}">
                         {{addGuarantor?.tapsilGuarantorContactNum === null || addGuarantor?.tapsilGuarantorContactNum === '' ? '_____________' : addGuarantor?.tapsilGuarantorContactNum}}
@@ -1349,7 +1341,7 @@
                     </span>
                 </p>
                 <p>
-                    दस्तखत : ...................................
+                    दस्तखत : ......................................................................
                 </p>
                 </ng-container>
             </div>
