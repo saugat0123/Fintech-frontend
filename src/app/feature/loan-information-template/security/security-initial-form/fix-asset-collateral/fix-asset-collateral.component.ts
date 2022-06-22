@@ -114,7 +114,6 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
-                console.log('collateral::;', this.collateralSiteVisit);
             this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
@@ -379,11 +378,10 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    viewDocument(url: string, name: string) {
-        const viewDocName = name.concat(this.fileType);
+    viewDocument(url: string) {
         const link = document.createElement('a');
         link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
