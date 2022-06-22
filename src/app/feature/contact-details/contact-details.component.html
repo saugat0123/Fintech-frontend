@@ -1,0 +1,68 @@
+<div [formGroup]="contactDetailsFormGroup" class="row">
+    <div class="col-md-12">
+        <h5>3. Address and contact details</h5>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td></td>
+                <td>Registered Office</td>
+                <td>Residence of main person</td>
+                <td>Factory / Business /Site/Yard</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Legal Address</td>
+                <td><textarea rows="5" style="width:100%" formControlName="registeredOfficeLegalAddress"></textarea></td>
+                <td><textarea rows="5" style="width:100%" formControlName="residenceOfMainPerson"></textarea></td>
+                <td><textarea rows="5" style="width:100%" formControlName="factoryBusinessLegalAddress"></textarea></td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td><input class="form-control col-md-6" formControlName="registeredOfficePhoneNumber"
+                           placeholder="Phone Number" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="residenceOfMainPersonPhoneNumber"
+                           placeholder="Phone Number" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="factoryBusinessPhoneNumber"
+                           placeholder="Phone Number" type="text"></td>
+            </tr>
+            <tr>
+                <td>Fax</td>
+                <td><input class="form-control col-md-6" formControlName="registeredOfficeFax"
+                           placeholder="Fax" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="residenceOfMainPersonFax"
+                           placeholder="Fax" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="factoryBusinessFax"
+                           placeholder="Fax" type="text"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input class="form-control col-md-6" formControlName="registeredOfficeEmail"
+                           placeholder="Email" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="residenceOfMainPersonEmail"
+                           placeholder="Email" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="factoryBusinessEmail"
+                           placeholder="Email" type="text"></td>
+            </tr>
+            <tr>
+                <td>Contact Person/s</td>
+                <td><input class="form-control col-md-6" formControlName="registeredOfficeContactPer"
+                           placeholder="Contact Person" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="residenceOfMainPersonContactPer"
+                           placeholder="Contact Person" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="factoryBusinessContactPer"
+                           placeholder="Contact Person" type="text"></td>
+            </tr>
+            <tr>
+                <td>Mobile Number</td>
+                <td><input class="form-control col-md-6" formControlName="registeredOfficeMobile"
+                           placeholder="Mobile Number" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="residenceOfMainPersonMobile"
+                           placeholder="Mobile Number" type="text"></td>
+                <td><input class="form-control col-md-6" formControlName="factoryBusinessMobile"
+                           placeholder="Mobile Number" type="text"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
