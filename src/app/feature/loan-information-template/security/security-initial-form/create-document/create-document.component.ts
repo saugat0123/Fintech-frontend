@@ -84,12 +84,10 @@ export class CreateDocumentComponent implements OnInit {
       this.siteVisitDocument.push(siteVisitDoc);
     }
     this.dialogRef.close();
-    console.log('siteVisitDoc', siteVisitDoc);
   }
 
   uploadDoc(event) {
     this.file = event.target.files[0];
-    console.log('file', this.file);
     this.docUpload = false;
   }
 

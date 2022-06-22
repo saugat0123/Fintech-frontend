@@ -29,7 +29,8 @@
                           <div class="text-danger font-italic">(Please upload file less than 5MB)</div>
                           <label><strong>Upload Your File</strong></label>
                           <input class="form-control" name="file" (change)="uploadDoc($event)"
-                                 type="file" [disabled]="(isPrintable === undefined) || (docNameChange)">
+                                 type="file" [disabled]="(isPrintable === undefined) || (docNameChange)"
+                                 accept="application/pdf, image/png, image/jpg, image/jpeg">
                       </div>
                   </div>
             </div>
