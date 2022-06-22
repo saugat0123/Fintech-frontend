@@ -204,6 +204,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
   fixedAssetsData = [];
+  siteVisitJson = [];
 
   @Input() crgTotalRiskScore: any;
   data;
