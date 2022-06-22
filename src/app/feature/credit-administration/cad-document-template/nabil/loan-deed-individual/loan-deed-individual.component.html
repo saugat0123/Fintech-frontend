@@ -255,7 +255,7 @@
             <tbody *ngIf="this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter'">
             <tr *ngFor="let loan of cadData?.assignedLoan">
                 <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
-                <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
+                <td>{{loan?.proposal?.proposedLimit ? convertNepaliNumberAmount(loan?.proposal?.proposedLimit) : '____________'}}</td>
                 <td class="px-2">
                     <span>{{ educationInterestRate? convertNepaliNumber(educationInterestRate) : '____________' }}% </span>
                 / <span>&nbsp;
@@ -277,7 +277,7 @@
                     <ng-container [formGroupName]="j">
                         <td>{{newTempData[j]?.loanNepaliName}}</td>
                         <td>{{convertNepaliNumberAmount(newTempData[j]?.loanAmount)}}</td>
-                        <td>{{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}%</td>
+                        <td>{{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}% / रु. {{newTempData[j]?.loanAdminFee ? newTempData[j]?.loanAdminFee : '__________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry !== ''">{{newTempData[j]?.dateOfExpiry ? newTempData[j]?.dateOfExpiry : '___________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry === ''">
                             <input class="form-field form-control-sm d-print-none"
@@ -330,11 +330,20 @@
            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value : '_______________________'}}</strong></span>
          </div>
        </ng-container>
+          <div class="mt-4" *ngIf="primarySecurityTypeCheck || secondarySecurityTypeCheck">
+              <p class="text-center"><b>तपसिल</b></p>
+              <p>
+                  उपरोक्त ऋणकर्जा तथा बैंकिङ्ग सुविधाको सुरक्षण वापत देहाय बमोजिमको
+                  घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
+                  कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु।
+              </p>
+          </div>
           <div *ngIf="primarySecurityTypeCheck">
               <p class="text-center"><strong><u> धितो सुरक्षणमा रहेको/रहने घर/जग्गाको विवरण: </u></strong></p>
               <table class="table-bordered" style="width: 100%;">
                   <tbody class="text-center">
                   <tr>
+                      <th>घर/जग्गा धनीको नाम थर</th>
                       <th>जिल्ला</th>
                       <th>नगर/गा.वि.स.</th>
                       <th>वडा न.</th>
@@ -345,6 +354,7 @@
                   <tbody style="text-align: center;" *ngFor="let security of offerDocumentDetails.securities?.primarySecurity; let i = index">
                   <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
                       <tr>
+                          <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersNameCT}}</td>
                           <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
                           <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
                       </tr>
@@ -362,6 +372,7 @@
               <table class="table-bordered" style="width: 100%;">
                   <tbody class="text-center">
                   <tr>
+                      <th>घर/जग्गा धनीको नाम थर</th>
                       <th>जिल्ला</th>
                       <th>नगर/गा.वि.स.</th>
                       <th>वडा न.</th>
@@ -372,6 +383,7 @@
                   <tbody style="text-align: center;"  *ngFor="let security of offerDocumentDetails.securities?.secondarySecurity; let i = index">
                   <ng-container *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
                       <tr>
+                          <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersNameCT}}</td>
                           <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersDistrictCT}}</td>
                           <td [attr.rowspan]="security?.propertyDetails?.length + 1">{{security?.securityOwnersMunicipalityCT}}</td>
                       </tr>
@@ -446,7 +458,7 @@
 <!--              </div>-->
           </ng-container>
           <div class="mt-4"
-               *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL'">
+               *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL' || isAutoLoan">
               <p class="text-center" style="margin-top: -1em;"><b>तपसिल</b></p>
               <p style="margin-top: -1em;">
                   उपरोक्त ऋणकर्जाको सुरक्षण बापत निम्न बमोजिमको सवारी साधन तपांई धनी बैंकको नाममा नामसारी गरीदिएको

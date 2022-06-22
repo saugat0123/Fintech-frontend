@@ -6,43 +6,75 @@
                     आवश्यक कागजात सम्बन्धी शर्तः
                 </b>
                 <br>
-                <ng-container *ngIf="initialInfo?.retailGlobalForm?.loanType === 'New' || initialInfo?.retailGlobalForm?.loanType === 'Additional Loan'">
-                    <!--For All typs of New and additional Loan types-->
+                <nb-checkbox class="d-print-none" #showNew
+                             formControlName="newOrAdditionalLoan">
+                    Show Requirement Document Clause
+                </nb-checkbox>
+                <div *ngIf="showNew.checked">
+                    तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
+                    गर्नु पर्नेछ ।
+                </div>
+               <!-- <ng-container *ngIf="initialInfo?.retailGlobalForm?.loanType === 'New' || initialInfo?.retailGlobalForm?.loanType === 'Additional Loan'">
+                    &lt;!&ndash;For All typs of New and additional Loan types&ndash;&gt;
                     तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन 
                     गर्नु पर्नेछ ।
-                </ng-container>
+                </ng-container>-->
                 <br>
-                <ng-container *ngIf="isPODSelected">
-                    <!--POD Renewal, Nabil Sahayatri Karja,POD without Collateral, Any
-                    Additional loan type which cover existing mortgage deed-->
+                <nb-checkbox class="d-print-none" #showPDO
+                             formControlName="pdoNabil">
+                    Show Mortgage Deed Clause
+                </nb-checkbox>
+                <div *ngIf="showPDO.checked">
+                    यस अघिको ऋण स्विकृती पत्रको आधारमा सम्पादन वा कार्यान्वयन गर्नु भएको सम्पूर्ण कर्जा सम्बन्धी
+                    कागजातहरु र बैंकको नाममा बिभिन्न मिति/मितिहरु
+                    <input class="form-field form-control-sm d-print-none"
+                           name="mortgageDate"
+                           formControlName="mortgageDate"
+                           placeholder=" "
+                           type="text"/>
+                    <span class="print-only font-weight-bold">
+                       {{saveFreeText?.section18?.mortgageDate || '______________________'}}</span>
+
+                    मा पारित गरिदिएको धितोबन्धक/ पुनधितोबन्धक
+                    तमसुक यस नविकृत/थपिएको कर्जा सुविधाको हकमा समेत यथावत क्रियाशिल रहनेछन् । यसका
+                    अतिरिक्त तपाईले स्वयम् बैंकमा उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
+                    गर्नु पर्नेछ ।
+                </div>
+                <!--<ng-container *ngIf="isPODSelected">
+                    &lt;!&ndash;POD Renewal, Nabil Sahayatri Karja,POD without Collateral, Any
+                    Additional loan type which cover existing mortgage deed&ndash;&gt;
                     यस अघिको ऋण स्विकृती पत्रको आधारमा सम्पादन वा कार्यान्वयन गर्नु भएको सम्पूर्ण कर्जा सम्बन्धी 
                     कागजातहरु र बैंकको नाममा बिभिन्न मिति/मितिहरु  मा पारित गरिदिएको धितोबन्धक/ पुनधितोबन्धक
                     तमसुक यस नविकृत/थपिएको कर्जा सुविधाको हकमा समेत यथावत क्रियाशिल रहनेछन् । यसका
                     अतिरिक्त तपाईले स्वयम् बैंकमा उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
                     गर्नु पर्नेछ ।
-                </ng-container>
+                </ng-container>-->
 
                 <ul>
                     <li *ngIf="promissoryVisible">
                         <!--Could be multiple as per facility type-->
-                       रु.
-                        <input class="form-field form-control-sm d-print-none nepaliFont"
-                               name="loanAmountInFigure"
-                               formControlName="loanAmountInFigure"
-                               placeholder=" "
-                               type="text"/>
-                        <span class="print-only font-weight-bold">
-                            {{form?.get('loanAmountInFigure')?.value || '______________________'}}</span>/-
-                        को प्रतिज्ञा पत्र । (Promissory Note)
+                        <ng-container *ngFor="let promissoryfigure of loanArray; let i = index">
+                            रु.
+                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                                   [value]="promissoryfigure.toString() | engToNepaliNumber"
+                                   name="loanAmountInFigure"
+                                   formControlName="loanAmountInFigure"
+                                   placeholder=" "
+                                   type="text"/>
+                            <span class="print-only font-weight-bold">
+                            {{promissoryfigure?.toString() | engToNepaliNumber : '____________'}}</span>
+                            {{loanArray.length === 1 ? '' : loanArray.length === 2 ? 'र' : (i < loanArray.length - 2 ? ',' : (i > loanArray.length - 2  ? '' : 'र'))}}
+                        </ng-container>
+                        /- को प्रतिज्ञा पत्र । (Promissory Note)
                     </li>
                     <li *ngIf="continuityVisible">
                        निरन्तरताको लिखत । (Letter of Continuity)
                     </li>
-                    <li>
+                    <li *ngIf="multiBankingDeclaration">
                         बहुबैंकिङ घोषणा पत्र ।
                     </li>
                     <li *ngIf="loanDeedVisible">
-                        रु. <input class="form-field form-control-sm d-print-none nepaliFont"
+                        रु. <input class="form-field form-control-sm d-print-none"
                                    name="totalAmountInFigure"
                                    formControlName="totalAmountInFigure"
                                    placeholder=" "
@@ -69,6 +101,7 @@
                         <span class="print-only font-weight-bold">{{form?.get('remortgageDeedAmountInFigure')?.value || '______________________'}}</span>/–
                         को पुंनधितोबन्धक तमसुक । (Re-Mortgage Deed)
                     </li>
+                    <ng-container *ngIf="personalGuarantee">
                     <li *ngFor="let guarantors of guarantorParsed">
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="nameOfGuarantors"
@@ -94,8 +127,9 @@
                                              [value]="guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : ''"/>
                         <span class="print-only font-weight-bold">
                             {{guarantors?.gurantedAmount?.en ? nepaliCurrencyWordPipe.transform(guarantors?.gurantedAmount?.en) : '______________________'}}</span>/- मात्र)
-                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                        बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण । (Personal Guarantee and Networth Statement)
                     </li>
+                    </ng-container>
                     <li *ngIf="hirePurchaseAgreement">
                         हायर पर्चेज सम्झौता । (Hire Purchase Agreement)
                     </li>
@@ -134,11 +168,11 @@
                     <li *ngIf="sharePledgeDeed">
                       धितोबन्धक लिखत (Share pledge deed)
                     </li>
-                    <li>
-                       व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।
+                    <li *ngIf="podRenewableApplication">
+                       व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन । (POD Renewable Application)
                     </li>
-                    <li>
-                        समग्र बैंक तथा बितिय सस्था वाट रु ५०,००,०००/ भन्दा वढि अधिविकर्ष कर्जा नलिएको स्वघोषणा ।
+                    <li *ngIf="fiveMDeclarationLetter">
+                        समग्र बैंक तथा बितिय सस्था वाट रु ५०,००,०००/ भन्दा वढि अधिविकर्ष कर्जा नलिएको स्वघोषणा । (5M Declaration Letter)
                     </li>
                     <li *ngIf="nrbDeclarationForm">
                       ग्राहक स्वघोषणा फारम । (NRB Declaration Form)
@@ -149,6 +183,45 @@
                     <li *ngIf="sharePledgeConfirmation">
                       सम्बन्धित निक्षेप सदस्यबाट चेक (DIS) मा हस्ताक्षर प्रमाणित गराई सो चेक सहित यस बैंकको
                         पक्षमा उल्लेखित शेयरहरु रोक्का राखिएको पत्र (Share pledge Confirmation)
+                    </li>
+                    <li *ngIf="houseCompletionCertificate">
+                        भवन निर्माण सम्पन्न प्रमाणपत्र । (House Completion Certificate)
+                    </li>
+                    <li *ngIf="negativeLien">
+                        Negative Lien
+                    </li>
+                    <li *ngIf="letterOfConsentForContOfExistingMortgage">
+                        धितोबन्धक रहेको घर/जग्गा धनी श्री
+                        <input class="form-field form-control-sm d-print-none"
+                               name="letterOfConsentForContOfExistingMortgageName"
+                               formControlName="letterOfConsentForContOfExistingMortgageName"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{form?.get('letterOfConsentForContOfExistingMortgageName')?.value || '______________________'}}</span>
+
+                        को धितो निरन्तरताको मन्जुरीनामा (Letter of Consent from Mortgage property owner for continuation of existing mortgage)
+                    </li>
+                    <li *ngIf="debitAuthority">
+                        ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न श्री
+                        <span class="font-weight-bold">
+                        {{this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '____________________'}}</span>
+                        को खाता नं
+                        <input class="form-field form-control-sm d-print-none"
+                               name="borrowerKhataNum"
+                               formControlName="borrowerKhataNum"
+                               placeholder=" "
+                               type="text"/>
+                        <span class="print-only font-weight-bold">{{form?.get('borrowerKhataNum')?.value || '______________________'}}</span>
+                        बाट खर्च कटाउने अख्तीयारी पत्र । (Debit Authority)
+                    </li>
+                    <li *ngIf="letterofSetOff">
+                        मोजरा पत्र । (Letter of Set Off)
+                    </li>
+                    <li *ngIf="fixedDepositCertificate">
+                        श्री
+                        <span class="print-only font-weight-bold">_______________</span>
+                        को रु <span class="print-only font-weight-bold">__________________</span>
+                        को सक्कल मुद्दती रसिद । (Fixed Deposit Certificate)
                     </li>
                     <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px" class="d-print-none">Add
                         Text Area

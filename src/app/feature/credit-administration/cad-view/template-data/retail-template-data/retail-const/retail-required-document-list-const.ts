@@ -16,9 +16,18 @@ export enum RetailRequiredDocumentList {
     SELF_DECLARATION = 'Self Declaration',
     UNDERTAKING_LETTER = 'Undertaking Letter',
     SHARE_PLEDGE_DEED = 'Share Pledge Deed',
-    NRB_DECLARATION_FORM = 'NED Declaration Form',
+    NRB_DECLARATION_FORM = 'NRB Declaration Form',
     RISK_TAKER_DETAIL = 'Risk Taker Detail',
-    SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation'
+    SHARE_PLEDGE_CONFIRMATION = 'Share Pledge Confirmation',
+    MULTI_BANKING_DECLARATION = 'Multi Banking Declaration',
+    POD_RENEWABLE_APPLICATION = 'POD Renewable Application',
+    FIVE_M_DECLARATION_LETTER = '5M Declaration Letter',
+    HOUSE_COMPLETION_CERTIFICATE = 'House Completion Certificate',
+    NEGATIVE_LIEN = 'Negative Lien',
+    LETTER_OF_CONSENT_FORM_MORTGAGE_PROPERTY_OWNER_FOR_CONTINUATION_OF_EXISTING_MORTGAGE = 'Letter of Consent from Mortgage property owner for continuation of existing mortgage',
+    DEBIT_AUTHORITY = 'Debit Authority',
+    LETTER_OF_SET_OFF = 'Letter of Set Off',
+    FIXED_DEPOSIT_CERTIFICATE = 'Fixed Deposit  Certificate'
 }
 
 

@@ -71,6 +71,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   loanPurposeArray: Array<any> = new Array<any>();
   loanPurpose: any;
   cadInitialInfo: any;
+  isAutoLoan: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -323,7 +324,6 @@ export class LoanDeedIndividualComponent implements OnInit {
     let combinedApprovalDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-      console.log('Offer:', this.offerDocumentDetails);
       if (!ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm) &&
           !ObjectUtil.isEmpty(this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType)) {
         if (this.offerDocumentDetails.retailGlobalForm.sanctionLetterDateType === 'AD') {
@@ -432,6 +432,11 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.cadData.assignedLoan.forEach(value => {
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
+      });
+      this.loanName.forEach(value => {
+        if (value.name === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
+        }
       });
     }
     if (!ObjectUtil.isEmpty(this.initialInfo) &&
@@ -598,7 +603,8 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
 
   convertNepaliNumberAmount(value) {
-    return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
+    // return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
+    return this.engToNepNumberPipe.transform(String(value));
   }
 
   convertNepaliNumber(value) {
@@ -866,6 +872,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.loanName.forEach((value, i) => {
         if (value.name === 'EDUCATION LOAN COMBINED') {
+          let educationLoanAdminFee: any;
           this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -873,12 +880,14 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            educationLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: educationLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
@@ -886,6 +895,7 @@ export class LoanDeedIndividualComponent implements OnInit {
         }
 
        if (value.name === 'AUTO LOAN COMBINED') {
+         let autoLoanAdminFee: any;
           this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -893,18 +903,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            autoLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate ? this.expiryDate : '',
+            loanAdminFee: autoLoanAdminFee
           };
           this.newTempData.push(
               this.newData
           );
         }
        if (value.name === 'HOME LOAN COMBINED') {
+         let homeLoanAdminFee: any;
           this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -912,12 +925,14 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            homeLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: homeLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
@@ -925,6 +940,7 @@ export class LoanDeedIndividualComponent implements OnInit {
         }
 
         if (value.name === 'MORTGAGE LOAN COMBINED') {
+          let mortgageLoanAdminFee: any;
           this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -932,18 +948,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            mortgageLoanAdminFee = val.loanAdminCT ? val.loanAdminCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: mortgageLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'NABIL SAHAYATRI KARJA') {
+          let nabilLoanAdminFee: any;
           this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -951,18 +970,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            nabilLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: nabilLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'NABIL SHARE LOAN POD COMBINED') {
+          let nabilPodLoanAdminFee: any;
           this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -970,18 +992,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            nabilPodLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: nabilPodLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'SHARE LOAN DEMAND COMBINED') {
+          let shareLoanAdminFee: any;
           this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -989,18 +1014,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            shareLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: shareLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'PERSONAL LOAN COMBINED') {
+          let personalLoadAdminFee: any;
           this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -1008,18 +1036,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            personalLoadAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: personalLoadAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'PERSONAL OVERDRAFT COMBINED') {
+          let personalOverdraftLoanAdminFee: any;
           this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
             if (val.loanExpiryDateType === 'AD') {
@@ -1027,18 +1058,21 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            personalOverdraftLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName : value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: personalOverdraftLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
           );
         }
         if (value.name === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          let personalOverdraftWithoutCollateralLoanAdminFee: any;
           // tslint:disable-next-line:max-line-length
           this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach(val => {
             this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
@@ -1047,12 +1081,14 @@ export class LoanDeedIndividualComponent implements OnInit {
             } else {
               this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
             }
+            personalOverdraftWithoutCollateralLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
           });
           this.newData = {
             loanNepaliName: value.nepaliName,
             loanAmount: value.loamAmount,
             interestRate: this.educationInterestRate,
             dateOfExpiry: this.expiryDate,
+            loanAdminFee: personalOverdraftWithoutCollateralLoanAdminFee,
           };
           this.newTempData.push(
               this.newData
@@ -1108,7 +1144,6 @@ export class LoanDeedIndividualComponent implements OnInit {
         });
         const free = this.loanDeedIndividual.value;
         if (this.cadInitialInfo !== null) {
-          console.log('CAd Initial Info:', this.cadInitialInfo);
           for (let val = 0; val < free.loanDeedIndividuals.length; val++) {
             this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiDistrict1']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?

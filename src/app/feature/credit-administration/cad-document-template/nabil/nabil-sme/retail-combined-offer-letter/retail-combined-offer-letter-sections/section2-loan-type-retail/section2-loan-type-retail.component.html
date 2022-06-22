@@ -11,7 +11,7 @@
                         <ng-container [formGroupName]="i1">
                             <td width="10%" class="font-weight-bold">प्रकरण <br/>{{(i1+1) | nepaliWord}})</td>
                             <td>
-                                <b>कर्जा प्रकार:
+                                <b>कर्जा प्रकार :
                                     <ng-container>
                                         {{val?.facilityName ? val?.facilityName : '_________________'}}
                                     </ng-container>
@@ -84,7 +84,7 @@
                                 {{(initialData?.existingLoanForm?.existingLoanFormArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकारः धितो कर्जा (Mortgage Loan)<br>
+                                <b>कर्जा प्रकार : धितो कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -199,7 +199,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : आवास कर्जा (Housing Loan)<br>
+                                <b>कर्जा प्रकार : आवास कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -218,7 +218,7 @@
                                     <b>प्रयोजन :</b> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ
                                     ।
                                 </ng-container>
-                                <ng-container *ngIf="val?.homeLoanCase === 'PURCHASE' && val?.firstTimeHomeBuyerCheck">
+                                <ng-container *ngIf="val?.homeLoanCase === 'PURCHASE'">
                                     <br/>
                                     <!--For purchase case and First Home buyer-->
                                     <b>प्रयोजन :</b>
@@ -421,7 +421,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जाको प्रकार : सवारी साधन कर्जा (Auto Loan Personal and Commercial Case)<br>
+                                <b>कर्जाको प्रकार : सवारी साधन कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -440,9 +440,9 @@
                                                        name="purposeOfLoan"
                                                        formControlName="purposeOfLoan"
                                                        type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.purposeOfLoanCT || '_________________'}}</span>नामको सवारी
-                                साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग
-                                गर्न सकिनेछ ।
+                                <span class="print-only font-weight-bold">{{val?.purposeOfLoanCT || '_________________'}}</span>
+<!--                                        नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने-->
+                                        प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                                     </ng-container>
                                 <ng-container *ngIf="val?.autoLoanType === 'COMMERCIAL'">
                                     <br/>
@@ -497,6 +497,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
+                                <br>
                                 <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power): </b> सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
@@ -559,8 +560,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा (Personal Overdraft Loan New and
-                                    Renewal)<br>
+                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -670,7 +670,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकारः नविल सहयात्री कर्जा (Nabil Sahayatri Loan New and Renewal)<br>
+                                <b>कर्जा प्रकार : नविल सहयात्री कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -777,8 +777,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा विना धितो (Personal Overdraft Loan without
-                                    collateral New and Renewal)
+                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा विना धितो<br>
                                     रकम : रु.<input class="form-field form-control-sm d-print-none"
                                                     name="loanAmountInFigure"
                                                     formControlName="loanAmountInFigure"
@@ -879,7 +878,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : अधिविकर्ष कर्जा (नबिल शेयर कर्जा) (Nabil Share Loan POD)<br>
+                                <b>कर्जा प्रकार : अधिविकर्ष कर्जा (नबिल शेयर कर्जा)<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1002,13 +1001,13 @@
                             </td>
                             <td>
                                 <b>
-                                    कर्जा प्रकारः शेयर कर्जा डिमाण्ड
+                                    कर्जा प्रकार : शेयर कर्जा डिमाण्ड
                                     <input class="form-field form-control-sm d-print-none"
                                            name="freeText"
                                            formControlName="freeText"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{tempInformation?.section2?.loanDemandFreeText[i1]?.freeText || '______________________'}}</span>
-                                    (Share Loan Demand)<br>
+                                    <br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1132,7 +1131,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकारः शैक्षिक कर्जा (Education Loan Australia against TD)<br>
+                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1233,7 +1232,7 @@
                                 (educationLoanAustraliaAgainstTDArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा (Education Loan Other Countries against TD)<br>
+                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1325,7 +1324,7 @@
                                 (educationLoanOtherAgainstTDArray.length) +(i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा (Education Loan Australia)<br>
+                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1458,7 +1457,7 @@
                                 (educationLoanAustraliaArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा (Education Loan Other Countries)
+                                <b>कर्जा प्रकार : शैक्षिक कर्जा
                                     <br/>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
@@ -1590,8 +1589,7 @@
                                 (educationLoanOtherCountriesArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार :व्यक्तिगत कर्जा विनाधितो (Personal Loan without collateral EMI
-                                    basis)<br>
+                                <b>कर्जा प्रकार : व्यक्तिगत कर्जा विनाधितो<br>
                                     रकमः </b> रु.<input class="form-field form-control-sm d-print-none"
                                                         name="loanAmountInFigure"
                                                         formControlName="loanAmountInFigure"

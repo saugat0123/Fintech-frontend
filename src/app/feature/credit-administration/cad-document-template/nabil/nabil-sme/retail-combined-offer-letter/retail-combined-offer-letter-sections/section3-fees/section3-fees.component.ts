@@ -50,6 +50,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isAutoLoan = true;
         }
         if (value === 'EDUCATION LOAN COMBINED') {
           this.tempData.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {

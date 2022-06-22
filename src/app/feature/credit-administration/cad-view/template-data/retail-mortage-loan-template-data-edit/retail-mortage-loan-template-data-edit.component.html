@@ -1,9 +1,12 @@
 <nb-card>
     <nb-card-header>
+        <h3>Edit Mortage Loan Data</h3>
         <a class="font-weight-bold d-flex justify-content-end cursor" (click)="dialogueService.close()">x</a>
     </nb-card-header>
     <nb-card-body>
         <div [nbSpinner]="spinner">
+            <app-guarantor-information-tagging #guarantorInformationTaggingComponent
+                                               [cadData]="customerApprovedDoc"></app-guarantor-information-tagging>
             <form [formGroup]="form">
                 <div class="row p-2">
                     <div class="col-md-4">

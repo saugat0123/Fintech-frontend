@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
   selector: 'app-section18-required-security-documents',
@@ -37,9 +38,23 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   sharePledgeConfirmation: boolean;
   freeTextVal;
   isPODSelected: boolean;
+  multiBankingDeclaration: boolean;
+  personalGuarantee: boolean;
+  podRenewableApplication: boolean;
+  fiveMDeclarationLetter: boolean;
+  houseCompletionCertificate: boolean;
+  negativeLien: boolean;
+  letterOfConsentForContOfExistingMortgage: boolean;
+  debitAuthority: boolean;
+  letterofSetOff: boolean;
+  fixedDepositCertificate: boolean;
+  loanArray: Array<any> = new Array<any>();
+  promissoryFigure: any;
+  saveFreeText: any;
   constructor(
       private formBuilder: FormBuilder,
-      public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe
+      public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+      private englishToNepali: EngToNepaliNumberPipe
   ) { }
 
   ngOnInit() {
@@ -47,6 +62,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadData.loanHolder.nepData);
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      this.saveFreeText = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.assignedData =  this.cadData.assignedLoan;
@@ -58,6 +74,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         this.loanName.push(val.loan);
       });
     }
+    // console.log('name', this.loanHolderInfo.name.np);
     this.checkCondition();
     this.fillForm();
     this.guarantorData.forEach(any => {
@@ -74,7 +91,12 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       guaranteeAmountInWords: [undefined],
       insuranceAmount: [undefined],
       freeText2: this.formBuilder.array([]),
-      mortgageDeedAmountInFigure: [undefined]
+      mortgageDeedAmountInFigure: [undefined],
+      borrowerKhataNum: [undefined],
+      letterOfConsentForContOfExistingMortgageName: [undefined],
+      newOrAdditionalLoan: [undefined],
+      pdoNabil: [undefined],
+      mortgageDate: [undefined],
     });
   }
   fillForm() {
@@ -82,6 +104,9 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     let totalLoanDeed = 0;
     this.cadData.assignedLoan.forEach(value => {
       const val = value.proposal.proposedLimit;
+      if (!ObjectUtil.isEmpty(val)) {
+        this.loanArray.push(val);
+      }
       totalLoanAmount = totalLoanAmount + val;
     });
     if (!ObjectUtil.isEmpty(this.initialInfo) &&
@@ -92,9 +117,20 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         totalLoanDeed = totalLoanDeed + totalAmount;
       });
     }
+    const tempAmount = totalLoanAmount + totalLoanDeed;
     this.form.patchValue({
-      loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
-      totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? (totalLoanAmount + totalLoanDeed) : '',
+      // loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
+      totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? this.englishToNepali.transform(tempAmount.toString()) : '',
+      borrowerKhataNum: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.borrowerKhataNum : '',
+      letterOfConsentForContOfExistingMortgageName: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.letterOfConsentForContOfExistingMortgageName : '',
+      newOrAdditionalLoan: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.newOrAdditionalLoan : '',
+      pdoNabil: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.pdoNabil : '',
+      mortgageDate: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.mortgageDate : '',
     });
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
@@ -139,7 +175,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         && temp.requiredLegalDocument.requiredDocument.includes('Loan Deed')) {
       this.loanDeedVisible = true;
     }
-    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Mortgaged Deed')) {
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Mortgage Deed')) {
       this.mortgagedVisible = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Re-Mortgage Deed')) {
@@ -186,7 +222,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       this.sharePledgeDeed = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
-        && temp.requiredLegalDocument.requiredDocument.includes('NED Declaration Form')) {
+        && temp.requiredLegalDocument.requiredDocument.includes('NRB Declaration Form')) {
       this.nrbDeclarationForm = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
@@ -196,6 +232,46 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('Share Pledge Confirmation')) {
       this.sharePledgeConfirmation = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Multi Banking Declaration')) {
+      this.multiBankingDeclaration = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee and Networth Statement')) {
+      this.personalGuarantee = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('POD Renewable Application')) {
+      this.podRenewableApplication = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('5M Declaration Letter')) {
+      this.fiveMDeclarationLetter = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('House Completion Certificate')) {
+      this.houseCompletionCertificate = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Negative Lien')) {
+      this.negativeLien = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Letter of Consent from Mortgage property owner for continuation of existing mortgage')) {
+      this.letterOfConsentForContOfExistingMortgage = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Debit Authority')) {
+      this.debitAuthority = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Letter of Set Off')) {
+      this.letterofSetOff = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Fixed Deposit  Certificate')) {
+      this.fixedDepositCertificate = true;
     }
   }
   checkCondition() {
