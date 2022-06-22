@@ -390,16 +390,7 @@ export class GuarantorComponent implements OnInit {
         this.form.get(['guarantorDetails', index, 'temporaryAddressLineTwo']).patchValue(null);
         this.form.get(['guarantorDetails', index, 'wardNumberTemporary']).patchValue(null);
     }
-
-    // checkboxSelected(label: string, isChecked: boolean) {
-    //     if (label === 'existingCustomer') {
-    //         this.existingCustomer = isChecked;
-    //     } else {
-    //         this.existingCustomer = isChecked;
-    //     }
-    // }
     getExistingCustomerValue(index: number) {
          this.isExistingCustomerValue = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
-
     }
 }
