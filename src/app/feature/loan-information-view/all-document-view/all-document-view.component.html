@@ -171,11 +171,11 @@
                         <td class="text-left pl-1">{{sd?.docName}}</td>
 
                         <td *ngIf="!hidePreviewButton">
-                            <i (click)="previewOfferLetterDocument(sd?.docPath?.concat(sd?.docName)?.concat(fileType), sd?.docName)"
+                            <i (click)="previewOfferLetterDocument(sd?.docPath, sd?.docName)"
                                class="fas fa-eye"></i>
                         </td>
                         <td *ngIf="!hidePreviewButton">
-                            <i (click)="downloadCustomerDocument(sd?.docPath?.concat(sd?.docName)?.concat(fileType), sd?.docName)"
+                            <i (click)="downloadCustomerDocument(sd?.docPath, sd?.docName)"
                                class="fas fa-download" style="cursor: pointer"></i>
                         </td>
                     </tr>

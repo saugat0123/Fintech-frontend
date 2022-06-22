@@ -76,7 +76,7 @@ export class AllDocumentViewComponent implements OnInit {
         });
       }
 
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
         const securityId = this.loanDataHolder.security.id;
         const securityData = JSON.parse(this.loanDataHolder.security.data);
         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
@@ -189,7 +189,7 @@ export class AllDocumentViewComponent implements OnInit {
       const siteVisitDocument = this.colSiteVisitDocument;
       if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
-          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+          docPaths.push(doc.docPath);
         }
       }
     } else {

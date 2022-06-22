@@ -21,7 +21,9 @@ export class CreateDocumentComponent implements OnInit {
   isPrintable;
   file;
   isEdit = false;
-  docNameExist = false;
+  docNameExist;
+  docNameChange = false;
+  docUpload = false;
   jpegType = 'image/jpeg';
 
   constructor(private dialogRef: NbDialogRef<CreateDocumentComponent>,
@@ -29,6 +31,7 @@ export class CreateDocumentComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.editId)) {
+      this.docUpload = true;
       const siteVisitDoc = this.siteVisitDocument[this.editId];
       this.docName = siteVisitDoc.docName;
       this.isPrintable = siteVisitDoc.isPrintable;
@@ -40,45 +43,25 @@ export class CreateDocumentComponent implements OnInit {
     siteVisitDoc.docName = this.docName;
     siteVisitDoc.isPrintable = this.isPrintable;
     siteVisitDoc.multipartFile = this.file;
-    if (ObjectUtil.isEmpty(this.docName)) {
-      this.toastService.show(new Alert(AlertType.ERROR, 'Document name cannot left empty'));
-      return;
-    }
     if (!ObjectUtil.isEmpty(this.file) && this.file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
       this.toastService.show(new Alert(AlertType.ERROR, 'Please upload file less than 5MB'));
       return;
     }
-    if (!ObjectUtil.isEmpty(this.file) && this.file.type !== this.jpegType) {
-      this.toastService.show(new Alert(AlertType.ERROR, 'File format not supported please upload jpg'));
-      return;
-    }
+    // if (!ObjectUtil.isEmpty(this.file) && this.file.type !== this.jpegType) {
+    //   this.toastService.show(new Alert(AlertType.ERROR, 'File format not supported please upload jpg'));
+    //   return;
+    // }
     if (!ObjectUtil.isEmpty(this.docName) && ObjectUtil.isEmpty(this.editId)) {
-      this.siteVisitDocument.forEach((value) => {
-        if (value.docName === this.docName) {
-          this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
-          this.docNameExist = true;
-        } else {
-          this.docNameExist = false;
-        }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.editId)) {
-      const docItem = this.siteVisitDocument[this.editId];
-      if (this.docName === docItem.docName) {
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document updated'));
-      } else {
+      try {
         this.siteVisitDocument.forEach((value) => {
           if (value.docName === this.docName) {
             this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
-            this.docNameExist = true;
-          } else {
-            this.docNameExist = false;
+            throw this.docNameExist;
           }
         });
+      } catch (ex) {
+        return;
       }
-    }
-    if (this.docNameExist) {
-      return;
     }
     if (!ObjectUtil.isEmpty(this.editId)) {
       const item = this.siteVisitDocument[this.editId];
@@ -87,6 +70,16 @@ export class CreateDocumentComponent implements OnInit {
       siteVisitDoc.isPrintable = this.isPrintable;
       siteVisitDoc.multipartFile = this.file;
       this.siteVisitDocument.splice(this.editId, 1, siteVisitDoc);
+      try {
+        const doc = this.siteVisitDocument.filter(d => d.docName === this.docName);
+        if (doc.length > 1) {
+          this.toastService.show(new Alert(AlertType.ERROR, `${this.docName} is already exist`));
+          throw this.docNameExist;
+        }
+      } catch (ex) {
+        return;
+      }
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Document updated successfully'));
     } else {
       this.siteVisitDocument.push(siteVisitDoc);
     }
@@ -95,9 +88,20 @@ export class CreateDocumentComponent implements OnInit {
 
   uploadDoc(event) {
     this.file = event.target.files[0];
+    this.docUpload = false;
   }
 
   public onClose(): void {
     this.dialogRef.close();
+  }
+
+  checkValue(event) {
+    if (event) {
+      if (ObjectUtil.isEmpty(this.docName)) {
+        this.docNameChange = true;
+      } else {
+        this.docNameChange = false;
+      }
+    }
   }
 }
