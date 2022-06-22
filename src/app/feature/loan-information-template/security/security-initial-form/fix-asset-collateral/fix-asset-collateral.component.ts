@@ -357,7 +357,6 @@ export class FixAssetCollateralComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             return;
         }
-        console.log('formData', formData);
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.spinner = false;
@@ -433,7 +432,6 @@ export class FixAssetCollateralComponent implements OnInit {
     onChangeValueMv(valueMv: string, totalMv: string, i: number) {
         let sumMv = 0;
         this.fixedAssetsForm.get('valuationDetails').value.forEach(data => {
-            console.log(data);
             if (!isNaN(parseFloat(data.mv))) {
                 sumMv += parseFloat(data.mv);
             }
