@@ -38,4 +38,6 @@ export class Guarantor {
     background: string;
     guarantorLegalDocumentAddress: string;
     checkedSameAsCurrent: boolean;
+    isExistingCustomer: any;
+    cbsClientCode: any;
 }

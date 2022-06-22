@@ -57,7 +57,7 @@ export class GuarantorComponent implements OnInit {
     ckEditorConfig = Editor.CK_CONFIG;
     customerLoanList;
     referencedLoanList = [];
-
+    isExistingCustomerValue: any;
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -135,6 +135,12 @@ export class GuarantorComponent implements OnInit {
             name: [
                 ObjectUtil.setUndefinedIfNull(data.name),
                 Validators.required
+            ],
+            isExistingCustomer: [
+                ObjectUtil.setUndefinedIfNull(data.isExistingCustomer),
+            ],
+            cbsClientCode: [
+                ObjectUtil.setUndefinedIfNull(data.cbsClientCode),
             ],
             province: [
                 ObjectUtil.isEmpty(data.province) ? undefined : data.province.id,
@@ -385,4 +391,15 @@ export class GuarantorComponent implements OnInit {
         this.form.get(['guarantorDetails', index, 'wardNumberTemporary']).patchValue(null);
     }
 
+    // checkboxSelected(label: string, isChecked: boolean) {
+    //     if (label === 'existingCustomer') {
+    //         this.existingCustomer = isChecked;
+    //     } else {
+    //         this.existingCustomer = isChecked;
+    //     }
+    // }
+    getExistingCustomerValue(index: number) {
+         this.isExistingCustomerValue = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
+
+    }
 }
