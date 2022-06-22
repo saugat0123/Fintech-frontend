@@ -54,7 +54,6 @@ import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
-import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -132,8 +131,7 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
 
-    @ViewChild('microCompanyFormComponent', {static: false})
-    microCompanyFormComponent: MicroCompanyFormComponentComponent;
+
 
 
     experiences = Experience.enumObject();
@@ -857,13 +855,7 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
         }
-        if (this.microCustomer) {
-            this.microCompanyFormComponent.onSubmit();
-            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                return;
-            }
-        }
+
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
@@ -1032,10 +1024,6 @@ export class CompanyFormComponent implements OnInit {
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
 
-        if (this.microCustomer) {
-            /** micro data **/
-            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
-        }
 
 
         // swot
