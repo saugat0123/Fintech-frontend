@@ -238,83 +238,49 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
     getAllLoans(customerInfoId: number): void {
         this.spinner.show();
-        const search = {
-            loanHolderId: customerInfoId.toString(),
-            isStaged: 'true'
-        };
-        this.customerLoanService.getLoansByLoanHolderId(customerInfoId).subscribe({
-            next: (res: any) => {
-                this.customerAllLoanList = res.detail;
-            },
-            error: (err) => {
-
-            },
-            complete: () => {
-                // push current loan if not fetched from staged spec response
-                if (this.customerAllLoanList.length > 0) {
-                    if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-                        this.customerAllLoanList.push(this.loanDataHolder);
-                    }
-                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-                    } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
-                    }
-                }
-                // push loans from combined loan if not in the existing array
-                const combinedLoans = this.customerAllLoanList
-                    .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
-                if (combinedLoans.length > 0) {
-                    const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).subscribe({
-                        next: (res) => {
-                            (res.detail as CombinedLoan).loans.forEach((cl) => {
-                                const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
-                                if (!allLoanIds.includes(cl.id)) {
-                                    this.customerAllLoanList.push(cl);
-                                }
-                            });
-                        },
-                        error: (err) => {
-                        },
-                        complete: () => {
-                            this.loaded = true;
-                        }
-                    });
-                } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id ||
-                        (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
-                    this.loaded = true;
-                }
-                if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-                    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.documentStatus.toString() !== 'APPROVED');
-                        this.customerAllLoanList = this.customerAllLoanList.filter((l) => l.combinedLoan.id === this.loanDataHolder.combinedLoan.id);
-                    } else {
-                        this.customerAllLoanList = [];
-                        this.customerAllLoanList.push(this.loanDataHolder);
-                    }
-                    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
-                        this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
-                            if (e.docStatus.toString() === 'APPROVED') {
-                                const loan = new LoanDataHolder();
-                                const prop = new Proposal();
-                                prop.data = e.proposalData;
-                                prop.proposedLimit = e.originalLimit;
-                                loan.proposal = prop;
-                                loan.loan = e.loanConfig;
-                                loan.securities = [];
-                                loan.documentStatus = e.docStatus;
-                                loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
-                                this.customerAllLoanList.push(loan);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+                this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
+                    next: (res) => {
+                        (res.detail as CombinedLoan).loans.forEach((cl) => {
+                            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+                            if (!allLoanIds.includes(cl.id)) {
+                                this.customerAllLoanList.push(cl);
                             }
                         });
-                    }
-                }
+                    },
+                    error: (err) => {
 
-                this.spinner.hide();
+                    },
+                    complete: () => {
+                        this.loaded = true;
+                    }
+                });
+            } else {
+                this.loaded = true;
+                this.customerAllLoanList = [];
+                this.customerAllLoanList.push(this.loanDataHolder);
             }
-        });
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+                this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
+                    if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id) {
+                        const loan = new LoanDataHolder();
+                        const prop = new Proposal();
+                        prop.data = e.proposalData;
+                        prop.proposedLimit = e.originalLimit;
+                        loan.proposal = prop;
+                        loan.loan = e.loanConfig;
+                        loan.securities = [];
+                        loan.documentStatus = e.docStatus;
+                        loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                        this.customerAllLoanList.push(loan);
+                    }
+                });
+            }
+            console.log('this is all loan list after filter', this.customerAllLoanList);
+        }
+
+        this.spinner.hide();
     }
 
     customSafePipe(val) {
