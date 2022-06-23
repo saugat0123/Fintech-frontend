@@ -41,12 +41,11 @@
                                 <div class="col-md-4">
                                     <label for="isExistingCustomer">Existing Customer</label>
                                     <select (change)="getExistingCustomerValue(i)" class="form-control" formControlName="isExistingCustomer" id="isExistingCustomer">
-                                        <option [ngValue]="null" hidden>---SELECT---</option>
                                         <option value="YES">YES</option>
                                         <option value="NO">NO</option>
                                     </select>
                                 </div>
-                                <div *ngIf="isExistingCustomerValue === 'YES'" class="col-md-6">
+                                <div *ngIf="isExistingCustomerValue[i] === 'YES'" class="col-md-6">
                                     <label for="cbsClientCode">CBS Client Code</label>
                                     <input class="form-control" formControlName="cbsClientCode" id="cbsClientCode">
                                 </div>
