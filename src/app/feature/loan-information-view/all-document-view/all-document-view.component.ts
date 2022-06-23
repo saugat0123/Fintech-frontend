@@ -194,6 +194,14 @@ export class AllDocumentViewComponent implements OnInit {
           docPaths.push(doc.docPath);
         }
       }
+
+      // CRG and Financial CCBL Document
+      const ccblDoc = this.ccblDocument;
+      if (!ObjectUtil.isEmpty(ccblDoc) && ccblDoc.length > 0) {
+        for (const doc of ccblDoc) {
+          docPaths.push(doc.docPath);
+        }
+      }
     } else {
       docPaths.push(this.loanDataHolder.zipPath);
     }
