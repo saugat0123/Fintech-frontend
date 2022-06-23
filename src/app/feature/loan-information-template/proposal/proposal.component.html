@@ -565,10 +565,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
-                                                 [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
-                                    </nb-checkbox>
-                                    <div *ngIf="swapChargeChecked">
+                                    <div>
                                         <div class="variable">
                                             <input
                                                     formControlName="swapChargeMethod"
