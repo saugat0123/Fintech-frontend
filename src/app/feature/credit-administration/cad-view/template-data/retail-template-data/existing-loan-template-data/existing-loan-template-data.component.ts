@@ -156,7 +156,7 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
     setInterestRateType(data) {
     }
 
-    isExistingLoanCheck(data) {
-        this.addLoanFormArr();
-    }
+    // isExistingLoanCheck(data) {
+    //     this.addLoanFormArr();
+    // }
 }

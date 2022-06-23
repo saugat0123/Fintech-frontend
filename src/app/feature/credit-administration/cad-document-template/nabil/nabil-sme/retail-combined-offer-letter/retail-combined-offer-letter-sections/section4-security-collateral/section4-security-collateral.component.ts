@@ -55,6 +55,8 @@ export class Section4SecurityCollateralComponent implements OnInit {
     allClientNames2;
     clientNames2: Array<String> = [];
     guarantorData: Array<any> = new Array<any>();
+    tempLandBuilding;
+    tempSecondaryLandBuilding;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -93,6 +95,8 @@ export class Section4SecurityCollateralComponent implements OnInit {
     }
 
     checkCondition() {
+        this.tempLandBuilding = this.section4Data.securities.primarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
         this.section4Data.securities.primarySecurity.forEach(val => {
             if (!ObjectUtil.isEmpty(val.securityType)) {
                 if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
@@ -135,6 +139,8 @@ export class Section4SecurityCollateralComponent implements OnInit {
                 this.isPrimary = true;
             }
         });
+        this.tempSecondaryLandBuilding = this.section4Data.securities.secondarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
         this.section4Data.securities.secondarySecurity.forEach(val => {
             if (!ObjectUtil.isEmpty(val.securityType)) {
                 if (val.securityType === 'LAND_AND_BUILDING' || val.securityType === 'LAND') {
