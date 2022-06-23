@@ -37,6 +37,7 @@ export class AllDocumentViewComponent implements OnInit {
   colSiteVisitDocument = [];
   fileType = '.jpg';
   customerGeneralDocument;
+  ccblDocument = [];
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -123,6 +124,7 @@ export class AllDocumentViewComponent implements OnInit {
         }
       }
     }
+    this.getCCBLDocument();
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
     this.checkDocumentStatus();
   }
@@ -189,6 +191,14 @@ export class AllDocumentViewComponent implements OnInit {
       const siteVisitDocument = this.colSiteVisitDocument;
       if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
+          docPaths.push(doc.docPath);
+        }
+      }
+
+      // CRG and Financial CCBL Document
+      const ccblDoc = this.ccblDocument;
+      if (!ObjectUtil.isEmpty(ccblDoc) && ccblDoc.length > 0) {
+        for (const doc of ccblDoc) {
           docPaths.push(doc.docPath);
         }
       }
@@ -277,6 +287,31 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
 
+  }
+
+  getCCBLDocument() {
+    const docSet = new Set();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgCcbl)) {
+        const crgDocument = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
+        if (!ObjectUtil.isEmpty(crgDocument.file)) {
+          docSet.add(crgDocument.file);
+        }
+      }
+
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
+        const financialDocument = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
+        if (!ObjectUtil.isEmpty(financialDocument.file)) {
+          docSet.add(financialDocument.file);
+        }
+      }
+
+      if (docSet.size > 0) {
+        docSet.forEach(d => {
+          this.ccblDocument.push(d);
+        });
+      }
+    }
   }
 
 }
