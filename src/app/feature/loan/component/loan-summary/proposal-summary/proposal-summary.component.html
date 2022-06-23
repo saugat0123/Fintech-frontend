@@ -44,7 +44,7 @@
                 <th>Limit Expiry/Tenure</th>
                 <th>Repayment Mode</th>
                 <th>Other Details</th>
-                <th>Purpose of Loan</th>
+<!--                <th>Purpose of Loan</th>-->
                    </thead>
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList; let i = index"
@@ -159,11 +159,9 @@
 
             </ng-container>
                 </td>
-                <td>
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.purposeOfLoan">
-                        {{(loan?.proposal?.data | jsonParse)?.purposeOfLoan}}
-                    </span>
-                </td>
+<!--                <td>-->
+<!--                    <span  [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan | safeHtml"></span>-->
+<!--                </td>-->
             </tr>
             <tr *ngFor="let loanDto of customerLoanDtoList"
                 [class.font-weight-bold]="proposalData?.id === loanDto?.proposal?.id">
@@ -263,7 +261,6 @@
                 <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                         <td>-</td>
                         <td>-</td>
-                        <td>-</td>
                         <td *ngIf="!isRemit">-</td>
                         <td>-</td>
                         <td>-</td>
@@ -296,7 +293,6 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
                     <td *ngIf="!isRemit">-</td>
 
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
@@ -319,7 +315,6 @@
                 </td>
                 <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                     <td >-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
