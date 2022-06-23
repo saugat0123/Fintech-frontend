@@ -244,7 +244,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loanDataHolder = this.loanData;
-    console.log('loanDataHolder', this.loanDataHolder);
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;

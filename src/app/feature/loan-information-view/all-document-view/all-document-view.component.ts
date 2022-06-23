@@ -310,7 +310,6 @@ export class AllDocumentViewComponent implements OnInit {
         docSet.forEach(d => {
           this.ccblDocument.push(d);
         });
-        console.log('ccblDocument', this.ccblDocument);
       }
     }
   }
