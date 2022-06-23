@@ -121,16 +121,21 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     this.form.patchValue({
       // loanAmountInFigure: totalLoanAmount ? totalLoanAmount : '',
       totalAmountInFigure: (totalLoanAmount + totalLoanDeed) ? this.englishToNepali.transform(tempAmount.toString()) : '',
-      borrowerKhataNum: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
-          this.saveFreeText.section18.borrowerKhataNum : '',
-      letterOfConsentForContOfExistingMortgageName: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
-          this.saveFreeText.section18.letterOfConsentForContOfExistingMortgageName : '',
-      newOrAdditionalLoan: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
-          this.saveFreeText.section18.newOrAdditionalLoan : '',
-      pdoNabil: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
-          this.saveFreeText.section18.pdoNabil : '',
-      mortgageDate: !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
-          this.saveFreeText.section18.mortgageDate : '',
+      borrowerKhataNum: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.borrowerKhataNum : '' : '',
+      letterOfConsentForContOfExistingMortgageName: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.letterOfConsentForContOfExistingMortgageName : '' : '',
+      newOrAdditionalLoan: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.newOrAdditionalLoan : '' : '',
+      pdoNabil: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.pdoNabil : '' : '',
+      mortgageDate: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+          this.saveFreeText.section18.mortgageDate : '' : '',
     });
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
