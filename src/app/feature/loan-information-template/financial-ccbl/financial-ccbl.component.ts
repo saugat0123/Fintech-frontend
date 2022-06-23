@@ -64,13 +64,16 @@ export class FinancialCcblComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.file)) {
             this.formData.append('file', this.file);
             this.formData.append('customerInfoId', this.customerInfo.id.toString());
-            this.formData.append('type', 'financialCCBL');
+            this.formData.append('type', 'Financial CCBL');
             this.spinner.show();
             if (!ObjectUtil.isEmpty(this.formData)) {
                 this.customerInfoService.saveCcbl(this.formData).subscribe((res: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Financial CCBL'));
                     const data = {
-                        file: res.detail,
+                        file: {
+                            docName: 'Financial CCBL',
+                            docPath: res.detail
+                        },
                         data: this.formGroup.value
                     };
                     this.eventEmitter.emit(JSON.stringify(data));
@@ -84,7 +87,7 @@ export class FinancialCcblComponent implements OnInit {
             }
         } else {
                 const data = {
-                    file: this.data ? this.data.file : '',
+                    file: (!ObjectUtil.isEmpty(this.data) && !ObjectUtil.isEmpty(this.data.file)) ? this.data.file : '',
                     data: this.formGroup.value
                 };
             this.eventEmitter.emit(JSON.stringify(data));

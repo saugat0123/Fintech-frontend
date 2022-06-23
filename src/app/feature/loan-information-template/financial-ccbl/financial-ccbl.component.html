@@ -12,7 +12,7 @@
                            (input)="upload($event)">
                     <span *ngIf="data?.file" class="col-md-3 img-hover flex-wrap"
                           nbTooltip="Financial CCBL">
-                  <a (click)="commonService.openDocument(data?.file)" class="cursor"><em
+                  <a (click)="commonService.openDocument(data?.file?.docPath)" class="cursor"><em
                           [className]="commonService.SET_CLASS_NAME"></em>
                   </a>
                 </span>
