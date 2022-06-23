@@ -815,8 +815,11 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+    this.spinner = true;
+    this.submitted = true;
     if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.currentAssetsInspectionForm) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
+      this.spinner = false;
       return;
     }
     if (this.currentResidentForm) {
@@ -824,6 +827,7 @@ export class SiteVisitComponent implements OnInit {
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
         this.submitted = true;
+        this.spinner = false;
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
@@ -833,6 +837,7 @@ export class SiteVisitComponent implements OnInit {
       this.businessOfficeAddress.onSubmit();
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
         this.business = true;
+        this.spinner = false;
         return;
       } else {
         this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
@@ -841,6 +846,7 @@ export class SiteVisitComponent implements OnInit {
     if (this.currentAssetsInspectionForm) {
       if (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid) {
         this.current = true;
+        this.spinner = false;
         return;
       }
     }

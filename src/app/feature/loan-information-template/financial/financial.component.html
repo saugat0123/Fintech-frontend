@@ -185,7 +185,7 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
+                                    <input (input)="totalMonthlyAmount('expensesOfBorrower', 'totalExpense')"
                                            [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
                                            formControlName="amount" placeholder="Amount (Monthly)"
                                            type="number" class="form-control" appDecimalNumber>
@@ -256,7 +256,7 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Include EMI of other BFIs" appDecimalNumber/>
+                               placeholder="Include EMI of other BFIs" appDecimalNumber readonly/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
