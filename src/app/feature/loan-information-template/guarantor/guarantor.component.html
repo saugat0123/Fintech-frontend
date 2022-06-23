@@ -36,7 +36,20 @@
                                 <div class="col-md-12">
                                     <nb-checkbox formControlName="consentOfLegalHeirs">Consent of Legal Heirs</nb-checkbox>
                                 </div>
-                            </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="isExistingCustomer">Existing Customer</label>
+                                    <select (change)="getExistingCustomerValue(i)" class="form-control" formControlName="isExistingCustomer" id="isExistingCustomer">
+                                        <option value="YES">YES</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="isExistingCustomerValue[i] === 'YES'" class="col-md-6">
+                                    <label for="cbsClientCode">CBS Client Code</label>
+                                    <input class="form-control" formControlName="cbsClientCode" id="cbsClientCode">
+                                </div>
+                            </div><br>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
