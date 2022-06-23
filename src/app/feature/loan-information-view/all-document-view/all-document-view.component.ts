@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {DmsLoanService} from '../../loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {ToastService} from '../../../@core/utils';
 import {DocumentService} from '../../admin/component/document/document.service';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
@@ -27,8 +26,7 @@ export class AllDocumentViewComponent implements OnInit {
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
-  constructor(private dmsLoanService: DmsLoanService,
-              private toastService: ToastService,
+  constructor(private toastService: ToastService,
               private documentService: DocumentService,
   ) {
   }
@@ -55,24 +53,6 @@ export class AllDocumentViewComponent implements OnInit {
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
-  }
-
-  downloadCustomerDocument(documentPath, documentName) {
-    this.dmsLoanService.downloadDocument(documentPath).subscribe(
-        (response: any) => {
-          const downloadUrl = window.URL.createObjectURL(response);
-          const link = document.createElement('a');
-          link.href = downloadUrl;
-          const toArray = documentPath.split('.');
-          const extension = toArray[toArray.length - 1];
-          link.download = documentName + '.' + extension;
-          link.click();
-        },
-        error => {
-          console.log(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'File not Found'));
-        }
-    );
   }
 
   downloadAllDocument(path: string) {

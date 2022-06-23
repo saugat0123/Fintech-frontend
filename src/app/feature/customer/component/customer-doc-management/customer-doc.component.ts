@@ -11,7 +11,6 @@ import {ToastService} from '../../../../@core/utils';
 import {CustomerGeneralDocumentService} from '../../service/customer-general-document.service';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DmsLoanFileComponent} from '../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {CustomerType} from '../../model/customerType';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../admin/modal/roleType';
@@ -85,11 +84,6 @@ export class CustomerDocComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.customerInfo.name)) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));
-            this.spinner = false;
-            return;
-        } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
-            this.modelService.dismissAll();
-            this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
             this.spinner = false;
             return;
         }

@@ -1,6 +1,9 @@
 export class ApiConfig {
-  public static TOKEN = 'http://localhost:8086/oauth/token';
-  public static URL = 'http://localhost:8086';
+  /*public static TOKEN = 'https://testcadsystem.nabilbank.com:80/oauth/token';
+  public static URL = 'https://testcadsystem.nabilbank.com:80';*/
+
+  public static TOKEN = 'https://cadsystem.nabilbank.com:80/oauth/token';
+  public static URL = 'https://cadsystem.nabilbank.com:80';
   //
   // public static TOKEN = 'http://3.17.141.198:8080/LAS/oauth/token';
   // public static URL = 'http://3.17.141.198:8080/LAS';

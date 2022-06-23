@@ -27,9 +27,6 @@
           <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
           <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
           <td>
-            <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-               aria-hidden="true" class="fa fa-download"
-               style="cursor: pointer"></i>
           </td>
         </tr>
         </tbody>
@@ -53,8 +50,8 @@
         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
           <td>{{i+1}}</td>
           <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
-          <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
-          <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -79,11 +76,8 @@
           <td>{{i + 1}}</td>
           <td class="text-left pl-1">{{singleDoc?.name}}</td>
           <td>Net Worth Document</td>
-          <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
+          <td></td>
           <td>
-            <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
-               aria-hidden="true" class="fa fa-download"
-               style="cursor: pointer"></i>
           </td>
         </tr>
         </tbody>
@@ -112,9 +106,6 @@
           <td class="text-left pl-1">Insurance Policy</td>
           <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
           <td>
-            <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
-                aria-hidden="true" class="fa fa-download"
-                style="cursor: pointer"></i>
           </td>
         </tr>
         </tbody>
@@ -142,9 +133,6 @@
             <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
                class="fas fa-eye"></i></td>
           <td>
-            <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-               aria-hidden="true" class="fa fa-download"
-               style="cursor: pointer"></i>
           </td>
         </tr>
         </tbody>
