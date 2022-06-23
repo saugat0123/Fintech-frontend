@@ -199,12 +199,12 @@
                     <tbody>
                     <tr *ngFor="let ccbl of ccblDocument; let j = index">
                         <td>{{j+1}}</td>
-                        <td  class="text-left pl-1">{{ccbl?.documentName}}</td>
+                        <td  class="text-left pl-1">{{ccbl?.docName}}</td>
                         <td *ngIf="!hidePreviewButton">
-                            <i (click)="previewOfferLetterDocument(ccbl?.docPath, ccbl?.documentName)"
+                            <i (click)="previewOfferLetterDocument(ccbl?.docPath, ccbl?.docName)"
                                class="fas fa-eye"></i></td>
                         <td *ngIf="!hidePreviewButton">
-                            <i (click)="downloadCustomerDocument(ccbl?.docPath, ccbl?.documentName)"
+                            <i (click)="downloadCustomerDocument(ccbl?.docPath, ccbl?.docName)"
                                aria-hidden="true" class="fa fa-download"
                                style="cursor: pointer"></i>
                         </td>
