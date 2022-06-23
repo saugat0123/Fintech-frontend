@@ -91,17 +91,10 @@
                    <div class="col-md-4">
                        <div class="form-group">
                            <label class="title" for="manufactureYear"><strong>Manufacture Year</strong></label>
-                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"
-                                  formControlName="manufactureYear"
-                                  id="manufactureYear"
-                                  name="manufactureYear" placeholder="Manufacture Date"
-                                  [nbDatepicker]="manufactureYear"
-                                  type="text"/>
-                           <app-calendar
-                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'manufactureYear']).patchValue($event?.eDate)"
-                                   *ngIf="calendarType === 'BS'"
-                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'manufactureYear']).value"></app-calendar>
-                           <nb-datepicker #manufactureYear></nb-datepicker>
+                           <input
+                                   class="form-control" formControlName="manufactureYear" id="manufactureYear"
+                                   name="manufactureYear"
+                                   placeholder="Manufacture Date" type="text">
                        </div>
                    </div>
                    <div class="col-md-4">

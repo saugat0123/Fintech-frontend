@@ -839,18 +839,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Guarantor</strong></label>
-                                        <select class="form-control form-control-sm-error rounded"
-                                                formControlName="guarantor"
-                                                id="guarantor"
-                                                name="guarantor">
-                                            <option [value]="null">Select Yes/No</option>
-                                            <option [value]="ans" *ngFor="let ans of question">{{ans}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <label><strong>Relationship with Borrower </strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
                                                class="form-control form-control-sm-error rounded"
