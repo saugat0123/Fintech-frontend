@@ -446,6 +446,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     saveCrgGamma(data: string) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.crgGamma)) {
             this.crgGamma = new CreditRiskGradingGamma();
         }
@@ -453,10 +454,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
-            this.itemCrgGamma.close();
+            // this.itemCrgGamma.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
             console.error(error);
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
         });
     }
