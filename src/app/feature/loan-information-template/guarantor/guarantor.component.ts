@@ -13,10 +13,9 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
-import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
-import {Editor} from "../../../@core/utils/constants/editor";
-import {NgxSpinnerService} from "ngx-spinner";
+import {Editor} from '../../../@core/utils/constants/editor';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
@@ -58,6 +57,7 @@ export class GuarantorComponent implements OnInit {
     customerLoanList;
     referencedLoanList = [];
     isExistingCustomerValue: any;
+    isExistingCustomer = [];
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -74,6 +74,10 @@ export class GuarantorComponent implements OnInit {
         this.getAllDistrict();
         this.relationList = this.relationshipList.relation;
         const formArray = this.form.get('guarantorDetails') as FormArray;
+        formArray.value.forEach((val: any, index: number ) => {
+            this.isExistingCustomer[index] =  val.isExistingCustomer;
+        });
+        this.isExistingCustomerValue = this.isExistingCustomer;
         this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerLoanList = res.detail;
         });
@@ -258,6 +262,7 @@ export class GuarantorComponent implements OnInit {
             this.districtList.sort((a, b) => a.name.localeCompare(b.name));
             this.addressList[i].districtList = this.districtList;
         });
+
     }
 
     getMunicipalities(districtId: number, i: number) {
@@ -390,16 +395,7 @@ export class GuarantorComponent implements OnInit {
         this.form.get(['guarantorDetails', index, 'temporaryAddressLineTwo']).patchValue(null);
         this.form.get(['guarantorDetails', index, 'wardNumberTemporary']).patchValue(null);
     }
-
-    // checkboxSelected(label: string, isChecked: boolean) {
-    //     if (label === 'existingCustomer') {
-    //         this.existingCustomer = isChecked;
-    //     } else {
-    //         this.existingCustomer = isChecked;
-    //     }
-    // }
     getExistingCustomerValue(index: number) {
-         this.isExistingCustomerValue = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
-
+         this.isExistingCustomerValue[index] = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
     }
 }
