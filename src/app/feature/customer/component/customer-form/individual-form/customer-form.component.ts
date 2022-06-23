@@ -26,6 +26,7 @@ import {MicroIndividualFormComponent} from '../../../../micro-loan/form-componen
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
+import {json} from 'd3';
 
 @Component({
     selector: 'app-customer-form',
@@ -34,6 +35,7 @@ import {BankingRelationship} from '../../../../admin/modal/banking-relationship'
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
     onActionChangeSpinner = false;
+    relativesFlagArray: any = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -193,13 +195,17 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
                 occupation: [undefined],
-                version: [0]
+                version: [0],
+                dateOfBirth: [undefined],
+                relativeOtherOccupation: [undefined]
             })
         );
+        this.relativesFlagArray.push(false);
     }
 
     removeRelatives(i) {
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
+        this.relativesFlagArray.pop(i);
     }
 
     getDistricts(province: Province) {
@@ -353,6 +359,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
                     this.customer.introduction = this.basicInfo.get('introduction').value;
                     this.customer.version = this.basicInfo.get('version').value;
                     const rawFromValue = this.basicInfo.getRawValue();
+                    rawFromValue.customerRelatives.forEach((val: any, i: number) => {
+                        const tempString = JSON.stringify(val.relativeOtherOccupation);
+                        rawFromValue.customerRelatives[i].relativeOtherOccupation = tempString;
+                    });
                     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
                     /** banking relation setting data from child **/
@@ -519,8 +529,11 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
                 occupation: [undefined],
-                version: [undefined]
+                version: [undefined],
+                dateOfBirth: [undefined],
+                relativeOtherOccupation: [undefined]
             }));
+            this.relativesFlagArray.push(false);
         });
     }
 
@@ -541,6 +554,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
                     age: [singleRelatives.age],
                     occupation: [singleRelatives.occupation],
+                    dateOfBirth: [singleRelatives.dateOfBirth],
+                    relativeOtherOccupation: [JSON.parse(singleRelatives.relativeOtherOccupation)]
                 }));
             });
 
@@ -797,6 +812,15 @@ bankingRelationshipList = BankingRelationship.enumObject();
             }
                 break;
 
+        }
+    }
+
+    relativeOccupationChange(i) {
+        const isOtherSelected = this.basicInfo.get(['customerRelatives', i, 'relativeOtherOccupation']).value;
+        if (!ObjectUtil.isEmpty(isOtherSelected) && isOtherSelected.includes('Other')) {
+            this.relativesFlagArray[i] = true;
+        } else {
+            this.relativesFlagArray[i] = false;
         }
     }
 }
