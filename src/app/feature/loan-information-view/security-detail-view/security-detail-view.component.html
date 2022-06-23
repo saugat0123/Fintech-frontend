@@ -27,8 +27,7 @@
                                     <tr><td class="text-left">Chassis Number</td></tr>
                                     <tr><td class="text-left">Showroom Commission</td></tr>
                                     <tr> <td class="text-left">Valuated Date(AD/BS)</td></tr>
-                                    <tr> <td class="text-left">Valautor Name</td></tr>
-                                    <tr> <td class="text-left">Vehicle Remarks</td></tr>
+                                    <tr> <td class="text-left">Valuator Name</td></tr>
                                     <tr> <td class="text-left">Realisable Amount</td></tr>
                                     </tbody>
                                 </table>
@@ -48,7 +47,6 @@
                                     <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
-                                    <tr><td class="text-right pl-1">{{vehicleDetails?.vehicleRemarks || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
 
                                     </tbody>
@@ -56,6 +54,16 @@
                             </td>
                         </tr>
                         </tbody>
+                    </table>
+                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                        <tr class="sb-bg-secondary text-white">
+                            <th>Remarks</th>
+                        </tr>
+                        <tr *ngFor="let vehicleDetails of vehicle;">
+                            <td>
+                                {{vehicleDetails?.vehicleRemarks || 'N/A'}}
+                            </td>
+                        </tr>
                     </table>
                 </ng-container>
             </div>
@@ -105,7 +113,7 @@
                                         <td>Valuated Date(AD/BS)</td>
                                     </tr>
                                     <tr>
-                                        <td>Valautor Name</td>
+                                        <td>Valuator Name</td>
                                     </tr>
                                     <tr>
                                         <td>Road access seen in blueprint</td>
@@ -192,7 +200,6 @@
                                                     <th *ngIf="land[0]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
                                                     <th *ngIf="land[0]?.ownershipTransferThrough == 'OTHER'">Other</th>
                                                 </ng-container>
-                                                <th>Remark</th>
                                             </tr>
                                             <tr *ngFor="let kyc of land[0].ownerKycApplicableData?.ownerKycDetails; let j = index">
                                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
@@ -213,13 +220,26 @@
                                                     <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.giftRegistrationAmount}}</td>
                                                     <th *ngIf="land[0].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[0]?.otherOwnershipTransferValue}}</th>
                                                 </ng-container>
-                                                <td class="text-left pl-1">{{kyc?.remark}}</td>
                                             </tr>
 
                                         </ng-container>
                                     </ng-container>
                                 </table>
                             </td>
+                        </tr>
+                        <tr *ngIf="land[0]?.ownerKycApplicableData !== null">
+                            <td colspan="3">
+                               <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                   <tr class="sb-bg-secondary text-white">
+                                       <th>Remarks</th>
+                                   </tr>
+                                   <tr *ngFor="let kyc of land[0].ownerKycApplicableData?.ownerKycDetails; let j = index">
+                                       <td>
+                                           {{kyc?.remark || 'N/A'}}
+                                       </td>
+                                   </tr>
+                               </table>
+                           </td>
                         </tr>
                         <tr  *ngIf="land[0]?.revaluationData != null && land[0]?.revaluationData?.isReValuated">
                             <td colspan="3">
@@ -281,7 +301,6 @@
                                                     <th *ngIf="land[1]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
                                                     <th *ngIf="land[1]?.ownershipTransferThrough == 'OTHER'">Other</th>
                                                 </ng-container>
-                                                <th>Remark</th>
                                             </tr>
 
                                             <tr *ngFor="let kyc of land[1].ownerKycApplicableData?.ownerKycDetails; let j = index">
@@ -304,7 +323,6 @@
                                                     <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.giftRegistrationAmount}}</td>
                                                     <th *ngIf="land[1].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[1]?.otherOwnershipTransferValue}}</th>
                                                 </ng-container>
-                                                <td class="text-left pl-1">{{kyc?.remark}}</td>
                                             </tr>
                                         </ng-container>
                                     </ng-container>
@@ -335,6 +353,20 @@
                                             <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                                         </tr>
                                     </ng-container>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr *ngIf="land[1]?.ownerKycApplicableData !== null">
+                            <td colspan="3">
+                                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                                    <tr class="sb-bg-secondary text-white">
+                                        <th>Remarks</th>
+                                    </tr>
+                                    <tr *ngFor="let kyc of land[1].ownerKycApplicableData?.ownerKycDetails; let j = index">
+                                        <td>
+                                            {{kyc?.remark || 'N/A'}}
+                                        </td>
+                                    </tr>
                                 </table>
                             </td>
                         </tr>
@@ -420,7 +452,7 @@
                                         <td class="text-left">Valuated Date(AD/BS)</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valautor Name</td>
+                                        <td class="text-left">Valuator Name</td>
                                     </tr>
                                     <tr>
                                         <td class="text-left">Land Realisable Value</td>
@@ -529,7 +561,7 @@
                                         <td class="text-left">Market Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valautor Name</td>
+                                        <td class="text-left">Valuator Name</td>
                                     </tr>
                                     <tr>
                                         <td class="text-left">Valuated Date(AD/BS)</td>
@@ -650,7 +682,7 @@
                         <th>Supplier</th>
                         <!--                        <th>Downpay</th>-->
                         <!--                        <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>-->
-                        <th>Valautor Name</th>
+                        <th>Valuator Name</th>
                     </tr>
                     <tr>
                         <td>{{i + 1}}</td>
@@ -677,7 +709,6 @@
                         <th>Expiry Date(AD/BS)</th>
                         <th>Coupon Rate</th>
                         <th>Beneficiary</th>
-                        <th>Remarks</th>
                     </tr>
                     <tr *ngFor="let depositDetails of fdArray; let i= index">
                         <td>{{i + 1}}</td>
@@ -693,6 +724,16 @@
                         <td colspan="5" class="text-right pr-1">Rs. {{totalAmount | currencyFormatter}}</td>
                     </tr>
                     </thead>
+                </table>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Remarks</th>
+                    </tr>
+                    <tr *ngFor="let depositDetails of fdArray; let i= index">
+                        <td>
+                            {{depositDetails?.remarks || 'N/A'}}
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -778,7 +819,6 @@
                                 <th>Issued Date(AD/BS)</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
-                                <th>Remark</th>
                             </tr>
                             <tr *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                                 <td *ngIf="j>=2"></td>
@@ -790,11 +830,24 @@
                                 <td class="text-left pl-1">{{kyc?.issuedDate? (kyc?.issuedDate | date) : 'NA'}}</td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
-                                <td class="text-left pl-1">{{kyc?.remark}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
                 </table>
+                <ng-container *ngFor="let hypothecationOfStock of hypoArray; let i= index">
+                    <ng-container *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null">
+                        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <tr class="sb-bg-secondary text-white">
+                                <th>Remarks</th>
+                            </tr>
+                            <tr *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+                                <td>
+                                    {{kyc?.remark || 'N/A'}}
+                                </td>
+                            </tr>
+                        </table>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
 
