@@ -44,7 +44,7 @@
 <!--                                            class="fa fa-cog"></em></a>&nbsp;-->
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
-                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && model?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && model?.loan?.isRemit "  (click)="addVideoKyc(model)">
+                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && model?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && model?.loan?.isRemit " (click)="addVideoKyc(model)">
                                         <em class="fa fa-camera"></em>
                                     </a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
@@ -52,7 +52,7 @@
                                     <a nbTooltip="Edit loan" class="text-info" *ngIf="model?.currentStage?.toRole?.roleType.toString()==='MAKER' || (currentUserRoleType === 'ADMIN')"
                                        (click)="onEdit(proposal, model?.id)">
                                         <em class="fa fa-edit"></em></a>&nbsp;
-                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model?.id, model?.combinedLoans)" *ngIf="(currentUserRoleType === 'MAKER' && model?.loanName === COMBINED_KEY)"><em
+                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model?.id, model?.combinedLoans)" *ngIf="(currentUserRoleType === 'MAKER' && model?.loanName === COMBINED_KEY) || !model?.combinedLoans"><em
                                             class="fa fa-window-restore"></em></a>&nbsp;
                                 </td>
                             </tr>

@@ -682,37 +682,39 @@
                                 </div>
                                 <ng-container *ngIf="!fromProfile">
                                         <div class="row" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
-                                            <div class="col-md-12">
-                                                <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                                    <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
-                                                    <ckeditor formControlName="borrowerInformation"
-                                                              [style]="{height:'250px !important;'}"
-                                                              placeholder="Background"
-                                                              required
-                                                              [config]="ckeConfig">
-                                                    </ckeditor>
+                                            <ng-container *ngIf="customerInfo.customerType === 'INSTITUTION'">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                                        <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
+                                                        <ckeditor formControlName="borrowerInformation"
+                                                                  [style]="{height:'250px !important;'}"
+                                                                  placeholder="Background"
+                                                                  required
+                                                                  [config]="ckeConfig">
+                                                        </ckeditor>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="clearfix"></div>
+                                                <div class="clearfix"></div>
 
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
-                                                    <ckeditor
-                                                            formControlName="disbursementCriteria" id="disbursementCriteria"
-                                                            name="disbursementCriteria"
-                                                            [config]="ckeConfig"></ckeditor>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+                                                        <ckeditor
+                                                                formControlName="disbursementCriteria" id="disbursementCriteria"
+                                                                name="disbursementCriteria"
+                                                                [config]="ckeConfig"></ckeditor>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="title" for="repayment"><strong>Repayment</strong></label>
-                                                    <ckeditor
-                                                            formControlName="repayment" id="repayment"
-                                                            name="repayment"
-                                                            [config]="ckeConfig"></ckeditor>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="title" for="repayment"><strong>Repayment</strong></label>
+                                                        <ckeditor
+                                                                formControlName="repayment" id="repayment"
+                                                                name="repayment"
+                                                                [config]="ckeConfig"></ckeditor>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </ng-container>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="title" for="remark">
@@ -1011,9 +1013,6 @@
                                 </ng-container>
                             </div>
                         </form>
-                        <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
-                            <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
-                        </div>
                     </div>
                     <ng-container  *ngIf="fromProfile">
                         <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">

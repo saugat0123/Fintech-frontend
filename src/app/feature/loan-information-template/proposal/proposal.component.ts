@@ -42,7 +42,6 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
-    @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
     @Input() isLoanBeingEdit = false;
@@ -494,7 +493,6 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
-        this.cadSetup.save();
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
