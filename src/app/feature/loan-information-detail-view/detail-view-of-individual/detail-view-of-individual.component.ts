@@ -9,10 +9,10 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {ReadmoreModelComponent} from '../../loan/component/readmore-model/readmore-model.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanStage} from '../../loan/model/loanStage';
 import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {LoanTag} from '../../loan/model/loanTag';
 
 @Component({
   selector: 'app-detail-view-of-individual',
@@ -65,6 +65,10 @@ export class DetailViewOfIndividualComponent implements OnInit {
   crgGammaScore = 0;
   crgGammaSummary = false;
   financialData;
+  loanTagEnum = LoanTag;
+  isShareLoan = false;
+  @Input() combinedLoan: any;
+  @Input() combinedLoanAllApproved: any;
 
   constructor(
       private modalService: NgbModal,
@@ -139,6 +143,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
       }
     }
     this.disable();
+    this.flagShareSecurity();
   }
   updateChecklist(event) {
     this.checklistData = event;
@@ -199,6 +204,39 @@ export class DetailViewOfIndividualComponent implements OnInit {
       } else {
         return 'SUPPORTED BY:';
       }
+    }
+  }
+
+  flagShareSecurity() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+      let customerLen = 0;
+      let finalSelectedArr = [];
+      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+        customerLen = !ObjectUtil.isEmpty(this.combinedLoanAllApproved) ? this.combinedLoanAllApproved.length : 0;
+        finalSelectedArr = this.combinedLoanAllApproved;
+      } else {
+        customerLen = !ObjectUtil.isEmpty(this.combinedLoan) ? this.combinedLoan.length : 0;
+        finalSelectedArr = this.combinedLoan;
+      }
+      if (customerLen >= 1) {
+        let finalData: any;
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY));
+        } else {
+          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY) && data.documentStatus.toString() !== 'APPROVED');
+        }
+        if (finalData.length >= 1) {
+          this.isShareLoan = true;
+        } else {
+          this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+        }
+      } else {
+        this.isShareLoan = false;
+      }
+    } else {
+      this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
     }
   }
 }

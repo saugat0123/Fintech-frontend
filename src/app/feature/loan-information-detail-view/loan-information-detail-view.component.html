@@ -349,10 +349,14 @@
             <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
+                                           [combinedLoan]="combinedLoanList"
+                                           [combinedLoanAllApproved]="combinedAllLoanList"
                                            [signatureList] = "signatureList"></app-detail-view-of-individual>
             <app-detail-view-of-institutional *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'  && loaded"
                                               [loanDataHolder]="loanDataHolder" [customerAllLoanList]="customerAllLoanList"
                                               [loanConfig] = "loanConfig"
+                                              [combinedLoan]="combinedLoanList"
+                                              [combinedLoanAllApproved]="combinedAllLoanList"
                                               [signatureList] = "signatureList"></app-detail-view-of-institutional>
         </div>
         </div>
