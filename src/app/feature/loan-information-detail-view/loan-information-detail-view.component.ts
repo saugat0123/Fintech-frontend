@@ -59,6 +59,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     reviewDateData;
     naChecked: boolean;
     loaded;
+    combinedLoanList = [];
+    combinedAllLoanList = [];
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -243,6 +245,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
                     next: (res) => {
                         (res.detail as CombinedLoan).loans.forEach((cl) => {
+                            this.combinedLoanList = res.detail.loans;
+                            this.combinedAllLoanList = this.combinedLoanList;
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {
                                 this.customerAllLoanList.push(cl);

@@ -53,6 +53,7 @@ import {SecurityComponent} from '../../../loan-information-template/security/sec
 import {BehaviorSubject} from 'rxjs';
 import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
 import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
+import {SecuritiesType} from '../../../constants/securities-type';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -352,8 +353,17 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.security = new Security();
         }
         if (!ObjectUtil.isEmpty(data)) {
+            let finalTemplate;
+            let finalData;
+            if (data.securityType === SecuritiesType.SHARE_SECURITY) {
+                finalTemplate = TemplateName.SHARE_SECURITY;
+                finalData = JSON.parse(data.data);
+            } else {
+                finalTemplate = TemplateName.SECURITY;
+                finalData = data;
+            }
             this.security = data;
-            this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
+            this.customerInfoService.saveLoanInfo(finalData, this.customerInfoId, finalTemplate)
                 .subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     this.setSecurity(response.detail.securities);

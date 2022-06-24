@@ -41,6 +41,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {Security} from 'src/app/feature/admin/modal/security';
 import {DocAction} from '../../../model/docAction';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
+import {LoanTag} from '../../../model/loanTag';
 
 @Component({
   selector: 'app-loan-summary-institutional',
@@ -179,6 +180,10 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   hidePreviewButton = false;
   zipDocName;
   loaded = false;
+  isShareLoan = false;
+  loanTagEnum = LoanTag;
+  @Input() combinedLoan: any;
+  @Input() combinedLoanAllApproved: any;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -234,6 +239,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
     }
     this.checkDocumentStatus();
+    this.flagShareSecurity();
   }
 
   getLoanDataHolder() {
@@ -737,6 +743,39 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   open(comments) {
     const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
     modalRef.componentInstance.comments = comments;
+  }
+
+  flagShareSecurity() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+      let customerLen = 0;
+      let finalSelectedArr = [];
+      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+        customerLen = !ObjectUtil.isEmpty(this.combinedLoanAllApproved) ? this.combinedLoanAllApproved.length : 0;
+        finalSelectedArr = this.combinedLoanAllApproved;
+      } else {
+        customerLen = !ObjectUtil.isEmpty(this.combinedLoan) ? this.combinedLoan.length : 0;
+        finalSelectedArr = this.combinedLoan;
+      }
+      if (customerLen >= 1) {
+        let finalData: any;
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY));
+        } else {
+          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY) && data.documentStatus.toString() !== 'APPROVED');
+        }
+        if (finalData.length >= 1) {
+          this.isShareLoan = true;
+        } else {
+          this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+        }
+      } else {
+        this.isShareLoan = false;
+      }
+    } else {
+      this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+    }
   }
 }
 

@@ -29,6 +29,7 @@ import {MultiBanking} from './multiBanking';
 import {Gender} from '../../../@core/model/enum/gender';
 import {Auto} from './Auto';
 import {LandBuilding} from './LandBuilding';
+import {CustomerShareBatch} from '../../admin/modal/customer-share-batch';
 
 export class CustomerInfoData {
     id: number;
@@ -93,4 +94,6 @@ export class CustomerInfoData {
     facilityUtilization: string;
     otherDetails: string;
     existingExposures: Array<ExistingExposure>;
+    customerShareBatches: Array<CustomerShareBatch>;
+
 }

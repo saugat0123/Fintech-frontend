@@ -206,6 +206,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocName;
     loaded = false;
+    combinedLoanList = [];
+    combinedAllLoanList = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -535,6 +537,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
                             this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
                                 next: (res) => {
+                                    this.combinedLoanList = res.detail.loans;
+                                    this.combinedAllLoanList = this.combinedLoanList;
                                     (res.detail as CombinedLoan).loans.forEach((cl) => {
                                         const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                                         if (!allLoanIds.includes(cl.id)) {

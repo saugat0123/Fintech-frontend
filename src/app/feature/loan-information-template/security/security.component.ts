@@ -20,7 +20,6 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
-import {ToastService} from '../../../@core/utils';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecuritiesType} from '../../constants/securities-type';
 import {PlantMachineryComponent} from './plant-machinery/plant-machinery.component';
@@ -29,9 +28,6 @@ import {ApartmentComponent} from './apartment/apartment.component';
 import {LandBuildingComponent} from './land-building/land-building.component';
 import {FixedDepositComponent} from './fixed-deposit/fixed-deposit.component';
 import {HypothecationOfStockComponent} from './hypothecation-of-stock/hypothecation-of-stock.component';
-import {
-    CorporateGuranteeComponent
-} from '../../credit-administration/cad-document-template/laxmi/laxmi-offer-letter/corporate-guarantee/corporate-gurantee.component';
 import {PersonalGuaranteeComponent} from './personal-guarantee/personal-guarantee.component';
 import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
@@ -479,8 +475,12 @@ export class SecurityComponent implements OnInit {
         }
          if (this.shareSelected) {
             const shareData = this.shareSecurityComponent.shareSecurityForm.value.shareSecurityDetails;
-            const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
-            this.securityDataEmitter.emit(securities);
+            // const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
+             const security = new Security();
+             security.securityType = SecuritiesType.SHARE_SECURITY;
+             security.data = JSON.stringify(this.shareSecurityComponent.customerShareBatch);
+            // const securities = this.shareSecurityComponent.customerShareBatch;
+            this.securityDataEmitter.emit(security);
         }
         if (this.hypothecationOfStockSelected) {
             const hypothecationOfStockData = this.hypothecationSecurity.hypothecationForm.value.hypothecationOfStock;
@@ -589,6 +589,13 @@ export class SecurityComponent implements OnInit {
     public onEmitRefresh(event): void {
         if (event) {
             this.refreshEmitter.emit(true);
+        }
+    }
+
+    public onEditShareSecurity(event: any): void {
+        if (!ObjectUtil.isEmpty(event)) {
+            this.isEdit = true;
+            this.change('SHARE_SECURITY');
         }
     }
 }

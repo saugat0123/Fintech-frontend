@@ -1,0 +1,52 @@
+<div *ngIf="viewSecurity" class="row">
+    <div class="col-md-12">
+        <p class="sub-header"><strong>Share Security</strong></p>
+        <ng-container *ngFor="let shareSecurity of shareSecurityDetails; let idx= index">
+            <p class="sub-header"><strong> Net Position ({{ (shareSecurity?.data | jsonParse)?.ownerName}})</strong></p>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-secondary text-white">
+                    <th>S.N</th>
+                    <th>Company</th>
+                    <th>Ticker</th>
+                    <th>Type of share</th>
+                    <th>No. of Share</th>
+                    <th>FMV</th>
+                    <th>Drawing Amount</th>
+                    <th>Realizable Value</th>
+                </tr>
+                <tbody>
+                <tr *ngFor="let customerShare of shareSecurity?.customerShareData; let i= index">
+                    <td class="align-middle">{{i + 1}}</td>
+                    <td class="text-center p-1">{{customerShare?.companyName}} </td>
+                    <td class="text-center p-1"> {{ customerShare?.companyCode}} </td>
+                    <td class="text-center p-1"> {{customerShare?.shareType}}</td>
+                    <td class="text-center p-1"> {{customerShare?.totalShareUnit | currencyFormatter}}</td>
+                    <td class="text-center p-1"> {{customerShare?.fmv | currencyFormatter}}</td>
+                    <td class="text-center p-1"> {{customerShare?.drawingAmount | currencyFormatter}}</td>
+                    <td class="text-center p-1"> {{customerShare?.realizableAmount | currencyFormatter}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold" colspan="4">Total</td>
+                    <td class="font-weight-bold"> {{ (shareSecurity?.data | jsonParse)?.totalNoShare | currencyFormatter}} </td>
+                    <td class="font-weight-bold"> {{ (shareSecurity?.data | jsonParse)?.totalFmv | currencyFormatter}} </td>
+                    <td class="font-weight-bold"> {{ (shareSecurity?.data | jsonParse)?.totalDrawingAmount | currencyFormatter}} </td>
+                    <td class="font-weight-bold"> {{ (shareSecurity?.data | jsonParse)?.totalRealizableAmount | currencyFormatter}} </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-container>
+
+        <ng-container *ngIf="singleSelectedData">
+            <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                <tr class="sb-bg-secondary text-white text-center">
+                    <th> Details Of Share Security Offered </th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="pr-1"> {{(singleSelectedData?.data | jsonParse)?.securityOffered}} </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+</div>
