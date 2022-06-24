@@ -4,7 +4,7 @@
         <div class="container nep text-justify">
             <div class="col-md-12 viewFull">
                <div>
-                   <p class="text-center" style="font-size: 16pt"><b>विषयः ऋण तमसुक</b>
+                   <p class="text-center" style="font-size: 16pt; font-weight: bold">विषयः ऋण तमसुक
                    </p>
                    <div>
                        लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका
@@ -13,8 +13,8 @@
                               formControlName="nameOfBranch"
                               placeholder="शाखा कार्यालय रहेको नाम"
                               type="text"/>
-                        <span class="print-only">{{individualData?.branch ? individualData.branch.ct : '______________________'}}</span>मा शाखा कार्यालय रहेको <b>नबिल बैंक लिमिटेड</b>
-                       (जसलाई यस उप्रान्त <b>“धनी बैंक”</b> भनिएको छ)
+                        <span class="print-only">{{individualData?.branch ? individualData.branch.ct : '______________________'}}</span>मा शाखा कार्यालय रहेको <span style="font-weight: bold">नबिल बैंक लिमिटेड</span>
+                       (जसलाई यस उप्रान्त <span style="font-weight: bold">“धनी बैंक”</span> भनिएको छ)
                        लिखत गरी दिने ऋणीका नाम -
                        <input class="form-field form-control-sm d-print-none"
                               formControlName="actName"
@@ -53,7 +53,7 @@
                               placeholder="कम्पनीको नाम"
                               type="text"/>
                         <span class="print-only">{{individualData?.name ? individualData.name.ct : '______________________'}}</span>
-                       प्रा.लि. (जसलाई यस उप्रान्त <b>"ऋणी कम्पनी"</b> भनिएको छ) का
+                       प्रा.लि. (जसलाई यस उप्रान्त <span style="font-weight: bold">"ऋणी कम्पनी"</span> भनिएको छ) का
                        तर्फवाट ऐ.का अख्तियार प्राप्त
                   <ng-container *ngFor="let partner of companyInfo; let i = index">
                   <ng-container *ngIf="partner?.isAuthorizedPerson !== 'Share Holder Only'">
@@ -404,7 +404,7 @@
                      [innerHTML]="(this.supportedInfo ? this.supportedInfo.freeText1 : '') | safeHtml">
                 </div>
                 <div class="mt-4" *ngIf="autoCheck">
-                    <p class="text-center" style="margin-top: -1em;"><b>तपसिल</b></p>
+                    <p class="text-center" style="margin-top: -1em; font-weight: bold">तपसिल</p>
                     <p style="margin-top: -1em;">
                         उपरोक्त ऋणकर्जाको सुरक्षण बापत निम्न बमोजिमको सवारी साधन तपांई धनी बैंकको नाममा नामसारी
                         गरीदिएको छु/छौं ।
