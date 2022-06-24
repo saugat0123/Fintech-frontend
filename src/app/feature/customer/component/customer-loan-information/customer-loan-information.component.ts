@@ -52,6 +52,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {BehaviorSubject} from 'rxjs';
 import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
+import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -140,6 +141,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     @ViewChild('securityComponent', {static: false})
     public securityComponent: SecurityComponent;
+    @ViewChild('commonLoanInformation', {static: false})
+    public commonLoanInformation: CommonLoanInformationComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -443,6 +446,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     saveCrgGamma(data: string) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.crgGamma)) {
             this.crgGamma = new CreditRiskGradingGamma();
         }
@@ -450,10 +454,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
-            this.itemCrgGamma.close();
+            // this.itemCrgGamma.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
             console.error(error);
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
         });
     }

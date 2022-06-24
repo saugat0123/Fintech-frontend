@@ -532,7 +532,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.modalService.dismissAll();
         this.spinner = true;
         this.customerLoanService.deleteLoanByAdminAndMaker(id).subscribe(() => {
-          this.deleteEmitter.emit();
+          this.triggerCustomerRefresh.emit();
           this.getCustomerLoans();
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Delete Loan'));
         }, error => {

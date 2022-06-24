@@ -448,9 +448,9 @@
                     <div class="col-md-4">
                         <select [(ngModel)]="selectedLoanType"
                                 class="form-control rounded" name="loanType" required>
-                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
-                            <option *ngFor="let list of multipleSelectedLoanType"
-                                    [ngValue]="list.key">{{list.value}}</option>
+                            <option [ngValue]="'NEW_LOAN'" hidden>New Loan</option>
+<!--                            <option *ngFor="let list of multipleSelectedLoanType"-->
+<!--                                    [ngValue]="list.key">{{list.value}}</option>-->
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -513,7 +513,7 @@
 
         <ng-template #proposal let-data let-ref="dialogRef">
             <nb-card class="template-css" class="template-css" style="height: 100vh; overflow-y: auto">
-                <nb-card-header> Loan Form
+                <nb-card-header> Loan Form: {{loan?.loan?.name}}
                     <a aria-label="Close" class="close cursor"
                        data-dismiss="modal" (click)="close()">
                       <span style="color: red" (click)="close()">
@@ -595,6 +595,7 @@
                       <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
                           <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
                                                       [loanDataHolder]="subLoan"
+                                                      [loanId]="subLoan?.id"
                                                       [loanType]="subLoan?.loanType"></app-customer-loan-document>
                       </div>
                   </div>

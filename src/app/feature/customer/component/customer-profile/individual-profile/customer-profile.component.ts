@@ -655,6 +655,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         return returnArray;
     }
     getCustomerLoans() {
+        // this.refreshCustomerInfo();
         this.modalService.dismissAll();
         this.customerLoanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];

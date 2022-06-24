@@ -2,9 +2,9 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-4">
-                <nb-select fullWidth (selectedChange)="onChangeLoanCategory($event)" placeholder="Please select a loan scheme">
-                    <nb-option *ngFor="let scheme of schemeList;"
-                               [value]="scheme?.id">{{scheme?.name}}</nb-option>
+                <nb-select fullWidth (selectedChange)="onChangeBusinessType($event)" placeholder="Please select a loan scheme">
+                    <nb-option *ngFor="let scheme of businessTypes;"
+                               [value]="scheme?.valueOf()">{{scheme | replace: '_' :' '}}</nb-option>
                 </nb-select>
             </div>
             <div *ngIf="existingQuestionList" class="col-md-8 text-right mt-5">
@@ -83,7 +83,7 @@
         </table>
 
         <form [formGroup]="questionAnswerForm">
-            <div *ngIf="loanConfigId != null && newQuestionList" class="box-body">
+            <div *ngIf="businessType != null && newQuestionList" class="box-body">
                 <div formArrayName="questionForm">
                     <div *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index;"
                          class="form-group">

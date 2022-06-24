@@ -244,14 +244,15 @@
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
                             <option value="RENEWED_LOAN">Renew Loan</option>
-                            <option value="CLOSURE_LOAN">Close Loan</option>
+<!--                            <option value="CLOSURE_LOAN">Close Loan</option>-->
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
                             <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
-                            <option value="RELEASE_AND_REPLACEMENT">Release And Replacement</option>
-                            <option value="PARTIAL_RELEASE_OF_COLLATERAL">Partial Release of Collateral</option>
-                            <option value="INTEREST_RATE_REVISION">Interest Rate Revision</option>
+<!--                            <option value="RELEASE_AND_REPLACEMENT">Release And Replacement</option>-->
+<!--                            <option value="PARTIAL_RELEASE_OF_COLLATERAL">Partial Release of Collateral</option>-->
+<!--                            <option value="INTEREST_RATE_REVISION">Interest Rate Revision</option>-->
+                            <option value="OTHERS">Others</option>
                         </ng-container>
                     </select>
                 </td>
@@ -385,7 +386,7 @@
         <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
             <nb-card-header>
                 <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
-                <p *ngIf="isCombineLoan" class="text-danger">Note: This loan has other combined loan which will be deleted </p>
+<!--                <p *ngIf="isCombineLoan" class="text-danger">Note: This loan has other combined loan which will be deleted </p>-->
             </nb-card-header>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">

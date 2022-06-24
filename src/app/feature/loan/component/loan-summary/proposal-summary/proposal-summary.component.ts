@@ -54,13 +54,14 @@ export class ProposalSummaryComponent implements OnInit {
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
     consumerFinance = false;
+
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
-
     loanDatas: {
         loanNatureSelected: any, fundableNonFundableSelcted: any, isFundable: any, isTerminating: any,
-        isVehicle: any, isShare: any, isGeneral: any, showInstallmentAmount: any, showRepaymentMode: any, showPrincipalAmount: any, isFixedDeposit: any, isRevolving: any
+        isVehicle: any, isShare: any, isGeneral: any, showInstallmentAmount: any, showRepaymentMode: any,
+        showPrincipalAmount: any, isFixedDeposit: any, isRevolving: any
     }[] = [];
 
     ngOnInit() {
@@ -139,24 +140,25 @@ export class ProposalSummaryComponent implements OnInit {
                 }
                 this.loanDatas.push(toggle);
             });
+
         }
     }
 
     public getTotal(key: string): number {
         const filteredList = this.customerAllLoanList.filter(l => l.proposal.data !== null);
-            const tempList = filteredList
-                .filter(l => JSON.parse(l.proposal.data)[key]);
-            let total = tempList
-                .map(l => JSON.parse(l.proposal.data)[key])
-                .reduce((a, b) => a + b, 0);
-            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                this.customerLoanDtoList.forEach(cdl => {
-                    if (!ObjectUtil.isEmpty(cdl.proposal.data)) {
-                        total += JSON.parse(cdl.proposal.data)[key];
-                    }
-                });
-            }
-            return this.isNumber(total);
+        const tempList = filteredList
+            .filter(l => JSON.parse(l.proposal.data)[key]);
+        let total = tempList
+            .map(l => JSON.parse(l.proposal.data)[key])
+            .reduce((a, b) => a + b, 0);
+        if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cdl => {
+                if (!ObjectUtil.isEmpty(cdl.proposal.data)) {
+                    total += JSON.parse(cdl.proposal.data)[key];
+                }
+            });
+        }
+        return this.isNumber(total);
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
@@ -164,18 +166,18 @@ export class ProposalSummaryComponent implements OnInit {
         let numb;
         if (funded) {
             const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
-                const tempList = filteredList
-                    .filter(l => JSON.parse(l.proposal.data)[key]);
-                numb = tempList
-                    .map(l => JSON.parse(l.proposal.data)[key])
-                    .reduce((a, b) => a + b, 0);
-                if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                    const tempCustomerLoanDtoList: CustomerLoanDto[] = this.customerLoanDtoList
-                        .filter(l => l.isFundable && l.proposal.data !== null);
-                    tempCustomerLoanDtoList.forEach(cdl => {
-                        // numb = numb + JSON.parse(cdl.proposal.data)[key];
-                    });
-                }
+            const tempList = filteredList
+                .filter(l => JSON.parse(l.proposal.data)[key]);
+            numb = tempList
+                .map(l => JSON.parse(l.proposal.data)[key])
+                .reduce((a, b) => a + b, 0);
+            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+                const tempCustomerLoanDtoList: CustomerLoanDto[] = this.customerLoanDtoList
+                    .filter(l => l.isFundable && l.proposal.data !== null);
+                tempCustomerLoanDtoList.forEach(cdl => {
+                    // numb = numb + JSON.parse(cdl.proposal.data)[key];
+                });
+            }
         } else {
             const filteredList = this.customerNonFundedLoanList.filter(l => l.proposal.data !== null);
             const tempList = filteredList

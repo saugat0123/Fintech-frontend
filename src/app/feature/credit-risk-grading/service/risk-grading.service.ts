@@ -33,6 +33,11 @@ export class RiskGradingService {
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
+    getAllQuestionsByBusinessType(businessType): Observable<any> {
+        const url = this.API(0) + '/businessType';
+        const getUrl = ApiUtils.getRequest(url);
+        return this.http.post(getUrl.url, businessType, {headers: getUrl.header});
+    }
     deleteQuestion(loanConfigId: number, questionId): Observable<Object> {
         const url = `${this.API(loanConfigId)}/${questionId}`;
         const getUrl = ApiUtils.getRequest(url);

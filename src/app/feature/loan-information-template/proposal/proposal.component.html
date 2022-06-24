@@ -4,8 +4,22 @@
             <nb-card>
                 <nb-card-body>
                     <div class="form-group">
-                        <form (ngSubmit)="onSubmit()" [formGroup]="proposalForm" class="form-horizontal">
+                        <form  [formGroup]="proposalForm" class="form-horizontal">
                             <div class="row">
+<!--                                <div class="col-md-4"-->
+<!--                                     *ngIf="existingExpo.length > 0">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>-->
+<!--                                        <select #selectElement-->
+<!--                                                class="custom-select"-->
+<!--                                                name="repaymentMode">-->
+<!--                                            <option [ngValue]="null" hidden selected>Select</option>-->
+<!--                                            <option *ngFor="let data of existingExpo" [value]="data?.proposalData">{{data?.loanName}}</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <button nbButton (click)="patchValue(selectElement?.value)"><i class="fa fa-plus"></i></button>-->
+<!--                                </div>-->
+
                                 <div class="col-md-4" *ngIf="checkApproved">
                                     <div class="form-group">
                                         <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>

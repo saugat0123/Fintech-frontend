@@ -1,58 +1,82 @@
 <section>
-
-    <nb-accordion class="mb-4">
+    <div class="modal-header text-center" *ngIf="!fromProfile">
+        <a (click)="onClose()" aria-label="Close" class="close cursor disable-print"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </div>
+    <nb-accordion class="mb-4 disable-print">
         <nb-accordion-item>
             <nb-accordion-item-header>
-                <em><mark><strong>click me to view CREDIT RISK GRADE SHEET</strong></mark></em>
+                <em>
+                    <mark><strong>click me to view Credit Scoring Breakdown</strong></mark>
+                </em>
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-                <table aria-describedby="Grade details table"
-                       class="table table-bordered text-center">
-                    <tr>
-                        <th scope="col">Number</th>
-                        <th scope="col">Grading</th>
-                        <th scope="col">Short</th>
-                        <th scope="col">Remarks</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Not Eligible for new loans</td>
-                        <td>BL</td>
-                        <td>
-                            90 and above
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Acceptable</td>
-                        <td>S</td>
-                        <td>75-89</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Good</td>
-                        <td>G</td>
-                        <td>65-74</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Very Good</td>
-                        <td>VG</td>
-                        <td>50-64</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Excellent</td>
-                        <td>E</td>
-                        <td><50</td>
-                    </tr>
-                </table>
+                <div>
+                    <table class="table table-hover table-bordered text-center">
+                        <thead>
+                        <tr class="sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Range of score</th>
+                            <th>Perceived Risk</th>
+                            <th>Decision</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>i</td>
+                            <td>>=90</td>
+                            <td>Virtually zero risk</td>
+                            <td rowspan="5">Accept</td>
+                        </tr>
+                        <tr>
+                            <td>ii</td>
+                            <td>>=75</td>
+                            <td>Lower risk</td>
+                        </tr>
+                        <tr>
+                            <td>iii</td>
+                            <td>>=65</td>
+                            <td>Low risk</td>
+                        </tr>
+                        <tr>
+                            <td>iv</td>
+                            <td>>=55</td>
+                            <td>Moderate risk</td>
+                        </tr>
+                        <tr>
+                            <td>v</td>
+                            <td>>=45</td>
+                            <td>Average risk</td>
+
+                        </tr>
+                        <tr>
+                            <td>vi</td>
+                            <td>>=35</td>
+                            <td>High risk</td>
+                            <td>To be approved from one level CAD authority</td>
+                        </tr>
+                        <tr>
+                            <td>vii</td>
+                            <td>>=25</td>
+                            <td>Pre-default risk</td>
+                            <td>Minimum approving authority to be CCO</td>
+                        </tr>
+                        <tr>
+                            <td>viii</td>
+                            <td><25</td>
+                            <td>Default risk</td>
+                            <td>Decline</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </nb-accordion-item-body>
         </nb-accordion-item>
     </nb-accordion>
-
-    <form [formGroup]="creditRiskGrading">
-       <mark> <strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
+    <form [formGroup]="creditRiskGrading" [nbSpinner]="spinner">
+        <mark><strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
         <table class="table table-bordered table-striped text-center">
             <thead>
             <tr>
@@ -60,77 +84,63 @@
                 <th>Criteria</th>
                 <th>Weight</th>
                 <th>Parameter</th>
-                <th *ngIf="fromProfile">Score</th>
                 <th *ngIf="fromProfile">Actual Parameter</th>
                 <th>Score Obtained</th>
             </tr>
             </thead>
             <tbody>
+            <ng-container>
+                <ng-container
+                        *ngFor="let answer of creditRiskGrading?.get(['groupObject', creditHistory])?.value; let j = index">
+                    <tr style="background-color: #17a2b1">
+                        <th>Topic</th>
+                        <th>{{answer?.groupName}}</th>
+                        <th>{{answer?.weightage}} %</th>
+                        <td></td>
+                        <td></td>
+                        <th><span>Total:</span>{{answer?.groupTotal}}</th>
+                    </tr>
+                    <tr *ngFor="let ans of questions[creditHistory][0][j]; let ii = index">
+                        <td>{{ii + 1}}</td>
+                        <td>{{ans}}</td>
+                        <td></td>
 
-            <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">
-                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">
-                    <td>{{i+1}}</td>
-
-                    <td class="desc-td-width">
-                        <ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
-                            <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>
-                            <br><br>
-                        </ng-container>
-                        <p>{{ crgQuestion?.description }}</p>
-                    </td>
-                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
-                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>
-                    </td>
-                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>
-                    <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :
-                        creditRiskGrading.get(crgQuestion?.description + 'Parameter').value}}</td>
-                    <ng-container *ngIf="fromProfile">
                         <td>
                             <ul>
-                                <ng-container *ngFor="let answer of crgQuestion?.answers">
-                                    <li *ngIf="answer?.status == 'ACTIVE'">
-                                        {{ answer?.description }}
-                                    </li>
+                                <ng-container *ngFor="let answ of answers[creditHistory][0][j][ii]">
+                                    <li>{{answ?.description}}</li>
                                 </ng-container>
                             </ul>
                         </td>
                         <td>
-                            <ul class="list-unstyled">
-                                <ng-container *ngFor="let answer of crgQuestion?.answers">
-                                    <li *ngIf="answer?.status == 'ACTIVE'">
-                                        {{ answer?.points }}
-                                    </li>
-                                </ng-container>
-                            </ul>
-                        </td>
-                        <td>
-                            <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">
-                                <div *ngIf="answer?.status == 'ACTIVE'">
-                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"
-                                           [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
-                                           [value]="answer?.points"
-                                           class="form-control-input"
-                                           [formControlName]="crgQuestion?.description"
-                                           [id]="crgQuestion?.description+i"
-                                           type="radio"><br>
+                            <ng-container>
+                                <div *ngFor="let answ of answers[creditHistory][0][j][ii]">
+                                    <input [name]="ans + creditHistory +j "
+                                           (click)="click(answ?.points, ans,j)"
+                                           [disabled]="!fromProfile"
+                                           [checked]="this.creditRiskGrading?.get(['groupObject', creditHistory, j])?.get('gammaQuestionAnswer')?.get(ans)?.value === answ?.points"
+                                           type="radio">
                                 </div>
+
                             </ng-container>
                         </td>
-                    </ng-container>
-                    <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>
-                </tr>
-            </ng-container>
+                        <td>{{this.creditRiskGrading?.get(['groupObject', creditHistory, j])?.get('gammaQuestionAnswer')?.get(ans)?.value}}</td>
+                    </tr>
 
-            <tr>
-                <th class="text-center" colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
+                </ng-container>
+            </ng-container>
+            </tbody>
+            <tbody>
+            <tr class="sb-bg-secondary">
+                <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
                 <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
-                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
+                <th class="text-center">{{creditRiskGrading?.get('totalPoint')?.value}}</th>
             </tr>
             </tbody>
         </table>
+        <div class="row">
+            <button class="float-sm-right" nbButton (click)="onSubmit()">Save</button>
+        </div>
     </form>
-    <!--<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-        <button (click)="onSubmit()" nbButton type="button">save</button>
-    </div>-->
 </section>
 

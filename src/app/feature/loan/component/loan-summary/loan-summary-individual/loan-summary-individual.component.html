@@ -32,7 +32,7 @@
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 
-    <ng-container *ngIf="!fullSettlement">
+    <ng-container *ngIf="!fullSettlement && !others">
         <nb-accordion *ngIf="isRemitLoan">
             <nb-accordion-item>
                 <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video
