@@ -368,9 +368,9 @@ export class ProposalComponent implements OnInit {
             repaymentMode: [undefined],
             repaymentModeInterest: [undefined],
             repaymentModePrincipal: [undefined],
-            disbursementCriteria: [undefined, [Validators.required]],
+            disbursementCriteria: [undefined],
             repayment: [undefined],
-            borrowerInformation: [undefined, [Validators.required]],
+            borrowerInformation: [undefined],
             interestAmount: [undefined],
             existingLimit: [undefined],
             outStandingLimit: [undefined],
@@ -490,7 +490,9 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
-        this.cadSetup.save();
+        if (this.loanType !== 'FULL_SETTLEMENT_LOAN') {
+            this.cadSetup.save();
+        }
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
