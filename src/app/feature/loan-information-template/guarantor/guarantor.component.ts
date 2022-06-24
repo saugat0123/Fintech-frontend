@@ -251,7 +251,6 @@ export class GuarantorComponent implements OnInit {
       nationality: [undefined],
       email: [undefined],
       shareHolding: [undefined],
-      guarantor: [undefined],
       managementTeam: [undefined],
       managementDesignation: [undefined],
       boardDirector: [undefined],
@@ -403,7 +402,6 @@ export class GuarantorComponent implements OnInit {
       submitData.nationality = c.get('nationality').value;
       submitData.email = c.get('email').value;
       submitData.shareHolding = c.get('shareHolding').value;
-      submitData.guarantor = c.get('guarantor').value;
       submitData.managementTeam = c.get('managementTeam').value;
       submitData.managementDesignation = c.get('managementDesignation').value;
       submitData.boardDirector = c.get('boardDirector').value;
@@ -495,7 +493,6 @@ export class GuarantorComponent implements OnInit {
     this.form.get(['guarantorDetails', index, 'nationality']).patchValue(data.nationality);
     this.form.get(['guarantorDetails', index, 'email']).patchValue(data.email);
     this.form.get(['guarantorDetails', index, 'shareHolding']).patchValue(data.shareHolding);
-    this.form.get(['guarantorDetails', index, 'guarantor']).patchValue(data.guarantor);
     this.form.get(['guarantorDetails', index, 'managementTeam']).patchValue(data.managementTeam);
     this.form.get(['guarantorDetails', index, 'managementDesignation']).patchValue(data.managementDesignation);
     this.form.get(['guarantorDetails', index, 'boardDirector']).patchValue(data.boardDirector);

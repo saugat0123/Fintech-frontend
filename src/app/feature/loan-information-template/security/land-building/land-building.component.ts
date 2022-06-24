@@ -335,7 +335,8 @@ export class LandBuildingComponent implements OnInit {
       addressLine2: [undefined],
       registerOffice: [undefined],
       freeLimit: [undefined],
-      landBuildingFirstValuationDate: [undefined]
+      landBuildingFirstValuationDate: [undefined],
+      isValuated: [undefined]
     });
   }
 
@@ -439,7 +440,8 @@ export class LandBuildingComponent implements OnInit {
           addressLine2: [formData.addressLine2],
           registerOffice: [formData.registerOffice],
           freeLimit: [formData.freeLimit],
-          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : '']
+          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : ''],
+          isValuated: [formData.isValuated]
         })
     );
   }

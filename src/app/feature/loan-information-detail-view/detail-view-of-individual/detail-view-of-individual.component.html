@@ -91,7 +91,7 @@
 </div>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-
+<hr>
     <app-report-summary
             [approved]="true"
             *ngIf="loanDataHolder?.reportingInfoLog"
@@ -100,6 +100,7 @@
 </div>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+    <hr>
     <span><strong>Loan Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
