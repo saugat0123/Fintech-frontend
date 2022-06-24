@@ -75,7 +75,6 @@ export class ProposalComponent implements OnInit {
     loanEnumType = LoanType;
     showInstallmentAmount = false;
     showRepaymentMode = false;
-    swapChargeChecked = false;
     subsidizedLoanChecked = false;
     client = environment.client;
     clientName = Clients;
@@ -521,7 +520,6 @@ export class ProposalComponent implements OnInit {
                 solChecked: this.solChecked,
                 waiverChecked: this.waiverChecked,
                 riskChecked: this.riskChecked,
-                swapChargeChecked: this.swapChargeChecked,
                 subsidizedLoanChecked: this.subsidizedLoanChecked,
                 deviationChecked: this.deviationChecked,
                 commitmentChecked: this.commitmentChecked,
@@ -632,14 +630,6 @@ export class ProposalComponent implements OnInit {
                     this.proposalForm.get('riskConclusionRecommendation').setValue(null);
                 }
                 break;
-            case 'swapCharge':
-                if (event) {
-                    this.swapChargeChecked = true;
-                } else {
-                    this.swapChargeChecked = false;
-                    this.proposalForm.get('swapCharge').setValue(null);
-                }
-                break;
             case 'subsidizedLoan':
                 if (event) {
                     this.subsidizedLoanChecked = true;
@@ -713,7 +703,6 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['riskChecked'], 'risk');
-            this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
             this.checkChecked(data['deviationChecked'], 'deviation');
             this.checkChecked(data['commitmentChecked'], 'commitment');

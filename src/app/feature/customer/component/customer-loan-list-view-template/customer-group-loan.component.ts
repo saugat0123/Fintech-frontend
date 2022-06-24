@@ -512,15 +512,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     return collateralRequirement * proposalLimit;
   }
 
-  changeLoan(id: number, loanConfigId: number) {
-    const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
-    modelRef.componentInstance.customerType = this.customerInfo.customerType;
-    modelRef.componentInstance.currentLoanConfigId = loanConfigId;
-    modelRef.componentInstance.customerLoanId = id;
-
-
-  }
-
   addVideoKyc(model) {
     this.customerLoanService.detail(model.id).subscribe((data) => {
       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
