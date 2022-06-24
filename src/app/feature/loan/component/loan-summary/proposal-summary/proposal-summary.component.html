@@ -45,7 +45,7 @@
                 <th>Limit Expiry/Tenure</th>
                 <th>Repayment Mode</th>
                 <th>Other Details</th>
-                <th>Purpose of Loan</th>
+<!--                <th>Purpose of Loan</th>-->
                    </thead>
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList; let i = index"
@@ -116,27 +116,6 @@
 
                         </td>
                 <td>
-                <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
-                    <span >Loan Administration: </span>
-                    <div *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
-                        Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
-                    <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
-                </ng-container>
-            <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
-                <span >Commitment Fee :</span>
-                <span>{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
-            </ng-container>
-            <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
-                <span >Prepayment Fee: </span>
-                <span>{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
-            </ng-container>
-            <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
-                <span >Swap Fee: </span>
-                <span>{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
-
-            </ng-container>
-                </td>
-                <td>
                     <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else tenure;">
                         <table>
                             <tr class="text-white sb-bg-dark">
@@ -165,10 +144,29 @@
                     </ng-template>
                 </td>
                 <td>
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.purposeOfLoan">
-                        {{(loan?.proposal?.data | jsonParse)?.purposeOfLoan}}
-                    </span>
+                <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge" class="pr-1">
+                    <span >Loan Administration: </span>
+                    <div *ngIf="(loan.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
+                        Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+                    <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+                </ng-container>
+            <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
+                <span >Commitment Fee :</span>
+                <span>{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</span>
+            </ng-container>
+            <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
+                <span >Prepayment Fee: </span>
+                <span>{{loan?.proposal?.prepaymentCharge || 'N/A'}}</span>
+            </ng-container>
+            <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
+                <span >Swap Fee: </span>
+                <span>{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
+
+            </ng-container>
                 </td>
+<!--                <td>-->
+<!--                    <span  [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan | safeHtml"></span>-->
+<!--                </td>-->
             </tr>
             <tr *ngFor="let loanDto of customerLoanDtoList"
                 [class.font-weight-bold]="proposalData?.id === loanDto?.proposal?.id">
@@ -268,7 +266,6 @@
                 <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                         <td>-</td>
                         <td>-</td>
-                        <td>-</td>
                         <td *ngIf="!isRemit">-</td>
                         <td>-</td>
                         <td>-</td>
@@ -301,7 +298,6 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
                     <td *ngIf="!isRemit">-</td>
 
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
@@ -324,7 +320,6 @@
                 </td>
                 <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                     <td >-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>

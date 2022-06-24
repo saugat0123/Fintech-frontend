@@ -94,7 +94,7 @@
                 <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.email || 'N/A'}}</td>
+                <td class=" text-left ">{{(subGuarantor?.guarantorJson | jsonParse)?.email || 'N/A'}}</td>
               </tr>
               <tr>
                 <td class=" text-left ">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
