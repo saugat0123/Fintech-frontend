@@ -20,9 +20,9 @@
     <div class="col-md-12" *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION
      || customerCategory === 'executing' || customerType === 'INDIVIDUAL'">
         <span class="float-left"><strong>Group Limit {{groupPosition?.length > 0 ? '': 'NA'}}</strong></span>
-        <table class="table table-responsive-md table-bordered text-center table-sm" *ngIf="groupPosition?.length > 0">
+        <table class="table table-responsive-md table-bordered text-center table-sm sb-small" *ngIf="groupPosition?.length > 0">
             <thead class="sb-bg-dark text-white">
-            <tr class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <tr>
                 <th rowspan="2" class="sn">SN</th>
                 <th rowspan="2">Group concerns/Borrowers</th>
                 <th colspan="3">Existing</th>
@@ -31,7 +31,7 @@
                 <th rowspan="2">Pricing</th>
                 <th rowspan="2">Maturity</th>
             </tr>
-            <tr class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <tr>
                 <th>FB limit</th>
                 <th>NFB limit</th>
                 <th>Total</th>
@@ -69,7 +69,8 @@
             </tr>
             </tbody>
         </table>
-        <table *ngIf="customerType === 'INSTITUTION'" class="table table-responsive-md table-bordered sb-small text-center table-sm">
+        <table *ngIf="customerType === 'INSTITUTION'"
+               class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th>Outstanding Overdue</th>
