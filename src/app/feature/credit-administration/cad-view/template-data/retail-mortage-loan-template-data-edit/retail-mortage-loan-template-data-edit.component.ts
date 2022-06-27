@@ -94,6 +94,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
 
   ngOnInit() {
     this.setDateFlag();
+    this.buildmortgage();
     this.securityDetails = this.initialInformation.securityDetails;
     if (!ObjectUtil.isEmpty(this.initialInformation.securityDetails)) {
       this.securityDetails.forEach((security) => {
@@ -102,7 +103,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
     } else {
       this.addDefaultSecurity();
     }
-    this.buildmortgage();
     this.getAllProvince();
     this.getAllDistrict();
     this.setSecurityData();
@@ -531,35 +531,37 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
 
   public setSecurityData(): void {
     const securitiesControl = this.form.get('securities') as FormArray;
-    this.securities.forEach((data: Securities, index) => {
-      this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
-      securitiesControl.push(
-          this.formBuilder.group({
-            securityOwnersName: [data.securityOwnersName],
-            securityOwnersNameTransVal: [data.securityOwnersNameCT],
-            securityOwnersNameCT: [data.securityOwnersNameCT],
-            securityOwnersDistrict: [data.securityOwnersDistrict],
-            securityOwnersDistrictTransVal: [data.securityOwnersDistrictCT],
-            securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
-            securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
-            securityOwnersMunicipality: [data.securityOwnersMunicipality],
-            securityOwnersMunicipalityTransVal: [data.securityOwnersMunicipalityCT],
-            securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
-            securityOwnersWardNo: [data.securityOwnersWardNo],
-            securityOwnersWardNoTransVal: [data.securityOwnersWardNoCT],
-            securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
-            securityOwnersSeatNo: [data.securityOwnersSeatNo],
-            securityOwnersSeatNoTransVal: [data.securityOwnersSeatNoCT],
-            securityOwnersSeatNoCT: [data.securityOwnersSeatNoCT],
-            securityOwnersKittaNo: [data.securityOwnersKittaNo],
-            securityOwnersKittaNoTransVal: [data.securityOwnersKittaNoCT],
-            securityOwnersKittaNoCT: [data.securityOwnersKittaNoCT],
-            securityOwnersLandArea: [data.securityOwnersLandArea],
-            securityOwnersLandAreaTransVal: [data.securityOwnersLandAreaCT],
-            securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
-          })
-      );
-    });
+    if (!ObjectUtil.isEmpty(this.securities)) {
+      this.securities.forEach((data: Securities, index) => {
+        this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+        securitiesControl.push(
+            this.formBuilder.group({
+              securityOwnersName: [data.securityOwnersName],
+              securityOwnersNameTransVal: [data.securityOwnersNameCT],
+              securityOwnersNameCT: [data.securityOwnersNameCT],
+              securityOwnersDistrict: [data.securityOwnersDistrict],
+              securityOwnersDistrictTransVal: [data.securityOwnersDistrictCT],
+              securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
+              securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
+              securityOwnersMunicipality: [data.securityOwnersMunicipality],
+              securityOwnersMunicipalityTransVal: [data.securityOwnersMunicipalityCT],
+              securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
+              securityOwnersWardNo: [data.securityOwnersWardNo],
+              securityOwnersWardNoTransVal: [data.securityOwnersWardNoCT],
+              securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
+              securityOwnersSeatNo: [data.securityOwnersSeatNo],
+              securityOwnersSeatNoTransVal: [data.securityOwnersSeatNoCT],
+              securityOwnersSeatNoCT: [data.securityOwnersSeatNoCT],
+              securityOwnersKittaNo: [data.securityOwnersKittaNo],
+              securityOwnersKittaNoTransVal: [data.securityOwnersKittaNoCT],
+              securityOwnersKittaNoCT: [data.securityOwnersKittaNoCT],
+              securityOwnersLandArea: [data.securityOwnersLandArea],
+              securityOwnersLandAreaTransVal: [data.securityOwnersLandAreaCT],
+              securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
+            })
+        );
+      });
+    }
   }
 
   mappedData() {
