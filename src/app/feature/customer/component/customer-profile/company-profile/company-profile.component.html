@@ -290,7 +290,7 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion.expanded"
+                  <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion?.expanded"
                                                 (triggerCustomerRefresh)="refreshCustomerInfo()"
                                                 (responseData)="setMGroupData($event)"
                                                 [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>

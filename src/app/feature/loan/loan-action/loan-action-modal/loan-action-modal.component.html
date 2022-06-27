@@ -64,10 +64,10 @@
                     </div>
                 </div>
 
-                <div *ngIf="isMaker" hidden>
+                <div *ngIf="isMaker">
                     <div class="col-md-12">
                         <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)"
-                                     [checked]="customerLoanHolder.isSol">is SOL?
+                                     [checked]="customerLoanHolder.isSol">Approving Authority
                         </nb-checkbox>
                     </div>
                     <div *ngIf="isNoUserSelectedSol" class="sb-small text-danger">{{solNoUserSelectedMessage}}</div>

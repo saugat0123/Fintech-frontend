@@ -29,7 +29,7 @@ export class DataVisualizationComponent implements OnInit {
   startDate = '';
   endDate = '';
   selectedBranch = 'All Branches';
-  view: any[];
+  view: any[] = [1350, 375];
   colorScheme = {
     domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4', '#ADD8E6', '#808000']
   };

@@ -245,7 +245,7 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Include EMI of other BFIs" appDecimalNumber/>
+                               placeholder="Include EMI of other BFIs"/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
