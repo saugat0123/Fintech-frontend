@@ -121,7 +121,6 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        console.log(this.formAction.value);
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -166,8 +165,8 @@ export class LoanActionModalComponent implements OnInit {
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isSol: [undefined],
-            solUser: [undefined],
-            selectedRoleForSol: [undefined]
+            solUser: [this.customerLoanHolder.isSol ? [Validators.required] : []],
+            selectedRoleForSol: [this.customerLoanHolder.isSol ? [Validators.required] : []]
         });
     }
 
@@ -280,8 +279,10 @@ export class LoanActionModalComponent implements OnInit {
                 isSol: true
             });
             if (this.customerLoanHolder.isSol) {
-                this.formAction.get('solUser').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser);
-                this.formAction.get('selectedRoleForSol').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser.role);
+                this.formAction.get('solUser').patchValue(
+                    ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser);
+                this.formAction.get('selectedRoleForSol').patchValue(
+                    ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser.role);
             }
             this.formAction.get('solUser').setValidators(Validators.required);
             this.formAction.get('solUser').updateValueAndValidity();
