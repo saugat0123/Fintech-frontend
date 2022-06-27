@@ -97,6 +97,9 @@
                                             [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
                                 </div>
                             </ng-container>
+                                <div *ngIf="this.primarySecurityFreeTable !== null" class="row" [innerHTML]="primarySecurityFreeTable | safeHtml"
+                                    style="margin-left: 0.1rem;width: 99.5%">
+                                </div>
                             </li>
 
                             <!-- Applicable if only hypothecation letter is required-->
@@ -264,7 +267,7 @@
                                     </span>
                                 </p>
                             </li>
-                            <div *ngIf="this.free !== null" class="row nepaliFont" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
+                            <div *ngIf="this.free !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
@@ -383,6 +386,9 @@
                                             [securityDetails]="tempSecondaryLandBuilding && tempSecondaryLandBuilding[i] ? tempSecondaryLandBuilding[i] : []"></app-master-secondary-securities-view>
                                 </div>
                             </ng-container>
+                                <div *ngIf="this.secondarySecurityFreeTable !== null" class="row" [innerHTML]="secondarySecurityFreeTable | safeHtml"
+                                     style="margin-left: 0.1rem;width: 99.5%">
+                                </div>
                             </li>
 
                             <!--FREE ROWS FOR TABLE -->
