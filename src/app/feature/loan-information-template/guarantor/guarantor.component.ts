@@ -17,6 +17,9 @@ import {Occupation} from '../../admin/modal/occupation';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
+import {CompanyService} from '../../admin/component/company/company.service';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {CompanyInfoService} from '../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-guarantor',
@@ -58,17 +61,22 @@ export class GuarantorComponent implements OnInit {
     referencedLoanList = [];
     isExistingCustomerValue: any;
     isExistingCustomer = [];
+    companyInfo: any;
+    companyJsonData: any
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
         private toastService: ToastService,
         private blackListService: BlacklistService,
         private overlay: NgxSpinnerService,
-        private customerLoanService: LoanFormService
+        private customerLoanService: LoanFormService,
+        private customerInfoService: CustomerInfoService,
+        private companyInfoService: CompanyInfoService,
     ) {
     }
 
     ngOnInit() {
+        console.log(this.customerInfo, 'customer info')
         this.buildForm();
         this.getProvince();
         this.getAllDistrict();
@@ -80,7 +88,20 @@ export class GuarantorComponent implements OnInit {
         this.isExistingCustomerValue = this.isExistingCustomer;
         this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerLoanList = res.detail;
+            console.log(this.customerLoanList, 'customerLoanList');
         });
+        // this.customerInfoService.detail(this.customerInfo.id).subscribe(response => {
+        //     console.log(response, 'response');
+        // });
+        this.companyInfoService.detail(this.customerInfo.associateId).subscribe(response => {
+            this.companyJsonData = JSON.parse(response.detail.companyJsonData);
+            console.log(this.companyJsonData, 'company json Data');
+            console.log(response.detail.filter(d => d.companyJsonData.proprietorList !== null));
+        });
+
+
+
+
     }
 
     buildForm() {
@@ -398,4 +419,6 @@ export class GuarantorComponent implements OnInit {
     getExistingCustomerValue(index: number) {
          this.isExistingCustomerValue[index] = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
     }
+
 }
+
