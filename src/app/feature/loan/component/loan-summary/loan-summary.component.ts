@@ -208,7 +208,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     zipDocName;
     loaded = false;
     combinedLoanList = [];
-    combinedAllLoanList = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -559,10 +558,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 const combinedLoans = this.customerAllLoanList
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
                 if (combinedLoans.length > 0) {
-                    this.combinedLoanList = combinedLoans;
                     const combinedLoanId = combinedLoans[0].combinedLoan.id;
                     this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
-                        this.combinedAllLoanList = response.detail.loans;
+                        this.combinedLoanList = response.detail.loans;
                         (response.detail as CombinedLoan).loans.forEach((cl) => {
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {

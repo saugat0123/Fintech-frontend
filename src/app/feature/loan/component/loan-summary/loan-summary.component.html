@@ -1269,9 +1269,9 @@
 <!--                </div>-->
 <!--            </div>-->
                 <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && loaded && loanDataHolder && combinedLoanList"
-                                             [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList" [combinedLoanAllApproved]="combinedAllLoanList"></app-loan-summary-individual>
+                                             [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-individual>
                 <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'  && loaded && loanDataHolder && combinedLoanList"
-                                                [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList" [combinedLoanAllApproved]="combinedAllLoanList"></app-loan-summary-institutional>
+                                                [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-institutional>
             </div>
         </nb-card-body>
     </nb-card>

@@ -183,7 +183,6 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   isShareLoan = false;
   loanTagEnum = LoanTag;
   @Input() combinedLoan: any;
-  @Input() combinedLoanAllApproved: any;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -747,22 +746,14 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   flagShareSecurity() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-      let customerLen = 0;
-      let finalSelectedArr = [];
-      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-        customerLen = !ObjectUtil.isEmpty(this.combinedLoanAllApproved) ? this.combinedLoanAllApproved.length : 0;
-        finalSelectedArr = this.combinedLoanAllApproved;
-      } else {
-        customerLen = !ObjectUtil.isEmpty(this.combinedLoan) ? this.combinedLoan.length : 0;
-        finalSelectedArr = this.combinedLoan;
-      }
+      const customerLen = !ObjectUtil.isEmpty(this.combinedLoan) ? this.combinedLoan.length : 0;
       if (customerLen >= 1) {
         let finalData: any;
         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+          finalData = this.combinedLoan.filter((data) => data.loan.loanTag
               === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY));
         } else {
-          finalData = finalSelectedArr.filter((data) => data.loan.loanTag
+          finalData = this.combinedLoan.filter((data) => data.loan.loanTag
               === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY) && data.documentStatus.toString() !== 'APPROVED');
         }
         if (finalData.length >= 1) {
