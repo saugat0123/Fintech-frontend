@@ -4,12 +4,12 @@
       *ngFor="let loandeed of loanDeedIndividual.get('loanDeedIndividuals')['controls'];
         let i = index" formArrayName="loanDeedIndividuals">
       <div class="col-md-12" [formGroupName]="i">
-        <p class="text-center" style="font-size: 16pt">
-          <b>विषयः ऋण तमसुक </b>
+        <p class="text-center" style="font-size: 16pt; font-weight: bold">
+         विषयः ऋण तमसुक
         </p>
         <p class="text-justify">
           लिखितम धनीका नाम काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका, तिनधारा विणा मार्ग दरबारमार्ग स्थित
-          <b>“नविल सेन्टरमा”</b>
+          <span style="font-weight: bold">“नविल सेन्टरमा”</span>
           मा मुख्य कार्यालय रही
           <input
             class="form-field form-control-sm d-print-none"
@@ -18,7 +18,7 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span> मा
-          शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस <b> " धनी बैंक " </b>
+          शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस <span style="font-weight: bold"> " धनी बैंक " </span>
           भनिएको छ) लिखत गरी दिनेका नाम-
           <input
             class="form-field form-control-sm d-print-none"
@@ -239,13 +239,13 @@
           ऋणकर्जाको तपांई धनी बैंकलाई तिर्नुपर्ने साँवा, ब्याज ,थप ब्याज, कमिशन शुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृती पत्रानुसार तोकिए बमोजिम
           नतिरे नबुझाएमा वा तिर्नु बुझाउन आलटाल गरेमा वा किस्ता खिलाफी गरेमा वा ऋण स्वीकृती पत्र तथा सुरक्षण लिखतहरुको कुनै शर्त उल्लंघन गरेमा समेत
           म/हामी ऋणी (हरु)/ऋणी को नाउँमा तपाई धनी बैंकमा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा गरी तथा धितो लेखिदिएको श्रीसम्पत्ति
-          <b>बैंक तथा वित्तिय संस्था सम्बन्धी ऐन २०७३</b>बमोजिम लिलाम बिक्रि वा अन्य ब्यवस्था गरी तपाई धनी बैंकको सम्पुर्ण लेना रकम असुल उपर गरिलिनुहोला । कथमकदाचित
+          <span style="font-weight: bold">बैंक तथा वित्तिय संस्था सम्बन्धी ऐन २०७३</span>बमोजिम लिलाम बिक्रि वा अन्य ब्यवस्था गरी तपाई धनी बैंकको सम्पुर्ण लेना रकम असुल उपर गरिलिनुहोला । कथमकदाचित
           धितो लेखिदिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्री हुन नसकेमा वा लिलाममा बिक्री हुदासमेत तपाई धनी बैंकको सम्पुर्ण लेना रकम असुल उपर नभएमा
           मेरो/हाम्रो घरघरानाको श्रीसम्पत्तिबाट समेत असुल उपर गरी लिनुहोला भनी देहायका साक्षीहरुको रोहबरमा तपाई धनी बैंकको कार्यालयमा बसी यो लिखतमा सहीछाप
           गरी तपाई धनी बैंकलाई दिएँ/दियौं र यसको दोहरी समेत बुझिलिएँ/लियौं ।
         </p>
 
-        <p class="text-center"><b>स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको विवरण</b></p>
+        <p class="text-center"><span style="font-weight: bold">स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको विवरण</span></p>
         <table class="table table-bordered table-sm sb-small text-center">
           <thead>
             <tr>
@@ -381,7 +381,7 @@
        <ng-container *ngIf="offerDocumentDetails?.selectedSecurity !== undefined">
          <div *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'LAND_AND_BUILDING' || offerDocumentDetails?.selectedSecurity?.en === 'LAND' || offerDocumentDetails?.selectedSecurity?.en === 'LAND_ONLY'"
               class="mt-4">
-           <p class="text-center"><b>तपसिल</b></p>
+           <p class="text-center" style="font-weight: bold">तपसिल</p>
            <p>
              उपरोक्त ऋणकर्जा तथा बैंकिङ्ग सुविधाको सुरक्षण वापत देहाय बमोजिमको
              घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
@@ -396,7 +396,7 @@
        </ng-container>
           <ng-container *ngIf="offerDocumentDetails?.loanType !== undefined">
               <div class="mt-4" *ngIf="offerDocumentDetails?.loanType === 'CONSTRUCTION' || offerDocumentDetails?.loanType === 'TAKE OVER' || offerDocumentDetails?.loanType === 'PURCHASE'">
-                  <p class="text-center"><b>तपसिल</b></p>
+                  <p class="text-center" style="font-weight: bold">तपसिल</p>
                   <p>
                       उपरोक्त ऋणकर्जा तथा बैंकिङ्ग सुविधाको सुरक्षण वापत देहाय बमोजिमको
                       घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
@@ -411,7 +411,7 @@
           </ng-container>
           <div class="mt-4"
                *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL'">
-              <p class="text-center" style="margin-top: -1em;"><b>तपसिल</b></p>
+              <p class="text-center" style="margin-top: -1em; font-weight: bold">तपसिल</p>
               <p style="margin-top: -1em;">
                   उपरोक्त ऋणकर्जाको सुरक्षण बापत निम्न बमोजिमको सवारी साधन तपांई धनी बैंकको नाममा नामसारी गरीदिएको
                   छु/छौं ।
