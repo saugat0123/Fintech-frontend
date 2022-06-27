@@ -228,8 +228,10 @@ export class DetailViewBaseComponent implements OnInit {
                     }
                 });
             if (this.loanDataHolder.isSol) {
-                if (this.loanDataHolder.solUser.id !== this.user.id) {
-                    this.actionsList.approved = false;
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.solUser)) {
+                    if (this.loanDataHolder.solUser.id !== this.user.id) {
+                        this.actionsList.approved = false;
+                    }
                 }
             }
 
