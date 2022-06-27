@@ -73,6 +73,8 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   freeTextVal;
   table;
   freeInformation;
+  primarySecurityFreeTable: any;
+  secondarySecurityFreeTable: any;
 
   constructor(private formBuilder: FormBuilder,
               public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
@@ -82,14 +84,33 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.securityDetails = this.tempData.securities;
-      
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+      const tempFree = '<table border="1" cellpadding="1" cellspacing="1" style="width:100%"><tbody>' +
+          '<tr><td colspan="1" rowspan="2" style="text-align:center">' +
+          '<strong>घर/जग्गा धनीको नाम थर</strong></td><td colspan="3" rowspan="1" style="text-align:center">' +
+          '<strong>घर/जग्गाको अवस्थिति</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
+          '<strong>सिट नं.</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
+          '<strong>कित्ता नं.</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
+          '<strong>क्षेत्रफल</strong></td></tr><tr><td style="text-align:center">' +
+          '<strong>जिल्ला</strong></td><td style="text-align:center"><strong>नगर/गा.वि.स.</strong></td>' +
+          '<td style="text-align:center"><strong>वडा नं.</strong></td></tr><tr>' +
+          '<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>' +
+          '<td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>' +
+          '&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>' +
+          '<td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
+      this.primarySecurityFreeTable = this.secondarySecurityFreeTable = tempFree;
       if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
         this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
         this.form.get('freeText2').patchValue(this.freeTextVal.section3.freeText2);
         this.form.get('freeText5').patchValue(this.freeTextVal.section3.freeText5);
         this.table = this.freeTextVal.section3.freeTable;
+        if (this.freeTextVal.section3.primarySecurityFreeTable !== '') {
+          this.primarySecurityFreeTable = this.freeTextVal.section3.primarySecurityFreeTable;
+        }
+        if (this.freeTextVal.section3.secondarySecurityFreeTable !== '') {
+          this.secondarySecurityFreeTable = this.freeTextVal.section3.secondarySecurityFreeTable;
+        }
       }
       this.fillForm();
       this.guarantorData.forEach(any => {
@@ -135,6 +156,8 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       personalGuarantorAmountInWords: [undefined],
       personalGuaranteeName: [undefined],
       freeTable: [undefined],
+      primarySecurityFreeTable: [undefined],
+      secondarySecurityFreeTable: [undefined]
 
     });
   }

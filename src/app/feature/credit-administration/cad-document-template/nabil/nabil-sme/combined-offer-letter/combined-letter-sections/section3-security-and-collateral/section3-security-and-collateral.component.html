@@ -104,6 +104,8 @@
                                             [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
                                 </div>
                             </ng-container>
+                                <ckeditor formControlName="primarySecurityFreeTable" [(ngModel)]="primarySecurityFreeTable"
+                                          [config]="ckEditorConfig"></ckeditor>
                             </li>
                             <!-- Applicable if only hypothecation letter is required-->
                             <li *ngIf="securityTypeHypothecationCondition">
@@ -457,6 +459,8 @@
                                             [securityDetails]="tempSecondaryLandBuilding && tempSecondaryLandBuilding[i] ? tempSecondaryLandBuilding[i] : []"></app-master-secondary-securities-view>
                                 </div>
                             </ng-container>
+                                <ckeditor formControlName="secondarySecurityFreeTable" [(ngModel)]="secondarySecurityFreeTable"
+                                          [config]="ckEditorConfig"></ckeditor>
                             </li>
 
                             <!--<div class="optional" class="pb-4" *ngIf="securityTypeSecondaryCondition">

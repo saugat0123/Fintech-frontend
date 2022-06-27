@@ -114,6 +114,14 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     // }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
+    const tempComplemetry = this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complementaryOther']).value;
+    if (!ObjectUtil.isEmpty(tempComplemetry)) {
+      this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complementaryOtherTrans']).patchValue(tempComplemetry);
+    }
+    const tempComplimentaryLoan = this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complimentaryLoanSelected']).value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
+      this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoan);
+    }
     const tempLoanAmount = this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
@@ -194,6 +202,12 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     // this.overdraftLoanForm.get('arFinancingCT').patchValue(
     //     this.overdraftLoanForm.get('arFinancingTrans').value
     // );
+    this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complementaryOtherCT']).patchValue(
+        this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complementaryOtherTrans']).value
+    );
+    this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complimentaryLoanSelectedCT']).patchValue(
+        this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'complimentaryLoanSelectedTrans']).value
+    );
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'loanAmountCT']).patchValue(
         this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'loanAmountTrans']).value
     );
@@ -244,6 +258,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     return this.formBuilder.group({
       // For form Data
       // arFinancing: [undefined],
+      complementaryOther: [undefined],
+      complimentaryLoanSelected: [undefined],
       subsidyOrAgricultureLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -258,6 +274,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
 
       // For translated Data
       // arFinancingTrans: [undefined],
+      complementaryOtherTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       arDaysTrans: [undefined],
@@ -271,6 +289,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
 
       // For corrected Data
       // arFinancingCT: [undefined],
+      complementaryOtherCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       arDaysCT: [undefined],
@@ -301,6 +321,12 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       this.overdraftLoanForm.get(['overdraftLoanFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
     });
+  }
+
+  checkComplimetryOtherLoan(data, i) {
+    if (!data) {
+      this.overdraftLoanForm.get(['overdraftLoanFormArray', i, 'complementaryOther']).patchValue(data);
+    }
   }
 
 }
