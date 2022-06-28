@@ -139,9 +139,9 @@
                 </table>
             </div>
         </div>
-        <hr class="print-line">
         <p class="header" [hidden]="loanCategory === 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
             Profile</strong></p>
+        <hr class="print-line">
         <div class="row">
             <div class="col-md-12">
                 <app-remit-profile [isRemit]="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-profile>
@@ -261,8 +261,8 @@
         </ng-container>
         <!--                remit specific-->
         <div class="row mt-1">
-            <hr class="print-line">
             <div class="col-md-12" *ngIf="isRemitLoan">
+                <hr class="print-line">
                 <p><b class="header"> Financial/ Repayment Ability: Primary Source of Income</b></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead class="sb-bg-dark">
@@ -474,10 +474,17 @@
         <div class="row">
             <div class="col-md-12">
                 <hr class="print-line">
-                <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left"
-                                                                                     style="display: flex"
-                                                                                     [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                </p>
+                <p><strong class="header text-left">Purpose of Loan: </strong></p>
+                <table class="table table-borderless table-responsive">
+                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                        <tr>
+                            <td>
+                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="print-only">
@@ -641,10 +648,10 @@
                     </table>
                 </div>
             </div>
-            <hr class="print-line">
 
             <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
+                <hr class="print-line">
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>

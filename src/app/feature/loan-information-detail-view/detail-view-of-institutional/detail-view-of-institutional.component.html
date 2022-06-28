@@ -34,12 +34,21 @@
 
 <ng-container>
     <div class="row  mt-1">
+        <hr class="print-line">
         <div class="col-md-12">
             <div>
                 <div class = "col-md-12">
-                    <hr class="print-line">
-                    <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                    </p>
+                    <p><strong  class="header text-left">Purpose of Loan: </strong></p>
+                    <table class="table table-borderless table-responsive">
+                        <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                        <tr>
+                            <td>
+                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                     <hr class="print-line">
@@ -51,13 +60,13 @@
                 </div>
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
                 <ng-container *ngIf="smallBusiness">
+                    <hr class="print-line">
                     <div class = "col-md-12">
-                        <hr class="print-line">
                         <p><strong  class="header text-left">Justification for Change (Historical): </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
+                    <hr class="print-line">
                     <div class = "col-md-12">
-                        <hr class="print-line">
                         <p><strong  class="header text-left">Justification for Change (Projection) : </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
