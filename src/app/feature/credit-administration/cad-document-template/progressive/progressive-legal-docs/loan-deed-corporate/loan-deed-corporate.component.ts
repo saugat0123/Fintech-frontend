@@ -112,7 +112,8 @@ export class LoanDeedCorporateComponent implements OnInit {
       this.form.get(['swikritiBibaran', 0, 'approvedSubidhakisim']).patchValue(this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '');
       this.form.get(['swikritiBibaran', 0, 'approvedAmount']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '');
       this.form.get(['swikritiBibaran', 0, 'approvedAmountInWords']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '');
-      this.form.get(['swikritiBibaran', 0, 'approvedCommision']).patchValue(this.nepDataPersonal.serviceFeePercent ? this.nepDataPersonal.serviceFeePercent : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedCommision']).patchValue(this.nepDataPersonal.interestRate ? this.nepDataPersonal.interestRate : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedServiceRate']).patchValue(this.nepDataPersonal.serviceFeePercent ? this.nepDataPersonal.serviceFeePercent : '');
       this.form.get(['swikritiBibaran', 0, 'approvedLoanTime']).patchValue(this.nepDataPersonal.tenureOfLoanInYears ? this.nepDataPersonal.tenureOfLoanInYears : '');
       this.setSecurity(this.nepaliData.collateralDetails);
     }
@@ -131,6 +132,7 @@ export class LoanDeedCorporateComponent implements OnInit {
         approvedAmount: [value.approvedAmount],
         approvedAmountInWords: [value.approvedAmountInWords],
         approvedCommision: [value.approvedCommision],
+        approvedServiceRate: [value.approvedServiceRate],
         approvedLoanTime: [value.approvedLoanTime],
       }));
     });
