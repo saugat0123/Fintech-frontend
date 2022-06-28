@@ -31,6 +31,7 @@ import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 import {AmountWordPipe} from './@core/pipe/amount-word.pipe';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import { ReleaseInfoComponent } from './@core/release-info/release-info.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         LoginBaseComponent,
         NewPasswordComponent,
         TimeOutPopUpComponent,
+        ReleaseInfoComponent
 
     ],
     imports: [
