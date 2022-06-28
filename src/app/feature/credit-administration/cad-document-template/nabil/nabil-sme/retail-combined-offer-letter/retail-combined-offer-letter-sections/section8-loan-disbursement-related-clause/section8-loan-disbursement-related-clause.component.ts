@@ -17,8 +17,9 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
   takeOverArray: Array<any> = new Array<any>();
   loanHolderInfo;
   branchName: String;
-  freeTextVal: {};
+  freeTextVal: any = {};
   shareLoanFreeTextArray: Array<any> = new Array<any>();
+  mortgageLoanFreeTextArray: Array<any> = new Array<any>();
   personalLoanFreeTextArray: Array<any> = new Array<any>();
   tempInformation;
   constructor(
@@ -73,7 +74,7 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
     });
     this.setFormArrays();
     this.patchFormData();
-    this.patchShareDemandFreeText();
+    // this.patchShareDemandFreeText();
   }
   patchShareDemandFreeText() {
     if (!ObjectUtil.isEmpty(this.tempInformation) &&
@@ -82,22 +83,22 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialData) &&
           !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm) &&
           !ObjectUtil.isEmpty(this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
-        // this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
-        //   this.form.get(['shareLoanDemandFormArray', i, 'freetext11']).patchValue(
-        //       !ObjectUtil.isEmpty(this.tempInformation.section8.loanDemandFreeText[i]) &&
-        //       !ObjectUtil.isEmpty(this.tempInformation.section8.loanDemandFreeText[i].freetext11) ?
-        //           this.tempInformation.section8.loanDemandFreeText[i].freetext11 : '');
-        // });
+        this.initialData.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val, i) => {
+          this.form.get(['shareLoanDemandFormArray', i, 'freetext11']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section8.loanDemandFreeText[i]) &&
+              !ObjectUtil.isEmpty(this.tempInformation.section8.loanDemandFreeText[i].freetext11) ?
+                  this.tempInformation.section8.loanDemandFreeText[i].freetext11 : '');
+        });
       }
       if (!ObjectUtil.isEmpty(this.initialData) &&
           !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
           !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
-        // this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
-        //   this.form.get(['personalLoanFormArray', i, 'amtNum']).patchValue(
-        //       !ObjectUtil.isEmpty(this.tempInformation.section8.personalLoanFreeText[i]) &&
-        //           !ObjectUtil.isEmpty(this.tempInformation.section8.personalLoanFreeText[i].amtNum) ?
-        //           this.tempInformation.section8.personalLoanFreeText[i].amtNum : '');
-        // });
+        this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
+          this.form.get(['personalLoanFormArray', i, 'amtNum']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section8.personalLoanFreeText[i]) &&
+                  !ObjectUtil.isEmpty(this.tempInformation.section8.personalLoanFreeText[i].amtNum) ?
+                  this.tempInformation.section8.personalLoanFreeText[i].amtNum : '');
+        });
       }
     }
   }
@@ -109,6 +110,9 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
           this.form.get(['mortgageLoanFormArray', i, 'loanAmtFigure1']).patchValue(val.loanAmountCT ? val.loanAmountCT : '');
           this.form.get(['mortgageLoanFormArray', i, 'loanAmtWords3']).patchValue(val.loanAmountWordsCT ? val.loanAmountWordsCT : '');
           this.form.get(['mortgageLoanFormArray', i, 'nameOfBeneficiary4']).patchValue(val.beneficiaryNameCT ? val.beneficiaryNameCT : '');
+          this.form.get(['mortgageLoanFormArray', i, 'mortgageClause']).patchValue(!ObjectUtil.isEmpty(this.tempInformation) ?
+              !ObjectUtil.isEmpty(this.tempInformation.section8) ?
+                  this.tempInformation.section8.mortgageClauseFreeText[i].mortgageClause : '' : '');
         });
       }
 
@@ -348,11 +352,13 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       freetext8: [undefined],
       freetext9: [undefined],
       freetext11: [undefined],
+      mortgageClause: [false],
     });
   }
   setTextAreaValue() {
     this.freeTextVal = {
       loanDemandFreeText: this.shareLoanFreeText(),
+      mortgageClauseFreeText: this.mortgageClauseFreeText(),
       // personalLoanFreeText: this.personalLoanFreeText(),
     };
     return this.freeTextVal;
@@ -369,6 +375,21 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
         this.shareLoanFreeTextArray.push(tempFreeText);
       }
       return this.shareLoanFreeTextArray;
+    }
+  }
+
+  mortgageClauseFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm) &&
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+      for (let val = 0; val < this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray.length; val++) {
+        const tempFreeText = {
+          mortgageClause: this.form.get(['mortgageLoanFormArray', val, 'mortgageClause']).value ?
+              this.form.get(['mortgageLoanFormArray', val, 'mortgageClause']).value : '',
+        };
+        this.mortgageLoanFreeTextArray.push(tempFreeText);
+      }
+      return this.mortgageLoanFreeTextArray;
     }
   }
   // personalLoanFreeText() {
