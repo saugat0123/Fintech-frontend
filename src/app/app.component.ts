@@ -18,10 +18,8 @@ export class AppComponent implements OnInit {
 
     public constructor (private titleService: Title,
                         public translate: TranslateService,
-                        private versionCheckService: VersionCheckService,
-                        private releaseService: ReleaseService
+                        private versionCheckService: VersionCheckService
                         ) {
-                          this.releaseService.checkForNewRelease();
         this.titleService.setTitle(environment.client);
         translate.addLangs(['en', 'np']);
 
