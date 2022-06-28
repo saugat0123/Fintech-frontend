@@ -110,7 +110,7 @@ export class LoanActionModalComponent implements OnInit {
                             toUser: this.userList[0]
                         });
                     } else {
-                        this.showUserList = false;
+                        this.showUserList = true;
                         this.formAction.patchValue({
                             toUser: committeeDefaultUser[0]
                         });

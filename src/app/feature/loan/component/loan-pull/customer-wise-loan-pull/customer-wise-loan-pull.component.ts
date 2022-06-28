@@ -97,10 +97,12 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         other.loanHolderLoanList = [];
         other.catalogueService.search.committee = 'true';
         other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+            console.log('detail', response.detail);
             other.loanHolderLoanList = response.detail.content;
             other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
             other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
-
+            console.log('loanHolderLoanList', other.loanHolderLoanList);
+            console.log('loanForCombine', other.loanForCombine);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
