@@ -224,7 +224,7 @@
                                             <span *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId; else notInBucket">In My bucket</span>
                                         </ng-template>
                                         <ng-template #notInBucket>
-                                            <span>Already pulled by {{l?.currentStage?.toUser?.name}}</span>
+                                            <span>Pulled by {{l?.currentStage?.toUser?.name}}</span>
                                         </ng-template>
                                     </td>
 
