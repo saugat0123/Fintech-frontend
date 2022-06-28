@@ -27,7 +27,6 @@
     "@nebular/theme": "^4.6.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ng-select/ng-select": "^3.0.7",
-    "@ngx-pwa/ngsw-schema": "^1.0.2",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@swimlane/ngx-charts": "^12.0.1",
