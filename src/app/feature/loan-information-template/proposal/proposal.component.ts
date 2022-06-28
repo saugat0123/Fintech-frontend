@@ -74,7 +74,6 @@ export class ProposalComponent implements OnInit {
     loanEnumType = LoanType;
     showInstallmentAmount = false;
     showRepaymentMode = false;
-    swapChargeChecked = false;
     subsidizedLoanChecked = false;
     client = environment.client;
     clientName = Clients;
@@ -296,9 +295,6 @@ export class ProposalComponent implements OnInit {
                     .forEach((l) => this.combinedLoansIds.push(l.id));
             }
         });
-        // if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
-        //     this.existingExpo = this.customerInfo.existingExposures.filter((d) => d.loanName.toLocaleLowerCase() === this.loan.loan.name.toLocaleLowerCase() && d.loanConfig.loanNature === 'Revolving');
-        // }
     }
 
     getLoanData() {
@@ -371,9 +367,9 @@ export class ProposalComponent implements OnInit {
             repaymentMode: [undefined],
             repaymentModeInterest: [undefined],
             repaymentModePrincipal: [undefined],
-            disbursementCriteria: [undefined, [Validators.required]],
+            disbursementCriteria: [undefined],
             repayment: [undefined],
-            borrowerInformation: [undefined, [Validators.required]],
+            borrowerInformation: [undefined],
             interestAmount: [undefined],
             existingLimit: [undefined],
             outStandingLimit: [undefined],
@@ -493,6 +489,9 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
+        if (this.loanType !== 'FULL_SETTLEMENT_LOAN') {
+            this.cadSetup.save();
+        }
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
@@ -521,7 +520,6 @@ export class ProposalComponent implements OnInit {
                 solChecked: this.solChecked,
                 waiverChecked: this.waiverChecked,
                 riskChecked: this.riskChecked,
-                swapChargeChecked: this.swapChargeChecked,
                 subsidizedLoanChecked: this.subsidizedLoanChecked,
                 deviationChecked: this.deviationChecked,
                 commitmentChecked: this.commitmentChecked,
@@ -632,14 +630,6 @@ export class ProposalComponent implements OnInit {
                     this.proposalForm.get('riskConclusionRecommendation').setValue(null);
                 }
                 break;
-            case 'swapCharge':
-                if (event) {
-                    this.swapChargeChecked = true;
-                } else {
-                    this.swapChargeChecked = false;
-                    this.proposalForm.get('swapCharge').setValue(null);
-                }
-                break;
             case 'subsidizedLoan':
                 if (event) {
                     this.subsidizedLoanChecked = true;
@@ -713,7 +703,6 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(data['solChecked'], 'sol');
             this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['riskChecked'], 'risk');
-            this.checkChecked(data['swapChargeChecked'], 'swapCharge');
             this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
             this.checkChecked(data['deviationChecked'], 'deviation');
             this.checkChecked(data['commitmentChecked'], 'commitment');

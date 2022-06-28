@@ -579,10 +579,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
-                                                 [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
-                                    </nb-checkbox>
-                                    <div *ngIf="swapChargeChecked">
+                                    <div>
                                         <div class="variable">
                                             <input
                                                     formControlName="swapChargeMethod"
@@ -682,19 +679,17 @@
                                 </div>
                                 <ng-container *ngIf="!fromProfile">
                                         <div class="row" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
-                                            <ng-container *ngIf="customerInfo.customerType === 'INSTITUTION'">
-                                                <div class="col-md-12">
-                                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                                        <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
-                                                        <ckeditor formControlName="borrowerInformation"
-                                                                  [style]="{height:'250px !important;'}"
-                                                                  placeholder="Background"
-                                                                  required
-                                                                  [config]="ckeConfig">
-                                                        </ckeditor>
-                                                    </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                                    <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
+                                                    <ckeditor formControlName="borrowerInformation"
+                                                              [style]="{height:'250px !important;'}"
+                                                              placeholder="Background"
+                                                              [config]="ckeConfig">
+                                                    </ckeditor>
                                                 </div>
-                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="clearfix"></div>
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
