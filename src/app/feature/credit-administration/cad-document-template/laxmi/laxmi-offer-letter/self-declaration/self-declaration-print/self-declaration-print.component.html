@@ -2,34 +2,97 @@
     <div class="col-md-12 viewFull">
         <div class="text-justify nepali">
             <p class="float-right">
-                मिति: <span class="nepaliFont">{{printDocForm.year}}</span>/<span class="nepaliFont">{{printDocForm.month}}</span>/<span class="nepaliFont">{{printDocForm.day}}</span>
+                मिति: <span class="nepaliFont">{{printDocForm.year}}</span>/<span
+                    class="nepaliFont">{{printDocForm.month}}</span>/<span
+                    class="nepaliFont">{{printDocForm.day}}</span>
             </p>
             <p>
                 श्री लक्ष्मी बैंक लि.
                 <br>
-                शाखा कार्यालय, <span>{{printDocForm?.branch}}</span> ।
+                शाखा कार्यालय, <span>{{this.cadData.assignedLoan[0].branch.nepaliName}}</span> ।
             </p>
             <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.<span class="nepaliFont">{{printDocForm?.amount}}</span>/–
-            (अक्षरेपी रुपैया <span class="nepaliFont">{{printDocForm?.amountInWords}}</span>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.<span
+                class="nepaliFont">{{printDocForm?.amount}}</span>/–
+            (अक्षरेपी रुपैया <span class="nepaliFont size">{{this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(printDocForm?.amount))}}</span>) भन्दा बढी कर्जा उपभोग
+            गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
             <br>
             घोषना गर्ने ऋणीको नामः <span class="nepaliFont">{{printDocForm.name}}</span>
             <br>
-<!--            ठेगानाः <span class="nepaliFont">{{printDocForm.address}}</span>-->
             <br>
-<div *ngIf="!individual">
-    अख्तियार प्राप्त व्यक्ति÷प्रोपाईटरको दस्तखतः
-    <br>
-    छापः
-</div>
             <div *ngIf="individual">
-                दस्तखतः
-                <div class="clearfix mb-5">
-                    <div class="signature-area float-right text-center"></div>
-                    <div class="signature-area float-right text-center"></div>
-                </div>
+                <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th colspan="2">ऋणी व्यक्ति भएमा :</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.nameOfIndividualDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी ठेगाना :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.permanentAddressOfIndividualDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>हालको ठेगाना :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.temporaryAddressOfIndividualDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 100px">दस्तखत :</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-
+            <div *ngIf="!individual">
+                <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th colspan="2">ऋणी संस्था भएमा :</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.nameOfInstitutionDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्ति/प्रोपाईटरको दस्तखत :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.signatureOfProprietor}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी ठेगाना :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.permanentAddressOfInstitutionDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>हालको ठेगाना :</td>
+                        <td>
+                            <span class="nepaliFont">{{printDocForm.temporaryAddressOfInstitutionDeclaration}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 150px">छाप :</td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
