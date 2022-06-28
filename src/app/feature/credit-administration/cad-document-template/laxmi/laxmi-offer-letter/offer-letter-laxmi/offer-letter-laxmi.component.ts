@@ -21,6 +21,7 @@ import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
 import {formatDate} from '@angular/common';
 import {NepaliCurrencyFormatterPipe} from '../../../../../../@core/pipe/nepali-currency-formatter.pipe';
+import {event} from 'd3';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -100,6 +101,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setGuarantor(initialInfo.corporateGuarantee, 'corporateGuarantee');
             this.initialInfoPrint = initialInfo;
         }
+        console.log('this.cadData.offerDocumentList', this.cadData.offerDocumentList);
     }
 
     fillForm() {
@@ -249,6 +251,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
             shareOther: [undefined],
             reRegisterDate: [undefined],
             reRegisterAmount: [undefined],
+            existingChecked: [false],
+            registerMortgageOtherChecked: [false],
+            registerMortgageOther: [undefined],
+            crossCollateralOtherChecked: [false],
+            crossCollateralOther: [undefined],
+            reRegisterOtherChecked: [false],
+            reRegisterOther: [undefined],
+            vehicleSecurityOtherChecked: [false],
+            vehicleSecurityOther: [undefined]
         });
     }
 
@@ -470,6 +481,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'otherLimit']).patchValue(null);
                 }
                 break;
+            case 'interestNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'interestNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'rateMode']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'interestNeeded']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -619,6 +638,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 facilityNeeded: [true],
                 otherLimitChecked: [false],
                 otherLimit: [undefined],
+                interestNeeded: [undefined]
             })
         );
     }
@@ -937,6 +957,38 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 } else {
                     this.offerLetterForm.get('shareOtherChecked').patchValue(false);
                     this.offerLetterForm.get('shareOther').patchValue(null);
+                }
+                break;
+            case 'registerMortgageOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('registerMortgageOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('registerMortgageOtherChecked').patchValue(false);
+                    this.offerLetterForm.get('registerMortgageOther').patchValue(null);
+                }
+                break;
+            case 'crossCollateralOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('crossCollateralOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('crossCollateralOtherChecked').patchValue(false);
+                    this.offerLetterForm.get('crossCollateralOther').patchValue(null);
+                }
+                break;
+            case 'reRegisterOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('reRegisterOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('reRegisterOtherChecked').patchValue(false);
+                    this.offerLetterForm.get('reRegisterOther').patchValue(null);
+                }
+                break;
+            case 'vehicleSecurityOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('vehicleSecurityOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('vehicleSecurityOtherChecked').patchValue(false);
+                    this.offerLetterForm.get('vehicleSecurityOther').patchValue(null);
                 }
                 break;
         }
