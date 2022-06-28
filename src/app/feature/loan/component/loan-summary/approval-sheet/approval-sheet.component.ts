@@ -160,6 +160,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     otherObtainableDocuments = Array<string>();
     megaGroupEnabled = environment.MEGA_GROUP;
     requestedLoanType;
+    authorityComment: any
 
     constructor(
         private userService: UserService,
@@ -205,6 +206,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         this.loadSummary();
         this.checkDocUploadConfig();
         this.obtainableDocument();
+        this.getLoansByCombinedLoanId();
     }
 
     ngOnDestroy(): void {
@@ -568,5 +570,19 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                 }
             });
         });
+    }
+    getLoansByCombinedLoanId() {
+        console.log(this.loanData, 'loan data');
+        this.loanFormService.getCombineLoansByCombineLoanId(this.loanData.combinedLoan.id).subscribe(response =>  {
+            console.log(response, 'fkdjkjkkmidjifjjidjkmdkjidjmfkdmfijdkfdnfkjdnklfndlkjfdljfldjl');
+           this.authorityComment = response;
+            const comment = this.authorityComment.filter((r) => r.authorityReviewComments !== null);
+            const authorityCommentValue = comment.forEach(val => val.authorityReviewComments);
+            console.log(authorityCommentValue, 'kmdkjk');
+
+        }, error => {
+            console.log(error);
+        });
+
     }
 }

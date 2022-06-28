@@ -249,6 +249,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log(this.loanData, 'fkndkfnk');
         this.activatedRoute.queryParams.subscribe((res) => {
             this.requestedLoanType = res.type;
            this.customerLoanService.detail(res.customerId).subscribe(response => {
