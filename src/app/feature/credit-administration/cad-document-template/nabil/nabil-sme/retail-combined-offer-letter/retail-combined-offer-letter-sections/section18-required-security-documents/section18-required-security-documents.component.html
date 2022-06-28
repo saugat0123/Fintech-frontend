@@ -163,7 +163,7 @@
                       ग्राहक स्वःघोषणा फारम । (Self Declaration)
                     </li>
                     <li *ngIf="undertakingLetter">
-                      ऋणीबाट undertaking letter (undertaking letter)
+                      ऋणीबाट undertaking letter ।
                     </li>
                     <li *ngIf="sharePledgeDeed">
                       धितोबन्धक लिखत (Share pledge deed)
@@ -217,12 +217,19 @@
                     <li *ngIf="letterofSetOff">
                         मोजरा पत्र । (Letter of Set Off)
                     </li>
-                    <li *ngIf="fixedDepositCertificate">
-                        श्री
-                        <span class="print-only font-weight-bold">_______________</span>
-                        को रु <span class="print-only font-weight-bold">__________________</span>
-                        को सक्कल मुद्दती रसिद । (Fixed Deposit Certificate)
-                    </li>
+                    <ng-container *ngIf="fixedDepositCertificate">
+                        <li *ngFor="let fd of fixedDepositHolders; let i = index">
+                            श्री
+                            <span style="font-weight: bold">
+                                {{fd?.fixedDepositHolderNameCT || '__________________________'}}
+                            </span>
+                            को रु.
+                            <span style="font-weight: bold">
+                                {{fd?.FDAmountInFigureCT || '______________________'}} /-
+                            </span>
+                            को सक्कल मुद्दती रसिद । (Fixed Deposit Certificate)
+                        </li>
+                    </ng-container>
                     <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px" class="d-print-none">Add
                         Text Area
                     </button>
