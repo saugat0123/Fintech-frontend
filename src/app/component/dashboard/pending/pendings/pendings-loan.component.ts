@@ -8,7 +8,6 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from '../../../../feature/admin/component/loan-config/loan-config.service';
-import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
@@ -61,7 +60,6 @@ export class PendingsLoanComponent implements OnInit {
     userRoleType;
 
     constructor(
-        private service: DmsLoanService,
         private userService: UserService,
         private loanConfigService: LoanConfigService,
         private loanFormService: LoanFormService,

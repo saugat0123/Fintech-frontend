@@ -204,7 +204,7 @@
                                status="success" type="text">
                     </div>
                 </div>
-                <div class="row" *ngIf="isRegularSelected">
+                <div class="row" *ngIf="importLoanTrust.get(['importLoanTrustFormArray', i, 'loanOption']).value === 'REGULAR'">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry Date</label><br>
                         <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"

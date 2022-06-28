@@ -12,7 +12,6 @@ import {ActivatedRoute} from '@angular/router';
 import {LoanFormService} from '../../../../../loan/component/loan-form/service/loan-form.service';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
-import {BlacklistService} from '../../../../../admin/component/blacklist/blacklist.service';
 import {NbDialogRef} from '@nebular/theme';
 import {CompanyFormComponent} from '../../../customer-form/company-form/company-form.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -48,7 +47,6 @@ export class EditManagementTeamComponent implements OnInit {
       private loanFormService: LoanFormService,
       private toastService: ToastService,
       private companyInfoService: CompanyInfoService,
-      private blackListService: BlacklistService,
       protected ref: NbDialogRef<CompanyFormComponent>,
       protected dialogRef: NbDialogRef<EditManagementTeamComponent>
   ) {

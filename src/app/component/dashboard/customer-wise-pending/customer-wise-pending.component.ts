@@ -10,7 +10,6 @@ import {Pageable} from '../../../@core/service/baseservice/common-pageable';
 import {ProductUtils} from '../../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
-import {DmsLoanService} from '../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {UserService} from '../../../@core/service/user.service';
 import {LoanConfigService} from '../../../feature/admin/component/loan-config/loan-config.service';
 import {LoanFormService} from '../../../feature/loan/component/loan-form/service/loan-form.service';
@@ -82,7 +81,6 @@ export class CustomerWisePendingComponent implements OnInit {
     loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
 
     constructor(
-        private service: DmsLoanService,
         private userService: UserService,
         private loanConfigService: LoanConfigService,
         private loanFormService: LoanFormService,
