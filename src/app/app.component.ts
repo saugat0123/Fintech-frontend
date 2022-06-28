@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import {VersionCheckService} from './feature/version-check/version-check.service';
+import { ReleaseService } from './@core/service/release.service';
 
 @Component({
     selector: 'app-root',
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit {
 
     public constructor (private titleService: Title,
                         public translate: TranslateService,
-                        private versionCheckService: VersionCheckService) {
+                        private versionCheckService: VersionCheckService,
+                        private releaseService: ReleaseService
+                        ) {
+                          this.releaseService.checkForNewRelease();
         this.titleService.setTitle(environment.client);
         translate.addLangs(['en', 'np']);
 

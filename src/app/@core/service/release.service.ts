@@ -30,7 +30,6 @@ export class ReleaseService {
         backdrop: "static",
         keyboard: false,
         centered: true,
-        animation: true,
       };
       this.modalService.open(ReleaseInfoComponent, option);
     });
