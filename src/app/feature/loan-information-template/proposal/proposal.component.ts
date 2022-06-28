@@ -7,7 +7,6 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {MinimumAmountValidator} from '../../../@core/validator/minimum-amount-validator';
-import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
@@ -79,7 +78,6 @@ export class ProposalComponent implements OnInit {
               private loanConfigService: LoanConfigService,
               private activatedRoute: ActivatedRoute,
               private toastService: ToastService,
-              private baseInterestService: BaseInterestService,
               private el: ElementRef) {
   }
 
@@ -105,7 +103,6 @@ export class ProposalComponent implements OnInit {
         this.setGroupExposureData(this.groupExposureData);
       }
     } else {
-      this.setActiveBaseRate();
       this.addGroupExposureData();
     }
     this.activatedRoute.queryParams.subscribe(
@@ -323,12 +320,6 @@ export class ProposalComponent implements OnInit {
 
   get formControls() {
     return this.proposalForm.controls;
-  }
-
-  setActiveBaseRate() {
-    this.baseInterestService.getActiveBaseRate().subscribe(value => {
-      this.proposalForm.get('baseRate').setValue(value.detail.rate);
-    });
   }
 
   checkChecked(event, type) {

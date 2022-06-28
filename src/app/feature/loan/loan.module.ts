@@ -3,12 +3,8 @@ import {CommonModule, DatePipe} from '@angular/common';
 import {NgxPrintModule} from 'ngx-print';
 import {LoanRoutingModule} from './loan-routing.module';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
-// import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-// import {CompanyInfoComponent} from './component/loan-main-template/company-info/company-info.component';
-// import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
-import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbTooltipModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
@@ -26,59 +22,24 @@ import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 // tslint:disable-next-line:max-line-length
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
-// import {GroupComponent} from './component/loan-main-template/group/group.component';
-// import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
-// import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
-// import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
-// import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
-// import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
-// import {JamaniBasekoComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
-// import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
-// import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
-// import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
-//
-// import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
-// import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
-// import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
-// import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
-// import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
 import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
 import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
-// import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
-// import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
-// import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
-import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
-// import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
-// import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
-// import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
-// import {MicroIndividualComponent} from './component/micro-loan-summary/micro-individual/micro-individual.component';
-// import {MicroInstitutionComponent} from './component/micro-loan-summary/micro-institution/micro-institution.component';
-// import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
-// import {BorrowerPortfolioSummaryComponent} from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
-// import {MicroLoanModule} from '../micro-loan/micro-loan.module';
-// import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
-// import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
-// import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 
 const COMPONENTS = [
     LoanFormComponent,
-    // BasicInfoComponent,
-    // CompanyInfoComponent,
-    // KycInfoComponent,
-    DmsLoanFileComponent,
     LoanActionComponent,
     ReadmoreModelComponent,
 
@@ -86,46 +47,16 @@ const COMPONENTS = [
     LoanPullComponent,
     LoanOfferLetterComponent,
     OfferLetterActionComponent,
-    /*GroupComponent,
-    GroupDetailComponent,
-    SecurityDetailComponent,
-    LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent,
-    LoanMainNepaliTemplateComponent,
-    ApplicantFamilyInfoComponent,
-    JamaniBasekoComponent,
-    JamaniBasekoPrintComponent,
-    BikeKarjaComponent,
-    HayarParchesKarjaNibedanComponent,
-    ApplicantFamilyInfoPrintComponent,
-    BikeKarjaPrintComponent,
-    CustomerAssociateComponent,
-    CustomerAssociateComponent,*/
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    // GuarantorAdderComponent,
-    // GuarantorDetailComponent,
-    // MicroLoanSummaryComponent,
-    // MicroSynopsisCreditworthinessComponent,
-    // MicroIndividualComponent,
-    // MicroInstitutionComponent,
-    // MicroProposalSummaryComponent,
-    // BorrowerPortfolioSummaryComponent,
-    // MicroBaselRiskExposureSummaryComponent,
-    // MarketingActivitiesSummaryComponent,
-    // MicroCommonDetailComponent
 ];
 
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
-    /*LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent,
-    CustomerAssociateComponent,*/
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    // GuarantorDetailComponent,
 ];
 
 const modules = {
@@ -154,7 +85,7 @@ const modules = {
 
 @NgModule({
     // tslint:disable-next-line:max-line-length
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
+    declarations: [...COMPONENTS, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -171,15 +102,10 @@ const modules = {
     }),
     CustomerModule,
     NepaliCalendarModule,
-    // ReportingModule,
     LoanInformationTemplateModule,
-    // LoanInformationViewModule,
-    // LoanSummaryModule,
     QuillModule.forRoot({modules: modules}),
     AngularDraggableModule,
-    // LoanInformationDetailViewModule,
     NbTooltipModule,
-    // MicroLoanModule,
     NepaliPatroModule,
     TransferLoanModule,
     CreditAdministrationModule

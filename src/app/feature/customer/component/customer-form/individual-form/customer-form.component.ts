@@ -9,7 +9,6 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -39,7 +38,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         private customerService: CustomerService,
         private toastService: ToastService,
         private modalService: NgbModal,
-        private blackListService: BlacklistService,
         private dialogService: NbDialogService,
         protected ref: NbDialogRef<CustomerFormComponent>,
         private el: ElementRef
@@ -244,100 +242,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        const tempId = this.basicInfo.get('citizenshipNumber').value;
-        this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
-            this.isBlackListed = response.detail;
-            this.blackListStatusEmitter.emit(this.isBlackListed);
-            if (this.isBlackListed) {
-                this.customerDetailField.showFormField = false;
-                this.spinner = false;
-                this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
-                return;
-            } else {
-                    const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
-                    ageControl.controls.filter(f => {
-                        f.get('age').clearValidators();
-                        f.get('age').updateValueAndValidity();
-                    });
-                if (this.basicInfo.invalid) {
-                    this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
-                    this.scrollToFirstInvalidControl();
-                    this.spinner = false;
-                    return;
-                }
-                /*if (this.microCustomer) {
-                    this.microIndividualFormComponent.onSubmit();
-                    if (this.microIndividualFormComponent.microCustomerForm.invalid) {
-                        this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                        return;
-                    }
-                }*/
-                {
-                    this.spinner = true;
-                    this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
-                    this.customer.customerName = this.basicInfo.get('customerName').value;
-                    this.customer.customerCode = this.basicInfo.get('customerCode').value;
-                    this.customer.province = this.basicInfo.get('province').value;
-                    this.customer.district = this.basicInfo.get('district').value;
-                    this.customer.municipalities = this.basicInfo.get('municipalities').value;
-                    this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
-                    this.customer.temporaryProvince = this.basicInfo.get('temporaryProvince').value;
-                    this.customer.temporaryDistrict = this.basicInfo.get('temporaryDistrict').value;
-                    this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
-                    this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
-                    this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
-                    this.customer.email = this.basicInfo.get('email').value;
-                    this.customer.dob = this.basicInfo.get('dob').value;
-                    this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
-                    this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
-                    this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
-                    this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-                    this.customer.clientType = this.basicInfo.get('clientType').value;
-                    this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
-                    this.customer.gender = this.basicInfo.get('gender').value;
-                    this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
-                    this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
-                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
-                    const occupations = {
-                        multipleOccupation: this.basicInfo.get('occupation').value,
-                        otherOccupation: this.basicInfo.get('otherOccupation').value
-                    };
-                    const incomeSource = {
-                        multipleIncome: this.basicInfo.get('incomeSource').value,
-                        otherIncome: this.basicInfo.get('otherIncome').value
-                    };
-                    this.customer.occupation = JSON.stringify(occupations);
-                    this.customer.incomeSource = JSON.stringify(incomeSource);
-                    this.customer.introduction = this.basicInfo.get('introduction').value;
-                    this.customer.version = this.basicInfo.get('version').value;
-                    const rawFromValue = this.basicInfo.getRawValue();
-                    this.customer.customerRelatives = rawFromValue.customerRelatives;
-
-                    /** banking relation setting data from child **/
-                    // possibly can have more field in banking relationship
-                    this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
-                    this.customer.netWorth = this.basicInfo.get('netWorth').value;
-
-                    /** Remaining static read-write only data*/
-                    this.customer.individualJsonData = this.setIndividualJsonData();
-
-                    this.customer.isMicroCustomer = this.microCustomer;
-
-                    this.customerService.save(this.customer).subscribe(res => {
-                        this.spinner = false;
-                        this.close();
-                        if (this.formValue.id == null) {
-                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
-                        } else {
-                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
-                        }
-                    }, res => {
-                        this.spinner = false;
-                        this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
-                    });
-                }
-            }
-        });
     }
 
     getProvince() {

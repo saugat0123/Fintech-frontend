@@ -8,7 +8,6 @@ import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
 import {Address} from '../../loan/model/address';
 import {AddressService} from '../../../@core/service/baseservice/address.service';
 import {ToastService} from '../../../@core/utils';
-import {BlacklistService} from '../../admin/component/blacklist/blacklist.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -55,7 +54,6 @@ export class GuarantorComponent implements OnInit {
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
       private toastService: ToastService,
-      private blackListService: BlacklistService,
       private overlay: NgxSpinnerService
   ) {
   }
@@ -299,17 +297,7 @@ export class GuarantorComponent implements OnInit {
     this.guarantorDataEmitter.emit(this.guarantorDetail);
   }
 
-  checkBlackListByCitizenshipNo(citizenshipNum, index) {
-    this.blackListService.checkBlacklistByRef(citizenshipNum).subscribe((response: any) => {
-      this.isBlackListed = response.detail;
-      this.blackListStatusEmitter.emit(this.isBlackListed);
 
-      if (this.isBlackListed) {
-        this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Guarantor'));
-        (this.form.get('guarantorDetails') as FormArray).controls[index].reset();
-      }
-    });
-  }
 
   private getAllDistrict() {
     this.addressServices.getAllDistrict().subscribe((response: any) => {

@@ -10,7 +10,6 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
@@ -80,7 +79,6 @@ export class JointFormComponent implements OnInit {
       private customerService: CustomerService,
       private toastService: ToastService,
       private modalService: NgbModal,
-      private blackListService: BlacklistService,
       private dialogService: NbDialogService,
       protected ref: NbDialogRef<JointFormComponent>,
       private el: ElementRef
@@ -280,61 +278,6 @@ export class JointFormComponent implements OnInit {
   onSubmit(value) {
     this.submitted = true;
     const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
-    this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
-      this.isBlackListed = response.detail;
-      this.blackListStatusEmitter.emit(this.isBlackListed);
-      if (this.isBlackListed) {
-        this.customerDetailField.showFormField = false;
-        this.spinner = false;
-        this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
-        return;
-      } else {
-          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
-              this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
-              return;
-          }
-        {
-          this.spinner = true;
-          // for update join customer form
-          if (!ObjectUtil.isEmpty(this.formValue)) {
-              this.customer.id = this.id;
-              this.customer.version = this.version;
-          }
-          this.customer.isJointCustomer = true;
-          this.customer.clientType = this.basicJointInfo.get('clientType').value;
-          this.customer.subsectorDetail = this.basicJointInfo.get('subsectorDetail').value;
-          this.customer.subsectorDetail = this.basicJointInfo.get('subsectorDetail').value;
-          this.customer.introduction = this.basicJointInfo.get('introduction').value;
-          this.customer.bankingRelationship = JSON.stringify(this.basicJointInfo.get('bankingRelationship').value);
-          this.customer.netWorth = this.basicJointInfo.get('netWorth').value;
-          // to avoid backend validation error
-          const customerName1 = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('customerName').value;
-          const customerName2 = this.basicJointInfo.get('jointCustomerInfo')['controls'][1].get('customerName').value;
-          this.customer.customerName = customerName1 + '/' + customerName2;
-          this.customer.citizenshipNumber = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
-              .get('citizenshipNumber').value;
-          this.customer.citizenshipIssuedPlace = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
-              .get('citizenshipIssuedPlace').value;
-          this.customer.citizenshipIssuedDate = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
-              .get('citizenshipIssuedDate').value;
-          this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
-          // to json
-          this.customer.jointInfo = JSON.stringify(value);
-          this.customerService.save(this.customer).subscribe(res => {
-            this.spinner = false;
-            this.close();
-            if (this.formValue.id == null) {
-              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Joint Customer Info'));
-            } else {
-              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Joint Customer Info'));
-            }
-          }, res => {
-            this.spinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
-          });
-        }
-      }
-    });
   }
 
   getProvince(index) {
