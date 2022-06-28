@@ -5,7 +5,7 @@
             <br>
             <table class="table table-bordered">
                 <!--Existing Loan-->
-                <ng-container *ngIf="initialData?.existingLoanForm?.existingLoanFormArray">
+                <ng-container *ngIf="initialData?.existingLoanForm?.isExistingLoan === true">
                     <tr *ngFor="let val of initialData?.existingLoanForm?.existingLoanFormArray; let i1 = index"
                         formArrayName="existingLoanFormArray">
                         <ng-container [formGroupName]="i1">
@@ -65,7 +65,7 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                 </ng-container>
                                 <br>
-                                <ng-container>
+                                <ng-container *ngIf="initialData?.existingLoanForm?.existingLoanFormArray.length > 1">
                                     <!--For existing loans that could be multiple)-->
                                     <b>(अरु शर्त तथा बन्देजनामाहरु यस अघिनै यहांले स्वीकार्नु भएको ऋणकर्जा सुविधा
                                         स्वीकृति पत्र अनुसार नै हुनेछ ।)</b>

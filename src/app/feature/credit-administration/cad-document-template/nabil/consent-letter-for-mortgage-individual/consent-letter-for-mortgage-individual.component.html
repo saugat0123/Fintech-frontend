@@ -243,7 +243,7 @@
                                                type="text"/>
                                     <span class="print-only">{{form.get(['borrowerDetails', i3, 'freeAmount2']) ? form.get(['borrowerDetails', i3, 'freeAmount2'])?.value : '____________________________'}}</span>/-
                                 </td>
-                               <td class="d-print-none">
+                               <td class="d-print-none mt-5">
                                    <ng-container *ngIf="form.get('borrowerDetails')['length'] > 0">
                                        <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeBorrowerAtIndex(i3)"
                                                style="position: static">
@@ -359,9 +359,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="container col-md-8" style="margin-top: 10px;">
-                    <ng-container *ngFor="let securityOwner of form.get('ownerDetails')['controls']; let i4 = index"
-                                  formArrayName="ownerDetails">
+                <div class="container" style="margin-top: 10px;">
+                    <div class="row">
+                        <div class="col-sm-6" *ngFor="let securityOwner of form.get('ownerDetails')['controls']; let i4 = index"
+                             formArrayName="ownerDetails">
                         <ng-container [formGroupName]="i4">
                             <table class="table-borderless" style="width: 40%; margin-top: 30px">
                                 <tbody>
@@ -409,7 +410,7 @@
                                                            formControlName="citizenIssueDistrict"
                                                            type="text"/>
                             <span class="print-only">{{form.get(['ownerDetails', i4, 'citizenIssueDistrict']) ? form.get(['ownerDetails', i4, 'citizenIssueDistrict'])?.value : '____________________________'}}</span>
-                            <div class="float-right">
+                            <div class="float-right mt-5">
                                 <ng-container *ngIf="form.get('ownerDetails')['length'] > 0">
                                     <button class="d-print-none" nbButton status="danger" size="tiny" (click)="removeSecurityOwnerIndex(i4)"
                                             style="position: static">
@@ -418,7 +419,8 @@
                                 </ng-container>
                             </div>
                         </ng-container>
-                    </ng-container>
+                    </div>
+                </div>
                 </div>
                 <div class="col-md-12" style="margin-top: 20px">
                     <strong>साक्षीहरु:</strong><br>
