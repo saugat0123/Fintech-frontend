@@ -81,6 +81,7 @@ import {SecurityTaggedViewModule} from '../../../loan-information-template/secur
 import { AuthoritySectionComponent } from './authority-section/authority-section.component';
 import {RetailRecommendationComponent} from '../../../loan-information-detail-view/retail-recommendation/retail-recommendation.component';
 import { AnnexureOneComponent } from './annexure-one/annexure-one.component';
+import { SecurityApprovedSummaryComponent } from './security-approved-summary/security-approved-summary.component';
 
 
 const COMPONENTS = [
@@ -176,7 +177,8 @@ const ENTRY_COMPONENTS = [];
     SanaMisNrbReportingComponent,
     AuthoritySectionComponent,
     RetailRecommendationComponent,
-    AnnexureOneComponent
+    AnnexureOneComponent,
+    SecurityApprovedSummaryComponent
   ],
     imports: [
         CommonModule,

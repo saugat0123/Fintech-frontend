@@ -27,6 +27,7 @@ import {NgxPrintModule} from 'ngx-print';
 import {RetailSecurityComponent} from '../loan-information-detail-view/retail-security/retail-security.component';
 import { HomeLoanComplianceStatusComponent } from './home-loan-compliance-status/home-loan-compliance-status.component';
 import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
+import { SecurityApporvedViewComponent } from './security-apporved-view/security-apporved-view.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
       SecurityAdderComponent,
       RetailSecurityComponent,
       HomeLoanComplianceStatusComponent,
-      CreditChecklistViewComponent
+      CreditChecklistViewComponent,
+      SecurityApporvedViewComponent
   ],
     exports: [
         InsuranceViewComponent,

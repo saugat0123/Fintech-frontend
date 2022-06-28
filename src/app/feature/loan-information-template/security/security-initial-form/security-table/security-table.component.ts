@@ -15,6 +15,7 @@ export class SecurityTableComponent implements OnInit {
   @Output() securityEmitter = new EventEmitter<any>();
   @Input() selectedArray = [];
   @Input() securityId;
+  @Input() readMode;
   clients = environment.client;
   clientName = Clients;
   isLandSecurity = false;

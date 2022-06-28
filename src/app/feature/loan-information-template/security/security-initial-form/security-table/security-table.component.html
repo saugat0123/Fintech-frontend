@@ -8,7 +8,7 @@
             <th>Security Type</th>
 <!--            <th>No of Security</th>-->
             <th>Remarks</th>
-            <th>Action</th>
+            <th *ngIf="!readMode">Action</th>
         </tr>
         </thead>
         <tbody *ngIf="isLandSecurity">
@@ -17,7 +17,7 @@
 <!--            <td>{{landSecurity.length}}</td>-->
             <td><strong>Owner:</strong>{{landSecurity?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity?.area || 'NA'}},
                 <strong>Location: </strong>{{landSecurity?.location }}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('landDetails', 'LandSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a>
              <a *ngIf="securityId" status="primary" size="tiny"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
@@ -34,7 +34,7 @@
             <td><strong>Building Name:</strong>{{apartmentSecurity?.buildingName || 'NA'}}, <strong>Build Up Area:</strong>
                 {{apartmentSecurity?.buildArea || 'NA'}} (Sq.ft),
                 <strong>Total Cost: </strong>Rs.{{apartmentSecurity?.totalCost | currencyFormatter }}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('buildingDetails', 'ApartmentSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a>
                 <a *ngIf="securityId" status="primary" size="tiny"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
@@ -49,7 +49,7 @@
 <!--            <td>{{landAndBuilding.length}}</td>-->
             <td><strong>Owner:</strong>{{landAndBuilding?.owner || 'NA'}}, <strong>Area:</strong> {{landAndBuilding?.area || 'NA'}},
                 <strong>Location </strong>{{landAndBuilding?.location }}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('landBuilding', 'Land and Building Security', i)">
                 <i class="fa fa-trash fa-1x"></i></a>
                 <a *ngIf="securityId" status="primary" size="tiny"  nbButton class="btn btn-primary sb-small mr-2" nbTooltip="Inspect Site Visit"
@@ -65,7 +65,7 @@
             <td><strong>Model No.:</strong>{{plantAndMachinery?.model || 'NA'}}, <strong>Quotation Amount:</strong> Rs.
                 {{plantAndMachinery?.quotation | currencyFormatter}},
                 <strong>Supplier: </strong>{{plantAndMachinery?.supplier || 'NA'}}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('plantDetails', 'PlantSecurity',i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -78,7 +78,7 @@
             <td><strong>Model No.:</strong>{{vehicleSecurity?.model || 'NA'}}, <strong>Registration No.:</strong>
                 {{vehicleSecurity?.registrationNumber || 'NA'}},
                 <strong>Down Payment: </strong>Rs.{{vehicleSecurity?.downPayment | currencyFormatter}}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('vehicleDetails', 'VehicleSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -91,7 +91,7 @@
             <td><strong>Account Holder Name.:</strong>{{fixedDeposit?.accountHolderName || 'NA'}}, <strong>Account No.:</strong>
                 {{fixedDeposit?.accountNumber || 'NA'}},
                 <strong>Amount: </strong>Rs.{{fixedDeposit?.amount | currencyFormatter}}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('fixedDepositDetails', 'FixedDeposit', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -106,7 +106,7 @@
 <!--                {{shareSecurityData?.securityOffered || 'NA'}}</td>-->
             <td><strong>Company Name: </strong>{{shareSecurityData?.companyName}}, <strong>Total Share: </strong>{{shareSecurityData?.totalShareUnit}}, <strong>Amount: </strong>
              {{(shareSecurityData?.totalShareUnit * shareSecurityData?.amountPerUnit) | nepaliCurrencyFormatter}}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('shareSecurityDetails', 'ShareSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -119,7 +119,7 @@
             <td><strong>Owner:</strong>{{hypothecation?.owner || 'NA'}}, <strong>Stock:</strong>
                 {{hypothecation?.stock || 'NA'}},
                 <strong>Value: </strong>Rs.{{hypothecation?.value | currencyFormatter}}</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('hypothecationOfStock', 'HypothecationOfStock', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -132,7 +132,7 @@
             <td><strong>Amount:</strong>Rs.{{assignmentOfReceivables?.amount || 'NA' | currencyFormatter}}
                 <strong>Other Detail: </strong><span [innerHTML]="assignmentOfReceivables?.otherDetail || 'NA' | safeHtml"></span>
             </td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('assignmentOfReceivables', 'AssignmentOfReceivables', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -143,7 +143,7 @@
         <td>{{'Lease Assignment'}}</td>
 <!--            <td>{{leaseAssignment.length}}</td>-->
             <td> <strong>Other Detail: </strong><span [innerHTML]="leaseAssignment?.otherDetail || 'NA' | safeHtml"></span></td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('leaseAssignment', 'LeaseAssignment',i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -154,7 +154,7 @@
         <td>{{'Other Security'}}</td>
 <!--            <td>{{otherSecurity.length}}</td>-->
             <td> <strong>Other Detail: </strong><p [innerHTML]="otherSecurity?.otherDetail || 'NA' | safeHtml"></p></td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('otherSecurity', 'OtherSecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -167,7 +167,7 @@
 <!--            <td>{{corporateGuarantee.length}}</td>-->
             <td><strong>Name:</strong>{{corporateGuarantee?.name || 'NA'}}, <strong>Address:</strong>
                 {{corporateGuarantee?.address || 'NA'}},</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('corporateGuarantee', 'CorporateGuarantee', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -180,7 +180,7 @@
 <!--            <td>{{personalGuarantee.length}}</td>-->
             <td><strong>Name:</strong>{{personalGuarantee?.name || 'NA'}}, <strong>Address:</strong>
                 {{personalGuarantee?.address || 'NA'}},</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('personalGuarantee', 'PersonalGuarantee', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
@@ -193,7 +193,7 @@
 <!--            <td>{{insurancePolicy.length}}</td>-->
             <td><strong>Insurance Amount:</strong>Rs.{{insurancePolicy?.insuredAmount | currencyFormatter}},
                 <strong>Company Name:</strong>{{insurancePolicy?.insuranceCompanyName || 'NA'}},</td>
-            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+            <td *ngIf="!readMode"><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('insurancePolicy', 'InsurancePolicySecurity', i)">
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>

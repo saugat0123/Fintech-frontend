@@ -26,6 +26,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {NepsePriceInfo} from '../../admin/modal/NepsePriceInfo';
 
 @Component({
     selector: 'app-security',
@@ -49,6 +50,8 @@ export class SecurityComponent implements OnInit {
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
     initialSecurityValue: Object;
+    approvedSecurityValue: Object;
+    approvedShareSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
     provinceList: Array<Province> = new Array<Province>();
@@ -105,9 +108,15 @@ export class SecurityComponent implements OnInit {
         this.buildForm();
         // this.buildCrgSecurityForm();
         this.getProvince();
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+                this.approvedShareSecurityValue = JSON.parse(this.shareSecurity.approvedData);
+            }
+        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
+            this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
             // this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -302,6 +311,9 @@ export class SecurityComponent implements OnInit {
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
+        if (!ObjectUtil.isEmpty(this.approvedSecurityValue)) {
+            this.securityData.approvedData = JSON.stringify(this.approvedSecurityValue);
+        }
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
             if (selected === 'ShareSecurity') {
@@ -310,7 +322,15 @@ export class SecurityComponent implements OnInit {
         });
         if (this.shareSecuritySelected) {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
+            if (!ObjectUtil.isEmpty(this.approvedShareSecurityValue)) {
+                this.shareSecurityData.approvedData = JSON.stringify(this.approvedShareSecurityValue);
+            }
             this.securityData.share = this.shareSecurityData;
+            if (!ObjectUtil.isEmpty(this.initialSecurity.nepsePriceInfo)) {
+                const nepsePriceInfo = new NepsePriceInfo();
+                nepsePriceInfo.avgDaysForPrice = this.initialSecurity.nepsePriceInfo.avgDaysForPrice;
+                nepsePriceInfo.sharePriceDate = this.initialSecurity.shareSecurityForm.get('sharePriceDate').value;
+            }
         } else {
             this.securityData.share = this.initialSecurity.shareSecurityData;
         }
