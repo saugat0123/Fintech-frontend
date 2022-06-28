@@ -11,22 +11,14 @@
                 <br>
                 शाखा कार्यालय, <span>{{this.cadData.assignedLoan[0].branch.nepaliName}}</span> ।
             </p>
-            <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.<span
-                class="nepaliFont">{{printDocForm?.amount}}</span>/–
-            (अक्षरेपी रुपैया <span class="nepaliFont size">{{this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(printDocForm?.amount))}}</span>) भन्दा बढी कर्जा उपभोग
+            <p class="text-center"><b> विषय: घोषना गरेको सम्बन्धमा ।</b></p>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <b>रु.<span
+                class="nepaliFont">{{printDocForm?.amount}}</span></b>/–
+            <b>(अक्षरेपी रुपैया <span class="nepaliFont size">{{this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(printDocForm?.amount))}}</span>)</b> भन्दा बढी कर्जा उपभोग
             गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
-            <br>
-            घोषना गर्ने ऋणीको नामः <span class="nepaliFont">{{printDocForm.name}}</span>
-            <br>
             <br>
             <div *ngIf="individual">
                 <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
-                    <thead>
-                    <tr class="sb-bg-dark">
-                        <th colspan="2">ऋणी व्यक्ति भएमा :</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
@@ -55,11 +47,6 @@
             </div>
             <div *ngIf="!individual">
                 <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
-                    <thead>
-                    <tr class="sb-bg-dark">
-                        <th colspan="2">ऋणी संस्था भएमा :</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
