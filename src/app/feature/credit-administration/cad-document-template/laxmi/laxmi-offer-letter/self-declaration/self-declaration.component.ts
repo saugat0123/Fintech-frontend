@@ -16,6 +16,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
+import {NepaliWordPipe} from '../../../../../../@core/pipe/nepali-word.pipe';
 
 @Component({
   selector: 'app-self-declaration',
@@ -47,6 +48,7 @@ export class SelfDeclarationComponent implements OnInit {
   spinner = false;
   nepaliData;
   individual = false;
+  amount;
   ngOnInit() {
     if (this.cadData.assignedLoan[0].loanCategory === 'INDIVIDUAL') {
       this.individual = true;
@@ -57,6 +59,9 @@ export class SelfDeclarationComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
           this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          if (!ObjectUtil.isEmpty(JSON.parse(singleCadFile.initialInformation).amount)) {
+            this.amount = JSON.parse(singleCadFile.initialInformation).amount;
+          }
         }
       });
     }
@@ -65,8 +70,17 @@ export class SelfDeclarationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.form.patchValue(JSON.parse(this.initialInfoPrint));
+      this.form.patchValue({
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount)),
+        branch: this.cadData.assignedLoan[0].branch.nepaliName
+      });
     } else {
       this.fillNepaliData();
+      this.form.patchValue({
+        amount: this.nepaliNumber.transform(this.amount, 'preeti'),
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount)),
+        branch: this.cadData.assignedLoan[0].branch.nepaliName
+      });
     }
   }
   buildForm() {
@@ -78,7 +92,14 @@ export class SelfDeclarationComponent implements OnInit {
       // address: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      branch: [undefined]
+      branch: [undefined],
+      nameOfIndividualDeclaration: [undefined],
+      permanentAddressOfIndividualDeclaration: [undefined],
+      temporaryAddressOfIndividualDeclaration: [undefined],
+      nameOfInstitutionDeclaration: [undefined],
+      signatureOfProprietor: [undefined],
+      permanentAddressOfInstitutionDeclaration: [undefined],
+      temporaryAddressOfInstitutionDeclaration: [undefined],
     });
   }
   fillNepaliData() {
