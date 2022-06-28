@@ -23,6 +23,18 @@ import {NgxSpinnerService} from 'ngx-spinner';
     styleUrls: ['./loan-deed-individual.component.scss']
 })
 export class LoanDeedIndividualComponent implements OnInit {
+    @Input() cadData;
+    @Input() documentId;
+    @Input() customerLoanId;
+    initialInfoPrint;
+    loanCategory;
+    spinner = false;
+    form: FormGroup;
+    cadCheckListEnum = CadCheckListTemplateEnum;
+    nepaliData;
+    amount;
+    jointInfo: any;
+    isJoint = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,19 +51,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     ) {
     }
 
-    @Input() cadData;
-    @Input() documentId;
-    @Input() customerLoanId;
-    initialInfoPrint;
-    spinner = false;
-    form: FormGroup;
-    cadCheckListEnum = CadCheckListTemplateEnum;
-    nepaliData;
-    amount;
-    jointInfo: any;
-    isJoint = false;
-
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+            this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+        }
         if (this.cadData.assignedLoan[0].customerInfo.jointInfo) {
             this.isJoint = true;
         }
@@ -132,28 +135,54 @@ export class LoanDeedIndividualComponent implements OnInit {
             municipality: [undefined],
             wadNo: [undefined],
             branch: [undefined],
-            offerYear: [undefined],
-            offerMonth: [undefined],
-            offerDay: [undefined],
-            customerName: [undefined],
-            rupees: [undefined],
-            grandParentName: [undefined],
-            fatherName: [undefined],
-            husbandWifeName: [undefined],
-            permanentDistrict: [undefined],
-            permanentMunicipality: [undefined],
-            permanentWardNum: [undefined],
-            temporaryDistrict: [undefined],
-            temporaryMunicipality: [undefined],
-            tempWardNum: [undefined],
-            age: [undefined],
-            name: [undefined],
-            naPraNa: [undefined],
-            districtOffice: [undefined],
-            issuedYear: [undefined],
-            issuedMonth: [undefined],
-            issuedDay: [undefined],
-            amount: [undefined],
+            // Borrower Details
+            borrowerName: [undefined],
+            borrowerGrandFatherName: [undefined],
+            borrowerFatherName: [undefined],
+            borrowerHusbandName: [undefined],
+            citizenNumber: [undefined],
+            citizenIssueOffice: [undefined],
+            citizenIssueDate: [undefined],
+            panNumber: [undefined],
+            panIssueOffice: [undefined],
+            panIssueDate: [undefined],
+            borrowerPermanentDistrict: [undefined],
+            borrowerPermanentVdc: [undefined],
+            borrowerTempVdc: [undefined],
+            borrowerWardNo: [undefined],
+            borrowerTole: [undefined],
+            borrowerCurrentDistrict: [undefined],
+            borrowerCurrentVdc: [undefined],
+            borrowerCurrentTempVdc: [undefined],
+            borrowerCurrentWardNo: [undefined],
+            borrowerCurrentTole: [undefined],
+            borrowerMobileNo: [undefined],
+            // Company Details
+            companyName: [undefined],
+            companyRegistrationNo: [undefined],
+            registrationNikayaName: [undefined],
+            registrationDate: [undefined],
+            companyPanNumber: [undefined],
+            companyPanIssueOffice: [undefined],
+            companyPanIssueDate: [undefined],
+            companyRegDistrict: [undefined],
+            companyRegVdc: [undefined],
+            companyRegWardNo: [undefined],
+            companyRegTole: [undefined],
+            companyRepresentativeName: [undefined],
+            companyRepresentativeGrandFatherName: [undefined],
+            companyRepresentativeFatherName: [undefined],
+            companyRepresentativeDistrict: [undefined],
+            companyRepresentativeVdc: [undefined],
+            companyRepresentativeWardNo: [undefined],
+            companyRepresentativeTole: [undefined],
+            representativeCitizenNumber: [undefined],
+            representativeCitizenIssueDate: [undefined],
+
+            patraNo: [undefined],
+            patraAmount: [undefined],
+            patraAmountinWord: [undefined],
+
             itisambatYear: [undefined],
             itisambatMonth: [undefined],
             itisambatDay: [undefined],
@@ -168,6 +197,12 @@ export class LoanDeedIndividualComponent implements OnInit {
             roleName: [undefined],
             commonData: this.formBuilder.array([])
         });
+    }
+
+    getNumAmountWord(patraAmount, patraAmountinWord) {
+        const wordLabelVar = this.nepaliToEnglishPipe.transform(this.form.get(patraAmount).value.toString());
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(patraAmountinWord).patchValue(returnVal);
     }
 
 
