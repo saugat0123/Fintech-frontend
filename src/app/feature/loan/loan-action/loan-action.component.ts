@@ -105,7 +105,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     docActionMsg: 'Returned Back To Committee',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
-                    toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
+                    toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'forward':

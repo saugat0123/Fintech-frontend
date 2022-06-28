@@ -213,12 +213,16 @@
 
                                     </td>
                                     <td class="cursor">
-                                        <a nbTooltip="click to pull Document"
-                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
-                                           (click)="onPullClick(pullDocument,l?.id,l)"><i
-                                                class="fas fa-angle-double-down"></i> pull</a>
-                                        <span
-                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                        <ng-container *ngIf="l?.currentStage?.toUser?.name.includes('default'); else notDefaultCommittee">
+                                            <a nbTooltip="click to pull Document"
+                                               *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
+                                               (click)="onPullClick(pullDocument,l?.id,l)"><i
+                                                    class="fas fa-angle-double-down"></i> pull</a>
+                                        </ng-container>
+                                        <ng-template #notDefaultCommittee>
+                                            <span
+                                                    *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                        </ng-template>
                                     </td>
 
                                     <td>

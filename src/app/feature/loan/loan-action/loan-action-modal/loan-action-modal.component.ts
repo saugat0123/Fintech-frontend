@@ -73,6 +73,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('popUpTitle', this.popUpTitle);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
@@ -82,13 +83,17 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public getUserList(role) {
+        console.log('role', role);
+        console.log('branchId', this.branchId);
         this.spinner= true;
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
+            console.log('detail', res.detail);
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
                 this.userList = response.detail;
+                console.log('userList', this.userList);
                 this.spinner= false;
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
@@ -98,12 +103,14 @@ export class LoanActionModalComponent implements OnInit {
                     });
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
                     const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
-                    this.showUserList = false;
+                    console.log('committeeDefaultUser', committeeDefaultUser);
+                    this.showUserList = true;
                     if (committeeDefaultUser.length === 0) {
                         this.formAction.patchValue({
                             toUser: this.userList[0]
                         });
                     } else {
+                        this.showUserList = false;
                         this.formAction.patchValue({
                             toUser: committeeDefaultUser[0]
                         });
