@@ -3,7 +3,6 @@ import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import {VersionCheckService} from './feature/version-check/version-check.service';
-import { ReleaseService } from './@core/service/release.service';
 
 @Component({
     selector: 'app-root',
