@@ -125,7 +125,7 @@
                         </div>
                         <div class="float-right">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
-                            <span><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                            <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
                             <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                             <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}

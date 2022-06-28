@@ -218,7 +218,9 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             JSON.parse(this.loanDataHolder.customerInfo.incomeSource).panNumber;
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             const nextReviewDate = JSON.parse(this.loanDataHolder.loanHolder.data);
-            this.nextReview = nextReviewDate.reviewDate;
+            if (!ObjectUtil.isEmpty(nextReviewDate)) {
+                this.nextReview = nextReviewDate.reviewDate;
+            }
         }
     }
 

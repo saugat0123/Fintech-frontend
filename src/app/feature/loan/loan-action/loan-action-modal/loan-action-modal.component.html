@@ -64,25 +64,21 @@
                     </div>
                 </div>
 
-                <div *ngIf="isMaker" hidden>
-                    <div class="col-md-12">
-                        <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)"
-                                     [checked]="customerLoanHolder.isSol">is SOL?
-                        </nb-checkbox>
-                    </div>
+                <div *ngIf="isMaker">
+                    <br>
                     <div *ngIf="isNoUserSelectedSol" class="sb-small text-danger">{{solNoUserSelectedMessage}}</div>
                     <div class="col-md-12 row" *ngIf="showHideSolUser">
                         <div class="col-md-6">
-                            <label class="toRole" for="toRole">Approval Role</label>
+                            <label class="toRole" for="toRole">Approving Authority</label>
                             <select style="width: 100%"
-                                    (change)="getSOlUSerList(this.formAction.get('selectedRoleForSol').value)"
+                                    (change)="getSOlUSerList(formAction?.get('selectedRoleForSol')?.value)"
                                     class="form-control form-control-sm"
                                     formControlName="selectedRoleForSol"
                                     name="toRole">
-                                <option [value]="null" hidden>Select To</option>
+                                <option [value]="null" hidden>Select Role</option>
                                 <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                        [ngValue]="forwardBackward.role"
-                                        [selected]="forwardBackward.role.id === customerLoanHolder?.solUser?.role.id">
+                                        [ngValue]="forwardBackward?.role"
+                                        [selected]="forwardBackward?.role?.id === customerLoanHolder?.solUser?.role.id">
                                     {{forwardBackward.role?.roleName}}
                                 </option>
                             </select>
@@ -108,10 +104,10 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <button (click)="onSubmit()" [disabled]="formAction.invalid || spinner"   nbButton type="button">
+            <button (click)="onSubmit()"
+                    [disabled]="formAction?.invalid || spinner"
+                    nbButton type="button">
                 <em class="fa fa-save"></em>
             </button>
         </nb-card-footer>
     </nb-card>
-
-
