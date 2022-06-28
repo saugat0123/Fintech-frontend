@@ -156,7 +156,7 @@
                 <th>Created On</th>
                 <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
-                <th>Diary Note</th>
+<!--                <th>Diary Note</th>-->
             </tr>
             </thead>
             <tbody>
@@ -233,7 +233,7 @@
                 </td>
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew) && model?.loan?.loanNature === 'Revolving'; else linkin">
                     <select #select class="form-control form-control-tiny py-0"
                             (change)="onChange(model,onActionChange, $event?.target?.value, select) ">
                         <option [value]="null" selected hidden>Select Type</option>
@@ -244,25 +244,13 @@
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
                             <option value="RENEWED_LOAN">Renew Loan</option>
-<!--                            <option value="CLOSURE_LOAN">Close Loan</option>-->
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
                             <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
-<!--                            <option value="RELEASE_AND_REPLACEMENT">Release And Replacement</option>-->
-<!--                            <option value="PARTIAL_RELEASE_OF_COLLATERAL">Partial Release of Collateral</option>-->
-<!--                            <option value="INTEREST_RATE_REVISION">Interest Rate Revision</option>-->
                             <option value="OTHERS">Others</option>
                         </ng-container>
                     </select>
-                </td>
-                <td>
-                    <ng-container>
-                        <a (click)="openCreditMemoModal(model)">
-                            <em class="fas fa-book-open">
-                            </em>
-                        </a>
-                    </ng-container>
                 </td>
 
                 <ng-template #linkin>
