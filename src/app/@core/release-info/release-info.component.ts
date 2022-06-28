@@ -9,7 +9,7 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class ReleaseInfoComponent implements OnInit {
   @Output() emitService = new EventEmitter<any>();
   remind = false;
-  time = 5;
+  time = 10;
   constructor(private activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}

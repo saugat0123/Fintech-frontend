@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
-    "@angular/service-worker": "^8.2.14",
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@nebular/bootstrap": "^4.6.0",
     "@nebular/eva-icons": "^4.6.0",
