@@ -20,7 +20,6 @@ import {ActivatedRoute} from '@angular/router';
 import {LoanFormService} from '../../../../../loan/component/loan-form/service/loan-form.service';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
-import {BlacklistService} from '../../../../../admin/component/blacklist/blacklist.service';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../../@core/validator/date-validator';
@@ -77,7 +76,6 @@ export class EditSwotComponent implements OnInit {
       private loanFormService: LoanFormService,
       private toastService: ToastService,
       private companyInfoService: CompanyInfoService,
-      private blackListService: BlacklistService,
       protected ref: NbDialogRef<EditSwotComponent>,
       protected dialogRef: NbDialogRef<EditSwotComponent>
   ) {

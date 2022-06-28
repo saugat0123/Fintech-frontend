@@ -5,7 +5,6 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
-import {DmsLoanFileComponent} from '../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
@@ -35,10 +34,6 @@ export class TemplateDocumentComponent implements OnInit {
 
   fileUpload(file) {
     const doc = file.target.files[0];
-    if (doc.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
-      this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
-      return;
-    }
     const formData: FormData = new FormData();
     formData.append('customerName', this.customerInfo.name);
     formData.append('documentName', this.docName);
