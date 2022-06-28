@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-body p-5">
-        <div class="row">
+        <div class="row" *ngIf="!remind">
             <div class="col-md-12">
                 <div class="form-group">
                     <h5>{{'New Update(s) Detected !'}}</h5>
@@ -9,13 +9,28 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-sm-12">
-              <div class="form-button">
-                <button id="submit" type="button" (click)="onUpdateNewChanges()" class="btn btn-sm w-100 btn-block btn-outline-primary action_buttons">{{'Reload'}}</button>
+        <div class="row" *ngIf="remind">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> We will remind after within 10 minutes! </label>
+              </div>
             </div>
+        </div>
+        <div class="row mb-4 float-right" *ngIf="!remind">
+            <div class="col-md-12">
+              <button (click)=onUpdateNewChanges() class="btn float-left" nbButton size="small" status="info"
+                      shape="rectangle" type="submit">Reload Update</button>
+              <button (click)=reminder() class="btn ml-2" nbButton size="small" status="info"
+                      shape="rectangle" type="submit">Remind me Later</button>
             </div>
-          </div>
+        </div>
+        <div class="row text-center" *ngIf="remind">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> Closing after {{time}} seconds. </label>
+              </div>
+            </div>
+        </div>
     </div>
   </div>
   

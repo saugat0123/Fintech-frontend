@@ -26,7 +26,7 @@ export const environment = {
   disableCrgLambda: false,
   SBS_GROUP: false,
   MEGA_GROUP: true,
-  versionCheckUrl: 'http://localhost:84/version.json',
+  versionCheckUrl: 'http://103.94.159.179:8082/century/version.json',
   autoReload: true
 };
 
