@@ -44,6 +44,7 @@ import {ProductPaperModule} from '../../../loan-information-template/product-pap
 import {SecurityViewModule} from '../../../loan-information-view/security-view/security-view/security-view.module';
 import {LoanSummaryInstitutionalComponent} from './loan-summary-institutional/loan-summary-institutional.component';
 import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-summary-individual.component';
+import { CustomerShareSummaryComponent } from './customer-share-summary/customer-share-summary.component';
 
 
 const COMPONENTS = [
@@ -72,7 +73,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
     declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent,  LoanSummaryInstitutionalComponent,
-        LoanSummaryIndividualComponent],
+        LoanSummaryIndividualComponent,
+        CustomerShareSummaryComponent],
     imports: [
         CommonModule,
         ThemeModule,
