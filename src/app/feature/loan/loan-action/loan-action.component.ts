@@ -97,12 +97,12 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 break;
             case 'backwardCommittee':
                 context = {
-                    popUpTitle: 'Send Backward To ' + LocalStorageUtil.getStorage().roleName,
+                    popUpTitle: 'Send Forward To ' + LocalStorageUtil.getStorage().roleName,
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
-                    docActionMsg: 'Returned Back To Committee',
+                    docActionMsg: 'Send Forward To Committee',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
                     toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
