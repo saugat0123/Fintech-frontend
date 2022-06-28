@@ -245,7 +245,7 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
         ['personalLoanCombinedFormArray', i, 'EMIAmountInFigure']).value ?
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigure']).value.toFixed(2) : '';
     const convertEMIAmount = !ObjectUtil.isEmpty(tempEMIAmount) ?
-        this.engToNepWord.transform(tempEMIAmount, true) : '';
+        this.convertNumbersToNepali(tempEMIAmount, true) : '';
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigureTrans']).patchValue(
         convertEMIAmount);
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigureCT']).patchValue(
