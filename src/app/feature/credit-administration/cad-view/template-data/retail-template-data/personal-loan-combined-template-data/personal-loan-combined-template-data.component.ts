@@ -183,7 +183,7 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
     // set value for account number
     const tempAccNum = this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value ?
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value : '';
-    const convertAccNum = !ObjectUtil.isEmpty(tempAccNum) ? this.convertNumbersToNepali(tempAccNum, true) : '';
+    const convertAccNum = !ObjectUtil.isEmpty(tempAccNum) ? this.engToNepNumberPipe.transform(tempAccNum, true) : '';
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).patchValue(convertAccNum);
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumCT']).patchValue(
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).value);
@@ -245,7 +245,7 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
         ['personalLoanCombinedFormArray', i, 'EMIAmountInFigure']).value ?
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigure']).value.toFixed(2) : '';
     const convertEMIAmount = !ObjectUtil.isEmpty(tempEMIAmount) ?
-        this.convertNumbersToNepali(tempEMIAmount, true) : '';
+        this.engToNepWord.transform(tempEMIAmount, true) : '';
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigureTrans']).patchValue(
         convertEMIAmount);
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'EMIAmountInFigureCT']).patchValue(
