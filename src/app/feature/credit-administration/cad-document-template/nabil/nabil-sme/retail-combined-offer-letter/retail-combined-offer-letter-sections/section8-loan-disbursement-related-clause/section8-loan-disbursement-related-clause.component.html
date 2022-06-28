@@ -373,6 +373,10 @@
                             formArrayName="mortgageLoanFormArray">
                         <ng-container [formGroupName]="i1">
                             <p class="m-0">
+                                <nb-checkbox class="d-print-none" #showFreeText
+                                             formControlName="mortgageClause">
+                                    Show third party transfer clause
+                                </nb-checkbox><br>
                                 <!--Mortgage Loan-->
                                 धितोबन्धक तमसुक, तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण
                                 कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको, पुल्चोक
@@ -390,14 +394,18 @@
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountWordsCT || '____________________'}}</span>
-                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="nameOfBeneficiary4"
-                                       formControlName="nameOfBeneficiary4"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.beneficiaryNameCT || '______________________'}}</span>
-                                लाई A/C Payee Cheque/MC/Draft मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                                मात्र) ऋणकर्जा प्रवाह
+                                <span *ngIf="showFreeText.checked">
+                                    र उक्त रकम श्री
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="nameOfBeneficiary4"
+                                           formControlName="nameOfBeneficiary4"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only font-weight-bold">{{val?.beneficiaryNameCT || '______________________'}}</span>
+                                    लाई A/C Payee Cheque/MC/Draft मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी
+                                </span>
+                                गरिनेछ ।
                             </p>
                         </ng-container>
                     </ng-container>
