@@ -17,8 +17,9 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
   takeOverArray: Array<any> = new Array<any>();
   loanHolderInfo;
   branchName: String;
-  freeTextVal: {};
+  freeTextVal: any = {};
   shareLoanFreeTextArray: Array<any> = new Array<any>();
+  mortgageLoanFreeTextArray: Array<any> = new Array<any>();
   personalLoanFreeTextArray: Array<any> = new Array<any>();
   tempInformation;
   constructor(
@@ -73,7 +74,7 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
     });
     this.setFormArrays();
     this.patchFormData();
-    this.patchShareDemandFreeText();
+    // this.patchShareDemandFreeText();
   }
   patchShareDemandFreeText() {
     if (!ObjectUtil.isEmpty(this.tempInformation) &&
@@ -109,6 +110,9 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
           this.form.get(['mortgageLoanFormArray', i, 'loanAmtFigure1']).patchValue(val.loanAmountCT ? val.loanAmountCT : '');
           this.form.get(['mortgageLoanFormArray', i, 'loanAmtWords3']).patchValue(val.loanAmountWordsCT ? val.loanAmountWordsCT : '');
           this.form.get(['mortgageLoanFormArray', i, 'nameOfBeneficiary4']).patchValue(val.beneficiaryNameCT ? val.beneficiaryNameCT : '');
+          this.form.get(['mortgageLoanFormArray', i, 'mortgageClause']).patchValue(!ObjectUtil.isEmpty(this.tempInformation) ?
+              !ObjectUtil.isEmpty(this.tempInformation.section8) ?
+                  this.tempInformation.section8.mortgageClauseFreeText[i].mortgageClause : '' : '');
         });
       }
 
@@ -117,7 +121,7 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
         this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val, i) => {
           this.form.get(['personalLoanFormArray', i, 'loanAmtFig1']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
           this.form.get(['personalLoanFormArray', i, 'loanAmtInWords1']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
-          // this.form.get(['personalLoanFormArray', i, 'amtNum']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+          this.form.get(['personalLoanFormArray', i, 'amtNum']).patchValue(val.accNumCT ? val.accNumCT : '');
         });
       }
 
@@ -348,12 +352,14 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       freetext8: [undefined],
       freetext9: [undefined],
       freetext11: [undefined],
+      mortgageClause: [false],
     });
   }
   setTextAreaValue() {
     this.freeTextVal = {
       loanDemandFreeText: this.shareLoanFreeText(),
-      personalLoanFreeText: this.personalLoanFreeText(),
+      mortgageClauseFreeText: this.mortgageClauseFreeText(),
+      // personalLoanFreeText: this.personalLoanFreeText(),
     };
     return this.freeTextVal;
   }
@@ -371,19 +377,34 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       return this.shareLoanFreeTextArray;
     }
   }
-  personalLoanFreeText() {
+
+  mortgageClauseFreeText() {
     if (!ObjectUtil.isEmpty(this.initialData) &&
-        !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
-        !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
-      for (let val = 0; val < this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.length; val++) {
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm) &&
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+      for (let val = 0; val < this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray.length; val++) {
         const tempFreeText = {
-          amtNum: this.form.get(['personalLoanFormArray', val, 'amtNum']).value ?
-              this.form.get(['personalLoanFormArray', val, 'amtNum']).value : '',
+          mortgageClause: this.form.get(['mortgageLoanFormArray', val, 'mortgageClause']).value ?
+              this.form.get(['mortgageLoanFormArray', val, 'mortgageClause']).value : '',
         };
-        this.personalLoanFreeTextArray.push(tempFreeText);
+        this.mortgageLoanFreeTextArray.push(tempFreeText);
       }
-      return this.personalLoanFreeTextArray;
+      return this.mortgageLoanFreeTextArray;
     }
   }
+  // personalLoanFreeText() {
+  //   if (!ObjectUtil.isEmpty(this.initialData) &&
+  //       !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm) &&
+  //       !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+  //     for (let val = 0; val < this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.length; val++) {
+  //       const tempFreeText = {
+  //         amtNum: this.form.get(['personalLoanFormArray', val, 'amtNum']).value ?
+  //             this.form.get(['personalLoanFormArray', val, 'amtNum']).value : '',
+  //       };
+  //       this.personalLoanFreeTextArray.push(tempFreeText);
+  //     }
+  //     return this.personalLoanFreeTextArray;
+  //   }
+  // }
 
 }

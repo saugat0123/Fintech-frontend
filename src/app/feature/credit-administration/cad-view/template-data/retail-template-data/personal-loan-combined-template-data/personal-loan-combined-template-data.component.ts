@@ -142,6 +142,9 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
       paymentDateCT: [undefined],
       paymentDateNepaliCT: [undefined],
       nameOfCompanyCT: [undefined],
+      accNum: [undefined],
+      accNumTrans: [undefined],
+      accNumCT: [undefined],
 
       repaymentCase: [undefined],
       interestRateType: [undefined],
@@ -177,6 +180,15 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanAmountInWords']).value);
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanAmountInWordsCT']).patchValue(
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanAmountInWordsTrans']).value);
+    // set value for account number
+    const tempAccNum = this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value ?
+        this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value : '';
+    const convertAccNum = !ObjectUtil.isEmpty(tempAccNum) ? this.convertNumbersToNepali(tempAccNum, true) : '';
+    this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).patchValue(convertAccNum);
+    this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumCT']).patchValue(
+        this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).value);
+    this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumCT']).patchValue(
+        this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).value);
 
     this.translatedFormGroup = this.formBuilder.group({
       purposeOfLoan: this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'purposeOfLoan']).value ?
