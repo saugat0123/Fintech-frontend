@@ -74,8 +74,6 @@ export class LoanDeedIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-        console.log('nepali data:::', this.nepaliData);
-        console.log('cad Data:::', this.cadData);
         if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
             this.form.patchValue(JSON.parse(this.initialInfoPrint));
             this.form.patchValue({
@@ -199,6 +197,12 @@ export class LoanDeedIndividualComponent implements OnInit {
             roleName: [undefined],
             commonData: this.formBuilder.array([])
         });
+    }
+
+    getNumAmountWord(patraAmount, patraAmountinWord) {
+        const wordLabelVar = this.nepaliToEnglishPipe.transform(this.form.get(patraAmount).value.toString());
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(patraAmountinWord).patchValue(returnVal);
     }
 
 

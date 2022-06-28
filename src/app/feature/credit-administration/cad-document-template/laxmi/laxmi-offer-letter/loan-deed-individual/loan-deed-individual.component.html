@@ -7,15 +7,18 @@
             हात्तिसार स्थित केन्द्रिय कार्यालय भएको <b>लक्ष्मी बैंक लिमिटेडको </b> जिल्ला
             <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="district">
-            <span class=" print-only nepaliFont">{{this.form.get('district').value || ''}}</span> गा.पा./न.पा.
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <span class="print-only nepaliFont">{{this.form.get('district').value || ''}}</span> गा.पा./न.पा.
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="municipality">
+            <span class="print-only nepaliFont">{{this.form.get('municipality').value || ''}}</span>
             वडा न.
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="wadNo">
+            <span class="print-only nepaliFont">{{this.form.get('wadNo').value || ''}}</span>
             वस्थित शाखा कार्यालय,
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="branch">
+            <span class="print-only nepaliFont">{{this.form.get('branch').value || ''}}</span>
             (यसपछि धनी बैंक भनिएको छ) आगे तमसुक लेखिदिने तपसिलमा उल्लेखित ऋणी (यसपछि ऋणी भनिएको छ) ले तपसिलमा उल्लेखित
             विवरण
             बमोजिमको कर्जा तथा कर्जा सुविधा धनी बैंकले जारी गरेको कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त
@@ -73,100 +76,121 @@
                     <tbody>
                     <tr>
                         <td width="30%">ऋणीको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="borrowerName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="borrowerName">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>ऋणीको बाजे/ससुराको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="borrowerGrandFatherName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="borrowerGrandFatherName">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerGrandFatherName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>ऋणीको बाबुको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="borrowerFatherName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="borrowerFatherName">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerFatherName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>ऋणीको पतिको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="borrowerHusbandName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="borrowerHusbandName">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerHusbandName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td> नागरिकता प्रमाणपत्र नं.:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="citizenNumber"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="citizenNumber">
+                            <span class="print-only nepaliFont">{{this.form.get('citizenNumber').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>नागरिकता जारी गर्ने कार्यालय:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="citizenIssueOffice"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="citizenIssueOffice">
+                            <span class="print-only nepaliFont">{{this.form.get('citizenIssueOffice').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td> नागरिकता जारी भएको मिति:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="citizenIssueDate"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="citizenIssueDate">
+                            <span class="print-only nepaliFont">{{this.form.get('citizenIssueDate').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>
                             स्थायी लेखा नं.:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="panNumber"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="panNumber">
+                            <span class="print-only nepaliFont">{{this.form.get('panNumber').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>
                             स्थायी लेखा जारी गर्ने कार्यालय:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="panIssueOffice"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="panIssueOffice">
+                            <span class="print-only nepaliFont">{{this.form.get('panIssueOffice').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>
                             स्थायी लेखा जारी मिति:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="panIssueDate"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="panIssueDate">
+                            <span class="print-only nepaliFont">{{this.form.get('panIssueDate').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td rowspan="3">
                             ऋणीको स्थायी ठेगाना:
                         </td>
-                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field"
-                                           formControlName="borrowerPermanentDistrict"></td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="borrowerPermanentDistrict">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerPermanentDistrict').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field"
+                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                                   formControlName="borrowerPermanentVdc">
-                           <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                       formControlName="borrowerTempVdc"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerPermanentVdc').value || ''}}</span>
+                            <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                       formControlName="borrowerTempVdc"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerTempVdc').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field"
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                           formControlName="borrowerWardNo">
-                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                                           formControlName="borrowerTole"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                           formControlName="borrowerTole"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerTole').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td rowspan="3">ऋणीको हालको ठेगाना:</td>
-                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field"
-                                           formControlName="borrowerCurrentDistrict"></td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="borrowerCurrentDistrict">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerCurrentDistrict').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field"
+                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                                   formControlName="borrowerCurrentVdc">
-                            <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                                           formControlName="borrowerCurrentTempVdc"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerCurrentVdc').value || ''}}</span>
+                            <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                           formControlName="borrowerCurrentTempVdc"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerCurrentTempVdc').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field"
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                           formControlName="borrowerCurrentWardNo">
-                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                           formControlName="borrowerCurrentTole"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerCurrentWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                           formControlName="borrowerCurrentTole"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerCurrentTole').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>सम्पर्क फोन/मोवाईल नं.</td>
-                        <td> <input type="text" class="nepaliFont form-control-sm form-field"
-                                    formControlName="borrowerMobileNo"></td>
+                        <td> <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                    formControlName="borrowerMobileNo">
+                            <span class="print-only nepaliFont">{{this.form.get('borrowerMobileNo').value || ''}}</span> </td>
                     </tr>
                     </tbody>
                 </table>
@@ -177,100 +201,121 @@
                     <tbody>
                     <tr>
                         <td width="30%">ऋणीको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyName">
+                            <span class="print-only nepaliFont">{{this.form.get('companyName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>दर्ता नं.:</td>
-                        <td> <input type="text" class="nepaliFont form-control-sm form-field"
-                                    formControlName="companyRegistrationNo"></td>
+                        <td> <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                    formControlName="companyRegistrationNo">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRegistrationNo').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>दर्ता रहेको निकायको नाम:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="registrationNikayaName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="registrationNikayaName">
+                            <span class="print-only nepaliFont">{{this.form.get('registrationNikayaName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>दर्ता मिति:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="registrationDate"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="registrationDate">
+                            <span class="print-only nepaliFont">{{this.form.get('registrationDate').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>स्थायी लेखा नं.:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyPanNumber"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanNumber">
+                            <span class="print-only nepaliFont">{{this.form.get('companyPanNumber').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>स्थायी लेखा जारी गर्ने कार्यालय:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyPanIssueOffice"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanIssueOffice">
+                            <span class="print-only nepaliFont">{{this.form.get('companyPanIssueOffice').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>स्थायी लेखा जारी मिति:</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyPanIssueDate"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanIssueDate">
+                            <span class="print-only nepaliFont">{{this.form.get('companyPanIssueDate').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td rowspan="3">
                             ऋणीको रजिष्ट्रर्ड ठेगाना:
                         </td>
-                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field"
-                                           formControlName="companyRegDistrict"></td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="companyRegDistrict">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRegDistrict').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                  formControlName="companyRegVdc"></td>
+                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                  formControlName="companyRegVdc">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRegVdc').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field"
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                           formControlName="companyRegWardNo">
-                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                           formControlName="companyRegTole"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('companyRegWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                           formControlName="companyRegTole">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRegTole').value || ''}}</span> </span></td>
                     </tr>
                     <tr>
                         <td>
                             ऋणीको तर्फबाट अख्तियार प्राप्त व्यक्तिको नाम:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyRepresentativeName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeName">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>
                             अख्तियार प्राप्त व्यक्तिको बाजे/ससुराको नाम:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyRepresentativeGrandFatherName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeGrandFatherName">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeGrandFatherName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>
                             अख्तियार प्राप्त व्यक्तिको बाबुको नाम:
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="companyRepresentativeFatherName"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeFatherName">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeFatherName').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td rowspan="3">अख्तियार प्राप्त व्यक्तिको ठेगाना:</td>
-                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field"
-                                           formControlName="companyRepresentativeDistrict"></td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="companyRepresentativeDistrict">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeDistrict').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td> न.पा./गा.पा.:<input type="text" class="nepaliFont form-control-sm form-field"
-                                                 formControlName="companyRepresentativeVdc"></td>
+                        <td> न.पा./गा.पा.:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                 formControlName="companyRepresentativeVdc">
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeVdc').value || ''}}</span> </td>
                     </tr>
                     <tr>
-                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field"
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                           formControlName="companyRepresentativeWardNo">
-                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field"
-                                                           formControlName="companyRepresentativeTole"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                           formControlName="companyRepresentativeTole"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('companyRepresentativeTole').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td rowspan="3">अख्तियार प्राप्त व्यक्तिको नागरिकता विवरण:</td>
-                        <td>ना.प्र.नं.:<input type="text" class="nepaliFont form-control-sm form-field"
+                        <td>ना.प्र.नं.:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                               formControlName="representativeCitizenNumber">
-                            <span class="ml-3">जारी मिति:<input type="text" class="nepaliFont form-control-sm form-field"
+                            <span class="print-only nepaliFont">{{this.form.get('representativeCitizenNumber').value || ''}}</span>
+                            <span class="ml-3">जारी मिति:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                                                 formControlName="representativeCitizenIssueDate"></span>
-                            <span class="ml-3"> नागरिकता जारी गर्ने कार्यालय:<input type="text" class="nepaliFont form-control-sm form-field"
-                                                                                    formControlName="representativeCitizenNumber"></span></td>
+                            <span class="print-only nepaliFont">{{this.form.get('representativeCitizenIssueDate').value || ''}}</span>
+                            <span class="ml-3"> नागरिकता जारी गर्ने कार्यालय:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                                    formControlName="representativeCitizenNumber"></span>
+                            <span class="print-only nepaliFont">{{this.form.get('representativeCitizenNumber').value || ''}}</span> </td>
                     </tr>
                     </tbody>
                 </table>
@@ -281,16 +326,20 @@
                     <tbody>
                     <tr>
                         <td width="30%">कर्जा स्वीकृती/प्रस्ताव पत्र नं. र मिति</td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="patraNo"></td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="patraNo">
+                            <span class="print-only nepaliFont">{{this.form.get('patraNo').value || ''}}</span> </td>
                     </tr>
                     <tr>
                         <td>माथी उल्लेखित धनी बैंकको कर्जा स्वीकृती/प्रस्ताव पत्र बमोजिम उपभोग गरेको/गर्ने जम्मा कर्जा
                             रकम (अंक र अक्षरमा) रु.
                         </td>
-                        <td><input type="text" class="nepaliFont form-control-sm form-field"
-                                   formControlName="patraAmount">/-(<input type="text" class="nepaliFont form-control-sm form-field"
-                                                                      formControlName="patraAmountinWord">)</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="patraAmount">
+                            <span class="print-only nepaliFont">{{this.form.get('patraAmount').value || ''}}</span> /-
+                            (<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                      formControlName="patraAmountinWord">
+                            <span class="print-only nepaliFont">{{this.form.get('patraAmountinWord').value || ''}}</span> )</td>
                     </tr>
                     </tbody>
                 </table>
@@ -351,38 +400,51 @@
                 यसै लिखतबाट मन्जुरी प्रदान गरेको छु ।
             </div>
 
-            इति सम्बत <input type="text" class="form-control-sm form-field nepaliFont"
+            इति सम्बत <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                              formControlName="itisambatYear">
+            <span class="print-only nepaliFont">{{this.form.get('itisambatYear').value || ''}}</span>
             साल
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="itisambatMonth">
+            <span class="print-only nepaliFont">{{this.form.get('itisambatMonth').value || ''}}</span>
             महिना
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                    formControlName="itisambatDay">
+            <span class="print-only nepaliFont">{{this.form.get('itisambatDay').value || ''}}</span>
             गते रोज
-            <input type="text" class="form-control-sm form-field nepaliFont"
-                   formControlName="roj"> शुभम्।
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                   formControlName="roj">
+            <span class="print-only nepaliFont">{{this.form.get('roj').value || ''}}</span> शुभम्।
             <div class="col-md-12 viewFull">
                 <p class="text-center"><b><u>साक्षी</u></b></p>
                 <div class="row">
-                    १. जिल्ला <input class="form-control-sm form-field nepaliFont"
+                    १. जिल्ला <input class="nepaliFont form-control-sm form-field d-print-none"
                                      formControlName="witnessDistrictOne"/>
-                    गा.पा./न.पा <input class="form-control-sm form-field nepaliFont"
+                    <span class="print-only nepaliFont">{{this.form.get('witnessDistrictOne').value || ''}}</span>
+                    गा.पा./न.पा <input class="nepaliFont form-control-sm form-field d-print-none"
                                        formControlName="witnessMunicipalityOne"/>
-                    वडा नं<input class="form-control-sm form-field nepaliFont" formControlName="witnessWadNoOne"/>
+                    <span class="print-only nepaliFont">{{this.form.get('witnessMunicipalityOne').value || ''}}</span>
+                    वडा नं <input class="nepaliFont form-control-sm form-field d-print-none" formControlName="witnessWadNoOne"/>
+                    <span class="print-only nepaliFont">{{this.form.get('witnessWadNoOne').value || ''}}</span>
                 </div>
                 <div class="row">
-                    २. जिल्ला <input class="form-control-sm form-field nepaliFont"
+                    २. जिल्ला <input class="nepaliFont form-control-sm form-field d-print-none"
                                      formControlName="witnessDistrictTwo"/>
-                    गा.पा./न.पा <input class="form-control-sm form-field nepaliFont"
+                    <span class="print-only nepaliFont">{{this.form.get('witnessDistrictTwo').value || ''}}</span>
+                    गा.पा./न.पा <input class="nepaliFont form-control-sm form-field d-print-none"
                                        formControlName="witnessMunicipalityTwo"/>
-                    वडा नं<input class="form-control-sm form-field nepaliFont" formControlName="witnessWadNoTwo"/>
+                    <span class="print-only nepaliFont">{{this.form.get('witnessMunicipalityTwo').value || ''}}</span>
+                    वडा नं <input class="nepaliFont form-control-sm form-field d-print-none" formControlName="witnessWadNoTwo"/>
+                    <span class="print-only nepaliFont">{{this.form.get('witnessWadNoTwo').value || ''}}</span>
                 </div>
                 <br>
                 <div class="row">
-                    सनाखत साक्षी: धनी बैंकमा <input class="form-control-sm form-field nepaliFont"
-                                                     formControlName="role"/> पदमा कार्यरत
-                    <input class="form-control-sm form-field nepaliFont" formControlName="roleName"/>
+                    सनाखत साक्षी: धनी बैंकमा <input class="nepaliFont form-control-sm form-field d-print-none"
+                                                     formControlName="role"/>
+                    <span class="print-only nepaliFont">{{this.form.get('role').value || ''}}</span>
+                    पदमा कार्यरत
+                    <input class="nepaliFont form-control-sm form-field d-print-none" formControlName="roleName"/>
+                    <span class="print-only nepaliFont">{{this.form.get('roleName').value || ''}}</span>
                 </div>
             </div>
             <div>
