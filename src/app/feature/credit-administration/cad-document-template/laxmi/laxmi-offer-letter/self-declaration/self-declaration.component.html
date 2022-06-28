@@ -7,9 +7,9 @@
                 <br>
                 शाखा कार्यालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="branch"> ।
             </p>
-            <p class="text-center"><b> विषय: घोषना गरेको सम्बन्धमा ।</b></p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <b>रु. <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amount" ></b>/–
-            <b>(अक्षरेपी रुपैया <input class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amountInWords" disabled>)</b> भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+            <p class="text-center"><span class="font-weight-bold">विषय: घोषना गरेको सम्बन्धमा ।</span> </p>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <span class="font-weight-bold">रु.</span>  <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal font-Weight-Bold" formControlName="amount" >/–
+            <span class="font-weight-bold">(अक्षरेपी रुपैया </span> <input class="nepaliFont form-field form-control-sm font-size-normal font-weight-bold" formControlName="amountInWords" disabled>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
            <br>
           <div *ngIf="individual">
               <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">

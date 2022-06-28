@@ -82,8 +82,6 @@ export class SelfDeclarationComponent implements OnInit {
         branch: this.cadData.assignedLoan[0].branch.nepaliName
       });
     }
-    console.log('this.initialInfoPrint', this.initialInfoPrint);
-    console.log('this.cadData', this.cadData);
   }
   buildForm() {
     this.form = this.formBuilder.group({
