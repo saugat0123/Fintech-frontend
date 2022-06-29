@@ -84,3 +84,23 @@ input::-webkit-input-placeholder {
 .page-break {
   page-break-after: always;
 }
+
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+ol li{
+  line-height: 1.9;
+  font-size: 16px;
+}
+
+.print-only {
+  display: none !important;
+}
+
+@media print {
+  .print-only {
+    display: inline !important;
+    color: black !important;
+  }
+}
