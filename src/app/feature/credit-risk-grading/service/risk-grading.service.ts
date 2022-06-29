@@ -43,4 +43,9 @@ export class RiskGradingService {
         const getUrl = ApiUtils.getRequest(url);
         return this.http.delete(getUrl.url, {headers: getUrl.header});
     }
+    saveQuestionListBusinessTYpe(model: Object): Observable<Object> {
+        const url = this.API(0) + '/save/businessType';
+        const getUrl = ApiUtils.getRequest(url);
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
 }
