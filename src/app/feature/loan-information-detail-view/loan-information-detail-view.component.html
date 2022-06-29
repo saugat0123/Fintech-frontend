@@ -467,7 +467,9 @@
                     <div class="col-md-12">
                         <app-crg-gamma-detail-view *ngIf="loanDataHolder?.crgGamma"
                                                    [creditHistory]="(this.loanDataHolder.proposal.data | jsonParse)?.creditHistory"
-                                                   [formData]="loanDataHolder?.crgGamma"></app-crg-gamma-detail-view>
+                                                   [formData]="loanDataHolder?.crgGamma"
+                                                   [fromView]="false">
+                        </app-crg-gamma-detail-view>
                         <div style="page-break-after: always"></div>
                         <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"
