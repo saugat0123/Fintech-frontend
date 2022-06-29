@@ -68,11 +68,23 @@
                         <div style="overflow-x: auto" *ngFor="let loan of printDocForm?.loan; index as i">
                             <table class="table table-borderless bodyParagraphTable" style="width: 100%">
                                 <tr>
-                                    <td rowspan="9">१.({{i + 1 | nepaliWord: 'unicode'}})</td>
-                                    <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
+                                    <th style="vertical-align: top; width: 5%">
+                             <span *ngIf="i === 0" class="uniFont">
+                                 १.
+                             </span>
+
+                                    </th>
+                                    <th colspan="2"><span *ngIf="i === 0" class="uniFont">
+                                 <u>कर्जा तथा सुविधाको विवरण :</u>
+                             </span>
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <td><strong>कर्जा सुविधाको किसिम :</strong></td>
+                                    <td rowspan="10" *ngIf="printDocForm?.loan.length<=1; else index"></td>
+                                    <ng-template #index>
+                                        <td rowspan="10" style="vertical-align: top;">({{i + 1 | nepaliWord}})</td>
+                                    </ng-template>
+                                    <td style="width: 22%;"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                     <td>
                                     <span [ngClass]="{'nepaliFont' : loan?.loanTypeNepali !== null && loan?.loanTypeNepali !== ''}">
                                         {{loan?.loanTypeNepali === null || loan?.loanTypeNepali === '' ? '_________________' : loan?.loanTypeNepali}}
@@ -87,9 +99,14 @@
                                     <td style="width: 15%"><strong>कर्जा सिमा :</strong></td>
                                     <td>
                                         अधिकतम रु.
-                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
+                                        <span *ngIf="i>0; else karjaSima" [ngClass]="{'nepaliFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
                                             {{loan?.amount1 === null || loan?.amount1 === '' ? '______________' : loan?.amount1}}
                                         </span>
+                                        <ng-template #karjaSima>
+                                             <span [ngClass]="{'nepaliFont uniFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
+                                            {{loan?.amount1 === null || loan?.amount1 === '' ? '______________' : loan?.amount1}}
+                                        </span>
+                                        </ng-template>
                                         ।–
                                         (अक्षरेपी:
                                         <span [ngClass]="{'nepaliFont uniFont' : loan?.amountInWords1 !== null && loan?.amountInWords1 !== ''}">
@@ -111,14 +128,14 @@
                                     <td><strong>व्याजदर :</strong></td>
                                     <td>
                                         स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
-                                        <span [ngClass]="{'nepaliFont' : loan?.interestRate !== null && loan?.interestRate !== ''}">
+                                        <span [ngClass]="{'preetiFont' : loan?.interestRate !== null && loan?.interestRate !== ''}">
                                             {{loan?.interestRate === null || loan?.interestRate === '' ? '_________________' : loan?.interestRate}}
                                         </span>
                                         प्रतिशत बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि आश्वीन, पौष, चैत्र र आषाढ
                                         महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा
                                         नेपाल राष्ट्र बैंक वा फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
 
-                                        <span [ngClass]="{'nepaliFont' : loan?.interestRepayMonths !== null && loan?.interestRepayMonths !== ''}">
+                                        <span [ngClass]="{'preetiFont' : loan?.interestRepayMonths !== null && loan?.interestRepayMonths !== ''}">
                                             {{loan?.interestRepayMonths === null || loan?.interestRepayMonths === '' ? '_________________' : loan?.interestRepayMonths}}
                                         </span>
                                         महिनाको आधार दर (Base Rate) :
@@ -158,7 +175,7 @@
                                         </span>
                                         % =
 
-                                        <span [ngClass]="{'nepaliFont' : loan?.interestFinalRate !== null && loan?.interestFinalRate !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.interestFinalRate !== null && loan?.interestFinalRate !== ''}">
                                             {{loan?.interestFinalRate === null || loan?.interestFinalRate === '' ? '_____' : loan?.interestFinalRate}}
                                         </span>
                                         %
@@ -192,7 +209,7 @@
                                 <tr>
                                     <td>प्रतिवद्धता शुल्क</td>
                                     <td>रु.
-                                        <span [ngClass]="{'nepaliFont uniFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
+                                        <span *ngIf="i>0; else karjaSima" [ngClass]="{'preetiFont' : loan?.amount1 !== null && loan?.amount1 !== ''}">
                                             {{loan?.amount1 === null || loan?.amount1 === '' ? '___________' : loan?.amount1}}
                                         </span>
                                         को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
@@ -258,6 +275,7 @@
                                                     {{securityDetail?.name === null || securityDetail?.name === '' ? '' :  securityDetail?.name}}
                                                 </span>
                                                 <br>
+                                                <span *ngIf="isIndividual; else companyPan">
                                                 बूबाको नाम :
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.parentName !== null && securityDetail?.parentName !== ''}">
                                                     {{securityDetail?.parentName === null || securityDetail?.parentName === '' ? '' :  securityDetail?.parentName}}
@@ -267,14 +285,22 @@
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.grandParentName !== null && securityDetail?.grandParentName !== ''}">
                                                     {{securityDetail?.grandParentName === null || securityDetail?.grandParentName === '' ? '' :  securityDetail?.grandParentName}}
                                                 </span>
+                                                </span>
+                                                <ng-template #companyPan>
+                                                    <span class="uniFont">प्यान नं.:</span>  <span [ngClass]="{'nepaliFont' : printDocForm?.panNo !== null && printDocForm?.panNo !== ''}">
+                                                    {{printDocForm?.panNo === null || printDocForm?.panNo === '' ? '' :  printDocForm?.panNo}}
+                                                </span>
+                                                    <br>
+                                                <span class="uniFont">दर्ता नं.:</span> <span [ngClass]="{'nepaliFont' : printDocForm?.registrationNo !== null && printDocForm?.registrationNo !== ''}">
+                                                    {{printDocForm?.registrationNo === null || printDocForm?.registrationNo === '' ? '' :  printDocForm?.registrationNo}}
+                                                </span>
+                                                </ng-template>
                                                 <br>
                                                 ठेगाना :
                                                 <span [ngClass]="{'nepaliFont uniFont' : securityDetail?.address !== null && securityDetail?.address !== ''}">
-                                                    {{securityDetail?.address === null || securityDetail?.address === '' ? '' :  securityDetail?.address}}
-                                                </span>,
+                                                    {{securityDetail?.address === null || securityDetail?.address === '' ? '' :  securityDetail?.address}}</span>,
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.addressVDC !== null && securityDetail?.addressVDC !== ''}">
-                                                    {{securityDetail?.addressVDC === null || securityDetail?.addressVDC === '' ? '' :  securityDetail?.addressVDC}}
-                                                </span>,
+                                                    {{securityDetail?.addressVDC === null || securityDetail?.addressVDC === '' ? '' :  securityDetail?.addressVDC}}</span>,
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.addressWard !== null && securityDetail?.addressWard !== ''}">
                                                     {{securityDetail?.addressWard === null || securityDetail?.addressWard === '' ? '' :  securityDetail?.addressWard}}
                                                 </span>
@@ -352,7 +378,7 @@
                                         <tbody *ngFor="let primaryCollateral of printDocForm?.primaryCollaterals; index as i">
                                         <tr>
                                             <td>
-                                                {{i + 1 | nepaliNumber: 'unicode'}}
+                                                {{i + 1 | nepaliNumber: 'unicode'}}.
                                             </td>
                                             <td> सवारी साधनको किसिम :
                                                 <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleType !== null && primaryCollateral?.vehicleType !== ''}">
@@ -933,18 +959,13 @@
                                     शाखा कार्यालय
 
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
-                                        {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_______________' : printDocForm?.financeBranch}}
-                                    </span>
-                                    ,<br>
-
+                                        {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_______________' : printDocForm?.financeBranch}}</span>,<br>
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeMunicipality !== null && printDocForm?.financeMunicipality !== ''}">
                                         {{printDocForm?.financeMunicipality === null || printDocForm?.financeMunicipality === '' ? '________' : printDocForm?.financeMunicipality}}
                                     </span>
                                     वडा न.
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeWardNum !== null && printDocForm?.financeWardNum !== ''}">
-                                        {{printDocForm?.financeWardNum === null || printDocForm?.financeWardNum === '' ? '_____' : printDocForm?.financeWardNum}}
-                                    </span>,
-
+                                        {{printDocForm?.financeWardNum === null || printDocForm?.financeWardNum === '' ? '_____' : printDocForm?.financeWardNum}}</span>,
                                     <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeDistrict !== null && printDocForm?.financeDistrict !== ''}">
                                         {{printDocForm?.financeDistrict === null || printDocForm?.financeDistrict === '' ? '_______________' : printDocForm?.financeDistrict}}
                                     </span>
@@ -986,11 +1007,8 @@
                                         {{printDocForm?.customerMunicipality === null || printDocForm?.customerMunicipality === '' ? '_______________' : printDocForm?.customerMunicipality}}
                                     </span>
                                     वडा न.
-
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
-                                        {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '_____' : printDocForm?.customerWardNum}}
-                                    </span>
-                                    ,
+                                        {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '_____' : printDocForm?.customerWardNum}}</span>,
 
                                     <span [ngClass]="{'nepaliFont' : printDocForm?.customerDistrict !== null && printDocForm?.customerDistrict !== ''}">
                                         {{printDocForm?.customerDistrict === null || printDocForm?.customerDistrict === '' ? '_______________' : printDocForm?.customerDistrict}}
@@ -1059,12 +1077,11 @@
                                     </span>
                                     (कर्मचारीको नाम)<br>
                                     प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
-                                    शाखाकार्यालय,
-                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.employeeFinanceBranch !== null && printDocForm?.employeeFinanceBranch !== ''}">
-                                        {{printDocForm?.employeeFinanceBranch === null || printDocForm?.employeeFinanceBranch === '' ? '_____________' : printDocForm?.employeeFinanceBranch}}
-                                    </span>,
-                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.employeeFinanceDistrict !== null && printDocForm?.employeeFinanceDistrict !== ''}">
-                                        {{printDocForm?.employeeFinanceDistrict === null || printDocForm?.employeeFinanceDistrict === '' ? '_____________' : printDocForm?.employeeFinanceDistrict}}
+                                    शाखा कार्यालय,
+                                    <span [ngClass]="{'preetiFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                                        {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_____________' : printDocForm?.financeBranch}}</span>,
+                                    <span [ngClass]="{'preetiFont uniFont' : printDocForm?.financeDistrict !== null && printDocForm?.financeDistrict !== ''}">
+                                        {{printDocForm?.financeDistrict === null || printDocForm?.financeDistrict === '' ? '_____________' : printDocForm?.financeDistrict}}
                                     </span>
                                     जिल्ला
 
@@ -1079,14 +1096,12 @@
                                     </span>
                                     (कर्मचारीको नाम)<br>
                                     प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
-                                    शाखाकार्यालय,
-                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.employeeFinanceBranch2 !== null && printDocForm?.employeeFinanceBranch2 !== ''}">
-                                        {{printDocForm?.employeeFinanceBranch2 === null || printDocForm?.employeeFinanceBranch2 === '' ? '_____________' : printDocForm?.employeeFinanceBranch2}}
-                                    </span>
-                                    ,
+                                    शाखा कार्यालय,
+                                    <span [ngClass]="{'preetiFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                                        {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_____________' : printDocForm?.financeBranch}}</span>,
 
-                                    <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.employeeFinanceDistrict2 !== null && printDocForm?.employeeFinanceDistrict2 !== ''}">
-                                        {{printDocForm?.employeeFinanceDistrict2 === null || printDocForm?.employeeFinanceDistrict2 === '' ? '_____________' : printDocForm?.employeeFinanceDistrict2}}
+                                    <span [ngClass]="{'preetiFont uniFont' : printDocForm?.financeDistrict !== null && printDocForm?.financeDistrict !== ''}">
+                                        {{printDocForm?.financeDistrict === null || printDocForm?.financeDistrict === '' ? '_____________' : printDocForm?.financeDistrict}}
                                     </span>
                                     जिल्ला
 
@@ -1122,11 +1137,9 @@
                     <br>
                     नागरिकता न., मिति र कार्यालय:—
                     <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
-                        {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '_____________' : printDocForm?.signatoryCitizenshipNum}}
-                    </span>
+                        {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '_____________' : printDocForm?.signatoryCitizenshipNum}}</span>,
                     <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipIssueDate !== null && printDocForm?.signatoryCitizenshipIssueDate !== ''}">
-                        {{printDocForm?.signatoryCitizenshipIssueDate === null || printDocForm?.signatoryCitizenshipIssueDate === '' ? '_____________' : printDocForm?.signatoryCitizenshipIssueDate}}
-                    </span>
+                        {{printDocForm?.signatoryCitizenshipIssueDate === null || printDocForm?.signatoryCitizenshipIssueDate === '' ? '_____________' : printDocForm?.signatoryCitizenshipIssueDate}}</span>,
                     जि.प्र.का.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipIssuePlace !== null && printDocForm?.signatoryCitizenshipIssuePlace !== ''}">
                         {{printDocForm?.signatoryCitizenshipIssuePlace === null || printDocForm?.signatoryCitizenshipIssuePlace === '' ? '_____________' : printDocForm?.signatoryCitizenshipIssuePlace}}
@@ -1134,13 +1147,11 @@
                     <br>
                     अख्तियार प्राप्त व्यक्तिको ठेगाना:—
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarName2 !== null && printDocForm?.akhtiyarName2 !== ''}">
-                        {{printDocForm?.akhtiyarName2 === null || printDocForm?.akhtiyarName2 === '' ? '_____________' : printDocForm?.akhtiyarName2}}
-                    </span>
-                    ,
+                        {{printDocForm?.akhtiyarName2 === null || printDocForm?.akhtiyarName2 === '' ? '_____________' : printDocForm?.akhtiyarName2}}</span>,
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarMunicipality2 !== null && printDocForm?.akhtiyarMunicipality2 !== ''}">
                         {{printDocForm?.akhtiyarMunicipality2 === null || printDocForm?.akhtiyarMunicipality2 === '' ? '_____________' : printDocForm?.akhtiyarMunicipality2}}
                     </span>
-                    न.पा./म.न.पा. वडा नं.
+                    न.पा./म.न.पा., वडा नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.akhtiyarWardNum2 !== null && printDocForm?.akhtiyarWardNum2 !== ''}">
                         {{printDocForm?.akhtiyarWardNum2 === null || printDocForm?.akhtiyarWardNum2 === '' ? '_____' : printDocForm?.akhtiyarWardNum2}}
                     </span>
@@ -1254,9 +1265,8 @@
                     </div>
                 <p>जमानतकर्ताको नाम : श्री
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorName !== null && addGuarantor?.tapsilGuarantorName !== ''}">
-                        {{addGuarantor?.tapsilGuarantorName === null || addGuarantor?.tapsilGuarantorName === '' ? '_____________' : addGuarantor?.tapsilGuarantorName}}
-                    </span>
-                    <ng-container *ngIf="addGuarantor?.guarantorType === 'Corporate_Guarantor'">,
+                        {{addGuarantor?.tapsilGuarantorName === null || addGuarantor?.tapsilGuarantorName === '' ? '_____________' : addGuarantor?.tapsilGuarantorName}}</span>,
+                    <ng-container *ngIf="addGuarantor?.guarantorType === 'Corporate_Guarantor'">
                         प्रतिनिधि <span [ngClass]="{'nepaliFont' : addGuarantor?.companyPraName !== null && addGuarantor?.companyPraName !== ''}">
                         {{addGuarantor?.companyPraName === null || addGuarantor?.companyPraName === '' ? '_____________' : addGuarantor?.companyPraName}}
                     </span>
@@ -1264,26 +1274,21 @@
                 </p>
                     <p>नागरिकता न./मिति/जिल्ला :
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorCitizenshipNum !== null && addGuarantor?.tapsilGuarantorCitizenshipNum !== ''}">
-                        {{addGuarantor?.tapsilGuarantorCitizenshipNum === null || addGuarantor?.tapsilGuarantorCitizenshipNum === '' ? '_____________' : addGuarantor?.tapsilGuarantorCitizenshipNum}}
-                    </span>,
+                        {{addGuarantor?.tapsilGuarantorCitizenshipNum === null || addGuarantor?.tapsilGuarantorCitizenshipNum === '' ? '_____________' : addGuarantor?.tapsilGuarantorCitizenshipNum}}</span>,
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorCitizenshipIssueDate !== null && addGuarantor?.tapsilGuarantorCitizenshipIssueDate !== ''}">
-                        {{addGuarantor?.tapsilGuarantorCitizenshipIssueDate === null || addGuarantor?.tapsilGuarantorCitizenshipIssueDate === '' ? '_____________' : addGuarantor?.tapsilGuarantorCitizenshipIssueDate}}
-                    </span>,
+                        {{addGuarantor?.tapsilGuarantorCitizenshipIssueDate === null || addGuarantor?.tapsilGuarantorCitizenshipIssueDate === '' ? '_____________' : addGuarantor?.tapsilGuarantorCitizenshipIssueDate}}</span>,
                     जि.प्र.का.
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorCitizenshipIssuePlace !== null && addGuarantor?.tapsilGuarantorCitizenshipIssuePlace !== ''}">
                         {{addGuarantor?.tapsilGuarantorCitizenshipIssuePlace === null || addGuarantor?.tapsilGuarantorCitizenshipIssuePlace === '' ? '_____________' : addGuarantor?.tapsilGuarantorCitizenshipIssuePlace}}
                     </span></p>
                     <p *ngIf="addGuarantor?.guarantorType === 'Corporate_Guarantor'">
-                        <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं
+                        <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं.
                         <span [ngClass]="{'nepaliFont' : addGuarantor?.jamanatRegNo !== null && addGuarantor?.jamanatRegNo !== ''}">
-                        {{addGuarantor?.jamanatRegNo === null || addGuarantor?.jamanatRegNo === '' ? '_____________' : addGuarantor?.jamanatRegNo}}
-                        </span>
+                            {{addGuarantor?.jamanatRegNo === null || addGuarantor?.jamanatRegNo === '' ? '_____________' : addGuarantor?.jamanatRegNo}}</span>,
                         मिति <span [ngClass]="{'nepaliFont' : addGuarantor?.jamanatRegDate !== null && addGuarantor?.jamanatRegDate !== ''}">
-                        {{addGuarantor?.jamanatRegDate === null || addGuarantor?.jamanatRegDate === '' ? '_____________' : addGuarantor?.jamanatRegDate}}
-                        </span>
+                            {{addGuarantor?.jamanatRegDate === null || addGuarantor?.jamanatRegDate === '' ? '_____________' : addGuarantor?.jamanatRegDate}}</span>,
                         दर्ता गर्ने कार्यालय <span [ngClass]="{'nepaliFont' : addGuarantor?.jamanatRegCDO !== null && addGuarantor?.jamanatRegCDO !== ''}">
-                        {{addGuarantor?.jamanatRegCDO === null || addGuarantor?.jamanatRegCDO === '' ? '_____________' : addGuarantor?.jamanatRegCDO}}
-                        </span>)<br>
+                            {{addGuarantor?.jamanatRegCDO === null || addGuarantor?.jamanatRegCDO === '' ? '_____________' : addGuarantor?.jamanatRegCDO}}</span>)<br>
                     </p>
                 <p>ठेगाना :
                     <ng-container *ngIf="addGuarantor?.guarantorType === 'Corporate_Guarantor'">
@@ -1302,7 +1307,7 @@
                             {{addGuarantor?.tapsilGuarantorMunicipality === null || addGuarantor?.tapsilGuarantorMunicipality === '' ? '_____________' : addGuarantor?.tapsilGuarantorMunicipality}}
                         </span>
                     </ng-container>
-                    न.पा/म.न.पा. वडा न.
+                    न.पा./म.न.पा., वडा न.
                     <span [ngClass]="{'nepaliFont' : addGuarantor?.tapsilGuarantorWardNum !== null && addGuarantor?.tapsilGuarantorWardNum !== ''}">
                         {{addGuarantor?.tapsilGuarantorWardNum === null || addGuarantor?.tapsilGuarantorWardNum === '' ? '_____' : addGuarantor?.tapsilGuarantorWardNum}}
                     </span></p>
