@@ -10,6 +10,9 @@ import {NepaliToEngNumberPipe} from '../../../../../../../@core/pipe/nepali-to-e
 })
 export class PromisoryNoteInstitutionalPrintComponent implements OnInit {
   @Input() printDocForm;
+  @Input() individual;
+  @Input() cadData;
+  branch;
   constructor(
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private  nepaliToEnglish: NepaliToEngNumberPipe
@@ -18,6 +21,7 @@ export class PromisoryNoteInstitutionalPrintComponent implements OnInit {
   ngOnInit() {
     this.printDocForm = JSON.parse(this.printDocForm);
     this.printDocForm.amountInWords = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglish.transform(this.printDocForm.proposedAmount));
+    this.branch = this.cadData.assignedLoan[0].branch.nepaliName;
   }
 
 }
