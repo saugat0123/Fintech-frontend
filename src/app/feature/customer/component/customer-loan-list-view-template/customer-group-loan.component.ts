@@ -699,9 +699,10 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
     openCommonModal(id, combinedLoans) {
+      console.log('this is combined loans', combinedLoans);
       let combinedLoan;
       if (!ObjectUtil.isEmpty(combinedLoans)) {
-        combinedLoan = this.loan.filter((s) => s.combinedLoan && s.combinedLoan.id === id);
+        combinedLoan = combinedLoans;
       } else {
         combinedLoan = this.loan.filter((s) => !s.combinedLoan && s.id === id);
       }
