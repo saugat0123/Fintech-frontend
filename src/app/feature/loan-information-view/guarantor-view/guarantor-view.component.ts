@@ -41,8 +41,19 @@ export class GuarantorViewComponent implements OnInit {
     this.filterPromoter();
   }
   filterPromoter() {
-      if (!ObjectUtil.isEmpty(this.customerAllLoanList[0].loanHolder.guarantors.guarantorList)) {
-        this.promoterBackground = this.customerAllLoanList[0].loanHolder.guarantors.guarantorList.map(d => {
+    let currentGuarantor;
+    if (this.customerAllLoanList.length > 0) {
+      this.customerAllLoanList.forEach(d => {
+        if (d.documentStatus.toString() === 'PENDING' || !ObjectUtil.isEmpty(d.loanHolder)) {
+          if (!ObjectUtil.isEmpty(d.loanHolder.guarantors)) {
+            currentGuarantor = d;
+            return;
+          }
+        }
+      });
+    }
+      if (!ObjectUtil.isEmpty(currentGuarantor)) {
+        this.promoterBackground = currentGuarantor.loanHolder.guarantors.guarantorList.map(d => {
           if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
             return d;
           }

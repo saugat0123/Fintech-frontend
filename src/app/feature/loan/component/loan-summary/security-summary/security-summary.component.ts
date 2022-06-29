@@ -85,7 +85,6 @@ export class SecuritySummaryComponent implements OnInit {
 
     ngOnInit() {
         // Set Security Details for view
-        console.log('htis iasdasdasdasd', this.securities);
         const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
         if (loanListLen > 0 && this.securities.length < 1 ) {
             this.securities = [];
@@ -95,6 +94,9 @@ export class SecuritySummaryComponent implements OnInit {
                 this.combinedAllApprovedSecurity();
             }
         } else if (!ObjectUtil.isEmpty(this.securities)) {
+            const proposedSecurity = this.securities.map(d => d.id);
+            this.securities =  this.securities
+                .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
             this.selectedSecurities();
             this.setSelectedSecurities();
         }

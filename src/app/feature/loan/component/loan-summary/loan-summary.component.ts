@@ -578,9 +578,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     const uniqueLoanIds = this.customerAllLoanList.map(d => d.id);
                     this.customerAllLoanList =  this.customerAllLoanList
                         .filter((value, index) => uniqueLoanIds.indexOf(value.id) === index);
-                    const proposedSecurity = this.loanSecurity.map(d => d.id);
-                    this.loanSecurity =  this.loanSecurity
-                        .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.approvedSecurities)) {
                         const approvedId = this.loanDataHolder.loanHolder.approvedSecurities.map((d) => d.id);
                         this.approvedSecurity = this.loanDataHolder.loanHolder.approvedSecurities

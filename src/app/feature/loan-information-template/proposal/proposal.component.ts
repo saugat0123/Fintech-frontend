@@ -437,7 +437,9 @@ export class ProposalComponent implements OnInit {
                 criticalSectorList: [undefined],
                 criticalSector: [undefined],
                 processApplicable: [undefined],
-            })
+            }),
+            justification: [undefined],
+            currentRequest: [undefined]
         });
     }
 
