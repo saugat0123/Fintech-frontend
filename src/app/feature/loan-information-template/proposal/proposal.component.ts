@@ -490,9 +490,6 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
-        if (this.loanType !== 'FULL_SETTLEMENT_LOAN') {
-            this.cadSetup.save();
-        }
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
