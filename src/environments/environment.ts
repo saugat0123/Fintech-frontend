@@ -20,20 +20,22 @@ import {SummaryType} from '../app/feature/loan/component/SummaryType';
  */
 export const environment = {
   production: false,
-  client: Clients.SHINE_RESUNGA,
+  client: Clients.EXCEL,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
-  enablePreAddingAccountNumber: true,
+  enablePreAddingAccountNumber: false,
   disableCrgAlpha: true,
   disableCrgLambda: true,
-  disableApprovalSheet: false,
+  disableApprovalSheet: true,
   RISK_INITIAL_ROLE_SME: 'RISK OFFICER ( SME )',
-  RISK_INITIAL_ROLE_CORPORATE: 'RISK OFFICER ( CORPORATE )',
+  RISK_INITIAL_ROLE_CORPORATE: 'HEAD - SME / RETAIL / MF CREDIT RISK',
   microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: false,
-  summaryType: SummaryType.GAMMA
+  summaryType: SummaryType.GENERAL,
+  versionCheckUrl: 'http://localhost:84/version.json',
+  autoReload: false
 };
 
 /*
