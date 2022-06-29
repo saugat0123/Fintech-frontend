@@ -13,22 +13,17 @@
             <!--                release and replacement-->
                 <!--                    proposed security-->
 
-            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'; else approved">
+            <ng-container>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                <app-security-summary *ngIf="customerAllLoanList" [securities]="loanSecurity"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
+                <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
             </ng-container>
-            <ng-template #approved>
-                <app-security-summary [pending]="true" [securities]="loanDataHolder?.securities"></app-security-summary>
-                <app-security-summary *ngIf="loanDataHolder?.parentId"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
-            </ng-template>
-
 
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
+                                   [approvedSecurity]="approvedSecurity"
+                                   [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 

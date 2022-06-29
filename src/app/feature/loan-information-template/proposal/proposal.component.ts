@@ -42,6 +42,7 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
     @Input() isLoanBeingEdit = false;

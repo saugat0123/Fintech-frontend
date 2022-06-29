@@ -534,19 +534,29 @@
                                 </tr>
 
                                 <tr>
-                                    <td>व्याज (Interest)</td>
+                                    <td>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">व्याज (Interest)</span>
+                                        <span class="float-right disable-print">
+                                    <nb-checkbox
+                                            (change)="otherValueCheck($event?.target?.checked, i, 'interestNeeded')"
+                                            [checked]="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value"><i>Needed ?</i>
+                                    </nb-checkbox>
+                                </span>
+                                    </td>
                                     <td colspan="2">
                             <span>
-                                <select class="custom-select disable-print"
-                                        [value]="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value"
-                                        (change)="valueChange($event?.target?.value, i, 'rateMode')"
-                                        name="rateMode">
+                                <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value">
+                                       <select class="custom-select disable-print"
+                                               [value]="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value"
+                                               (change)="valueChange($event?.target?.value, i, 'rateMode')"
+                                               name="rateMode">
                                     <option [value]="null">Select Rate</option>
                                     <option value="BASE">आधार दर</option>
                                     <option value="MIXED">मिश्रित दर</option>
                                     <option value="FIXED">निश्चित दर</option>
                                     <option value="OTHER">Other</option>
                                 </select>
+                                </ng-container>
                             </span>
                                         <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'OTHER'">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
@@ -1027,15 +1037,15 @@
                     <!-- New / Enhancement Loan case:-->
                     <ng-container>
                         <table class="table table-bordered table-responsive-md table-sm">
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th colspan="1"></th>
                                 <th colspan="6">
                             <span class="text-center">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedChecked')"
-                                             [checked]="offerLetterForm?.get('fixedChecked')?.value"><i>Fixed Assets Collateral Security</i>
+                                             [checked]="offerLetterForm?.get('fixedChecked')?.value"><i>Register Mortgage</i>
                                 </nb-checkbox>  &nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
-                                             [checked]="offerLetterForm?.get('collateralChecked')?.value"><i>Cross-Collateralized Security</i>
+                                             [checked]="offerLetterForm?.get('collateralChecked')?.value"><i>Cross-Collateralized Mortgage</i>
                                 </nb-checkbox>  &nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'reRegisterChecked')"
                                              [checked]="offerLetterForm?.get('reRegisterChecked')?.value"><i>Re-register Mortgage</i>
@@ -1070,7 +1080,7 @@
                                         </td>
                                         <td colspan="1"><input type="text"
                                                                [value]="offerLetterForm?.get(['security', ii, 'ownerName'])?.value"
-                                                               placeholder="मालिकको नाम"
+                                                               placeholder="जग्गाधनीको नाम"
                                                                (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'ownerName')"
                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                             <span class="nepaliFont font-size-normal print-only">
@@ -1130,7 +1140,9 @@
                                 </ng-container>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
+                                    <td colspan="6">
+                                        <span *ngIf="!offerLetterForm?.get('registerMortgageOtherChecked')?.value">
+                                        उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
                                         नाममा
                                         धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित
                                         <span *ngIf="!offerLetterForm?.get('fixedRenewWithEnhance').value">
@@ -1170,6 +1182,22 @@
                                                     [checked]="offerLetterForm?.get('fixedRenewWithEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
+                                        </span>
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherCheck($event?.target?.checked, 'registerMortgageOtherChecked')"
+                                                    [checked]="offerLetterForm?.get('registerMortgageOtherChecked')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                            </span>
+                                        <span *ngIf="offerLetterForm?.get('registerMortgageOtherChecked')?.value">
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    formControlName="registerMortgageOther"
+                                                    rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <strong>{{offerLetterForm?.get('registerMortgageOther')?.value ? offerLetterForm?.get('registerMortgageOther')?.value : '========='}}</strong>
+                                                </span>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -1200,7 +1228,7 @@
                                         </td>
                                         <td colspan="1"><input type="text"
                                                                [value]="offerLetterForm?.get(['crossSecurity', ii, 'ownerName'])?.value"
-                                                               placeholder="मालिकको नाम"
+                                                               placeholder="जग्गाधनीको नाम"
                                                                (change)="securityValueChange($event?.target?.value, ii, 'crossCollateralSecurity', 'ownerName')"
                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                             <span class="nepaliFont font-size-normal print-only">
@@ -1261,7 +1289,9 @@
                                 </ng-container>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
+                                    <td colspan="6">
+                                        <span *ngIf="!offerLetterForm?.get('crossCollateralOtherChecked')?.value">
+                                        उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
                                         <input type="text"
                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                formControlName="ligLoan">
@@ -1325,6 +1355,22 @@
                                                     [checked]="offerLetterForm?.get('crossRenewWithEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
+                                        </span>
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherCheck($event?.target?.checked, 'crossCollateralOtherChecked')"
+                                                    [checked]="offerLetterForm?.get('crossCollateralOtherChecked')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                            </span>
+                                        <span *ngIf="offerLetterForm?.get('crossCollateralOtherChecked')?.value">
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    formControlName="crossCollateralOther"
+                                                    rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <strong>{{offerLetterForm?.get('crossCollateralOther')?.value ? offerLetterForm?.get('crossCollateralOther')?.value : '========='}}</strong>
+                                                </span>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -1355,7 +1401,7 @@
                                         </td>
                                         <td colspan="1"><input type="text"
                                                                [value]="offerLetterForm?.get(['reRegisterSecurity', rind, 'ownerName'])?.value"
-                                                               placeholder="मालिकको नाम"
+                                                               placeholder="जग्गाधनीको नाम"
                                                                (change)="securityValueChange($event?.target?.value, rind, 'reRegisterSecurity', 'ownerName')"
                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                             <span class="nepaliFont font-size-normal print-only">
@@ -1417,8 +1463,9 @@
                                 <tr>
                                     <td colspan="1"></td>
                                     <td colspan="6">
+                                        <span *ngIf="!offerLetterForm?.get('reRegisterOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
-                                        नाममा पुन: वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई
+                                        नाममा पुन: धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई
                                         पारित
                                         <span *ngIf="!offerLetterForm?.get('reRegisterEnhance').value">
                                             {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
@@ -1457,12 +1504,28 @@
                                                     [checked]="offerLetterForm?.get('reRegisterEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
+                                        </span>
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherCheck($event?.target?.checked, 'reRegisterOtherChecked')"
+                                                    [checked]="offerLetterForm?.get('reRegisterOtherChecked')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                            </span>
+                                        <span *ngIf="offerLetterForm?.get('reRegisterOtherChecked')?.value">
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    formControlName="reRegisterOther"
+                                                    rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <strong>{{offerLetterForm?.get('reRegisterOther')?.value ? offerLetterForm?.get('reRegisterOther')?.value : '========='}}</strong>
+                                                </span>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
                             </tbody>
                             <tbody>
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th colspan="1"></th>
                                 <th colspan="6">
                             <span class="text-center">
@@ -1534,7 +1597,9 @@
                                     </div>
                                     <tr>
                                         <td colspan="1"></td>
-                                        <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि
+                                        <td colspan="6">
+                                             <span *ngIf="!offerLetterForm?.get('vehicleSecurityOtherChecked')?.value">
+                                            उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि
                                             कर्जाको
                                             सुरक्षण
                                             वापत धितोको रुपमा प्रदान
@@ -1551,11 +1616,27 @@
                                             <ng-template #otherLoanType8>
                                                 गर्नुपर्नेछ ।
                                             </ng-template>
+                                             </span>
+                                            <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherCheck($event?.target?.checked, 'vehicleSecurityOtherChecked')"
+                                                    [checked]="offerLetterForm?.get('vehicleSecurityOtherChecked')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                            </span>
+                                            <span *ngIf="offerLetterForm?.get('vehicleSecurityOtherChecked')?.value">
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    formControlName="vehicleSecurityOther"
+                                                    rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <strong>{{offerLetterForm?.get('vehicleSecurityOther')?.value ? offerLetterForm?.get('vehicleSecurityOther')?.value : '========='}}</strong>
+                                                </span>
+                                        </span>
                                         </td>
                                     </tr>
                                 </ng-container>
                             </ng-container>
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th colspan="1"></th>
                                 <th colspan="6">
                                     <span class="text-center">
@@ -1701,7 +1782,7 @@
                             </ng-container>
                             </tbody>
                             <tbody>
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th class="sn pt-2" colspan="1">
                                     <ul>
                                         <li></li>
@@ -1905,7 +1986,7 @@
                             </tbody>
                             <tbody>
                             <ng-container>
-                                <tr class="print-only1">
+                                <tr class="print-only1 sb-bg-dark">
                                     <th colspan="1">
                                         <ul>
                                             <li></li>
@@ -1986,7 +2067,7 @@
                             </tbody>
                             <tbody>
                             <ng-container>
-                                <tr class="print-only1">
+                                <tr class="print-only1 sb-bg-dark">
                                     <th colspan="1" class="sn pt-2">
                                         <ul>
                                             <li></li>
@@ -2065,7 +2146,7 @@
                             </tbody>
                             <tbody>
                             <ng-container>
-                                <tr class="print-only1">
+                                <tr class="print-only1 sb-bg-dark">
                                     <th colspan="1" class="sn pt-2">
                                         <ul>
                                             <li></li>
@@ -2157,7 +2238,7 @@
                             </ng-container>
                             </tbody>
                             <tbody>
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th colspan="1">
                                     <ul>
                                         <li></li>
@@ -2208,7 +2289,7 @@
                             </tr>
                             </tbody>
                             <tbody>
-                            <tr class="print-only1">
+                            <tr class="print-only1 sb-bg-dark">
                                 <th colspan="1" class="sn">
                                     <ul>
                                         <li></li>
@@ -2247,7 +2328,7 @@
                                 <strong>
                                     <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('accountAmountWord').value ? offerLetterForm?.get('accountAmountWord').value : '========='}}</b></span>मात्र) </strong>
-                            लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी
+                            लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (Lien) राखीदिन मञ्जुर गरी
                             दिएको लिखत
                                 <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else other">
                                     बैंकलाई उपलब्ध गराएको यथावत रहने छ ।<br>
