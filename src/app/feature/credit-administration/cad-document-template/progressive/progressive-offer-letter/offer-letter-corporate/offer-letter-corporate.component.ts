@@ -17,6 +17,8 @@ import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
 import {NepDataPersonal} from '../../../../model/nepDataPersonal';
+import {CustomerType} from '../../../../../customer/model/customerType';
+import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-offer-letter-corporate',
@@ -26,6 +28,7 @@ import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 export class OfferLetterCorporateComponent implements OnInit {
     @Input() offerLetterType;
     @Input() cadOfferLetterApprovedDoc;
+    @Input() public customerInfo: CustomerInfoData;
     form: FormGroup;
     spinner;
     offerLetterConst = ProgressiveOfferLetterConst;
@@ -40,6 +43,8 @@ export class OfferLetterCorporateComponent implements OnInit {
     primaryCollaterals = new Array<any>();
     secondaryCollaterals = new Array<any>();
     additionalGuarantor = new Array<any>();
+    customerType = CustomerType;
+    isIndividual = false;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -83,6 +88,13 @@ export class OfferLetterCorporateComponent implements OnInit {
         this.setSecondarySecurityDetails(this.secondaryCollaterals);
         this.setPrimaryCollaterals(this.primaryCollaterals);
         this.setAdditionalGuarantor(this.nepaliData.guarantorDetails);
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+                this.isIndividual = true;
+            } else {
+                this.isIndividual = false;
+            }
+        }
     }
 
     fillForm() {
@@ -149,7 +161,9 @@ export class OfferLetterCorporateComponent implements OnInit {
             bottomPatraNum: !ObjectUtil.isEmpty(this.initialInfoPrint) ?
                 !ObjectUtil.isEmpty(this.initialInfoPrint.bottomPatraNum) ?  this.initialInfoPrint.bottomPatraNum : '' : '',
             isLandAndBuilding: this.isLandAndBuilding,
-            isHP: this.isHP
+            isHP: this.isHP,
+            panNo: [!ObjectUtil.isEmpty(this.nepaliData.panNo) ? this.nepaliData.panNo : ''],
+            registrationNo: [!ObjectUtil.isEmpty(this.nepaliData.companyRegistrationNo) ? this.nepaliData.companyRegistrationNo : ''],
         });
 
     }
@@ -453,7 +467,9 @@ export class OfferLetterCorporateComponent implements OnInit {
             bottomPatraNum: [undefined],
             freeText: [undefined],
             isLandAndBuilding: [false],
-            isHP: [false]
+            isHP: [false],
+            panNo: [undefined],
+            registrationNo: [undefined]
         });
     }
 
