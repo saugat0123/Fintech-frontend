@@ -698,19 +698,19 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.modalService.dismissAll();
   }
 
-    openCommonModal(id, combinedLoans) {
+    openCommonModal(loan, combinedLoans) {
       console.log('this is combined loans', combinedLoans);
       let combinedLoan;
       if (!ObjectUtil.isEmpty(combinedLoans)) {
         combinedLoan = combinedLoans;
       } else {
-        combinedLoan = this.loan.filter((s) => !s.combinedLoan && s.id === id);
+        combinedLoan = [loan];
       }
       this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
             {
                 context: {
                     customerInfo: this.customerInfo,
-                    loanId: id,
+                    loanId: loan.id,
                     resCombinedData: combinedLoan
                 },
                 closeOnBackdropClick: false,
