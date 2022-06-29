@@ -75,26 +75,52 @@
                         <div *ngFor="let load of form.get('loan')['controls']; let i=index" formArrayName="loan">
                             <div [formGroupName]="i">
                                 <table class="table table-borderless" style="width: 100%">
+                                    <thead *ngIf="i === 0">
                                     <tr>
-                                        <td rowspan="9" style="width: 10%">१.
-                                            ({{i + 1 | nepaliWord: 'unicode'}})
-                                        </td>
-                                        <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
-                                        <td *ngIf="form.get('loan')['length']>1">
+                                        <th>
+                                            १.
+                                        </th>
+                                        <th colspan="2">
+                                            <strong><u>कर्जा तथा सुविधाको विवरण :</u></strong>
+                                        </th>
+                                        <th *ngIf="form.get('loan')['length']>1">
                                             <i (click)="removeLoan(i)" size="small"
-                                               class="d-print-none fa fa-trash"></i></td>
+                                               class="d-print-none fa fa-trash"></i></th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr>
-                                        <td><strong>कर्जा सुविधाको किसिम :</strong></td>
+                                        <td rowspan="10" *ngIf="form.get('loan')['controls'].length<=1 else index"></td>
+                                        <ng-template #index>
+                                            <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                        </ng-template>
+                                        <td style="width: 18%"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                         <td>
-                                            <input class="form-control-sm form-field nepaliFont"
-                                                   formControlName="loanTypeNepali"
-                                                   type="text">
+                                            <input *ngIf="i > 0; else firstIndexLoanType"
+                                                   class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="loanTypeNepali">
+                                            <ng-template #firstIndexLoanType>
+                                                <input
+                                                        class="form-control-sm form-field nepaliFont"
+                                                        type="text"
+                                                        readonly
+                                                        formControlName="loanTypeNepali">
+                                            </ng-template>
                                             कर्जा
-                                            (<input class="form-control-sm form-field"
-                                                   formControlName="loanTypeEnglish"
-                                                   type="text">
-                                            loan)<br></td>
+                                            (<input *ngIf="i > 0; else firstIndexLoanTypeInEng"
+                                                    class="form-control-sm form-field"
+                                                    type="text"
+                                                    formControlName="loanTypeEnglish">
+                                            <ng-template #firstIndexLoanTypeInEng>
+                                                <input
+                                                        class="form-control-sm form-field"
+                                                        type="text"
+                                                        readonly
+                                                        formControlName="loanTypeEnglish">
+                                            </ng-template>
+                                            Loan)
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 15%"><strong>कर्जा सिमा :</strong></td>
@@ -236,6 +262,7 @@
                                             प्रतिशत स्थानतरण शुल्क असुलउपर गरिनेछ ।
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
 
                             </div>
@@ -273,6 +300,7 @@
                                                        formControlName="name"
                                                        type="text">
                                                 <br>
+                                                <span *ngIf="customerInfo?.customerType == !customerType.INSTITUTION; else companyPan">
                                                 बूबाको नाम :
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        formControlName="parentName"
@@ -282,6 +310,12 @@
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        formControlName="grandParentName"
                                                        type="text">
+                                                </span>
+                                                <ng-template #companyPan>
+                                                <span class="uniFont">प्यान नं.: </span><span class="nepaliFont">{{this.nepaliData.panNo}}</span>
+                                                <br>
+                                                <span class="uniFont">दर्ता नं.: </span><span class="nepaliFont">{{this.nepaliData.companyRegistrationNo}}</span>
+                                                </ng-template>
                                                 <br>
                                                 ठेगाना :
                                                 <input class="form-control-sm form-field nepaliFont uniFont"
@@ -1424,4 +1458,5 @@
 </div>
 
 <app-offer-letter-corporate-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  [isIndividual]="isIndividual"
                                   hidden></app-offer-letter-corporate-print>
