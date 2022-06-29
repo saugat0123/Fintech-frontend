@@ -154,6 +154,7 @@
                     <div>
                         <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                             [customerAllLoanList]="customerAllLoanList"
+                                            [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
                                             [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
                         <div *ngIf="minOneGuarantorDoc" class="row">
                             <div class="col-md-12">
