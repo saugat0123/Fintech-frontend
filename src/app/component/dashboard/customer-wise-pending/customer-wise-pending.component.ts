@@ -357,4 +357,12 @@ export class CustomerWisePendingComponent implements OnInit {
         });
     }
 
+    totalCombinedProposed(value: LoanDataHolder[]): number {
+        let totalCombinedLoan = 0;
+        value.forEach(l => {
+            totalCombinedLoan += l.proposal.proposedLimit;
+        });
+        return totalCombinedLoan;
+    }
+
 }
