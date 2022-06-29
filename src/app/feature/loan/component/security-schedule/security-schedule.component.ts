@@ -16,6 +16,8 @@ export class SecurityScheduleComponent implements OnInit {
 
     @Input() loanDataHolder: LoanDataHolder;
     @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() loanSecurity: Array<Security> = [];
+    @Input() approvedSecurity: Array<Security> = [];
     securityData: Security;
     files;
     fixedAssets: number;
@@ -23,6 +25,7 @@ export class SecurityScheduleComponent implements OnInit {
     loanToSecurity: number;
     totalSecurity = 0;
     totalProposedLimit = 0;
+    totalSecurities: Array<Security> = [];
 
     ngOnInit() {
         this.proposal = this.loanDataHolder.proposal;
@@ -31,31 +34,25 @@ export class SecurityScheduleComponent implements OnInit {
                 this.files = JSON.parse(JSON.parse(this.proposal.data).files);
             }
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.securities) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-                this.customerAllLoanList.forEach((d) => {
-                    if(d.combinedLoan && (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'HSOV_PENDING' || d.documentStatus.toString() === 'DUAL_APPROVAL_PENDING')) {
-                    this.totalProposedLimit += d.proposal.proposedLimit;
-                    }
-                    d.securityLoanReferences.forEach((s) => {
-                        this.totalSecurity += s.usedAmount;
-                    });
-                });
-                this.loanToSecurity = (this.totalProposedLimit / this.totalSecurity);
-            } else {
-                this.loanDataHolder.securityLoanReferences.forEach((d) => {
-                    this.totalSecurity += d.usedAmount;
-                });
-                this.totalProposedLimit = this.loanDataHolder.proposal.proposedLimit;
-                this.loanToSecurity = (this.totalProposedLimit / this.totalSecurity);
-            }
-            this.fixedAssets = this.totalSecurity - Number(this.totalProposedLimit);
+        this.totalSecurities = this.totalSecurities.concat(this.approvedSecurity);
+        this.totalSecurities = this.totalSecurities.concat(this.loanSecurity);
+        this.customerAllLoanList.forEach((d) => {
+            this.totalProposedLimit += JSON.parse(d.proposal.data).proposedLimit;
+        });
+        if (this.totalSecurities.length > 0) {
+            const proposedSecurity = this.totalSecurities.map(d => d.id);
+            this.totalSecurities =  this.totalSecurities
+                .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
+            this.totalSecurities.forEach((d) => {
+                this.totalSecurity += d.fairMarketValue;
+            });
+        }
+        this.fixedAssets = this.totalSecurity - Number(this.totalProposedLimit);
             if (this.fixedAssets < 0) {
                 this.fixedAssets = Math.abs(this.fixedAssets);
             } else {
                 this.fixedAssets = 0;
             }
         }
-    }
 }
 

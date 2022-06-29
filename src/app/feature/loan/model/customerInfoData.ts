@@ -93,4 +93,6 @@ export class CustomerInfoData {
     facilityUtilization: string;
     otherDetails: string;
     existingExposures: Array<ExistingExposure>;
+    approvedSecurities: Array<Security>;
+
 }

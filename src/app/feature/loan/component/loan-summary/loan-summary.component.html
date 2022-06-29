@@ -175,8 +175,12 @@
                 </div>
             </div>
                 <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && loaded && loanDataHolder"
+                                             [loanSecurity]="loanSecurity"
+                                             [approvedSecurity]="approvedSecurity"
                                              [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList"></app-loan-summary-individual>
                 <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'  && loaded && loanDataHolder"
+                                                [loanSecurity]="loanSecurity"
+                                                [approvedSecurity]="approvedSecurity"
                                                 [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList"></app-loan-summary-institutional>
             </div>
         </nb-card-body>
