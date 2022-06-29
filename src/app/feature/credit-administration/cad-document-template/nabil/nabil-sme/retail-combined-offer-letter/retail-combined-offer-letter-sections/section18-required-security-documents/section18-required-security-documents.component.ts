@@ -155,6 +155,15 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       mortgageDate: !ObjectUtil.isEmpty(this.saveFreeText) ?
           !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
           this.saveFreeText.section18.mortgageDate : '' : '',
+      mortgageDeedAmountInFigure: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+              this.saveFreeText.section18.mortgageDeedAmountInFigure : '' : '',
+      remortgageDeedAmountInFigure: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+              this.saveFreeText.section18.remortgageDeedAmountInFigure : '' : '',
+      insuranceAmount: !ObjectUtil.isEmpty(this.saveFreeText) ?
+          !ObjectUtil.isEmpty(this.saveFreeText.section18) ?
+              this.saveFreeText.section18.insuranceAmount : '' : '',
     });
     if (!ObjectUtil.isEmpty(this.cadData) &&
     !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
