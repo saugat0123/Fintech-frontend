@@ -25,15 +25,18 @@ export class GuarantorViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
       this.guarantorData = [];
       this.customerAllLoanList.forEach((d) => {
-        if (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'HSOV_PENDING' || d.documentStatus.toString() === 'DUAL_APPROVAL_PENDING') {
-          d.taggedGuarantors.forEach((g) => {
-            if (!this.guarantorData.includes(g)) {
-              this.guarantorData.push(g);
-            }
-          });
-        }
+       if (!ObjectUtil.isEmpty(d.taggedGuarantors)) {
+         d.taggedGuarantors.forEach((g) => {
+           if (!this.guarantorData.includes(g)) {
+             this.guarantorData.push(g);
+           }
+         });
+       }
       });
     }
+    const guarantorIds = this.guarantorData.map(d => d.id);
+    this.guarantorData =  this.guarantorData
+        .filter((value, index) => guarantorIds.indexOf(value.id) === index);
     this.newGuarantor = this.constructGuarantor(this.guarantorData);
     this.filterPromoter();
   }
