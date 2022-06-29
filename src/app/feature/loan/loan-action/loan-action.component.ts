@@ -92,20 +92,22 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     branchId: this.branchId,
                     docAction: DocAction.value(DocAction.BACKWARD),
                     docActionMsg: 'Returned',
-                    documentStatus: DocStatus.PENDING
+                    documentStatus: DocStatus.PENDING,
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'backwardCommittee':
                 context = {
-                    popUpTitle: 'Send Backward To ' + LocalStorageUtil.getStorage().roleName,
+                    popUpTitle: 'Send Forward To ' + LocalStorageUtil.getStorage().roleName,
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
-                    docActionMsg: 'Returned Back To Committee',
+                    docActionMsg: 'Send Forward To Committee',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
-                    toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
+                    toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'forward':
@@ -141,7 +143,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'APPROVED',
                     docActionMsg: 'Approved',
-                    documentStatus: DocStatus.APPROVED
+                    documentStatus: DocStatus.APPROVED,
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'reject':
@@ -152,7 +155,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'REJECT',
                     docActionMsg: 'Rejected',
-                    documentStatus: DocStatus.REJECTED
+                    documentStatus: DocStatus.REJECTED,
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'close':
@@ -163,7 +167,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'CLOSED',
                     docActionMsg: 'Closed',
-                    documentStatus: DocStatus.CLOSED
+                    documentStatus: DocStatus.CLOSED,
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
         }

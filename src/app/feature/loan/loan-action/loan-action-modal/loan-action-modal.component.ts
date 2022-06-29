@@ -55,6 +55,7 @@ export class LoanActionModalComponent implements OnInit {
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
     spinner = false;
+    logInUserId: number;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -82,14 +83,14 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public getUserList(role) {
-        this.spinner= true;
+        this.spinner = true;
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
                 this.userList = response.detail;
-                this.spinner= false;
+                this.spinner = false;
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
                 } else if (this.userList.length === 1) {
@@ -98,17 +99,14 @@ export class LoanActionModalComponent implements OnInit {
                     });
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
                     const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
-                    this.showUserList = false;
-                    if (committeeDefaultUser.length === 0) {
+                    const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
+                    this.userList = this.userList.filter(ul => ul.id !== logInUserId);
+                    this.showUserList = true;
+                    if (this.userList.length > 0) {
                         this.formAction.patchValue({
                             toUser: this.userList[0]
                         });
-                    } else {
-                        this.formAction.patchValue({
-                            toUser: committeeDefaultUser[0]
-                        });
                     }
-
                 } else if (this.userList.length > 1) {
                     this.formAction.patchValue({
                         toUser: this.userList[0]
