@@ -13,7 +13,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
-import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
 import {NgxSpinnerService} from 'ngx-spinner';
 
@@ -97,10 +96,10 @@ export class GuarantorComponent implements OnInit {
         }
         formArray.push(this.addGuarantorDetails(v, index));
         if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'personalGuarantor') {
-          this.removeCorporateGuarantorValidators(index);
+          this.removeGuarantorValidation(index, 'personalGuarantor');
         }
         if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'corporateGuarantor') {
-          this.removePersonalGuarantorValidators(index);
+          this.removeGuarantorValidation(index, 'corporateGuarantor');
         }
       });
     }
@@ -277,40 +276,19 @@ export class GuarantorComponent implements OnInit {
   guarantorChange(data, index) {
     if (data) {
       if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'personalGuarantor') {
-        this.removeCorporateGuarantorValidators(index);
+        this.removeGuarantorValidation(index, 'personalGuarantor');
       }
       if (this.form.get(['guarantorDetails', index, 'guarantorType']).value === 'corporateGuarantor') {
-        this.removePersonalGuarantorValidators(index);
+        this.removeGuarantorValidation(index, 'corporateGuarantor');
       }
     }
-  }
-  removePersonalGuarantorValidators(i) {
-    this.form.get(['guarantorDetails', i, 'citizenNumber']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'citizenNumber']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'issuedYear']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'issuedYear']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'issuedPlace']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'issuedPlace']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'dateOfBirth']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'dateOfBirth']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'fatherName']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'fatherName']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'grandFatherName']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'grandFatherName']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'relationship']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'relationship']).updateValueAndValidity();
-  }
-  removeCorporateGuarantorValidators(i) {
-    this.form.get(['guarantorDetails', i, 'registrationNumber']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'registrationNumber']).updateValueAndValidity();
-    this.form.get(['guarantorDetails', i, 'panNumber']).clearValidators();
-    this.form.get(['guarantorDetails', i, 'panNumber']).updateValueAndValidity();
   }
 
   onSubmit() {
     this.overlay.show();
     this.submitted = true;
     if (this.form.invalid) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Please Check Validation'));
       this.overlay.hide();
       return;
     }
@@ -320,7 +298,6 @@ export class GuarantorComponent implements OnInit {
     this.guarantorDetail.guarantorList = new Array<Guarantor>();
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray['controls'].forEach(c => {
-      console.log('value of c:', c);
       const guarantor: Guarantor = c.value;
       if (!ObjectUtil.isEmpty(c.get('province').value)) {
         const province = new Province();
@@ -345,9 +322,7 @@ export class GuarantorComponent implements OnInit {
         guarantor.municipalitiesTemporary = municipalityVdc;
       }
       this.guarantorDetail.guarantorList.push(guarantor);
-      console.log('child :', guarantor);
     });
-    
     this.guarantorDataEmitter.emit(this.guarantorDetail);
   }
 
@@ -389,5 +364,36 @@ export class GuarantorComponent implements OnInit {
         .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
     this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
         .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);
+  }
+
+  controlValidation(controlNames: string[], validate, index) {
+    controlNames.forEach(s => {
+      if (validate) {
+        this.form.get(['guarantorDetails', index, s]).setValidators(Validators.required);
+      } else {
+        this.form.get(['guarantorDetails', index, s]).clearValidators();
+      }
+      this.form.get(['guarantorDetails', index, s]).updateValueAndValidity();
+    });
+  }
+
+  removeGuarantorValidation(i, guaranteeName: string) {
+    switch (guaranteeName) {
+      case 'personalGuarantor':
+        this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName',
+          'grandFatherName', 'relationship'], true, i);
+        this.controlValidation(['registrationNumber', 'panNumber'], false, i);
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+          if (this.customerInfo.customerType === 'INSTITUTION') {
+            this.controlValidation(['relationship'], false, i);
+          }
+        }
+        break;
+      case 'corporateGuarantor':
+        this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName',
+          'grandFatherName', 'relationship'], false, i);
+        this.controlValidation(['registrationNumber', 'panNumber'], true, i);
+        break;
+    }
   }
 }
