@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {DefaultTable} from '../../loan/model/defaultTable';
 
 @Component({
     selector: 'app-financial-ccbl',
@@ -46,7 +47,7 @@ export class FinancialCcblComponent implements OnInit {
     buildForm(data ?: any) {
         this.formGroup = this.formBuilder.group({
             financialHighlight: [data ? data.financialHighlight : undefined],
-            financialFigure: [data ? data.financialFigure : undefined],
+            financialFigure: [data ? data.financialFigure : DefaultTable.key_Figure()],
             assesment: [data ? data.assesment : undefined],
             assesment2: [data ? data.assesment2 : undefined],
             assesment3: [data ? data.assesment3 : undefined],

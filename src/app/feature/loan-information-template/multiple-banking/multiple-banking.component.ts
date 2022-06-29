@@ -176,7 +176,7 @@ export class MultipleBankingComponent implements OnInit {
             funded += av.funded;
             nonFunded += av.nonFunded;
             termLoan += av.termLoan;
-            totalTotal += av.total;
+            totalTotal += Number(av.total);
             totalPercent += av.bankPercent;
         });
         switch (total) {
@@ -192,10 +192,10 @@ export class MultipleBankingComponent implements OnInit {
             case 'totalPercent':
                 this.multiBankingForm.get(total).patchValue(totalPercent);
                 break;
+            case 'totalTotal':
+                this.multiBankingForm.get(total).patchValue(totalTotal);
+                break;
         }
-        this.multiBankingForm.get('totalTotal').patchValue(totalTotal);
-        totalAmount = array.value[index].funded + array.value[index].nonFunded + array.value[index].termLoan;
-        this.multiBankingForm.get([arrayName, index, 'total']).patchValue(totalAmount);
     }
 
     checkChecked(checked, type) {

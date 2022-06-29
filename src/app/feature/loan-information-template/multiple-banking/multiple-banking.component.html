@@ -50,7 +50,7 @@
                                            formControlName="termLoan"
                                            placeholder="Term Loans"
                                            type="number"/></td>
-                                <td><input [readOnly]="true"
+                                <td><input (change)="calculateAmount(ii, 'totalTotal', 'consortium')"
                                            class="form-control text-center"
                                            formControlName="total"
                                            placeholder="Total"

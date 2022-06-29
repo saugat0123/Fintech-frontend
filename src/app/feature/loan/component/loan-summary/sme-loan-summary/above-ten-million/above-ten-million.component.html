@@ -174,10 +174,12 @@
             <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment || 'NA' | safeHtml" ></table>
             <strong>11.2 ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                    [innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment2 || 'NA' | safeHtml" ></table>
             <strong>11.3 ASSESSMENT OF OTHER CREDIT FACILITIES: </strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                    [innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment3 || 'NA' | safeHtml" ></table>
         </div>
     </li>
