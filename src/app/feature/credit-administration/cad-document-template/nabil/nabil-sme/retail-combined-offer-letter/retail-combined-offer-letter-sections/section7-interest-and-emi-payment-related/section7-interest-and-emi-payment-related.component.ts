@@ -19,6 +19,11 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     isPODSelected: boolean;
     isEducationSelected: boolean;
     tempInformation;
+    isEducationClassE = false;
+    isEducationClassA = false;
+    loanNepaliNameEducation: Array<any> = new Array<any>();
+    loanNepaliNameWithoutEducation: Array<any> = new Array<any>();
+    loanNepaliNameShare: Array<any> = new Array<any>();
 
     constructor(
         private formBuilder: FormBuilder
@@ -33,6 +38,14 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                     this.loanNepaliName.push(val.loan.nepaliName);
                 }
             });
+        }
+        if (!ObjectUtil.isEmpty(this.loanNepaliName)) {
+            this.loanNepaliNameEducation = this.loanNepaliName.filter((val: any) =>
+            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'अावास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
+            this.loanNepaliNameWithoutEducation = this.loanNepaliName.filter((val: any) =>
+                val === 'व्यक्तिगत ओभरड्राफ्ट' || val === 'व्यक्तिगत ओभरड्राफ्ट बिना धिताे' || val === 'नबिल सहयात्री कर्जा');
+            this.loanNepaliNameShare = this.loanNepaliName.filter((val: any) =>
+                val === 'सेयर कर्जा डिमाण्ड' || val === ' नबिल सेयर कर्जा' || val === 'शिक्षा ऋण');
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
@@ -51,9 +64,29 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     }
 
     checkCondition() {
+        if (!ObjectUtil.isEmpty(this.section7Data) &&
+        !ObjectUtil.isEmpty(this.section7Data.educationLoanForm) &&
+        !ObjectUtil.isEmpty(this.section7Data.educationLoanForm.educationLoanCombinedFormArray)) {
+            this.section7Data.educationLoanForm.educationLoanCombinedFormArray.forEach((val: any) => {
+                if (val.securityType === 'LAND' || val.securityType === 'LAND_BUILDING') {
+                    this.isEducationClassE = true;
+                }
+                if (val.securityType === 'TD') {
+                    this.isEducationClassA = true;
+                }
+            });
+        }
+        if (!this.isEducationClassA) {
+            const tempIndex = this.loanNepaliNameShare.indexOf('शिक्षा ऋण');
+            this.loanNepaliNameShare.splice(tempIndex, 1);
+        }
+        if (!this.isEducationClassE) {
+            const tempIndex = this.loanNepaliNameEducation.indexOf('शिक्षा ऋण');
+            this.loanNepaliNameEducation.splice(tempIndex, 1);
+        }
         this.loanName.forEach(val => {
             if (val === 'MORTGAGE LOAN COMBINED' || val === 'HOME LOAN COMBINED' ||
-                val === 'AUTO LOAN COMBINED' || val === 'EDUCATION LOAN COMBINED') {
+                val === 'AUTO LOAN COMBINED') {
                 this.isLoanSelected = true;
             }
             if (val === 'PERSONAL LOAN COMBINED') {
@@ -73,7 +106,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                 val === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
                 this.isPODSelected = true;
             }
-            if (val === 'EDUCATION LOAN COMBINED' || val === 'SHARE LOAN DEMAND COMBINED' || val === 'NABIL SHARE LOAN POD COMBINED') {
+            if (val === 'SHARE LOAN DEMAND COMBINED' || val === 'NABIL SHARE LOAN POD COMBINED') {
                 this.isEducationSelected = true;
             }
         });

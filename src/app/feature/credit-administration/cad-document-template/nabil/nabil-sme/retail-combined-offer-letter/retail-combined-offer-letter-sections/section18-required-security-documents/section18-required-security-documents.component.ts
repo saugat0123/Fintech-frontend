@@ -51,6 +51,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
   loanArray: Array<any> = new Array<any>();
   promissoryFigure: any;
   saveFreeText: any;
+  fixedDepositHolders: Array<any> = new Array<any>();
   constructor(
       private formBuilder: FormBuilder,
       public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -80,6 +81,24 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
     this.guarantorData.forEach(any => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
+    if (!ObjectUtil.isEmpty(this.initialInfo) && !ObjectUtil.isEmpty(this.initialInfo.securities)) {
+      let primaryFixedSecurity: any = [];
+      let secondaryFixedSecurity: any = [];
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.primarySecurity)) {
+        primaryFixedSecurity = this.initialInfo.securities.primarySecurity.filter((val: any) =>
+        val.securityType === 'TD')[0];
+        if (!ObjectUtil.isEmpty(primaryFixedSecurity)) {
+          this.fixedDepositHolders.push(primaryFixedSecurity);
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.initialInfo.securities.secondarySecurity)) {
+        secondaryFixedSecurity = this.initialInfo.securities.secondarySecurity.filter((val: any) =>
+        val.securityType === 'TD')[0];
+        if (!ObjectUtil.isEmpty(secondaryFixedSecurity)) {
+          this.fixedDepositHolders.push(secondaryFixedSecurity);
+        }
+      }
+    }
   }
   buildForm() {
     return this.form = this.formBuilder.group({

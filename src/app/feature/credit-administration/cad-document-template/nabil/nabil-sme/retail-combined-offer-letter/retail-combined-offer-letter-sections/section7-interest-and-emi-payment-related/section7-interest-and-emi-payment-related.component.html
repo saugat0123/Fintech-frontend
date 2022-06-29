@@ -6,9 +6,9 @@
                 <br>
                 <div>
                     <ul>
-                        <li *ngIf="isLoanSelected || isRegularBasis">
+                        <li *ngIf="isLoanSelected || isRegularBasis || isEducationClassE">
                             <!--For Mortgage loan/Housing Loan/Vehicle Loan/Education loan/Personal Loan on regular basis-->
-                            तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
+                            तपाईंको {{loanNepaliNameEducation}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
                             कट्टा गरिनेछ ।
                         </li>
                         <li *ngIf="isCaseBasis">
@@ -24,12 +24,12 @@
                         </li>
                         <li *ngIf="isPODSelected">
                             <!--For POD loan/Nabil Sahayatri/Perrsonal overdraft without collateral and their Renewal and enhancement also)-->
-                            {{loanNepaliName}} वापतको ब्याज भुक्तानी
+                            {{loanNepaliNameWithoutEducation}} वापतको ब्याज भुक्तानी
                             नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                         </li>
-                        <li *ngIf="isEducationSelected">
+                        <li *ngIf="isEducationSelected || isEducationClassA">
                             <!--For Share loan, Education Loan Class A for both Australia and other Countries only-->
-                            तपाईंको {{loanNepaliName}} वापतको व्याज भुक्तानी नेपाली पात्रोको बमोजिम प्रत्येक असार,
+                            तपाईंको {{loanNepaliNameShare}} वापतको व्याज भुक्तानी नेपाली पात्रोको बमोजिम प्रत्येक असार,
                             आश्विन, पौष र चैत्र मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                         </li>
                         <li>
