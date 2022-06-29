@@ -400,7 +400,9 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <app-group-exposure-with-ccbl *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                                  (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>
+                                                                  (triggerCustomerRefresh)="refreshCustomerInfo()"
+                                                                  (responseData)="setMGroupData($event)"
+                                                                  [customerInfo]="customerInfo"></app-group-exposure-with-ccbl>
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
