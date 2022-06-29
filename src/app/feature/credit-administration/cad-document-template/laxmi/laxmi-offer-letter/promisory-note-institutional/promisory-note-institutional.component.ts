@@ -34,6 +34,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
     initialInfoPrint;
     nepaliData;
     cadChecklistEnum = CadCheckListTemplateEnum;
+    individual = false;
     constructor(
         private formBuilder: FormBuilder,
         private administrationService: CreditAdministrationService,
@@ -50,6 +51,9 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
 
 
     ngOnInit() {
+        if (this.cadData.assignedLoan[0].loanCategory === 'INDIVIDUAL') {
+            this.individual = true;
+        }
         this.buildForm();
         this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
         this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
@@ -119,13 +123,15 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
             this.form.patchValue(JSON.parse(this.initialInfoPrint));
             this.form.patchValue({
-                amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
+                amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount)),
+                branch: this.cadData.assignedLoan[0].branch.nepaliName
             });
         } else {
             this.fillNepaliData();
             this.form.patchValue({
                 proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
-                amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
+                amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount),
+                branch: this.cadData.assignedLoan[0].branch.nepaliName
             });
         }
     }
@@ -151,35 +157,6 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             branch: [undefined],
-            governmentOffice: [undefined],
-            governmentBranch: [undefined],
-            refNo: [undefined],
-            year: [undefined],
-            month: [undefined],
-            day: [undefined],
-            officeDistrict: [undefined],
-            officeMunicipality: [undefined],
-            officeWadNo: [undefined],
-            taxOffice: [undefined],
-            lekhaNo: [undefined],
-            issuedYear: [undefined],
-            issuedMonth: [undefined],
-            issuedDay: [undefined],
-            companyName: [undefined],
-            grandFatherName: [undefined],
-            fatherName: [undefined],
-            customerDistrict: [undefined],
-            customerMunicipality: [undefined],
-            customerWadNo: [undefined],
-            currentAddress: [undefined],
-            customerAge: [undefined],
-            customerName: [undefined],
-            customerCitizenship: [undefined],
-            customerCitizenshipDistrict: [undefined],
-            customerIssuedOffice: [undefined],
-            customerCitizenIssuedYear: [undefined],
-            customerCitizenIssuedMonth: [undefined],
-            customerCitizenIssuedDay: [undefined],
             proposedAmount: [undefined],
             amountInWords: [undefined],
             district: [undefined],
@@ -198,10 +175,6 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
             itiSambatMonth: [undefined],
             itiSambatDay: [undefined],
             roj: [undefined],
-            akhtiyar: [undefined],
-            akhtiyarDistrict: [undefined],
-            akhtiyarMunicipality: [undefined],
-            akhtiyarWardNo: [undefined],
         });
     }
     con(e) {
