@@ -26,10 +26,8 @@ export class CrgGammaDetailViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('fromView', this.fromView);
     if (!ObjectUtil.isEmpty(this.formData) && this.formData) {
       this.crgGammaData = this.formData.data ? JSON.parse(this.formData.data) : this.formData.data;
-      // this.crgGammaList.push();
         if (this.crgGammaData.groupObject[this.creditHistory].length > 0) {
           this.crgGammaData.groupObject[this.creditHistory].forEach(ga => {
             this.crgGammaList.push(ga);
