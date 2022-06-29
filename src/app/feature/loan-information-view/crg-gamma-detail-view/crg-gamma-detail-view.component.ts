@@ -14,6 +14,7 @@ export class CrgGammaDetailViewComponent implements OnInit {
   @Input() loanHolderData: LoanDataHolder;
   @Input() landSecurityDetails;
   @Input() creditHistory: number;
+  @Input() fromView: boolean;
   crgGammaList = [];
   crgGammaData;
   spinner = false;
@@ -27,7 +28,6 @@ export class CrgGammaDetailViewComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.formData) && this.formData) {
       this.crgGammaData = this.formData.data ? JSON.parse(this.formData.data) : this.formData.data;
-      // this.crgGammaList.push();
         if (this.crgGammaData.groupObject[this.creditHistory].length > 0) {
           this.crgGammaData.groupObject[this.creditHistory].forEach(ga => {
             this.crgGammaList.push(ga);
