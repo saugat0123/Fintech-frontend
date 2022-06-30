@@ -189,7 +189,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalFMV += Number(d.buildingFairMarketValue);
                         this.totalDV += Number(d.buildingDistressValue);
                         this.proposedSecurity.push({
-                            securityName: 'Land and Building',
+                            securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
                             distressValue: d.buildingDistressValue,
@@ -203,7 +203,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalFMVEx += Number(d.marketValue);
                         this.totalDVEx += Number(d.distressValue);
                         this.existingSecurity.push({
-                            securityName: 'Land and Building',
+                            securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
                             distressValue: d.buildingDistressValue,
@@ -217,7 +217,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalFMVAsPs += Number(d.marketValue);
                         this.totalDVAsPs += Number(d.distressValue);
                         this.existingAsPropose.push({
-                            securityName: 'Land and Building',
+                            securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
                             distressValue: d.buildingDistressValue,
