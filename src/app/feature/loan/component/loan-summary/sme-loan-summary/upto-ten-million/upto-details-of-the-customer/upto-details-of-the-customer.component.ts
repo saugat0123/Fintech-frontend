@@ -20,7 +20,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   checkedData;
   multiBankingData;
   commentData;
-  contactedPerson = [];
   ciclData = [];
   reviewDate;
   constructor() { }
@@ -49,12 +48,8 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
           }
         }
       }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
-        this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
-      }
       if (this.loanDataHolder.loanHolder.cicl) {
         this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);
-        console.log('ciclData', this.ciclData);
       }
     }
    }

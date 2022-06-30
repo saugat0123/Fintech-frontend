@@ -5,24 +5,22 @@
       <thead>
       <tr class="sb-bg-dark text-white">
         <th>S.N</th>
+        <th>Detail of Assets</th>
         <th>Insured sum</th>
         <th>Expiry Date(AD/BS)</th>
         <th>Name of Insurance Co.</th>
         <th>Risk covered</th>
         <th>Policy Number</th>
         <th>Assets Insured</th>
-
         <th>Premium Amount</th>
-
-
         <th>Issued Date(AD/BS)</th>
-
         <th>Remarks(if any)</th>
       </tr>
       </thead>
       <tbody  *ngFor="let insurance of insurance; let i= index">
       <tr>
         <td>{{i+1}}.</td>
+        <td class="text-left pl-1">{{insurance?.assetInsured}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
