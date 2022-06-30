@@ -826,18 +826,19 @@
                                         </ckeditor>
                                     </div>
                                 </div>
-
+                            <div class="col-md-12">
+                                <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
+                                             [checked]="waiverChecked">
+                                    <b>Waiver/Deviation</b>
+                                </nb-checkbox>
+                                <div *ngIf="waiverChecked">
+                                    <ckeditor formControlName="waiverConclusionRecommendation"
+                                              [config]="ckeConfig"></ckeditor>
+                                </div>
+                            </div>
                                 <ng-container *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'CLOSURE_LOAN'">
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
-                                                 [checked]="waiverChecked">
-                                        <b>Waiver/Deviation</b>
-                                    </nb-checkbox>
-                                    <div *ngIf="waiverChecked">
-                                        <ckeditor formControlName="waiverConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
 
                                 </div>
                                 <div class="col-md-12 form-group">
