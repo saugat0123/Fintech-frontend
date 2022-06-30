@@ -50,7 +50,10 @@
                     </tr>
                 </table>
             </ng-container>
-
+            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && (fullSettlement || others)"
+                                [customerAllLoanList]="customerAllLoanList"
+                                [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
+                                [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
     <ng-container *ngIf="!fullSettlement && !others">
         <nb-accordion *ngIf="isRemitLoan">
             <nb-accordion-item>
