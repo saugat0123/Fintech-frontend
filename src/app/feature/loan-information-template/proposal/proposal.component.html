@@ -992,6 +992,26 @@
                                     </div>
                                 </ng-container>
                             </div>
+                            <ng-container  *ngIf="fromProfile">
+                                <div class="col-md-12" *ngIf="loanType === 'OTHERS'">
+                                    <div class="col-md-12" >
+                                        <div class="form-group">
+                                            <div class="d-flex align-items-center">
+                                                <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Current Request</b></label>
+                                            </div>
+                                            <ckeditor  formControlName="currentRequest"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" >
+                                        <div class="form-group">
+                                            <div class="d-flex align-items-center">
+                                                <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Justification</b></label>
+                                            </div>
+                                            <ckeditor  formControlName="justification"></ckeditor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
                         </form>
 <!--                        <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">-->
 <!--                            <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>-->
@@ -1011,26 +1031,6 @@
                                                 [mGroupCode]="customerInfo?.mgroupInfo?.groupCode"
                                                 [customerInfo]="customerInfo" [proposedAmount]="proposedLimit" [loanHolder]="loan"
                                                 (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
-                        </div>
-                    </ng-container>
-                    <ng-container  *ngIf="fromProfile">
-                        <div class="col-md-12" *ngIf="loanType === 'OTHERS'">
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <div class="d-flex align-items-center">
-                                        <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Current Request</b></label>
-                                    </div>
-                                    <ckeditor  formControlName="currentRequest"></ckeditor>
-                                </div>
-                            </div>
-                            <div class="col-md-12" >
-                                <div class="form-group">
-                                    <div class="d-flex align-items-center">
-                                        <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Justification</b></label>
-                                    </div>
-                                    <ckeditor  formControlName="justification"></ckeditor>
-                                </div>
-                            </div>
                         </div>
                     </ng-container>
 
