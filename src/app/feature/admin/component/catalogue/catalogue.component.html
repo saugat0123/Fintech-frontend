@@ -243,11 +243,11 @@
                         </ng-container>
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                            <option value="RENEWED_LOAN">Renew Loan</option>
-                            <option value="ENHANCED_LOAN">Enhance Loan</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="RENEWED_LOAN">Renew Loan</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
-                            <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
                             <option value="OTHERS">Others</option>
                         </ng-container>
                     </select>
