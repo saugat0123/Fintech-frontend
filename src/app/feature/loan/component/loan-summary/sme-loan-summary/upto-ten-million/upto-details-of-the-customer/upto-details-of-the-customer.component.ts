@@ -13,10 +13,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
-  relationCustomer;
   registrationDate;
-  companyLocation;
-  businessLocation;
   propList: Array<Proprietors>;
   totalCrgPoint;
   sum = 0;
@@ -36,8 +33,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         this.reviewDate = data.reviewDate;
       }
       this.propList = this.companyJsonData.proprietorList;
-      this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
-      this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
@@ -59,6 +54,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       }
       if (this.loanDataHolder.loanHolder.cicl) {
         this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);
+        console.log('ciclData', this.ciclData);
       }
     }
    }
