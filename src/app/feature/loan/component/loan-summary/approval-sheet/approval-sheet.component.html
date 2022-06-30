@@ -491,6 +491,7 @@
             </div>
 
             <!-- Start Reporting Info-->
+            <div *ngIf ="loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDataHolder?.loanType !== 'CLOSURE_LOAN'">
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
                 <span><strong>{{loanCategory === 'INDIVIDUAL'  ? '8. ' : '7. '}} Reporting Information</strong></span>
                 <app-report-summary
@@ -512,6 +513,7 @@
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
             </div>
+            </div>
             <!-- End Reporting Info-->
             <hr>
 
@@ -525,12 +527,14 @@
             <hr>
 
             <!-- Start security group details-->
+            <div *ngIf ="loanDataHolder?.loanType !== 'FULL_SETTLEMENT_LOAN' && loanDataHolder?.loanType !== 'CLOSURE_LOAN'">
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"
                     [loanCategory]="loanDataHolder?.loanCategory"
                     [approveSheet]="approveSheet"></app-collateral-summary>
+            </div>
             <!-- End security group details-->
 
             <!-- Start Guarantors Details -->

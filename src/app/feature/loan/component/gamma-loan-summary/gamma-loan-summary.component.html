@@ -565,10 +565,11 @@
                     <p class="text-justify pl-1 pr-1" [innerHTML]="companyInfo?.groupsBackGround || 'N/A' | safeHtml"></p>
                 </div>
             </div>
-
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [count] = "7"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
+            </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -586,8 +587,8 @@
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
                 </div>
             </div>
-
             <!--Reporting Info-->
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
                 <span><strong>10. Reporting Information</strong></span>
                 <app-report-summary
@@ -612,8 +613,8 @@
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
             </div>
+            </div>
             <!-- End of reporting Info-->
-
             <!-- Start Security Details-->
             <app-security-summary *ngIf="securitySummary"
                                   [count]="11"
@@ -621,46 +622,54 @@
                                   [securityId]="securityId"
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus" (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
-            <app-collateral-summary
-                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [security]="loanDataHolder?.security"></app-collateral-summary>
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
+                <app-collateral-summary
+                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [security]="loanDataHolder?.security"></app-collateral-summary>
+            </div>
             <!-- End of Security Details-->
-
             <!-- Start Income & Expenses -->
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [count]="12"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
-            <!-- Start Income & Expenses -->
-
+            </div>
+            <!-- End Income & Expenses -->
             <!-- Start NTA-->
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <ng-container *ngIf="(client === clientName?.ICFC); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"
                                       [count]="13"></app-nta-mega-summary>
             </ng-container>
-
+            </div>
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <ng-template #otherBank>
                 <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                  [fiscalYears]="fiscalYearArray"
                                  [netTradingAssetsData]="netTradingAssetsData"
                                  [count]="13"></app-nta-summary>
             </ng-template>
+            </div>
             <br>
             <!-- End NTA-->
 
             <!-- Start Insurance Details -->
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"
                                    [loanCategory]="loanDataHolder?.loanCategory"
                                    [loanSummary] = "loanSummary"></app-insurance-summary>
+            </div>
             <!-- End Insurance Details -->
-
             <!-- Start Guarantors Details -->
+            <div *ngIf="loanData.loanType !== 'CLOSURE_LOAN' && loanData.loanType !=='FULL_SETTLEMENT_LOAN'">
             <app-guarantor-summary *ngIf="checkGuarantorData"
                                    [guarantorData]="guarantorData"
                                    [loanCategory]="loanDataHolder?.loanCategory"></app-guarantor-summary>
+            </div>
             <br>
             <!-- End Guarantors Details -->
 
