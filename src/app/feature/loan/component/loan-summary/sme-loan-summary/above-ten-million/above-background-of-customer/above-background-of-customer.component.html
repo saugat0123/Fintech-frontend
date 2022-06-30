@@ -6,7 +6,8 @@
             </tr>
             <tr>
                 <td>Legal Status</td>
-                <td></td>
+                <td>{{companyInfo?.legalStatus?.corporateStructure?.name ?
+                    companyInfo?.legalStatus?.corporateStructure?.name : "NA"}}</td>
             </tr>
             <tr>
                 <td>Firm registration No. and date</td>
@@ -15,7 +16,7 @@
             </tr>
             <tr>
                 <td>Registered at</td>
-                <td>{{companyInfo?.legalStatus?.registeredOffice}}</td>
+                <td>{{companyInfo?.legalStatus?.registeredOffice | replace: '_': ' '}}</td>
             </tr>
             <tr>
                 <td>Registered under</td>
@@ -27,9 +28,9 @@
             </tr>
             <tr>
                 <td>PAN No., date, and place of issue</td>
-                <td>{{companyInfo?.panNumber}},
+                <td>{{companyInfo?.panNumber ? companyInfo?.panNumber : 'NA'}},
                     {{companyInfo?.legalStatus?.panRegistrationDate ? (companyInfo?.legalStatus?.panRegistrationDate | date) : 'NA'}},
-                    {{companyInfo?.legalStatus?.regIssuedPlace}}</td>
+                    {{companyInfo?.legalStatus?.regIssuedPlace ? companyInfo?.legalStatus?.regIssuedPlace : 'NA'}}</td>
             </tr>
             <tr>
                 <td>Tax cleared up to</td>
@@ -63,12 +64,9 @@
                 <td>Rating Indicator</td>
             </tr>
             <tr>
-                <td>Based on Balance Sheet as of: FY............</td>
-                <td>CCBL....</td>
-            </tr>
-            <tr>
-                <td>Based on Balance Sheet as of: FY............</td>
-                <td>CCBL</td>
+                <td>Based on Balance Sheet as of: FY
+                    <b>{{(loanHolder?.crgCcbl | jsonParse)?.selectedFiscalYear}}</b></td>
+                <td>{{(loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>
             </tr>
         </table>
     </div>

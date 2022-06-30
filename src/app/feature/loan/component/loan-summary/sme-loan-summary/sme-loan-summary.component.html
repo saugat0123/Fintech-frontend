@@ -120,8 +120,10 @@
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
                         <div class="float-left">
-                            <p><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</p>
-                            <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
+                            <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
+                            <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
+                                ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
+                            <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
                         <div class="float-right">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>

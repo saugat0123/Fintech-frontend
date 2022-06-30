@@ -41,32 +41,33 @@
         </div>
     </div>
 </div>
+
 <div class="row">
-    <div class="col-md-12">
-        <div class="col-md-6 clearfix float-left">
-            <span>
-                <strong>Ref. No: </strong>{{loanDataHolder?.refNo}}
-            </span> <br>
-            <b>Purpose: {{loanDataHolder?.loan?.name}}</b> <br>
-            <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
-        </div>
-        <div class="col-md-6 clearfix float-right">
-            <span class="float-right"><b>Customer Category: </b> {{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span> <br>
-            <span class="float-right"><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
-                ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span> <br>
-            <span class="float-right">
-                <strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name ? loanDataHolder?.solUser?.name : 'NA'}}
-            </span> <br>
-            <span class="float-right">
-                <b><span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                    <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+    <div class="col-md-12 sb-small">
+        <div class="clearfix">
+            <div class="float-left">
+                <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
+                <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
+                    ({{loanDataHolder?.createdAt | engNepDate: false}})</span><br>
+                <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+            </div>
+            <div class="float-right">
+                <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
+                <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
+                <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
                 ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
-                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
-                ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
-            </span>
+                <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
+                <br>
+                <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                    ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+            </div>
+            <br>
         </div>
     </div>
 </div>
+
 <!-- CRG - Gamma-->
 <div *ngIf="crgGammaSummary" class="col-md-12 d-none d-print-block">
     <hr>
@@ -114,7 +115,8 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Background of the Customer</strong></p>
-        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"></app-above-background-of-customer>
+        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                          [loanHolder]="loanDataHolder?.loanHolder"></app-above-background-of-customer>
     </li>
     <li>
         <p class="text-uppercase"><strong>Business Related Information</strong></p>
