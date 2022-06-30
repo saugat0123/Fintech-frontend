@@ -1759,7 +1759,12 @@
                  formArrayName="plantDetails">
                 <div [formGroupName]="i">
                     <input type="checkbox" formControlName="plantOtherBranchChecked"> Property on another branch
-                    location
+                    location<br>
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -1958,6 +1963,11 @@
                     formArrayName="vehicleDetails">
                 <div [formGroupName]="i">
                     <br>
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-10">
                             <h5>{{i + 1}}) Details of Security Offered: Vehicle</h5>
@@ -2343,6 +2353,11 @@
                  class="font-weight-bold"
                  formArrayName="fixedDepositDetails">
                 <div [formGroupName]="i">
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <hr>
@@ -2599,6 +2614,11 @@
                  class="font-weight-bold"
                  formArrayName="hypothecationOfStock">
                 <div [formGroupName]="i">
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -2785,6 +2805,11 @@
                  class="font-weight-bold"
                  formArrayName="corporateGuarantee">
                 <div [formGroupName]="i">
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -2867,6 +2892,11 @@
                  class="font-weight-bold"
                  formArrayName="personalGuarantee">
                 <div [formGroupName]="i">
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
