@@ -176,6 +176,7 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
+    this.roundUpFunction();
   }
 
   buildForm() {
@@ -431,12 +432,12 @@ export class ProposalComponent implements OnInit {
       const amount = this.proposalForm.get('installmentAmount').value;
       switch (repaymentMode) {
         case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Math.round(emi / 100) * 100);
+          this.proposalForm.get('installmentAmount').patchValue(Math.ceil(emi / 100) * 100);
           // this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
           break;
         case 'eqi':
           // this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(0)));
-          this.proposalForm.get('installmentAmount').patchValue(Math.round((emi * 3) / 100) * 100);
+          this.proposalForm.get('installmentAmount').patchValue(Math.ceil((emi / 100) * 100));
           break;
       }
     } else {
@@ -690,6 +691,11 @@ export class ProposalComponent implements OnInit {
         this.isAllExposureFieldNull = false;
       }
     });
+  }
+  roundUpFunction() {
+    const a = 102.2;
+    const b = Math.round(a) * 100;
+    console.log(b);
   }
 
 }
