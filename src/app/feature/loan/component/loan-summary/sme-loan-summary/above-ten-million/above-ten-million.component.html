@@ -160,7 +160,9 @@
     <li>
         <p class="text-uppercase"><strong>Financial Highlights</strong></p>
         <div class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data else noFin">
-            <table  style="width: 100%" class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%" class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml" >
+            </table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.commentFinancialHighlight || 'NA' | safeHtml" ></table>
         </div>
         <ng-template #noFin>Not Available</ng-template>
@@ -171,14 +173,15 @@
         <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
         <div  class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data">
             <strong>11.1 FB Working capital assessment</strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment || 'NA' | safeHtml" ></table>
             <strong>11.2 ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
                     [innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment2 || 'NA' | safeHtml" ></table>
             <strong>11.3 ASSESSMENT OF OTHER CREDIT FACILITIES: </strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
                     [innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment3 || 'NA' | safeHtml" ></table>
         </div>
@@ -222,7 +225,7 @@
 <!--        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>-->
     </li>
     <li>
-        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any:</strong></p>
+        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any: {{proposalData?.specialCovenant ? '' : 'NA'}}</strong></p>
         <span [innerHTML]="proposalData?.specialCovenant | safeHtml"></span>
 <!--        <app-above-special-covenants></app-above-special-covenants>-->
     </li>
@@ -244,24 +247,27 @@
         </div>
     </li>
     <li>
-        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY:</strong></p>
+        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY: {{proposalData?.waiverConclusionRecommendation ? '' : 'NA'}}</strong></p>
         <span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span>
 <!--        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>-->
     </li>
     <li>
         <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
+        <app-nrb-statutory-remarks-status *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.data; else noMIS"
+                                          [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
     </li>
     <li>
         <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
-        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else noMIS" [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else noMIS"
+                            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
         <ng-template #noMIS>Not Available</ng-template>
     </li>
 
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
-        <app-above-review-of-credit-facilities *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else noReview" [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
+        <app-above-review-of-credit-facilities *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else noReview"
+                                               [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
         <ng-template #noReview>Not Available</ng-template>
     </li>
     <li>
