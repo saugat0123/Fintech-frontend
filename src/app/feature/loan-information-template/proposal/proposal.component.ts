@@ -1132,6 +1132,8 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('endUseOfFund').setValue(formDataForEdit.endUseOfFund);
         this.proposalForm.get('justificationChangeHistorical').setValue(formDataForEdit.justificationChangeHistorical);
         this.proposalForm.get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
+        this.proposalForm.get('justification').setValue(formDataForEdit.justification);
+        this.proposalForm.get('currentRequest').setValue(formDataForEdit.currentRequest);
     }
     patchValue(data) {
         this.proposalForm.patchValue(JSON.parse(data));

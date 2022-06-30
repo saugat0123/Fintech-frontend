@@ -26,6 +26,30 @@
                                    [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
+            <ng-container *ngIf="others">
+                <hr class="print-line header">
+                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Justification</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span
+                                [innerHTML]="proposalAllData?.justification || 'N/A' | safeHtml"></span>
+                        </td>
+                    </tr>
+                </table>
+                <hr class="print-line header">
+                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Current Request</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span
+                                [innerHTML]="proposalAllData?.currentRequest || 'N/A' | safeHtml"></span>
+                        </td>
+                    </tr>
+                </table>
+            </ng-container>
 
     <ng-container *ngIf="!fullSettlement && !others">
         <nb-accordion *ngIf="isRemitLoan">
