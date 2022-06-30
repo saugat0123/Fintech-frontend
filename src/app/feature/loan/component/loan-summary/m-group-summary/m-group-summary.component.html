@@ -53,7 +53,6 @@
                 <td>Rs. {{data?.changeAmount | currencyFormatter}}</td>
                 <td>{{data?.pricing | currencyFormatter}}</td>
                 <td>{{data?.maturity | currencyFormatter}}</td>
-
             </tr>
             <tr class="sb-bg-secondary">
                 <th colspan="2">Total</th>
@@ -71,7 +70,7 @@
         </table>
     </div>
 
-    <div class="col-md-12" *ngIf="customerType === 'INSTITUTION'">
+    <div class="col-md-12" *ngIf="customerType === 'INSTITUTION' && customerCategory === 'executing'">
         <span class="float-left"><strong>Outstanding, Overdue and R/E collateral</strong></span>
         <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <tbody>
@@ -81,7 +80,4 @@
             </tbody>
         </table>
     </div>
-
-
-
 </div>
