@@ -176,7 +176,6 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
-    this.roundUpFunction();
   }
 
   buildForm() {
@@ -692,10 +691,6 @@ export class ProposalComponent implements OnInit {
       }
     });
   }
-  roundUpFunction() {
-    const a = 102.2;
-    const b = Math.round(a) * 100;
-    console.log(b);
-  }
+
 
 }
