@@ -213,13 +213,24 @@
 
                                     </td>
                                     <td class="cursor">
-                                        <a nbTooltip="click to pull Document"
-                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
-                                           (click)="onPullClick(pullDocument,l?.id,l)"><i
-                                                class="fas fa-angle-double-down"></i> pull</a>
-                                        <span
-                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                        <ng-container
+                                                *ngIf="l?.currentStage?.toUser?.name?.toLowerCase()?.includes('default'); else notDefaultCommittee">
+                                            <a nbTooltip="click to pull Document"
+                                               *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
+                                               (click)="onPullClick(pullDocument,l?.id,l)"><i
+                                                    class="fas fa-angle-double-down"></i> pull</a>
+                                        </ng-container>
+                                        <ng-template #notDefaultCommittee>
+                                            <span *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId; else notInBucket">In My bucket</span>
+                                        </ng-template>
+                                        <ng-template #notInBucket>
+                                            <span>Pulled by {{l?.currentStage?.toUser?.name}}</span>
+                                        </ng-template>
                                     </td>
+
+                                    <!--                                    <ng-template #notInBucket>-->
+                                    <!--                                        <span></span>-->
+                                    <!--                                    </ng-template>-->
 
                                     <td>
                                                   <span *ngIf="l?.pulled"
@@ -273,7 +284,7 @@
                                            (click)="onPullClick(pullDocument,l?.id,l)"><i
                                                 class="fas fa-angle-double-down"></i> pull</a>
                                         <span
-                                           *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
                                     </td>
 
                                     <td>

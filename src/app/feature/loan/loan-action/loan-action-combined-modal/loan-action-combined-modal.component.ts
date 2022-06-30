@@ -136,18 +136,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 });
             } else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
                 const committeeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
+                const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
+                this.combinedType.userList = this.combinedType.userList.filter(ul => ul.id !== logInUserId);
                 this.showUserList = false;
-                if (committeeDefaultUser.length === 0) {
+                if (this.combinedType.userList.length > 0) {
                     this.combinedType.form.patchValue({
                         toUser: this.combinedType.userList[0]
                     });
-
-                } else {
-                    this.combinedType.form.patchValue({
-                        toUser: committeeDefaultUser[0]
-                    });
                 }
-
             } else if (this.combinedType.userList.length > 1) {
                 this.combinedType.form.patchValue({
                     toUser: this.combinedType.userList[0]

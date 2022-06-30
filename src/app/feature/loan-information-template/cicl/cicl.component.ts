@@ -201,6 +201,7 @@ export class CiclComponent implements OnInit {
         if (this.ciclForm.invalid) {
             this.overlay.hide();
             this.scrollToFirstInvalidControl();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please Check Validation'));
             return;
         }
     }

@@ -120,6 +120,8 @@
                             <th>Customer Code</th>
                             <th>Customer Type</th>
                             <th>Contact Number</th>
+                            <th>Total Single Proposal</th>
+                            <th>Total Combined Proposal</th>
                             <th>Total Loan</th>
                             <th>Detail</th>
                         </tr>
@@ -134,6 +136,20 @@
                                 <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
+                                <td>
+                                    <ng-container *ngFor="let singleLoan of loanHolderLoans?.loanSingleList">
+                                        Rs. <span
+                                            [ngStyle]="{ 'color' : (singleLoan?.proposal?.proposedLimit < 50000000)? '#e16c00': '#0fa002'}">
+                                            {{singleLoan?.proposal?.proposedLimit}}
+                                        </span>
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngFor="let item of loanHolderLoans?.combineList[0] | keyvalue">
+                                        Rs. <span [ngStyle]="{ 'color' : (totalCombinedProposed(item?.value) > 50000000)? '#0fa002': '#e16c00'}">
+                                        {{totalCombinedProposed(item?.value)}}</span>
+                                    </ng-container>
+                                </td>
                                 <td>{{loanHolderLoans?.totalLoan}}</td>
                                 <td>
                                     <a class="px-2 cursor"
@@ -272,16 +288,17 @@
                 <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
-                <td>{{previous?.docAction}}</td>
+                <td>{{previous?.docAction?.toString() === 'BACKWARD_TO_COMMITTEE' ? 'FOWARD TO COMMITTEE'
+                    : previous?.docAction}}</td>
                 <td colspan="6"><span [innerHTML]="customSafePipe(previous.comment)"></span></td>
             </tr>
             <tr>
                 <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{model?.currentStage?.fromUser?.name}}</td>
                 <td>{{model?.currentStage?.toUser.name}}</td>
-                <td>{{model?.currentStage?.docAction}}</td>
+                <td>{{model?.currentStage?.docAction?.toString() === 'BACKWARD_TO_COMMITTEE' ? 'FOWARD TO COMMITTEE'
+                    : model?.currentStage?.docAction}}</td>
                 <td colspan="6"><span [innerHTML]="customSafePipe(model?.currentStage?.comment)"></span></td>
-
             </tr>
             <tr>
                 <td colspan="12" class="sb-bg-dark">.</td>

@@ -100,7 +100,6 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             other.loanHolderLoanList = response.detail.content;
             other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
             other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
-
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {

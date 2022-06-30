@@ -120,8 +120,10 @@
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
                         <div class="float-left">
-                            <p><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</p>
-                            <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
+                            <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
+                            <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
+                                ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
+                            <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
                         <div class="float-right">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
@@ -131,10 +133,11 @@
                             <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
                             ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
                             <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
-                        </div><br>
-                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
-                        </div><br>
+                            <br>
+                            <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                                ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>

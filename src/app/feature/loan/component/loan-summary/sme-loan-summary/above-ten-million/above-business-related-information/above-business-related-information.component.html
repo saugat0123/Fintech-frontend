@@ -2,41 +2,23 @@
     <p><strong>4.1 The customer</strong></p>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-sm table-condensed table-bordered table-responsive-md table-sm sb-small">
-                    <tbody>
-                    <tr class="sb-bg-dark text-white">
-                        <th>4.1.1 Promoters background, experience and resources</th>
-                    </tr>
-                    <tr>
-                        <td [innerHTML]="jsonData?.promoterBackground"></td>
-                    </tr>
-                    </tbody>
-                    <tbody>
-                    <tr class="sb-bg-dark text-white">
-                        <th>4.1.2 Line/s of business activity</th>
-                    </tr>
-                    <tr>
-                        <td [innerHTML]="jsonData?.lineOfBusiness"></td>
-                    </tr>
-                    </tbody>
-                    <tbody>
-                    <tr class="sb-bg-dark text-white">
-                        <th>4.1.3 Description with comments on major item dealt in</th>
-                    </tr>
-                    <tr>
-                        <td [innerHTML]="jsonData?.discriptionWithComment"></td>
-                    </tr>
-                    </tbody>
-                    <tbody>
-                    <tr class="sb-bg-dark text-white">
-                        <th>4.1.4 Major Buyers and Suppliers/Manufacturers</th>
-                    </tr>
-                    <tr>
-                        <td [innerHTML]="jsonData?.majorBuyersSuppliers"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-12 pl-3">
+                <span style="font-size: 14px"><b>4.1.1 Promoters background, experience and resources</b></span>
+                <tr class="sb-small">
+                    <td [innerHTML]="jsonData?.promoterBackground || 'NA' | safeHtml"></td>
+                </tr>
+                <span style="font-size: 14px"><b>4.1.2 Line/s of business activity</b></span>
+                <tr>
+                    <td [innerHTML]="jsonData?.lineOfBusiness || 'NA' | safeHtml"></td>
+                </tr>
+                <span style="font-size: 14px"><b>4.1.3 Description with comments on major item dealt in</b></span>
+                <tr>
+                    <td [innerHTML]="jsonData?.discriptionWithComment || 'NA' | safeHtml"></td>
+                </tr>
+                <span style="font-size: 14px"><b>4.1.4 Major Buyers and Suppliers/Manufacturers</b></span>
+                <tr>
+                    <td [innerHTML]="jsonData?.majorBuyersSuppliers || 'NA' | safeHtml"></td>
+                </tr>
             </div>
         </div>
     </div>

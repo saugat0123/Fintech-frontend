@@ -53,7 +53,6 @@
                 <td>Rs. {{data?.changeAmount | currencyFormatter}}</td>
                 <td>{{data?.pricing | currencyFormatter}}</td>
                 <td>{{data?.maturity | currencyFormatter}}</td>
-
             </tr>
             <tr class="sb-bg-secondary">
                 <th colspan="2">Total</th>
@@ -69,13 +68,11 @@
             </tr>
             </tbody>
         </table>
-        <table *ngIf="customerType === 'INSTITUTION'"
-               class="table table-responsive-md table-bordered sb-small text-center table-sm">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>Outstanding Overdue</th>
-            </tr>
-            </thead>
+    </div>
+
+    <div class="col-md-12" *ngIf="customerType === 'INSTITUTION' && customerCategory === 'executing'">
+        <span class="float-left"><strong>Outstanding, Overdue and R/E collateral</strong></span>
+        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <tbody>
             <tr>
                 <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.outstandingOverdue) || 'NA' " > </td>
@@ -83,6 +80,4 @@
             </tbody>
         </table>
     </div>
-
-
 </div>

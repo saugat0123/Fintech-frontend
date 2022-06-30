@@ -13,17 +13,13 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
-  relationCustomer;
   registrationDate;
-  companyLocation;
-  businessLocation;
   propList: Array<Proprietors>;
   totalCrgPoint;
   sum = 0;
   checkedData;
   multiBankingData;
   commentData;
-  contactedPerson = [];
   ciclData = [];
   reviewDate;
   constructor() { }
@@ -36,8 +32,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         this.reviewDate = data.reviewDate;
       }
       this.propList = this.companyJsonData.proprietorList;
-      this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
-      this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
@@ -53,9 +47,6 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
             this.commentData = JSON.parse(oldData.data);
           }
         }
-      }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
-        this.contactedPerson = JSON.parse(this.loanDataHolder.companyInfo.contactPersons);
       }
       if (this.loanDataHolder.loanHolder.cicl) {
         this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);

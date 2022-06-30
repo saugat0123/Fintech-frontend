@@ -1,5 +1,8 @@
 <p><strong>Name:</strong> M/S <b>{{loanDataHolder?.companyInfo?.companyName}}</b>
-    (Mr/Ms: <b>{{contactedPerson[0]?.contactName}}</b>, mobile: <b>{{contactedPerson[0]?.contactNumber}}</b>)</p>
+    (Mr/Ms: <b>{{(loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.residenceOfMainPersonContactPer ?
+        (loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.residenceOfMainPersonContactPer: 'NA'}}</b>,
+    Mobile: <b>{{(loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.residenceOfMainPersonMobile ?
+        (loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.residenceOfMainPersonMobile : 'NA'}}</b>)</p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
         <td><b>Legal status</b></td>
@@ -58,7 +61,7 @@
         <td colspan="2">
             Date: {{loanDataHolder?.loanHolder?.cicl?.cibDate
             ? (loanDataHolder?.loanHolder?.cicl?.cibDate | date) : 'N/A'}};<br>
-            Status: {{ciclData[ciclData?.length - 1]?.status}}
+            Status: {{ciclData[ciclData?.length - 1]?.overdueStatus}}
         </td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[0]?.coBankName}}</td>
@@ -118,9 +121,9 @@
     <tbody>
         <tr>
             <td colspan="3" [rowSpan]="propList?.length +1">
-                <b>Address:</b> Office: {{companyLocation?.address1}}, {{companyLocation?.municipalityVdc.name}}, {{companyLocation?.district.name}}
+                <b>Address:</b> Office: {{(loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.registeredOfficeLegalAddress}}
                 <br>
-                <b>Factory/Business</b>: {{businessLocation?.address1}}, {{businessLocation?.municipalityVdc.name}}, {{businessLocation?.district.name}}
+                <b>Factory/Business</b>: {{(loanDataHolder?.companyInfo?.companyContactDetails | jsonParse)?.factoryBusinessLegalAddress}}
             </td>
         </tr>
     </tbody>

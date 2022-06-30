@@ -64,8 +64,10 @@
                 as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
                 ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b><br>
                 <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo else noGroup"
-                        [customerCategory]="'executing'"
-                        [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                                     [customerCategory]="'executing'"
+                                     [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
+                                     [customerType]="loanDataHolder?.loanHolder?.customerType">
+                </app-m-group-summary>
                 <ng-template #noGroup>Not Available</ng-template>
             </li>
 
