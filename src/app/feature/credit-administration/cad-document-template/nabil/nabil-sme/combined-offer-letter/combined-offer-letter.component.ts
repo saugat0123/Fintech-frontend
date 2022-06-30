@@ -108,40 +108,7 @@ export class CombinedOfferLetterComponent implements OnInit {
     });
   }
 
-  replaceFunction(primarySecondaryFree) {
-    const abc = primarySecondaryFree.replace(/\\n\\t\\t\\t/g, '');
-    const cd = abc.replace(/\\n\\t\\t/g, '');
-    const de = cd.replace(/\\n\\t/g, '');
-    const ef = de.replace(/\\n\\n/g, '');
-    const last = ef.replace(/\\n/g, '');
-    return last;
-  }
-
   setFreeText() {
-    const tempFree = '<table border="1" cellpadding="1" cellspacing="1" style="width:100%"><tbody>' +
-        '<tr><td colspan="1" rowspan="2" style="text-align:center">' +
-        '<strong>घर/जग्गा धनीको नाम थर</strong></td><td colspan="3" rowspan="1" style="text-align:center">' +
-        '<strong>घर/जग्गाको अवस्थिति</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
-        '<strong>सिट नं.</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
-        '<strong>कित्ता नं.</strong></td><td colspan="1" rowspan="2" style="text-align:center">' +
-        '<strong>क्षेत्रफल</strong></td></tr><tr><td style="text-align:center">' +
-        '<strong>जिल्ला</strong></td><td style="text-align:center"><strong>नगर/गा.वि.स.</strong></td>' +
-        '<td style="text-align:center"><strong>वडा नं.</strong></td></tr><tr>' +
-        '<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>' +
-        '<td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>' +
-        '&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>' +
-        '<td>&nbsp;</td></tr></tbody></table>';
-    const tempFreeString = JSON.stringify(tempFree);
-    const tempPrimary = JSON.stringify(this.section3.form.get('primarySecurityFreeTable').value);
-    const tempSecondary = JSON.stringify(this.section3.form.get('secondarySecurityFreeTable').value);
-    const primaryLast = this.replaceFunction(tempPrimary);
-    if (tempFreeString === primaryLast) {
-      this.section3.form.get('primarySecurityFreeTable').patchValue(undefined);
-    }
-    const secondaryLast = this.replaceFunction(tempSecondary);
-    if (tempFreeString === secondaryLast) {
-      this.section3.form.get('secondarySecurityFreeTable').patchValue(undefined);
-    }
     const section1FreeText = this.section1.section1.get('firstAdditionalDetails').value ? this.section1.section1.get('firstAdditionalDetails').value : '';
     const section2FreeText = this.section2.setTextAreaValue();
     const section3FreeText = {
@@ -152,9 +119,14 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeText5: this.section3.form.get('freeText5').value ? this.section3.form.get('freeText5').value : '',
       freeTable: this.section3.form.get('freeTable').value,
       textField: this.section3.form.get('textField').value ? this.section3.form.get('textField').value : '',
-      primarySecurityFreeTable: this.section3.form.get('primarySecurityFreeTable').value ?
+      primarySecurityFreeTable: (this.section3.form.get('primaryFreeTableChecked').value &&
+      this.section3.form.get('primarySecurityFreeTable').value) ?
           this.section3.form.get('primarySecurityFreeTable').value : '',
-      secondarySecurityFreeTable: this.section3.form.get('secondarySecurityFreeTable').value ? this.section3.form.get('secondarySecurityFreeTable').value : '',
+      secondarySecurityFreeTable: (this.section3.form.get('secondaryFreeTableChecked').value &&
+      this.section3.form.get('secondarySecurityFreeTable').value) ?
+          this.section3.form.get('secondarySecurityFreeTable').value : '',
+      primaryFreeTableChecked: this.section3.form.get('primaryFreeTableChecked').value,
+      secondaryFreeTableChecked: this.section3.form.get('secondaryFreeTableChecked').value
     };
     const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
     const section7FreeText = this.section7.form.get('yearlyText').value ? this.section7.form.get('yearlyText').value : '';
