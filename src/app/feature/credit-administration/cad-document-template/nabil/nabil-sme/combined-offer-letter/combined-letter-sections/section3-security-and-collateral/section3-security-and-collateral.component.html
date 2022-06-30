@@ -104,7 +104,13 @@
                                             [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
                                 </div>
                             </ng-container>
-                                <ckeditor formControlName="primarySecurityFreeTable" [(ngModel)]="primarySecurityFreeTable"
+                                <nb-checkbox (checkedChange)="checkPrimarySecondaryFreeTable($event, 'primary')"
+                                             formControlName="primaryFreeTableChecked">
+                                    <i> Free Table Required ? </i>
+                                </nb-checkbox>
+                                <ckeditor
+                                        *ngIf="form.get('primaryFreeTableChecked').value"
+                                        formControlName="primarySecurityFreeTable" [(ngModel)]="primarySecurityFreeTable"
                                           [config]="ckEditorConfig"></ckeditor>
                             </li>
                             <!-- Applicable if only hypothecation letter is required-->
@@ -459,7 +465,14 @@
                                             [securityDetails]="tempSecondaryLandBuilding && tempSecondaryLandBuilding[i] ? tempSecondaryLandBuilding[i] : []"></app-master-secondary-securities-view>
                                 </div>
                             </ng-container>
-                                <ckeditor formControlName="secondarySecurityFreeTable" [(ngModel)]="secondarySecurityFreeTable"
+                                <nb-checkbox (checkedChange)="checkPrimarySecondaryFreeTable($event, 'secondary')"
+                                             formControlName="secondaryFreeTableChecked">
+                                    <i> Free Table Required ? </i>
+                                </nb-checkbox>
+
+                                <ckeditor
+                                        *ngIf="form.get('secondaryFreeTableChecked').value"
+                                        formControlName="secondarySecurityFreeTable" [(ngModel)]="secondarySecurityFreeTable"
                                           [config]="ckEditorConfig"></ckeditor>
                             </li>
 
