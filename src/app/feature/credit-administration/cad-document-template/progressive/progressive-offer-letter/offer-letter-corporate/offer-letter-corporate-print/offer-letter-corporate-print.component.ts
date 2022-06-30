@@ -10,8 +10,8 @@ export class OfferLetterCorporatePrintComponent implements OnInit {
 
     @Input() printDocForm;
     @Input() nepaliData;
+    @Input() isIndividual;
     offerLetterConst = ProgressiveOfferLetterConst;
-
     constructor() {
     }
 
