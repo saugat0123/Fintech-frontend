@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CompanyInfo} from '../../../../../../admin/modal/company-info';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {CompanyContactDetail} from '../../../../../../admin/modal/crg/companyContactDetail';
+import {CustomerInfoData} from '../../../../../model/customerInfoData';
 
 @Component({
   selector: 'app-above-background-of-customer',
@@ -10,6 +11,7 @@ import {CompanyContactDetail} from '../../../../../../admin/modal/crg/companyCon
 })
 export class AboveBackgroundOfCustomerComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
+  @Input() loanHolder: CustomerInfoData;
   jsonData: any;
   registeredAddress: any;
   currentAddress: any;
