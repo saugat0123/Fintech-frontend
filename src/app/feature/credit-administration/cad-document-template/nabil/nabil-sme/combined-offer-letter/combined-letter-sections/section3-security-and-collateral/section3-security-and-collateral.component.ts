@@ -157,7 +157,9 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       personalGuaranteeName: [undefined],
       freeTable: [undefined],
       primarySecurityFreeTable: [undefined],
-      secondarySecurityFreeTable: [undefined]
+      secondarySecurityFreeTable: [undefined],
+      primaryFreeTableChecked: [false],
+      secondaryFreeTableChecked: [false]
 
     });
   }
@@ -170,6 +172,12 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       guarantorAmountInWords: guarantorName,
       textField: (!ObjectUtil.isEmpty(this.freeInformation) && !ObjectUtil.isEmpty(this.freeInformation.section3.textField)) ?
           this.freeInformation.section3.textField : 'थप/अतिरिक्त',
+      primaryFreeTableChecked: (!ObjectUtil.isEmpty(this.freeInformation) &&
+          !ObjectUtil.isEmpty(this.freeInformation.section3.primaryFreeTableChecked)) ?
+          this.freeInformation.section3.primaryFreeTableChecked : undefined,
+      secondaryFreeTableChecked: (!ObjectUtil.isEmpty(this.freeInformation) &&
+          !ObjectUtil.isEmpty(this.freeInformation.section3.secondaryFreeTableChecked)) ?
+          this.freeInformation.section3.secondaryFreeTableChecked : undefined,
     });
   }
 
@@ -359,6 +367,15 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       finalName = this.temp2 + ' र ' + temp1;
     }
     return finalName ? finalName : '';
+  }
+
+  checkPrimarySecondaryFreeTable(eve: any, securityType) {
+    if (securityType === 'primary') {
+        this.form.get('primaryFreeTableChecked').patchValue(eve ? true : false);
+    }
+    if (securityType === 'secondary') {
+      this.form.get('secondaryFreeTableChecked').patchValue(eve ? true : false);
+    }
   }
 
 }
