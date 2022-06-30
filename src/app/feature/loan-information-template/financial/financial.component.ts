@@ -247,6 +247,8 @@ export class FinancialComponent implements OnInit {
                 this.addIncomeOfBorrower();
                 this.addExpensesOfBorrower();
                 this.addObligationAtOtherBank();
+            } else {
+                this.addProjectedUtilization();
             }
         }
         this.checkDisableAlpha();

@@ -131,10 +131,11 @@
                             <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
                             ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
                             <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
-                        </div><br>
-                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
-                        </div><br>
+                            <br>
+                            <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                                ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>

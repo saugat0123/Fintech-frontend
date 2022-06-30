@@ -29,6 +29,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('loanDataHolder', this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
@@ -59,6 +60,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       }
       if (this.loanDataHolder.loanHolder.cicl) {
         this.ciclData = JSON.parse(this.loanDataHolder.loanHolder.cicl.data);
+        console.log('ciclData', this.ciclData);
       }
     }
    }
