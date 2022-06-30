@@ -21,7 +21,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class DisbursementApprovedComponent implements OnInit {
 
     // todo dynamic search obj for approve , pending
-    searchObj = {docStatus: 'DISBURSEMENT_APPROVED'};
+    searchObj = {docStatus: 'DISBURSEMENT_APPROVED',  isCadFile: 'true'};
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();
