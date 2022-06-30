@@ -69,13 +69,11 @@
             </tr>
             </tbody>
         </table>
-        <table *ngIf="customerType === 'INSTITUTION'"
-               class="table table-responsive-md table-bordered sb-small text-center table-sm">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>Outstanding Overdue</th>
-            </tr>
-            </thead>
+    </div>
+
+    <div class="col-md-12" *ngIf="customerType === 'INSTITUTION'">
+        <span class="float-left"><strong>Outstanding, Overdue and R/E collateral</strong></span>
+        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
             <tbody>
             <tr>
                 <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.outstandingOverdue) || 'NA' " > </td>
@@ -83,6 +81,7 @@
             </tbody>
         </table>
     </div>
+
 
 
 </div>
