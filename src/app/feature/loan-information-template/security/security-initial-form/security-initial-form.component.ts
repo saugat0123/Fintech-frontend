@@ -652,7 +652,6 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
         Data.forEach((singleData, index) => {
-            console.log('singleData', singleData);
             if (!ObjectUtil.isEmpty(singleData.kycCheckForLandAndBuilding) && singleData.kycCheckForLandAndBuilding) {
                 this.ownerKycRelationInfoCheckedForLandBuilding = true;
             }
