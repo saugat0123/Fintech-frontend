@@ -6,6 +6,7 @@ import {CollateralSiteVisitService} from '../../../../loan-information-template/
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {flatten} from '@angular/compiler';
+import {Security} from '../../../model/security';
 
 
 @Component({
@@ -14,9 +15,10 @@ import {flatten} from '@angular/compiler';
     styleUrls: ['./security-summary.component.scss']
 })
 export class SecuritySummaryComponent implements OnInit {
-    @Input() formData: Object;
+    formData: Object;
     @Input() shareSecurity;
     @Input() collateralData;
+    @Input() security: Security;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -52,11 +54,29 @@ export class SecuritySummaryComponent implements OnInit {
     isPrintable = 'YES';
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
+    proposedSecurity: {securityName: string, considerValue: number, marketValue: number,
+        distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
+    existingSecurity: {securityName: string, considerValue: number, marketValue: number,
+        distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
+    existingAsPropose: {securityName: string, considerValue: number, marketValue: number,
+        distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
+    totalMV = 0;
+    totalFMV = 0;
+    totalDV = 0;
+    totalMVEx = 0;
+    totalFMVEx = 0;
+    totalDVEx = 0;
+    totalMVAsPs = 0;
+    totalFMVAsPs = 0;
+    totalDVAsPs = 0;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.security)) {
+            this.formData = JSON.parse(this.security.data);
+        }
         if (this.formData['selectedArray'] !== undefined) {
             // land security
             this.formData['selectedArray'].filter(f => {
@@ -65,6 +85,149 @@ export class SecuritySummaryComponent implements OnInit {
                     this.landSelected = true;
                 }
             });
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['landDetails'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalMV += Number(d.landConsideredValue);
+                        this.totalFMV += Number(d.marketValue);
+                        this.totalDV += Number(d.distressValue);
+                        this.proposedSecurity.push({
+                            securityName: 'Land',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMV,
+                            totalFMV: this.totalFMV,
+                            totalDV: this.totalDV
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalMVEx += Number(d.landConsideredValue);
+                        this.totalFMVEx += Number(d.marketValue);
+                        this.totalDVEx += Number(d.distressValue);
+                        this.existingSecurity.push({
+                            securityName: 'Land',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMVEx,
+                            totalFMV: this.totalFMVEx,
+                            totalDV: this.totalDVEx
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalMVAsPs += Number(d.landConsideredValue);
+                        this.totalFMVAsPs += Number(d.marketValue);
+                        this.totalDVAsPs += Number(d.distressValue);
+                        this.existingAsPropose.push({
+                            securityName: 'Land',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMVAsPs,
+                            totalFMV: this.totalFMVAsPs,
+                            totalDV: this.totalDVAsPs
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['landBuilding'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalMV += Number(d.landConsideredValue);
+                        this.totalFMV += Number(d.marketValue);
+                        this.totalDV += Number(d.distressValue);
+                        this.proposedSecurity.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMV,
+                            totalFMV: this.totalFMV,
+                            totalDV: this.totalDV
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalMVEx += Number(d.landConsideredValue);
+                        this.totalFMVEx += Number(d.marketValue);
+                        this.totalDVEx += Number(d.distressValue);
+                        this.existingSecurity.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMVEx,
+                            totalFMV: this.totalFMVEx,
+                            totalDV: this.totalDVEx
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalMVAsPs += Number(d.landConsideredValue);
+                        this.totalFMVAsPs += Number(d.marketValue);
+                        this.totalDVAsPs += Number(d.distressValue);
+                        this.existingAsPropose.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.landConsideredValue,
+                            marketValue: d.marketValue,
+                            distressValue: d.distressValue,
+                            totalMV: this.totalMVAsPs,
+                            totalFMV: this.totalFMVAsPs,
+                            totalDV: this.totalDVAsPs
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['buildingDetails'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalMV += Number(d.totalCost);
+                        this.totalFMV += Number(d.buildingFairMarketValue);
+                        this.totalDV += Number(d.buildingDistressValue);
+                        this.proposedSecurity.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.totalCost,
+                            marketValue: d.buildingFairMarketValue,
+                            distressValue: d.buildingDistressValue,
+                            totalMV: this.totalMV,
+                            totalFMV: this.totalFMV,
+                            totalDV: this.totalDV
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalMVEx += Number(d.landConsideredValue);
+                        this.totalFMVEx += Number(d.marketValue);
+                        this.totalDVEx += Number(d.distressValue);
+                        this.existingSecurity.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.totalCost,
+                            marketValue: d.buildingFairMarketValue,
+                            distressValue: d.buildingDistressValue,
+                            totalMV: this.totalMVEx,
+                            totalFMV: this.totalFMVEx,
+                            totalDV: this.totalDVEx
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalMVAsPs += Number(d.landConsideredValue);
+                        this.totalFMVAsPs += Number(d.marketValue);
+                        this.totalDVAsPs += Number(d.distressValue);
+                        this.existingAsPropose.push({
+                            securityName: 'Land and Building',
+                            considerValue: d.totalCost,
+                            marketValue: d.buildingFairMarketValue,
+                            distressValue: d.buildingDistressValue,
+                            totalMV: this.totalMVAsPs,
+                            totalFMV: this.totalFMVAsPs,
+                            totalDV: this.totalDVAsPs
+                        });
+                    }
+                });
+            }
 
             // apartment security
             this.formData['selectedArray'].filter(f => {

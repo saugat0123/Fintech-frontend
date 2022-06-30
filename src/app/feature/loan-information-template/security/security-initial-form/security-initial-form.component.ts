@@ -484,7 +484,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -623,7 +626,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     apartmentDeveloperNames: this.formBuilder.array([]),
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -646,6 +652,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
         Data.forEach((singleData, index) => {
+            console.log('singleData', singleData);
             if (!ObjectUtil.isEmpty(singleData.kycCheckForLandAndBuilding) && singleData.kycCheckForLandAndBuilding) {
                 this.ownerKycRelationInfoCheckedForLandBuilding = true;
             }
@@ -725,7 +732,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     addressLine1: [singleData.addressLine1],
                     addressLine2: [singleData.addressLine2],
                     registerOffice: [singleData.registerOffice],
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -1282,7 +1292,10 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
-            uuid: [this.uuid()]
+            uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1308,6 +1321,9 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentOtherBranchChecked: [undefined],
             apartmentDeveloperNames: this.formBuilder.array([]),
             uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
     LandBuildingDetailsFormGroup() {
@@ -1379,7 +1395,10 @@ export class SecurityInitialFormComponent implements OnInit {
             addressLine1: [undefined],
             addressLine2: [undefined],
             registerOffice: [undefined],
-            uuid: [this.uuid()]
+            uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 

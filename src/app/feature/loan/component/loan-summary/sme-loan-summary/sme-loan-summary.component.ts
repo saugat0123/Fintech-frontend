@@ -244,7 +244,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loanDataHolder = this.loanData;
-    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+//    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;
     }
@@ -257,13 +257,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.companyInfo = this.loanData.companyInfo;
       this.tempData = JSON.parse(this.companyInfo.companyJsonData);
     }
-    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-      this.isSaneView = true;
-    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-      this.isUpToTenMillion = true;
-    } else {
-      this.isAboveTenMillion = true;
-    }
+    // if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
+    //   this.isSaneView = true;
+    // } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
+    //   this.isUpToTenMillion = true;
+    // } else {
+    //   this.isAboveTenMillion = true;
+    // }
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
