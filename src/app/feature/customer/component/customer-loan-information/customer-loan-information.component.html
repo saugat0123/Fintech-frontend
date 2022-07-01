@@ -1029,7 +1029,8 @@
                                formControlName="facilities"
                                placeholder="Facilities"
                                type="text"/></td>
-                    <td><input class="form-control"
+                    <td><input (change)="calculateTotalProposed()"
+                               class="form-control text-center"
                                formControlName="limit"
                                placeholder="Proposed Limit"
                                type="text"/></td>
@@ -1052,12 +1053,57 @@
                     </td>
                   </tr>
                   </tbody>
+
+                  <tbody>
+                  <tr class="text-center">
+                    <th colspan="2">Total</th>
+                    <th><input [readOnly]="true"
+                               class="form-control text-center"
+                               formControlName="totalLimit"
+                               placeholder="Total Funded"/></th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th *ngIf="commonLoanData.get('fixedAssetsComputing')['length'] > 0">-</th>
+                  </tr>
+                  </tbody>
                 </table>
                 <div class="float-right">
                   <input (click)="addFixedAssetsComputing()" class="btn btn-sm btn-flat btn-primary"
                          type="button" value="Add More"/>
                 </div>
+                <br>
               </div>
+              <table class="table table-bordered table-responsive-md table-sm text-left">
+                <tr>
+                  <th>Total Value of Available FAC</th>
+                  <td><input class="form-control"
+                             formControlName="totalAvailableFac"
+                             placeholder="Total Value of Available FAC"
+                             type="text"/></td>
+                </tr>
+                <tr>
+                  <td>Total Required Value of FAC as per Product Paper</td>
+                  <td><input class="form-control"
+                             formControlName="totalRequiredFac"
+                             placeholder="Total Required Value of FAC"
+                             type="text"/></td>
+                </tr>
+                <tr>
+                  <th>Excess/<span style="color: red">(ShortFall)</span></th>
+                  <td><input class="form-control"
+                             formControlName="excess"
+                             placeholder="Excess/ShortFall"
+                             type="text"/></td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label class="pl-2">COMMENTS ON FAC SHORTFALL: </label>
+                    <ckeditor [config]="ckeConfig"
+                              formControlName="commentOfFac"></ckeditor>
+                  </td>
+                </tr>
+              </table>
             </div>
           </ng-container>
 

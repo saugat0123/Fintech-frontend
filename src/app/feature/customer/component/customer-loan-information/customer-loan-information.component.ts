@@ -691,7 +691,12 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             solText: [undefined],
             regularityOfPayments: [undefined],
             specialInstruction: [undefined],
-            fixedAssetsComputing: this.formBuilder.array([])
+            fixedAssetsComputing: this.formBuilder.array([]),
+            totalLimit: 0,
+            totalAvailableFac: [undefined],
+            totalRequiredFac: [undefined],
+            excess: [undefined],
+            commentOfFac: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
@@ -857,6 +862,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     removeFixedAssetsComputing(i: number) {
         (this.commonLoanData.get('fixedAssetsComputing') as FormArray).removeAt(i);
+        this.calculateTotalProposed();
     }
 
     setFixedAssetsComputing(data) {
@@ -875,6 +881,16 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 );
             });
         }
+    }
+
+    calculateTotalProposed() {
+        let total = 0;
+        const fixData = this.commonLoanData.get('fixedAssetsComputing') as FormArray;
+        fixData.value.forEach(fd => {
+            total += Number(fd.limit);
+        });
+        this.commonLoanData.get('totalLimit').patchValue(Number(total).toFixed(2));
+        console.log('value', this.commonLoanData.get('totalLimit').value);
     }
 
 }

@@ -135,19 +135,17 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Banking Arrangement of the Customer</strong></p>
-        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else noBanking"
+        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else notAvailable"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
-        <ng-template #noBanking>Not Available</ng-template>
     </li>
     <li>
         <p class="text-uppercase"><strong>Stock Statement</strong></p>
-        <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0 else noStatement"
+        <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0 else notAvailable"
                          [fiscalYears]="fiscalYear"
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
-        <ng-template #noStatement>Not Available</ng-template>
 <!--        <app-above-stock-statement></app-above-stock-statement>-->
     </li>
     <li>
@@ -208,21 +206,24 @@
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
         <strong>15.1 Security Documents:</strong>
         <br>The purposed credit facilities shall be secured by the following  security arrangement:<br>
-        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else noSecurity"
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else notAvailable"
                              [security]="loanDataHolder?.loanHolder?.security"
                              [loanDataHolder]="loanDataHolder"></app-retail-security>
-        <ng-template #noSecurity>Not Available</ng-template>
-        <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList"
+        <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList; else notAvailable"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
         <p><strong>15.4 Fixed Assets Collaterals (Existing/Proposed): Not Available</strong></p>
         <!--<app-above-security-arrangement></app-above-security-arrangement>-->
         <div>
-            <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance; else notAvailable"
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise): Not Available</strong></p>
-<!--        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>-->
+        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise): </strong></p>
+        <app-above-fixed-assets-collateral-computation-sheet
+                *ngIf="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.fixedAssetsComputing; else notAvailable"
+                [fixedAssetsComputing]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.fixedAssetsComputing">
+        </app-above-fixed-assets-collateral-computation-sheet>
     </li>
     <li>
         <p class="text-uppercase"><strong>Special Covenants/Conditions, if any: {{proposalData?.specialCovenant ? '' : 'NA'}}</strong></p>
@@ -259,16 +260,16 @@
     </li>
     <li>
         <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
-        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else noMIS"
+        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else notAvailable"
                             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-        <ng-template #noMIS>Not Available</ng-template>
     </li>
 
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
-        <app-above-review-of-credit-facilities *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else noReview"
-                                               [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
-        <ng-template #noReview>Not Available</ng-template>
+        <app-above-review-of-credit-facilities
+                *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else notAvailable"
+                [loanDataHolder]="loanDataHolder">
+        </app-above-review-of-credit-facilities>
     </li>
     <li>
         <p><strong>CONCLUSIONS AND RECOMMENDATIONS:</strong></p>
@@ -280,3 +281,5 @@
                                [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>
 </ol>
+
+<ng-template #notAvailable>NA</ng-template>

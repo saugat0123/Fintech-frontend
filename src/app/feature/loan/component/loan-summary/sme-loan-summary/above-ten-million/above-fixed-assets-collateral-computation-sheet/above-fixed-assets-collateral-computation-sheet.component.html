@@ -1,52 +1,19 @@
-<table class="table-bordered table-sm sb-small table">
+<table class="table-bordered table-sm sb-small table" *ngIf="fixedAssetsComputing?.length > 0">
     <tr class="sb-bg-dark text-white">
+        <th class="sn">S.N</th>
         <th>Facilities</th>
         <th>Proposed Limit</th>
         <th>Required FAC Coverage % as per Product Paper</th>
         <th>Proposed FAC Coverage %</th>
         <th>Deviation</th>
     </tr>
-    <tr>
-        <td>OD</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>DL</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>TR</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>HP</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Others</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Total</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let fa of fixedAssetsComputing; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{fa?.facilities}}</td>
+        <td>{{fa?.limit}}</td>
+        <td>{{fa?.requiredFac}}</td>
+        <td>{{fa?.proposedFac}}</td>
+        <td>{{fa?.deviation}}</td>
     </tr>
 </table>
 <table class="table table-bordered table-sm sb-small">

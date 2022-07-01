@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-above-fixed-assets-collateral-computation-sheet',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./above-fixed-assets-collateral-computation-sheet.component.scss']
 })
 export class AboveFixedAssetsCollateralComputationSheetComponent implements OnInit {
+  @Input() fixedAssetsComputing;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('fixedAssetsComputing', this.fixedAssetsComputing);
   }
 
 }
