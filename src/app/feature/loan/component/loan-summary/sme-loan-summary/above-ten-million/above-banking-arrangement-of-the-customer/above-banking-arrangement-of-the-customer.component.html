@@ -201,9 +201,9 @@
       <ng-template #sana>
         <span [innerHTML]="multiBankingData?.pastPerformance || 'NA' | safeHtml"></span>
       </ng-template>
-    <p><strong>7.6 Account strategy:</strong></p>
+    <p><strong>7.6 Account strategy: {{multiBankingData?.accountStrategy ? '': 'NA'}}</strong></p>
     <div class="container" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION else noAcc">
-      <span [innerHTML]="proposalData?.accountStrategy | safeHtml"></span>
+      <span [innerHTML]="multiBankingData?.accountStrategy | safeHtml"></span>
     </div>
     <ng-template #noAcc>Not Available</ng-template>
     <p><strong>7.7 Average Utilization and Transaction Record of facilities by the customer during the last 12 months with
