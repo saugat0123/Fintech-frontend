@@ -49,14 +49,15 @@
           </tr>
             <tr *ngIf="toggle[i].toggled">
               <td colspan="6">
-             <app-guarantor-detail [guarantorData]="guarantor"></app-guarantor-detail>
+             <app-guarantor-detail [customerType]="customerType"
+                                   [guarantorData]="guarantor"></app-guarantor-detail>
               </td>
             </tr>
           </ng-container>
 
           </tbody>
         </table>
-        <p *ngIf="selectedGuarantorList.length === 0" class="text-center">No Guarantor tagged yet!</p>
+        <p *ngIf="selectedGuarantorList?.length === 0" class="text-center">No Guarantor tagged yet!</p>
       </div>
     </div>
   </nb-card-body>
