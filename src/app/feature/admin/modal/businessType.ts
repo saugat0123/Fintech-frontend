@@ -2,8 +2,7 @@ export enum BusinessType {
   MANUFACTURING = 'Manufacturing',
   TRADING = 'Trading',
   SERVICE = 'Service',
-  // CONSULTANCY = 'Consultancy',
-  // CONSTRUCTION_SERVICE = 'Construction Service'
+  INDIVIDUAL = 'Individual'
 }
 
 export namespace BusinessType {

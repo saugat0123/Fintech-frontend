@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col-md-4">
                 <nb-select fullWidth (selectedChange)="onChangeBusinessType($event)" placeholder="Please select a loan scheme">
-                    <nb-option-group title="Institutional">
+                    <nb-option-group>
                         <nb-option *ngFor="let scheme of businessTypes;"
                                    [value]="scheme?.valueOf()">{{scheme | replace: '_' :' '}}</nb-option>
                     </nb-option-group>
-                    <nb-option-group title="Individual">
-                        <nb-option *ngFor="let scheme of schemeList;"
-                                   [value]="scheme?.id">{{scheme?.name}}</nb-option>
-                    </nb-option-group>
+<!--                    <nb-option-group title="Individual">-->
+<!--                        <nb-option *ngFor="let scheme of schemeList;"-->
+<!--                                   [value]="scheme?.id">{{scheme?.name}}</nb-option>-->
+<!--                    </nb-option-group>-->
                 </nb-select>
             </div>
             <div *ngIf="existingQuestionList" class="col-md-8 text-right mt-5">
