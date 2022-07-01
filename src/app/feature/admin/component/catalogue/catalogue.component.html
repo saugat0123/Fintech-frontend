@@ -266,19 +266,19 @@
                                class="text-success cursor">{{loanType[model.loanType]}} From
                                 <em class="p-1 fa fa-edit"></em></a>
                         </div>
-                        <div *ngIf="!model?.childId; else notCadStage">
-                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
-                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">
-                                <button nbButton status="warning" size="tiny"
-                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
-                                <em class="fa fa-arrow-circle-left"></em></button>
-                            </span>
-                        </div>
-                        <ng-template #notCadStage>
-                            <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                                <p>NA</p>
-                            </div>
-                        </ng-template>
+<!--                        <div *ngIf="!model?.childId; else notCadStage">-->
+<!--                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&-->
+<!--                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">-->
+<!--                                <button nbButton status="warning" size="tiny"-->
+<!--                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">-->
+<!--                                <em class="fa fa-arrow-circle-left"></em></button>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <ng-template #notCadStage>-->
+<!--                            <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>-->
+<!--                                <p>NA</p>-->
+<!--                            </div>-->
+<!--                        </ng-template>-->
                     </td>
                 </ng-template>
             </tr>

@@ -551,6 +551,9 @@ export class LoanSummaryIndividualComponent implements OnInit {
       if (this.signatureList[index].docAction.toString() === 'DUAL_APPROVAL_PENDING') {
         return 'Approved By';
       }
+      if (this.signatureList[index].docAction.toString() === 'HSOV_PENDING') {
+        return 'Approved By';
+      }
       return label;
     } else {
       if (index === 0) {
