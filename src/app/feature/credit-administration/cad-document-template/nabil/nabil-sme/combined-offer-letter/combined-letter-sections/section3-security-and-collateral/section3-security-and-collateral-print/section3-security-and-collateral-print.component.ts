@@ -86,6 +86,9 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
           this.free.section3.primarySecurityFreeTable : '';
       this.secondarySecurityFreeTable = (this.free.section3 && this.free.section3.secondarySecurityFreeTable !== '') ?
           this.free.section3.secondarySecurityFreeTable : '';
+    } else {
+      this.primarySecurityFreeTable = '';
+      this.secondarySecurityFreeTable = '';
     }
     this.guarantorData.forEach((any) => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
