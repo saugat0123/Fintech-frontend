@@ -24,7 +24,7 @@
           <tr class="text-white sb-bg-dark">
             <th>S.N</th>
             <th>Name</th>
-            <th>CitizenNumber</th>
+            <th>CitizenNumber/Registration Number</th>
             <th>Address</th>
             <th>ContactNumber</th>
             <th>Action</th>
@@ -35,8 +35,14 @@
           <tr>
             <td>{{i + 1}}</td>
             <td>{{guarantor?.name}}</td>
-            <td>{{guarantor?.citizenNumber}}</td>
-            <td>{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
+            <td>
+              <span *ngIf="guarantor?.guarantorType === 'personalGuarantor'; else corpo">{{guarantor?.citizenNumber}}</span>
+              <ng-template #corpo>{{guarantor?.registrationNumber}}</ng-template>
+            </td>
+            <td>
+              <span *ngIf="guarantor?.guarantorType === 'personalGuarantor'">
+                {{guarantor?.issuedPlace}}, </span>{{guarantor?.province?.name}},{{guarantor?.district?.name}}, {{guarantor?.municipalities?.name}}
+            </td>
             <td>{{guarantor?.contactNumber}}</td>
             <td> <button (click)="removeGuarantor(guarantor)"
                          class="btn btn-sm btn-flat btn-danger">
