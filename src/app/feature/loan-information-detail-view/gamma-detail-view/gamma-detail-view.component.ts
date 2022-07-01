@@ -47,6 +47,7 @@ export class GammaDetailViewComponent implements OnInit {
     isJointCustomer = false;
     siteVisitDocuments: Array<SiteVisitDocument>;
     @Output() documents = new EventEmitter();
+    groupExposureData: any;
     requestedLoanType;
     constructor(private customerLoanService: LoanFormService,
                 private combinedLoanService: CombinedLoanService,
@@ -126,6 +127,9 @@ export class GammaDetailViewComponent implements OnInit {
           }
         }, error => {
           console.error(error);
+        }, () => {
+            this.groupExposureData = this.customerAllLoanList.map(v => v.proposal.groupExposure);
+            console.log(this.groupExposureData, 'group exposure data');
         });
   }
 
