@@ -866,7 +866,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     setFixedAssetsComputing(data) {
-        console.log('data', data);
         const fixData = this.commonLoanData.get('fixedAssetsComputing') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach(d => {
@@ -890,7 +889,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             total += Number(fd.limit);
         });
         this.commonLoanData.get('totalLimit').patchValue(Number(total).toFixed(2));
-        console.log('value', this.commonLoanData.get('totalLimit').value);
     }
 
 }

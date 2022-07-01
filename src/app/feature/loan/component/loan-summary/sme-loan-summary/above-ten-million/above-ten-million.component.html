@@ -222,7 +222,7 @@
         <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise): </strong></p>
         <app-above-fixed-assets-collateral-computation-sheet
                 *ngIf="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.fixedAssetsComputing; else notAvailable"
-                [fixedAssetsComputing]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.fixedAssetsComputing">
+                [commonLoanData]="loanDataHolder?.loanHolder?.commonLoanData | jsonParse">
         </app-above-fixed-assets-collateral-computation-sheet>
     </li>
     <li>

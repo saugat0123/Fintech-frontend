@@ -19,17 +19,19 @@
 <table class="table table-bordered table-sm sb-small">
     <tr>
         <th>Total Value of Available FAC</th>
-        <td></td>
+        <td>{{commonLoanData?.totalAvailableFac}}</td>
     </tr>
     <tr>
         <td>Total Required Value of FAC as per Product Paper</td>
-        <td></td>
+        <td>{{commonLoanData?.totalRequiredFac}}</td>
     </tr>
     <tr>
         <td>Excess/(Shortfall)</td>
-        <td></td>
+        <td>{{commonLoanData?.excess}}</td>
     </tr>
     <tr>
-        <td colspan="2">Comments on FAC Shortfall: </td>
+        <td colspan="2">COMMENTS ON FAC SHORTFALL: {{commonLoanData?.commentOfFac ? '' : 'NA'}}<br>
+            <span style="font-size: 12px" [innerHTML]="commonLoanData?.commentOfFac"></span>
+        </td>
     </tr>
 </table>
