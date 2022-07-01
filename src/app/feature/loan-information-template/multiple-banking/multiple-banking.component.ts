@@ -83,6 +83,7 @@ export class MultipleBankingComponent implements OnInit {
             auditObservation: [undefined],
             comments: [undefined],
             pastPerformance: [undefined],
+            accountStrategy: [undefined],
         });
     }
 

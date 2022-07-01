@@ -290,24 +290,16 @@
                                       [config]="ckeConfig"></ckeditor>
                         </div>
                     </div>
-<!--                    <div class="row">-->
-<!--                        -->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                    <div class="row">-->
-<!--                        -->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                    <div class="row">-->
-<!--                        -->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                    <div class="row">-->
-<!--                        -->
-<!--                    </div>-->
                 </div>
             </div>
             <br>
+            <div class="row">
+                <div class="col-md-12" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+                    <h6><strong>Account strategy :</strong></h6>
+                    <ckeditor formControlName="accountStrategy"
+                              [config]="ckeConfig"></ckeditor>
+                </div>
+            </div>
             <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
                 <div class="col-md-12">
                     <p><strong>Average Utilization of Facilities</strong></p>
