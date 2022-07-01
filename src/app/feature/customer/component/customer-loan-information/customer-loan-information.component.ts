@@ -42,7 +42,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {InstitutionalCrgGammaComponent} from '../../../loan-information-template/institutional-crg-gamma/institutional-crg-gamma.component';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {MultipleBanking} from '../../../admin/modal/multipleBanking';
 import {RiskAnalysisComponent} from '../customer-form/company-form/risk-analysis/risk-analysis.component';
@@ -690,14 +690,25 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             mergedCheck: [undefined],
             solText: [undefined],
             regularityOfPayments: [undefined],
-            specialInstruction: [undefined]
-
+            specialInstruction: [undefined],
+            fixedAssetsComputing: this.formBuilder.array([]),
+            totalLimit: 0,
+            totalAvailableFac: [undefined],
+            totalRequiredFac: [undefined],
+            excess: [undefined],
+            commentOfFac: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
+            if (ObjectUtil.isEmpty(commonData.fixedAssetsComputing)) {
+                this.addFixedAssetsComputing();
+            } else {
+                this.setFixedAssetsComputing(commonData.fixedAssetsComputing);
+            }
             // this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
         } else {
+            this.addFixedAssetsComputing();
             this.commonLoanData.get('waiverConclusionRecommendation').patchValue(this.groupTable);
         }
     }
@@ -835,6 +846,49 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     submittedCheck1(event) {
         this.submittedCheck = event;
+    }
+
+    addFixedAssetsComputing() {
+        (this.commonLoanData.get('fixedAssetsComputing') as FormArray).push(
+            this.formBuilder.group({
+                facilities: [undefined],
+                limit: [undefined],
+                requiredFac: [undefined],
+                proposedFac: [undefined],
+                deviation: [undefined],
+            })
+        );
+    }
+
+    removeFixedAssetsComputing(i: number) {
+        (this.commonLoanData.get('fixedAssetsComputing') as FormArray).removeAt(i);
+        this.calculateTotalProposed();
+    }
+
+    setFixedAssetsComputing(data) {
+        const fixData = this.commonLoanData.get('fixedAssetsComputing') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                fixData.push(
+                    this.formBuilder.group({
+                        facilities: [d.facilities],
+                        limit: [d.limit],
+                        requiredFac: [d.requiredFac],
+                        proposedFac: [d.proposedFac],
+                        deviation: [d.deviation],
+                    })
+                );
+            });
+        }
+    }
+
+    calculateTotalProposed() {
+        let total = 0;
+        const fixData = this.commonLoanData.get('fixedAssetsComputing') as FormArray;
+        fixData.value.forEach(fd => {
+            total += Number(fd.limit);
+        });
+        this.commonLoanData.get('totalLimit').patchValue(Number(total).toFixed(2));
     }
 
 }
