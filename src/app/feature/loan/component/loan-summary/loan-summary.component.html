@@ -96,7 +96,16 @@
                                 <br>
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
-                                <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
+                                <div class="float-left" *ngIf="!combined"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
+                                <div *ngIf="combined"><strong class="float-left">Product:  </strong>
+                                    <table class="table-borderless float-left">
+                                        <tr *ngFor="let allLoan of allLoanList">
+                                            <td>
+                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <br>
                                 <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
                             <span><strong>Review Date: </strong>

@@ -1,5 +1,5 @@
 <div *ngIf="individual && !isJointInfo" class="row">
-    <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
+    <ng-container *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" >
         <div class="col-md-12">
             <p><b>Address Verification</b></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
@@ -124,7 +124,7 @@
                         </tr>
                         <tr class="text-left">
                             <td class="sb-bg-dark text-white">Client Type</td>
-                            <td class="pl-1 text-right">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
+                            <td class="pl-1 text-right">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
                         </tr>
                         <tr class="text-left">
                             <td class="sb-bg-dark text-white">Address as per Legal Document</td>
@@ -178,8 +178,8 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
                     <th>Limit</th>
-                    <th>{{loanDataHolder.proposal.proposedLimit}}</th>
-                    <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                    <th>{{loanDataHolder?.proposal?.proposedLimit}}</th>
+                    <th>{{(loanDataHolder?.remitCustomer?.senderData | jsonParse).senderBanking.loan_purpose}}</th>
                 </tr>
             </table>
         </div>
@@ -235,33 +235,33 @@
                     <tbody>
                     <tr>
                         <td><b>Name of Employee</b></td>
-                        <td>{{this.loanDataHolder.remitCustomer.senderName}}</td>
+                        <td>{{this.loanDataHolder?.remitCustomer.senderName}}</td>
                     </tr>
                     <tr>
                         <td>Company Name</td>
-                        <td>{{senderDetails.senderEmployment.company_name}}</td>
+                        <td>{{senderDetails?.senderEmployment.company_name}}</td>
                     </tr>
                     <tr>
                         <td>Address/Contact</td>
-                        <td>{{senderDetails.senderAddress.temp_country +","+ senderDetails.senderAddress.temp_city}}</td>
+                        <td>{{senderDetails?.senderAddress.temp_country +","+ senderDetails?.senderAddress.temp_city}}</td>
                     </tr>
                     <tr>
                         <td>Post/Designation</td>
-                        <td>{{senderDetails.senderEmployment.profession_or_position}}</td>
+                        <td>{{senderDetails?.senderEmployment.profession_or_position}}</td>
                     </tr>
                     <tr>
                         <td>Years Of Service</td>
-                        <td>{{senderDetails.senderEmployment.employment_period}} months</td>
+                        <td>{{senderDetails?.senderEmployment.employment_period}} months</td>
                     </tr>
                     <tr>
                         <td>Monthly Salary/ Remittance recieved monthly</td>
-                        <td>{{senderDetails.senderEmployment.monthly_salary}}</td>
+                        <td>{{senderDetails?.senderEmployment.monthly_salary}}</td>
                     </tr>
                     <tr>
                         <td>Exchange Rate:<br>
 
                             <b>Date of exchange rate:</b></td>
-                        <td>{{senderDetails.senderEmployment.currency}}</td>
+                        <td>{{senderDetails?.senderEmployment.currency}}</td>
                     </tr>
                     </tbody>
 
@@ -329,7 +329,7 @@
             <tbody>
             <tr>
                 <td>Monthly Income From Remittance</td>
-                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                <td>{{(loanDataHolder?.remitCustomer?.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
             </tr>
             <tr>
                 <td>Other Income</td>
@@ -337,7 +337,7 @@
             </tr>
             <tr>
                 <td><b>Total Monthly Income</b></td>
-                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                <td>{{(loanDataHolder?.remitCustomer?.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
             </tr>
             <tr>
                 <td>Monthly Obligation on Proposed loan</td>
@@ -465,7 +465,7 @@
                                 <td class="text-left">{{info?.incomeSource || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
+                                <td class="text-left">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">{{info?.panNumber || 'N/A'}}</td>
