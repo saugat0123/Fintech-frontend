@@ -21,7 +21,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class OfferLetterListComponent implements OnInit {
 
     // todo dynamic search obj for approve , pending
-    searchObj = {docStatus: 'OFFER_PENDING'};
+    searchObj = {docStatus: 'OFFER_PENDING', isCadFile: 'true'};
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();

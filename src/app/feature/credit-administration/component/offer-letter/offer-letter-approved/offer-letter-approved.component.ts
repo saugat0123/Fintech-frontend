@@ -19,7 +19,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class OfferLetterApprovedComponent implements OnInit {
 
     // todo dynamic search obj for approve , pending
-    searchObj = {docStatus: 'OFFER_APPROVED'};
+    searchObj = {docStatus: 'OFFER_APPROVED', isCadFile: 'true'};
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();
