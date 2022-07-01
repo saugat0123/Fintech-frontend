@@ -7,10 +7,10 @@
                 <tbody>
                 <tr>
                     <td>
-                        <strong>Date: </strong><span>{{gssData?.gssDate}}</span>
+                        <strong>Date: </strong><span>{{gssData?.gssDate | date}}</span>
                     </td>
                     <td>
-                        <strong>Last GSS Date: </strong><span>{{gssData?.lastGSSDate}}</span>
+                        <strong>Last GSS Date: </strong><span>{{gssData?.lastGSSDate | date}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -129,3 +129,4 @@
         </div>
     </div>
 </div>
+<hr class="print-line">
