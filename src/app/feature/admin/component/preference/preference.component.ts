@@ -13,6 +13,7 @@ export class PreferenceComponent implements OnInit {
 
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     sbsGroupEnabled = environment.SBS_GROUP;
+    roleName;
 
     constructor(private utilService: ProductUtilService) {
     }
@@ -21,6 +22,7 @@ export class PreferenceComponent implements OnInit {
         this.utilService.getProductUtil().then(r => {
             this.productUtils = r;
         });
+        this.roleName = LocalStorageUtil.getStorage().roleName;
     }
 
 }
