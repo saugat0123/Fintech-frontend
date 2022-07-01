@@ -7,6 +7,7 @@ import {RoleService} from '../role-permission/role.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -14,7 +15,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
     styleUrls: ['./role-hierarchy.component.scss']
 })
 export class RoleHierarchyComponent implements OnInit {
-    roleList;
+    roleList = [];
     activeCount: number;
     inactiveCount: number;
     roleCount: number;
@@ -39,6 +40,7 @@ export class RoleHierarchyComponent implements OnInit {
         this.service.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
             this.length = this.roleList.length > 0;
+            this.roleHeirarchy = this.roleList;
 
         });
 
@@ -68,9 +70,13 @@ export class RoleHierarchyComponent implements OnInit {
             const roleOrder = x + 1;
             this.tempRoleOrders[x].roleOrder = roleOrder;
             this.roleHeirarchy.push(this.tempRoleOrders[x]);
+            this.roleList = this.roleHeirarchy;
         }
     }
 
+    removeItem(i: number) {
+        this.roleHeirarchy.splice(i, 1);
+    }
     save() {
         this.spinner = true;
         this.isDisabled = true;
