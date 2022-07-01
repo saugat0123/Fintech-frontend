@@ -132,6 +132,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     documentSpinner = false;
     approvedLoanList;
     pendingLoanList;
+    loanDataHolder;
 
 
 
@@ -665,5 +666,14 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
             this.pendingLoanList = this.managedArray(array);
         });
+    }
+
+    calculateAge(singleRelatives) {
+        const date = singleRelatives.dateOfBirth;
+            if (!ObjectUtil.isEmpty(date)) {
+                const difference = Math.abs(Date.now() - new Date(date).getTime());
+                const calculatedAge = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+                return calculatedAge;
+            }
     }
 }

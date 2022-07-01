@@ -53,8 +53,14 @@
                                     <b>Branch Code: {{loanDataHolder?.branch.branchCode}}</b>
                                 </div>
                                 <br/>
-                                <div class="float-left">
-                                    <span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " " + loanDataHolder?.loan?.shortNames}}</span>
+                                <div><strong class="float-left">Product:  </strong>
+                                    <table class="table-borderless float-left text-justify">
+                                        <tr *ngFor="let allLoan of allLoanList">
+                                            <td>
+                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <br/>
                                 <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">

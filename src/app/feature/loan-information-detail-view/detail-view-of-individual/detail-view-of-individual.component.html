@@ -27,7 +27,8 @@
                      [loanDataHolder]="loanDataHolder"
                      [customerInfoData]="loanDataHolder?.loanHolder"
                      [individual]="loanDataHolder?.customerInfo"
-                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+                     [loanId]="loanId" [customerInfo]="loanHolder"
+                     [proposalData]="loanDataHolder?.proposal"></app-individual-view>
 
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"

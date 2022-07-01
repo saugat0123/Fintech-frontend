@@ -208,6 +208,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loaded = false;
     loanSecurity = [];
     approvedSecurity = [];
+    combinedLoan;
+    combined = false;
+    allLoanList = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -558,6 +561,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         this.loanSecurity = this.loanDataHolder.securities;
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
+                    this.allLoanList = this.customerAllLoanList;
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
                         this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
                             if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id ) {
@@ -800,7 +804,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
             context,
         }).onClose.subscribe((res: any) => {
-            this.activatedRoute.queryParams.subscribe((res) => {
+            this.activatedRoute.queryParams.subscribe((res: any) => {
                 this.loanConfigId = res.loanConfigId;
                 this.customerId = res.customerId;
             });
