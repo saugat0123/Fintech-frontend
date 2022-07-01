@@ -1,5 +1,5 @@
- <p><strong>15.2 Personal Guarantor Details</strong></p>
-    <div *ngIf="guarantorData?.length > 0" class="col-md-12 row">
+ <p><strong>15.2 Personal Guarantor Details : {{personalGuarantorData?.length > 0 ? '' : 'NA'}}</strong></p>
+    <div *ngIf="personalGuarantorData?.length > 0" class="col-md-12 row">
     <table class=" table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
             <thead>
             <!--      <tr *ngFor="let guarantor of personalGuarantorData; let i= index">-->
@@ -37,8 +37,8 @@
         </table>
     </div>
 
-    <p><strong>15.3 Corporate Guarantor Details</strong></p>
-      <div *ngIf="guarantorData?.length > 0" class="col-md-12 row">
+    <p><strong>15.3 Corporate Guarantor Details : {{corporateGuarantorData?.length > 0 ? '': 'NA'}}</strong></p>
+      <div *ngIf="corporateGuarantorData?.length > 0" class="col-md-12 row">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
             <thead>
             <!--      <tr>-->
