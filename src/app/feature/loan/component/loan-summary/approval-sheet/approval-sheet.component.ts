@@ -487,6 +487,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     }
 
     saveTermsAndCommentModal() {
+        if (this.loanData.combinedLoan === null) {
             this.spinner = true;
             this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
             this.loanFormService.save(this.loanDataHolder).subscribe(() => {
@@ -511,6 +512,28 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                 this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Authority Comments: ${error.error.message}`));
                 this.close();
             });
+        } else {
+            this.loanFormService.saveAuthorityComment(this.loanData.combinedLoan.id, this.authorityReviewComments).subscribe(response => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Authority Comments`));
+                this.close();
+                this.router.navigateByUrl('/home/dashboard').then(value => {
+                    if (value) {
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: this.loanConfig.id,
+                                customerId: this.loanDataHolder.id,
+                            }
+                        });
+                    }
+                });
+            }, error => {
+                console.error(error);
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Authority Comments: ${error.error.message}`));
+                this.close();
+            });
+        }
         }
 
         close() {
