@@ -68,6 +68,10 @@ export class HomeLoanCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.homeLoanCombinedForm.get(['homeLoanCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   buildForm() {
@@ -163,7 +167,9 @@ export class HomeLoanCombinedTemplateDataComponent implements OnInit {
       interestRateType: [undefined],
       moratoriumPeriodCheck: [undefined],
 
-      loanId: [undefined]
+      loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/

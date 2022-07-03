@@ -148,7 +148,9 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
 
       repaymentCase: [undefined],
       interestRateType: [undefined],
-      loanId: [undefined]
+      loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
   setLoanId() {
@@ -157,6 +159,10 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
