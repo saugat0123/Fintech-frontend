@@ -24,7 +24,7 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   isPersonalWoCollateral: boolean;
   isNabilShareLoan: boolean;
   isNabilSahayatri: boolean;
-  isNotOthers: boolean;
+  isAustralia: boolean;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -57,8 +57,8 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
             if (val.countryName === 'OTHERS') {
               this.isOthers = true;
             }
-            if (val.countryName !== 'OTHERS') {
-              this.isNotOthers = true;
+            if (val.countryName === 'AUSTRALIA') {
+              this.isAustralia = true;
             }
           });
         }

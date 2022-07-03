@@ -243,7 +243,7 @@
                                formControlName="additionalGuarantorDetails">
                         </textarea>
                         <span class="print-only">
-                            {{this.freeTextVal?.section18[i]?.additionalGuarantorDetails || ''}}</span>
+                            {{this.freeTextVal?.section18?.freeText2 ? this.freeTextVal?.section18?.freeText2[i].additionalGuarantorDetails : ''}}</span>
                         </ng-container>
                         <div *ngIf="form.get('freeText2')['length'] > 1" class="col-md-12 text-left">
                             <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
@@ -254,7 +254,7 @@
                     </li>
                 </ul>
 
-                <ng-container *ngIf="initialInfo?.retailGlobalForm?.loanType !== 'New'">
+                <ng-container *ngIf="initialInfo?.existingLoanForm?.isExistingLoan === true">
                     <!--Not required in new case-->
                     <b>
                         यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको

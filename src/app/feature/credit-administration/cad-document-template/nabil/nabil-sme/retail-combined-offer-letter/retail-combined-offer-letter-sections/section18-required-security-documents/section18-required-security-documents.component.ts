@@ -172,12 +172,10 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
         console.log('Free Text Val:', this.freeTextVal);
         if (!ObjectUtil.isEmpty(this.freeTextVal) &&
             !ObjectUtil.isEmpty(this.freeTextVal.section18)) {
-          for (let val = 0; val < this.freeTextVal.section18.length; val++) {
+          for (let val = 0; val < this.freeTextVal.section18.freeText2.length; val++) {
             this.addTextArea();
-          }
-          for (let val = 0; val < this.freeTextVal.section18.length; val++) {
             this.form.get(['freeText2', val, 'additionalGuarantorDetails']).patchValue(
-                this.freeTextVal.section18[val].additionalGuarantorDetails);
+                this.freeTextVal.section18.freeText2[val].additionalGuarantorDetails);
           }
         }
       }
