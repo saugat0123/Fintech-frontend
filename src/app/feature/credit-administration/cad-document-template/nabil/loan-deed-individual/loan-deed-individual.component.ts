@@ -868,271 +868,293 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.loanName.push(tempLoan);
     });
   }
+
   retailCombinedLoanData() {
-    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.loanName.forEach((value, i) => {
-        if (value.name === 'EDUCATION LOAN COMBINED') {
-          let educationLoanAdminFee: any;
-          this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
+    const temploanArray: any = [];
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+      // Education Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.educationLoanForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.educationLoanForm.educationLoanCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
             if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
             } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
             }
-            educationLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: educationLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-
-       if (value.name === 'AUTO LOAN COMBINED') {
-         let autoLoanAdminFee: any;
-          this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            autoLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate ? this.expiryDate : '',
-            loanAdminFee: autoLoanAdminFee
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-       if (value.name === 'HOME LOAN COMBINED') {
-         let homeLoanAdminFee: any;
-          this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            homeLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: homeLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-
-        if (value.name === 'MORTGAGE LOAN COMBINED') {
-          let mortgageLoanAdminFee: any;
-          this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            mortgageLoanAdminFee = val.loanAdminCT ? val.loanAdminCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: mortgageLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'NABIL SAHAYATRI KARJA') {
-          let nabilLoanAdminFee: any;
-          this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            nabilLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: nabilLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'NABIL SHARE LOAN POD COMBINED') {
-          let nabilPodLoanAdminFee: any;
-          this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            nabilPodLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: nabilPodLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'SHARE LOAN DEMAND COMBINED') {
-          let shareLoanAdminFee: any;
-          this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            shareLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: shareLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'PERSONAL LOAN COMBINED') {
-          let personalLoadAdminFee: any;
-          this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            personalLoadAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: personalLoadAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'PERSONAL OVERDRAFT COMBINED') {
-          let personalOverdraftLoanAdminFee: any;
-          this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            personalOverdraftLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName : value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: personalOverdraftLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        if (value.name === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
-          let personalOverdraftWithoutCollateralLoanAdminFee: any;
-          // tslint:disable-next-line:max-line-length
-          this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach(val => {
-            this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-            if (val.loanExpiryDateType === 'AD') {
-              this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-            } else {
-              this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
-            }
-            personalOverdraftWithoutCollateralLoanAdminFee = val.loanAdminFeeInFigureCT ? val.loanAdminFeeInFigureCT : '';
-          });
-          this.newData = {
-            loanNepaliName: value.nepaliName,
-            loanAmount: value.loamAmount,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
-            loanAdminFee: personalOverdraftWithoutCollateralLoanAdminFee,
-          };
-          this.newTempData.push(
-              this.newData
-          );
-        }
-        this.addCombinedFreeText();
-        if (this.cadData.cadFileList.length > 0) {
-          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-              (!ObjectUtil.isEmpty(this.supportedInfo) &&
-                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i]) &&
-                  !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i].dateOfExpiry)) ?
-                  this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
-          );
-        } else {
-            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
-                (!ObjectUtil.isEmpty(this.newTempData) &&
-                    !ObjectUtil.isEmpty(this.newTempData[i]) &&
-                    !ObjectUtil.isEmpty(this.newTempData[i].dateOfExpiry)) ?
-                    this.newTempData[i].dateOfExpiry : ''
-            );
-        }
-      });
-    }
-    if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-      if (this.offerDocumentDetails.existingLoanForm.isExistingLoan = true) {
-        this.offerDocumentDetails.existingLoanForm.existingLoanFormArray.forEach(val => {
-          this.educationInterestRate = val.interestRate ? val.interestRateCT : '';
-          if (val.loanExpiryDateType === 'AD') {
-            this.expiryDate = val.loanExpiryDate ? val.loanExpiryDateCT : '';
-          } else {
-            this.expiryDate = val.loanExpiryDateNepali ? val.loanExpiryDateNepali.nDate : '';
           }
-          this.newData = {
-            loanNepaliName: val.facilityName,
-            loanAmount: val.loanAmountInFigure,
-            interestRate: this.educationInterestRate,
-            dateOfExpiry: this.expiryDate,
+          const educationLoanAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: educationLoanAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
           };
-          this.newTempData.push(
-              this.newData
-          );
+          temploanArray.push(tempData);
+        });
+      }
+      // Auto Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.autoLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.autoLoanCombinedForm.autoLoanCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const autoLoanAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: autoLoanAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Home Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.homeLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const homeLoanAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: homeLoanAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Mortgage Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.mortgageCombineForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.mortgageCombineForm.mortgageCombineLoanFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const mortgageAdminFee = !ObjectUtil.isEmpty(val.loanAdminCT) ? val.loanAdminCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountCT) ? val.loanAmountCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: mortgageAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Nabil Sahayatri Karja
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const sahayatriAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: sahayatriAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Nabil Share Loan POD
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.nabilShareLoanPODForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.nabilShareLoanPODForm.nabilShareLoanPODFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const shareLoanPOD = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: shareLoanPOD,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Share Loan Demand
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.shareLoanDemandCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.shareLoanDemandCombinedForm.shareLoanDemandCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const shareloanDemand = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: shareloanDemand,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Personal Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalLoanCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const personalLoanAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: personalLoanAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Personal Overdraft
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverdraftCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const personalOverdraftAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: personalOverdraftAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Personal Overdraft Without Collateral
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const personalOverdraftWithoutCollateralAdminFee = !ObjectUtil.isEmpty(val.loanAdminFeeInFigureCT) ? val.loanAdminFeeInFigureCT : '';
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.loanNameNepali) ? val.loanNameNepali : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: personalOverdraftWithoutCollateralAdminFee,
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
+        });
+      }
+      // Existing Loan
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm) &&
+          !ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm.existingLoanFormArray)) {
+        let expiryDate: any;
+        this.offerDocumentDetails.existingLoanForm.existingLoanFormArray.forEach((val: any) => {
+          const educationInterestRate = !ObjectUtil.isEmpty(val.interestRateCT) ? val.interestRateCT : '';
+          if (!ObjectUtil.isEmpty(val.loanExpiryDateType)) {
+            if (!ObjectUtil.isEmpty(val.loanExpiryDateType === 'AD')) {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateCT) ? val.loanExpiryDateCT : '';
+            } else {
+              expiryDate = !ObjectUtil.isEmpty(val.loanExpiryDateNepali) ? val.loanExpiryDateNepali.nDate : '';
+            }
+          }
+          const tempData = {
+            loanNepaliName: !ObjectUtil.isEmpty(val.facilityName) ? val.facilityName : '',
+            loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
+            interestRate: educationInterestRate ? educationInterestRate : '',
+            loanAdminFee: '',
+            dateOfExpiry: expiryDate ? expiryDate : ''
+          };
+          temploanArray.push(tempData);
         });
       }
     }
+    this.newTempData = temploanArray;
+    this.newTempData.forEach((val: any, i: number) => {
+      this.addCombinedFreeText();
+      if (this.cadData.cadFileList.length > 0) {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
+            (!ObjectUtil.isEmpty(this.supportedInfo) &&
+                !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i]) &&
+                !ObjectUtil.isEmpty(this.supportedInfo.combinedFreeText[i].dateOfExpiry)) ?
+                this.supportedInfo.combinedFreeText[i].dateOfExpiry : ''
+        );
+      } else {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'combinedFreeText', i, 'dateOfExpiry']).patchValue(
+            (!ObjectUtil.isEmpty(this.newTempData) &&
+                !ObjectUtil.isEmpty(this.newTempData[i]) &&
+                !ObjectUtil.isEmpty(this.newTempData[i].dateOfExpiry)) ?
+                this.newTempData[i].dateOfExpiry : ''
+        );
+      }
+    });
   }
   fillGuarantee() {
     if (this.cadData.cadFileList.length > 0) {

@@ -276,7 +276,7 @@
                 <tr *ngFor="let loan of loanDeedIndividual?.get(['loanDeedIndividuals' , i, 'combinedFreeText'])['controls'] ; let j = index" formArrayName="combinedFreeText">
                     <ng-container [formGroupName]="j">
                         <td>{{newTempData[j]?.loanNepaliName}}</td>
-                        <td>{{convertNepaliNumberAmount(newTempData[j]?.loanAmount)}}</td>
+                        <td>{{newTempData[j]?.loanAmount}}</td>
                         <td>{{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}% / रु. {{newTempData[j]?.loanAdminFee ? newTempData[j]?.loanAdminFee : '__________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry !== ''">{{newTempData[j]?.dateOfExpiry ? newTempData[j]?.dateOfExpiry : '___________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry === ''">

@@ -138,6 +138,8 @@ export class ShareLoanDemandTemplateDataComponent implements OnInit {
       interestRateType: [undefined],
       isRenewal: [undefined],
       loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
 
@@ -147,6 +149,10 @@ export class ShareLoanDemandTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.shareLoanDemandCombinedForm.get(['shareLoanDemandCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.shareLoanDemandCombinedForm.get(['shareLoanDemandCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.shareLoanDemandCombinedForm.get(['shareLoanDemandCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   renewalCheckFunc(boolVal, i) {

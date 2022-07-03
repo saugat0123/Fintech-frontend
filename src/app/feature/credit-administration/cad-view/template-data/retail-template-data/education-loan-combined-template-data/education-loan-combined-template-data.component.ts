@@ -67,6 +67,10 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.educationLoanCombinedForm.get(['educationLoanCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   buildForm() {
@@ -141,7 +145,9 @@ export class EducationLoanCombinedTemplateDataComponent implements OnInit {
       interestRateType: [undefined],
       moratoriumPeriodCheck: [undefined],
 
-      loanId: [undefined]
+      loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined],
     });
   }
 

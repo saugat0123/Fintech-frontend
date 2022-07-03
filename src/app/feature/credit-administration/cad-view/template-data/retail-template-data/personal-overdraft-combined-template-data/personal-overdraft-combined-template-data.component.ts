@@ -140,6 +140,8 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
       interestRateType: [undefined],
       isRenewal: [undefined],
       loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
 
@@ -149,6 +151,10 @@ export class PersonalOverdraftCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.personalOverdraftCombinedForm.get(['personalOverdraftCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   renewalCheckFunc(boolVal, i) {
