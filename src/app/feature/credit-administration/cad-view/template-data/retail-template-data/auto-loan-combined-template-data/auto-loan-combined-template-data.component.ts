@@ -66,6 +66,10 @@ export class AutoLoanCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.autoLoanCombinedForm.get(['autoLoanCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.autoLoanCombinedForm.get(['autoLoanCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.autoLoanCombinedForm.get(['autoLoanCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   buildForm() {
@@ -129,7 +133,9 @@ export class AutoLoanCombinedTemplateDataComponent implements OnInit {
       autoLoanType: [undefined],
       interestRateType: [undefined],
 
-      loanId: [undefined]
+      loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
 
