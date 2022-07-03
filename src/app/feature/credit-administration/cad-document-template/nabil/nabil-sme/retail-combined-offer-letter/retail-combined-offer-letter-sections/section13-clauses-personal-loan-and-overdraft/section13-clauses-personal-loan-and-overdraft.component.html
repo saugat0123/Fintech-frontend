@@ -2,6 +2,22 @@
     <div class="row">
         <form [formGroup]="form">
             <div *ngIf="isPersonalLoan || isPersonalWoCollateral">
+                <ng-container *ngIf="isPersonalLoan && isPersonalWoCollateral else anyPersonalOverDraftWoCollateral">
+                    <span style="font-weight: bold">
+                    व्यक्तिगत ऋण र व्यक्तिगत ओभरड्राफ्ट बिना धिताे सम्बन्धी थप शर्तहरु:</span>
+                </ng-container>
+                <ng-template #anyPersonalOverDraftWoCollateral>
+                    <ng-container *ngIf="isPersonalWoCollateral else showPersonal">
+                         <span style="font-weight: bold">
+                        व्यक्तिगत ओभरड्राफ्ट बिना धिताे सम्बन्धी थप शर्तहरु:</span>
+                    </ng-container>
+                    <ng-template #showPersonal>
+                        <ng-container *ngIf="isPersonalLoan">
+                            <span style="font-weight: bold">
+                            व्यक्तिगत ऋण सम्बन्धी थप शर्तहरु:</span>
+                        </ng-container>
+                    </ng-template>
+                </ng-template>
                 <!--Clause of For Personal Loan and Personal overdraft without collateral only-->
                 <ol style="list-style: devanagari">
                     <li>

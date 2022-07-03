@@ -189,7 +189,7 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
     // set value for account number
     const tempAccNum = this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value ?
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNum']).value : '';
-    const convertAccNum = !ObjectUtil.isEmpty(tempAccNum) ? this.convertNumbersToNepali(tempAccNum, true) : '';
+    const convertAccNum = !ObjectUtil.isEmpty(tempAccNum) ? this.engToNepNumberPipe.transform(tempAccNum, true) : '';
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).patchValue(convertAccNum);
     this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumCT']).patchValue(
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'accNumTrans']).value);
