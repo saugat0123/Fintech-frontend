@@ -145,6 +145,8 @@ export class NabilSahayatriKarjaCombinedComponent implements OnInit {
             interestRateType: [undefined],
             isRenewal: [undefined],
             loanId: [undefined],
+            loanName: [undefined],
+            loanNameNepali: [undefined]
         });
     }
 
@@ -154,6 +156,10 @@ export class NabilSahayatriKarjaCombinedComponent implements OnInit {
         this.filteredList.forEach((val, i) => {
             this.nabilSahayatriCombinedForm.get(['nabilSahayatriCombinedFormArray', i, 'loanId']).patchValue(
                 this.filteredLoanIdList[i].proposal.id);
+            this.nabilSahayatriCombinedForm.get(['nabilSahayatriCombinedFormArray', i, 'loanName']).patchValue(
+                this.filteredLoanIdList[i].loan.name);
+            this.nabilSahayatriCombinedForm.get(['nabilSahayatriCombinedFormArray', i, 'loanNameNepali']).patchValue(
+                this.filteredLoanIdList[i].loan.nepaliName);
         });
     }
 

@@ -147,6 +147,8 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
       interestRateType: [undefined],
       isRenewal: [undefined],
       loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
 
@@ -157,6 +159,10 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
       // tslint:disable-next-line:max-line-length
       this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
 

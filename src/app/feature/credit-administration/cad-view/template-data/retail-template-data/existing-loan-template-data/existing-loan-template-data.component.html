@@ -32,7 +32,7 @@
                         <div class="row pt-2">
                             <div class="col-md-4 form-group">
                                 <label class="font-weight-bold">Facility Name</label>
-                                <select class="custom-select" formControlName="facilityName">
+                                <select class="custom-select" formControlName="facilityName" (ngModelChange)="setFacilityName($event, i)">
                                     <option [value]="null" selected hidden>Select Loan Facility</option>
                                     <option *ngFor="let loanFacility of loanFacilityList"
                                             [value]="loanFacility.nepaliName">{{loanFacility.name}}||{{loanFacility.nepaliName}}

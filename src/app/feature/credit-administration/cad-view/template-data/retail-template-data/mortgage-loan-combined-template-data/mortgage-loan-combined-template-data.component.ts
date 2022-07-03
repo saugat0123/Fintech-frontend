@@ -73,6 +73,10 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   buildForm() {
@@ -136,7 +140,10 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
       totalInstallmentCT: [undefined],
       beneficiaryNameCT: [undefined],
 
-      loanId: [undefined]
+      loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
+
     });
   }
 

@@ -137,6 +137,8 @@ export class NabilShareLoanPodTemplateDataComponent implements OnInit {
       interestRateType: [undefined],
       isRenewal: [undefined],
       loanId: [undefined],
+      loanName: [undefined],
+      loanNameNepali: [undefined]
     });
   }
 
@@ -146,6 +148,10 @@ export class NabilShareLoanPodTemplateDataComponent implements OnInit {
     this.filteredList.forEach((val, i) => {
       this.nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanId']).patchValue(
           this.filteredLoanIdList[i].proposal.id);
+      this.nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanName']).patchValue(
+          this.filteredLoanIdList[i].loan.name);
+      this.nabilShareLoanPODForm.get(['nabilShareLoanPODFormArray', i, 'loanNameNepali']).patchValue(
+          this.filteredLoanIdList[i].loan.nepaliName);
     });
   }
   renewalCheckFunc(boolVal, i) {
