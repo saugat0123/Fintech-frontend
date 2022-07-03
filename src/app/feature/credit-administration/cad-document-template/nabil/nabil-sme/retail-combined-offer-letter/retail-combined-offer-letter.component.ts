@@ -134,6 +134,12 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
             this.section18.form.get('pdoNabil').value : '',
         mortgageDate: this.section18.form.get('mortgageDate').value ?
             this.section18.form.get('mortgageDate').value : '',
+        mortgageDeedAmountInFigure: this.section18.form.get('mortgageDeedAmountInFigure').value ?
+            this.section18.form.get('mortgageDeedAmountInFigure').value : '',
+        remortgageDeedAmountInFigure: this.section18.form.get('remortgageDeedAmountInFigure').value ?
+            this.section18.form.get('remortgageDeedAmountInFigure').value : '',
+        insuranceAmount: this.section18.form.get('insuranceAmount').value ?
+            this.section18.form.get('insuranceAmount').value : '',
     };
         const section22FreeText = {
             freeText1: this.section22.form.get('freeText1').value ? this.section22.form.get('freeText1').value : '',
