@@ -228,7 +228,7 @@ export class ProposalViewComponent implements OnInit, DoCheck {
   }
 
   calculateChangeInAmount(proposed, existing): number {
-    const changeInAmount = Number(proposed) - Number(existing);
+    const changeInAmount = Number(proposed) - (existing ? Number(existing) : 0);
     return this.isNumber(changeInAmount);
   }
 
