@@ -249,7 +249,7 @@ export class Section18RequiredSecurityDocumentsComponent implements OnInit {
       this.undertakingLetter = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
-        && temp.requiredLegalDocument.requiredDocument.includes('Share PLedge Deed')) {
+        && temp.requiredLegalDocument.requiredDocument.includes('Share Pledge Deed')) {
       this.sharePledgeDeed = true;
     }
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
