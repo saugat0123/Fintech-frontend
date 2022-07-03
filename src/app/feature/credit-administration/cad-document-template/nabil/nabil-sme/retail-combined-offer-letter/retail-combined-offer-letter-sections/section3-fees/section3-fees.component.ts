@@ -22,6 +22,10 @@ export class Section3FeesComponent implements OnInit {
   isShareLoan: boolean;
   isAutoLoan: boolean;
   isShareLoanDemand: boolean;
+  isEducationLoan: boolean;
+  isHomeLoan: boolean;
+  isMortgageLoan: boolean;
+  isPersonalLoan: boolean;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -60,6 +64,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isEducationLoan = true;
         }
         if (value === 'HOME LOAN COMBINED') {
           this.tempData.homeLoanCombinedForm.homeLoanCombinedFormArray.forEach(val => {
@@ -69,6 +74,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isHomeLoan = true;
         }
         if (value === 'MORTGAGE LOAN COMBINED') {
           this.tempData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach(val => {
@@ -78,6 +84,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isMortgageLoan = true;
         }
         if (value === 'NABIL SAHAYATRI KARJA') {
           this.tempData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach(val => {
@@ -117,6 +124,7 @@ export class Section3FeesComponent implements OnInit {
               this.isFloating = true;
             }
           });
+          this.isPersonalLoan = true;
         }
         if (value === 'PERSONAL OVERDRAFT COMBINED') {
           this.tempData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach(val => {
