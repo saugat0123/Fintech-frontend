@@ -236,9 +236,9 @@ export class LoanFormComponent implements OnInit {
               this.getCompanyInfo(this.allId.customerProfileId);
             }
           }
-          if (!ObjectUtil.isEmpty(this.allId.customerInfoId)) {
-            this.getTemplateInfoFromCustomerInfo(this.allId.customerInfoId);
-          }
+          // if (!ObjectUtil.isEmpty(this.allId.customerInfoId)) {
+          //   this.getTemplateInfoFromCustomerInfo(this.allId.customerInfoId);
+          // }
           if (this.customerId !== undefined) {
             this.loanFormService.detail(this.customerId).subscribe(
                 (response: any) => {

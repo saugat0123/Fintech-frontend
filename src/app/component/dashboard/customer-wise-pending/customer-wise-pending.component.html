@@ -173,29 +173,29 @@
                                 </tr>
                                 <tr *ngFor="let l of loanHolderLoans?.loanSingleList"
                                 >
-                                    <td (click)="onClick(l.loan.id,l.id)"
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)"
                                         class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.loan?.name}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)" nbTooltip="Click to View Detail"
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)" nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
                                         class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)" class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
 
-                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)" class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.documentStatus}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)" class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.currentStage?.toUser?.name}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
+                                    <td (click)="onClick(l.loan.id,l.id, l?.customerInfo?.id)"><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
                                     <td>
@@ -211,12 +211,14 @@
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
-                                        (click)="combineLoanListDisplay(l,combineListTemplate,i)">{{l?.loan?.name}}</td>
+                                        (click)="combineLoanListDisplay(l,combineListTemplate,i, loanForCombine[i]?.customerInfoId)">{{l?.loan?.name}}</td>
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
-                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id, loanForCombine[i]?.customerInfoId)"
                                         class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
-                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                    <td (click)="onClick(l.loan.id,l.id, loanForCombine[i]?.customerInfoId)"
+                                        class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
@@ -224,14 +226,14 @@
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
-                                        (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                        (click)="onClick(l.loan.id,l.id, loanForCombine[i]?.customerInfoId)">{{l?.documentStatus}}</td>
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
-                                        (click)="onClick(l.loan.id,l.id)">{{l?.currentStage?.toUser?.name}}</td>
+                                        (click)="onClick(l.loan.id,l.id, loanForCombine[i]?.customerInfoId)">{{l?.currentStage?.toUser?.name}}</td>
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
-                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"> <span
+                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id, loanForCombine[i]?.customerInfoId)"> <span
                                             *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
@@ -309,11 +311,9 @@
 </ng-template>
 
 <ng-template #combineListTemplate>
-    <div class="card">
-        <div class="card-header">
-            Loan
-        </div>
-        <div class="card-body">
+    <span class="text-center"><strong>Loan</strong></span>
+    <div class="modal-header">
+        <div class="modal-body">
             <table class="table table-sm sb-small table-bordered table-hover text-center">
                 <thead>
                 <tr class="sb-bg-dark text-white">
@@ -325,16 +325,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let l of displayCombineLoanList;" class="cursor">
+                <tr *ngFor="let l of displayCombineLoanList?.loanData;" class="cursor">
                     <td nbTooltip="Click to View Detail"
                         nbTooltipStatus="control"
                         nbTooltipIcon="question-mark-circle-outline"
-                        (click)="onClickLoan(l?.loan?.id,l?.id)">{{l?.loan?.name}}</td>
+                        (click)="onClickLoan(l?.loan?.id,l?.id, displayCombineLoanList?.customerInfoId)">{{l?.loan?.name}}</td>
                     <td nbTooltip="Click to View Detail"
                         nbTooltipStatus="control"
-                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"
+                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id, displayCombineLoanList?.customerInfoId)"
                         class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
-                    <td (click)="onClickLoan(l.loan.id,l.id)" class="cursor"
+                    <td (click)="onClickLoan(l.loan.id,l.id, displayCombineLoanList?.customerInfoId)" class="cursor"
                         nbTooltip="Click to View Detail"
                         nbTooltipStatus="control"
                         nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
@@ -342,7 +342,10 @@
                     <td nbTooltip="Click to View Detail"
                         nbTooltipStatus="control"
                         nbTooltipIcon="question-mark-circle-outline"
-                        (click)="onClickLoan(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                        (click)="onClickLoan(l.loan.id,l.id, displayCombineLoanList?.customerInfoId)">{{l?.documentStatus}}</td>
+<!--                    <ng-container *ngFor="let l of lo?.loanData">-->
+<!--                        -->
+<!--                    </ng-container>-->
                 </tr>
                 </tbody>
             </table>
