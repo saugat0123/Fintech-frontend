@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -53,6 +53,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         private nbDialogService: NbDialogService,
         private router: Router,
         private loanFormService: LoanFormService,
+        private activatedRoute: ActivatedRoute,
     ) {
     }
 
@@ -207,7 +208,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
             queryParams: {
                 loanId: this.loanConfigId,
                 customerId: this.id,
-                loanCategory: this.loanCategory
+                loanCategory: this.loanCategory,
+                customerInfoId: this.activatedRoute.snapshot.queryParamMap.get('customerInfoId')
             }
         });
     }
