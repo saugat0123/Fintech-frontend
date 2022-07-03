@@ -74,7 +74,7 @@
     </tr>
     <tr>
         <td><b>ESRM Rating</b></td>
-        <td colspan="2"> </td>
+        <td colspan="2">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.esrmRating}}</td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[1]?.coBankName}}</td>
             <td>{{multiBankingData?.consortium[1]?.funded}}</td>
