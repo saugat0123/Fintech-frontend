@@ -738,6 +738,8 @@
                     <ng-container *ngIf="fromProfile">
                         <div class="col-md-12">
                             <app-guarantor-adder (emitter)="guarantors($event)"
+                                                 [fromProfile]="true"
+                                                 [customerType]="loan?.loanHolder?.customerType"
                                                  [taggedGuarantors]="loan?.taggedGuarantors"
                                                  [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
