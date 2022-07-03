@@ -62,7 +62,7 @@ export class CiclComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
-      this.setCheckedData(JSON.parse(this.ciclValue.checkedData));
+      // this.setCheckedData(JSON.parse(this.ciclValue.checkedData));
     } else {
       this.ciclValue = new CiclArray();
     }
@@ -251,19 +251,19 @@ export class CiclComponent implements OnInit {
       }
   }
 
-    checkChecked(checked) {
-        if (checked) {
-            this.chargeChecked = true;
-        } else {
-            this.chargeChecked = false;
-        }
-    }
+    // checkChecked(checked) {
+    //     if (checked) {
+    //         this.chargeChecked = true;
+    //     } else {
+    //         this.chargeChecked = false;
+    //     }
+    // }
 
-    setCheckedData(data) {
-        if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['chargeChecked']);
-        }
-    }
+    // setCheckedData(data) {
+    //     if (!ObjectUtil.isEmpty(data)) {
+    //         this.checkChecked(data['chargeChecked']);
+    //     }
+    // }
 
     addBlackList(index) {
       const controls = (<FormArray>(<FormArray>this.ciclForm.get(['ciclArray', index])).get('blacklistHistory'));

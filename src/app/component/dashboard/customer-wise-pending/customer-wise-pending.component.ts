@@ -242,6 +242,7 @@ export class CustomerWisePendingComponent implements OnInit {
                 customerInfoId: customerInfoId
             }
         });
+        this.modalService.dismissAll();
     }
 
     changePage(page: number) {
