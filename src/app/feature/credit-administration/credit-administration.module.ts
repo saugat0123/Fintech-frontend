@@ -56,6 +56,8 @@ import {RouterUtilsService} from './utils/router-utils.service';
 import {DisbursementModalComponent} from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
 import {PreviewCadComponent} from './component/preview-cad/preview-cad.component';
 import {CadReportComponent} from './component/cad-report/cad-report.component';
+import {CiclViewComponent} from '../loan-information-view/cicl-view/cicl-view.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
@@ -104,7 +106,8 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
     ApprovedLoanListComponent,
     DisbursementModalComponent,
     PreviewCadComponent,
-    CadReportComponent],
+    CadReportComponent,
+    CiclViewComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -116,6 +119,8 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
     NgxPrintModule,
     AngularDraggableModule,
     NepaliCalendarModule,
+    NepaliPatroModule,
+
   ],
   entryComponents: [
     AssignPopUpComponent,
@@ -130,7 +135,7 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
-  exports: [CadFileSetupComponent],
+  exports: [CadFileSetupComponent, CiclViewComponent],
   providers: [RouterUtilsService]
 })
 export class CreditAdministrationModule {

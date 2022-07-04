@@ -218,7 +218,9 @@ const ENTRY_COMPONENTS = [];
         AboveRiskAnalysisComponent,
         AuthoritySectionComponent,
         RetailRecommendationComponent,
-        AboveReviewOfCreditFacilitiesComponent
+        AboveReviewOfCreditFacilitiesComponent,
+        NrbStatutoryRemarksStatusComponent,
+        AboveBankSolComponent
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
