@@ -17,6 +17,44 @@
                 #personal>
           <h4>{{actionType}} detail of {{ this.customerType }} ({{headingSubType ? headingSubType : ''}}) customer.</h4>
           <hr>
+          <nb-accordion class="mb-4" *ngIf="actionType !== 'Edit' && customerSubType !== clientSubType?.JOINT && customerType === clientType?.INDIVIDUAL">
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <div class="col-md-12">
+                  <div class="row d-flex justify-content-between m-2">
+                    <div>
+                      <span>{{ 'Fetch Customer Details From Los' | uppercase }}</span>
+                    </div>
+                    <div>
+                      <em *ngIf="fetchedCustomerDetails" class="fa fa-check-circle text-success"></em>
+                      <em *ngIf="!fetchedCustomerDetails" class="fa fa-times-circle text-danger"></em>
+                    </div>
+                  </div>
+                </div>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="cusId" class="font-weight-bold"> Customer ID: </label>
+                    <input id="cusId" class="form-control" [(ngModel)]="custId" [ngModelOptions]="{standalone: true}" type="text"/>
+                    <div *ngIf="!custId" class="invalid-feedback">
+                      Customer Id is required
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <button nbButton
+                            size="medium"
+                            [disabled]="!custId"
+                            status="success" (click)="fetchDetails()">
+                      Fetch Details
+                    </button>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
           <table class="table table-borderless table-4 mb-5">
             <tr>
               <th colspan="2" class="text-center">

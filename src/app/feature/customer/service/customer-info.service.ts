@@ -58,4 +58,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public fetchCustomerDetailsLos(customerId: any) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/nabil/customer/${customerId}`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }

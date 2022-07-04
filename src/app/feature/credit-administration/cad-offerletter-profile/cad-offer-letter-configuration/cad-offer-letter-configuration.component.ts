@@ -38,6 +38,7 @@ import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -146,6 +147,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     guarantorTranslatedFormGroup: FormGroup;
     shareHolderArray: Array<any> = new Array<any>();
     jointCustomerArray: Array<any> = new Array<any>();
+    custId: any;
+    fetchedCustomerDetails: any;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -165,7 +168,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private dialogService: NbDialogService,
                 private modalService: NgbModal,
-                private readonly changeDetectorRef: ChangeDetectorRef
+                private readonly changeDetectorRef: ChangeDetectorRef,
+                private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -6170,5 +6174,116 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.userConfigForm.get(['guarantorDetails', i, 'detailsFrom']).patchValue(undefined);
 
         // this.userConfigForm.controls['guarantorDetails']['controls'][i].reset();
+    }
+
+    fetchDetails() {
+        this.spinnerService.show();
+        const customerId = this.custId;
+        this.customerInfoService.fetchCustomerDetailsLos(customerId).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Fetched Customer Details !'));
+            console.log('This is the response data ==> ', res);
+            this.fetchedCustomerDetails = res.detail;
+            this.setCustomerDetails();
+            this.spinnerService.hide();
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error fetching customer details! '));
+            this.spinnerService.hide();
+        });
+    }
+
+    setCustomerDetails() {
+        if (!ObjectUtil.isEmpty(this.fetchedCustomerDetails)) {
+
+            this.userConfigForm.get('issuedDate').patchValue('AD');
+            this.userConfigForm.get('citizenshipIssueDate').patchValue(new Date(this.fetchedCustomerDetails.citizenshipIssuedDate));
+            this.userConfigForm.get('name').patchValue(this.fetchedCustomerDetails.customerName);
+            this.userConfigForm.get('email').patchValue(this.fetchedCustomerDetails.email);
+            this.userConfigForm.get('citizenshipNo').patchValue(this.fetchedCustomerDetails.citizenshipNumber);
+            this.userConfigForm.get('citizenshipIssueDistrict').patchValue(this.fetchedCustomerDetails.citizenshipIssuedPlace);
+            this.userConfigForm.get('dobDateType').patchValue('AD');
+            this.userConfigForm.get('dob').patchValue(this.fetchedCustomerDetails.dob);
+            this.userConfigForm.get('gender').patchValue(this.fetchedCustomerDetails.gender.toUpperCase());
+            this.userConfigForm.get('customerCode').patchValue(this.fetchedCustomerDetails.customerCode);
+            this.userConfigForm.get('fatherName').patchValue(this.fetchedCustomerDetails.fatherName);
+            this.userConfigForm.get('grandFatherName').patchValue(this.fetchedCustomerDetails.grandFatherName);
+            this.userConfigForm.get('husbandName').patchValue(this.fetchedCustomerDetails.husbandName);
+            this.userConfigForm.get('fatherInLawName').patchValue(this.fetchedCustomerDetails.fatherInLawName);
+            this.userConfigForm.get('contactNo').patchValue(this.fetchedCustomerDetails.contactNumber);
+            /* For Permanent Address */
+            const filterData = this.provinceList.filter((data) => data.id.toString() === this.fetchedCustomerDetails.province)[0];
+            this.fetchCustomerAddress(this.fetchedCustomerDetails.province,
+                this.fetchedCustomerDetails.district, this.fetchedCustomerDetails.municipality, 'permanent');
+            this.userConfigForm.get('permanentProvince').patchValue(filterData);
+            // this.userConfigForm.get('permanentDistrict').patchValue(filterPerDistrict);
+            // this.userConfigForm.get('permanentMunicipality').patchValue(filterPerMun);
+            this.userConfigForm.get('permanentWard').patchValue(this.fetchedCustomerDetails.wardNumber);
+            this.userConfigForm.get('municipalityOrVdc').patchValue('Municipality');
+
+            /* For Temporary Address */
+            const filterTempData = this.provinceList.filter((data) => data.id.toString() === this.fetchedCustomerDetails.temporaryProvince)[0];
+            this.fetchCustomerAddress(this.fetchedCustomerDetails.temporaryProvince,
+                this.fetchedCustomerDetails.temporaryDistrict, this.fetchedCustomerDetails.temporaryMunicipality, 'temporary');
+            this.userConfigForm.get('temporaryProvince').patchValue(filterTempData);
+            // this.userConfigForm.get('temporaryDistrict').patchValue(filterDistrict);
+            // this.userConfigForm.get('temporaryMunicipality').patchValue(filterMunicipality);
+            this.userConfigForm.get('temporaryWard').patchValue(this.fetchedCustomerDetails.temporaryWardNumber);
+            this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue('Municipality');
+        }
+    }
+
+
+    fetchCustomerAddress(provinceId, districtId, municipalityId , key?) {
+        if (key === 'temporary') {
+            this.getDistrictsByIdCusDetails(provinceId, districtId, 'temporaryDistrict', key);
+            this.getMunicipalitiesByIdCusDetails(districtId, municipalityId, 'temporaryMunicipality', key);
+        } else {
+            this.getDistrictsByIdCusDetails(provinceId, districtId, 'permanentDistrict', key);
+            this.getMunicipalitiesByIdCusDetails(districtId, municipalityId, 'permanentMunicipality', key);
+        }
+    }
+
+    getDistrictsByIdCusDetails(provinceId: number, id , formControlName, key?) {
+        if (!ObjectUtil.isEmpty(provinceId)) {
+            const province = new Province();
+            province.id = provinceId;
+            this.addressService.getDistrictByProvince(province).subscribe(
+                (response: any) => {
+                    let filteredData;
+                    if (key === 'permanent') {
+                        this.districts = response.detail;
+                        this.districts.sort((a, b) => a.name.localeCompare(b.name));
+                        filteredData = this.districts.filter((data) => data.id.toString() === id)[0];
+                    } else {
+                        this.tempDistricts = response.detail;
+                        this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
+                        filteredData = this.tempDistricts.filter((data) => data.id.toString() === id)[0];
+                    }
+                    this.userConfigForm.get(formControlName).patchValue(filteredData);
+                }
+            );
+        }
+    }
+
+    getMunicipalitiesByIdCusDetails(districtId: number, id , formControlName, key?) {
+        if (!ObjectUtil.isEmpty(districtId)) {
+            const district = new District();
+            district.id = districtId;
+            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+                (response: any) => {
+                    let filteredData;
+                    if (key === 'permanent') {
+                        this.municipalities = response.detail;
+                        this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+                        filteredData = this.municipalities.filter((data) => data.id.toString() === id)[0];
+                    } else {
+                        this.tempMunicipalities = response.detail;
+                        this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+                        filteredData = this.tempMunicipalities.filter((data) => data.id.toString() === id)[0];
+                    }
+
+                        this.userConfigForm.get(formControlName).patchValue(filteredData);
+                }
+            );
+        }
     }
 }
