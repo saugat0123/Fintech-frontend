@@ -69,7 +69,9 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       this.loanHolderInfo = JSON.parse(this.customerApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
       this.textAreas = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
-      this.limitAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.tempData.smeGlobalForm.totalLimitInFigure));
+      this.limitAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(
+          (!ObjectUtil.isEmpty(this.tempData) && !ObjectUtil.isEmpty(this.tempData.smeGlobalForm) &&
+          !ObjectUtil.isEmpty(this.tempData.smeGlobalForm.totalLimitInFigure)) ? this.tempData.smeGlobalForm.totalLimitInFigure : ''));
       this.branchName = this.loanHolderInfo.branch.ct;
       this.plotNumber = this.kittaNumbers;
       this.nameOfPropertyOwner = this.securityOwnersName;
