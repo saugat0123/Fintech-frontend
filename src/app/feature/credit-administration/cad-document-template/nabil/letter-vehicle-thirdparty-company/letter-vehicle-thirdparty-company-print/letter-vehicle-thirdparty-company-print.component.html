@@ -21,8 +21,8 @@
                             <br>ऐन २० <span [ngClass]="{'nepaliFont outside' : letterData?.actYearInFigure !== null && letterData?.actYearInFigurer !== ''}">
                             {{letterData?.actYearInFigure === null || letterData?.actYearInFigure === '' ? '___________' : letterData?.actYearInFigure}}</span>
                             बमोजिम नेपाल सरकार <span [ngClass]="{'nepaliFont outside' : letterData?.nameOfDepartment !== null && letterData?.nameOfDepartment !== ''}">
-                            {{letterData?.nameOfDepartment === null || letterData?.nameOfDepartment === '' ? '___________' : letterData?.nameOfDepartment}}</span>
-                            विभाग/कार्यालयमा मिति <span [ngClass]="{'nepaliFont outside' : letterData?.dateOfRegistration !== null && letterData?.dateOfRegistration !== ''}">
+                            {{letterData?.nameOfDepartment === null || letterData?.nameOfDepartment === '' ? '___________' : letterData?.nameOfDepartment}}मा</span>
+                             मिति <span [ngClass]="{'nepaliFont outside' : letterData?.dateOfRegistration !== null && letterData?.dateOfRegistration !== ''}">
                             {{letterData?.dateOfRegistration === null || letterData?.dateOfRegistration === '' ? '___________' : letterData?.dateOfRegistration}}</span>
                             मा नं. <span [ngClass]="{'nepaliFont outside' : letterData?.registrationNo !== null && letterData?.registrationNo !== ''}">
                             {{letterData?.registrationNo === null || letterData?.registrationNo === '' ? '___________' : letterData?.registrationNo}}</span>

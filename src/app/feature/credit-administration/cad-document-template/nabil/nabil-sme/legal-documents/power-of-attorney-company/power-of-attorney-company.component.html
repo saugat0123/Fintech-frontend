@@ -66,14 +66,13 @@
                             </strong>
                         </span>
                             मा कार्यलय रहेको श्री
-                            <span>
-                            <input class="form-field form-control-sm d-print-none" name="nameOfBorrower"
-                                   formControlName="nameOfBorrower" placeholder="" type="text"/>
-                            <strong class="print-only">
-                                {{this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '___________________________'}}
-                            </strong>
+                            <span class="d-print-none">
+                            <input class="form-field form-control-sm" name="nameOfBorrower"
+                                   formControlName="nameOfBorrower" placeholder="" type="text"/>को
+                            </span>
+                            <span class="print-only" style="font-weight: bold">
+                                {{this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '___________________________'}}को
                         </span>
-                            (प्रा.लि./लि.) को
                             <span>
                             <input class="form-field form-control-sm d-print-none nepaliFont" name="freeText1"
                                    formControlName="freeText1" placeholder="" type="text"/>

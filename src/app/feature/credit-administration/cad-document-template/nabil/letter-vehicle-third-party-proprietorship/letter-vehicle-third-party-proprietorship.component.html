@@ -33,12 +33,15 @@
                                           placeholder=""
                                           type="text" readonly/>
                                 <span class="print-only font-weight-bold">{{letterVehicleThirdPartyProprietorship?.get('actYearInFigure').value ? letterVehicleThirdPartyProprietorship?.get('actYearInFigure').value : '___________________'}}</span>
-                                बमोजिम नेपाल सरकार <input class="form-field form-control-sm disable-print "
-                                                          formControlName="nameOfDepartment"
-                                                          placeholder=""
-                                                          type="text" readonly/>
-                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyProprietorship?.get('nameOfDepartment').value ? letterVehicleThirdPartyProprietorship?.get('nameOfDepartment').value : '___________________'}}</span>
-                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm disable-print "
+                                बमोजिम नेपाल सरकार
+                            <span class="d-print-none">
+                            <input class="form-field form-control-sm"
+                                   formControlName="nameOfDepartment"
+                                   placeholder=""
+                                   type="text" readonly/>मा
+                            </span>
+                                <span class="print-only font-weight-bold">{{letterVehicleThirdPartyProprietorship?.get('nameOfDepartment').value ? letterVehicleThirdPartyProprietorship?.get('nameOfDepartment').value : '___________________'}}मा</span>
+                                मिति <input class="form-field form-control-sm disable-print "
                                                              formControlName="dateOfRegistration"
                                                              placeholder=""
                                                              type="text" readonly/>

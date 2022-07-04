@@ -37,12 +37,12 @@
                                        formControlName="authorizedBodyName" placeholder="" type="text"/>
                                 <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "authorizedBodyName"]).value}}</span>
                             </span>,
-                            <span>
-                                <input class="form-field form-control-sm d-print-none" name="headDepartment"
-                                formControlName="headDepartment" placeholder="" type="text"/>
-                                <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "headDepartment"]).value}}</span>
+                            <span class="d-print-none">
+                                <input class="form-field form-control-sm" name="headDepartment"
+                                formControlName="headDepartment" placeholder="" type="text"/>मा
                             </span>
-                            विभाग/कार्यालयमा मिति
+                            <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "headDepartment"]).value}}मा</span>
+                             मिति
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="registrationDate"
                                 formControlName="registrationDate" placeholder="" type="text"/>

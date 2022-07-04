@@ -34,11 +34,13 @@
                                        formControlName="authorizedBodyName" placeholder="" type="text"/>
                                 <strong class="print-only">{{form.get(["guarantorsPartnership", i, "authorizedBodyName"]).value}}</strong>
                             </span>,
-                                <input class="form-field form-control-sm d-print-none"
-                                                         name="headDepartment"
-                                                         formControlName="headDepartment" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "headDepartment"]).value || "_____________________"}}</span>
-                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
+                                <span class="d-print-none">
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="headDepartment"
+                                           formControlName="headDepartment" placeholder="" type="text"/>मा
+                                </span>
+                                <span class="print-only font-weight-bold">{{form.get(["guarantorsPartnership", i, "headDepartment"]).value || "_____________________"}}मा</span>
+                                मिति <input class="form-field form-control-sm d-print-none"
                                                              name="registrationDate"
                                                              formControlName="registrationDate" placeholder=""
                                                              type="text"/>

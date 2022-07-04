@@ -184,14 +184,16 @@
                             {{letterOfSetOffForm.get('authorizedBodyName').value ?
                             letterOfSetOffForm.get('authorizedBodyName').value : '___________________________'}}
                         </span>,
-                        <input class="form-field disable-print form-control-sm"
+                        <span class="d-print-none">
+                        <input class="form-field form-control-sm"
                                name="headSectionName" formControlName="headSectionName"
-                               type="text"/>
+                               type="text"/>मा
+                        </span>
                         <span class="print-only font-weight-bold">
                             {{letterOfSetOffForm.get('headSectionName').value ?
-                            letterOfSetOffForm.get('headSectionName').value : '___________________________'}}
+                            letterOfSetOffForm.get('headSectionName').value : '___________________________'}}मा
                         </span>
-                        विभाग/कार्यालयमा मिति:
+                         मिति:
                         <input class="form-field disable-print form-control-sm"
                                name="registrationDate" formControlName="registrationDate"
                                type="text"/>
@@ -414,14 +416,16 @@
                             {{letterOfSetOffForm.get('authorizedBodyName').value ?
                         letterOfSetOffForm.get('authorizedBodyName').value : '___________________________'}}
                         </span>,
-                    <input class="form-field disable-print form-control-sm"
-                           name="headSectionName" formControlName="headSectionName"
-                           type="text"/>
+                    <span class="d-print-none">
+                        <input class="form-field form-control-sm"
+                               name="headSectionName" formControlName="headSectionName"
+                               type="text"/>मा
+                    </span>
                     <span class="print-only font-weight-bold">
                             {{letterOfSetOffForm.get('headSectionName').value ?
-                        letterOfSetOffForm.get('headSectionName').value : '___________________________'}}
+                        letterOfSetOffForm.get('headSectionName').value : '___________________________'}}मा
                         </span>
-                    विभाग/कार्यालयमा मिति:
+                     मिति:
                     <input class="form-field disable-print form-control-sm"
                            name="registrationDate" formControlName="registrationDate"
                            type="text"/>

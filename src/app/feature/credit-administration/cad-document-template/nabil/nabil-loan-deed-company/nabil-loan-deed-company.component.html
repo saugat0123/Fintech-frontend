@@ -30,12 +30,14 @@
                               formControlName="authorizedBody"
                               type="text"/>
                         <span class="print-only">{{individualData?.authorizedBodyName ? individualData.authorizedBodyName.ct : '______________________'}}</span>
-                        <input class="form-field form-control-sm d-print-none"
+                       <span class="d-print-none">
+                       <input class="form-field form-control-sm"
                               formControlName="headSectionDepartment"
                               placeholder="विभाग प्रमुख"
-                              type="text"/>
-                        <span class="print-only">{{individualData?.registeredWith ? individualData.registeredWith.ct : '______________________'}}</span>
-                       विभाग/कार्यालयमा मिति
+                              type="text"/>मा
+                       </span>
+                        <span class="print-only">{{individualData?.registeredWith ? individualData.registeredWith.ct : '______________________'}}मा</span>
+                        मिति
                        <input class="form-field form-control-sm d-print-none"
                               formControlName="registrationDate"
                               placeholder="दर्ता मिति"
@@ -53,7 +55,7 @@
                               placeholder="कम्पनीको नाम"
                               type="text"/>
                         <span class="print-only">{{individualData?.name ? individualData.name.ct : '______________________'}}</span>
-                       प्रा.लि. (जसलाई यस उप्रान्त <span style="font-weight: bold">"ऋणी कम्पनी"</span> भनिएको छ) का
+                       (जसलाई यस उप्रान्त <span style="font-weight: bold">"ऋणी कम्पनी"</span> भनिएको छ) का
                        तर्फवाट ऐ.का अख्तियार प्राप्त
                   <ng-container *ngFor="let partner of companyInfo; let i = index">
                   <ng-container *ngIf="partner?.isAuthorizedPerson !== 'Share Holder Only'">
