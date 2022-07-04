@@ -62,7 +62,7 @@ export class VehicleComponent implements OnInit {
                 downPayment: [formData.downPayment],
                 remainingAmount: [formData.remainingAmount],
                 loanExposure: [formData.loanExposure],
-                showroomCommission: [formData.showroomCommission],
+                // showroomCommission: [formData.showroomCommission],
                 vehicalValuator: [formData.vehicalValuator],
                 vehicalValuatorDate: [formData.vehicalValuatorDate ? new Date(formData.vehicalValuatorDate) : ''],
                 vehicalValuatorRepresentative: [formData.vehicalValuatorRepresentative],
@@ -81,10 +81,10 @@ export class VehicleComponent implements OnInit {
                 vehicleRealiasableAmount: [formData.vehicleRealiasableAmount],
                 vehicleRate: [formData.vehicleRate],
                 manufactureYear: [formData.manufactureYear],
-                discountPrice: [formData.discountPrice],
+                // discountPrice: [formData.discountPrice],
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
-                distressValue: [formData.distressValue],
+                // distressValue: [formData.distressValue],
                 freeLimit: [formData.freeLimit],
                 vehicleFirstValuationDate: [formData.vehicleFirstValuationDate ? new Date(formData.vehicleFirstValuationDate) : '']
             })
@@ -127,6 +127,8 @@ export class VehicleComponent implements OnInit {
     public vehicleRemainingAmount(index: number): void {
         const v = this.vehicleDetails.at(index);
         v.get('remainingAmount').setValue(v.get('quotationAmount').value - v.get('downPayment').value);
+        v.get('considerValue').setValue(v.get('quotationAmount').value);
+        v.get('fairMarketValue').setValue(v.get('quotationAmount').value);
     }
 
     public calcRealiasable(i, key): void {
@@ -137,7 +139,7 @@ export class VehicleComponent implements OnInit {
         }
     }
 
-    public setFreeLimitAmount(index, formArrayName: string, considerValue: number,) {
+    public setFreeLimitAmount(index, formArrayName: string, considerValue: number) {
         if (this.isEdit === false) {
             this.vehicleForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
         }
@@ -188,7 +190,7 @@ export class VehicleComponent implements OnInit {
             downPayment: [undefined],
             remainingAmount: [undefined],
             loanExposure: [undefined],
-            showroomCommission: [undefined],
+            // showroomCommission: [undefined],
             vehicalValuator: [undefined],
             vehicalValuatorDate: [undefined],
             vehicalValuatorRepresentative: [undefined],
@@ -207,10 +209,10 @@ export class VehicleComponent implements OnInit {
             vehicleRealiasableAmount: [undefined],
             vehicleRate: [undefined],
             manufactureYear: [undefined],
-            discountPrice: [undefined],
+            // discountPrice: [undefined],
             considerValue: [undefined],
             fairMarketValue: [undefined],
-            distressValue: [undefined],
+            // distressValue: [undefined],
             freeLimit: [undefined],
             vehicleFirstValuationDate: [undefined]
         });
