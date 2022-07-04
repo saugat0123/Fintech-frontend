@@ -679,6 +679,12 @@
                     </div>
                 </div>
             </div>
+            <!-- Site Visit -->
+            <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                                 [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                                 [loanDataHolder]="loanDataHolder"
+                                 [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+
             <br>
         </div>
     </div>

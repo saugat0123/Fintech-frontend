@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
-import {NbDateService} from '@nebular/theme';
+import {NbDateService, NbDialogService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
@@ -15,6 +15,10 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CreateDocumentComponent} from '../security/security-initial-form/create-document/create-document.component';
+import {SiteVisitDocument} from '../security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {ActivatedRoute} from '@angular/router';
 
 
 declare let google: any;
@@ -30,6 +34,7 @@ export class SiteVisitComponent implements OnInit {
   @Output() siteVisitDataEmitter = new EventEmitter();
   calendarType = CalendarType.AD;
   @Input() customerInfo: CustomerInfoData;
+  @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
@@ -63,11 +68,16 @@ export class SiteVisitComponent implements OnInit {
   clientName = Clients;
   optionList = ['Yes', 'No', 'NA'];
   options = [' Owned', 'Rented'];
-
+  fileType = '.jpg';
+  customerType: string;
+  customerId: number;
+  branchId: number;
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
-              private roleService: RoleService) {
+              private roleService: RoleService,
+              private nbDialogService: NbDialogService,
+              private activatedRoute: ActivatedRoute) {
     this.date = dateService.today();
   }
 
@@ -118,10 +128,15 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.branchId = this.customerInfo.branch.id;
+    }
     this.getRoleList();
+    this.getCustomerTypeAndId();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
+      this.siteVisitDocument = this.formValue.siteVisitDocuments;
     }
 
     this.buildForm();
@@ -136,6 +151,13 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
+  }
+
+  getCustomerTypeAndId() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.customerType = params.customerType;
+      this.customerId = params.customerInfoId;
+    });
   }
 
   buildForm() {
@@ -822,6 +844,11 @@ export class SiteVisitComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    const formData: FormData = new FormData();
+    // for update site visit
+    if (!ObjectUtil.isEmpty(this.formValue) && !ObjectUtil.isEmpty(this.formValue.id)) {
+      formData.append('siteVisitId', this.formValue.id.toString());
+    }
     if (this.currentResidentForm) {
       // current residential details
       this.currentResidentAddress.onSubmit();
@@ -831,6 +858,24 @@ export class SiteVisitComponent implements OnInit {
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
+      }
+      // for new site visit
+      if (!ObjectUtil.isEmpty(this.siteVisitDocument)) {
+        this.siteVisitDocument.map((m) => {
+          formData.append('docName', m.docName);
+          if (!ObjectUtil.isEmpty(m.multipartFile)) {
+           formData.append('file', m.multipartFile, m.docName);
+           formData.append('fileExist', 'Yes');
+          } else {
+            formData.append('fileExist', 'No');
+          }
+          formData.append('isPrintable', m.isPrintable);
+          let docIds = -1;
+          if (!ObjectUtil.isEmpty(m.id)) {
+            docIds = m.id;
+          }
+          formData.append('docId', docIds.toString());
+        });
       }
     }
     if (this.businessSiteVisitForm) {
@@ -850,13 +895,16 @@ export class SiteVisitComponent implements OnInit {
         return;
       }
     }
-
-
+    // required parameters
+    formData.append('customerId', this.customerId.toString());
+    formData.append('customerType', this.customerType);
+    formData.append('branchId', this.branchId.toString());
+    formData.append('data', JSON.stringify(this.siteVisitFormGroup.value));
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
-    this.siteVisitDataEmitter.emit(this.siteVisitData.data);
+    this.siteVisitDataEmitter.emit(formData);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
@@ -1141,6 +1189,22 @@ export class SiteVisitComponent implements OnInit {
             Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsReceivable').value) -
             Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsPayable').value);
     this.siteVisitFormGroup.get('businessSiteVisitDetails').get('businessNetTradingAssets').setValue(businessNetTradingAssets.toFixed(2));
+  }
+
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
+
+  public openDocumentCreateModal(editId): void {
+    const siteVisitDocument = this.siteVisitDocument;
+    this.nbDialogService.open(CreateDocumentComponent, {
+      context: { editId, siteVisitDocument }
+    });
   }
 }
 
