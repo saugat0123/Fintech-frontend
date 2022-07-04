@@ -1,6 +1,6 @@
 <nb-card class="p-3">
     <div class="box-header with-border">
-        <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
+        <h2 class="box-title title">Land Security</h2>
     </div>
     <form [formGroup]="landForm">
 <!--        <div class="row">-->
@@ -154,6 +154,7 @@
                         <div class="form-group">
                             <label class="title" for="fairMarketValue">Fair Market Value</label>
                             <input (change)="updateLandSecurityTotal()"
+                                   (input)="calConsiderValue('land', i)"
                                    class="form-control rounded"
                                    formControlName="fairMarketValue"
                                    id="fairMarketValue"
@@ -163,7 +164,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="title" for="distressValue">Market Value/Distress Value</label>
+                            <label class="title" for="distressValue">Market Value</label>
                             <input (change)="updateLandSecurityTotal()"
                                    (input)="calConsiderValue('land', i)"
                                    class="form-control rounded"
@@ -180,9 +181,10 @@
                             <label class="title" for="considerValue">Consider Value</label>
                             <input class="form-control rounded"
                                    formControlName="considerValue"
+                                   readonly
                                    id="considerValue"
                                    placeholder="Consider Value"
-                                   name="distressValue"
+                                   name="considerValue"
                                    type="text" appDecimalNumber/>
                         </div>
                     </div>
@@ -535,11 +537,10 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="title rounded" for="description">Description/Details of Security
-                    Offered</label>
+                <label class="title rounded" for="description">Remarks</label>
                 <textarea class="form-control rounded" cols="150" formControlName="description"
                           id="description"
-                          placeholder="details of security offered"
+                          placeholder="Remarks"
                           rows="5"></textarea>
             </div>
         </div>

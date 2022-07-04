@@ -227,6 +227,8 @@ export class LandComponent implements OnInit {
       const considerValue = (Number(this.landForm.get(['landDetails', index, 'distressValue']).value)
           * (Number(this.landForm.get(['landDetails', index, 'landRate']).value)) / 100);
       this.landForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
+      this.landForm.get(['landDetails', index, 'considerValue']).patchValue(
+          this.landForm.get(['landDetails', index, 'fairMarketValue']).value);
     }
     this.updateLandSecurityTotal();
   }
