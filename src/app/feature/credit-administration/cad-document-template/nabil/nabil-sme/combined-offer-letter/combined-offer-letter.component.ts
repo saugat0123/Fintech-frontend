@@ -119,6 +119,14 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeText5: this.section3.form.get('freeText5').value ? this.section3.form.get('freeText5').value : '',
       freeTable: this.section3.form.get('freeTable').value,
       textField: this.section3.form.get('textField').value ? this.section3.form.get('textField').value : '',
+      primarySecurityFreeTable: (this.section3.form.get('primaryFreeTableChecked').value &&
+      this.section3.form.get('primarySecurityFreeTable').value) ?
+          this.section3.form.get('primarySecurityFreeTable').value : '',
+      secondarySecurityFreeTable: (this.section3.form.get('secondaryFreeTableChecked').value &&
+      this.section3.form.get('secondarySecurityFreeTable').value) ?
+          this.section3.form.get('secondarySecurityFreeTable').value : '',
+      primaryFreeTableChecked: this.section3.form.get('primaryFreeTableChecked').value,
+      secondaryFreeTableChecked: this.section3.form.get('secondaryFreeTableChecked').value
     };
     const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
     const section7FreeText = this.section7.form.get('yearlyText').value ? this.section7.form.get('yearlyText').value : '';
