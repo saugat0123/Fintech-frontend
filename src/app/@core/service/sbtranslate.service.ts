@@ -48,10 +48,15 @@ export class SbTranslateService extends BaseService<String> {
                     }
                 }
             }
-            (await this.translate(allValues)).forEach((f, index) => {
-                this.translatedValues[allKeys[index]] = f.translatedText;
-            });
-            return this.translatedValues;
+            const translatedAllValues = await this.translate(allValues);
+            if (!ObjectUtil.isEmpty(translatedAllValues)) {
+                translatedAllValues.forEach((f, index) => {
+                    this.translatedValues[allKeys[index]] = f.translatedText;
+                });
+                return this.translatedValues;
+            } else {
+                return '';
+            }
         } else {
             const allValues = [];
             const allKeys = [];
@@ -62,10 +67,15 @@ export class SbTranslateService extends BaseService<String> {
                     allValues.push(d[1].value.toString());
                 }
             }
-            (await this.translate(allValues)).forEach((f, index) => {
-                this.translatedValues[allKeys[index]] = f.translatedText;
-            });
-            return this.translatedValues;
+            const translatedAllValues = await this.translate(allValues);
+            if (!ObjectUtil.isEmpty(translatedAllValues)) {
+                translatedAllValues.forEach((f, index) => {
+                    this.translatedValues[allKeys[index]] = f.translatedText;
+                });
+                return this.translatedValues;
+            } else {
+                return '';
+            }
         }
     }
 
