@@ -37,7 +37,7 @@ export class RoleHierarchyComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.service.getAll().subscribe((response: any) => {
+        this.service.getAllActive().subscribe((response: any) => {
             this.roleList = response.detail;
             this.length = this.roleList.length > 0;
             this.roleHeirarchy = this.roleList;
