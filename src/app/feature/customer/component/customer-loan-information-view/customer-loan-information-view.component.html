@@ -21,6 +21,22 @@
             </a>
           </nb-card>
         </div>
+        <ng-template #ciclComponentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              CICL
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-cicl-view
+                      [ciclValue]="customerInfo?.cicl"></app-cicl-view>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
       </div>
       <div class="col-md-4" *ngIf="customerInfo?.insurance?.length>0">
         <div class="row">
@@ -268,6 +284,465 @@
               <app-credit-grading #CrgComponent
                                   [formData]="customerInfo?.creditRiskGrading"
                                   [fromProfile]="false"></app-credit-grading>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a (click)="openModel(commonLoanDatas)" class="cursor info-label">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">COMMON DATA</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em *ngIf="customerInfo?.commonLoanData"
+                    class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!customerInfo?.commonLoanData"
+                    class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #commonLoanDatas let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              COMMON DATA
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <p class="text-uppercase"><strong>The Bank's SOL</strong></p>
+              <p>The Bank’s core capital stood at {{nrpValue ? nrpValue : 'NPR .......... billion'}} as on
+                {{asOnDate ? (asOnDate | date) : '.............'}} ; {{(customerInfo?.commonLoanData | jsonParse)?.solText ? (customerInfo?.commonLoanData | jsonParse)?.solText : '______________'}}</p>
+              <p><strong>APPROVING AUTHORITY:</strong> {{(customerInfo?.commonLoanData | jsonParse)?.approvingAuthority}}</p>
+              <p class="text-uppercase"><strong>Special Covenants/Conditions, if any:</strong></p>
+              <span [innerHTML]="(customerInfo?.commonLoanData | jsonParse)?.specialCovenant | safeHtml"></span>
+              <p class="text-uppercase"><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY:</strong></p>
+              <span [innerHTML]="(customerInfo?.commonLoanData | jsonParse)?.waiverConclusionRecommendation | safeHtml"></span>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #itemFinancial class="col-md-11 py-2">
+            <a (click)="openModel(itemFinancialTemplate)" class="cursor info-label">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+                    <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">INCOME TO THE BANK</span>
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.financial" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemFinancialTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+                <span
+                        *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
+              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">INCOME TO THE BANK</span>
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-financial-view [formData]="customerInfo?.financial"
+                                  [data]="customerInfo?.financial"
+                                  [customerType]="customerInfo?.customerType"></app-financial-view>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div *ngIf="customerInfo?.customerType === 'INSTITUTION'" class="col-md-4">
+        <div class="row">
+          <nb-card #itemNetTradingAssets class="col-md-11 py-2">
+            <a (click)="openModel(itemNetTradingAssetsTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    NET TRADING ASSETS (NTA)
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+            <span *ngIf="customerInfo?.netTradingAssets" style="color:green"
+                  title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.netTradingAssets" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemNetTradingAssetsTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              NET TRADING ASSETS (NTA)
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-nta-summary *ngIf="customerInfo?.netTradingAssets" [fiscalYears]="fiscalYear"
+                               [netTradingAssetsData]="customerInfo?.netTradingAssets">
+              </app-nta-summary>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">`
+        <div class="row">
+          <nb-card #itemloanChecklist class="col-md-11 py-2">
+            <a (click)="openModel(itemloanChecklistTemplate)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    CREDIT CHECKLIST</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <span *ngIf="customerInfo?.creditChecklist" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.creditChecklist" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemloanChecklistTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css" style="height: 100vh; overflow-y: scroll">
+            <nb-card-header>
+              CREDIT CHECKLIST
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-credit-checklist-view
+                      *ngIf="customerInfo?.creditChecklist" [formData]="customerInfo?.creditChecklist"
+                      [fromProfile]="false" [customerType]="customerInfo?.customerType"
+              ></app-credit-checklist-view>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #itemReportingInfoLevel class="col-md-11 py-2">
+            <a (click)="openModel(itemReportingInfoLevelTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    MIS/NRB REPORTING
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                <span style="color: green" title="Status : Saved">
+                <em *ngIf="customerInfo?.reportingInfoLevels"
+                    class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!customerInfo?.reportingInfoLevels"
+                    class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemReportingInfoLevelTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              MIS/NRB REPORTING
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-report-summary *ngIf="customerInfo?.reportingInfoLevels else noMIS" [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-report-summary>
+              <ng-template #noMIS>Not Available</ng-template>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #itemCommentsFromAccount class="col-md-11 py-2">
+            <a (click)="openModel(itemCommentsFromAccountTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                <span style="color: green" title="Status : Saved">
+                <em *ngIf="((customerInfo?.data | jsonParse)?.data | jsonParse)?.previousComments"
+                    class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!((customerInfo?.data | jsonParse)?.data | jsonParse)?.previousComments"
+                    class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemCommentsFromAccountTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-nrb-statutory-remarks-status [customerInfo]="customerInfo">
+              </app-nrb-statutory-remarks-status>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #dataFromMultiBanking class="col-md-11 py-2">
+            <a (click)="openModel(dataFromMultiBankingTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    BANKING ARRANGEMENT <br><em class="sb-small">
+                  </em>
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                <span *ngIf="customerInfo?.multiBanking" style="color:green"
+                      title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.multiBanking" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #dataFromMultiBankingTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css" style="height: 100vh; overflow-y: scroll">
+            <nb-card-header>
+              BANKING ARRANGEMENT
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-above-banking-arrangement-of-the-customer
+                      *ngIf="customerInfo?.multiBanking else noBanking"
+                      [multiBanking]="customerInfo?.multiBanking"
+                      [customerCategory]="customerInfo?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+              <ng-template #noBanking>Not Available</ng-template>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #dataFromRiskAnalysis class="col-md-11 py-2">
+            <a (click)="openModel(dataRiskAnalysisTemplate)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    RISK ANALYSIS
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <span *ngIf="customerInfo?.riskAnalysis" style="color:green"
+                        title="Status : Saved">
+                     <em class="fas fa-check-circle px-2"></em>
+                  </span>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.riskAnalysis"
+                           class="fas fa-times-circle px-2"></em>
+                     </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #dataRiskAnalysisTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              RISK ANALYSIS
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-above-risk-analysis *ngIf="customerInfo?.riskAnalysis"
+                                       [customerInfo]="customerInfo"></app-above-risk-analysis>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #itemReviewDates class="col-md-11 py-2">
+            <a (click)="openModel(itemReviewDatesTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    REVIEW DATES
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="(customerInfo?.data | jsonParse)?.reviewDate" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!(customerInfo?.data | jsonParse)?.reviewDate" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemReviewDatesTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              REVIEW DATES
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-above-review-of-credit-facilities
+                      [customerInfo]="customerInfo"
+              ></app-above-review-of-credit-facilities>
+              <ng-template #noReview>Not Available</ng-template>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #dataFromSwot class="col-md-11 py-2">
+            <a (click)="openModel(dataSwotTemplate)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    SWOT ANALYSIS
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <span style="color:green" title="Status : Saved">
+                     <em *ngIf="customerInfo?.swotAnalysis" class="fas fa-check-circle px-2"></em>
+                  </span>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.swotAnalysis"
+                           class="fas fa-times-circle px-2"></em>
+                     </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #dataSwotTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              SWOT ANALYSIS
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-above-swot-analysis [customerInfo]="customerInfo"></app-above-swot-analysis>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div *ngIf="customerInfo?.customerType === customerType?.INSTITUTION" class="col-md-4">
+        <div class="row">
+          <nb-card #crgCcbls class="col-md-11 py-2">
+            <a (click)="openModel(crgCcbl)" class="cursor info-label">
+              <div class="row cursor">
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    Counter Party Risk Rating
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <span style="color:green" title="Status : Saved">
+                     <em *ngIf="customerInfo?.crgCcbl" class="fas fa-check-circle px-2"></em>
+                  </span>
+                  <span style="color:red" title="Status :Not Saved">
+                       <em *ngIf="!customerInfo?.crgCcbl" class="fas fa-times-circle px-2"></em>
+                     </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #crgCcbl let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              Counter Party Risk Rating
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+
             </nb-card-body>
           </nb-card>
         </ng-template>
