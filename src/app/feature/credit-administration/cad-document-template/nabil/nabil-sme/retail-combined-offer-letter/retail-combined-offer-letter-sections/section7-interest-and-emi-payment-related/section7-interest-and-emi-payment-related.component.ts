@@ -41,7 +41,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.loanNepaliName)) {
             this.loanNepaliNameEducation = this.loanNepaliName.filter((val: any) =>
-            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'अावास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
+            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
             this.loanNepaliNameWithoutEducation = this.loanNepaliName.filter((val: any) =>
                 val === 'व्यक्तिगत ओभरड्राफ्ट' || val === 'व्यक्तिगत ओभरड्राफ्ट बिना धिताे' || val === 'नबिल सहयात्री कर्जा');
             this.loanNepaliNameShare = this.loanNepaliName.filter((val: any) =>
@@ -76,14 +76,14 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                 }
             });
         }
-        if (!this.isEducationClassA) {
+       /* if (!this.isEducationClassA) {
             const tempIndex = this.loanNepaliNameShare.indexOf('शिक्षा ऋण');
             this.loanNepaliNameShare.splice(tempIndex, 1);
         }
         if (!this.isEducationClassE) {
             const tempIndex = this.loanNepaliNameEducation.indexOf('शिक्षा ऋण');
             this.loanNepaliNameEducation.splice(tempIndex, 1);
-        }
+        }*/
         this.loanName.forEach(val => {
             if (val === 'MORTGAGE LOAN COMBINED' || val === 'HOME LOAN COMBINED' ||
                 val === 'AUTO LOAN COMBINED') {
