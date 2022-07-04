@@ -36,6 +36,7 @@ export class RoleHierarchyComponent implements OnInit {
 
 
     ngOnInit() {
+        this.isDisabled = true;
         this.breadcrumbService.notify(this.title);
         this.service.getAllActive().subscribe((response: any) => {
             this.roleList = response.detail;
@@ -55,7 +56,7 @@ export class RoleHierarchyComponent implements OnInit {
 
     drop(event: CdkDragDrop<RoleOrders[]>) {
         this.roleHeirarchy = [];
-
+        this.isDisabled = false;
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -73,15 +74,10 @@ export class RoleHierarchyComponent implements OnInit {
             this.roleList = this.roleHeirarchy;
         }
     }
-
-    removeItem(i: number) {
-        this.roleHeirarchy.splice(i, 1);
-    }
     save() {
         this.spinner = true;
         this.isDisabled = true;
         this.service.saveAll(this.roleHeirarchy).subscribe((response: any) => {
-            this.isDisabled = false;
             this.spinner = false;
             this.roleList = response.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role Order!'));

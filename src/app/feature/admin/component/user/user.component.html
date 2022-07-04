@@ -108,7 +108,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let allList of dataList;let i=index">
+                        <tr *ngFor="let allList of dataList;let i=index"
+                            [className]="allList.status=='ACTIVE' ? 'alert-success' : 'alert-danger'">
                             <div *ngIf="!dataList?.length > 0">
                                 <p>No Content Found</p>
                             </div>
