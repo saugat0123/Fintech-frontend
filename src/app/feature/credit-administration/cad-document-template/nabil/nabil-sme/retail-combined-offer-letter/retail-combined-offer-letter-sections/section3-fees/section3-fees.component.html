@@ -61,11 +61,11 @@
                         </ng-container>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="tempData?.retailGlobalForm?.loanCommitmentCheck === true">
                     <td width="15%"><strong>ऋण प्रतिबद्धता शुल्क </strong></td>
                     <td>
                         <div>
-                            <ng-container *ngIf="!isPersonalOD || !isNabilSahayatri || !isPersonalWoCollateral || !isShareLoan || !isShareLoanDemand">
+                            <ng-container *ngIf="isAutoLoan || isEducationLoan || isHomeLoan || isMortgageLoan || isPersonalLoan">
                                 स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
                                 <input class="form-field form-control-sm d-print-none"
                                        name="PODPercentage"
